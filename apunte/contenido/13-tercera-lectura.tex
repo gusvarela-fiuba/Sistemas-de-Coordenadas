@@ -228,7 +228,7 @@ coordenadas pueden aparecer al:
   \item formular ecuaciones diferenciales sobre superficies.
 \end{itemize}
 
-Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra.
+Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra. Mientras tanto, los cuatro problemas del esqueleto 2025 (regresión, intersección de círculos, Procrustes, regresión total) están desarrollados, como anticipo, en la sección~\ref{sec:cuatro-problemas}.
 
 \section{Conexión con la práctica de Agrimensura}
 
@@ -262,3 +262,511 @@ Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pypro
 GeographicLib y QGIS según el bloque.
 \end{idea}
 
+
+\section{Curvatura: de la curva plana a la forma cuadrática}\label{sec:curvatura}
+
+\begin{atencion}[Anticipado]
+Las clases 12, 13 y 14 del esqueleto (curvatura, elipsoide, trigonometría esférica) no se
+dictaron en 2C2026. Las cuatro secciones que siguen se armaron antes de que la cátedra las
+diera, a partir del resumen 2025 del profesor (una oración para la clase 12, sólo títulos
+para las 13 y 14), de su apunte ``Geometría del Elipsoide y cálculos Geodésicos'' (guía
+para clase, CC-BY-SA, figuras de Mariano Harguinteguy) y de bibliografía. Los valores
+numéricos de control los calculé con NumPy. Pendiente de validar.
+\end{atencion}
+
+El resumen 2025 de la clase 12 dice todo en una oración: ``la curvatura de una línea y la
+idea de que la curvatura tiene que ser una forma cuadrática nos ayuda a entender la
+curvatura del elipsoide y qué son las líneas geodésicas''. Son tres escalones y el orden
+importa.
+
+\paragraph{Curvatura de una curva plana.} El apunte del profesor la define como ``la tasa
+de cambio del ángulo de la tangente a una curva con respecto al avance sobre dicha
+curva'': si \(\alpha\) es el ángulo de la tangente con una dirección fija y \(s\) el arco,
+\[
+  \chi=\left|\frac{d\alpha}{ds}\right|,\qquad \text{circunferencia de radio } R:\ \chi=\frac1R .
+\]
+Hecho geométrico: en cada punto hay una circunferencia que besa a la curva (osculadora) y
+la curvatura es \(1/R\) de esa circunferencia; en una recta, \(R=\infty\) y \(\chi=0\).
+Para un gráfico \(y=f(x)\), con \(\tan\alpha=f'\) y \(ds=\sqrt{1+f'^2}\,dx\),
+\[
+  \chi=\frac{|f''|}{(1+f'^2)^{3/2}} ,
+\]
+y en un punto con tangente horizontal queda \(\chi=|f''|\): la segunda derivada \emph{es}
+la curvatura. Parábola \(y=x^2/2\): en el origen \(\chi=1\), circunferencia osculadora de
+radio \(1\) centrada en \((0,1)\); en \(x=1\), \(\chi=1/2^{3/2}\approx0{,}35\).
+
+\paragraph{Prueba 1 de Clavijo: la curvatura normal es una forma cuadrática.} Sea una
+superficie y \(p\) un punto. Se ponen ejes cartesianos con origen en \(p\) y \(z\) en la
+dirección de la normal, de modo que cerca de \(p\) la superficie es \(z=f(x,y)\) con
+\(f(0,0)=0\) y \(\nabla f(0,0)=0\) (plano tangente horizontal). Un plano \emph{normal}
+contiene a la normal y a una dirección tangente \((\cos\alpha,\sin\alpha)\); corta a la
+superficie en una curva plana cuya curvatura en \(p\) se llama curvatura normal en la
+dirección \(\alpha\). Sobre esa curva, \(z(t)=f(t\cos\alpha,t\sin\alpha)\) tiene tangente
+horizontal en \(t=0\), así que su curvatura es \(|z''(0)|\), y por la regla de la cadena
+\[
+  \boxed{\ \chi(\alpha)=\bigl|\,f_{xx}\cos^2\alpha+2f_{xy}\cos\alpha\sin\alpha+f_{yy}\sin^2\alpha\,\bigr|
+  =\left|\begin{pmatrix}\cos\alpha&\sin\alpha\end{pmatrix}
+  \begin{pmatrix}f_{xx}&f_{xy}\\f_{xy}&f_{yy}\end{pmatrix}
+  \begin{pmatrix}\cos\alpha\\\sin\alpha\end{pmatrix}\right|\ }.
+\]
+Es la hessiana de la clase 9 evaluada en la dirección: un número que sale de un vector
+pasando por una matriz simétrica, igual que \(\|v\|^2=v^Tv\) pero con otra matriz en el
+medio. Eso es una forma cuadrática, y por eso la curvatura ``tiene que'' serlo. Con las
+identidades del ángulo doble,
+\[
+  \chi(\alpha)=\left|\frac{f_{xx}+f_{yy}}2+\frac{f_{xx}-f_{yy}}2\cos2\alpha+f_{xy}\sin2\alpha\right|
+  =\bigl|A+B\cos(2\alpha+C)\bigr| ,
+\]
+y ``independientemente de cuáles sean \(A\), \(B\) y \(C\), los máximos y mínimos se darán
+a intervalos de \(\pi/2\)'': las direcciones de mayor y menor curvatura son perpendiculares.
+Es lo mismo que decir que la hessiana, por simétrica, se diagonaliza con autovectores
+ortogonales (sección~\ref{sec:cambio-base}); el resumen 2025 de la clase 10 ya lo dijo:
+en las simétricas autovectores y vectores singulares coinciden.
+
+\begin{atencion}[Errata confirmada en la Prueba 1 del apunte del elipsoide]
+En la página 8 el apunte define \(L=f_{xx}\), \(N=f_{yy}\), \(M=f_{xy}\) y a renglón
+seguido escribe \(\chi=|L\cos^2\alpha+2N\cos\alpha\sin\alpha+M\sin^2\alpha|\): el término
+mixto lleva \(N\) y el de \(\sin^2\alpha\) lleva \(M\), al revés de las definiciones. La
+fórmula es correcta si \(M\) es el mixto y \(N=f_{yy}\) (la notación habitual); la línea de
+definiciones es la que está cambiada. Lo verifiqué con \(f=\tfrac12x^2+2xy+\tfrac32y^2\)
+(\(f_{xx}=1\), \(f_{xy}=2\), \(f_{yy}=3\)): la curvatura de la sección en \(\alpha=90^\circ\),
+calculada por diferencias finitas, da \(3=f_{yy}\); la fórmula con las letras del apunte
+da \(2\).
+\end{atencion}
+
+\begin{resultado}[Fórmula de Euler y radio medio]
+Midiendo \(\alpha\) desde una dirección principal, con curvaturas principales
+\(\chi_1\) y \(\chi_2\) (las de máxima y mínima curvatura, a \(90^\circ\) una de otra):
+\[
+  \chi(\alpha)=\chi_1\cos^2\alpha+\chi_2\sin^2\alpha
+  =\frac{\cos^2\alpha}{R_1}+\frac{\sin^2\alpha}{R_2}.
+\]
+El apunte del profesor promedia el radio \(1/\chi(\alpha)\) sobre un cuadrante con la
+sustitución \(u=\sqrt{R_2/R_1}\tan\alpha\), que convierte la integral en
+\(\int_0^\infty du/(1+u^2)=\pi/2\), y obtiene el \emph{radio medio}
+\[
+  \boxed{\ R=\frac2\pi\int_0^{\pi/2}\frac{d\alpha}{\chi(\alpha)}=\sqrt{R_1R_2}\ }.
+\]
+En el elipsoide, \(R=\sqrt{MN}\): el radio de la esfera que localmente mejor lo reemplaza.
+\end{resultado}
+
+Ejemplo: \(z=x^2+xy+y^2\) en el origen tiene hessiana \(\begin{pmatrix}2&1\\1&2\end{pmatrix}\),
+la misma matriz de la sección~\ref{sec:cambio-base}: curvaturas principales \(3\) y \(1\)
+en las direcciones \((1,1)\) y \((1,-1)\); en la dirección del eje \(x\), a \(45^\circ\) de
+la principal, Euler da \(3\cos^245^\circ+1\sin^245^\circ=2=f_{xx}\). La esfera
+\(z=\sqrt{R^2-x^2-y^2}\) tiene en el polo hessiana \(-\tfrac1RI\): todas las direcciones
+son principales, el caso que el apunte llama ``intuitivo, y no requería un análisis más
+detallado, por el hecho de ser constante''.
+
+\paragraph{Prueba 2: Meusnier.} El apunte remite la demostración a un apunte aparte
+(Cristóbal de Lozada y Puga) y a una construcción en GeoGebra; acá sólo el enunciado y su
+uso. Si un plano normal corta a la superficie con radio de curvatura \(\rho_\alpha\) y otro
+plano, que comparte la misma recta tangente pero está inclinado un ángulo \(\theta\)
+respecto del normal, la corta con radio \(\rho_\beta\), entonces
+\[
+  \boxed{\ \rho_\beta=\rho_\alpha\cos\theta\ }.
+\]
+Hecho geométrico: la circunferencia osculadora de la sección oblicua es la proyección de
+la de la sección normal sobre el plano inclinado; proyectar acorta el radio por
+\(\cos\theta\). Aplicación al paralelo: el paralelo de latitud \(\varphi\) es una
+circunferencia de radio \(x'\) que comparte tangente (la dirección este-oeste) con la
+sección normal perpendicular al meridiano, el \emph{primer vertical}; el plano del
+paralelo está inclinado justo \(\varphi\) respecto de la normal. Por Meusnier,
+\[
+  x'=N\cos\varphi ,
+\]
+con \(N\) el radio del primer vertical. Es la deducción del apunte del profesor para
+\(N\), y es lo que hace de \(N\) ``la distancia desde el punto hasta el eje polar medida a
+lo largo de la normal''.
+
+\paragraph{Por qué las direcciones principales del elipsoide son meridiano y primer
+vertical.} Lectura mía del título de la clase 13, ``deducciones a partir de la simetría'':
+el plano meridiano es un plano de simetría del elipsoide (reflejar en él lo deja igual).
+Entonces la forma cuadrática de la curvatura en un punto es simétrica respecto de la
+dirección del meridiano, y como sus extremos están a \(90^\circ\) uno de otro, tienen que
+caer en el meridiano y en su perpendicular, sin calcular nada. Es lo que el apunte dice que
+``mostraremos en forma sencilla''. La simetría de revolución agrega que nada métrico
+depende de \(\lambda\): \(M\), \(N\) y \(K=1/(MN)\) son funciones de \(\varphi\) sola. Y en
+los polos todas las direcciones son meridianos, así que ahí \(M=N\).
+
+\section{Geometría del elipsoide: latitudes, radios y conversión}\label{sec:elipsoide}
+
+\paragraph{La elipse meridiana y la latitud.} El elipsoide de revolución es la elipse
+\(x'^2/a^2+z^2/b^2=1\) del plano meridiano, girada alrededor del eje \(z\): todos los
+meridianos son la \emph{misma} elipse. Parámetros: aplastamiento \(f=(a-b)/a\), primera
+excentricidad \(e^2=(a^2-b^2)/a^2=2f-f^2\), segunda \(e'^2=(a^2-b^2)/b^2\), con
+\(b/a=\sqrt{1-e^2}=1/\sqrt{1+e'^2}\). La latitud geodésica \(\varphi\) es el ángulo entre
+la \emph{normal} al elipsoide y el plano del ecuador. Hecho geométrico: la normal no pasa
+por el centro, salvo en el ecuador y los polos; la plomada idealizada apunta ``más al polo''
+que la recta al centro.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.15]
+  % elipse a=4, b=3; punto en phi=45: (3.2,1.8); normal corta eje x' en (1.4,0)
+  \draw[axisline,-{Latex[length=2mm]}] (-0.4,0)--(4.9,0) node[right,font=\small] {\(x'\)};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-0.3)--(0,3.5) node[above,font=\small] {\(z\)};
+  \draw[auxline] (0,0) circle (4);
+  \draw[teal,line width=1.1pt] (0,0) ellipse (4 and 3);
+  \coordinate (p) at (3.2,1.8);
+  \coordinate (q) at (3.2,2.4);
+  \coordinate (n0) at (1.4,0);
+  \draw[auxline] (3.2,0)--(q);
+  \draw[rust,line width=1pt] (n0)--($(p)+(0.55,0.55)$) node[above right,font=\small,labelback] {normal};
+  \draw[auxline] ($(p)+(-1.2,1.2)$)--($(p)+(1.0,-1.0)$);
+  \draw[tealdark,line width=.9pt] (0,0)--(p);
+  \draw[gold,line width=.9pt] (0,0)--(q);
+  \fill[ink] (p) circle (1.8pt) node[above left,font=\small,labelback] {\(P=(x',z)\)};
+  \fill[gold] (q) circle (1.6pt) node[above,font=\small,labelback] {\(Q\)};
+  \draw[rust] (2.0,0) arc (0:45:0.6) node[midway,right,font=\small,xshift=1pt] {\(\varphi\)};
+  \draw[tealdark] (1.25,0) arc (0:29.4:1.25) node[midway,right,font=\small,xshift=2pt] {\(\psi\)};
+  \draw[gold] (0.8,0) arc (0:36.9:0.8) node[midway,above left,font=\small,xshift=3pt,yshift=-2pt] {\(\beta\)};
+  \node[text=muted,font=\small] at (3.9,-0.45) {elipse meridiana};
+  \node[text=muted,font=\small] at (1.7,3.55) {circunferencia auxiliar de radio \(a\)};
+\end{tikzpicture}
+\end{center}
+
+La recta tangente a la elipse en \(P\) es perpendicular a la normal, así que su pendiente
+es \(\tan(\varphi+\pi/2)=-\cot\varphi\). Derivando la elipse,
+\(dz/dx'=-(b^2/a^2)(x'/z)\), e igualando:
+\[
+  \frac{b^2}{a^2}\frac{x'}{z}=\cot\varphi
+  \quad\Longrightarrow\quad
+  z=\frac{b^2}{a^2}\,x'\tan\varphi,\qquad
+  z^2=\frac{\sin^2\varphi}{\cos^2\varphi}\,\frac{b^4}{a^4}\,x'^2 ,
+\]
+que es la ecuación (2) del apunte del profesor. Reemplazando en la elipse y despejando:
+\[
+  \boxed{\ x'=\frac{a\cos\varphi}{\sqrt{1-e^2\sin^2\varphi}}=N\cos\varphi\ },\qquad
+  \boxed{\ z=\frac{b\sin\varphi}{\sqrt{1+e'^2\cos^2\varphi}}
+  =\frac{a(1-e^2)\sin\varphi}{\sqrt{1-e^2\sin^2\varphi}}=N(1-e^2)\sin\varphi\ }.
+\]
+La igualdad de las dos formas de \(z\) sale de
+\(1+e'^2\cos^2\varphi=(1-e^2\sin^2\varphi)/(1-e^2)\). Con la longitud \(\lambda\), medida
+desde el meridiano origen (el que contiene al eje \(x\)) hasta el plano meridiano del punto:
+\[
+  x=x'\cos\lambda,\qquad y=x'\sin\lambda,\qquad z=N(1-e^2)\sin\varphi .
+\]
+Es la parametrización \(r(\varphi,\lambda)\) del elipsoide, la que usa la
+sección~\ref{sec:curvilineas}. Un punto con altura \(h\) sobre el elipsoide se corre \(h\)
+a lo largo de la normal: \(N\to N+h\) en \(x,y\) y \(N(1-e^2)\to N(1-e^2)+h\) en \(z\).
+
+\begin{atencion}[Dos erratas confirmadas en la conversión del apunte del elipsoide]
+\begin{itemize}
+  \item En la página 15, la expresión de \(z\) ``en términos de \(e^2\)'' lleva
+  \(\sqrt{1-e^2\cos^2\varphi}\) en el denominador; el correcto es
+  \(\sqrt{1-e^2\sin^2\varphi}\), el mismo denominador que \(x'\) y que \(N\). Lo verifiqué
+  de dos maneras: algebraicamente, desde la forma en \(e'^2\) que el propio apunte da dos
+  líneas antes; y numéricamente en GRS80 para \(\varphi=-34{,}6^\circ\): la fórmula correcta
+  da \(z=-3\,601\,428{,}7\) m y la errónea \(-3\,605\,726{,}3\) m, una diferencia de
+  \(4{,}3\) km. En el polo la errónea da \(b^2/a=6\,335\,439\) m en vez de \(b\).
+  \item En la misma página, ``\(x=x'\sin\lambda\), \(y=x'\cos\lambda\)'' invierte seno y
+  coseno respecto de la convención habitual (eje \(x\) hacia el meridiano origen) y de
+  la propia figura 3 del apunte, que marca \(\lambda\) desde el eje \(x\) hasta la
+  dirección \(x'\). Con esa figura, \(x=x'\cos\lambda\) e \(y=x'\sin\lambda\).
+\end{itemize}
+\end{atencion}
+
+\paragraph{Los radios \(M\) y \(N\).} El radio del primer vertical salió por Meusnier:
+\(N=a/\sqrt{1-e^2\sin^2\varphi}\). El radio de curvatura del meridiano, \(M\), es el de
+la elipse meridiana en \(P\); el apunte del profesor lo deduce aplicando
+\(\chi=|z''|/(1+z'^2)^{3/2}\) a \(z(x')\), con \(z''=-\tfrac1z\tfrac{b^2}{a^2}(1+\tfrac{a^2}{b^2}z'^2)\)
+y reemplazando \(z'=-\cot\varphi\) y el \(z(\varphi)\) recién hallado:
+\[
+  \boxed{\ M=\frac{a(1-e^2)}{(1-e^2\sin^2\varphi)^{3/2}}\ },\qquad
+  \boxed{\ N=\frac{a}{\sqrt{1-e^2\sin^2\varphi}}\ },\qquad
+  M\le N,\ \text{con igualdad sólo en los polos}.
+\]
+Controles: en el ecuador \(M=a(1-e^2)=b^2/a\) (el radio osculador de la elipse en el
+extremo del eje mayor, el mínimo) y \(N=a\); en el polo \(M=N=a/\sqrt{1-e^2}=a^2/b\), el
+máximo. El elipsoide es más curvo a lo largo del meridiano que a lo ancho. Además,
+\(\|r_\varphi\|=M\) y \(\|r_\lambda\|=x'=N\cos\varphi\), de modo que la primera forma
+fundamental de la sección~\ref{sec:metrica} es
+\[
+  ds^2=M^2\,d\varphi^2+N^2\cos^2\varphi\,d\lambda^2 ,
+\]
+y la esfera, \(ds^2=R^2d\varphi^2+R^2\cos^2\varphi\,d\lambda^2\), es el caso \(M=N=R\).
+
+\paragraph{Las tres latitudes.} Además de la geodésica \(\varphi\) (normal), la
+\emph{geocéntrica} \(\psi\), ángulo de la recta al centro, y la \emph{reducida} \(\beta\),
+la del punto \(Q\) de la circunferencia auxiliar de radio \(a\) que está sobre la misma
+vertical que \(P\) (\(x'=a\cos\beta\), \(z=b\sin\beta\)):
+\[
+  \tan\psi=\frac{z}{x'}=(1-e^2)\tan\varphi,\qquad
+  \tan\beta=\frac ab\,\frac{z}{x'}=\sqrt{1-e^2}\,\tan\varphi,\qquad
+  |\psi|\le|\beta|\le|\varphi| .
+\]
+La geocéntrica es siempre menor en módulo que la geodésica, y la diferencia es máxima
+cerca de \(45^\circ\).
+
+\begin{resultado}[Valores de control en GRS80 (\(a=6\,378\,137\) m, \(f=1/298{,}257222101\))]
+\(e^2=0{,}00669438\), \(b=6\,356\,752{,}314\) m. Calculados con NumPy; la fila de
+\(-34{,}6^\circ\) es la latitud de Buenos Aires.
+
+{\small
+\begin{center}
+\begin{tabular}{l rrrr}
+\toprule
+ & \(\varphi=0^\circ\) & \(\varphi=45^\circ\) & \(\varphi=-34{,}6^\circ\) & \(\varphi=90^\circ\)\\
+\midrule
+\(M\) (m) & 6\,335\,439{,}327 & 6\,367\,381{,}816 & 6\,356\,008{,}141 & 6\,399\,593{,}626\\
+\(N\) (m) & 6\,378\,137{,}000 & 6\,388\,838{,}290 & 6\,385\,032{,}023 & 6\,399\,593{,}626\\
+\(x'=N\cos\varphi\) (m) & 6\,378\,137{,}000 & 4\,517\,590{,}879 & 5\,255\,752{,}072 & 0\\
+\(z=N(1-e^2)\sin\varphi\) (m) & 0 & 4\,487\,348{,}409 & \(-3\,601\,428{,}679\) & 6\,356\,752{,}314\\
+\(\psi\) (geocéntrica) & \(0^\circ\) & \(44{,}807577^\circ\) & \(-34{,}420332^\circ\) & \(90^\circ\)\\
+\(\beta\) (reducida) & \(0^\circ\) & \(44{,}903788^\circ\) & \(-34{,}510112^\circ\) & \(90^\circ\)\\
+\(|\varphi-\psi|\) & \(0'\) & \(11{,}545'\) & \(10{,}780'\) & \(0'\)\\
+\(R=\sqrt{MN}\) (m) & 6\,356\,752{,}314 & 6\,378\,101{,}030 & 6\,370\,503{,}553 & 6\,399\,593{,}626\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Chequeo: en cada columna \(x'^2/a^2+z^2/b^2=1\) con doce decimales. Un mojón en
+\(\varphi=-34{,}6^\circ\), \(\lambda=-58{,}4^\circ\), \(h=0\) tiene
+\((X,Y,Z)=(2\,753\,940{,}011,\ -4\,476\,465{,}599,\ -3\,601\,428{,}679)\) m. La diferencia
+\(N-M\) en el ecuador es \(ae^2=42\,698\) m.
+\end{resultado}
+
+\section{Arco de meridiano}\label{sec:arco-meridiano}
+
+\textbf{Campo.} Cuánto mide, en metros, un tramo de meridiano entre dos latitudes: es lo
+que necesita cualquier proyección que respete distancias a lo largo del meridiano (el
+``puntapié inicial'' del apunte del profesor hacia Mercator transversa y Gauss--Krüger).
+Como \(\|r_\varphi\|=M\),
+\[
+  S=\int_{\varphi_0}^{\varphi_1}M\,d\varphi
+  =a(1-e^2)\int_{\varphi_0}^{\varphi_1}\bigl(1-e^2\sin^2\varphi\bigr)^{-3/2}d\varphi ,
+\]
+integral que no tiene primitiva elemental. El camino del apunte: serie binomial del
+integrando, que deja potencias pares del seno; pasaje de esas potencias a cosenos de
+ángulos múltiples, que sí se integran.
+
+\paragraph{Serie binomial.} \((1+x)^\alpha=\sum_k\binom{\alpha}{k}x^k\) con
+\(\alpha=-\tfrac32\) y \(x=-e^2\sin^2\varphi\). Los signos se cancelan (el coeficiente
+binomial de exponente negativo alterna de signo, y \(x^k\) también) y quedan todos
+positivos:
+\[
+  \bigl(1-e^2\sin^2\varphi\bigr)^{-3/2}
+  =\sum_{n\ge0}\frac{(2n+1)!}{(2^n\,n!)^2}\,e^{2n}\sin^{2n}\varphi
+  =1+\tfrac32e^2\sin^2\varphi+\tfrac{15}8e^4\sin^4\varphi+\tfrac{35}{16}e^6\sin^6\varphi
+  +\tfrac{315}{128}e^8\sin^8\varphi+\cdots
+\]
+(verificado término a término: \(\tfrac32\cdot\tfrac52/2!=\tfrac{15}8\),
+\(\tfrac32\cdot\tfrac52\cdot\tfrac72/3!=\tfrac{35}{16}\), etc.).
+
+\paragraph{Potencias del seno como cosenos de ángulos múltiples.}
+\[
+  \sin^2\varphi=\frac{1-\cos2\varphi}2,\qquad
+  \sin^4\varphi=\frac{3-4\cos2\varphi+\cos4\varphi}8,
+\]
+\[
+  \sin^6\varphi=\frac{10-15\cos2\varphi+6\cos4\varphi-\cos6\varphi}{32},\qquad
+  \sin^8\varphi=\frac{35-56\cos2\varphi+28\cos4\varphi-8\cos6\varphi+\cos8\varphi}{128}.
+\]
+Agrupando por \(\cos2k\varphi\), el integrando queda
+\(A+B\cos2\varphi+C\cos4\varphi+D\cos6\varphi+E\cos8\varphi+\cdots\), y el apunte del
+profesor escribe cada coeficiente con una sola plantilla, ``para minimizar los errores a la
+hora de programar las fórmulas en una planilla'':
+\[
+  \text{coeficiente}=\sum_{n}\frac{x_n}{2^{\,2n-1}}\,\frac{(2n+1)!}{(2^n\,n!)^2}\,e^{2n},
+\]
+con los \(x_n\) de la tabla (transcrita del apunte y verificada contra las identidades de
+arriba: cada fila es la columna correspondiente de los numeradores, y \(2^{2n-1}\) es el
+denominador \(2,8,32,128\); para \(n=0\) vale \(x_0=\tfrac12\) porque \(2^{-1}\) lo
+duplica).
+
+{\small
+\begin{center}
+\begin{tabular}{l rrrrr}
+\toprule
+Término & \(x_0\) & \(x_1\) & \(x_2\) & \(x_3\) & \(x_4\)\\
+\midrule
+\(A\) & \(\tfrac12\) & 1 & 3 & 10 & 35\\
+\(B\) & 0 & \(-1\) & \(-4\) & \(-15\) & \(-56\)\\
+\(C\) & 0 & 0 & 1 & 6 & 28\\
+\(D\) & 0 & 0 & 0 & \(-1\) & \(-8\)\\
+\(E\) & 0 & 0 & 0 & 0 & 1\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+\begin{resultado}[Longitud del arco de meridiano]
+\[
+  S=a(1-e^2)\Bigl[A\,\varphi+\tfrac B2\sin2\varphi+\tfrac C4\sin4\varphi
+  +\tfrac D6\sin6\varphi+\tfrac E8\sin8\varphi+\cdots\Bigr]_{\varphi_0}^{\varphi_1}
+  \qquad(\varphi\ \text{en radianes}).
+\]
+Los coeficientes dependen sólo de \(e^2\): se calculan una vez por elipsoide. En GRS80,
+\(A=1{,}0050525018\), \(B=-5{,}0631086\cdot10^{-3}\), \(C=1{,}0627582\cdot10^{-5}\),
+\(D=-2{,}08172\cdot10^{-8}\), \(E=3{,}861\cdot10^{-11}\). Controles contra la integral
+numérica (\texttt{scipy.integrate.quad}): del ecuador a \(45^\circ\),
+\(S=4\,984\,944{,}378\) m; del ecuador a \(-34{,}6^\circ\), \(3\,830\,218{,}134\) m; el
+cuadrante de meridiano, \(10\,001\,965{,}729\) m. En los tres casos la serie con cinco
+términos coincide con la integral en menos de \(0{,}1\) mm. El ejercicio que deja el
+apunte (graficar el decrecimiento de los \(x_n\) y estimar en metros el aporte de cada
+término) sale de la misma cuenta: de \(0\) a \(30^\circ\) el término \(A\) aporta
+\(3\,333\,988{,}58\) m, el \(B\) \(-13\,889{,}76\) m, el \(C\) \(14{,}58\) m, el \(E\)
+\(-2{,}6\cdot10^{-5}\) m (el \(D\) se anula ahí porque \(\sin180^\circ=0\)).
+\end{resultado}
+
+\begin{atencion}[Errata confirmada en el arco de meridiano del apunte del elipsoide]
+En la página 18 el apunte escribe
+\(\sin^6\varphi=(10-15\cos2\varphi+6\cos4\varphi+\cos6\varphi)/32\); el término
+\(\cos6\varphi\) lleva signo \emph{menos}. Se ve en \(\varphi=0\): con el signo más la
+expresión vale \(2/32\neq0\). Es coherente con la propia tabla del apunte, donde
+\(x_3=-1\) en la fila \(D\). Y en la primitiva de la página 19 falta multiplicar \(A\) por
+\(\varphi\): dice ``\(A+2^{-1}B\sin2\varphi+\cdots\)'' donde corresponde
+``\(A\varphi+2^{-1}B\sin2\varphi+\cdots\)''. Con esas dos correcciones la fórmula reproduce
+la integral numérica, como muestran los controles de arriba.
+\end{atencion}
+
+\paragraph{Los cinco problemas de proyección del cierre del apunte.} El apunte del
+profesor termina con un ``puntapié inicial'': con la conversión, los módulos
+\(\|r_\varphi\|=M\), \(\|r_\lambda\|=N\cos\varphi\) y los arcos, ``¿cómo plantearían las
+condiciones para desarrollar una proyección sobre el elipsoide?'', y propone bosquejar
+cinco (conté cinco en la página 20). Los planteo acá; en las tres cilíndricas la cuenta la
+verifiqué contra la integral numérica y contra \texttt{pyproj} (proyecciones
+\texttt{merc}, \texttt{eqc} y \texttt{cea} sobre GRS80), que coinciden al milímetro. En
+las tres, \(x=a\lambda\) (el ecuador se desarrolla sin deformación) y lo que cambia es
+\(y(\varphi)\).
+\begin{enumerate}
+  \item \textbf{Mercator (conforme).} Condición: la escala sea la misma en meridiano y
+  paralelo,
+  \[
+    \frac{dy}{M\,d\varphi}=\frac{dx}{N\cos\varphi\,d\lambda}
+    \quad\Longrightarrow\quad dy=\frac{a\,M}{N\cos\varphi}\,d\varphi ,
+  \]
+  e integrando:
+  \[
+    y=a\Bigl[\ln\tan\bigl(\tfrac\pi4+\tfrac\varphi2\bigr)
+    -\tfrac e2\ln\frac{1+e\sin\varphi}{1-e\sin\varphi}\Bigr].
+  \]
+  Control: \(y(45^\circ)=5\,591\,295{,}918\) m (la esférica, sin el segundo término,
+  daría \(5\,621\,521{,}486\)); \(y(-34{,}6^\circ)=-4\,085\,391{,}659\) m. La escala en el
+  paralelo es \(a/(N\cos\varphi)\): \(1{,}4118\) en \(45^\circ\), \(1{,}2136\) en Buenos
+  Aires.
+  \item \textbf{Cilíndrica equidistante.} Condición: los meridianos a escala \(1\),
+  \(dy=M\,d\varphi\), o sea \(y=S(\varphi)\), el arco de meridiano de arriba:
+  \(y(45^\circ)=4\,984\,944{,}378\) m, \(y(-34{,}6^\circ)=-3\,830\,218{,}134\) m.
+  \item \textbf{Cilíndrica equivalente.} Condición: el área se conserve,
+  \[
+    dx\,dy=MN\cos\varphi\,d\varphi\,d\lambda\quad\Longrightarrow\quad
+    dy=\frac{MN\cos\varphi}{a}\,d\varphi .
+  \]
+  Integrando, \(y=\tfrac a2\,q(\varphi)\) con
+  \[
+    q(\varphi)=(1-e^2)\Bigl[\frac{\sin\varphi}{1-e^2\sin^2\varphi}
+    -\frac1{2e}\ln\frac{1-e\sin\varphi}{1+e\sin\varphi}\Bigr]:
+  \]
+  \(y(45^\circ)=4\,489\,858{,}887\) m, \(y(-34{,}6^\circ)=-3\,602\,726{,}723\) m.
+  \item \textbf{Elipsoide a esfera sin modificar las áreas.} Condición: una esfera de
+  radio \(R_q\) con la misma área total, \(4\pi R_q^2=2\pi a^2q(\pi/2)\), es decir
+  \(R_q=a\sqrt{q(\pi/2)/2}=6\,371\,007{,}181\) m (control: el área del elipsoide GRS80
+  es \(510\,065\,621{,}7\) km\(^2\) por la fórmula exacta
+  \(2\pi a^2+\pi\frac{b^2}e\ln\frac{1+e}{1-e}\), y \(4\pi R_q^2\) da lo mismo); y a cada
+  paralelo \(\varphi\) le corresponde en la esfera la latitud \(\beta_q\) con
+  \(\sin\beta_q=q(\varphi)/q(\pi/2)\) (latitud autálica): \(44{,}8717^\circ\) para
+  \(45^\circ\), \(-34{,}4801^\circ\) para Buenos Aires. Lo demás (las longitudes) no cambia.
+  \item \textbf{Transversa de Mercator.} Condiciones: conforme (misma escala en todas las
+  direcciones en cada punto), y el meridiano central sin deformación, con \(y=S(\varphi)\)
+  sobre él. Es la que usa Gauss--Krüger y la cartografía oficial argentina. No la resuelvo:
+  sobre el elipsoide no tiene fórmula cerrada y se desarrolla en serie de potencias de la
+  diferencia de longitud al meridiano central; queda como bosquejo, igual que en el apunte.
+\end{enumerate}
+
+\section{Polígonos geodésicos y trigonometría esférica}\label{sec:trigonometria-esferica}
+
+\textbf{Campo.} El apunte del profesor arranca con un observador que construye ``una
+poligonal cerrada sobre la tierra, verificando si el error obtenido al regresar al punto de
+origen es compatible con la precisión de los instrumentos''. Entre vértices lejanos los
+lados son geodésicas (las ``rectas'' de la superficie: la curva más corta entre dos puntos,
+la que no se tuerce dentro de la superficie) y la suma de los ángulos de la poligonal no da
+lo que daría en el plano. Sobre la esfera hay fórmulas cerradas; sobre el elipsoide no, y
+ahí entra el álgebra simbólica (el ``Máxima para el elipsoide'' del título de la clase 14).
+
+\paragraph{Hecho geométrico: un triángulo esférico son tres planos por el centro.} Sean
+\(A,B,C\) tres vectores unitarios desde el centro de la esfera. Los lados \(a,b,c\)
+(opuestos a cada vértice) son arcos de círculo máximo, es decir \emph{ángulos} entre
+vectores: \(\cos a=B\cdot C\), \(\cos b=A\cdot C\), \(\cos c=A\cdot B\)
+(sección~\ref{sec:interno}). El ángulo en \(A\) es el diedro entre los planos \(OAB\) y
+\(OAC\), es decir el ángulo entre sus normales \(A\times B\) y \(A\times C\)
+(sección~\ref{sec:vectorial}). Nada mide en metros: todo son ángulos, y la esfera de radio
+\(R\) sólo multiplica los lados por \(R\).
+
+\begin{resultado}[Teoremas del coseno y del seno esféricos]
+\[
+  \cos a=\cos b\cos c+\sin b\sin c\cos A,\qquad
+  \frac{\sin a}{\sin A}=\frac{\sin b}{\sin B}=\frac{\sin c}{\sin C}.
+\]
+Deducción del coseno con un solo producto interno: pongo \(A\) en el polo, \(A=(0,0,1)\);
+\(B\) a distancia \(c\) sobre el meridiano \(\lambda=0\), \(B=(\sin c,0,\cos c)\); \(C\)
+a distancia \(b\) sobre el meridiano \(\lambda=A\) (el ángulo en el polo es la diferencia
+de longitudes), \(C=(\sin b\cos A,\sin b\sin A,\cos b)\). Entonces
+\(\cos a=B\cdot C=\sin b\sin c\cos A+\cos b\cos c\). Sin coordenadas:
+\((A\times B)\cdot(A\times C)=(A\cdot A)(B\cdot C)-(A\cdot B)(A\cdot C)=\cos a-\cos b\cos c\),
+y \(\|A\times B\|=\sin c\), \(\|A\times C\|=\sin b\). El del seno sale del volumen
+\(|\det[A\,B\,C]|\), el mismo determinante de la sección~\ref{sec:determinante}:
+\(\|(A\times B)\times(A\times C)\|=|\det[A\,B\,C]|=\sin b\sin c\sin A\), y por simetría
+también \(=\sin a\sin c\sin B=\sin a\sin b\sin C\). Para lados chicos
+(\(\sin b\approx b\), \(\cos b\approx1-b^2/2\)) el coseno esférico devuelve
+\(a^2=b^2+c^2-2bc\cos A\): una Tierra lo bastante chica es plana.
+\end{resultado}
+
+\paragraph{Exceso esférico.} En el plano los ángulos de un triángulo suman \(\pi\); en la
+esfera suman más, y el sobrante es el área (Girard):
+\[
+  \boxed{\ \varepsilon=A+B+C-\pi=\frac{\text{Área}}{R^2}\ },\qquad
+  \text{polígono de } n \text{ lados geodésicos: }\ \sum\text{ángulos}-(n-2)\pi=\frac{\text{Área}}{R^2}.
+\]
+Hecho geométrico: el triángulo ``abomba'' y los ángulos se abren; cuanto más grande, más
+se abren. Control: el octante \(A=(0,0,1)\), \(B=(1,0,0)\), \(C=(0,1,0)\) tiene
+\(b=c=90^\circ\), \(A=90^\circ\), \(\cos a=0\) y los tres ángulos rectos: suman
+\(270^\circ\), exceso \(\pi/2\), área \(\pi R^2/2\), un octavo de la esfera. Un triángulo
+equilátero de \(1\) km de lado sobre \(R=6371\) km tiene área \(0{,}433\) km\(^2\) y exceso
+\(1{,}07\cdot10^{-8}\) rad \(\approx0{,}002''\); con lados de \(100\) km, área
+\(4330\) km\(^2\) y exceso \(1{,}07\cdot10^{-4}\) rad \(\approx22''\). En una poligonal de
+agrimensura el ``error angular de cierre'' tiene una parte que no es error sino exceso
+esférico, y hay que separarla antes de compensar (nota mía, no del profesor: el teorema
+de Legendre resuelve un triángulo esférico chico como plano restando \(\varepsilon/3\) a
+cada ángulo).
+
+\begin{enunciado}[Problema resuelto: exceso esférico de un triángulo entre tres ciudades]
+Sobre la esfera de radio \(R=6371\) km, el triángulo con vértices en Buenos Aires
+\((-34{,}6^\circ,-58{,}4^\circ)\), Córdoba \((-31{,}4^\circ,-64{,}2^\circ)\) y Mendoza
+\((-32{,}9^\circ,-68{,}8^\circ)\). Hallar lados, ángulos, exceso esférico y área, y comparar
+el ángulo en Buenos Aires con el que daría un triángulo plano de los mismos lados.
+\end{enunciado}
+
+Cada vértice como vector unitario,
+\((\cos\varphi\cos\lambda,\ \cos\varphi\sin\lambda,\ \sin\varphi)\). Lados por producto
+interno, \(\cos a=B\cdot C\), etc.: \(a\) (Córdoba--Mendoza) \(=4{,}1730^\circ=464{,}02\) km,
+\(b\) (Buenos Aires--Mendoza) \(=8{,}8085^\circ=979{,}46\) km, \(c\) (Buenos
+Aires--Córdoba) \(=5{,}8208^\circ=647{,}24\) km. Ángulos por el ángulo entre las normales
+\(A\times B\) y \(A\times C\): en Buenos Aires \(23{,}5351^\circ\), en Córdoba
+\(122{,}8281^\circ\), en Mendoza \(33{,}8154^\circ\). Suma \(180{,}1785^\circ\): el exceso
+es \(\varepsilon=0{,}1785^\circ=642{,}7''=3{,}1159\cdot10^{-3}\) rad, y el área
+\(\varepsilon R^2=126\,475\) km\(^2\). Controles: la fórmula de L'Huilier,
+\(\tan\frac\varepsilon4=\sqrt{\tan\frac s2\tan\frac{s-a}2\tan\frac{s-b}2\tan\frac{s-c}2}\)
+con \(s\) el semiperímetro angular, da el mismo \(\varepsilon\) con doce decimales; el
+teorema del coseno cierra, \(\cos a=0{,}997349\) por los dos lados; y los tres cocientes
+\(\sin a/\sin A\) valen \(0{,}18223\). El triángulo plano con los mismos lados tiene en
+Buenos Aires \(23{,}4755^\circ\); el esférico menos un tercio del exceso,
+\(23{,}5351^\circ-0{,}0595^\circ=23{,}4756^\circ\): Legendre funciona con una diferencia de
+\(0{,}02''\). En una poligonal entre estas tres ciudades, \(10'43''\) de la suma angular son
+geometría de la esfera, no error de medición.
+
+\paragraph{La esfera local del elipsoide.} Sobre el elipsoide los lados de la poligonal
+son geodésicas que no son círculos (los meridianos sí lo son; los paralelos no, salvo el
+ecuador) y no hay teorema del coseno cerrado: los problemas directo (punto, acimut y
+distancia \(\to\) punto) e inverso (dos puntos \(\to\) distancia y acimutes) se resuelven
+con series como la del arco de meridiano, o numéricamente. Para una zona de trabajo
+alcanza con reemplazar el elipsoide por la esfera de radio medio
+\(R=\sqrt{MN}\) de la sección~\ref{sec:curvatura}: en \(\varphi=-34{,}6^\circ\),
+\(R=6\,370\,503{,}6\) m, y el exceso del triángulo de \(100\) km recalculado con ese radio
+es \(1{,}067\cdot10^{-4}\) rad, los mismos \(22''\). Qué se conserva: al rotar la esfera,
+lados, ángulos y área del triángulo no cambian (el producto interno es invariante por
+rotaciones, primera clase); lo que no se conserva al pasar de esfera a elipsoide es la
+simetría total, y por eso se pierden las fórmulas cerradas. La estación
+\texttt{14\_trigonometria\_esferica} (apéndice~\ref{ap:notebooks}) hace la cuenta con
+tres vértices movibles.

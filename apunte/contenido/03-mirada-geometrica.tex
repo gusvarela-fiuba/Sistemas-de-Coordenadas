@@ -44,3 +44,57 @@ Por eso, para interpretar geométricamente una transformación lineal basta obse
 con dos direcciones independientes y con el paralelogramo que generan.
 \end{resultado}
 
+
+\subsection{Los tres objetos que no hay que confundir: puntos, reglas de medir y grillas}\label{sec:puntos-formas-grillas}
+
+Síntesis mía, como brújula para el resto del apunte: en la materia circulan tres objetos
+que se escriben con números parecidos y son cosas distintas. El hilo conductor es que
+todo vector es un mojón o un desplazamiento entre mojones, y toda matriz es una manera de
+mover el espacio o de cambiar la grilla con que se lo mide.
+
+{\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{30mm}YY}
+\toprule
+Objeto & Cómo se escribe, dónde vive & Qué es geométricamente & Cómo se transforma\\
+\midrule
+Punto / vector & columna \(v\); vive en el espacio \(V\) &
+una flecha: un mojón (desde el origen) o un desplazamiento entre dos mojones &
+con la matriz, por la izquierda: \(v\mapsto Av\)\\
+Forma lineal / gradiente & fila \(\omega\); vive en el dual \(V^{*}\) &
+un mazo de rectas (en \(\R^3\), planos) de nivel equiespaciadas: una regla graduada
+tirada en el plano; evalúa un vector \emph{sin} producto interno, mirando qué recta del
+mazo pasa por él &
+del lado contrario: \(\omega\mapsto\omega A^{-1}\), para que \(\omega v\) no cambie\\
+Producto interno / métrica & matriz simétrica \(G\) (en una superficie, la primera forma
+fundamental \(E,F,G\)) &
+la grilla con que se mide: permite largos y ángulos, \(\|v\|^2=v^TGv\); es el único
+puente entre una forma lineal y una dirección perpendicular (``el gradiente es
+perpendicular a la curva de nivel'' necesita a \(G\)) &
+como forma cuadrática: \(G\mapsto J^TGJ\) (sección~\ref{sec:metrica})\\
+\bottomrule
+\end{tabularx}
+}
+
+Sin producto interno no hay ``vector perpendicular a una recta'': hay la recta (forma) y
+hay los puntos (vectores), y nada más. Con producto interno, la forma \(\omega\) se
+``disfraza'' del vector \(G^{-1}\omega^T\) y recién ahí se puede hablar de la dirección
+normal. En la base canónica \(G=I\) y el disfraz es transponer la fila, por eso en el
+plano la confusión no cuesta nada; en una superficie, donde \(E,F,G\) cambian de punto a
+punto, cuesta metros.
+
+\begin{atencion}[Por qué el gradiente no es un vector]
+\(df=\nabla f\,dx\) es una forma lineal: toma un desplazamiento \(dx\) y devuelve cuánto
+cambia \(f\); sus curvas de nivel son el plano tangente a la gráfica, y su recta de nivel
+cero es la tangente a la curva de nivel de \(f\). Prueba de que no es un vector: si
+estiro el eje \(x\) al doble, los puntos duplican su primera coordenada, pero las marcas
+de la regla \(\nabla f\) a lo largo de \(x\) se separan a la mitad (hay que avanzar el
+doble para que \(f\) suba lo mismo), es decir la componente se divide por dos: se
+transforma al revés que un vector. El profesor se corrigió en vivo el 14 de octubre de
+2026, mientras resolvía el plano normal a una curva intersección de dos superficies: ``el
+gradiente de una función es un vector\ldots{} no, mentí. Lo dije mal. [\ldots] El gradiente
+de la función es una forma lineal, no un vector, porque me permite hacer una aproximación
+lineal de la función'' (transcripción auto-traducida, \file{fuentes/transcripciones/2026-10-14.md}).
+Y es lo que el resumen 2025 de la clase 9 llama ``dato clave: el gradiente es una forma
+lineal no un vector''. Lo que sí es un vector es la normal, que se obtiene con el producto
+vectorial de dos tangentes, o levantando el gradiente con la métrica.
+\end{atencion}

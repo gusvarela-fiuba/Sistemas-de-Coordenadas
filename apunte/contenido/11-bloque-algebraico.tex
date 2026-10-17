@@ -345,6 +345,31 @@ misma figura de arriba: el vector \((2,1)\) es perpendicular a la familia de rec
 forma. Ir a lo chico (la forma lineal en un punto) para volver a lo grande (la superficie
 completa) es lo que hace la tercera lectura con el plano tangente y la métrica.
 
+\begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
+Aporte propio, desde la especialización en IA (CEIA); no es de la cátedra. Un
+\emph{clasificador lineal} separa dos lotes de puntos del plano (dos clases, \(y_i=\pm1\))
+con una regla \(\omega(x)=w_1x+w_2y+b\): la clase es el signo de \(\omega\). Es exactamente
+una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
+clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
+entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
+sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
+que separan, la que deja más \emph{margen}: pide \(\omega(x_i)\ge+1\) para una clase y
+\(\le-1\) para la otra, y entre las que cumplen toma la de \(\|w\|\) mínima. Las tres
+rectas de nivel \(-1\), \(0\), \(+1\) son el borde de un lado, la frontera y el borde del
+otro; los puntos que tocan los bordes son los \emph{vectores soporte}. El ancho de la
+franja entre las rectas \(-1\) y \(+1\) es \(2/\|w\|\), porque la separación entre
+curvas de nivel consecutivas de una forma es \(1/\|w\|\) (clase del 30/9: ``cuanto más
+largo el vector de la forma, más apretadas las curvas''), y esa cuenta necesita el
+producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros: clase
+\(+1\) en \((1,1)\) y \((2,0)\), clase \(-1\) en \((-1,-1)\) y \((-2,0)\). La frontera
+de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
+dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
+\(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
+verifiqué resolviendo el problema de minimización con \texttt{scipy.optimize}. La estación
+\texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
+\texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
+\end{idea}
+
 \begin{resultado}[Dualidad en pocas palabras]
 \begin{itemize}
   \item Un vector es una columna; una forma lineal es una fila. Fila por columna es un
@@ -360,3 +385,581 @@ completa) es lo que hace la tercera lectura con el plano tangente y la métrica.
 \end{itemize}
 \end{resultado}
 
+
+\section{Cambio de base y diagonalización}\label{sec:cambio-base}
+
+\begin{atencion}[Anticipado]
+El cambio de base y la diagonalización se dictaron el 30 de septiembre de 2026 (clase 8 del
+esqueleto). Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: lo
+armé antes de que la cátedra lo diera, a partir del resumen 2025 del profesor y de las
+fichas de clase. Pendiente de validar con lo que efectivamente se dicte.
+\end{atencion}
+
+\paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
+coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos uso
+las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
+\[
+  \begin{pmatrix}3\\4\end{pmatrix}
+  =\tfrac72\begin{pmatrix}1\\1\end{pmatrix}-\tfrac12\begin{pmatrix}1\\-1\end{pmatrix},
+  \qquad\text{coordenadas nuevas }(\tfrac72,-\tfrac12).
+\]
+El mojón está donde estaba; cambió la regla con que lo mido. Escalera: en \(\R\) cambiar
+de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
+longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
+\(\R^n\) es una matriz \(n\times n\) invertible. El profesor observó en 2025 que ``no parece
+haber un conjunto de vectores privilegiado a priori'': lo único que distingue a la base
+canónica es que con ella el producto interno es la cuenta de siempre.
+
+\begin{resultado}[La matriz de cambio de base]
+Si \(P\) tiene en sus columnas los vectores de la base nueva escritos en la canónica,
+\[
+  [v]_{\text{can}}=P\,[v]_{\text{nueva}},\qquad [v]_{\text{nueva}}=P^{-1}[v]_{\text{can}} .
+\]
+Con \(P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\), \(P^{-1}=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
+y \(P^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. Los tres tipos de objeto cambian
+de base distinto: los vectores con \(P^{-1}\), las formas lineales del lado contrario
+(sección~\ref{sec:formas-lineales}) y las transformaciones con
+\[
+  A_{\text{nueva}}=P^{-1}\,A\,P ,
+\]
+que se lee de derecha a izquierda: paso las coordenadas nuevas a canónicas, aplico \(A\)
+como siempre, vuelvo a las nuevas. Todo se convierte a la vez para que ninguna relación
+cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
+\end{resultado}
+
+\paragraph{El ejercicio del 30 de septiembre, resuelto.} Consigna del profesor (en hoja
+grande, dibujado): formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
+\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida ``no muy distinta de
+la identidad''. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
+paralelas que juntos arman una grilla), ubicar el vector en la grilla, transformar el
+vector con \(T\) y las formas con \(T^{-1}\), redibujar y verificar que el vector
+transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
+\((-1,2)\cdot(3,4)=5\): el vector está en la séptima curva de una y la quinta de la otra.
+Inversa por adjunta sobre determinante, \(\det T=1{,}56+0{,}05=1{,}61\):
+\[
+  T^{-1}=\frac1{1{,}61}\begin{pmatrix}1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix},\qquad
+  T\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
+\]
+\[
+  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4,\ 0{,}7)=(0{,}870,\ 0{,}435),\qquad
+  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1,\ 2{,}9)=(-0{,}683,\ 1{,}801).
+\]
+Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
+\(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
+curva de la primera forma y en la quinta de la segunda. En el pizarrón la forma \((1,1)\)
+quedó ``\((0{,}86,\ 0{,}43)\), se acostó un poco'' (redondeo) y la \((-1,2)\) ``un poco más
+vertical''. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
+plano; medido con la grilla deformada, el punto está donde estaba. ``No hacemos nada,
+convertimos todo para que nada cambie'' (profesor, 30/9/2026). En planilla: dos columnas
+para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
+
+\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
+\(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\). Polinomio característico
+\((2-\lambda)^2-1=0\), autovalores \(3\) y \(1\), autovectores \((1,1)\) y \((1,-1)\)
+(perpendiculares porque \(A\) es simétrica). Con esos autovectores como columnas de \(P\),
+\[
+  P^{-1}AP=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}
+  \begin{pmatrix}3&1\\3&-1\end{pmatrix}
+  =\begin{pmatrix}3&0\\0&1\end{pmatrix}=D .
+\]
+Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
+independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
+``se estira o se comprime pero no se rompe''. En la grilla común la misma transformación
+no tiene lectura fácil. Es lo que el resumen 2025 describe como ``aplicar dos afinidades
+axiales sucesivas''.
+
+\paragraph{Potencias y la trayectoria de un punto.} Como \(A=PDP^{-1}\),
+\(A^n=PD^nP^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
+propio. Para \(n=5\),
+\[
+  A^5=P\begin{pmatrix}243&0\\0&1\end{pmatrix}P^{-1}
+  =\tfrac12\begin{pmatrix}244&242\\242&244\end{pmatrix}
+  =\begin{pmatrix}122&121\\121&122\end{pmatrix}.
+\]
+Lectura: \((1,0)=\tfrac12(1,1)+\tfrac12(1,-1)\); la parte en \((1,1)\) se multiplica por
+\(243\) y la parte en \((1,-1)\) queda igual: \(\tfrac12(243,243)+\tfrac12(1,-1)=(122,121)\),
+la primera columna. Si los autovalores son positivos el exponente puede ser real:
+\(A^t=PD^tP^{-1}\) con \(D^t=\operatorname{diag}(3^t,1)\), y el punto \((1,0)\) recorre
+\[
+  A^t\begin{pmatrix}1\\0\end{pmatrix}=\tfrac12\begin{pmatrix}3^t+1\\3^t-1\end{pmatrix}:
+  \quad(1,0)\ \text{en } t=0,\quad(1{,}37,\,0{,}37)\ \text{en } t=\tfrac12,\quad(2,1)\ \text{en } t=1 .
+\]
+Es la tercera idea del hilo (sección~\ref{sec:hilo}): la transformación se identifica con
+la trayectoria que genera, y la potencia real la convierte en película. La misma jugada que
+la exponencial de una rotación, ahora con estiramientos en vez de giros. La estación
+\texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
+
+\begin{atencion}[Una convención, tres escrituras en el resumen 2025]
+Verificado en el resumen del profesor: la clase 7 escribe
+\(A=B_{av\mapsto e}\,D\,B_{e\mapsto av}\) y la clase 10 escribe
+\(A=C^{-1}_{e\mapsto av}\,\Lambda\,C_{e\mapsto av}\); en ambas el factor de la derecha,
+el que actúa primero sobre un vector en canónica, es el que \emph{convierte de \(e\) a
+\(av\)}. La clase 8 escribe \(M_{av}=C_{av\mapsto e}\,M\,C_{e\mapsto av}\), donde con la
+misma lectura el factor de la derecha debería ser el que convierte de \(av\) a \(e\)
+(un vector en base \(av\) entra primero). Los subíndices de la clase 8 están al revés de
+los de las clases 7 y 10. En la clase del 30 de septiembre de 2026 quedó sin subíndices:
+\(T_{\text{can}}=A\,D\,A^{-1}\) con \(A\) = autovectores en columnas, que es
+\(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base
+nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
+\end{atencion}
+
+\section{Descomposición en valores singulares (SVD)}\label{sec:svd}
+
+\begin{atencion}[Anticipado]
+La SVD no se dictó en 2C2026 (clase 7 del esqueleto; anunciada el 30/9 y el 14/10). Esta
+sección se armó antes de que la cátedra la diera, a partir del resumen 2025 del profesor,
+de su cuaderno \file{LaSVD.wxmx} y de bibliografía (Strang; Calvetti y Somersalo).
+Pendiente de validar.
+\end{atencion}
+
+\paragraph{Cambiar la pregunta.} Diagonalizar pregunta qué direcciones caen sobre sí
+mismas. Una rotación de \(90^\circ\) no deja ninguna, y el polinomio característico lo dice
+con raíces complejas (sección~\ref{sec:autovalores}). El profesor planteó en 2025 que
+``podría existir una forma de descomponer la transformación que no tuviera estos
+problemas'', y la enunció así: ``siempre existe una base ortogonal del espacio de entrada
+de una transformación que se conserva ortogonal a la salida''. La pregunta nueva es:
+¿qué direcciones \emph{perpendiculares} de la entrada siguen perpendiculares a la salida?
+Esa pregunta siempre tiene respuesta real, porque se construye a partir del producto
+interno y no de direcciones fijas.
+
+\paragraph{Hecho geométrico: la circunferencia se vuelve elipse.} Una matriz \(A\) de
+\(2\times2\) lleva la circunferencia unidad a una elipse. Los semiejes de la elipse miden
+\(\sigma_1\ge\sigma_2\ge0\) (valores singulares); sus direcciones \(u_1,u_2\) son una base
+ortonormal de la salida; las direcciones de la circunferencia que van a parar a esos
+semiejes, \(v_1,v_2\), son una base ortonormal de la entrada:
+\[
+  A\,v_i=\sigma_i\,u_i,\qquad
+  \boxed{\ A=U\,\Sigma\,V^T\ },\qquad
+  U=[u_1\ u_2],\ \ \Sigma=\operatorname{diag}(\sigma_1,\sigma_2),\ \ V=[v_1\ v_2].
+\]
+Leído de derecha a izquierda: \(V^T\) gira (o refleja) hasta poner \(v_1,v_2\) sobre los
+ejes, \(\Sigma\) estira los ejes, \(U\) gira el resultado hasta las direcciones
+\(u_1,u_2\). Tres movimientos que ya se entienden por separado. Como \(\Sigma\) es diagonal
+con entradas no negativas, no hay giro escondido que arruine la cuenta: los giros se los
+llevaron \(U\) y \(V\). Además \(\sigma_1\sigma_2=|\det A|\) (el área de la elipse es la de
+la circunferencia por el producto de los semiejes), y \(\sigma_k=0\) significa que la
+elipse se aplastó: \(v_k\) está en el núcleo y \(u_k\) queda fuera de la imagen.
+
+Escalera. En \(\R\): \(x\mapsto ax\) se escribe \(a=(\pm1)\cdot|a|\cdot1\); el valor
+singular es \(|a|\) y el signo quedó en la ``base de salida''. En \(\R^3\): esfera que se
+vuelve elipsoide, tres semiejes. Si la matriz es \(3\times2\), como la jacobiana de una
+superficie parametrizada, la circunferencia del plano \((u,v)\) va a una elipse que vive en
+el plano tangente dentro de \(\R^3\) y el tercer vector \(u_3\) apunta a la normal, la
+dirección inaccesible: \(U\) es \(3\times3\), \(V\) es \(2\times2\), \(\Sigma\) es
+\(3\times2\). Es el ``cambio de base rectangular'' que el profesor anunció el 30/9.
+
+\paragraph{Ejemplo a mano con enteros.} \(A=\begin{pmatrix}3&0\\4&5\end{pmatrix}\). La
+base de entrada sale de \(A^TA\), que es simétrica:
+\[
+  A^TA=\begin{pmatrix}3&4\\0&5\end{pmatrix}\begin{pmatrix}3&0\\4&5\end{pmatrix}
+  =\begin{pmatrix}25&20\\20&25\end{pmatrix},\qquad
+  (25-\mu)^2-400=0\ \Rightarrow\ \mu=45,\ 5 .
+\]
+Autovectores \((1,1)\) y \((1,-1)\); por lo tanto \(\sigma_1=\sqrt{45}=3\sqrt5\approx6{,}71\),
+\(\sigma_2=\sqrt5\approx2{,}24\), \(v_1=\tfrac1{\sqrt2}(1,1)\), \(v_2=\tfrac1{\sqrt2}(1,-1)\).
+La base de salida se obtiene transformando, \(u_i=Av_i/\sigma_i\):
+\[
+  A\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}3\\9\end{pmatrix}=3\begin{pmatrix}1\\3\end{pmatrix}
+  \ \Rightarrow\ u_1=\tfrac1{\sqrt{10}}(1,3),\qquad
+  A\begin{pmatrix}1\\-1\end{pmatrix}=\begin{pmatrix}3\\-1\end{pmatrix}
+  \ \Rightarrow\ u_2=\tfrac1{\sqrt{10}}(3,-1).
+\]
+Chequeos: \(\|(3,9)\|/\|(1,1)\|=\sqrt{90}/\sqrt2=\sqrt{45}=\sigma_1\) y
+\(\|(3,-1)\|/\|(1,-1)\|=\sqrt{10}/\sqrt2=\sqrt5=\sigma_2\); \(u_1\cdot u_2=(3-3)/10=0\);
+\(\sigma_1\sigma_2=15=\det A\). La base ortogonal \(\{(1,1),(1,-1)\}\) de la entrada fue a
+parar a la base ortogonal \(\{(1,3),(3,-1)\}\) de la salida.
+
+\begin{center}
+\begin{tikzpicture}[scale=.42]
+  % entrada
+  \begin{scope}
+    \draw[axisline] (-3,0)--(3,0); \draw[axisline] (0,-3)--(0,3);
+    \draw[mainline] (0,0) circle (2);
+    \draw[rust,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(1.414,1.414)
+      node[above right,font=\small,labelback] {\(v_1\)};
+    \draw[tealdark,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(1.414,-1.414)
+      node[below right,font=\small,labelback] {\(v_2\)};
+    \node[text=muted,font=\small] at (0,-3.8) {entrada: circunferencia unidad};
+  \end{scope}
+  \draw[-{Latex[length=2.6mm]},line width=.9pt,muted] (4.2,0)--(6.8,0) node[midway,above,font=\small] {\(A\)};
+  % salida
+  \begin{scope}[xshift=14cm]
+    \draw[axisline] (-7.5,0)--(7.5,0); \draw[axisline] (0,-7.5)--(0,7.5);
+    \draw[mainline,rotate=71.565] (0,0) ellipse (6.708 and 2.236);
+    \draw[rust,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(2.121,6.364)
+      node[right,font=\small,labelback] {\(\sigma_1u_1=(3,9)\)};
+    \draw[tealdark,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(2.121,-0.707)
+      node[below right,font=\small,labelback] {\(\sigma_2u_2=(3,-1)\)};
+    \node[text=muted,font=\small] at (0,-8.3) {salida: elipse de semiejes \(3\sqrt5\) y \(\sqrt5\)};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+Comparación con los autovectores de \(A\): \(\lambda=5\) con \((0,1)\) y \(\lambda=3\)
+con \((1,-2)\) (verificar: \(A(1,-2)^T=(3,-6)^T\)). No son perpendiculares entre sí y no
+coinciden con \(v_1,v_2\). Mismo producto \(3\cdot5=15\), pero ejes distintos: la
+diagonalización mira las direcciones que caen sobre sí mismas; la SVD mira las
+direcciones perpendiculares que siguen perpendiculares. Dos casos límite: la rotación de
+\(90^\circ\) tiene \(R^TR=I\), valores singulares \(1,1\), la circunferencia sigue siendo
+circunferencia (``no estira nada, sólo gira''); la simétrica
+\(\begin{pmatrix}2&1\\1&2\end{pmatrix}\) de la sección anterior tiene valores singulares
+\(3,1\) en las direcciones \((1,1),(1,-1)\): acá autovectores y vectores singulares
+coinciden, \(U=V\) y \(\sigma_i=|\lambda_i|\). El resumen 2025 de la clase 10 dice que en
+\(\R^2\) las simétricas ``no son un caso de coincidencia sino El caso''.
+
+\paragraph{El cuaderno del profesor: una \texorpdfstring{$2\times3$}{2x3} analítica.}
+\file{LaSVD.wxmx} (apéndice~\ref{ap:notebooks}) hace en wxMaxima la SVD de
+\(A=\begin{pmatrix}1&2&4\\-3&-2&3\end{pmatrix}\): calcula \(AA^T\) y \(A^TA\), el
+polinomio característico, los autovectores, verifica que son ortogonales de a pares,
+normaliza \(U\) y \(V^T\), arma \(\Sigma\) con las raíces de los autovalores y comprueba
+\(U\Sigma V^T=A\). Rehecho acá a mano y con NumPy:
+\[
+  AA^T=\begin{pmatrix}21&5\\5&22\end{pmatrix},\qquad
+  \mu^2-43\mu+437=0\ \Rightarrow\ \mu=\frac{43\pm\sqrt{101}}2
+  \ \Rightarrow\ \sigma_1=\sqrt{\mu_1}\approx5{,}150,\ \ \sigma_2=\sqrt{\mu_2}\approx4{,}059 .
+\]
+Autovectores de \(AA^T\) (fila \((21-\mu,\ 5)\) de \(AA^T-\mu I\), ortogonal al autovector,
+así que \(u\propto(5,\ \mu-21)\)): \(u_1\approx(0{,}671,\ 0{,}741)\),
+\(u_2\approx(0{,}741,\ -0{,}671)\). La base de entrada se obtiene al revés que en el
+ejemplo anterior, \(v_i=A^Tu_i/\sigma_i\):
+\(v_1\approx(-0{,}302,\ -0{,}027,\ 0{,}953)\), \(v_2\approx(0{,}679,\ 0{,}696,\ 0{,}235)\),
+y el tercer vector de \(V\) es el núcleo de \(A\), el producto cruz de sus dos filas
+(sección~\ref{sec:nucleo}): \((14,-15,4)/\sqrt{437}\approx(0{,}670,\ -0{,}718,\ 0{,}191)\).
+Chequeo: \(Av_1=\sigma_1u_1\) da \((3{,}456,\ 3{,}819)\) por los dos caminos, y
+\(A^TA=\begin{pmatrix}10&8&-5\\8&8&2\\-5&2&25\end{pmatrix}\) tiene autovalores
+\(26{,}525\), \(16{,}475\) y \(0\). Es el caso rectangular: \(U\) de \(2\times2\),
+\(\Sigma=\begin{pmatrix}\sigma_1&0&0\\0&\sigma_2&0\end{pmatrix}\) de \(2\times3\), \(V\) de
+\(3\times3\), ``una base a la
+entrada que no sale'': la esfera unidad de \(\R^3\) se aplasta a una elipse de
+\(\R^2\) y la dirección \(v_3\) cae al origen. El cuaderno del profesor hace exactamente esto: \texttt{solve} del polinomio de
+\(A^TA\), \texttt{eigenvectors} de las dos matrices, \texttt{ratsimp} de los productos
+internos de a pares para ver los ceros, normalización, y \texttt{float(U.\(\Sigma\).Vt)}
+que devuelve \(A\). Las raíces son irracionales: es lo normal, no un error
+(caja ``Sobre los números lindos'' de la sección~\ref{sec:autovalores}). En NumPy,
+\texttt{np.linalg.svd(A)} devuelve \texttt{U, s, Vt}; los signos de las columnas pueden
+venir cambiados, sólo importa la dirección. La tarea que dejó el profesor el 14/10 es
+reproducir esto en GeoGebra con cualquier \(2\times3\) o \(3\times2\).
+
+\paragraph{Remate: la SVD de un terreno real.} Un modelo digital de elevación es una
+matriz: cada celda es una altura. El recorte de \(512\times512\) celdas del Copernicus DEM
+GLO-30 sobre la Precordillera de Mendoza (\file{datos/dem\_copernicus/}, latitud
+\(-32{,}284\) a \(-32{,}142\), longitud \(-69{,}000\) a \(-68{,}858\), una celda
+\(\approx30\) m) tiene alturas entre \(1014\) y \(2989\) m, con desvío \(406\) m. Como
+matriz tiene \(512\) valores singulares, ordenados de mayor a menor, y quedarse con los
+\(k\) primeros términos \(\sigma_iu_iv_i^T\) es la mejor aproximación de rango \(k\): el
+mismo problema 4 de la sección~\ref{sec:cuatro-problemas}, en grande. Los valores salieron
+de \file{svd\_dem\_proto.py}, corrido fuera del navegador (la SVD completa tarda
+\(0{,}06\) s en un M1):
+
+{\small
+\begin{center}
+\begin{tabular}{l rrrrrrr}
+\toprule
+\(k\) (términos) & 1 & 2 & 5 & 10 & 20 & 50 & 100\\
+\midrule
+error RMS (m) & 103 & 66 & 31 & 17 & 9{,}8 & 4{,}4 & 2{,}0\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Hecho geométrico: una matriz constante es de rango \(1\), y la altura media del recorte
+(unos \(1600\) m) es la ``meseta'' sobre la que está apoyado el relieve. Por eso
+\(\sigma_1\) domina y la energía acumulada \(\sum_{i\le k}\sigma_i^2/\sum\sigma_i^2\) ya
+da \(99{,}6\)\,\% con \(k=1\): esa cifra engaña, mide la meseta y no el relieve. El RMS
+del error, o restar la media antes de descomponer (lo mismo que centrar la nube de puntos
+en el problema 4), muestra lo que importa: el relieve ``aparece'' alrededor de \(k=20\)
+(error de \(9{,}8\) m sobre un terreno de casi \(2000\) m de desnivel) y con \(100\)
+términos de \(512\) el error es de \(2\) m. La estación \texttt{09\_cambio\_de\_base\_svd}
+(apéndice~\ref{ap:notebooks}) carga ese mismo recorte y deja mover \(k\) en vivo.
+
+\section{Inversas, los cuatro subespacios y la pseudoinversa}\label{sec:pseudoinversa}
+
+\begin{atencion}[Anticipado]
+La clase 10 del esqueleto (inversas) no se dictó en 2C2026; la inversa de una \(2\times2\)
+se usó el 30/9 por adjunta sobre determinante, sin discutirla. Esta sección se armó antes
+de que la cátedra la diera, a partir del resumen 2025 del profesor y de bibliografía.
+Pendiente de validar.
+\end{atencion}
+
+\paragraph{Inversa respecto de una operación.} El profesor volvió en 2025 ``a algo que
+hablamos muy al principio de la cursada: la relación entre operaciones, elementos y
+transformaciones''. Una inversa es siempre ``inversa respecto de'' una operación: el
+elemento que, operado con otro, da el neutro de esa operación.
+
+{\small
+\begin{center}
+\begin{tabularx}{.92\textwidth}{>{\bfseries}l l l Y}
+\toprule
+Conjunto & Operación & Neutro & Inversa de \(x\)\\
+\midrule
+enteros & suma & \(0\) & \(-x\): sumar \(3\) se deshace restando \(3\)\\
+reales & producto & \(1\) & \(1/x\): no existe si \(x=0\)\\
+funciones & composición & \(f(x)=x\) & \(f^{-1}\): la que devuelve cada valor a su origen\\
+transformaciones lineales & composición & \(v\mapsto v\) & deshacer el movimiento\\
+matrices & producto & \(I\) & \(A^{-1}\): no existe si \(\det A=0\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+}
+
+Escalera. En \(\R\), \(x\mapsto ax\) se deshace con \(x\mapsto x/a\), y no hay forma de
+deshacer \(a=0\): todo se aplastó al cero y no se sabe de dónde vino cada punto. En
+\(\R^2\), \(\det A=0\) significa que el cuadrado unidad se aplastó a un segmento, una
+dirección entera cayó a un punto (el núcleo, sección~\ref{sec:nucleo}) y no se puede
+desplegar lo aplastado. En \(\R^n\): \(\det A=0\) equivale a que algún valor singular es
+cero, la elipse perdió un semieje. Rotar \(30^\circ\) se deshace rotando \(-30^\circ\)
+(\(R^{-1}=R^T\)); reflejar se deshace reflejando de nuevo; escalar por \(2\), escalando
+por \(\tfrac12\).
+
+\begin{resultado}[Invertir con las descomposiciones]
+\[
+  A=PDP^{-1}\ \Rightarrow\ A^{-1}=P\,\tfrac1D\,P^{-1},\qquad
+  A=U\Sigma V^T\ \Rightarrow\ A^{-1}=V\,\tfrac1\Sigma\,U^T .
+\]
+El profesor escribe \(1/D\) y \(1/\Sigma\) a propósito: invertir una matriz diagonal es
+tomar los recíprocos de las entradas, deshacer cada estiramiento por separado. En la SVD
+se deshace en orden inverso: desgirar lo último (\(U^T\)), desestirar, desgirar lo primero
+(\(V\)). Con \(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}=P\operatorname{diag}(3,1)P^{-1}\):
+\[
+  A^{-1}=P\operatorname{diag}(\tfrac13,1)P^{-1}
+  =\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}\tfrac13&0\\0&1\end{pmatrix}
+  \begin{pmatrix}1&1\\1&-1\end{pmatrix}
+  =\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix},
+\]
+que coincide con la adjunta sobre el determinante (\(\det A=3\)).
+\end{resultado}
+
+\paragraph{Los cuatro subespacios, con los nombres del profesor.} Una matriz \(m\times n\)
+parte la entrada \(\R^n\) en dos pedazos perpendiculares y la salida \(\R^m\) en otros dos:
+\begin{itemize}
+  \item \textbf{núcleo}: ``vectores de la entrada que caen al \(0\)''; la dirección
+  aplastada;
+  \item \textbf{co-imagen} (``rango de entrada o podríamos llamar contra-núcleo''):
+  lo perpendicular al núcleo; las direcciones que sí se distinguen a la salida;
+  \item \textbf{imagen} (``rango o co-dominio''): lo alcanzable a la salida; el plano o la
+  recta donde cae todo;
+  \item \textbf{espacio inaccesible} (``la llamaría contra-imagen''): lo perpendicular a la
+  imagen; adonde no llega nada.
+\end{itemize}
+La SVD los entrega hechos: los \(v_i\) con \(\sigma_i>0\) generan la co-imagen, los
+\(v_i\) con \(\sigma_i=0\) el núcleo, los \(u_i\) con \(\sigma_i>0\) la imagen y los
+\(u_i\) sobrantes el espacio inaccesible. Restringida de la co-imagen a la imagen, la
+transformación sí se invierte: ahí no se aplastó nada. Situación de campo: la jacobiana
+\(3\times2\) de una superficie parametrizada (sección~\ref{sec:curvilineas}) tiene
+co-imagen todo el plano \((u,v)\), imagen el plano tangente, espacio inaccesible la normal
+y núcleo \(\{0\}\), salvo en el polo del elipsoide, donde \(r_\lambda=0\) y aparece núcleo:
+``mover la longitud no me mueve''.
+
+\begin{resultado}[Pseudoinversa de Moore--Penrose]
+\[
+  \boxed{\ A^{+}=V\,\Sigma^{+}\,U^T\ },\qquad
+  \Sigma^{+}=\text{recíprocos de los }\sigma_i\neq0\text{, ceros donde había ceros}.
+\]
+Hecho geométrico: proyectar el término independiente sobre la imagen (descartar la parte
+en el espacio inaccesible, que no se puede alcanzar) y deshacer sólo la parte invertible;
+si había núcleo, no inventar nada en la dirección aplastada (solución de norma mínima).
+En \(\R\), la pseudoinversa de \(a=0\) es \(0\). Si \(A\) es cuadrada e invertible,
+\(A^{+}=A^{-1}\); si \(A\) es alta (más filas que columnas) y sus columnas son
+independientes, \(A^{+}=(A^TA)^{-1}A^T\), y \(x=A^{+}b\) resuelve las \emph{ecuaciones
+normales} \(A^TAx=A^Tb\).
+\end{resultado}
+
+\paragraph{Sin inversa.} \(B=\begin{pmatrix}1&1\\1&1\end{pmatrix}\): \(\det B=0\), núcleo
+\((1,-1)\), imagen la recta de \((1,1)\). \(Bx=(1,0)^T\) no tiene solución porque \((1,0)\)
+no está en la imagen. SVD: \(\sigma_1=2\), \(\sigma_2=0\), \(u_1=v_1=\tfrac1{\sqrt2}(1,1)\);
+entonces \(B^{+}=v_1\tfrac12u_1^T=\tfrac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\) y
+\(B^{+}(1,0)^T=(\tfrac14,\tfrac14)^T\): proyecta \((1,0)\) sobre la recta imagen (da
+\((\tfrac12,\tfrac12)\)), deshace el estiramiento por \(2\) y no pone nada en la dirección
+del núcleo. Otra que aplasta, la de la estación \texttt{09}:
+\(C=\begin{pmatrix}1&2\\2&4\end{pmatrix}\), rango \(1\), \(\sigma_1=5\),
+\(u_1=v_1=\tfrac1{\sqrt5}(1,2)\), \(C^{+}=v_1\tfrac15u_1^T=\tfrac1{25}C\). Chequeo con la
+propiedad que define a la pseudoinversa, \(CC^{+}C=C\): como \(C^2=5C\), \(C^3=25C\) y
+\(C\cdot\tfrac1{25}C\cdot C=C\). Lo que \(C\) aplastó, la dirección \((2,-1)\), no vuelve:
+\(C^{+}C=\tfrac15\begin{pmatrix}1&2\\2&4\end{pmatrix}\) es la proyección sobre \((1,2)\),
+no la identidad.
+
+\paragraph{Sistema sobredeterminado: una recta por tres puntos que no están alineados.}
+Puntos \((0,0)\), \((1,1)\), \((2,3)\), recta \(y=a+bx\). Las tres ecuaciones no se pueden
+cumplir a la vez:
+\[
+  \underbrace{\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix}}_{A}
+  \begin{pmatrix}a\\b\end{pmatrix}
+  =\underbrace{\begin{pmatrix}0\\1\\3\end{pmatrix}}_{y},\qquad
+  A^TA=\begin{pmatrix}3&3\\3&5\end{pmatrix},\quad A^Ty=\begin{pmatrix}4\\7\end{pmatrix}.
+\]
+De \(3a+3b=4\) y \(3a+5b=7\): \(b=\tfrac32\), \(a=-\tfrac16\). Residuo
+\(y-A\hat x=(\tfrac16,-\tfrac13,\tfrac16)\), perpendicular a las dos columnas de \(A\):
+\(\tfrac16-\tfrac13+\tfrac16=0\) y \(0-\tfrac13+\tfrac26=0\). Hecho geométrico: en
+\(\R^3\) el vector \(y\) no está en el plano generado por las dos columnas de \(A\);
+\(A\hat x\) es su proyección ortogonal sobre ese plano y el residuo vive en el espacio
+inaccesible. Es ``el punto de la entrada que corresponde en la salida a lo más cercano al
+término independiente'' (resumen 2025). Verificado con \texttt{np.linalg.lstsq} y
+\texttt{np.linalg.pinv(A) @ y}: \((-0{,}1667,\ 1{,}5)\). Situación de campo: una poligonal
+con más mediciones que incógnitas no cierra exactamente; compensarla es elegir las
+coordenadas cuya salida queda más cerca de lo medido, con el residuo repartido
+perpendicularmente a lo que el modelo puede explicar.
+
+\section{Guía resuelta de los cuatro problemas (Clase 11)}\label{sec:cuatro-problemas}
+
+\begin{atencion}[Anticipado]
+En el campus 2025 la clase 11 es sólo una lista de cuatro títulos: ``Regresión simple,
+Intersección de círculos, Procrustes, Regresión total''. La clase no se dictó en 2C2026
+(anunciada el 14/10 como ``usar la SVD para resolver problemas: regresión, ajuste de
+puntos''). Los enunciados son míos, escritos como problemas de campo; el desarrollo entre
+los títulos es lectura mía sobre el cierre de la clase 10 del resumen 2025 y bibliografía
+(Strang; Calvetti y Somersalo). Pendiente de validar.
+\end{atencion}
+
+Los cuatro son preguntas de medición que se contestan con la misma maquinaria: cuatro
+subespacios, pseudoinversa, SVD. Van de menos a más álgebra: los dos primeros se resuelven
+con ecuaciones normales; el segundo necesita antes un truco para volverse lineal; los dos
+últimos usan la SVD de una matriz chica armada con los datos, y en el cuarto la respuesta
+está en el \emph{menor} valor singular. Cada uno lleva enunciado, interpretación
+geométrica, planteo matricial y cuenta numérica verificada en NumPy.
+
+\subsection{Problema 1: regresión simple}
+
+\begin{enunciado}[Enunciado]
+A lo largo de una rasante se midieron cotas \(y_i\) en las progresivas \(x_i=-1,0,1\)
+(en decenas de metros): \(y=1,\ 1,\ 4\). La pendiente debería ser constante, pero los tres
+puntos no están alineados. Hallar la recta \(y=ax+b\) que mejor los representa y el
+residuo de cada medición.
+\end{enunciado}
+
+\textbf{Interpretación geométrica.} Tres puntos del plano no admiten una recta común.
+Pensado en \(\R^3\), el vector de cotas \(y=(1,1,4)\) no está en el plano generado por
+las dos columnas que puede combinar la recta (la columna de las \(x\) y la columna de
+unos); la mejor recta es la proyección ortogonal de \(y\) sobre ese plano, y el residuo
+es lo que queda en el espacio inaccesible (sección~\ref{sec:pseudoinversa}). Lo que se
+minimiza es la distancia \emph{vertical} en cada \(x_i\), no la perpendicular a la
+recta: eso es lo que separa este problema del cuarto.
+
+\textbf{Planteo matricial.} \(A\theta=y\), con \(A\) de \(n\times2\) y
+\(\theta=(a,b)\), no tiene solución; ecuaciones normales \(A^TA\theta=A^Ty\), es decir
+\(\theta=A^{+}y\).
+
+\textbf{Cuenta.}
+\[
+  A=\begin{pmatrix}-1&1\\0&1\\1&1\end{pmatrix},\quad
+  A^TA=\begin{pmatrix}2&0\\0&3\end{pmatrix},\quad A^Ty=\begin{pmatrix}3\\6\end{pmatrix}
+  \ \Rightarrow\ a=\tfrac32,\ b=2,\qquad y=\tfrac32x+2 .
+\]
+Residuos \(y-A\theta=(\tfrac12,-1,\tfrac12)\): suman cero y \(\sum x_ir_i=0\), es decir
+son ortogonales a las dos columnas de \(A\). Verificado con \texttt{np.linalg.lstsq};
+en planilla, \texttt{ESTIMACION.LINEAL}; en GeoGebra, \texttt{AjusteLineal}.
+
+\subsection{Problema 2: intersección de círculos (trilateración)}
+
+\begin{enunciado}[Enunciado]
+Desde un punto \(P\) de coordenadas desconocidas se midieron con distanciómetro las
+distancias a tres mojones conocidos: \(5\) a \(M_1=(0,0)\), \(5\) a \(M_2=(6,0)\) y \(3\)
+a \(M_3=(3,7)\). Hallar \(P\). Después, agregar un cuarto mojón \(M_4=(0,8)\) con distancia
+\(5\) y decir cómo cambia el planteo.
+\end{enunciado}
+
+\textbf{Interpretación geométrica.} Cada medición es una circunferencia centrada en el
+mojón; \(P\) está donde se cortan todas. Dos circunferencias se cortan en dos puntos; la
+tercera elige. Restar dos ecuaciones de circunferencia da la recta que pasa por sus dos
+puntos de corte (el eje radical): tres círculos, dos rectas, un punto.
+
+\textbf{Planteo matricial.} Cada ecuación \((x-a_i)^2+(y-b_i)^2=r_i^2\) es cuadrática,
+pero al restarle la primera se cancelan \(x^2+y^2\) y queda una recta:
+\[
+  2(a_i-a_1)\,x+2(b_i-b_1)\,y=r_1^2-r_i^2-a_1^2+a_i^2-b_1^2+b_i^2 ,\qquad i=2,\dots,m .
+\]
+Con \(m\) mojones salen \(m-1\) rectas: sistema lineal \(m-1\) por \(2\), determinado si
+\(m=3\), sobredeterminado si \(m\ge4\) (pseudoinversa).
+
+\textbf{Cuenta.} Primero menos segundo: \(12x=36\), \(x=3\). Primero menos tercero:
+\(6x+14y=74\), con \(x=3\) da \(y=4\). \(P=(3,4)\), que cumple las tres
+(\(9+16=25\), \(9+16=25\), \(0+9=9\)). Sin el tercer mojón quedaban \((3,\pm4)\). Con el
+cuarto mojón la tercera recta es \(16y=64\), el sistema es \(3\times2\) y
+\texttt{lstsq} devuelve el mismo \((3,4)\) con residuo cero porque las medidas son
+exactas; con mediciones reales las rectas no pasan por un único punto y el residuo mide
+la calidad de la trilateración. Es el esqueleto del posicionamiento por distancias.
+
+\subsection{Problema 3: Procrustes ortogonal (calzar dos relevamientos de mojones)}
+
+\begin{enunciado}[Enunciado]
+Cuatro mojones se relevaron dos veces. En el sistema viejo dieron
+\(p_i=(1,0),(0,1),(-1,0),(0,-1)\); en el sistema nuevo, los mismos mojones en el mismo
+orden, \(q_i=(0,1),(-1,0),(0,-1),(1,0)\). Hallar la rotación \(R\) y la escala \(s\) que
+mejor llevan el relevamiento viejo sobre el nuevo.
+\end{enunciado}
+
+\textbf{Interpretación geométrica.} Es la transformación de Helmert plana con puntos
+comunes: la misma figura rígida vista desde dos sistemas. Centrar las dos nubes saca la
+traslación gratis; queda encontrar el giro (y la escala) que mejor superpone una nube
+sobre la otra, con el criterio de mínima suma de distancias al cuadrado entre
+\(sRp_i\) y \(q_i\).
+
+\textbf{Planteo matricial.} Con las nubes centradas como filas de \(P\) y \(Q\),
+\[
+  H=\sum_i q_i\,p_i^T=Q^TP,\qquad H=U\Sigma V^T,\qquad \boxed{\ R=UV^T\ },\qquad
+  s=\frac{\operatorname{tr}\Sigma}{\sum_i\|p_i\|^2}.
+\]
+La SVD de \(H\) separa ``cuánto giro'' (\(U\), \(V\)) de ``cuánto estiro'' (\(\Sigma\));
+la rotación buscada es la que queda al tirar \(\Sigma\). Si \(\det(UV^T)=-1\) la mejor
+ortogonal es una reflexión; para forzar rotación se cambia el signo de la última columna
+de \(U\).
+
+\textbf{Cuenta.} Las nubes ya están centradas (suman cero).
+\(H=Q^TP=\begin{pmatrix}0&-2\\2&0\end{pmatrix}=2\,R(90^\circ)\): \(\Sigma=2I\) y
+\(UV^T=R(90^\circ)=\begin{pmatrix}0&-1\\1&0\end{pmatrix}\), escala
+\(s=4/4=1\). Chequeo: \(Rp_1=R(1,0)^T=(0,1)^T=q_1\). Verificado con
+\texttt{np.linalg.svd(H)}, y con una nube aleatoria girada \(37^\circ\) más ruido:
+\(UV^T\) devuelve \(R(37^\circ)\) con tres decimales.
+
+\begin{atencion}[Convención de \(H\)]
+Con \(H=P^TQ\) (al revés) sale \(R=VU^T\), la transpuesta. La cuenta es la misma; hay
+que fijar en qué orden se arma \(H\) antes de programarla.
+\end{atencion}
+
+\subsection{Problema 4: regresión total}
+
+\begin{enunciado}[Enunciado]
+Tres mojones posicionados con GNSS, \((0,0)\), \((1,1)\), \((2,3)\), deberían estar sobre
+un alineamiento. Las dos coordenadas tienen error. Hallar la recta que minimiza las
+distancias \emph{perpendiculares} y compararla con la regresión simple de \(y\) sobre
+\(x\) de la sección~\ref{sec:pseudoinversa} (\(y=-\tfrac16+\tfrac32x\)).
+\end{enunciado}
+
+\textbf{Interpretación geométrica.} No hay motivo para privilegiar la vertical. La nube
+tiene una elipse de dispersión; la recta total es su eje mayor; la dirección de menor
+varianza es la normal, la que ``no explica nada''. Es la circunferencia que se vuelve
+elipse de la sección~\ref{sec:svd}, leída al revés: datos \(\to\) elipse \(\to\) ejes.
+
+\textbf{Planteo matricial.} Centrar, armar la matriz de datos \(X\) de \(n\times2\) y
+descomponer \(X=U\Sigma V^T\). La dirección de la recta es \(v_1\) (mayor \(\sigma\)), su
+normal es \(v_2\) (menor \(\sigma\)) y \(\sigma_2^2\) es la suma de las distancias
+perpendiculares al cuadrado. Equivalente: diagonalizar \(X^TX\), que es una forma
+cuadrática, la misma cuenta que la hessiana de la sección~\ref{sec:curvatura}.
+
+\textbf{Cuenta.} Centro \((1,\tfrac43)\); filas centradas \((-1,-\tfrac43)\),
+\((0,-\tfrac13)\), \((1,\tfrac53)\):
+\[
+  X^TX=\begin{pmatrix}2&3\\3&\tfrac{14}3\end{pmatrix},\qquad
+  \lambda=\frac{20\pm\sqrt{388}}6\ \Rightarrow\ \sigma_1^2\approx6{,}616,\ \ \sigma_2^2\approx0{,}0504,
+\]
+\(v_1\approx(0{,}545,\ 0{,}838)\): recta por el centro con pendiente \(1{,}539\), contra
+\(1{,}5\) de la regresión simple; la suma de cuadrados perpendiculares es \(0{,}0504\).
+Un caso extremo para ver la diferencia: \((\pm1,0)\) y \((0,\pm2)\), ya centrados, dan
+\(X^TX=\operatorname{diag}(2,8)\); la regresión total elige la vertical \(x=0\) (residuo
+\(2\)) y la regresión simple de \(y\) sobre \(x\) da pendiente
+\(\sum x_iy_i/\sum x_i^2=0\), la horizontal \(y=0\) (residuo \(8\)). Mismos cuatro
+puntos, dos rectas perpendiculares: la pregunta cambia la respuesta. El DEM de
+\(512\times512\) de la sección~\ref{sec:svd} es este problema con \(512\) incógnitas.
+
+\begin{resultado}[Los cuatro con la misma maquinaria]
+\begin{itemize}
+  \item Problemas 1 y 2: \(A\theta=b\) sobredeterminado, \(\theta=A^{+}b\); el residuo
+  queda perpendicular a la imagen. El 2 se linealiza restando la primera ecuación.
+  \item Problema 3: SVD de \(H=Q^TP\), \(R=UV^T\); se conservan distancias y ángulos de
+  la nube, sólo giro y escala.
+  \item Problema 4: SVD de la nube centrada; la respuesta está en el menor valor singular.
+  \item Escalera: en \(\R\), ajustar \(n\) medidas \(y_i\approx c\) es promediar
+  (proyección sobre la columna de unos); en \(\R^2\) aparece la recta y la diferencia
+  vertical/perpendicular; en \(\R^n\) todo sigue igual.
+\end{itemize}
+\end{resultado}

@@ -42,6 +42,33 @@ Para cada definición o teorema conviene producir:
 \end{enumerate}
 \end{idea}
 
+\subsection{Desaprender el CBC: del álgebra de pizarrón al análisis geométrico del terreno}\label{sec:desaprender}
+
+Encuadre propio, de alumno a alumno. El álgebra y el análisis del CBC dejan reflejos que
+funcionan en el pizarrón y que esta materia pide cambiar, no porque estén mal sino porque
+acá los objetos tienen un significado en el terreno. Son cuatro cambios de chip; la
+Estación 0 del sitio de la materia (\texttt{00\_desaprender\_el\_cbc}, apéndice~\ref{ap:notebooks})
+los trabaja con figuras, y la subsección~\ref{sec:puntos-formas-grillas} los resume en una
+tabla.
+\begin{enumerate}
+  \item \textbf{Todo vector es un punto.} No una flecha abstracta: un mojón, o el
+  desplazamiento entre dos mojones. Una matriz no es una tabla de números sino una manera
+  de mover todos los mojones a la vez, o de cambiar la grilla con que se los mide.
+  \item \textbf{El gradiente y las formas lineales no son vectores.} Son reglas graduadas
+  tiradas sobre el plano (un mazo de rectas de nivel equiespaciadas) que miden vectores sin
+  necesitar producto interno, y por eso se transforman del lado contrario, con \(A^{-1}\).
+  El ``vector gradiente perpendicular a la curva de nivel'' existe recién cuando hay una
+  métrica que lo levanta.
+  \item \textbf{Las coordenadas son etiquetas; los metros los pone la métrica.} Latitud y
+  longitud no miden distancias; la primera forma fundamental es la regla que convierte un
+  paso en \((\varphi,\lambda)\) en metros sobre el terreno, y cambia de punto a punto.
+  \item \textbf{Derivar es álgebra lineal en el parche tangente, y curvarse es una forma
+  cuadrática.} La derivada de una parametrización es la jacobiana, una transformación
+  lineal entre el plano de los parámetros y el plano tangente; lo que la superficie hace
+  más allá de ese plano (cuánto se aparta en cada rumbo) lo dice una forma cuadrática, y
+  diagonalizarla da las direcciones principales.
+\end{enumerate}
+
 \subsection{Convención para componer}
 
 En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después \(F\)'':

@@ -23,57 +23,153 @@ clase 2C2025} de Dropbox.
   piensen qué hace''.
 \end{itemize}
 
-\subsection{Notebooks marimo de la ayudantía}
+\subsection{Estaciones interactivas (lecciones marimo)}
 
-En \texttt{Proyectos / Agrimensura / Sistemas de Coordenadas / ejercicios} de Dropbox; se
-abren con \texttt{marimo edit <archivo>} (entorno \texttt{uv}).
+Las 19 estaciones (00 a 14) son lecciones marimo escritas por mí como alumno, publicadas como
+páginas WASM (corren en el navegador, sin instalar nada) en el sitio de la materia:
 
-\begin{itemize}
-  \item \file{rotaciones_clase_I.py}: rotación en el plano como multiplicar por
-  \(e^{i\theta}\) (animada), deducción de la matriz de rotación, rotaciones 3D, no
-  conmutatividad y cómo tiende a cero para ángulos chicos, el monolito girando alrededor de
-  \(x\), \(y\), \(z\), rotación gradual \(R(\alpha)^n\) con su eje aproximado, logaritmo de
-  una rotación (eje y ángulo) con trayectoria \(\exp(tK)u\).
-  \item \file{proyectivas_clase_II.py}: teoría en cinco renglones, homografía exacta
-  (fracciones) a partir de cuatro correspondencias del pentágono regular, polinomio
-  característico y puntos fijos, recta que se va al infinito, imagen partida, y exploración
-  continua ``de la identidad a \(H\)''.
-  \item \file{cuna_autovectores_clase_III.py} (en construcción; todavía no está en la
-  carpeta): producto cuña como área orientada, determinante, núcleo y autovectores por
-  producto cruz de filas.
-\end{itemize}
+\begin{center}\url{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/}\end{center}
 
-\subsection{Serie de notebooks propuesta}
-
-Un notebook por bloque del hilo del profesor; cada uno muestra el hecho geométrico
-animado y verifica las cuentas del apunte.
+El fuente está en
+\file{unidades/} del repositorio; se abren localmente con \texttt{marimo edit}
+(entorno \texttt{uv}). Cada estación enlaza a la sección de este apunte que desarrolla su
+tema (destino \texttt{cap:NN} del PDF), y cada una cierra con ejercicios con hueco y
+verificación automática. La columna ``clase'' es la del esqueleto de 14 clases de la
+cursada 2025 (sección~\ref{sec:hilo}). La Estación 0 va antes de la clase 1: es el
+encuadre de la subsección~\ref{sec:desaprender} y de la brújula de la
+sección~\ref{sec:puntos-formas-grillas}, no una clase. Las estaciones 11 a 14 son
+\emph{anticipadas}: la clase no se dictó en 2C2026 y el contenido es lectura mía sobre el
+esqueleto 2025 y el apunte del elipsoide del profesor, pendiente de validar por la
+cátedra.
 
 {\small
-\begin{tabularx}{\textwidth}{>{\bfseries}p{6mm}Yp{54mm}}
+\begin{longtable}{>{\ttfamily\raggedright\arraybackslash}p{62mm}>{\raggedright\arraybackslash}p{70mm}>{\raggedright\arraybackslash}p{16mm}}
 \toprule
-\# & Tema & Estado\\
+\textrm{\textbf{Estación (id)}} & \textbf{Título} & \textbf{Clase}\\
 \midrule
-1 & Rotaciones: complejos, matriz, 3D, no conmutatividad, exponencial &
-Existe:\newline\file{rotaciones_clase_I.py}\\
-2 & Producto interno y ortogonalidad: proyección, matrices ortogonales, reflexiones vs.
-rotaciones & Propuesto\\
-3 & Reflexiones y similaridades: composición de reflexiones, centro de una similaridad &
-Propuesto\\
-4 & Afinidades y coordenadas homogéneas: planilla animada, punto fijo, círculos por
-rotación y traslación repetidas & Propuesto\\
-5 & Proyectivas: homografía por cuatro puntos, puntos fijos, recta al infinito &
-Existe:\newline\file{proyectivas_clase_II.py}\\
-6 & Formas lineales y dualidad: rectas de nivel, pila de formas, transformación del lado
-contrario & Propuesto\\
-7 & Cuña, determinante y núcleo: área orientada, colinealidad, autovectores por producto
-cruz & En construcción:\newline\file{cuna_autovectores_clase_III.py}\\
-8 & Autovectores y subespacios invariantes: direcciones que caen sobre sí mismas, potencias
-de una matriz & Propuesto\\
-9 & Cambio de base y SVD: la misma flecha en otra grilla, circunferencia que se vuelve
-elipse, inversa y pseudoinversa & Propuesto\\
-10 & Derivada y primera forma fundamental: gradiente como forma lineal, plano tangente,
-métrica de una superficie & Propuesto\\
+\endfirsthead
+\toprule
+\textrm{\textbf{Estación (id)}} & \textbf{Título} & \textbf{Clase}\\
+\midrule
+\endhead
 \bottomrule
-\end{tabularx}
+\endlastfoot
+00\_desaprender\_el\_cbc & Antes de empezar: cuatro cosas para desaprender del CBC & ---\\
+01a\_punto\_quieto & Rotaciones I: el punto no se movió & 01\\
+01b\_rotacion\_plano & Rotaciones II: la rotación en el plano & 01\\
+01c\_rotaciones\_3d & Rotaciones III: tres ejes y el orden importa & 01, 02\\
+02\_producto\_interno & Producto interno: proyección, longitud, ángulo & 01\\
+03\_reflexiones\_similaridades & Reflexiones y similaridades & 02, 03\\
+04\_afines\_homogeneas & Afinidades y coordenadas homogéneas & 03\\
+05\_proyectivas & Proyectivas & 03p\\
+06\_formas\_lineales & Formas lineales y dualidad & 04\\
+07a\_cuna\_determinante & Cuña y determinante: el detector de colinealidad & 05\\
+07b\_nucleo\_autovectores & Núcleo y autovectores: las direcciones que no giran & 05, 06\\
+07c\_autovalores\_3d\_\allowbreak puntos\_fijos & Autovalores en 3D y puntos fijos proyectivos & 06\\
+08\_cambio\_de\_base & Cambio de base y diagonalización & 08\\
+09\_cambio\_de\_base\_svd & Cambio de base, SVD e inversas (con el DEM real de la
+sección~\ref{sec:svd}) & 07, 10\\
+10\_jacobiano\_primera\_forma & Jacobiano y primera forma fundamental & 09\\
+11\_cuatro\_problemas & Cuatro problemas: regresión, círculos, Procrustes, regresión total
+(anticipada) & 11\\
+12\_curvatura & Curvatura como forma cuadrática (anticipada) & 12\\
+13\_elipsoide & Geometría del elipsoide (anticipada) & 13\\
+14\_trigonometria\_esferica & Trigonometría esférica (anticipada) & 14\\
+\end{longtable}
 }
 
+\paragraph{Módulo común \file{cb104.py}.} Vive en \file{unidades/}, junto a los
+notebooks, y todas las estaciones lo importan (\texttt{import cb104 as lib}). Sólo depende
+de NumPy (y de Plotly adentro de las funciones que dibujan). Reúne la paleta del apunte
+(teal, rust, gold), las rotaciones \texttt{rot2}, \texttt{rot\_x}, \texttt{rot\_y},
+\texttt{rot\_z} y \texttt{rodrigues}, coordenadas homogéneas (\texttt{hom}, \texttt{dehom}),
+área orientada de un polígono, potencias reales \texttt{pot\_real}, cambio de base
+(\texttt{coordenadas\_en\_base}, \texttt{diagonalizar}), eje y ángulo de una rotación,
+helpers de \LaTeX{} para mostrar matrices coloreadas, las capas de Plotly ``antes/después''
+de la grilla, el cubo unitario y los terrenos sintéticos en 3D, y la verificación de los
+ejercicios con hueco (\texttt{verificar}, \texttt{exacto}). Para el export WASM el módulo
+no existe en el navegador: \file{tools/build.py} reemplaza la celda marcada
+\texttt{\# cb104:inline} por una que embebe el archivo. Se prueba con
+\texttt{uv run python unidades/cb104.py}.
+
+\subsection{Archivos del profesor recibidos por el chat de la cursada 2C2026}
+
+Copias fieles en \file{fuentes/campus/profesor/} del repositorio (recibidos el 17 de
+octubre de 2026 por el grupo de Google Chat, junto con los dos PDF que este apunte
+reproduce al final).
+
+\begin{itemize}
+  \item \file{2026-09-16\_pizarron\_pentagono.jpg}: foto del pizarrón del 16 de septiembre
+  con la consigna del pentágono: dos dibujos del pentágono \(ABCDE\) y las cuatro preguntas
+  (qué proyectivas llevan cuatro vértices a otros cuatro, cómo se calculan, dónde cae el
+  vértice restante, si hay punto fijo). Es la consigna del apéndice~\ref{ap:pentagono}.
+  \item \file{Proyectivas\_del\_pentagono.xlsx}: planilla del profesor (una hoja,
+  \texttt{B2:U59}). Pentágono regular centrado en el origen con \(D=(0,1)\) y los demás
+  vértices por rotaciones de \(72^\circ\); arma el sistema \(13\times13\) de la proyectiva
+  \(3\times3\) (nueve coeficientes más un factor \(\lambda\) por punto, con el último
+  coeficiente fijado en \(1\)) que deja fijos \(A\) y \(B\) e intercambia \(C\) con \(E\),
+  lo resuelve con la matriz inversa y verifica dónde cae cada vértice al dividir por la
+  tercera coordenada. Es la planilla que el 30 de septiembre el profesor dijo haber hecho
+  la clase anterior. La lectura de la planilla es mía a partir de sus fórmulas.
+  \item \file{LaSVD.wxmx}: cuaderno de wxMaxima con la SVD analítica de
+  \(A=\begin{pmatrix}1&2&4\\-3&-2&3\end{pmatrix}\): \(AA^T\) y \(A^TA\), polinomio
+  característico, autovectores, ortogonalidad de a pares, \(U\) y \(V^T\) normalizados,
+  \(\Sigma\) con las raíces de los autovalores y la verificación \(U\Sigma V^T=A\). Es ``la
+  SVD con Maxima, analíticamente'' que el profesor mencionó el 14 de octubre; rehecha en
+  la sección~\ref{sec:svd}. Se abre con wxMaxima (es un zip con \texttt{content.xml}).
+\end{itemize}
+
+\subsection{Índice general de problemas y guías resueltas}
+
+Dónde está resuelto cada tipo de problema: en este apunte, en las entregas al campus
+(\file{entregas/}, alumno Gustavo Varela, padrón 56798) y en los ejercicios con hueco de
+las estaciones.
+
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{46mm}>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{22mm}}
+\toprule
+\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Estaciones}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Estaciones}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Desaprender el CBC: los cuatro cambios de chip &
+\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & --- & 00\\
+Rotaciones 2D y 3D, eje y ángulo, exponencial &
+\S\ref{cap:07}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & --- & 01a, 01b, 01c\\
+Guía de reflexiones, traslaciones, rotaciones, homotecias y similaridades (teoremas 1 a 6) &
+enunciados en \S\ref{cap:08}, guía resuelta completa en \S\ref{cap:09} & --- & 02, 03\\
+Afinidades: los seis ejercicios de la clase del 9/9 &
+resolución en ap.~\ref{cap:17}; composición en ap.~\ref{ap:composicion-afin} &
+\file{Afinidades\_Ejercicios\_Varela\_56798.pdf} (fuente y verificación NumPy en
+\file{afinidades/}); extra no pedido: \file{Afinidades\_Triangulo\_Varela\_56798.pdf},
+llevar un triángulo sobre otro con afinidades axiales & 04\\
+Proyectivas del pentágono (consigna del 16/9, aclaración del 18/9) &
+cuentas y script en ap.~\ref{ap:pentagono}; teoría en \S\ref{cap:12} &
+\file{Pentagono\_Proyectivas\_Varela\_56798.pdf} (20 páginas: pentágono regular, tres
+casos y composiciones, más el mismo problema sobre un pentágono irregular con enteros y
+la parte conceptual; fuente, notebook marimo y verificación en \file{pentagono/}) &
+05, 07c\\
+Productos, determinante, núcleo, autovectores por producto cruz &
+ejemplos resueltos en \S\ref{cap:11} (reflexión, rotación compuesta) & --- & 07a, 07b, 07c\\
+Formas lineales, cambio de base, diagonalización &
+\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio del
+30/9, \(A^5\), \(A^t\)) & --- & 06, 08\\
+SVD, inversas, pseudoinversa &
+\S\ref{sec:svd} (dos SVD a mano, DEM), \S\ref{sec:pseudoinversa} (recta por tres puntos)
+& --- & 09\\
+Los cuatro problemas: regresión, círculos, Procrustes, regresión total &
+guía resuelta en \S\ref{sec:cuatro-problemas} & --- & 11\\
+Jacobiano, primera forma, curvatura &
+\S\ref{sec:metrica}, \S\ref{sec:curvatura} (silla, esfera) & --- & 10, 12\\
+Elipsoide, arco de meridiano, proyecciones &
+\S\ref{sec:elipsoide} (GRS80 en \(45^\circ\) y \(-34{,}6^\circ\)),
+\S\ref{sec:arco-meridiano} (serie y cinco proyecciones) & --- & 13\\
+Trigonometría esférica, exceso &
+\S\ref{sec:trigonometria-esferica} (octante, tres ciudades) & --- & 14\\
+\end{longtable}
+}
