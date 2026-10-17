@@ -60,6 +60,14 @@ __all__ = [
     "forma_transformada", "recta_por_dos_puntos", "cortes_caja", "rectas_de_nivel",
     # SVD, inversa y pseudoinversa (lección 09)
     "svd2", "pseudoinversa", "cuatro_subespacios", "truncar_svd", "elipse_imagen", "capa_direcciones_singulares",
+    # DEM Precordillera (lección 09)
+    "dem_precordillera", "rms_rango_k",
+    # proyectivas (lección 05)
+    "pentagono_profesor", "aplicar_proyectiva", "recta_al_infinito", "sistema_lambda", "homografia_lambda",
+    "homografia_4puntos", "razon_doble", "curva_proyectiva", "grilla_proyectiva", "estelas_proyectivas",
+    "capa_despues_proyectiva",
+    # SVM de margen duro (lección 06, aporte CEIA)
+    "svm_margen_duro_2d",
 ]
 
 # ----------------------------------------------------------------------------
@@ -1511,6 +1519,524 @@ def capa_direcciones_singulares(fig, A, antes=True, despues=True, nombre="A"):
     return U, s, Vt
 
 
+# ----------------------------------------------------------------------------
+# --- Proyectivas (lección 05) ---
+# homografías p' ~ H p: cuatro puntos la fijan; la fila 3 es la recta que se va al infinito
+# ----------------------------------------------------------------------------
+
+
+def pentagono_profesor():
+    """Los vértices A..E (5×2) del pentágono regular de la planilla del profesor (23/9): D = (0, 1) y los demás por
+    giros de 72° alrededor del origen, C = R(72°) D, B = R(144°) D, A = R(216°) D, E = R(288°) D. Recorrido
+    A → B → C → D → E horario; el centro (0, 0) es el punto fijo (0, 0, 1) de cualquier giro."""
+    giros = dict(A=216, B=144, C=72, D=0, E=288)
+    return np.array([rot2(np.deg2rad(giros[k])) @ [0.0, 1.0] for k in "ABCDE"])
+
+
+def aplicar_proyectiva(nube, H):
+    """Nube N×2 bajo la homografía H (3×3): hom(nube) @ H.T y división por la tercera coordenada W, fila a fila.
+    Una fila sobre la recta que se va al infinito (W = 0) da inf/nan (ver `dehom`)."""
+    return dehom(hom(nube) @ np.asarray(H, dtype=float).T)
+
+
+def recta_al_infinito(H):
+    """La recta que H manda al infinito: su tercera fila (a, b, c), o sea los puntos con W = a x + b y + c = 0.
+    Si a = b = 0 ninguna recta propia se va: H es afín y la recta del infinito queda fija."""
+    return np.asarray(H, dtype=float)[2].copy()
+
+
+def sistema_lambda(origen, destino):
+    """El sistema 13×13 del profesor para la homografía que lleva cuatro puntos (4×2) a otros cuatro (4×2):
+    incógnitas (h11, h12, h13, h21, …, h33, λ1, λ2, λ3, λ4); por cada punto las tres ecuaciones H pᵢ − λᵢ qᵢ = 0
+    (pᵢ, qᵢ en homogéneas con w = 1) y la decimotercera h33 = 1. Devuelve (M, b) con M x = b."""
+    P, Q = hom(origen), hom(destino)
+    M, b = np.zeros((13, 13)), np.zeros(13)
+    for i in range(4):
+        for k in range(3):
+            M[3 * i + k, 3 * k:3 * k + 3] = P[i]
+            M[3 * i + k, 9 + i] = -Q[i, k]
+    M[12, 8], b[12] = 1.0, 1.0
+    return M, b
+
+
+def homografia_lambda(origen, destino):
+    """(H, λ) resolviendo `sistema_lambda` con np.linalg.solve: H pᵢ = λᵢ qᵢ exactamente, con h33 = 1.
+    λᵢ es la W de cada punto: si cambia de signo entre dos vértices, el lado que los une cruza la recta que se va
+    al infinito y la imagen se parte."""
+    M, b = sistema_lambda(origen, destino)
+    x = np.linalg.solve(M, b)
+    return x[:9].reshape(3, 3), x[9:]
+
+
+def homografia_4puntos(origen, destino):
+    """H (3×3) que lleva N ≥ 4 puntos (N×2, sin tres alineados) a otros N, por la forma estándar (DLT): cada par
+    da dos ecuaciones homogéneas en los nueve hᵢⱼ, u W = h₁·p y v W = h₂·p con W = h₃·p, matriz 2N×9, y H es el
+    vector del núcleo (último vector singular derecho; con N > 4, el de mínimos cuadrados). Se normaliza con
+    h33 = 1, o con módulo máximo 1 si h33 = 0."""
+    P, Q = hom(origen), np.asarray(destino, dtype=float)
+    filas = []
+    for p, (u, v) in zip(P, Q):
+        filas.append(np.concatenate([p, [0.0, 0.0, 0.0], -u * p]))
+        filas.append(np.concatenate([[0.0, 0.0, 0.0], p, -v * p]))
+    H = np.linalg.svd(np.array(filas))[2][-1].reshape(3, 3)
+    escala = H[2, 2] if abs(H[2, 2]) > 1e-9 * np.abs(H).max() else np.abs(H).max()
+    return H / escala
+
+
+def razon_doble(a, b, c, d):
+    """Razón doble (a, b; c, d) = (c − a)(d − b) / ((c − b)(d − a)) de cuatro números de la recta o de cuatro
+    puntos 2D alineados (se leen por su coordenada a lo largo de la recta ab). Es lo único métrico que una
+    homografía conserva; vale −1 en una cuaterna armónica (centro y eje de una homología armónica respecto de
+    dos puntos intercambiados)."""
+    a, b, c, d = (np.asarray(x, dtype=float) for x in (a, b, c, d))
+    if a.ndim:
+        u = (b - a) / float((b - a) @ (b - a))
+        a, b, c, d = [float((x - a) @ u) for x in (a, b, c, d)]
+    return float((c - a) * (d - b) / ((c - b) * (d - a)))
+
+
+def _trazo_proyectivo(segmentos, H, n=40, limite=None):
+    """Imagen por H de segmentos (m, 2, 2) muestreados con n puntos, como (xs, ys) con cortes (None) donde W
+    cambia de signo (el segmento cruza la recta que se va al infinito) o la imagen se sale de |coord| > limite."""
+    H = np.asarray(H, dtype=float)
+    xs, ys = [], []
+    for p, q in np.asarray(segmentos, dtype=float):
+        t = np.linspace(0, 1, n)[:, None]
+        w_prev = None
+        for x, y, w in hom(p + t * (q - p)) @ H.T:
+            ok = abs(w) > 1e-9 and (limite is None or max(abs(x / w), abs(y / w)) <= limite)
+            if not ok or (w_prev is not None and w * w_prev < 0):
+                xs.append(None)
+                ys.append(None)
+            if ok:
+                xs.append(x / w)
+                ys.append(y / w)
+            w_prev = w if ok else None
+        xs.append(None)
+        ys.append(None)
+    return xs, ys
+
+
+def curva_proyectiva(puntos, H, cerrada=True, n=40, limite=None):
+    """La imagen por H de la poligonal N×2 (cerrada por default), como (xs, ys) con cortes donde cruza la recta
+    que se va al infinito: así se dibuja un objeto cuya imagen se parte. `limite` recorta lo que se va lejos."""
+    P = np.asarray(puntos, dtype=float)
+    if cerrada:
+        P = np.vstack([P, P[:1]])
+    return _trazo_proyectivo(np.stack([P[:-1], P[1:]], axis=1), H, n, limite)
+
+
+def grilla_proyectiva(H, rango=5, paso=1, n=40, limite=None):
+    """Las líneas x = k, y = k (|k| ≤ semilado) transformadas por la homografía H, como un solo trazo con cortes
+    (`_trazo_proyectivo`). Siguen siendo rectas, pero dejan de ser paralelas: convergen al punto de fuga de su
+    dirección. `limite` por default es tres veces el rango."""
+    a, b = _rango2(rango)
+    if limite is None:
+        limite = 3.0 * max(abs(a), abs(b))
+    ks = np.arange(np.ceil(a / paso) * paso, b + paso / 2, paso)
+    segs = [[[k, a], [k, b]] for k in ks] + [[[a, k], [b, k]] for k in ks]
+    return _trazo_proyectivo(segs, H, n, limite)
+
+
+def estelas_proyectivas(puntos, camino, limite=None):
+    """Trayectoria de cada punto (N×2) a lo largo de un camino de homografías, como (xs, ys) con cortes donde el
+    punto pasa por el infinito (W cambia de signo) o se sale de |coord| > limite."""
+    xs, ys = [], []
+    for p in np.asarray(puntos, dtype=float):
+        w_prev = None
+        for H in camino:
+            x, y, w = np.asarray(H, dtype=float) @ hom(p)
+            ok = abs(w) > 1e-9 and (limite is None or max(abs(x / w), abs(y / w)) <= limite)
+            if not ok or (w_prev is not None and w * w_prev < 0):
+                xs.append(None)
+                ys.append(None)
+            if ok:
+                xs.append(x / w)
+                ys.append(y / w)
+            w_prev = w if ok else None
+        xs.append(None)
+        ys.append(None)
+    return xs, ys
+
+
+def capa_despues_proyectiva(fig, H, rango=5, paso=1, cuadrado=True, columnas=True):
+    """Capa teal de la homografía H: la grilla transformada (`grilla_proyectiva`), el cuadrado unitario
+    transformado y las columnas de H leídas como puntos: columna 1 (teal) y 2 (rust) son las imágenes de los
+    puntos impropios de los ejes, o sea los **puntos de fuga** de las rectas y = cte y x = cte (marcador ×; si
+    h3k = 0 siguen impropios y se dibuja la dirección como flecha desde la imagen del origen); columna 3 (gold)
+    es la imagen del origen. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    H = np.asarray(H, dtype=float)
+    a, b = _rango2(rango)
+    limite = 3.0 * max(abs(a), abs(b))
+    gx, gy = grilla_proyectiva(H, rango, paso, limite=limite)
+    fig.add_trace(go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=TEAL_DESPUES, width=1), opacity=0.45,
+                             name="grilla después", hoverinfo="skip"))
+    if cuadrado:
+        cx, cy = curva_proyectiva(_cuadrado_unitario(), H, limite=limite)
+        fig.add_trace(go.Scatter(x=cx, y=cy, mode="lines", line=dict(color=TEAL_DESPUES, width=2),
+                                 name="cuadrado unitario después"))
+    if columnas:
+        o = dehom(H[:, 2])
+        nombres = ("punto de fuga de las rectas y = cte (columna 1)", "punto de fuga de las rectas x = cte (columna 2)")
+        for k in range(2):
+            c, col = color_columna(k), H[:, k]
+            if abs(col[2]) > 1e-9 * max(1.0, np.abs(H).max()):
+                f = col[:2] / col[2]
+                fig.add_trace(go.Scatter(x=[f[0]], y=[f[1]], mode="markers", marker=dict(size=12, color=c, symbol="x"),
+                                         name=nombres[k]))
+            elif o is not None:
+                d = col[:2] / np.linalg.norm(col[:2])
+                flecha(fig, o, o + d, c, f"columna {k + 1}: sigue impropia (dirección)", ancho=3)
+        if o is not None:
+            fig.add_trace(go.Scatter(x=[o[0]], y=[o[1]], mode="markers", marker=dict(size=10, color=color_columna(2)),
+                                     name="imagen del origen (columna 3)"))
+    return fig
+
+
+# ----------------------------------------------------------------------------
+# --- DEM Precordillera (lección 09) ---
+# ----------------------------------------------------------------------------
+
+_DEM_NPY = "datos/dem_copernicus/dem_precordillera_512.npy"
+
+# Submuestra del DEM embebida como texto. La escribe datos/dem_copernicus/embed_dem.py; no editar a mano.
+# dem-blob:begin  (128×128 = dem_precordillera_512.npy[::4, ::4], int16 al metro, delta por filas, zlib, base85: 21200 caracteres)
+_DEM_N = 128
+_DEM_B85 = (
+    "c-nP+X^dpob>8W9x~gY-_Kic%a1n=#L`o(tilQZ1k}cVi6*#dSDKe74iD4kH6aNViBmtZNwh_QcfJDfT0FjNvix$d~D6YeGI"
+    "17hE&c5`lJ-zQ;)m?kNwd&?O-#zuZdc>g6UE8bo?m74D+nXQSD;L}u*K!s2unfyFchp^TtFGwEF2N&mb$qv3?vr^uFS!+0#b"
+    "-T|xMkPC_bJ{_x(T;kdL+U*mR*2fB(CW~*LGLk{gRUcei`CdH9Xev{W6ZI;@2@g8<3WBu3tjF^S?{^ZG_*qaCC^z0=(*#B93"
+    "g}ySB?=r71oYTr<GK;V8X+8|T|DLo$NLR{Z5<hit;yKQDXaF?mY<iF{HX5$ERJb$8w!$NCQBdgY`mxoNiv5X`%m-7UOZ#v|d"
+    "Hdt}!2;hQ}&2b=`>q=n}NJeRPdK78B6k$2oy9Mg2;Zdk@$0jq2S(lW5}s3-;-gli5k&Jdm$zs^Y;&mn&w@fRWRlkk%!zO4hg"
+    "GQR1RHJl;Bu?da}`AG5Uc3>{Xkq-YG_^)e?0mTrY&g0uXvJcR22mFu7m*jC=?aT7p^2<189Pr;GKXvEaG53w!7P$gUY{K_d_"
+    "qscUGgh&m<6Kh%JF|qV_u)JWeTlHefUV(n<992#uI}zK;4k9a5U&fsPX%k=FS?IgrG#@daE^Jbxkjw$FG_9*m<e%&(n3N=^n"
+    "b7Pil>Btd*1+5b-s5vG6rQTtQEZK0miq8;;Ik-bzf58aFgs3{o5{^@qe4_l)dtc@(KAk{`Se&<!PM#y1M{Om)$7N^+&lT_C)"
+    "cVVpo6QcFAd%m!s|jd{)DirtpmbmlZ&@jP>a1E8HQ4Wmu+gP2Jlf9<dvdWxQ*X4<3+yTuU*b-&WlqFgb;_*1$!2y((z61{ix"
+    "KF&YqHOfgvHyVU7BhwoCXGr-wvfLVXh#4$CTxd)WoD+8k6D0Q^)ZWuV(hW+1+HTU6fk9<}hmfiA<JS3l!XMu%9cNy#13|e0S"
+    "CcdAG@NNzJQNmd+;!5-G755Hkqk>hg;Im<zQ|WaI?<$17f=}!C%VDo{hpvMD`(+RhrNmWyHzG;{d!@;BE3Q^~{s^yc;@TyCx"
+    "`Oq#$z=)YJ0=$^zUrj$fSjUONccXrW6JnODJsC{J))oYOG5dP1LP_jhKYgQatO44FSy{7@<ll)zayUpZCnE+2l4+3@V)4+<w"
+    "hW%*09<Y!10&vB~bo#@_(-^Kq@rdew=F>GH#i&r$)R8crpYB+`%VzKoMKOsX4%}JW>VpEmE#R7ILl1FN-*D1=miodjq0$u2L"
+    "-_mnozXrQslOlj8W8yDm6WM4Cvr{~_@f5UUM-6XQFTla3rPB)TW}W5pwYbQ}Kf1qD1P9|Qcq0ooswF97m;Wx~A&>d(nVcOv&"
+    "SV5$t5rriH>e}$dDgR|bo|84ko1}oYEN?CL&gOqnGxNcrn$Qx}?NsUxk!m4&i75~ei^JQSNjw4IJMNT|zM>t~>R4@ejq}WyX"
+    "BL3egDdl4mXIjIt$`57IipqepK^A}xMFR4gqs)tOjWT6|a=s&udH~@L(ESLgeH%2uZtVW&z`Gv@7QO&nehwO7x10f;-^AJ%A"
+    "m=2%S$+YMV%B}n{k?nFoy9qqfSn7#hwj(?kmo9)RJP6IS$A`@6nRt?(qbN;PvccDxcwsGzky?hu!<6-{~0$+jaTFT#h{orKB"
+    ";jh2c=0qN~r@QQb24p6Ora4oNXAgvqkJEwGUu_Ys5%G4hZ=_!4aMcloLj9?Ry~qVo>f7^v_|?@w4(vz{Z1+1^)q`p9b`&vCh"
+    "+gZ(IHW;OJHC^qLz3#8Y_nj(ZWB;TFy-*jtq?y6;7B$TI#<<I^5!!x|{$K|J3E$E<>y+W7q@P~8CN;6A`PiDM`D+c8i<kF*H"
+    "&EO$`#_6qft!q`LjQ^QeYbRFQDTSX~E<$plETctG6V?~tbQ~Y*`6yT-5VqqI7b{OB@2TUBmZXX2Q{4@EQJSVH}3Hc`Ie-`%6"
+    "5!yW1k^D1Q+pF%c0YMe;jbS}kK?l<~(+uF6#5((c!8v?eARhW4HD)P;+n@-CUo2r4)ar;J2OK5f3O=iWP6X6b!HQRLWa{RPU"
+    "zc!>GH9fL&xb|jZ_6N$vBQz!K)HWdyltcMuS8n$xQHkL6pupw3Mo~T3sT^0r#yiD9}zufKQQoh`4w>g??5Au;jAAA_cz_Efb"
+    "o66@y+}pz;nd?*!_+B8TPA0NGGtyWn5*Bx?z>v-{OuaMm7Pvb^Nvno*$>|S;CG7l$Hfoqg{3j^t}bNFbSGELk=1QT@(R%gPJ"
+    "m;Bx_^seWbC7wxq(<ClR?}klMxT!Gu<2Oj)DcRH9~R@;og{120Qb>cD$J^P90}57GwsjC@PJ3Jd6~;Myag)%&robKsNLpyTh"
+    "j|Crw;KY+!1-Ms;te+$&y#Qv)WSR?Fp$Ufz`0m!@pzO7+h1Hj-4Xki5U<TTD0U|m&OdA;EJh%}SKN{1jFj^o@BE#+0(Gv2~e"
+    "sFepc0rz#YayNmu)#CO?<fLl+5EGwD1*&`NgwfIZ@LZxtv`Ims(ZF_CJIb|tp$Q(6--q@43Hhg3>v8v8NWO!hgGC&-1c<M?K"
+    "gd4~x%DIW9Y{X?%?eh0)LjDYcVxa&ltQbTt{3~cipKzL&#l1on~)<Fd>3-xbvNd4)E4ZVa?ce|lG<xUT&+dj7|@a%5QVnv)+"
+    "ps_ZjUs$gSrB>=2XT9#9K<c*wcEQXYhJs4O*x|y;0*Q3b*HjHg;n(Am0Yg-vit4cL4ua<sU&J{S=bzd)URViPBRM@IUYVRsK"
+    "1751)P)->M&QA0Rw~$0DFmEvIt50Bx{{<LB^wg?ep`9?f3LzYFAx7OjJrntTM7@p-&g{$8flSa+)Jb#*nso<IXf)LjYAw3#%"
+    "W(B}zh50>d)HO>C1a?ksr8@Gx|3$?&2_^b(vsS%?c+36@96%%`))9!&DsJq{V<@Z_a|F>}L^X>$8`i6TBGT|mx`37Xbzt5|`"
+    "an$`!aQ_MH*&Oz)04gYf&WFK6F(~m2c77i4tF=Doln<J;@)|ft56;vpb*{XH-7Z50&f*+PI75JQEYd^Rif7f%C35_BsnNSzr"
+    "Y84rwz2P3)2|`@z?jc!-L8=u3Y3a!@hcV@lr;e<J|XqB%wtpuyA?a12NgaJzW>*-{(b?{zlvRc1@K>U&&W4KS9l$=`(Nab0F"
+    "PVbCCG+p?AkcieFl=@1}&L2TI%ZiQ~~ih(tvt@6-whiS*9J|q-?60Wv0?#l=5F!+2W1|w9g%RJtVX-{l_X{SC6_6*YX}fFKy"
+    "YBHlx~^F)d-mo>JHf_gH=18g2MCai|iaK`)|BJoLiyJph0AG0^`n%kRMoRJwi{cFkWv_kR`oVF~)Zi2Z*cKL=<(E0;jW)AU="
+    "W+~0yv#`&&JdKXw!s;zsm*Q5BRO!-`OpAz*LE0k_E<K#N=p>kl2mU@*|gx}E$Eg#ibYDcTb+W_1xLa4at6@T6uHEz*lyy}r9"
+    "(qRPp9F!WZp*lH2=}B=pDEhuet*lpb?f~}ucjXDl>feVAblM%pS$gC<z`^%{!+S)d3DelkAoo6~dk8#t3Hx59+*K>Ei1Vmqn"
+    "*~P7+}o7+oxo>m(d~dWaS%t00UtfU&lG++P3}-HH#F~6SK2QD;cl25pD|lsaWVugP@^AMClx49sh*r57gQ<fT0FiAs&7&j?g"
+    "M=kNc|OFBOylnBxSrHrd8E~_xWW&e^|aPzXcifAz<8#_eUY~UdLK4;40IE?4kV2`0g#>Lam}HoN=>U$MpxG+56=xjvdFfE4E"
+    "`za@qi7=@!5og3m{x6Ezl6=H4&SPFCqvGaJV9LqLzFVLp+!ULwO%0{-(>Or1WW_w1UKYsyz@Kj~htk?K?u=5cM+g#s$^aiU)"
+    "Cf6U*sDPwj)-#rIw?_02j)V{feRX+;v;4N4_Q{2TGp<2$(;3{{Z^={yNY8OvJ)~SxG((X~X3*5;v@Kxd3bmar|cP~OF^ueNB"
+    "!U~oMkNQGBR-?PHO8Yl8n=K|jLh7=FK83gSRp+&FTpMQ}pl>mV?-%gB`aJXaw8%J*YMnY|p6XtW9|-ogX?BA0zEIMrFLV!Je"
+    ";Ts?i=v+Q67+t-Jp@dAh`nE<P73M6KbCKSX5RtycOV(>Kmv||7N+o6q`$XD8jZ2b)5M9=<QgUN04&}rWJey7<r;1EY1(GPqT"
+    "ashq-DZZH!H<Q_!JN7BdnNos2B~j$%884RIiu$Nu3_C+73->*bz~xceG2w%<A`^WMtk`O#RnGd;d9DKPtmt#IH3LwH;VJf?q"
+    "G;+*=u`X}CYh56B0A`Lw$XeQ*O@@B#L86j++YRa7e}t=$3qDv=lX>oPGHW2Gg^s#A<eY=c#pFwW5;6<0|QYLg8zN|oZ9KJ3o"
+    "`Ww-J|nI27G-v6Mq$-52e@f5P8UzD@Pc$VFw@^_6sXh?X{%!eMJ=iM~kQagG`{w4g~LDAURWvqP$d#|)O&DASiZpPWvx_T#n"
+    "4R+5dSc2m?D#lL!5L)sAt~!f%i@5Gp(9#kkf;GnNmTBiJ@2KUjSlKD+0nY$?P2*{=(|d9K0dQ+bnhA-Ww#9vQy{buT)c8%>P"
+    "EiIy!q<)(Ky}10BZqa9iZT7($mo8Mc0<hT)yxtX(EgLKe+DUUui&@6fWO8a_purE&D0|Oc77F-|2^>k1aP|>G<edz2Kes){#"
+    ")RTJggbjE|XaKpiI&ZQhX~dsJsgp`BI60i(I94K$WrYVO(G3;4-<lN$pr*%s^=Q4$_ueqh##ROD6)bPS1*myl8BrNSad(Qs!"
+    "?GVxXUrq(%-?3!z3j(<sV)uuczPXQuJKN7`ILXpeyYvz~P@e-)H=6B_Rn&YA<a)$#f?{rsDZi`7Z(C0@Oknph>e#>-Zz_2(("
+    "K^_&{Z@s?p5uM3m{p0?}2j>b}RvK1V#2-pi;XFyI5Etb{M42i9@Md{(=Kyela3rv>AwDk2iMaxJuDHrESxyp4rD7l)nhy0N-"
+    "uNLqMUQhficN1$X<ES@4`z6LBmT4QUWcGfA)Lyr!V}q+50A(*xH!CHyade%&i0(&;dZ5nesqV=dUX3t@dKowo`55+4C=;r{h"
+    "4*1%@=ih+>lXd-GO+2qe-P7#Dmx!jZIO;Oa+brHHSXAUx}$1Uui~uw{V?OhJ};113^B22Tx@>zw{x?Ea{<3uA=CwW{Hv7y3V"
+    "%Y2XN6LDkUX<Q+cf2hmmyW>AkhmrZW!`ug1;NYF3&*<HHc%Cw?)ePIwL?8SSJy)Dgiy}z^F1Y`5j~tpiV3(;&~!^qmjixV@8"
+    ">k0}4*9sD9Ih5%C{nF(Jp?hQ_8t>c-He<|*s@Kgrc0>%3%luz;>YUd&T(t93L<X*@=}N0$3)l3ts%Jy)3%X_5YvFLliee5Y1"
+    "uKxx&Wv@FwxSix^<fLZrxL{z&Jjc%H>{sUSFj%N%kE7Gu6HLf_YIPbFM2?AQ*0rjM2MfOR7k~w7bHMOXiN)XMlwTV5COUL~`"
+    "kqe>sQpW#JL;K$bOvh;b7r17Pe?+i$m+;)C#tQK&HlH_S96{HhS1XeGVnz*GTzSac;ceQ+1+3B0Qrsh6CKlb}QefP-U)toU2"
+    "4#vyR=vdPXp@-qu`V6dgZ37jdIHPTxSgY7MhCYryHsb~C?v-EMUUtgpHJvKw&ykOKjrp|`avJ!T*n~)-oz(0{#L1Zzi1Xr?Y"
+    "jkhu2)<o^i|5?ig9}dcqy6wYEcGzkH1W>U%68`eu}Y^BA!R-Z74nNXOz#!n7nPJ61!>Eo~M6}jXOqt^Wv{Q2>UCglya2LA#u"
+    "~oyr^os7Az9Y<NC;8i@BDL1W2hzR7%IWVXS8!vi^NYz>DPlNxZu4dYQetiF0ql`ZOY-_RTVLMV*}~GaH)_Cq?s1JDyL8T2G`"
+    "+nNnsXLm_!cbT>3-{2`-QRi`;x^?KJB1*s5oDjyQ+l!W}yB92$-C8&+LM7nR2AJ?dFn}q5R<o}w{`ZV=rLhHK3V;onTW;lu6"
+    "4|9h_b3N~2HD~d-2{`VNla$mNy-=M$N6DtrWs%-(Y@Se+T6@j7wMn?^MxlL-<F3+*kGZ-!b-sGDL(qavSRJZgCzx3pl6z_46"
+    "!5A|-=tw#-2@sfG~E+2|E;=vfN^H^*4vcp1zyq7_w5HRTa;d#>33Jit=?j7@u4{B;NcH*c~~O{<b8O(=YcWR0VPWNGI_O0-?"
+    "czpRW)0{`|cHBZH^J~rb(`leyYf3xntI7iM&>&j0_p|+XQ=Xh`xA@*7hVN&JA2q;TpmjHEXHztm%AoOXDOJ%SHED&bZ{ZF!P"
+    "u=A3ae2cPsUYz&2Z=7p*Jw^#UpQOeM!uhJn<1>QCLj%UuW5Tj0N+<Vq7@p~$FRk?>btng472tI?O8r~V5~7tD~Z_4CN`^uD&"
+    "id-=-s^T1!sSk?%vGR^xRV4iLcl6QfBnniKUgeaG#xOR{1XB^1qcvK$x9P<FEbx^$AkHF!P^BL4WU^b<62+TWZP}VK-buX(B"
+    "s^rO*(SM7a^_|?9MnPcjDrMzl#=V98n8lhVDT_6mze?_nS$DC@>H($sMT^5UNfTw0d!hMs4MLow9GbW6RWJN8-KD+o#J51E&"
+    "VUC-apfXCfg=6OMW?xi5^VOvqS5poM$`ktsq%>0=z)0+F{}@tFR3wt6jIx7k`}R}x@ed5T3pdfr3yV$54~dIuX97tPd>{ukM"
+    "+Jp+4`Y7fql?C&pc^j73b0DPMy&R<)k^<F`>nH>J}ZTF~1R#?jv%@60PRcj#Rx=abJ*!<sf4|XW@B_!P|&Hn^o>~K&!b<d<M"
+    "{z8vShYd@-!+Wk45F(gkLL)oB6siT8)ShaEzS^iikGnm^d7lxP~AmJE7$Z@E(Dhp&MTuY;z}K>wYhEVx3O&HE<vSmPX}j>q6"
+    "_dSu>qYf#%axX%seGnOq}J*9;9Iy|L^rvCjy@)^i!h5r(44vjm`Q!2Gc-vPOIl)03KQ!iaJT9NZ~pq@vG@y66@MrzC~I9d<R"
+    "vMZ70jUv*B&yU8L_UjdA6&0!bwS3XC)hRgnCZ5%gJ&JXWI*kl!^~(hFcV3Put=1_Ee1x`6tTrq|>*G5S;~<_YBFdSB*3KYpm"
+    "JqwDk+~k`$;ZKG3#=ee3QH*^tF%5^)U6FlpuE(HA)k?oNgWMlQDciMg@iq}Oh|0Gki@ioN|<YW<?W#!#@qt;-{JpW#5y#>wu"
+    "0-Pz!9_Vb@!6{u{#G`X!OO)fRgJ_O3faPtg@+T`p;)38>R&tmbFXFR+wZYZ$LB>wF7%P3oW}qpJ@=%ZpC&~ErDs~VmnsQ0zK"
+    "Z4{05Jel}0V|`Mh_iv|O>+zav#7#6sAGfrOZGhS$LSp)chRiudm{%j3OW%@Vx^eR#>KZ?KH(&#-<&W5V;SUP~zxDwHx_>o<s"
+    "nx>a;FjNfbAkrl>(tE5x)%{Bw_U628%DR~p8l`11rqPOL%$~1T8m{W>r<qp6SS*8{aGTY0MuVbr;X=M?i)S`hMOW$V`5~Kdq"
+    "b#m?gZ#wq?sd7+m!u}n>K4_iNJML}wihC9Oe+Ro(r=6kRY|(5m?*rB>j#IZduc!aWWI#Z<r94<LT9{|vaw~T2f_qq|=`-s-?"
+    "EvR%<&Iush2EQHGt}N*VqIb{b0c+LchO=ZA-(#L^*@?BX;RxI2A6+chr9E-O^Qe<0~&n(&$-7%IqWG&{`at|d!V6ma^Ah*UW"
+    "OJ(DF>Gz>#D4`Dp2dG<}R7d*EAmR`|l|sCQVc<x8waxjfQBpO#Sua*!O*azs6sw@6&b%MJ4Sf^1fqzKtRbp$DC`KJl>Hvohp"
+    "gMs{WEJ?-ym1o@SUxyS$w=v;X}OEq8zJQBlqEIB4z_!1^dF<Sv5(jzKQW<C6tim&<rvp+xf*U_h9Cq~24%uScn}{voB`v{@R"
+    "Y&5nP+4b(LWzPib5!2sh=5vu_N^zSQRoJE8p=rEP_N^jdq8S`9&&!KMQ>z2Li(6_VbyMLE#fIsQ_r9K|ZeSp1uRvwfqSo=9h"
+    "+J|w~E%F2Ae8;i60&77R=&R40lxt8<_<FF2d#v&yA%8S%{VK)0cGe8&AzHlC_;!>$p_!s4C6&*9I_k=p^$!EIWSXpIOjs?s0"
+    "&LY8qw&$bqzkr|!QRnteuvvuPth_ArIsV^epVd)Ztghfybc^+U=`CMIb*+!gYt{aG1VBQ_SS!s)<~G?c^^?N8D;3&X8=i+F)"
+    "PiVUp9L~Eg7|6Z<Au~1CNPZbJr}h<}HZWvR(bOaCXZg-v{)OCmFMDQs*@(fm&S@z7Bb`0SmsWrj>boiCF>bk}`4Mg8jb;X|H"
+    "iCjZvt-wra7OdS>_6&CYG`bw}&_|4r()1}QnE?c=TeopKD8L}yo(V$1Z9x5y{qA@#^*@YfW*eWmI(i*ZI4$<>t(Ny)rQv1~="
+    "tU`q`KUnd%8kEn|i)~O=t;*oB=>AUabrm&6)z<q|*ye012RpYm^={fKDb$Gpz#X$p$Pc`WIXoT-JGvli1c0!}v;ioCRcCXua"
+    "up(8flr`^ghxwFQ`Xz1WcQ(x8yD2RkU*)5cagKDAW|d-zLEM3UJ-)dPecFYMZkgD5J`eb>K-0bH)FNqNMJ?JnGqC=&er1uc7"
+    "px+&!fLQZO1kETh_K(MqMM;DS!7JQlPgqRtr2g{bw4bhhV4HrY8#&h=ZyoZac0UQ);gz*HYZuGEXg2rj7oN*xKT#yaRzIA7g"
+    "oCELDEGx-58k2y#YuyYrP3FP-~(cqm(CL1Aa)$x6Fuem6qqMMZ-ImUPt$@%L9FXi+0aEIa~QwBT<jTa?(icA$bZuuvU=PoyH"
+    "t)vC>lMyTRCKN?+Dn&K-)5GI--INTa);PO>Uu{~T@Lgzi^~$prm7ojZlK-z!>ccb}*&th#I3{m31``WCw4;yxzsYhbHp@yEs"
+    "iP4jU)6%<$nwM0Cw(dRlS2jKA($O}90`U%L%2|)e<u2g2Fsm9P_`l%sfs~sJmW)_Puf?e6L%kc&rbmM287h<!2)?<I`wo&RH"
+    "$d7~mwt_En@Ib17e;KQJ)BOy8=OK4ziGyXv@Ydn4P%bvj=7};ND9+-wDdXH)O&++t;CAi8(DN_gn~y{OMZk|{Ui93fkdrlfV"
+    "2)ALUaJ>LtZyXBxTtJc@%bH}Uth;V^bs@>cUe6hiLfsH6Zd<0?S~kG-KUw#WoWD);PEPS(<Q*K{>eNg;R<<r)uKVw%ob``l|"
+    "z(qfyaQuS=+4d>SeU8&B}@zV*$@e%pCg-o=dB(7FZLyNNM7&rn-5O9S_gvtOAP)cKoV!xLbE|N4!D)$6cB~-XIJAHop~nF^#"
+    "M56zx#?uG6ZpMNsAu*n=m5hefOVU9+5!_m;dDSU2ex8YMItsi|8GAU0|aSOJ?dVxhem4@r$x!`JCuJLV6|<S7B26rGQJdziz"
+    "lDmXMe)LAR(J>3#HD$ep_-O$DxtfCIg>-6CN7xR0h#E9P<KDo*$@GU_9Havhg@i>Ra9N{k011=f=SG&C6hUr2NZPRwHL5sad"
+    "0@Dw5T8h1*nfC!`|7G$*%e>SX_6=x6Z<4j;f%8^<=zJ7B%%qyv6fxrpHKX{HR-3boOSnP$w>I#?#z*X)8r~w;-EmlZ*Kr+%{"
+    "C!vgxA6acX2UcmG>a9j(i$w<?pHTNgX?Ay1m+C~M!nwduQEccl?XmoQ0eM(@+;Nus~+|%H0T4|w9K*J+XjzWhd;H<V5jOMCB"
+    "*9$!2Z*Am!ycy<L$;kM<)F7@F+Z;HyHi)(a5*C<1YaRml)-n0|zXTOV@Lv)vP9}ZgG%$Mh8hI5d(|THmFkqMkK1Np<ZLWJ2F"
+    "2e1ov$dt#Z(a>!f)R9$%4l#Rc454`D#)VrtCTb~t2gEY5t7^e*|(Z5zcFHCL(ehr@5MhU*R}|04JOZTAz<!Y$~h)A(eZmEd0"
+    "buNohevzT}%D()>}kB8835N1|__mTozV~#$}S!Rb7Pxrvz%F_p4qKwsQ>jhf-b&Jw@h{DVg2pHpOTUS7fSV%IPAT)}PyQE^!"
+    "Wexb8XlgOCKO3He96pJ^D^BaUUIHbk-E$kTzX85DP7BRrKzF{t7)^~*pq5F2M&=_ltUkcUXge~YqZfCHBL*(BzpfWn!2QsPk"
+    "BL&p1XeY{m`91VK~<|6^f}GA>wjcCo@73N=6!r^gwKgZlo_$vI<eW{aTXhDTQx=7{qNxg@Y`*`e1rWTXYlSVSSHJW{zuRN?|"
+    "}nuPzMxP!7&eP6zH|ptlG1q2b*RI*0|gCtlmr4P%_Tk3`=MQ?=_MfF*7<W+W#}dzQ_i#+H%ttU#Mkr)q4?9M$7AZ!SlJZ2w0"
+    "r$ablVBxJv@YT@tZv$Nkx`%ArZh`8#;rVC~m+_m2B99&fNm;v(~58vmKYxATmBmAK~(lkK6|!T~W+VOPp3tNc4Op!JzOG9ve"
+    "i_7m)oF~;V#8}I?SK_5%2q^Iy|+Nz>_oVG$dHcW<fG+oE$Nv$#>F)5drzuCc3YW{+!j&-@<=|N*he=r<T9v1-nI4IyMDBv7)"
+    "|Lg8W?EZ0gg%yE|tcSS9=-X{KXZv60qrx?MIaen|#I$9WvX0)A)lhBLjebn3tp8XA4J<GwzE{*%c9e^16-?3FXj*0^vMigg3"
+    "-NtY&T`$+1`MR;-FM=io+2VrhnE5E%=QnhizsoAV*k}bQxANR`+v&)5b(dt9FTTNy~fHg%|vK-%p~)Ib@G1MaNx78P3wU0k;"
+    "opo;u_}9Xgulx?DXTZ;It?An$zyIi-7u^RY7-Z$u#?S$D+`kIB&q-flgg~i?t5vUDj<%`_dU*`#O(KRIqKBNV?*~iP;xzcOz"
+    "eOBeZ<`rAS-<9OVB?u>Vg&Mr&l?EcX8fFi<v6sA4%$9}StsyM9RUC8NoZUb}M2GV5kz*5+#7YZrS@@56qNx@VxNwCYfM@Dis"
+    "op@d^DFk`26$-XN%$Z8rx(^rA<K-{Ity{`9h?S!}v2(#N@^~CmFM5&jMnsmkgEw5Egd*F|^7=^2X{(lPiUjXNS2w6Bu4`mFm"
+    "Zc_HIu|7rPyjQIUM>`WV+w65wnbNqQ-Qr8MWCKci?L>c6Gy}X-)FWy`x@eu9_J<voHY+fCMZ1mXS!JXY)hBbbqdWd@Wcn@6q"
+    "CjzG^CVW&kaT5$)@}Wk$^TBwxXs*xMoOQ{YahWOnRbqu`ySYz?@;o+4(``1@Raq&uCN-Uflrpq`Y*B%u5SH5TA#Z`YK-7Tlo"
+    "BZ;UIFWIHv=b+%448_!=Qb=`b*6HUBESV0{_$Wx?`)kOROKh%6Pknyq7&qS{GCx<k4MGjZXA8q^I1maay+Lv2_Whu2T!=Bj<"
+    "mbKMH-PHA;uDF9&2FxZnj)|A&wO#{fkEw6AeWU8iFVJYgQ#ce`m8e3d!*HQH$RW5={UXO~=}9PDHnwIihr-v1hGo}HXeFerZ"
+    "m-FgQ&(3r}8sWbC2!@9{%HaReBs#6&k8V7VNg4p&w$>QCexOQZgVZzwDuh0=$kBoI}hnD-hymmyK#QyG;r{w^4q6m180s}`O"
+    "`HymaON@zXmBO4={{+-nb#hdlGasg`r`3_OHse~?m?<8x>J{w{-Xp&XJ{V?)?jU;+j^O-t_CId3uF5q^zI87uG%qsD-bG#T$"
+    "C>{Vcf~Y1QO<<&&`W|A`6xE}k4!JN+z<2bV*lTEe}`2(C7*|s`T%zSC9HlF8t^zMew^CBNT1|3yJED0TD#O{S&^vzi({8W$Z"
+    "C151lRuCcQ`F!js0N0D*t}K-v({m$LQ`AMwql0f0C8gO=f$_77t&CImlr5&zhf$G8-V?5asR8ekEPi@om$N?XGN~w;}&i{xb"
+    "IAW%oQF`;2@_w4?KNc!3wN_A8Lk<LvvtL5aM|%Aggj*3+k_v?_aB9qZ*|R-W#GjMp4mksgC%zFO;Zw#h#htqnc|3{>f39Rr>"
+    "(vQD5z|G#DxbREst%&Pu^uDoBE!5{uylrQ;+7}vVyOHEU1otl>ipUIc7tH)vMz68ni3DL~kIY__@*!dXyehg6fxXcQ>zY2_k"
+    ")@iAh%?k7tMhT-mQ~1pR?EgMF0j;5up~Rd;#cAcwugZQ%hdx+=Y76~@y(r84%`zowi*e&1>lO*ka|kmVSSz4bT_cNdcKi16T"
+    "^??-A=bY!`W;)x{HFYQtXe(a*RYRIV7=P6p+3(CkO>R4cC}OaHmhQ_nrVjd%>_!PC31!O#zX92iP`VI4?C@r@Lh7-BG;}H54"
+    "Oo?p=mU;6SB(ZB~acxt4e2x(Iv}>2Ik=hmN$vBSXcyJsxs3S-IeW$e=f?KZlH=ZlaTAU(9b4wS7_y_roRf_nqb}G6g#0-;RR"
+    "1y^@D1N8GPCRb*l|H1e;~j_*>_jEHJ{M^I#Ui{~v=UT!egYQSz#$)T+0fd<A-N2mY3r8+^r`X18^N9@CV~1qidc=P;A{Q5FS"
+    "_GcPFKkR8|<<4QkLCd6I&-_AEr=3k+GKL%QS9vrV(`4(-r0x3SUh)0F|u3aE?)@iAPAEPvEFju?A$rhSdUxuuI5PLled}>A8"
+    "qUkTK$N!8x3_KLs6M7Z)&jnm-hIV47bFh<13A!dBtjE2=EG8QNT)Z>QWPbc}&~``tHp+=_<}Y9cr=S6U3cauX?H#UYkv@OTV"
+    "t$pZgRjO2wZ<p5$O`FJZ8w$5zVBb_z>Dr)NWgheRm{qXDr>9mfo^#Q)W1*E*RSH5AL947Sb5VY)2?o_LVTTC#F$y>BOvcY^u"
+    "sP&FzMRy_^t@wdM!l!5pwd+^EaS{-h-Tb0cRV9#@8H{M!i<y1>c5z*2-v={PUy%-+Nf1%+kJ4UlTRO>LktAFO!2001JoY3@N"
+    "3~-PKCSee#5S0rtRV(U{tKP~13m-YhfB^-QCC{%>(UOVkzJ_4UtD7CDPHNWP7>{@ryi8!@s@3I8Uqlz0NPs2b@*R{Uuk=q*~"
+    "O*VxOiR6M~LMhNRor@{=%46~M1R;s90)Cf*qnw%G<v@rl3aEaDh-PSw>>H0J*K<&<of$8^f-ATxuDx?2Z*1dE*bRRbfY|=|i"
+    "i?(cY1n!1+<G#ilu<%jYuXsas%qQ|atWVH>|0!zwJ6O{TuuZfYT&4aj{c#`n*Z93gYcyLvPm5J;9PO{TNqbPaAdkN>$bcR2W"
+    "{Os`+@Mc30{!~ykdnJaE1*Qi+~2r28SN~Ps_Lw)DqH-vl~KC4hr8umbQiSo21&QE79#E9kNB=5Q@5Ji&&gdq(ED21dJ9m$ir"
+    "s$;Hh_A+bM)@UvaCnMoOqG-$%C8_p!M4+yCp-$F?H(KY5Z+rrJ|pEmQYUYgYWkx*g;!i|19FX6Yj6U1=oSk61|(6#fp74rOK"
+    "|35@kWULC>Wda^CBF5dR!?q+J>Cv`ZqcQ^S$mAyH0KFa0W@Z-C~H;BgG}d4=+Dkrg;aQs_J@9emV3W|z;9EHEmfD_*cpeXV%"
+    "j!z%6){riMAkWP7fO1>eR`AX|p7a)1w0q<$tWzo9&V%F$(GO9^et&5}Owmu=od;aU4a>>utJ|tZf@c-k4Kgww>;xIe)COH45"
+    "0Ny+fZSWqbf6DT>zH+y2G4O~Li9XuZBii>`h8@3Ks?2#u^kIfL17n4ii+k`oU}f{Cu>U$yN$F(GX|C%HP}_N%Hxki;ESm+8v"
+    "d&*bB+jheAj>I)T~&WA%RS#+;}vg^dTH15Iwd@qJ1jaQMr4W>|2XB^IA_6V=jd%(`~~*q`q>U;&csmfM`L#5PWwCW&<h+ErQ"
+    "8WtE2Z?V7Z@>&q5JL;)de4uU%~$Gq^78_v-4HJeuP~YzW+I3_FE&TdC>`Dp~bxG^x0~x4UVh>CF+WQsCQep`j}+H&L<z?8>}"
+    "C5e&|VX;{o>4T;}Y<9=Qk&bqlX=GBbOVwWw?4{eB!bW?j6gn`S;db$RwPO|lDEVB6{Jt&5b}I*n<O)si}`ui`!l3$W@Q0tVD"
+    "N&}lfMz~cq1dyKVVT3@PBaqUhW<SdA$>(oAaj;Ps;v<ABb)_eJe#m}&--Iep~wh5Duu!8>2&;YE}Uu1>)0(RmY{FEbDgVqB~"
+    "!Us6de)t7W^(rueUjt86+z=<Nsn$@BZ=WcB6eg{9(>iC(NaR>!eBD(U+tdoS$2osc>0e_9M*-7iR@tfL;b;7`++Jz1Qpiu2+"
+    "#`dG4K=8R9q3VOC>xyg*knac#~$3wUhjfgjO`6pZ~74w;a`1s=zXX20aIGy8u`8ly!jf|p|cyONfQ%*E9A6|5_weXQJ2|K*k"
+    "o<?G-p(-l5=*7?@rRJ@;r6fBKUl(Xs%kn|02$w7xk01d+|j`+^wLfD!D-?8w^M%gOkv5(7q3yKez@9rD?vAuMb<}9F(TbrU="
+    "O&Emk*2T~McY?Rd9FQ19gb4*d-4dm3jNB^6$zo?e1p-U@p)Vpiw^ZM-Jq&{fOv#jMS0vBD+bH8nyvLatQ{_EEV^>tNn`L$rr"
+    "Zd)}Ur)y!uZ7R@t`nf%_)p1sI2-Yv^|_?Y@OcGa$8CjyJyHaH)u(-U0FB0{Oj%8i;X?W%Z6x_n@z{}*BPJtf;=t&IWl_qc0y"
+    ">qMzA9y!g(Nn{e&Pu+<bx8KVSyEfnJjGOJ8mZ$w@d*v$g8_Vn~Q7>5gU2k#r-W2xlv%tonyv<md?xwG3s9R<$$tpb}*3)Y3>"
+    ";f(10;3m2@YV`53vJ8&bnIc5RfgSN0k}~TbYiA|I&>2ns00q40;gAKi`QB0QKZC4ITuy^^;Mg*k`v!=S*DIF;}`1x>V#0uU<"
+    "HiftG2uWyp3DcdW)7!%t)Vl{>$(V)}Z~h^Km~rqibE=|52C6=QG=joWe6{(yzf85vfho@sqKfRUNfhsUCf#S8zA)D+azabj|"
+    "7HzG-&2jMID3*y$F=Ew!5}VIR|8(H=F`#UnDu8MfNRxE-IiSg);<#+F&3tld$5l7m`y6-IS-F#@<o+6_5BXbKp(?7qUus3qo"
+    "8LW8-U#p)x=Bl{}T0_V*58Hy3*g71av^p`ZqHO_Jp8>!%KEUeeY_Y94*vmvBz8I(h!)7_S7dt8SWSYyS$&cM6_Uahh_rAV68"
+    "x_ymZ?_kH1=6A*zA6+C37Fjj1S(J;E!c+E=4B<@L+oh800?zx3!0R<uSgg{!jI86cM*Wd8mhb)Hls0z64vy43<j5*N(ri|2#"
+    "O!**ByT6%8+FlreAoWJvq|$HTi8eEV4pk===XDKpVnyXkeihJzX15Juuig{5xoYz9?jot6}$G{jc^j=`+#!ADt0snT;Z&tJU"
+    "!@H_VzpqYeOqbXP|X*oFA+`r*)h0*s#c6Xg*Mr_2V(U0-srKnI{}trAKI84WadkuTKY!tvV>l>YiiEh<3-o+@_dzjpBI<bo$"
+    "${h4w<eT&7H0WHs|n=&w_>*2Y*38rxJija%)aKOb<m$yHVh2DIgOu)k@6nco7esv;*?Rowx305Vo{36F`Ne{<Gd;UuvwHV4p"
+    "GH-%ZQw?Vz{xuIm$#=`#kwqYvHra~l)%m>WW#n}YwsH@)p?rgzt4z)=AT5)z7kp8B88v7r@|Jg}7zXq7Lf>YHV3gHu|e!RsM"
+    "t}t?Uzi9V~#!D66ikoDFsBYaqo=yv#q2(vxJPO<I6+m2LACu+{Cah*_8+#*b%t4CyiE@rR?<=7jmer29*QwP$`m9cnRgcHk6"
+    "&JEvGR$Zs?2`KHo?z;JFqAN^tr@Pf@L`^muK@#U{|-xqy$?%(sUK@Q2(MPB{V6T`84>Dr>;u$`j0r9=3Q}eLu%G;<`g4uiE1"
+    "^}ZRDMt%kvCao>#OBe+nl$^(g^&J1~JuQPQ}N5yw|7xV{8_pk105ttD2a!OR{{xAT>(a=qT#?c0C5(ssCsVX?MXKYhK@hefn"
+    "`&sGpLDK%3j3r=~f*bOEoGKR$$Yc$FTZmjRB`U1nH4q5l1x&A(Qev<dRyKF)5s#ag9h>J+X2dlr~cIiVH3lZ+XjW`~JN?|Vi"
+    "2M~B4QKV|E!59#3zuzJ+nKdI#bomE!(ynEgDRj8|LRxcK3b#swb5X4>9&{uM6@ZPSvlkE0VOZZ9ox;zNkrakI)Nc6X{FNc7S"
+    "SKM3f5@f`A=BBIcdRSxJsL9%mChIb%vRWs#iFG>674}W_lK!=Z=u?oU?=quwnYrcLoH&qJrOO`KCKXy!tLE7RX5Z)p;J_*ed"
+    "nvEWoDLXK4*6qz)o9hG5xTB<kx`dlly=F#KhB-PIxaEtdB^<*?6OaS(hmb-_0wm-73Uzc9+8voCFX=K!6%xs>MV^Hl}OoT%B"
+    "CDAtJcj{+9o<1!*_GH*c%Yj4jPcpWA$h8+jsHpHOQ-eIY-N*M2)ryzOs4?+c_E5XD^*qln&GGX>p#UpGQ}vUzM`X*yo!ojKW"
+    "npoy5<E>)6|2R~)Q^ga4Ylf^{5mr#L0*SLDlB-C^+IPEm_}(dnG*&w}^fa<6kj)@64FpZUB{f%VW^I3d5p=?1fuIes?40B7S"
+    "1qa(|Ny+TW=2&?A_*cLi%OX)zRtwtJ)oI29OS#}RXs_d02t?pIpU-y<!Ui=Pg{kNYHUI2a8>3Nq4`y3~rF3^Too3w895}9O7"
+    "x~k_A_r2V^ocnPNJUI{k|FnDw^m$nJ0SDWm(Nt3H1^2(;w3|n3V&4Zx&sarVi4&)b*q1SOJdKhfOPu79r+;*v*`o>0plZMt7"
+    "{T6r9`v*yI%Ni2cLEgOFN)J?dRl&3+(S6$E>=mT?8)iOw+K1g%fD+d+g@fpqE4X7lVh69Ij9v}pw?(vWTf4d0|-nCs7!b<cO"
+    "B55VFsk?{-N9}4}$|9#^V4WyH4$^(>l(&<5=BA9Q77nPcq`C{*BIBFYu@;qhk>?!cEw=7u^VD`3yK~6raC<qkBawJsR$}AY*"
+    "sI3b@JMLiH$4g3Fd5X>KqN8ghR2s@uUCT`lH28?=KW+W(uRX`J2W#Ht|~XWXN~S+$P2wUoJnCcCJ-#_QC;#TgH%%($An#4h|"
+    "FV<$8^^?63;ehJWj43enCICPO!Q0ED~*2O5_stj1b`43`+lbixJ&B)kJPJ$l+4&LM36t%{WVGVx?*w#RgI=k@e^6Stuci0En"
+    "Ck1w#pI`;*DAzvE{q7avw2TVxk5OXJvrdN(IoCt8l)jsMmAU7TSnyopb4PxbuCE`_t^z-WL}X*v(7D_zoc?wZSARsF0^HAn{"
+    "vY7X`~woxig+C~e~K02*ElKd1IGC7kONzQLj8xWj0?r&JU^rJGAt;Sj`zta_S0Nt)^G@W_YL_6@|ftfkzUSc(_WA>fc+AvVb"
+    "&(1R5&NE&X|aDn9j0WWt^`?F4uTZL@O*|{_P3TYP@-N8>P&|I99E9s;>R6=f!)=>$9*{bI0A!+)wb!E%4e8%U7_2pO9z32TB"
+    "1dU*3e~dl9sGg7mNXk?Zu}3Y?Zxayn^x+-$K0;6Xb%Zo`tg1o*c=B5aqVkQlGf#!)ERkf-0oHQvTGHST_m(n+JO+6y<vZlLS"
+    "r?N0TlP{OC|j+k&e#oKmmPE!j>otk-3IeN=%;5KVZn}l_dG+ehjU`NkXvR>(W?g%(qtM&F{EjQekz?+}Oc^{SgAp?6k59IIN"
+    "Yrw)WO1=w_7MkVP{;g3~3Y59ZB0ZQA>v%@w7W05Q$)$=T4r8zXo_Cee88vmtzi-3BdL9(fCw}5wN*Y{Z4z3J}N^uUQ-2(d$Q"
+    "_eVCBa}sAq|Lc!+Bxm)9u?ZbrX9mm>_Y9Ax=kPnnZ51je9@E>G9#;f@LI5%8^u*lbGC9H_Uutmz?0z4`|y5*RVv58`7d)O_P"
+    "gNzH(3$2NE^6}9UP;L=)1#L=*KKzWg6Wc!`ZiqdP|SVPdHJyX7hVKCEtRLq4rb*QeJ1=pJT1X5+`9aIO$`vtTL7yaMEXJGn7"
+    "=vZ{w7kHtjB7TbCC<pER(Zv>s}1jTZDna;q)c+K>fk^E?6bsZZvMfaoe@txjZ7&;D6Zz+upT-L(8A@a`MH!TX$vFbxT?NRQp"
+    "mYtg#JWvhkPO2F;V`T?a{!aE(PcKA5#o0H%cKg+7>)W+TfZ=wvmehOSx23?)P->k(hcFQ31BMoL(=IGI>b*ma=Py&m1t&xgb"
+    "gji=|>m74$GUndkY~~^O**gCv?yCP-kA`+?NdImAeXMO2QffQvGJ2u;4vXFism@&BQSkkFNI;d6TK{~56|$F^v0P=p@CxUFm"
+    "#s6X#@Yte1`WGY&pcp!SbhXpXY5`LJE3QE#=OHhzX+K-jc?xOIn|QgPEJl4L1=KUO~Gbf?h>D4t<ksfUa`Md(kAM}70zNE;N"
+    "-bM&K-<tK}MO>U(XG-4JUt|f0MfOUf^pV=ParI--+XIg4f4Ex36PuXE~8WJGMUr2fP8=o?vcgl{L^~TzQjOq6&Swlr=9AGar"
+    "%D?#CH-l=C#T#$zY;{1~MCFzD@9<#E`0+I@0`HFU$!Jt^bpMN;V^x!2GAFR>cM&qL}5y~fOqYzFMB%m%E{&s05;(uYzSQG0W"
+    "-D^KoeW_>!!|H!X_XIE&2?qC<nec*o0hUvcR6ws^e4p_p@zX2;j`yy|W+fKMqtAy3;xW7|Eryrzj{ZRqE|3_d8YhSU}(wA&<"
+    ")EHw`o8@!3_Fi1=8tYD)@HKQ&Pfk)sHp`qFqqzi~Yo$7UnG!_j=){y03Hf-<W}~QF@KLZi#x9%AV`cfS7`SA!;70S>l~AN-s"
+    "oHsmC?#AV)R(c|gcA#<Km|Gx<G9l~X{VsAuW(MHuaWVON>^u4g_Sb};y@?+Cam;da=zB%9$fD%yBxIgeh=l2_La0j`-h~;cv"
+    "9Ua`VDjPO~WR`JDamU$mz!ssV$(L6Ir#R(&0A9o2{~DlQ$w(as}4!6jK*^%UCh-vEd=n$w3v)q1z|hIc5A3GoPcJ%2dLRzs@"
+    "|ZRz$0%dIQuy2F_Ttxj1Xq4_ME7<9ruSLe5&@eIaJ7dSc4yor(J73b3mc0)sNnJE&;|(N;=b?fM_!{Ew7)ZCW2>+%*?=y&^2"
+    "-?914u+YC}yj598ta1O4sDGl+4xiIT-&_5W~yTxetM@qTd<Q#OZcAsS@icZecdVsee``=|v^ilj>!ipCyZo5j!S0dc2+<{HZ"
+    "VrnGR*Xpm*a~-5^E|7OszWWTC-l=7r_nXjcLL-~)8(1_a=&JSX^npcLq^r9o%J+Q?iB9v5jmM)b_OV_w8g1y0{pZ8IkoWhC@"
+    "9<U|?FzlY1?;fi4PgS%Ebx9oFJk{s1NIjo1<pWvk2BW2#OR){jw#S5sL@aLmF(Vj)0~IqLe*+sv^hX!+moG?NAr|Xk?nLR0^"
+    "D@*hTc~{;Wf3%-3>xnrN^1j&hs(AeybS?@1mD@1Lit3@N2^dMXfOPSk5tO(j;GB12nf-{i656&{;UsoK^L*dx11?3a>}G?iF"
+    "f*IxSwsn#$kM=x>-YD~)_<C+uxzgZ%8Z-LQ-YSuIne>{`m^x_0(y6DL&rPViodtu8RMn(nG~umqeB=If#_*>uJvs}bpjKj_L"
+    "Stv|jzJP2*4(Y;fUNfYFllyQS8-XB71-nB;gd*Fc&cvrBipnx~Q30EK?CW)(r6@jXMC-K_@QlbZ=9bcN2*L>k&(TRQ^u(xAG"
+    "R+&4~{EF`OL7Z`#z094Sxy1I=-xttlSsT^?8f6*a&eRE=e6|PsHy}R)#rE-z5m7cH;-h3n)HNsJnPL59k6dGH=QRFrX1D$ws"
+    "~h*Z?=!G}v?FMg@sLSag0F!JPBRX?0&I=pvnI3B*ZG^G+b3ENv{lrLO=;!oM42U8F{|`Lw}S!}m`5t`E@6TB{$9>^@|jKR)@"
+    "oXmv&Cpzo_VPXEzK>kF3PlcQcf%yl2yBZTHGZi;ti5w{q?tobvEtmtn|4BSl{E+eVzKb==985qjLt3Yn8Uv>!0O(*fr3?F~G"
+    "VVP@RXxpq8CRI&_wh&Wi09e=i2Dgjaff7E<6<@Rxc62gG+c4f1YGntjrHQ!H@ex}Q0dTHLc{J+2L#XjEq%RltmU#JG6CO6pD"
+    "YDutC7gW$3u+7s*3PvQ-jSg)Vg$LEHdfa(}K@0ze_W&zKLY{S|vIgJC}FCjaDf8u6Y?{<RSQKOs|zL_;AYqTeByT5~-I7`es"
+    "?we+Ohh>*Mg4OMUX8R%UD$>t-F`c4PvFSmA?;gi77uatW+I(&iKli0!wd#Ru8o$?>ZSb8ZO-|%&aZZ1mks+^7w2rUc)d}5^_"
+    "EA@E)IXjcz65D@22h`+hSt9CJvhrrVB|^OKTb0ory%#<VO3WFFx+y_vvcJ-BYpRX=k<&3`;754S+%1wRp+{n;QPloUF%((TW"
+    "$WQ<yFvqmG=D{qq&D*59|CT?T4GNJ6Z^{?xAHlQ^J~B<f3Z5;BDt8UN_DD*~FQ?+aL|b8L94<cmodBEr7_X>);y>*LmI7A=6"
+    "GU27Quuk<`wIC$aVinX$cym4Co{!p(C=%~{?{Mkg5Gz|ph37o_IL&VrU|j5F<qC3%@MiU;Hgc~&$w^E~XQ9=w~Pc9{bvPC{;"
+    "M#xEa-O?1xb{X}oma%eH0Fl6`tYSIF1X8F6CX~U4&a(@rKCTqqNb2~x3>X&M*x{v#IcfPi4@?X=er=$5{?9)Z;uJ>$oCdCd|"
+    "XZOnqaJN>nAH@3RSrt1433&{EV>s`1P|X~0eUf?YgmVJ@tVVxF$9p*iSG(R0$|tD%ACVt13Z%4t5|~_bPvE>4N!yQsL(W6uO"
+    "v278QKRTxpmbt$FZZy{9rt$!>#>>kUJ?i+U5jS#=p89M-n7r`I`2)^>5PoCZh`LV!2gopCiCoiJi_`dweS}>1+&FFI~<mWI6"
+    "Hq9JEL`7AFyvz<wOs2L>jf5z-}LB2lsWxC1;%PsnklM1Ja`3uHCOw?z?!ki}yj*%*R83;1V;LPvX;4oVu+smDuXVJ%{?4zp2"
+    "f;XxcRF$m+#<I0@R%bkvAPi__*cd(vR_!ZpgLR@cP)ja8t}<{yw*YMV2F>J8H0W#)4W^d2AMJ#<GTWxehg^I139v73W*(CPK"
+    "(Sfg|mIMaKpgzSz^DB*@!>$+Vkocr-<y#7Au=utU~BXw@@Fy{@acl)&TQQ{uu%-yQZ{POkCo!RG|2^WsF8NL!rBZ6vSG<m17"
+    "koSjdu-8iG%WUVY>2sWWED~FPhL4UeSuU`d+l5tLa+>YX7|(!w$Vso0Zk*j;dIjxPdI+2_&hDEJ+1GG}vCNnG3!R*GmbG&gV"
+    "C6mby~eDT(ffa-%+|ND+k0>&J?BqoAvEcso^)F2_?$%asHS+Q*hQ;vb=K*>-T@z&ACNFBky?)3%Y?d3h1K4|K6YUgX-BD_IL"
+    "ExokkswIAp;Uyo!MM&g7+vMfSwux$Lcg9?~&XFL~n5xiB7D23g2(${A%q2y2_6AOOS$ZgB}LtGx9p#UF1ZU8Z-Ji_VRkV)mY"
+    "7L$oQuv&pgr!s4~y`FvX+rex<vC_eFXXzHcwcy8k+zK5e_xS<7|mUz^!Hkia~Llw4V%O*qFXlD;}v<wsup%#{Jo)^w&<-puL"
+    "j^BSn~VXR^pUcek<Sl0p9o1l4(`j#Qh^gfy@xekj)BW?n2t%<)1Z{Q95;t(iG@0wS(s*%pUuL8F||KK6k{{NVF?kjV)$PHlW"
+    "I_v8--gcRiXHX)O=Kc;KjqLuw-Q9lv-jB|7xHHdx$?nbIb9^EzoO<u?quH|Q6iutE>7&gbx$ore1sDDdR_Rl`Z)pfkP=I7s-"
+    "Fg8MK|P(Dj43D%o&b&>7LANd0}`F=s?oy<-Ya<3dbyf5yCrl%HW^MI4|BpzFW`Ity#6Bac87Nh*O<g7LCf!hg8V(feXOEk6w"
+    "oyLH@>UqvoqbMGZ7`WyHDw4%~eJo{BeVlm!?f7a3)DwRx1>{zsQY&{#Aw@fQ;5PP66iaa*$JKCqM(b(^vFPv7B1Hl@+S5@gA"
+    "YCxi#KNeZ`{BTJ>{@vB1#g0fpH_B>nb2aKJsF``x0}gWhGp&pA%q$5{!Q7vHs9wP{)nt0joC-ruClhHqv4&rvoT#mn~!YXef"
+    "&$a$}?*K(=8LZF?+1`_Q53~NxAnZJG<G;x_8%mG$yEpP|VfLgVmJrC+vYTYHeS4CRv1;%0>E3h?Vd7j$S(?O?~IWX+&U5WH="
+    "ypvA5LoWb-H|h2HJOB9mBsFbzP-OSN46{eKCm(0pyp>J32s7I*&88xUcCV$n?Y5)!7*k8vs1yDl4rz3S"
+)
+# dem-blob:end
+
+
+def _dem_embebido():
+    """Decodifica la submuestra embebida: base85 → zlib → int16 (columna 0 absoluta, el resto deltas) → cumsum."""
+    import base64
+    import zlib
+
+    d = np.frombuffer(zlib.decompress(base64.b85decode(_DEM_B85)), dtype="<i2").reshape(_DEM_N, _DEM_N)
+    return np.cumsum(d, axis=1, dtype=np.int32).astype(np.float32)
+
+
+def dem_precordillera():
+    """Matriz de alturas (m, float32) del recorte de la Precordillera de Mendoza del DEM Copernicus GLO-30
+    (`datos/dem_copernicus/README.md`): filas de norte a sur, columnas de oeste a este.
+
+    Con el repo clonado carga `datos/dem_copernicus/dem_precordillera_512.npy` (512×512, paso 1″ ≈ 30 m, alturas
+    1014.5–2988.8 m, media 1626 m), resuelto desde `__file__`, no desde el cwd. En el export WASM no hay disco ni
+    `__file__`: devuelve la submuestra 128×128 (`a[::4, ::4]`, paso ≈ 120 m, alturas redondeadas al metro,
+    1019–2982 m, media 1631 m) embebida en este archivo. Las dos dan casi la misma curva RMS vs k: para
+    k = 1/2/5/10/20/50 el 512 da 102.9/66.0/30.6/16.9/9.8/4.4 m y la submuestra 103.5/66.4/30.8/17.0/9.8/3.8 m."""
+    archivo = globals().get("__file__")
+    if archivo:
+        from pathlib import Path
+
+        ruta = Path(archivo).resolve().parent.parent / _DEM_NPY
+        if ruta.exists():
+            return np.load(ruta).astype(np.float32)
+    return _dem_embebido()
+
+
+def rms_rango_k(Z, ks, centrar=False):
+    """RMS (m) del error de la mejor aproximación de rango k de Z, para cada k de `ks`: {k: rms}. Con `centrar`
+    trunca Z − media y vuelve a sumar la media, así la meseta no entra en la SVD (lección 09, sección 4)."""
+    Z = np.asarray(Z, dtype=float)
+    media = Z.mean() if centrar else 0.0
+    U, s, Vt = np.linalg.svd(Z - media, full_matrices=False)
+    return {int(k): float(np.sqrt(np.mean((Z - media - truncar_svd(U, s, Vt, k)) ** 2))) for k in ks}
+
+
+# ----------------------------------------------------------------------------
+# --- SVM de margen duro (lección 06, aporte CEIA) ---
+# ----------------------------------------------------------------------------
+
+
+def svm_margen_duro_2d(C1, C2):
+    """El separador de margen máximo entre dos nubes 2D linealmente separables (SVM de margen duro), sin
+    scikit-learn: la forma lineal afín w·x + b que lee ≤ −1 sobre C1 y ≥ +1 sobre C2 con el ancho 2/|w| máximo.
+
+    Método: pares y tríos de soporte. En el plano, la franja más ancha entre dos envolventes convexas disjuntas es
+    la mediatriz del segmento más corto entre ellas, y ese segmento va de vértice a vértice o de vértice a lado.
+    Pruebo todos los candidatos geométricos: (i) un punto de cada clase, con la divisoria perpendicular al segmento
+    que los une y por su punto medio; (ii) dos puntos de una clase y uno de la otra, con la divisoria paralela al
+    lado y a mitad de camino del tercero. Cada candidato se normaliza para que sus puntos definitorios lean ∓1,
+    se descarta si algún punto queda del lado equivocado o dentro de la franja, y entre los factibles gana el de
+    ancho 2/|w| máximo (el óptimo es factible y está en la lista; ningún factible lo supera). Es O(n³) en la
+    cantidad de puntos: alcanza para las nubes chicas de una lección; con nubes grandes o en más dimensiones hay
+    que resolver el problema cuadrático dual, que es lo que hace una SVM de verdad.
+
+    Devuelve un dict: `w` (2,), `b` (float), `margen` = 2/|w|, `u` = w/|w| (la normal unitaria, de C1 hacia C2),
+    `soporte_1` y `soporte_2` (los puntos de cada clase que leen exactamente ∓1, arrays k×2). ValueError si las
+    nubes no son linealmente separables (las envolventes se tocan)."""
+    C1 = np.asarray(C1, dtype=float).reshape(-1, 2)
+    C2 = np.asarray(C2, dtype=float).reshape(-1, 2)
+    if len(C1) == 0 or len(C2) == 0:
+        raise ValueError("hacen falta puntos de las dos clases")
+    eps = 1e-9 * max(1.0, float(np.abs(np.vstack([C1, C2])).max()))
+
+    def candidato(u, d1, d2):
+        """u unitario de C1 hacia C2; d1, d2 = niveles u·x de los soportes de cada clase. Devuelve (w, b) o None."""
+        gap = d2 - d1
+        if gap <= eps:
+            return None
+        w, b = 2.0 * u / gap, -(d1 + d2) / gap  # así los soportes leen exactamente −1 y +1
+        if np.all(C1 @ w + b <= -1 + 1e-7) and np.all(C2 @ w + b >= 1 - 1e-7):
+            return w, float(b)
+        return None
+
+    candidatos = []
+    for p in C1:  # (i) vértice–vértice
+        for q in C2:
+            n = np.linalg.norm(q - p)
+            if n > eps:
+                u = (q - p) / n
+                candidatos.append(candidato(u, u @ p, u @ q))
+    for X, Y, hacia_C2 in ((C1, C2, True), (C2, C1, False)):  # (ii) lado de una clase, vértice de la otra
+        for i in range(len(X)):
+            for j in range(i + 1, len(X)):
+                e = X[j] - X[i]
+                ne = np.linalg.norm(e)
+                if ne <= eps:
+                    continue
+                for q in Y:
+                    r = q - X[i]
+                    n = r - (r @ e) / ne**2 * e  # la componente de r perpendicular al lado
+                    nn = np.linalg.norm(n)
+                    if nn <= eps:
+                        continue
+                    u = n / nn if hacia_C2 else -n / nn
+                    candidatos.append(candidato(u, u @ X[i], u @ q) if hacia_C2 else candidato(u, u @ q, u @ X[i]))
+    factibles = [c for c in candidatos if c is not None]
+    if not factibles:
+        raise ValueError("las dos nubes no son linealmente separables: no hay franja que las deje a los lados")
+    w, b = max(factibles, key=lambda c: 2.0 / np.linalg.norm(c[0]))
+    return {
+        "w": w, "b": b, "margen": float(2.0 / np.linalg.norm(w)), "u": w / np.linalg.norm(w),
+        "soporte_1": C1[np.abs(C1 @ w + b + 1.0) < 1e-6], "soporte_2": C2[np.abs(C2 @ w + b - 1.0) < 1e-6],
+    }
+
+
 if __name__ == "__main__":
     e1, e2, e3 = np.eye(3)
     th = np.deg2rad(37.0)
@@ -1804,4 +2330,69 @@ if __name__ == "__main__":
     _U9, _s9, _Vt9 = np.linalg.svd(_M9)
     assert exacto(truncar_svd(_U9, _s9, _Vt9, 4), _M9) and np.linalg.matrix_rank(truncar_svd(_U9, _s9, _Vt9, 2)) == 2, "truncar_svd: k = todo devuelve la matriz; k = 2 tiene rango 2"
     assert elipse_imagen(np.diag([3.0, 2.0]), 5).shape == (5, 2) and exacto(elipse_imagen(np.diag([3.0, 2.0]), 5)[0], [3, 0])
+    # --- Proyectivas (lección 05) ---
+    _P5 = pentagono_profesor()
+    assert exacto(_P5[3], [0, 1]) and exacto(np.linalg.norm(_P5, axis=1), np.ones(5)) and exacto(_P5[2], rot2(np.deg2rad(72)) @ [0, 1]), "planilla: D = (0, 1), C = R(72°) D"
+    assert exacto(abs(area_poligono(_P5)), abs(area_poligono(pentagono_regular(1.0)))) and area_poligono(_P5) < 0, "el mismo pentágono que pentagono_regular(1), recorrido horario"
+    _Hp, _lam = homografia_lambda(_P5[[0, 1, 2, 4]], _P5[[0, 1, 4, 2]])
+    assert exacto(_Hp, [[-np.sqrt(5), 0, 0], [0, -1, 1], [0, 4, 1]]), "planilla del profesor: H = [[−√5, 0, 0], [0, −1, 1], [0, 4, 1]]"
+    assert exacto(_lam, [-np.sqrt(5), -np.sqrt(5), np.sqrt(5), np.sqrt(5)]), "λ = (−√5, −√5, √5, √5): A y B con W negativa, la imagen se parte"
+    assert exacto(aplicar_proyectiva(_P5, _Hp), np.vstack([_P5[[0, 1, 4]], [[0, 0]], _P5[[2]]])), "A, B fijos, C ↔ E y D cae en el centro"
+    assert exacto(homografia_4puntos(_P5[[0, 1, 2, 4]], _P5[[0, 1, 4, 2]]), _Hp), "DLT (8×9) y sistema λ (13×13) dan la misma H"
+    assert exacto(_Hp @ _Hp, 5 * np.eye(3)) and exacto(recta_al_infinito(_Hp), [0, 4, 1]), "homología armónica H² ~ I; se va al infinito la recta 4y + 1 = 0"
+    _pf5 = puntos_fijos_proyectivos(_Hp)
+    assert [p["lam"] for p in _pf5] == [round(np.sqrt(5), 6), round(-np.sqrt(5), 6)] and exacto(_pf5[0]["punto"], [0, 1 / (1 + np.sqrt(5))], tol=1e-5) and _pf5[1]["plano"], "centro (0, 0.309) sobre CE; eje = recta de puntos fijos"
+    assert exacto(_pf5[1]["recta"] / _pf5[1]["recta"][1], [0, 1, -_P5[0, 1]], tol=1e-5), "el eje es la recta AB: y = −0.809"
+    assert exacto(razon_doble(1.0, 0.0, 1 / (1 + np.sqrt(5)), _P5[0, 1]), -1.0) and exacto(razon_doble([0, 1], [0, 0], [0, 1 / (1 + np.sqrt(5))], [0, _P5[0, 1]]), -1.0), "(D, D'; O, X) = −1: cuaterna armónica"
+    assert exacto(razon_doble(0, 2, 1, 3), -1 / 3) and exacto(razon_doble(0, 1, 2, 3), 4 / 3)
+    _terr5 = np.array([[0, 0], [4, 0], [4, 4], [0, 4]], dtype=float)
+    _foto5 = np.array([[0, 0], [4, 0], [3, 2], [1, 2]], dtype=float)
+    _Hf = homografia_4puntos(_terr5, _foto5)
+    assert exacto(_Hf, [[1, 0.5, 0], [0, 1, 0], [0, 0.25, 1]]), "foto de dron: H = [[1, 0.5, 0], [0, 1, 0], [0, 0.25, 1]]"
+    assert exacto(aplicar_proyectiva(_terr5, _Hf), _foto5) and exacto(aplicar_proyectiva([[2, 2]], _Hf), [[2, 4 / 3]]), "el centro del lote cae en (2, 4/3), el cruce de las diagonales"
+    assert exacto(dehom(_Hf @ [0, 1, 0]), [2, 4]) and dehom(_Hf @ [1, 0, 0]) is None, "punto de fuga de las rectas x = cte en (2, 4); las y = cte siguen paralelas"
+    assert exacto(homografia_4puntos(np.vstack([_terr5, [[2, 2]]]), np.vstack([_foto5, [[2, 4 / 3]]])), _Hf), "con cinco pares compatibles, lstsq da la misma H"
+    assert exacto(homografia_lambda(_terr5, _foto5)[0], _Hf) and exacto(homografia_4puntos(_foto5, _terr5) @ _Hf, np.eye(3)), "la rectificación es H⁻¹"
+    _cx, _cy = curva_proyectiva(_P5, _Hp)
+    assert sum(x is None for x in _cx) > 5 and any(x is not None and abs(x) > 2 for x in _cx), "el pentágono partido: cortes extra y puntos que se van lejos"
+    _gx, _gy = grilla_proyectiva(np.eye(3), 2, 1, n=3)
+    assert len(_gx) == 10 * 4 and exacto([v for v in _gx if v is not None][:3], [-2, -2, -2]), "con H = I la grilla proyectiva es la grilla"
+    _ex, _ey = estelas_proyectivas([[0, 1]], [np.eye(3), _Hp])
+    assert len(_ex) == 3 and exacto([_ex[0], _ey[0], _ex[1], _ey[1]], [0, 1, 0, 0]), "estela de D: de (0, 1) al centro"
+    # --- DEM Precordillera (lección 09): submuestra embebida y, si está en disco, el 512 completo ---
+    _D = _dem_embebido()
+    assert _D.shape == (128, 128) and _D.dtype == np.float32, "submuestra embebida 128×128 float32"
+    assert 1018 <= _D.min() <= 1020 and 2981 <= _D.max() <= 2983 and 1625 <= _D.mean() <= 1636, "submuestra: alturas 1019–2982 m, media ≈ 1631 m"
+    _r = rms_rango_k(_D, [1, 10])
+    assert 102 <= _r[1] <= 105 and 16.5 <= _r[10] <= 17.5, "submuestra: RMS k = 1 ≈ 103.5 m, k = 10 ≈ 17.0 m"
+    assert rms_rango_k(_D, [1], centrar=True)[1] < _r[1], "con la media restada, k = 1 sin meseta aproxima mejor"
+    _Z = dem_precordillera()
+    if _Z.shape == (512, 512):  # con el repo clonado: el recorte completo, los números de svd_results_512.json
+        assert 1014 <= _Z.min() <= 1015 and 2988 <= _Z.max() <= 2989 and 1625 <= _Z.mean() <= 1627, "512: alturas 1014.5–2988.8 m, media 1626 m"
+        _r = rms_rango_k(_Z, [1, 10])
+        assert 102 <= _r[1] <= 105 and 16.5 <= _r[10] <= 17.5, "512: RMS k = 1 = 102.9 m, k = 10 = 16.9 m"
+        assert exacto(_Z[::4, ::4], _D, tol=0.5), "la submuestra embebida es a[::4, ::4] al metro"
+    else:
+        assert _Z.shape == (128, 128), "sin el .npy en disco se usa la submuestra"
+    # --- SVM de margen duro (lección 06, aporte CEIA) ---
+    _s = svm_margen_duro_2d([[0, 0], [1, 0], [0, 1]], [[3, 3], [4, 3], [3, 4]])
+    assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.4) and exacto(_s["margen"], 5 / np.sqrt(2)), "lado (1,0)–(0,1) contra (3,3): x + y = 3.5, ancho 5/√2"
+    assert exacto(_s["soporte_1"], [[1, 0], [0, 1]]) and exacto(_s["soporte_2"], [[3, 3]]) and exacto(_s["u"], [1, 1] / np.sqrt(2)), "tres soportes: (1,0), (0,1) y (3,3)"
+    _s = svm_margen_duro_2d([[0, 0], [1, 0], [0, 1]], [[3, 0], [4, 0], [3, 1]])
+    assert exacto(_s["w"], [1, 0]) and exacto(_s["b"], -2.0) and exacto(_s["margen"], 2.0) and exacto(_s["soporte_1"], [[1, 0]]), "vértice–vértice (1,0)–(3,0): x = 2, ancho 2 (el lado x + y = 1 da sólo √2)"
+    _nA, _nB = np.array([[0, 0], [2, 0], [0, 2], [0.5, 0.5]], dtype=float), np.array([[4, 3], [6, 3], [4, 5], [5, 6]], dtype=float)
+    _s = svm_margen_duro_2d(_nA, _nB)
+    assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.8) and exacto(_s["soporte_1"], [[2, 0], [0, 2]]) and exacto(_s["soporte_2"], [[4, 3]]), "las dos parcelas de 06: x + y = 4.5, soportes (2,0), (0,2), (4,3)"
+    _t = svm_margen_duro_2d(_nB, _nA)
+    assert exacto(_t["w"], -_s["w"]) and exacto(_t["b"], -_s["b"]), "intercambiar las clases cambia el signo de la forma"
+    _D2 = np.diag([2.0, 1.0])
+    assert exacto(transformar(_nA, _D2) @ forma_transformada(_s["w"], _D2) + _s["b"], _nA @ _s["w"] + _s["b"]), "la regla arrastrada (w A⁻¹, b) lee lo mismo sobre A x"
+    assert exacto(2 / np.linalg.norm(forma_transformada(_s["w"], _D2)), np.sqrt(20)), "pero el ancho físico cambia: 5/√2 → √20"
+    _s2 = svm_margen_duro_2d(transformar(_nA, _D2), transformar(_nB, _D2))
+    assert exacto(_s2["w"], [0.32, 0.24]) and exacto(_s2["margen"], 5.0) and exacto(_s2["soporte_1"], [[4, 0]]) and exacto(_s2["soporte_2"], [[8, 3]]), "re-entrenada sobre A x: otra divisoria, ancho 5 > √20"
+    try:
+        svm_margen_duro_2d([[0, 0], [2, 2]], [[1, 1], [3, 0]])
+        raise AssertionError("nubes que se tocan tienen que dar ValueError")
+    except ValueError:
+        pass
     print("cb104: asserts OK")
