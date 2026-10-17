@@ -1,7 +1,9 @@
 # /// script
-# requires-python = ">=3.14"
+# requires-python = ">=3.12"
 # dependencies = [
-#     "marimo>=0.25.1",
+#     "marimo",
+#     "numpy",
+#     "plotly",
 # ]
 # ///
 """Prueba mínima del patrón recomendado para animaciones en WASM: plotly con frames + botón play.

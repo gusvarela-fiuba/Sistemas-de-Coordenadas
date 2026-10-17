@@ -1,3 +1,11 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "matplotlib",
+# ]
+# ///
 """Producto cuña, determinante, núcleo y autovectores — Clase III
 
 Autor: Gustavo Varela

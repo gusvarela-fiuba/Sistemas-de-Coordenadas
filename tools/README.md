@@ -52,6 +52,25 @@ Nota: el export WASM (sin `--execute`) no embebe salidas; el HTML contiene el c�
 
 ### Molde de unidad (piloto: `unidades/01_rotaciones.py`)
 
+**Cabecera obligatoria.** Toda unidad DEBE empezar (antes del docstring) con el bloque de metadata PEP 723 que declara
+lo que importa; es lo que marimo embebe en el HTML y lo que Pyodide instala con micropip al cargar. Sin él, el export
+WASM muere en la celda de imports con `ModuleNotFoundError: No module named 'plotly'` y todas las figuras caen en cascada.
+`build.py` se niega a exportar una unidad que no lo tenga.
+
+```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "plotly",
+# ]
+# ///
+```
+
+(Las unidades legacy que usan matplotlib declaran `"matplotlib"` en lugar de `"plotly"`; `scipy` también existe como
+paquete Pyodide si hiciera falta. La biblioteca estándar, `fractions`, `math`, no se declara.)
+
 Toda unidad nueva copia la estructura de `01_rotaciones.py`: un `marimo.App(width="medium")`, Python puro, sólo `numpy`
 y `plotly` (los dos están en Pyodide; nada de matplotlib, `mo.iframe` ni `to_jshtml()`, que no andan en WASM), grados en
 la interfaz y radianes adentro, rotación/transformación activa por default, fórmulas en `mo.md` con `$…$` / `$$…$$`

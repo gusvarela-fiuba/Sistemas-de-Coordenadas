@@ -1,3 +1,11 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "plotly",
+# ]
+# ///
 """Unidad 01 — Rotaciones (piloto del molde de unidad).
 
 Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · 2C2026

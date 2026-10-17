@@ -241,6 +241,13 @@ def validar(datos: dict) -> list[str]:
 
 
 def exportar_unidad(u: dict, out: Path) -> float:
+    fuente = RAIZ / u["archivo"]
+    if "# /// script" not in fuente.read_text(encoding="utf-8"):
+        raise RuntimeError(
+            f"{u['archivo']}: falta la cabecera PEP 723 (`# /// script` ... `# ///` con `dependencies`). "
+            "Sin ella Pyodide no instala numpy/plotly/matplotlib y el notebook falla en el navegador "
+            "(ModuleNotFoundError). Ver tools/README.md, sección 'Molde de unidad'."
+        )
     destino = out / "unidades" / u["id"]
     if destino.exists():
         shutil.rmtree(destino)
