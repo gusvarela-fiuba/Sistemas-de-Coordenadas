@@ -6,13 +6,31 @@
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
 
 unidades:
-  - id: 01_rotaciones
-    archivo: unidades/01_rotaciones.py
-    titulo: Rotaciones
+  - id: 01a_punto_quieto
+    archivo: unidades/01a_punto_quieto.py
+    titulo: "Rotaciones I: el punto no se movió"
+    estado: piloto
+    clases: ["01"]
+    pregunta: "Si giro los ejes 30°, ¿se mueve el mojón o se mueven sus coordenadas?"
+    gancho_agrimensura: "La estación total mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación."
+    nivel: troncal
+
+  - id: 01b_rotacion_plano
+    archivo: unidades/01b_rotacion_plano.py
+    titulo: "Rotaciones II: la rotación en el plano"
+    estado: piloto
+    clases: ["01"]
+    pregunta: "¿Qué le pasa a la parcela cuando la giro, y qué no le pasa? ¿Por qué un espejo no es un giro?"
+    gancho_agrimensura: "Girar el plano entero para poner el norte arriba: cada distancia, cada ángulo y el área del título tienen que quedar iguales."
+    nivel: troncal
+
+  - id: 01c_rotaciones_3d
+    archivo: unidades/01c_rotaciones_3d.py
+    titulo: "Rotaciones III: tres ejes y el orden importa"
     estado: piloto
     clases: ["01", "02"]
-    pregunta: "¿Qué le pasa a cada punto de la parcela cuando giro los ejes, y por qué en 3D importa el orden en que giro?"
-    gancho_agrimensura: "La estación total mide en sus propios ejes; pasar esas lecturas al norte de la parcela es una rotación."
+    pregunta: "¿Por qué en 3D importa el orden en que giro, y por qué igual el resultado es un solo giro alrededor de un eje?"
+    gancho_agrimensura: "Nivelar la estación: inclinar y después girar no deja el instrumento igual que girar y después inclinar, salvo con correcciones chicas."
     nivel: troncal
 
   - id: 03_reflexiones_similaridades

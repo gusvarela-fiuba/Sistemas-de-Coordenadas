@@ -59,7 +59,7 @@ uv run marimo run tools/_prueba_plotly.py
 
 Nota: el export WASM (sin `--execute`) no embebe salidas; el HTML contiene el código de las celdas y todo se calcula en el navegador. `--execute` intenta correr el notebook en un entorno aislado y, al no declarar dependencias en el script, falla con `No module named 'numpy'`; no se usa.
 
-### Molde de unidad v2 (piloto: `unidades/01_rotaciones.py`; secuencia en `docs/camino.md`)
+### Molde de unidad v2 (lecciones piloto: `unidades/01a_punto_quieto.py`, `01b_rotacion_plano.py`, `01c_rotaciones_3d.py`; el piloto de una pieza quedó en `unidades/_legacy/01_rotaciones_v2.py`; secuencia en `docs/camino.md`)
 
 **Cabecera obligatoria.** Toda unidad DEBE empezar (antes del docstring) con el bloque de metadata PEP 723 que declara
 lo que importa; es lo que marimo embebe en el HTML y lo que Pyodide instala con micropip al cargar. Sin él, el export
@@ -80,7 +80,7 @@ WASM muere en la celda de imports con `ModuleNotFoundError: No module named 'plo
 (Las unidades legacy que usan matplotlib declaran `"matplotlib"` en lugar de `"plotly"`; `scipy` también existe como
 paquete Pyodide si hiciera falta. La biblioteca estándar, `fractions`, `math`, no se declara.)
 
-Toda unidad nueva copia la estructura de `01_rotaciones.py`: un `marimo.App(width="medium")`, Python puro, sólo `numpy`
+Toda unidad nueva copia la estructura de `PLANTILLA_leccion.py` (o de `01a_punto_quieto.py`): un `marimo.App(width="medium")`, Python puro, sólo `numpy`
 y `plotly` (los dos están en Pyodide; nada de matplotlib, `mo.iframe` ni `to_jshtml()`, que no andan en WASM), grados en
 la interfaz y radianes adentro, rotación/transformación activa por default, fórmulas en `mo.md` con `$…$` / `$$…$$`
 (KaTeX: sin `\newtheorem` ni entornos de LaTeX). Seis secciones (0 a 5), en este orden y con encabezado `##` visible:

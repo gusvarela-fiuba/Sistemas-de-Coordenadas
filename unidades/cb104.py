@@ -21,14 +21,14 @@ __all__ = [
     # álgebra y geometría
     "rot2", "rot_x", "rot_y", "rot_z", "rodrigues", "transformar", "hom", "dehom",
     "area_poligono", "perp2", "pot_real", "circulo", "pentagono_regular", "grilla_oblicua",
-    "cerrar", "estelas", "segmentos_a_trazo",
+    "cerrar", "estelas", "segmentos_a_trazo", "coordenadas_en_base", "eje_angulo",
     # LaTeX
-    "matriz_coloreada", "pmat", "vec_tex", "num_tex",
+    "matriz_coloreada", "pmat", "vec_tex", "vec_plano", "num_tex",
     # plotly 2D
-    "figura_plano", "grilla_segmentos", "capa_antes", "capa_despues", "objeto", "flecha",
-    "flechas_columnas", "animar",
+    "figura_plano", "grilla_segmentos", "capa_antes", "capa_despues", "objeto", "punto", "flecha",
+    "flechas_columnas", "lectura_coordenadas", "animar",
     # plotly 3D
-    "figura_espacio", "cubo_unitario", "segmentos_3d", "flechas_columnas_3d",
+    "figura_espacio", "cubo_unitario", "malla_pares", "terreno_suave", "segmentos_3d", "flechas_columnas_3d",
     # verificación
     "verificar", "exacto",
 ]
@@ -188,6 +188,33 @@ def segmentos_a_trazo(segmentos):
     return xs, ys
 
 
+def coordenadas_en_base(p, B):
+    """Coordenadas del punto p en la base dada por las COLUMNAS de B: el c tal que B c = p.
+
+    Si B es una rotación R(θ) (los ejes girados θ), c = Rᵀ p: lo que anota quien mide con los ejes girados.
+    """
+    return np.linalg.solve(np.asarray(B, dtype=float), np.asarray(p, dtype=float))
+
+
+def eje_angulo(R):
+    """(eje unitario, ángulo en radianes ∈ [0, π]) de una rotación 3×3: la recta que R deja quieta y cuánto gira.
+
+    El ángulo sale de la traza (tr R = 1 + 2 cos θ); el eje, de la parte antisimétrica (R − Rᵀ) o, si θ ≈ π,
+    del autovector de autovalor 1. Para θ ≈ 0 devuelve el eje z por convención.
+    """
+    R = np.asarray(R, dtype=float)
+    theta = float(np.arccos(np.clip((np.trace(R) - 1.0) / 2.0, -1.0, 1.0)))
+    if theta < 1e-9:
+        return np.array([0.0, 0.0, 1.0]), 0.0
+    w = np.array([R[2, 1] - R[1, 2], R[0, 2] - R[2, 0], R[1, 0] - R[0, 1]])
+    if np.linalg.norm(w) > 1e-6:
+        return w / np.linalg.norm(w), theta
+    vals, vecs = np.linalg.eig(R)  # θ ≈ π: R − Rᵀ ≈ 0, el eje es el autovector real de autovalor 1
+    k = int(np.argmin(np.abs(vals - 1.0)))
+    eje = np.real(vecs[:, k])
+    return eje / np.linalg.norm(eje), theta
+
+
 # ----------------------------------------------------------------------------
 # LaTeX (KaTeX en mo.md)
 # ----------------------------------------------------------------------------
@@ -201,6 +228,11 @@ def num_tex(x, dec=3):
     if abs(x) < 10 ** (-dec) / 2:
         x = 0.0
     return f"{x:.{dec}f}"
+
+
+def vec_plano(v, dec=3):
+    """Vector como texto plano "(1.964, 4.598)": para etiquetas de radio/dropdown, que no pasan por KaTeX."""
+    return "(" + ", ".join(f"{float(x):.{dec}f}".rstrip("0").rstrip(".") for x in np.asarray(v).ravel()) + ")"
 
 
 def vec_tex(v, dec=3):
@@ -342,6 +374,32 @@ def flechas_columnas(fig, M, nombre="M"):
     return fig
 
 
+def punto(fig, p, color=VIOLETA_OBJETO, nombre="punto", tam=12, texto=None):
+    """Un solo punto 2D como marcador grande (el mojón que no se mueve), con etiqueta opcional. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    p = np.asarray(p, dtype=float)
+    fig.add_trace(go.Scatter(x=[p[0]], y=[p[1]], mode="markers+text" if texto else "markers", text=[texto or ""],
+                             textposition="top right", textfont=dict(size=13, color=color),
+                             marker=dict(size=tam, color=color, line=dict(color="white", width=1.5)), name=nombre))
+    return fig
+
+
+def lectura_coordenadas(fig, p, B, color=VIOLETA_OBJETO, nombre="lectura en los ejes girados"):
+    """Cómo se leen las coordenadas de p sobre los ejes dados por las columnas de B: el camino punteado
+    origen → c₁·b₁ → p (primero a lo largo del eje 1, después paralelo al eje 2). Devuelve fig."""
+    import plotly.graph_objects as go
+
+    B = np.asarray(B, dtype=float)
+    p = np.asarray(p, dtype=float)
+    c = coordenadas_en_base(p, B)
+    codo = c[0] * B[:, 0]
+    fig.add_trace(go.Scatter(x=[0, codo[0], p[0]], y=[0, codo[1], p[1]], mode="lines+markers",
+                             line=dict(color=color, width=2, dash="dash"), marker=dict(size=[0, 6, 0], color=color),
+                             name=nombre, hoverinfo="skip"))
+    return fig
+
+
 def animar(fig, cuadros, titulo=None, indices=None, duracion=50):
     """Agrega frames y los botones reproducir/pausa (arriba a la derecha, fuera del título). Devuelve fig.
 
@@ -406,6 +464,22 @@ def cubo_unitario():
     v = np.array([[x, y, z] for x in (0, 1) for y in (0, 1) for z in (0, 1)], dtype=float)
     aristas = [(a, b) for a in range(8) for b in range(a + 1, 8) if np.sum(np.abs(v[a] - v[b])) == 1]
     return v, aristas
+
+
+def malla_pares(nx, ny=None):
+    """Pares de índices (vecinos en fila y en columna) de una malla nx×ny de puntos numerados fila por fila."""
+    ny = nx if ny is None else ny
+    return [(i * ny + j, i * ny + j + 1) for i in range(nx) for j in range(ny - 1)] + [
+        (i * ny + j, (i + 1) * ny + j) for i in range(nx - 1) for j in range(ny)
+    ]
+
+
+def terreno_suave(n=7, semilado=2.0, z0=-1.2):
+    """Un terreno de ejemplo: (puntos n²×3 con alturas suaves, pares de la malla). Una fila por punto."""
+    u = np.linspace(-semilado, semilado, n)
+    X, Y = np.meshgrid(u, u)
+    Z = 0.35 * np.sin(1.2 * X) * np.cos(0.9 * Y) + z0
+    return np.column_stack([X.ravel(), Y.ravel(), Z.ravel()]), malla_pares(n)
 
 
 def segmentos_3d(puntos, pares):
@@ -486,4 +560,15 @@ if __name__ == "__main__":
     assert v.shape == (8, 3) and len(ar) == 12
     xs, ys = segmentos_a_trazo(grilla_oblicua([1, 0], [0, 1], 1))
     assert len(xs) == 3 * 6 and xs[2] is None
+    assert exacto(coordenadas_en_base([4, 3], rot2(th)), rot2(th).T @ [4, 3]), "ejes girados θ: coordenadas = Rᵀ p"
+    assert exacto(coordenadas_en_base([4, 3], np.eye(2)), [4, 3])
+    Rd = rot_z(np.pi / 2) @ rot_y(np.pi / 2)
+    ej, an = eje_angulo(Rd)
+    assert exacto(abs(ej @ ([-1, 1, 1] / np.sqrt(3))), 1.0, tol=1e-9) and exacto(an, 2 * np.pi / 3), "Rz(90)Ry(90): eje (−1,1,1)/√3, 120°"
+    assert exacto(rodrigues(ej, an), Rd), "eje_angulo invierte a rodrigues"
+    ej, an = eje_angulo(rot_x(np.pi))
+    assert exacto(abs(ej[0]), 1.0) and exacto(an, np.pi), "θ = π: el eje sale del autovector"
+    assert eje_angulo(np.eye(3))[1] == 0.0
+    t, pares = terreno_suave(7)
+    assert t.shape == (49, 3) and len(pares) == 2 * 7 * 6 and len(malla_pares(2, 3)) == 2 * 2 + 1 * 3
     print("cb104: asserts OK")
