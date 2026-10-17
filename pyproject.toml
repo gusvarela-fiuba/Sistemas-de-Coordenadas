@@ -1,0 +1,17 @@
+[project]
+name = "sistemas-de-coordenadas"
+version = "0.1.0"
+description = "CB104 Sistemas de Coordenadas (Agrimensura FIUBA): unidades interactivas marimo, mapa de conceptos, apunte LaTeX y entregas"
+requires-python = ">=3.12"
+dependencies = [
+    "marimo>=0.24,<0.25",
+    "numpy>=2",
+    "scipy>=1.14",
+    "matplotlib>=3.9",
+    "plotly>=5.24",
+    "pyyaml>=6",
+    "markdown>=3.7",
+]
+
+[tool.uv]
+package = false

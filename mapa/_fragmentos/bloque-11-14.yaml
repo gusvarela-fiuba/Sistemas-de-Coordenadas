@@ -1,0 +1,118 @@
+# Fragmento del mapa: clases 11–14 (esqueleto 2025; no dictadas en 2C2026 al 2026-10-17)
+# Esquema: brief_fichas_comun.md (mapa/ESQUEMA.md no existía al escribir esto)
+
+clases:
+  - id: "11"
+    titulo: "Clase 11 - 4 problemas"
+    ficha: clases/11-cuatro-problemas.md
+    fecha_2025: null
+    fechas_2026: []
+    estado: no-dictada
+  - id: "12"
+    titulo: "Clase 12: Curvatura"
+    ficha: clases/12-curvatura.md
+    fecha_2025: null
+    fechas_2026: []
+    estado: no-dictada
+  - id: "13"
+    titulo: "Clase 13: Geometría del elipsoide (deducciones a partir de la simetría)"
+    ficha: clases/13-elipsoide.md
+    fecha_2025: null
+    fechas_2026: []
+    estado: no-dictada
+  - id: "14"
+    titulo: "Clase 14: Polígonos geodésicos sobre la esfera: Trigonometría esférica, y Máxima para el elipsoide"
+    ficha: clases/14-trigonometria-esferica.md
+    fecha_2025: null
+    fechas_2026: []
+    estado: no-dictada
+
+conceptos:
+  - id: regresion-simple
+    nombre: Regresión simple
+    clase: "11"
+    unidad: null
+    hecho_geometrico: "La recta y = ax + b que deja a y lo más cerca posible del plano generado por las columnas de A: proyección ortogonal de y sobre la imagen; se minimiza la distancia vertical en cada x_i."
+    que_se_conserva: "El residuo queda ortogonal a la imagen de A (ecuaciones normales)."
+    apunte: ["13"]
+    requiere: [pseudoinversa, sistema-sobredeterminado, cuatro-subespacios, producto-interno]
+  - id: interseccion-de-circulos
+    nombre: Intersección de círculos
+    clase: "11"
+    unidad: null
+    hecho_geometrico: "Restar dos ecuaciones de círculos cancela los cuadráticos y deja la recta por sus puntos de corte (eje radical); con tres o más círculos queda un sistema lineal sobredeterminado."
+    que_se_conserva: "El punto buscado está en todos los ejes radicales; la linealización no cambia la solución, cambia la forma de las ecuaciones."
+    apunte: ["13"]
+    requiere: [pseudoinversa, sistema-sobredeterminado, nucleo]
+  - id: procrustes
+    nombre: Procrustes
+    clase: "11"
+    unidad: null
+    hecho_geometrico: "Superponer dos nubes de puntos con la rotación (y escala) que mejor las ajusta: la SVD de la matriz de correlación H = PᵀQ separa el giro (U, V) del estiramiento (Σ). Helmert 2D en Topografía."
+    que_se_conserva: "Distancias y ángulos dentro de cada nube: sólo se permite rotar, trasladar y escalar."
+    apunte: ["13"]
+    requiere: [svd, valores-singulares, producto-interno, matriz-ortogonal]
+  - id: regresion-total
+    nombre: Regresión total
+    clase: "11"
+    unidad: null
+    hecho_geometrico: "La recta que minimiza las distancias perpendiculares es el eje mayor de la elipse de dispersión de la nube; la normal es la dirección de menor varianza, el vector singular del menor valor singular."
+    que_se_conserva: "La dirección que menos cambia bajo XᵀX; el residuo total es σ_min²."
+    apunte: ["13"]
+    requiere: [svd, valores-singulares, diagonalizacion, forma-cuadratica]
+  - id: curvatura
+    nombre: Curvatura
+    clase: "12"
+    unidad: null
+    hecho_geometrico: "Tasa de cambio del ángulo de la tangente por unidad de avance; 1/R del círculo osculador; en un gráfico con tangente horizontal es la segunda derivada."
+    que_se_conserva: "La curvatura de una curva no depende de cómo se la recorra (parametrización); la de Gauss no cambia al doblar la superficie sin estirarla."
+    apunte: ["13", "06"]
+    requiere: [derivada-aproximacion-lineal, hessiana]
+  - id: forma-cuadratica
+    nombre: Forma cuadrática
+    clase: "12"
+    unidad: null
+    hecho_geometrico: "Un número que sale de un vector pasando por una matriz simétrica, vᵀHv; la curvatura normal en dirección α es la hessiana evaluada en (cos α, sin α); diagonalizar es rotar los ejes hasta que desaparece el término cruzado y aparecen las direcciones principales, ortogonales."
+    que_se_conserva: "Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, sólo de escritura."
+    apunte: ["13"]
+    requiere: [hessiana, autovector, diagonalizacion, svd, producto-interno]
+  - id: geodesica
+    nombre: Geodésica
+    clase: "12"
+    unidad: null
+    hecho_geometrico: "La curva más recta posible sobre una superficie: no se tuerce dentro de ella (aceleración normal a la superficie); la más corta entre puntos cercanos. Círculos máximos en la esfera; meridianos sí y paralelos no en el elipsoide."
+    que_se_conserva: "La dirección tangente se transporta sin girar dentro del plano tangente (curvatura geodésica cero)."
+    apunte: ["13"]
+    requiere: [curvatura, primera-forma-fundamental, superficie-parametrica]
+  - id: elipsoide
+    nombre: Elipsoide de revolución
+    clase: "13"
+    unidad: null
+    hecho_geometrico: "La elipse meridiana girada alrededor de su eje menor; la normal no pasa por el centro (latitud geodésica ≠ geocéntrica); radios de curvatura M (meridiano) y N (primer vertical), ambos crecen del ecuador al polo y coinciden en el polo."
+    que_se_conserva: "La forma de la elipse meridiana en todo meridiano; nada métrico depende de λ."
+    apunte: ["06", "13"]
+    requiere: [superficie-parametrica, primera-forma-fundamental, curvatura, forma-cuadratica, rotacion-3d]
+  - id: simetria
+    nombre: Simetría (deducciones a partir de)
+    clase: "13"
+    unidad: null
+    hecho_geometrico: "El plano meridiano es plano de simetría: la forma cuadrática de la curvatura es simétrica respecto del meridiano, así que las direcciones principales tienen que ser meridiano y primer vertical sin calcular; la revolución hace que M, N y K sean funciones de φ sola."
+    que_se_conserva: "El elipsoide cae sobre sí mismo al rotar alrededor del eje polar y al reflejar en cualquier plano meridiano."
+    apunte: ["13"]
+    requiere: [reflexion, rotacion-3d, curvatura, forma-cuadratica]
+  - id: trigonometria-esferica
+    nombre: Trigonometría esférica
+    clase: "14"
+    unidad: null
+    hecho_geometrico: "Un triángulo esférico son tres planos por el centro: los lados son ángulos entre radios (producto interno), los ángulos son diedros entre planos (producto vectorial); ley de cosenos cos a = cos b cos c + sin b sin c cos A; exceso esférico = área/R²."
+    que_se_conserva: "Lados, ángulos y área bajo rotaciones de la esfera; para lados chicos se recupera la trigonometría plana."
+    apunte: ["11", "13"]
+    requiere: [producto-interno, producto-vectorial, geodesica, rotacion-3d]
+  - id: poligono-geodesico
+    nombre: Polígono geodésico
+    clase: "14"
+    unidad: null
+    hecho_geometrico: "Poligonal cerrada de lados geodésicos: la suma de ángulos excede (n−2)π en área/R²; el error de cierre de una poligonal sobre la Tierra delata que no es plana. Sobre el elipsoide no hay fórmula cerrada: series o CAS (Maxima)."
+    que_se_conserva: "El exceso esférico es área, no error: se separa antes de compensar la poligonal."
+    apunte: ["13"]
+    requiere: [trigonometria-esferica, geodesica, elipsoide]

@@ -1,0 +1,77 @@
+% Cómo leer este apunte
+\section{Cómo leer este apunte}
+
+El documento está organizado en capas que permiten volver sobre las mismas ideas con una
+profundidad creciente:
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X}
+\toprule
+Recorrido & Objetivo\\
+\midrule
+Primera lectura & Comprender qué representa cada concepto, qué se mueve y qué permanece.
+Incluye una primera expresión algebraica, explicada término por término.\\
+Segunda lectura & Construir figuras, seguir puntos e imágenes y reconocer visualmente
+invariantes, centros, ejes y direcciones.\\
+Tercera lectura & Relacionar las transformaciones con superficies, cartografía y problemas
+de Agrimensura.\\
+Apéndices & Reunir matrices, demostraciones, desarrollos de Taylor, casos excepcionales y
+soluciones completas de las guías.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Dentro de cada capa, \textbf{dictado} identifica lo trabajado en clase,
+\textbf{material docente} identifica los documentos enviados por la cátedra y
+\textbf{desarrollo} reúne las explicaciones agregadas para hacer el material autónomo.
+
+\emph{Consolidación 2026-09-21: hilo del profesor, rúbricas, bibliografía comentada.}
+La sección~\ref{sec:hilo} ordena las clases según los resúmenes escritos por el profesor;
+las cajas ``En palabras del profesor'' citan esos resúmenes; los apéndices~\ref{ap:rubricas},
+\ref{ap:bibliografia} y~\ref{ap:notebooks} reúnen rúbricas de autoevaluación, la bibliografía
+comentada y el material de clase.
+
+\begin{idea}[Método de estudio propuesto por el docente]
+Para cada definición o teorema conviene producir:
+\begin{enumerate}
+  \item una construcción o dibujo que muestre qué puntos se mueven y cuáles quedan fijos;
+  \item una fórmula vectorial;
+  \item un ejemplo numérico que permita comprobar la conclusión;
+  \item una frase que identifique la propiedad esencial: distancia, ángulo, paralelismo,
+  orientación o punto fijo.
+\end{enumerate}
+\end{idea}
+
+\subsection{Convención para componer}
+
+En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después \(F\)'':
+\[
+  (F G)(x)=F\bigl(G(x)\bigr).
+\]
+Esta convención es importante porque, en general, cambiar el orden cambia el resultado.
+
+\subsection{Mapa conceptual}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=7mm and 10mm,
+  every node/.style={font=\small,align=center},
+  box/.style={draw=teal,fill=teallight!40,rounded corners=2mm,
+              minimum width=31mm,minimum height=9mm},
+  arr/.style={-{Latex[length=2.4mm]},draw=tealdark,line width=.7pt}
+]
+  \node[box] (rp) {reflexión\\puntual};
+  \node[box,right=of rp] (rr) {reflexión\\en una recta};
+  \node[box,below=of rp] (tr) {traslación};
+  \node[box,below=of rr] (rot) {rotación};
+  \node[box,below=of tr] (hom) {homotecia};
+  \node[box,below right=7mm and -5mm of hom] (sim) {similaridad};
+  \draw[arr] (rp)--node[left]{dos centros}(tr);
+  \draw[arr] (rr)--node[right]{ejes paralelos}(tr);
+  \draw[arr] (rr)--node[right]{ejes secantes}(rot);
+  \draw[arr] (tr)--(sim);
+  \draw[arr] (rot)--(sim);
+  \draw[arr] (hom)--(sim);
+\end{tikzpicture}
+\end{center}
+

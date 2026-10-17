@@ -1,0 +1,65 @@
+% Primera lectura: del plano a una superficie, esfera y elipsoide, sistemas, marcos y grillas
+\section{Pasar del plano a una superficie}\label{sec:plano-superficie}
+
+Sobre una superficie curva no existe una única base cartesiana válida en todas partes. En
+cada punto aparece un plano tangente y una base local que cambia al desplazarse. La métrica
+indica cómo convertir pequeños cambios de coordenadas en distancias y ángulos reales sobre
+la superficie.
+
+\paragraph{Primera traducción algebraica.}
+\[
+  ds^2=E\,du^2+2F\,du\,dv+G\,dv^2.
+\]
+Los coeficientes \(E,F,G\) describen cuánto miden y qué ángulo forman los dos vectores de la
+base local. La expresión transforma pequeños cambios \((du,dv)\) en una distancia geométrica.
+
+\begin{idea}[De lo global a lo local]
+Una superficie curva se estudia mediante pequeños parches que se parecen a un plano. En cada
+parche se usan coordenadas locales; al conectar los parches se recupera la geometría global.
+Esta es la intuición básica de una variedad.
+\end{idea}
+
+\begin{idea}[En palabras del profesor]
+``La derivada es la mejor aproximación lineal a una función en determinado punto''; ``el
+gradiente es perpendicular a una superficie/curva de nivel [\ldots] porque el gradiente es
+una forma lineal, y la curva de nivel 0 de esa forma lineal es el plano tangente'' (resumen de clase 9, cursada 2025).
+\end{idea}
+
+\section{Esfera, elipsoide y representación plana}\label{sec:esfera-primera}
+
+La Tierra se aproxima primero mediante una esfera y luego mediante un elipsoide de revolución.
+Su curvatura cambia con la posición, por lo que una diferencia angular no representa la misma
+distancia en todas las latitudes.
+
+Una proyección cartográfica lleva esa superficie al plano. Como una superficie curva no puede
+desarrollarse perfectamente sobre un plano, toda proyección debe elegir qué propiedad
+privilegiar: ángulos, áreas o determinadas distancias.
+
+\begin{idea}[En palabras del profesor]
+``Buscar una intuición de rotaciones y coordenadas sobre la cáscara de la esfera, que va
+a terminar conectando con el sistema de coordenadas de latitud y longitud'' (resumen de clase 2, cursada 2025).
+\end{idea}
+
+\section{Sistemas, marcos y grillas}\label{sec:sistemas-marcos}
+
+Un sistema de coordenadas define reglas matemáticas para expresar posiciones. Un marco de
+referencia materializa esas reglas en una época concreta mediante puntos, estaciones y
+observaciones.
+
+Cuando se cambia de marco pueden bastar traslaciones, rotaciones y escala. Si existen
+deformaciones regionales, se utilizan grillas de corrección que asignan desplazamientos
+variables según la ubicación. En datos ráster, el cambio de coordenadas obliga además a
+remuestrear porque los centros de píxel no coinciden exactamente.
+
+\begin{resultado}[Mapa mental de la materia]
+Las primeras transformaciones enseñan a reconocer invariantes. Las afinidades amplían la
+familia permitiendo deformaciones. La geometría diferencial lleva esas ideas a superficies
+curvas, y la geodesia las aplica al elipsoide, las proyecciones y los marcos de referencia.
+\end{resultado}
+
+\begin{idea}[En palabras del profesor]
+``Una operación muy importante es la composición [\ldots]: en general es necesario para
+construir un sistema de coordenadas que haya conmutatividad a la hora de componer
+movimientos por coordenadas'' (resumen de clase 2, cursada 2025).
+\end{idea}
+

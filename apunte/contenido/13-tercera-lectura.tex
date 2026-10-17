@@ -1,0 +1,264 @@
+% Tercera lectura: conexiones con el resto del programa
+\section{Coordenadas curvilíneas y bases locales}\label{sec:curvilineas}
+
+Una parametrización
+\[
+  r:U\subset\R^2\longrightarrow\R^3,
+  \qquad
+  (u,v)\longmapsto r(u,v)
+\]
+describe una superficie mediante dos coordenadas. Los vectores
+\[
+  r_u=\frac{\partial r}{\partial u},
+  \qquad
+  r_v=\frac{\partial r}{\partial v}
+\]
+forman una base tangente local cuando son linealmente independientes.
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[teallight,fill=teallight!60] (1,1)
+    .. controls (3,.2) and (6,.5) .. (8,1.4)
+    .. controls (7,3.8) and (3.2,4.5) .. (1,3)
+    .. controls (.7,2.2) and (.7,1.6) .. cycle;
+  \coordinate (p) at (4.6,2.1);
+  \fill[ink] (p) circle (2.5pt) node[below left] {$p$};
+  \draw[mainline,-{Latex[length=2.6mm]}] (p)--++(2.2,.25)
+    node[right] {$r_u$};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.6mm]}] (p)--++(-.6,1.7)
+    node[above] {$r_v$};
+  \draw[muted,line width=.8pt,-{Latex[length=2.6mm]}] (p)--++(.2,2.2)
+    node[above] {$n$};
+  \node[text=muted] at (6.8,.8) {superficie};
+\end{tikzpicture}
+\end{center}
+
+En coordenadas cartesianas la base es fija. En una superficie curva, la base cambia de
+orientación y de longitud al cambiar el punto. Esta dependencia espacial es la razón por la
+cual los productos internos y las derivadas adquieren coeficientes adicionales.
+
+\section{Variedades y espacio tangente}\label{sec:variedades}
+
+Una variedad es un objeto que localmente se parece a un espacio euclídeo. Una superficie
+regular \(S\subset\R^3\) tiene en cada punto \(p\) un espacio tangente
+\[
+  T_pS=\operatorname{span}\{r_u(p),r_v(p)\}.
+\]
+El plano tangente es la mejor aproximación lineal local a la superficie. No es una proyección
+cartográfica: pertenece al punto \(p\) y cambia al desplazarse sobre \(S\).
+
+Si \(F:S\to M\) es una aplicación entre variedades, su derivada
+\[
+  dF_p:T_pS\longrightarrow T_{F(p)}M
+\]
+es una transformación lineal entre espacios tangentes. Esa transformación contiene la
+información local sobre escala, orientación, deformación angular y deformación de áreas.
+
+\section{Métrica y primera forma fundamental}\label{sec:metrica}
+
+La métrica inducida por la parametrización queda determinada por
+\[
+  E=\langle r_u,r_u\rangle,\qquad
+  F=\langle r_u,r_v\rangle,\qquad
+  G=\langle r_v,r_v\rangle.
+\]
+El elemento de longitud es
+\[
+  \boxed{ds^2=E\,du^2+2F\,du\,dv+G\,dv^2}.
+\]
+En forma matricial:
+\[
+  ds^2=
+  \begin{pmatrix}du&dv\end{pmatrix}
+  \begin{pmatrix}E&F\\F&G\end{pmatrix}
+  \begin{pmatrix}du\\dv\end{pmatrix}.
+\]
+
+\paragraph{Esfera.}
+Para una esfera de radio \(R\), usando longitud \(\lambda\) y latitud \(\varphi\),
+\[
+  ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2\,d\varphi^2.
+\]
+El factor \(\cos\varphi\) explica por qué un incremento fijo de longitud representa una
+distancia cada vez menor al acercarse a los polos.
+
+\section{Esfera, elipsoide y curvatura}
+
+El elipsoide de revolución se caracteriza habitualmente mediante el semieje mayor \(a\) y
+el achatamiento \(f\). La primera excentricidad satisface
+\[
+  e^2=2f-f^2.
+\]
+Dos radios de curvatura fundamentales son:
+\[
+  \boxed{
+  M(\varphi)=
+  \frac{a(1-e^2)}{(1-e^2\sin^2\varphi)^{3/2}}
+  },
+  \qquad
+  \boxed{
+  N(\varphi)=
+  \frac{a}{\sqrt{1-e^2\sin^2\varphi}}
+  }.
+\]
+\(M\) corresponde a la sección meridiana y \(N\) al primer vertical. La curvatura gaussiana
+del elipsoide de revolución puede expresarse como
+\[
+  K=\frac{1}{MN}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[teal,line width=1.1pt] (5,2.5) ellipse (3.8 and 2.2);
+  \draw[auxline] (1.2,2.5)--(8.8,2.5);
+  \draw[auxline] (5,.3)--(5,4.7);
+  \coordinate (p) at (7.7,3.75);
+  \fill[rust] (p) circle (2.6pt) node[above right] {$p(\varphi)$};
+  \draw[rust,line width=.8pt] ($(p)+(-1.7,.65)$)--($(p)+(1.7,-.65)$)
+    node[right,font=\small] {tangente};
+  \draw[mainline,-{Latex[length=2.5mm]}] (p)--++(-1.15,1.75)
+    node[above] {normal};
+  \node[text=muted] at (5,0) {elipsoide de revolución};
+\end{tikzpicture}
+\end{center}
+
+\section{Proyecciones cartográficas}\label{sec:proyecciones}
+
+Una proyección es una aplicación desde una superficie de referencia al plano:
+\[
+  P:S\longrightarrow\R^2.
+\]
+No puede conservar simultáneamente todas las propiedades métricas. Según la propiedad
+priorizada se distingue:
+
+\begin{center}
+\begin{tabularx}{.92\textwidth}{>{\bfseries}l X X}
+\toprule
+Tipo & Conserva localmente & Ejemplos\\
+\midrule
+Conforme & ángulos & Mercator, Gauss--Krüger, UTM\\
+Equivalente & áreas & Albers, Mollweide\\
+Equidistante & ciertas distancias & azimutal equidistante\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+La derivada \(dP_p\) actúa entre planos tangentes. Sus valores singulares describen las
+escalas principales de deformación; su determinante describe el cambio local de área.
+
+\section{Variable compleja y conformidad}
+
+Una función compleja \(w=f(z)\) es derivable en sentido complejo cuando existe
+\[
+  f'(z)=\lim_{\Delta z\to0}
+  \frac{f(z+\Delta z)-f(z)}{\Delta z}.
+\]
+Cuando \(f'(z)\neq0\), la transformación lineal local es multiplicación por el complejo
+\(f'(z)\): una rotación combinada con un escalado uniforme. Por ello las funciones holomorfas
+preservan ángulos localmente.
+
+La proyección estereográfica es un ejemplo central y conduce naturalmente al plano complejo
+extendido
+\[
+  \widehat{\mathbb C}=\mathbb C\cup\{\infty\}.
+\]
+La relación entre rotaciones, multiplicación compleja y conformidad conecta la primera clase
+con este bloque posterior del programa.
+
+\section{Marcos de referencia y transformaciones geodésicas}
+
+Un sistema de coordenadas indica cómo expresar posiciones; un marco de referencia materializa
+ese sistema mediante convenciones, época y puntos o estaciones observadas. Cambiar de marco
+puede exigir traslaciones, rotaciones, escala y correcciones espaciales.
+
+\subsection{Transformaciones paramétricas}
+
+Las transformaciones tridimensionales de semejanza suelen organizarse como
+\[
+  X_2=t+(1+\mu)RX_1,
+\]
+donde \(t\) es una traslación, \(\mu\) una pequeña variación de escala y \(R\) una rotación.
+Las fórmulas de Molodensky permiten transformar coordenadas geodésicas considerando cambios
+de datum y de elipsoide sin pasar necesariamente por una proyección plana.
+
+\subsection{Transformaciones mediante grillas}
+
+Una grilla NTv2 almacena correcciones \(\Delta\varphi,\Delta\lambda\) en nodos regulares. Para
+un punto interior se interpolan las correcciones de los cuatro nodos vecinos, típicamente por
+interpolación bilineal:
+\[
+\Delta(u,v)=
+(1-u)(1-v)\Delta_{00}
++u(1-v)\Delta_{10}
++(1-u)v\Delta_{01}
++uv\Delta_{11}.
+\]
+Este enfoque representa deformaciones regionales que una transformación global de pocos
+parámetros no puede modelar.
+
+\section{Discretización, grillas y remuestreo}
+
+Al pasar de coordenadas continuas a una grilla aparecen decisiones sobre resolución,
+origen, orientación y regla de muestreo. Una transformación geométrica rara vez lleva los
+centros de píxel exactamente a centros de otra grilla; por eso se requiere remuestreo.
+
+\begin{center}
+\begin{tabularx}{.9\textwidth}{>{\bfseries}l X}
+\toprule
+Método & Característica\\
+\midrule
+Vecino más próximo & conserva valores originales; apropiado para clases categóricas\\
+Bilineal & interpola cuatro celdas; suaviza datos continuos\\
+Bicúbico & usa un vecindario mayor; mayor suavidad y costo\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+El jacobiano de la transformación permite estudiar deformaciones locales y convertir áreas
+y densidades entre sistemas de coordenadas.
+
+\section{Sistemas de ecuaciones y aplicaciones}\label{sec:sistemas-ecuaciones}
+
+El programa incluye sistemas de ecuaciones y ecuaciones de segundo orden. En el contexto de
+coordenadas pueden aparecer al:
+\begin{itemize}
+  \item determinar intersecciones, puntos fijos y parámetros de transformación;
+  \item ajustar coordenadas a partir de observaciones redundantes;
+  \item describir curvas y superficies cuadráticas;
+  \item formular ecuaciones diferenciales sobre superficies.
+\end{itemize}
+
+Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra.
+
+\section{Conexión con la práctica de Agrimensura}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{47mm} X}
+\toprule
+Concepto & Aplicación\\
+\midrule
+Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de observaciones GNSS\\
+Base tangente y métrica & distancias y ángulos locales sobre el elipsoide\\
+Radios \(M,N\) & variación geométrica con la latitud\\
+Proyección conforme & coordenadas planas para cartografía y mensura\\
+Transformaciones de marco & compatibilidad entre realizaciones geodésicas\\
+Grillas de corrección & transformación regional de alta precisión\\
+Remuestreo & ortomosaicos, modelos de elevación y datos ráster\\
+Jacobiano & escala, deformación y propagación local\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[Estrategia de estudio acumulativa]
+Cada nuevo tema debería incorporarse con la secuencia
+\[
+\text{definición}\rightarrow
+\text{representación geométrica}\rightarrow
+\text{fórmula}\rightarrow
+\text{ejemplo numérico}\rightarrow
+\text{implementación}.
+\]
+Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
+GeographicLib y QGIS según el bloque.
+\end{idea}
+

@@ -1,0 +1,95 @@
+%% Apunte integral — Sistemas de Coordenadas (CB104)
+%% Archivo principal: metadatos, portada, índice y lista de secciones.
+%% El formato vive en apunte-formato.sty; el contenido en contenido/NN-nombre.tex.
+%% Compilar: lualatex ×3 desde esta carpeta (NO xelatex).
+\documentclass[11pt,a4paper]{article}
+\usepackage{apunte-formato}
+
+%% --- Metadatos del documento ---
+\renewcommand{\apunteEncabezadoIzq}{Sistemas de Coordenadas}
+\renewcommand{\apunteEncabezadoDer}{Apunte integral}
+\hypersetup{
+  pdftitle={Sistemas de Coordenadas: apunte integral de la materia},
+  pdfauthor={Gustavo Varela}
+}
+
+\begin{document}
+
+\begin{titlepage}
+\pagecolor{paper}
+\noindent
+\newcommand{\portadaAutor}{Gustavo Varela \textperiodcentered{} ayudantía de la cátedra del Prof. Javier Clavijo}
+\input{portada/portada-tikz}
+\end{titlepage}
+
+\clearpage
+\thispagestyle{empty}
+\vspace*{30mm}
+\begin{idea}[Propósito]
+Integrar en un único documento el contenido dictado, las guías docentes, los desarrollos
+algebraicos y geométricos, ejemplos resueltos y el panorama general de la materia. El apunte
+está preparado para crecer con cada nueva clase y cada nuevo documento.
+\end{idea}
+
+\vspace{8mm}
+{\large\bfseries Sobre esta versión\par}
+{\color{muted}Versión 2: rotaciones, transformaciones euclídeas, similaridades,
+afinidades, coordenadas homogéneas, productos y determinante, autovectores y
+transformaciones proyectivas.\par}
+
+{\color{muted}Consolidación 2026-09-21: hilo del profesor, rúbricas, bibliografía
+comentada.\par}
+
+\vspace{8mm}
+{\color{muted}\small Carátula: el monolito que gira alrededor de cada eje (rotaciones y el orden de composición), el cubo unitario que $A$ lleva a un paralelepípedo (determinante como volumen, autovector como dirección que cae sobre sí misma) y el elipsoide con su plano tangente (coordenadas locales y métrica). Es el recorrido de la materia en una página.\par}
+
+\nopagecolor
+
+\tableofcontents
+\newpage
+
+
+%% --- Cuerpo: una línea \input por archivo de contenido/, en orden ---
+\input{contenido/00-como-leer}
+\input{contenido/01-organizacion}
+\input{contenido/02-hilo-de-la-materia}
+\input{contenido/03-mirada-geometrica}
+
+\part{Primera lectura: ideas y significado}
+
+\input{contenido/04-primera-lectura-transformaciones}
+\input{contenido/05-primera-lectura-homogeneas-proyectivas}
+\input{contenido/06-primera-lectura-superficies}
+
+\part{Segunda lectura: construcciones, figuras y ejemplos}
+
+\input{contenido/07-bloque-rotaciones}
+\input{contenido/08-bloque-euclideas-enunciados}
+\input{contenido/09-bloque-euclideas-guia-resuelta}
+\input{contenido/10-bloque-afines}
+\input{contenido/11-bloque-algebraico}
+\input{contenido/12-bloque-proyectivas}
+
+\part{Tercera lectura: conexiones con el resto del programa}
+
+\input{contenido/13-tercera-lectura}
+
+\clearpage
+\appendix
+\input{contenido/14-apendice-rotaciones-3d}
+\input{contenido/15-apendice-infinitesimales}
+\input{contenido/16-apendice-composicion-afin}
+\input{contenido/17-apendice-ejercicios-afinidades}
+\input{contenido/18-apendice-pentagono}
+\input{contenido/19-apendice-rubricas}
+\input{contenido/20-apendice-bibliografia}
+\input{contenido/21-apendice-notebooks}
+\input{contenido/22-material-y-fuentes}
+
+%% --- Facsímiles del material docente (deben estar en esta carpeta) ---
+\includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]
+  {01_Ejercicios_original.pdf}
+\includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]
+  {02_afinidad_original.pdf}
+
+\end{document}

@@ -1,0 +1,291 @@
+% Segunda lectura — Bloque geométrico: transformaciones proyectivas
+\section{Bloque geométrico: transformaciones proyectivas}\label{sec:bloque-proyectivas}
+
+\section{Homografías: forma algebraica}\label{sec:homografias}
+
+\textbf{Desarrollo.} Una \emph{transformación proyectiva} u \emph{homografía} del plano es la
+aplicación
+\[
+  \boxed{p\longmapsto p'\sim Hp},
+\]
+con \(H\) una matriz real \(3\times3\) invertible que actúa sobre las coordenadas
+homogéneas \(p=(x,y,1)^T\). El símbolo \(\sim\) recuerda que el resultado se lee \emph{a menos
+de escala}: se normaliza dividiendo por la tercera coordenada. Como \(H\) y \(\lambda H\)
+definen la misma transformación, una homografía tiene \(8\) grados de libertad. Se compone
+multiplicando matrices con la convención habitual: \(H_2H_1\) significa primero \(H_1\) y
+después \(H_2\).
+
+\begin{resultado}[Qué conserva una homografía]
+\begin{itemize}
+  \item Rectas en rectas, e incidencia: si \(\ell\cdot p=0\) entonces \(\ell'\cdot p'=0\)
+  con \(\ell'=H^{-T}\ell\). Los puntos se transforman con \(H\), las rectas con
+  \(H^{-T}\).
+  \item La \emph{razón doble} de cuatro puntos alineados, el invariante fundamental de la
+  geometría proyectiva (no se desarrolla en este apunte).
+  \item No conserva distancias, ángulos, áreas, paralelismo ni razones simples: el punto medio
+  de un segmento puede ir a cualquier punto interior de la imagen.
+\end{itemize}
+\end{resultado}
+
+\paragraph{La recta que se va al infinito.}
+Sea \(h_3=(h_{31},h_{32},h_{33})\) la tercera fila de \(H\). La tercera coordenada de la
+imagen es \(W=h_3\cdot p\). Los puntos de la recta \(h_{31}x+h_{32}y+h_{33}=0\) tienen
+\(W=0\): se van al infinito. Si esa recta \emph{no toca} una figura acotada, la imagen es una
+figura acotada con las mismas incidencias. Si la \emph{atraviesa}, los puntos de un lado
+tienen \(W>0\) y los del otro \(W<0\), y la imagen se parte: un segmento que cruza la recta se
+transforma en dos semirrectas unidas ``por el infinito'', como un objeto que está en parte
+delante y en parte detrás de la cámara.
+
+\begin{atencion}[Las afinidades vistas desde acá]
+Una afinidad tiene \(h_3=(0,0,1)\): la recta que se va al infinito es la propia recta ideal.
+Ningún punto ordinario se pierde, las paralelas siguen paralelas y las figuras nunca se
+parten. Recíprocamente, toda homografía que deja fija la recta ideal es una afinidad.
+\end{atencion}
+
+\section{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
+
+\paragraph{Conteo.} Cada correspondencia \(p_i\mapsto p_i'\) aporta dos ecuaciones
+(\(X/W=x_i'\), \(Y/W=y_i'\)). Cuatro correspondencias dan ocho ecuaciones para ocho
+incógnitas. La condición es que ni entre los cuatro puntos de partida ni entre los cuatro de
+llegada haya tres alineados (con el determinante se verifica).
+
+\paragraph{Construcción.} En lugar de resolver el sistema \(8\times8\) se pasa por un
+\emph{cuadrilátero patrón}:
+\[
+  e_1=\begin{pmatrix}1\\0\\0\end{pmatrix},\quad
+  e_2=\begin{pmatrix}0\\1\\0\end{pmatrix},\quad
+  e_3=\begin{pmatrix}0\\0\\1\end{pmatrix},\quad
+  e_4=\begin{pmatrix}1\\1\\1\end{pmatrix}=e_1+e_2+e_3 .
+\]
+Dados cuatro puntos \(p_1,p_2,p_3,p_4\) sin tres alineados, se busca una matriz \(K\) con
+\(Ke_i\sim p_i\) para \(i=1,\dots,4\):
+\begin{enumerate}
+  \item Se forma \(M=[\,p_1\ p_2\ p_3\,]\) con los tres primeros puntos como columnas. Como
+  \(Me_i\) es la \(i\)-ésima columna, ya se cumple \(Me_i=p_i\) para \(i\le3\). Pero
+  \(Me_4=p_1+p_2+p_3\), que en general no es \(p_4\).
+  \item Como cada columna representa su punto \emph{a menos de escala}, se la puede
+  multiplicar por un número sin cambiar a dónde va \(e_i\). Se eligen \(\lambda_1,\lambda_2,
+  \lambda_3\) tales que
+  \[
+    \lambda_1p_1+\lambda_2p_2+\lambda_3p_3=p_4
+    \qquad\Longleftrightarrow\qquad
+    \lambda=M^{-1}p_4 .
+  \]
+  \item La matriz buscada es \(K=[\,\lambda_1p_1\ \ \lambda_2p_2\ \ \lambda_3p_3\,]\):
+  las tres primeras columnas siguen representando \(p_1,p_2,p_3\) y su suma es \(p_4\).
+\end{enumerate}
+
+\begin{resultado}[Homografía que lleva un cuadrilátero sobre otro]
+Sean \(K_1\) la matriz del patrón para los puntos de partida \(p_1,\dots,p_4\) y \(K_2\) la
+del patrón para los puntos de llegada \(p_1',\dots,p_4'\). Entonces
+\[
+  \boxed{H=K_2K_1^{-1}}
+\]
+es la única homografía (a menos de escala) con \(Hp_i\sim p_i'\), \(i=1,\dots,4\).
+Se lee de derecha a izquierda: \(K_1^{-1}\) lleva el cuadrilátero de partida al patrón, y
+\(K_2\) lleva el patrón al cuadrilátero de llegada.
+\end{resultado}
+
+Es el mismo esquema del ejercicio 6 de afinidades (\(A=P'P^{-1}\)), con un punto más para
+absorber la perspectiva. Los \(\lambda_i\), invisibles punto a punto, son precisamente los
+grados de libertad que faltaban.
+
+\section{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
+
+\textbf{Desarrollo.} Acá se cierra la cadena del bloque anterior. \(p\) es fijo si
+\(Hp\sim p\), es decir si existe \(\lambda\neq0\) con \(Hp=\lambda p\): \emph{los puntos
+fijos son los autovectores reales de \(H\)}. Se calculan como se explicó: raíces reales de
+\(\det(H-\lambda I)=0\), y para cada una el producto cruz de dos filas de \(H-\lambda I\).
+
+\begin{resultado}[Existencia de punto fijo]
+Toda homografía del plano tiene al menos un punto fijo, porque el polinomio característico
+es de grado \(3\). Es ordinario si el autovector tiene tercera coordenada no nula, e ideal
+(una dirección fija) si la tercera coordenada es cero. Una raíz doble con producto cruz de
+filas nulo significa toda una recta de puntos fijos.
+\end{resultado}
+
+\paragraph{Rectas fijas.} Como las rectas se transforman con \(H^{-T}\), una recta es fija
+si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
+\(H^{T}-\lambda I\) (o sea, de dos columnas de \(H-\lambda I\)). Una recta fija de autovalor
+\(\mu\) pasa por todos los puntos fijos de autovalor \(\lambda\neq\mu\).
+
+\paragraph{Clasificación por autovalores.}
+\begin{itemize}
+  \item \textbf{Tres autovalores reales distintos:} tres puntos fijos no alineados y tres
+  rectas fijas, los lados de ese triángulo.
+  \item \textbf{Un real y dos complejos conjugados:} un único punto fijo real y una única
+  recta fija real que no pasa por él. En coordenadas adecuadas es una rotación alrededor del
+  punto fijo, con la recta fija en el papel de recta ideal.
+  \item \textbf{Un autovalor doble con producto cruz de filas nulo:} una recta entera de
+  puntos fijos (el \emph{eje}) y un punto fijo aislado (el \emph{centro}) con el otro
+  autovalor. Es una \emph{homología}. Si los dos autovalores son opuestos, \(H^2\sim I\): la
+  homología es \emph{armónica}, una involución, como una reflexión.
+\end{itemize}
+
+\section{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} p{44mm} c c X}
+\toprule
+Familia & Forma de \(H\) & g.d.l. & Puntos & Conserva\\
+\midrule
+Isometrías & \(\begin{pmatrix}R&t\\0&1\end{pmatrix}\), \(R^TR=I\) & 3 & 2 &
+distancias, ángulos, áreas\\
+Similaridades & \(\begin{pmatrix}kR&t\\0&1\end{pmatrix}\) & 4 & 2 &
+ángulos, razones de longitudes\\
+Afinidades & \(\begin{pmatrix}A&t\\0&1\end{pmatrix}\), \(\det A\neq0\) & 6 & 3 &
+paralelismo, razón simple, razón de áreas\\
+Proyectivas & \(H\) invertible cualquiera & 8 & 4 &
+rectas, incidencia, razón doble\\
+\bottomrule
+\end{tabularx}
+\end{center}
+``Puntos'' es la cantidad de correspondencias \(p_i\mapsto p_i'\) que determinan la
+transformación. Cada familia contiene a la anterior y conserva menos.
+
+\section{El ejercicio del pentágono regular}
+
+\begin{enunciado}[Dictado, clase del 18 de septiembre]
+Tomar un pentágono \emph{regular} \(ABCDE\). Una transformación proyectiva queda definida
+por cuatro puntos, así que se prescriben cuatro vértices y sus imágenes (otros cuatro
+vértices) y se pregunta \emph{a dónde cae el quinto}. Hay tres casos, y sus combinaciones
+con las rotaciones del pentágono:
+\begin{enumerate}[label=(\alph*)]
+  \item no intercambiar ningún vértice: sólo ``correr'' el pentágono;
+  \item intercambiar dos vértices adyacentes;
+  \item intercambiar dos vértices no adyacentes.
+\end{enumerate}
+Para cada transformación, determinar si tiene punto fijo (un autovector de la matriz).
+Entrega: un único PDF en el campus (o por correo), con figuras y observaciones; se
+comparten avances en el grupo.
+\end{enunciado}
+
+\textbf{Desarrollo.} Se toma el pentágono regular inscripto en la circunferencia unidad,
+centrado en el origen y con un vértice arriba. El docente sugirió centrarlo en el origen:
+en el caso más simple el punto fijo es el centro, cuyo autovector es \((0,0,1)^T\).
+\begin{gather*}
+  A=(0,\,1),\qquad B=(-0.9511,\,0.3090),\qquad C=(-0.5878,\,-0.8090),\\
+  D=(0.5878,\,-0.8090),\qquad E=(0.9511,\,0.3090).
+\end{gather*}
+Las coordenadas son irracionales (\(\cos72^\circ=\frac{\sqrt5-1}{4}\)), así que las
+matrices se calculan con cuatro decimales y se verifican en NumPy (apéndice~\ref{ap:pentagono}).
+En los tres casos se usa \(H=K_2K_1^{-1}\) con \(K_1\) el patrón de \(ABCD\), y se
+normaliza \(h_{33}=1\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.9]
+  \draw[linegray!40,very thin] (-1.6,-1.4) grid[step=.5] (1.6,1.3);
+  \draw[axisline,-{Latex[length=2.2mm]}] (-1.7,0)--(1.7,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2.2mm]}] (0,-1.45)--(0,1.35) node[above] {$y$};
+  \draw[linegray,densely dotted] (0,0) circle (1);
+  \draw[teal,line width=1.05pt,fill=teallight!45] (0,1)--(-0.9511,0.3090)--(-0.5878,-0.8090)--(0.5878,-0.8090)--(0.9511,0.3090)--cycle;
+  \foreach \p/\n/\pos in {(0,1)/A/above,(-0.9511,0.3090)/B/left,(-0.5878,-0.8090)/C/{below left},(0.5878,-0.8090)/D/{below right},(0.9511,0.3090)/E/right}
+    \fill[teal] \p circle (1.2pt) node[\pos,font=\small,text=tealdark] {$\n$};
+  \fill[ink] (0,0) circle (1.2pt) node[below right,font=\scriptsize] {$O$};
+  % caso (c): imagen C B A D E'
+  \draw[rust,line width=1pt] (-0.5878,-0.8090)--(-0.9511,0.3090)--(0,1)--(0.5878,-0.8090)--(0,-1.2361)--cycle;
+  \fill[rust] (0,-1.2361) circle (1.4pt) node[right=2pt,font=\small,text=rust,labelback] {$E'_c=(0,-1.2361)$};
+  % eje BD
+  \draw[dashed,tealdark,line width=.8pt] ($(-0.9511,0.3090)!-0.35!(0.5878,-0.8090)$)--($(-0.9511,0.3090)!1.35!(0.5878,-0.8090)$) node[right,font=\scriptsize,text=tealdark] {eje $BD$};
+  % recta AC (contiene al centro)
+  \draw[dotted,gold!70!black,line width=.8pt] ($(0,1)!-0.3!(-0.5878,-0.8090)$)--($(0,1)!1.3!(-0.5878,-0.8090)$);
+  \node[gold!60!black,font=\scriptsize,labelback,anchor=east] at (-0.55,-1.3) {hacia $O_c=(-1.54,-3.74)$};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{(a) Sin intercambio: \(A\mapsto B,\ B\mapsto C,\ C\mapsto D,\ D\mapsto E\).}
+Los cuatro pares son compatibles con la rotación de \(72^\circ\) alrededor de \(O\), que es
+una isometría y por lo tanto una homografía. Como la homografía es única, \emph{es} esa
+rotación:
+\[
+  H_a=\begin{pmatrix}0.3090&-0.9511&0\\0.9511&0.3090&0\\0&0&1\end{pmatrix},
+  \qquad H_aE=A .
+\]
+El quinto vértice cae en \(A\): el pentágono regular sí ``cierra''. Autovalores \(1\) y
+\(e^{\pm i\,72^\circ}\); único punto fijo real \(O=(0,0)\), obtenido como producto cruz de
+las dos primeras filas de \(H_a-I\):
+\[
+  (-0.691,\,-0.951,\,0)\times(0.951,\,-0.691,\,0)=(0,\,0,\,1.382)\sim(0,0,1)^T .
+\]
+La recta ideal es fija (es afín) y ninguna otra.
+
+\paragraph{(b) Intercambio de adyacentes: \(A\leftrightarrow B\), \(C\) y \(D\) quietos.}
+\[
+  H_b=\begin{pmatrix}-5.8541&-4.9798&-4.0287\\0&-1&3.9271\\0&8.4721&1\end{pmatrix},
+  \qquad E\mapsto E'_b=(-3.0777,\ 1.0000).
+\]
+Autovalores \(5.8541\) (simple) y \(-5.8541\) (doble). Para el doble, el producto cruz de
+cualquier par de filas de \(H_b+5.8541I\) es nulo: hay toda una recta de puntos fijos, que es
+la recta \(CD\) (\(y=-0.8090\)), lógico porque \(C\) y \(D\) quedan quietos. El autovalor
+simple da el centro, \(O_b=(-0.5878,\,0.5729)\), que está sobre la recta \(AB\) (la recta
+\(AB\) va a sí misma porque sus extremos se intercambian). Como los autovalores son
+opuestos, \(H_b^2\sim I\): es una \emph{homología armónica}, un ``espejo proyectivo'' de eje
+\(CD\) y centro \(O_b\). La recta que se va al infinito es \(y=-0.1180\), que
+\emph{atraviesa} el pentágono (\(W\) vale \(9.47,\ 3.62,\ -5.85,\ -5.85,\ 3.62\) en
+\(A,\dots,E\)): los lados \(BC\) y \(DE\) la cruzan y la imagen del pentágono se parte en
+dos semirrectas por lado.
+
+\paragraph{(c) Intercambio de no adyacentes: \(A\leftrightarrow C\), \(B\) y \(D\) quietos.}
+\[
+  H_c=\begin{pmatrix}0.4271&-0.5878&-0.2245\\-1.0368&-0.5729&-0.5451\\0.2775&0.3820&1\end{pmatrix},
+  \qquad E\mapsto E'_c=(0,\ -1.2361).
+\]
+Autovalores \(0.8541\) (doble) y \(-0.8541\). Eje de puntos fijos: la recta \(BD\)
+(\(0.7265x+y+0.3820=0\)); centro \(O_c=(-1.5388,\,-3.7361)\), sobre la prolongación de
+\(AC\), obtenido como producto cruz de las dos primeras filas de \(H_c+0.8541I\):
+\((1.2812,-0.5878,-0.2245)\times(-1.0368,0.2812,-0.5451)=(0.3835,\,0.9311,\,-0.2492)\sim
+(-1.5388,-3.7361,1)\). Otra vez \(H_c^2\sim I\): homología armónica de eje \(BD\). El
+quinto vértice cae en \(E'_c=(0,-1.2361)\), sobre el eje de simetría, y como la recta que se
+va al infinito (\(0.2775x+0.3820y+1=0\)) no toca el pentágono (\(W>0\) en los cinco
+vértices), la imagen es el pentágono \(CBADE'_c\) de la figura, no convexo pero entero.
+
+\paragraph{Combinaciones con rotaciones.} Cualquier otra correspondencia de cuatro vértices
+sobre cuatro vértices es una de las tres anteriores seguida de una rotación \(H_a^k\), o una
+reflexión del pentágono. Por ejemplo \(A\mapsto E,\ B\mapsto D,\ C\mapsto C,\ D\mapsto B\)
+es la reflexión respecto del eje \(OC\) (afín, \(E\mapsto A\), todo el eje fijo y la
+dirección perpendicular como punto fijo ideal). Componer (b) con la rotación da un único punto
+fijo real y dos autovalores complejos; componer (c) con la rotación da tres autovalores
+reales distintos y un triángulo invariante. Es un buen ejercicio de exploración con el
+script del apéndice.
+
+\begin{resultado}[Respuestas a la consigna]
+\begin{itemize}
+  \item Hay \(600\) correspondencias de cuatro vértices ordenados en cuatro vértices, todas
+  bien definidas (el pentágono es convexo); a menos de las \(10\) simetrías del pentágono se
+  reducen a los casos (a), (b), (c) y sus composiciones.
+  \item (a) es la rotación; el quinto vértice cae en un vértice y el punto fijo es el centro.
+  \item (b) y (c) son homologías armónicas: una recta entera de puntos fijos (el lado cuyos
+  extremos quedan quietos) más un centro; el quinto vértice cae fuera del pentágono, en
+  \((-3.08,1)\) y \((0,-1.24)\) respectivamente. En (b) la imagen se parte; en (c) no.
+  \item Siempre hay punto fijo: es el autovector real de \(H\), y se calcula con el producto
+  cruz de dos filas de \(H-\lambda I\).
+\end{itemize}
+\end{resultado}
+
+\section{Ejercicios de consolidación: proyectivas}
+
+\begin{enumerate}
+  \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
+  y que \(A,O,C\) tampoco (\(O\) el centro).
+  \item Calcule la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\).
+  Compruebe que el centro \(O_c=(-1.5388,-3.7361)\) \emph{no} está en ella.
+  \item Con \(H_c\), calcule la imagen del centro \(O\) y compruebe que no es \(O\): en
+  (c) el centro del pentágono no queda fijo.
+  \item Calcule \(H_c^2\) y normalice: debe dar la identidad. Interprete.
+  \item Construya la matriz \(K\) del patrón para el cuadrado \((0,0),(1,0),(1,1),(0,1)\),
+  en ese orden. ¿Es afín la homografía que lleva el patrón al cuadrado? Explique por qué.
+\end{enumerate}
+
+\subsection{Respuestas para autocorrección}
+\begin{enumerate}
+  \item \(\det[A\ B\ C]=1.3143\neq0\); \(\det[A\ O\ C]=-0.5878\neq0\).
+  \item \(B\times D=(0.3090+0.8090,\ 0.5878+0.9511,\ 0.7694-0.1816)\cdot\) (a menos de
+  escala) \(\sim(0.7265,\,1,\,0.3820)\); en \(O_c\): \(-1.118-3.736+0.382=-4.47\neq0\).
+  \item \(H_c(0,0,1)^T=(-0.2245,-0.5451,1)^T\): \(O\mapsto(-0.22,-0.55)\).
+  \item \(H_c^2=0.7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
+  \item \(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
+  \(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
+  \((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
+  propios, cosa que una afinidad nunca hace.
+\end{enumerate}
+

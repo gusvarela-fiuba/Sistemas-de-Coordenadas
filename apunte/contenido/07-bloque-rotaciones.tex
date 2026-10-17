@@ -1,0 +1,328 @@
+% Segunda lectura — Bloque geométrico: fundamentos y rotaciones (plano, complejos, 3D, eje y exponencial)
+\section{Bloque geométrico: fundamentos y rotaciones}
+
+\section{Transformaciones del plano}\label{sec:transf-plano}
+
+Una transformación del plano es una función
+\[
+  F:\R^2\longrightarrow\R^2.
+\]
+Estudiarla significa responder cuatro preguntas:
+\begin{itemize}
+  \item ¿qué puntos permanecen fijos?;
+  \item ¿qué magnitudes conserva: distancias, ángulos, áreas o paralelismo?;
+  \item ¿cómo se representa algebraicamente?;
+  \item ¿qué ocurre al componerla con otra transformación?
+\end{itemize}
+
+\subsection{Transformaciones lineales y afines}
+
+Una transformación lineal \(L\) cumple
+\[
+  L(x+y)=L(x)+L(y),\qquad L(\lambda x)=\lambda L(x).
+\]
+En particular, necesariamente \(L(0)=0\). Por eso una rotación alrededor del origen puede ser
+lineal, pero una rotación con centro distinto del origen no puede serlo en esas coordenadas.
+
+Una transformación afín agrega una traslación:
+\[
+  F(x)=Ax+t.
+\]
+La matriz \(A\) determina la deformación lineal y el vector \(t\) desplaza el resultado.
+
+\section{Rotaciones en el plano}\label{sec:rot-plano}
+
+\subsection{Matriz de rotación}
+
+La rotación antihoraria de ángulo \(\theta\) alrededor del origen es
+\[
+  R(\theta)=
+  \begin{pmatrix}
+    \cos\theta&-\sin\theta\\
+    \sin\theta& \cos\theta
+  \end{pmatrix}.
+\]
+Aplicada a \(x=(x_1,x_2)^T\):
+\[
+  R(\theta)x=
+  \begin{pmatrix}
+    x_1\cos\theta-x_2\sin\theta\\
+    x_1\sin\theta+x_2\cos\theta
+  \end{pmatrix}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+  \draw[axisline,-{Latex[length=2mm]}] (-.3,0)--(5.2,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-.3)--(0,4.4) node[above] {$y$};
+  \coordinate (p) at (4,1);
+  \coordinate (q) at (2.2,3.5);
+  \draw[auxline] (0,0)--(p);
+  \draw[auxline] (0,0)--(q);
+  \draw[mainline,-{Latex[length=2.6mm]}] (p)
+    arc[start angle=14,end angle=58,radius=4.12];
+  \fill[teal] (p) circle (2.5pt) node[below right] {$x$};
+  \fill[rust] (q) circle (2.5pt) node[above right] {$R(\theta)x$};
+  \node[text=teal] at (2.1,.75) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+\begin{resultado}[Propiedades]
+\[
+R(\theta)^TR(\theta)=I,\qquad
+\det R(\theta)=1,\qquad
+R(\alpha)R(\beta)=R(\alpha+\beta).
+\]
+La ortogonalidad implica que conserva producto interno, longitudes y ángulos. El determinante
+positivo indica que también conserva la orientación.
+\end{resultado}
+
+\paragraph{Ejemplo.}
+Para \(\theta=90^\circ\):
+\[
+R\left(\frac{\pi}{2}\right)=
+\begin{pmatrix}0&-1\\1&0\end{pmatrix},
+\qquad
+R\left(\frac{\pi}{2}\right)(3,1)^T=(-1,3)^T.
+\]
+
+\subsection{Rotación alrededor de un centro cualquiera}
+
+Para rotar alrededor de \(c\), primero se traslada el centro al origen, luego se rota y
+finalmente se deshace la traslación:
+\[
+  \boxed{Q_{c,\theta}(x)=c+R(\theta)(x-c)}.
+\]
+Equivalentemente,
+\[
+  Q_{c,\theta}(x)=R(\theta)x+\bigl(I-R(\theta)\bigr)c.
+\]
+Es una transformación afín. Si \(c\neq0\), el término independiente suele ser distinto de
+cero y la transformación no es lineal.
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  \coordinate (c) at (3,2.2);
+  \coordinate (p) at (6.2,1.5);
+  \coordinate (q) at (5.4,4.3);
+  \draw[auxline] (c)--(p);
+  \draw[auxline] (c)--(q);
+  \draw[mainline,-{Latex[length=2.6mm]}] (p)
+    arc[start angle=-12,end angle=42,radius=3.28];
+  \fill[ink] (c) circle (2.7pt) node[below left] {$c$};
+  \fill[teal] (p) circle (2.5pt) node[below right] {$x$};
+  \fill[rust] (q) circle (2.5pt) node[above right] {$Q_{c,\theta}(x)$};
+  \draw[muted,dotted] (0,0)--(7.6,0);
+  \draw[muted,dotted] (0,0)--(0,5);
+  \fill[muted] (0,0) circle (1.8pt) node[below left] {$0$};
+\end{tikzpicture}
+\end{center}
+
+\section{Rotaciones y números complejos}\label{sec:rot-complejos}
+
+Identificando \((x,y)\in\R^2\) con \(z=x+iy\in\mathbb C\), la fórmula de Euler
+\[
+  e^{i\theta}=\cos\theta+i\sin\theta
+\]
+permite escribir una rotación como
+\[
+  z'=e^{i\theta}z.
+\]
+Si se multiplica por un complejo general \(\rho e^{i\theta}\), el módulo \(\rho\) produce
+una escala uniforme y el argumento \(\theta\) produce una rotación:
+\[
+  z'=\rho e^{i\theta}z.
+\]
+
+\begin{idea}[Relación entre la forma compleja y la matricial]
+\[
+(a+ib)(x+iy)=(ax-by)+i(bx+ay)
+\]
+equivale a
+\[
+\begin{pmatrix}x'\\y'\end{pmatrix}
+=
+\begin{pmatrix}a&-b\\b&a\end{pmatrix}
+\begin{pmatrix}x\\y\end{pmatrix}.
+\]
+La multiplicación compleja es una familia especial de transformaciones lineales reales:
+solo usa dos parámetros, frente a los cuatro de una matriz real \(2\times2\) general.
+\end{idea}
+
+\section{Rotaciones en tres dimensiones}\label{sec:rot-3d}
+
+\subsection{Rotaciones elementales}
+
+Las rotaciones alrededor de los ejes coordenados se representan por
+\[
+R_x(\alpha)=
+\begin{pmatrix}
+1&0&0\\0&\cos\alpha&-\sin\alpha\\0&\sin\alpha&\cos\alpha
+\end{pmatrix},
+\]
+\[
+R_y(\beta)=
+\begin{pmatrix}
+\cos\beta&0&\sin\beta\\0&1&0\\-\sin\beta&0&\cos\beta
+\end{pmatrix},
+\qquad
+R_z(\gamma)=
+\begin{pmatrix}
+\cos\gamma&-\sin\gamma&0\\
+\sin\gamma& \cos\gamma&0\\
+0&0&1
+\end{pmatrix}.
+\]
+
+\subsection{El orden importa}\label{sec:orden-importa}
+
+En general,
+\[
+  R_x(\alpha)R_y(\beta)R_z(\gamma)
+  \neq
+  R_z(\gamma)R_y(\beta)R_x(\alpha).
+\]
+La matriz situada más a la derecha actúa primero. Esta falta de conmutatividad fue uno de los
+experimentos principales de la primera clase.
+
+\paragraph{Ejemplo sencillo.}
+Con giros de \(90^\circ\), aplicar primero \(R_x\) y luego \(R_y\) al vector
+\(e_z=(0,0,1)^T\) produce
+\[
+R_y\left(\frac{\pi}{2}\right)
+R_x\left(\frac{\pi}{2}\right)e_z
+=R_y\left(\frac{\pi}{2}\right)(-e_y)
+=-e_y.
+\]
+Al invertir el orden:
+\[
+R_x\left(\frac{\pi}{2}\right)
+R_y\left(\frac{\pi}{2}\right)e_z
+=R_x\left(\frac{\pi}{2}\right)e_x
+=e_x.
+\]
+Como \(-e_y\neq e_x\), la diferencia no es un error numérico: es una propiedad geométrica
+de las rotaciones espaciales.
+
+\subsection{Rotaciones pequeñas}
+
+Para un ángulo pequeño \(\varepsilon\),
+\[
+  R_x(\varepsilon)\approx I+\varepsilon A_x,
+  \qquad
+  R_y(\varepsilon)\approx I+\varepsilon A_y.
+\]
+Entonces
+\[
+(I+\varepsilon A_x)(I+\varepsilon A_y)
+=I+\varepsilon(A_x+A_y)+\varepsilon^2A_xA_y,
+\]
+mientras que el orden inverso cambia solo el término de segundo orden:
+\[
+(I+\varepsilon A_y)(I+\varepsilon A_x)
+=I+\varepsilon(A_x+A_y)+\varepsilon^2A_yA_x.
+\]
+Por eso las rotaciones muy pequeñas parecen conmutar a primer orden, aunque no conmuten
+exactamente.
+
+\section{Eje de rotación, autovectores y exponencial}\label{sec:eje-exp}
+
+\subsection{El eje como dirección fija}
+
+Toda rotación propia de \(\R^3\) posee un eje. Si \(v\) apunta en la dirección de ese eje,
+\[
+  Rv=v.
+\]
+Por lo tanto, \(v\) es un autovector de \(R\) con autovalor \(1\). Equivalentemente,
+\[
+  (R-I)v=0.
+\]
+
+\subsection{Exponencial de matrices}
+
+La exponencial matricial se define por la serie
+\[
+  e^A=I+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\cdots.
+\]
+Si una rotación se expresa como \(R=e^A\), entonces
+\[
+  R^t=e^{tA},\qquad 0\le t\le1,
+\]
+describe una trayectoria continua desde la identidad hasta \(R\). Del mismo modo,
+\[
+  e^{A/n}
+\]
+es un paso pequeño que, aplicado \(n\) veces, produce \(e^A\).
+
+\begin{resultado}[Generador antisimétrico]
+Para una rotación tridimensional, el logaritmo matricial principal produce, bajo condiciones
+adecuadas, una matriz antisimétrica
+\[
+A=
+\begin{pmatrix}
+0&-\omega_z&\omega_y\\
+\omega_z&0&-\omega_x\\
+-\omega_y&\omega_x&0
+\end{pmatrix}.
+\]
+El vector \(\omega=(\omega_x,\omega_y,\omega_z)\) indica el eje y su norma representa el
+ángulo de rotación.
+\end{resultado}
+
+\subsection{Experimento de la primera clase}
+
+Se construyeron en Excel o LibreOffice las matrices \(R_x,R_y,R_z\) y se compararon distintos
+órdenes con la función \texttt{MMULT}. Después se aplicó muchas veces una composición de
+giros pequeños e iguales alrededor de los tres ejes. El resultado aproxima una rotación
+alrededor de la dirección \((1,1,1)\), capaz de permutar cíclicamente los ejes:
+\[
+  e_x\longmapsto e_y,\qquad
+  e_y\longmapsto e_z,\qquad
+  e_z\longmapsto e_x.
+\]
+El ángulo de esa permutación es \(120^\circ\), no \(90^\circ\).
+
+Para cuantificar el experimento, puede tomarse un paso
+\[
+Q_\varepsilon
+=R_z(\varepsilon)R_y(\varepsilon)R_x(\varepsilon),
+\qquad \varepsilon=0.01.
+\]
+A primer orden,
+\[
+Q_\varepsilon
+\approx I+\varepsilon(A_x+A_y+A_z).
+\]
+La suma de generadores corresponde al eje \((1,1,1)\), cuya norma es \(\sqrt3\). Después de
+\(n\) pasos, el ángulo acumulado es aproximadamente
+\[
+  \Theta\approx n\varepsilon\sqrt3.
+\]
+Con \(n=121\):
+\[
+  \Theta\approx121(0.01)\sqrt3
+  \approx2.096\ {\rm rad}
+  \approx120.1^\circ.
+\]
+La rotación exacta de \(120^\circ\) alrededor de \((1,1,1)\) que realiza la permutación
+anterior tiene matriz
+\[
+P=
+\begin{pmatrix}
+0&0&1\\
+1&0&0\\
+0&1&0
+\end{pmatrix}.
+\]
+Las columnas muestran directamente que \(Pe_x=e_y\), \(Pe_y=e_z\) y \(Pe_z=e_x\).
+
+\begin{idea}[Práctica recomendada]
+\begin{enumerate}
+  \item Construir \(R_x,R_y,R_z\) en una hoja de cálculo.
+  \item Comparar dos órdenes con ángulos grandes.
+  \item Repetir con \(\varepsilon=0.01\) radianes.
+  \item Calcular en Python \(\log(R)\) con \texttt{scipy.linalg.logm}.
+  \item Interpretar la matriz antisimétrica obtenida.
+\end{enumerate}
+\end{idea}
+

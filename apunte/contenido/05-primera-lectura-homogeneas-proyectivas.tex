@@ -1,0 +1,226 @@
+% Primera lectura: coordenadas homogéneas, la misma idea en cada dimensión, del álgebra a la geometría, transformaciones proyectivas
+\section{Coordenadas homogéneas: puntos como rayos}\label{sec:homogeneas-primera}
+
+Las fotografías de clase muestran el plano afín como el plano \(w=1\) dentro de un espacio
+vectorial tridimensional. El punto afín \((x,y)\) se representa mediante
+\[
+  (x,y)\longleftrightarrow
+  \begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+Sin embargo, en geometría proyectiva no importa el representante concreto, sino el rayo que
+parte del origen:
+\[
+\begin{pmatrix}x\\y\\1\end{pmatrix}
+\sim
+\lambda
+\begin{pmatrix}x\\y\\1\end{pmatrix},
+\qquad \lambda\neq0.
+\]
+Todos esos vectores pertenecen al mismo subespacio vectorial de dimensión uno y cortan al
+plano \(w=1\) en el mismo punto afín.
+
+\begin{center}
+\begin{tikzpicture}[scale=.92]
+  \coordinate (o) at (1,1);
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(8.2,1) node[right] {$y$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(-.2,-.1) node[below left] {$x$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(1,6) node[above] {$w$};
+  \draw[teallight,fill=teallight!55,line width=.8pt]
+    (-.2,3.2)--(6.8,3.2)--(8.2,4.25)--(1.2,4.25)--cycle;
+  \node[labelback,text=tealdark] at (7.1,4.55) {plano \(w=1\)};
+  \coordinate (p) at (4.8,3.74);
+  \fill[rust] (p) circle (2.7pt) node[labelback,above] {\((x,y,1)\)};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.5mm]}] (o)--($(o)!1.38!(p)$);
+  \fill[ink] (o) circle (2.4pt) node[labelback,below] {origen};
+  \node[labelback,font=\small,text=rust] at (3.4,2.1)
+    {un rayo representa un punto};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Puntos en el infinito.}
+Una recta afín con dirección \(v\) puede escribirse
+\[
+  p(\mu)=p+\mu v.
+\]
+Homogéneamente:
+\[
+\begin{pmatrix}p+\mu v\\1\end{pmatrix}
+=
+\begin{pmatrix}p\\1\end{pmatrix}
++\mu
+\begin{pmatrix}v\\0\end{pmatrix}.
+\]
+Cuando \(|\mu|\) crece, la dirección dominante es \((v,0)\). La última coordenada nula
+identifica un punto ideal o punto en el infinito. Todas las rectas paralelas con dirección
+\(v\) comparten ese mismo punto ideal.
+
+\paragraph{Primera traducción algebraica.}
+Una matriz proyectiva general produce
+\[
+\begin{pmatrix}X\\Y\\W\end{pmatrix}
+=H
+\begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+Si \(W\neq0\), se vuelve al plano afín normalizando:
+\[
+  (x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
+\]
+Las afinidades son el caso especial en que la última fila de \(H\) es \((0,0,1)\), por lo
+que \(W\) permanece igual a \(1\).
+
+\begin{idea}[En palabras del profesor]
+``Terminamos con dos formas de expresión algebraica, una en \(\R^2\) y otra en el plano
+proyectivo. [\ldots] Sobre el espacio proyectivo nos preguntamos especialmente qué pasaba con
+los puntos impropios y cómo se expresaría una transformación con puntos fijos'' (resumen de clase 3, cursada 2025).
+\end{idea}
+
+\section{La misma idea en cada dimensión}\label{sec:misma-idea}
+
+\textbf{Desarrollo.} Casi todo lo que la materia hace en \(\R^2\), \(\R^3\) y \(\R^n\) ya
+existe en \(\R\), donde es tan simple que ni se nota. Leer cada concepto primero en la
+recta, después en el plano y después en el espacio es la versión más chica de ``ir a lo
+chico para volver a lo grande'': si la idea se entiende con un número, la matriz sólo
+agrega direcciones. La clase 10 del profesor hace exactamente esto con la inversa: ``la
+inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
+neutro respecto de esa operación'', sea la suma, el producto, la composición o el producto
+de matrices.
+
+{\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{17mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{32mm}Y}
+\toprule
+& \(\R\) & \(\R^2\) & \(\R^3\) y \(\R^n\) & Hecho geométrico\\
+\midrule
+Identidad & el número \(1\): \(1\cdot a=a\) & la matriz \(I\): \(Iv=v\) & \(I\) de
+\(n\times n\) & la transformación que no mueve nada; es el neutro de la composición\\
+\addlinespace
+Inversa & \(1/a\); no existe si \(a=0\) & \(A^{-1}\); no existe si \(\det A=0\) & igual;
+si \(\det A=0\) hay núcleo & deshacer el movimiento; imposible si alguna dirección fue
+aplastada a un punto (clase 10)\\
+\addlinespace
+Tamaño con signo & \(|a|\) estira; el signo dice si da vuelta & \(\det A\): área orientada
+del paralelogramo imagen del cuadrado unidad & volumen orientado; en \(\R^n\),
+hipervolumen & cuánto se agranda una figura y si cambia de orientación\\
+\addlinespace
+Producto & \(a\cdot b\) & producto interno \(u\cdot v=|u||v|\cos\theta\) & igual; en
+homogéneas, \(\ell\cdot p=0\) es incidencia & proyección de un vector sobre otro; cero si
+son perpendiculares\\
+\addlinespace
+Reflexión y rotación & \(x\mapsto -x\): la única ``rotación'' de la recta es media vuelta
+& multiplicar por \(e^{i\theta}\) en \(\mathbb{C}=\R^2\); reflejar es conjugar &
+matriz de rotación \(3\times3\) con un eje; reflexión en un plano & conservar distancias;
+la rotación conserva la orientación, la reflexión la invierte\\
+\addlinespace
+Autovector & \(a\,x=\lambda x\): trivial, todo \(x\) sirve con \(\lambda=a\) &
+\(Av=\lambda v\): sólo algunas direcciones, o ninguna real si hay giro & una rotación de
+\(\R^3\) tiene exactamente una: el eje & dirección que cae sobre sí misma, sólo estirada o
+invertida\\
+\addlinespace
+Derivada & \(f'(x)\): un número, la pendiente & gradiente: una forma lineal con dos
+números; jacobiano \(2\times2\) si la función es vectorial & gradiente con \(n\) números;
+jacobiano \(m\times n\) & la mejor aproximación lineal: recta tangente, plano tangente\\
+\addlinespace
+Recta & \(a\,x=b\): un punto & forma lineal \(n\cdot x=c\): una recta; al variar \(c\),
+rectas paralelas & \(n\cdot x=c\): un plano; en \(\R^n\), hiperplano & el conjunto de
+nivel de una regla graduada (sección~\ref{sec:formas-lineales})\\
+\bottomrule
+\end{tabularx}
+}
+
+\begin{idea}[Cómo usar la tabla]
+Ante una fórmula nueva con matrices, escribirla primero con un solo número. Si en \(\R\)
+la fórmula es obvia, la versión matricial dice lo mismo dirección por dirección; lo único
+que agregan las dimensiones es que ahora las direcciones pueden mezclarse, y por eso
+aparecen el orden de composición, los autovectores y el determinante.
+\end{idea}
+
+\section{Del álgebra a la geometría: qué pregunta cada operación}\label{sec:algebra-geometria}
+
+\textbf{Desarrollo.} El hilo de la materia es siempre el mismo: una operación algebraica,
+en apariencia abstracta, resulta ser exactamente la pregunta geométrica que necesitábamos.
+Conviene tener el mapa antes de las cuentas.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X X}
+\toprule
+Operación & Qué calcula & Qué pregunta geométrica responde\\
+\midrule
+Producto interno \(u\cdot v\) & un número & ¿son ortogonales? ¿cuánto se proyecta uno
+sobre otro? En homogéneas: ¿el punto está en la recta?\\
+Producto vectorial \(u\times v\) & un vector normal a ambos & ¿cuál es la recta que une dos
+puntos? ¿cuál es el punto donde se cortan dos rectas? ¿qué área orientada forman?\\
+Determinante \(\det[u\ v\ w]\) & un número & ¿están alineados tres puntos? ¿son
+linealmente dependientes tres vectores? ¿qué volumen orientado forman?\\
+Producto exterior \(u\wedge v\) & un bivector (área orientada) & lo mismo que el
+vectorial, pero en cualquier dimensión\\
+Núcleo de \(A\) & un subespacio & ¿qué vectores aplasta \(A\) a cero? Si hay alguno,
+\(\det A=0\)\\
+Autovectores de \(A\) & vectores con \(Av=\lambda v\) & ¿qué direcciones deja quietas
+\(A\)? En homogéneas: ¿qué puntos deja fijos la transformación?\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[La cadena]
+incidencia \(\to\) unión de puntos \(\to\) alineación \(\to\) determinante \(\to\)
+núcleo \(\to\) autovectores \(\to\) puntos fijos. Cada eslabón se deduce del anterior;
+es lo que desarrolla la segunda lectura.
+\end{idea}
+
+\begin{idea}[En palabras del profesor]
+``Traemos a la mesa a nuestro `detector de colinealidad': el producto cuña, y lo usamos
+primero para construir un polinomio cuyas raíces son los autovalores, y luego para hallar
+los autovectores como el subespacio nulo de unas matrices que armamos'' (resumen de clase 7, cursada 2025).
+\end{idea}
+
+\section{Transformaciones proyectivas: conservar rectas, nada más}\label{sec:proyectivas-primera}
+
+\textbf{Dictado}: \emph{``Transformaciones proyectivas: mantienen rectas las rectas
+\(\Rightarrow\) quedan definidas por un cuadrilátero''}.
+
+\textbf{Desarrollo.} La imagen mental es una fotografía. Una cámara inclinada sobre un
+terreno plano convierte un lote rectangular en un trapecio: los alambrados paralelos
+convergen hacia un punto de fuga, las distancias no se conservan en ninguna proporción fija,
+y sin embargo toda recta del terreno sigue siendo una recta en la foto. Esa es la única
+propiedad que sobrevive, y es la que define a la familia.
+
+\begin{idea}[Qué agrega la perspectiva]
+Las afinidades conservan rectas \emph{y paralelismo}. Las transformaciones proyectivas
+conservan rectas \emph{solamente}: dos paralelas pueden dejar de serlo y cortarse en un punto
+de fuga; un punto ordinario puede irse al infinito y un punto ideal puede volverse ordinario.
+Las afinidades son un caso particular de las proyectivas.
+\end{idea}
+
+En coordenadas homogéneas la diferencia es mínima y muy visible. Una afinidad tiene matriz
+con última fila \((0,0,1)\), de modo que \(W\) siempre vale \(1\). Una transformación
+proyectiva tiene una matriz \(3\times3\) invertible \emph{cualquiera}:
+\[
+\begin{pmatrix}X\\Y\\W\end{pmatrix}=H\begin{pmatrix}x\\y\\1\end{pmatrix},
+\qquad
+(x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
+\]
+Ahora \(W=h_{31}x+h_{32}y+h_{33}\) depende del punto, y la división por \(W\) es
+exactamente la perspectiva: lo que ``está lejos'' se achica. Los puntos con \(W=0\) forman
+una recta que se va al infinito, el horizonte de la foto.
+
+\paragraph{Por qué un cuadrilátero.}
+La matriz tiene nueve entradas, pero \(H\) y \(\lambda H\) representan la misma
+transformación (el factor se cancela al dividir por \(W\)). Quedan ocho números
+independientes. Cada correspondencia ``el punto \(p\) va al punto \(p'\)'' aporta dos
+ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
+transformación queda determinada. Con tres puntos falta decidir ``cuánta perspectiva hay'';
+con cinco puntos, en general, no hay solución, y el quinto va a donde la transformación lo
+mande.
+
+\paragraph{Puntos fijos.}
+Un punto es fijo cuando \(Hp=\lambda p\): un autovector de \(H\). El polinomio característico
+tiene grado \(3\), y un polinomio real de grado impar siempre tiene una raíz real. Por lo tanto
+\textbf{toda transformación proyectiva del plano tiene al menos un punto fijo}, que puede ser
+un punto ordinario o un punto ideal (una dirección fija, como en una traslación).
+
+\begin{idea}[En palabras del profesor]
+``Estos espacios invariantes ya habían aparecido cuando usábamos las coordenadas
+homogéneas para analizar transformaciones afines o proyectivas. En ese caso los subespacios
+invariantes de la transformación lineal de \(\R^3\) correspondían a los puntos fijos en
+\(\mathbb{P}\R^2\)'' (resumen de clase 6, cursada 2025).
+\end{idea}
+

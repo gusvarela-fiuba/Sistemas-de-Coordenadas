@@ -1,0 +1,237 @@
+% Apéndice: rotaciones infinitesimales y orden de composición
+\section{Rotaciones infinitesimales y orden de composición}\label{ap:infinitesimales}
+
+\subsection{De dónde surge \(R(\varepsilon)\approx I+\varepsilon A\)}
+
+La aproximación surge del desarrollo de Taylor de la matriz de rotación alrededor del ángulo
+cero. Para una rotación de ángulo \(\varepsilon\) alrededor del eje \(x\):
+\[
+R_x(\varepsilon)=
+\begin{pmatrix}
+1&0&0\\
+0&\cos\varepsilon&-\sin\varepsilon\\
+0&\sin\varepsilon& \cos\varepsilon
+\end{pmatrix}.
+\]
+Las series de Taylor son
+\[
+\cos\varepsilon
+=1-\frac{\varepsilon^2}{2!}+\frac{\varepsilon^4}{4!}-\cdots,
+\qquad
+\sin\varepsilon
+=\varepsilon-\frac{\varepsilon^3}{3!}+\frac{\varepsilon^5}{5!}-\cdots.
+\]
+Sustituyendo:
+\[
+R_x(\varepsilon)=
+\begin{pmatrix}
+1&0&0\\
+0&1-\frac{\varepsilon^2}{2}+\cdots&
+-\varepsilon+\frac{\varepsilon^3}{6}-\cdots\\
+0&\varepsilon-\frac{\varepsilon^3}{6}+\cdots&
+1-\frac{\varepsilon^2}{2}+\cdots
+\end{pmatrix}.
+\]
+Si se conservan únicamente los términos constantes y lineales en \(\varepsilon\):
+\[
+R_x(\varepsilon)
+=
+\underbrace{
+\begin{pmatrix}
+1&0&0\\0&1&0\\0&0&1
+\end{pmatrix}}_{I}
++
+\varepsilon
+\underbrace{
+\begin{pmatrix}
+0&0&0\\0&0&-1\\0&1&0
+\end{pmatrix}}_{A_x}
++O(\varepsilon^2).
+\]
+Por lo tanto,
+\[
+\boxed{R_x(\varepsilon)=I+\varepsilon A_x+O(\varepsilon^2)}.
+\]
+El símbolo \(O(\varepsilon^2)\) reúne todos los términos cuyo tamaño disminuye como
+\(\varepsilon^2\) o más rápidamente cuando \(\varepsilon\to0\).
+
+\begin{resultado}[Forma general]
+Para una familia suave de rotaciones basada en la identidad, es decir, con \(R(0)=I\), Taylor
+alrededor de \(\theta=0\) da
+\[
+R(\varepsilon)=R(0)+\varepsilon R'(0)+O(\varepsilon^2).
+\]
+Como \(R(0)=I\), definiendo \(A=R'(0)\) se obtiene
+\[
+\boxed{R(\varepsilon)=I+\varepsilon A+O(\varepsilon^2)}.
+\]
+La matriz \(A\) se denomina \textbf{generador infinitesimal} de la rotación.
+\end{resultado}
+
+\subsection{Generadores alrededor de los tres ejes}
+
+Con la convención de giros positivos de la mano derecha:
+\[
+A_x=
+\begin{pmatrix}
+0&0&0\\
+0&0&-1\\
+0&1&0
+\end{pmatrix},
+\quad
+A_y=
+\begin{pmatrix}
+0&0&1\\
+0&0&0\\
+-1&0&0
+\end{pmatrix},
+\quad
+A_z=
+\begin{pmatrix}
+0&-1&0\\
+1&0&0\\
+0&0&0
+\end{pmatrix}.
+\]
+Estas matrices son antisimétricas, \(A_i^T=-A_i\), y describen la velocidad instantánea
+con la que se mueve un vector al comenzar la rotación.
+
+\subsection{Interpretación geométrica}
+
+Sea \(e_x=(1,0,0)^T\). Para cualquier vector \(v\),
+\[
+  A_xv=e_x\times v.
+\]
+Entonces:
+\[
+  R_x(\varepsilon)v\approx v+\varepsilon(e_x\times v).
+\]
+El primer término es el vector original. El segundo es un pequeño desplazamiento perpendicular
+al eje \(e_x\) y al vector \(v\), es decir, tangente a la circunferencia recorrida durante
+la rotación.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+  \coordinate (o) at (1,1);
+  \coordinate (v) at (6.2,2.0);
+  \coordinate (vp) at (5.85,2.95);
+  \draw[axisline,-{Latex[length=2.5mm]}] (o)--(8,1)
+    node[right] {eje \(x\)};
+  \draw[mainline,-{Latex[length=2.8mm]}] (o)--(v)
+    node[midway,below] {$v$};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.8mm]}] (v)--(vp)
+    node[right] {$\varepsilon A_xv$};
+  \draw[teal,dashed] (o)--(vp)
+    node[midway,above left] {$R_x(\varepsilon)v$};
+  \fill[ink] (o) circle (2.4pt);
+  \fill[teal] (v) circle (2.4pt);
+  \fill[rust] (vp) circle (2.4pt);
+  \node[font=\small,text=muted,align=center] at (5.4,3.8)
+    {el desplazamiento infinitesimal\\es tangente a la trayectoria};
+\end{tikzpicture}
+\end{center}
+
+\begin{idea}[Qué significa geométricamente la aproximación]
+Una rotación finita sigue un arco de circunferencia. En un intervalo angular muy pequeño,
+el arco y su recta tangente son indistinguibles a primer orden. La expresión
+\(v+\varepsilon A_xv\) reemplaza localmente el arco por ese desplazamiento tangencial.
+\end{idea}
+
+\subsection{Por qué el orden no aparece a primer orden}
+
+Consideremos dos rotaciones pequeñas:
+\[
+R_x(\varepsilon)=I+\varepsilon A_x+O(\varepsilon^2),
+\qquad
+R_y(\delta)=I+\delta A_y+O(\delta^2).
+\]
+Primero \(R_y\) y después \(R_x\):
+\[
+\begin{aligned}
+R_x(\varepsilon)R_y(\delta)
+&\approx(I+\varepsilon A_x)(I+\delta A_y)\\
+&=I+\varepsilon A_x+\delta A_y+\varepsilon\delta A_xA_y.
+\end{aligned}
+\]
+En el orden inverso:
+\[
+\begin{aligned}
+R_y(\delta)R_x(\varepsilon)
+&\approx(I+\delta A_y)(I+\varepsilon A_x)\\
+&=I+\varepsilon A_x+\delta A_y+\varepsilon\delta A_yA_x.
+\end{aligned}
+\]
+Los términos de primer orden son exactamente los mismos. La diferencia es
+\[
+\boxed{
+R_x(\varepsilon)R_y(\delta)
+-R_y(\delta)R_x(\varepsilon)
+\approx\varepsilon\delta[A_x,A_y]
+},
+\]
+donde
+\[
+  [A_x,A_y]=A_xA_y-A_yA_x
+\]
+es el conmutador.
+
+\begin{resultado}[Conclusión precisa]
+Las rotaciones infinitesimales no conmutan exactamente. Parecen conmutar cuando se trabaja
+solo a primer orden porque la diferencia causada por el orden es proporcional al producto
+\(\varepsilon\delta\), que es de segundo orden.
+\end{resultado}
+
+\subsection{Interpretación geométrica del cambio de orden}
+
+La primera rotación modifica ligeramente la orientación del objeto sobre el cual actúa la
+segunda. Esa modificación es del orden de \(\varepsilon\). Como la segunda rotación tiene
+tamaño \(\delta\), el efecto adicional producido por aplicar una sobre la orientación creada
+por la otra tiene tamaño \(\varepsilon\delta\).
+
+Si \(\varepsilon=\delta=0.01\) radianes:
+\[
+\varepsilon=10^{-2},
+\qquad
+\varepsilon\delta=10^{-4}.
+\]
+El movimiento principal tiene tamaño aproximado \(10^{-2}\), mientras que la diferencia entre
+los dos órdenes aparece aproximadamente en \(10^{-4}\). Al conservar solamente la primera
+cifra de pequeñez, esa diferencia desaparece.
+
+\subsection{Relación con la exponencial matricial}
+
+Las rotaciones pueden escribirse exactamente como
+\[
+  R_x(\varepsilon)=e^{\varepsilon A_x},
+  \qquad
+  R_y(\delta)=e^{\delta A_y}.
+\]
+La fórmula de Baker--Campbell--Hausdorff comienza como
+\[
+e^{\varepsilon A_x}e^{\delta A_y}
+=
+\exp\left(
+\varepsilon A_x+\delta A_y
++\frac12\varepsilon\delta[A_x,A_y]+\cdots
+\right).
+\]
+El conmutador aparece explícitamente como la primera corrección que registra el orden.
+Para los generadores de rotaciones:
+\[
+  [A_x,A_y]=A_z,
+\]
+de modo que la diferencia entre girar infinitesimalmente alrededor de \(x\) y de \(y\) en
+órdenes opuestos se manifiesta como una pequeña rotación residual alrededor de \(z\).
+
+\begin{atencion}[Idea que conviene retener]
+\[
+\boxed{
+\text{A primer orden las rotaciones pequeñas se suman;}
+\quad
+\text{a segundo orden aparece el orden.}
+}
+\]
+No se afirma que las rotaciones tridimensionales conmuten, sino que su no conmutatividad es
+demasiado pequeña para aparecer en la aproximación lineal.
+\end{atencion}
+

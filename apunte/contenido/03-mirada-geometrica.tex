@@ -1,0 +1,46 @@
+% La mirada geométrica
+\section{La mirada geométrica}
+
+El hilo conductor de la materia no es memorizar matrices, sino aprender a \emph{ver} qué
+transformación describe cada fórmula. Antes de calcular conviene interrogar la figura.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{38mm} X}
+\toprule
+Pregunta geométrica & Qué revela\\
+\midrule
+¿Qué queda fijo? & centro, eje, recta o dirección privilegiada\\
+¿Cómo se mueve un punto? & trayectoria recta, circular o curva\\
+¿Qué se conserva? & distancia, ángulo, paralelismo, razón, área u orientación\\
+¿Qué cambia? & escala, dirección, forma, curvatura o sistema de referencia\\
+¿Qué pasa con una figura simple? & la imagen de un segmento, triángulo o paralelogramo
+determina la transformación\\
+¿Qué hace la composición? & permite construir transformaciones complejas a partir de
+operaciones simples\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[Regla de lectura]
+Para cada teorema se seguirá este orden:
+\begin{enumerate}
+  \item \textbf{Construcción}: dibujar el punto y su imagen.
+  \item \textbf{Movimiento}: describir la trayectoria y el sentido.
+  \item \textbf{Invariantes}: identificar qué no cambia.
+  \item \textbf{Composición}: seguir los pasos intermedios en el orden correcto.
+  \item \textbf{Traducción algebraica}: escribir la matriz o fórmula que resume el dibujo.
+  \item \textbf{Verificación}: usar un ejemplo numérico para comprobar, no para sustituir,
+  la comprensión geométrica.
+\end{enumerate}
+\end{idea}
+
+\begin{resultado}[La matriz como geometría comprimida]
+Las columnas de una matriz \(A\) son las imágenes de los vectores de la base:
+\[
+  A=
+  \begin{pmatrix}\vert&\vert\\Ae_1&Ae_2\\\vert&\vert\end{pmatrix}.
+\]
+Por eso, para interpretar geométricamente una transformación lineal basta observar qué hace
+con dos direcciones independientes y con el paralelogramo que generan.
+\end{resultado}
+

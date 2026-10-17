@@ -1,0 +1,123 @@
+%% apunte-formato.sty — formato del "Apunte integral — Sistemas de Coordenadas"
+%% Todo lo que es presentación vive acá: paquetes, fuentes, geometría, paleta,
+%% cajas tcolorbox, tablas, encabezados, macros de notación y estilos TikZ.
+%% El contenido (texto, figuras, metadatos) NO va en este archivo.
+%% Compilar con lualatex (fontspec); xelatex falla por fuentes.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{apunte-formato}[2026/09/22 v1 formato del apunte de Sistemas de Coordenadas]
+
+%% --- Textos de encabezado (los fija el documento principal con \renewcommand) ---
+\providecommand{\apunteEncabezadoIzq}{}
+\providecommand{\apunteEncabezadoDer}{}
+
+%% --- Fuentes (fontspec, requiere lualatex) e idioma ---
+\usepackage{fontspec}
+\setmainfont{Linux Libertine O}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{microtype}
+
+%% --- Geometría de página ---
+\usepackage{geometry}
+\geometry{top=18mm,bottom=20mm,left=19mm,right=19mm}
+
+%% --- Color, matemática, tablas ---
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,booktabs,tabularx,longtable}
+% columna Y: tabularx con texto alineado a la izquierda y sin justificar
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\usepackage{enumitem}
+
+%% --- TikZ y cajas ---
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,angles,quotes,decorations.pathreplacing,decorations.pathmorphing,patterns,positioning,babel}
+\usepackage[most]{tcolorbox}
+
+%% --- Encabezados, hipervínculos, PDFs incluidos, última página ---
+\usepackage{fancyhdr}
+\PassOptionsToPackage{obeyspaces,spaces,hyphens}{url}
+\usepackage{hyperref}
+% \file{...}: nombre de archivo en tamaño small, sin link
+\newcommand{\file}[1]{{\small\nolinkurl{#1}}}
+\renewcommand{\UrlBreakPenalty}{100}\renewcommand{\UrlBigBreakPenalty}{100}
+\usepackage{pdfpages}
+\usepackage{lastpage}
+
+%% --- Paleta (teal / rust / gold sobre papel cálido) ---
+\definecolor{ink}{HTML}{28251D}
+\definecolor{muted}{HTML}{484640}
+\definecolor{teal}{HTML}{01696F}
+\definecolor{tealdark}{HTML}{0C4E54}
+\definecolor{teallight}{HTML}{D3E6E7}
+\definecolor{rust}{HTML}{A84B2F}
+\definecolor{gold}{HTML}{D19900}
+\definecolor{paper}{HTML}{F7F6F2}
+\definecolor{linegray}{HTML}{AAA69E}
+
+%% --- hyperref: colores de links (pdftitle/pdfauthor van en el principal) ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=tealdark,
+  urlcolor=teal
+}
+
+%% --- Encabezado y pie de página (fancyhdr) ---
+\pagestyle{fancy}
+\setlength{\headheight}{22pt}
+\fancyhf{}
+\fancyhead[L]{\small\color{muted}\apunteEncabezadoIzq}
+\fancyhead[R]{\small\color{muted}\apunteEncabezadoDer}
+\fancyfoot[C]{\small\color{muted}\thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{linegray}\leaders\hrule height \headrulewidth\hfill}}
+
+%% --- Párrafos, listas, tablas ---
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlist[itemize]{leftmargin=5.5mm,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=7mm,itemsep=3pt,topsep=3pt}
+\renewcommand{\arraystretch}{1.18}
+
+%% --- Cajas tcolorbox: idea, resultado, atencion, enunciado ---
+%% Uso: \begin{idea}[Título opcional] ... \end{idea}
+\newtcolorbox{idea}[1][]{
+  enhanced,breakable,colback=teallight!45,colframe=teal,
+  boxrule=0.7pt,arc=2mm,left=3mm,right=3mm,top=2mm,bottom=2mm,
+  title={#1},fonttitle=\bfseries,colbacktitle=tealdark,coltitle=white
+}
+\newtcolorbox{resultado}[1][]{
+  enhanced,breakable,colback=paper,colframe=tealdark,
+  boxrule=0.9pt,arc=2mm,left=3mm,right=3mm,top=2mm,bottom=2mm,
+  title={#1},fonttitle=\bfseries,colbacktitle=tealdark,coltitle=white
+}
+\newtcolorbox{atencion}[1][]{
+  enhanced,breakable,colback=rust!6,colframe=rust,
+  boxrule=0.7pt,arc=2mm,left=3mm,right=3mm,top=2mm,bottom=2mm,
+  title={#1},fonttitle=\bfseries,colbacktitle=rust,coltitle=white
+}
+\newtcolorbox{enunciado}[1][]{
+  enhanced,breakable,colback=white,colframe=linegray,
+  borderline west={2.2pt}{0pt}{teal},
+  boxrule=0.5pt,arc=1mm,left=4mm,right=3mm,top=2mm,bottom=2mm,
+  title={#1},fonttitle=\bfseries,colbacktitle=teallight,coltitle=ink
+}
+
+%% --- Macros de notación ---
+\newcommand{\R}{\mathbb{R}}                 % reales
+\newcommand{\vect}[1]{\boldsymbol{#1}}      % vector en negrita
+\newcommand{\rhoP}[1]{\rho_{#1}}            % rotación con centro/ángulo #1
+\newcommand{\refl}[1]{\varphi_{#1}}         % reflexión respecto de #1
+\newcommand{\homot}[2]{\eta_{#1}^{#2}}      % homotecia de centro #1 y razón #2
+\newcommand{\figlabel}[1]{\node[font=\small\bfseries,text=ink] at #1}  % rótulo en figuras TikZ
+
+%% --- Estilos TikZ para las figuras ---
+\tikzset{
+  axisline/.style={line width=.65pt,draw=muted},
+  mainline/.style={line width=1.05pt,draw=teal},
+  auxline/.style={line width=.7pt,draw=muted,dashed},
+  labelback/.style={fill=white,fill opacity=.94,text opacity=1,inner sep=1.4pt}
+}
+
+\endinput

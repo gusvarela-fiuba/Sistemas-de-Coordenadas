@@ -1,0 +1,239 @@
+% Apéndice: construcción geométrica de las matrices de rotación 3D
+\section{Construcción geométrica de las matrices de rotación 3D}\label{ap:rot3d}
+
+\subsection{Convención utilizada}
+
+Se consideran vectores columna, rotaciones activas y un sistema cartesiano de mano derecha.
+Una rotación activa mueve el vector mientras los ejes permanecen fijos. El sentido positivo
+se determina mediante la regla de la mano derecha: el pulgar apunta en la dirección positiva
+del eje y los dedos indican el sentido del giro.
+
+\begin{idea}[Principio de construcción]
+Una rotación alrededor de un eje:
+\begin{itemize}
+  \item deja fija la coordenada paralela al eje;
+  \item aplica una rotación plana ordinaria en el plano perpendicular;
+  \item tiene como columnas las imágenes de \(e_x,e_y,e_z\).
+\end{itemize}
+No es necesario memorizar tres matrices independientes: todas se reconstruyen a partir de
+esta regla.
+\end{idea}
+
+\subsection{Recordatorio: rotación en un plano}
+
+En un plano con coordenadas \((u,v)\), una rotación positiva de ángulo \(\theta\) cumple
+\[
+\begin{pmatrix}u'\\v'\end{pmatrix}
+=
+\begin{pmatrix}
+\cos\theta&-\sin\theta\\
+\sin\theta& \cos\theta
+\end{pmatrix}
+\begin{pmatrix}u\\v\end{pmatrix}.
+\]
+Por lo tanto,
+\[
+u'=u\cos\theta-v\sin\theta,
+\qquad
+v'=u\sin\theta+v\cos\theta.
+\]
+Para construir una rotación espacial basta identificar cuál es el par de coordenadas que
+forma el plano perpendicular al eje.
+
+\subsection{Rotación alrededor del eje \(z\)}
+
+El eje \(z\) permanece fijo y la rotación ocurre en el plano \(xy\). Por lo tanto,
+\[
+\begin{aligned}
+x'&=x\cos\theta-y\sin\theta,\\
+y'&=x\sin\theta+y\cos\theta,\\
+z'&=z.
+\end{aligned}
+\]
+Agrupando los coeficientes de \(x,y,z\):
+\[
+\boxed{
+R_z(\theta)=
+\begin{pmatrix}
+\cos\theta&-\sin\theta&0\\
+\sin\theta& \cos\theta&0\\
+0&0&1
+\end{pmatrix}
+}.
+\]
+
+La misma matriz se obtiene mirando las imágenes de la base:
+\[
+R_z e_x=
+\begin{pmatrix}\cos\theta\\\sin\theta\\0\end{pmatrix},
+\qquad
+R_z e_y=
+\begin{pmatrix}-\sin\theta\\\cos\theta\\0\end{pmatrix},
+\qquad
+R_z e_z=
+\begin{pmatrix}0\\0\\1\end{pmatrix}.
+\]
+Estos tres vectores son, respectivamente, las tres columnas de \(R_z\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0]
+  \draw[axisline,-{Latex[length=2.4mm]}] (-.3,0)--(5.3,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (0,-.3)--(0,4.5) node[above] {$y$};
+  \draw[mainline,-{Latex[length=2.7mm]}] (0,0)--(4,0)
+    node[below right] {$e_x$};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.7mm]}] (0,0)--(3,2.6)
+    node[above right] {$R_ze_x$};
+  \draw[teal,line width=.8pt,-{Latex[length=2mm]}] (1.4,0)
+    arc[start angle=0,end angle=41,radius=1.4];
+  \node[text=teal] at (1.7,.55) {$\theta$};
+  \node[font=\small,text=muted,align=center] at (7,2.0)
+    {\(z\) sale perpendicular al dibujo\\y permanece fijo};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Rotación alrededor del eje \(x\)}
+
+Ahora \(x\) permanece constante y la rotación ocurre en el plano \(yz\). Se aplica la misma
+matriz plana al par \((y,z)\):
+\[
+\begin{aligned}
+x'&=x,\\
+y'&=y\cos\theta-z\sin\theta,\\
+z'&=y\sin\theta+z\cos\theta.
+\end{aligned}
+\]
+Por lo tanto,
+\[
+\boxed{
+R_x(\theta)=
+\begin{pmatrix}
+1&0&0\\
+0&\cos\theta&-\sin\theta\\
+0&\sin\theta& \cos\theta
+\end{pmatrix}
+}.
+\]
+Sus columnas vuelven a ser las imágenes de la base:
+\[
+R_xe_x=e_x,\qquad
+R_xe_y=
+\begin{pmatrix}0\\\cos\theta\\\sin\theta\end{pmatrix},
+\qquad
+R_xe_z=
+\begin{pmatrix}0\\-\sin\theta\\\cos\theta\end{pmatrix}.
+\]
+La primera columna \((1,0,0)^T\) expresa geométricamente que el eje \(x\) permanece fijo.
+
+\subsection{Rotación alrededor del eje \(y\)}
+
+En este caso \(y\) permanece constante y el giro ocurre en el plano \(xz\). La regla de la
+mano derecha determina los signos:
+\[
+\begin{aligned}
+x'&=x\cos\theta+z\sin\theta,\\
+y'&=y,\\
+z'&=-x\sin\theta+z\cos\theta.
+\end{aligned}
+\]
+Así:
+\[
+\boxed{
+R_y(\theta)=
+\begin{pmatrix}
+\cos\theta&0&\sin\theta\\
+0&1&0\\
+-\sin\theta&0&\cos\theta
+\end{pmatrix}
+}.
+\]
+Por columnas:
+\[
+R_ye_x=
+\begin{pmatrix}\cos\theta\\0\\-\sin\theta\end{pmatrix},
+\qquad
+R_ye_y=e_y,
+\qquad
+R_ye_z=
+\begin{pmatrix}\sin\theta\\0\\\cos\theta\end{pmatrix}.
+\]
+
+\begin{atencion}[Por qué \(R_y\) parece tener signos diferentes]
+Si se escribe directamente la rotación 2D sobre el par ordenado \((x,z)\), puede aparecer
+una confusión de orientación. Mirado desde el extremo positivo del eje \(y\), el plano
+\(xz\) debe orientarse de acuerdo con la regla de la mano derecha. Una comprobación segura es
+usar un ángulo de \(90^\circ\): la matriz anterior lleva \(e_x\) a \(-e_z\) y \(e_z\) a
+\(e_x\).
+\end{atencion}
+
+\subsection{Resumen geométrico}
+
+\begin{center}
+\begin{tabularx}{.9\textwidth}{>{\bfseries}c c c}
+\toprule
+Rotación & Coordenada fija & Plano que rota\\
+\midrule
+\(R_x\) & \(x\) & \(yz\)\\
+\(R_y\) & \(y\) & \(zx\), orientado por mano derecha\\
+\(R_z\) & \(z\) & \(xy\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Cada matriz debe satisfacer cuatro comprobaciones inmediatas:
+\[
+R_i(0)=I,\qquad
+R_i(\theta)^TR_i(\theta)=I,\qquad
+\det R_i(\theta)=1,\qquad
+R_i(\theta)e_i=e_i.
+\]
+La última igualdad expresa que el vector director del eje es un autovector con autovalor
+\(1\).
+
+\subsection{Rotación alrededor de un eje arbitrario}
+
+Sea \(u\) un vector unitario que define el eje. Todo vector \(v\) puede separarse en una parte
+paralela y otra perpendicular:
+\[
+v=v_\parallel+v_\perp,
+\qquad
+v_\parallel=(u\cdot v)u,
+\qquad
+v_\perp=v-(u\cdot v)u.
+\]
+La rotación deja fija \(v_\parallel\). En el plano perpendicular, \(v_\perp\) gira como en
+dos dimensiones y \(u\times v\) proporciona la dirección perpendicular dentro de ese plano:
+\[
+R(u,\theta)v
+=
+v_\parallel
++\cos\theta\,v_\perp
++\sin\theta\,(u\times v).
+\]
+Reagrupando:
+\[
+\boxed{
+R(u,\theta)
+=
+\cos\theta\,I
++(1-\cos\theta)uu^T
++\sin\theta\,[u]_\times
+},
+\]
+donde
+\[
+[u]_\times=
+\begin{pmatrix}
+0&-u_z&u_y\\
+u_z&0&-u_x\\
+-u_y&u_x&0
+\end{pmatrix}.
+\]
+Esta es la fórmula de Rodrigues. Las matrices \(R_x,R_y,R_z\) se recuperan tomando
+\(u=e_x,e_y,e_z\), respectivamente.
+
+\begin{resultado}[Idea central]
+Una matriz de rotación 3D se construye dejando fija la componente paralela al eje y rotando
+la componente perpendicular como en un plano. Sus columnas muestran dónde terminan los tres
+vectores de la base.
+\end{resultado}
+

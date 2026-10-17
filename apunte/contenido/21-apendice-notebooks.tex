@@ -1,0 +1,79 @@
+% Apéndice: material de clase y notebooks
+\section{Material de clase y notebooks}\label{ap:notebooks}
+
+\subsection{Material publicado en el campus (cursada 2025)}
+
+Copia local en \file{Proyectos / Agrimensura / Sistemas de Coordenadas / Bibliografia / material de
+clase 2C2025} de Dropbox.
+
+\begin{itemize}
+  \item \file{Rotaciones_No_Conmutan.xlsx} (Planilla Clase 2025.2.2, clase 2): planilla
+  para ``experimentar con la conmutatividad de las matrices de rotación y con la
+  construcción de una rotación según eje-ángulo (por repetición de rotaciones pequeñas y por
+  exponenciación)''. \texttt{MMULT} es la función de Excel para multiplicar matrices.
+  \item \file{Ejercicio Tl_Afin_Homogenea.xlsx} (Planilla para experimentar
+  transformaciones, clase 3): afinidades en \(\R^2\) y en homogéneas; composición y orden.
+  \item \file{Algun_ejemplo_de_rotacion.wxmx} (Maxima 2025.2.2, clase 2): notebook de
+  wxMaxima que ``experimenta nuevamente el tema de la conmutatividad y aparece una yapa
+  relativa a autovectores''.
+  \item \file{Formas_Lineales.wxmx} (clase 4): el ejemplo \(\varphi(A\vec v)=(\varphi A)(\vec v)\)
+  trabajado en Maxima; es el de la sección~\ref{sec:formas-lineales}.
+  \item \file{Ejemplo_para_pensar.py} (+ \texttt{.jpeg}; Ejemplo Clase 2025.2.2): ejemplo
+  en Python de transformación afín ``que vamos a trabajar en papel en clase [\ldots]
+  piensen qué hace''.
+\end{itemize}
+
+\subsection{Notebooks marimo de la ayudantía}
+
+En \texttt{Proyectos / Agrimensura / Sistemas de Coordenadas / ejercicios} de Dropbox; se
+abren con \texttt{marimo edit <archivo>} (entorno \texttt{uv}).
+
+\begin{itemize}
+  \item \file{rotaciones_clase_I.py}: rotación en el plano como multiplicar por
+  \(e^{i\theta}\) (animada), deducción de la matriz de rotación, rotaciones 3D, no
+  conmutatividad y cómo tiende a cero para ángulos chicos, el monolito girando alrededor de
+  \(x\), \(y\), \(z\), rotación gradual \(R(\alpha)^n\) con su eje aproximado, logaritmo de
+  una rotación (eje y ángulo) con trayectoria \(\exp(tK)u\).
+  \item \file{proyectivas_clase_II.py}: teoría en cinco renglones, homografía exacta
+  (fracciones) a partir de cuatro correspondencias del pentágono regular, polinomio
+  característico y puntos fijos, recta que se va al infinito, imagen partida, y exploración
+  continua ``de la identidad a \(H\)''.
+  \item \file{cuna_autovectores_clase_III.py} (en construcción; todavía no está en la
+  carpeta): producto cuña como área orientada, determinante, núcleo y autovectores por
+  producto cruz de filas.
+\end{itemize}
+
+\subsection{Serie de notebooks propuesta}
+
+Un notebook por bloque del hilo del profesor; cada uno muestra el hecho geométrico
+animado y verifica las cuentas del apunte.
+
+{\small
+\begin{tabularx}{\textwidth}{>{\bfseries}p{6mm}Yp{54mm}}
+\toprule
+\# & Tema & Estado\\
+\midrule
+1 & Rotaciones: complejos, matriz, 3D, no conmutatividad, exponencial &
+Existe:\newline\file{rotaciones_clase_I.py}\\
+2 & Producto interno y ortogonalidad: proyección, matrices ortogonales, reflexiones vs.
+rotaciones & Propuesto\\
+3 & Reflexiones y similaridades: composición de reflexiones, centro de una similaridad &
+Propuesto\\
+4 & Afinidades y coordenadas homogéneas: planilla animada, punto fijo, círculos por
+rotación y traslación repetidas & Propuesto\\
+5 & Proyectivas: homografía por cuatro puntos, puntos fijos, recta al infinito &
+Existe:\newline\file{proyectivas_clase_II.py}\\
+6 & Formas lineales y dualidad: rectas de nivel, pila de formas, transformación del lado
+contrario & Propuesto\\
+7 & Cuña, determinante y núcleo: área orientada, colinealidad, autovectores por producto
+cruz & En construcción:\newline\file{cuna_autovectores_clase_III.py}\\
+8 & Autovectores y subespacios invariantes: direcciones que caen sobre sí mismas, potencias
+de una matriz & Propuesto\\
+9 & Cambio de base y SVD: la misma flecha en otra grilla, circunferencia que se vuelve
+elipse, inversa y pseudoinversa & Propuesto\\
+10 & Derivada y primera forma fundamental: gradiente como forma lineal, plano tangente,
+métrica de una superficie & Propuesto\\
+\bottomrule
+\end{tabularx}
+}
+

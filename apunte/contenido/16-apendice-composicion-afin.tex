@@ -1,0 +1,232 @@
+% Apéndice: composición afín práctica: rotación y escala
+\section{Composición afín práctica: rotación y escala}\label{ap:composicion-afin}
+
+\subsection{Rotación alrededor de un centro}
+
+Sea \(c=(c_x,c_y)^T\) y sea \(R\) una matriz de rotación. Trasladar \(c\) al origen, rotar
+y trasladar de regreso produce
+\[
+F_1(x)=c+R(x-c)=Rx+(I-R)c.
+\]
+En coordenadas homogéneas:
+\[
+\boxed{
+H_1=
+\left(
+\begin{array}{c|c}
+R&(I-R)c\\ \hline
+0\quad0&1
+\end{array}
+\right)
+}.
+\]
+La escritura por bloques significa que \(R\) ocupa las primeras dos filas y columnas, mientras
+que el vector \((I-R)c\) ocupa la última columna.
+
+Para \(\theta=45^\circ\):
+\[
+R=
+\begin{pmatrix}
+r&-r\\
+r&r
+\end{pmatrix},
+\qquad
+r=\frac{\sqrt2}{2}.
+\]
+
+\begin{atencion}[Corrección de la transcripción]
+La transcripción menciona en un pasaje \(\sqrt3/2\). Para \(45^\circ\), el valor correcto es
+\[
+\sin45^\circ=\cos45^\circ=\frac{\sqrt2}{2}.
+\]
+\(\sqrt3/2\) corresponde al coseno de \(30^\circ\) o al seno de \(60^\circ\).
+\end{atencion}
+
+\subsection{Escala uniforme alrededor de otro centro}
+
+Sea \(d=(d_x,d_y)^T\) y sea \(k\) el factor de escala:
+\[
+F_2(y)=d+k(y-d)=ky+(1-k)d.
+\]
+Su matriz homogénea es
+\[
+\boxed{
+H_2=
+\begin{pmatrix}
+k&0&(1-k)d_x\\
+0&k&(1-k)d_y\\
+0&0&1
+\end{pmatrix}
+}.
+\]
+Con \(k=0.5\), cada distancia al centro \(d\) queda reducida a la mitad.
+
+\subsection{Composición y orden}
+
+La rotación se aplica primero y la escala después:
+\[
+F=F_2\circ F_1.
+\]
+Por eso, con vectores columna,
+\[
+\boxed{H=H_2H_1}.
+\]
+La matriz situada a la derecha actúa primero. Al desarrollar por bloques:
+\[
+F(x)=kRx+\left[k(I-R)c+(1-k)d\right].
+\]
+Así,
+\[
+A=kR,
+\qquad
+t=k(I-R)c+(1-k)d.
+\]
+
+\subsection{Ejemplo numérico completo}
+
+Se eligen
+\[
+c=(3,1),\qquad d=(-1,2),\qquad
+k=0.5,\qquad \theta=45^\circ.
+\]
+La rotación alrededor de \(c\) queda
+\[
+H_1=
+\begin{pmatrix}
+0.70710678&-0.70710678&1.58578644\\
+0.70710678& 0.70710678&-1.82842712\\
+0&0&1
+\end{pmatrix}.
+\]
+La escala respecto de \(d\) es
+\[
+H_2=
+\begin{pmatrix}
+0.5&0&-0.5\\
+0&0.5&1\\
+0&0&1
+\end{pmatrix}.
+\]
+El producto es
+\[
+\boxed{
+H=H_2H_1=
+\begin{pmatrix}
+0.35355339&-0.35355339&0.29289322\\
+0.35355339& 0.35355339&0.08578644\\
+0&0&1
+\end{pmatrix}
+}.
+\]
+Por tanto:
+\[
+A=
+\begin{pmatrix}
+0.35355339&-0.35355339\\
+0.35355339& 0.35355339
+\end{pmatrix},
+\qquad
+t=
+\begin{pmatrix}
+0.29289322\\
+0.08578644
+\end{pmatrix}.
+\]
+
+\subsection{Punto fijo}
+
+Un punto \(p\) es fijo si
+\[
+Ap+t=p.
+\]
+Por lo tanto:
+\[
+(I-A)p=t,
+\qquad
+\boxed{p=(I-A)^{-1}t}.
+\]
+En este ejemplo:
+\[
+\boxed{
+p_\ast=
+\begin{pmatrix}
+1-\frac{\sqrt2}{2}\\[1mm]
+1-\frac{\sqrt2}{2}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+0.29289322\\
+0.29289322
+\end{pmatrix}
+}.
+\]
+La verificación directa es
+\[
+Hp_\ast^{\,h}=p_\ast^{\,h},
+\qquad
+p_\ast^{\,h}=
+\begin{pmatrix}p_{\ast x}\\p_{\ast y}\\1\end{pmatrix}.
+\]
+
+\subsection{Autovalores y coordenadas homogéneas}
+
+Como \(H\) es triangular por bloques, sus autovalores son los dos autovalores de \(A=0.5R\)
+y el autovalor homogéneo \(1\):
+\[
+\lambda_{1,2}=0.5e^{\pm i\pi/4},
+\qquad
+\lambda_3=1.
+\]
+Los dos autovalores complejos describen conjuntamente la contracción y el giro de la parte
+lineal. El autovector real asociado a \(\lambda_3=1\) puede escribirse
+\[
+v_3=
+\begin{pmatrix}p_{\ast x}\\p_{\ast y}\\1\end{pmatrix},
+\]
+y representa el punto fijo.
+
+\begin{atencion}[Cómo interpretar el resultado de una calculadora online]
+Los autovectores se devuelven con una normalización arbitraria. Si la calculadora entrega
+\[
+v=(u,v,w)^T,\qquad w\neq0,
+\]
+el punto cartesiano correspondiente es \((u/w,v/w)\). Si \(w=0\), el vector representa una
+dirección o punto ideal, no un punto fijo finito. Una matriz homogénea afín siempre posee
+\(1\) como autovalor, pero solo hay punto fijo finito cuando existe un autovector asociado
+con \(w\neq0\).
+\end{atencion}
+
+\subsection{Implementación en Excel}
+
+\begin{enumerate}
+  \item Ingresar \(H_1\) en un bloque \(3\times3\), por ejemplo
+  \texttt{B2:D4}.
+  \item Ingresar \(H_2\) en \texttt{F2:H4}.
+  \item Seleccionar un bloque \(3\times3\) para el resultado e introducir
+  \[
+  \texttt{=MMULT(F2:H4,B2:D4)}.
+  \]
+  En versiones antiguas de Excel se confirma con
+  \texttt{Ctrl+Shift+Enter}; en versiones con matrices dinámicas basta \texttt{Enter}.
+  \item Para transformar un punto homogéneo almacenado como columna
+  \((x,y,1)^T\), usar
+  \[
+  \texttt{=MMULT(matriz\_compuesta,rango\_del\_punto)}.
+  \]
+  \item Para obtener el punto fijo sin recurrir a una web, construir \(I-A\) y calcular
+  \[
+  \texttt{=MMULT(MINVERSE(rango\_I\_menos\_A),rango\_t)}.
+  \]
+  El nombre de \texttt{MINVERSE} puede variar según el idioma de Excel.
+\end{enumerate}
+
+\begin{idea}[Comprobación mínima]
+Transformar todos los vértices de la figura, verificar uno manualmente y comprobar que
+\[
+Hp_\ast^{\,h}=p_\ast^{\,h}.
+\]
+En el programa gráfico, los comandos mencionados en clase fueron \texttt{ROTATE} y
+\texttt{SCALE}. El estilo o tamaño del punto puede aumentarse para hacer visibles centros y
+vértices.
+\end{idea}
+
