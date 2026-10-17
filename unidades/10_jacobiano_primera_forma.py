@@ -120,7 +120,7 @@ def _(E_l, J_ladera, cinta_ladera, mo, np, prediccion):
 
 @app.cell
 def _(mo):
-    mo.md(r"""
+    _texto = mo.md(r"""
     ## 1. Hecho geométrico
 
     **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hago zoom en un punto
@@ -160,6 +160,19 @@ def _(mo):
     $F(x, y, z) = 0$ define $z = g(x, y)$ cerca de un punto si la normal "le hace sombra" al eje $z$ ($\partial F/\partial z \neq 0$).
     Todo esto es una **muestra**; la demostración está en el apunte, secciones 6 y 13.
     """)
+    mo.vstack([_texto, mo.callout(mo.md(r"""
+    **El gradiente es una forma lineal, no un vector (recordatorio del 14/10).** El profesor se corrigió en vivo: "el
+    gradiente de una función es un vector… no, mentí, lo dije mal. Es una forma lineal, porque me permite hacer una
+    aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Sobre la grilla $(u, v)$, el
+    gradiente de la altura es la **fila** $(h_u, h_v)$: la regla graduada de la [lección 06](../06_formas_lineales/index.html),
+    que lee $dh = h_u\,du + h_v\,dv$ sobre cada pasito y cambia de coordenadas con $A^{-1}$, como toda forma. Para
+    convertirla en **una flecha** sobre el terreno (la dirección de máxima pendiente, perpendicular a las curvas de nivel)
+    hace falta la tabla de arriba: la flecha es $g^{-1} (h_u, h_v)^T$ con $g = J^T J$, el único puente entre formas y
+    vectores. Si $E \ne G$ o $F \ne 0$, la perpendicular dibujada en la grilla **no** es la perpendicular en el terreno: en
+    la esfera un paso en $\lambda$ mide $\cos\varphi$ veces lo que uno en $\varphi$, y en el elipsoide $M\,d\varphi$ contra
+    $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha 9](../../clases/09.html); como cambio
+    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Estación 0](../00_desaprender_el_cbc/index.html).
+    """), kind="neutral")])
     return
 
 

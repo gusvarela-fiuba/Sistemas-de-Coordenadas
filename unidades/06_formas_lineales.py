@@ -121,7 +121,7 @@ def _(A_pred, candidatos, lib, mo, p_pred, prediccion):
 
 @app.cell
 def _(mo):
-    mo.md(r"""
+    _texto = mo.md(r"""
     ## 1. Hecho geométrico
 
     **¿Qué se conserva?** La lectura. Si los puntos van con $A$ y la regla con $A^{-1}$, cada punto sigue marcando el
@@ -165,9 +165,20 @@ def _(mo):
     | se dibuja | una flecha | una familia de rectas de nivel |
     | juntos | $\ell\,p$ es un número: la medición | $\ell\,p = 0$ es una recta |
 
-    Esto es una **muestra**; la demostración está en el apunte, sección 11. El eco del 14/10: "el gradiente es una
-    forma lineal, no un vector: me permite hacer una aproximación lineal de la función" (profesor).
+    Esto es una **muestra**; la demostración está en el apunte, sección 11.
     """)
+    mo.vstack([_texto, mo.callout(mo.md(r"""
+    **El recordatorio del 14/10 (clase 9).** El profesor se corrigió en vivo: "el gradiente de una función es un
+    vector… no, mentí, lo dije mal. **El gradiente es una forma lineal, no un vector**: me permite hacer una
+    aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Es esta misma regla:
+    cerca de un punto, los escalones de altura son las marcas de $\nabla h = (h_x, h_y)$. Dibujarlo como flecha
+    perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado: si cambio de unidades en un
+    eje (metros en $x$, pies en $y$), o estoy en el plano $(d\varphi, d\lambda)$ del elipsoide, donde un paso en
+    $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
+    es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
+    [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
+    la [Estación 0](../00_desaprender_el_cbc/index.html).
+    """), kind="neutral")])
     return
 
 
@@ -296,8 +307,9 @@ def _(lib, mo, np):
             Lo que **no** hay que hacer: $A\ell^T = (4, 1)$ y $(4, 1)\cdot(2, 1) = 9 \ne 3$.
             """),
             mo.vstack([
-                mo.md("```python\nA = np.diag([2., 1.])\nl, p = np.array([2., 1.]), np.array([1., 1.])\nlp = l @ np.linalg.inv(A)     # la fila, a la derecha\nnp.allclose(l @ p, lp @ (A @ p))\n```"),
-                mo.md(f"`l @ p` = `{_l @ _p:g}` · `lp` = `{np.round(_lp, 3).tolist()}` · `lp @ (A @ p)` = `{_lp @ (_A @ _p):g}` · `allclose` = `{bool(np.allclose(_l @ _p, _lp @ (_A @ _p)))}`  \n"
+                mo.md("```python\nA = np.diag([2., 1.])\nl = np.array([2., 1.])\np = np.array([1., 1.])\n# la fila, a la derecha\nlp = l @ np.linalg.inv(A)\nnp.allclose(l @ p, lp @ (A @ p))\n```"),
+                mo.md(f"`l @ p` = `{_l @ _p:g}` · `lp` = `{np.round(_lp, 3).tolist()}`  \n"
+                      f"`lp @ (A @ p)` = `{_lp @ (_A @ _p):g}` · `allclose` = `{bool(np.allclose(_l @ _p, _lp @ (_A @ _p)))}`  \n"
                       f"mal: `A @ l` = `{np.round(_A @ _l, 3).tolist()}` → lee `{(_A @ _l) @ (_A @ _p):g}`"),
             ]),
         ], widths="equal", align="start"),
@@ -314,7 +326,7 @@ def _(lib, mo, np):
             cruce. La $(1, 1)$ "quedó más acostada" ($45° \to 26.6°$) y más corta: sus marcas se separaron.
             """),
             mo.vstack([
-                mo.md("```python\nT = np.array([[1.2, 0.5], [-0.1, 1.3]])\nv = np.array([3., 4.])\nF = np.array([[1., 1.], [-1., 2.]])   # una fila por forma\nF @ v                       # lecturas antes\nF2 = F @ np.linalg.inv(T)  # las formas arrastradas\nF2 @ (T @ v)                # lecturas después\n```"),
+                mo.md("```python\nT = np.array([[1.2, 0.5], [-0.1, 1.3]])\nv = np.array([3., 4.])\n# una fila por forma\nF = np.array([[1., 1.], [-1., 2.]])\nF @ v                   # lecturas antes\n# las formas arrastradas\nF2 = F @ np.linalg.inv(T)\nF2 @ (T @ v)            # lecturas después\n```"),
                 mo.md(f"`det(T)` = `{np.linalg.det(T):.2f}` · `T @ v` = `{np.round(T @ v_prof, 3).tolist()}` · `F @ v` = `{np.round(formas_prof @ v_prof, 3).tolist()}`  \n"
                       f"`F2` =\n```\n{np.round(formas_prof_despues, 3)}\n```\n`F2 @ (T @ v)` = `{np.round(formas_prof_despues @ (T @ v_prof), 3).tolist()}`"),
             ]),
@@ -344,6 +356,102 @@ def _(mo, np):
               f"`(P @ A.T) @ lp` = `{np.round((_P @ _A.T) @ _lp, 3).tolist()}` · `(P @ l).shape` = `{(_P @ _l).shape}`"),
     ])
     return
+
+
+@app.cell
+def _(lib, mo, np):
+    # ---------- aporte propio (CEIA): dos nubes separables y su SVM de margen duro, sin scikit-learn ----------
+    nube_A = np.array([[0.0, 0.0], [2.0, 0.0], [0.0, 2.0], [0.5, 0.5]])  # mojones de la parcela A
+    nube_B = np.array([[4.0, 3.0], [6.0, 3.0], [4.0, 5.0], [5.0, 6.0]])  # mojones de la parcela B
+    svm = lib.svm_margen_duro_2d(nube_A, nube_B)
+    deformaciones = {
+        "identidad": np.eye(2),
+        "estirar x al doble: diag(2, 1)": np.diag([2.0, 1.0]),
+        "cizalla [[1, 1], [0, 1]]": np.array([[1.0, 1.0], [0.0, 1.0]]),
+    }
+    deformacion = mo.ui.radio(options=list(deformaciones), value="identidad", label="deformación A del plano")
+    mo.vstack([
+        mo.md(r"""
+        ### 4b. Conexión con IA (aporte desde la CEIA): una SVM es una forma lineal con margen
+
+        Esto **no es contenido de la cátedra**: lo traigo de la especialización en IA, porque es la misma regla
+        graduada de esta lección con otro nombre. Dos parcelas vecinas, cada una con sus mojones relevados, y la
+        pregunta de una *máquina de vectores de soporte* (SVM): ¿cuál es la **calle más ancha** que pasa entre las dos
+        nubes? La respuesta es una forma lineal afín, $w^T x + b$: la marca $0$ es la divisoria, las marcas $-1$ y $+1$
+        son los bordes de la calle y **apoyan contra los mojones más cercanos**, los *puntos de soporte*. El ancho de la
+        calle es $2/\lVert w\rVert$, dos separaciones entre marcas (sección 1), y la SVM elige la regla que lo hace
+        máximo. En homogéneas $(x, y, 1)$ toda la SVM es **una sola forma lineal** $(w_1, w_2, b)$: la divisoria es su
+        marca cero, como la recta $\ell\,\tilde p = 0$ de la sección 1.
+
+        La dualidad se aplica tal cual. Si deformo el plano con $A$, los mojones van a $Ax$ y la regla se arrastra con
+        $A^{-1}$: $(w^T A^{-1},\ b)$ sigue leyendo $-1$, $0$, $+1$ sobre los mismos puntos. Lo que **sí** cambia es el
+        ancho físico $2/\lVert w A^{-1}\rVert$, porque el largo de $w$ lo da el producto interno, no la regla. Por eso,
+        si vuelvo a entrenar la SVM sobre los puntos deformados, elige **otra** divisoria (punteada, en negro): la calle
+        más ancha medida con el producto interno de la grilla nueva. Reescalar los datos antes de entrenar no es un
+        detalle de implementación: cambia el producto interno, y con él qué cuenta como margen. El helper
+        `lib.svm_margen_duro_2d` es numpy puro: prueba los pares y tríos de soporte posibles y se queda con la franja
+        factible más ancha.
+        """),
+        deformacion,
+    ])
+    return deformacion, deformaciones, nube_A, nube_B, svm
+
+
+@app.cell
+def _(deformacion, deformaciones, go, lib, mo, np, nube_A, nube_B, svm):
+    A_svm = deformaciones[deformacion.value]
+    w_svm, b_svm = svm["w"], svm["b"]
+    w_def = lib.forma_transformada(w_svm, A_svm)  # la regla arrastrada: (w A⁻¹, b)
+    nube_A_def, nube_B_def = lib.transformar(nube_A, A_svm), lib.transformar(nube_B, A_svm)
+    svm_def = lib.svm_margen_duro_2d(nube_A_def, nube_B_def)  # re-entrenada sobre los puntos deformados
+    _todo = np.vstack([nube_A, nube_B, nube_A_def, nube_B_def])
+    rango_svm = (float(_todo.min()) - 2.0, float(_todo.max()) + 2.0)
+
+    def _regla(f, ww, bb, color, nombre, ancho=1.3, etiquetas=True, dash=None):
+        """Las marcas −1, 0, +1 de la regla w·x + b: los cortes de w·x = k − b con la caja; la marca 0 más gruesa."""
+        for k in (-1, 0, 1):
+            P = lib.cortes_caja(ww, k - bb, rango_svm)
+            if len(P) < 2:
+                continue
+            f.add_trace(go.Scatter(x=P[:, 0], y=P[:, 1], mode="lines+text" if etiquetas else "lines",
+                                   text=["", f"{k:+d}" if k else "0"], textposition="top left",
+                                   textfont=dict(size=11, color=color), hoverinfo="skip",
+                                   line=dict(color=color, width=2.5 * ancho if k == 0 else ancho, dash=dash),
+                                   name=nombre, legendgroup=nombre, showlegend=(k == -1)))
+
+    figura_svm = lib.figura_plano(rango_svm, f"{deformacion.value} · las marcas siguen apoyando en los mismos mojones", alto=560)
+    lib.capa_antes(figura_svm, rango_svm, cuadrado=False)
+    _regla(figura_svm, w_svm, b_svm, lib.GRIS_ANTES, "regla antes: (w, b)", etiquetas=False)
+    for _N, _nombre in ((nube_A, "parcela A antes"), (nube_B, "parcela B antes")):
+        figura_svm.add_trace(go.Scatter(x=_N[:, 0], y=_N[:, 1], mode="markers", name=_nombre, hoverinfo="skip",
+                                        marker=dict(size=7, color="white", line=dict(color=lib.GRIS_ANTES, width=1.5))))
+    _regla(figura_svm, w_def, b_svm, lib.TEAL_DESPUES, "regla arrastrada: (w A⁻¹, b)")
+    _regla(figura_svm, svm_def["w"], svm_def["b"], "#222", "SVM re-entrenada sobre A·x", ancho=1.0, etiquetas=False, dash="dot")
+    for _N, _color, _nombre in ((nube_A_def, lib.VIOLETA_OBJETO, "parcela A después"), (nube_B_def, lib.COLORES[1], "parcela B después")):
+        figura_svm.add_trace(go.Scatter(x=_N[:, 0], y=_N[:, 1], mode="markers", marker=dict(size=10, color=_color), name=_nombre))
+    _S = lib.transformar(np.vstack([svm["soporte_1"], svm["soporte_2"]]), A_svm)
+    figura_svm.add_trace(go.Scatter(x=_S[:, 0], y=_S[:, 1], mode="markers", name="puntos de soporte",
+                                    marker=dict(size=17, color="rgba(0,0,0,0)", line=dict(color="#222", width=2))))
+
+    _lee_A, _lee_B = nube_A_def @ w_def + b_svm, nube_B_def @ w_def + b_svm
+    _mismo = bool(np.allclose(_lee_A, nube_A @ w_svm + b_svm) and np.allclose(_lee_B, nube_B @ w_svm + b_svm))
+    _nota = ("coincide con la arrastrada: con la identidad no hay nada que re-entrenar" if np.allclose(A_svm, np.eye(2))
+             else "otra divisoria: el margen se mide con el producto interno de la grilla nueva")
+    _panel = mo.md(rf"""
+    **Números vivos**
+
+    - SVM sobre los mojones originales: $w = {lib.pmat(w_svm.reshape(1, 2))}$, $b = {lib.num_tex(b_svm)}$; en homogéneas, la
+      forma $(w_1, w_2, b) = {lib.pmat(np.append(w_svm, b_svm).reshape(1, 3))}$. Ancho de la calle $2/\lVert w\rVert =
+      {lib.num_tex(svm["margen"])}$; puntos de soporte: {len(svm["soporte_1"])} de A y {len(svm["soporte_2"])} de B.
+    - $A = {lib.matriz_coloreada(A_svm)}$; regla arrastrada $w A^{{-1}} = {lib.pmat(w_def.reshape(1, 2))}$, mismo $b$.
+      Lecturas sobre $Ax$: parcela A `{np.round(_lee_A, 3).tolist()}`, parcela B `{np.round(_lee_B, 3).tolist()}`;
+      iguales a las de antes → `np.allclose`: `{_mismo}`.
+    - Ancho físico de la regla arrastrada: $2/\lVert w A^{{-1}}\rVert = {lib.num_tex(2 / np.linalg.norm(w_def))}$. SVM
+      re-entrenada sobre $Ax$: $w'' = {lib.pmat(svm_def["w"].reshape(1, 2))}$, $b'' = {lib.num_tex(svm_def["b"])}$, ancho
+      ${lib.num_tex(svm_def["margen"])}$ ({_nota}).
+    """)
+    mo.vstack([mo.ui.plotly(figura_svm), _panel])
+    return A_svm, svm_def, w_def
 
 
 @app.cell
@@ -493,7 +601,7 @@ def _(mo):
 
 
 @app.cell
-def _(A, A_pred, B_08, T, candidatos, fila, fila_despues, formas_prof, formas_prof_despues, lib, mo, mojon, mojon_despues, np, p_pred, v_prof):
+def _(A, A_pred, A_svm, B_08, T, candidatos, fila, fila_despues, formas_prof, formas_prof_despues, lib, mo, mojon, mojon_despues, np, nube_A, nube_B, p_pred, svm, svm_def, v_prof, w_def):
     # ---------- verificación silenciosa de las cuentas de la lección ----------
     _R, _D, _pp, _ft, _ok = lib.rot2(np.deg2rad(30)), np.diag([2.0, 1.0]), A_pred @ p_pred, lib.forma_transformada, lib.exacto
     _Ab = [[1, 1], [0, 2]]
@@ -511,6 +619,12 @@ def _(A, A_pred, B_08, T, candidatos, fila, fila_despues, formas_prof, formas_pr
         ("ejercicios: (3, 4) ⊥ (4, −3), marcas cada 0.2, ℓ(2, 1) = 10; φA = (2, 8), φA⁻¹ = (2, 1/2) lee 5; la recta por (1, 1) y (3, 2) es −x + 2y − 1 = 0",
          _ok(np.array([3, 4]) @ [4, -3], 0.0) and _ok(1 / np.linalg.norm([3, 4]), 0.2) and _ok(np.array([3, 4]) @ [2, 1], 10) and _ok(np.array([2, 3]) @ _Ab, [2, 8])
          and _ok(_ft([2, 3], _Ab), [2, 0.5]) and _ok(_ft([2, 3], _Ab) @ [2, 2], 5) and _ok(lib.recta_por_dos_puntos([1, 1], [3, 2]), [-1, 2, -1])),
+        ("4b (aporte CEIA): SVM de las dos parcelas w = (0.4, 0.4), b = −1.8, ancho 5/√2, soportes (2,0), (0,2), (4,3); la regla arrastrada lee lo mismo sobre A x; "
+         "con diag(2, 1) el ancho físico pasa a √20 y la SVM re-entrenada da ancho 5; la re-entrenada nunca es más angosta que la arrastrada",
+         _ok(svm["w"], [0.4, 0.4]) and _ok(svm["b"], -1.8) and _ok(svm["margen"], 5 / np.sqrt(2)) and _ok(svm["soporte_1"], [[2, 0], [0, 2]]) and _ok(svm["soporte_2"], [[4, 3]])
+         and _ok(lib.transformar(nube_A, A_svm) @ w_def + svm["b"], nube_A @ svm["w"] + svm["b"]) and _ok(w_def, _ft(svm["w"], A_svm))
+         and _ok(2 / np.linalg.norm(_ft(svm["w"], _D)), np.sqrt(20)) and _ok(lib.svm_margen_duro_2d(lib.transformar(nube_A, _D), lib.transformar(nube_B, _D))["margen"], 5.0)
+         and svm_def["margen"] >= 2 / np.linalg.norm(w_def) - 1e-9),
     ]
     assert all(ok for _, ok in _checks), lib.verificar(_checks)
     mo.md(lib.verificar(_checks))
