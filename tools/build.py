@@ -937,8 +937,8 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     n_seguir = 0
     if ultima:
         for i, e in enumerate(unidades_portada, start=0):
-            if any(c["id"] == ultima["id"] for c in e["clases"]):
-                n_seguir = i
+            if i > 0 and any(c["id"] == ultima["id"] for c in e["clases"]):
+                n_seguir = i   # la unidad 0 cubre 01, 04 y 09 como fundamentos: no es "seguir la cursada"
                 break
 
     partes: list[str] = []

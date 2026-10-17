@@ -84,8 +84,9 @@ clases:
   titulo: Transformaciones lineales II — subespacios y la SVD
   ficha: clases/07-svd.md
   fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
+  fechas_2026:
+  - "2026-10-07"
+  estado: reconstruida
   pregunta: Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?
   validacion: pendiente
   nivel: avanzado
@@ -95,6 +96,7 @@ clases:
   fecha_2025: null
   fechas_2026:
   - "2026-09-30"
+  - "2026-10-07"
   estado: con-transcripcion
   pregunta: Si cambio la grilla con que mido, ¿cómo cambian los números de un punto, de una recta y de una transformación?
   validacion: pendiente

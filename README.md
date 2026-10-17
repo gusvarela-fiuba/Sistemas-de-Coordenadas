@@ -48,7 +48,7 @@ site/       salida del build (ignorada por git); la publica .github/workflows/pa
 
 Cada clase lleva dos etiquetas independientes, visibles en las fichas y en las unidades de la portada:
 
-- **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 07 y 10–14, es decir las lecciones 09, 11, 12, 13 y 14).
+- **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 10–14, es decir las lecciones 11, 12, 13 y 14; la clase 07 se dictó el 7/10 sin transcripción).
 - **Validación** (cuánto se revisó): `validación pendiente`; `revisado` (revisada por el autor contra el material); `validado por la cátedra` (confirmada por el profesor). Hoy todas las clases están en `pendiente`.
 
 Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tienen además un estado propio (`piloto`, `migrada`, `legacy`, `pendiente`) que dice si se exportan; el estado de cada unidad (lista / en clase / todavía no) lo calcula el build.

@@ -36,7 +36,7 @@ Clases de 2C2026 y qué hay de cada una:
 | 2026-09-16 | sí (inglés) |
 | 2026-09-23 | no (la nota de Notion está vacía) |
 | 2026-09-30 | sí (inglés) |
-| 2026-10-07 | no (sin nota en Notion) |
+| 2026-10-07 | no (sin nota en Notion; cambio de base y SVD según el cronograma que confirmó el profesor) |
 | 2026-10-14 | sí (inglés) |
 
 ### `notion/`

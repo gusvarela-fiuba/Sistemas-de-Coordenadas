@@ -2,8 +2,8 @@
 clase: "07"
 titulo: Transformaciones lineales II — subespacios y la SVD
 fecha_2025: null
-fechas_2026: []
-estado: no-dictada
+fechas_2026: ["2026-10-07"]
+estado: reconstruida
 fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-7
   - fuentes/transcripciones/2026-09-30.md
@@ -34,12 +34,12 @@ Cierre: videos recomendados "fervientemente" (embebidos en el campus, no descarg
 
 ## Lo que pasó en 2C2026
 
-No se dictó. Lo que hay son dos anuncios:
+Dictada el miércoles 2026-10-07, junto con la continuación del cambio de base, según el cronograma que el profesor confirmó en el chat del curso el 2026-10-17 ("7/10: Cambio de Base y SVD"). No hay nota de Notion ni transcripción de ese día; esta ficha se reconstruye desde el resumen 2025, el cuaderno `fuentes/campus/profesor/LaSVD.wxmx` (la SVD "con Maxima, analíticamente" que el profesor dijo el 14/10 haber mostrado y mandado por el grupo) y los dos anuncios que la rodean:
 
 - **2026-09-30** ("Upcoming Topics"): la SVD es "una adaptación de eso [la diagonalización] que siempre funciona, no sólo con autovectores reales" *(transcripción auto-traducida)*. Aparecen "dos bases" especiales, relacionadas "con los espacios importantes: el núcleo y la imagen", y "un cambio de base medio raro, rectangular, con una base a la entrada que no sale" *(transcripción auto-traducida)*. Jordan se descartó explícitamente: "es importante para resolver sistemas, pero la interpretación geométrica no es tan importante; para nosotros la interpretación geométrica es todo". La meta declarada: "hay un problema de GPS que se resuelve con álgebra bastante bien y siempre quiero llegar a ese punto".
 - **2026-10-14** ("Next Class: Quadratic Forms and SVD Applications"): la próxima clase son formas cuadráticas (hay una nota en el campus que hay que leer antes) y con eso "usar la descomposición en valores singulares para resolver problemas: regresión, ajuste de puntos, etc." *(transcripción auto-traducida)*. Referencias: "está en el Strang, y hay uno en inglés, Calvetti y Somersalo, que para mí es el que lo explica mejor". El profesor dijo que la SVD ya la había mostrado "con Maxima, analíticamente, no gráficamente" y la había mandado por el grupo; la tarea es intentar en GeoGebra "cualquier sistema 2×3 o 3×2" y mandar dudas por el grupo.
 
-Falta confirmar: fecha de dictado, si la clase de formas cuadráticas y la de SVD aplicada son una sola o dos. El archivo de Maxima que circuló por el grupo es `fuentes/campus/profesor/LaSVD.wxmx` (mandado por el profesor el 2026-10-17).
+Falta confirmar: qué parte de la SVD se dio el 7/10 (sólo la analítica 2×3 del cuaderno, o también círculo → elipse), y si la clase de formas cuadráticas y la de SVD aplicada son una sola o dos. El archivo de Maxima que circuló por el grupo es `fuentes/campus/profesor/LaSVD.wxmx` (mandado por el profesor el 2026-10-17).
 
 ## Hecho geométrico
 

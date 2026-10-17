@@ -2,7 +2,7 @@
 clase: "08"
 titulo: Cambios de base, más autovectores y experimentar con marimo
 fecha_2025: null
-fechas_2026: ["2026-09-30"]
+fechas_2026: ["2026-09-30", "2026-10-07"]
 estado: con-transcripcion
 fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-8
@@ -28,6 +28,8 @@ Empezó "haciendo un repaso sobre cambios de base, pensando en que la idea de tr
 6. Exploración en marimo de "una transformación cualquiera de $\mathbb R^2$ a $\mathbb R^2$". Aplicación: la base de autovectores permite potencias enteras ("aplicar $n$ veces la transformación") y "también potencias reales en el caso de que los autovalores sean reales. [...] Eso nos permite pensar en la transformación como un proceso continuo y graficar la trayectoria que sigue un punto a medida que se va transformando" *(profesor, resumen 2025)*.
 
 ## Lo que pasó en 2C2026
+
+**Miércoles 2026-10-07 (sin transcripción).** Según el cronograma que el profesor confirmó en el chat del curso el 2026-10-17 ("7/10: Cambio de Base y SVD"), ese día se continuó el cambio de base y se dio la SVD (ficha 07). No hay nota de Notion de ese miércoles.
 
 **Miércoles 2026-09-30.** El profesor arrancó diciendo que la clase anterior había prometido cambio de base y no había llegado. Tres bloques:
 
