@@ -42,32 +42,84 @@ Para cada definición o teorema conviene producir:
 \end{enumerate}
 \end{idea}
 
-\subsection{Desaprender el CBC: del álgebra de pizarrón al análisis geométrico del terreno}\label{sec:desaprender}
+\subsection{Fundamentos: los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
 
-Encuadre propio, de alumno a alumno. El álgebra y el análisis del CBC dejan reflejos que
-funcionan en el pizarrón y que esta materia pide cambiar, no porque estén mal sino porque
-acá los objetos tienen un significado en el terreno. Son cuatro cambios de chip; la
-Estación 0 del sitio de la materia (\texttt{00\_desaprender\_el\_cbc}, apéndice~\ref{ap:notebooks})
-los trabaja con figuras, y la subsección~\ref{sec:puntos-formas-grillas} los resume en una
-tabla.
+Repaso de elaboración propia, de alumno a alumno, armado sobre las clases 1, 4 y 9 y la
+bibliografía del campus; no es contenido dictado. El álgebra y el análisis del CBC dejan
+reflejos que funcionan en el pizarrón y que esta materia pide cambiar, no porque estén mal
+sino porque acá los objetos tienen un significado en el terreno. Para leer el resto con una
+sola cabeza alcanzan cinco ladrillos, en orden deductivo: cada uno usa sólo los anteriores.
+La Unidad 0 del sitio (\texttt{00\_desaprender\_el\_cbc}, apéndice~\ref{ap:notebooks}) los
+trabaja con figuras y ejercicios en Python; la subsección~\ref{sec:puntos-formas-grillas}
+los resume en una tabla. Las frases entre comillas son del profesor y están en los
+resúmenes 2025 o en las transcripciones 2026; lo demás es paráfrasis mía.
 \begin{enumerate}
-  \item \textbf{Todo vector es un punto.} No una flecha abstracta: un mojón, o el
-  desplazamiento entre dos mojones. Una matriz no es una tabla de números sino una manera
-  de mover todos los mojones a la vez, o de cambiar la grilla con que se los mide.
-  \item \textbf{El gradiente y las formas lineales no son vectores.} Son reglas graduadas
-  tiradas sobre el plano (un mazo de rectas de nivel equiespaciadas) que miden vectores sin
-  necesitar producto interno, y por eso se transforman del lado contrario, con \(A^{-1}\).
-  El ``vector gradiente perpendicular a la curva de nivel'' existe recién cuando hay una
-  métrica que lo levanta.
-  \item \textbf{Las coordenadas son etiquetas; los metros los pone la métrica.} Latitud y
-  longitud no miden distancias; la primera forma fundamental es la regla que convierte un
-  paso en \((\varphi,\lambda)\) en metros sobre el terreno, y cambia de punto a punto.
-  \item \textbf{Derivar es álgebra lineal en el parche tangente, y curvarse es una forma
-  cuadrática.} La derivada de una parametrización es la jacobiana, una transformación
-  lineal entre el plano de los parámetros y el plano tangente; lo que la superficie hace
-  más allá de ese plano (cuánto se aparta en cada rumbo) lo dice una forma cuadrática, y
-  diagonalizarla da las direcciones principales.
+  \item \textbf{Conjuntos, operaciones y grupos.} Un grupo es un conjunto con una
+  operación interna asociativa, un neutro y una inversa para cada elemento; si el orden no
+  importa, conmuta. Es el molde de todo lo que la materia llama \emph{transformación}:
+  ``Transformaciones y Operaciones [\ldots] son dos conceptos que van atravesando la
+  materia'' (resumen 2025, clase 1), y la inversa, dicha para todos los casos a la vez,
+  ``es un elemento de un conjunto que, al operar con otro resulta en el elemento neutro
+  respecto de esa operación'' (resumen 2025, clase 10). Los giros de la estación total
+  alrededor de su eje vertical conmutan; los de \(\R^3\) no, ``porque la composición de
+  transformaciones lineales no es conmutativa'' (resumen 2025, clase 1). En NumPy:
+  \texttt{A @ B}, \texttt{np.eye(n)}, \texttt{np.linalg.solve(A, y)}.
+  \item \textbf{Los cuerpos \(\R\) y \(\mathbb{C}\).} Un cuerpo tiene dos operaciones, suma
+  y producto, cada una un grupo conmutativo (el producto, sin el \(0\)), y el producto
+  distribuye. Un real escala la recta; agregar \(i^2=-1\) equivale exactamente a pasar a las
+  matrices \(\bigl(\begin{smallmatrix}a&-b\\ b&a\end{smallmatrix}\bigr)\), que respetan
+  suma, producto e inverso y rotan \(\arg z\) mientras escalan \(|z|\): ``la matriz de
+  rotación de 2x2 que vimos en algebra del CBC hace exactamente la misma operación que
+  hacíamos con los complejos'' (resumen 2025, clase 1). La ``interesantísima equivalencia
+  en la estructura de los numeros complejos y algunas matrices de 2x2'' el profesor la
+  remite a Gentile, \emph{Complejos y Generalización} (bibliografía del campus,
+  apéndice~\ref{ap:bibliografia}). En NumPy:
+  \texttt{np.array([[z.real, -z.imag], [z.imag, z.real]])}.
+  \item \textbf{Espacio afín y espacio vectorial: todo vector es un punto.} Un espacio
+  vectorial es un conjunto con suma y producto por escalar que respetan linealidad (``un
+  conjunto al que se asocian dos operaciones [\ldots] que cumplen con algunas propiedades
+  básicas a las que llamamos `linealidad'\,'', resumen 2025, clase 4); de ahí salen
+  combinación lineal, independencia, base y dimensión. Un espacio afín es un conjunto de
+  puntos sin origen: la diferencia de dos puntos es un vector. El terreno es afín (hay
+  mojones \(P\), \(Q\), no flechas); \(V\) nace cuando planto la estación total en un mojón
+  \(O\) y cada mojón pasa a ser \(P-O\), o cuando homogeneizo \((x,y)\mapsto(x,y,1)\). Toda
+  transformación lineal ``conserva el cero'' (19/8/2026), por eso las traslaciones piden
+  homogéneas. En el espíritu de lo que dice el profesor sobre los campos vectoriales
+  (``tiene sentido pensarlos como puntos'', 14/10/2026, transcripción auto-traducida): en
+  esta materia un vector es un mojón visto desde \(O\) o un desplazamiento entre dos. En
+  NumPy, punto y desplazamiento son el mismo \texttt{np.array([x, y])}; independencia:
+  \texttt{np.linalg.matrix\_rank}.
+  \item \textbf{El dual \(V^{*}\): una fila es una forma lineal, y el gradiente también.}
+  Una forma lineal es una función lineal \(\omega:V\to\R\); las formas de \(V\) forman un
+  espacio vectorial de la misma dimensión, con base las selectoras de coordenadas (``las
+  más básicas de esas funciones son las funciones selectoras de coordenadas'', resumen
+  2025, clase 4). Se escribe como fila y evalúa fila por columna, sin producto interno; se
+  ve como una regla graduada, un mazo de rectas de nivel equiespaciadas. ``No existe el
+  vector fila. Lo que comúnmente llamamos vector fila se llama forma lineal''
+  (30/9/2026, transcripción auto-traducida). Si los puntos van con \(A\), la regla se
+  arrastra con \(A^{-1}\) para que la lectura no cambie: ``una forma lineal se transforma
+  con una transformación lineal del lado `contrario' que un vector'' (resumen 2025,
+  clase 4). Y \(df=\nabla f\,dx\) es una de ellas: ``dato clave: el gradiente es una forma
+  lineal no un vector'' (resumen 2025, clase 9). En NumPy: \texttt{w @ x} lee,
+  \texttt{np.linalg.solve(A.T, w)} arrastra.
+  \item \textbf{Producto interno y métrica \(G\): la cinta métrica.} Un producto interno
+  es \(\langle u,v\rangle_G=u^TGv\) con \(G\) simétrica definida positiva; recién con él
+  hay largos y ángulos, y es el único puente entre \(V\) y \(V^{*}\): baja un vector a forma
+  (\(w=Gv\)) y sube una forma a vector (\(v=G^{-1}w\)). ``Lo único que define a la base que
+  llamamos canónica es que sobre ella tenemos definida la noción de distancia a través del
+  producto interno'' (resumen 2025, clase 6): en esa base \(G=I\) y la cinta coincide con la
+  grilla; en la grilla de un plano estirado, \(G'=A^{-T}A^{-1}\); en \((\varphi,\lambda)\)
+  sobre una superficie, \(G\) es la primera forma fundamental, que cambia de punto a punto.
+  En NumPy: \texttt{a @ g @ b}, \texttt{np.linalg.solve(g, w)}, \texttt{J.T @ J}.
 \end{enumerate}
+
+El puente al cálculo en superficies, que es lo que hace de las clases 9 a 14 la misma
+materia que las clases 1 a 8: derivar una parametrización es usar una matriz lineal, la
+jacobiana \(J\), en el espacio tangente (ladrillos 1 y 3); el gradiente es una forma del
+dual (ladrillo 4); la primera forma fundamental \(J^TJ\) es la métrica del tangente
+(ladrillo 5); y curvarse, hessiana o segunda forma, es una forma cuadrática: un número por
+cada dirección. La subsección~\ref{sec:puntos-formas-grillas} pone los tres objetos en
+una tabla y la Unidad 0 los manipula.
 
 \subsection{Convención para componer}
 

@@ -52,6 +52,36 @@ que se escriben con números parecidos y son cosas distintas. El hilo conductor 
 todo vector es un mojón o un desplazamiento entre mojones, y toda matriz es una manera de
 mover el espacio o de cambiar la grilla con que se lo mide.
 
+Los dos ladrillos de abajo de esa tabla, desarrollados en la subsección~\ref{sec:desaprender}
+y en la Unidad 0, son el idioma en que están escritas las tres filas:
+
+\begin{description}
+  \item[Grupos de transformaciones (ladrillo 1).] Las transformaciones de un mismo tipo
+  (rotaciones, traslaciones, afinidades, homografías) forman un grupo: componer dos da otra
+  del mismo tipo, la identidad es el neutro y cada una tiene inversa. ``Transformaciones y
+  Operaciones [\ldots] son dos conceptos que van atravesando la materia'' (resumen 2025,
+  clase 1); la inversa ``es un elemento de un conjunto que, al operar con otro resulta en el
+  elemento neutro respecto de esa operación'' (resumen 2025, clase 10). Cuándo conmuta el
+  grupo es la pregunta que decide si se puede armar un sistema de coordenadas: las
+  rotaciones del plano y las traslaciones conmutan; las rotaciones de \(\R^3\) no
+  (sección~\ref{sec:orden-importa}). En NumPy la operación es \texttt{A @ B}, el neutro
+  \texttt{np.eye(n)} y la inversa aplicada a un dato \texttt{np.linalg.solve(A, y)}.
+  \item[Los cuerpos \(\R\) y \(\mathbb{C}\) como matrices (ladrillo 2).] Los escalares
+  escalan: un real \(a\) actúa sobre la recta como \(x\mapsto ax\), con inversa \(1/a\) y
+  determinante \(|a|\). Un complejo \(z=a+ib\) actúa sobre el plano como la matriz
+  \[
+    M(z)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},\qquad
+    M(z_1+z_2)=M(z_1)+M(z_2),\quad M(z_1z_2)=M(z_1)M(z_2),\quad M(1/z)=M(z)^{-1},
+  \]
+  es decir rota \(\arg z\) y escala \(|z|\) a la vez, con \(\det M(z)=|z|^2\): las matrices
+  de esa forma \emph{son} \(\mathbb{C}\) con otro ropaje. ``La matriz de rotación de 2x2 que
+  vimos en algebra del CBC hace exactamente la misma operación que hacíamos con los
+  complejos'' (resumen 2025, clase 1; la equivalencia de estructuras la remite a Gentile,
+  \emph{Complejos y Generalización}, apéndice~\ref{ap:bibliografia}). Sección~\ref{sec:rot-complejos}.
+\end{description}
+
+Con el grupo y el cuerpo puestos, los tres objetos:
+
 {\small
 \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{30mm}YY}
 \toprule
@@ -98,3 +128,19 @@ Y es lo que el resumen 2025 de la clase 9 llama ``dato clave: el gradiente es un
 lineal no un vector''. Lo que sí es un vector es la normal, que se obtiene con el producto
 vectorial de dos tangentes, o levantando el gradiente con la métrica.
 \end{atencion}
+
+\begin{resultado}[El puente al cálculo en superficies]
+Los cinco ladrillos de la subsección~\ref{sec:desaprender} son también el idioma de las
+clases 9 a 14. Derivar una parametrización \(r(u,v)\) es usar una matriz lineal, la
+jacobiana \(J=(r_u\ \ r_v)\), en el espacio tangente: entra un pasito \((du,dv)\) de la
+grilla, sale el pasito \(J\,(du,dv)^T\) sobre la superficie (ladrillos 1 y 3,
+sección~\ref{sec:variedades}). El gradiente de una función escalar es una forma del dual,
+\(df=\nabla f\,dx\) (ladrillo 4). La primera forma fundamental \(J^TJ=
+\bigl(\begin{smallmatrix}E&F\\ F&G\end{smallmatrix}\bigr)\) es la métrica del tangente,
+la única cinta con que se miden largos y ángulos en la grilla \((u,v)\) (ladrillo 5,
+sección~\ref{sec:metrica}); por eso la perpendicular dibujada en \((\varphi,\lambda)\) no
+es la del terreno, y el gradiente levantado con esa métrica, \(G^{-1}\nabla f^{T}\), sí lo
+es. Y curvarse, la hessiana o la segunda forma fundamental, es una forma cuadrática: un
+número por cada dirección, cuya diagonalización da las direcciones principales
+(sección~\ref{sec:curvatura}).
+\end{resultado}
