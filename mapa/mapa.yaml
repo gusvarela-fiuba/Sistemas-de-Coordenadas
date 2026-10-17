@@ -1,5 +1,5 @@
 # GENERADO por tools/merge_mapa.py — no editar a mano.
-# Fuente editable: mapa/_fragmentos/bloque-01-03.yaml, mapa/_fragmentos/bloque-03p-06.yaml, mapa/_fragmentos/bloque-07-10.yaml, mapa/_fragmentos/bloque-11-14.yaml
+# Fuente editable: mapa/_fragmentos/bloque-01-03.yaml, mapa/_fragmentos/bloque-03p-06.yaml, mapa/_fragmentos/bloque-07-10.yaml, mapa/_fragmentos/bloque-11-14.yaml, mapa/_fragmentos/unidades.yaml
 # Esquema: mapa/ESQUEMA.md. Regenerar con `uv run tools/merge_mapa.py`.
 titulo: Sistemas de Coordenadas — mapa de conceptos
 pregunta_guia: transformaciones ↔ operaciones ↔ coordenadas
@@ -11,6 +11,9 @@ clases:
   fechas_2026:
   - "2026-08-19"
   estado: con-transcripcion
+  pregunta: ¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?
+  validacion: pendiente
+  nivel: troncal
 - id: "02"
   titulo: Más rotaciones, composición y líneas coordenadas
   ficha: clases/02-mas-rotaciones.md
@@ -19,6 +22,9 @@ clases:
   fechas_2026:
   - "2026-08-26"
   estado: reconstruida
+  pregunta: ¿Qué pasa cuando encadeno dos movimientos, y por qué hace falta que conmuten para armar una grilla de coordenadas?
+  validacion: pendiente
+  nivel: troncal
 - id: "03"
   titulo: Transformaciones afines (reflexiones, similaridades, afinidades y coordenadas homogéneas)
   ficha: clases/03-afines.md
@@ -28,6 +34,9 @@ clases:
   - "2026-09-02"
   - "2026-09-09"
   estado: reconstruida
+  pregunta: ¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?
+  validacion: pendiente
+  nivel: troncal
 - id: "03p"
   titulo: Transformaciones proyectivas (clase extra 2C2026, el pentágono)
   ficha: clases/03p-proyectivas.md
@@ -36,6 +45,9 @@ clases:
   - "2026-09-16"
   - "2026-09-23"
   estado: con-transcripcion
+  pregunta: ¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?
+  validacion: pendiente
+  nivel: complementario
 - id: "04"
   titulo: Espacios lineales, transformaciones lineales y formas lineales (dualidad)
   ficha: clases/04-espacios-lineales-formas.md
@@ -44,6 +56,9 @@ clases:
   fechas_2026:
   - "2026-09-30"
   estado: con-transcripcion
+  pregunta: ¿Qué es un vector, qué es una regla que mide vectores, y por qué cada uno se transforma distinto?
+  validacion: pendiente
+  nivel: troncal
 - id: "05"
   titulo: Subespacios afines y lineales, producto cuña, determinante y núcleo
   ficha: clases/05-subespacios-cuna-determinante.md
@@ -52,6 +67,9 @@ clases:
   fechas_2026:
   - "2026-09-16"
   estado: con-transcripcion
+  pregunta: ¿Cómo detecto con una cuenta que unos vectores (o unos puntos) se aplastaron a algo de menor dimensión?
+  validacion: pendiente
+  nivel: troncal
 - id: "06"
   titulo: Subespacios invariantes, autovalores y autovectores
   ficha: clases/06-invariantes-autovectores.md
@@ -60,12 +78,18 @@ clases:
   fechas_2026:
   - "2026-09-16"
   estado: con-transcripcion
+  pregunta: ¿Qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro?
+  validacion: pendiente
+  nivel: troncal
 - id: "07"
   titulo: Transformaciones lineales II — subespacios y la SVD
   ficha: clases/07-svd.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?
+  validacion: pendiente
+  nivel: avanzado
 - id: "08"
   titulo: Cambios de base, más autovectores y experimentar con marimo
   ficha: clases/08-cambio-de-base.md
@@ -73,6 +97,9 @@ clases:
   fechas_2026:
   - "2026-09-30"
   estado: con-transcripcion
+  pregunta: Si cambio la grilla con que mido, ¿cómo cambian los números de un punto, de una recta y de una transformación?
+  validacion: pendiente
+  nivel: troncal
 - id: "09"
   titulo: Repaso de análisis (con álgebra de contrabando) — derivada, gradiente, jacobiano
   ficha: clases/09-analisis-derivada-jacobiano.md
@@ -80,36 +107,54 @@ clases:
   fechas_2026:
   - "2026-10-14"
   estado: con-transcripcion
+  pregunta: ¿Qué transformación lineal aproxima una función cerca de un punto, y qué mide el gradiente?
+  validacion: pendiente
+  nivel: troncal
 - id: "10"
   titulo: Inversas — respecto de una operación, los cuatro subespacios y la pseudoinversa
   ficha: clases/10-inversas-pseudoinversa.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: ¿Qué quiere decir deshacer una operación, y qué es lo más parecido a deshacer cuando la matriz no se invierte?
+  validacion: pendiente
+  nivel: avanzado
 - id: "11"
   titulo: Clase 11 - 4 problemas
   ficha: clases/11-cuatro-problemas.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: ¿Cómo se resuelven con pseudoinversa y SVD una recta de ajuste, un punto por distancias y la superposición de dos nubes?
+  validacion: pendiente
+  nivel: avanzado
 - id: "12"
   titulo: 'Clase 12: Curvatura'
   ficha: clases/12-curvatura.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: ¿Cuánto se curva una superficie en cada dirección, y qué quiere decir ir derecho sobre ella?
+  validacion: pendiente
+  nivel: troncal
 - id: "13"
   titulo: 'Clase 13: Geometría del elipsoide (deducciones a partir de la simetría)'
   ficha: clases/13-elipsoide.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: ¿Qué se puede deducir del elipsoide sólo con que todos sus meridianos son la misma elipse?
+  validacion: pendiente
+  nivel: troncal
 - id: "14"
   titulo: 'Clase 14: Polígonos geodésicos sobre la esfera: Trigonometría esférica, y Máxima para el elipsoide'
   ficha: clases/14-trigonometria-esferica.md
   fecha_2025: null
   fechas_2026: []
   estado: no-dictada
+  pregunta: ¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?
+  validacion: pendiente
+  nivel: complementario
 conceptos:
 - id: rotacion
   nombre: Rotación
@@ -794,12 +839,87 @@ conceptos:
   - "13"
   requiere: [trigonometria-esferica, geodesica, elipsoide]
 unidades:
-- {id: 01_rotaciones, archivo: unidades/01_rotaciones.py, titulo: Rotaciones, estado: piloto}
-- {id: 03_reflexiones_similaridades, archivo: unidades/03_reflexiones_similaridades.py, titulo: Reflexiones y similaridades, estado: pendiente}
-- {id: 04_afines_homogeneas, archivo: unidades/04_afines_homogeneas.py, titulo: Afinidades y coordenadas homogéneas, estado: pendiente}
-- {id: 05_proyectivas, archivo: unidades/05_proyectivas.py, titulo: Proyectivas, estado: migrada}
-- {id: 06_formas_lineales, archivo: unidades/06_formas_lineales.py, titulo: Formas lineales y dualidad, estado: pendiente}
-- {id: 07_cuna_autovectores, archivo: unidades/07_cuna_autovectores.py, titulo: 'Producto cuña, determinante, núcleo y autovectores', estado: migrada}
-- {id: 08_cambio_de_base, archivo: unidades/08_cambio_de_base.py, titulo: Cambio de base y diagonalización, estado: pendiente}
-- {id: 09_cambio_de_base_svd, archivo: unidades/09_cambio_de_base_svd.py, titulo: 'Cambio de base, SVD e inversas', estado: pendiente}
-- {id: 10_jacobiano_primera_forma, archivo: unidades/10_jacobiano_primera_forma.py, titulo: Jacobiano y primera forma fundamental, estado: pendiente}
+- id: 01_rotaciones
+  archivo: unidades/01_rotaciones.py
+  titulo: Rotaciones
+  estado: piloto
+  clases:
+  - "01"
+  - "02"
+  pregunta: ¿Qué le pasa a cada punto de la parcela cuando giro los ejes, y por qué en 3D importa el orden en que giro?
+  gancho_agrimensura: La estación total mide en sus propios ejes; pasar esas lecturas al norte de la parcela es una rotación.
+  nivel: troncal
+- id: 03_reflexiones_similaridades
+  archivo: unidades/03_reflexiones_similaridades.py
+  titulo: Reflexiones y similaridades
+  estado: pendiente
+  clases:
+  - "03"
+  pregunta: ¿Qué movimiento conserva la forma pero no el tamaño, y cuál da vuelta la orientación?
+  gancho_agrimensura: Un plano viejo en otra escala y con el norte para otro lado hay que superponerlo sobre el relevamiento nuevo.
+  nivel: troncal
+- id: 04_afines_homogeneas
+  archivo: unidades/04_afines_homogeneas.py
+  titulo: Afinidades y coordenadas homogéneas
+  estado: pendiente
+  clases:
+  - "03"
+  pregunta: ¿Cómo meto la traslación adentro de la matriz para componer rotar, escalar y mover con una sola cuenta?
+  gancho_agrimensura: 'Un plano escaneado que quedó estirado distinto en cada eje: las paralelas siguen paralelas y tres puntos conocidos alcanzan para corregirlo.'
+  nivel: troncal
+- id: 05_proyectivas
+  archivo: unidades/05_proyectivas.py
+  titulo: Proyectivas
+  estado: migrada
+  clases:
+  - "03p"
+  pregunta: ¿Por qué en la foto los alambrados paralelos se juntan en un punto, y con cuántos puntos enderezo la imagen?
+  gancho_agrimensura: 'Foto de dron inclinada sobre un lote plano: cuatro puntos conocidos la rectifican.'
+  nivel: complementario
+- id: 06_formas_lineales
+  archivo: unidades/06_formas_lineales.py
+  titulo: Formas lineales y dualidad
+  estado: pendiente
+  clases:
+  - "04"
+  pregunta: ¿Qué es una regla graduada tirada en el plano, y por qué una recta se transforma al revés que un punto?
+  gancho_agrimensura: 'Las curvas de nivel de un plano acotado son las marcas de una regla: cerca de cada punto, la cota es una forma lineal.'
+  nivel: troncal
+- id: 07_cuna_autovectores
+  archivo: unidades/07_cuna_autovectores.py
+  titulo: Producto cuña, determinante, núcleo y autovectores
+  estado: migrada
+  clases:
+  - "05"
+  - "06"
+  pregunta: ¿Cómo detecto con una cuenta que tres puntos están alineados, cuánto agranda el área una transformación y qué direcciones quedan quietas?
+  gancho_agrimensura: 'Tres mojones que deberían estar alineados: el determinante de sus coordenadas homogéneas lo delata; el eje de una rotación es la dirección que no gira.'
+  nivel: troncal
+- id: 08_cambio_de_base
+  archivo: unidades/08_cambio_de_base.py
+  titulo: Cambio de base y diagonalización
+  estado: pendiente
+  clases:
+  - "08"
+  pregunta: Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es sólo estirar?
+  gancho_agrimensura: 'El mismo mojón con coordenadas en tres marcos: cambia la grilla con que se mide, no el punto.'
+  nivel: troncal
+- id: 09_cambio_de_base_svd
+  archivo: unidades/09_cambio_de_base_svd.py
+  titulo: Cambio de base, SVD e inversas
+  estado: pendiente
+  clases:
+  - "07"
+  - "10"
+  pregunta: ¿Qué direcciones perpendiculares siguen perpendiculares después de transformar, y qué es lo más parecido a deshacer cuando no hay inversa?
+  gancho_agrimensura: 'Más mediciones que incógnitas (una recta por puntos que no están alineados): la pseudoinversa elige la que deja el residuo perpendicular.'
+  nivel: avanzado
+- id: 10_jacobiano_primera_forma
+  archivo: unidades/10_jacobiano_primera_forma.py
+  titulo: Jacobiano y primera forma fundamental
+  estado: pendiente
+  clases:
+  - "09"
+  pregunta: ¿Cómo mido una distancia chica sobre una superficie curva usando sólo los números (u, v) de la grilla?
+  gancho_agrimensura: 'Sobre el terreno, un pasito en latitud y otro en longitud no miden lo mismo en metros: la primera forma fundamental es la regla que los convierte.'
+  nivel: troncal

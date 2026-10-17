@@ -11,10 +11,13 @@
 Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · 2C2026
 Alumno: Gustavo Varela (padrón 56798). Profesor: Javier Clavijo.
 
-Molde (cinco secciones, en este orden):
+Molde v2 (seis secciones, en este orden):
+  0. Situación de campo      — el mismo mojón con tres etiquetas; predicción con mo.ui.radio y feedback por opción.
   1. Hecho geométrico        — la pregunta "¿qué se conserva?" antes que la fórmula.
-  2. Manipulación            — figura de tres capas (grilla gris / grilla teal / parcela) en 2D y 3D.
-  3. Cuenta a mano y código  — LaTeX a la izquierda, numpy a la derecha, mismas cuentas.
+  2. Manipulación            — figura de tres capas (grilla gris / grilla teal / parcela) en 2D y 3D; casos precargados
+                               (identidad, 90°, ±35° y tres contraejemplos: reflexión, corte, proyección det = 0).
+  3. Cuenta a mano y código  — LaTeX a la izquierda, numpy a la derecha, mismas cuentas; matriz coloreada por columnas
+                               (columna 1 teal, columna 2 rust, columna 3 gold = los vectores R e_k de la figura).
   4. Python de hoy           — una sola idea nueva: nube = array N×2, transformar = nube @ R.T.
   5. Ejercicios              — dos de lápiz, dos de código con hueco, con nivel de la rúbrica.
 Cierre: enlaces del mapa + asserts silenciosos.
@@ -50,8 +53,13 @@ def _(mo):
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
     Esta unidad sigue la clase 1 (rotaciones en el plano, complejos, matrices ortogonales, rotaciones en 3D) y el comienzo
-    de la clase 2 (el orden de las rotaciones). Tiene cinco partes, siempre las mismas en todas las unidades:
-    **1. el hecho geométrico · 2. manipulación · 3. cuenta a mano y código lado a lado · 4. el Python de hoy · 5. ejercicios.**
+    de la clase 2 (el orden de las rotaciones). Tiene seis partes, siempre las mismas en todas las unidades:
+    **0\\. situación de campo y predicción · 1\\. el hecho geométrico · 2\\. manipulación · 3\\. cuenta a mano y código lado a lado · 4\\. el Python de hoy · 5\\. ejercicios.**
+
+    Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
+    <span style="color:#1b6f6a">**teal**</span>, la **segunda** es <span style="color:#b5451b">**rust**</span> y, en 3D, la
+    **tercera** es <span style="color:#c9a227">**gold**</span>. Cada columna es la imagen de un vector de la base ($Re_1$, $Re_2$,
+    $Re_3$) y en la figura se dibuja del mismo color.
 
     Convenciones: ángulos en **grados** en los controles (adentro, numpy trabaja en radianes); giro positivo = antihorario;
     rotación **activa** (se mueve la figura, los ejes quedan quietos) salvo que se marque lo contrario; todo alrededor del origen.
@@ -87,7 +95,129 @@ def _(np):
         """Una nube de puntos es un array N×d (una fila por punto). Devuelve la nube transformada por R."""
         return nube @ R.T
 
-    return rot2, rot_x, rot_y, rot_z, transformar
+    # colores de las columnas (= de los vectores R e_k en las figuras): teal, rust, gold
+    COLORES = ("#1b6f6a", "#b5451b", "#c9a227")
+
+    def matriz_coloreada(M, colores=COLORES, dec=3):
+        """pmatrix de KaTeX con cada columna pintada (textcolor) del color de su vector en la figura."""
+        filas = []
+        for fila in M:
+            celdas = []
+            for x, c in zip(fila, colores):
+                x = 0.0 if abs(x) < 10 ** (-dec) / 2 else float(x)  # evita el "-0.000"
+                celdas.append(rf"\textcolor{{{c}}}{{{x:.{dec}f}}}")
+            filas.append(" & ".join(celdas))
+        return r"\begin{pmatrix}" + r" \\ ".join(filas) + r"\end{pmatrix}"
+
+    return COLORES, matriz_coloreada, rot2, rot_x, rot_y, rot_z, transformar
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## 0. Situación de campo y predicción
+
+    En una mensura hay un **mojón** clavado en el terreno. Es uno solo, no se mueve. Pero en los papeles aparece con
+    **tres etiquetas de coordenadas** distintas:
+
+    - en el **sistema local de obra**, con origen en un vértice de la parcela y el eje $x$ a lo largo del frente;
+    - en el **sistema oficial de la provincia**, con otro origen y el norte apuntando a otro lado;
+    - en el **dibujo CAD**, que se armó en centímetros desde el mismo vértice.
+
+    Las tres etiquetas son correctas. Cambiaron los números, no el punto. Por eso en este oficio **siempre hay que decir de
+    qué marco a qué marco se pasa**: "coordenadas de obra → coordenadas oficiales" es una transformación concreta (un giro
+    y un corrimiento), y "obra → CAD" es otra (un cambio de escala). Esta unidad se ocupa del **giro**; el corrimiento es
+    de la clase 3 y la escala del CAD es sólo multiplicar por 100.
+    """)
+    return
+
+
+@app.cell
+def _(mo, np, rot2):
+    # ---------- el mojón de la predicción: un punto, cuatro candidatos calculados con numpy (no a mano) ----------
+    mojon = np.array([4.0, 3.0])  # coordenadas de obra, en metros
+    _R30 = rot2(np.deg2rad(30))
+    candidatos = {
+        "pasiva": _R30.T @ mojon,  # el sistema de ejes gira +30°, el mojón queda: números nuevos = R(−30°) P
+        "activa": _R30 @ mojon,  # el mojón gira +30°, los ejes quedan
+        "reflexion": np.diag([1.0, -1.0]) @ mojon,  # espejo respecto del eje x
+        "mismas": mojon.copy(),
+    }
+    # las tres etiquetas del mismo mojón (el sistema oficial está girado 30° y corrido; el CAD está en cm)
+    _corrimiento = np.array([1250.0, 820.0])
+    etiquetas_mojon = {
+        "sistema local de obra (m)": mojon,
+        "sistema oficial de la provincia (m)": _R30.T @ mojon + _corrimiento,
+        "dibujo CAD (cm)": 100 * mojon,
+    }
+    _filas = "\n".join(f"    | {k} | $({v[0]:.3f},\\ {v[1]:.3f})$ |" for k, v in etiquetas_mojon.items())
+    mo.md(f"""
+    | el mismo mojón, según… | coordenadas |
+    |---|---|
+{_filas}
+
+    *(números generados en esta celda con numpy: el sistema oficial está girado $30°$ respecto de la obra y corrido
+    $({_corrimiento[0]:.0f}, {_corrimiento[1]:.0f})$ m; el CAD está en centímetros).*
+    """)
+    return candidatos, mojon
+
+
+@app.cell
+def _(candidatos, mo, mojon):
+    def _fmt(v):
+        return f"({v[0]:.3f}, {v[1]:.3f})"
+
+    prediccion = mo.ui.radio(
+        options={
+            _fmt(candidatos["activa"]): "activa",
+            _fmt(candidatos["mismas"]) + "  (las mismas)": "mismas",
+            _fmt(candidatos["pasiva"]): "pasiva",
+            _fmt(candidatos["reflexion"]): "reflexion",
+        },
+        label=f"**Predicción.** Si giro el sistema de ejes $30°$ en sentido antihorario y el mojón $({mojon[0]:.0f}, {mojon[1]:.0f})$ "
+        "se queda quieto, sus coordenadas nuevas son…",
+    )
+    prediccion
+    return (prediccion,)
+
+
+@app.cell
+def _(candidatos, mo, prediccion):
+    _a, _p, _r = candidatos["activa"], candidatos["pasiva"], candidatos["reflexion"]
+    _respuestas = {
+        None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
+        "activa": (
+            "warn",
+            rf"**No.** $({_a[0]:.3f}, {_a[1]:.3f})$ son las coordenadas del **punto girado** $30°$, no las del punto quieto con los "
+            r"**ejes girados**: giraste el mojón, no los ejes. Cuando el sistema de ejes gira $+30°$, los números cambian como si el "
+            r"punto hubiera girado $-30°$: la matriz que actúa es $R(-30°) = R(30°)^T$, no $R(30°)$. Fijate en la sección 2a con "
+            r'el checkbox "pasiva".',
+        ),
+        "mismas": (
+            "warn",
+            r"**No.** El mojón no se movió, pero una coordenada es un número **respecto de unos ejes**. Si los ejes giran, los "
+            r"números cambian aunque el punto no: es justo la situación de campo (mismo mojón, otro marco, otra etiqueta). "
+            r"Si las coordenadas no cambiaran, el sistema oficial y el de obra dirían lo mismo, y no lo dicen.",
+        ),
+        "reflexion": (
+            "warn",
+            rf"**No.** $({_r[0]:.0f}, {_r[1]:.0f})$ es el mojón **reflejado** respecto del eje $x$: cambia el signo de una sola "
+            r"coordenada, que es lo que hace un espejo, no un giro. Un giro **mezcla** las dos coordenadas (aparecen seno y "
+            r"coseno en las dos) y conserva la orientación; el espejo la invierte ($\det = -1$, sección 3.4).",
+        ),
+        "pasiva": (
+            "success",
+            r"**Correcto.** El mojón queda y el sistema gira $30°$, así que sus coordenadas nuevas son "
+            r"$R(-30°)\binom{4}{3} = \binom{4\cos30° + 3\sin30°}{-4\sin30° + 3\cos30°} = "
+            rf"({_p[0]:.3f}, {_p[1]:.3f})$: "
+            r"como si el punto hubiera girado $-30°$. Eso es lo que la unidad va a mostrar: una rotación **pasiva** (giran los "
+            r"ejes) es la **activa** con el ángulo cambiado de signo, $R(-\theta) = R(\theta)^T$. En la sección 2a, poné "
+            r'$\theta = 30°$, marcá "pasiva" y mirá la parcela punteada.',
+        ),
+    }
+    _kind, _texto = _respuestas[prediccion.value]
+    mo.callout(mo.md(_texto), kind=_kind)
+    return
 
 
 @app.cell
@@ -172,12 +302,18 @@ def _(mo):
     ### 2a. El plano: grilla, cuadrado unitario y una parcela
 
     Tres capas: en **gris**, el plano antes de la rotación (grilla y cuadrado unitario). En **teal**, el mismo plano después
-    (la grilla transformada, el cuadrado transformado y las imágenes de $e_1$ y $e_2$: las columnas de la matriz). Y una
-    **parcela** de cinco vértices con un norte marcado, para que se vea qué le pasa a un objeto reconocible. Tres de sus
-    vértices dejan **estela**: el arco de circunferencia que recorren.
+    (la grilla transformada y el cuadrado transformado), con las imágenes de $e_1$ y $e_2$ dibujadas como flechas
+    <span style="color:#1b6f6a">**teal**</span> y <span style="color:#b5451b">**rust**</span>: son las **columnas de la matriz**,
+    pintadas del mismo color en el panel. Y una **parcela** (violeta) de cinco vértices con un norte marcado, para que se vea
+    qué le pasa a un objeto reconocible. Tres de sus vértices dejan **estela**: el arco de circunferencia que recorren.
 
-    Dos números vivos: el **área del cuadrado unitario transformado** (siempre $1$: eso es "se conserva") y la **distancia
-    entre dos vértices** de la parcela, antes y después.
+    Dos números vivos: el **área (con signo) del cuadrado unitario transformado** (siempre $1$: eso es "se conserva") y la
+    **distancia entre dos vértices** de la parcela, antes y después.
+
+    El menú de **casos precargados** trae cuatro rotaciones (identidad, un cuarto de vuelta, $\pm 35°$) y **tres
+    contraejemplos que no son rotaciones**: una reflexión, un corte y una proyección. Con un contraejemplo la figura usa esa
+    matriz y los números vivos muestran por qué falla: el área cambia de signo o se anula, la distancia no se conserva. Con
+    una rotación, el deslizador sigue mandando.
 
     El checkbox cambia entre rotación **activa** (gira la parcela, el sistema de ejes queda) y **pasiva** (gira el sistema de
     ejes y la parcela queda quieta: es lo que hace el agrimensor cuando cambia de norte; la parcela es la misma, cambian los
@@ -188,10 +324,42 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
-    angulo_2d = mo.ui.slider(-180, 180, value=35, step=1, label="ángulo θ (°)", show_value=True)
+def _(mo, np):
+    # casos precargados: (tipo, dato, qué se conserva y qué no). tipo "rot": dato = ángulo en grados, el deslizador manda;
+    # tipo "mat": dato = la matriz fija de un contraejemplo (no es rotación), el deslizador se desactiva.
+    casos_2d = {
+        "identidad (0°)": ("rot", 0, r"se conserva todo: área $1$, distancias, ángulos y orientación ($\det = +1$); no pasa nada."),
+        "un cuarto de vuelta (90°)": ("rot", 90, r"se conserva todo: área $1$, distancias, ángulos y orientación ($\det = +1$)."),
+        "35°": ("rot", 35, r"se conserva todo: área $1$, distancias, ángulos y orientación ($\det = +1$)."),
+        "−35°": ("rot", -35, r"se conserva todo: área $1$, distancias, ángulos y orientación ($\det = +1$); gira para el otro lado."),
+        "reflexión diag(1, −1)": (
+            "mat", np.array([[1.0, 0.0], [0.0, -1.0]]),
+            r"conserva distancias y el área en valor absoluto, pero **invierte la orientación**: $\det = -1$, el área con signo da $-1$ y el norte queda del lado equivocado. No es una rotación.",
+        ),
+        "corte [[1, 0.5], [0, 1]]": (
+            "mat", np.array([[1.0, 0.5], [0.0, 1.0]]),
+            r"conserva el área ($\det = 1$) pero **no las distancias ni los ángulos**: la grilla se inclina, el cuadrado se vuelve rombo, $R^TR \neq I$. No es una rotación.",
+        ),
+        "proyección det = 0 [[1, 0], [0, 0]]": (
+            "mat", np.array([[1.0, 0.0], [0.0, 0.0]]),
+            r"**no conserva nada**: el área se anula ($\det = 0$), todo el plano cae sobre el eje $x$ y no hay vuelta atrás (no es invertible). No es una rotación.",
+        ),
+    }
+    caso_2d = mo.ui.dropdown(options=list(casos_2d), value="35°", label="caso precargado")
     modo_pasivo = mo.ui.checkbox(value=False, label="pasiva: gira el sistema de ejes (cambio de norte); sin marcar: activa, gira la figura")
-    return angulo_2d, modo_pasivo
+    return caso_2d, casos_2d, modo_pasivo
+
+
+@app.cell
+def _(caso_2d, casos_2d, mo):
+    # el deslizador se crea DESPUÉS del menú: al elegir una rotación precargada arranca en ese ángulo y después manda él;
+    # con un contraejemplo queda desactivado (la matriz es fija).
+    _tipo, _dato, _ = casos_2d[caso_2d.value]
+    es_rotacion_2d = _tipo == "rot"
+    angulo_2d = mo.ui.slider(
+        -180, 180, value=_dato if es_rotacion_2d else 0, step=1, label="ángulo θ (°)", show_value=True, disabled=not es_rotacion_2d
+    )
+    return angulo_2d, es_rotacion_2d
 
 
 @app.cell
@@ -223,22 +391,23 @@ def _(np):
         x, y = poligono[:, 0], poligono[:, 1]
         return 0.5 * np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y)
 
-    def arcos(puntos, theta, n=30):
-        """Arcos de circunferencia desde cada punto hasta su imagen girada theta (un trazo con cortes)."""
+    def estelas(puntos, camino, transpuesta=False):
+        """Trayectoria de cada punto a lo largo de un camino de matrices (un trazo con cortes).
+        Para rotaciones de 0 a θ es un arco de circunferencia; para un contraejemplo (de I a la matriz, en línea recta) es un segmento.
+        transpuesta=True sigue M^T p (rotación pasiva: las coordenadas en el sistema girado)."""
         xs, ys = [], []
         for p in puntos:
-            r, phi0 = np.hypot(*p), np.arctan2(p[1], p[0])
-            phis = phi0 + np.linspace(0, theta, n)
-            xs += list(r * np.cos(phis)) + [None]
-            ys += list(r * np.sin(phis)) + [None]
+            tray = np.array([(M.T if transpuesta else M) @ p for M in camino])
+            xs += list(tray[:, 0]) + [None]
+            ys += list(tray[:, 1]) + [None]
         return xs, ys
 
     return (
         L2,
-        arcos,
         area_poligono,
         cerrar,
         cuadrado_unitario,
+        estelas,
         grilla_segmentos,
         norte,
         par_distancia,
@@ -249,14 +418,19 @@ def _(np):
 
 @app.cell
 def _(
+    COLORES,
     L2,
     angulo_2d,
-    arcos,
     area_poligono,
+    caso_2d,
+    casos_2d,
     cerrar,
     cuadrado_unitario,
+    es_rotacion_2d,
+    estelas,
     go,
     grilla_segmentos,
+    matriz_coloreada,
     mo,
     modo_pasivo,
     norte,
@@ -268,32 +442,40 @@ def _(
     vertices_con_estela,
 ):
     theta_2d = np.deg2rad(angulo_2d.value)
-    pasiva = modo_pasivo.value
-    R_2d = rot2(theta_2d)
+    _tipo, _dato, que_conserva_2d = casos_2d[caso_2d.value]
+    pasiva = modo_pasivo.value and es_rotacion_2d  # los contraejemplos se muestran siempre en activa (no tienen "inversa segura")
+    if es_rotacion_2d:
+        R_2d = rot2(theta_2d)
+        camino_2d = [rot2(t) for t in np.linspace(0, theta_2d, 36)]  # 36 cuadros: giro de 0 a θ (el último = el slider)
+    else:
+        R_2d = np.array(_dato, dtype=float)
+        camino_2d = [np.eye(2) + s * (R_2d - np.eye(2)) for s in np.linspace(0, 1, 36)]  # de I a la matriz, en línea recta
+    _teal, _rust = COLORES[0], COLORES[1]
+    _viol = "#7a4e9e"  # la parcela y sus estelas (distinto de los colores de las columnas)
 
-    def _capas(t):
-        """Todo lo que cambia con el ángulo t: devuelve las trazas dinámicas en orden fijo."""
-        R = rot2(t)
-        gx, gy = grilla_segmentos(R)
-        cuad = transformar(cuadrado_unitario, R)
-        e1, e2 = R[:, 0], R[:, 1]
-        # activa: la parcela gira t; pasiva: la parcela queda y el "fantasma" muestra las coordenadas en el sistema girado
-        parc = transformar(parcela, R) if not pasiva else parcela
-        nor = transformar(norte, R) if not pasiva else norte
-        fantasma = transformar(parcela, R.T) if pasiva else parcela  # en activa coincide con la parcela original (gris)
-        ax, ay = arcos(parcela[vertices_con_estela], t if not pasiva else -t)
+    def _capas(i):
+        """Todo lo que cambia con el cuadro i del camino: devuelve las trazas dinámicas en orden fijo."""
+        M = camino_2d[i]
+        gx, gy = grilla_segmentos(M)
+        cuad = transformar(cuadrado_unitario, M)
+        e1, e2 = M[:, 0], M[:, 1]
+        # activa: la parcela se transforma; pasiva: la parcela queda y el "fantasma" muestra las coordenadas en el sistema girado
+        parc = transformar(parcela, M) if not pasiva else parcela
+        nor = transformar(norte, M) if not pasiva else norte
+        fantasma = transformar(parcela, M.T) if pasiva else parcela  # en activa coincide con la parcela original (gris)
+        ex, ey = estelas(parcela[vertices_con_estela], camino_2d[: i + 1], transpuesta=pasiva)
         cc = cerrar(cuad)
         pc = cerrar(parc)
         fc = cerrar(fantasma)
         return [
-            go.Scatter(x=gx, y=gy, mode="lines", line=dict(color="#1b6f6a", width=1), opacity=0.45, name="grilla después", hoverinfo="skip"),
-            go.Scatter(x=cc[:, 0], y=cc[:, 1], mode="lines", fill="toself", fillcolor="rgba(27,111,106,0.25)", line=dict(color="#1b6f6a", width=2), name="cuadrado unitario después"),
-            go.Scatter(x=[0, e1[0]], y=[0, e1[1]], mode="lines+markers", line=dict(color="#0d4f4b", width=4), marker=dict(size=[0, 9]), name="R e₁ (columna 1)"),
-            go.Scatter(x=[0, e2[0]], y=[0, e2[1]], mode="lines+markers", line=dict(color="#3fa39c", width=4), marker=dict(size=[0, 9]), name="R e₂ (columna 2)"),
-            go.Scatter(x=ax, y=ay, mode="lines", line=dict(color="#b5451b", width=1.5, dash="dot"), name="estelas (arcos)", hoverinfo="skip"),
-            go.Scatter(x=fc[:, 0], y=fc[:, 1], mode="lines", line=dict(color="#b5451b", width=1.5, dash="dash"), name="coordenadas en el sistema girado", visible=pasiva),
-            go.Scatter(x=pc[:, 0], y=pc[:, 1], mode="lines+markers", fill="toself", fillcolor="rgba(181,69,27,0.25)", line=dict(color="#b5451b", width=2.5), marker=dict(size=7), name="parcela"),
-            go.Scatter(x=nor[:, 0], y=nor[:, 1], mode="lines+text", line=dict(color="#b5451b", width=3), text=["", "N"], textposition="top center", textfont=dict(size=14, color="#b5451b"), name="norte", hoverinfo="skip"),
+            go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=_teal, width=1), opacity=0.45, name="grilla después", hoverinfo="skip"),
+            go.Scatter(x=cc[:, 0], y=cc[:, 1], mode="lines", fill="toself", fillcolor="rgba(27,111,106,0.25)", line=dict(color=_teal, width=2), name="cuadrado unitario después"),
+            go.Scatter(x=[0, e1[0]], y=[0, e1[1]], mode="lines+markers", line=dict(color=_teal, width=5), marker=dict(size=[0, 10], color=_teal), name="columna 1 = R e₁"),
+            go.Scatter(x=[0, e2[0]], y=[0, e2[1]], mode="lines+markers", line=dict(color=_rust, width=5), marker=dict(size=[0, 10], color=_rust), name="columna 2 = R e₂"),
+            go.Scatter(x=ex, y=ey, mode="lines", line=dict(color=_viol, width=1.5, dash="dot"), name="estelas", hoverinfo="skip"),
+            go.Scatter(x=fc[:, 0], y=fc[:, 1], mode="lines", line=dict(color=_viol, width=1.5, dash="dash"), name="coordenadas en el sistema girado", visible=pasiva),
+            go.Scatter(x=pc[:, 0], y=pc[:, 1], mode="lines+markers", fill="toself", fillcolor="rgba(122,78,158,0.25)", line=dict(color=_viol, width=2.5), marker=dict(size=7), name="parcela"),
+            go.Scatter(x=nor[:, 0], y=nor[:, 1], mode="lines+text", line=dict(color=_viol, width=3), text=["", "N"], textposition="top center", textfont=dict(size=14, color=_viol), name="norte", hoverinfo="skip"),
         ]
 
     # capas estáticas (gris): grilla y cuadrado unitario antes, y la parcela original como contorno tenue
@@ -306,23 +488,29 @@ def _(
         go.Scatter(x=_p0[:, 0], y=_p0[:, 1], mode="lines", line=dict(color="#9aa0a6", width=1.5), name="parcela antes", hoverinfo="skip"),
     ]
     _n_est = len(_estaticas)
-    _dinamicas = _capas(theta_2d)
+    _ultimo = len(camino_2d) - 1
+    _dinamicas = _capas(_ultimo)
     _idx = list(range(_n_est, _n_est + len(_dinamicas)))
 
-    # 36 cuadros: de 0 hasta θ (el último cuadro coincide con lo que muestra el slider)
-    _frames = [go.Frame(name=str(i), data=_capas(t), traces=_idx) for i, t in enumerate(np.linspace(0, theta_2d, 36))]
+    # 36 cuadros a lo largo del camino (el último cuadro coincide con lo que muestra el panel)
+    _frames = [go.Frame(name=str(i), data=_capas(i), traces=_idx) for i in range(len(camino_2d))]
 
+    if es_rotacion_2d:
+        _titulo = f"θ = {angulo_2d.value}°  ·  " + ("pasiva (gira el sistema de ejes)" if pasiva else "activa (gira la figura)")
+    else:
+        _titulo = f"{caso_2d.value}  ·  no es una rotación"
     figura_2d = go.Figure(
         data=_estaticas + _dinamicas,
         frames=_frames,
         layout=go.Layout(
-            width=600, height=600, margin=dict(l=30, r=10, t=40, b=30),
+            width=600, height=600, margin=dict(l=30, r=10, t=56, b=30),
             xaxis=dict(range=[-L2 - 1, L2 + 1], scaleanchor="y", zeroline=True, zerolinecolor="#444", title="x"),
             yaxis=dict(range=[-L2 - 1, L2 + 1], zeroline=True, zerolinecolor="#444", title="y"),
             legend=dict(orientation="h", y=-0.08, font=dict(size=10)),
-            title=dict(text=f"θ = {angulo_2d.value}°  ·  {'pasiva (gira el sistema de ejes)' if pasiva else 'activa (gira la figura)'}", font=dict(size=14)),
+            # título a la izquierda y botones a la derecha, los dos en el margen superior: no se pisan
+            title=dict(text=_titulo, font=dict(size=14), x=0.01, xanchor="left", y=0.985, yanchor="top"),
             updatemenus=[dict(
-                type="buttons", showactive=False, x=0.0, y=1.08, xanchor="left",
+                type="buttons", showactive=False, direction="right", x=1.0, y=1.0, xanchor="right", yanchor="bottom", pad=dict(t=0, b=2),
                 buttons=[
                     dict(label="▶ reproducir", method="animate", args=[None, dict(frame=dict(duration=50, redraw=True), fromcurrent=False, transition=dict(duration=0))]),
                     dict(label="⏸ pausa", method="animate", args=[[None], dict(mode="immediate", frame=dict(duration=0))]),
@@ -340,22 +528,30 @@ def _(
     dist_despues = np.linalg.norm(parcela_despues[_i] - parcela_despues[_j])
     _v = parcela[2]
     _v_coord = (R_2d.T @ _v) if pasiva else (R_2d @ _v)
+    _nombre_M = f"R({angulo_2d.value}°)" if es_rotacion_2d else "M"
+    _coord_txt = "(sus coordenadas en el sistema girado)" if pasiva else "(su imagen)"
+    _hint = (
+        r"Apretá **reproducir** para ver el giro de $0$ a $\theta$ en 36 cuadros: cada vértice recorre su arco."
+        if es_rotacion_2d
+        else "Apretá **reproducir** para ver el plano deformarse desde la identidad hasta esta matriz."
+    )
 
     _panel = mo.vstack([
         mo.md("**Controles**"),
+        caso_2d,
         angulo_2d,
         modo_pasivo,
         mo.md(rf"""
         **Números vivos**
 
-        - área del cuadrado unitario transformado: $\mathbf{{{area_cuadrado:.4f}}}$ (y $\det R = {np.linalg.det(R_2d):.4f}$)
+        - área con signo del cuadrado unitario transformado: $\mathbf{{{area_cuadrado:.4f}}}$ (y $\det = {np.linalg.det(R_2d):.4f}$)
         - distancia entre los vértices ${_i}$ y ${_j}$ de la parcela: antes ${dist_antes:.4f}$, después $\mathbf{{{dist_despues:.4f}}}$
-        - vértice $(5, 3)$ → $({_v_coord[0]:.3f},\ {_v_coord[1]:.3f})$ {'(sus coordenadas en el sistema girado)' if pasiva else '(su imagen)'}
+        - vértice $(5, 3)$ → $({_v_coord[0]:.3f},\ {_v_coord[1]:.3f})$ {_coord_txt}
 
-        $$R({angulo_2d.value}°) = \begin{{pmatrix}} {R_2d[0,0]:.3f} & {R_2d[0,1]:.3f} \\ {R_2d[1,0]:.3f} & {R_2d[1,1]:.3f} \end{{pmatrix}}$$
+        $${_nombre_M} = {matriz_coloreada(R_2d)}$$
 
-        Las columnas son $Re_1$ y $Re_2$ (los dos vectores teal). Apretá **reproducir** para ver el giro de $0$ a $\theta$
-        en 36 cuadros: cada vértice recorre su arco.
+        Las columnas son <span style="color:{_teal}">$Re_1$ (teal)</span> y <span style="color:{_rust}">$Re_2$ (rust)</span>:
+        las dos flechas de la figura. **Qué pasa acá:** {que_conserva_2d} {_hint}
         """),
     ], gap=0.6)
     mo.hstack([_panel, mo.ui.plotly(figura_2d)], widths=[1, 2], align="start")
@@ -424,6 +620,7 @@ def _(np):
 
 @app.cell
 def _(
+    COLORES,
     alfa,
     beta,
     cubo_aristas,
@@ -431,6 +628,7 @@ def _(
     gama,
     go,
     malla_pares,
+    matriz_coloreada,
     mo,
     np,
     orden,
@@ -459,8 +657,15 @@ def _(
     _ox, _oy, _oz = segmentos_3d(cubo_otro_orden, cubo_aristas)
     _tx, _ty, _tz = segmentos_3d(terreno, malla_pares)
     _ux, _uy, _uz = segmentos_3d(terreno_despues, malla_pares)
+    # las tres columnas de R como flechas desde el origen, del color de su columna en la matriz (teal, rust, gold)
+    _sub = "₁₂₃"
+    _columnas = [
+        go.Scatter3d(x=[0, R_3d[0, k]], y=[0, R_3d[1, k]], z=[0, R_3d[2, k]], mode="lines+markers",
+                     line=dict(color=COLORES[k], width=9), marker=dict(size=[0, 6], color=COLORES[k]), name=f"columna {k + 1} = R e{_sub[k]}")
+        for k in range(3)
+    ]
     figura_3d = go.Figure(
-        data=_ejes + [
+        data=_ejes + _columnas + [
             go.Scatter3d(x=_cx, y=_cy, z=_cz, mode="lines", line=dict(color="#9aa0a6", width=3), name="cubo antes"),
             go.Scatter3d(x=_tx, y=_ty, z=_tz, mode="lines", line=dict(color="#9aa0a6", width=2), opacity=0.5, name="terreno antes", hoverinfo="skip"),
             go.Scatter3d(x=_dx, y=_dy, z=_dz, mode="lines", line=dict(color="#1b6f6a", width=6), name="cubo después"),
@@ -470,15 +675,12 @@ def _(
                          marker=dict(size=3, color=terreno[:, 2], colorscale="Earth", showscale=False), name="puntos del terreno"),
         ],
         layout=go.Layout(
-            width=600, height=560, margin=dict(l=0, r=0, t=30, b=0),
+            width=640, height=660, margin=dict(l=0, r=0, t=30, b=0),
             scene=dict(xaxis=dict(range=[-2.6, 2.6]), yaxis=dict(range=[-2.6, 2.6]), zaxis=dict(range=[-2.6, 2.6]), aspectmode="cube"),
             legend=dict(orientation="h", y=-0.02, font=dict(size=10)),
             title=dict(text=f"α={alfa.value}°, β={beta.value}°, γ={gama.value}°  ·  orden {orden.value}", font=dict(size=14)),
         ),
     )
-
-    def _pm(M):
-        return r"\begin{pmatrix}" + r"\\".join(" & ".join(f"{x:.3f}" for x in fila) for fila in M) + r"\end{pmatrix}"
 
     _panel = mo.vstack([
         mo.md("**Controles**"),
@@ -490,7 +692,10 @@ def _(
         - el vértice $(1,1,1)$ del cubo cae a distancia $\mathbf{{{dist_vertice:.4f}}}$ de donde cae con el otro orden
         - $R^TR = I$: {bool(np.allclose(R_3d.T @ R_3d, np.eye(3)))} · $\det R = {np.linalg.det(R_3d):.4f}$
 
-        $$R = {_pm(R_3d)}$$
+        $$R = {matriz_coloreada(R_3d)}$$
+
+        Las columnas son $Re_1$ (<span style="color:{COLORES[0]}">teal</span>), $Re_2$ (<span style="color:{COLORES[1]}">rust</span>)
+        y $Re_3$ (<span style="color:{COLORES[2]}">gold</span>): las tres flechas desde el origen, perpendiculares entre sí y de largo 1.
 
         Bajá los tres ángulos a $5°$: la diferencia cae a ~$10^{{-2}}$; a $1°$, a ~$10^{{-3}}$. Es cuadrática en el ángulo:
         la no conmutatividad vive en el segundo orden (anexo 15 del apunte).
@@ -506,7 +711,9 @@ def _(mo):
     ## 3. Cuenta a mano y código, lado a lado
 
     Izquierda: la cuenta como va en el cuaderno, con enteros. Derecha: la misma cuenta en numpy, con el código a la vista
-    y lo que devuelve. Si las dos columnas no dicen lo mismo, algo está mal en alguna de las dos.
+    y lo que devuelve. Si las dos columnas no dicen lo mismo, algo está mal en alguna de las dos. Las matrices llevan la
+    primera columna en <span style="color:#1b6f6a">**teal**</span> y la segunda en <span style="color:#b5451b">**rust**</span>,
+    como las flechas $Re_1$ y $Re_2$ de la sección 2a.
     """)
     return
 
@@ -521,9 +728,12 @@ def _(mo, np, rot2):
         mo.md(r"""
         **3.1 Un cuarto de vuelta.** Con $\theta = 90°$: $\cos 90° = 0$, $\sin 90° = 1$.
 
-        $$R(90°) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \qquad
-        R(90°)\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 0\cdot2 - 1\cdot1 \\ 1\cdot 2 + 0\cdot 1\end{pmatrix}
+        $$R(90°) = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{-1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0} \end{pmatrix}, \qquad
+        R(90°)\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} \textcolor{#1b6f6a}{0}\cdot2 \textcolor{#b5451b}{- 1}\cdot1 \\ \textcolor{#1b6f6a}{1}\cdot 2 + \textcolor{#b5451b}{0}\cdot 1\end{pmatrix}
         = \begin{pmatrix} -1 \\ 2 \end{pmatrix}.$$
+
+        La primera columna (teal) multiplica a la primera coordenada, $2$; la segunda (rust) a la segunda, $1$: el resultado
+        es $2\,Re_1 + 1\,Re_2$, una combinación de las dos flechas de la figura.
 
         Lo que se ve: $(2,1)$ y $(-1,2)$ tienen el mismo largo $\sqrt5$ y forman ángulo recto. Es la regla "un cuarto de
         vuelta antihorario: $(x, y) \mapsto (-y, x)$", la misma que multiplicar $2 + i$ por $i$: $2i + i^2 = -1 + 2i$.
@@ -555,9 +765,9 @@ def _(mo, np, rot2):
         mo.md(r"""
         **3.2 De dónde sale $R(\theta)$.** Una transformación lineal queda determinada por lo que hace con $e_1$ y $e_2$,
         y la matriz tiene esas imágenes como **columnas**. Girando $\theta$:
-        $e_1 = (1, 0) \mapsto (\cos\theta, \sin\theta)$ y $e_2 = (0, 1) \mapsto (-\sin\theta, \cos\theta)$
+        $e_1 = (1, 0) \mapsto \textcolor{#1b6f6a}{(\cos\theta, \sin\theta)}$ y $e_2 = (0, 1) \mapsto \textcolor{#b5451b}{(-\sin\theta, \cos\theta)}$
         (es $e_1$ girado un cuarto de vuelta más). Entonces
-        $$R(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}.$$
+        $$R(\theta) = \begin{pmatrix} \textcolor{#1b6f6a}{\cos\theta} & \textcolor{#b5451b}{-\sin\theta} \\ \textcolor{#1b6f6a}{\sin\theta} & \textcolor{#b5451b}{\cos\theta} \end{pmatrix}.$$
 
         **La misma cuenta con complejos:** $(x + iy)(\cos\theta + i\sin\theta) = (x\cos\theta - y\sin\theta) + i\,(x\sin\theta + y\cos\theta)$.
         La parte real es la primera fila de $R(\theta)\binom{x}{y}$, la parte imaginaria la segunda. Multiplicar por
@@ -881,9 +1091,13 @@ def _(
     R_xyz,
     R_zyx,
     area_cuadrado,
+    candidatos,
+    casos_2d,
     dist_antes,
     dist_despues,
     dist_ordenes,
+    es_rotacion_2d,
+    mojon,
     np,
     parcela,
     parcela_despues,
@@ -911,12 +1125,25 @@ def _(
         assert np.allclose(rot2(_t).T @ rot2(_t), _I2) and np.isclose(np.linalg.det(rot2(_t)), 1)
     assert np.isclose(np.linalg.det(np.diag([1.0, -1.0])), -1)
     assert np.allclose(rot2(0.3) @ rot2(0.5), rot2(0.8))  # R(α)R(β) = R(α+β)
-    # sección 2a: lo que se conserva
-    assert np.isclose(area_cuadrado, 1) and np.isclose(np.linalg.det(R_2d), 1)
-    assert np.isclose(dist_antes, dist_despues)
+    # sección 0: la predicción (pasiva = R(−30°) P = R(30°)^T P; los cuatro candidatos son distintos entre sí)
+    assert np.allclose(candidatos["pasiva"], rot2(np.deg2rad(-30)) @ mojon) and np.allclose(candidatos["pasiva"], rot2(np.deg2rad(30)).T @ mojon)
+    assert np.allclose(candidatos["activa"], rot2(np.deg2rad(30)) @ mojon) and np.allclose(candidatos["reflexion"], [mojon[0], -mojon[1]])
+    _c = list(candidatos.values())
+    assert all(not np.allclose(_c[a], _c[b]) for a in range(4) for b in range(a + 1, 4))
+    # sección 2a: lo que se conserva (los números vivos sólo si el caso precargado es una rotación)
     assert np.allclose(parcela_despues, (R_2d @ parcela.T).T)  # nube @ R.T == (R @ columnas).T
-    assert np.allclose(np.linalg.norm(parcela_despues, axis=1), np.linalg.norm(parcela, axis=1))
+    if es_rotacion_2d:
+        assert np.isclose(area_cuadrado, 1) and np.isclose(np.linalg.det(R_2d), 1)
+        assert np.isclose(dist_antes, dist_despues)
+        assert np.allclose(np.linalg.norm(parcela_despues, axis=1), np.linalg.norm(parcela, axis=1))
     assert np.allclose(rot2(theta_2d).T, rot2(-theta_2d))  # pasiva = activa con −θ
+    # los contraejemplos precargados no son rotaciones: les falla R^T R = I o det = 1
+    for _tipo, _M, _ in casos_2d.values():
+        if _tipo == "mat":
+            assert not (np.allclose(_M.T @ _M, _I2) and np.isclose(np.linalg.det(_M), 1))
+    assert np.isclose(np.linalg.det(casos_2d["reflexión diag(1, −1)"][1]), -1)
+    assert np.isclose(np.linalg.det(casos_2d["corte [[1, 0.5], [0, 1]]"][1]), 1)
+    assert np.isclose(np.linalg.det(casos_2d["proyección det = 0 [[1, 0], [0, 0]]"][1]), 0)
     # sección 2b
     for _rot, _e in ((rot_x, [1, 0, 0]), (rot_y, [0, 1, 0]), (rot_z, [0, 0, 1])):
         assert np.allclose(_rot(0.7) @ _e, _e) and np.allclose(_rot(0.7).T @ _rot(0.7), _I3) and np.isclose(np.linalg.det(_rot(0.7)), 1)

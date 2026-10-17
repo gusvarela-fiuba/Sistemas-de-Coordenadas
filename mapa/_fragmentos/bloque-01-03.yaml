@@ -1,5 +1,5 @@
 # Fragmento del mapa: clases 01, 02 y 03 (rotaciones, composición/líneas coordenadas, afines).
-# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado];
+# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado,pregunta,validacion,nivel];
 #          conceptos[id,nombre,clase,unidad?,hecho_geometrico,que_se_conserva,apunte[],requiere[]].
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
@@ -10,6 +10,9 @@ clases:
     fecha_2025: "2025-08-21"
     fechas_2026: ["2026-08-19"]
     estado: con-transcripcion
+    pregunta: "¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?"
+    validacion: pendiente
+    nivel: troncal
   - id: "02"
     titulo: "Más rotaciones, composición y líneas coordenadas"
     ficha: clases/02-mas-rotaciones.md
@@ -17,6 +20,9 @@ clases:
     fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1; no figura en el campus
     fechas_2026: ["2026-08-26"]
     estado: reconstruida
+    pregunta: "¿Qué pasa cuando encadeno dos movimientos, y por qué hace falta que conmuten para armar una grilla de coordenadas?"
+    validacion: pendiente
+    nivel: troncal
   - id: "03"
     titulo: "Transformaciones afines (reflexiones, similaridades, afinidades y coordenadas homogéneas)"
     ficha: clases/03-afines.md
@@ -24,6 +30,9 @@ clases:
     fecha_2025_estimada: "2025-09-04"   # jueves siguiente a la clase 2; no figura en el campus
     fechas_2026: ["2026-09-02", "2026-09-09"]
     estado: reconstruida
+    pregunta: "¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?"
+    validacion: pendiente
+    nivel: troncal
 
 conceptos:
   # ---- clase 01 ----

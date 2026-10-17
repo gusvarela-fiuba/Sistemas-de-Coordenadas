@@ -8,24 +8,36 @@ clases:
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "¿Cómo se resuelven con pseudoinversa y SVD una recta de ajuste, un punto por distancias y la superposición de dos nubes?"
+    validacion: pendiente
+    nivel: avanzado
   - id: "12"
     titulo: "Clase 12: Curvatura"
     ficha: clases/12-curvatura.md
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "¿Cuánto se curva una superficie en cada dirección, y qué quiere decir ir derecho sobre ella?"
+    validacion: pendiente
+    nivel: troncal
   - id: "13"
     titulo: "Clase 13: Geometría del elipsoide (deducciones a partir de la simetría)"
     ficha: clases/13-elipsoide.md
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "¿Qué se puede deducir del elipsoide sólo con que todos sus meridianos son la misma elipse?"
+    validacion: pendiente
+    nivel: troncal
   - id: "14"
     titulo: "Clase 14: Polígonos geodésicos sobre la esfera: Trigonometría esférica, y Máxima para el elipsoide"
     ficha: clases/14-trigonometria-esferica.md
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?"
+    validacion: pendiente
+    nivel: complementario
 
 conceptos:
   - id: regresion-simple

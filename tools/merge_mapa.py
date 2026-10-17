@@ -9,8 +9,13 @@ Qué hace:
   - concatena `conceptos`; si un id aparece en dos fragmentos conserva el del bloque cuya
     clase lo lista en CONCEPTOS.md (y lo informa); si CONCEPTOS.md no lo lista, el primero;
   - informa ids que están en los fragmentos y no en CONCEPTOS.md, y viceversa;
-  - arma `unidades` con la lista fija de abajo (migradas, piloto y pendientes);
+  - lee `unidades` de `mapa/_fragmentos/unidades.yaml` (el orden de ese archivo es el de las
+    estaciones de la portada) y valida sus campos: `estado`, `nivel`, `clases` (ids existentes),
+    `pregunta` y `gancho_agrimensura` (una línea cada uno);
+  - valida en cada clase `pregunta`, `validacion` y `nivel` (vocabulario en mapa/ESQUEMA.md);
   - escribe `mapa/mapa.yaml` con cabecera `titulo` / `pregunta_guia`.
+
+Errores de vocabulario o de referencias → sale con código 1 sin escribir.
 
 Uso:  uv run tools/merge_mapa.py [--check]      (--check: no escribe, sólo valida e informa)
 """
@@ -27,33 +32,17 @@ import yaml
 RAIZ = Path(__file__).resolve().parent.parent
 DIR_FRAGMENTOS = RAIZ / "mapa" / "_fragmentos"
 CONCEPTOS_MD = RAIZ / "mapa" / "CONCEPTOS.md"
+UNIDADES_YAML = DIR_FRAGMENTOS / "unidades.yaml"
 SALIDA = RAIZ / "mapa" / "mapa.yaml"
 
 TITULO = "Sistemas de Coordenadas — mapa de conceptos"
 PREGUNTA_GUIA = "transformaciones ↔ operaciones ↔ coordenadas"
 
-# Unidades marimo: id, archivo, título, estado, nota opcional. `pendiente` no se exporta
-# (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
-UNIDADES: list[dict] = [
-    {"id": "01_rotaciones", "archivo": "unidades/01_rotaciones.py", "titulo": "Rotaciones",
-     "estado": "piloto"},
-    {"id": "03_reflexiones_similaridades", "archivo": "unidades/03_reflexiones_similaridades.py",
-     "titulo": "Reflexiones y similaridades", "estado": "pendiente"},
-    {"id": "04_afines_homogeneas", "archivo": "unidades/04_afines_homogeneas.py",
-     "titulo": "Afinidades y coordenadas homogéneas", "estado": "pendiente"},
-    {"id": "05_proyectivas", "archivo": "unidades/05_proyectivas.py", "titulo": "Proyectivas",
-     "estado": "migrada"},
-    {"id": "06_formas_lineales", "archivo": "unidades/06_formas_lineales.py",
-     "titulo": "Formas lineales y dualidad", "estado": "pendiente"},
-    {"id": "07_cuna_autovectores", "archivo": "unidades/07_cuna_autovectores.py",
-     "titulo": "Producto cuña, determinante, núcleo y autovectores", "estado": "migrada"},
-    {"id": "08_cambio_de_base", "archivo": "unidades/08_cambio_de_base.py",
-     "titulo": "Cambio de base y diagonalización", "estado": "pendiente"},
-    {"id": "09_cambio_de_base_svd", "archivo": "unidades/09_cambio_de_base_svd.py",
-     "titulo": "Cambio de base, SVD e inversas", "estado": "pendiente"},
-    {"id": "10_jacobiano_primera_forma", "archivo": "unidades/10_jacobiano_primera_forma.py",
-     "titulo": "Jacobiano y primera forma fundamental", "estado": "pendiente"},
-]
+NIVELES = ("troncal", "complementario", "avanzado")
+VALIDACIONES = ("pendiente", "revisado", "validado-catedra")
+ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada")
+ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
+CAMPOS_UNIDAD = ("id", "archivo", "titulo", "estado", "clases", "pregunta", "gancho_agrimensura", "nivel")
 
 
 def clave_clase(iid: str) -> tuple[int, str]:
@@ -80,6 +69,66 @@ def leer_conceptos_md() -> dict[str, str]:
     return res
 
 
+def cargar_unidades() -> list[dict]:
+    """Lee mapa/_fragmentos/unidades.yaml (lista `unidades`, en el orden de las estaciones)."""
+    if not UNIDADES_YAML.exists():
+        sys.exit(f"ERROR: no existe {UNIDADES_YAML.relative_to(RAIZ)}")
+    with UNIDADES_YAML.open(encoding="utf-8") as f:
+        d = yaml.safe_load(f) or {}
+    unidades = d.get("unidades")
+    if not isinstance(unidades, list) or not unidades:
+        sys.exit(f"ERROR: {UNIDADES_YAML.relative_to(RAIZ)} tiene que tener una lista `unidades` no vacía")
+    for u in unidades:
+        u["clases"] = [str(c) for c in (u.get("clases") or [])]
+    return unidades
+
+
+def _una_linea(valor) -> bool:
+    return isinstance(valor, str) and valor.strip() != "" and "\n" not in valor.strip()
+
+
+def validar_clases(clases: list[dict], errores: list[str]) -> None:
+    for c in clases:
+        donde = f"clase {c['id']}"
+        if c.get("estado") not in ESTADOS_CLASE:
+            errores.append(f"{donde}: estado '{c.get('estado')}' no es uno de {ESTADOS_CLASE}")
+        if c.get("validacion") not in VALIDACIONES:
+            errores.append(f"{donde}: validacion '{c.get('validacion')}' no es uno de {VALIDACIONES}")
+        if c.get("nivel") not in NIVELES:
+            errores.append(f"{donde}: nivel '{c.get('nivel')}' no es uno de {NIVELES}")
+        if not _una_linea(c.get("pregunta")):
+            errores.append(f"{donde}: falta 'pregunta' (una línea)")
+
+
+def validar_unidades(unidades: list[dict], ids_clases: set[str], errores: list[str]) -> None:
+    vistos: set[str] = set()
+    for i, u in enumerate(unidades):
+        if not isinstance(u, dict) or "id" not in u:
+            errores.append(f"unidades[{i}] sin 'id'")
+            continue
+        donde = f"unidad {u['id']}"
+        if u["id"] in vistos:
+            errores.append(f"{donde}: id duplicado")
+        vistos.add(u["id"])
+        for campo in CAMPOS_UNIDAD:
+            if campo not in u:
+                errores.append(f"{donde}: falta el campo '{campo}'")
+        if u.get("estado") not in ESTADOS_UNIDAD:
+            errores.append(f"{donde}: estado '{u.get('estado')}' no es uno de {ESTADOS_UNIDAD}")
+        if u.get("nivel") not in NIVELES:
+            errores.append(f"{donde}: nivel '{u.get('nivel')}' no es uno de {NIVELES}")
+        if not u.get("clases"):
+            errores.append(f"{donde}: 'clases' vacío")
+        for cid in u.get("clases", []):
+            if cid not in ids_clases:
+                errores.append(f"{donde}: clases incluye '{cid}', que no es una clase de los fragmentos")
+        for campo in ("pregunta", "gancho_agrimensura"):
+            if not _una_linea(u.get(campo)):
+                errores.append(f"{donde}: '{campo}' tiene que ser una línea de texto")
+        if u.get("estado") in ("piloto", "migrada") and not (RAIZ / str(u.get("archivo", ""))).exists():
+            errores.append(f"{donde}: estado {u['estado']} pero no existe {u.get('archivo')}")
+
+
 def cargar_fragmentos() -> list[tuple[Path, dict]]:
     rutas = sorted(DIR_FRAGMENTOS.glob("bloque-*.yaml"))
     if not rutas:
@@ -98,7 +147,7 @@ def cargar_fragmentos() -> list[tuple[Path, dict]]:
     return res
 
 
-def mezclar(fragmentos: list[tuple[Path, dict]], informes: list[str]) -> dict:
+def mezclar(fragmentos: list[tuple[Path, dict]], unidades: list[dict], informes: list[str], errores: list[str]) -> dict:
     canon = leer_conceptos_md()
 
     # clases
@@ -110,6 +159,7 @@ def mezclar(fragmentos: list[tuple[Path, dict]], informes: list[str]) -> dict:
                 continue
             clases[c["id"]] = (ruta, c)
     lista_clases = [c for _, c in sorted(clases.values(), key=lambda t: clave_clase(t[1]["id"]))]
+    validar_clases(lista_clases, errores)
 
     # conceptos
     conceptos: dict[str, tuple[Path, dict]] = {}
@@ -142,19 +192,26 @@ def mezclar(fragmentos: list[tuple[Path, dict]], informes: list[str]) -> dict:
         if iid not in conceptos:
             informes.append(f"CONCEPTOS.md lista '{iid}' (clase {clase}) y ningún fragmento lo define")
 
-    # unidades: validar que las referidas por los conceptos existan en la lista fija
-    ids_unidades = {u["id"] for u in UNIDADES}
+    # unidades: campos válidos, clases existentes, y que las referidas por los conceptos existan
+    validar_unidades(unidades, set(clases), errores)
+    ids_unidades = {u["id"] for u in unidades}
     for k in lista_conceptos:
         u = k.get("unidad")
         if u is not None and str(u) not in ids_unidades:
-            informes.append(f"concepto '{k['id']}' refiere a la unidad '{u}' que no está en UNIDADES de merge_mapa.py")
+            errores.append(f"concepto '{k['id']}' refiere a la unidad '{u}' que no está en {UNIDADES_YAML.name}")
+    # coherencia blanda: la unidad de un concepto debería cubrir la clase del concepto
+    por_id = {u["id"]: u for u in unidades}
+    for k in lista_conceptos:
+        u = k.get("unidad")
+        if u is not None and str(u) in por_id and k["clase"] not in por_id[str(u)]["clases"]:
+            informes.append(f"concepto '{k['id']}' (clase {k['clase']}) apunta a la unidad '{u}', cuyas clases son {por_id[str(u)]['clases']}")
 
     return {
         "titulo": TITULO,
         "pregunta_guia": PREGUNTA_GUIA,
         "clases": lista_clases,
         "conceptos": lista_conceptos,
-        "unidades": [dict(u) for u in UNIDADES],
+        "unidades": [dict(u) for u in unidades],
     }
 
 
@@ -189,16 +246,24 @@ def main() -> int:
     args = ap.parse_args()
 
     fragmentos = cargar_fragmentos()
+    unidades = cargar_unidades()
     informes: list[str] = []
-    datos = mezclar(fragmentos, informes)
-    texto = volcar(datos, [r for r, _ in fragmentos])
+    errores: list[str] = []
+    datos = mezclar(fragmentos, unidades, informes, errores)
+    if errores:
+        print("ERROR en los fragmentos:", file=sys.stderr)
+        for e in errores:
+            print(f"  - {e}", file=sys.stderr)
+        return 1
+    texto = volcar(datos, [r for r, _ in fragmentos] + [UNIDADES_YAML])
     # el resultado tiene que volver a cargar idéntico
     assert yaml.safe_load(texto)["clases"][0]["id"] == datos["clases"][0]["id"]
 
     print(f"fragmentos: {', '.join(r.name for r, _ in fragmentos)}")
     print(f"clases: {len(datos['clases'])} ({', '.join(c['id'] for c in datos['clases'])})")
     print(f"conceptos: {len(datos['conceptos'])}")
-    print(f"unidades: {len(datos['unidades'])} ({sum(u['estado'] in ('piloto', 'migrada') for u in datos['unidades'])} exportables)")
+    print(f"unidades: {len(datos['unidades'])} ({sum(u['estado'] in ('piloto', 'migrada') for u in datos['unidades'])} exportables; "
+          f"clases cubiertas: {', '.join(sorted({c for u in datos['unidades'] for c in u['clases']}, key=clave_clase))})")
     for i in informes:
         print(f"  informe: {i}")
     if not informes:

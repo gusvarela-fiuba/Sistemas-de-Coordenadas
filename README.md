@@ -46,6 +46,8 @@ Tres pasadas para que cierren índice y referencias cruzadas. Los temporales (`.
 
 El material se publica en GitHub Pages: https://gusvarela-fiuba.github.io/sistemas-de-coordenadas/ (en construcción).
 
+La portada es el camino (`docs/camino.md`): una estación por unidad, en el orden del profesor, con su pregunta de campo, su gancho de agrimensura y su estado; el mapa de conceptos completo queda en `mapa.html` como herramienta de repaso, con filtro de ruta y un control "hasta la clase N". Se genera con `uv run tools/merge_mapa.py` y `uv run tools/build.py` (ver `tools/README.md`).
+
 ## Licencia
 
 Licencia: a definir.

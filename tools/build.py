@@ -9,8 +9,12 @@ Entradas (relativas a la raíz del repo):
   apunte/contenido/NN-*.tex             sólo para validar prefijos y leer títulos de sección
 
 Salida:
-  site/index.html                       índice con el mapa de conceptos (SVG inline) y la lista de clases
-  site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN)
+  site/index.html                       portada = el camino: tres entradas (Empezar / Seguir la cursada / Repasar)
+                                        y una estación por unidad (pregunta, gancho, estado, clases, enlaces),
+                                        más la estación final "Lo que viene" con las clases sin unidad
+  site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta la clase N",
+                                        y la lista de clases con fechas y estado
+  site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN) con etiquetas de procedencia y validación
   site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm)
   site/apunte.pdf                       copia del apunte
   site/.nojekyll                        para GitHub Pages
@@ -21,7 +25,9 @@ Uso:  uv run tools/build.py [--skip-wasm] [--only <unidad_id>] [--out site]
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import html
+import json
 import re
 import shutil
 import subprocess
@@ -41,6 +47,8 @@ DIR_CLASES = RAIZ / "clases"
 ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 ESTADOS_EXPORTABLES = ("piloto", "migrada")
+TITULO_CAMINO = "Sistemas de Coordenadas — el camino"
+TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 
 # paleta del apunte
 TEAL, RUST, GOLD = "#1b6f6a", "#b5532a", "#c9a227"
@@ -59,6 +67,19 @@ ETIQUETA_ESTADO_UNIDAD = {
     "migrada": "migrada",
     "legacy": "legacy (no publicada)",
     "pendiente": "pendiente",
+}
+NIVELES = ("troncal", "complementario", "avanzado")
+VALIDACIONES = ("pendiente", "revisado", "validado-catedra")
+ETIQUETA_VALIDACION = {
+    "pendiente": "validación pendiente",
+    "revisado": "revisado",
+    "validado-catedra": "validado por la cátedra",
+}
+# estado de una estación de la portada (calculado, no viene del yaml)
+ETIQUETA_ESTACION = {
+    "lista": ("lista", TEAL),
+    "en-clase": ("en clase", GOLD),
+    "todavia-no": ("todavía no", RUST),
 }
 
 KATEX_VERSION = "0.16.11"
@@ -89,8 +110,10 @@ a:hover {{ color: var(--rust); }}
 .clase .tit {{ font-weight: 600; font-size: 1.05rem; }}
 .clase .estado {{ font-size: .8rem; color: #fff; background: var(--c); border-radius: 10px; padding: 1px 9px; }}
 .clase .fechas {{ color: var(--gris); font-size: .9rem; margin: 2px 0; }}
-.clase .links {{ font-size: .95rem; margin: 4px 0 0; }}
-.clase .links span {{ margin-right: 12px; white-space: nowrap; }}
+.links {{ display: flex; flex-wrap: wrap; gap: 6px; font-size: .92rem; margin: 6px 0 0; }}
+.links span {{ display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; border: 1px solid var(--linea);
+               border-radius: 10px; padding: 1px 9px; background: #f7f5ef; }}
+.links span.pend {{ color: var(--gris); }}
 .pend {{ color: var(--gris); }}
 .pie {{ color: var(--gris); font-size: .85rem; margin-top: 3em; border-top: 1px solid var(--linea); padding-top: .8em; }}
 /* fichas */
@@ -102,7 +125,40 @@ a:hover {{ color: var(--rust); }}
 .ficha blockquote {{ border-left: 4px solid var(--gold); margin: 1em 0; padding: 2px 12px; color: var(--gris); }}
 .ficha img {{ max-width: 100%; }}
 .volver {{ font-size: .9rem; margin: 1em 0 0; }}
+.volver a {{ margin-right: 14px; }}
 .katex-display {{ overflow-x: auto; overflow-y: hidden; }}
+/* etiquetas (procedencia, validación, nivel, estado de estación) */
+.etqs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }}
+.etq {{ display: inline-block; font-size: .78rem; line-height: 1.5; border-radius: 10px; padding: 1px 9px;
+        border: 1.5px solid var(--c, var(--gris)); color: var(--c, var(--gris)); background: #fff; white-space: nowrap; }}
+.etq.solida {{ color: #fff; background: var(--c, var(--gris)); }}
+.ficha-etqs {{ margin: 1em 0 -.6em; }}
+/* portada: entradas y estaciones */
+.entradas {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 1em 0 1.5em; }}
+.entrada {{ display: block; border: 1.5px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: #fff;
+            text-decoration: none; color: var(--tinta); }}
+.entrada:hover {{ border-color: var(--rust); color: var(--tinta); }}
+.entrada b {{ display: block; color: var(--teal); font-size: 1.05rem; }}
+.entrada:hover b {{ color: var(--rust); }}
+.entrada small {{ color: var(--gris); }}
+.camino {{ list-style: none; padding: 0; margin: 0; }}
+.estacion {{ border: 1px solid var(--linea); border-left: 5px solid var(--c); border-radius: 6px; background: #fff;
+             padding: 12px 14px; margin: 0 0 12px; }}
+.estacion .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
+.estacion .num {{ font-weight: 700; color: var(--c); }}
+.estacion .tit {{ font-weight: 600; font-size: 1.1rem; }}
+.estacion .pregunta {{ margin: 6px 0 2px; font-size: 1.02rem; }}
+.estacion .gancho {{ margin: 0 0 6px; color: var(--gris); font-style: italic; font-size: .95rem; }}
+.estacion .sus-clases {{ list-style: none; padding: 0; margin: 6px 0 0; }}
+.estacion .sus-clases li {{ display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: .93rem;
+                             padding: 3px 0; border-top: 1px dashed var(--linea); }}
+.estacion .sus-clases .cid {{ font-weight: 600; white-space: nowrap; }}
+/* mapa: controles */
+.controles {{ display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; margin: .6em 0; font-size: .95rem; }}
+.controles label {{ display: inline-flex; align-items: center; gap: 6px; }}
+.controles input[type=range] {{ width: min(260px, 60vw); }}
+.mapa .atenuado {{ opacity: 0.25; }}
+.mapa .oculto {{ display: none; }}
 """
 
 
@@ -189,6 +245,12 @@ def validar(datos: dict) -> list[str]:
         if "apunte" in c:
             c["apunte"] = [str(x) for x in (c["apunte"] or [])]
             chequear_apunte(c["apunte"], donde)
+        if c.get("validacion") not in VALIDACIONES:
+            errores.append(f"{donde}: validacion '{c.get('validacion')}' no es uno de {VALIDACIONES}")
+        if c.get("nivel") not in NIVELES:
+            errores.append(f"{donde}: nivel '{c.get('nivel')}' no es uno de {NIVELES}")
+        if not c.get("pregunta"):
+            avisos.append(f"{donde}: sin 'pregunta'")
 
     for k in datos["conceptos"]:
         if "id" not in k:
@@ -229,6 +291,17 @@ def validar(datos: dict) -> list[str]:
                 errores.append(f"{donde}: archivo {archivo} no existe")
         else:
             avisos.append(f"{donde}: estado '{estado}', no se exporta")
+        if u.get("nivel") not in NIVELES:
+            errores.append(f"{donde}: nivel '{u.get('nivel')}' no es uno de {NIVELES}")
+        u["clases"] = [str(x) for x in (u.get("clases") or [])]
+        if not u["clases"]:
+            errores.append(f"{donde}: sin 'clases'")
+        for cid in u["clases"]:
+            if cid not in ids_clases:
+                errores.append(f"{donde}: clases incluye '{cid}', que no existe")
+        for campo in ("pregunta", "gancho_agrimensura"):
+            if not u.get(campo):
+                avisos.append(f"{donde}: sin '{campo}'")
 
     if errores:
         raise ErrorMapa("\n".join(f"  - {e}" for e in errores))
@@ -346,6 +419,23 @@ def titulo_de_md(texto: str, defecto: str) -> str:
     return m.group(1).strip() if m else defecto
 
 
+def etiqueta(texto: str, color: str, *, solida: bool = False) -> str:
+    clase = "etq solida" if solida else "etq"
+    return f'<span class="{clase}" style="--c:{color}">{html.escape(texto)}</span>'
+
+
+def etiquetas_clase(c: dict) -> str:
+    """Procedencia (`estado`) y validación de una clase, como dos etiquetas."""
+    color, _ = COLOR_ESTADO.get(c.get("estado"), (RUST, "#eee"))
+    proc = ETIQUETA_ESTADO.get(c.get("estado"), c.get("estado", ""))
+    val = ETIQUETA_VALIDACION.get(c.get("validacion"), c.get("validacion", ""))
+    color_val = TEAL if c.get("validacion") == "validado-catedra" else "#777"
+    return etiqueta(f"procedencia: {proc}", color, solida=True) + etiqueta(val, color_val)
+
+
+VOLVER = '<p class="volver"><a href="../index.html">← camino</a><a href="../mapa.html">mapa</a></p>'
+
+
 def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
     """Convierte las fichas. Devuelve {id_clase: 'clases/<id>.html'} para las que existen."""
     destino = out / "clases"
@@ -361,7 +451,10 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
             continue
         texto = sin_front_matter(src.read_text(encoding="utf-8"))
         titulo = titulo_de_md(texto, f"Clase {c['id']} — {c.get('titulo', '')}")
-        cuerpo = f'<p class="volver"><a href="../index.html">← índice</a></p>\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
+        cuerpo = (
+            f'{VOLVER}\n<p class="etqs ficha-etqs">{etiquetas_clase(c)}</p>\n'
+            f'<div class="ficha">\n{md_a_html(texto)}\n</div>'
+        )
         (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
         generadas[c["id"]] = f"clases/{c['id']}.html"
         usados.add(src.resolve())
@@ -374,7 +467,7 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
                 continue
             texto = sin_front_matter(src.read_text(encoding="utf-8"))
             titulo = titulo_de_md(texto, src.stem)
-            cuerpo = f'<p class="volver"><a href="../index.html">← índice</a></p>\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
+            cuerpo = f'{VOLVER}\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
             (destino / f"{src.stem}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
     return generadas
 
@@ -461,6 +554,13 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
     ancho = MARGEN_X * 2 + ANCHO_COL * max(len(clases), 1)
     alto = int(alto_col_max - SEP_FILA + MARGEN_INF)
     estado_clase = {c["id"]: c.get("estado", "no-dictada") for c in clases}
+    # atributos para los controles de mapa.html: orden (1..n) y nivel de la clase de cada nodo
+    orden_clase = {c["id"]: i + 1 for i, c in enumerate(clases)}
+    nivel_clase = {c["id"]: c.get("nivel", "troncal") for c in clases}
+    clase_de = {k["id"]: k["clase"] for k in conceptos}
+
+    def attrs(cid: str) -> str:
+        return f'data-clase="{html.escape(cid)}" data-orden="{orden_clase.get(cid, 0)}" data-nivel="{html.escape(nivel_clase.get(cid, "troncal"))}"'
 
     partes: list[str] = []
     partes.append(
@@ -478,9 +578,11 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
         if col > 0:
             partes.append(f'<line x1="{x0}" y1="8" x2="{x0}" y2="{alto - 8}" stroke="#eee" stroke-width="1"/>')
         cx = x0 + ANCHO_COL / 2
+        partes.append(f'<g class="cabecera" {attrs(c["id"])}>')
         partes.append(f'<text x="{cx}" y="{MARGEN_SUP + 12}" text-anchor="middle" font-size="13" font-weight="700" fill="{color}">Clase {html.escape(c["id"])}</text>')
         for i, ln in enumerate(cab_lineas[c["id"]]):
             partes.append(f'<text x="{cx}" y="{MARGEN_SUP + 30 + i * ALTO_LINEA}" text-anchor="middle" font-size="12" fill="#444">{html.escape(ln)}</text>')
+        partes.append("</g>")
 
     # aristas (requerido → concepto)
     for k in conceptos:
@@ -507,7 +609,12 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
                 ax, ay = x1 + w1, y1 + (h1 - 8 if arriba else 8)
                 bx, by = x2 + w2, y2 + (8 if arriba else h2 - 8)
                 d = f"M {ax:.1f} {ay:.1f} C {ax + 28:.1f} {ay:.1f}, {bx + 28:.1f} {by:.1f}, {bx:.1f} {by:.1f}"
-            partes.append(f'<path d="{d}" fill="none" stroke="#777" stroke-width="1.3" marker-end="url(#flecha)" opacity="0.5"/>')
+            partes.append(
+                f'<path class="arista" data-de="{html.escape(r)}" data-a="{html.escape(k["id"])}" '
+                f'data-orden-max="{max(orden_clase.get(clase_de.get(r, ""), 0), orden_clase.get(k["clase"], 0))}" '
+                f'data-niveles="{html.escape(nivel_clase.get(clase_de.get(r, ""), "troncal"))} {html.escape(nivel_clase.get(k["clase"], "troncal"))}" '
+                f'd="{d}" fill="none" stroke="#777" stroke-width="1.3" marker-end="url(#flecha)" opacity="0.5"/>'
+            )
 
     # nodos
     for k in conceptos:
@@ -536,10 +643,11 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
             f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h}" rx="7" ry="7" fill="{fondo}" stroke="{color}" stroke-width="2"/>'
             + texto
         )
+        a = f'class="nodo" data-id="{html.escape(k["id"])}" {attrs(k["clase"])}'
         if href:
-            partes.append(f'<a href="{html.escape(href)}" style="cursor:pointer">{nodo}</a>')
+            partes.append(f'<a href="{html.escape(href)}" style="cursor:pointer" {a}>{nodo}</a>')
         else:
-            partes.append(f"<g>{nodo}</g>")
+            partes.append(f"<g {a}>{nodo}</g>")
     partes.append("</svg>")
     return "\n".join(partes)
 
@@ -562,31 +670,133 @@ def titulos_secciones_apunte() -> dict[str, str]:
     return res
 
 
-def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
+def hoy() -> _dt.date:
+    return _dt.date.today()
+
+
+def clase_dictada(c: dict, fecha: _dt.date) -> bool:
+    """True si alguna `fechas_2026` de la clase es ≤ `fecha`."""
+    for f in c.get("fechas_2026") or []:
+        try:
+            if _dt.date.fromisoformat(str(f)) <= fecha:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
+def ultima_clase_dictada(clases: list[dict], fecha: _dt.date) -> dict | None:
+    """La clase con la fecha dictada más reciente (≤ fecha); empate → la de mayor orden en la cursada."""
+    mejor: tuple[_dt.date, int] | None = None
+    res = None
+    for i, c in enumerate(clases):
+        for f in c.get("fechas_2026") or []:
+            try:
+                d = _dt.date.fromisoformat(str(f))
+            except ValueError:
+                continue
+            if d <= fecha and (mejor is None or (d, i) > mejor):
+                mejor, res = (d, i), c
+    return res
+
+
+def enlace_apunte(pref: str, titulos: dict[str, str], hay_pdf: bool) -> str:
+    """Sección del apunte como enlace `apunte.pdf#nameddest=cap:NN` (los \\label{cap:NN} viven en el .tex)."""
+    tit = titulos.get(pref, pref)
+    texto = f"apunte §{html.escape(pref)}: {html.escape(tit)}"
+    if hay_pdf:
+        return f'<span><a href="apunte.pdf#nameddest=cap:{html.escape(pref)}" title="apunte, sección {html.escape(pref)}">{texto}</a></span>'
+    return f'<span class="pend">{texto}</span>'
+
+
+def prefijos_apunte_de_clase(c: dict, conceptos_por_clase: dict[str, list[dict]]) -> list[str]:
+    """Los `apunte` declarados en la clase, o la unión de los de sus conceptos."""
+    prefs: list[str] = list(c.get("apunte") or [])
+    if not prefs:
+        for k in conceptos_por_clase.get(c["id"], []):
+            for pr in k["apunte"]:
+                if pr not in prefs:
+                    prefs.append(pr)
+    return sorted(prefs)
+
+
+JS_MAPA = r"""
+(function () {
+  var svg = document.querySelector('.mapa svg');
+  if (!svg) return;
+  var ruta = document.getElementById('ruta');
+  var hasta = document.getElementById('hasta');
+  var rotulo = document.getElementById('hasta-rotulo');
+  var ids = JSON.parse(document.getElementById('clases-orden').textContent);
+  var nodos = svg.querySelectorAll('.nodo, .cabecera');
+  var aristas = svg.querySelectorAll('.arista');
+  function aplicar() {
+    var soloTroncal = ruta.value === 'troncal';
+    var n = parseInt(hasta.value, 10);
+    rotulo.textContent = 'hasta la clase ' + ids[n - 1];
+    nodos.forEach(function (el) {
+      var oculto = soloTroncal && el.getAttribute('data-nivel') !== 'troncal';
+      var aten = parseInt(el.getAttribute('data-orden'), 10) > n;
+      el.classList.toggle('oculto', oculto);
+      el.classList.toggle('atenuado', !oculto && aten);
+    });
+    aristas.forEach(function (el) {
+      var niveles = el.getAttribute('data-niveles').split(' ');
+      var oculto = soloTroncal && (niveles[0] !== 'troncal' || niveles[1] !== 'troncal');
+      var aten = parseInt(el.getAttribute('data-orden-max'), 10) > n;
+      el.classList.toggle('oculto', oculto);
+      el.classList.toggle('atenuado', !oculto && aten);
+    });
+  }
+  ruta.addEventListener('change', aplicar);
+  hasta.addEventListener('input', aplicar);
+  aplicar();
+})();
+"""
+
+
+def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
+    """site/mapa.html: el SVG de conceptos con filtro de ruta y deslizador "hasta la clase N", y la lista de clases."""
     unidades = {u["id"]: u for u in datos["unidades"]}
     titulos_apunte = titulos_secciones_apunte()
     conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in datos["clases"]}
     for k in datos["conceptos"]:
         conceptos_por_clase[k["clase"]].append(k)
+    clases = datos["clases"]
+    ultima = ultima_clase_dictada(clases, hoy())
+    n_default = (clases.index(ultima) + 1) if ultima else len(clases)
 
     partes: list[str] = []
-    partes.append(f"<h1>{html.escape(datos['titulo'])}</h1>")
+    partes.append('<p class="volver"><a href="index.html">← camino</a></p>')
+    partes.append(f"<h1>{html.escape(TITULO_MAPA)}</h1>")
     if datos.get("pregunta_guia"):
         partes.append(f'<p class="guia">Pregunta guía: {html.escape(datos["pregunta_guia"])}</p>')
 
     partes.append("<h2>Mapa de conceptos</h2>")
+    opciones = "".join(
+        f'<option value="{v}">{t}</option>' for v, t in (("todo", "todo"), ("troncal", "sólo troncal"))
+    )
+    partes.append(
+        '<div class="controles">'
+        f'<label>Ruta: <select id="ruta">{opciones}</select></label>'
+        f'<label><span id="hasta-rotulo">hasta la clase {html.escape(ultima["id"] if ultima else clases[-1]["id"])}</span> '
+        f'<input type="range" id="hasta" min="1" max="{len(clases)}" value="{n_default}" step="1"></label>'
+        "</div>"
+    )
+    partes.append(f'<script id="clases-orden" type="application/json">{json.dumps([c["id"] for c in clases])}</script>')
     partes.append('<div class="mapa">' + svg_mapa(datos, fichas, exportadas) + "</div>")
     leyenda = "".join(
         f'<span style="--c:{COLOR_ESTADO[e][0]};--f:{COLOR_ESTADO[e][1]}">{ETIQUETA_ESTADO[e]}</span>' for e in ESTADOS_CLASE
     )
     partes.append(f'<p class="leyenda">{leyenda}<span style="--c:#777;--f:#fff">flecha: lo que un concepto requiere → el concepto</span></p>')
-    partes.append('<p class="guia">Cada nodo lleva a la unidad interactiva si existe, si no a la ficha de la clase. Pasando el mouse se ve el hecho geométrico.</p>')
+    partes.append('<p class="guia">Cada nodo lleva a la unidad interactiva si existe, si no a la ficha de la clase. Pasando el mouse se ve el hecho geométrico. '
+                  "El filtro de ruta esconde las clases complementarias y avanzadas; el deslizador atenúa lo que viene después de la clase elegida (por default, la última dictada).</p>")
+    partes.append(f"<script>{JS_MAPA}</script>")
 
-    partes.append(f"<h2>Clases ({len(datos['clases'])})</h2>")
+    partes.append(f"<h2>Clases ({len(clases)})</h2>")
     partes.append('<ul class="clases">')
-    for c in datos["clases"]:
+    for c in clases:
         color, _ = COLOR_ESTADO.get(c.get("estado"), (RUST, "#eee"))
-        estado = ETIQUETA_ESTADO.get(c.get("estado"), c.get("estado", ""))
         fechas = []
         if c.get("fecha_2025"):
             fechas.append(f"2025: {html.escape(c['fecha_2025'])}")
@@ -601,7 +811,6 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
             links.append(f'<span><a href="{fichas[c["id"]]}">ficha</a></span>')
         else:
             links.append('<span class="pend">ficha pendiente</span>')
-        # unidades de los conceptos de la clase (sin repetir, en orden)
         ids_u: list[str] = []
         for k in conceptos_por_clase[c["id"]]:
             if k.get("unidad") and k["unidad"] not in ids_u:
@@ -613,24 +822,14 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
             else:
                 nota = f" — {html.escape(u['nota'])}" if u.get("nota") else ""
                 links.append(f'<span class="pend">unidad: {html.escape(u.get("titulo", uid))} ({ETIQUETA_ESTADO_UNIDAD.get(u.get("estado"), u.get("estado", ""))}{nota})</span>')
-        # secciones del apunte: las de la clase, o la unión de las de sus conceptos
-        prefs: list[str] = list(c.get("apunte") or [])
-        if not prefs:
-            for k in conceptos_por_clase[c["id"]]:
-                for p in k["apunte"]:
-                    if p not in prefs:
-                        prefs.append(p)
-        for p in sorted(prefs):
-            tit = titulos_apunte.get(p, p)
-            if hay_pdf:
-                links.append(f'<span><a href="apunte.pdf" title="apunte, capítulo {html.escape(p)}">apunte §{html.escape(p)}: {html.escape(tit)}</a></span>')
-            else:
-                links.append(f'<span class="pend">apunte §{html.escape(p)}: {html.escape(tit)}</span>')
+        for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
+            links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         partes.append(
             f'<li class="clase" style="--c:{color}">'
             f'<div class="cab"><span class="id">Clase {html.escape(c["id"])}</span>'
             f'<span class="tit">{html.escape(c.get("titulo", ""))}</span>'
-            f'<span class="estado">{html.escape(estado)}</span></div>'
+            f'{etiquetas_clase(c)}'
+            f'{etiqueta(c.get("nivel", ""), "#777")}</div>'
             f'<div class="fechas">{" · ".join(fechas)}</div>'
             f'<div class="links">{"".join(links)}</div>'
             "</li>"
@@ -642,11 +841,122 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         partes.append('<p><a href="apunte.pdf">Apunte de Sistemas de Coordenadas (PDF)</a> — anexo de demostraciones y guías resueltas.</p>')
     else:
         partes.append('<p class="pend">El PDF del apunte no está compilado en este build.</p>')
+    partes.append(PIE)
+    (out / "mapa.html").write_text(pagina(TITULO_MAPA, "\n".join(partes)), encoding="utf-8")
 
-    partes.append('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), hecho por Gustavo Varela como alumno. '
-                  "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
 
-    (out / "index.html").write_text(pagina(datos["titulo"], "\n".join(partes)), encoding="utf-8")
+PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), hecho por Gustavo Varela como alumno. '
+       "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
+
+
+def estado_estacion(clases_est: list[dict], exportada: bool, fecha: _dt.date) -> str:
+    if exportada:
+        return "lista"
+    if any(clase_dictada(c, fecha) for c in clases_est):
+        return "en-clase"
+    return "todavia-no"
+
+
+def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
+    """site/index.html: el camino. Tres entradas y una estación por unidad (más "Lo que viene")."""
+    titulos_apunte = titulos_secciones_apunte()
+    clases = datos["clases"]
+    por_id = {c["id"]: c for c in clases}
+    conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in clases}
+    for k in datos["conceptos"]:
+        conceptos_por_clase[k["clase"]].append(k)
+    fecha = hoy()
+
+    # estaciones: una por unidad, en el orden de unidades.yaml; al final, las clases sin unidad
+    estaciones: list[dict] = []
+    cubiertas: set[str] = set()
+    for u in datos["unidades"]:
+        cl = [por_id[cid] for cid in u["clases"] if cid in por_id]
+        cubiertas.update(c["id"] for c in cl)
+        estaciones.append({
+            "unidad": u, "titulo": u.get("titulo", u["id"]), "clases": cl,
+            "pregunta": u.get("pregunta", ""), "gancho": u.get("gancho_agrimensura", ""), "nivel": u.get("nivel", ""),
+            "estado": estado_estacion(cl, u["id"] in exportadas, fecha),
+        })
+    sin_unidad = [c for c in clases if c["id"] not in cubiertas]
+    if sin_unidad:
+        estaciones.append({
+            "unidad": None, "titulo": "Lo que viene", "clases": sin_unidad,
+            "pregunta": "", "gancho": "Clases del esqueleto del profesor que todavía no se dictaron en 2026; no se anticipan como contenido de la cátedra.",
+            "nivel": "", "estado": estado_estacion(sin_unidad, False, fecha),
+        })
+
+    # entrada "seguir la cursada": la estación de la última clase dictada
+    ultima = ultima_clase_dictada(clases, fecha)
+    n_seguir = 1
+    if ultima:
+        for i, e in enumerate(estaciones, start=1):
+            if any(c["id"] == ultima["id"] for c in e["clases"]):
+                n_seguir = i
+                break
+
+    partes: list[str] = []
+    partes.append(f"<h1>{html.escape(TITULO_CAMINO)}</h1>")
+    if datos.get("pregunta_guia"):
+        partes.append(f'<p class="guia">Pregunta guía: {html.escape(datos["pregunta_guia"])}</p>')
+    seguir_sub = f"estación {n_seguir}, clase {html.escape(ultima['id'])} ({html.escape(max(ultima['fechas_2026']))})" if ultima else "todavía no se dictó ninguna clase"
+    partes.append(
+        '<nav class="entradas">'
+        f'<a class="entrada" href="#estacion-1"><b>Empezar</b><small>estación 1: {html.escape(estaciones[0]["titulo"])}</small></a>'
+        f'<a class="entrada" href="#estacion-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
+        '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
+        "</nav>"
+    )
+
+    partes.append(f"<h2>Estaciones ({len(estaciones)})</h2>")
+    partes.append('<ol class="camino">')
+    for i, e in enumerate(estaciones, start=1):
+        rot, color = ETIQUETA_ESTACION[e["estado"]]
+        cab = [f'<span class="num">Estación {i}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
+               etiqueta(rot, color, solida=True)]
+        if e["nivel"]:
+            cab.append(etiqueta(e["nivel"], "#777"))
+        cuerpo = [f'<div class="cab">{"".join(cab)}</div>']
+        if e["pregunta"]:
+            cuerpo.append(f'<p class="pregunta">{html.escape(e["pregunta"])}</p>')
+        if e["gancho"]:
+            cuerpo.append(f'<p class="gancho">{html.escape(e["gancho"])}</p>')
+        # clases que cubre, con procedencia y validación
+        filas = []
+        for c in e["clases"]:
+            ficha = f'<a href="{fichas[c["id"]]}">ficha</a>' if c["id"] in fichas else '<span class="pend">ficha pendiente</span>'
+            filas.append(f'<li><span class="cid">Clase {html.escape(c["id"])}</span><span>{html.escape(c.get("titulo", ""))}</span>'
+                         f'{etiquetas_clase(c)}<span>{ficha}</span></li>')
+        cuerpo.append(f'<ul class="sus-clases">{"".join(filas)}</ul>')
+        # enlaces: unidad, apunte
+        links: list[str] = []
+        u = e["unidad"]
+        if u is not None:
+            if u["id"] in exportadas:
+                links.append(f'<span><a href="unidades/{html.escape(u["id"])}/index.html">abrir la unidad interactiva</a></span>')
+            else:
+                nota = f" — {html.escape(u['nota'])}" if u.get("nota") else ""
+                links.append(f'<span class="pend">unidad {ETIQUETA_ESTADO_UNIDAD.get(u.get("estado"), u.get("estado", ""))}{nota}</span>')
+        prefs: list[str] = []
+        for c in e["clases"]:
+            for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
+                if pr not in prefs:
+                    prefs.append(pr)
+        for pr in sorted(prefs):
+            links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
+        if links:
+            cuerpo.append(f'<div class="links">{"".join(links)}</div>')
+        partes.append(f'<li class="estacion" id="estacion-{i}" style="--c:{color}">{"".join(cuerpo)}</li>')
+    partes.append("</ol>")
+
+    partes.append("<h2>Apunte y mapa</h2>")
+    if hay_pdf:
+        partes.append('<p><a href="apunte.pdf">Apunte de Sistemas de Coordenadas (PDF)</a> — anexo de demostraciones y guías resueltas. '
+                      '<a href="mapa.html">Mapa de conceptos</a> — todos los nodos y lo que requiere cada uno.</p>')
+    else:
+        partes.append('<p class="pend">El PDF del apunte no está compilado en este build.</p><p><a href="mapa.html">Mapa de conceptos</a>.</p>')
+    partes.append(PIE)
+    (out / "index.html").write_text(pagina(TITULO_CAMINO, "\n".join(partes)), encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------
@@ -719,10 +1029,12 @@ def main() -> int:
     else:
         print(f"  aviso: no existe {PDF_APUNTE.relative_to(RAIZ)}; el índice no linkea el PDF")
 
-    print("== índice")
+    print("== portada y mapa")
     generar_indice(datos, fichas, exportadas, hay_pdf, out)
+    generar_mapa(datos, fichas, exportadas, hay_pdf, out)
     (out / ".nojekyll").write_text("", encoding="utf-8")
     print(f"  {out / 'index.html'}")
+    print(f"  {out / 'mapa.html'}")
 
     if tiempos:
         print("== tiempos de export WASM")

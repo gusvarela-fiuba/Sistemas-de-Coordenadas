@@ -1,5 +1,5 @@
 # Fragmento del mapa — bloque clases 07–10 (SVD, cambio de base, análisis, inversas)
-# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado]
+# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado,pregunta,validacion,nivel]
 #          conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]]
 # ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
@@ -10,24 +10,36 @@ clases:
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?"
+    validacion: pendiente
+    nivel: avanzado
   - id: "08"
     titulo: "Cambios de base, más autovectores y experimentar con marimo"
     ficha: clases/08-cambio-de-base.md
     fecha_2025: null
     fechas_2026: ["2026-09-30"]
     estado: con-transcripcion
+    pregunta: "Si cambio la grilla con que mido, ¿cómo cambian los números de un punto, de una recta y de una transformación?"
+    validacion: pendiente
+    nivel: troncal
   - id: "09"
     titulo: "Repaso de análisis (con álgebra de contrabando) — derivada, gradiente, jacobiano"
     ficha: clases/09-analisis-derivada-jacobiano.md
     fecha_2025: null
     fechas_2026: ["2026-10-14"]
     estado: con-transcripcion
+    pregunta: "¿Qué transformación lineal aproxima una función cerca de un punto, y qué mide el gradiente?"
+    validacion: pendiente
+    nivel: troncal
   - id: "10"
     titulo: "Inversas — respecto de una operación, los cuatro subespacios y la pseudoinversa"
     ficha: clases/10-inversas-pseudoinversa.md
     fecha_2025: null
     fechas_2026: []
     estado: no-dictada
+    pregunta: "¿Qué quiere decir deshacer una operación, y qué es lo más parecido a deshacer cuando la matriz no se invierte?"
+    validacion: pendiente
+    nivel: avanzado
 
 conceptos:
   # --- clase 07 ---
