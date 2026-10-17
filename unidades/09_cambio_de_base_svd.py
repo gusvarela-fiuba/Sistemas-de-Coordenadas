@@ -321,7 +321,7 @@ def _(lib, mo, np):
             como $a = (\pm1)\lvert a\rvert$. $\det D = -6 = -\sigma_1\sigma_2$.
             """),
             mo.vstack([
-                mo.md("```python\nU, s, Vt = lib.svd2(np.diag([3., -2.]))   # signos fijos; np.linalg.svd igual salvo signos\n```"),
+                mo.md("```python\n# signos fijos; np.linalg.svd da lo mismo\n# salvo signos\nU, s, Vt = lib.svd2(np.diag([3., -2.]))\n```"),
                 mo.md(f"`s` = `{np.round(_sd, 3).tolist()}` · `U` = `{np.round(_Ud, 3).tolist()}` · `Vt` = `{np.round(_Vtd, 3).tolist()}`"),
             ]),
         ], widths="equal", align="start"),
@@ -336,7 +336,7 @@ def _(lib, mo, np):
             control $\sigma_1\sigma_2 = \tfrac{5 - 1}{2} = 2 = \det A$. Los $v_k$ son los autovectores de $A^\top A$ y $u_k = Av_k/\sigma_k$.
             """),
             mo.vstack([
-                mo.md("```python\nA = np.array([[2., 1.], [0., 1.]])\nU, s, Vt = np.linalg.svd(A)\nmu = np.linalg.eigvalsh(A.T @ A)[::-1]   # autovalores de AᵀA, de mayor a menor\nnp.allclose(s**2, mu), np.allclose(U @ np.diag(s) @ Vt, A)\n```"),
+                mo.md("```python\nA = np.array([[2., 1.], [0., 1.]])\nU, s, Vt = np.linalg.svd(A)\n# autovalores de AᵀA, de mayor a menor\nmu = np.linalg.eigvalsh(A.T @ A)[::-1]\nnp.allclose(s**2, mu)\nnp.allclose(U @ np.diag(s) @ Vt, A)\n```"),
                 mo.md(f"`s` = `{np.round(_s, 3).tolist()}` · `mu` = `{np.round(_mu, 3).tolist()}` · `allclose` = `{bool(np.allclose(_s**2, _mu))}`, `{bool(np.allclose(_U @ np.diag(_s) @ _Vt, _A))}`"),
             ]),
         ], widths="equal", align="start"),
@@ -350,7 +350,7 @@ def _(lib, mo, np):
             El $1/\sigma_2 = 1/0$ no se toma: ahí va un $0$.
             """),
             mo.vstack([
-                mo.md("```python\nP = np.array([[1., 2.], [2., 4.]])\nPp = np.linalg.pinv(P)\nnp.allclose(P @ Pp @ P, P), np.allclose(Pp, P / 25)\n```"),
+                mo.md("```python\nP = np.array([[1., 2.], [2., 4.]])\nPp = np.linalg.pinv(P)\nnp.allclose(P @ Pp @ P, P)\nnp.allclose(Pp, P / 25)\n```"),
                 mo.md(f"`Pp` =\n```\n{np.round(_Pp, 4)}\n```\n`allclose` = `{bool(np.allclose(_P @ _Pp @ _P, _P))}`, `{bool(np.allclose(_Pp, _P / 25))}`"),
             ]),
         ], widths="equal", align="start"),
@@ -360,7 +360,8 @@ def _(lib, mo, np):
 
 @app.cell
 def _(mo):
-    k_svd = mo.ui.slider(1, 12, value=3, step=1, label="k (valores singulares que conservo)", show_value=True)
+    k_svd = mo.ui.slider(1, 50, value=10, step=1, label="k (valores singulares que conservo)", show_value=True)
+    centrar = mo.ui.checkbox(label="Restar altura media antes de truncar")
     mo.vstack([
         mo.md(r"""
         ## 4. Python de hoy
@@ -369,35 +370,70 @@ def _(mo):
         transpuesta**; `pinv(A)` es $A^{+}$; `lstsq(A, y, rcond=None)` resuelve el sistema alto (lo que usó la unidad 11:
         adentro hace $A^{+}y$ con la SVD); `cond(A)` es $\sigma_1/\sigma_2$, cuánto amplifica $A$ los errores. Y una
         idea: una **matriz de alturas** también es una transformación, y `U[:, :k] @ np.diag(s[:k]) @ Vt[:k]` es su mejor
-        aproximación de rango $k$. Acá un terreno sintético de $40\times40$; con el DEM real de la Precordillera
-        ($512\times512$, `datos/dem_copernicus/`) el RMS baja de $103$ m ($k = 1$) a $17$ m ($k = 10$) y $2$ m ($k = 100$).
+        aproximación de rango $k$.
+
+        La matriz de acá es real: el recorte de la Precordillera de Mendoza del DEM Copernicus GLO-30
+        (`datos/dem_copernicus/`, `lib.dem_precordillera()`). En el navegador es una submuestra de $128\times128$ a
+        $\approx 120$ m por celda, que viaja embebida en la lección; con el repo clonado es el recorte entero de
+        $512\times512$ a 30 m. Alturas entre $1014$ y $2989$ m, media $\approx 1600$ m: una meseta alta con relieve
+        encima. Por eso $\sigma_1$ se lleva casi toda la energía ($99{,}6\,\%$ con $k = 1$): el primer término
+        $\sigma_1 u_1 v_1^{\top}$ es la meseta, no el relieve. Tildar la casilla resta la media antes de la SVD: con
+        $k = 1$ se ve qué queda cuando el primer término ya no tiene que pagar la altura media.
         """),
-        k_svd,
+        mo.hstack([k_svd, centrar], justify="start", gap=2, wrap=True),
     ])
-    return (k_svd,)
+    return centrar, k_svd
 
 
 @app.cell
-def _(go, k_svd, lib, mo, np):
-    _u = np.linspace(-3, 3, 40)
-    _X, _Y = np.meshgrid(_u, _u)
-    Z = 1600 + 250 * np.exp(-((_X - 1) ** 2 + (_Y + 0.5) ** 2) / 2) + 180 * np.sin(1.3 * _X) * np.cos(0.8 * _Y) + 40 * _X - 25 * _Y
-    Uz, sz, Vtz = np.linalg.svd(Z)
-    Zk = lib.truncar_svd(Uz, sz, Vtz, k_svd.value)
-    rms_k = float(np.sqrt(np.mean((Z - Zk) ** 2)))
+def _(centrar, go, k_svd, lib, mo, np):
+    Z = lib.dem_precordillera()
+    _media = float(Z.mean()) if centrar.value else 0.0
+    Uz, sz, Vtz = np.linalg.svd(Z - _media, full_matrices=False)
+    Zk = lib.truncar_svd(Uz, sz, Vtz, k_svd.value) + _media
+    Rz = Z - Zk
+    rms_k = float(np.sqrt(np.mean(Rz**2)))
+    _zmin, _zmax = float(Z.min()), float(Z.max())
+    _rmax = float(np.abs(Rz).max())
     _fig = go.Figure()
-    _fig.add_trace(go.Heatmap(z=Z, colorscale="Earth", showscale=False, xaxis="x", yaxis="y", name="terreno"))
-    _fig.add_trace(go.Heatmap(z=Zk, colorscale="Earth", showscale=False, xaxis="x2", yaxis="y2", name=f"rango {k_svd.value}"))
-    _fig.update_layout(width=620, height=330, margin=dict(l=10, r=10, t=40, b=10),
-                       xaxis=dict(domain=[0, 0.48], visible=False), xaxis2=dict(domain=[0.52, 1], visible=False),
-                       yaxis=dict(visible=False), yaxis2=dict(visible=False, anchor="x2"),
-                       title=dict(text=f"alturas (izquierda) y su aproximación de rango k = {k_svd.value} (derecha): RMS = {rms_k:.1f} m", font=dict(size=13)))
+    _fig.add_trace(go.Heatmap(z=Z, colorscale="Earth", zmin=_zmin, zmax=_zmax, showscale=False, xaxis="x", yaxis="y",
+                              name="DEM", hovertemplate="%{z:.0f} m<extra>DEM</extra>"))
+    _fig.add_trace(go.Heatmap(z=Zk, colorscale="Earth", zmin=_zmin, zmax=_zmax, showscale=False, xaxis="x2", yaxis="y2",
+                              name=f"rango {k_svd.value}", hovertemplate="%{z:.0f} m<extra>rango k</extra>"))
+    _fig.add_trace(go.Heatmap(z=Rz, colorscale="RdBu", zmin=-_rmax, zmax=_rmax, showscale=False, xaxis="x3", yaxis="y3",
+                              name="residuo", hovertemplate="%{z:+.0f} m<extra>Z − Zk</extra>"))
+    _fig.update_layout(width=640, height=250, margin=dict(l=4, r=4, t=44, b=4),
+                       xaxis=dict(domain=[0, 0.32], visible=False), xaxis2=dict(domain=[0.34, 0.66], visible=False),
+                       xaxis3=dict(domain=[0.68, 1], visible=False),
+                       yaxis=dict(visible=False, autorange="reversed"), yaxis2=dict(visible=False, autorange="reversed", anchor="x2"),
+                       yaxis3=dict(visible=False, autorange="reversed", anchor="x3"),
+                       title=dict(text=f"DEM {Z.shape[0]}×{Z.shape[1]} · rango k = {k_svd.value}{' (media restada)' if centrar.value else ''} · "
+                                       f"residuo Z − Zₖ: RMS = {rms_k:.1f} m", font=dict(size=13)))
+    _ks = [1, 2, 5, 10, 20, 50, 100]
+    _vivo = lib.rms_rango_k(Z, _ks)
+    _vivo_c = lib.rms_rango_k(Z, _ks, centrar=True)
+    _proto = {1: 102.9, 2: 66.0, 5: 30.6, 10: 16.9, 20: 9.8, 50: 4.4, 100: 2.0}  # svd_results_512.json
+    _tabla = ("| RMS del error (m) | " + " | ".join(f"k = {k}" for k in _ks) + " |\n|---|" + "---|" * len(_ks) + "\n"
+              "| recorte 512×512, fuera del navegador (`svd_dem_proto.py`) | " + " | ".join(f"{_proto[k]:.1f}" for k in _ks) + " |\n"
+              f"| la matriz de acá ({Z.shape[0]}×{Z.shape[1]}), en vivo | " + " | ".join(f"{_vivo[k]:.1f}" for k in _ks) + " |\n"
+              "| la misma con la media restada, en vivo | " + " | ".join(f"{_vivo_c[k]:.1f}" for k in _ks) + " |")
     mo.vstack([
-        mo.md("```python\nU, s, Vt = np.linalg.svd(Z)                    # Z: 40×40 de alturas\nZk = U[:, :k] @ np.diag(s[:k]) @ Vt[:k]      # rango k\nrms = np.sqrt(np.mean((Z - Zk) ** 2))\n```"),
-        mo.md(f"`s[:6]` = `{np.round(sz[:6], 1).tolist()}` · `np.linalg.cond(Z)` = `{np.linalg.cond(Z):.3g}` · con k = {k_svd.value}: `rms` = `{rms_k:.2f}` m, de `{Z.std():.0f}` m de desvío. $\\sigma_1$ es casi la altura media por $40$: el primer término es la meseta."),
+        mo.md("```python\nZ = lib.dem_precordillera()   # alturas, m\nU, s, Vt = np.linalg.svd(Z)\nZk = U[:, :k] @ np.diag(s[:k]) @ Vt[:k]\nrms = np.sqrt(np.mean((Z - Zk) ** 2))\n```"),
+        mo.md(f"`Z.shape` = `{Z.shape}` · alturas `{_zmin:.0f}`–`{_zmax:.0f}` m, media `{Z.mean():.0f}` m, desvío `{Z.std():.0f}` m  \n"
+              f"`s[:4]` = `{np.round(sz[:4], 0).tolist()}` · `np.linalg.cond(Z)` = `{np.linalg.cond(Z):.3g}` · "
+              f"con k = {k_svd.value}{' y la media restada' if centrar.value else ''}: `rms` = `{rms_k:.1f}` m de `{Z.std():.0f}` m de desvío"
+              + ("" if centrar.value else f" · $\\sigma_1 / (\\bar z\\, n)$ = `{sz[0] / (Z.mean() * Z.shape[0]):.3f}`: el primer término es la meseta")),
         mo.ui.plotly(_fig),
+        mo.md(_tabla),
+        mo.md(r"""
+        La primera fila está calculada fuera del navegador con `datos/dem_copernicus/svd_dem_proto.py` sobre el recorte
+        de $512\times512$ (`svd_results_512.json`). La submuestra reproduce la curva hasta $k = 50$; en $k = 100$ ya
+        es casi todo su rango, por eso baja de $1$ m. El relieve "aparece" en $k \approx 20$. Con la media restada,
+        $k = 1$ deja de ser la meseta y pasa a ser la primera franja de relieve (el RMS de $k = 1$ baja de $103$ a
+        $86$ m) y desde $k \approx 20$ las dos curvas coinciden: la meseta cuesta un solo término.
+        """),
     ])
-    return Uz, Vtz, Z, Zk, rms_k, sz
+    return Z, rms_k, sz
 
 
 @app.cell
