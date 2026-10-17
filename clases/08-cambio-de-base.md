@@ -72,7 +72,7 @@ Lectura: el vector $(1,0)=\tfrac12(1,1)+\tfrac12(1,-1)$; la parte en $(1,1)$ se 
 
 ## Dónde está desarrollado
 
-- Resolución propia en Julia del ejercicio del 30/9 (grilla de {u, v} y su imagen por inv(A), inversa por adjunta): `ejercicios/2026-09-30_formas_lineales_julia/`.
+- Resolución propia en Julia del ejercicio del 30/9 (grilla de {u, v} y su imagen por inv(A), inversa por adjunta): `ejercicios/2026-09-30_formas_lineales/`.
 
 - **Apunte: hueco.** El cambio de base no tiene sección propia en el apunte v3. `02-hilo-de-la-materia.tex` (fila 8: "cambio de base = la misma flecha medida con otra grilla; potencia real de una matriz = trayectoria continua de un punto bajo la transformación", marcada "Pendiente"). Relacionado: `11-bloque-algebraico.tex` §Formas lineales (`sec:formas-lineales`) tiene el ejemplo de la forma arrastrada $\psi=\varphi A^{-1}$ con verificación numérica, que es el mismo mecanismo del ejercicio del 2026-09-30, y `10-bloque-afines.tex` §Autovalores y geometría (`sec:autovalores-geom`). La tabla "Cambio de base y SVD (propuesta de la ayudantía)" en `19-apendice-rubricas.tex` ordena los conceptos en tres niveles.
 - **Unidad marimo:** `08_cambio_de_base` pendiente. Lo que la clase 2025 hizo en marimo (potencias reales y trayectoria) no tiene archivo en el repo. `07_cuna_autovectores.py` ya calcula autovectores por producto cruz y es el punto de partida.
