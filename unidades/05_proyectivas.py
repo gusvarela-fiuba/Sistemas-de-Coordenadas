@@ -59,6 +59,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("05_proyectivas"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     terr = np.array([[0.0, 0.0], [4.0, 0.0], [4.0, 4.0], [0.0, 4.0]])  # los cuatro mojones en el terreno (decámetros)
@@ -525,7 +531,7 @@ def _(mo):
     - [apunte, sección 5: primera lectura de homogéneas y proyectivas](../../apunte.pdf#nameddest=cap:05) ·
       [sección 12: bloque de proyectivas](../../apunte.pdf#nameddest=cap:12) ·
       [apéndice 18: el pentágono](../../apunte.pdf#nameddest=cap:18)
-    - [ficha de la clase 03p](../../clases/03p.html) · [el camino](../../index.html) ·
+    - [ficha de la clase 03p](../../clases/03p.html) · [el hilo conductor](../../index.html) ·
       [lección 04: afinidades y homogéneas](../04_afines_homogeneas/index.html) (el caso $W = 1$)
 
     **Lo que viene:** [Formas lineales y dualidad](../06_formas_lineales/index.html): las rectas $\ell^T p = 0$ son

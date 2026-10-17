@@ -60,6 +60,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("11_cuatro_problemas"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     mojones = np.array([[0.0, 0.0], [8.0, 0.0], [8.0, 7.0], [1.0, 8.0]])
@@ -474,7 +480,7 @@ def _(mo):
     redundantes". Están en Strang y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
 
     - [apunte, sección 13: sistemas de ecuaciones y aplicaciones](../../apunte.pdf#nameddest=cap:13) · [sección 11: producto interno y núcleo](../../apunte.pdf#nameddest=cap:11)
-    - [ficha de la clase 11](../../clases/11.html) · [lección anterior: cambio de base](../08_cambio_de_base/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 11](../../clases/11.html) · [lección anterior: cambio de base](../08_cambio_de_base/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^\top X_0$ de la
     regresión total es una forma cuadrática, y sus direcciones propias vuelven como direcciones principales de una

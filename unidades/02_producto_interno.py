@@ -62,6 +62,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("02_producto_interno"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- los números de la predicción salen de acá, nunca a mano ----------
     A, B, C = np.array([6.0, 4.0]), np.array([2.0, 1.0]), np.array([6.0, -2.0])
@@ -400,7 +406,7 @@ def _(mo):
 
     - [apunte, sección 7: rotaciones y lo que conservan](../../apunte.pdf#nameddest=cap:07)
     - [apunte, sección 11: producto interno como incidencia, formas y "fila por columna"](../../apunte.pdf#nameddest=cap:11)
-    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva
     ángulos pero no largos. Más adelante, en las superficies, los ejes locales ya no son perpendiculares ni de largo $1$,

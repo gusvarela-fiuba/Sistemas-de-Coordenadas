@@ -57,6 +57,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("01a_punto_quieto"))
+    return
+
+
+@app.cell
 def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
@@ -365,7 +371,7 @@ def _(mo):
     una rotación es su transpuesta (y por qué) está en el apunte:
 
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)
-    - [ficha de la clase 1](../../clases/01.html) · [el camino](../../index.html)
+    - [ficha de la clase 1](../../clases/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva
     $R(\theta)$, por qué sus columnas son "a dónde van $e_1$ y $e_2$", y el mismo giro escrito como número complejo.

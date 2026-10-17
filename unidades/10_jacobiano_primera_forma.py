@@ -56,6 +56,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("10_jacobiano_primera_forma"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la loma y los números de la predicción salen de acá, nunca a mano ----------
     def loma(u, v):
@@ -171,7 +177,7 @@ def _(mo):
     vectores. Si $E \ne G$ o $F \ne 0$, la perpendicular dibujada en la grilla **no** es la perpendicular en el terreno: en
     la esfera un paso en $\lambda$ mide $\cos\varphi$ veces lo que uno en $\varphi$, y en el elipsoide $M\,d\varphi$ contra
     $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha 9](../../clases/09.html); como cambio
-    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Estación 0](../00_desaprender_el_cbc/index.html).
+    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_desaprender_el_cbc/index.html).
     """), kind="neutral")])
     return
 
@@ -490,7 +496,7 @@ def _(mo):
     - [apunte, sección 6: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
     - [apunte, sección 13: coordenadas curvilíneas, espacio tangente, métrica](../../apunte.pdf#nameddest=cap:13)
     - [ficha de la clase 9](../../clases/09.html) (gradiente como forma lineal, función implícita) ·
-      [lección 02](../02_producto_interno/index.html) · [el camino](../../index.html)
+      [lección 02](../02_producto_interno/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura](../12_curvatura/index.html) (anticipada, pendiente de validar): cuánto se aparta la
     superficie de su plano tangente, la **segunda forma fundamental**. El hilo: $E, F, G$ es la regla; la curvatura es

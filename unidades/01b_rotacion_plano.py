@@ -55,6 +55,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("01b_rotacion_plano"))
+    return
+
+
+@app.cell
 def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
@@ -430,7 +436,7 @@ def _(mo):
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)
-    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones III — tres ejes y el orden importa](../01c_rotaciones_3d/index.html): en 3D hay un
     giro por cada eje, no conmutan, y toda composición es un solo giro alrededor de un eje fijo.

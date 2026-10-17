@@ -60,6 +60,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("14_trigonometria_esferica"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     R_TIERRA = 6371.0
@@ -433,7 +439,7 @@ def _(editor_d, lib, mo, np):
 @app.cell
 def _(mo):
     mo.md(r"""
-    ## Dónde está la demostración, y el final del camino
+    ## Dónde está la demostración, y el final del recorrido
 
     Acá mostré que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
     el exceso es el área. El apunte **no tiene capítulo** de trigonometría esférica (es un hueco); lo más cercano son las
@@ -442,7 +448,7 @@ def _(mo):
     - [apunte, sección 11: producto interno y producto vectorial](../../apunte.pdf#nameddest=cap:11) · [sección 13: esfera, métrica y curvatura](../../apunte.pdf#nameddest=cap:13)
     - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [lección anterior: el elipsoide](../13_elipsoide/index.html)
 
-    **Esta unidad cierra el camino.** De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
+    **Esta unidad cierra el hilo conductor.** De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
     cierra en $180°$, todo fue producto interno, cuña y cambio de coordenadas. Para repasar: volvé a
     [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro "hasta la clase N".
     Lo que sigue es de Topografía y Geodesia: compensar poligonales con el exceso separado, y los problemas directo e

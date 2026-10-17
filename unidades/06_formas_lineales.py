@@ -56,6 +56,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("06_formas_lineales"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     fila = np.array([2.0, 1.0])  # la cota es h(x, y) = 2x + y + 100: la fila (2, 1) más la constante
@@ -177,7 +183,7 @@ def _(mo):
     $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
     es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
-    la [Estación 0](../00_desaprender_el_cbc/index.html).
+    la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_desaprender_el_cbc/index.html).
     """), kind="neutral")])
     return
 
@@ -589,7 +595,7 @@ def _(mo):
     - [apunte, sección 11: "Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
       $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras")](../../apunte.pdf#nameddest=cap:11)
     - [apunte, sección 5: tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$](../../apunte.pdf#nameddest=cap:05)
-    - [ficha de la clase 4](../../clases/04.html) · [el camino](../../index.html) ·
+    - [ficha de la clase 4](../../clases/04.html) · [el hilo conductor](../../index.html) ·
       [Producto interno](../02_producto_interno/index.html) · [Cambio de base](../08_cambio_de_base/index.html)
 
     **Lo que viene:** [la cuña y el determinante](../07a_cuna_determinante/index.html), el detector de colinealidad,

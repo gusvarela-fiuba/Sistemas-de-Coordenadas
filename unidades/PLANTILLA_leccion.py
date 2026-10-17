@@ -396,7 +396,7 @@ def _(mo):
     Acá mostré; la demostración está en el apunte:
 
     - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:NN)
-    - [ficha de la clase N](../../clases/NN.html) · [el camino](../../index.html) · [unidad anterior](../NN_anterior/index.html)
+    - [ficha de la clase N](../../clases/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)
 
     [PLANTILLA: los enlaces son relativos a `site/unidades/<id>/index.html`.]
     """)

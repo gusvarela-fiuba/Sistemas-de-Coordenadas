@@ -56,6 +56,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("04_afines_homogeneas"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     A_esc = np.array([[1.5, 0.5], [0.0, 1.25]])  # el escaneo: estira 1.5 en x, 1.25 en y, e inclina el eje y
@@ -511,7 +517,7 @@ def _(mo):
     - [apunte, sección 10: transformaciones afines y coordenadas homogéneas](../../apunte.pdf#nameddest=cap:10) · [sección 5: puntos como rayos](../../apunte.pdf#nameddest=cap:05)
     - [apunte, sección 8: la guía de reflexiones y similaridades](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)
     - [apéndice 16: rotar alrededor de un centro y escalar alrededor de otro](../../apunte.pdf#nameddest=cap:16) · [apéndice 17: los seis ejercicios de afinidades](../../apunte.pdf#nameddest=cap:17)
-    - [ficha de la clase 3](../../clases/03.html) · [el camino](../../index.html)
+    - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Proyectivas](../05_proyectivas/index.html): sin la restricción de la última fila $(0\ 0\ 1)$ las
     paralelas **sí** se cruzan, como los alambrados en una foto, y hacen falta cuatro puntos en vez de tres.

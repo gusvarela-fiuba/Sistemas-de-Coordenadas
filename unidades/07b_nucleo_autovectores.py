@@ -58,6 +58,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("07b_nucleo_autovectores"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     A_esc = np.array([[2.0, 1.0], [1.0, 2.0]])  # la deformación del escáner
@@ -447,7 +453,7 @@ def _(mo):
     cuántas raíces reales, el método de la cruz de filas):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)
-    - [ficha de la clase 5](../../clases/05.html) · [ficha de la clase 6](../../clases/06.html) · [lección anterior: cuña y determinante](../07a_cuna_determinante/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 5](../../clases/05.html) · [ficha de la clase 6](../../clases/06.html) · [lección anterior: cuña y determinante](../07a_cuna_determinante/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html):
     en 3D el autovector es la cruz de dos filas, el eje de una rotación es su autovector de autovalor $1$, y un

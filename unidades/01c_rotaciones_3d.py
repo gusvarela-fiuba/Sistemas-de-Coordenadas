@@ -57,6 +57,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("01c_rotaciones_3d"))
+    return
+
+
+@app.cell
 def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
@@ -387,7 +393,7 @@ def _(mo):
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07) (el orden importa, el ejemplo de $90°$)
     - [apunte, sección 14: $R_x, R_y, R_z$ por columnas y Rodrigues](../../apunte.pdf#nameddest=cap:14)
     - [apunte, sección 15: por qué el orden aparece recién en el segundo orden](../../apunte.pdf#nameddest=cap:15)
-    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [lección anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [lección anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (clase 3): las ortogonales con $\det = -1$ y la escala. Ya disponible:
     [autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html), donde el eje reaparece como

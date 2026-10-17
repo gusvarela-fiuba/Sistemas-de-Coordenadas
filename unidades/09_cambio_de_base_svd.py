@@ -62,6 +62,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("09_cambio_de_base_svd"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     A_pred = np.array([[2.0, 1.0], [0.0, 1.0]])
@@ -566,7 +572,7 @@ def _(mo):
 
     - [apunte, sección 11: bloque algebraico](../../apunte.pdf#nameddest=cap:11) · [sección 19: cambio de base y SVD,
       propuesta](../../apunte.pdf#nameddest=cap:19) · [sección 2: el hilo](../../apunte.pdf#nameddest=cap:02)
-    - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el camino](../../index.html)
+    - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·
       [producto interno](../02_producto_interno/index.html) (el residuo perpendicular)

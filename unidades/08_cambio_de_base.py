@@ -60,6 +60,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("08_cambio_de_base"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     b1_parcela, b2_parcela = np.array([3.0, 1.0]), np.array([1.0, 2.0])
@@ -520,7 +526,7 @@ def _(mo):
     - [apunte, sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11). La
       demostración de $A = B\Lambda B^{-1}$ **todavía no está en el apunte**: el cambio de base figura como pendiente en
       el hilo de la materia.
-    - [ficha de la clase 8](../../clases/08.html) · [el camino](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
+    - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
     **Lo que viene:** la SVD (unidad 09, cuando se dicte): dos bases perpendiculares, una a la entrada y otra a la
     salida, para que toda matriz sea "sólo estirar", también las que no tienen ejes propios. Y las superficies

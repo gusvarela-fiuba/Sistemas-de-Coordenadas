@@ -57,6 +57,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("07c_autovalores_3d_puntos_fijos"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     R_sit = lib.rot_z(np.pi / 2) @ lib.rot_y(np.pi / 2)
@@ -453,7 +459,7 @@ def _(mo):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 12: puntos fijos y rectas fijas de una homografía](../../apunte.pdf#nameddest=cap:12)
     - [apéndice 18: pentágono regular, autovector por producto cruz](../../apunte.pdf#nameddest=cap:18) · [apéndice 14: rotaciones 3D](../../apunte.pdf#nameddest=cap:14)
-    - [ficha de la clase 6](../../clases/06.html) · [lección anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [lección 05: proyectivas](../05_proyectivas/index.html) · [lección 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el camino](../../index.html)
+    - [ficha de la clase 6](../../clases/06.html) · [lección anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [lección 05: proyectivas](../05_proyectivas/index.html) · [lección 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armo una base con los
     autovectores, en esa grilla la transformación es sólo estirar cada eje por su $\lambda$.

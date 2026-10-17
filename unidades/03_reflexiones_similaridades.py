@@ -58,6 +58,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("03_reflexiones_similaridades"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación: los números salen de acá, nunca a mano ----------
     P_viejo = np.array([[1.0, 2.0], [4.0, 1.0], [2.0, 4.0]])  # tres mojones leídos en el plano viejo (cm de papel)
@@ -508,7 +514,7 @@ def _(mo):
 
     - [apunte, sección 8: la guía de seis teoremas](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)
     - [apéndice 16: rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo](../../apunte.pdf#nameddest=cap:16)
-    - [ficha de la clase 3](../../clases/03.html) · [el camino](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
+    - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 
     **Lo que viene:** [Afinidades y coordenadas homogéneas](../04_afines_homogeneas/index.html): cuando los ángulos ya
     no se conservan, cada eje se estira distinto, hacen falta tres puntos y la traslación entra en una $3\times3$.

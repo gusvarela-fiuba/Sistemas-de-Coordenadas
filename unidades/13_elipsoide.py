@@ -63,6 +63,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("13_elipsoide"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     grs80 = lib.elipsoide_grs80()
@@ -458,7 +464,7 @@ def _(mo):
       · [apunte, sección 06: esfera, elipsoide y representación plana](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): latitud elipsoidal,
       conversión $\varphi, \lambda \to X, Y, Z$, radios $M$ (meridiano) y $N$ (primer vertical, Meusnier), arco de meridiano
-    - [ficha de la clase 13](../../clases/13.html) · [el camino](../../index.html) · [lección 12](../12_curvatura/index.html)
+    - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [lección 12](../12_curvatura/index.html)
 
     **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (clase 14): triángulos de lados
     geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.

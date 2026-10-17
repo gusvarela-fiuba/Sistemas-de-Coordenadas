@@ -2037,6 +2037,379 @@ def svm_margen_duro_2d(C1, C2):
     }
 
 
+# ----------------------------------------------------------------------------
+# --- Hilo conductor (las 19 unidades) ---
+# Cada unidad agrega un ladrillo sobre el anterior. `HILO_CONDUCTOR` dice, por unidad, de qué ladrillo se viene
+# (y qué límite tenía), cuál se agrega hoy (con su escritura en numpy / cb104) y qué destraba en la siguiente.
+# `bloque_hilo_conductor(id)` arma el bloque markdown que va debajo del título H1 de cada lección (mo.md).
+# Las claves son los ids de mapa/_fragmentos/unidades.yaml, en el mismo orden; `anterior`/`siguiente` encadenan.
+# ----------------------------------------------------------------------------
+
+HILO_CONDUCTOR: dict[str, dict[str, str]] = {
+    "00_desaprender_el_cbc": {
+        "titulo": "Antes de empezar: cuatro cosas para desaprender del CBC",
+        "venimos_de": (
+            "Del CBC: vectores como flechas sueltas, el gradiente como una flecha más, la distancia siempre "
+            r"$\sqrt{x^2 + y^2}$ y cada transformación resuelta aparte, sin un idioma común para encadenarlas."
+        ),
+        "ladrillo_de_hoy": (
+            "Cinco ladrillos de idioma: las transformaciones forman un grupo (componer es `A @ B`, deshacer es "
+            r"`np.linalg.inv`), los cuerpos $\mathbb R$ y $\mathbb C$, todo vector es un punto (`np.array([x, y])` es el "
+            r"mojón y su flecha desde el origen a la vez), el dual $V^*$ donde el gradiente vive como fila $w^T$, y la "
+            r"métrica $G$ que da el largo $v^T G v$ y será la primera forma fundamental."
+        ),
+        "vamos_hacia": (
+            "Con el idioma puesto, la primera transformación del grupo: la rotación, donde el mojón se queda quieto "
+            "y cambian sus coordenadas (unidad 01a)."
+        ),
+        "anterior": "",
+        "siguiente": "01a_punto_quieto",
+    },
+    "01a_punto_quieto": {
+        "titulo": "Rotaciones I: el punto no se movió",
+        "venimos_de": (
+            "La unidad 0 dejó el idioma (un vector es un punto, las transformaciones se componen), pero todavía "
+            "ninguna transformación concreta."
+        ),
+        "ladrillo_de_hoy": (
+            r"La rotación pasiva: giran los ejes $\theta$ y las coordenadas nuevas son $R^T p$, con `lib.rot2(theta)` "
+            "y `lib.coordenadas_en_base(p, R)`; el punto no se mueve."
+        ),
+        "vamos_hacia": (
+            r"Si en vez de los ejes giro la parcela entera (rotación activa, $R\,p$), hace falta saber qué conserva $R$ "
+            "y por qué su inversa es la transpuesta: unidad 01b."
+        ),
+        "anterior": "00_desaprender_el_cbc",
+        "siguiente": "01b_rotacion_plano",
+    },
+    "01b_rotacion_plano": {
+        "titulo": "Rotaciones II: la rotación en el plano",
+        "venimos_de": (
+            r"La unidad 01a dejó la rotación pasiva $R^T p$ y la inversa como transpuesta, sin decir qué define a una "
+            "rotación ni por qué un espejo no lo es."
+        ),
+        "ladrillo_de_hoy": (
+            r"La rotación activa $R(\theta)$ como matriz ortogonal, $R^T R = I$ y $\det R = +1$: sus columnas son a "
+            r"dónde van $e_1, e_2$ (`lib.rot2`, `lib.transformar(nube, R)`), y el mismo giro como $e^{i\theta}$."
+        ),
+        "vamos_hacia": (
+            r"En $\mathbb R^3$ un ángulo no alcanza: hay que decir alrededor de qué eje, y el orden de los giros "
+            "importa: unidad 01c."
+        ),
+        "anterior": "01a_punto_quieto",
+        "siguiente": "01c_rotaciones_3d",
+    },
+    "01c_rotaciones_3d": {
+        "titulo": "Rotaciones III: tres ejes y el orden importa",
+        "venimos_de": (
+            r"La unidad 01b dejó $R(\theta)$ con $R^T R = I$, $\det = 1$ y $R(\alpha)R(\beta) = R(\alpha + \beta)$: "
+            "en el plano los giros conmutan y no hay eje."
+        ),
+        "ladrillo_de_hoy": (
+            r"Las rotaciones $R_x, R_y, R_z$ de $\mathbb R^3$ (`lib.rot_x`, `lib.rot_y`, `lib.rot_z`), la composición "
+            "no conmutativa `Rz @ Ry` y Euler–Rodrigues: toda composición es un solo giro alrededor de un eje "
+            "(`lib.rodrigues(eje, ang)`, `lib.eje_angulo(R)`)."
+        ),
+        "vamos_hacia": (
+            r"Lo que $R$ conserva (largos, ángulos) es una cuenta $u^T v$; para medir desde las coordenadas hay que "
+            "aislar esa cuenta: unidad 02."
+        ),
+        "anterior": "01b_rotacion_plano",
+        "siguiente": "02_producto_interno",
+    },
+    "02_producto_interno": {
+        "titulo": "Producto interno: proyección, longitud, ángulo",
+        "venimos_de": (
+            "La unidad 01c dejó las rotaciones 3D y la promesa de que conservan largos y ángulos, sin una cuenta que "
+            "los mida desde las coordenadas."
+        ),
+        "ladrillo_de_hoy": (
+            r"El producto interno $\langle u, v\rangle = u^T v$ (`u @ v`): largo $\sqrt{v^T v}$, ángulo por $\arccos$ y "
+            r"proyección (`lib.proyeccion`, `lib.angulo`); invariante bajo $R$ porque $R^T R = I$."
+        ),
+        "vamos_hacia": (
+            r"Con largos y ángulos medibles puedo clasificar lo que los conserva dando vuelta la hoja (espejo, "
+            r"$\det = -1$) y lo que sólo conserva ángulos (similaridad $k\,R$): unidad 03."
+        ),
+        "anterior": "01c_rotaciones_3d",
+        "siguiente": "03_reflexiones_similaridades",
+    },
+    "03_reflexiones_similaridades": {
+        "titulo": "Reflexiones y similaridades",
+        "venimos_de": (
+            "La unidad 02 dejó el producto interno y la rotación como lo que lo conserva; faltaban las otras "
+            r"ortogonales ($\det = -1$) y qué pasa al cambiar la escala."
+        ),
+        "ladrillo_de_hoy": (
+            r"La reflexión $H(\alpha)$ con $\det = -1$ (`lib.reflexion2`) y la similaridad $S(x) = k\,R(\theta)\,x + t$ "
+            r"con su centro fijo $(I - A)^{-1} t$ (`lib.similaridad`, `lib.centro_fijo`, `lib.similaridad_por_dos_puntos`)."
+        ),
+        "vamos_hacia": (
+            r"Si cada eje se estira distinto se pierden los ángulos, y la traslación $t$ sigue sumada afuera de la "
+            r"matriz; meterla adentro pide una $3\times3$: unidad 04."
+        ),
+        "anterior": "02_producto_interno",
+        "siguiente": "04_afines_homogeneas",
+    },
+    "04_afines_homogeneas": {
+        "titulo": "Afinidades y coordenadas homogéneas",
+        "venimos_de": (
+            r"La unidad 03 dejó la similaridad $k\,R\,x + t$, con $t$ sumado aparte y una $2\times2$ que no puede mover "
+            "el origen."
+        ),
+        "ladrillo_de_hoy": (
+            r"La afinidad $A x + t$ como $3\times3$ sobre homogéneas $(x, y, 1)$ (`lib.hom`, `lib.dehom`, "
+            "`lib.matriz_afin(A, t)`, `lib.afin_por_tres_puntos`): componer es `M2 @ M1` y el área va "
+            r"$\times \det A$."
+        ),
+        "vamos_hacia": (
+            r"La fila $(0\ 0\ 1)$ es lo que mantiene las paralelas; si la libero, las paralelas se cruzan como en una "
+            "foto y hacen falta cuatro puntos: unidad 05."
+        ),
+        "anterior": "03_reflexiones_similaridades",
+        "siguiente": "05_proyectivas",
+    },
+    "05_proyectivas": {
+        "titulo": "Proyectivas: la foto del dron y el pentágono del profesor",
+        "venimos_de": (
+            r"La unidad 04 dejó la $3\times3$ afín con última fila $(0\ 0\ 1)$: paralelas a paralelas y tres puntos la "
+            "fijan; una foto inclinada no cumple eso."
+        ),
+        "ladrillo_de_hoy": (
+            r"La homografía $p' \sim H p$ sobre rayos $(x, y, W)$ con $H$ de $3\times3$ cualquiera "
+            r"(`lib.homografia_4puntos`, `lib.aplicar_proyectiva`), la recta al infinito $W = 0$ "
+            "(`lib.recta_al_infinito`) y la razón doble (`lib.razon_doble`)."
+        ),
+        "vamos_hacia": (
+            r"Las rectas $\ell^T p = 0$ se transforman con $H^{-T}$, al revés que los puntos; para entender eso "
+            "necesito el dual: unidad 06."
+        ),
+        "anterior": "04_afines_homogeneas",
+        "siguiente": "06_formas_lineales",
+    },
+    "06_formas_lineales": {
+        "titulo": "Formas lineales y dualidad",
+        "venimos_de": (
+            r"La unidad 05 dejó puntos como rayos y rectas como ternas $\ell$ con $\ell^T p = 0$, sin explicar por qué "
+            "la recta se transforma al revés que el punto."
+        ),
+        "ladrillo_de_hoy": (
+            r"La forma lineal $w^T$ como fila (una regla graduada, `w @ p`), el espacio dual $V^*$ y la regla "
+            r"arrastrada $w A^{-1}$ para que la lectura no cambie (`lib.forma_transformada`, `lib.rectas_de_nivel`, "
+            "`lib.recta_por_dos_puntos`)."
+        ),
+        "vamos_hacia": (
+            r"La recta por dos puntos salió de un producto cruz $\tilde p \times \tilde q$: detectar que tres mojones "
+            "están alineados pide la cuña y el determinante: unidad 07a."
+        ),
+        "anterior": "05_proyectivas",
+        "siguiente": "07a_cuna_determinante",
+    },
+    "07a_cuna_determinante": {
+        "titulo": "Cuña y determinante: el detector de colinealidad",
+        "venimos_de": (
+            r"La unidad 06 dejó la forma lineal $w^T$ y la recta por dos puntos como $\tilde p \times \tilde q$, un "
+            "producto que todavía no tenía nombre ni reglas."
+        ),
+        "ladrillo_de_hoy": (
+            r"El producto cuña $u \wedge v = u_1 v_2 - u_2 v_1$ (`lib.cuna2`, `lib.cuna3`) y el determinante "
+            "`np.linalg.det` como área o volumen orientado: cero exactamente cuando hay colinealidad (`lib.alineados`)."
+        ),
+        "vamos_hacia": (
+            r"Cuando el determinante da cero una dirección entera va al cero (el núcleo), y restando $\lambda I$ "
+            "aparecen las direcciones que no giran: unidad 07b."
+        ),
+        "anterior": "06_formas_lineales",
+        "siguiente": "07b_nucleo_autovectores",
+    },
+    "07b_nucleo_autovectores": {
+        "titulo": "Núcleo y autovectores: las direcciones que no giran",
+        "venimos_de": (
+            r"La unidad 07a dejó $\det A = 0$ como detector de colapso, sin decir qué dirección se aplasta ni cuáles "
+            "sobreviven sin girar."
+        ),
+        "ladrillo_de_hoy": (
+            r"El núcleo $\{v : A v = 0\}$ (`lib.nucleo2`) y los autovectores $A v = \lambda v$ vía "
+            r"$\det(A - \lambda I) = 0$ (`lib.autovalores_reales`, `lib.autovectores_cuna`, `np.linalg.eig`)."
+        ),
+        "vamos_hacia": (
+            r"En $\mathbb R^3$ el polinomio es cúbico y siempre tiene una raíz real: el eje de la rotación y el punto "
+            r"fijo de la $3\times3$ homogénea: unidad 07c."
+        ),
+        "anterior": "07a_cuna_determinante",
+        "siguiente": "07c_autovalores_3d_puntos_fijos",
+    },
+    "07c_autovalores_3d_puntos_fijos": {
+        "titulo": "Autovalores en 3D y puntos fijos proyectivos",
+        "venimos_de": (
+            r"La unidad 07b dejó $A v = \lambda v$ en el plano, con el autovector perpendicular a una fila de "
+            r"$A - \lambda I$; en 3D hace falta la cruz de dos filas."
+        ),
+        "ladrillo_de_hoy": (
+            r"Autovectores en $\mathbb R^3$ como `np.cross` de dos filas de $A - \lambda I$: el eje de una rotación "
+            r"($\lambda = 1$) y los puntos fijos de una homografía (`lib.puntos_fijos_proyectivos(H)`), que son los "
+            r"subespacios invariantes de $\mathbb R^3$."
+        ),
+        "vamos_hacia": (
+            r"Con los autovectores como ejes nuevos la matriz se vuelve diagonal: el cambio de base $B^{-1} A B$, "
+            "unidad 08."
+        ),
+        "anterior": "07b_nucleo_autovectores",
+        "siguiente": "08_cambio_de_base",
+    },
+    "08_cambio_de_base": {
+        "titulo": "Cambio de base y diagonalización",
+        "venimos_de": (
+            "La unidad 07c dejó los autovectores como direcciones que no giran, sin usarlos todavía como grilla para "
+            "medir."
+        ),
+        "ladrillo_de_hoy": (
+            r"La matriz de cambio de base $B$ (columnas = ejes nuevos): $c = B^{-1} p$ (`np.linalg.solve(B, p)`), la "
+            r"transformación en la grilla nueva $B^{-1} A B$ y la diagonalización $A = B \Lambda B^{-1}$ "
+            "(`lib.diagonalizar`)."
+        ),
+        "vamos_hacia": (
+            "La grilla propia no siempre existe (un giro no tiene ejes propios reales); con dos grillas ortogonales, "
+            "una a la entrada y otra a la salida, siempre existe: la SVD, unidad 09."
+        ),
+        "anterior": "07c_autovalores_3d_puntos_fijos",
+        "siguiente": "09_cambio_de_base_svd",
+    },
+    "09_cambio_de_base_svd": {
+        "titulo": "Cambio de base, SVD e inversas",
+        "venimos_de": (
+            r"La unidad 08 dejó $A = B \Lambda B^{-1}$, que sólo existe con autovectores reales y sobre una base en "
+            "general oblicua."
+        ),
+        "ladrillo_de_hoy": (
+            r"La SVD $A = U \Sigma V^T$ (`np.linalg.svd`, `lib.svd2`): dos bases ortonormales con "
+            r"$A^T A = V \Sigma^2 V^T$, la inversa $V \Sigma^{-1} U^T$ y la pseudoinversa $A^{+}$ "
+            "(`lib.pseudoinversa`, `np.linalg.lstsq`) con sus cuatro subespacios (`lib.cuatro_subespacios`)."
+        ),
+        "vamos_hacia": (
+            r"Una $3\times2$ cuya imagen es un plano tangente y cuya contra-imagen es la normal: la jacobiana de una "
+            "superficie, unidad 10."
+        ),
+        "anterior": "08_cambio_de_base",
+        "siguiente": "10_jacobiano_primera_forma",
+    },
+    "10_jacobiano_primera_forma": {
+        "titulo": "Jacobiano y primera forma fundamental",
+        "venimos_de": (
+            "La unidad 09 dejó la SVD y la pseudoinversa para una matriz fija; el terreno no es una matriz fija sino "
+            "una transformación lineal que cambia de punto a punto."
+        ),
+        "ladrillo_de_hoy": (
+            r"El jacobiano $J = [\,r_u\ r_v\,]$ de $3\times2$ (`lib.jacobiana_numerica`) y la primera forma "
+            r"fundamental $G = J^T J$ con $E, F, G$ (`lib.primera_forma`): el largo de un paso $d$ es "
+            r"$\sqrt{d^T G d}$ (`lib.longitud_paso`)."
+        ),
+        "vamos_hacia": (
+            r"La tabla $J^T J$ de productos internos de las columnas reaparece como $A^T A$ en las ecuaciones normales: "
+            "con más mediciones que incógnitas, la solución es la que deja el residuo perpendicular a las columnas, "
+            "unidad 11."
+        ),
+        "anterior": "09_cambio_de_base_svd",
+        "siguiente": "11_cuatro_problemas",
+    },
+    "11_cuatro_problemas": {
+        "titulo": "Cuatro problemas: regresión, círculos, Procrustes, regresión total",
+        "venimos_de": (
+            r"La unidad 10 dejó $J^T J$, la tabla de productos internos de las columnas; con mediciones redundantes "
+            r"$A x = y$ no tiene solución y la misma tabla $A^T A$ decide."
+        ),
+        "ladrillo_de_hoy": (
+            r"Las ecuaciones normales $A^T A\, x = A^T y$ (`np.linalg.lstsq`, `lib.minimos_cuadrados`) cuatro veces: "
+            r"recta de ajuste, punto por distancias, Procrustes $R = V U^T$ y regresión total por el autovector menor "
+            r"de $X_0^T X_0$ (`lib.recta_ajuste`, `lib.punto_por_distancias`, `lib.procrustes`, `lib.regresion_total`)."
+        ),
+        "vamos_hacia": (
+            r"$X_0^T X_0$ es una forma cuadrática y sus direcciones propias son extremos; sobre una superficie esa "
+            "misma estructura mide cuánto se aparta del plano tangente: la curvatura, unidad 12."
+        ),
+        "anterior": "10_jacobiano_primera_forma",
+        "siguiente": "12_curvatura",
+    },
+    "12_curvatura": {
+        "titulo": "Curvatura como forma cuadrática",
+        "venimos_de": (
+            r"La unidad 11 dejó la forma cuadrática $x^T C x$ con sus direcciones propias como extremos; la primera "
+            r"forma $I = d^T G d$ de la unidad 10 mide largos pero no cuánto se dobla la superficie."
+        ),
+        "ladrillo_de_hoy": (
+            r"La segunda forma fundamental $II(d) = L\,du^2 + 2M\,du\,dv + N\,dv^2$ (`lib.formas_fundamentales`), la "
+            r"curvatura normal $\kappa_n = II / I$ (`lib.curvatura_normal`), las principales como autovalores de "
+            r"$I^{-1} II$ (`lib.curvaturas_principales`) y $K = \kappa_1 \kappa_2$ (`lib.curvatura_gauss`)."
+        ),
+        "vamos_hacia": (
+            r"Una superficie concreta donde todo sale de una sola simetría: el elipsoide, con $\kappa_1 = 1/M$, "
+            r"$\kappa_2 = 1/N$ y la normal que no pasa por el centro: unidad 13."
+        ),
+        "anterior": "11_cuatro_problemas",
+        "siguiente": "13_elipsoide",
+    },
+    "13_elipsoide": {
+        "titulo": "Geometría del elipsoide",
+        "venimos_de": (
+            r"La unidad 12 dejó $\kappa_1, \kappa_2$ y $K$ para una superficie genérica; falta la superficie que usa "
+            "la geodesia."
+        ),
+        "ladrillo_de_hoy": (
+            r"El elipsoide de revolución $a, f, e^2 = 2f - f^2$ (`lib.elipsoide`, `lib.elipsoide_grs80`): los radios "
+            r"$M$ y $N$ (`lib.radios_curvatura`), las tres latitudes $\varphi, \psi, \beta$ (`lib.latitudes`) y "
+            r"$(\varphi, \lambda, h) \to (X, Y, Z)$ (`lib.geodesica_a_cartesiana`)."
+        ),
+        "vamos_hacia": (
+            r"Entre tres vértices lejanos sobre la superficie los lados son arcos y los ángulos no suman $180°$; "
+            "sobre la esfera hay fórmula cerrada: unidad 14."
+        ),
+        "anterior": "12_curvatura",
+        "siguiente": "14_trigonometria_esferica",
+    },
+    "14_trigonometria_esferica": {
+        "titulo": "Trigonometría esférica",
+        "venimos_de": (
+            r"La unidad 13 dejó el elipsoide con sus radios $M, N$ y la conversión a cartesianas; faltan los "
+            "triángulos trazados sobre la superficie."
+        ),
+        "ladrillo_de_hoy": (
+            "El triángulo esférico como tres vectores unitarios desde el centro: lados por producto interno "
+            r"$\cos a = \langle B, C\rangle$, ángulos entre normales `np.cross`, ley del seno por la cuña $[A, B, C]$ y "
+            r"el exceso $A + B + C - \pi$ igual al área (`lib.triangulo_esferico`, `lib.exceso_esferico`)."
+        ),
+        "vamos_hacia": (
+            "Queda abierto para Topografía y Geodesia: compensar poligonales con el exceso separado y los problemas "
+            "directo e inverso sobre el elipsoide, donde ya no hay fórmula cerrada."
+        ),
+        "anterior": "13_elipsoide",
+        "siguiente": "",
+    },
+}
+
+
+def bloque_hilo_conductor(unidad_id):
+    """Markdown para `mo.md(...)`: el hilo conductor de una unidad (de dónde viene, qué ladrillo agrega, a dónde va)
+    con enlaces relativos a la unidad anterior y a la siguiente (`../<id>/index.html`, como en los anexos)."""
+    if unidad_id not in HILO_CONDUCTOR:
+        raise KeyError(f"{unidad_id!r} no es una unidad de HILO_CONDUCTOR: {list(HILO_CONDUCTOR)}")
+    h = HILO_CONDUCTOR[unidad_id]
+    lineas = [
+        "**El hilo conductor (ladrillo a ladrillo)**",
+        "",
+        f"- **Venimos de:** {h['venimos_de']}",
+        f"- **Ladrillo de hoy:** {h['ladrillo_de_hoy']}",
+        f"- **Vamos hacia:** {h['vamos_hacia']}",
+    ]
+    enlaces = []
+    if h["anterior"]:
+        enlaces.append(f"[← Unidad anterior: {HILO_CONDUCTOR[h['anterior']]['titulo']}](../{h['anterior']}/index.html)")
+    if h["siguiente"]:
+        enlaces.append(f"[Unidad siguiente: {HILO_CONDUCTOR[h['siguiente']]['titulo']} →](../{h['siguiente']}/index.html)")
+    if enlaces:
+        lineas += ["", " · ".join(enlaces)]
+    return "\n".join(lineas)
+
+
 if __name__ == "__main__":
     e1, e2, e3 = np.eye(3)
     th = np.deg2rad(37.0)
@@ -2394,5 +2767,50 @@ if __name__ == "__main__":
         svm_margen_duro_2d([[0, 0], [2, 2]], [[1, 1], [3, 0]])
         raise AssertionError("nubes que se tocan tienen que dar ValueError")
     except ValueError:
+        pass
+    # --- Hilo conductor (las 19 unidades): claves = ids de unidades.yaml en orden, cadenas consistentes ---
+    import re as _re
+    from pathlib import Path as _Path
+    _yaml_txt = (_Path(__file__).resolve().parent.parent / "mapa" / "_fragmentos" / "unidades.yaml").read_text(encoding="utf-8")
+    try:
+        import yaml as _yaml
+        _ids_yaml = [u["id"] for u in _yaml.safe_load(_yaml_txt)["unidades"]]
+    except ImportError:
+        _ids_yaml = _re.findall(r"^  - id: (\S+)\s*$", _yaml_txt, flags=_re.M)
+    assert len(_ids_yaml) == 19, f"unidades.yaml debería listar 19 unidades, lista {len(_ids_yaml)}"
+    assert list(HILO_CONDUCTOR) == _ids_yaml, f"HILO_CONDUCTOR != unidades.yaml:\n{list(HILO_CONDUCTOR)}\n{_ids_yaml}"
+    _campos = ("titulo", "venimos_de", "ladrillo_de_hoy", "vamos_hacia", "anterior", "siguiente")
+    for _i, (_uid, _h) in enumerate(HILO_CONDUCTOR.items()):
+        assert tuple(_h) == _campos, f"{_uid}: campos {tuple(_h)}"
+        for _c in _campos:
+            if (_uid, _c) in {(_ids_yaml[0], "anterior"), (_ids_yaml[-1], "siguiente")}:
+                assert _h[_c] == "", f"{_uid}.{_c} tiene que ser vacío en el extremo"
+            else:
+                assert _h[_c].strip(), f"{_uid}.{_c} vacío"
+        assert _h["anterior"] == ("" if _i == 0 else _ids_yaml[_i - 1]), f"{_uid}.anterior"
+        assert _h["siguiente"] == ("" if _i == len(_ids_yaml) - 1 else _ids_yaml[_i + 1]), f"{_uid}.siguiente"
+        for _k in ("anterior", "siguiente"):
+            assert _h[_k] == "" or _h[_k] in HILO_CONDUCTOR, f"{_uid}.{_k} = {_h[_k]!r} no es una unidad"
+        if _h["siguiente"]:
+            assert HILO_CONDUCTOR[_h["siguiente"]]["anterior"] == _uid, f"cadena rota en {_uid} → {_h['siguiente']}"
+        if _h["anterior"]:
+            assert HILO_CONDUCTOR[_h["anterior"]]["siguiente"] == _uid, f"cadena rota en {_h['anterior']} → {_uid}"
+        for _c in ("venimos_de", "ladrillo_de_hoy", "vamos_hacia"):
+            for _m in _re.findall(r"\$[^$]*\$", _h[_c]):
+                assert "|" not in _m, f"{_uid}.{_c}: '|' dentro de $..$ ({_m}); usar \\lvert \\rvert"
+            assert "estaci" not in _h[_c].lower(), f"{_uid}.{_c}: se dice 'unidad', no 'estación'"
+            for _fn in _re.findall(r"`lib\.(\w+)", _h[_c]):
+                assert _fn in globals() and callable(globals()[_fn]), f"{_uid}.{_c}: lib.{_fn} no existe en cb104"
+        _b = bloque_hilo_conductor(_uid)
+        assert "Ladrillo de hoy" in _b and "Venimos de" in _b and "Vamos hacia" in _b and "estaci" not in _b.lower()
+        assert ("Unidad anterior" in _b) == bool(_h["anterior"]) and ("Unidad siguiente" in _b) == bool(_h["siguiente"])
+        if _h["siguiente"]:
+            assert f"](../{_h['siguiente']}/index.html)" in _b, f"{_uid}: falta el enlace a la siguiente"
+    assert "Unidad anterior" not in bloque_hilo_conductor(_ids_yaml[0]) and "Unidad siguiente" in bloque_hilo_conductor(_ids_yaml[0])
+    assert "Unidad siguiente" not in bloque_hilo_conductor(_ids_yaml[-1]) and "Unidad anterior" in bloque_hilo_conductor(_ids_yaml[-1])
+    try:
+        bloque_hilo_conductor("99_no_existe")
+        raise AssertionError("un id desconocido tiene que dar KeyError")
+    except KeyError:
         pass
     print("cb104: asserts OK")

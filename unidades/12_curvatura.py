@@ -64,6 +64,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("12_curvatura"))
+    return
+
+
+@app.cell
 def _(mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     def silla(x, y):
@@ -454,7 +460,7 @@ def _(mo):
       en el apunte v3) · [apunte, sección 06: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): "Radios de curvatura",
       prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
-    - [ficha de la clase 12](../../clases/12.html) · [el camino](../../index.html) · [lección 10](../10_jacobiano_primera_forma/index.html)
+    - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [lección 10](../10_jacobiano_primera_forma/index.html)
 
     **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (clase 13): una superficie donde $\kappa_1 = 1/M$
     y $\kappa_2 = 1/N$ se deducen de una sola simetría, y la normal no pasa por el centro.

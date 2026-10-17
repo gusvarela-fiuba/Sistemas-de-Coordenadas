@@ -57,6 +57,12 @@ def _(mo):
 
 
 @app.cell
+def _(lib, mo):
+    mo.md(lib.bloque_hilo_conductor("07a_cuna_determinante"))
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     mojones = np.array([[1.0, 1.0], [4.0, 3.0], [7.0, 6.0]])  # A, B, C: el alambrado debería ser recto
@@ -481,7 +487,7 @@ def _(mo):
     iguales, el producto exterior en cualquier dimensión, incidencia y alineación en homogéneas):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)
-    - [ficha de la clase 5](../../clases/05.html) · [el camino](../../index.html) · [lección 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
+    - [ficha de la clase 5](../../clases/05.html) · [el hilo conductor](../../index.html) · [lección 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
 
     **Lo que viene:** [Núcleo y autovectores: las direcciones que no giran](../07b_nucleo_autovectores/index.html):
     cuando el detector da cero hay una dirección entera que va al cero (el núcleo), y restando $\lambda I$ se usa
