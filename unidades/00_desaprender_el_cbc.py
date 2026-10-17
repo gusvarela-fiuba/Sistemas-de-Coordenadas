@@ -279,7 +279,7 @@ def _(mo):
     $P - O$ y **nace $V$**: recién ahí hay combinaciones, bases y coordenadas. La otra manera de que nazca es
     homogeneizar: el punto $(x, y)$ pasa a ser el vector $(x, y, 1)$ de $\mathbb R^3$, y las traslaciones, que no son
     lineales porque "las transformaciones lineales conservan el cero" (19/8), pasan a ser matrices $3\times3$
-    ([Afines](../04_afines/index.html)).
+    ([Afines](../04_afines_homogeneas/index.html)).
 
     **En el vocabulario del profesor.** "Un espacio vectorial es básicamente un conjunto al que se asocian dos
     operaciones (suma y producto por escalar) que cumplen con algunas propiedades básicas a las que llamamos
@@ -827,7 +827,7 @@ def _(mo):
 
     Dónde vuelve cada ladrillo: el 1 en [Rotaciones I](../01a_punto_quieto/index.html) y
     [Rotaciones III](../01c_rotaciones_3d/index.html); el 2 en [Rotaciones II](../01b_rotacion_plano/index.html); el 3
-    en [Afines](../04_afines/index.html); el 4 en [Formas lineales y dualidad](../06_formas_lineales/index.html); el 5 en
+    en [Afines](../04_afines_homogeneas/index.html); el 4 en [Formas lineales y dualidad](../06_formas_lineales/index.html); el 5 en
     [Producto interno](../02_producto_interno/index.html) y [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html);
     el puente al cálculo en esa misma y en [Curvatura](../12_curvatura/index.html).
 

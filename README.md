@@ -8,6 +8,8 @@ Todo se usa desde el navegador, sin instalar nada:
 - **Apunte formal y guías resueltas en PDF (108 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
 
+**[Instructivo de uso, guía pedagógica y cómo clonar o adoptar este repositorio para la cátedra (`INSTRUCTIVO_DE_USO.md`)](INSTRUCTIVO_DE_USO.md)**
+
 ## Cómo usar y navegar este material
 
 ### Las tres capas
