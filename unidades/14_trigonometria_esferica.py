@@ -147,7 +147,10 @@ def _(mo):
     **muestra** así: los tres círculos máximos cortan la esfera en seis husos; el huso de ángulo $A$ tiene área
     $2A R^2$ (es la fracción $A/2\pi$ de $4\pi R^2$), y sumando los tres husos que contienen al triángulo se lo cuenta
     tres veces (una vez en cada huso) y a su antípoda tres veces también, con la esfera entera cubierta una vez: $2(A + B + C)R^2 = 4\pi R^2 + 4\,\text{área}$.
-    La demostración completa no está en el apunte (hueco); está en Coxeter, *Geometría*, de la bibliografía del campus.
+    En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica)
+    deduce los teoremas del coseno y del seno con producto interno y determinante, enuncia el exceso de Girard con el
+    control del octante y resuelve el triángulo entre tres ciudades; la demostración completa del exceso por husos está
+    en Coxeter, *Geometría*, de la bibliografía del campus.
 
     | | la cuenta | lo que se ve |
     |---|---|---|
@@ -170,15 +173,15 @@ def _(ciudades, mo):
         "tres ciudades argentinas": list(ciudades.values()),
         "a mano: A y B fijos, C con los deslizadores": [(0.0, 0.0), (0.0, 60.0), None],
     }
-    caso = mo.ui.dropdown(options=list(casos), value="tres ciudades argentinas", label="caso precargado")
+    caso = mo.ui.dropdown(options=list(casos), value="a mano: A y B fijos, C con los deslizadores", label="caso precargado")
     mo.vstack([
         mo.md(r"""
         ## 2. Manipulación
 
         **Gris**: la esfera unitaria. **Teal, rust, gold**: los vectores $A$, $B$, $C$ desde el centro, con sus
-        latitudes y longitudes. **Teal grueso**: los tres lados, arcos de círculo máximo. Elegí un caso o pasá a
-        **a mano** y mové el vértice $C$: mirá cómo cambian lados y ángulos, y cómo el exceso sigue al área. Arrastrá la
-        figura para girarla.
+        latitudes y longitudes. **Teal grueso**: los tres lados, arcos de círculo máximo. Arranca **a mano**: mové el
+        vértice $C$ con los deslizadores y mirá cómo cambian lados y ángulos, y cómo el exceso sigue al área; los otros
+        casos fijan los tres vértices. Arrastrá la figura para girarla.
         """),
         caso,
     ])
@@ -442,8 +445,11 @@ def _(mo):
     ## Dónde está la demostración, y el final del recorrido
 
     Acá mostré que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
-    el exceso es el área. El apunte **no tiene capítulo** de trigonometría esférica (es un hueco); lo más cercano son las
-    herramientas y la esfera como superficie:
+    el exceso es el área. En el apunte está en la sección
+    [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica): el triángulo
+    como tres planos por el centro, los teoremas del coseno y del seno deducidos con producto interno y determinante, el
+    exceso esférico con el control del octante y el problema resuelto entre tres ciudades. Las herramientas y la esfera
+    como superficie:
 
     - [apunte, sección 11: producto interno y producto vectorial](../../apunte.pdf#nameddest=cap:11) · [sección 13: esfera, métrica y curvatura](../../apunte.pdf#nameddest=cap:13)
     - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [lección anterior: el elipsoide](../13_elipsoide/index.html)

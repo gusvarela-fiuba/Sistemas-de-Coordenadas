@@ -459,9 +459,17 @@ def _(mo):
     Acá mostré que de la elipse girada salen las tres latitudes, $M \ne N$, la conversión a cartesianas y la primera
     forma. Las demostraciones:
 
+    - [apunte, sección "Geometría del elipsoide: latitudes, radios y conversión"](../../apunte.pdf#nameddest=sec:elipsoide):
+      la elipse meridiana y la latitud, la deducción de $M$ (curvatura de la elipse meridiana) y de $N$ (Meusnier),
+      las tres latitudes (geodésica, geocéntrica $\tan\psi = (1 - e^2)\tan\varphi$, reducida), la primera forma
+      $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y los valores de control en GRS80
+      · [sección "Arco de meridiano"](../../apunte.pdf#nameddest=sec:arco-meridiano): serie binomial, potencias del seno
+      como cosenos de ángulos múltiples, la tabla de coeficientes $A \ldots E$ y el resultado "Longitud del arco de
+      meridiano" con sus controles numéricos
+    - fe de erratas del apunte del profesor, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
+      secciones y el cierre [Material y fuentes: fe de erratas y precisiones](../../apunte.pdf#nameddest=cap:22)
     - [apunte, sección 13: esfera, elipsoide y curvatura](../../apunte.pdf#nameddest=cap:13) ($e^2 = 2f - f^2$, $M$, $N$,
-      $K = 1/(MN)$; la deducción de $M$, la latitud geocéntrica y el arco de meridiano **todavía no están** en el v3)
-      · [apunte, sección 06: esfera, elipsoide y representación plana](../../apunte.pdf#nameddest=cap:06)
+      $K = 1/(MN)$) · [apunte, sección 06: esfera, elipsoide y representación plana](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): latitud elipsoidal,
       conversión $\varphi, \lambda \to X, Y, Z$, radios $M$ (meridiano) y $N$ (primer vertical, Meusnier), arco de meridiano
     - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [lección 12](../12_curvatura/index.html)

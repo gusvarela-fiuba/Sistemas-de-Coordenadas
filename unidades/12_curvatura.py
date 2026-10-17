@@ -455,9 +455,14 @@ def _(mo):
     Acá mostré que el apartamiento del plano tangente es una forma cuadrática en el rumbo, que sus rumbos propios
     son perpendiculares y que $K$ sobrevive al doblado. Las demostraciones:
 
+    - [apunte, sección "Curvatura: de la curva plana a la forma cuadrática"](../../apunte.pdf#nameddest=sec:curvatura):
+      la curvatura de una curva plana, la Prueba 1 de Clavijo (la curvatura normal es la hessiana evaluada en el
+      rumbo, los extremos a $\pi/2$, con su errata confirmada), el resultado "Fórmula de Euler y radio medio"
+      ($R = \sqrt{R_1 R_2}$), la Prueba 2 (Meusnier, $x' = N\cos\varphi$) y por qué meridiano y primer vertical son las
+      direcciones principales del elipsoide · [sección "Polígonos geodésicos y trigonometría
+      esférica"](../../apunte.pdf#nameddest=sec:trigonometria-esferica): las geodésicas como las "rectas" de la superficie
     - [apunte, sección 13: métrica y primera forma; esfera, elipsoide y curvatura](../../apunte.pdf#nameddest=cap:13)
-      (ahí están $M$, $N$ y $K = 1/(MN)$; la segunda forma, Euler y la definición de geodésica **todavía no están**
-      en el apunte v3) · [apunte, sección 06: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
+      ($M$, $N$ y $K = 1/(MN)$) · [apunte, sección 06: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): "Radios de curvatura",
       prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
     - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [lección 10](../10_jacobiano_primera_forma/index.html)

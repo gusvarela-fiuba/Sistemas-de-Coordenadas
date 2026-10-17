@@ -151,12 +151,12 @@ def _(mo):
 
 @app.cell
 def _(mo, np):
-    mo.md(r"""
+    _intro = mo.md(r"""
     ## 2. Manipulación
 
     $u$ en **teal** (fijo: $(4, 3)$, la línea de base $BA$), $v$ en **rust**, en **gold** la sombra de $v$ sobre $u$,
-    punteado el pie de la perpendicular, y el arco marca $\theta$. Elegí un caso o pasá a **a mano** y mové ángulo y
-    largo de $v$: mirá cuándo la sombra se achica, cuándo cambia de signo y cuándo es $0$.
+    punteado el pie de la perpendicular, y el arco marca $\theta$. Arranca en **a mano**: mové ángulo y largo de $v$ y
+    mirá cuándo la sombra se achica, cuándo cambia de signo y cuándo es $0$; o elegí un caso precargado.
     """)
     casos = {
         "el triángulo de mojones: v = BC": ("fijo", np.array([4.0, -3.0]), r"$\langle v,u\rangle = 7 > 0$: ángulo agudo, la sombra apunta como $u$."),
@@ -165,8 +165,9 @@ def _(mo, np):
         "opuestos": ("fijo", np.array([-4.0, -3.0]), r"$\langle v,u\rangle = -25 < 0$: la sombra apunta al revés, $\theta = 180°$."),
         "a mano": ("mano", None, r"$\theta$ es el ángulo del deslizador; la sombra vale $|v|\cos\theta$, positiva, nula o negativa."),
     }
-    caso = mo.ui.dropdown(options=list(casos), value="el triángulo de mojones: v = BC", label="caso precargado")
+    caso = mo.ui.dropdown(options=list(casos), value="a mano", label="caso precargado")
     u = np.array([4.0, 3.0])
+    _intro
     return caso, casos, u
 
 

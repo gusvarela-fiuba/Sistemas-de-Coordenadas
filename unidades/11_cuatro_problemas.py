@@ -476,15 +476,21 @@ def _(mo):
 
     Acá mostré que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
     Las demostraciones (la proyección minimiza $|r|^2$; por qué $R = VU^\top$; por qué la dirección propia mayor es la
-    recta total) no están en el apunte: la sección 13 sólo enumera "ajustar coordenadas a partir de observaciones
-    redundantes". Están en Strang y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
+    recta total) están desarrolladas en la guía resuelta del apunte; de fondo, Strang y Calvetti–Somersalo, nombrados
+    por el profesor el 2026-10-14.
 
-    - [apunte, sección 13: sistemas de ecuaciones y aplicaciones](../../apunte.pdf#nameddest=cap:13) · [sección 11: producto interno y núcleo](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, sección "Guía resuelta de los cuatro problemas (Clase 11)"](../../apunte.pdf#nameddest=sec:cuatro-problemas):
+      Problema 1, regresión simple (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas) ·
+      Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^\top$,
+      con la caja sobre la convención de $H$) · Problema 4, regresión total (la dirección de la recta es $v_1$, la
+      normal es $v_2$, el menor valor singular); cierra con el resultado "Los cuatro con la misma maquinaria"
+    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [sección 11: producto interno y núcleo](../../apunte.pdf#nameddest=cap:11)
     - [ficha de la clase 11](../../clases/11.html) · [lección anterior: cambio de base](../08_cambio_de_base/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^\top X_0$ de la
     regresión total es una forma cuadrática, y sus direcciones propias vuelven como direcciones principales de una
-    superficie. Pendiente, la unidad 09 (SVD y pseudoinversa) le pone nombre a lo que acá hizo `lstsq`.
+    superficie. La [unidad 09 (SVD y pseudoinversa)](../09_cambio_de_base_svd/index.html) le pone nombre a lo que acá
+    hizo `lstsq`.
     """)
     return
 

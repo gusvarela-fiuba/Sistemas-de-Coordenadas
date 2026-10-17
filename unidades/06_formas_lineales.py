@@ -204,7 +204,7 @@ def _(lib, mo, np):
         "a la base oblicua de 08 (A = B⁻¹)": ("fijo", None, lambda s: np.linalg.inv(B_08),
             r"coordenadas nuevas $c = B^{-1}p$ y fila $\ell B = (7, 4)$: en frentes y lados la cota es $7c_1 + 4c_2 + 100$. Mismo mojón, misma cota, otros números."),
     }
-    caso = mo.ui.dropdown(options=list(casos), value="escala anisótropa diag(2, 1)", label="caso precargado")
+    caso = mo.ui.dropdown(options=list(casos), value="giro de 30°", label="caso precargado")
     mo.vstack([
         mo.md(r"""
         ## 2. Manipulación

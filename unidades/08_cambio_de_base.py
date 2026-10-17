@@ -560,9 +560,11 @@ def _(mo):
 
     Acá mostré que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
 
-    - [apunte, sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11). La
-      demostración de $A = B\Lambda B^{-1}$ **todavía no está en el apunte**: el cambio de base figura como pendiente en
-      el hilo de la materia.
+    - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
+      "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (la
+      demostración de $A = B\Lambda B^{-1}$, escrita ahí como $P^{-1}AP = D$) y "Lo que quedó en el pizarrón el 30 de
+      septiembre", con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
+      · [sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11)
     - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
     **Lo que viene:** la SVD (unidad 09, cuando se dicte): dos bases perpendiculares, una a la entrada y otra a la

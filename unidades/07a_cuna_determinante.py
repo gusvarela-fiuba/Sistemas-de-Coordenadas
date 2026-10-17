@@ -164,7 +164,7 @@ def _(lib, mo, np):
         "espejo diag(1, −1): det −1": ("fijo", np.diag([1.0, -1.0]), r"$\det = -1$: no agranda nada, pero **da vuelta la orientación**; la parcela sale como un guante al revés."),
         "giro de 40°: det 1": ("fijo", lib.rot2(np.deg2rad(40)), r"$\det = \cos^2 + \sin^2 = 1$: un giro no agranda ni da vuelta nada."),
     }
-    caso = mo.ui.dropdown(options=list(casos), value="u = (3, 1), v = (1, 2): área 5", label="caso precargado")
+    caso = mo.ui.dropdown(options=list(casos), value="v gira alrededor de u = (3, 1)", label="caso precargado")
     rango = 6
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
     mo.vstack([

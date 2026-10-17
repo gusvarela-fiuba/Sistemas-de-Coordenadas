@@ -171,7 +171,8 @@ def _(mo):
     | **co-imagen** (imagen de $A^\top$) | los $v_k$ con $\sigma_k \ne 0$ | lo que entra y se distingue a la salida |
     | **núcleo** de $A$ | los $v_k$ con $\sigma_k = 0$ | lo que entra y cae al $0$ (unidad 07b) |
 
-    Esto es una **muestra**; la demostración de que $U, \Sigma, V$ existen está en Strang, no en el apunte (ver el cierre).
+    Esto es una **muestra**; la construcción de $U, \Sigma, V$ a partir de $A^\top A$ está en el apunte y la demostración
+    general en Strang (ver el cierre).
     """)
     return
 
@@ -188,10 +189,10 @@ def _(mo, np):
                                                   r"$\sigma_2 = 0$: la elipse es un **segmento**; $v_2$ es el núcleo, $u_2$ la contra-imagen, $\det = 0$, no hay inversa."),
         "rotación pura 40° (σ = 1, 1)": (np.array([[np.cos(np.deg2rad(40)), -np.sin(np.deg2rad(40))], [np.sin(np.deg2rad(40)), np.cos(np.deg2rad(40))]]),
                                           r"un giro: sin autovectores reales pero con SVD: $\Sigma = I$, el círculo sigue círculo y el giro queda en $U$ ($V = I$)."),
-        "general (deslizadores)": (np.array([[1.0, -2.0], [1.5, 0.5]]),
-                                   r"movelos; con $\det < 0$ la tercera etapa es una **reflexión** y la animación la hace en línea recta."),
+        "general (deslizadores)": (np.array([[2.0, 1.0], [0.0, 1.0]]),
+                                   r"arranca en la matriz de la predicción, $[[2, 1], [0, 1]]$; movelos. Si llegás a $\det < 0$ la tercera etapa es una **reflexión** y la animación la hace en línea recta."),
     }
-    caso = mo.ui.dropdown(options=list(casos), value="no simétrica [[2, 1], [0, 1]]", label="caso precargado")
+    caso = mo.ui.dropdown(options=list(casos), value="general (deslizadores)", label="caso precargado")
     mo.vstack([
         mo.md(r"""
         ## 2. Manipulación
@@ -199,7 +200,8 @@ def _(mo, np):
         Tres capas. En **gris**, la grilla antes y el círculo unitario con sus direcciones singulares $v_1$ (teal) y
         $v_2$ (rust). En **teal**, la grilla después. En **violeta**, la elipse imagen con sus semiejes $\sigma_1u_1$ y
         $\sigma_2u_2$. **Reproducir** recorre las tres etapas: $V^\top$ gira (los $v_k$ caen sobre los ejes), $\Sigma$
-        estira los ejes, $U$ gira al lugar final. Los deslizadores sólo se habilitan en el caso general.
+        estira los ejes, $U$ gira al lugar final. Arranca en el caso general, con los deslizadores habilitados; en los
+        casos precargados se bloquean.
         """),
         caso,
     ])
@@ -565,13 +567,15 @@ def _(mo):
     ## Dónde está la demostración, y lo que viene
 
     Acá mostré que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
-    deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. La SVD **no tiene sección propia en el
-    apunte v3** (figura como pendiente en el hilo y como propuesta en las rúbricas). La demostración de que $U$,
+    deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
+    [Descomposición en valores singulares (SVD)](../../apunte.pdf#nameddest=sec:svd) construye $U$, $\Sigma$, $V$ con
+    un ejemplo a mano, rehace el cuaderno `LaSVD.wxmx` del profesor y remata con la SVD de un modelo digital de
+    elevación; la sección [Inversas, los cuatro subespacios y la pseudoinversa](../../apunte.pdf#nameddest=sec:pseudoinversa)
+    tiene la tabla de los cuatro subespacios y la pseudoinversa de Moore–Penrose. La demostración general de que $U$,
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
     aplicaciones*, y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
 
-    - [apunte, sección 11: bloque algebraico](../../apunte.pdf#nameddest=cap:11) · [sección 19: cambio de base y SVD,
-      propuesta](../../apunte.pdf#nameddest=cap:19) · [sección 2: el hilo](../../apunte.pdf#nameddest=cap:02)
+    - [apunte, sección 11: bloque algebraico](../../apunte.pdf#nameddest=cap:11) · [sección 2: el hilo](../../apunte.pdf#nameddest=cap:02)
     - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·
