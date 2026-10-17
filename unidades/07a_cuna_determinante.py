@@ -297,7 +297,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             Área $5$, signo $+$. Al revés, $v \wedge u = 1 \cdot 1 - 2 \cdot 3 = -5$. Colineales: $u \wedge 2u = 3 \cdot 2 - 1 \cdot 6 = 0$.
             """),
             mo.vstack([
-                mo.md("```python\nu, v = np.array([3., 1.]), np.array([1., 2.])\nlib.cuna2(u, v)                        # u1 v2 − u2 v1\nnp.linalg.det(np.column_stack([u, v]))   # columnas u, v\nlib.cuna2(v, u), lib.cuna2(u, 2 * u)\n```"),
+                mo.md("```python\nu = np.array([3., 1.])\nv = np.array([1., 2.])\nlib.cuna2(u, v)            # u1 v2 − u2 v1\n# columnas u, v\nnp.linalg.det(np.column_stack([u, v]))\nlib.cuna2(v, u), lib.cuna2(u, 2 * u)\n```"),
                 mo.md(f"`{lib.cuna2(_u, _v):.0f}` · `{np.linalg.det(np.column_stack([_u, _v])):.1f}` · `{lib.cuna2(_v, _u):.0f}`, `{lib.cuna2(_u, 2 * _u):.0f}`"),
             ]),
         ], widths="equal", align="start"),
@@ -310,8 +310,9 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             Con $w = u + v$ da $2 - 3 + 1 = 0$: en el plano.
             """),
             mo.vstack([
-                mo.md("```python\nu, v, w = np.array([1., 2., 0.]), np.array([0., 1., 1.]), np.array([1., 0., 2.])\nnp.cross(u, v)\nnp.cross(u, v) @ w                      # (u × v) · w\nnp.linalg.det(np.column_stack([u, v, w]))\nlib.cuna3(u, v, u + v)\n```"),
-                mo.md(f"`{np.cross(u3, v3).tolist()}` · `{np.cross(u3, v3) @ w0:.0f}` · `{np.linalg.det(np.column_stack([u3, v3, w0])):.1f}` · `{lib.cuna3(u3, v3, u3 + v3):.0f}`"),
+                mo.md("```python\nu = np.array([1., 2., 0.])\nv = np.array([0., 1., 1.])\nw = np.array([1., 0., 2.])\nnp.cross(u, v)\nnp.cross(u, v) @ w         # (u × v) · w\nnp.linalg.det(np.column_stack([u, v, w]))\nlib.cuna3(u, v, u + v)\n```"),
+                mo.md(f"`{np.cross(u3, v3).tolist()}` · `{np.cross(u3, v3) @ w0:.0f}`  \n"
+                      f"`{np.linalg.det(np.column_stack([u3, v3, w0])):.1f}` · `{lib.cuna3(u3, v3, u3 + v3):.0f}`"),
             ]),
         ], widths="equal", align="start"),
         mo.hstack([
@@ -325,7 +326,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             y el volumen cero lo detecta. Es la condición "sin tres alineados" de la lección 05.
             """),
             mo.vstack([
-                mo.md("```python\nP = np.array([[1., 1.], [4., 3.], [7., 6.]])   # A, B, C\nnp.linalg.det(lib.hom(P))                   # filas (x, y, 1)\nlib.cuna2(P[1] - P[0], P[2] - P[0])\nlib.alineados(P[0], P[1], P[2])\n```"),
+                mo.md("```python\n# A, B, C, una fila por mojón\nP = np.array([[1., 1.], [4., 3.], [7., 6.]])\nnp.linalg.det(lib.hom(P))   # filas (x, y, 1)\nlib.cuna2(P[1] - P[0], P[2] - P[0])\nlib.alineados(P[0], P[1], P[2])\n```"),
                 mo.md(f"`{np.linalg.det(_H):.1f}` · `{lib.cuna2(AB, AC):.0f}` · `{lib.alineados(*mojones)}`"),
             ]),
         ], widths="equal", align="start"),

@@ -271,7 +271,7 @@ def _(R_sit, lib, mo, np):
             cada vector del espejo queda quieto ("dos autovectores con el mismo autovalor").
             """),
             mo.vstack([
-                mo.md("```python\nA = np.diag([1., 1., -1.])\nnp.poly(A)                        # det(λI − A): λ³ − λ² − λ + 1\nnp.cross((A + np.eye(3))[0], (A + np.eye(3))[1])   # λ = −1\nnp.cross((A - np.eye(3))[0], (A - np.eye(3))[1])   # λ = 1: cero\nlib.autovectores_cuna(A)\n```"),
+                mo.md("```python\nA = np.diag([1., 1., -1.])\nnp.poly(A)            # det(λI − A)\nI = np.eye(3)\nnp.cross((A + I)[0], (A + I)[1])   # λ = −1\nnp.cross((A - I)[0], (A - I)[1])   # λ = 1: cero\nlib.autovectores_cuna(A)\n```"),
                 mo.md(f"`{np.round(np.poly(_A), 6).tolist()}` · `{np.cross((_A + np.eye(3))[0], (_A + np.eye(3))[1]).tolist()}` · `{np.cross((_A - np.eye(3))[0], (_A - np.eye(3))[1]).tolist()}`  \n"
                       + "  \n".join(f"λ = {p['lam']:.0f}: " + ("plano entero" if p["plano"] else f"v = `{p['v'].tolist()}`, filas {p['filas'][0] + 1} y {p['filas'][1] + 1}") for p in lib.autovectores_cuna(_A))),
             ]),
@@ -287,7 +287,7 @@ def _(R_sit, lib, mo, np):
             profesor era `MMULT(R; eje)` y mirar que no cambie.
             """),
             mo.vstack([
-                mo.md("```python\nR = lib.rot_z(np.pi / 2) @ lib.rot_y(np.pi / 2)\nB = R - np.eye(3)\neje = np.cross(B[0], B[1])\nnp.allclose(R @ eje, eje)\nnp.cross(B[1], B[2])              # otro par: la misma recta\nlib.eje_angulo(R)                 # (eje unitario, ángulo)\n```"),
+                mo.md("```python\nR = lib.rot_z(np.pi / 2) @ lib.rot_y(np.pi / 2)\nB = R - np.eye(3)\neje = np.cross(B[0], B[1])\nnp.allclose(R @ eje, eje)\nnp.cross(B[1], B[2])   # otro par: misma recta\nlib.eje_angulo(R)      # (eje unitario, ángulo)\n```"),
                 mo.md(f"`eje` = `{np.round(np.cross(_B1[0], _B1[1]), 6).tolist()}` · `{bool(np.allclose(R_sit @ np.cross(_B1[0], _B1[1]), np.cross(_B1[0], _B1[1])))}` · `{np.round(np.cross(_B1[1], _B1[2]), 6).tolist()}`  \n"
                       f"`eje_angulo`: `{np.round(lib.eje_angulo(R_sit)[0], 4).tolist()}`, `{np.rad2deg(lib.eje_angulo(R_sit)[1]):.0f}°`"),
             ]),
@@ -300,7 +300,7 @@ def _(R_sit, lib, mo, np):
             $H_c(4, 6, 1) = -2\,(4, 6, 1)$ ✓. Una homología: la foto en perspectiva de una reflexión.
             """),
             mo.vstack([
-                mo.md("```python\nHc = np.array([[2., -4., 8.], [0., -4., 12.], [0., -1., 4.]])\nnp.linalg.eigvals(Hc)\nnp.cross((Hc + 2 * np.eye(3))[0], (Hc + 2 * np.eye(3))[1])\nlib.dehom(Hc @ lib.hom([4., 6.]))\nlib.puntos_fijos_proyectivos(Hc)\n```"),
+                mo.md("```python\nHc = np.array([[2., -4., 8.],\n               [0., -4., 12.],\n               [0., -1., 4.]])\nnp.linalg.eigvals(Hc)\nK = Hc + 2 * np.eye(3)\nnp.cross(K[0], K[1])\nlib.dehom(Hc @ lib.hom([4., 6.]))\nlib.puntos_fijos_proyectivos(Hc)\n```"),
                 mo.md(f"`{np.round(np.linalg.eigvals(_Hc), 6).real.tolist()}` · `{np.cross((_Hc + 2 * np.eye(3))[0], (_Hc + 2 * np.eye(3))[1]).tolist()}` · `{lib.dehom(_Hc @ lib.hom([4.0, 6.0])).tolist()}`  \n"
                       + "  \n".join(f"λ = {p['lam']:.0f}: " + (f"recta `{np.round(p['recta'], 3).tolist()}`" if p["plano"] else f"punto fijo `{np.round(p['punto'], 6).tolist()}`") for p in _pf)),
             ]),

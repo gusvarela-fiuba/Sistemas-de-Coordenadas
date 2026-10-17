@@ -300,7 +300,7 @@ def _(grs80, lib, mo, np):
             $\tan\psi = 1 - e^2$: $\psi = 44.80758° = 44° 48′ 27″$.
             """),
             mo.vstack([
-                mo.md("```python\ng = lib.elipsoide_grs80()           # a, f, b, e2, ep2\nphi, lam = np.deg2rad(45.0), np.deg2rad(30.0)\nM, N = lib.radios_curvatura(phi, g[\"a\"], g[\"e2\"])\nP = lib.geodesica_a_cartesiana(phi, lam, 0.0, g[\"a\"], g[\"e2\"])\npsi, beta = lib.latitudes(phi, g[\"e2\"])\nnp.allclose([N, M], [6388838.29, 6367381.82], atol=0.01)\nnp.allclose(P, [3912348.47, 2258795.44, 4487348.41], atol=0.01)\n```"),
+                mo.md("```python\ng = lib.elipsoide_grs80()   # a, f, b, e2, ep2\nphi, lam = np.deg2rad(45.0), np.deg2rad(30.0)\na, e2 = g[\"a\"], g[\"e2\"]\nM, N = lib.radios_curvatura(phi, a, e2)\nP = lib.geodesica_a_cartesiana(phi, lam, 0.0,\n                               a, e2)\npsi, beta = lib.latitudes(phi, e2)\nnp.allclose([N, M],\n            [6388838.29, 6367381.82], atol=0.01)\nnp.allclose(P, [3912348.47, 2258795.44,\n                4487348.41], atol=0.01)\n```"),
                 mo.md(f"`N, M` = `{_N:.2f}, {_M:.2f}` · `P` = `{np.round(_P, 2).tolist()}` · `psi` = `{_psi:.5f}°` = {lib.gms(_psi)}\n\n`allclose` (las tres) = `{ok_mano}` · `e2` = `{grs80['e2']:.8f}` · `b` = `{grs80['b']:.3f}`"),
             ]),
         ], widths="equal", align="start"),
