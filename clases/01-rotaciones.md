@@ -102,7 +102,7 @@ Las columnas son las imágenes de $e_x, e_y, e_z$. Se ve: toda rotación de $\ma
 ## Huecos y dudas
 
 - **Ejemplo de ortogonal que es reflexión.** El md del campus (copiado 2026-09-21) dice $\mathrm{diag}(1,-1)$; el PDF impreso 2026-10-17 muestra algo que `pdftotext` lee como $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ en modo layout y como "1 0 / 0 −1" en modo crudo. $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ es $R(90°)$, determinante $+1$, no sirve de ejemplo de reflexión; $\mathrm{diag}(1,-1)$ sí ($\det=-1$, espejo respecto del eje $x$). Mirar la fórmula renderizada en el campus para saber cuál escribió el profesor.
-- En 2C2026 el bloque de producto interno y matriz ortogonal quedó sólo mencionado ("hasta ahora no hablé del producto"); el determinante quedó "en suspenso". Confirmar si se retomó el 2026-08-26.
+- En 2C2026 el bloque de producto interno y matriz ortogonal quedó sólo mencionado ("hasta ahora no hablé del producto"); el determinante quedó "en suspenso". El 2026-08-26 no hubo clase; si se retomó, fue el 09-02 (Gustavo ausente). Confirmar.
 - El resumen de Notion dice "aplicando ~385 veces se obtiene aproximadamente 90°; en realidad son ~120°": la cuenta $385\cdot(\pi/1000)\sqrt3 = 120°$ cierra, así que el 385 era el giro de 120°, no de 90°.
 - Las fórmulas del transcript están perdidas (se oyen "e a la i alfa", "e más f por i"); los números concretos de la planilla (0.990 con 0.1 rad) son los únicos que sobrevivieron.
 - Gentile y Herrera están bajados pero sin leer; falta ver qué agrega "Complejos y Generalización" sobre la equivalencia complejos ↔ matrices $\begin{pmatrix}a&-b\\b&a\end{pmatrix}$.

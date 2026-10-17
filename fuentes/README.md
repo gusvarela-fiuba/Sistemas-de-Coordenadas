@@ -26,8 +26,8 @@ Clases de 2C2026 y qué hay de cada una:
 | Fecha | Transcripción |
 |---|---|
 | 2026-08-19 | sí (castellano) |
-| 2026-08-26 | no |
-| 2026-09-02 | no |
+| 2026-08-26 | no hubo clase |
+| 2026-09-02 | no (Gustavo ausente) |
 | 2026-09-09 | no |
 | 2026-09-16 | sí (inglés) |
 | 2026-09-23 | no (la nota de Notion está vacía) |

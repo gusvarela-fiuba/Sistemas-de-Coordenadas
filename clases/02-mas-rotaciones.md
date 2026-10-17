@@ -3,8 +3,8 @@ clase: "02"
 titulo: Más rotaciones, composición y líneas coordenadas
 fecha_2025: null
 fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1 (2025-08-21); el .wxmx "Maxima 2025.2.2" está fechado 25-08-2025
-fechas_2026: ["2026-08-26"]
-estado: reconstruida
+fechas_2026: []   # el 2026-08-26 no hubo clase; esta estación de 2025 no se dictó en 2C2026
+estado: no-dictada
 fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-2-mas-rotaciones-composicion-y-lineas-coordenadas-y-hacia-el-fin-afin
   - fuentes/campus/resumenes_clase_2025_profesor.md#rotaciones-clase-21-de-agosto
@@ -17,7 +17,7 @@ unidad: 01c_rotaciones_3d
 
 # Clase 2 — Más rotaciones, composición y líneas coordenadas
 
-> **Estado:** **reconstruida sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. No hay nota de Notion del miércoles 2026-08-26.
+> **Estado:** **no dictada en 2C2026.** El miércoles 2026-08-26 no hubo clase (dato de Gustavo, 2026-10-17); el profesor había anunciado traslaciones y afines para ese día, y eso pasó al 09-02 y 09-09 (ficha 03). El hilo de abajo es el de la cursada 2025, **reconstruido sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. Sirve como contexto de la lección 01c y del apunte, no como registro de una clase dada.
 
 ## El hilo del profesor (cursada 2025)
 
@@ -35,19 +35,15 @@ Del resumen de la clase 1 que pertenece acá: "la rotación genera para cada pun
 
 ## Lo que pasó en 2C2026
 
-Reconstruida sin transcripción. El miércoles 2026-08-26 es la segunda clase de la cursada; en Notion no hay nota ese día. Lo que se infiere de las fuentes vecinas:
+No hubo clase. El miércoles 2026-08-26 la clase no se dictó (dato de Gustavo, 2026-10-17). Al cerrar el 2026-08-19 el profesor había anunciado para ese día "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada"; las traslaciones y las afines pasaron a los miércoles 09-02 y 09-09 (ficha 03). También habían quedado pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
 
-- Al cerrar el 2026-08-19 el profesor anunció para la clase siguiente "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada". También quedaron pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
-- El orden de 2C2026 (apunte, `02-hilo-de-la-materia.tex`) es rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas. La guía de 6 teoremas se repartió el 2026-09-02, así que el 08-26 cae entre el cierre de rotaciones y el arranque de la guía.
-- El ejercicio 2 de Excel de la clase 1 (rotación por repetición de pasitos) y el logaritmo con `logm` son el contenido de la planilla 2025 de esta clase, así que en 2026 parte de la clase 2 de 2025 ya se había dado el 08-19.
+Qué pasó con el contenido 2025 de esta estación:
 
-Falta confirmar (preguntar o buscar en fotos/pizarrón):
-1. Si el 08-26 se hizo el problema de los vasos y el cubo de estados.
-2. Si se habló de latitud y longitud como líneas coordenadas generadas por rotaciones, y si apareció el producto cruz.
-3. Si se retomó el bloque de producto interno y matriz ortogonal que el 08-19 quedó sólo mencionado.
-4. Si se abrió `Rotaciones_No_Conmutan.xlsx` o el wxMaxima, y si se mostró la "yapa" de autovectores.
-5. Si ya se empezó con reflexiones (la guía) o con el ejemplo de círculos descentrados (`Ejemplo_para_pensar.py`).
-6. Qué ejercicio quedó de tarea para el 09-02.
+- Parte ya se había dado el 08-19: el ejercicio 2 de Excel (rotación por repetición de pasitos) y el logaritmo con `logm` son el contenido de la planilla 2025 de esta clase.
+- El resto (el problema de los vasos y el cubo de estados, latitud y longitud como líneas coordenadas generadas por rotaciones, el producto cruz como eje de giro, la "yapa" de autovectores del wxMaxima) no consta que se haya dado en ninguna clase posterior de 2C2026. El producto cruz y los autovectores reaparecen el 16/9 (ficha 05 y 06); la esfera, recién en la tercera lectura del apunte.
+- El orden efectivo de 2C2026 (apunte, `02-hilo-de-la-materia.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta estación. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
+
+La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c (el orden de los giros, la conmutatividad) y la pregunta guía de la grilla de coordenadas.
 
 ## Hecho geométrico
 
@@ -88,7 +84,7 @@ Falta confirmar (preguntar o buscar en fotos/pizarrón):
 
 - **Signo de $\beta$ en la matriz infinitesimal.** El PDF del campus (impreso 2026-10-17) muestra $\Gamma = \begin{pmatrix}1&-\gamma&-\beta\\\gamma&1&-\alpha\\\beta&\alpha&1\end{pmatrix}$; el md (copiado 2026-09-21) dice $\Gamma = \begin{pmatrix}1&-\gamma&\beta\\\gamma&1&-\alpha\\-\beta&\alpha&1\end{pmatrix}$. La convención estándar (mano derecha, $R_y$ como en el Notion de Gustavo y en el apunte 14/15) da $R_z(\gamma)R_y(\beta)R_x(\alpha) \approx Id + \alpha A_x + \beta A_y + \gamma A_z = Id + [\omega]_\times$ con $\omega = (\alpha,\beta,\gamma)$, que es la versión del md; la del PDF equivale a tomar $R_y$ con el seno de signo cambiado (girar $-\beta$ alrededor de $y$). Las dos son $Id$ más una antisimétrica ($P^T = -P$: ceros en la diagonal y entradas opuestas a un lado y otro), así que las dos son rotaciones a primer orden; sólo cambia la orientación convenida del eje $y$. Mirar cuál está renderizada en el campus y cuál se escribió en el pizarrón.
 - Fecha 2025 estimada (2025-08-28); el campus no la dice.
-- No hay transcripción del 2026-08-26: toda la sección 2C2026 es inferencia. Confirmar los seis puntos listados arriba.
+- La clase no se dictó en 2C2026 (dato de Gustavo, 2026-10-17). Queda por confirmar si el 09-02, al que Gustavo faltó, se retomó algo de los vasos, la esfera o el producto cruz.
 - La "yapa relativa a autovectores" del wxMaxima no está descripta en ningún lado; abrir `Algun_ejemplo_de_rotacion.wxmx` y anotar qué calcula.
 - El vínculo esfera → latitud/longitud → producto cruz quedó enunciado en 2025 y no desarrollado en clase; el apunte lo trata recién en la tercera lectura. La cuenta chica 4 es reconstrucción propia, no del pizarrón.
 - La página Notion de Gustavo cierra con "el tensor métrico se transforma con la jacobiana $J$ como $g' = J^Tg\,J$, el mismo patrón que las rotaciones": vale anotarlo acá como puente a la clase 9, pero no consta que el profesor lo haya dicho en la clase 2.
