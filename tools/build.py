@@ -9,9 +9,9 @@ Entradas (relativas a la raíz del repo):
   apunte/contenido/NN-*.tex             sólo para validar prefijos y leer títulos de sección
 
 Salida:
-  site/index.html                       portada = el camino: tres entradas (Empezar / Seguir la cursada / Repasar)
-                                        y una estación por unidad (pregunta, gancho, estado, clases, enlaces),
-                                        más la estación final "Lo que viene" con las clases sin unidad
+  site/index.html                       portada = el hilo conductor: tres entradas (Empezar / Seguir la cursada / Repasar)
+                                        y una entrada por unidad (pregunta, gancho, estado, clases, enlaces),
+                                        más la última unidad "Lo que viene" con las clases sin unidad
   site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta la clase N",
                                         y la lista de clases con fechas y estado
   site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN) con etiquetas de procedencia y validación
@@ -48,7 +48,7 @@ DIR_CLASES = RAIZ / "clases"
 ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 ESTADOS_EXPORTABLES = ("piloto", "migrada")
-TITULO_CAMINO = "Sistemas de Coordenadas — el camino"
+TITULO_CAMINO = "Sistemas de Coordenadas — Hilo conductor y lecciones interactivas"
 TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 
 # paleta del apunte
@@ -79,8 +79,8 @@ ETIQUETA_VALIDACION = {
     "revisado": "revisado",
     "validado-catedra": "validado por la cátedra",
 }
-# estado de una estación de la portada (calculado, no viene del yaml)
-ETIQUETA_ESTACION = {
+# estado de una unidad en la portada (calculado, no viene del yaml)
+ETIQUETA_UNIDAD = {
     "lista": ("lista", TEAL),
     "en-clase": ("en clase", GOLD),
     "todavia-no": ("todavía no", RUST),
@@ -131,13 +131,13 @@ a:hover {{ color: var(--rust); }}
 .volver {{ font-size: .9rem; margin: 1em 0 0; }}
 .volver a {{ margin-right: 14px; }}
 .katex-display {{ overflow-x: auto; overflow-y: hidden; }}
-/* etiquetas (procedencia, validación, nivel, estado de estación) */
+/* etiquetas (procedencia, validación, nivel, estado de unidad) */
 .etqs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }}
 .etq {{ display: inline-block; font-size: .78rem; line-height: 1.5; border-radius: 10px; padding: 1px 9px;
         border: 1.5px solid var(--c, var(--gris)); color: var(--c, var(--gris)); background: #fff; white-space: nowrap; }}
 .etq.solida {{ color: #fff; background: var(--c, var(--gris)); }}
 .ficha-etqs {{ margin: 1em 0 -.6em; }}
-/* portada: entradas y estaciones */
+/* portada: entradas y unidades (el hilo conductor) */
 .entradas {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 1em 0 1.5em; }}
 .entrada {{ display: block; border: 1.5px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: #fff;
             text-decoration: none; color: var(--tinta); }}
@@ -145,18 +145,18 @@ a:hover {{ color: var(--rust); }}
 .entrada b {{ display: block; color: var(--teal); font-size: 1.05rem; }}
 .entrada:hover b {{ color: var(--rust); }}
 .entrada small {{ color: var(--gris); }}
-.camino {{ list-style: none; padding: 0; margin: 0; }}
-.estacion {{ border: 1px solid var(--linea); border-left: 5px solid var(--c); border-radius: 6px; background: #fff;
+.hilo {{ list-style: none; padding: 0; margin: 0; }}
+.unidad {{ border: 1px solid var(--linea); border-left: 5px solid var(--c); border-radius: 6px; background: #fff;
              padding: 12px 14px; margin: 0 0 12px; }}
-.estacion .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
-.estacion .num {{ font-weight: 700; color: var(--c); }}
-.estacion .tit {{ font-weight: 600; font-size: 1.1rem; }}
-.estacion .pregunta {{ margin: 6px 0 2px; font-size: 1.02rem; }}
-.estacion .gancho {{ margin: 0 0 6px; color: var(--gris); font-style: italic; font-size: .95rem; }}
-.estacion .sus-clases {{ list-style: none; padding: 0; margin: 6px 0 0; }}
-.estacion .sus-clases li {{ display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: .93rem;
+.unidad .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
+.unidad .num {{ font-weight: 700; color: var(--c); }}
+.unidad .tit {{ font-weight: 600; font-size: 1.1rem; }}
+.unidad .pregunta {{ margin: 6px 0 2px; font-size: 1.02rem; }}
+.unidad .gancho {{ margin: 0 0 6px; color: var(--gris); font-style: italic; font-size: .95rem; }}
+.unidad .sus-clases {{ list-style: none; padding: 0; margin: 6px 0 0; }}
+.unidad .sus-clases li {{ display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: .93rem;
                              padding: 3px 0; border-top: 1px dashed var(--linea); }}
-.estacion .sus-clases .cid {{ font-weight: 600; white-space: nowrap; }}
+.unidad .sus-clases .cid {{ font-weight: 600; white-space: nowrap; }}
 /* mapa: controles */
 .controles {{ display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; margin: .6em 0; font-size: .95rem; }}
 .controles label {{ display: inline-flex; align-items: center; gap: 6px; }}
@@ -479,7 +479,7 @@ def etiquetas_clase(c: dict) -> str:
     return etiqueta(f"procedencia: {proc}", color, solida=True) + etiqueta(val, color_val)
 
 
-VOLVER = '<p class="volver"><a href="../index.html">← camino</a><a href="../mapa.html">mapa</a></p>'
+VOLVER = '<p class="volver"><a href="../index.html">← hilo conductor</a><a href="../mapa.html">mapa</a></p>'
 
 
 def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
@@ -813,7 +813,7 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
     n_default = (clases.index(ultima) + 1) if ultima else len(clases)
 
     partes: list[str] = []
-    partes.append('<p class="volver"><a href="index.html">← camino</a></p>')
+    partes.append('<p class="volver"><a href="index.html">← hilo conductor</a></p>')
     partes.append(f"<h1>{html.escape(TITULO_MAPA)}</h1>")
     if datos.get("pregunta_guia"):
         partes.append(f'<p class="guia">Pregunta guía: {html.escape(datos["pregunta_guia"])}</p>')
@@ -895,7 +895,7 @@ PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agr
        "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
 
 
-def estado_estacion(clases_est: list[dict], exportada: bool, fecha: _dt.date) -> str:
+def estado_unidad(clases_est: list[dict], exportada: bool, fecha: _dt.date) -> str:
     if exportada:
         return "lista"
     if any(clase_dictada(c, fecha) for c in clases_est):
@@ -904,7 +904,7 @@ def estado_estacion(clases_est: list[dict], exportada: bool, fecha: _dt.date) ->
 
 
 def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
-    """site/index.html: el camino. Tres entradas y una estación por unidad (más "Lo que viene")."""
+    """site/index.html: el hilo conductor. Tres entradas y una entrada por unidad (más "Lo que viene")."""
     titulos_apunte = titulos_secciones_apunte()
     clases = datos["clases"]
     por_id = {c["id"]: c for c in clases}
@@ -913,30 +913,30 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         conceptos_por_clase[k["clase"]].append(k)
     fecha = hoy()
 
-    # estaciones: una por unidad, en el orden de unidades.yaml; al final, las clases sin unidad
-    estaciones: list[dict] = []
+    # unidades de la portada: una por unidad de unidades.yaml, en ese orden; al final, las clases sin unidad
+    unidades_portada: list[dict] = []
     cubiertas: set[str] = set()
     for u in datos["unidades"]:
         cl = [por_id[cid] for cid in u["clases"] if cid in por_id]
         cubiertas.update(c["id"] for c in cl)
-        estaciones.append({
+        unidades_portada.append({
             "unidad": u, "titulo": u.get("titulo", u["id"]), "clases": cl,
             "pregunta": u.get("pregunta", ""), "gancho": u.get("gancho_agrimensura", ""), "nivel": u.get("nivel", ""),
-            "estado": estado_estacion(cl, u["id"] in exportadas, fecha),
+            "estado": estado_unidad(cl, u["id"] in exportadas, fecha),
         })
     sin_unidad = [c for c in clases if c["id"] not in cubiertas]
     if sin_unidad:
-        estaciones.append({
+        unidades_portada.append({
             "unidad": None, "titulo": "Lo que viene", "clases": sin_unidad,
             "pregunta": "", "gancho": "Clases del esqueleto del profesor que todavía no se dictaron en 2026; no se anticipan como contenido de la cátedra.",
-            "nivel": "", "estado": estado_estacion(sin_unidad, False, fecha),
+            "nivel": "", "estado": estado_unidad(sin_unidad, False, fecha),
         })
 
-    # entrada "seguir la cursada": la estación de la última clase dictada
+    # entrada "seguir la cursada": la unidad de la última clase dictada
     ultima = ultima_clase_dictada(clases, fecha)
     n_seguir = 0
     if ultima:
-        for i, e in enumerate(estaciones, start=0):
+        for i, e in enumerate(unidades_portada, start=0):
             if any(c["id"] == ultima["id"] for c in e["clases"]):
                 n_seguir = i
                 break
@@ -945,20 +945,21 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     partes.append(f"<h1>{html.escape(TITULO_CAMINO)}</h1>")
     if datos.get("pregunta_guia"):
         partes.append(f'<p class="guia">Pregunta guía: {html.escape(datos["pregunta_guia"])}</p>')
-    seguir_sub = f"estación {n_seguir}, clase {html.escape(ultima['id'])} ({html.escape(max(ultima['fechas_2026']))})" if ultima else "todavía no se dictó ninguna clase"
+    seguir_sub = f"unidad {n_seguir}, clase {html.escape(ultima['id'])} ({html.escape(max(ultima['fechas_2026']))})" if ultima else "todavía no se dictó ninguna clase"
     partes.append(
         '<nav class="entradas">'
-        f'<a class="entrada" href="#estacion-0"><b>Empezar</b><small>estación 0: {html.escape(estaciones[0]["titulo"])}</small></a>'
-        f'<a class="entrada" href="#estacion-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
+        f'<a class="entrada" href="#unidad-0"><b>Empezar</b><small>unidad 0: {html.escape(unidades_portada[0]["titulo"])}</small></a>'
+        f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
         "</nav>"
     )
 
-    partes.append(f"<h2>Estaciones ({len(estaciones)})</h2>")
-    partes.append('<ol class="camino">')
-    for i, e in enumerate(estaciones, start=0):
-        rot, color = ETIQUETA_ESTACION[e["estado"]]
-        cab = [f'<span class="num">Estación {i}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
+    partes.append(f"<h2>Recorrido paso a paso ({len(unidades_portada)} unidades interactivas)</h2>")
+    partes.append('<ol class="hilo">')
+    for i, e in enumerate(unidades_portada, start=0):
+        rot, color = ETIQUETA_UNIDAD[e["estado"]]
+        num = "Unidad 0 — Fundamentos" if i == 0 else f"Unidad {i}"
+        cab = [f'<span class="num">{num}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
                etiqueta(rot, color, solida=True)]
         if e["nivel"]:
             cab.append(etiqueta(e["nivel"], "#777"))
@@ -992,7 +993,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
             links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         if links:
             cuerpo.append(f'<div class="links">{"".join(links)}</div>')
-        partes.append(f'<li class="estacion" id="estacion-{i}" style="--c:{color}">{"".join(cuerpo)}</li>')
+        partes.append(f'<li class="unidad" id="unidad-{i}" style="--c:{color}">{"".join(cuerpo)}</li>')
     partes.append("</ol>")
 
     partes.append("<h2>Apunte y mapa</h2>")

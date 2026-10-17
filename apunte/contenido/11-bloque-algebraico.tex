@@ -365,7 +365,7 @@ producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros
 de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
 dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
 \(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
-verifiqué resolviendo el problema de minimización con \texttt{scipy.optimize}. La estación
+verifiqué resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
 \texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
 \texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
 \end{idea}
@@ -486,7 +486,7 @@ la primera columna. Si los autovalores son positivos el exponente puede ser real
 \]
 Es la tercera idea del hilo (sección~\ref{sec:hilo}): la transformación se identifica con
 la trayectoria que genera, y la potencia real la convierte en película. La misma jugada que
-la exponencial de una rotación, ahora con estiramientos en vez de giros. La estación
+la exponencial de una rotación, ahora con estiramientos en vez de giros. La unidad
 \texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
 
 \begin{atencion}[Una convención, tres escrituras en el resumen 2025]
@@ -670,7 +670,7 @@ da \(99{,}6\)\,\% con \(k=1\): esa cifra engaña, mide la meseta y no el relieve
 del error, o restar la media antes de descomponer (lo mismo que centrar la nube de puntos
 en el problema 4), muestra lo que importa: el relieve ``aparece'' alrededor de \(k=20\)
 (error de \(9{,}8\) m sobre un terreno de casi \(2000\) m de desnivel) y con \(100\)
-términos de \(512\) el error es de \(2\) m. La estación \texttt{09\_cambio\_de\_base\_svd}
+términos de \(512\) el error es de \(2\) m. La unidad \texttt{09\_cambio\_de\_base\_svd}
 (apéndice~\ref{ap:notebooks}) carga ese mismo recorte y deja mover \(k\) en vivo.
 
 \section{Inversas, los cuatro subespacios y la pseudoinversa}\label{sec:pseudoinversa}
@@ -771,7 +771,7 @@ no está en la imagen. SVD: \(\sigma_1=2\), \(\sigma_2=0\), \(u_1=v_1=\tfrac1{\s
 entonces \(B^{+}=v_1\tfrac12u_1^T=\tfrac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\) y
 \(B^{+}(1,0)^T=(\tfrac14,\tfrac14)^T\): proyecta \((1,0)\) sobre la recta imagen (da
 \((\tfrac12,\tfrac12)\)), deshace el estiramiento por \(2\) y no pone nada en la dirección
-del núcleo. Otra que aplasta, la de la estación \texttt{09}:
+del núcleo. Otra que aplasta, la de la unidad \texttt{09}:
 \(C=\begin{pmatrix}1&2\\2&4\end{pmatrix}\), rango \(1\), \(\sigma_1=5\),
 \(u_1=v_1=\tfrac1{\sqrt5}(1,2)\), \(C^{+}=v_1\tfrac15u_1^T=\tfrac1{25}C\). Chequeo con la
 propiedad que define a la pseudoinversa, \(CC^{+}C=C\): como \(C^2=5C\), \(C^3=25C\) y

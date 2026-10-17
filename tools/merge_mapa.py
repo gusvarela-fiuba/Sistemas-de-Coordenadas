@@ -10,7 +10,7 @@ Qué hace:
     clase lo lista en CONCEPTOS.md (y lo informa); si CONCEPTOS.md no lo lista, el primero;
   - informa ids que están en los fragmentos y no en CONCEPTOS.md, y viceversa;
   - lee `unidades` de `mapa/_fragmentos/unidades.yaml` (el orden de ese archivo es el de las
-    estaciones de la portada) y valida sus campos: `estado`, `nivel`, `clases` (ids existentes),
+    unidades de la portada) y valida sus campos: `estado`, `nivel`, `clases` (ids existentes),
     `pregunta` y `gancho_agrimensura` (una línea cada uno);
   - valida en cada clase `pregunta`, `validacion` y `nivel` (vocabulario en mapa/ESQUEMA.md);
   - escribe `mapa/mapa.yaml` con cabecera `titulo` / `pregunta_guia`.
@@ -70,7 +70,7 @@ def leer_conceptos_md() -> dict[str, str]:
 
 
 def cargar_unidades() -> list[dict]:
-    """Lee mapa/_fragmentos/unidades.yaml (lista `unidades`, en el orden de las estaciones)."""
+    """Lee mapa/_fragmentos/unidades.yaml (lista `unidades`, en el orden de la portada)."""
     if not UNIDADES_YAML.exists():
         sys.exit(f"ERROR: no existe {UNIDADES_YAML.relative_to(RAIZ)}")
     with UNIDADES_YAML.open(encoding="utf-8") as f:

@@ -8,11 +8,11 @@ Sitio: https://gusvarela-fiuba.github.io/sistemas-de-coordenadas/
 
 Tres capas, de la más guiada a la más completa:
 
-- **El camino** (la portada): 19 estaciones, una por lección, en el orden del profesor, precedidas por la Estación 0 (encuadre propio del autor: cuatro cosas para desaprender del CBC). Cada estación tiene su pregunta de campo, su gancho de agrimensura, su estado y la lección marimo, que corre en el navegador (WebAssembly, sin instalar nada): situación de campo y predicción, hecho geométrico, manipulación con una figura de tres capas, cuenta a mano y código lado a lado, un Python de hoy y ejercicios.
+- **El hilo conductor** (la portada): 19 unidades interactivas en marimo + Python, construidas ladrillo a ladrillo, una por lección, en el orden del profesor, precedidas por la Unidad 0 — Fundamentos (encuadre propio del autor: el lenguaje de la cátedra y lo que conviene desaprender del CBC). Cada unidad tiene su pregunta de campo, su gancho de agrimensura, su estado y la lección marimo, que corre en el navegador (WebAssembly, sin instalar nada): situación de campo y predicción, hecho geométrico, manipulación con una figura de tres capas, cuenta a mano y código lado a lado, un Python de hoy y ejercicios.
 - **El mapa** (`mapa.html`): los conceptos de las 14 clases como grafo, con filtro de ruta (troncal / todo) y un control "hasta la clase N". Es la herramienta de repaso.
-- **El apunte** (`apunte.pdf`): anexo de demostraciones en LaTeX, enlazado por sección desde cada estación. Las fichas por clase (`clases/`) siguen el esqueleto del profesor.
+- **El apunte** (`apunte.pdf`): el apunte formal, demostraciones en LaTeX, enlazado por sección desde cada unidad. Las fichas por clase (`clases/`) siguen el esqueleto del profesor.
 
-El diseño del camino (principios, secuencia de una lección, datos que lo alimentan, estado actual) está en `docs/camino.md`.
+El diseño del hilo conductor (principios, secuencia de una lección, datos que lo alimentan, estado actual) está en `docs/camino.md`.
 
 ## Cómo correr local
 
@@ -46,12 +46,12 @@ site/       salida del build (ignorada por git); la publica .github/workflows/pa
 
 ## Procedencia y validación
 
-Cada clase lleva dos etiquetas independientes, visibles en las fichas y en las estaciones:
+Cada clase lleva dos etiquetas independientes, visibles en las fichas y en las unidades de la portada:
 
 - **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 07 y 10–14, es decir las lecciones 09, 11, 12, 13 y 14).
 - **Validación** (cuánto se revisó): `validación pendiente`; `revisado` (revisada por el autor contra el material); `validado por la cátedra` (confirmada por el profesor). Hoy todas las clases están en `pendiente`.
 
-Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tienen además un estado propio (`piloto`, `migrada`, `legacy`, `pendiente`) que dice si se exportan; el estado de cada estación (lista / en clase / todavía no) lo calcula el build.
+Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tienen además un estado propio (`piloto`, `migrada`, `legacy`, `pendiente`) que dice si se exportan; el estado de cada unidad (lista / en clase / todavía no) lo calcula el build.
 
 ## Publicación
 

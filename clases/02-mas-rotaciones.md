@@ -3,7 +3,7 @@ clase: "02"
 titulo: Más rotaciones, composición y líneas coordenadas
 fecha_2025: null
 fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1 (2025-08-21); el .wxmx "Maxima 2025.2.2" está fechado 25-08-2025
-fechas_2026: []   # el 2026-08-26 no hubo clase; esta estación de 2025 no se dictó en 2C2026
+fechas_2026: []   # el 2026-08-26 no hubo clase; esta clase de 2025 no se dictó en 2C2026
 estado: no-dictada
 fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-2-mas-rotaciones-composicion-y-lineas-coordenadas-y-hacia-el-fin-afin
@@ -38,11 +38,11 @@ Del resumen de la clase 1 que pertenece acá: "la rotación genera para cada pun
 
 No hubo clase. El miércoles 2026-08-26 la clase no se dictó (dato de Gustavo, 2026-10-17). Al cerrar el 2026-08-19 el profesor había anunciado para ese día "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada". En lugar de la clase mandó por el grupo de Google Chat el contenido previsto, traslaciones: la guía `apunte/01_Ejercicios_original.pdf` (reflexión por un punto y por una recta; seis teoremas que arrancan en "la composición de dos reflexiones es una traslación"; homotecia; toda similaridad como dos reflexiones y una homotecia) con ejercicios para resolver en clase. Se trabajó el 09-02 y el 09-09 (ficha 03) y está desarrollada en la lección `03_reflexiones_similaridades`. También habían quedado pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
 
-Qué pasó con el contenido 2025 de esta estación:
+Qué pasó con el contenido 2025 de esta clase:
 
 - Parte ya se había dado el 08-19: el ejercicio 2 de Excel (rotación por repetición de pasitos) y el logaritmo con `logm` son el contenido de la planilla 2025 de esta clase.
 - El resto (el problema de los vasos y el cubo de estados, latitud y longitud como líneas coordenadas generadas por rotaciones, el producto cruz como eje de giro, la "yapa" de autovectores del wxMaxima) no consta que se haya dado en ninguna clase posterior de 2C2026. El producto cruz y los autovectores reaparecen el 16/9 (ficha 05 y 06); la esfera, recién en la tercera lectura del apunte.
-- El orden efectivo de 2C2026 (apunte, `02-hilo-de-la-materia.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta estación. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
+- El orden efectivo de 2C2026 (apunte, `02-hilo-de-la-materia.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta clase. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
 
 La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c (el orden de los giros, la conmutatividad) y la pregunta guía de la grilla de coordenadas.
 

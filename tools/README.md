@@ -23,12 +23,12 @@ Qué lee:
 Qué genera en `site/` (ignorado por git):
 
 ```
-site/index.html                  portada = el camino (docs/camino.md): tres entradas (Empezar → estación 1; Seguir la
-                                 cursada → la estación de la última clase con fechas_2026 ≤ hoy; Repasar → mapa.html) y
-                                 una estación por unidad de mapa/_fragmentos/unidades.yaml, en ese orden, con número,
+site/index.html                  portada = el hilo conductor (docs/camino.md): tres entradas (Empezar → unidad 0; Seguir
+                                 la cursada → la unidad de la última clase con fechas_2026 ≤ hoy; Repasar → mapa.html) y
+                                 una entrada por unidad de mapa/_fragmentos/unidades.yaml, en ese orden, con número,
                                  título, pregunta, gancho de agrimensura, estado calculado (lista / en clase / todavía no),
                                  las clases que cubre con etiquetas de procedencia y validación, y enlaces a la unidad,
-                                 las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:NN). Última estación
+                                 las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:NN). Última unidad
                                  "Lo que viene": las clases sin unidad (11–14).
 site/mapa.html                   mapa de conceptos (SVG inline generado en Python) con dos controles en JS inline: filtro
                                  de ruta (troncal / todo, por el `nivel` de la clase de cada nodo) y deslizador "hasta la
@@ -189,7 +189,7 @@ Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos
 ## Cómo agregar una lección en 5 pasos
 
 1. Copiar la plantilla y completar los corchetes: `cp unidades/PLANTILLA_leccion.py unidades/NN_nombre.py`. Reemplazar todo lo que está entre `[…]`, borrar las notas "PLANTILLA:" y respetar las seis secciones del molde v2 (0 a 5, más el anexo). La cabecera PEP 723 y la celda `import cb104 as lib  # cb104:inline` ya vienen en la plantilla.
-2. Dar de alta la unidad en `mapa/_fragmentos/unidades.yaml` (la posición en la lista es la de la estación en la portada). Los campos son exactamente estos (`nota` es opcional):
+2. Dar de alta la unidad en `mapa/_fragmentos/unidades.yaml` (la posición en la lista es la de la unidad en la portada). Los campos son exactamente estos (`nota` es opcional):
 
    ```yaml
      - id: NN_nombre                       # único; nombre de la carpeta site/unidades/<id>/

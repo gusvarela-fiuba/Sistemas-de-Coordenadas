@@ -1,6 +1,6 @@
 # Apunte integral — Sistemas de Coordenadas (CB104)
 
-Versión vigente: v3 (2026-10-17, portada interior "Versión 3"): 14 clases, 19 estaciones, SVD, cuatro problemas, curvatura, elipsoide, trigonometría esférica (secciones anticipadas) y fe de erratas del apunte del elipsoide; 105 págs. La anterior (2026-09-22) tenía 84 págs. Desde el 2026-09-22 el fuente está partido en
+Versión vigente: v3 (2026-10-17, portada interior "Versión 3"): 14 clases, 19 unidades, SVD, cuatro problemas, curvatura, elipsoide, trigonometría esférica (secciones anticipadas) y fe de erratas del apunte del elipsoide; 105 págs. La anterior (2026-09-22) tenía 84 págs. Desde el 2026-09-22 el fuente está partido en
 formato + contenido (antes era un único `.tex` de ~5000 líneas; ese monolito se conserva en
 `_old/Apunte_Sistemas_de_Coordenadas.monolitico-2026-09-22.tex`).
 

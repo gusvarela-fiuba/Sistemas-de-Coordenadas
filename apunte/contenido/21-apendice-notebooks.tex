@@ -23,21 +23,23 @@ clase 2C2025} de Dropbox.
   piensen qué hace''.
 \end{itemize}
 
-\subsection{Estaciones interactivas (lecciones marimo)}
+\subsection{Unidades interactivas (lecciones marimo)}
 
-Las 19 estaciones (00 a 14) son lecciones marimo escritas por mí como alumno, publicadas como
-páginas WASM (corren en el navegador, sin instalar nada) en el sitio de la materia:
+Las 19 unidades (00 a 14) son el hilo conductor del sitio de la materia: lecciones marimo +
+Python escritas por mí como alumno, construidas ladrillo a ladrillo y publicadas como
+páginas WASM (corren en el navegador, sin instalar nada):
 
 \begin{center}\url{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/}\end{center}
 
-El fuente está en
+El sitio tiene tres capas: ese hilo conductor (la portada), el mapa de conceptos
+(herramienta de repaso) y este apunte formal en \LaTeX{}. El fuente está en
 \file{unidades/} del repositorio; se abren localmente con \texttt{marimo edit}
-(entorno \texttt{uv}). Cada estación enlaza a la sección de este apunte que desarrolla su
+(entorno \texttt{uv}). Cada unidad enlaza a la sección de este apunte que desarrolla su
 tema (destino \texttt{cap:NN} del PDF), y cada una cierra con ejercicios con hueco y
 verificación automática. La columna ``clase'' es la del esqueleto de 14 clases de la
-cursada 2025 (sección~\ref{sec:hilo}). La Estación 0 va antes de la clase 1: es el
+cursada 2025 (sección~\ref{sec:hilo}). La Unidad 0 va antes de la clase 1: es el
 encuadre de la subsección~\ref{sec:desaprender} y de la brújula de la
-sección~\ref{sec:puntos-formas-grillas}, no una clase. Las estaciones 11 a 14 son
+sección~\ref{sec:puntos-formas-grillas}, no una clase. Las unidades 11 a 14 son
 \emph{anticipadas}: la clase no se dictó en 2C2026 y el contenido es lectura mía sobre el
 esqueleto 2025 y el apunte del elipsoide del profesor, pendiente de validar por la
 cátedra.
@@ -45,16 +47,16 @@ cátedra.
 {\small
 \begin{longtable}{>{\ttfamily\raggedright\arraybackslash}p{62mm}>{\raggedright\arraybackslash}p{70mm}>{\raggedright\arraybackslash}p{16mm}}
 \toprule
-\textrm{\textbf{Estación (id)}} & \textbf{Título} & \textbf{Clase}\\
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Clase}\\
 \midrule
 \endfirsthead
 \toprule
-\textrm{\textbf{Estación (id)}} & \textbf{Título} & \textbf{Clase}\\
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Clase}\\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-00\_desaprender\_el\_cbc & Antes de empezar: cuatro cosas para desaprender del CBC & ---\\
+00\_desaprender\_el\_cbc & Fundamentos y lenguaje de la cátedra & ---\\
 01a\_punto\_quieto & Rotaciones I: el punto no se movió & 01\\
 01b\_rotacion\_plano & Rotaciones II: la rotación en el plano & 01\\
 01c\_rotaciones\_3d & Rotaciones III: tres ejes y el orden importa & 01, 02\\
@@ -79,7 +81,7 @@ sección~\ref{sec:svd}) & 07, 10\\
 }
 
 \paragraph{Módulo común \file{cb104.py}.} Vive en \file{unidades/}, junto a los
-notebooks, y todas las estaciones lo importan (\texttt{import cb104 as lib}). Sólo depende
+notebooks, y todas las unidades lo importan (\texttt{import cb104 as lib}). Sólo depende
 de NumPy (y de Plotly adentro de las funciones que dibujan). Reúne la paleta del apunte
 (teal, rust, gold), las rotaciones \texttt{rot2}, \texttt{rot\_x}, \texttt{rot\_y},
 \texttt{rot\_z} y \texttt{rodrigues}, coordenadas homogéneas (\texttt{hom}, \texttt{dehom}),
@@ -123,16 +125,16 @@ reproduce al final).
 
 Dónde está resuelto cada tipo de problema: en este apunte, en las entregas al campus
 (\file{entregas/}, alumno Gustavo Varela, padrón 56798) y en los ejercicios con hueco de
-las estaciones.
+las unidades.
 
 {\small
 \begin{longtable}{>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{46mm}>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{22mm}}
 \toprule
-\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Estaciones}\\
+\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Unidades}\\
 \midrule
 \endfirsthead
 \toprule
-\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Estaciones}\\
+\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Unidades}\\
 \midrule
 \endhead
 \bottomrule
