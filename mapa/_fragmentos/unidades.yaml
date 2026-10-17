@@ -33,6 +33,15 @@ unidades:
     gancho_agrimensura: "Nivelar la estación: inclinar y después girar no deja el instrumento igual que girar y después inclinar, salvo con correcciones chicas."
     nivel: troncal
 
+  - id: 02_producto_interno
+    archivo: unidades/02_producto_interno.py
+    titulo: "Producto interno: proyección, longitud, ángulo"
+    estado: piloto
+    clases: ["01"]
+    pregunta: "¿Qué cuenta con dos columnas de coordenadas me da la distancia entre dos mojones, el ángulo entre dos lados y cuánto de un lado cae sobre el otro?"
+    gancho_agrimensura: "Con las coordenadas de tres mojones calculo el ángulo en el vértice sin medirlo, y proyecto un lado sobre el rumbo de la línea de base."
+    nivel: troncal
+
   - id: 03_reflexiones_similaridades
     archivo: unidades/03_reflexiones_similaridades.py
     titulo: Reflexiones y similaridades
@@ -45,7 +54,7 @@ unidades:
   - id: 04_afines_homogeneas
     archivo: unidades/04_afines_homogeneas.py
     titulo: Afinidades y coordenadas homogéneas
-    estado: pendiente
+    estado: piloto
     clases: ["03"]
     pregunta: "¿Cómo meto la traslación adentro de la matriz para componer rotar, escalar y mover con una sola cuenta?"
     gancho_agrimensura: "Un plano escaneado que quedó estirado distinto en cada eje: las paralelas siguen paralelas y tres puntos conocidos alcanzan para corregirlo."

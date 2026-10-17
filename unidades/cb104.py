@@ -31,6 +31,10 @@ __all__ = [
     "figura_espacio", "cubo_unitario", "malla_pares", "terreno_suave", "segmentos_3d", "flechas_columnas_3d",
     # verificación
     "verificar", "exacto",
+    # producto interno (lección 02)
+    "proyeccion", "angulo", "arco_angulo",
+    # afinidades (lección 04)
+    "transformar_afin", "matriz_afin", "partes_afin", "afin_por_tres_puntos", "capa_despues_afin",
 ]
 
 # ----------------------------------------------------------------------------
@@ -98,13 +102,22 @@ def transformar(nube, M):
 
 
 def hom(p):
-    """(x, y) → vector homogéneo (x, y, 1), float."""
-    return np.array([float(p[0]), float(p[1]), 1.0])
+    """(x, y) → vector homogéneo (x, y, 1), float. Una nube N×2 → N×3 (columna de unos al final)."""
+    p = np.asarray(p, dtype=float)
+    if p.ndim == 2:
+        return np.column_stack([p[:, :2], np.ones(len(p))])
+    return np.array([p[0], p[1], 1.0])
 
 
 def dehom(v):
-    """(x, y, w) → array (x/w, y/w). Devuelve None si el punto es impropio (w ≈ 0)."""
+    """(x, y, w) → array (x/w, y/w). Devuelve None si el punto es impropio (w ≈ 0).
+
+    Una nube N×3 → N×2 (fila a fila, cada una dividida por su w; una fila impropia da inf/nan, no None).
+    """
     v = np.asarray(v, dtype=float)
+    if v.ndim == 2:
+        with np.errstate(divide="ignore", invalid="ignore"):
+            return v[:, :2] / v[:, 2:3]
     if abs(v[2]) < 1e-12 * max(1.0, float(np.abs(v).max())):
         return None
     return v[:2] / v[2]
@@ -530,6 +543,110 @@ def verificar(checks):
 
 
 # ----------------------------------------------------------------------------
+# producto interno (lección 02): proyección, ángulo y el arco que lo marca
+# ----------------------------------------------------------------------------
+
+
+def proyeccion(v, u):
+    """Proyección vectorial de v sobre u: la sombra de v sobre la recta de u, (⟨v,u⟩ / ⟨u,u⟩) u. u no puede ser nulo."""
+    v = np.asarray(v, dtype=float)
+    u = np.asarray(u, dtype=float)
+    uu = float(u @ u)
+    if uu == 0.0:
+        raise ValueError("no se puede proyectar sobre el vector nulo")
+    return (float(v @ u) / uu) * u
+
+
+def angulo(v, u):
+    """Ángulo entre v y u en radianes, en [0, π]: arccos(⟨v,u⟩ / (|v||u|)) con clip (sin clip, paralelos dan nan)."""
+    v = np.asarray(v, dtype=float)
+    u = np.asarray(u, dtype=float)
+    nv, nu = np.linalg.norm(v), np.linalg.norm(u)
+    if nv == 0.0 or nu == 0.0:
+        raise ValueError("el ángulo con el vector nulo no está definido")
+    return float(np.arccos(np.clip(float(v @ u) / (nv * nu), -1.0, 1.0)))
+
+
+def arco_angulo(fig, u, v, radio=1.0, color="#444", nombre="ángulo", texto=None, n=40):
+    """Arco de radio `radio` desde la dirección de u hasta la de v por el camino corto (|θ| ≤ π), con etiqueta
+    opcional en el medio. Devuelve fig. Sólo 2D."""
+    import plotly.graph_objects as go
+
+    u = np.asarray(u, dtype=float)
+    v = np.asarray(v, dtype=float)
+    a0 = float(np.arctan2(u[1], u[0]))
+    th = angulo(v, u)
+    cruz = float(u[0] * v[1] - u[1] * v[0])
+    if cruz < 0:  # v está del lado horario de u: el arco va para abajo
+        th = -th
+    t = np.linspace(a0, a0 + th, n)
+    fig.add_trace(go.Scatter(x=radio * np.cos(t), y=radio * np.sin(t), mode="lines", line=dict(color=color, width=2),
+                             name=nombre, showlegend=bool(nombre), hoverinfo="skip"))
+    if texto:
+        m = t[n // 2]
+        fig.add_trace(go.Scatter(x=[1.3 * radio * np.cos(m)], y=[1.3 * radio * np.sin(m)], mode="text", text=[texto],
+                                 textfont=dict(size=13, color=color), showlegend=False, hoverinfo="skip"))
+    return fig
+
+
+# ----------------------------------------------------------------------------
+# afinidades F(x) = Ax + t (lección 04)
+# ----------------------------------------------------------------------------
+
+
+def transformar_afin(nube, A, t):
+    """Nube N×2 bajo F(x) = Ax + t: nube @ A.T + t (una fila por punto)."""
+    return transformar(nube, A) + np.asarray(t, dtype=float)
+
+
+def matriz_afin(A, t):
+    """F(x) = Ax + t como matriz homogénea 3×3 [[A, t], [0 0 1]]: la última columna es a dónde va el origen."""
+    H = np.eye(3)
+    H[:2, :2] = np.asarray(A, dtype=float)
+    H[:2, 2] = np.asarray(t, dtype=float)
+    return H
+
+
+def partes_afin(H):
+    """(A 2×2, t) de una homogénea afín 3×3 (se normaliza por H[2, 2]; la última fila tiene que ser (0 0 w))."""
+    H = np.asarray(H, dtype=float) / float(H[2, 2])
+    return H[:2, :2].copy(), H[:2, 2].copy()
+
+
+def afin_por_tres_puntos(origen, destino):
+    """(A, t) de la afinidad que lleva tres puntos no alineados (3×2) a otros tres (3×2).
+
+    Dos sistemas 3×3 con la misma matriz hom(origen): uno da (a, b, e) con x' = ax + by + e,
+    el otro (c, d, f) con y' = cx + dy + f. Es `np.linalg.solve(hom(origen), destino).T` = [A | t].
+    """
+    M = np.linalg.solve(hom(origen), np.asarray(destino, dtype=float)).T
+    return M[:, :2], M[:, 2]
+
+
+def capa_despues_afin(fig, A, t, rango=5, paso=1, cuadrado=True, columnas=True):
+    """Capa teal de F(x) = Ax + t: grilla y cuadrado unitario transformados, y las columnas de A como flechas
+    que salen de F(0) = t (a donde fue a parar el origen), más t en gold. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    A = np.asarray(A, dtype=float)
+    t = np.asarray(t, dtype=float)
+    gx, gy = grilla_segmentos(A, rango, paso)
+    gx = [None if x is None else x + t[0] for x in gx]
+    gy = [None if y is None else y + t[1] for y in gy]
+    fig.add_trace(go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=TEAL_DESPUES, width=1), opacity=0.45,
+                             name="grilla después", hoverinfo="skip"))
+    if cuadrado:
+        c = cerrar(transformar_afin(_cuadrado_unitario(), A, t))
+        fig.add_trace(go.Scatter(x=c[:, 0], y=c[:, 1], mode="lines", fill="toself", fillcolor="rgba(27,111,106,0.25)",
+                                 line=dict(color=TEAL_DESPUES, width=2), name="cuadrado unitario después"))
+    if columnas:
+        for k in range(2):
+            flecha(fig, t, t + A[:, k], color_columna(k), f"columna {k + 1} = A e{_SUB[k]} (desde F(0))")
+        flecha(fig, (0, 0), t, color_columna(2), "columna 3 = F(0) = t")
+    return fig
+
+
+# ----------------------------------------------------------------------------
 # asserts rápidos
 # ----------------------------------------------------------------------------
 
@@ -571,4 +688,29 @@ if __name__ == "__main__":
     assert eje_angulo(np.eye(3))[1] == 0.0
     t, pares = terreno_suave(7)
     assert t.shape == (49, 3) and len(pares) == 2 * 7 * 6 and len(malla_pares(2, 3)) == 2 * 2 + 1 * 3
+    assert exacto(proyeccion([4, -3], [4, 3]), [1.12, 0.84]) and exacto(proyeccion([1, 1], [2, 0]), [1, 0])
+    assert exacto(angulo([4, -3], [4, 3]), np.arccos(0.28)) and exacto(angulo([1, 0], [0, 1]), np.pi / 2)
+    assert exacto(angulo([0.3 * 0.1, 0.3 * 0.6], [0.1, 0.6]), 0.0) and exacto(angulo([1, 0], [-2, 0]), np.pi), "clip: paralelos y opuestos"
+    assert exacto(angulo(rot2(th) @ [4, -3], rot2(th) @ [4, 3]), angulo([4, -3], [4, 3])), "una rotación conserva el ángulo"
+    try:
+        angulo([0, 0], [1, 0])
+        raise AssertionError("ángulo con el nulo tiene que fallar")
+    except ValueError:
+        pass
+    nube = np.array([[1.0, 2.0], [3.0, 4.0]])
+    assert hom(nube).shape == (2, 3) and exacto(hom(nube)[:, 2], [1, 1]) and exacto(dehom(2 * hom(nube)), nube)
+    Aa, ta = np.array([[1.0, 1.0], [0.0, 1.0]]), np.array([0.0, 1.0])
+    Ha = matriz_afin(Aa, ta)
+    assert exacto(Ha[2], [0, 0, 1]) and exacto(Ha[:2, 2], ta), "matriz_afin: última fila (0 0 1), última columna t"
+    assert exacto(transformar_afin(nube, Aa, ta), dehom(hom(nube) @ Ha.T)), "Ax + t == dehom(H hom(x))"
+    assert exacto(transformar_afin(nube, Aa, ta), (Aa @ nube.T).T + ta)
+    A2, t2 = partes_afin(2 * Ha)
+    assert exacto(A2, Aa) and exacto(t2, ta), "partes_afin normaliza por H[2,2]"
+    P3, Q3 = np.array([[1.0, 1.0], [3.0, 1.0], [1.0, 2.0]]), np.array([[2.0, 2.0], [4.0, 2.0], [3.0, 3.0]])
+    A3, t3 = afin_por_tres_puntos(P3, Q3)
+    assert exacto(A3, Aa) and exacto(t3, ta), "apunte 17, ejercicio 6: A = [[1,1],[0,1]], t = (0,1)"
+    assert exacto(transformar_afin(P3, A3, t3), Q3)
+    H1 = matriz_afin(rot2(np.pi / 4), (np.eye(2) - rot2(np.pi / 4)) @ [3, 1])
+    H2 = matriz_afin(0.5 * np.eye(2), 0.5 * np.array([-1, 2]))
+    assert exacto(dehom((H2 @ H1) @ hom([1 - np.sqrt(2) / 2] * 2)), [1 - np.sqrt(2) / 2] * 2), "apunte 16: punto fijo"
     print("cb104: asserts OK")

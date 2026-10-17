@@ -188,7 +188,7 @@ conceptos:
 - id: producto-interno
   nombre: Producto interno
   clase: "01"
-  unidad: null
+  unidad: 02_producto_interno
   hecho_geometrico: ⟨v,u⟩ mide longitudes y ángulos de una vez; conservarlo es que regla y transportador den lo mismo antes y después. No hay base privilegiada salvo por el producto interno.
   que_se_conserva: longitudes y ángulos (es lo que se conserva)
   apunte:
@@ -198,7 +198,7 @@ conceptos:
 - id: matriz-ortogonal
   nombre: Matriz ortogonal
   clase: "01"
-  unidad: null
+  unidad: 01b_rotacion_plano
   hecho_geometrico: AᵀA = Id; columnas perpendiculares de longitud 1; la grilla cuadrada sigue cuadrada pero puede estar espejada. det = +1 rotación, det = −1 reflexión.
   que_se_conserva: producto interno; con det 1, además la orientación
   apunte:
@@ -301,7 +301,7 @@ conceptos:
 - id: afinidad-axial
   nombre: Afinidad axial (eje, dirección y factor)
   clase: "03"
-  unidad: null
+  unidad: 04_afines_homogeneas
   hecho_geometrico: Una recta queda fija y cada punto desliza por su paralela a la dirección, multiplicando por f su distancia al eje; B·diag(1,f)·B⁻¹, det = f. Con f = −1 es la reflexión; tres de ellas llevan cualquier triángulo sobre cualquier otro.
   que_se_conserva: el eje punto a punto, rectas y paralelismo
   apunte:
@@ -323,7 +323,7 @@ conceptos:
 - id: transformacion-afin
   nombre: Transformación afín
   clase: "03"
-  unidad: null
+  unidad: 04_afines_homogeneas
   hecho_geometrico: F(x) = Ax + t; paralelogramo va a paralelogramo, círculo a elipse, se conservan proporciones sobre cada recta. La imagen de un triángulo la determina del todo (seis números, seis ecuaciones).
   que_se_conserva: rectas, paralelismo y proporciones sobre una recta
   apunte:
@@ -334,7 +334,7 @@ conceptos:
 - id: coordenadas-homogeneas
   nombre: Coordenadas homogéneas
   clase: "03"
-  unidad: null
+  unidad: 04_afines_homogeneas
   hecho_geometrico: El plano es el plano z = 1 de R³ y cada punto es la recta por el origen que lo atraviesa; (x,y,1) ~ λ(x,y,1). La afinidad es la 3×3 con fila (0 0 1) y la traslación entra en la matriz; tercera coordenada 0 es una dirección, un punto impropio.
   que_se_conserva: la recta por el origen (el rayo), no el representante
   apunte:
@@ -356,7 +356,7 @@ conceptos:
 - id: traslacion
   nombre: Traslación
   clase: "03"
-  unidad: null
+  unidad: 04_afines_homogeneas
   hecho_geometrico: x' = x + v, A = I; todo se desplaza igual y no hay punto fijo propio (el autovector de autovalor 1 tiene w = 0, el punto fijo se fue al infinito). Nace de dos reflexiones y es el límite de rotaciones cuyo centro se aleja. T_v Q_c ≠ Q_c T_v.
   que_se_conserva: distancias, ángulos, orientación y todas las direcciones
   apunte:
@@ -867,6 +867,15 @@ unidades:
   pregunta: ¿Por qué en 3D importa el orden en que giro, y por qué igual el resultado es un solo giro alrededor de un eje?
   gancho_agrimensura: 'Nivelar la estación: inclinar y después girar no deja el instrumento igual que girar y después inclinar, salvo con correcciones chicas.'
   nivel: troncal
+- id: 02_producto_interno
+  archivo: unidades/02_producto_interno.py
+  titulo: 'Producto interno: proyección, longitud, ángulo'
+  estado: piloto
+  clases:
+  - "01"
+  pregunta: ¿Qué cuenta con dos columnas de coordenadas me da la distancia entre dos mojones, el ángulo entre dos lados y cuánto de un lado cae sobre el otro?
+  gancho_agrimensura: Con las coordenadas de tres mojones calculo el ángulo en el vértice sin medirlo, y proyecto un lado sobre el rumbo de la línea de base.
+  nivel: troncal
 - id: 03_reflexiones_similaridades
   archivo: unidades/03_reflexiones_similaridades.py
   titulo: Reflexiones y similaridades
@@ -879,7 +888,7 @@ unidades:
 - id: 04_afines_homogeneas
   archivo: unidades/04_afines_homogeneas.py
   titulo: Afinidades y coordenadas homogéneas
-  estado: pendiente
+  estado: piloto
   clases:
   - "03"
   pregunta: ¿Cómo meto la traslación adentro de la matriz para componer rotar, escalar y mover con una sola cuenta?
