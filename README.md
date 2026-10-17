@@ -8,7 +8,7 @@ Sitio: https://gusvarela-fiuba.github.io/sistemas-de-coordenadas/
 
 Tres capas, de la más guiada a la más completa:
 
-- **El camino** (la portada): 18 estaciones, una por lección, en el orden del profesor. Cada estación tiene su pregunta de campo, su gancho de agrimensura, su estado y la lección marimo, que corre en el navegador (WebAssembly, sin instalar nada): situación de campo y predicción, hecho geométrico, manipulación con una figura de tres capas, cuenta a mano y código lado a lado, un Python de hoy y ejercicios.
+- **El camino** (la portada): 19 estaciones, una por lección, en el orden del profesor, precedidas por la Estación 0 (encuadre propio del autor: cuatro cosas para desaprender del CBC). Cada estación tiene su pregunta de campo, su gancho de agrimensura, su estado y la lección marimo, que corre en el navegador (WebAssembly, sin instalar nada): situación de campo y predicción, hecho geométrico, manipulación con una figura de tres capas, cuenta a mano y código lado a lado, un Python de hoy y ejercicios.
 - **El mapa** (`mapa.html`): los conceptos de las 14 clases como grafo, con filtro de ruta (troncal / todo) y un control "hasta la clase N". Es la herramienta de repaso.
 - **El apunte** (`apunte.pdf`): anexo de demostraciones en LaTeX, enlazado por sección desde cada estación. Las fichas por clase (`clases/`) siguen el esqueleto del profesor.
 
@@ -24,7 +24,7 @@ uv run python tools/build.py --skip-wasm      # portada, mapa, fichas y apunte.p
 uv run python -m http.server -d site 8765     # http://localhost:8765/
 ```
 
-`uv run python tools/build.py` sin `--skip-wasm` exporta además las 18 lecciones a WebAssembly (1–2 s cada una, ~27 MB por lección en `site/unidades/`); para una sola, `--only NN_nombre`. Las lecciones exportadas necesitan HTTP, no andan desde `file://`. Para editar una lección: `uv run marimo edit unidades/NN_nombre.py`. El flujo completo, el molde de lección y cómo agregar una están en `tools/README.md`.
+`uv run python tools/build.py` sin `--skip-wasm` exporta además las 19 lecciones a WebAssembly (1–2 s cada una, ~27 MB por lección en `site/unidades/`); para una sola, `--only NN_nombre`. Las lecciones exportadas necesitan HTTP, no andan desde `file://`. Para editar una lección: `uv run marimo edit unidades/NN_nombre.py`. El flujo completo, el molde de lección y cómo agregar una están en `tools/README.md`.
 
 El apunte se compila aparte con TeX Live (LuaLaTeX, tres pasadas desde `apunte/`, ver `apunte/README.md`); el PDF compilado está commiteado y el build lo copia a `site/apunte.pdf`, así que ni el runner de GitHub ni quien clona necesitan TeX.
 

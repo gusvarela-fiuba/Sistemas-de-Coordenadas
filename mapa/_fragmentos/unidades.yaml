@@ -6,6 +6,15 @@
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
 
 unidades:
+  - id: 00_desaprender_el_cbc
+    archivo: unidades/00_desaprender_el_cbc.py
+    titulo: "Antes de empezar: cuatro cosas para desaprender del CBC"
+    estado: piloto
+    clases: ["01", "04", "09"]
+    pregunta: "¿Por qué un vector es un punto, el gradiente no es un vector y el álgebra lineal es la mitad del análisis sobre el terreno?"
+    gancho_agrimensura: "Un mojón es un punto, las curvas de nivel son una forma lineal y pasar de grados (φ, λ) a metros en el campo es derivar la grilla."
+    nivel: troncal
+
   - id: 01a_punto_quieto
     archivo: unidades/01a_punto_quieto.py
     titulo: "Rotaciones I: el punto no se movió"
@@ -62,11 +71,11 @@ unidades:
 
   - id: 05_proyectivas
     archivo: unidades/05_proyectivas.py
-    titulo: Proyectivas
-    estado: migrada
+    titulo: "Proyectivas: la foto del dron y el pentágono del profesor"
+    estado: piloto
     clases: ["03p"]
     pregunta: "¿Por qué en la foto los alambrados paralelos se juntan en un punto, y con cuántos puntos enderezo la imagen?"
-    gancho_agrimensura: "Foto de dron inclinada sobre un lote plano: cuatro puntos conocidos la rectifican."
+    gancho_agrimensura: "Foto de dron inclinada sobre un lote plano: cuatro mojones de coordenadas conocidas la rectifican, y el mojón del centro cae donde se cruzan las diagonales."
     nivel: complementario
 
   - id: 06_formas_lineales

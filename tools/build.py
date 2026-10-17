@@ -934,9 +934,9 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
 
     # entrada "seguir la cursada": la estación de la última clase dictada
     ultima = ultima_clase_dictada(clases, fecha)
-    n_seguir = 1
+    n_seguir = 0
     if ultima:
-        for i, e in enumerate(estaciones, start=1):
+        for i, e in enumerate(estaciones, start=0):
             if any(c["id"] == ultima["id"] for c in e["clases"]):
                 n_seguir = i
                 break
@@ -948,7 +948,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     seguir_sub = f"estación {n_seguir}, clase {html.escape(ultima['id'])} ({html.escape(max(ultima['fechas_2026']))})" if ultima else "todavía no se dictó ninguna clase"
     partes.append(
         '<nav class="entradas">'
-        f'<a class="entrada" href="#estacion-1"><b>Empezar</b><small>estación 1: {html.escape(estaciones[0]["titulo"])}</small></a>'
+        f'<a class="entrada" href="#estacion-0"><b>Empezar</b><small>estación 0: {html.escape(estaciones[0]["titulo"])}</small></a>'
         f'<a class="entrada" href="#estacion-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
         "</nav>"
@@ -956,7 +956,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
 
     partes.append(f"<h2>Estaciones ({len(estaciones)})</h2>")
     partes.append('<ol class="camino">')
-    for i, e in enumerate(estaciones, start=1):
+    for i, e in enumerate(estaciones, start=0):
         rot, color = ETIQUETA_ESTACION[e["estado"]]
         cab = [f'<span class="num">Estación {i}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
                etiqueta(rot, color, solida=True)]
