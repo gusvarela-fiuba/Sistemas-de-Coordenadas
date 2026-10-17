@@ -54,7 +54,7 @@ def _(mo):
 
     Esta unidad sigue la clase 1 (rotaciones en el plano, complejos, matrices ortogonales, rotaciones en 3D) y el comienzo
     de la clase 2 (el orden de las rotaciones). Tiene seis partes, siempre las mismas en todas las unidades:
-    **0\\. situación de campo y predicción · 1\\. el hecho geométrico · 2\\. manipulación · 3\\. cuenta a mano y código lado a lado · 4\\. el Python de hoy · 5\\. ejercicios.**
+    **0\. situación de campo y predicción · 1\. el hecho geométrico · 2\. manipulación · 3\. cuenta a mano y código lado a lado · 4\. el Python de hoy · 5\. ejercicios.**
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
     <span style="color:#1b6f6a">**teal**</span>, la **segunda** es <span style="color:#b5451b">**rust**</span> y, en 3D, la
