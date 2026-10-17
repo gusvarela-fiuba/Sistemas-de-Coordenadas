@@ -296,6 +296,16 @@ def _restaurar_math(htm: str, guardadas: list[str]) -> str:
     return htm
 
 
+def sin_front_matter(texto: str) -> str:
+    """Quita el front-matter YAML (`---` ... `---` al inicio); si no hay, devuelve el texto tal cual."""
+    if not texto.startswith("---\n"):
+        return texto
+    fin = texto.find("\n---\n", 4)
+    if fin == -1:
+        return texto
+    return texto[fin + len("\n---\n"):]
+
+
 def md_a_html(texto: str) -> str:
     protegido, guardadas = _proteger_math(texto)
     cuerpo = markdown.markdown(protegido, extensions=["tables", "fenced_code", "toc"])
@@ -349,7 +359,7 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
         src = RAIZ / ficha
         if not src.exists():
             continue
-        texto = src.read_text(encoding="utf-8")
+        texto = sin_front_matter(src.read_text(encoding="utf-8"))
         titulo = titulo_de_md(texto, f"Clase {c['id']} — {c.get('titulo', '')}")
         cuerpo = f'<p class="volver"><a href="../index.html">← índice</a></p>\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
         (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
@@ -362,7 +372,7 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
                 continue  # README, PLANTILLA y _borradores no son fichas
             if False:
                 continue
-            texto = src.read_text(encoding="utf-8")
+            texto = sin_front_matter(src.read_text(encoding="utf-8"))
             titulo = titulo_de_md(texto, src.stem)
             cuerpo = f'<p class="volver"><a href="../index.html">← índice</a></p>\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
             (destino / f"{src.stem}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
