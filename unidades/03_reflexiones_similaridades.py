@@ -252,7 +252,7 @@ def _(caso, casos, go, lib, mo, np, params, parcela, rango, t_sit):
     else:
         _extra = r"- traslación pura, **sin centro**" if con_t else r"- el centro es el origen: $S(0) = 0$"
     _panel = mo.vstack([
-        mo.md("**Controles**"), params,
+        mo.md("**Controles**"), mo.vstack(params.elements),
         mo.md(rf"""
         **Números vivos**
 

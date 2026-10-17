@@ -265,7 +265,7 @@ def _(caso, casos, es_general, go, lib, mo, np, s_a, s_b, s_c, s_d):
         **Qué pasa acá:** {que_pasa}
         """),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(figura), _panel])
     return A, U, V, Vt, camino, det_A, figura, que_pasa, s
 
 

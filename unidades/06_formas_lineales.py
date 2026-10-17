@@ -262,7 +262,7 @@ def _(caso, casos, fila, go, h0, lib, mo, np, param):
         **Qué pasa acá:** {que_pasa}
         """),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(figura), _panel])
     return A, fila_despues, mojon, mojon_despues
 
 
