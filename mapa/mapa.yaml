@@ -794,7 +794,7 @@ conceptos:
   - "13"
   requiere: [trigonometria-esferica, geodesica, elipsoide]
 unidades:
-- {id: 01_rotaciones, archivo: unidades/01_rotaciones.py, titulo: Rotaciones, estado: pendiente, nota: piloto a rehacer; v1 en _legacy}
+- {id: 01_rotaciones, archivo: unidades/01_rotaciones.py, titulo: Rotaciones, estado: piloto}
 - {id: 03_reflexiones_similaridades, archivo: unidades/03_reflexiones_similaridades.py, titulo: Reflexiones y similaridades, estado: pendiente}
 - {id: 04_afines_homogeneas, archivo: unidades/04_afines_homogeneas.py, titulo: Afinidades y coordenadas homogéneas, estado: pendiente}
 - {id: 05_proyectivas, archivo: unidades/05_proyectivas.py, titulo: Proyectivas, estado: migrada}

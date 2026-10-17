@@ -36,7 +36,7 @@ PREGUNTA_GUIA = "transformaciones ↔ operaciones ↔ coordenadas"
 # (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
 UNIDADES: list[dict] = [
     {"id": "01_rotaciones", "archivo": "unidades/01_rotaciones.py", "titulo": "Rotaciones",
-     "estado": "pendiente", "nota": "piloto a rehacer; v1 en _legacy"},
+     "estado": "piloto"},
     {"id": "03_reflexiones_similaridades", "archivo": "unidades/03_reflexiones_similaridades.py",
      "titulo": "Reflexiones y similaridades", "estado": "pendiente"},
     {"id": "04_afines_homogeneas", "archivo": "unidades/04_afines_homogeneas.py",

@@ -50,6 +50,50 @@ uv run marimo run tools/_prueba_plotly.py
 
 Nota: el export WASM (sin `--execute`) no embebe salidas; el HTML contiene el código de las celdas y todo se calcula en el navegador. `--execute` intenta correr el notebook en un entorno aislado y, al no declarar dependencias en el script, falla con `No module named 'numpy'`; no se usa.
 
+### Molde de unidad (piloto: `unidades/01_rotaciones.py`)
+
+Toda unidad nueva copia la estructura de `01_rotaciones.py`: un `marimo.App(width="medium")`, Python puro, sólo `numpy`
+y `plotly` (los dos están en Pyodide; nada de matplotlib, `mo.iframe` ni `to_jshtml()`, que no andan en WASM), grados en
+la interfaz y radianes adentro, rotación/transformación activa por default, fórmulas en `mo.md` con `$…$` / `$$…$$`
+(KaTeX: sin `\newtheorem` ni entornos de LaTeX). Cinco secciones, en este orden y con encabezado `##` visible:
+
+1. **Hecho geométrico.** La pregunta "¿qué se conserva?" antes que la fórmula; la escalera R → R² → R³ en una tabla
+   (álgebra | lo que se ve); cada fórmula con su hecho geométrico al lado. Una figura chica, estática, si ayuda.
+2. **Manipulación.** La figura de tres capas: (a) gris = antes (grilla de referencia + cuadrado/cubo unitario),
+   (b) teal = después (grilla transformada + imágenes de la base, las columnas de la matriz), (c) un objeto reconocible
+   (parcela 2D de vértices enteros con norte; cubo + terreno N×3 en 3D) con estelas. Números vivos al lado de los
+   controles: lo que se conserva como número (área del cuadrado unitario, una distancia) y la matriz actual.
+   Layout `mo.hstack([mo.vstack(controles), mo.ui.plotly(figura)], widths=[1, 2])`. Controles en una celda aparte
+   de la figura (el slider/checkbox/dropdown se define en una celda y se *muestra* dentro del `vstack` de la otra).
+3. **Cuenta a mano y código lado a lado.** `mo.hstack([mo.md(latex), mo.vstack([mo.md("```python …```"), salida])],
+   widths="equal")`, un hstack por cuenta, enteros y valores exactos; el código del bloque es el mismo que corre en la celda.
+4. **Python de hoy.** Una sola idea nueva de Python por unidad (en 01: nube = array N×d con una fila por punto y
+   `transformar(nube, R) = nube @ R.T`). Mostrar `shape` y un ejemplo de tres puntos.
+5. **Ejercicios.** Cuatro: dos de lápiz con respuesta en `mo.accordion({"Ver respuesta": …})` y dos de código con hueco
+   en `mo.ui.code_editor` (en el export el notebook corre en modo app, así que el alumno no puede editar celdas: el hueco
+   va en un editor y una celda aparte hace `exec(editor.value, {"np": np, …})` y verifica con `np.allclose`, mostrando
+   `mo.callout(…, kind="success" | "warn" | "danger")`; el `try/except` atrapa el `...` sin completar). Cada ejercicio
+   con el nivel de la rúbrica del profesor (elemental / medio / avanzado) y la frase de la rúbrica a la que apunta.
+
+Cierre: una celda "Enlaces del mapa" con links relativos desde `site/unidades/<id>/index.html`
+(`../../clases/NN.html`, `../../apunte.pdf`, `../../index.html`, `../<otra_unidad>/index.html`) y una celda final de
+`assert np.allclose(…)` silenciosos que valida todas las cuentas del notebook (corre en el navegador al cargar; si
+falla, marimo muestra el error en esa celda). Las funciones de la unidad (`rot2`, `rot_x`, … , `transformar`) van en
+una sola celda al principio, con docstring; los objetos fijos de cada figura (parcela, cubo, terreno) en otra.
+
+Patrones plotly que funcionan en WASM:
+
+- Figuras: `go.Figure` + `go.Scatter` (2D) / `go.Scatter3d` (3D, `scene.aspectmode="cube"`, cámara libre), mostradas
+  con `mo.ui.plotly(fig)`. Polilíneas con cortes: un solo trazo con `None` entre segmentos (grillas, aristas, mallas).
+- Animación: `frames=[go.Frame(name=str(i), data=[…trazas dinámicas…], traces=[índices]) …]` (36 cuadros de 0 a θ,
+  el último coincide con el estado del slider) y botón `updatemenus=[dict(type="buttons", buttons=[dict(label="▶ reproducir",
+  method="animate", args=[None, dict(frame=dict(duration=50, redraw=True), fromcurrent=False)]), …])]`. Las trazas
+  estáticas van primero en `data` y no aparecen en los frames; `traces` indica qué índices reemplaza cada frame.
+  Al mover un control marimo reconstruye la figura (y sus frames). Ver también `_prueba_plotly.py`.
+- Verificación antes de commitear: `uv run marimo check unidades/<id>.py`, ejecución headless
+  (`uv run python -c "…app.run()"`, corre las celdas y los asserts) y `uv run tools/build.py --only <id>` +
+  `http.server` + curl 200. La extensión Claude in Chrome sirve para la revisión visual si está disponible.
+
 ### Tamaño del sitio
 
 Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos). Con 14 unidades el sitio pasaría de 350 MB; si eso molesta en GitHub Pages, una mejora posible es compartir un único `site/assets/` reescribiendo las rutas `./assets/` de cada `index.html` (no está hecho; hay que verificar que los chunks que marimo carga en forma diferida sigan resolviendo).
