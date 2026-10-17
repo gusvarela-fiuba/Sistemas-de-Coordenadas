@@ -466,7 +466,7 @@ conceptos:
 - id: subespacio-afin
   nombre: Subespacio afín
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07a_cuna_determinante
   hecho_geometrico: 'Una recta o un plano cualquiera, no necesariamente por el origen (p + S); tres escrituras de la misma recta: paramétrica, implícita (forma lineal = c) y homogénea (terna l).'
   que_se_conserva: Las afinidades mandan subespacios afines en subespacios afines y conservan paralelismo.
   apunte:
@@ -476,7 +476,7 @@ conceptos:
 - id: subespacio-lineal
   nombre: Subespacio lineal
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: Rectas y planos por el origen; en homogéneas un rayo de R3 es un punto del plano y un plano por el origen es una recta. Los planos elementales e1∧e2, e1∧e3, e2∧e3 son los subespacios coordenados.
   que_se_conserva: Cerrado por suma y escala; contiene al cero.
   apunte:
@@ -486,7 +486,7 @@ conceptos:
 - id: producto-vectorial
   nombre: Producto vectorial (producto cruz)
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07a_cuna_determinante
   hecho_geometrico: 'La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Sólo existe en R3.'
   que_se_conserva: La incidencia (p×q)·p = 0; la antisimetría es la orientación del área.
   apunte:
@@ -496,7 +496,7 @@ conceptos:
 - id: producto-cuna
   nombre: Producto cuña (exterior)
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07a_cuna_determinante
   hecho_geometrico: 'u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido sólo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). ''Detector de colinealidad'': vale cero cuando los vectores se aplastan.'
   que_se_conserva: Nada; mide cuánto se aplasta. El ortogonal a un subespacio es el que maximiza el volumen.
   apunte:
@@ -505,7 +505,7 @@ conceptos:
 - id: determinante
   nombre: Determinante
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07a_cuna_determinante
   hecho_geometrico: La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y sólo si los vectores son dependientes.
   que_se_conserva: El signo dice si se invierte la orientación; el módulo cuánto se agranda.
   apunte:
@@ -515,7 +515,7 @@ conceptos:
 - id: nucleo
   nombre: Núcleo (espacio nulo)
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'Las direcciones que la transformación aplasta a un punto; visto por filas, el vector donde todas las reglas marcan cero, ortogonal a todas las filas, que entonces caben en un plano: núcleo no trivial ⇔ det = 0. Construir una TL con un vector dado en el núcleo es lo que hace A − λI.'
   que_se_conserva: Nada en esas direcciones; se pierde dimensión y no hay inversa.
   apunte:
@@ -524,7 +524,7 @@ conceptos:
 - id: colinealidad
   nombre: Colinealidad (tres puntos alineados)
   clase: "05"
-  unidad: 07_cuna_autovectores
+  unidad: 07a_cuna_determinante
   hecho_geometrico: r está en la recta pq ⇔ (p×q)·r = 0 ⇔ det de las tres ternas = 0; completamente simétrico en los tres puntos. Es la condición 'sin tres alineados' que necesita la homografía.
   que_se_conserva: Las homografías conservan la colinealidad y nada más.
   apunte:
@@ -535,7 +535,7 @@ conceptos:
 - id: subespacio-invariante
   nombre: Subespacio invariante
   clase: "06"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: Una recta por el origen que, al transformar, cae sobre sí misma (quizá estirada o invertida); {0} siempre lo es. En homogéneas, una recta invariante de R3 es un punto fijo del plano y un plano invariante una recta fija. En R3 siempre hay al menos una.
   que_se_conserva: La dirección (la trayectoria más simple que genera la transformación).
   apunte:
@@ -545,7 +545,7 @@ conceptos:
 - id: autovector
   nombre: Autovector
   clase: "06"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble).'
   que_se_conserva: La dirección; sólo cambia la escala.
   apunte:
@@ -556,7 +556,7 @@ conceptos:
 - id: autovalor
   nombre: Autovalor
   clase: "06"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'Cuánto se estira la dirección fija: 1 queda quieta (eje, punto fijo), −1 se invierte (reflexión), 0 aplasta (núcleo). Complejos conjugados = un giro en un plano, sin vector real. Una rotación de R3 tiene exactamente un autovalor real, 1.'
   que_se_conserva: La escala sobre cada dirección invariante.
   apunte:
@@ -566,7 +566,7 @@ conceptos:
 - id: polinomio-caracteristico
   nombre: Polinomio característico
   clase: "06"
-  unidad: 07_cuna_autovectores
+  unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'det(A − λI) = 0; es el detector de colinealidad aplicado a las filas corridas de A: para qué λ se vuelven coplanares. Grado impar ⇒ una raíz real; raíces complejas de a pares; raíz doble con cruz nula ⇒ plano de autovectores. Una matriz genérica da raíces feas: el método tiene que correr en planilla o código.'
   que_se_conserva: El conjunto de autovalores no depende de la base (anticipa cambio de base).
   apunte:
@@ -912,20 +912,38 @@ unidades:
   pregunta: ¿Qué es una regla graduada tirada en el plano, y por qué una recta se transforma al revés que un punto?
   gancho_agrimensura: 'Las curvas de nivel de un plano acotado son las marcas de una regla: cerca de cada punto, la cota es una forma lineal.'
   nivel: troncal
-- id: 07_cuna_autovectores
-  archivo: unidades/07_cuna_autovectores.py
-  titulo: Producto cuña, determinante, núcleo y autovectores
-  estado: migrada
+- id: 07a_cuna_determinante
+  archivo: unidades/07a_cuna_determinante.py
+  titulo: 'Cuña y determinante: el detector de colinealidad'
+  estado: piloto
+  clases:
+  - "05"
+  pregunta: ¿Cómo detecto con una cuenta que tres mojones están alineados, y cuánto agranda el área (o el volumen) una transformación?
+  gancho_agrimensura: 'Tres mojones que deberían estar alineados: el determinante de sus coordenadas homogéneas los delata, y hasta dice cuánto se salió el tercero.'
+  nivel: troncal
+- id: 07b_nucleo_autovectores
+  archivo: unidades/07b_nucleo_autovectores.py
+  titulo: 'Núcleo y autovectores: las direcciones que no giran'
+  estado: piloto
   clases:
   - "05"
   - "06"
-  pregunta: ¿Cómo detecto con una cuenta que tres puntos están alineados, cuánto agranda el área una transformación y qué direcciones quedan quietas?
-  gancho_agrimensura: 'Tres mojones que deberían estar alineados: el determinante de sus coordenadas homogéneas lo delata; el eje de una rotación es la dirección que no gira.'
+  pregunta: ¿Qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro con una cuenta?
+  gancho_agrimensura: 'Un plano deformado por el escáner: casi todos los rumbos giran, pero dos salen con el mismo rumbo que entraron.'
   nivel: troncal
+- id: 07c_autovalores_3d_puntos_fijos
+  archivo: unidades/07c_autovalores_3d_puntos_fijos.py
+  titulo: Autovalores en 3D y puntos fijos proyectivos
+  estado: piloto
+  clases:
+  - "06"
+  pregunta: ¿Qué recta del espacio deja quieta una rotación compuesta, y qué tiene que ver con los puntos fijos de una foto rectificada?
+  gancho_agrimensura: El eje de una rotación es la dirección que no gira; en la foto rectificada, un punto fijo es un autovector de la 3×3.
+  nivel: complementario
 - id: 08_cambio_de_base
   archivo: unidades/08_cambio_de_base.py
   titulo: Cambio de base y diagonalización
-  estado: pendiente
+  estado: piloto
   clases:
   - "08"
   pregunta: Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es sólo estirar?

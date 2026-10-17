@@ -7,7 +7,7 @@ Scripts auxiliares del repo. Todo Python corre con `uv run` (nunca el Python del
 ```
 uv run tools/build.py                      # build completo en site/
 uv run tools/build.py --skip-wasm          # sin exportar notebooks (deja lo que ya haya en site/unidades/)
-uv run tools/build.py --only 07_cuna_autovectores   # exporta sólo esa unidad; el resto del sitio se regenera igual
+uv run tools/build.py --only 07a_cuna_determinante  # exporta sólo esa unidad; el resto del sitio se regenera igual
 uv run tools/build.py --out /ruta/otro     # otro directorio de salida (default: site/, relativo a la raíz)
 ```
 

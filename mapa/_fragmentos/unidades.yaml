@@ -78,19 +78,37 @@ unidades:
     gancho_agrimensura: "Las curvas de nivel de un plano acotado son las marcas de una regla: cerca de cada punto, la cota es una forma lineal."
     nivel: troncal
 
-  - id: 07_cuna_autovectores
-    archivo: unidades/07_cuna_autovectores.py
-    titulo: Producto cuña, determinante, núcleo y autovectores
-    estado: migrada
-    clases: ["05", "06"]
-    pregunta: "¿Cómo detecto con una cuenta que tres puntos están alineados, cuánto agranda el área una transformación y qué direcciones quedan quietas?"
-    gancho_agrimensura: "Tres mojones que deberían estar alineados: el determinante de sus coordenadas homogéneas lo delata; el eje de una rotación es la dirección que no gira."
+  - id: 07a_cuna_determinante
+    archivo: unidades/07a_cuna_determinante.py
+    titulo: "Cuña y determinante: el detector de colinealidad"
+    estado: piloto
+    clases: ["05"]
+    pregunta: "¿Cómo detecto con una cuenta que tres mojones están alineados, y cuánto agranda el área (o el volumen) una transformación?"
+    gancho_agrimensura: "Tres mojones que deberían estar alineados: el determinante de sus coordenadas homogéneas los delata, y hasta dice cuánto se salió el tercero."
     nivel: troncal
+
+  - id: 07b_nucleo_autovectores
+    archivo: unidades/07b_nucleo_autovectores.py
+    titulo: "Núcleo y autovectores: las direcciones que no giran"
+    estado: piloto
+    clases: ["05", "06"]
+    pregunta: "¿Qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro con una cuenta?"
+    gancho_agrimensura: "Un plano deformado por el escáner: casi todos los rumbos giran, pero dos salen con el mismo rumbo que entraron."
+    nivel: troncal
+
+  - id: 07c_autovalores_3d_puntos_fijos
+    archivo: unidades/07c_autovalores_3d_puntos_fijos.py
+    titulo: "Autovalores en 3D y puntos fijos proyectivos"
+    estado: piloto
+    clases: ["06"]
+    pregunta: "¿Qué recta del espacio deja quieta una rotación compuesta, y qué tiene que ver con los puntos fijos de una foto rectificada?"
+    gancho_agrimensura: "El eje de una rotación es la dirección que no gira; en la foto rectificada, un punto fijo es un autovector de la 3×3."
+    nivel: complementario
 
   - id: 08_cambio_de_base
     archivo: unidades/08_cambio_de_base.py
     titulo: Cambio de base y diagonalización
-    estado: pendiente
+    estado: piloto
     clases: ["08"]
     pregunta: "Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es sólo estirar?"
     gancho_agrimensura: "El mismo mojón con coordenadas en tres marcos: cambia la grilla con que se mide, no el punto."

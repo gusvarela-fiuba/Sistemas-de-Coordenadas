@@ -388,7 +388,7 @@ def _(mo):
     - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [lección anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el camino](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (clase 3): las ortogonales con $\det = -1$ y la escala. Ya disponible:
-    [cuña, determinante, núcleo y autovectores](../07_cuna_autovectores/index.html), donde el eje reaparece como
+    [autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html), donde el eje reaparece como
     autovector de autovalor $1$.
     """)
     return

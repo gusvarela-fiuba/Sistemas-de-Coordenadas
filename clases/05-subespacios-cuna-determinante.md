@@ -11,7 +11,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-16.md
 conceptos: [subespacio-lineal, subespacio-afin, producto-vectorial, producto-cuna, determinante, nucleo, colinealidad]
 apunte: ["11", "05"]
-unidad: 07_cuna_autovectores
+unidad: 07a_cuna_determinante   # y 07b_nucleo_autovectores (núcleo)
 ---
 
 # Clase 5 — Subespacios, producto cuña, determinante y núcleo
@@ -190,10 +190,11 @@ $p\times q=(-17,13,-3)$, $\det=-3$, $\det B=0$. En Excel: `MDETERM`; en GeoGebra
   `05-primera-lectura-homogeneas-proyectivas.tex`: tabla "La misma idea en cada dimensión" (filas
   Tamaño con signo, Producto) y tabla "Del álgebra a la geometría: qué pregunta cada operación" con
   la cadena incidencia → unión → alineación → determinante → núcleo → autovectores → puntos fijos.
-- Unidad marimo: `unidades/07_cuna_autovectores.py` — existe, migrada. Bloque A (área orientada,
-  detector de colinealidad, escalera $\mathbb{R}\to\mathbb{R}^2\to\mathbb{R}^3$), bloque B (volumen
-  y tres vectores en un plano), bloque C (núcleo: los vectores que van al cero). Convención:
-  transformación activa, verificación con `np.allclose`.
+- Unidades marimo (molde v2 sobre `cb104`, 2026-10-17): `unidades/07a_cuna_determinante.py`
+  (área orientada y detector de colinealidad, volumen y tres vectores en un plano, los tres mojones en
+  homogéneas; escalera $\mathbb{R}\to\mathbb{R}^2\to\mathbb{R}^3$) y `unidades/07b_nucleo_autovectores.py`
+  (núcleo: los vectores que van al cero, visto por filas, como puerta a los autovectores de la clase 6).
+  El notebook anterior de una pieza quedó en `unidades/_legacy/07_cuna_autovectores_v1.py`.
 - Bibliografía del campus: Winitzki, *Linear Algebra via Exterior Products* (sin comentario del
   profesor; es el enfoque de Grassmann que usó en clase); Grassmann, teoría de la extensión (Google
   Books, "lo más importante son los primeros dos capítulos"; clase 4); Strang, *Álgebra lineal y sus

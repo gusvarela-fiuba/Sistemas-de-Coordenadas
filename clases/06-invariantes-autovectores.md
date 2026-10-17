@@ -12,7 +12,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [subespacio-invariante, autovector, autovalor, polinomio-caracteristico]
 apunte: ["11", "18", "12"]
-unidad: 07_cuna_autovectores
+unidad: 07b_nucleo_autovectores   # y 07c_autovalores_3d_puntos_fijos (3D, puntos fijos)
 ---
 
 # Clase 6 — Subespacios invariantes, autovalores y autovectores
@@ -190,11 +190,12 @@ restar la identidad, producto cruz a mano con tres `=`, y `MMULT(R; eje)`.
   autovalores, homología). `18-apendice-pentagono.tex` (autovector por cruz en el caso (c) del
   regular, raíz doble → recta fija). `05-primera-lectura-homogeneas-proyectivas.tex`: fila
   "Autovector" de la tabla por dimensiones y caja "En palabras del profesor" (clase 6).
-- Unidad marimo: `unidades/07_cuna_autovectores.py` — existe, migrada. Bloque D (autovectores: las
-  direcciones que no giran, elipse que se aplasta), bloque E ($A-\lambda I$ y el detector; "en 2D la
-  perpendicular a una fila"), bloque F (tres dimensiones y los puntos fijos proyectivos: raíces de
-  $\det(M-\lambda I)$, autovector por cruz de dos filas, plano $z=1$). Rúbrica de autoevaluación al
-  final.
+- Unidades marimo (molde v2 sobre `cb104`, 2026-10-17): `unidades/07b_nucleo_autovectores.py`
+  (autovectores: las direcciones que no giran; $A-\lambda I$ y el detector con la elipse que se
+  aplasta; "en 2D la perpendicular a una fila"; método del profesor en `lib.autovectores_cuna`) y
+  `unidades/07c_autovalores_3d_puntos_fijos.py` (complementaria: reflexión y eje de $R_zR_y$ por cruz
+  de dos filas, rectas invariantes que pinchan $z=1$, $H_c$ del pentágono como homología). El notebook
+  anterior de una pieza, con su rúbrica, quedó en `unidades/_legacy/07_cuna_autovectores_v1.py`.
 - Bibliografía del campus: Butler, *Facts About Eigenvalues* (sin comentario); Axler, *Linear
   Algebra Done Right* (todo operador en dimensión impar tiene autovalor; citado en la entrega del
   pentágono); Allardice, *The barycentric calculus of Möbius* y Möbius, *On the composition of line

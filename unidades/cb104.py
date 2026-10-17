@@ -35,6 +35,11 @@ __all__ = [
     "proyeccion", "angulo", "arco_angulo",
     # afinidades (lección 04)
     "transformar_afin", "matriz_afin", "partes_afin", "afin_por_tres_puntos", "capa_despues_afin",
+    # cambio de base y diagonalización (lección 08)
+    "diagonalizar", "capa_base", "capa_ejes_propios",
+    # cuña, núcleo y autovectores (lecciones 07a, 07b, 07c)
+    "cuna2", "cuna3", "alineados", "paralelogramo", "paralelepipedo", "plano_3d", "nucleo2",
+    "autovalores_reales", "autovectores_cuna", "direcciones_propias", "puntos_fijos_proyectivos",
 ]
 
 # ----------------------------------------------------------------------------
@@ -647,6 +652,212 @@ def capa_despues_afin(fig, A, t, rango=5, paso=1, cuadrado=True, columnas=True):
 
 
 # ----------------------------------------------------------------------------
+# cambio de base y diagonalización (lección 08)
+# ----------------------------------------------------------------------------
+
+
+def diagonalizar(A):
+    """(autovalores, B) de una matriz con autovalores reales: λ ordenados de mayor a menor y, como columnas de B,
+    los autovectores unitarios (primera componente no nula positiva), en el mismo orden. A = B diag(λ) B⁻¹.
+
+    ValueError si hay autovalores complejos (una rotación: ningún eje propio) o si los autovectores son
+    dependientes (una cizalla: un solo eje propio): en los dos casos no hay grilla propia con la que diagonalizar.
+    """
+    A = np.asarray(A, dtype=float)
+    w, V = np.linalg.eig(A)
+    if np.abs(np.imag(w)).max() > 1e-9:
+        raise ValueError("autovalores complejos: no hay ejes propios reales")
+    w, V = np.real(w), np.real(V)
+    orden = np.argsort(-w, kind="stable")
+    w, V = w[orden], V[:, orden].copy()
+    for k in range(V.shape[1]):
+        j = int(np.argmax(np.abs(V[:, k]) > 1e-12))
+        if V[j, k] < 0:
+            V[:, k] = -V[:, k]
+    if abs(np.linalg.det(V)) < 1e-9:
+        raise ValueError("autovectores dependientes: un solo eje propio, no se diagonaliza")
+    return w, V
+
+
+def capa_base(fig, B, k=4, nombre="B"):
+    """Capa teal de una base: la grilla oblicua que generan las columnas de B (`grilla_oblicua`, |j| ≤ k) y las
+    columnas como flechas (b₁ teal, b₂ rust: 'columna k = B eₖ'). Devuelve fig."""
+    import plotly.graph_objects as go
+
+    B = np.asarray(B, dtype=float)
+    gx, gy = segmentos_a_trazo(grilla_oblicua(B[:, 0], B[:, 1], k))
+    fig.add_trace(go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=TEAL_DESPUES, width=1), opacity=0.45,
+                             name="grilla de la base nueva", hoverinfo="skip"))
+    flechas_columnas(fig, B, nombre)
+    return fig
+
+
+def capa_ejes_propios(fig, A, rango=5):
+    """Los ejes propios de A (vía `diagonalizar`): por cada autovector real, la recta por el origen (punteada), la
+    flecha bₖ del color de la columna k y un rombo en A bₖ = λₖ bₖ, sobre la misma recta. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    lam, B = diagonalizar(A)
+    a, b = _rango2(rango)
+    L = 1.5 * max(abs(a), abs(b))
+    for k in range(B.shape[1]):
+        v, c = B[:, k], color_columna(k)
+        fig.add_trace(go.Scatter(x=[-L * v[0], L * v[0]], y=[-L * v[1], L * v[1]], mode="lines",
+                                 line=dict(color=c, width=1.5, dash="dash"), hoverinfo="skip",
+                                 name=f"eje propio {k + 1} (λ{_SUB[k]} = {num_tex(lam[k])})"))
+        flecha(fig, (0, 0), v, c, f"b{_SUB[k]} (autovector)", ancho=3)
+        q = lam[k] * v
+        fig.add_trace(go.Scatter(x=[q[0]], y=[q[1]], mode="markers", marker=dict(size=10, color=c, symbol="diamond"),
+                                 name=f"A b{_SUB[k]} = {num_tex(lam[k])} b{_SUB[k]}"))
+    return fig
+
+
+# ----------------------------------------------------------------------------
+# cuña, núcleo y autovectores (lecciones 07a, 07b, 07c)
+# ----------------------------------------------------------------------------
+
+
+def cuna2(u, v):
+    """Producto cuña en el plano: u ∧ v = u₁v₂ − u₂v₁, el área ORIENTADA del paralelogramo de lados u y v
+    (= det[u v] con u, v como columnas). Positiva si de u a v se gira antihorario; cero si y sólo si son
+    colineales: el "detector de colinealidad" del profesor."""
+    u = np.asarray(u, dtype=float).reshape(2)
+    v = np.asarray(v, dtype=float).reshape(2)
+    return float(u[0] * v[1] - u[1] * v[0])
+
+
+def cuna3(u, v, w):
+    """(u ∧ v) ∧ w = (u × v) · w = det[u v w]: volumen orientado del paralelepípedo. Cero si los tres son coplanares."""
+    u, v, w = (np.asarray(x, dtype=float).reshape(3) for x in (u, v, w))
+    return float(np.cross(u, v) @ w)
+
+
+def alineados(p, q, r, tol=1e-9):
+    """True si los tres puntos del plano están alineados: el determinante de sus ternas homogéneas es cero
+    (equivale a cuna2(q − p, r − p) = 0, el área del triángulo pqr es cero)."""
+    return abs(float(np.linalg.det(np.array([hom(p), hom(q), hom(r)])))) < tol
+
+
+def paralelogramo(u, v):
+    """Vértices 4×2 del paralelogramo de lados u y v desde el origen (0, u, u + v, v), para `objeto`."""
+    u = np.asarray(u, dtype=float).reshape(2)
+    v = np.asarray(v, dtype=float).reshape(2)
+    return np.array([[0.0, 0.0], u, u + v, v])
+
+
+def paralelepipedo(u, v, w):
+    """(vértices 8×3, aristas) del paralelepípedo de lados u, v, w: el cubo unitario transformado por [u v w]."""
+    c, aristas = cubo_unitario()
+    return transformar(c, np.column_stack([u, v, w])), aristas
+
+
+def plano_3d(fig, u, v, k=1.5, origen=(0, 0, 0), color=GRIS_ANTES, nombre="plano", opacidad=0.18):
+    """Trozo del plano por `origen` generado por u y v (el paralelogramo ±k u ± k v) como malla translúcida. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    o = np.asarray(origen, dtype=float).reshape(3)
+    u = np.asarray(u, dtype=float).reshape(3)
+    v = np.asarray(v, dtype=float).reshape(3)
+    p = np.array([o - k * u - k * v, o + k * u - k * v, o + k * u + k * v, o - k * u + k * v])
+    fig.add_trace(go.Mesh3d(x=p[:, 0], y=p[:, 1], z=p[:, 2], i=[0, 0], j=[1, 2], k=[2, 3], color=color,
+                            opacity=opacidad, name=nombre, showlegend=True, hoverinfo="skip"))
+    return fig
+
+
+def nucleo2(A, tol=1e-9):
+    """Un vector no nulo del núcleo de una 2×2 singular: la perpendicular (perp2) a la primera fila no nula.
+    Si A = 0 devuelve e₁ (todo el plano es núcleo). Si det A ≠ 0 lanza ValueError: el núcleo es sólo {0}."""
+    A = np.asarray(A, dtype=float)
+    if abs(np.linalg.det(A)) > tol * max(1.0, float(np.abs(A).max()) ** 2):
+        raise ValueError("det A ≠ 0: el núcleo es sólo el vector nulo")
+    normas = np.linalg.norm(A, axis=1)
+    if normas.max() < tol:
+        return np.array([1.0, 0.0])
+    return perp2(A[0] if normas[0] >= tol else A[1])  # la primera fila no nula
+
+
+def autovalores_reales(A, tol=1e-7):
+    """Raíces reales de det(A − λI), sin repetir, de mayor a menor. Las complejas se descartan: no dan vectores reales."""
+    w = np.linalg.eigvals(np.asarray(A, dtype=float))
+    reales = sorted({round(float(z.real), 6) for z in w if abs(z.imag) < tol}, reverse=True)
+    return [float(x) for x in reales]
+
+
+def autovectores_cuna(A, tol=1e-7):
+    """Autovalores reales y autovectores por el método del profesor ("la cruz de dos filas").
+
+    Para cada raíz real λ de det(A − λI), las filas de B = A − λI son reglas que marcan cero sobre el autovector:
+    en 3×3 el autovector es el producto cruz de dos filas de B (el par que no da cero); en 2×2, la perpendicular a
+    una fila no nula. Si todos los pares dan cero, el núcleo de B es un plano entero (raíz doble: `plano=True`).
+    Devuelve una lista de dicts {lam, B, filas, cruz, v, plano}; v se escala para que su mayor componente valga 1.
+    """
+    A = np.asarray(A, dtype=float)
+    n = A.shape[0]
+    salida = []
+    for lam in autovalores_reales(A, tol):
+        B = A - lam * np.eye(n)
+        escala = max(1.0, float(np.abs(B).max()))
+        if n == 2:
+            normas = np.linalg.norm(B, axis=1)
+            i = int(np.argmax(normas))
+            if normas[i] < tol * escala:
+                salida.append(dict(lam=lam, B=B, filas=(), cruz=None, v=None, plano=True))
+                continue
+            c = perp2(B[i])
+            filas = (i,)
+        else:
+            mejor = None
+            for i, j in ((0, 1), (0, 2), (1, 2)):
+                c = np.cross(B[i], B[j])
+                if mejor is None or np.linalg.norm(c) > np.linalg.norm(mejor[1]):
+                    mejor = ((i, j), c)
+            filas, c = mejor
+            if np.linalg.norm(c) < tol * escala ** 2:
+                salida.append(dict(lam=lam, B=B, filas=(), cruz=None, v=None, plano=True))
+                continue
+        v = c / float(np.abs(c).max())
+        salida.append(dict(lam=lam, B=B, filas=filas, cruz=c, v=np.where(np.abs(v) < 1e-12, 0.0, v), plano=False))
+    return salida
+
+
+def direcciones_propias(fig, A, rango=5, color="#222", nombre="dirección propia"):
+    """Capa de direcciones propias de una 2×2: por cada autovalor real, la recta por el origen del autovector
+    (trazo a rayas) y la flecha λ·v̂ que muestra cuánto se estira (o se invierte). Un giro (sin reales) o una
+    homotecia (plano entero) no dibujan nada. Devuelve la lista de `autovectores_cuna(A)`."""
+    import plotly.graph_objects as go
+
+    a, b = _rango2(rango)
+    L = 1.5 * max(abs(a), abs(b))
+    info = autovectores_cuna(A)
+    for inf in info:
+        if inf["plano"]:
+            continue
+        d = inf["v"] / np.linalg.norm(inf["v"])
+        fig.add_trace(go.Scatter(x=[-L * d[0], L * d[0]], y=[-L * d[1], L * d[1]], mode="lines",
+                                 line=dict(color=color, width=1.5, dash="dash"),
+                                 name=f"{nombre} λ = {num_tex(inf['lam'], 2)}: {vec_plano(inf['v'], 2)}", hoverinfo="skip"))
+        flecha(fig, (0, 0), inf["lam"] * d, color, f"λ·v̂ con λ = {num_tex(inf['lam'], 2)}", ancho=4)
+    return info
+
+
+def puntos_fijos_proyectivos(H, tol=1e-7):
+    """Los autovectores reales de una 3×3 homogénea leídos como puntos del plano. Lista de dicts
+    {lam, v, punto, plano, recta, filas}: `punto` = (x, y) = (v₁/v₃, v₂/v₃) si v₃ ≠ 0, None si es impropio (dirección
+    fija); si el autovector es un plano entero (raíz doble con cruces nulas), `plano=True` y `recta` es la terna
+    de la recta de puntos fijos (una fila no nula de H − λI)."""
+    salida = []
+    for inf in autovectores_cuna(H, tol):
+        if inf["plano"]:
+            B = inf["B"]
+            fila = B[int(np.argmax(np.linalg.norm(B, axis=1)))]
+            recta = fila / float(np.abs(fila).max()) if np.abs(fila).max() > 0 else None
+            salida.append(dict(lam=inf["lam"], v=None, punto=None, plano=True, recta=recta, filas=()))
+            continue
+        salida.append(dict(lam=inf["lam"], v=inf["v"], punto=dehom(inf["v"]), plano=False, recta=None, filas=inf["filas"]))
+    return salida
+
+
+# ----------------------------------------------------------------------------
 # asserts rápidos
 # ----------------------------------------------------------------------------
 
@@ -713,4 +924,48 @@ if __name__ == "__main__":
     H1 = matriz_afin(rot2(np.pi / 4), (np.eye(2) - rot2(np.pi / 4)) @ [3, 1])
     H2 = matriz_afin(0.5 * np.eye(2), 0.5 * np.array([-1, 2]))
     assert exacto(dehom((H2 @ H1) @ hom([1 - np.sqrt(2) / 2] * 2)), [1 - np.sqrt(2) / 2] * 2), "apunte 16: punto fijo"
+    lam, Bd = diagonalizar(A)
+    assert exacto(lam, [3, 1]) and exacto(Bd[:, 0], [1, 1] / np.sqrt(2)) and exacto(Bd[:, 1], [1, -1] / np.sqrt(2)), "diagonalizar [[2,1],[1,2]]: λ = 3, 1; ejes (1,1), (1,−1)"
+    assert exacto(Bd @ np.diag(lam) @ np.linalg.inv(Bd), A) and exacto(np.linalg.inv(Bd) @ A @ Bd, np.diag(lam)), "A = B Λ B⁻¹"
+    assert exacto(Bd @ np.diag(lam**5) @ np.linalg.inv(Bd), np.linalg.matrix_power(A, 5)), "A⁵ = B Λ⁵ B⁻¹"
+    assert exacto(diagonalizar([[3, 1], [0, 2]])[0], [3, 2]), "orden decreciente también sin simetría"
+    for singular in (rot2(np.pi / 3), np.array([[1.0, 1.0], [0.0, 1.0]])):
+        try:
+            diagonalizar(singular)
+            raise AssertionError("rotación y cizalla no se diagonalizan")
+        except ValueError:
+            pass
+    assert exacto(coordenadas_en_base([4, 3], np.array([[3.0, 1.0], [1.0, 2.0]])), [1, 1]), "lección 08: (4,3) = b₁ + b₂"
+    assert exacto(cuna2([3, 1], [1, 2]), 5.0) and exacto(cuna2([1, 2], [3, 1]), -5.0) and exacto(cuna2([3, 1], [6, 2]), 0.0)
+    assert exacto(cuna2([3, 1], [1, 2]), np.linalg.det(np.column_stack([[3, 1], [1, 2]]))), "u ∧ v = det[u v]"
+    assert exacto(cuna3([1, 2, 0], [0, 1, 1], [1, 0, 2]), 4.0) and exacto(cuna3([1, 2, 0], [0, 1, 1], [1, 3, 1]), 0.0)
+    assert exacto(cuna3([1, 2, 3], [4, 5, -1], [0, 0, 1]), -3.0), "la apuesta del 16/9: (p × q) · r = −3"
+    assert alineados([1, 1], [4, 3], [7, 5]) and not alineados([1, 1], [4, 3], [7, 6])
+    assert exacto(area_poligono(paralelogramo([3, 1], [1, 2])), cuna2([3, 1], [1, 2])), "el área del paralelogramo es la cuña"
+    vp, ap = paralelepipedo([1, 2, 0], [0, 1, 1], [1, 0, 2])
+    assert vp.shape == (8, 3) and len(ap) == 12 and exacto(vp[7], [2, 3, 3])
+    assert exacto(nucleo2([[1, 2], [2, 4]]), [2, -1]) and exacto(np.array([[1, 2], [2, 4]]) @ nucleo2([[1, 2], [2, 4]]), [0, 0])
+    assert exacto(nucleo2([[0, 0], [2, 4]]), [4, -2]), "nucleo2 usa la fila no nula"
+    try:
+        nucleo2(np.eye(2))
+        raise AssertionError("nucleo2 de una invertible tiene que fallar")
+    except ValueError:
+        pass
+    assert autovalores_reales([[2, 1], [1, 2]]) == [3.0, 1.0] and autovalores_reales(rot2(0.5)) == []
+    av = autovectores_cuna([[2, 1], [1, 2]])
+    assert [a["lam"] for a in av] == [3.0, 1.0] and exacto(av[0]["v"], [1, 1]) and exacto(av[1]["v"], [1, -1])
+    assert all(exacto(np.array([[2, 1], [1, 2]]) @ a["v"], a["lam"] * a["v"]) for a in av), "A v = λ v"
+    assert autovectores_cuna(2 * np.eye(2))[0]["plano"], "homotecia: el núcleo de A − 2I es todo el plano"
+    av3 = autovectores_cuna(np.diag([1.0, 1.0, -1.0]))
+    assert [a["lam"] for a in av3] == [1.0, -1.0] and av3[0]["plano"] and exacto(av3[1]["v"], [0, 0, 1]) and av3[1]["filas"] == (0, 1)
+    Rzy = rot_z(np.pi / 2) @ rot_y(np.pi / 2)
+    av3 = autovectores_cuna(Rzy)
+    assert len(av3) == 1 and exacto(av3[0]["lam"], 1.0) and exacto(av3[0]["v"], [-1, 1, 1]), "eje de Rz(90)Ry(90) por cruz de filas"
+    assert exacto(Rzy @ av3[0]["v"], av3[0]["v"])
+    Hc = np.array([[2.0, -4.0, 8.0], [0.0, -4.0, 12.0], [0.0, -1.0, 4.0]])
+    pf = puntos_fijos_proyectivos(Hc)
+    assert [p["lam"] for p in pf] == [2.0, -2.0] and pf[0]["plano"] and exacto(pf[0]["recta"], [0, -0.5, 1]) and exacto(pf[1]["punto"], [4, 6])
+    assert exacto(dehom(Hc @ hom([4, 6])), [4, 6]), "el centro de la homología es punto fijo"
+    pf = puntos_fijos_proyectivos(matriz_afin(np.eye(2), [1, 2]))
+    assert len(pf) == 1 and pf[0]["plano"] and exacto(pf[0]["recta"], [0, 0, 1]), "traslación: fija la recta del infinito"
     print("cb104: asserts OK")

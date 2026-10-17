@@ -1,0 +1,546 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "marimo",
+#     "numpy",
+#     "plotly",
+# ]
+# ///
+"""Cambio de base y diagonalización (lección 08, molde v2 sobre cb104). Clase 8 (2026-09-30).
+
+Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambié la grilla con que la
+mido y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
+grilla de los autovectores una transformación es sólo estirar por λ en cada eje (A = B Λ B⁻¹) y Aⁿ sale sola.
+Generaliza a una base oblicua lo que Rotaciones I (01a) mostró con una base girada.
+
+Chequear:  uv run marimo check --select MW unidades/08_cambio_de_base.py
+Exportar:  uv run python tools/build.py --only 08_cambio_de_base
+"""
+
+import marimo
+
+__generated_with = "0.24.2"
+app = marimo.App(width="medium")
+
+
+@app.cell
+def _():
+    import cb104 as lib  # cb104:inline
+    return (lib,)
+
+
+@app.cell
+def _():
+    import marimo as mo
+    import numpy as np
+    import plotly.graph_objects as go
+
+    return go, mo, np
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    # Cambio de base y diagonalización
+
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+
+    Sigo la clase 8 (30/9). La pregunta: **Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y
+    en qué grilla una transformación es sólo estirar?** El gancho: *el mismo mojón con coordenadas en tres marcos:
+    cambia la grilla con que se mide, no el punto.*
+
+    Colores, iguales en la figura y en el álgebra: la **primera columna** de una matriz es
+    <span style="color:#1b6f6a">**teal**</span> y la **segunda** <span style="color:#b5451b">**rust**</span>. Acá la
+    matriz que importa es $B$, la de cambio de base: sus columnas $b_1$ y $b_2$ son los **ejes nuevos** dibujados en la
+    grilla vieja (gris). El mojón va en <span style="color:#7a4e9e">**violeta**</span>. En
+    [Rotaciones I](../01a_punto_quieto/index.html) los ejes nuevos eran los viejos girados; acá son dos direcciones
+    cualesquiera, y la cuenta con la transpuesta ya no alcanza.
+    """)
+    return
+
+
+@app.cell
+def _(lib, mo, np):
+    # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
+    b1_parcela, b2_parcela = np.array([3.0, 1.0]), np.array([1.0, 2.0])
+    B_parcela = np.column_stack([b1_parcela, b2_parcela])
+    mojon = np.array([4.0, 3.0])
+    candidatos = {
+        "correcta": lib.coordenadas_en_base(mojon, B_parcela),  # resuelve B c = p
+        "proyeccion": np.array([mojon @ b1_parcela / (b1_parcela @ b1_parcela), mojon @ b2_parcela / (b2_parcela @ b2_parcela)]),
+        "por-B": B_parcela @ mojon,  # multiplicar en vez de resolver
+        "mismas": mojon.copy(),
+    }
+    prediccion = mo.ui.radio(
+        options={lib.vec_plano(candidatos[k]) + ("  (las mismas)" if k == "mismas" else ""): k
+                 for k in ("proyeccion", "mismas", "correcta", "por-B")},
+        value=None,
+        label=r"**Predicción.** Con $b_1 = (3, 1)$ y $b_2 = (1, 2)$ como ejes, las coordenadas del mojón $P = (4, 3)$ son…",
+    )
+    mo.vstack([
+        mo.md(r"""
+        ## 0. Situación de campo y predicción
+
+        El mismo mojón de Rotaciones I: en la grilla de la obra, $P = (4, 3)$ metros. Pero la parcela no está alineada
+        con la obra: su **frente** sigue el rumbo $b_1 = (3, 1)$ y su **lado** el rumbo $b_2 = (1, 2)$, los dos en
+        metros de la obra, y forman $45°$, no $90°$. Quien mide la parcela mide **en frentes y lados**: cuántas veces
+        $b_1$ y cuántas veces $b_2$ hay que avanzar para llegar al mojón. El hierro no se tocó; cambia la etiqueta.
+        """),
+        prediccion,
+    ])
+    return B_parcela, b1_parcela, b2_parcela, candidatos, mojon, prediccion
+
+
+@app.cell
+def _(candidatos, lib, mo, prediccion):
+    _pr, _pb = lib.vec_tex(candidatos["proyeccion"]), lib.vec_tex(candidatos["por-B"])
+    _respuestas = {
+        None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
+        "correcta": ("success",
+                     r"**Sí.** Un frente más un lado: $1\,b_1 + 1\,b_2 = (3,1) + (1,2) = (4,3)$. Las coordenadas nuevas son el $c$ "
+                     r"que **resuelve** $Bc = p$, con $B$ la matriz que tiene a $b_1$ y $b_2$ como columnas: $c = B^{-1}p$. "
+                     r"Abajo lo muestro con la grilla y el camino de lectura."),
+        "proyeccion": ("warn",
+                       rf"**No.** ${_pr}$ sale de proyectar $P$ sobre cada eje con el producto interno, "
+                       r"$\langle P, b_k\rangle / \langle b_k, b_k\rangle$. Valió en Rotaciones I porque los ejes girados seguían "
+                       r"perpendiculares; a $45°$ cada proyección arrastra parte de la otra. Controlá: $1.5\,b_1 + 2\,b_2 = (6.5,\ 5.5) \ne P$."),
+        "por-B": ("warn",
+                  rf"**No.** ${_pb}$ es $B\,P$: multiplicaste por $B$, que lleva de coordenadas **nuevas a viejas** "
+                  r"($p = Bc$: tantos $b_1$ más tantos $b_2$). Para ir al revés hay que resolver $Bc = p$, o sea $B^{-1}$."),
+        "mismas": ("warn",
+                   rf"**No.** El mojón no se movió, pero una coordenada es un número **respecto de unos ejes**. Con ejes de otro "
+                   rf"largo y otra dirección los números cambian: $(4, 3)$ frentes y lados sería el punto $4b_1 + 3b_2 = {_pb}$."),
+    }
+    _kind, _texto = _respuestas[prediccion.value]
+    mo.callout(mo.md(_texto), kind=_kind)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## 1. Hecho geométrico
+
+    **¿Qué se conserva?** El punto, y con él toda la geometría: distancias, ángulos, qué punto está en qué recta, a
+    dónde lleva cada transformación a cada punto. Lo que cambia son los **números**. "Convertimos todo para que nada
+    cambie" (el profesor, 30/9). No hay base privilegiada: la canónica sólo es especial porque en ella el producto
+    interno es $x_1x_2 + y_1y_2$.
+
+    **La matriz de cambio de base.** Si los ejes nuevos $b_1, b_2$ (escritos en la grilla vieja) son las columnas de
+    $B$, el punto de coordenadas nuevas $c$ es
+    $$p = c_1\,\textcolor{#1b6f6a}{b_1} + c_2\,\textcolor{#b5451b}{b_2} = B\,c, \qquad c = B^{-1}p.$$
+    $B$ lleva de nuevas a viejas; $B^{-1}$, de viejas a nuevas. Para leer hay que **resolver**, no multiplicar. Sólo
+    con ejes perpendiculares de largo $1$ vale $B^{-1} = B^T$ y resolver es proyectar: eso fue Rotaciones I.
+
+    | | álgebra | lo que se ve |
+    |---|---|---|
+    | $\mathbb R$ | $B = (u)$, un número: la unidad nueva. $c = p/u$ (metros a pies: $u = 0.3048$) | la misma longitud, otro número |
+    | $\mathbb R^2$ | $B$ $2\times2$ con columnas $b_1, b_2$; $c = B^{-1}p$ | la misma flecha medida con una grilla oblicua |
+    | $\mathbb R^3$ | $B$ $3\times3$, tres columnas | lo mismo con tres direcciones |
+
+    **Una transformación vista en otra base.** Si $A$ actúa en la grilla vieja, en la grilla de $B$ la misma
+    transformación se escribe $A' = B^{-1} A\, B$: convertir a la vieja, aplicar $A$, volver a la nueva (la de la
+    derecha actúa primero). Misma transformación, otros números; no cambian $\det$, traza ni autovalores.
+
+    **Diagonalizar.** Si las columnas de $B$ son los **autovectores** de $A$ ($A\,b_k = \lambda_k b_k$), cada $A\,b_k$
+    leído en la grilla nueva es $\lambda_k e_k$: $B^{-1}AB = \Lambda = \mathrm{diag}(\lambda_1, \lambda_2)$. En su
+    grilla propia $A$ **sólo estira** cada eje por su autovalor, sin romper la grilla. Entonces $A = B\Lambda B^{-1}$ y
+    $$A^n = (B\Lambda B^{-1})(B\Lambda B^{-1})\cdots = B\,\Lambda^n B^{-1},$$
+    porque los $B^{-1}B$ del medio se cancelan: aplicar $n$ veces es estirar $n$ veces cada eje propio. Con $t$ real,
+    $A^t = B\Lambda^tB^{-1}$ convierte la transformación en una película.
+
+    Escalera: en $\mathbb R$ toda matriz ya es diagonal; en $\mathbb R^2$ hacen falta dos ejes propios reales e
+    independientes: una rotación no tiene ninguno y una cizalla tiene uno solo, y ninguna se diagonaliza (la SVD,
+    unidad 09, lo arregla con dos bases). Esto es una **muestra**; la demostración de $A = B\Lambda B^{-1}$ todavía no
+    está en el apunte (ver el cierre). El profesor escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
+    esa matriz es $B$, para no confundirla con la transformación.
+    """)
+    return
+
+
+@app.cell
+def _(mo, np):
+    # ---------- casos precargados: etiqueta → (b₁, b₂ del caso, A que se mira en esa base o None, qué pasa) ----------
+    casos = {
+        "base girada 30° (Rotaciones I)": (
+            (np.cos(np.pi / 6), np.sin(np.pi / 6)), (-np.sin(np.pi / 6), np.cos(np.pi / 6)), None,
+            r"los ejes viejos girados: perpendiculares y de largo $1$, $B^{-1} = B^T$ y la proyección coincide con $c$. "
+            r"Es [Rotaciones I](../01a_punto_quieto/index.html). Girá $b_2$ y mirá cuándo deja de coincidir."),
+        "base oblicua de la parcela": (
+            (3.0, 1.0), (1.0, 2.0), None,
+            r"la grilla de frentes y lados: $B^{-1} \ne B^T$, la proyección **no** da $c$; hay que resolver."),
+        "base de autovectores de A = [[2, 1], [1, 2]]": (
+            (1.0, 1.0), (1.0, -1.0), np.array([[2.0, 1.0], [1.0, 2.0]]),
+            r"los ejes propios de $A$: $B^{-1}AB$ es **diagonal**, $A$ estira $\times 3$ a lo largo de $b_1$ y deja quieto "
+            r"$b_2$. Girá $b_2$ y la diagonal se rompe: la grilla propia es una sola."),
+        "cizalla [[1, 1], [0, 1]]: un solo autovector": (
+            (1.0, 0.0), (0.0, 1.0), np.array([[1.0, 1.0], [0.0, 1.0]]),
+            r"la cizalla sólo deja en su dirección a $b_1 = (1, 0)$. Cualquier $b_2$ sirve para leer coordenadas, pero "
+            r"$B^{-1}AB$ **nunca** es diagonal: sin segundo eje propio no se diagonaliza."),
+    }
+    caso = mo.ui.dropdown(options=list(casos), value="base oblicua de la parcela", label="caso precargado")
+    mo.vstack([
+        mo.md(r"""
+        ## 2. Manipulación
+
+        Tres capas. En **gris**, la grilla de la obra. En **teal**, la grilla **oblicua** que generan los ejes nuevos
+        $b_1$ (teal) y $b_2$ (rust) con todas sus paralelas. En **violeta**, el mojón, que no se mueve, y el **camino
+        de lectura**: avanzo $c_1$ veces $b_1$ y después $c_2$ veces $b_2$; los dos tramos son las coordenadas nuevas.
+        Los deslizadores desvían $b_2$ respecto del caso (giro y largo); con $b_2$ paralelo a $b_1$ no hay base.
+        """),
+        caso,
+    ])
+    return caso, casos
+
+
+@app.cell
+def _(mo):
+    desvio = mo.ui.slider(-90, 90, value=0, step=1, label="giro extra de b₂ (°)", show_value=True)
+    factor = mo.ui.slider(0.5, 2.0, value=1.0, step=0.1, label="factor de largo de b₂", show_value=True)
+    return desvio, factor
+
+
+@app.cell
+def _(caso, casos, desvio, factor, lib, mo, mojon, np):
+    _b1, _b2, A_caso, que_pasa = casos[caso.value]
+    b1 = np.asarray(_b1, dtype=float)
+    b2 = factor.value * (lib.rot2(np.deg2rad(desvio.value)) @ np.asarray(_b2, dtype=float))
+    B = np.column_stack([b1, b2])
+    P = mojon
+    singular = abs(np.linalg.det(B)) < 1e-6
+    _rango = 6
+    figura = lib.figura_plano(_rango, f"{caso.value} · el mojón no se mueve")
+    lib.capa_antes(figura, _rango - 1, cuadrado=False)
+    lib.flecha(figura, (0, 0), (2, 0), lib.GRIS_ANTES, "eje x (obra)", ancho=3)
+    lib.flecha(figura, (0, 0), (0, 2), lib.GRIS_ANTES, "eje y (obra)", ancho=3)
+    if singular:
+        c = None
+        _numeros = r"**$b_2$ es paralelo a $b_1$**: $\det B = 0$, las dos columnas generan una sola recta y no hay grilla. Movelo."
+    else:
+        _k = min(12, int(np.ceil(1.5 * _rango / min(np.linalg.norm(b1), np.linalg.norm(b2)))))
+        lib.capa_base(figura, B, _k)
+        lib.lectura_coordenadas(figura, P, B, nombre="camino de lectura")
+        c = lib.coordenadas_en_base(P, B)
+        _proy = np.array([P @ b1 / (b1 @ b1), P @ b2 / (b2 @ b2)])
+        _perp = lib.exacto(_proy, c, tol=1e-6)
+        _numeros = rf"""
+        - $B = {lib.matriz_coloreada(B)}$, $\det B = {lib.num_tex(np.linalg.det(B))}$, $B^{{-1}} = {lib.pmat(np.linalg.inv(B))}$
+        - el mojón en la obra: $P = {lib.vec_tex(P)}$; en la base nueva: $\mathbf{{c = B^{{-1}}P = {lib.vec_tex(c)}}}$; control $Bc = {lib.vec_tex(B @ c)}$
+        - proyección $\langle P, b_k\rangle/\langle b_k, b_k\rangle = {lib.vec_tex(_proy)}$: {"**coincide** con $c$ (ejes perpendiculares)" if _perp else "**no** es $c$ (ejes no perpendiculares)"}
+        """
+        if A_caso is not None:
+            _Ap = np.linalg.inv(B) @ A_caso @ B
+            _diag = lib.exacto(_Ap, np.diag(np.diag(_Ap)), tol=1e-6)
+            _numeros += rf"""
+        - $A = {lib.pmat(A_caso)}$ vista en esta base: $B^{{-1}}AB = {lib.pmat(_Ap)}$ → {"**diagonal**: acá $A$ sólo estira" if _diag else "no es diagonal: no es la grilla propia de $A$"}
+        """
+    lib.punto(figura, P, nombre="mojón (quieto)", texto="P")
+    _panel = mo.vstack([
+        mo.md("**Controles**"), desvio, factor,
+        mo.md("**Números vivos**\n" + _numeros + f"\n**Qué pasa acá:** {que_pasa}"),
+    ], gap=0.6)
+    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    return B, P, c, singular
+
+
+@app.cell
+def _(mo):
+    n_pot = mo.ui.slider(1, 8, value=5, step=1, label="n (potencia)", show_value=True)
+    mo.vstack([
+        mo.md(r"""
+        **La transformación en su grilla propia.** Ahora la grilla no la elijo yo: la elige
+        $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. En gris, la grilla de la obra y el cuadrado de vértices
+        $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así "no se
+        entiende"). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
+        con $\lambda_2 = 1$; el rombo se estira $\times 3$ a lo largo de $b_1$ y queda igual a lo largo de $b_2$.
+        **Reproducir** recorre $A^t$ de $t = 0$ a $1$: la película, con las estelas curvándose hacia el eje de
+        $\lambda = 3$. Abajo, $A^n$ multiplicando $n$ veces y por $B\Lambda^nB^{-1}$.
+        """),
+        n_pot,
+    ])
+    return (n_pot,)
+
+
+@app.cell
+def _(go, lib, mo, n_pot, np):
+    A = np.array([[2.0, 1.0], [1.0, 2.0]])
+    lam, _V = lib.diagonalizar(A)
+    B_prop = np.array([[1.0, 1.0], [1.0, -1.0]])  # los mismos ejes que _V, con enteros
+    Lam = np.diag(lam)
+    _rango = 6
+    rombo = np.array([[1.0, 1.0], [1.0, -1.0], [-1.0, -1.0], [-1.0, 1.0]])  # ±b₁, ±b₂
+    camino = [lib.pot_real(A, t) for t in np.linspace(0, 1, 36)]
+
+    def _dinamicas(i):
+        f = go.Figure()
+        lib.capa_despues(f, camino[i], _rango - 1, columnas=False)
+        lib.objeto(f, lib.transformar(rombo, camino[i]), lib.VIOLETA_OBJETO, "rombo después",
+                   estelas=lib.estelas(rombo, camino[: i + 1]))
+        return list(f.data)
+
+    fig_A = lib.figura_plano(_rango, "A en su grilla propia: estira ×3 a lo largo de b₁, deja b₂")
+    lib.capa_antes(fig_A, _rango - 1, cuadrado=False)
+    lib.capa_ejes_propios(fig_A, A, _rango)
+    lib.objeto(fig_A, rombo, lib.GRIS_ANTES, "rombo antes", relleno=False)
+    for _t in _dinamicas(len(camino) - 1):
+        fig_A.add_trace(_t)
+    lib.animar(fig_A, [_dinamicas(i) for i in range(len(camino))])
+
+    An_mult = np.linalg.matrix_power(A, n_pot.value)
+    An_diag = B_prop @ np.diag(lam ** n_pot.value) @ np.linalg.inv(B_prop)
+    _panel = mo.vstack([
+        mo.md("**Controles**"), n_pot,
+        mo.md(rf"""
+        **Números vivos**
+
+        $$\Lambda = {lib.pmat(Lam)}, \quad B = {lib.matriz_coloreada(B_prop, dec=0)}, \quad B^{{-1}}AB = {lib.pmat(np.linalg.inv(B_prop) @ A @ B_prop)}$$
+
+        $$A^{{{n_pot.value}}} = {lib.pmat(An_mult)} \text{{ (multiplicando)}}, \qquad B\,\Lambda^{{{n_pot.value}}}B^{{-1}} = {lib.pmat(An_diag)}$$
+
+        - `np.allclose` entre las dos: `{bool(np.allclose(An_mult, An_diag))}`. $\Lambda^n$ es elevar dos números; $A^n$ a mano son $n - 1$ productos.
+        - $\det A = {lib.num_tex(np.linalg.det(A))} = \lambda_1\lambda_2$, traza $= {lib.num_tex(np.trace(A))} = \lambda_1 + \lambda_2$: no cambian con la base.
+        """),
+    ], gap=0.6)
+    mo.hstack([_panel, mo.ui.plotly(fig_A)], widths=[1, 2], align="start")
+    return A, An_diag, An_mult, B_prop, Lam, lam
+
+
+@app.cell
+def _(A, B_parcela, B_prop, lib, mo, mojon, np):
+    _c = np.linalg.solve(B_parcela, mojon)
+    _w, _V = np.linalg.eig(A)
+    _A5 = np.linalg.matrix_power(A, 5)
+    _A5d = B_prop @ np.diag([3.0 ** 5, 1.0]) @ np.linalg.inv(B_prop)
+    mo.vstack([
+        mo.md(r"""
+        ## 3. Cuenta a mano y código lado a lado
+
+        Izquierda, la cuenta del cuaderno con enteros; derecha, la misma en numpy.
+        """),
+        mo.hstack([
+            mo.md(r"""
+            **3.1 Leer el mojón en la base de la parcela.** $Bc = P$ es un sistema $2\times2$:
+            $$\begin{pmatrix} \textcolor{#1b6f6a}{3} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{2} \end{pmatrix}\binom{c_1}{c_2} = \binom{4}{3}
+            \;\Rightarrow\; \begin{cases} 3c_1 + c_2 = 4 \\ c_1 + 2c_2 = 3 \end{cases}$$
+            De la segunda, $c_1 = 3 - 2c_2$; en la primera, $9 - 5c_2 = 4$: $c_2 = 1$, $c_1 = 1$. O con la inversa:
+            $B^{-1} = \frac15\begin{pmatrix} 2 & -1 \\ -1 & 3 \end{pmatrix}$ y $B^{-1}\binom{4}{3} = \binom{1}{1}$.
+            """),
+            mo.vstack([
+                mo.md("```python\nB = np.array([[3., 1.], [1., 2.]])   # columnas: b1, b2\np = np.array([4., 3.])\nnp.linalg.solve(B, p)               # resuelve B c = p\n```"),
+                mo.md(f"`solve(B, p)` = `{np.round(_c, 3).tolist()}` · `inv(B) @ p` = `{np.round(np.linalg.inv(B_parcela) @ mojon, 3).tolist()}`"),
+            ]),
+        ], widths="equal", align="start"),
+        mo.hstack([
+            mo.md(r"""
+            **3.2 Diagonalizar $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$.** $\det(A - \lambda I) = (2-\lambda)^2 - 1 = 0
+            \Rightarrow \lambda = 3,\ 1$. Para $\lambda = 3$, $(A - 3I)v = 0$ con filas $(-1, 1)$: $v = (1, 1)$; para
+            $\lambda = 1$, filas $(1, 1)$: $v = (1, -1)$.
+            $$B = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{-1} \end{pmatrix},\quad
+            B^{-1} = \tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},\quad
+            B^{-1}AB = \tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 3 & 1 \\ 3 & -1 \end{pmatrix} = \begin{pmatrix} 3 & 0 \\ 0 & 1 \end{pmatrix}.$$
+            `eig` da los autovectores de largo $1$ y a veces con otro signo: el **eje** es el mismo.
+            """),
+            mo.vstack([
+                mo.md("```python\nA = np.array([[2., 1.], [1., 2.]])\nw, V = np.linalg.eig(A)     # autovalores; autovectores en columnas\nnp.linalg.inv(V) @ A @ V    # diagonal\n```"),
+                mo.md(f"`w` = `{np.round(_w, 3).tolist()}` · `V` =\n```\n{np.round(_V, 3)}\n```\n`inv(V) @ A @ V` =\n```\n{np.round(np.linalg.inv(_V) @ A @ _V, 3)}\n```"),
+            ]),
+        ], widths="equal", align="start"),
+        mo.hstack([
+            mo.md(r"""
+            **3.3 $A^5$ sin multiplicar cinco veces.** $\Lambda^5 = \mathrm{diag}(3^5, 1) = \mathrm{diag}(243, 1)$:
+            $$A^5 = B\Lambda^5B^{-1} = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 243 & 0 \\ 0 & 1 \end{pmatrix}\tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}
+            = \tfrac12\begin{pmatrix} 244 & 242 \\ 242 & 244 \end{pmatrix} = \begin{pmatrix} 122 & 121 \\ 121 & 122 \end{pmatrix}.$$
+            Lectura: $e_1 = \tfrac12 b_1 + \tfrac12 b_2$; la parte en $b_1$ se multiplica por $243$, la de $b_2$ queda:
+            $\tfrac12(243, 243) + \tfrac12(1, -1) = (122, 121)$.
+            """),
+            mo.vstack([
+                mo.md("```python\nB = np.array([[1., 1.], [1., -1.]])\nA5 = B @ np.diag([3.**5, 1.]) @ np.linalg.inv(B)\nnp.allclose(A5, np.linalg.matrix_power(A, 5))\n```"),
+                mo.md(f"`A5` =\n```\n{np.round(_A5d, 3)}\n```\n`matrix_power(A, 5)` =\n```\n{np.round(_A5, 3)}\n```\n`allclose` = `{bool(np.allclose(_A5, _A5d))}`"),
+            ]),
+        ], widths="equal", align="start"),
+    ])
+    return
+
+
+@app.cell
+def _(B_parcela, mo, np):
+    _P = np.array([[4.0, 3.0], [3.0, 1.0], [0.0, 5.0]])
+    _C = np.linalg.solve(B_parcela, _P.T).T
+    mo.vstack([
+        mo.md(r"""
+        ## 4. Python de hoy
+
+        Tres funciones de `np.linalg` y una idea: **resolver, no invertir**. `solve(B, p)` da el $c$ con $Bc = p$ sin
+        calcular $B^{-1}$ (más exacto y más barato). `eig(A)` devuelve `(w, V)`: $\Lambda = $ `diag(w)`, $B = $ `V`.
+        `matrix_power(A, n)` es $A^n$ multiplicando (`A ** n` eleva cada número por separado: otra cosa). Y una nube
+        $N\times2$ de mojones se re-expresa entera: `solve(B, P.T)` resuelve un sistema por columna y la transpuesta
+        vuelve a una fila por punto.
+        """),
+        mo.md("```python\nP = np.array([[4., 3.], [3., 1.], [0., 5.]])   # shape (3, 2): tres mojones en la obra\nC = np.linalg.solve(B, P.T).T                  # (2, 3) → (3, 2): los mismos en frentes y lados\n```"),
+        mo.md(f"`C` =\n```\n{np.round(_C, 3)}\n```\n`C.shape` = `{_C.shape}` · control `np.allclose(C @ B.T, P)` = `{bool(np.allclose(_C @ B_parcela.T, _P))}` (volver es $p = Bc$, fila por fila)."),
+    ])
+    return
+
+
+@app.cell
+def _(mo):
+    mo.vstack([
+        mo.md(r"""
+        ## 5. Ejercicios
+
+        **(a) Lápiz — elemental** *("la matriz tiene en sus columnas los vectores de una base expresada en la otra").*
+        Ejes nuevos $b_1 = (2, 0)$ y $b_2 = (1, 1)$, mojón $p = (5, 3)$. Hallá sus coordenadas nuevas resolviendo
+        $Bc = p$. Después calculá $\langle p, b_k\rangle / \langle b_k, b_k\rangle$: ¿por qué no da lo mismo?
+        """),
+        mo.accordion({"Ver respuesta (a)": mo.md(r"""
+        $B = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$: $2c_1 + c_2 = 5$, $c_2 = 3$, luego $c_1 = 1$: $c = (1, 3)$.
+        Control: $1\,(2,0) + 3\,(1,1) = (5, 3)$. ✓ Las proyecciones dan $10/4 = 2.5$ y $8/2 = 4$: distinto, porque
+        $\langle b_1, b_2\rangle = 2 \ne 0$ y la sombra sobre un eje incluye parte del otro. Proyectar sólo lee
+        coordenadas en bases ortogonales.
+        """)}),
+        mo.md(r"""
+        **(b) Lápiz — medio** *("en la base de autovectores la transformación es diagonal").*
+        $A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$. Hallá autovalores y autovectores, armá $B$ y $B^{-1}$,
+        verificá que $B^{-1}AB$ es diagonal y calculá $A^3$ por la diagonal. Controlá multiplicando.
+        """),
+        mo.accordion({"Ver respuesta (b)": mo.md(r"""
+        Triangular: $\lambda = 3, 2$. Para $\lambda = 3$, filas $(0, 1)$: $v = (1, 0)$; para $\lambda = 2$, filas $(1, 1)$:
+        $v = (1, -1)$. No son perpendiculares ($A$ no es simétrica). $B = \begin{pmatrix} 1 & 1 \\ 0 & -1 \end{pmatrix}$
+        y $B^{-1} = B$ (verificá $B^2 = I$); $B^{-1}AB = B\begin{pmatrix} 3 & 1 \\ 0 & -2 \end{pmatrix} = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}$. ✓
+        $A^3 = B\,\mathrm{diag}(27, 8)\,B = B\begin{pmatrix} 27 & 27 \\ 0 & -8 \end{pmatrix} = \begin{pmatrix} 27 & 19 \\ 0 & 8 \end{pmatrix}$;
+        control: $A^2 = \begin{pmatrix} 9 & 5 \\ 0 & 4 \end{pmatrix}$, $A^2A = \begin{pmatrix} 27 & 19 \\ 0 & 8 \end{pmatrix}$. ✓
+        """)}),
+    ])
+    return
+
+
+@app.cell
+def _(mo):
+    editor_c = mo.ui.code_editor(
+        value="def coordenadas_en(B, p):\n    # B: 2×2 con los ejes nuevos como COLUMNAS; p: el punto en la grilla vieja\n    return ...   # las coordenadas de p en la base nueva (array de 2)\n",
+        language="python", min_height=110, label="ejercicio (c)",
+    )
+    mo.vstack([
+        mo.md(r"""
+        **(c) Código con hueco — medio** *("expresar vectores dados en una base como combinación lineal de otra").*
+        Completá `coordenadas_en(B, p)`. Tenés `np`. Se verifica con `np.allclose` en 20 puntos al azar con la base del
+        ejercicio (a).
+        """),
+        editor_c,
+    ])
+    return (editor_c,)
+
+
+@app.cell
+def _(editor_c, lib, mo, np):
+    _B = np.array([[2.0, 1.0], [0.0, 1.0]])  # la base del ejercicio (a): no es simétrica, así B.T se distingue de B
+    _puntos = np.random.default_rng(56798).uniform(-5, 5, size=(20, 2))
+    _esperado = np.linalg.solve(_B, _puntos.T).T
+    _ns = {"np": np}
+    try:
+        exec(editor_c.value, _ns)
+        _obtenido = np.array([_ns["coordenadas_en"](_B.copy(), p) for p in _puntos], dtype=float)
+        if _obtenido.shape != _esperado.shape:
+            _res = mo.callout(mo.md(f"❌ para un punto devolvés algo de forma `{_obtenido.shape[1:]}`; tiene que ser `(2,)`."), kind="danger")
+        elif np.allclose(_obtenido, _esperado):
+            _res = mo.callout(mo.md("✅ coincide en los 20 puntos: resolviste $Bc = p$."), kind="success")
+        elif np.allclose(_obtenido, lib.transformar(_puntos, _B)):
+            _res = mo.callout(mo.md(r"❌ devolvés `B @ p`: eso lleva de nuevas a **viejas**. Para leer hay que resolver: `np.linalg.solve(B, p)`."), kind="warn")
+        elif np.allclose(_obtenido, np.array([[p @ _B[:, k] / (_B[:, k] @ _B[:, k]) for k in range(2)] for p in _puntos])):
+            _res = mo.callout(mo.md(r"❌ proyectaste con el producto interno sobre cada eje. Sólo vale con ejes perpendiculares; acá forman $45°$."), kind="warn")
+        elif np.allclose(_obtenido, np.linalg.solve(_B.T, _puntos.T).T):
+            _res = mo.callout(mo.md(r"❌ usaste los ejes como **filas** (`B.T`). Las columnas de $B$ son los ejes nuevos: `solve(B, p)`, sin transponer."), kind="warn")
+        else:
+            _res = mo.callout(mo.md(f"❌ no coincide. Para `{np.round(_puntos[0], 3).tolist()}` esperaba `{np.round(_esperado[0], 3).tolist()}` y obtuve `{np.round(_obtenido[0], 3).tolist()}`."), kind="danger")
+    except Exception as _e:  # el `...` sin completar cae acá
+        _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
+    _res
+    return
+
+
+@app.cell
+def _(mo):
+    editor_d = mo.ui.code_editor(
+        value="def potencia(A, n):\n    w, V = np.linalg.eig(A)   # autovalores w, autovectores en las columnas de V\n    Lam_n = ...               # Λⁿ: diagonal con los autovalores elevados a n\n    return ...                # B Λⁿ B⁻¹, con B = V\n",
+        language="python", min_height=130, label="ejercicio (d)",
+    )
+    mo.vstack([
+        mo.md(r"""
+        **(d) Código con hueco — avanzado** *("la base de autovectores permite aplicar $n$ veces la transformación").*
+        Completá `potencia(A, n)` por diagonalización. Tenés `np`. Se verifica con `np.allclose` contra
+        `np.linalg.matrix_power` en $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$ con $n = 5$ y en la $A$ de (b) con $n = 3$.
+        """),
+        editor_d,
+    ])
+    return (editor_d,)
+
+
+@app.cell
+def _(A, editor_d, mo, np):
+    _Ab = np.array([[3.0, 1.0], [0.0, 2.0]])
+    _ns = {"np": np}
+    try:
+        exec(editor_d.value, _ns)
+        _ok = all(np.allclose(np.real(_ns["potencia"](M.copy(), n)), np.linalg.matrix_power(M, n)) for M, n in ((A, 5), (_Ab, 3)))
+        _r = np.real(np.asarray(_ns["potencia"](A.copy(), 5), dtype=complex))
+        _w, _V = np.linalg.eig(A)
+        if _ok:
+            _res = mo.callout(mo.md("✅ coincide con `matrix_power` en las dos matrices: $A^n = B\\Lambda^nB^{-1}$."), kind="success")
+        elif np.allclose(_r, A):
+            _res = mo.callout(mo.md(r"❌ devolvés $A$: armaste $B\Lambda B^{-1}$ sin elevar. Es `np.diag(w ** n)`."), kind="warn")
+        elif np.allclose(_r, np.linalg.inv(_V) @ np.diag(_w ** 5) @ _V):
+            _res = mo.callout(mo.md(r"❌ $B$ y $B^{-1}$ invertidos: $B^{-1}\Lambda^nB$ es otra matriz. Se entra por $B^{-1}$ (a la derecha, actúa primero), se estira, se sale por $B$."), kind="warn")
+        elif np.allclose(_r, A ** 5):
+            _res = mo.callout(mo.md(r"❌ `A ** n` eleva cada número por separado; $A^n$ es multiplicar matrices. Con la diagonal: `V @ np.diag(w ** n) @ np.linalg.inv(V)`."), kind="warn")
+        else:
+            _res = mo.callout(mo.md(f"❌ no coincide. Para $A$ y $n = 5$ obtuve\n```\n{np.round(_r, 3)}\n```\ny esperaba `[[122, 121], [121, 122]]`."), kind="danger")
+    except Exception as _e:
+        _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
+    _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## Dónde está la demostración, y lo que viene
+
+    Acá mostré que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
+
+    - [apunte, sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11). La
+      demostración de $A = B\Lambda B^{-1}$ **todavía no está en el apunte**: el cambio de base figura como pendiente en
+      el hilo de la materia.
+    - [ficha de la clase 8](../../clases/08.html) · [el camino](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
+
+    **Lo que viene:** la SVD (unidad 09, cuando se dicte): dos bases perpendiculares, una a la entrada y otra a la
+    salida, para que toda matriz sea "sólo estirar", también las que no tienen ejes propios. Y las superficies
+    (unidad 10): la grilla $(u, v)$ dibujada sobre el terreno.
+    """)
+    return
+
+
+@app.cell
+def _(A, An_diag, An_mult, B, B_parcela, B_prop, Lam, P, b1_parcela, b2_parcela, c, candidatos, lam, lib, mo, np, singular):
+    # ---------- verificación silenciosa de las cuentas de la lección ----------
+    _A5 = [[122, 121], [121, 122]]
+    _checks = [
+        ("candidatos de la predicción distintos entre sí", len({tuple(np.round(v, 6)) for v in candidatos.values()}) == 4),
+        ("sección 0: b₁, b₂ a 45°; c = (1, 1); proyección (1.5, 2); B P = (15, 10)",
+         lib.exacto(lib.angulo(b1_parcela, b2_parcela), np.pi / 4) and lib.exacto(candidatos["correcta"], [1, 1])
+         and lib.exacto(candidatos["proyeccion"], [1.5, 2]) and lib.exacto(candidatos["por-B"], [15, 10])),
+        ("sección 3.1: B⁻¹ = (1/5)[[2, −1], [−1, 3]]", lib.exacto(np.linalg.inv(B_parcela), np.array([[2, -1], [-1, 3]]) / 5)),
+        ("sección 3.2: λ = (3, 1), B⁻¹AB = Λ", lib.exacto(lam, [3, 1]) and lib.exacto(np.linalg.inv(B_prop) @ A @ B_prop, Lam)),
+        ("sección 3.3: A⁵ = [[122, 121], [121, 122]] por las dos vías",
+         lib.exacto(np.linalg.matrix_power(A, 5), _A5) and lib.exacto(B_prop @ np.diag([243, 1]) @ np.linalg.inv(B_prop), _A5)),
+        ("sección 2: Aⁿ multiplicando = B Λⁿ B⁻¹ para el n del deslizador", lib.exacto(An_mult, An_diag, tol=1e-6)),
+        ("sección 2: en la base de la figura, B c = P", singular or lib.exacto(B @ c, P, tol=1e-9)),
+        ("ejercicio (a): c = (1, 3)", lib.exacto(lib.coordenadas_en_base([5, 3], [[2, 1], [0, 1]]), [1, 3])),
+        ("ejercicio (b): A³ = [[27, 19], [0, 8]]", lib.exacto(np.linalg.matrix_power([[3.0, 1.0], [0.0, 2.0]], 3), [[27, 19], [0, 8]])),
+    ]
+    assert all(ok for _, ok in _checks), lib.verificar(_checks)
+    mo.md(lib.verificar(_checks))
+    return
+
+
+if __name__ == "__main__":
+    app.run()
