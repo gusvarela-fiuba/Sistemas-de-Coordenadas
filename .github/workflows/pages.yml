@@ -1,0 +1,82 @@
+# Sitio de Sistemas de Coordenadas (CB104) en GitHub Pages.
+#
+# En cada push a main (y a mano con workflow_dispatch): build del sitio y despliegue.
+# En pull requests: sólo el job de build, como CI (sin subir artefacto ni desplegar).
+#
+# Una vez por repo, en GitHub: Settings → Pages → Build and deployment → Source: "GitHub Actions".
+#
+# Red en el runner: `marimo export html-wasm` NO descarga nada en el build; copia el frontend desde el
+# wheel de marimo (`marimo/_static/`), y sólo en modo desarrollo de marimo (MARIMO_DEVELOPMENT_MODE)
+# lo pediría a jsdelivr. Pyodide y los paquetes (numpy, plotly) los baja el navegador del alumno desde el
+# CDN al abrir cada lección, no el runner. La primera exportación después de `uv sync` tarda ~40 s
+# (compila bytecode); las siguientes 1–2 s por lección.
+#
+# Tamaño: cada lección exportada lleva los assets completos de marimo (~27 MB); con 18 lecciones el sitio
+# ronda 500 MB. El límite de un sitio publicado en GitHub Pages es 1 GB (ver tools/README.md, "Tamaño
+# del sitio", para la mejora de compartir un único assets/).
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true          # cachea ~/.cache/uv con clave sobre uv.lock
+          python-version: "3.14"      # mismo intérprete que el venv local; el lock es universal (>=3.12)
+
+      - name: Dependencias (uv.lock congelado)
+        run: uv sync --frozen
+
+      - name: Mapa de conceptos (merge de los fragmentos)
+        run: uv run tools/merge_mapa.py
+
+      - name: El mapa.yaml commiteado tiene que coincidir con los fragmentos
+        run: git diff --exit-code mapa/mapa.yaml
+
+      - name: marimo check de las lecciones
+        run: uv run marimo check --select MW unidades/[01]*.py
+
+      - name: Sitio (portada, mapa, fichas, apunte.pdf y export WASM de las lecciones)
+        run: uv run python tools/build.py
+
+      - name: Limpiar intermedios del build
+        run: rm -rf site/_build
+
+      - name: Subir artefacto de Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # para desplegar a Pages
+      id-token: write   # deploy-pages verifica la fuente del deploy con el token OIDC; necesita write, no read
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -186,17 +186,38 @@ def _():
 
 Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos). Con 14 unidades el sitio pasaría de 350 MB; si eso molesta en GitHub Pages, una mejora posible es compartir un único `site/assets/` reescribiendo las rutas `./assets/` de cada `index.html` (no está hecho; hay que verificar que los chunks que marimo carga en forma diferida sigan resolviendo).
 
-## Pendiente fase 5 — GitHub Actions
+## Cómo agregar una lección en 5 pasos
 
-Idea del workflow (`.github/workflows/pages.yml`, todavía no escrito):
+1. Copiar la plantilla y completar los corchetes: `cp unidades/PLANTILLA_leccion.py unidades/NN_nombre.py`. Reemplazar todo lo que está entre `[…]`, borrar las notas "PLANTILLA:" y respetar las seis secciones del molde v2 (0 a 5, más el anexo). La cabecera PEP 723 y la celda `import cb104 as lib  # cb104:inline` ya vienen en la plantilla.
+2. Dar de alta la unidad en `mapa/_fragmentos/unidades.yaml` (la posición en la lista es la de la estación en la portada). Los campos son exactamente estos (`nota` es opcional):
 
-1. `on: push` a `main` (y `workflow_dispatch`).
-2. `actions/checkout`, `astral-sh/setup-uv`, `uv sync`.
-3. `uv run tools/build.py` (el PDF del apunte se compila aparte o se commitea; el runner no tiene TeX Live).
-4. `actions/upload-pages-artifact` con `path: site` y `actions/deploy-pages`.
-5. Permisos `pages: write`, `id-token: write`; en el repo, Settings → Pages → Source: GitHub Actions.
+   ```yaml
+     - id: NN_nombre                       # único; nombre de la carpeta site/unidades/<id>/
+       archivo: unidades/NN_nombre.py      # tiene que existir si el estado es piloto o migrada
+       titulo: "Título de la lección"
+       estado: piloto                      # piloto | migrada se exportan; legacy | pendiente no
+       clases: ["NN"]                      # ids de clase que cubre, como strings ("03", "03p")
+       pregunta: "¿Qué le pasa a … cuando …?"            # una sola línea: la pregunta de campo
+       gancho_agrimensura: "Situación concreta de campo." # una sola línea, sin fajas ni EPSG
+       nivel: troncal                      # troncal | complementario | avanzado
+   ```
 
-El build ya deja `site/.nojekyll`, así que no hay que configurar nada más del lado de Pages.
+3. Apuntar los conceptos a la lección: en el `mapa/_fragmentos/bloque-*.yaml` que corresponda a su clase, poner `unidad: NN_nombre` en cada concepto que la lección desarrolla (el nodo del mapa pasa a linkear a la lección en vez de a la ficha). Si el concepto es nuevo, antes agregarlo a `mapa/CONCEPTOS.md`.
+4. Verificar: `uv run tools/merge_mapa.py && uv run marimo check --select MW unidades/NN_nombre.py && uv run python unidades/NN_nombre.py` (el último corre el notebook headless: todas las celdas y los `assert`; si algo falla, lo imprime).
+5. Exportar y mirar: `uv run python tools/build.py --only NN_nombre`, servir con `uv run python -m http.server -d site 8765` y abrir `http://localhost:8765/unidades/NN_nombre/index.html` (el WASM no anda desde `file://`). Commit de `unidades/NN_nombre.py`, los fragmentos y `mapa/mapa.yaml` regenerado; push a `main`: el workflow publica.
+
+Gotchas conocidos:
+
+- Las etiquetas de `mo.ui.radio` / `mo.ui.dropdown` no pasan por KaTeX: para mostrar vectores en las opciones usar `lib.vec_plano`, no `$…$`.
+- Un `|` dentro de `$…$` en una tabla markdown parte la celda: escribir `\lvert … \rvert`.
+- En los `r"""…"""` los escapes van simples (`\.`, `\,`), no dobles (`\\.`): el string crudo ya los conserva.
+- `mo.hstack` con un panel largo tapa el texto de la figura: usar `mo.vstack([figura, panel])`.
+- Los helpers nuevos van a `unidades/cb104.py` con su `assert` en el bloque `__main__`, no a la lección.
+- La celda `import cb104 as lib  # cb104:inline` tiene que quedar exactamente así (una celda propia que devuelve `lib`); cualquier otra forma de importar cb104 hace fallar el build.
+
+## Publicación — GitHub Actions
+
+`.github/workflows/pages.yml` corre en cada push a `main` (y a mano con *Run workflow*): `uv sync --frozen`, `uv run tools/merge_mapa.py` seguido de `git diff --exit-code mapa/mapa.yaml` (si el mapa commiteado no coincide con los fragmentos, falla), `uv run marimo check --select MW unidades/[01]*.py`, `uv run python tools/build.py` y despliegue con `actions/upload-pages-artifact` + `actions/deploy-pages`. En los pull requests corre el mismo build sin desplegar. El runner no necesita TeX (el PDF del apunte está commiteado y el build lo copia) ni red para el export WASM (el frontend sale del wheel de marimo; Pyodide lo baja el navegador del alumno). Una vez por repo: Settings → Pages → Source: GitHub Actions. El build ya deja `site/.nojekyll`.
 
 ## `bootstrap_github.sh`
 
