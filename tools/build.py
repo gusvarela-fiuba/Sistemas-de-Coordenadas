@@ -15,7 +15,8 @@ Salida:
   site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta la clase N",
                                         y la lista de clases con fechas y estado
   site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN) con etiquetas de procedencia y validación
-  site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm)
+  site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm) desde la copia
+  site/_build/<archivo>.py              generada con unidades/cb104.py embebido en la celda `# cb104:inline`
   site/apunte.pdf                       copia del apunte
   site/.nojekyll                        para GitHub Pages
 
@@ -44,7 +45,7 @@ CONTENIDO_APUNTE = RAIZ / "apunte" / "contenido"
 PDF_APUNTE = RAIZ / "apunte" / "Apunte_Sistemas_de_Coordenadas.pdf"
 DIR_CLASES = RAIZ / "clases"
 
-ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada")
+ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 ESTADOS_EXPORTABLES = ("piloto", "migrada")
 TITULO_CAMINO = "Sistemas de Coordenadas — el camino"
@@ -52,15 +53,18 @@ TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 
 # paleta del apunte
 TEAL, RUST, GOLD = "#1b6f6a", "#b5532a", "#c9a227"
+VIOLETA = "#7a4e9e"  # procedencia "anticipada" (armada antes de dictarse)
 COLOR_ESTADO = {
     "con-transcripcion": (TEAL, "#e3f1f0"),
     "reconstruida": (GOLD, "#faf3dc"),
     "no-dictada": (RUST, "#f8e6dd"),
+    "anticipada": (VIOLETA, "#ece4f3"),
 }
 ETIQUETA_ESTADO = {
     "con-transcripcion": "con transcripción",
     "reconstruida": "reconstruida",
     "no-dictada": "no dictada",
+    "anticipada": "anticipación, pendiente de validar",
 }
 ETIQUETA_ESTADO_UNIDAD = {
     "piloto": "piloto",
@@ -313,14 +317,56 @@ def validar(datos: dict) -> list[str]:
 # ----------------------------------------------------------------------------
 
 
+MODULO_COMUN = RAIZ / "unidades" / "cb104.py"
+MARCA_INLINE = "# cb104:inline"
+_RE_IMPORT_INLINE = re.compile(r"^(?P<sangria>[ \t]*)import cb104 as lib[ \t]*" + re.escape(MARCA_INLINE) + r"[ \t]*$", re.MULTILINE)
+_RE_IMPORT_CB104 = re.compile(r"^[ \t]*(?:import cb104\b|from cb104 import\b)", re.MULTILINE)
+
+
+def embeber_modulo_comun(texto: str, archivo: str) -> tuple[str, bool]:
+    """Reemplaza la línea `import cb104 as lib  # cb104:inline` por el módulo embebido como literal.
+
+    El export WASM no lleva archivos vecinos: el notebook sólo puede usar `cb104.py` si el código viaja
+    adentro de una celda. Devuelve (texto nuevo, True) si lo reemplazó, (texto, False) si no importa cb104.
+    Si importa cb104 sin el marcador, lanza RuntimeError (en el navegador fallaría con ModuleNotFoundError).
+    """
+    m = _RE_IMPORT_INLINE.search(texto)
+    if m is None:
+        if _RE_IMPORT_CB104.search(texto):
+            raise RuntimeError(
+                f"{archivo}: importa cb104 sin la celda marcada. Para exportar a WASM la celda tiene que ser "
+                "exactamente `import cb104 as lib  # cb104:inline` (una celda propia que devuelve `lib`); "
+                "el build la reemplaza por una copia embebida del módulo. Ver tools/README.md, "
+                "sección 'Módulo común y export WASM'."
+            )
+        return texto, False
+    if not MODULO_COMUN.exists():
+        raise RuntimeError(f"{archivo}: usa cb104 pero no existe {MODULO_COMUN.relative_to(RAIZ)}")
+    fuente = MODULO_COMUN.read_text(encoding="utf-8")
+    sangria = m.group("sangria")
+    bloque = (
+        f"{sangria}import types as _types\n"
+        f'{sangria}lib = _types.ModuleType("cb104")\n'
+        f'{sangria}exec(compile({fuente!r}, "cb104.py", "exec"), lib.__dict__)'
+    )
+    return texto[: m.start()] + bloque + texto[m.end():], True
+
+
 def exportar_unidad(u: dict, out: Path) -> float:
     fuente = RAIZ / u["archivo"]
-    if "# /// script" not in fuente.read_text(encoding="utf-8"):
+    texto = fuente.read_text(encoding="utf-8")
+    if "# /// script" not in texto:
         raise RuntimeError(
             f"{u['archivo']}: falta la cabecera PEP 723 (`# /// script` ... `# ///` con `dependencies`). "
             "Sin ella Pyodide no instala numpy/plotly/matplotlib y el notebook falla en el navegador "
             "(ModuleNotFoundError). Ver tools/README.md, sección 'Molde de unidad'."
         )
+    # copia generada con el módulo común embebido (si el notebook lo usa); el export se hace sobre la copia
+    texto, embebido = embeber_modulo_comun(texto, u["archivo"])
+    dir_build = out / "_build"
+    dir_build.mkdir(parents=True, exist_ok=True)
+    copia = dir_build / fuente.name
+    copia.write_text(texto, encoding="utf-8")
     destino = out / "unidades" / u["id"]
     if destino.exists():
         shutil.rmtree(destino)
@@ -329,9 +375,9 @@ def exportar_unidad(u: dict, out: Path) -> float:
     cmd = [
         sys.executable, "-m", "marimo", "export", "html-wasm",
         "--mode", "run", "--no-show-code", "--force",
-        "-o", str(destino), str(RAIZ / u["archivo"]),
+        "-o", str(destino), str(copia),
     ]
-    print(f"  exportando {u['id']} ({u['archivo']}) ...", flush=True)
+    print(f"  exportando {u['id']} ({u['archivo']}{', cb104 embebido' if embebido else ''}) ...", flush=True)
     t0 = time.perf_counter()
     r = subprocess.run(cmd, cwd=RAIZ, capture_output=True, text=True)
     dt = time.perf_counter() - t0

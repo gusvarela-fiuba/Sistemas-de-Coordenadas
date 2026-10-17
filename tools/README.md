@@ -17,7 +17,7 @@ Qué lee:
 
 - `mapa/mapa.yaml` — el mapa de conceptos (esquema documentado en `mapa/ESQUEMA.md`; se genera con `uv run tools/merge_mapa.py` a partir de `mapa/_fragmentos/`). Se valida antes de generar nada: ids únicos, referencias cruzadas (concepto → clase, concepto → unidad, unidad → `clases`, `requiere` → conceptos), vocabularios de `estado`, `validacion` y `nivel`, prefijos de `apunte` contra `apunte/contenido/NN-*.tex`, archivos de las unidades exportables. Referencia rota = error y salida 1; ficha de clase inexistente = aviso y sigue.
 - `clases/*.md` — fichas por clase. Se convierten con el paquete `markdown` (extensiones `tables`, `fenced_code`, `toc`); las fórmulas `$…$` / `$$…$$` se protegen del parser y las renderiza KaTeX desde cdnjs en el navegador. `README.md`, `PLANTILLA.md` (cualquier nombre en mayúsculas) y `_*.md` se ignoran.
-- `unidades/*.py` — notebooks marimo con estado `piloto` o `migrada` en el yaml. Cada uno se exporta con `marimo export html-wasm --mode run --no-show-code` (se invoca `python -m marimo` del mismo venv; equivale a `uv run marimo export …`). `legacy` y `pendiente` no se exportan.
+- `unidades/*.py` — notebooks marimo con estado `piloto` o `migrada` en el yaml. Cada uno se exporta con `marimo export html-wasm --mode run --no-show-code` (se invoca `python -m marimo` del mismo venv; equivale a `uv run marimo export …`) sobre una copia en `site/_build/` con el módulo común embebido (ver "Módulo común y export WASM"). `legacy` y `pendiente` no se exportan.
 - `apunte/Apunte_Sistemas_de_Coordenadas.pdf` — se copia si existe; si no, el índice lo marca como no compilado.
 
 Qué genera en `site/` (ignorado por git):
@@ -145,6 +145,42 @@ Patrones plotly que funcionan en WASM:
 - Verificación antes de commitear: `uv run marimo check unidades/<id>.py`, ejecución headless
   (`uv run python -c "…app.run()"`, corre las celdas y los asserts) y `uv run tools/build.py --only <id>` +
   `http.server` + curl 200. La extensión Claude in Chrome sirve para la revisión visual si está disponible.
+
+### Módulo común y export WASM
+
+`unidades/cb104.py` es el módulo común de las unidades (paleta `COLORES`, `rot2`/`rot_x`/`rot_y`/`rot_z`/`rodrigues`,
+`transformar`, `hom`/`dehom`, `area_poligono`, `matriz_coloreada`/`pmat`/`vec_tex`/`num_tex`, las figuras plotly de tres
+capas `figura_plano`/`capa_antes`/`capa_despues`/`objeto`/`flechas_columnas`/`animar`, las 3D `figura_espacio`/
+`cubo_unitario`/`flechas_columnas_3d`, y `verificar`/`exacto`). Sólo depende de numpy; plotly se importa adentro de las
+funciones que dibujan. `uv run python unidades/cb104.py` corre sus asserts.
+
+Como vive en el mismo directorio que los notebooks, en `marimo edit` / `marimo run` alcanza con importarlo. Pero el export
+WASM no lleva archivos vecinos (en el navegador no existe `cb104.py`), así que la convención es **una celda exactamente así**:
+
+```python
+@app.cell
+def _():
+    import cb104 as lib  # cb104:inline
+    return (lib,)
+```
+
+`build.py` no exporta el notebook original sino una copia en `site/_build/<archivo>.py` donde esa línea se reemplaza por
+
+```python
+    import types as _types
+    lib = _types.ModuleType("cb104")
+    exec(compile('<fuente de cb104.py como literal repr()>', "cb104.py", "exec"), lib.__dict__)
+```
+
+(el `return (lib,)` queda igual, así el grafo de celdas de marimo no cambia). Reglas:
+
+- el marcador `# cb104:inline` va en la misma línea que `import cb104 as lib`; cualquier otra forma de importar cb104
+  (`from cb104 import …`, `import cb104` sin marcador) hace fallar el build con un mensaje que lo explica, porque en el
+  navegador terminaría en `ModuleNotFoundError`;
+- el módulo se embebe en cada export: cambiar `cb104.py` obliga a re-exportar las unidades que lo usan (`tools/build.py`);
+- no importar nada en `cb104.py` que no esté en Pyodide (hoy: numpy y plotly);
+- la plantilla `unidades/PLANTILLA_leccion.py` ya trae la celda marcada y las seis secciones del molde v2; se copia a
+  `unidades/NN_<tema>.py`, no va en `unidades.yaml` (`build.py` ignora todo lo que no esté en el yaml).
 
 ### Tamaño del sitio
 

@@ -1,0 +1,489 @@
+"""cb104 — módulo común de las unidades marimo de Sistemas de Coordenadas (CB104, Agrimensura FIUBA).
+
+Vive en `unidades/`, el mismo directorio que los notebooks: marimo pone ese directorio en `sys.path`,
+así que en `marimo edit` / `marimo run` alcanza con `import cb104 as lib`. Para el export WASM el
+módulo no existe en el navegador: `tools/build.py` reemplaza la celda marcada con `# cb104:inline`
+por una que embebe este archivo (ver tools/README.md, "Módulo común y export WASM").
+
+Reglas: sólo numpy (y plotly, importado adentro de las funciones que dibujan). Ángulos en radianes.
+Nube de puntos = array N×d, una fila por punto. Paleta del apunte: teal, rust, gold.
+
+Probar:  uv run python unidades/cb104.py
+"""
+
+from __future__ import annotations
+
+import numpy as np
+
+__all__ = [
+    # paleta
+    "COLORES", "GRIS_ANTES", "TEAL_DESPUES", "VIOLETA_OBJETO", "color_columna",
+    # álgebra y geometría
+    "rot2", "rot_x", "rot_y", "rot_z", "rodrigues", "transformar", "hom", "dehom",
+    "area_poligono", "perp2", "pot_real", "circulo", "pentagono_regular", "grilla_oblicua",
+    "cerrar", "estelas", "segmentos_a_trazo",
+    # LaTeX
+    "matriz_coloreada", "pmat", "vec_tex", "num_tex",
+    # plotly 2D
+    "figura_plano", "grilla_segmentos", "capa_antes", "capa_despues", "objeto", "flecha",
+    "flechas_columnas", "animar",
+    # plotly 3D
+    "figura_espacio", "cubo_unitario", "segmentos_3d", "flechas_columnas_3d",
+    # verificación
+    "verificar", "exacto",
+]
+
+# ----------------------------------------------------------------------------
+# paleta (la de apunte-formato.sty; igual en el álgebra y en la figura)
+# ----------------------------------------------------------------------------
+
+COLORES = ("#1b6f6a", "#b5451b", "#c9a227")  # columna 1 teal, columna 2 rust, columna 3 gold
+GRIS_ANTES = "#9aa0a6"  # capa "antes": grilla de referencia, cuadrado/cubo unitario original
+TEAL_DESPUES = COLORES[0]  # capa "después": grilla transformada
+VIOLETA_OBJETO = "#7a4e9e"  # el objeto reconocible (parcela) y sus estelas
+
+
+def color_columna(i):
+    """Color de la columna i (0, 1, 2) de una matriz: teal, rust, gold. Cicla si hay más columnas."""
+    return COLORES[i % len(COLORES)]
+
+
+# ----------------------------------------------------------------------------
+# álgebra y geometría (numpy puro)
+# ----------------------------------------------------------------------------
+
+
+def rot2(theta):
+    """Matriz de rotación antihoraria del plano. theta en radianes."""
+    c, s = np.cos(theta), np.sin(theta)
+    return np.array([[c, -s], [s, c]])
+
+
+def rot_x(a):
+    """Rotación de R³ alrededor del eje x: deja quieta la coordenada x, gira el plano (y, z)."""
+    c, s = np.cos(a), np.sin(a)
+    return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
+
+
+def rot_y(a):
+    """Rotación alrededor del eje y: deja quieta y, gira el plano (z, x). Mano derecha: e_z → e_x."""
+    c, s = np.cos(a), np.sin(a)
+    return np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
+
+
+def rot_z(a):
+    """Rotación alrededor del eje z: deja quieta z, gira el plano (x, y)."""
+    c, s = np.cos(a), np.sin(a)
+    return np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]])
+
+
+def rodrigues(eje, theta):
+    """Rotación 3×3 de ángulo theta (radianes) alrededor de `eje` (se normaliza; no puede ser nulo).
+
+    Fórmula de Rodrigues: R = I + sin θ · K + (1 − cos θ) · K², con K la matriz antisimétrica del eje
+    unitario (K v = k × v). Sentido antihorario mirando desde la punta del eje (mano derecha).
+    """
+    k = np.asarray(eje, dtype=float).reshape(3)
+    norma = np.linalg.norm(k)
+    if norma == 0.0:
+        raise ValueError("el eje de rotación no puede ser el vector nulo")
+    kx, ky, kz = k / norma
+    K = np.array([[0.0, -kz, ky], [kz, 0.0, -kx], [-ky, kx, 0.0]])
+    return np.eye(3) + np.sin(theta) * K + (1.0 - np.cos(theta)) * (K @ K)
+
+
+def transformar(nube, M):
+    """Nube N×d (una fila por punto) transformada por M: nube @ M.T (equivale a M p para cada fila p)."""
+    return np.asarray(nube, dtype=float) @ np.asarray(M, dtype=float).T
+
+
+def hom(p):
+    """(x, y) → vector homogéneo (x, y, 1), float."""
+    return np.array([float(p[0]), float(p[1]), 1.0])
+
+
+def dehom(v):
+    """(x, y, w) → array (x/w, y/w). Devuelve None si el punto es impropio (w ≈ 0)."""
+    v = np.asarray(v, dtype=float)
+    if abs(v[2]) < 1e-12 * max(1.0, float(np.abs(v).max())):
+        return None
+    return v[:2] / v[2]
+
+
+def area_poligono(p):
+    """Fórmula del cordón de zapato: área CON SIGNO de un polígono dado por sus vértices N×2 en orden.
+
+    Positiva si los vértices van en sentido antihorario; una reflexión la vuelve negativa.
+    """
+    p = np.asarray(p, dtype=float)
+    x, y = p[:, 0], p[:, 1]
+    return 0.5 * float(np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
+
+
+def perp2(v):
+    """En 2D: el perpendicular de (a, b) es (b, −a) (la cruz (a, b, 0) × (0, 0, 1))."""
+    a, b = (float(x) for x in v)
+    return np.array([b, -a])
+
+
+def pot_real(A, t):
+    """A^t para t real, vía diagonalización A = P D P⁻¹ (pensado para autovalores reales positivos)."""
+    w, P = np.linalg.eig(np.asarray(A, dtype=float))
+    return np.real(P @ np.diag(w.astype(complex) ** t) @ np.linalg.inv(P))
+
+
+def circulo(n=240):
+    """Circunferencia unitaria como nube n×2 (una fila por punto), cerrada (el último punto repite el primero)."""
+    t = np.linspace(0, 2 * np.pi, n)
+    return np.column_stack([np.cos(t), np.sin(t)])
+
+
+def pentagono_regular(R, n=5):
+    """Vértices n×2 de un polígono regular de radio R, el primero arriba (sobre el eje +y), antihorario."""
+    ang = 2 * np.pi * np.arange(n) / n + np.pi / 2
+    return np.column_stack([R * np.cos(ang), R * np.sin(ang)])
+
+
+def grilla_oblicua(u, v, k=4):
+    """Segmentos de la grilla oblicua de la base {u, v}: paralelas a u por j·v y paralelas a v por j·u, |j| ≤ k.
+
+    Devuelve un array (n, 2, 2): n segmentos, cada uno con sus dos extremos. No dibuja nada;
+    para plotly, pasarlo por `segmentos_a_trazo`.
+    """
+    u = np.asarray(u, dtype=float)
+    v = np.asarray(v, dtype=float)
+    segs = []
+    for j in range(-k, k + 1):
+        segs.append([j * v - k * u, j * v + k * u])  # paralela a u
+        segs.append([j * u - k * v, j * u + k * v])  # paralela a v
+    return np.array(segs)
+
+
+def cerrar(poligono):
+    """Agrega el primer vértice al final para dibujar el contorno cerrado."""
+    poligono = np.asarray(poligono, dtype=float)
+    return np.vstack([poligono, poligono[:1]])
+
+
+def estelas(puntos, camino, transpuesta=False):
+    """Trayectoria de cada punto a lo largo de un camino de matrices, como un trazo con cortes (xs, ys).
+
+    Para rotaciones de 0 a θ es un arco; para un contraejemplo (de I a la matriz, en línea recta) es un segmento.
+    transpuesta=True sigue Mᵀ p (rotación pasiva: las coordenadas en el sistema girado).
+    """
+    xs, ys = [], []
+    for p in np.asarray(puntos, dtype=float):
+        tray = np.array([(M.T if transpuesta else M) @ p for M in camino])
+        xs += list(tray[:, 0]) + [None]
+        ys += list(tray[:, 1]) + [None]
+    return xs, ys
+
+
+def segmentos_a_trazo(segmentos):
+    """Array (n, 2, 2) de segmentos → (xs, ys) de un solo trazo plotly con cortes (None) entre segmentos."""
+    xs, ys = [], []
+    for (x0, y0), (x1, y1) in np.asarray(segmentos, dtype=float):
+        xs += [x0, x1, None]
+        ys += [y0, y1, None]
+    return xs, ys
+
+
+# ----------------------------------------------------------------------------
+# LaTeX (KaTeX en mo.md)
+# ----------------------------------------------------------------------------
+
+
+def num_tex(x, dec=3):
+    """Número → texto: enteros sin decimales, el resto con `dec` decimales (sin '-0.000')."""
+    x = float(x)
+    if abs(x - round(x)) < 1e-9:
+        return str(int(round(x)))
+    if abs(x) < 10 ** (-dec) / 2:
+        x = 0.0
+    return f"{x:.{dec}f}"
+
+
+def vec_tex(v, dec=3):
+    """Vector → '(a,\\ b,\\ c)' con el formato de num_tex."""
+    return "(" + ",\\ ".join(num_tex(x, dec) for x in np.asarray(v).ravel()) + ")"
+
+
+def pmat(M, dec=3):
+    """Matriz (o vector) → pmatrix de LaTeX, enteros sin decimales."""
+    filas = r" \\ ".join(" & ".join(num_tex(x, dec) for x in fila) for fila in np.atleast_2d(M))
+    return r"\begin{pmatrix}" + filas + r"\end{pmatrix}"
+
+
+def matriz_coloreada(M, dec=3, colores=COLORES):
+    """pmatrix con cada columna pintada (\\textcolor) del color de su vector en la figura (teal, rust, gold)."""
+    filas = []
+    for fila in np.atleast_2d(M):
+        celdas = []
+        for i, x in enumerate(fila):
+            x = 0.0 if abs(float(x)) < 10 ** (-dec) / 2 else float(x)  # evita el "-0.000"
+            celdas.append(rf"\textcolor{{{colores[i % len(colores)]}}}{{{x:.{dec}f}}}")
+        filas.append(" & ".join(celdas))
+    return r"\begin{pmatrix}" + r" \\ ".join(filas) + r"\end{pmatrix}"
+
+
+# ----------------------------------------------------------------------------
+# plotly 2D
+# ----------------------------------------------------------------------------
+
+
+def _rango2(rango):
+    """Un número r → (−r, r); una tupla (a, b) → (a, b)."""
+    if np.isscalar(rango):
+        return (-float(rango), float(rango))
+    a, b = rango
+    return (float(a), float(b))
+
+
+def figura_plano(rango=5, titulo="", ancho=600, alto=600):
+    """Figura 2D vacía con ejes iguales, grilla fina y el cero marcado. `rango` = semilado o (min, max)."""
+    import plotly.graph_objects as go
+
+    a, b = _rango2(rango)
+    ejes = dict(range=[a, b], zeroline=True, zerolinecolor="#444", zerolinewidth=1.2,
+                gridcolor="#eceae4", gridwidth=1, showgrid=True)
+    fig = go.Figure(layout=go.Layout(
+        width=ancho, height=alto, margin=dict(l=30, r=10, t=56, b=30),
+        xaxis=dict(title="x", scaleanchor="y", scaleratio=1, **ejes),
+        yaxis=dict(title="y", **ejes),
+        legend=dict(orientation="h", y=-0.08, font=dict(size=10)),
+        title=dict(text=titulo, font=dict(size=14), x=0.01, xanchor="left", y=0.985, yanchor="top"),
+        plot_bgcolor="white",
+    ))
+    return fig
+
+
+def grilla_segmentos(M, rango=5, paso=1):
+    """Las líneas x = k, y = k (|k| ≤ semilado) transformadas por M, como un solo trazo con cortes: (xs, ys)."""
+    a, b = _rango2(rango)
+    M = np.asarray(M, dtype=float)
+    ks = np.arange(np.ceil(a / paso) * paso, b + paso / 2, paso)
+    xs, ys = [], []
+    for k in ks:
+        for seg in (np.array([[k, a], [k, b]]), np.array([[a, k], [b, k]])):
+            seg_r = seg @ M.T
+            xs += [seg_r[0, 0], seg_r[1, 0], None]
+            ys += [seg_r[0, 1], seg_r[1, 1], None]
+    return xs, ys
+
+
+def _cuadrado_unitario():
+    return np.array([[0, 0], [1, 0], [1, 1], [0, 1]], dtype=float)
+
+
+def capa_antes(fig, rango=5, paso=1, cuadrado=True):
+    """Capa gris: la grilla de referencia y (opcional) el cuadrado unitario original. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    gx, gy = grilla_segmentos(np.eye(2), rango, paso)
+    fig.add_trace(go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=GRIS_ANTES, width=1), opacity=0.5,
+                             name="grilla antes", hoverinfo="skip"))
+    if cuadrado:
+        c = cerrar(_cuadrado_unitario())
+        fig.add_trace(go.Scatter(x=c[:, 0], y=c[:, 1], mode="lines", fill="toself", fillcolor="rgba(154,160,166,0.25)",
+                                 line=dict(color=GRIS_ANTES, width=2), name="cuadrado unitario antes"))
+    return fig
+
+
+def capa_despues(fig, M, rango=5, paso=1, cuadrado=True, columnas=True):
+    """Capa teal: la grilla transformada por M, el cuadrado unitario transformado y las columnas como flechas. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    M = np.asarray(M, dtype=float)
+    gx, gy = grilla_segmentos(M, rango, paso)
+    fig.add_trace(go.Scatter(x=gx, y=gy, mode="lines", line=dict(color=TEAL_DESPUES, width=1), opacity=0.45,
+                             name="grilla después", hoverinfo="skip"))
+    if cuadrado:
+        c = cerrar(transformar(_cuadrado_unitario(), M))
+        fig.add_trace(go.Scatter(x=c[:, 0], y=c[:, 1], mode="lines", fill="toself", fillcolor="rgba(27,111,106,0.25)",
+                                 line=dict(color=TEAL_DESPUES, width=2), name="cuadrado unitario después"))
+    if columnas:
+        flechas_columnas(fig, M)
+    return fig
+
+
+def objeto(fig, puntos, color=VIOLETA_OBJETO, nombre="objeto", estelas=None, relleno=True):
+    """Polígono reconocible (N×2, se cierra solo) con marcadores; `estelas` = (xs, ys) de `estelas()`. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    if estelas is not None:
+        ex, ey = estelas
+        fig.add_trace(go.Scatter(x=ex, y=ey, mode="lines", line=dict(color=color, width=1.5, dash="dot"),
+                                 name=f"estelas de {nombre}", hoverinfo="skip"))
+    p = cerrar(puntos)
+    extra = dict(fill="toself", fillcolor=_rgba(color, 0.25)) if relleno else {}
+    fig.add_trace(go.Scatter(x=p[:, 0], y=p[:, 1], mode="lines+markers", line=dict(color=color, width=2.5),
+                             marker=dict(size=7), name=nombre, **extra))
+    return fig
+
+
+def flecha(fig, origen, destino, color=TEAL_DESPUES, nombre="", ancho=5):
+    """Flecha 2D de origen a destino como trazo con punto en la punta (el patrón de 01). Devuelve fig."""
+    import plotly.graph_objects as go
+
+    o, d = np.asarray(origen, dtype=float), np.asarray(destino, dtype=float)
+    fig.add_trace(go.Scatter(x=[o[0], d[0]], y=[o[1], d[1]], mode="lines+markers", line=dict(color=color, width=ancho),
+                             marker=dict(size=[0, 2 * ancho], color=color), name=nombre, showlegend=bool(nombre)))
+    return fig
+
+
+_SUB = "₁₂₃₄"
+
+
+def flechas_columnas(fig, M, nombre="M"):
+    """Cada columna de M (2×2) como flecha desde el origen, del color de su columna ('columna k = M eₖ'). Devuelve fig."""
+    M = np.asarray(M, dtype=float)
+    for k in range(M.shape[1]):
+        flecha(fig, (0, 0), M[:, k], color_columna(k), f"columna {k + 1} = {nombre} e{_SUB[k]}")
+    return fig
+
+
+def animar(fig, cuadros, titulo=None, indices=None, duracion=50):
+    """Agrega frames y los botones reproducir/pausa (arriba a la derecha, fuera del título). Devuelve fig.
+
+    `cuadros`: lista de listas de trazas; cada lista reemplaza, en orden, las trazas de `indices`
+    (default: las últimas len(cuadros[0]) trazas de fig.data, que son las dinámicas). El último cuadro
+    tiene que coincidir con lo que muestra la figura quieta.
+    """
+    import plotly.graph_objects as go
+
+    if indices is None:
+        n = len(cuadros[0]) if cuadros else 0
+        indices = list(range(len(fig.data) - n, len(fig.data)))
+    fig.frames = [go.Frame(name=str(i), data=list(d), traces=list(indices)) for i, d in enumerate(cuadros)]
+    layout = dict(
+        margin=dict(t=56),
+        updatemenus=[dict(
+            type="buttons", showactive=False, direction="right", x=1.0, y=1.0, xanchor="right", yanchor="bottom",
+            pad=dict(t=0, b=2),
+            buttons=[
+                dict(label="▶ reproducir", method="animate",
+                     args=[None, dict(frame=dict(duration=duracion, redraw=True), fromcurrent=False, transition=dict(duration=0))]),
+                dict(label="⏸ pausa", method="animate", args=[[None], dict(mode="immediate", frame=dict(duration=0))]),
+            ],
+        )],
+    )
+    if titulo is not None:
+        layout["title"] = dict(text=titulo, font=dict(size=14), x=0.01, xanchor="left", y=0.985, yanchor="top")
+    fig.update_layout(**layout)
+    return fig
+
+
+def _rgba(hexcolor, alpha):
+    h = hexcolor.lstrip("#")
+    r, g, b = (int(h[i:i + 2], 16) for i in (0, 2, 4))
+    return f"rgba({r},{g},{b},{alpha})"
+
+
+# ----------------------------------------------------------------------------
+# plotly 3D
+# ----------------------------------------------------------------------------
+
+
+def figura_espacio(rango=2.6, titulo="", ancho=640, alto=660):
+    """Figura 3D vacía con los tres ejes dibujados, aspecto cúbico y cámara libre. `rango` = semilado o (min, max)."""
+    import plotly.graph_objects as go
+
+    a, b = _rango2(rango)
+    L = 0.6 * max(abs(a), abs(b))
+    ejes = [go.Scatter3d(x=[0, L * (i == 0)], y=[0, L * (i == 1)], z=[0, L * (i == 2)], mode="lines+text", text=["", n],
+                         line=dict(color="#444", width=3), showlegend=False, hoverinfo="skip") for i, n in enumerate("xyz")]
+    fig = go.Figure(data=ejes, layout=go.Layout(
+        width=ancho, height=alto, margin=dict(l=0, r=0, t=30, b=0),
+        scene=dict(xaxis=dict(range=[a, b]), yaxis=dict(range=[a, b]), zaxis=dict(range=[a, b]), aspectmode="cube"),
+        legend=dict(orientation="h", y=-0.02, font=dict(size=10)),
+        title=dict(text=titulo, font=dict(size=14)),
+    ))
+    return fig
+
+
+def cubo_unitario():
+    """(vertices 8×3, aristas): los vértices del cubo [0,1]³ y los 12 pares de índices que une una arista."""
+    v = np.array([[x, y, z] for x in (0, 1) for y in (0, 1) for z in (0, 1)], dtype=float)
+    aristas = [(a, b) for a in range(8) for b in range(a + 1, 8) if np.sum(np.abs(v[a] - v[b])) == 1]
+    return v, aristas
+
+
+def segmentos_3d(puntos, pares):
+    """Un trazo con cortes (xs, ys, zs) que une los pares de índices dados (aristas, mallas)."""
+    puntos = np.asarray(puntos, dtype=float)
+    xs, ys, zs = [], [], []
+    for a, b in pares:
+        xs += [puntos[a, 0], puntos[b, 0], None]
+        ys += [puntos[a, 1], puntos[b, 1], None]
+        zs += [puntos[a, 2], puntos[b, 2], None]
+    return xs, ys, zs
+
+
+def flechas_columnas_3d(fig, M, nombre="R"):
+    """Las columnas de M (3×3) como flechas desde el origen, del color de su columna. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    M = np.asarray(M, dtype=float)
+    for k in range(M.shape[1]):
+        c = color_columna(k)
+        fig.add_trace(go.Scatter3d(x=[0, M[0, k]], y=[0, M[1, k]], z=[0, M[2, k]], mode="lines+markers",
+                                   line=dict(color=c, width=9), marker=dict(size=[0, 6], color=c),
+                                   name=f"columna {k + 1} = {nombre} e{_SUB[k]}"))
+    return fig
+
+
+# ----------------------------------------------------------------------------
+# verificación
+# ----------------------------------------------------------------------------
+
+
+def exacto(a, b, tol=1e-9):
+    """True si a y b coinciden a menos de tol (np.allclose con atol=tol, rtol=0)."""
+    return bool(np.allclose(np.asarray(a, dtype=float), np.asarray(b, dtype=float), atol=tol, rtol=0))
+
+
+def verificar(checks):
+    """Lista de (descripción, bool) → markdown con ✓/✗ por ítem y una línea final con el balance."""
+    lineas = [f"- {'✓' if bool(ok) else '✗'} {texto}" for texto, ok in checks]
+    fallas = sum(1 for _, ok in checks if not bool(ok))
+    if not checks:
+        final = "*Sin verificaciones.*"
+    elif fallas == 0:
+        final = f"**Todo verificado** ({len(checks)} de {len(checks)})."
+    else:
+        final = f"**{fallas} de {len(checks)} fallan.**"
+    return "\n".join(lineas + ["", final])
+
+
+# ----------------------------------------------------------------------------
+# asserts rápidos
+# ----------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    e1, e2, e3 = np.eye(3)
+    th = np.deg2rad(37.0)
+    assert exacto(rot2(np.pi / 2) @ [1, 0], [0, 1]), "rot2(90°) debe mandar e1 a e2"
+    assert exacto(area_poligono(_cuadrado_unitario()), 1.0), "área del cuadrado unitario = 1"
+    assert exacto(area_poligono(transformar(_cuadrado_unitario(), np.diag([1, -1]))), -1.0), "reflexión → área −1"
+    assert exacto(rodrigues(e3, th), rot_z(th)), "rodrigues(z, θ) == rot_z(θ)"
+    assert exacto(rodrigues(e1, th), rot_x(th)) and exacto(rodrigues(e2, th), rot_y(th))
+    assert exacto(rodrigues([0, 0, 5], th), rot_z(th)), "el eje se normaliza"
+    p = (3.0, -2.0)
+    assert exacto(dehom(hom(p)), p) and dehom([1, 2, 0]) is None, "hom/dehom ida y vuelta"
+    assert exacto(dehom(2 * hom(p)), p), "escalar el homogéneo no cambia el punto"
+    assert exacto(transformar(np.array([[1, 0], [0, 1]]), rot2(np.pi / 2)), [[0, 1], [-1, 0]])
+    assert exacto(perp2([1, 2]) @ [1, 2], 0.0)
+    A = np.array([[2.0, 1.0], [1.0, 2.0]])
+    assert exacto(pot_real(A, 0.5) @ pot_real(A, 0.5), A)
+    assert exacto(abs(area_poligono(pentagono_regular(1.0))), 2.5 * np.sin(2 * np.pi / 5))
+    assert circulo(10).shape == (10, 2) and exacto(circulo(10)[0], circulo(10)[-1])
+    assert grilla_oblicua([1, 0], [0, 1], 2).shape == (10, 2, 2)
+    assert pmat([[1, 0.5], [0, 1]]) == r"\begin{pmatrix}1 & 0.500 \\ 0 & 1\end{pmatrix}"
+    assert vec_tex([1, 2.25]) == r"(1,\ 2.250)" and num_tex(-1e-12) == "0"
+    assert r"\textcolor{#1b6f6a}{1.000}" in matriz_coloreada(np.eye(2))
+    assert "✓" in verificar([("uno", True)]) and "1 de 2 fallan" in verificar([("a", True), ("b", False)])
+    v, ar = cubo_unitario()
+    assert v.shape == (8, 3) and len(ar) == 12
+    xs, ys = segmentos_a_trazo(grilla_oblicua([1, 0], [0, 1], 1))
+    assert len(xs) == 3 * 6 and xs[2] is None
+    print("cb104: asserts OK")

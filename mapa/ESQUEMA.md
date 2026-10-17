@@ -13,7 +13,7 @@ clases:                          # 14 entradas, en el orden de la cursada
     fecha_2025: "2025-08-21"     # fecha en que se dictó en 2025 (string ISO) SÓLO si el campus la da; si no, null
     fecha_2025_estimada: "2025-08-28"   # OPCIONAL: estimación (ritmo semanal, fecha de archivos) cuando fecha_2025 es null; el índice la muestra con "(est.)"
     fechas_2026: ["2026-08-19"]  # lista; puede ser vacía si todavía no se dictó
-    estado: con-transcripcion    # PROCEDENCIA del contenido: con-transcripcion | reconstruida | no-dictada
+    estado: con-transcripcion    # PROCEDENCIA del contenido: con-transcripcion | reconstruida | no-dictada | anticipada (armada antes de dictarse; etiqueta "anticipación, pendiente de validar")
     validacion: pendiente        # cuánto se revisó: pendiente | revisado | validado-catedra (independiente de `estado`)
     nivel: troncal               # ruta de estudio: troncal | complementario | avanzado (filtro de ruta en mapa.html)
     pregunta: "¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?"   # una línea, pregunta de campo que la clase responde
@@ -54,7 +54,7 @@ Errores (el build se detiene):
 - prefijos de `apunte` (en conceptos o clases) sin archivo `apunte/contenido/<NN>-*.tex`;
 - `unidades[].archivo` inexistente cuando el estado es `piloto` o `migrada`;
 - `unidades[].clases` vacío o con ids que no están en `clases`;
-- `estado` fuera del vocabulario (clases: `con-transcripcion`, `reconstruida`, `no-dictada`; unidades: `piloto`, `migrada`, `legacy`, `pendiente`);
+- `estado` fuera del vocabulario (clases: `con-transcripcion`, `reconstruida`, `no-dictada`, `anticipada`; unidades: `piloto`, `migrada`, `legacy`, `pendiente`);
 - `validacion` (clases) o `nivel` (clases y unidades) fuera del vocabulario.
 
 (`merge_mapa.py` valida lo mismo sobre los fragmentos y además exige que `pregunta` y `gancho_agrimensura` sean una línea de texto.)
@@ -62,14 +62,14 @@ Errores (el build se detiene):
 Avisos (el build sigue):
 
 - `clases[].ficha` que todavía no existe (la fase 1 las va escribiendo);
-- unidad con estado `legacy` o `pendiente` (no se exporta, pero figura en la portada como estación "en clase" o "todavía no");
+- unidad con estado `legacy` o `pendiente` (no se exporta: `build.py` sólo exporta `piloto` y `migrada`; figura en la portada como estación "en clase" o "todavía no");
 - concepto sin `hecho_geometrico` (el hover del nodo queda vacío);
 - clase sin `pregunta`, unidad sin `pregunta` o sin `gancho_agrimensura`.
 
 ## Qué hace el build con cada campo
 
 - Portada (`index.html`, el camino): una estación por unidad en el orden de `unidades.yaml`, con `titulo`, `pregunta`, `gancho_agrimensura`, `nivel`, estado calculado, sus `clases` (cada una con `estado` como procedencia y `validacion`), link a la unidad si está exportada, a las fichas y a las secciones del apunte (`apunte.pdf#nameddest=cap:NN`, con `NN` el prefijo del `.tex`). Entradas: *Empezar* (estación 1), *Seguir la cursada* (la estación de la clase con la `fechas_2026` ≤ hoy más reciente), *Repasar* (`mapa.html`).
-- Mapa (`mapa.html`): columnas = `clases` en orden de aparición. Color del nodo: `estado` de su clase (teal = con transcripción, dorado = reconstruida, óxido = no dictada). Cada nodo lleva `data-nivel` (el `nivel` de su clase) y `data-orden` (posición de la clase) para el filtro de ruta (`troncal` / `todo`) y el deslizador "hasta la clase N" (opacity 0.25 para lo posterior; default N = última clase dictada).
+- Mapa (`mapa.html`): columnas = `clases` en orden de aparición. Color del nodo: `estado` de su clase (teal = con transcripción, dorado = reconstruida, óxido = no dictada, violeta = anticipada). Cada nodo lleva `data-nivel` (el `nivel` de su clase) y `data-orden` (posición de la clase) para el filtro de ruta (`troncal` / `todo`) y el deslizador "hasta la clase N" (opacity 0.25 para lo posterior; default N = última clase dictada).
 - Nodo: `nombre`; `<title>` = `hecho_geometrico`; link a `unidades/<unidad>/` si el concepto declara `unidad` y esa unidad se exportó, si no a `clases/<clase>.html`.
 - Aristas: `requiere`; la flecha va del requerido al concepto.
 - Lista de clases (en `mapa.html`): `fecha_2025` (o `fecha_2025_estimada` con "(est.)"), `fechas_2026`, etiquetas de `estado`, `validacion` y `nivel`, links a ficha, unidades (las de sus conceptos) y secciones del apunte (título tomado del primer `\section{}` de cada `.tex` referido).

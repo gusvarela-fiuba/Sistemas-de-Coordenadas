@@ -4,7 +4,7 @@ titulo: ...
 fecha_2025: "2025-MM-DD"   # sólo si el campus la da; si no, null
 fecha_2025_estimada: "2025-MM-DD"   # OPCIONAL: estimación (ritmo semanal, fechas de archivos) cuando fecha_2025 es null
 fechas_2026: ["2026-MM-DD"]  # miércoles de la cursada actual que cubren esta clase; [] si no se dictó aún
-estado: con-transcripcion   # con-transcripcion | reconstruida | no-dictada
+estado: con-transcripcion   # con-transcripcion | reconstruida | no-dictada | anticipada
 fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-N
   - fuentes/transcripciones/2026-MM-DD.md

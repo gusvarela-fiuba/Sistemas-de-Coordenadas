@@ -40,7 +40,7 @@ PREGUNTA_GUIA = "transformaciones ↔ operaciones ↔ coordenadas"
 
 NIVELES = ("troncal", "complementario", "avanzado")
 VALIDACIONES = ("pendiente", "revisado", "validado-catedra")
-ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada")
+ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 CAMPOS_UNIDAD = ("id", "archivo", "titulo", "estado", "clases", "pregunta", "gancho_agrimensura", "nivel")
 
