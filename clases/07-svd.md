@@ -9,6 +9,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
   - fuentes/transcripciones/2026-10-14.md
   - datos/dem_copernicus/README.md
+  - fuentes/campus/profesor/LaSVD.wxmx
 conceptos: [svd, valores-singulares, base-privilegiada]
 apunte: ["02", "13"]
 unidad: 09_cambio_de_base_svd
@@ -38,7 +39,7 @@ No se dictó. Lo que hay son dos anuncios:
 - **2026-09-30** ("Upcoming Topics"): la SVD es "una adaptación de eso [la diagonalización] que siempre funciona, no sólo con autovectores reales" *(transcripción auto-traducida)*. Aparecen "dos bases" especiales, relacionadas "con los espacios importantes: el núcleo y la imagen", y "un cambio de base medio raro, rectangular, con una base a la entrada que no sale" *(transcripción auto-traducida)*. Jordan se descartó explícitamente: "es importante para resolver sistemas, pero la interpretación geométrica no es tan importante; para nosotros la interpretación geométrica es todo". La meta declarada: "hay un problema de GPS que se resuelve con álgebra bastante bien y siempre quiero llegar a ese punto".
 - **2026-10-14** ("Next Class: Quadratic Forms and SVD Applications"): la próxima clase son formas cuadráticas (hay una nota en el campus que hay que leer antes) y con eso "usar la descomposición en valores singulares para resolver problemas: regresión, ajuste de puntos, etc." *(transcripción auto-traducida)*. Referencias: "está en el Strang, y hay uno en inglés, Calvetti y Somersalo, que para mí es el que lo explica mejor". El profesor dijo que la SVD ya la había mostrado "con Maxima, analíticamente, no gráficamente" y la había mandado por el grupo; la tarea es intentar en GeoGebra "cualquier sistema 2×3 o 3×2" y mandar dudas por el grupo.
 
-Falta confirmar: fecha de dictado, si la clase de formas cuadráticas y la de SVD aplicada son una sola o dos, y qué archivo de Maxima fue el que circuló por el grupo.
+Falta confirmar: fecha de dictado, si la clase de formas cuadráticas y la de SVD aplicada son una sola o dos. El archivo de Maxima que circuló por el grupo es `fuentes/campus/profesor/LaSVD.wxmx` (mandado por el profesor el 2026-10-17).
 
 ## Hecho geométrico
 
@@ -85,7 +86,7 @@ Comparar con los autovectores de $A$: $\lambda=3$ con $(1,-2)$ y $\lambda=5$ con
 - **Apunte: hueco.** La SVD no tiene sección propia en el apunte v3. Sólo menciones: `02-hilo-de-la-materia.tex` (fila 7 de la tabla: "SVD = la circunferencia unidad se vuelve elipse, con ejes ortogonales antes y después"; marcada "SVD pendiente"), `13-tercera-lectura.tex` §Proyecciones cartográficas ("sus valores singulares describen las escalas principales de deformación; su determinante describe el cambio local de área"), y las tablas de propuesta en `19-apendice-rubricas.tex` (filas "existe una base ortogonal de la entrada que va a una base ortogonal de la salida" / "$A=U\Sigma V^T$" / "matrices simétricas") y `21-apendice-notebooks.tex` (notebook 9 propuesto).
 - **Unidad marimo:** `unidades/09_cambio_de_base_svd.py` (lección **anticipada**, 2026-10-17: círculo → elipse en tres etapas, $v_k$ y $\sigma_k u_k$, inversa y pseudoinversa, cuatro subespacios en una $3\times2$, aproximación de rango $k$ de una matriz de alturas; pendiente de validar por la cátedra). El prototipo del DEM (`datos/dem_copernicus/svd_dem_proto.py`: espectro, energía, RMS vs $k$, reconstrucciones en hillshade, vectores singulares como perfiles) sigue sin integrarse: la unidad usa un terreno sintético y cita los RMS del recorte 512.
 - **Bibliografía del campus:** Strang, *Álgebra lineal y sus aplicaciones* (sólo parte 1 descargada) y Calvetti & Somersalo, *Less is More Linear Algebra*; el profesor dijo en clase (2026-10-14) que el segundo "es el que lo explica mejor, pero está en inglés" *(transcripción auto-traducida)*. Sin comentario textual del profesor en la lista del campus para estos dos. Para la clase 7 del 2025: Polya, *Cómo plantear y resolver problemas* ("un libro muy muy bueno sobre el tema"), y los artículos de Molina & Oktaç y González-Rojas-Roa-Fuentes ("no me parecen excepcionales pero me parecía interesante ojearlos").
-- **Material del profesor:** videos embebidos sobre SVD (no descargables); un archivo de Maxima con la SVD analítica mandado por el grupo en 2026 (sin confirmar cuál); GeoGebra anunciado para la próxima clase.
+- **Material del profesor:** videos embebidos sobre SVD (no descargables); `fuentes/campus/profesor/LaSVD.wxmx`, la SVD analítica en wxMaxima de $A=\begin{pmatrix}1&2&4\\-3&-2&3\end{pmatrix}$ ($AA^T$ y $A^TA$, polinomio característico, autovectores, ortogonalidad de a pares, $U$ y $V^T$ normalizados, $\Sigma$ con las raíces de los autovalores y la verificación $U\Sigma V^T=A$; circuló por el grupo y el profesor lo reenvió el 2026-10-17); GeoGebra anunciado para la próxima clase.
 
 ## Enlaces del mapa
 

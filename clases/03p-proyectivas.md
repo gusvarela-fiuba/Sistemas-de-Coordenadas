@@ -11,6 +11,8 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
   - entregas/pentagono/Pentagono_Proyectivas_Varela_56798.tex
   - entregas/pentagono/Problema_transformaciones_proyectivas.pdf
+  - fuentes/campus/profesor/2026-09-16_pizarron_pentagono.jpg
+  - fuentes/campus/profesor/Proyectivas_del_pentagono.xlsx
 conceptos: [plano-proyectivo, punto-impropio, homografia, recta-fija, razon-doble]
 apunte: ["05", "12", "18"]
 unidad: 05_proyectivas
@@ -54,6 +56,11 @@ Pentágono ABCDE. 1. ¿Cuáles son las posibles transformaciones proyectivas en 
 caen en otros cuatro? 2. ¿Cómo se calculan? 3. ¿Dónde cae el vértice restante? 4. ¿Tiene punto
 fijo?"
 
+La foto del pizarrón de ese día (16:28, `fuentes/campus/profesor/2026-09-16_pizarron_pentagono.jpg`,
+mandada por el profesor por Google Chat el 2026-10-17) muestra las mismas cuatro preguntas y dos
+dibujos: el pentágono ABCDE con su centro F y un punto G debajo, y una segunda figura con los
+vértices reubicados y el C con signo de pregunta.
+
 Cómo lo contó el profesor *(transcripción auto-traducida)*: "mi idea era pensar un pentágono
 regular, construir una transformación proyectiva que intercambie los vértices y preguntarnos dónde
 cae. Una proyectiva sólo puede venir de cuatro puntos. Entonces cuando intercambio un vértice o lo
@@ -84,11 +91,17 @@ Lo que se infiere:
   Hicimos una planilla en Excel", y "había dicho al principio de la clase pasada que íbamos a cambio
   de base, que bajábamos un poco el ritmo [...] y eso fue lo que no hicimos". Es decir: el 23 se
   discutió el pentágono con planilla y el cambio de base quedó para el 30.
+- Esa planilla es `fuentes/campus/profesor/Proyectivas_del_pentagono.xlsx` (mandada por el
+  profesor el 2026-10-17): pentágono regular centrado en el origen con $D=(0,1)$ y los demás
+  vértices por rotaciones de 72°, como la pista del 16/9; sistema $13\times13$ (los nueve
+  coeficientes de la matriz $3\times3$ más un $\lambda$ por punto, con $t=1$) para la proyectiva
+  que deja fijos $A$ y $B$ e intercambia $C$ con $E$; se resuelve con la inversa y se verifica
+  dónde cae cada vértice en $z=1$. Según leo las fórmulas, la imagen de $D$ queda sobre el eje $x$.
 - Los 120 = 5·4·3·2 son las correspondencias ordenadas de cuatro vértices sobre cuatro vértices,
   para un origen fijo; la entrega cuenta 600 contando también qué vértice queda afuera.
 
 Falta confirmar: si la precisión "regular + tres casos" fue el 18 por el grupo o el 23 en clase; qué
-casos se corrieron en el Excel; si el profesor comentó la entrega en clase o sólo en el PDF.
+en clase se corrieron más casos que el de la planilla ($A$, $B$ fijos, $C\leftrightarrow E$); si el profesor comentó la entrega en clase o sólo en el PDF.
 
 ## Hecho geométrico
 

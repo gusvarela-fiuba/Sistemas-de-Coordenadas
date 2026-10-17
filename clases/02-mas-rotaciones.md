@@ -10,6 +10,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#rotaciones-clase-21-de-agosto
   - fuentes/transcripciones/2026-08-19.md
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
+  - apunte/01_Ejercicios_original.pdf
 conceptos: [composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia]
 apunte: ["07", "15", "16", "13"]
 unidad: 01c_rotaciones_3d
@@ -17,7 +18,7 @@ unidad: 01c_rotaciones_3d
 
 # Clase 2 — Más rotaciones, composición y líneas coordenadas
 
-> **Estado:** **no dictada en 2C2026.** El miércoles 2026-08-26 no hubo clase (dato de Gustavo, 2026-10-17); el profesor había anunciado traslaciones y afines para ese día, y eso pasó al 09-02 y 09-09 (ficha 03). El hilo de abajo es el de la cursada 2025, **reconstruido sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. Sirve como contexto de la lección 01c y del apunte, no como registro de una clase dada.
+> **Estado:** **no dictada en 2C2026.** El miércoles 2026-08-26 no hubo clase (dato de Gustavo, 2026-10-17). Iba a ser traslaciones; el profesor mandó ese contenido por el grupo de Google Chat como la guía de reflexiones y seis teoremas `apunte/01_Ejercicios_original.pdf`, con ejercicios para resolver en clase, y se trabajó el 09-02 y el 09-09 (ficha 03). El hilo de abajo es el de la cursada 2025, **reconstruido sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. Sirve como contexto de la lección 01c y del apunte, no como registro de una clase dada.
 
 ## El hilo del profesor (cursada 2025)
 
@@ -35,7 +36,7 @@ Del resumen de la clase 1 que pertenece acá: "la rotación genera para cada pun
 
 ## Lo que pasó en 2C2026
 
-No hubo clase. El miércoles 2026-08-26 la clase no se dictó (dato de Gustavo, 2026-10-17). Al cerrar el 2026-08-19 el profesor había anunciado para ese día "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada"; las traslaciones y las afines pasaron a los miércoles 09-02 y 09-09 (ficha 03). También habían quedado pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
+No hubo clase. El miércoles 2026-08-26 la clase no se dictó (dato de Gustavo, 2026-10-17). Al cerrar el 2026-08-19 el profesor había anunciado para ese día "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada". En lugar de la clase mandó por el grupo de Google Chat el contenido previsto, traslaciones: la guía `apunte/01_Ejercicios_original.pdf` (reflexión por un punto y por una recta; seis teoremas que arrancan en "la composición de dos reflexiones es una traslación"; homotecia; toda similaridad como dos reflexiones y una homotecia) con ejercicios para resolver en clase. Se trabajó el 09-02 y el 09-09 (ficha 03) y está desarrollada en la lección `03_reflexiones_similaridades`. También habían quedado pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
 
 Qué pasó con el contenido 2025 de esta estación:
 

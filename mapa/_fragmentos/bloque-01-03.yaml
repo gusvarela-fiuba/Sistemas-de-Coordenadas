@@ -18,7 +18,7 @@ clases:
     ficha: clases/02-mas-rotaciones.md
     fecha_2025: null
     fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1; no figura en el campus
-    fechas_2026: []   # el 2026-08-26 no hubo clase; la estación de 2025 no se dictó en 2C2026
+    fechas_2026: []   # el 2026-08-26 no hubo clase; el contenido previsto (traslaciones) llegó por chat como la guía de seis teoremas (ficha 03)
     estado: no-dictada
     pregunta: "¿Qué pasa cuando encadeno dos movimientos, y por qué hace falta que conmuten para armar una grilla de coordenadas?"
     validacion: pendiente

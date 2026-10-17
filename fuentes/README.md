@@ -10,6 +10,10 @@ Material bajado del campus virtual (campusgrado.fi.uba.ar, curso 1279).
 
 - `resumenes_clase_2025_profesor.md`: resúmenes clase por clase escritos por el profesor para la cursada 2025 (el campus los titula "1er Cuatri 2026"), clases 1 a 14. Las clases 1–10 fueron copiadas del campus el 2026-09-21; las clases 11–14 vienen del PDF `campus/clase_por_clase_2do_2025_campus_2026-10-17.pdf` guardado en Dropbox (las 13 y 14 sólo tienen título). Mismo archivo que el de Dropbox `Agrimensura/Sistemas de Coordenadas/campus/`.
 
+### `campus/profesor/`
+
+Archivos que el profesor mandó por el grupo de Google Chat (recibidos el 2026-10-17): la foto del pizarrón del 2026-09-16 con la consigna del pentágono, la planilla `Proyectivas_del_pentagono.xlsx` con la que calculó una proyectiva del pentágono el 23/9, y `LaSVD.wxmx`, la SVD analítica en wxMaxima que mencionó el 14/10. Detalle de cada uno en `campus/profesor/README.md`.
+
 ### `transcripciones/`
 
 Notas de reunión generadas por Notion AI a partir de la grabación de cada clase de la cursada 2C2026. Un archivo por clase, `AAAA-MM-DD.md`, con front-matter (`fecha`, `materia`, `origen`, `notion_id`, `estado`) y dos secciones: el resumen que armó Notion y el transcript crudo, un párrafo por línea.
