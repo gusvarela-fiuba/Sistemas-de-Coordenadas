@@ -2,13 +2,13 @@
 # Esquema (mapa/ESQUEMA.md): id, archivo, titulo, estado (piloto|migrada|legacy|pendiente), nota?,
 #   clases[] (ids de clase que cubre), pregunta (una línea), gancho_agrimensura (una línea),
 #   nivel (troncal|complementario|avanzado).
-# El orden de esta lista es el orden de las estaciones de la portada (site/index.html).
+# El orden de esta lista es el orden de las unidades en la portada (site/index.html).
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
 
 unidades:
   - id: 00_desaprender_el_cbc
     archivo: unidades/00_desaprender_el_cbc.py
-    titulo: "Antes de empezar: cuatro cosas para desaprender del CBC"
+    titulo: "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)"
     estado: piloto
     clases: ["01", "04", "09"]
     pregunta: "¿Por qué un vector es un punto, el gradiente no es un vector y el álgebra lineal es la mitad del análisis sobre el terreno?"

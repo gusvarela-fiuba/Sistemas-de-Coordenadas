@@ -840,7 +840,7 @@ conceptos:
 unidades:
 - id: 00_desaprender_el_cbc
   archivo: unidades/00_desaprender_el_cbc.py
-  titulo: 'Antes de empezar: cuatro cosas para desaprender del CBC'
+  titulo: 'Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)'
   estado: piloto
   clases:
   - "01"
