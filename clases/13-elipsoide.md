@@ -55,7 +55,7 @@ Radios de curvatura, lo que se ve: $M$ (meridiano) es el radio del círculo oscu
 ## Dónde está desarrollado
 - Apunte v3: `13-tercera-lectura.tex` §"Esfera, elipsoide y curvatura" ($e^2=2f-f^2$, $M$, $N$, $K=1/(MN)$, figura de la normal que no pasa por el centro) y §"Conexión con la práctica de Agrimensura" (fila "Radios $M,N$: variación geométrica con la latitud"); `06-primera-lectura-superficies.tex` §"Esfera, elipsoide y representación plana" (panorama). Falta en el apunte: la deducción de $M$ y $N$, la conversión $\varphi,\lambda\to X,Y,Z$, la latitud geocéntrica, el arco de meridiano.
 - Apunte del profesor (Clavijo, elipsoide): fuente completa, resumida arriba.
-- Unidad marimo: pendiente. Candidata: elipse meridiana con slider en $\varphi$ mostrando normal, círculo osculador ($M$), segmento hasta el eje ($N$) y las dos latitudes.
+- Unidad marimo: `unidades/13_elipsoide.py` (**anticipada**: la clase no se dictó; lectura del alumno sobre el esqueleto 2025, el apunte del profesor y el v3, pendiente de validar por la cátedra): elipsoide 3D con meridiano, paralelo, normal y recta al centro; elipse meridiana con las tres latitudes; $M$, $N$, $(\varphi,\lambda,h)\to(X,Y,Z)$ y $E = M^2$, $G = N^2\cos^2\varphi$ con GRS80 en $45°$.
 - Página Notion de Gustavo: §5 esfera (tabla de 1° de longitud por latitud), útil como contraste.
 - Bibliografía del campus: ninguna entrada comentada por el profesor sobre elipsoide; Sáenz, *Cálculo vectorial*, y Fortney, para superficies paramétricas (sin comentario).
 

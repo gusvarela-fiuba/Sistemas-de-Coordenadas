@@ -126,8 +126,48 @@ unidades:
   - id: 10_jacobiano_primera_forma
     archivo: unidades/10_jacobiano_primera_forma.py
     titulo: Jacobiano y primera forma fundamental
-    estado: pendiente
+    estado: piloto
     clases: ["09"]
     pregunta: "¿Cómo mido una distancia chica sobre una superficie curva usando sólo los números (u, v) de la grilla?"
     gancho_agrimensura: "Sobre el terreno, un pasito en latitud y otro en longitud no miden lo mismo en metros: la primera forma fundamental es la regla que los convierte."
     nivel: troncal
+
+  - id: 11_cuatro_problemas
+    archivo: unidades/11_cuatro_problemas.py
+    titulo: "Cuatro problemas: regresión, círculos, Procrustes, regresión total"
+    estado: piloto
+    nota: "anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra"
+    clases: ["11"]
+    pregunta: "¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer dos relevamientos y ajustar una recta con error en las dos coordenadas?"
+    gancho_agrimensura: "Compensar un relevamiento con más mediciones que incógnitas: la misma cuenta resuelve la recta de ajuste y la transformación entre dos sistemas de mojones."
+    nivel: avanzado
+
+  - id: 12_curvatura
+    archivo: unidades/12_curvatura.py
+    titulo: Curvatura como forma cuadrática
+    estado: piloto
+    nota: "anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra"
+    clases: ["12"]
+    pregunta: "¿Cuánto se aparta la superficie de su plano tangente en cada rumbo, y qué quiere decir ir derecho sobre ella?"
+    gancho_agrimensura: "Un nivel apoyado en el terreno: la curvatura dice cuánto cambia la vertical al dar un paso en cada rumbo."
+    nivel: troncal
+
+  - id: 13_elipsoide
+    archivo: unidades/13_elipsoide.py
+    titulo: Geometría del elipsoide
+    estado: piloto
+    nota: "anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra"
+    clases: ["13"]
+    pregunta: "¿Qué se deduce del elipsoide con sólo saber que todos sus meridianos son la misma elipse?"
+    gancho_agrimensura: "La latitud geodésica y la geocéntrica no coinciden porque la normal al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón."
+    nivel: troncal
+
+  - id: 14_trigonometria_esferica
+    archivo: unidades/14_trigonometria_esferica.py
+    titulo: Trigonometría esférica
+    estado: piloto
+    nota: "anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra"
+    clases: ["14"]
+    pregunta: "¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?"
+    gancho_agrimensura: "Entre tres vértices lejanos la suma de ángulos de la poligonal trae un exceso esférico; corregirlo es parte del cálculo."
+    nivel: complementario

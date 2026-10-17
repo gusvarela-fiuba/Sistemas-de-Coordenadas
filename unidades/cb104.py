@@ -40,6 +40,19 @@ __all__ = [
     # cuña, núcleo y autovectores (lecciones 07a, 07b, 07c)
     "cuna2", "cuna3", "alineados", "paralelogramo", "paralelepipedo", "plano_3d", "nucleo2",
     "autovalores_reales", "autovectores_cuna", "direcciones_propias", "puntos_fijos_proyectivos",
+    # jacobiano y primera forma fundamental (lección 10)
+    "xyz", "jacobiana_numerica", "primera_forma", "longitud_paso", "longitud_poligonal", "flecha_3d",
+    "superficie_malla", "plano_tangente",
+    # mínimos cuadrados: los cuatro problemas (lección 11)
+    "minimos_cuadrados", "recta_ajuste", "punto_por_distancias", "procrustes", "regresion_total",
+    # trigonometría esférica (lección 14)
+    "punto_esfera", "esfera_malla", "arco_maximo", "lado_esferico", "angulo_esferico", "angulo_vertice",
+    "triangulo_esferico", "exceso_esferico",
+    # curvatura y segunda forma fundamental (lección 12)
+    "formas_fundamentales", "curvatura_normal", "curvaturas_principales", "curvatura_gauss", "seccion_normal",
+    "circulo_3d",
+    # elipsoide de revolución (lección 13)
+    "elipsoide", "elipsoide_grs80", "radios_curvatura", "latitudes", "geodesica_a_cartesiana", "normal_elipsoide", "gms",
 ]
 
 # ----------------------------------------------------------------------------
@@ -858,6 +871,409 @@ def puntos_fijos_proyectivos(H, tol=1e-7):
 
 
 # ----------------------------------------------------------------------------
+# jacobiano y primera forma fundamental (lección 10)
+# ----------------------------------------------------------------------------
+
+
+def xyz(x, y, z):
+    """Tres componentes (escalares o arrays que broadcastean) → un array (..., 3): para escribir una superficie
+    r(u, v) vectorizada en una línea. Con u, v escalares devuelve (3,); con arrays de n, (n, 3)."""
+    return np.stack(np.broadcast_arrays(np.asarray(x, dtype=float), np.asarray(y, dtype=float),
+                                        np.asarray(z, dtype=float)), axis=-1)
+
+
+def jacobiana_numerica(r, u, v, h=1e-6):
+    """Jacobiana m×2 de r(u, v) → array de m, por diferencias finitas centradas: columnas r_u, r_v.
+
+    Es la matriz que manda un pasito (du, dv) de la grilla al pasito r_u du + r_v dv sobre la superficie; sus
+    columnas son los ejes locales en el punto. Para h chico coincide con la derivada exacta (error ~h²).
+    """
+    r_u = (np.asarray(r(u + h, v), dtype=float) - np.asarray(r(u - h, v), dtype=float)) / (2 * h)
+    r_v = (np.asarray(r(u, v + h), dtype=float) - np.asarray(r(u, v - h), dtype=float)) / (2 * h)
+    return np.column_stack([r_u, r_v])
+
+
+def primera_forma(J):
+    """(E, F, G) de una jacobiana m×2: la tabla de productos internos de los ejes locales, g = Jᵀ J = [[E, F], [F, G]]
+    con E = ⟨r_u, r_u⟩, F = ⟨r_u, r_v⟩, G = ⟨r_v, r_v⟩ (la V Vᵀ de la lección 02, con los ejes como columnas)."""
+    J = np.asarray(J, dtype=float)
+    g = J.T @ J
+    return float(g[0, 0]), float(g[0, 1]), float(g[1, 1])
+
+
+def longitud_paso(E, F, G, du, dv):
+    """Largo sobre la superficie de un pasito (du, dv) de la grilla, a primer orden: √(E du² + 2F du dv + G dv²).
+    du, dv pueden ser arrays (una nube de pasos → una longitud por paso)."""
+    du = np.asarray(du, dtype=float)
+    dv = np.asarray(dv, dtype=float)
+    return np.sqrt(E * du**2 + 2 * F * du * dv + G * dv**2)
+
+
+def longitud_poligonal(puntos):
+    """Largo de la poligonal que une los puntos N×d en orden (suma de los tramos): medir "con cinta" un camino."""
+    p = np.asarray(puntos, dtype=float)
+    return float(np.sum(np.linalg.norm(np.diff(p, axis=0), axis=1)))
+
+
+def flecha_3d(fig, origen, destino, color=TEAL_DESPUES, nombre="", ancho=8):
+    """Flecha 3D de origen a destino como trazo con punto en la punta (el patrón de `flechas_columnas_3d`). Devuelve fig."""
+    import plotly.graph_objects as go
+
+    o, d = np.asarray(origen, dtype=float).reshape(3), np.asarray(destino, dtype=float).reshape(3)
+    fig.add_trace(go.Scatter3d(x=[o[0], d[0]], y=[o[1], d[1]], z=[o[2], d[2]], mode="lines+markers",
+                               line=dict(color=color, width=ancho), marker=dict(size=[0, 5], color=color),
+                               name=nombre, showlegend=bool(nombre)))
+    return fig
+
+
+def superficie_malla(fig, r, us, vs, color=TEAL_DESPUES, nombre="superficie", fino=40, ancho=2, opacidad=0.8):
+    """La grilla (u, v) dibujada sobre la superficie r(u, v): las líneas coordenadas u = cte (una por valor de `us`) y
+    v = cte (una por valor de `vs`), cada una muestreada con `fino` puntos para que se curve, como un solo trazo con
+    cortes. `r` tiene que aceptar arrays (vectorizada, ver `xyz`) y devolver (..., 3). Con un r plano
+    (u, v) ↦ (u, v, z₀) dibuja la grilla "antes". Devuelve fig."""
+    import plotly.graph_objects as go
+
+    us, vs = np.asarray(us, dtype=float), np.asarray(vs, dtype=float)
+    uf, vf = np.linspace(us[0], us[-1], fino), np.linspace(vs[0], vs[-1], fino)
+    xs, ys, zs = [], [], []
+    for u in us:  # línea u = cte: recorre v
+        P = np.asarray(r(np.full(fino, u), vf), dtype=float)
+        xs += list(P[:, 0]) + [None]
+        ys += list(P[:, 1]) + [None]
+        zs += list(P[:, 2]) + [None]
+    for v in vs:  # línea v = cte: recorre u
+        P = np.asarray(r(uf, np.full(fino, v)), dtype=float)
+        xs += list(P[:, 0]) + [None]
+        ys += list(P[:, 1]) + [None]
+        zs += list(P[:, 2]) + [None]
+    fig.add_trace(go.Scatter3d(x=xs, y=ys, z=zs, mode="lines", line=dict(color=color, width=ancho), opacity=opacidad,
+                               name=nombre, hoverinfo="skip"))
+    return fig
+
+
+def plano_tangente(fig, p, ru, rv, k=0.6, normal=True):
+    """El plano tangente en p (trozo ±k r_u ± k r_v, con `plano_3d`) y los ejes locales como flechas desde p: r_u teal
+    (columna 1 de J) y r_v rust (columna 2); opcional, la normal r_u × r_v normalizada, en gris oscuro: la dirección
+    inaccesible. Devuelve fig."""
+    p = np.asarray(p, dtype=float).reshape(3)
+    ru = np.asarray(ru, dtype=float).reshape(3)
+    rv = np.asarray(rv, dtype=float).reshape(3)
+    plano_3d(fig, ru, rv, k, origen=p, color=TEAL_DESPUES, nombre="plano tangente", opacidad=0.22)
+    flecha_3d(fig, p, p + ru, color_columna(0), "r_u = columna 1 de J")
+    flecha_3d(fig, p, p + rv, color_columna(1), "r_v = columna 2 de J")
+    if normal:
+        n = np.cross(ru, rv)
+        if np.linalg.norm(n) > 1e-12:
+            flecha_3d(fig, p, p + n / np.linalg.norm(n), "#444", "normal r_u × r_v (lo inaccesible)", ancho=4)
+    return fig
+
+
+# ----------------------------------------------------------------------------
+# mínimos cuadrados: los cuatro problemas (lección 11)   # lección 11 / 14 (cb104)
+# ----------------------------------------------------------------------------
+
+
+def minimos_cuadrados(A, y):
+    """Solución de A x ≈ y con más ecuaciones que incógnitas, por ecuaciones normales AᵀA x = Aᵀy. Devuelve (x, r)
+    con r = y − A x el residuo, que queda perpendicular a todo lo que A puede producir: Aᵀ r = 0. Las columnas de A
+    tienen que ser independientes (si no, AᵀA es singular y no hay una sola solución)."""
+    A = np.asarray(A, dtype=float)
+    y = np.asarray(y, dtype=float).reshape(-1)
+    x = np.linalg.solve(A.T @ A, A.T @ y)
+    return x, y - A @ x
+
+
+def recta_ajuste(xs, ys):
+    """(a, b) de la recta y = a x + b que minimiza las distancias VERTICALES a los puntos: A = [xs | 1], mínimos cuadrados."""
+    xs = np.asarray(xs, dtype=float).reshape(-1)
+    return minimos_cuadrados(np.column_stack([xs, np.ones(len(xs))]), ys)[0]
+
+
+def punto_por_distancias(mojones, distancias):
+    """Punto p = (x, y) a las distancias dadas de m ≥ 3 mojones conocidos (m×2). Restar la ecuación del primer círculo
+    a las demás cancela x² + y² y deja m − 1 rectas (los ejes radicales): 2 (Mᵢ − M₀)·p = d₀² − dᵢ² − |M₀|² + |Mᵢ|².
+    Con tres mojones es un sistema 2×2 exacto; con más, mínimos cuadrados. Devuelve (p, r), r el residuo de esas rectas."""
+    M = np.asarray(mojones, dtype=float)
+    d = np.asarray(distancias, dtype=float).reshape(-1)
+    if len(M) < 3:
+        raise ValueError("hacen falta al menos tres mojones: con dos quedan dos candidatos simétricos")
+    A = 2.0 * (M[1:] - M[0])
+    b = d[0] ** 2 - d[1:] ** 2 - M[0] @ M[0] + np.sum(M[1:] ** 2, axis=1)
+    return minimos_cuadrados(A, b)
+
+
+def procrustes(P, Q):
+    """Rotación R, escala s y traslación t que mejor superponen la nube P (N×2) sobre Q (N×2): qᵢ ≈ s R pᵢ + t.
+    Se centran las dos nubes, H = P₀ᵀ Q₀ (la covarianza cruzada), H = U Σ Vᵀ y R = V Uᵀ (si saliera un espejo se corrige
+    el signo), s = tr Σ / ‖P₀‖², t = q̄ − s R p̄. Devuelve (R, s, t, rms), rms la raíz del residuo cuadrático medio."""
+    P = np.asarray(P, dtype=float)
+    Q = np.asarray(Q, dtype=float)
+    pm, qm = P.mean(axis=0), Q.mean(axis=0)
+    P0, Q0 = P - pm, Q - qm
+    U, S, Vt = np.linalg.svd(P0.T @ Q0)
+    D = np.diag([1.0, float(np.sign(np.linalg.det(Vt.T @ U.T)))])
+    R = Vt.T @ D @ U.T
+    s = float(np.trace(np.diag(S) @ D)) / float(np.sum(P0 ** 2))
+    t = qm - s * R @ pm
+    rms = float(np.sqrt(np.mean(np.sum((s * transformar(P, R) + t - Q) ** 2, axis=1))))
+    return R, s, t, rms
+
+
+def regresion_total(puntos):
+    """Recta que minimiza las distancias PERPENDICULARES a una nube N×2: pasa por el centroide c con la dirección d
+    propia de mayor autovalor de la covarianza C = X₀ᵀ X₀ (X₀ = puntos − c); la normal n = perp2(d) es la de menor
+    autovalor, y ese autovalor es la suma de los residuos al cuadrado. Devuelve (c, d, n, residuo2)."""
+    X = np.asarray(puntos, dtype=float)
+    c = X.mean(axis=0)
+    X0 = X - c
+    lam, V = np.linalg.eigh(X0.T @ X0)  # ascendente
+    d = V[:, 1] if V[0, 1] > 0 or (V[0, 1] == 0 and V[1, 1] > 0) else -V[:, 1]
+    return c, d, perp2(d), float(lam[0])
+
+
+# ----------------------------------------------------------------------------
+# trigonometría esférica (lección 14)
+# ----------------------------------------------------------------------------
+
+
+def punto_esfera(phi, lam, R=1.0):
+    """Vector (x, y, z) del punto de latitud phi (desde el ecuador) y longitud lam, en radianes, sobre la esfera de radio R.
+    Acepta arrays en phi o en lam (devuelve 3×n)."""
+    return R * np.array([np.cos(phi) * np.cos(lam), np.cos(phi) * np.sin(lam), np.sin(phi) * np.ones_like(lam)])
+
+
+def esfera_malla(fig, R=1.0, paso=30, color=GRIS_ANTES, nombre="esfera"):
+    """Meridianos y paralelos cada `paso` grados de la esfera de radio R, como un solo trazo gris con cortes. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    xs, ys, zs = [], [], []
+    t = np.linspace(-np.pi / 2, np.pi / 2, 61)
+    for lam in np.deg2rad(np.arange(0, 360, paso)):
+        p = punto_esfera(t, lam, R)
+        xs += list(p[0]) + [None]
+        ys += list(p[1]) + [None]
+        zs += list(p[2]) + [None]
+    u = np.linspace(0, 2 * np.pi, 121)
+    for phi in np.deg2rad(np.arange(-90 + paso, 90, paso)):
+        p = punto_esfera(phi, u, R)
+        xs += list(p[0]) + [None]
+        ys += list(p[1]) + [None]
+        zs += list(p[2]) + [None]
+    fig.add_trace(go.Scatter3d(x=xs, y=ys, z=zs, mode="lines", line=dict(color=color, width=1), opacity=0.5,
+                               name=nombre, hoverinfo="skip"))
+    return fig
+
+
+def arco_maximo(p, q, n=60):
+    """Puntos n×3 del arco corto de círculo máximo entre p y q (mismo radio): interpolación sobre la esfera.
+    p y q no pueden ser antípodas (habría infinitos arcos)."""
+    p = np.asarray(p, dtype=float).reshape(3)
+    q = np.asarray(q, dtype=float).reshape(3)
+    R = np.linalg.norm(p)
+    u, v = p / R, q / np.linalg.norm(q)
+    th = angulo(u, v)
+    if th < 1e-12:
+        return np.tile(p, (n, 1))
+    if np.pi - th < 1e-9:
+        raise ValueError("puntos antípodas: el círculo máximo no es único")
+    t = np.linspace(0, 1, n)[:, None]
+    return R * (np.sin((1 - t) * th) * u + np.sin(t * th) * v) / np.sin(th)
+
+
+def lado_esferico(p, q):
+    """Lado del triángulo esférico entre los vértices p y q: el ángulo central, en radianes (arccos del producto interno
+    de los unitarios, con clip). Sobre la esfera de radio R el arco mide R veces esto."""
+    return angulo(p, q)
+
+
+def angulo_esferico(a, b, c):
+    """Ángulo A opuesto al lado a, en radianes, por la ley del coseno esférica: cos a = cos b cos c + sin b sin c cos A."""
+    sbsc = float(np.sin(b) * np.sin(c))
+    if abs(sbsc) < 1e-12:
+        raise ValueError("un lado nulo (o de 180°): el ángulo en ese vértice no está definido")
+    return float(np.arccos(np.clip((np.cos(a) - np.cos(b) * np.cos(c)) / sbsc, -1.0, 1.0)))
+
+
+def angulo_vertice(A, B, C):
+    """Ángulo en el vértice A del triángulo esférico ABC, en radianes, directo de los vectores: es el ángulo entre las
+    normales A × B y A × C de los dos planos por el centro; con sin b sin c sin A = |(A ∧ B) ∧ C| (la cuña, lección 07a)
+    y sin b sin c cos A = (A × B)·(A × C) sale A = arctan2(·, ·), sin cancelaciones para triángulos chicos."""
+    A, B, C = (np.asarray(v, dtype=float).reshape(3) / np.linalg.norm(v) for v in (A, B, C))
+    nb, nc = np.cross(A, B), np.cross(A, C)
+    return float(np.arctan2(abs(cuna3(A, B, C)), float(nb @ nc)))
+
+
+def triangulo_esferico(A, B, C):
+    """Lados y ángulos (radianes) del triángulo esférico de vértices A, B, C (vectores desde el centro): devuelve
+    ((a, b, c), (α, β, γ)) con a el lado opuesto a A (ángulo entre B y C) y α el ángulo en A."""
+    lados = (lado_esferico(B, C), lado_esferico(A, C), lado_esferico(A, B))
+    return lados, (angulo_vertice(A, B, C), angulo_vertice(B, C, A), angulo_vertice(C, A, B))
+
+
+def exceso_esferico(A, B, C):
+    """Exceso esférico α + β + γ − π del triángulo de vértices A, B, C: su área dividida por R² (Girard)."""
+    return float(sum(triangulo_esferico(A, B, C)[1]) - np.pi)
+
+
+# ----------------------------------------------------------------------------
+# curvatura: primera y segunda forma fundamental (lección 12)
+# ----------------------------------------------------------------------------
+
+
+def formas_fundamentales(r, u, v, h=1e-3):
+    """Primera y segunda forma fundamental de la superficie r(u, v) (función de dos números → array de 3) en el
+    punto (u, v), por diferencias finitas centradas de paso h. Devuelve un dict con p = r(u, v); r_u, r_v (la base
+    local); n (normal unitaria r_u × r_v / ‖r_u × r_v‖); E, F, G (primera forma: la regla de la lección 10) y
+    L, M, N (segunda forma: cuánto se aparta la superficie del plano tangente, r_uu·n, r_uv·n, r_vv·n).
+    La curvatura es positiva cuando la superficie se dobla hacia n. Para un gráfico z = f(x, y) usar
+    r = lambda x, y: np.array([x, y, f(x, y)]); ahí n apunta hacia arriba."""
+    def R(a, b):
+        return np.asarray(r(a, b), dtype=float).reshape(3)
+
+    p = R(u, v)
+    r_u = (R(u + h, v) - R(u - h, v)) / (2 * h)
+    r_v = (R(u, v + h) - R(u, v - h)) / (2 * h)
+    r_uu = (R(u + h, v) - 2 * p + R(u - h, v)) / h**2
+    r_vv = (R(u, v + h) - 2 * p + R(u, v - h)) / h**2
+    r_uv = (R(u + h, v + h) - R(u + h, v - h) - R(u - h, v + h) + R(u - h, v - h)) / (4 * h**2)
+    n = np.cross(r_u, r_v)
+    norma = np.linalg.norm(n)
+    if norma < 1e-12:
+        raise ValueError("r_u y r_v son paralelos: no hay plano tangente (punto singular de la parametrización)")
+    n = n / norma
+    return dict(p=p, r_u=r_u, r_v=r_v, n=n, E=float(r_u @ r_u), F=float(r_u @ r_v), G=float(r_v @ r_v),
+                L=float(r_uu @ n), M=float(r_uv @ n), N=float(r_vv @ n))
+
+
+def curvatura_normal(E, F, G, L, M, N, du, dv):
+    """Curvatura normal en el rumbo (du, dv) del plano de parámetros: II(d, d) / I(d, d), cociente de las dos formas
+    cuadráticas. No depende del largo de (du, dv). Es 1/radio del círculo osculador de la sección normal."""
+    return float((L * du**2 + 2 * M * du * dv + N * dv**2) / (E * du**2 + 2 * F * du * dv + G * dv**2))
+
+
+def curvaturas_principales(E, F, G, L, M, N):
+    """(κ₁, κ₂, D): curvaturas principales, κ₁ ≥ κ₂, y direcciones principales como columnas de D en coordenadas
+    (du, dv), normalizadas con la primera forma (I(d, d) = 1). Son los autovalores y autovectores de S = I⁻¹ II
+    (`solve(I, II)`): el máximo y el mínimo de II(d, d) entre los rumbos con I(d, d) = 1. Si F = M = 0, S ya es
+    diagonal y las direcciones principales son las líneas de la grilla. Punto umbilical (esfera): κ₁ = κ₂."""
+    I = np.array([[E, F], [F, G]], dtype=float)
+    II = np.array([[L, M], [M, N]], dtype=float)
+    w, V = np.linalg.eig(np.linalg.solve(I, II))
+    w, V = np.real(w), np.real(V)
+    orden = np.argsort(-w, kind="stable")
+    w, V = w[orden], V[:, orden].copy()
+    for k in range(2):
+        V[:, k] /= np.sqrt(V[:, k] @ I @ V[:, k])
+        j = int(np.argmax(np.abs(V[:, k]) > 1e-12))
+        if V[j, k] < 0:
+            V[:, k] = -V[:, k]
+    return float(w[0]), float(w[1]), V
+
+
+def curvatura_gauss(E, F, G, L, M, N):
+    """(K, H): curvatura de Gauss K = det II / det I = κ₁ κ₂ y curvatura media H = (κ₁ + κ₂)/2."""
+    det_I = E * G - F**2
+    return float((L * N - M**2) / det_I), float((E * N - 2 * F * M + G * L) / (2 * det_I))
+
+
+def seccion_normal(f, p, t, n, largo=1.0, m=41, iteraciones=12):
+    """Sección normal de un gráfico z = f(x, y) (f vectorizada) en el punto p por la dirección tangente unitaria t:
+    la curva en que el plano p + s t + w n corta a la superficie, s ∈ [−largo, largo]. Para cada s se resuelve w
+    por Newton con derivada numérica. Devuelve m×3 (nan donde f no está definida)."""
+    p, t, n = (np.asarray(x, dtype=float).reshape(3) for x in (p, t, n))
+    s = np.linspace(-largo, largo, m)
+    w = np.zeros(m)
+
+    def g(w):
+        q = p + np.outer(s, t) + np.outer(w, n)
+        return q[:, 2] - f(q[:, 0], q[:, 1])
+
+    with np.errstate(all="ignore"):
+        for _ in range(iteraciones):
+            gw = g(w)
+            w = w - gw / ((g(w + 1e-6) - gw) / 1e-6)
+    return p + np.outer(s, t) + np.outer(w, n)
+
+
+def circulo_3d(centro, u, v, radio, m=73):
+    """Circunferencia m×3 de centro `centro` y radio `radio` en el plano generado por u y v (unitarios, perpendiculares)."""
+    th = np.linspace(0, 2 * np.pi, m)
+    c, u, v = (np.asarray(x, dtype=float).reshape(3) for x in (centro, u, v))
+    return c + radio * (np.outer(np.cos(th), u) + np.outer(np.sin(th), v))
+
+
+
+
+# ----------------------------------------------------------------------------
+# elipsoide de revolución (lección 13): ángulos en radianes, longitudes en las unidades de a
+# ----------------------------------------------------------------------------
+
+
+def elipsoide(a, f):
+    """Parámetros del elipsoide de revolución de semieje mayor a y aplastamiento f = (a − b)/a: dict con a, f, b,
+    e2 (primera excentricidad al cuadrado, e² = (a² − b²)/a² = 2f − f²) y ep2 (segunda, e'² = (a² − b²)/b²).
+    f = 0 es la esfera. Notación del apunte del profesor (Clavijo, Geometría del Elipsoide)."""
+    a, f = float(a), float(f)
+    e2 = 2 * f - f**2
+    return dict(a=a, f=f, b=a * (1 - f), e2=e2, ep2=e2 / (1 - e2))
+
+
+def elipsoide_grs80():
+    """GRS80: a = 6378137 m, 1/f = 298.257222101 (e² ≈ 0.00669438)."""
+    return elipsoide(6378137.0, 1 / 298.257222101)
+
+
+_GRS80 = elipsoide_grs80()
+
+
+def radios_curvatura(phi, a=_GRS80["a"], e2=_GRS80["e2"]):
+    """(M, N) en la latitud geodésica phi (radianes): M = a(1 − e²)/(1 − e² sin²φ)^{3/2}, radio de curvatura del
+    meridiano; N = a/√(1 − e² sin²φ), radio de curvatura del primer vertical y distancia del punto al eje polar
+    medida a lo largo de la normal. M ≤ N; iguales en los polos; en el ecuador M = b²/a y N = a. Vectorizado."""
+    w = np.sqrt(1 - e2 * np.sin(np.asarray(phi, dtype=float)) ** 2)
+    return a * (1 - e2) / w**3, a / w
+
+
+def latitudes(phi, e2=_GRS80["e2"]):
+    """(ψ, β): latitud geocéntrica y reducida a partir de la geodésica φ (radianes): tan ψ = (1 − e²) tan φ,
+    tan β = √(1 − e²) tan φ. En módulo ψ ≤ β ≤ φ; coinciden en el ecuador y en los polos. Vectorizado."""
+    phi = np.asarray(phi, dtype=float)
+    psi = np.arctan2((1 - e2) * np.sin(phi), np.cos(phi))
+    beta = np.arctan2(np.sqrt(1 - e2) * np.sin(phi), np.cos(phi))
+    return psi, beta
+
+
+def geodesica_a_cartesiana(phi, lam, h=0.0, a=_GRS80["a"], e2=_GRS80["e2"]):
+    """(φ, λ, h) → (X, Y, Z) cartesianas geocéntricas: X = (N + h) cos φ cos λ, Y = (N + h) cos φ sin λ,
+    Z = (N(1 − e²) + h) sin φ, con N el radio del primer vertical y h la altura sobre la normal. Radianes.
+    Vectorizado: devuelve un array (..., 3), una terna por punto."""
+    phi, lam, h = np.broadcast_arrays(np.asarray(phi, dtype=float), np.asarray(lam, dtype=float), np.asarray(h, dtype=float))
+    N = a / np.sqrt(1 - e2 * np.sin(phi) ** 2)
+    return np.stack([(N + h) * np.cos(phi) * np.cos(lam), (N + h) * np.cos(phi) * np.sin(lam), (N * (1 - e2) + h) * np.sin(phi)], axis=-1)
+
+
+def normal_elipsoide(phi, lam):
+    """Normal unitaria al elipsoide (la vertical elipsoidal) en (φ, λ): (cos φ cos λ, cos φ sin λ, sin φ). Es la
+    definición de la latitud geodésica: el ángulo de esa normal con el plano del ecuador."""
+    return np.array([np.cos(phi) * np.cos(lam), np.cos(phi) * np.sin(lam), np.sin(phi)], dtype=float)
+
+
+def gms(grados, dec=0):
+    """Ángulo en grados decimales → texto 'g° mm′ ss″' (texto plano, para etiquetas de radio y dropdown)."""
+    signo = "−" if grados < 0 else ""
+    x = abs(float(grados))
+    g = int(x)
+    m = int((x - g) * 60)
+    s = round(((x - g) * 60 - m) * 60, dec)
+    if s >= 60:
+        s, m = 0.0, m + 1
+    if m >= 60:
+        m, g = 0, g + 1
+    ancho = 2 if dec == 0 else 3 + dec
+    return f"{signo}{g}° {m:02d}′ {s:0{ancho}.{dec}f}″"
+
+
+# ----------------------------------------------------------------------------
 # asserts rápidos
 # ----------------------------------------------------------------------------
 
@@ -968,4 +1384,112 @@ if __name__ == "__main__":
     assert exacto(dehom(Hc @ hom([4, 6])), [4, 6]), "el centro de la homología es punto fijo"
     pf = puntos_fijos_proyectivos(matriz_afin(np.eye(2), [1, 2]))
     assert len(pf) == 1 and pf[0]["plano"] and exacto(pf[0]["recta"], [0, 0, 1]), "traslación: fija la recta del infinito"
+    # lección 10: jacobiano y primera forma
+    esf = lambda f, l: xyz(2 * np.cos(f) * np.cos(l), 2 * np.cos(f) * np.sin(l), 2 * np.sin(f))  # noqa: E731
+    assert xyz(1, 2, 3).shape == (3,) and esf(np.zeros(5), np.linspace(0, 1, 5)).shape == (5, 3)
+    f0, l0 = np.deg2rad(45), np.deg2rad(20)
+    J10 = jacobiana_numerica(esf, f0, l0)
+    assert J10.shape == (3, 2) and exacto(J10[:, 0], [-2 * np.sin(f0) * np.cos(l0), -2 * np.sin(f0) * np.sin(l0), 2 * np.cos(f0)], tol=1e-7)
+    assert exacto(J10[:, 1], [-2 * np.cos(f0) * np.sin(l0), 2 * np.cos(f0) * np.cos(l0), 0], tol=1e-7)
+    E10, F10, G10 = primera_forma(J10)
+    assert exacto([E10, F10, G10], [4, 0, 4 * np.cos(f0) ** 2], tol=1e-6), "esfera: E = R², F = 0, G = R² cos²φ"
+    assert exacto(np.linalg.norm(np.cross(J10[:, 0], J10[:, 1])) ** 2, E10 * G10 - F10**2, tol=1e-6), "|r_u × r_v|² = EG − F²"
+    assert exacto(longitud_paso(E10, F10, G10, 0, np.deg2rad(1)), 2 * np.cos(f0) * np.deg2rad(1), tol=1e-9), "1° de longitud a 45°"
+    assert longitud_paso(1, 0, 1, [3, 0], [4, 1]).shape == (2,) and exacto(longitud_paso(1, 0, 1, [3, 0], [4, 1]), [5, 1])
+    assert exacto(longitud_poligonal([[0, 0, 0], [3, 0, 0], [3, 4, 0]]), 7.0)
+    assert exacto(primera_forma(jacobiana_numerica(lambda u, v: xyz(u, v, 1 + 0.4 * u + 0.3 * v), 0.3, -1.0)), [1.16, 0.12, 1.09], tol=1e-7)
+    # lección 11: mínimos cuadrados
+    A11 = np.column_stack([[0.0, 1.0, 2.0], np.ones(3)])
+    x11, r11 = minimos_cuadrados(A11, [0.0, 1.0, 3.0])
+    assert exacto(x11, [1.5, -1 / 6]) and exacto(r11, [1 / 6, -1 / 3, 1 / 6]), "ficha 10: y = 1.5x − 1/6, residuos (1/6, −1/3, 1/6)"
+    assert exacto(A11.T @ r11, [0, 0]), "el residuo es perpendicular a las columnas de A"
+    assert exacto(x11, np.linalg.lstsq(A11, np.array([0.0, 1.0, 3.0]), rcond=None)[0]) and exacto(recta_ajuste([0, 1, 2], [0, 1, 3]), [1.5, -1 / 6])
+    assert exacto(recta_ajuste([-1, 0, 1], [1, 1, 4]), [1.5, 2.0]), "ficha 11, problema 1: y = 1.5x + 2"
+    assert exacto(minimos_cuadrados(np.ones((3, 1)), [12.1, 11.9, 12.3])[0], [12.1]), "en R, mínimos cuadrados es el promedio"
+    p11, rr = punto_por_distancias([[0, 0], [6, 0], [3, 7]], [5, 5, 3])
+    assert exacto(p11, [3, 4]) and exacto(rr, [0, 0]), "ficha 11, problema 2: tres círculos → (3, 4)"
+    try:
+        punto_por_distancias([[0, 0], [6, 0]], [5, 5])
+        raise AssertionError("dos mojones no alcanzan")
+    except ValueError:
+        pass
+    Pc = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0], [0.0, -1.0]])
+    Rc, sc, tc, rmsc = procrustes(Pc, transformar(Pc, rot2(np.pi / 2)))
+    assert exacto(Rc, rot2(np.pi / 2)) and exacto(sc, 1.0) and exacto(tc, [0, 0]) and exacto(rmsc, 0.0), "ficha 11, problema 3: el cuadrado girado 90°"
+    Pc2 = np.array([[1.0, 1.0], [4.0, 1.0], [5.0, 3.0], [3.0, 5.0], [1.0, 4.0]])
+    Rc, sc, tc, rmsc = procrustes(Pc2, 1.5 * transformar(Pc2, rot2(0.4)) + [2.0, -1.0])
+    assert exacto(Rc, rot2(0.4)) and exacto(sc, 1.5) and exacto(tc, [2, -1]) and exacto(rmsc, 0.0, tol=1e-9), "procrustes recupera giro, escala y traslación"
+    assert exacto(np.linalg.det(Rc), 1.0), "sin espejo"
+    cT, dT, nT, r2T = regresion_total([[1.0, 0.0], [-1.0, 0.0], [0.0, 2.0], [0.0, -2.0]])
+    assert exacto(cT, [0, 0]) and exacto(np.abs(dT), [0, 1]) and exacto(r2T, 2.0) and exacto(dT @ nT, 0.0), "ficha 11, problema 4: recta x = 0, residuo 2"
+    assert exacto(recta_ajuste([1, -1, 0, 0], [0, 0, 2, -2]), [0, 0]), "misma nube, regresión simple: y = 0"
+    # lección 14: trigonometría esférica
+    pol, ex_, ey_ = punto_esfera(np.pi / 2, 0.0), punto_esfera(0.0, 0.0), punto_esfera(0.0, np.pi / 2)
+    assert exacto(pol, e3) and exacto(ex_, e1) and exacto(ey_, e2)
+    assert punto_esfera(np.linspace(0, 1, 5), 0.3).shape == (3, 5) and punto_esfera(0.3, np.linspace(0, 1, 7)).shape == (3, 7)
+    lados_o, ang_o = triangulo_esferico(pol, ex_, ey_)
+    assert exacto(lados_o, [np.pi / 2] * 3) and exacto(ang_o, [np.pi / 2] * 3), "octante: tres lados y tres ángulos rectos"
+    assert exacto(exceso_esferico(pol, ex_, ey_), np.pi / 2), "octante: exceso π/2 = un octavo de 4π"
+    assert exacto(angulo_esferico(np.pi / 2, np.pi / 2, np.pi / 2), np.pi / 2)
+    B60 = punto_esfera(np.pi / 2 - np.pi / 3, 0.0)
+    C60 = punto_esfera(np.pi / 2 - np.pi / 3, np.pi / 2)
+    (a_, b_, c_), (al_, be_, ga_) = triangulo_esferico(pol, B60, C60)
+    assert exacto([b_, c_, al_], [np.pi / 3, np.pi / 3, np.pi / 2]) and exacto(a_, np.arccos(0.25)), "b = c = 60°, A = 90°: cos a = 1/4"
+    assert exacto(angulo_esferico(a_, b_, c_), al_) and exacto(angulo_esferico(b_, a_, c_), be_), "ley del coseno y vectores coinciden"
+    assert exacto(be_, ga_) and exacto(np.cos(be_), 0.375 / (np.sin(a_) * np.sin(np.pi / 3)))
+    assert exacto(abs(cuna3(pol, B60, C60)), np.sin(b_) * np.sin(c_) * np.sin(al_)), "ley del seno: [A, B, C] = sin b sin c sin A"
+    chico = (punto_esfera(0, 0), punto_esfera(0, np.deg2rad(1)), punto_esfera(np.deg2rad(1), 0))
+    assert exacto(triangulo_esferico(*chico)[0][0], np.arccos(np.cos(np.deg2rad(1)) ** 2)), "triángulo chico: a = arccos(cos² 1°)"
+    assert 0 < exceso_esferico(*chico) < 1e-3 and exacto(exceso_esferico(*chico), np.deg2rad(1) ** 2 / 2, tol=1e-6), "exceso ≈ área del triángulo rectángulo"
+    arc = arco_maximo(2 * ex_, 2 * ey_, 5)
+    assert arc.shape == (5, 3) and exacto(np.linalg.norm(arc, axis=1), 2.0) and exacto(arc[2], np.sqrt(2) * np.array([1, 1, 0]))
+    try:
+        arco_maximo(ex_, -ex_)
+        raise AssertionError("antípodas tiene que fallar")
+    except ValueError:
+        pass
+    try:
+        angulo_esferico(0.3, 0.0, 0.3)
+        raise AssertionError("lado nulo tiene que fallar")
+    except ValueError:
+        pass
+    # lección 12: esfera (cuenco) y cilindro (canaleta) de radio 2 por diferencias finitas, silla exacta
+    _esf = lambda x, y: np.array([x, y, 2.0 - np.sqrt(4.0 - x**2 - y**2)])  # noqa: E731
+    _ff = formas_fundamentales(_esf, 0.3, -0.2)
+    _k1, _k2, _D = curvaturas_principales(_ff["E"], _ff["F"], _ff["G"], _ff["L"], _ff["M"], _ff["N"])
+    assert exacto([_k1, _k2], [0.5, 0.5], tol=1e-5) and exacto(_ff["L"] / _ff["E"], 0.5, tol=1e-5), "esfera R = 2: κ₁ = κ₂ = 1/R, II = I/R"
+    assert exacto(curvatura_gauss(_ff["E"], _ff["F"], _ff["G"], _ff["L"], _ff["M"], _ff["N"]), [0.25, 0.5], tol=1e-5), "esfera: K = 1/R², H = 1/R"
+    assert exacto(_D.T @ np.array([[_ff["E"], _ff["F"]], [_ff["F"], _ff["G"]]]) @ _D, np.eye(2), tol=1e-6), "direcciones principales: I(d, d) = 1"
+    _ff = formas_fundamentales(lambda x, y: np.array([x, y, 2.0 - np.sqrt(4.0 - x**2)]), 0.3, -0.2)
+    assert exacto(curvaturas_principales(*(_ff[k] for k in "EFGLMN"))[:2], [0.5, 0.0], tol=1e-5), "cilindro R = 2: κ = (1/R, 0)"
+    assert exacto(curvatura_gauss(*(_ff[k] for k in "EFGLMN"))[0], 0.0, tol=1e-6), "cilindro: K = 0"
+    _ff = formas_fundamentales(lambda x, y: np.array([x, y, (x**2 - y**2) / 4]), 0.0, 0.0)
+    assert exacto([_ff[k] for k in "EFGLMN"], [1, 0, 1, 0.5, 0, -0.5], tol=1e-7), "silla en el origen: I = identidad, II = diag(1/2, −1/2)"
+    assert exacto(curvatura_gauss(*(_ff[k] for k in "EFGLMN")), [-0.25, 0.0], tol=1e-7), "silla: K = −1/4, H = 0"
+    assert exacto(curvatura_normal(*(_ff[k] for k in "EFGLMN"), 1, 1), 0.0, tol=1e-7), "silla: a 45° la curvatura normal es cero"
+    _c = seccion_normal(lambda x, y: (x**2 - y**2) / 4, _ff["p"], [1, 0, 0], _ff["n"], 0.8, 9)
+    assert _c.shape == (9, 3) and exacto(_c[:, 2], (_c[:, 0] ** 2 - _c[:, 1] ** 2) / 4, tol=1e-9), "la sección normal está sobre la superficie"
+    assert circulo_3d([0, 0, 1], [1, 0, 0], [0, 1, 0], 2.0, 5).shape == (5, 3) and exacto(circulo_3d([0, 0, 1], [1, 0, 0], [0, 1, 0], 2.0, 5)[1], [0, 2, 1])
+    # lección 13: GRS80 en φ = 45°, ecuador y polo; las tres latitudes; conversión y primera forma del elipsoide
+    _g = elipsoide_grs80()
+    assert exacto([_g["a"], _g["b"]], [6378137.0, 6356752.3141], tol=1e-4) and exacto(_g["e2"], 0.00669438002290, tol=1e-12)
+    _phi = np.deg2rad(45.0)
+    _M, _N = radios_curvatura(_phi)
+    assert exacto([_M, _N], [6367381.8156, 6388838.2902], tol=1e-3), "GRS80, φ = 45°: M = 6367381.82 m, N = 6388838.29 m"
+    assert exacto(radios_curvatura(0.0), [_g["b"] ** 2 / _g["a"], _g["a"]], tol=1e-6), "ecuador: M = b²/a, N = a"
+    assert exacto(radios_curvatura(np.pi / 2), [_g["a"] ** 2 / _g["b"]] * 2, tol=1e-6), "polo: M = N = a²/b"
+    _psi, _beta = latitudes(_phi)
+    assert exacto(np.rad2deg(_psi), 44.807576783, tol=1e-8) and _psi < _beta < _phi, "φ = 45°: ψ = 44° 48′ 27″, ψ < β < φ"
+    assert exacto(latitudes(0.0), [0, 0]) and exacto(latitudes(np.pi / 2), [np.pi / 2] * 2), "ecuador y polos: las tres latitudes coinciden"
+    _P = geodesica_a_cartesiana(_phi, np.deg2rad(30.0))
+    assert exacto(_P, [3912348.465, 2258795.439, 4487348.409], tol=1e-3), "GRS80, φ = 45°, λ = 30°, h = 0"
+    assert exacto((_P[0] ** 2 + _P[1] ** 2) / _g["a"] ** 2 + _P[2] ** 2 / _g["b"] ** 2, 1.0, tol=1e-12), "el punto está sobre el elipsoide"
+    assert exacto(geodesica_a_cartesiana(0.0, 0.0), [_g["a"], 0, 0]) and exacto(geodesica_a_cartesiana(np.pi / 2, 0.0), [0, 0, _g["b"]], tol=1e-6)
+    assert geodesica_a_cartesiana(np.zeros((3, 4)), np.zeros((3, 4))).shape == (3, 4, 3), "vectorizado: una terna por punto"
+    assert exacto(geodesica_a_cartesiana(_phi, 0.3, 100.0) - geodesica_a_cartesiana(_phi, 0.3), 100.0 * normal_elipsoide(_phi, 0.3), tol=1e-6), "h va sobre la normal"
+    _ff = formas_fundamentales(lambda p, l: geodesica_a_cartesiana(p, l), _phi, 0.3)
+    assert np.allclose([_ff["E"], _ff["F"], _ff["G"]], [_M**2, 0.0, _N**2 * np.cos(_phi) ** 2], rtol=1e-5, atol=1.0), "elipsoide: E = M², F = 0, G = N² cos²φ"
+    assert np.allclose(curvaturas_principales(*(_ff[k] for k in "EFGLMN"))[:2], [1 / _M, 1 / _N], rtol=1e-5), "curvaturas principales del elipsoide: 1/M (meridiano) y 1/N (primer vertical)"
+    assert exacto(_ff["n"], -normal_elipsoide(_phi, 0.3), tol=1e-6), "r_φ × r_λ apunta hacia adentro"
+    assert gms(44.8) == "44° 48′ 00″" and gms(-0.5) == "−0° 30′ 00″" and gms(59.99999) == "60° 00′ 00″" and gms(12.3456, 1) == "12° 20′ 44.2″"
     print("cb104: asserts OK")

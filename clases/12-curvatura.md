@@ -49,7 +49,7 @@ Escalera: $\mathbb R$ (segunda derivada), $\mathbb R^2$ (curvatura de una curva,
 ## Dónde está desarrollado
 - Apunte v3: `13-tercera-lectura.tex` §"Métrica y primera forma fundamental" (métrica $E,F,G$, $ds^2$ matricial, esfera) y §"Esfera, elipsoide y curvatura" (sólo las fórmulas de $M$, $N$ y $K=1/(MN)$, sin deducción); `06-primera-lectura-superficies.tex` (panorama, "de lo global a lo local"). Falta en el apunte: la definición de curvatura de una curva, la segunda forma fundamental, la fórmula de Euler, Meusnier y cualquier definición de geodésica.
 - Apunte del profesor (Clavijo, elipsoide): secciones "Radios de curvatura", "Prueba 1" (curvatura normal como forma cuadrática y máximos a $\pi/2$), "Prueba 2: Teorema de Meusnier" (remite a un apunte de Cristóbal de Lozada y Puga y a una construcción en GeoGebra, ninguno en el repo).
-- Unidad marimo: pendiente; la serie propuesta tiene el nº 10 "Derivada y primera forma fundamental". Haría falta uno de hessiana → direcciones principales.
+- Unidad marimo: `unidades/12_curvatura.py` (**anticipada**: la clase no se dictó; lectura del alumno sobre el esqueleto 2025, el apunte del profesor y el v3, pendiente de validar por la cátedra): segunda forma $L, M, N$, direcciones principales por `solve(I, II)`, $K = \det II/\det I$, sección normal y círculo osculador sobre esfera, cilindro, silla y loma.
 - Página Notion de Gustavo: §3 primera forma fundamental, §4 tensor métrico, §5 esfera (tabla de "1° de longitud vale").
 - Bibliografía del campus: Efimov, *Formas cuadráticas y matrices* (sin comentario del profesor; escaneo sin capa de texto); Fortney, *A Visual Introduction to Differential Forms* (sin comentario).
 
