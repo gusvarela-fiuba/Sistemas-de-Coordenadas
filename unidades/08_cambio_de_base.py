@@ -169,6 +169,43 @@ def _(mo):
 
 
 @app.cell
+def _(mo):
+    mo.callout(mo.md(r"""
+    **Del pizarrón del 30/9.** Tres fotos que tomé en clase y leo así.
+
+    **(a) La matriz con los autovectores en columnas.** El profesor escribió $A = [\,Av_1 \mid Av_2\,]$ y la probó
+    con el vector $(1, 0)^T$: $A\,(1, 0)^T$ devuelve la primera columna, $Av_1$, escrita en canónica. Entra un vector
+    en **base $Av$** (una unidad del primer autovector, nada del segundo) y sale el mismo vector en **base can.**:
+    $A$ lleva de base $Av$ a base canónica, y $A^{-1}$ hace el camino inverso. Es la $B$ de esta lección.
+
+    **(b) Los dos muñequitos.** El muñequito rojo vive en la base canónica: $(1, 1) = 1\,e_x + 1\,e_y$. Con $A^{-1}$
+    pasa a la grilla de los autovectores y se vuelve el muñequito azul: $(0.3,\ 1.2) = 0.3\,Av_1 + 1.2\,Av_2$. Ahí la
+    transformación es diagonal, sólo multiplica cada coordenada por su autovalor; con autovalores $1$ y $0.1$ queda
+    $0.3 \cdot 1\,Av_1 + 1.2 \cdot 0.1\,Av_2 = 0.3\,Av_1 + 0.12\,Av_2$ (en el pizarrón quedó escrito rápido
+    "$1\,Av_1 + 0.1\,Av_2$", para mostrar los factores $1$ y $0.1$). Después $A$ lo devuelve a la canónica, el
+    "$?\,e_x + ?\,e_y$" del dibujo. Los números $0.3$ y $1.2$ son ilustrativos: no hay una matriz concreta detrás.
+    La frase del pizarrón: *cambiar $T$ de base implica aplicar $A\,T\,A^{-1}$*, leída de derecha a izquierda:
+    entrar con $A^{-1}$, estirar, salir con $A$.
+
+    **(c) El despeje con tachones.** Si $T$ es diagonal en la base $Av$ y no diagonal en la canónica,
+
+    $$A\,T_{\text{diag}\,\langle Av\rangle}\,A^{-1} = T_{\text{no diag}\,\langle\text{can}\rangle}
+    \quad\Longrightarrow\quad
+    T_{\text{diag}\,\langle Av\rangle} = A^{-1}\,T_{\text{no diag}\,\langle\text{can}\rangle}\,A.$$
+
+    Multiplico por $A^{-1}$ a la izquierda y por $A$ a la derecha; los dos $A^{-1}A = I$ que aparecen son lo tachado
+    en el pizarrón (un par en negro, el otro en rojo). Es la misma cuenta que $B^{-1}AB = \Lambda$ de arriba, con el
+    nombre $A$ en el lugar de $B$ y $T$ en el lugar de $A$. Lo que el profesor dijo después del despeje sobre de
+    dónde surge $A$ no lo tengo: tuve que salir del aula.
+
+    Fotos en `fuentes/campus/profesor/`: `2026-09-30_pizarron_cambio_base_grillas_munequitos.jpg`,
+    `2026-09-30_pizarron_matriz_A_autovectores_columnas.jpg` y `2026-09-30_pizarron_despeje_diagonalizacion.jpg`.
+    La lectura es mía.
+    """), kind="info")
+    return
+
+
+@app.cell
 def _(mo, np):
     # ---------- casos precargados: etiqueta → (b₁, b₂ del caso, A que se mira en esa base o None, qué pasa) ----------
     casos = {

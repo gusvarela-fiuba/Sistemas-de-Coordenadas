@@ -13,6 +13,11 @@ fuentes:
 conceptos: [espacio-vectorial, transformacion-lineal, forma-lineal, dualidad, curvas-de-nivel]
 apunte: ["11", "05"]
 unidad: 06_formas_lineales
+material_profesor:
+  - fuentes/campus/profesor/2026-09-30_pizarron_dualidad_cajas.jpg
+  - fuentes/campus/profesor/2026-09-30_pizarron_formas_ejercicio_antes_corregir.jpg
+  - fuentes/campus/profesor/2026-09-30_pizarron_formas_ejercicio_corregido.jpg
+  - fuentes/campus/profesor/2026-09-30_calc_formas_inversa.jpg
 ---
 
 # Clase 4 — Espacios lineales, transformaciones lineales y formas lineales
@@ -65,9 +70,21 @@ proyectiva, pagando la deuda de 2025. Frases *(transcripción auto-traducida)*:
   que pasa es que **no existe el vector fila**. Lo que comúnmente llamamos vector fila se llama
   *forma lineal*." Escribe la incidencia como $L^{T}P=0$ y, con la convención fila-columna, $LP=0$.
 - "Los puntos se transforman con la transformación a la derecha; las formas lineales con la
-  **inversa**, a la izquierda. Así todas las relaciones [de incidencia] se conservan." Esquema de
-  cajas en el pizarrón: punto transformado, recta transformada, y el "doblemente transformado" que
-  obliga a que una cancele a la otra.
+  **inversa**, a la izquierda. Así todas las relaciones [de incidencia] se conservan." El esquema
+  de cajas lo saqué en la foto `fuentes/campus/profesor/2026-09-30_pizarron_dualidad_cajas.jpg`.
+  Arriba, dos cadenas de círculos rojos: $P\to\ell\ \neq0$ (el punto no está en la recta) y
+  $P\to T\to\ell\ =0$ (después de $T$ sí cae en ella). Abajo, la cadena completa, escrita en orden
+  de aplicación de izquierda a derecha,
+  $$P\to A\to\bigl[\,A^{-1}\to T\to A\,\bigr]\to A^{-1}\to\ell,$$
+  con los tres círculos del medio encerrados en un recuadro negro y una llave azul debajo rotulada
+  $T^{*}$. Leída como producto de matrices (lo que se aplica último va a la izquierda), la caja es
+  $T^{*}=A\,T\,A^{-1}$: entra el punto ya transformado $AP$, $A^{-1}$ lo devuelve al mundo original,
+  $T$ lo lleva a la recta, $A$ lo vuelve a transformar, y el $A^{-1}$ final es el de la recta
+  transformada $\ell A^{-1}$; el par $A^{-1}A$ se cancela y la incidencia sigue dando cero. A la
+  izquierda de la foto está el croquis en $\mathbb R^3$: un paralelogramo rotulado $z=1$ con el
+  punto $P$ y su imagen $TP$ sobre la recta $\ell$ (roja), el punto $AP$ y $T^{*}AP$ sobre
+  $\ell A^{-1}$ (roja, punteada), y una flecha roja rotulada $\ell^{T}$, que leo como la recta
+  dibujada como vector. La lectura del croquis es mía; los rótulos son los de la foto.
 - Rectas de nivel: con la forma $(2,1)$, "$2x+1y=0$ es una recta; si vale 1 es otra un poco más
   lejos. ¿A qué distancia perpendicular? [...] Estas rectas son *curvas de nivel* de un plano que
   sale del pizarrón; esta cosa se llama forma lineal." La forma $(0,1)$ "es básicamente $y$": sus
@@ -89,6 +106,37 @@ sobre determinante: $1.61$ es el determinante". Resultado leído en clase: "la q
 es $(0.86,0.43)$, tiene una orientación más acostada; la $(-1,2)$ quedó un poco más vertical"; el
 vector transformado es $(5.6,4.9)$ y cae en "la séptima curva de nivel de una con la quinta de la
 otra", igual que el original.
+
+**La adjunta, corregida en vivo** (fotos
+`fuentes/campus/profesor/2026-09-30_pizarron_formas_ejercicio_antes_corregir.jpg` y
+`fuentes/campus/profesor/2026-09-30_pizarron_formas_ejercicio_corregido.jpg`). En el pizarrón la
+matriz se llamó $M$ (acá la sigo llamando $T$) y está en azul,
+$\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}$, con las formas $(1,1)$, $(-1,2)$ en negro y
+el vector $\binom34$ en rojo. La primera versión de la adjunta, arriba a la izquierda, fue
+$\begin{pmatrix}+1{,}3&+0{,}1\\-0{,}5&1{,}2\end{pmatrix}\cdot\frac{1}{\det(M)}$: la diagonal bien
+intercambiada, pero los dos elementos de afuera con el signo cambiado *y además* cambiados de
+lugar (es la adjunta de $M^{T}$, no la de $M$; con ella $M\cdot M^{-1}$ no da la identidad, la
+primera columna sale $(0{,}81,\,-0{,}48)$). En la foto corregida quedó
+$\begin{pmatrix}+1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix}$: arriba a la derecha $-0{,}5$, abajo a la
+izquierda $0{,}1$. La regla que vale: la diagonal se intercambia sin tocar el signo, los otros dos
+se quedan en su lugar y cambian de signo. En el transcript ese momento es el tramo degradado que
+repite "these two go with the same sign, but these two go...". En las mismas fotos, a la derecha,
+el dibujo de las curvas de nivel: las de $(2,1)$ en azul, oblicuas, con $(2\ 1)\binom{-1}{2}=0$,
+$(2\ 1)\binom{1}{-2}=0$ y $2x+1y=0$ como la de nivel cero, y el vector $\binom21$ dibujado
+perpendicular a ellas; las de la selectora $(0,1)$ en rojo, horizontales, con
+$(0\ 1)\binom xy=y$.
+
+**La planilla del proyector** (`fuentes/campus/profesor/2026-09-30_calc_formas_inversa.jpg`). El
+profesor cerró la cuenta en LibreOffice Calc. En las columnas B–C la adjunta
+$(1{,}3,\,-0{,}5;\ 0{,}1,\,1{,}2)$; al lado, en E5:F6 (celdas en rojo), la inversa mostrada con dos
+decimales, $\begin{pmatrix}0{,}81&-0{,}31\\0{,}06&0{,}75\end{pmatrix}$; abajo, en B10:C11, las
+formas $(1,1)$ y $(-1,2)$, y en E10:F11 la fila por la matriz con `=MMULT(B10:C10;E5:F6)` (en la
+barra de fórmulas sólo se lee el final, `...T(B10:C10;E5:F6)`): $(0{,}8696,\ 0{,}4348)$ y
+$(-0{,}683,\ 1{,}8012)$. La barra de estado muestra "Suma: 1,118" para la fila seleccionada, que es
+$-0{,}683+1{,}8012$. El determinante $1{,}61$ no entra en el encuadre; se dijo en clase. Esos cuatro
+números confirman la cuenta de la ficha: $(0{,}87,\,0{,}43)$ y $(-0{,}68,\,1{,}80)$ son los mismos
+redondeados a dos decimales. El "$0.86,\ 0.43$" del transcript queda como se oyó; la planilla da
+$0{,}8696$.
 
 **Segundo bloque** (va a las fichas 06 y 08): autovectores como grilla propia de la transformación,
 "en esa base la transformación es diagonal: estira una dirección y comprime la otra, no rompe la
@@ -210,7 +258,13 @@ fila por matriz; en GeoGebra, las rectas $x+y=c$ y $-x+2y=c$ para $c=0..8$ y su 
 - Espacios vectoriales y transformaciones lineales como tema propio no se dictaron en 2C2026 (el
   profesor los dio por sabidos del CBC); no hay ejemplos numéricos del 2026 para ese bloque.
 - La transcripción del 30/9 está muy degradada en el tramo del dibujo (líneas repetidas); los
-  números $0.86$, $0.43$, $5.6$, $4.9$, $1.61$ sí se oyen y coinciden con la cuenta.
+  números $0.86$, $0.43$, $5.6$, $4.9$, $1.61$ sí se oyen y coinciden con la cuenta. **Resuelto**
+  en lo que importa: la planilla de Calc (foto `2026-09-30_calc_formas_inversa.jpg`) da $0{,}8696$,
+  así que el $0.86$ es redondeo oral y la cuenta de la ficha ($0{,}87$) es la buena; y el tramo
+  repetido "these two go with the same sign" es el momento de la adjunta, que las fotos
+  `..._antes_corregir.jpg` y `..._corregido.jpg` muestran completo.
+- El esquema de cajas, que en una primera versión de esta ficha reconstruí de oído, está en la
+  foto `2026-09-30_pizarron_dualidad_cajas.jpg` y quedó transcripto arriba. **Resuelto.**
 - Separación de curvas de nivel $=1/\|\varphi\|$: dicho en clase, no está en el apunte 11 con esa
   fórmula; agregar a la unidad 06.
 - El profesor planteó "qué distancia perpendicular hay entre las rectas" como pregunta; en la

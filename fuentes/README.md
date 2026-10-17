@@ -14,6 +14,8 @@ Material bajado del campus virtual (campusgrado.fi.uba.ar, curso 1279).
 
 Archivos que el profesor mandó por el grupo de Google Chat (recibidos el 2026-10-17): la foto del pizarrón del 2026-09-16 con la consigna del pentágono, la planilla `Proyectivas_del_pentagono.xlsx` con la que calculó una proyectiva del pentágono el 23/9, y `LaSVD.wxmx`, la SVD analítica en wxMaxima que mencionó el 14/10. Detalle de cada uno en `campus/profesor/README.md`.
 
+En la misma carpeta están también las 7 fotos del pizarrón del miércoles 2026-09-30 (formas lineales, cambio de base y diagonalización) que Gustavo sacó en clase, no mandadas por el chat: `2026-09-30_pizarron_dualidad_cajas.jpg`, `2026-09-30_pizarron_formas_ejercicio_antes_corregir.jpg`, `2026-09-30_pizarron_formas_ejercicio_corregido.jpg`, `2026-09-30_calc_formas_inversa.jpg`, `2026-09-30_pizarron_cambio_base_grillas_munequitos.jpg`, `2026-09-30_pizarron_matriz_A_autovectores_columnas.jpg` y `2026-09-30_pizarron_despeje_diagonalizacion.jpg`. Qué muestra cada una, en `campus/profesor/README.md`.
+
 ### `transcripciones/`
 
 Notas de reunión generadas por Notion AI a partir de la grabación de cada clase de la cursada 2C2026. Un archivo por clase, `AAAA-MM-DD.md`, con front-matter (`fecha`, `materia`, `origen`, `notion_id`, `estado`) y dos secciones: el resumen que armó Notion y el transcript crudo, un párrafo por línea.
@@ -35,7 +37,7 @@ Clases de 2C2026 y qué hay de cada una:
 | 2026-09-09 | no |
 | 2026-09-16 | sí (inglés) |
 | 2026-09-23 | no (la nota de Notion está vacía) |
-| 2026-09-30 | sí (inglés) |
+| 2026-09-30 | sí (inglés); además 7 fotos del pizarrón en `campus/profesor/` |
 | 2026-10-07 | no (sin nota en Notion; cambio de base y SVD según el cronograma que confirmó el profesor) |
 | 2026-10-14 | sí (inglés) |
 
