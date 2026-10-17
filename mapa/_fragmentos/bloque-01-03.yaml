@@ -105,7 +105,7 @@ conceptos:
   - id: composicion
     nombre: "Composición de transformaciones"
     clase: "02"
-    unidad: null
+    unidad: 01c_rotaciones_3d
     hecho_geometrico: "Hacer F y después G es G∘F, el producto de matrices GF; la de la derecha actúa primero. Es una operación entre transformaciones, con neutro e inversa, que no siempre conmuta."
     que_se_conserva: "lo que conservan las dos transformaciones compuestas"
     apunte: ["07", "16"]
@@ -113,7 +113,7 @@ conceptos:
   - id: conmutatividad
     nombre: "Conmutatividad"
     clase: "02"
-    unidad: null
+    unidad: 01c_rotaciones_3d
     hecho_geometrico: "AB = BA es llegar al mismo lugar por los dos caminos del paralelogramo. Rotación y homotecia del mismo centro conmutan; rotaciones 3D no, salvo a primer orden. Sin conmutatividad el par (u,v) no nombra un único punto, así que no hay coordenadas."
     que_se_conserva: "el resultado al cambiar el orden"
     apunte: ["07", "15"]
@@ -121,7 +121,7 @@ conceptos:
   - id: trayectoria
     nombre: "Trayectoria de una transformación"
     clase: "02"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "La órbita v, Av, A²v, … (o e^{tM}v en continuo). La transformación se identifica con la trayectoria que genera; rotación → circunferencias, homotecia → rayos, det 1 → se queda dando vueltas."
     que_se_conserva: "la curva sobre la que cae el punto"
     apunte: ["07", "16"]
@@ -129,7 +129,7 @@ conceptos:
   - id: lineas-coordenadas
     nombre: "Líneas coordenadas"
     clase: "02"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "Dos familias de transformaciones que conmutan generan una grilla; sus trayectorias son las líneas coordenadas. Cartesianas (dos traslaciones), polares (rotación y homotecia), esfera (paralelos de Rz, meridianos alrededor del eje e_z × p). Los vasos son tres involuciones que conmutan y dan el cubo de 8 estados."
     que_se_conserva: "cada coordenada a lo largo de la línea de la otra"
     apunte: ["13", "07"]
@@ -137,7 +137,7 @@ conceptos:
   - id: homotecia
     nombre: "Homotecia"
     clase: "02"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "x' = o + k(x − o), matriz kI con centro en el origen; todo se agranda desde el centro sobre rayos. Conmuta con las rotaciones del mismo centro (es el ρ de ρe^{iθ}) y salta de una circunferencia a otra."
     que_se_conserva: "ángulos, paralelismo y razones de distancias"
     apunte: ["08", "09", "04"]
@@ -147,7 +147,7 @@ conceptos:
   - id: reflexion
     nombre: "Reflexión (por un punto, por una recta)"
     clase: "03"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "El espejo; ρ_b(x) = 2b − x, φ_B(x) = x − 2((n·x − c)/‖n‖²) n, ortogonal con det −1, involución. Dos espejos devuelven la orientación: puntuales o ejes paralelos dan traslación, ejes secantes dan rotación de ángulo doble."
     que_se_conserva: "distancias y ángulos; se invierte la orientación"
     apunte: ["08", "09", "04", "17"]
@@ -163,7 +163,7 @@ conceptos:
   - id: similaridad
     nombre: "Similaridad"
     clase: "03"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "S(x) = o + λR(x − o) = φ_A φ_B η_o^λ; misma forma, otro tamaño y orientación, con un único punto fijo o (dos círculos de Apolonio). Rotar alrededor de c y escalar alrededor de d da una similaridad cuyo punto fijo no es ni c ni d."
     que_se_conserva: "ángulos y razones entre distancias"
     apunte: ["08", "09", "16"]
@@ -187,7 +187,7 @@ conceptos:
   - id: punto-fijo
     nombre: "Punto fijo"
     clase: "03"
-    unidad: null
+    unidad: 03_reflexiones_similaridades
     hecho_geometrico: "F(x*) = x*, es decir (I − A)x* = t; en homogéneas, autovector de autovalor 1 con w ≠ 0. Es el centro alrededor del cual rotar y trasladar repetidamente dibuja círculos; si existe, poniendo el origen ahí la afinidad queda lineal. Una rotación de R³ tiene autovalor 1: su eje."
     que_se_conserva: "el punto mismo"
     apunte: ["10", "16", "17"]

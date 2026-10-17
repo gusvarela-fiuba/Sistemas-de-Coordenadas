@@ -9,7 +9,7 @@ clases:
     ficha: clases/07-svd.md
     fecha_2025: null
     fechas_2026: []
-    estado: no-dictada
+    estado: anticipada
     pregunta: "Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?"
     validacion: pendiente
     nivel: avanzado
@@ -36,7 +36,7 @@ clases:
     ficha: clases/10-inversas-pseudoinversa.md
     fecha_2025: null
     fechas_2026: []
-    estado: no-dictada
+    estado: anticipada
     pregunta: "¿Qué quiere decir deshacer una operación, y qué es lo más parecido a deshacer cuando la matriz no se invierte?"
     validacion: pendiente
     nivel: avanzado

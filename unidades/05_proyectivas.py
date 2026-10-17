@@ -37,7 +37,11 @@ def _(mo):
     mo.md(r"""
     # Transformaciones proyectivas — Clase II
 
-    **Gustavo Varela** · Sistemas de Coordenadas · Agrimensura · FIUBA · 2026 · clase del 16/9
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+
+    **¿Por qué en la foto los alambrados paralelos se juntan en un punto, y con cuántos puntos enderezo la imagen?**
+    Foto de dron inclinada sobre un lote plano: cuatro puntos conocidos la rectifican. Acá la cuenta se hace con un
+    pentágono (clase extra del 16/9): cuatro vértices fijan la transformación y el quinto cae donde $H$ diga.
 
     **Enunciado.** Las transformaciones proyectivas mantienen rectas las rectas y, por eso, quedan definidas por un
     cuadrilátero (cuatro puntos y sus cuatro imágenes). Dado un pentágono $ABCDE$:
@@ -1014,6 +1018,25 @@ def _(
         kind="success" if verificacion_ok else "danger",
     ))
     assert verificacion_ok, "\n".join(_fallas)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ## Dónde está la demostración, y lo que viene
+
+    Acá calculé $H$ por el cuadrilátero patrón, el vértice restante, la recta que se va al infinito y los puntos y
+    rectas fijas. Las demostraciones (por qué cuatro puntos alcanzan, $H = B A^{-1}$, la clasificación por autovalores,
+    el pentágono regular con los tres casos y la tabla de verificación):
+
+    - [apunte, sección 12: bloque de proyectivas](../../apunte.pdf#nameddest=cap:12)
+    - [apunte, sección 18: apéndice del pentágono](../../apunte.pdf#nameddest=cap:18)
+    - [ficha de la clase 03p](../../clases/03p.html) · [unidad anterior: afines y homogéneas](../04_afines_homogeneas/index.html) · [el camino](../../index.html)
+
+    **Lo que viene:** [Formas lineales y dualidad](../06_formas_lineales/index.html): las rectas $\ell^T p = 0$ son
+    formas lineales y se transforman al revés que los puntos, $\ell' \sim H^{-T}\ell$, que es lo que usé para las rectas fijas.
+    """)
     return
 
 

@@ -174,9 +174,9 @@ fila por matriz; en GeoGebra, las rectas $x+y=c$ y $-x+2y=c$ para $c=0..8$ y su 
   forma lineal, caja "Dualidad en pocas palabras". `05-primera-lectura-homogeneas-proyectivas.tex`,
   tabla "La misma idea en cada dimensión" (fila "Recta": forma lineal $n\cdot x=c$) y sección "Del
   álgebra a la geometría". `13-tercera-lectura.tex` para el gradiente y el plano tangente.
-- Unidad marimo: `06_formas_lineales` — **pendiente**. Plan en apunte 21 (tabla de notebooks, fila
-  6): "rectas de nivel, pila de formas, transformación del lado contrario". Debería incluir el
-  ejercicio del 30/9 con sliders sobre $T$.
+- Unidad marimo: `unidades/06_formas_lineales.py` — "Formas lineales y dualidad" (piloto, 2026-10-17):
+  la cota como regla graduada, deformaciones con casos y deslizador, la fila con $A^{-1}$, el ejercicio
+  del 30/9 reproducido con `forma_transformada`, y la recta por dos puntos como cuña homogénea.
 - Bibliografía del campus: Juan de Burgos, *Álgebra Lineal y Geometría Cartesiana* ("en castellano
   el libro que trata lo de formas lineales es el de burgos (El capitulo que dice 'espacio dual')";
   "el escaneo es francamente malo"); Axler, *Linear Algebra Done Right* ("el libro del que yo

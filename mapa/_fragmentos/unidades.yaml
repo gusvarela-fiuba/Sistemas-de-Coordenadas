@@ -45,8 +45,8 @@ unidades:
   - id: 03_reflexiones_similaridades
     archivo: unidades/03_reflexiones_similaridades.py
     titulo: Reflexiones y similaridades
-    estado: pendiente
-    clases: ["03"]
+    estado: piloto
+    clases: ["02", "03"]
     pregunta: "¿Qué movimiento conserva la forma pero no el tamaño, y cuál da vuelta la orientación?"
     gancho_agrimensura: "Un plano viejo en otra escala y con el norte para otro lado hay que superponerlo sobre el relevamiento nuevo."
     nivel: troncal
@@ -72,7 +72,7 @@ unidades:
   - id: 06_formas_lineales
     archivo: unidades/06_formas_lineales.py
     titulo: Formas lineales y dualidad
-    estado: pendiente
+    estado: piloto
     clases: ["04"]
     pregunta: "¿Qué es una regla graduada tirada en el plano, y por qué una recta se transforma al revés que un punto?"
     gancho_agrimensura: "Las curvas de nivel de un plano acotado son las marcas de una regla: cerca de cada punto, la cota es una forma lineal."
@@ -117,7 +117,7 @@ unidades:
   - id: 09_cambio_de_base_svd
     archivo: unidades/09_cambio_de_base_svd.py
     titulo: Cambio de base, SVD e inversas
-    estado: pendiente
+    estado: piloto
     clases: ["07", "10"]
     pregunta: "¿Qué direcciones perpendiculares siguen perpendiculares después de transformar, y qué es lo más parecido a deshacer cuando no hay inversa?"
     gancho_agrimensura: "Más mediciones que incógnitas (una recta por puntos que no están alineados): la pseudoinversa elige la que deja el residuo perpendicular."

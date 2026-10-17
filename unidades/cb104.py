@@ -53,6 +53,13 @@ __all__ = [
     "circulo_3d",
     # elipsoide de revolución (lección 13)
     "elipsoide", "elipsoide_grs80", "radios_curvatura", "latitudes", "geodesica_a_cartesiana", "normal_elipsoide", "gms",
+    # reflexiones y similaridades (lección 03)
+    "reflexion2", "similaridad", "partes_similaridad", "centro_fijo", "similaridad_por_dos_puntos", "trayectoria",
+    "estelas_afin",
+    # formas lineales y dualidad (lección 06)
+    "forma_transformada", "recta_por_dos_puntos", "cortes_caja", "rectas_de_nivel",
+    # SVD, inversa y pseudoinversa (lección 09)
+    "svd2", "pseudoinversa", "cuatro_subespacios", "truncar_svd", "elipse_imagen", "capa_direcciones_singulares",
 ]
 
 # ----------------------------------------------------------------------------
@@ -1274,8 +1281,235 @@ def gms(grados, dec=0):
 
 
 # ----------------------------------------------------------------------------
+# reflexiones y similaridades (lección 03)
+# ----------------------------------------------------------------------------
+
+
+def reflexion2(alpha):
+    """Reflexión del plano respecto de la recta por el origen de ángulo alpha (radianes):
+    [[cos 2α, sin 2α], [sin 2α, −cos 2α]]. Columnas: a dónde van e₁ y e₂. Ortogonal con det = −1, es su propia
+    inversa; reflexion2(a) @ reflexion2(b) = rot2(2(a − b)) (dos espejos seguidos giran el doble del ángulo entre ellos)."""
+    c, s = np.cos(2 * alpha), np.sin(2 * alpha)
+    return np.array([[c, s], [s, -c]])
+
+
+def similaridad(k, theta, t=(0.0, 0.0)):
+    """(A, t) de la similaridad directa x ↦ k R(θ) x + t: gira θ, multiplica todas las longitudes por k y corre t."""
+    return float(k) * rot2(theta), np.asarray(t, dtype=float).reshape(2)
+
+
+def partes_similaridad(A, tol=1e-9):
+    """(k, θ) de una matriz 2×2 de la forma k R(θ), k > 0. ValueError si A no tiene esa forma (no conserva ángulos)."""
+    A = np.asarray(A, dtype=float)
+    a, b = A[0, 0], A[1, 0]
+    k = float(np.hypot(a, b))
+    if k < tol or not np.allclose(A, k * rot2(np.arctan2(b, a)), atol=tol * max(1.0, k), rtol=0):
+        raise ValueError("la matriz no es k·R(θ): no es una similaridad directa")
+    return k, float(np.arctan2(b, a))
+
+
+def centro_fijo(A, t, tol=1e-9):
+    """El punto fijo de F(x) = Ax + t, resolviendo (I − A) c = t. None si I − A es singular (identidad, traslación,
+    o una afinidad con una recta de puntos fijos o ninguno): entonces no hay un único centro."""
+    A = np.asarray(A, dtype=float)
+    M = np.eye(2) - A
+    if abs(np.linalg.det(M)) < tol * max(1.0, float(np.abs(M).max()) ** 2):
+        return None
+    return np.linalg.solve(M, np.asarray(t, dtype=float).reshape(2))
+
+
+def similaridad_por_dos_puntos(P1, P2, Q1, Q2):
+    """(A, t) de la similaridad directa que lleva P1 ↦ Q1 y P2 ↦ Q2 (P1 ≠ P2).
+
+    Con complejos: z ↦ a z + b, a = (Q2 − Q1)/(P2 − P1) (el giro y la escala del segmento), b = Q1 − a P1.
+    A = [[Re a, −Im a], [Im a, Re a]] = |a| R(arg a), t = (Re b, Im b).
+    """
+    z = [complex(float(p[0]), float(p[1])) for p in (P1, P2, Q1, Q2)]
+    if abs(z[1] - z[0]) == 0.0:
+        raise ValueError("P1 y P2 tienen que ser distintos")
+    a = (z[3] - z[2]) / (z[1] - z[0])
+    b = z[2] - a * z[0]
+    return np.array([[a.real, -a.imag], [a.imag, a.real]]), np.array([b.real, b.imag])
+
+
+def trayectoria(A, t, p, n):
+    """Los n + 1 puntos p, F(p), F²(p), …, Fⁿ(p) bajo F(x) = Ax + t, como nube (n + 1)×2. Rotación: sobre una
+    circunferencia; homotecia: sobre un rayo; similaridad: una espiral que converge al centro si k < 1."""
+    A = np.asarray(A, dtype=float)
+    t = np.asarray(t, dtype=float).reshape(2)
+    pts = [np.asarray(p, dtype=float).reshape(2)]
+    for _ in range(int(n)):
+        pts.append(A @ pts[-1] + t)
+    return np.array(pts)
+
+
+def estelas_afin(puntos, camino):
+    """Como `estelas`, pero el camino es una lista de pares (A, t): la trayectoria de cada punto bajo A p + t."""
+    xs, ys = [], []
+    for p in np.asarray(puntos, dtype=float):
+        tray = np.array([np.asarray(A, dtype=float) @ p + np.asarray(t, dtype=float) for A, t in camino])
+        xs += list(tray[:, 0]) + [None]
+        ys += list(tray[:, 1]) + [None]
+    return xs, ys
+
+
+# ----------------------------------------------------------------------------
 # asserts rápidos
 # ----------------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------------
+# formas lineales y dualidad (lección 06)
+# ----------------------------------------------------------------------------
+
+
+def forma_transformada(l, A):
+    """La fila ℓ arrastrada junto con la figura cuando los puntos van con A: ℓ' = ℓ A⁻¹, la regla que sobre A p lee
+    lo mismo que ℓ sobre p (ℓ'(A p) = ℓ(p)). Resuelve Aᵀ x = ℓᵀ en vez de invertir. ValueError si det A = 0."""
+    A = np.asarray(A, dtype=float)
+    l = np.asarray(l, dtype=float).reshape(-1)
+    if abs(np.linalg.det(A)) < 1e-12 * max(1.0, float(np.abs(A).max()) ** A.shape[0]):
+        raise ValueError("det A = 0: A aplasta el plano y la regla no se puede arrastrar")
+    return np.linalg.solve(A.T, l)
+
+
+def recta_por_dos_puntos(p, q):
+    """La recta por p y q como fila homogénea (a, b, c), con a x + b y + c = 0: la cuña (producto cruz) de las ternas
+    homogéneas p̃ × q̃. Definida a menos de escala (q̃ × p̃ es la misma recta con signo cambiado). ValueError si p = q."""
+    l = np.cross(hom(p), hom(q))
+    if np.linalg.norm(l) < 1e-12:
+        raise ValueError("p y q son el mismo punto: no determinan una recta")
+    return l
+
+
+def cortes_caja(l, c, rango=5):
+    """Los puntos donde la recta de nivel ℓ·p = c corta el borde de la caja [a, b]² (`rango` = semilado o (min, max)),
+    como array k×2 con k ∈ {0, 1, 2} (vacío si la recta no pasa por la caja). ℓ no puede ser nulo."""
+    a, b = _rango2(rango)
+    l = np.asarray(l, dtype=float).reshape(2)
+    if np.linalg.norm(l) == 0.0:
+        raise ValueError("la forma nula no tiene rectas de nivel")
+    tol = 1e-9 * (b - a)
+    puntos = []
+    for i in (0, 1):  # fijo la coordenada i en cada borde y despejo la otra
+        j = 1 - i
+        if abs(l[j]) < 1e-12:
+            continue
+        for borde in (a, b):
+            otra = (c - l[i] * borde) / l[j]
+            if a - tol <= otra <= b + tol:
+                p = np.zeros(2)
+                p[i], p[j] = borde, float(np.clip(otra, a, b))
+                if not any(np.linalg.norm(p - q) < tol for q in puntos):
+                    puntos.append(p)
+    return np.array(puntos).reshape(-1, 2)
+
+
+def rectas_de_nivel(fig, l, niveles, rango=5, color=TEAL_DESPUES, nombre="rectas de nivel", etiquetas=True,
+                    ancho=1.3, destacar=0):
+    """La forma lineal ℓ dibujada como regla graduada: las rectas ℓ·p = c para cada c de `niveles`, recortadas a la
+    caja, en un solo trazo; la de c = `destacar` aparte y más gruesa (None: ninguna); opcional, la etiqueta c en el
+    corte de más a la derecha. Agrega SIEMPRE tres trazas (rectas, destacada, etiquetas), para que una animación
+    pueda reemplazarlas en orden. Devuelve fig."""
+    import plotly.graph_objects as go
+
+    xs, ys, dx, dy, tx, ty, tt = [], [], [], [], [], [], []
+    for c in niveles:
+        P = cortes_caja(l, c, rango)
+        if len(P) < 2:
+            continue
+        if destacar is not None and abs(float(c) - float(destacar)) < 1e-9:
+            dx += [P[0, 0], P[1, 0], None]
+            dy += [P[0, 1], P[1, 1], None]
+        else:
+            xs += [P[0, 0], P[1, 0], None]
+            ys += [P[0, 1], P[1, 1], None]
+        if etiquetas:
+            k = int(np.argmax(P[:, 0] + 1e-3 * P[:, 1]))
+            tx.append(P[k, 0])
+            ty.append(P[k, 1])
+            tt.append(f"{float(c):g}")
+    fig.add_trace(go.Scatter(x=xs, y=ys, mode="lines", line=dict(color=color, width=ancho), name=nombre, hoverinfo="skip"))
+    fig.add_trace(go.Scatter(x=dx, y=dy, mode="lines", line=dict(color=color, width=2.5 * ancho), hoverinfo="skip",
+                             name=f"{nombre}: c = {destacar}", showlegend=bool(dx)))
+    fig.add_trace(go.Scatter(x=tx, y=ty, mode="text", text=tt, textposition="middle left", hoverinfo="skip",
+                             textfont=dict(size=10, color=color), showlegend=False))
+    return fig
+
+# ----------------------------------------------------------------------------
+# SVD, inversa y pseudoinversa (lección 09)
+# ----------------------------------------------------------------------------
+
+
+def svd2(A):
+    """SVD de una 2×2 con los signos fijos: (U, s, Vt) con A = U diag(s) Vt, s[0] ≥ s[1] ≥ 0, V una ROTACIÓN
+    (det V = +1, v₁ con primera componente no nula positiva) y U ortogonal con det U = signo de det A: si A refleja,
+    la reflexión queda en U. Si σ₁ = σ₂ (un giro, una homotecia) la elección de V es libre y se toma V = I: todo el
+    giro queda en U. `np.linalg.svd` deja los signos de las columnas librados a la rutina; acá quedan fijos para
+    dibujar v₁, v₂ y para animar Vᵀ como un giro."""
+    A = np.asarray(A, dtype=float)
+    U, s, Vt = np.linalg.svd(A)
+    if abs(s[0] - s[1]) < 1e-9 * max(s[0], 1.0):  # σ₁ = σ₂ (un giro, una homotecia): cualquier V sirve; elijo V = I
+        Vt = np.eye(2)
+        U = A / s[0] if s[0] > 1e-12 else np.eye(2)
+    if np.linalg.det(Vt) < 0:  # cambiar el signo de v₂ y de u₂ a la vez no cambia el producto
+        Vt[1] = -Vt[1]
+        U[:, 1] = -U[:, 1]
+    j = int(np.argmax(np.abs(Vt[0]) > 1e-12))
+    if Vt[0, j] < 0:  # (−U) Σ (−Vᵀ) = U Σ Vᵀ y V sigue siendo rotación
+        Vt, U = -Vt, -U
+    return U, s, Vt
+
+
+def pseudoinversa(A, tol=1e-10):
+    """A⁺ = V Σ⁺ Uᵀ de una matriz m×n: recíprocos de los σ mayores que tol·σ₁ y ceros donde σ = 0. Es `np.linalg.pinv`
+    hecha a mano. Si A es cuadrada y ningún σ es cero coincide con A⁻¹; en general A⁺y es la solución de mínimos
+    cuadrados de norma mínima de A x ≈ y (proyecta y sobre la imagen y deshace sólo lo que no se aplastó)."""
+    A = np.asarray(A, dtype=float)
+    U, s, Vt = np.linalg.svd(A, full_matrices=False)
+    corte = tol * (s[0] if len(s) and s[0] > 0 else 1.0)
+    s_plus = np.array([1.0 / x if x > corte else 0.0 for x in s])
+    return Vt.T @ np.diag(s_plus) @ U.T
+
+
+def cuatro_subespacios(A, tol=1e-10):
+    """Los cuatro subespacios de una m×n, con los nombres del profesor, como bases ortonormales en columnas:
+    `imagen` (los uₖ con σₖ ≠ 0, en Rᵐ), `contra_imagen` (los uₖ restantes: el núcleo de Aᵀ, perpendicular a la
+    imagen, donde vive el residuo), `coimagen` (los vₖ con σₖ ≠ 0, en Rⁿ: la imagen de Aᵀ) y `nucleo` (los vₖ con
+    σₖ = 0). También `s` (los σ) y `rango`. Una base vacía es un array con cero columnas."""
+    A = np.asarray(A, dtype=float)
+    U, s, Vt = np.linalg.svd(A, full_matrices=True)
+    corte = tol * (s[0] if len(s) and s[0] > 0 else 1.0)
+    r = int(np.sum(s > corte))
+    return dict(s=s, rango=r, imagen=U[:, :r], contra_imagen=U[:, r:], coimagen=Vt[:r].T, nucleo=Vt[r:].T)
+
+
+def truncar_svd(U, s, Vt, k):
+    """Aproximación de rango k a partir de la SVD: U[:, :k] diag(s[:k]) Vt[:k]. Con k = len(s) devuelve la matriz
+    original; es la mejor aproximación de rango k (Eckart–Young), para comprimir una matriz de alturas."""
+    k = int(k)
+    return np.asarray(U)[:, :k] @ np.diag(np.asarray(s)[:k]) @ np.asarray(Vt)[:k]
+
+
+def elipse_imagen(A, n=240):
+    """La imagen del círculo unitario por A como nube n×2 cerrada: la elipse de semiejes σ₁u₁, σ₂u₂ (o un segmento si
+    σ₂ = 0). Es `transformar(circulo(n), A)`."""
+    return transformar(circulo(n), A)
+
+
+def capa_direcciones_singulares(fig, A, antes=True, despues=True, nombre="A"):
+    """Las direcciones singulares de una 2×2 (vía `svd2`): con `antes`, v₁ (teal) y v₂ (rust) como flechas finas desde
+    el origen; con `despues`, sus imágenes A vₖ = σₖ uₖ (los semiejes de la elipse) con los mismos colores y más gruesas.
+    Columna k de V = flecha del color k, igual que `flechas_columnas`. Devuelve (U, s, Vt)."""
+    U, s, Vt = svd2(A)
+    for k in range(2):
+        c = color_columna(k)
+        if antes:
+            flecha(fig, (0, 0), Vt[k], c, f"v{_SUB[k]} (entrada)", ancho=3)
+        if despues:
+            flecha(fig, (0, 0), s[k] * U[:, k], c, f"{nombre} v{_SUB[k]} = σ{_SUB[k]} u{_SUB[k]}")
+    return U, s, Vt
+
 
 if __name__ == "__main__":
     e1, e2, e3 = np.eye(3)
@@ -1492,4 +1726,82 @@ if __name__ == "__main__":
     assert np.allclose(curvaturas_principales(*(_ff[k] for k in "EFGLMN"))[:2], [1 / _M, 1 / _N], rtol=1e-5), "curvaturas principales del elipsoide: 1/M (meridiano) y 1/N (primer vertical)"
     assert exacto(_ff["n"], -normal_elipsoide(_phi, 0.3), tol=1e-6), "r_φ × r_λ apunta hacia adentro"
     assert gms(44.8) == "44° 48′ 00″" and gms(-0.5) == "−0° 30′ 00″" and gms(59.99999) == "60° 00′ 00″" and gms(12.3456, 1) == "12° 20′ 44.2″"
+    # lección 03: reflexiones y similaridades
+    assert exacto(reflexion2(0.0), np.diag([1, -1])) and exacto(reflexion2(np.pi / 4), [[0, 1], [1, 0]]), "espejos del eje x y de y = x"
+    assert exacto(reflexion2(th) @ reflexion2(th), np.eye(2)) and exacto(np.linalg.det(reflexion2(th)), -1.0), "involución, det −1"
+    assert exacto(reflexion2(np.deg2rad(30)) @ reflexion2(0.0), rot2(np.deg2rad(60))), "dos espejos a 30° = R(60°)"
+    assert exacto(reflexion2(th) @ reflexion2(0.3), rot2(2 * (th - 0.3))), "H(a) H(b) = R(2(a − b))"
+    _As, _ts = similaridad(np.sqrt(2), np.pi / 4, [3, -2])
+    assert exacto(_As, [[1, -1], [1, 1]]) and exacto(_ts, [3, -2]) and exacto(np.linalg.det(_As), 2.0), "√2·R(45°): det = k²"
+    assert exacto(partes_similaridad(_As), [np.sqrt(2), np.pi / 4]) and exacto(partes_similaridad(0.5 * rot2(-1.2)), [0.5, -1.2])
+    try:
+        partes_similaridad([[1, 0.5], [0, 1]])
+        raise AssertionError("un corte no es similaridad")
+    except ValueError:
+        pass
+    assert exacto(centro_fijo(_As, _ts), [2, 3]) and exacto(_As @ [2, 3] + _ts, [2, 3]), "centro (2, 3): F(c) = c"
+    assert centro_fijo(np.eye(2), [1, 0]) is None, "una traslación no tiene centro"
+    assert exacto(centro_fijo(0.5 * rot2(np.pi / 4), [0.29289322, 0.08578644]), [1 - np.sqrt(2) / 2] * 2, tol=1e-7), "apunte 16"
+    _A2, _t2 = similaridad_por_dos_puntos([1, 2], [4, 1], [2, 1], [6, 3])
+    assert exacto(_A2, _As) and exacto(_t2, _ts) and exacto(_A2 @ [2, 4] + _t2, [1, 4]), "z ↦ (1 + i) z + (3 − 2i); (2, 4) ↦ (1, 4)"
+    _tr = trayectoria(rot2(np.pi / 2), [0, 0], [1, 0], 4)
+    assert _tr.shape == (5, 2) and exacto(_tr[1], [0, 1]) and exacto(_tr[4], [1, 0]), "cuatro cuartos de vuelta cierran el círculo"
+    assert exacto(trayectoria(2 * np.eye(2), [0, 0], [1, 1], 3)[-1], [8, 8]), "homotecia: sobre el rayo"
+    _xs, _ys = estelas_afin([[1, 0]], [(np.eye(2), [0, 0]), (_As, _ts)])
+    assert len(_xs) == 3 and _xs[2] is None and exacto([_xs[1], _ys[1]], _As @ [1, 0] + _ts)
+    # lección 06: formas lineales
+    assert exacto(forma_transformada([2, 1], np.diag([2.0, 1.0])), [1, 1]), "lección 06: (2,1) diag(2,1)⁻¹ = (1,1)"
+    A06 = np.array([[1.2, 0.5], [-0.1, 1.3]])
+    assert exacto(forma_transformada([1, 1], A06) @ (A06 @ [3, 4]), 7.0) and exacto(forma_transformada([-1, 2], A06) @ (A06 @ [3, 4]), 5.0), "30/9: la séptima con la quinta"
+    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "30/9: (1,1) T⁻¹ por adjunta sobre determinante"
+    assert exacto(forma_transformada([2, 3], [[1, 1], [0, 2]]), [2, 0.5]), "apunte 11: ψ = φ A⁻¹ = (2, 1/2)"
+    assert exacto(forma_transformada([2, 1], rot2(th)), rot2(th) @ [2, 1]), "con una rotación la fila gira como un punto"
+    try:
+        forma_transformada([1, 1], [[1, 2], [2, 4]])
+        raise AssertionError("forma_transformada con det 0 tiene que fallar")
+    except ValueError:
+        pass
+    r06 = recta_por_dos_puntos([1, 1], [3, 2])
+    assert exacto(r06, [-1, 2, -1]) and exacto(r06 @ hom([1, 1]), 0.0) and exacto(r06 @ hom([3, 2]), 0.0), "recta por (1,1) y (3,2): −x + 2y − 1 = 0"
+    assert exacto(recta_por_dos_puntos([3, 2], [1, 1]), -r06), "la cuña es antisimétrica: misma recta, otro signo"
+    try:
+        recta_por_dos_puntos([1, 1], [1, 1])
+        raise AssertionError("recta por un solo punto tiene que fallar")
+    except ValueError:
+        pass
+    assert cortes_caja([2, 1], 0, 5).shape == (2, 2) and cortes_caja([2, 1], 100, 5).shape == (0, 2) and cortes_caja([1, 0], 3, 5).shape == (2, 2)
+    assert exacto(np.sort(cortes_caja([1, 0], 3, 5)[:, 1]), [-5, 5]) and exacto(cortes_caja([2, 1], 0, 5) @ [2, 1], [0, 0])
+    assert cortes_caja([1, 1], 10, 5).shape == (1, 2), "la recta por la esquina corta una sola vez"
+    f06 = figura_plano(5)
+    rectas_de_nivel(f06, [2, 1], range(-10, 11, 2), 5)
+    assert len(f06.data) == 3, "rectas_de_nivel agrega tres trazas"
+    # lección 09: SVD, inversa y pseudoinversa
+    _A9 = np.array([[2.0, 1.0], [0.0, 1.0]])
+    _U9, _s9, _Vt9 = svd2(_A9)
+    assert exacto(_U9 @ np.diag(_s9) @ _Vt9, _A9) and exacto(np.linalg.det(_Vt9), 1.0) and _Vt9[0, 0] > 0, "svd2: A = U Σ Vᵀ con V rotación"
+    assert exacto(_s9, [(1 + np.sqrt(5)) / np.sqrt(2), (np.sqrt(5) - 1) / np.sqrt(2)]) and exacto(_s9[0] * _s9[1], 2.0), "σ de [[2,1],[0,1]]: ((1+√5)/√2, (√5−1)/√2)"
+    assert exacto(_s9**2, np.linalg.eigvalsh(_A9.T @ _A9)[::-1]), "σ² = autovalores de AᵀA"
+    assert exacto((_A9 @ _Vt9[0]) @ (_A9 @ _Vt9[1]), 0.0), "v₁ ⊥ v₂ y sus imágenes siguen perpendiculares"
+    _Ud, _sd, _Vtd = svd2(np.diag([3.0, -2.0]))
+    assert exacto(_sd, [3, 2]) and exacto(_Ud, np.diag([1, -1])) and exacto(_Vtd, np.eye(2)), "diag(3, −2): el signo va a U"
+    assert exacto(svd2(rot2(0.7))[1], [1, 1]) and exacto(svd2(rot2(0.7))[0], rot2(0.7)), "un giro: Σ = I, el giro en U"
+    _Us, _ss, _Vts = svd2([[3.0, 1.0], [1.0, 2.0]])
+    assert exacto(_ss, np.abs(diagonalizar([[3.0, 1.0], [1.0, 2.0]])[0])) and exacto(np.abs(_Us), np.abs(_Vts.T)), "simétrica: σ = |λ| y U = V salvo signos"
+    _P9 = np.array([[1.0, 2.0], [2.0, 4.0]])
+    assert exacto(pseudoinversa(_P9), _P9 / 25) and exacto(_P9 @ pseudoinversa(_P9) @ _P9, _P9), "P⁺ = P/25, P P⁺ P = P"
+    assert exacto(pseudoinversa(np.diag([3.0, -2.0])), np.diag([1 / 3, -1 / 2])), "sin σ = 0, A⁺ = A⁻¹"
+    _A3 = np.column_stack([[0.0, 1.0, 2.0], np.ones(3)])
+    assert exacto(pseudoinversa(_A3), np.linalg.pinv(_A3)) and exacto(pseudoinversa(_A3) @ [0, 1, 3], [1.5, -1 / 6]), "ficha 10: A⁺y = (1.5, −1/6)"
+    assert exacto(pseudoinversa([[1.0, 1.0], [2.0, 2.0]]), np.linalg.pinv([[1.0, 1.0], [2.0, 2.0]])), "no simétrica singular: coincide con pinv"
+    _c4 = cuatro_subespacios(_A3)
+    assert _c4["rango"] == 2 and _c4["imagen"].shape == (3, 2) and _c4["contra_imagen"].shape == (3, 1) and _c4["coimagen"].shape == (2, 2) and _c4["nucleo"].shape == (2, 0)
+    assert exacto(_A3.T @ _c4["contra_imagen"], [[0], [0]]), "la contra-imagen es el núcleo de Aᵀ"
+    _r9 = np.array([0, 1, 3]) - _A3 @ minimos_cuadrados(_A3, [0, 1, 3])[0]
+    assert exacto(float(_r9 @ _c4["contra_imagen"][:, 0]) * _c4["contra_imagen"][:, 0], _r9), "el residuo vive en la contra-imagen"
+    _c4 = cuatro_subespacios(_P9)
+    assert _c4["rango"] == 1 and exacto(np.abs(_c4["nucleo"][:, 0]), [2, 1] / np.sqrt(5)) and exacto(_P9 @ _c4["nucleo"][:, 0], [0, 0]), "núcleo de [[1,2],[2,4]]: (2, −1)"
+    _M9 = np.random.default_rng(9).normal(size=(5, 4))
+    _U9, _s9, _Vt9 = np.linalg.svd(_M9)
+    assert exacto(truncar_svd(_U9, _s9, _Vt9, 4), _M9) and np.linalg.matrix_rank(truncar_svd(_U9, _s9, _Vt9, 2)) == 2, "truncar_svd: k = todo devuelve la matriz; k = 2 tiene rango 2"
+    assert elipse_imagen(np.diag([3.0, 2.0]), 5).shape == (5, 2) and exacto(elipse_imagen(np.diag([3.0, 2.0]), 5)[0], [3, 0])
     print("cb104: asserts OK")
