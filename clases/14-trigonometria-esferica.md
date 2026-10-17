@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
 conceptos: [trigonometria-esferica, poligono-geodesico]
 apunte: ["11", "13"]
-unidad: null
+unidad: 14_trigonometria_esferica
 ---
 
 # Clase 14 — Polígonos geodésicos sobre la esfera: trigonometría esférica, y Máxima para el elipsoide

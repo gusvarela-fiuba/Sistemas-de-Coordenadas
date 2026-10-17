@@ -11,7 +11,7 @@ fuentes:
   - datos/dem_copernicus/README.md
 conceptos: [regresion-simple, interseccion-de-circulos, procrustes, regresion-total]
 apunte: ["13", "11"]
-unidad: null
+unidad: 11_cuatro_problemas
 ---
 
 # Clase 11 — Cuatro problemas

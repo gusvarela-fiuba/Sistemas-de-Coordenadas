@@ -11,7 +11,7 @@ fuentes:
   - "Bibliografia/Clavijo - Apunte Teoría Elipsoide (guía para clase).pdf (sección Radios de curvatura)"
 conceptos: [curvatura, forma-cuadratica, geodesica]
 apunte: ["13", "06"]
-unidad: null
+unidad: 12_curvatura
 ---
 
 # Clase 12 — Curvatura

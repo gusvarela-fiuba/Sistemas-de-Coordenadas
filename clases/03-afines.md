@@ -13,7 +13,7 @@ fuentes:
   - entregas/afinidades/Afinidades_Triangulo_Varela_56798.tex
 conceptos: [reflexion, afinidad-axial, similaridad, transformacion-afin, coordenadas-homogeneas, punto-fijo, traslacion]
 apunte: ["08", "09", "10", "16", "17", "04", "05"]
-unidad: null
+unidad: 04_afines_homogeneas   # y 03_reflexiones_similaridades
 ---
 
 # Clase 3 — Transformaciones afines
@@ -103,4 +103,4 @@ Falta confirmar: qué parte de cada PDF se dio cada miércoles; si el ejercicio 
 - El punto impropio $(1, 3/2, 0)$ de la memoria: no está claro de qué recta salió; reconstruir el ejemplo del pizarrón.
 - Verificación en AutoCAD del ejercicio rotación+escala: no hay archivo `.dwg` ni captura en el repo; confirmar si se hizo y con qué figura.
 - La planilla `Ejercicio Tl_Afin_Homogenea.xlsx` no está descripta hoja por hoja; abrirla y anotar qué columnas tiene.
-- Unidades 03 y 04 pendientes.
+- Unidades marimo 03 y 04 hechas el 17/10/2026 (anticipadas, sin validar por la cátedra); queda cotejarlas contra lo que se dio en clase.

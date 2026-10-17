@@ -11,7 +11,7 @@ fuentes:
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
 conceptos: [elipsoide, simetria]
 apunte: ["06", "13"]
-unidad: null
+unidad: 13_elipsoide
 ---
 
 # Clase 13 — Geometría del elipsoide (deducciones a partir de la simetría)
