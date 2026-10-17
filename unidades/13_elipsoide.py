@@ -142,11 +142,14 @@ def _(mo):
     **Tres latitudes** del mismo punto: la **geodésica** $\varphi$ (ángulo de la normal con el ecuador, la que da el
     GNSS), la **geocéntrica** $\psi$ (ángulo del radio) y la **reducida** $\beta$ (ángulo del punto de la
     circunferencia auxiliar de radio $a$ con la misma $x'$):
+
     $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad \psi \le \beta \le \varphi.$$
 
     **Dos radios de curvatura** (apunte v3, sección 13; deducción en el apunte del profesor):
+
     $$N = \frac{a}{\sqrt{1 - e^2\sin^2\varphi}}\ \text{(primer vertical)}, \qquad
       M = \frac{a(1 - e^2)}{(1 - e^2\sin^2\varphi)^{3/2}}\ \text{(meridiano)}, \qquad K = \frac{1}{MN}.$$
+
     $N$ es también la distancia del punto al eje polar **a lo largo de la normal** (Meusnier: el paralelo, de radio
     $x' = N\cos\varphi$, es una sección oblicua de la del primer vertical). $M \le N$, iguales sólo en los polos; los dos
     crecen del ecuador al polo. Con $f = 0$, la esfera: $M = N = a$.
@@ -288,7 +291,9 @@ def _(grs80, lib, mo, np):
             **3.1 De dónde sale $N$.** La normal a $x'^2/a^2 + z^2/b^2 = 1$ es $\propto (x'/a^2, z/b^2)$ y forma $\varphi$
             con el ecuador: $\tan\varphi = \dfrac{a^2}{b^2}\dfrac{z}{x'}$, o sea $z = (1 - e^2)\,x'\tan\varphi$ (de paso,
             $\tan\psi = z/x' = (1 - e^2)\tan\varphi$). En la elipse:
+
             $$\frac{x'^2}{a^2}\big(1 + (1 - e^2)\tan^2\varphi\big) = 1 \ \Rightarrow\ x' = \frac{a\cos\varphi}{\sqrt{\cos^2\varphi + (1 - e^2)\sin^2\varphi}} = \frac{a\cos\varphi}{\sqrt{1 - e^2\sin^2\varphi}} = N\cos\varphi.$$
+
             **3.2 GRS80 en $\varphi = 45°$, $\lambda = 30°$.** $e^2 = 2f - f^2 = 0.00669438$, $\sin^2 45° = 1/2$,
             $w = \sqrt{1 - e^2/2} = 0.99832500$. $N = a/w = 6\,388\,838.29$ m; $M = a(1 - e^2)/w^3 = 6\,335\,439.33/0.99498 = 6\,367\,381.82$ m.
             $X = N\cos 45°\cos 30° = 3\,912\,348.47$, $Y = N\cos 45°\sin 30° = 2\,258\,795.44$, $Z = N(1 - e^2)\sin 45° = 4\,487\,348.41$ m.

@@ -130,7 +130,9 @@ def _(mo):
     - **ángulo = ángulo entre normales**: las normales de los planos $OAB$ y $OAC$ son $A \times B$ y $A \times C$, y
       $\langle A\times B, A\times C\rangle = \langle B, C\rangle - \langle A, C\rangle\langle A, B\rangle = \cos a - \cos b\cos c$,
       con $|A\times B| = \sin c$, $|A\times C| = \sin b$. Dividiendo:
+
     $$\cos a = \cos b\,\cos c + \sin b\,\sin c\,\cos A \qquad\text{(ley del coseno esférica)};$$
+
     - **la cuña da la ley del seno**: el volumen orientado $[A, B, C] = (A\wedge B)\wedge C$ (07a) vale
       $\sin b\,\sin c\,\sin A$ mirado desde $A$, y lo mismo desde $B$ o $C$; igualando,
       $\dfrac{\sin A}{\sin a} = \dfrac{\sin B}{\sin b} = \dfrac{\sin C}{\sin c}$.
@@ -242,7 +244,9 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.1 El octante.** $A = e_3$ (polo), $B = e_1$, $C = e_2$. Lados: $\cos a = \langle e_1, e_2\rangle = 0$,
             $a = 90°$; igual $b = c = 90°$. Ángulo en $A$ por la ley del coseno:
+
             $$\cos A = \frac{\cos a - \cos b\cos c}{\sin b\,\sin c} = \frac{0 - 0}{1} = 0,\quad A = 90°,$$
+
             y por simetría $B = C = 90°$. Suma $270°$, exceso $90° = \pi/2$, área $= \tfrac{\pi}{2}R^2 = \tfrac18\cdot4\pi R^2$:
             un octavo de la esfera, como se ve. Cierra.
             """),

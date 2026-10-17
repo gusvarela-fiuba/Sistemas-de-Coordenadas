@@ -244,6 +244,7 @@ def _(R30, go, lib, mo, mojon, np):
         """),
         mo.hstack([
             mo.md(rf"""
+
             $$R(\theta) = \begin{{pmatrix}} \textcolor{{#1b6f6a}}{{\cos\theta}} & \textcolor{{#b5451b}}{{-\sin\theta}} \\
             \textcolor{{#1b6f6a}}{{\sin\theta}} & \textcolor{{#b5451b}}{{\cos\theta}} \end{{pmatrix}}, \qquad
             R(30°) = {lib.matriz_coloreada(R30)}$$
@@ -251,6 +252,7 @@ def _(R30, go, lib, mo, mojon, np):
             La coordenada nueva $x'$ es "cuánto de $P$ cae sobre el eje $x'$": el producto interno de $P$ con la
             primera columna. Igual $y'$ con la segunda. Las dos cuentas juntas son **$R^T$ por $P$** (las columnas
             pasan a ser filas):
+
             $$\begin{{pmatrix}} x' \\ y' \end{{pmatrix}} = R(30°)^T \begin{{pmatrix}} 4 \\ 3 \end{{pmatrix}}
             = \begin{{pmatrix}} 4\cos30° + 3\sin30° \\ -4\sin30° + 3\cos30° \end{{pmatrix}}
             = \begin{{pmatrix}} 4\cdot{lib.num_tex(_c)} + 3\cdot{lib.num_tex(_s)} \\ -4\cdot{lib.num_tex(_s)} + 3\cdot{lib.num_tex(_c)} \end{{pmatrix}}

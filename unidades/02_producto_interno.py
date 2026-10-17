@@ -113,7 +113,9 @@ def _(mo):
 
     **Una sola cuenta mide cuánto de un vector cae sobre otro.** Con la regla mido largos y con el transportador
     ángulos; el producto interno hace las dos cosas de una vez con las coordenadas:
+
     $$\langle v, u\rangle = |v|\,|u|\cos\theta = x_1 x_2 + y_1 y_2.$$
+
     A la izquierda, geometría: la sombra de $v$ sobre $u$ (que mide $|v|\cos\theta$) por el largo de $u$. A la derecha,
     aritmética: coordenada por coordenada, y sumo. Que den lo mismo se **muestra** así: con $u = (|u|, 0)$ sobre el eje
     $x$ y $v = (|v|\cos\theta, |v|\sin\theta)$, la suma de productos da $|u|\,|v|\cos\theta$ directo; para un par
@@ -229,6 +231,7 @@ def _(BA, BC, lib, mo, np):
         """),
         mo.hstack([
             mo.md(r"""
+
             $$\langle v, u\rangle = \textcolor{#b5451b}{4}\cdot\textcolor{#1b6f6a}{4} + \textcolor{#b5451b}{(-3)}\cdot\textcolor{#1b6f6a}{3} = 16 - 9 = 7$$
             $$|u| = \sqrt{16 + 9} = 5, \qquad |v| = \sqrt{16 + 9} = 5$$
             $$\cos\hat B = \frac{7}{5\cdot5} = 0.28, \qquad \hat B = \arccos 0.28 \approx 73.74°$$

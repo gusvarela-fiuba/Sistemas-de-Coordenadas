@@ -150,7 +150,9 @@ def _(mo):
     de ser perpendicular a las rectas nuevas; la regla, no.
 
     **Dualidad: la regla se transforma al revés.** Si $p' = Ap$, la fila que lee lo mismo sobre $p'$ es
+
     $$\ell' = \ell A^{-1} \qquad\text{porque}\qquad \ell'(p') = \ell A^{-1} A\,p = \ell(p).$$
+
     "Los puntos se transforman con la transformación; las formas lineales con la inversa, del otro lado. Así todas las
     relaciones se conservan" (profesor, 30/9). Una recta es una forma igualada a cero, $\ell p = 0$ en homogéneas: por
     eso cambia con $A^{-1}$ a la derecha (o $A^{-T}$ como columna) mientras un punto cambia con $A$. En
@@ -284,9 +286,13 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.1 La regla arrastrada por una escala.** $A = \mathrm{diag}(2, 1)$, $\ell = (2, 1)$, $p = (1, 1)$:
+
             $$\ell p = 2 + 1 = 3, \qquad p' = Ap = \begin{pmatrix} \textcolor{#1b6f6a}{2} & \textcolor{#b5451b}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \end{pmatrix}\binom11 = \binom21.$$
+
             $A^{-1} = \mathrm{diag}(\tfrac12, 1)$ y la fila va a la derecha:
+
             $$\ell' = \ell A^{-1} = (2\cdot\tfrac12 + 1\cdot0,\ 2\cdot0 + 1\cdot1) = (1, 1), \qquad \ell' p' = 2 + 1 = 3.\ \checkmark$$
+
             Lo que **no** hay que hacer: $A\ell^T = (4, 1)$ y $(4, 1)\cdot(2, 1) = 9 \ne 3$.
             """),
             mo.vstack([
@@ -301,7 +307,9 @@ def _(lib, mo, np):
             $T = \begin{pmatrix} \textcolor{#1b6f6a}{1.2} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{-0.1} & \textcolor{#b5451b}{1.3} \end{pmatrix}$.
             Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en "la séptima con la quinta".
             $\det T = 1.61$ y, por adjunta sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
+
             $$Tv = \binom{5.6}{4.9}, \qquad (1, 1)\,T^{-1} = \tfrac{(1.4,\ 0.7)}{1.61} = (0.870,\ 0.435), \qquad (-1, 2)\,T^{-1} = \tfrac{(-1.1,\ 2.9)}{1.61} = (-0.683,\ 1.801).$$
+
             Después: $0.870\cdot5.6 + 0.435\cdot4.9 = 7.00$ y $-0.683\cdot5.6 + 1.801\cdot4.9 = 5.00$: el mismo
             cruce. La $(1, 1)$ "quedó más acostada" ($45° \to 26.6°$) y más corta: sus marcas se separaron.
             """),

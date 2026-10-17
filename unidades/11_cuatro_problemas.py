@@ -129,7 +129,9 @@ def _(mo):
     cae en él. Lo mejor es el punto del plano **más cercano** a $y$: su sombra, la proyección ortogonal (lección 02). Y
     la sombra se reconoce por una sola propiedad: lo que sobra, el **residuo** $r = y - A x$, es **perpendicular al
     plano**, o sea a cada columna de $A$:
+
     $$A^\top (y - A x) = 0 \iff A^\top A\, x = A^\top y \qquad \text{(ecuaciones normales).}$$
+
     El sistema alto se volvió uno de $2\times2$. Esto es una **muestra**; la demostración (que la sombra minimiza
     $|r|^2$) está en Strang, y la pseudoinversa $A^+ = (A^\top A)^{-1}A^\top$ y la SVD se desarrollan en la unidad 09.
 
@@ -292,8 +294,10 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.1 Recta por tres puntos.** Un alambrado que debería ser recto, relevado en $(0, 0)$, $(1, 1)$, $(2, 3)$:
             no están alineados (pendientes $1$ y $2$). Busco $y = ax + b$:
+
             $$A = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{2} & \textcolor{#b5451b}{1} \end{pmatrix},\quad
             A^\top A = \begin{pmatrix} 5 & 3 \\ 3 & 3 \end{pmatrix},\quad A^\top y = \begin{pmatrix} 7 \\ 4 \end{pmatrix}.$$
+
             $5a + 3b = 7$ y $3a + 3b = 4$; restando, $2a = 3$, $a = \tfrac32$; entonces $3b = 4 - \tfrac92$, $b = -\tfrac16$.
             Residuo $r = (\tfrac16, -\tfrac13, \tfrac16)$: suma cero (columna de unos) y
             $0\cdot\tfrac16 - \tfrac13 + 2\cdot\tfrac16 = 0$ (columna $x$): perpendicular a las dos.
@@ -306,7 +310,9 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.2 Tres círculos, un punto.** Mojones $(0, 0)$, $(6, 0)$, $(3, 7)$ a distancias $5$, $5$, $3$:
+
             $$x^2 + y^2 = 25,\qquad (x - 6)^2 + y^2 = 25,\qquad (x - 3)^2 + (y - 7)^2 = 9.$$
+
             Primero menos segundo: $12x - 36 = 0$, $x = 3$. Primero menos tercero: $6x + 14y - 58 = 16$, o sea
             $6x + 14y = 74$; con $x = 3$, $y = 4$. Las dos rectas son los ejes radicales y
             $A = 2\,(M_i - M_1)$ por filas: $\begin{pmatrix} 12 & 0 \\ 6 & 14 \end{pmatrix}$, $b = (36, 74)$.

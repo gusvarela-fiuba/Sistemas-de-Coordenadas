@@ -328,8 +328,10 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.2 La de la predicción: $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$.**
+
             $$A^\top A = \begin{pmatrix} 2 & 0 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix},\quad
             \mu^2 - 6\mu + 4 = 0 \Rightarrow \mu = 3 \pm \sqrt5.$$
+
             $\sigma_1 = \sqrt{3 + \sqrt5} = \tfrac{1 + \sqrt5}{\sqrt2} \approx 2.288$, $\sigma_2 = \tfrac{\sqrt5 - 1}{\sqrt2} \approx 0.874$;
             control $\sigma_1\sigma_2 = \tfrac{5 - 1}{2} = 2 = \det A$. Los $v_k$ son los autovectores de $A^\top A$ y $u_k = Av_k/\sigma_k$.
             """),
@@ -342,7 +344,9 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.3 Pseudoinversa de la aplastante $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.** $P^\top P = \begin{pmatrix} 5 & 10 \\ 10 & 20 \end{pmatrix}$,
             $\mu = 25, 0$: $\sigma_1 = 5$, $\sigma_2 = 0$, $v_1 = \tfrac{1}{\sqrt5}(1, 2)$, $u_1 = Pv_1/5 = v_1$.
+
             $$P^{+} = v_1\,\tfrac15\,u_1^\top = \tfrac1{25}\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix};\qquad PP^{+}P = \tfrac1{25}P^3 = P.\ ✓$$
+
             El $1/\sigma_2 = 1/0$ no se toma: ahí va un $0$.
             """),
             mo.vstack([

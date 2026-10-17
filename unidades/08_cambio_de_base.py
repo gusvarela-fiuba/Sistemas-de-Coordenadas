@@ -128,7 +128,9 @@ def _(mo):
 
     **La matriz de cambio de base.** Si los ejes nuevos $b_1, b_2$ (escritos en la grilla vieja) son las columnas de
     $B$, el punto de coordenadas nuevas $c$ es
+
     $$p = c_1\,\textcolor{#1b6f6a}{b_1} + c_2\,\textcolor{#b5451b}{b_2} = B\,c, \qquad c = B^{-1}p.$$
+
     $B$ lleva de nuevas a viejas; $B^{-1}$, de viejas a nuevas. Para leer hay que **resolver**, no multiplicar. Sólo
     con ejes perpendiculares de largo $1$ vale $B^{-1} = B^T$ y resolver es proyectar: eso fue Rotaciones I.
 
@@ -145,7 +147,9 @@ def _(mo):
     **Diagonalizar.** Si las columnas de $B$ son los **autovectores** de $A$ ($A\,b_k = \lambda_k b_k$), cada $A\,b_k$
     leído en la grilla nueva es $\lambda_k e_k$: $B^{-1}AB = \Lambda = \mathrm{diag}(\lambda_1, \lambda_2)$. En su
     grilla propia $A$ **sólo estira** cada eje por su autovalor, sin romper la grilla. Entonces $A = B\Lambda B^{-1}$ y
+
     $$A^n = (B\Lambda B^{-1})(B\Lambda B^{-1})\cdots = B\,\Lambda^n B^{-1},$$
+
     porque los $B^{-1}B$ del medio se cancelan: aplicar $n$ veces es estirar $n$ veces cada eje propio. Con $t$ real,
     $A^t = B\Lambda^tB^{-1}$ convierte la transformación en una película.
 
@@ -237,9 +241,9 @@ def _(caso, casos, desvio, factor, lib, mo, mojon, np):
     lib.punto(figura, P, nombre="mojón (quieto)", texto="P")
     _panel = mo.vstack([
         mo.md("**Controles**"), desvio, factor,
-        mo.md("**Números vivos**\n" + _numeros + f"\n**Qué pasa acá:** {que_pasa}"),
+        mo.md("**Números vivos**\n" + "\n".join(_l.strip() for _l in _numeros.splitlines()) + f"\n**Qué pasa acá:** {que_pasa}"),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(figura), _panel])
     return B, P, c, singular
 
 
@@ -301,7 +305,7 @@ def _(go, lib, mo, n_pot, np):
         - $\det A = {lib.num_tex(np.linalg.det(A))} = \lambda_1\lambda_2$, traza $= {lib.num_tex(np.trace(A))} = \lambda_1 + \lambda_2$: no cambian con la base.
         """),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(fig_A)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(fig_A), _panel])
     return A, An_diag, An_mult, B_prop, Lam, lam
 
 
@@ -320,8 +324,10 @@ def _(A, B_parcela, B_prop, lib, mo, mojon, np):
         mo.hstack([
             mo.md(r"""
             **3.1 Leer el mojón en la base de la parcela.** $Bc = P$ es un sistema $2\times2$:
+
             $$\begin{pmatrix} \textcolor{#1b6f6a}{3} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{2} \end{pmatrix}\binom{c_1}{c_2} = \binom{4}{3}
             \;\Rightarrow\; \begin{cases} 3c_1 + c_2 = 4 \\ c_1 + 2c_2 = 3 \end{cases}$$
+
             De la segunda, $c_1 = 3 - 2c_2$; en la primera, $9 - 5c_2 = 4$: $c_2 = 1$, $c_1 = 1$. O con la inversa:
             $B^{-1} = \frac15\begin{pmatrix} 2 & -1 \\ -1 & 3 \end{pmatrix}$ y $B^{-1}\binom{4}{3} = \binom{1}{1}$.
             """),
@@ -335,9 +341,11 @@ def _(A, B_parcela, B_prop, lib, mo, mojon, np):
             **3.2 Diagonalizar $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$.** $\det(A - \lambda I) = (2-\lambda)^2 - 1 = 0
             \Rightarrow \lambda = 3,\ 1$. Para $\lambda = 3$, $(A - 3I)v = 0$ con filas $(-1, 1)$: $v = (1, 1)$; para
             $\lambda = 1$, filas $(1, 1)$: $v = (1, -1)$.
+
             $$B = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{-1} \end{pmatrix},\quad
             B^{-1} = \tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix},\quad
             B^{-1}AB = \tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 3 & 1 \\ 3 & -1 \end{pmatrix} = \begin{pmatrix} 3 & 0 \\ 0 & 1 \end{pmatrix}.$$
+
             `eig` da los autovectores de largo $1$ y a veces con otro signo: el **eje** es el mismo.
             """),
             mo.vstack([
@@ -348,8 +356,10 @@ def _(A, B_parcela, B_prop, lib, mo, mojon, np):
         mo.hstack([
             mo.md(r"""
             **3.3 $A^5$ sin multiplicar cinco veces.** $\Lambda^5 = \mathrm{diag}(3^5, 1) = \mathrm{diag}(243, 1)$:
+
             $$A^5 = B\Lambda^5B^{-1} = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} 243 & 0 \\ 0 & 1 \end{pmatrix}\tfrac12\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}
             = \tfrac12\begin{pmatrix} 244 & 242 \\ 242 & 244 \end{pmatrix} = \begin{pmatrix} 122 & 121 \\ 121 & 122 \end{pmatrix}.$$
+
             Lectura: $e_1 = \tfrac12 b_1 + \tfrac12 b_2$; la parte en $b_1$ se multiplica por $243$, la de $b_2$ queda:
             $\tfrac12(243, 243) + \tfrac12(1, -1) = (122, 121)$.
             """),

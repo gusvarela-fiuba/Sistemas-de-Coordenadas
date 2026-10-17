@@ -143,7 +143,9 @@ def _(mo):
 
     **La primera forma fundamental es la tabla de productos internos de los ejes locales**, la $V V^T$ sembrada en la
     [lección 02](../02_producto_interno/index.html), con los ejes como columnas:
+
     $$J^T J = \begin{pmatrix} E & F \\ F & G \end{pmatrix}, \qquad E = \langle r_u, r_u\rangle, \quad F = \langle r_u, r_v\rangle, \quad G = \langle r_v, r_v\rangle.$$
+
     $E$ y $G$ son los largos al cuadrado de los ejes locales; $F$ dice qué ángulo forman ($F = 0$: perpendiculares). Con
     esa tabla mido sin salir de la grilla: el largo del pasito, $ds^2 = \langle dr, dr\rangle = E\,du^2 + 2F\,du\,dv + G\,dv^2$;
     el ángulo entre dos pasitos (el coseno de la lección 02 con esta tabla); el área del cuadradito,
@@ -291,11 +293,14 @@ def _(lib, mo, np):
         """),
         mo.hstack([
             mo.md(r"""
+
             $$r(\varphi, \lambda) = (R\cos\varphi\cos\lambda,\ R\cos\varphi\sin\lambda,\ R\sin\varphi)$$
             $$\textcolor{#1b6f6a}{r_\varphi} = (-R\sin\varphi\cos\lambda,\ -R\sin\varphi\sin\lambda,\ R\cos\varphi), \qquad
             \textcolor{#b5451b}{r_\lambda} = (-R\cos\varphi\sin\lambda,\ R\cos\varphi\cos\lambda,\ 0)$$
+
             $$E = R^2\sin^2\varphi\,(\cos^2\lambda + \sin^2\lambda) + R^2\cos^2\varphi = R^2, \qquad
             F = R^2\sin\varphi\cos\varphi\,(\cos\lambda\sin\lambda - \sin\lambda\cos\lambda) = 0$$
+
             $$G = R^2\cos^2\varphi\,(\sin^2\lambda + \cos^2\lambda) = R^2\cos^2\varphi, \qquad ds^2 = R^2\,d\varphi^2 + R^2\cos^2\varphi\,d\lambda^2$$
 
             Un paso de $1°$ en longitud ($d\lambda = \pi/180$) a latitud $45°$: $ds = \sqrt{G}\,d\lambda = R\cos 45°\cdot\pi/180 = 0.01234\,R$;

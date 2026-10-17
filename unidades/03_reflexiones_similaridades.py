@@ -312,13 +312,17 @@ def _(A_sit, P_viejo, Q_nuevo, k_sit, lib, mo, np, t_sit, th_sit):
         mo.hstack([
             mo.md(r"""
             **3.1 El espejo de $y = x$ sobre el vértice $(4, 1)$.** Con $\alpha = 45°$, $\cos 90° = 0$, $\sin 90° = 1$:
+
             $$H(45°)\begin{pmatrix} 4 \\ 1 \end{pmatrix} = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0} \end{pmatrix}\begin{pmatrix} 4 \\ 1 \end{pmatrix}
             = 4\,\textcolor{#1b6f6a}{\binom{0}{1}} + 1\,\textcolor{#b5451b}{\binom{1}{0}} = \begin{pmatrix} 1 \\ 4 \end{pmatrix}.$$
+
             Las coordenadas se intercambian: el punto cruza la diagonal. Mismo largo $\sqrt{17}$; $\det = 0 - 1 = -1$.
 
             **3.2 Dos espejos a $30°$ son $R(60°)$.** Primero el eje $x$, después la recta de $30°$:
+
             $$H(30°)\,H(0°) = \begin{pmatrix} \tfrac12 & \tfrac{\sqrt3}{2} \\ \tfrac{\sqrt3}{2} & -\tfrac12 \end{pmatrix}\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
             = \begin{pmatrix} \textcolor{#1b6f6a}{\tfrac12} & \textcolor{#b5451b}{-\tfrac{\sqrt3}{2}} \\ \textcolor{#1b6f6a}{\tfrac{\sqrt3}{2}} & \textcolor{#b5451b}{\tfrac12} \end{pmatrix} = R(60°).$$
+
             El doble del ángulo entre los espejos, y $\det = (-1)(-1) = +1$: la orientación vuelve.
             """),
             mo.vstack([
@@ -331,8 +335,10 @@ def _(A_sit, P_viejo, Q_nuevo, k_sit, lib, mo, np, t_sit, th_sit):
             **3.3 La similaridad del plano viejo, con un número complejo.** Si $(x, y)$ es $z = x + iy$, una similaridad
             directa es $z \mapsto a z + b$: $\lvert a \rvert$ es la escala, $\arg a$ el giro, $b$ el corrimiento. Los mojones
             $P_1 = 1 + 2i \mapsto Q_1 = 2 + i$ y $P_2 = 4 + i \mapsto Q_2 = 6 + 3i$ dan
+
             $$a = \frac{{Q_2 - Q_1}}{{P_2 - P_1}} = \frac{{4 + 2i}}{{3 - i}} = \frac{{(4 + 2i)(3 + i)}}{{10}} = 1 + i,\qquad
             b = Q_1 - a\,P_1 = (2 + i) - (1 + i)(1 + 2i) = 3 - 2i.$$
+
             $\lvert a \rvert = \sqrt2$, $\arg a = 45°$: escala $1 : \sqrt2$ y giro de $45°$. Como matriz,
             $A = {lib.matriz_coloreada(A_sit, dec=0)}$, $t = {lib.vec_tex(t_sit)}$. Control con el tercer mojón:
             $a\,(2 + 4i) + b = (-2 + 6i) + (3 - 2i) = 1 + 4i$: en el terreno tiene que estar en $(1, 4)$.

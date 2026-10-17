@@ -272,7 +272,9 @@ def _(Ry90, Rz90, lib, mo, np):
         mo.md(r"""
         **3.2 Un solo giro.** $R = R_z(90°)R_y(90°)$ es ortogonal con $\det = 1$, así que tiene que dejar quieta una recta.
         Pruebo $u = (-1, 1, 1)/\sqrt3$:
+
         $$R\,u = \tfrac{1}{\sqrt3}\begin{pmatrix} 0\cdot(-1) - 1\cdot1 + 0 \\ 0 + 0 + 1\cdot1 \\ -1\cdot(-1) + 0 + 0 \end{pmatrix} = \tfrac{1}{\sqrt3}\begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix} = u.$$
+
         Ese es el eje. El ángulo sale de la traza: $\operatorname{tr} R = 0 = 1 + 2\cos\theta$, $\theta = 120°$: y
         $R^3 = I$, tres veces el giro es la vuelta entera. Rodrigues arma la misma matriz desde $(u, 120°)$.
         """),

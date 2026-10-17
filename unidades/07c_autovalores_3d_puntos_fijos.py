@@ -280,7 +280,9 @@ def _(R_sit, lib, mo, np):
             mo.md(r"""
             **3.2 El eje de $R = R_z(90°)R_y(90°)$, sin polinomio.** Es rotación (la armé componiendo rotaciones):
             $\lambda = 1$ y listo. Filas de $R - I$: $(-1, -1, 0)$, $(0, -1, 1)$, $(-1, 0, -1)$. Cruz de las dos primeras:
+
             $$(-1, -1, 0) \times (0, -1, 1) = \big((-1)(1) - 0(-1),\ 0 \cdot 0 - (-1)(1),\ (-1)(-1) - (-1)(0)\big) = (-1, 1, 1).$$
+
             Control: $R(-1, 1, 1) = (-1, 1, 1)$ ✓. Filas 2 y 3 dan $(1, -1, -1)$: la misma recta. En la planilla del
             profesor era `MMULT(R; eje)` y mirar que no cambie.
             """),

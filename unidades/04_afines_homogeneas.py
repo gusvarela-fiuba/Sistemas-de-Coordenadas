@@ -138,7 +138,9 @@ def _(mo):
     **Lo que la $2\times2$ no puede hacer: mover el origen.** $A\,0 = 0$ siempre; la traslación queda afuera y componer
     obliga a arrastrar los $t$ a mano. La salida: $(x, y)$ pasa a ser $(x, y, 1)$ y la afinidad, una $3\times3$ cuya
     **tercera columna** es a dónde va el origen:
+
     $$\begin{pmatrix} x' \\ y' \\ 1 \end{pmatrix} = \begin{pmatrix} \textcolor{#1b6f6a}{a} & \textcolor{#b5451b}{b} & \textcolor{#c9a227}{e} \\ \textcolor{#1b6f6a}{c} & \textcolor{#b5451b}{d} & \textcolor{#c9a227}{f} \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \\ 1 \end{pmatrix}.$$
+
     Componer vuelve a ser multiplicar. Esto es una **muestra**; la demostración de que $Ax + t$ conserva paralelas
     está en el apunte, sección 10.
     """)
@@ -287,6 +289,7 @@ def _(escala, giro, lib, mo, np, orden, parcela, rango, tx, ty):
     _panel = mo.vstack([
         mo.md("**Controles**"), giro, escala, tx, ty,
         mo.md(rf"""
+
         $$H = {_nombre[0]}\,{_nombre[1]}\,{_nombre[2]} = {lib.matriz_coloreada(H)}$$
 
         - $A\,(0,0) = (0, 0)$ con la $2\times2$; con la $3\times3$, $H\,(0, 0, 1)^T = {lib.vec_tex(H @ lib.hom([0, 0]))}$: el origen **sí** se mueve.
@@ -315,12 +318,16 @@ def _(A_esc, lib, mo, np, t_esc):
         mo.hstack([
             mo.md(r"""
             **3.1 La $2\times2$ como combinación de columnas.** Con $p = (4, 2)$:
+
             $$Ap = \begin{pmatrix} \textcolor{#1b6f6a}{1.5} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1.25} \end{pmatrix}\begin{pmatrix} 4 \\ 2 \end{pmatrix}
             = 4\,\textcolor{#1b6f6a}{\binom{1.5}{0}} + 2\,\textcolor{#b5451b}{\binom{0.5}{1.25}} = \begin{pmatrix} 7 \\ 2.5 \end{pmatrix}.$$
+
             Cuatro veces la flecha teal más dos veces la rust: el punto conserva sus **coordenadas** en la grilla nueva.
 
             **3.2 La $3\times3$ sobre el punto homogéneo** $(4, 2, 1)$: el $1$ "enciende" la columna gold:
+
             $$H\begin{pmatrix} 4 \\ 2 \\ 1 \end{pmatrix} = 4\,\textcolor{#1b6f6a}{\binom{1.5}{0}_{\!0}} + 2\,\textcolor{#b5451b}{\binom{0.5}{1.25}_{\!0}} + 1\,\textcolor{#c9a227}{\binom{1}{1}_{\!1}} = \begin{pmatrix} 8 \\ 3.5 \\ 1 \end{pmatrix} = \binom{Ap + t}{1}.$$
+
             La última fila $(0\ 0\ 1)$ garantiza que el $1$ sigue siendo $1$.
             """),
             mo.vstack([
@@ -335,7 +342,9 @@ def _(A_esc, lib, mo, np, t_esc):
             $b' = (4,2)$, $c' = (3,3)$ (apunte, apéndice 17). Seis incógnitas, seis ecuaciones: cada par da
             $x' = ax + by + e$, $y' = cx + dy + f$. A mano, restando, $A(b - a) = b' - a'$ y $A(c - a) = c' - a'$:
             $A\binom{2}{0} = \binom{2}{0}$, $A\binom{0}{1} = \binom{1}{1}$, luego
+
             $$A = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \end{pmatrix},\qquad t = a' - Aa = \binom{2}{2} - \binom{2}{1} = \binom{0}{1}.$$
+
             En numpy son **dos sistemas $3\times3$ con la misma matriz** $\mathrm{hom}(P)$, uno por coordenada de salida;
             `solve` resuelve los dos a la vez y la traspuesta deja $[\,A \mid t\,]$. Control con un cuarto punto: $d = (3, 2) \mapsto (5, 3)$.
             """),

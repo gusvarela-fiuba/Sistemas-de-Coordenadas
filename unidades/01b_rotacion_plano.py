@@ -249,7 +249,7 @@ def _(angulo, caso, casos, con_estela, es_rotacion, go, lib, mo, np, par_distanc
         las dos flechas. **Qué pasa acá:** {que_conserva}
         """),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(figura), _panel])
     return M, area_cuadrado, dist_antes, dist_despues, parcela_despues, theta
 
 
@@ -270,8 +270,10 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.1 Un cuarto de vuelta, de dos maneras.** $\cos 90° = 0$, $\sin 90° = 1$:
+
             $$R(90°)\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{-1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0} \end{pmatrix}\begin{pmatrix} 2 \\ 1 \end{pmatrix}
             = 2\,\textcolor{#1b6f6a}{\binom{0}{1}} + 1\,\textcolor{#b5451b}{\binom{-1}{0}} = \begin{pmatrix} -1 \\ 2 \end{pmatrix}.$$
+
             El resultado es $2\,Re_1 + 1\,Re_2$: dos veces la flecha teal más una vez la rust.
 
             Con complejos: $(2 + i)\,i = 2i + i^2 = -1 + 2i$. El mismo punto. Y $(2,1)$ y $(-1,2)$ tienen el mismo largo
@@ -297,7 +299,9 @@ def _(lib, mo, np):
         **3.2 Lo que se conserva, como cuenta.** Con $v = (2,1)$, $w = (1,3)$:
         $\langle v, w\rangle = 2 + 3 = 5$; $Rv = (-1, 2)$, $Rw = (-3, 1)$, $\langle Rv, Rw\rangle = 3 + 2 = 5$.
         Conservar el producto interno es conservar **largos y ángulos de una vez**. Que valga para todo par equivale a
+
         $$R^TR = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} = I$$
+
         (en general, $\cos^2\theta + \sin^2\theta = 1$ en la diagonal). El **espejo** $\mathrm{diag}(1,-1)$ también cumple
         $A^TA = I$; lo separa el determinante: $\det R(\theta) = 1$ (área y orientación conservadas), $\det\mathrm{diag}(1,-1) = -1$.
         """),
@@ -318,7 +322,9 @@ def _(lib, mo, np):
         mo.md(r"""
         **3.3 Dos giros seguidos son un giro.** $R(30°)$ y después $R(60°)$, o al revés, da $R(90°)$: en el plano las
         rotaciones **conmutan** y los ángulos se suman. Es el $e^{i\alpha}e^{i\beta} = e^{i(\alpha+\beta)}$ de los complejos.
+
         $$R(60°)R(30°) = R(30°)R(60°) = R(90°) = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{-1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0} \end{pmatrix}.$$
+
         En 3D esto deja de ser cierto (lección III).
         """),
         mo.vstack([

@@ -291,7 +291,9 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             mo.md(r"""
             **3.1 El área con las dos reglas.** $u = (3, 1)$, $v = (1, 2)$. Escribo cada uno en la base y distribuyo, con
             $e_1 \wedge e_1 = e_2 \wedge e_2 = 0$ y $e_2 \wedge e_1 = -\,e_1 \wedge e_2$:
+
             $$u \wedge v = (3e_1 + e_2) \wedge (e_1 + 2e_2) = 3 \cdot 2\; e_1 \wedge e_2 + 1 \cdot 1\; e_2 \wedge e_1 = (6 - 1)\; e_1 \wedge e_2 .$$
+
             Área $5$, signo $+$. Al revés, $v \wedge u = 1 \cdot 1 - 2 \cdot 3 = -5$. Colineales: $u \wedge 2u = 3 \cdot 2 - 1 \cdot 6 = 0$.
             """),
             mo.vstack([
@@ -316,7 +318,9 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             mo.md(r"""
             **3.3 Los tres mojones, en homogéneas.** Cada mojón como terna $(x, y, 1)$, las tres como filas; desarrollo
             por la columna de unos:
+
             $$\det\begin{pmatrix} 1 & 1 & 1 \\ 4 & 3 & 1 \\ 7 & 6 & 1 \end{pmatrix} = (24 - 21) - (6 - 7) + (3 - 4) = 3 .$$
+
             El mismo $3$ que $(B - A) \wedge (C - A)$: "tres puntos alineados" es "tres vectores en un plano por el origen",
             y el volumen cero lo detecta. Es la condición "sin tres alineados" de la lección 05.
             """),

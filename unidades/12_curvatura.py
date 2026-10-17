@@ -243,7 +243,7 @@ def _(caso, casos, go, lib, mo, np, rumbo, x0, y0):
         **Qué pasa acá:** {que_pasa}
         """),
     ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    mo.vstack([mo.ui.plotly(figura), _panel])
     return D, E, F, G, H, K, L, M, N, ff, k1, k2, kn
 
 
@@ -269,7 +269,9 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.1 Esfera de radio $R = 2$**, cuenco $z = R - \sqrt{R^2 - x^2 - y^2}$. En $(0, 0)$: $f_x = f_y = 0$,
             $f_{xx} = f_{yy} = 1/R = 0.5$, $f_{xy} = 0$:
+
             $$I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},\quad II = \begin{pmatrix} 0.5 & 0 \\ 0 & 0.5 \end{pmatrix} = \tfrac1R I$$
+
             $S = I^{-1}II = \tfrac1R I$: $\kappa_1 = \kappa_2 = 1/R = 0.5$ en todo rumbo, $K = 1/R^2 = 0.25$.
             """),
             mo.vstack([
@@ -281,7 +283,9 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.2 Cilindro de radio $R = 2$**, canaleta $z = R - \sqrt{R^2 - x^2}$ (no depende de $y$). En $(0, 0)$:
             $f_{xx} = 1/R = 0.5$, $f_{yy} = 0$, $f_{xy} = 0$:
+
             $$II = \begin{pmatrix} 0.5 & 0 \\ 0 & 0 \end{pmatrix}, \quad \kappa_1 = 0.5 \text{ (rumbo } x),\ \kappa_2 = 0 \text{ (rumbo } y),\ K = 0.$$
+
             El mismo $K$ que el plano: por eso una hoja se enrolla en un cilindro sin estirarse.
             """),
             mo.vstack([

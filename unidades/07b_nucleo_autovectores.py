@@ -273,7 +273,9 @@ def _(A_esc, lib, mo, np):
             **3.1 El núcleo.** $N = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$: $\det N = 4 - 4 = 0$, la segunda fila
             es el doble de la primera. $Nv = 0$ pide que **cada fila por $v$** dé cero: $v_1 + 2 v_2 = 0$. La perpendicular
             a la fila $(1, 2)$ es $(2, -1)$ (la perpendicular a $(a, b)$ es $(b, -a)$: la cruz de $(a, b, 0)$ con $e_3$).
+
             $$N\begin{pmatrix} 2 \\ -1 \end{pmatrix} = \begin{pmatrix} 2 - 2 \\ 4 - 4 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}.$$
+
             Todo el plano cae sobre la recta de la columna $(1, 2)$: $N(x, y) = (x + 2y)\,(1, 2)$.
             """),
             mo.vstack([
@@ -284,7 +286,9 @@ def _(A_esc, lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.2 Los autovalores, con el detector.** $A - \lambda I = \begin{pmatrix} 2 - \lambda & 1 \\ 1 & 2 - \lambda \end{pmatrix}$ y
+
             $$\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda - 1)(\lambda - 3).$$
+
             Sólo para $\lambda = 1$ y $\lambda = 3$ las filas son colineales y hay algo en el núcleo.
 
             **3.3 Los autovectores, por la fila.** $\lambda = 3$: $A - 3I = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}$, perpendicular
