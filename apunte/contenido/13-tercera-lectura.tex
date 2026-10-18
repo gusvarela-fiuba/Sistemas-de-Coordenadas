@@ -887,6 +887,44 @@ es ortogonal; si además \(\det J>0\) es una rotación y \(J=k\,R(\theta)\). (Co
 orientación, una similaridad inversa; las proyecciones cartográficas se toman directas.)
 \(\square\)
 
+\begin{atencion}[¿Sobre qué Jacobiano pedimos \(J^TJ=k^2I\)? Coordenadas \((\varphi,\lambda)\) vs.\ metros en el plano tangente]
+\emph{En coordenadas.} Si derivamos la carta \(F(\varphi,\lambda)=(x,y)\) respecto de las
+coordenadas geodésicas en radianes, obtenemos el Jacobiano de coordenadas
+\(J_{\varphi,\lambda}=\partial(x,y)/\partial(\varphi,\lambda)\). Pero \((\varphi,\lambda)\) no
+están en metros ni son isótropas: el elipsoide tiene la primera forma fundamental
+\(G=\operatorname{diag}(M^2,\,N^2\cos^2\varphi)\). La condición exacta de conformidad es
+entonces
+\[
+  J_{\varphi,\lambda}^T\,J_{\varphi,\lambda}=k(\varphi,\lambda)^2\,G
+  =k^2\begin{pmatrix}M^2&0\\0&N^2\cos^2\varphi\end{pmatrix}.
+\]
+Pedir \(J_{\varphi,\lambda}^TJ_{\varphi,\lambda}=k^2I\) directo sobre \((\varphi,\lambda)\)
+sería el error de la hoja cuadriculada de la sección~0: tratar radianes de latitud y de
+longitud como si midieran lo mismo.
+
+\emph{En metros.} Cuando pasamos a la base ortonormal en metros del plano tangente
+(\(ds_{\text{mer}}=M\,d\varphi\), \(ds_{\text{par}}=N\cos\varphi\,d\lambda\)), el Jacobiano
+físico es
+\[
+  \tilde J=J_{\varphi,\lambda}\,G^{-1/2}
+  =J_{\varphi,\lambda}\,\operatorname{diag}\!\Bigl(\frac1M,\,\frac1{N\cos\varphi}\Bigr),
+\]
+y recién ahí la condición toma la forma euclídea \(\tilde J^T\tilde J=k^2I\) (con
+\(\det\tilde J>0\) para conservar la orientación). El \(\tilde J\) es el que mira la unidad
+(la cara~(i) de arriba), y \(h\) y \(k\) son sus escalas en meridiano y paralelo.
+\end{atencion}
+
+\paragraph{Conforme es una propiedad local.} Una proyección conforme conserva exactamente
+el ángulo en el punto donde se cortan dos curvas y lleva circulitos infinitesimales en
+circulitos. Pero el factor de escala \(k(P)\) varía con la posición, así que las figuras
+extensas no mantienen ni su área ni su forma global (Groenlandia en Mercator parece del
+tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas de
+Gauss--Krüger de \(3^\circ\) de ancho: no para ``mantener la conformidad'' (Gauss--Krüger
+ya es conforme a cualquier distancia del meridiano central), sino para acotar la
+deformación lineal \(k-1\approx\tfrac12\,\Delta\lambda^2\cos^2\varphi\) (con \(\Delta\lambda\)
+en radianes) por debajo de unos \(3{,}4\times10^{-4}\), es decir \(34\) cm/km, en el borde
+de la faja (\(\Delta\lambda=1{,}5^\circ\)).
+
 \paragraph{Por qué (iii) es ``conservar ángulos''.} El ángulo entre dos pasitos \(p,q\)
 del terreno se calcula con el producto interno, \(\cos\alpha=p\cdot q/(\|p\|\|q\|)\). En el
 mapa los pasitos son \(Jp\) y \(Jq\), y \((Jp)\cdot(Jq)=p^T(J^TJ)q=k^2\,p\cdot q\): el

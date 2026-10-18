@@ -161,6 +161,67 @@ def _(mo):
     | **C** · primera forma (unidad 10) | $F = 0$ y $E = G = k^2$: $ds^2_{\text{mapa}} = k^2\,ds^2_{\text{terreno}}$ | las líneas coordenadas se cortan a $90°$ y los dos pasos de grilla miden lo mismo: cuadraditos a cuadraditos |
     | **D** · número complejo (unidades 00 y 01, clase 1) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
 
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    > **⚠ ¿Sobre qué Jacobiano pedimos $J^T J = k^2 I$? Coordenadas $(\varphi, \lambda)$ vs. metros en el plano tangente**
+    >
+    > **En coordenadas.** Si derivamos la carta $F(\varphi, \lambda) = (x, y)$ respecto de las coordenadas geodésicas en
+    > radianes, obtenemos el Jacobiano de coordenadas $J_{\varphi,\lambda} = \partial(x,y)/\partial(\varphi,\lambda)$.
+    > Pero $(\varphi, \lambda)$ no están en metros ni son isótropas: el elipsoide tiene la primera forma fundamental
+    > $G = \operatorname{diag}(M^2,\, N^2\cos^2\varphi)$. La condición exacta de conformidad es entonces
+    > $$J_{\varphi,\lambda}^T\, J_{\varphi,\lambda} = k(\varphi,\lambda)^2\, G = k^2 \begin{pmatrix} M^2 & 0 \\ 0 & N^2\cos^2\varphi \end{pmatrix}.$$
+    > Pedir $J_{\varphi,\lambda}^T J_{\varphi,\lambda} = k^2 I$ directo sobre $(\varphi, \lambda)$ sería el error de la hoja
+    > cuadriculada de la sección 0: tratar radianes de latitud y de longitud como si midieran lo mismo.
+    >
+    > **En metros.** Cuando pasamos a la base ortonormal en metros del plano tangente ($ds_{\text{mer}} = M\, d\varphi$,
+    > $ds_{\text{par}} = N\cos\varphi\, d\lambda$), el Jacobiano físico es
+    > $$\tilde{J} = J_{\varphi,\lambda}\, G^{-1/2} = J_{\varphi,\lambda}\, \operatorname{diag}\!\left(\frac{1}{M},\, \frac{1}{N\cos\varphi}\right),$$
+    > y recién ahí la condición toma la forma euclídea $\tilde{J}^T \tilde{J} = k^2 I$ (con $\det \tilde{J} > 0$ para
+    > conservar la orientación). El $\tilde{J}$ es el que mira la unidad (la cara A de la tabla), y $h$ y $k$ son sus
+    > escalas en meridiano y paralelo. (El $J = \begin{pmatrix} 3 & -4 \\ 4 & 3 \end{pmatrix}$ de la sección 3.1 es de este
+    > tipo: físico, en metros.)
+    >
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    **Conforme es una propiedad local.** Una proyección conforme conserva exactamente el ángulo en el punto donde se
+    cortan dos curvas y lleva circulitos infinitesimales en circulitos. Pero el factor de escala $k(P)$ varía con la
+    posición, así que las figuras extensas no mantienen ni su área ni su forma global (Groenlandia en Mercator parece
+    del tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas de Gauss-Krüger de $3^\circ$ de
+    ancho: no para "mantener la conformidad" (Gauss-Krüger ya es conforme a cualquier distancia del meridiano
+    central), sino para acotar la deformación lineal $k - 1 \approx \tfrac{1}{2}\,\Delta\lambda^2 \cos^2\varphi$ (con
+    $\Delta\lambda$ en radianes) por debajo de unos $3{,}4 \times 10^{-4}$, es decir $34$ cm/km, en el borde de la faja
+    ($\Delta\lambda = 1{,}5^\circ$). Lo calculamos:
+    """)
+    return
+
+
+@app.cell
+def _(mo, np):
+    _dl = np.radians(1.5)
+    _filas = []
+    for _nombre, _phi in [("ecuador, $\\varphi = 0$", 0.0), ("Buenos Aires, $\\varphi = -34{,}6^\\circ$", -34.6)]:
+        _kk = 0.5 * _dl**2 * np.cos(np.radians(_phi)) ** 2
+        _filas.append(f"| {_nombre} | {_kk:.2e} | {_kk * 1e5:.1f} |")
+    mo.md(
+        "| lugar (borde de faja, $\\Delta\\lambda = 1{,}5^\\circ$) | $k - 1$ | cm/km |\n|---|---|---|\n"
+        + "\n".join(_filas)
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
     La escalera: en $\mathbb R$ toda transformación $x \mapsto kx$ con $k > 0$ conserva "el ángulo" (no hay otro que
     $0$ o $180°$); en $\mathbb R^2$ conservar ángulos obliga a $J = kR(\theta)$, que es el número complejo de la
     clase 1; en $\mathbb R^3$ las conformes son mucho más pocas (Liouville: similaridades e inversiones), por eso la
