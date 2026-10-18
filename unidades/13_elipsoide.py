@@ -76,12 +76,12 @@ def _(lib, mo, np):
     psi_sit, beta_sit = lib.latitudes(phi_sit, grs80["e2"])
     dif_sit = 45.0 - np.rad2deg(psi_sit)
     prediccion = mo.ui.radio(
-        options={
+        options=lib.opciones_barajadas({
             "45°, el mismo ángulo: la normal pasa por el centro": "misma",
             f"{lib.gms(np.rad2deg(psi_sit))}, unos {dif_sit * 60:.0f}′ menos": "correcta",
             f"{lib.gms(45.0 + dif_sit)}, unos {dif_sit * 60:.0f}′ más": "mas",
             "no se puede saber sin conocer la altura h del mojón": "altura",
-        },
+        }),
         value=None,
         label="**Predicción.** La recta del mojón al centro de la Tierra forma con el plano del ecuador un ángulo de…",
     )
@@ -167,6 +167,12 @@ def _(mo):
     $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$ (la esfera de la lección 10 es $M = N = R$). Es una **muestra**; el
     enlace con la lección 12 es que $1/M$ y $1/N$ son $\kappa_1$ y $\kappa_2$ de la segunda forma.
     """)
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("05_elipsoide_euler_meusnier", "Giramos el plano normal en acimut y el radio del círculo osculador pasa de M a N (Euler); después lo inclinamos hasta el paralelo, de radio N·cos φ (Meusnier), y volvemos sobre los mismos pasos."))
     return
 
 
@@ -443,6 +449,39 @@ def _(editor_d, grs80, lib, mo, np, puntos_cd):
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "13_elipsoide")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

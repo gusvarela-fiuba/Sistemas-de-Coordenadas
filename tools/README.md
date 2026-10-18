@@ -227,6 +227,30 @@ Gotchas conocidos:
 
 `.github/workflows/pages.yml` corre en cada push a `main` (y a mano con *Run workflow*): `uv sync --frozen`, `uv run tools/merge_mapa.py` seguido de `git diff --exit-code mapa/mapa.yaml` (si el mapa commiteado no coincide con los fragmentos, falla), `uv run marimo check --select MW unidades/[01]*.py`, `uv run python tools/build.py` y despliegue con `actions/upload-pages-artifact` + `actions/deploy-pages`. En los pull requests corre el mismo build sin desplegar. El runner no necesita TeX (el PDF del apunte está commiteado y el build lo copia) ni red para el export WASM (el frontend sale del wheel de marimo; Pyodide lo baja el navegador del alumno). Una vez por repo: Settings → Pages → Source: GitHub Actions. El build ya deja `site/.nojekyll`.
 
+## `merge_banco.py` — validar y mezclar el banco de autoevaluación
+
+Mezcla los fragmentos `unidades/_banco/bloque_*.py` en `unidades/banco_autoevaluacion.py` (generado) y valida que cada unidad del hilo tenga 6 preguntas (2 por nivel), 4 opciones con una correcta y explicación en todas.
+
+```
+uv run python tools/merge_banco.py [--check] [--parcial]   # --check no escribe; --parcial admite unidades faltantes
+```
+
+## `exportar_moodle_xml.py` — banco para el Campus
+
+Genera `campus/moodle_banco_120_preguntas_cb104.xml` (Moodle XML) desde `unidades/banco_autoevaluacion.py`, con una categoría por unidad y nivel. Correr después de `merge_banco.py`.
+
+```
+uv run python tools/exportar_moodle_xml.py [--salida ARCHIVO] [--parcial]
+```
+
+## `gen_animaciones.py` — animaciones del curso
+
+Renderiza las animaciones ping-pong de `tools/animaciones/anim_*.py` a `animaciones/*.mp4` (60 fps) y `*.gif` (600 px). Requiere ffmpeg en `/opt/homebrew/bin/ffmpeg`.
+
+```
+uv run python tools/gen_animaciones.py [--only 03] [--rapido]   # --only por prefijo; --rapido a 20 fps
+```
+
 ## `bootstrap_github.sh`
 
 Registra el PAT de la cuenta `gusvarela-fiuba` en el llavero, crea el repo en GitHub si no existe y configura `origin`. Se corre una vez por máquina.

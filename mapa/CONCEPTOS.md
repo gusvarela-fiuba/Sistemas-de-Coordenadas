@@ -17,5 +17,5 @@ Cada ficha y cada fragmento de mapa usa exactamente estos ids (kebab-case, sin a
 | 10 Inversas | inversa, cuatro-subespacios, pseudoinversa, sistema-sobredeterminado |
 | 11 Cuatro problemas | regresion-simple, interseccion-de-circulos, procrustes, regresion-total |
 | 12 Curvatura | curvatura, forma-cuadratica, geodesica |
-| 13 Elipsoide | elipsoide, simetria |
+| 13 Elipsoide | elipsoide, simetria, transformacion-conforme, indicatriz-de-tissot, latitud-isometrica, mercator, gauss-kruger |
 | 14 Trigonometría esférica | trigonometria-esferica, poligono-geodesico |

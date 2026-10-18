@@ -13,7 +13,16 @@ Probar:  uv run python unidades/cb104.py
 
 from __future__ import annotations
 
+import random
+
 import numpy as np
+
+# banco:begin
+try:
+    from banco_autoevaluacion import BANCO_AUTOEVALUACION
+except ImportError:
+    from unidades.banco_autoevaluacion import BANCO_AUTOEVALUACION
+# banco:end
 
 __all__ = [
     # paleta
@@ -1273,6 +1282,79 @@ def normal_elipsoide(phi, lam):
     return np.array([np.cos(phi) * np.cos(lam), np.cos(phi) * np.sin(lam), np.sin(phi)], dtype=float)
 
 
+def latitud_isometrica(phi, e=np.sqrt(_GRS80["e2"])):
+    """Latitud isométrica q(φ) = ln tan(π/4 + φ/2) − (e/2) ln[(1 + e sin φ)/(1 − e sin φ)] (radianes; e = primera
+    excentricidad, e = 0 es la esfera). Es la coordenada norte que estira el meridiano hasta que un paso dq mide lo
+    mismo que un paso dλ: dq = M dφ/(N cos φ), así ds² = N² cos²φ (dq² + dλ²) y la grilla (λ, q) es conforme.
+    q(0) = 0, impar, q → ±∞ en los polos. Mercator es y = a q(φ). Vectorizado."""
+    phi = np.asarray(phi, dtype=float)
+    es = e * np.sin(phi)
+    return np.log(np.tan(np.pi / 4 + phi / 2)) - (e / 2) * np.log((1 + es) / (1 - es))
+
+
+def arco_meridiano(phi, a=_GRS80["a"], e2=_GRS80["e2"], n=2000):
+    """S(φ) = ∫₀^φ M(u) du, largo del meridiano desde el ecuador (metros si a está en metros), por Simpson compuesto
+    con n (par) subintervalos. Vectorizado sobre φ (un Simpson por valor)."""
+    phi = np.asarray(phi, dtype=float)
+
+    def _s(p):
+        u = np.linspace(0.0, p, n + 1)
+        M = radios_curvatura(u, a, e2)[0]
+        w = np.ones(n + 1)
+        w[1:-1:2], w[2:-1:2] = 4.0, 2.0
+        return float((p / (3 * n)) * np.sum(w * M))
+
+    return np.vectorize(_s, otypes=[float])(phi) if phi.ndim else _s(float(phi))
+
+
+def escalas_proyeccion_cilindrica(phi, tipo, elipsoide=_GRS80):
+    """(y_m, h, k, ω_max°) de una proyección cilíndrica normal x = a λ en la latitud φ (radianes), sobre el elipsoide
+    dado (dict de `elipsoide`). h = escala a lo largo del meridiano, k = a lo largo del paralelo (siempre
+    k = a/(N cos φ) porque x = a λ), ω_max = 2 arcsin(|h − k|/(h + k)) la deformación angular máxima (Tissot).
+      'conforme_mercator': y = a q(φ) (latitud isométrica), h = k, ω = 0;
+      'equidistante':      y = S(φ) (arco de meridiano), h = 1;
+      'equivalente':       y = (1/a) ∫₀^φ M N cos u du, h = 1/k (conserva áreas).
+    Las tres coinciden en el ecuador: h = k = 1."""
+    a, e2 = elipsoide["a"], elipsoide["e2"]
+    phi = float(phi)
+    M, N = radios_curvatura(phi, a, e2)
+    k = a / (N * np.cos(phi))
+    if tipo == "conforme_mercator":
+        y, h = a * float(latitud_isometrica(phi, np.sqrt(e2))), k
+    elif tipo == "equidistante":
+        y, h = arco_meridiano(phi, a, e2), 1.0
+    elif tipo == "equivalente":
+        n = 2000
+        u = np.linspace(0.0, phi, n + 1)
+        Mu, Nu = radios_curvatura(u, a, e2)
+        w = np.ones(n + 1)
+        w[1:-1:2], w[2:-1:2] = 4.0, 2.0
+        y, h = float((phi / (3 * n)) * np.sum(w * Mu * Nu * np.cos(u))) / a, 1.0 / k
+    else:
+        raise ValueError(f"tipo {tipo!r}: usar 'conforme_mercator', 'equidistante' o 'equivalente'")
+    omega = float(np.rad2deg(2 * np.arcsin(abs(h - k) / (h + k))))
+    return float(y), float(h), float(k), omega
+
+
+def defecto_conformidad_jacobiano(J):
+    """Cuánto le falta a una jacobiana 2×2 para ser conforme: dict con `sigmas` (σ₁ ≥ σ₂ de la SVD: semiejes de la
+    indicatriz de Tissot), `razon` σ₁/σ₂, `def_angular_max_deg` = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)) en grados (0 si y
+    sólo si J es una similaridad), `parte_conforme` ½[[j₁₁ + j₂₂, j₁₂ − j₂₁], [j₂₁ − j₁₂, j₁₁ + j₂₂]] (la parte de la
+    forma [[a, −b], [b, a]] del número complejo, Cauchy-Riemann) y `parte_anticonforme` = J − parte_conforme."""
+    J = np.asarray(J, dtype=float).reshape(2, 2)
+    s = np.linalg.svd(J, compute_uv=False)
+    s1, s2 = float(s[0]), float(s[1])
+    a, b = (J[0, 0] + J[1, 1]) / 2, (J[1, 0] - J[0, 1]) / 2
+    conforme = np.array([[a, -b], [b, a]])
+    return dict(
+        sigmas=(s1, s2),
+        razon=s1 / s2 if s2 > 0 else np.inf,
+        def_angular_max_deg=float(np.rad2deg(2 * np.arcsin((s1 - s2) / (s1 + s2)))) if s1 + s2 > 0 else 0.0,
+        parte_conforme=conforme,
+        parte_anticonforme=J - conforme,
+    )
+
+
 def gms(grados, dec=0):
     """Ángulo en grados decimales → texto 'g° mm′ ss″' (texto plano, para etiquetas de radio y dropdown)."""
     signo = "−" if grados < 0 else ""
@@ -2038,7 +2120,7 @@ def svm_margen_duro_2d(C1, C2):
 
 
 # ----------------------------------------------------------------------------
-# --- Hilo conductor (las 19 unidades) ---
+# --- Hilo conductor (las 20 unidades) ---
 # Cada unidad agrega un ladrillo sobre el anterior. `HILO_CONDUCTOR` dice, por unidad, de qué ladrillo se viene
 # (y qué límite tenía), cuál se agrega hoy (con su escritura en numpy / cb104) y qué destraba en la siguiente.
 # `bloque_hilo_conductor(id)` arma el bloque markdown que va debajo del título H1 de cada lección (mo.md).
@@ -2382,6 +2464,24 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             "directo e inverso sobre el elipsoide, donde ya no hay fórmula cerrada."
         ),
         "anterior": "13_elipsoide",
+        "siguiente": "15_transformaciones_conformes",
+    },
+    "15_transformaciones_conformes": {
+        "titulo": "Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico",
+        "venimos_de": (
+            "La unidad 14 cerró la geometría sobre la esfera y el elipsoide, y la unidad 12 (curvatura) mostró que "
+            r"$K = 1/(MN) > 0$: no hay manera de aplanar el elipsoide sin deformar; falta decidir qué se sacrifica."
+        ),
+        "ladrillo_de_hoy": (
+            r"Conforme $\iff$ Jacobiano = similaridad directa $\iff$ $\sigma_1 = \sigma_2$ (Tissot círculo) $\iff$ "
+            r"$F = 0$, $E = G$ $\iff$ Cauchy-Riemann; la latitud isométrica $q(\varphi)$ y Mercator "
+            "(`lib.latitud_isometrica`, `lib.escalas_proyeccion_cilindrica`, `lib.defecto_conformidad_jacobiano`)."
+        ),
+        "vamos_hacia": (
+            r"Gauss-Krüger / POSGAR como función analítica de $q + i\,\Delta\lambda$: el cierre del arco, de la "
+            "clase 1 (el número complejo que gira) a la clase 13 (el elipsoide que se proyecta)."
+        ),
+        "anterior": "14_trigonometria_esferica",
         "siguiente": "",
     },
 }
@@ -2398,6 +2498,17 @@ def mesa_interactiva(mo_mod, figura_o_widget, *controles_y_bloques, proporcion=(
     bloques = list(controles_y_bloques)
     panel = bloques[0] if len(bloques) == 1 else mo_mod.vstack(bloques, gap=0.55)
     return mo_mod.hstack([figura_o_widget, panel], widths=list(proporcion), align="start", gap=1.25)
+
+def video_loop(nombre_base, pie=""):
+    """HTML de una animación en bucle (`animaciones/<nombre_base>.mp4`) para `mo.Html(...)`: se reproduce sola,
+    en bucle continuo, muda y sin controles, como un GIF en HD. La ruta es relativa al export en
+    `site/unidades/<id>/` (tools/build.py copia `animaciones/` a `site/animaciones/`). `pie`: una frase al pie."""
+    return (
+        f'<figure style="margin:0.5rem 0;text-align:center">'
+        f'<video src="../../animaciones/{nombre_base}.mp4" autoplay loop muted playsinline '
+        f'style="max-width:100%;border-radius:8px;border:1px solid #d8d3c8"></video>'
+        f'<figcaption style="font-size:0.85rem;color:#5f6368;margin-top:0.25rem">{pie}</figcaption></figure>'
+    )
 
 def bloque_hilo_conductor(unidad_id):
     """Markdown para `mo.md(...)`: el hilo conductor de una unidad (de dónde viene, qué ladrillo agrega, a dónde va)
@@ -2420,6 +2531,80 @@ def bloque_hilo_conductor(unidad_id):
     if enlaces:
         lineas += ["", " · ".join(enlaces)]
     return "\n".join(lineas)
+
+
+_NIVELES = ("elemental", "medio", "avanzado")
+
+
+def opciones_barajadas(opciones, semilla=None):
+    """Devuelve un dict nuevo con los mismos pares etiqueta → valor de `opciones`, en orden barajado.
+    Con `semilla` el orden es reproducible; sin ella cambia en cada llamada. Uso:
+    `mo.ui.radio(options=lib.opciones_barajadas({...}))`."""
+    azar = random.Random(semilla) if semilla is not None else random.Random()
+    pares = list(opciones.items())
+    azar.shuffle(pares)
+    return dict(pares)
+
+
+def preparar_autoevaluacion(mo_mod, unidad_id, semilla=None):
+    """Arma la tanda de autoevaluación de una unidad: devuelve `(tanda, radios)`. `tanda` son las 6 preguntas del
+    banco (copias), ordenadas elemental → medio → avanzado con orden aleatorio dentro de cada nivel y las 4
+    opciones barajadas; `radios` es un `mo.ui.array` con un `mo.ui.radio` por pregunta (sin respuesta marcada,
+    valor = id de la opción elegida). Con `semilla` es reproducible."""
+    if unidad_id not in BANCO_AUTOEVALUACION:
+        raise KeyError(f"{unidad_id!r} no está en BANCO_AUTOEVALUACION: {list(BANCO_AUTOEVALUACION)}")
+    azar = random.Random(semilla) if semilla is not None else random.Random()
+    banco = BANCO_AUTOEVALUACION[unidad_id]
+    tanda = []
+    for nivel in _NIVELES:
+        del_nivel = [dict(q, opciones=[dict(o) for o in q["opciones"]]) for q in banco if q["nivel"] == nivel]
+        azar.shuffle(del_nivel)
+        tanda += del_nivel
+    for q in tanda:
+        azar.shuffle(q["opciones"])
+    radios = []
+    for n, q in enumerate(tanda, start=1):
+        opciones = {}
+        for o in q["opciones"]:
+            clave = o["texto"]
+            while clave in opciones:
+                clave += " "
+            opciones[clave] = o["id"]
+        radios.append(mo_mod.ui.radio(options=opciones, value=None, label=f"**{n}. ({q['nivel']})** {q['enunciado']}"))
+    return tanda, mo_mod.ui.array(radios)
+
+
+def corregir_autoevaluacion(mo_mod, tanda, radios):
+    """Corrección de la tanda: un callout por pregunta respondida (verde si acierta, ámbar si no, con la
+    explicación y la opción correcta) y, al final, el puntaje total con el desglose por nivel cuando están
+    todas respondidas (si no, cuántas faltan). Devuelve un `mo.vstack`."""
+    elegidas = list(radios.value) if radios.value is not None else [None] * len(tanda)
+    bloques = []
+    aciertos = {n: [0, 0] for n in _NIVELES}
+    faltan = 0
+    for i, (q, elegida) in enumerate(zip(tanda, elegidas), start=1):
+        if elegida is None:
+            faltan += 1
+            continue
+        por_id = {o["id"]: o for o in q["opciones"]}
+        correcta = next(o for o in q["opciones"] if o["correcta"])
+        aciertos[q["nivel"]][1] += 1
+        if elegida == correcta["id"]:
+            aciertos[q["nivel"]][0] += 1
+            bloques.append(mo_mod.callout(mo_mod.md(f"**{i}. Correcto.** {correcta['explicacion']}"), kind="success"))
+        else:
+            bloques.append(mo_mod.callout(mo_mod.md(
+                f"**{i}. No.** {por_id[elegida]['explicacion']} **La correcta era:** {correcta['texto']} "
+                f"{correcta['explicacion']}"), kind="warn"))
+    if faltan:
+        bloques.append(mo_mod.callout(mo_mod.md(f"Faltan responder {faltan} preguntas"), kind="neutral"))
+    else:
+        k = sum(a for a, _ in aciertos.values())
+        total = len(tanda)
+        desglose = " · ".join(f"{n} {a}/{t}" for n, (a, t) in aciertos.items())
+        bloques.append(mo_mod.callout(mo_mod.md(f"**Puntaje: {k} de {total}**  \n{desglose}"),
+                                      kind="success" if k == total else "info"))
+    return mo_mod.vstack(bloques)
 
 
 if __name__ == "__main__":
@@ -2780,7 +2965,50 @@ if __name__ == "__main__":
         raise AssertionError("nubes que se tocan tienen que dar ValueError")
     except ValueError:
         pass
-    # --- Hilo conductor (las 19 unidades): claves = ids de unidades.yaml en orden, cadenas consistentes ---
+    # --- transformaciones conformes (lección 15): latitud isométrica, escalas cilíndricas, defecto de conformidad ---
+    _e = np.sqrt(_GRS80["e2"])
+    assert exacto(latitud_isometrica(0.0), 0.0), "q(0) = 0"
+    _ph = np.deg2rad(np.array([-54.0, -34.6, 10.0, 60.0]))
+    assert exacto(latitud_isometrica(_ph, 0.0), np.log(np.tan(np.pi / 4 + _ph / 2))), "con e = 0, q = ln tan(π/4 + φ/2)"
+    assert exacto(latitud_isometrica(-_ph), -latitud_isometrica(_ph)), "q es impar"
+    _d = 1e-5
+    _qp = (latitud_isometrica(0.5 + _d) - latitud_isometrica(0.5 - _d)) / (2 * _d)
+    _M5, _N5 = radios_curvatura(0.5)
+    assert abs(_qp - _M5 / (_N5 * np.cos(0.5))) / (_M5 / (_N5 * np.cos(0.5))) < 1e-6, "dq/dφ = M/(N cos φ)"
+    assert exacto(arco_meridiano(0.0), 0.0) and exacto(arco_meridiano(np.pi / 2), 10001965.729, tol=0.01), "S(90°) GRS80 = 10 001 965.729 m"
+    assert exacto(arco_meridiano(np.pi / 2, 1.0, 0.0), np.pi / 2), "esfera unidad: S(90°) = π/2"
+    for _p in np.deg2rad([-54.0, -34.6, 20.0, 65.0]):
+        _y, _h, _k, _w = escalas_proyeccion_cilindrica(_p, "conforme_mercator")
+        assert abs(_h - _k) < 1e-12 and _w == 0.0, "Mercator: h = k, ω = 0"
+        assert exacto(_y, _GRS80["a"] * latitud_isometrica(_p)), "Mercator: y = a q(φ)"
+        _y, _h, _k, _w = escalas_proyeccion_cilindrica(_p, "equidistante")
+        assert _h == 1.0 and exacto(_y, arco_meridiano(_p)), "equidistante: h = 1, y = S(φ)"
+        _y, _h, _k, _w = escalas_proyeccion_cilindrica(_p, "equivalente")
+        assert abs(_h * _k - 1) < 1e-12, "equivalente: h k = 1"
+        assert _w > 0 and exacto(_w, np.rad2deg(2 * np.arcsin(abs(_h - _k) / (_h + _k)))), "ω_max = 2 arcsin(|h − k|/(h + k))"
+    for _t in ("conforme_mercator", "equidistante", "equivalente"):
+        _y, _h, _k, _w = escalas_proyeccion_cilindrica(0.0, _t)
+        assert exacto([_y, _h, _k, _w], [0.0, 1.0, 1.0, 0.0]), f"{_t}: en el ecuador h = k = 1"
+    _y54 = escalas_proyeccion_cilindrica(np.deg2rad(-54.0), "equivalente")[0]
+    assert exacto(_y54, -np.sin(np.deg2rad(54.0)) * _GRS80["a"], tol=0.01 * _GRS80["a"]), "equivalente: y ≈ a sin φ (esfera) a menos de 1 %"
+    try:
+        escalas_proyeccion_cilindrica(0.3, "gnomonica")
+        raise AssertionError("tipo desconocido tiene que dar ValueError")
+    except ValueError:
+        pass
+    _Jc = np.array([[3.0, -4.0], [4.0, 3.0]])
+    _dc = defecto_conformidad_jacobiano(_Jc)
+    assert exacto(_dc["parte_anticonforme"], np.zeros((2, 2))) and exacto(_dc["razon"], 1.0) and exacto(_dc["def_angular_max_deg"], 0.0), "[[a, −b], [b, a]] es conforme"
+    assert exacto(_dc["sigmas"], [5.0, 5.0]), "σ = √(a² + b²)"
+    _dd = defecto_conformidad_jacobiano(np.diag([2.0, 1.0]))
+    assert exacto(_dd["def_angular_max_deg"], np.rad2deg(2 * np.arcsin(1 / 3))) and exacto(_dd["sigmas"], [2.0, 1.0]), "diag(2, 1): ω = 2 arcsin(1/3)"
+    _Jr = np.array([[1.0, 2.0], [-0.5, 3.0]])
+    _dr = defecto_conformidad_jacobiano(_Jr)
+    assert exacto(_dr["parte_conforme"] + _dr["parte_anticonforme"], _Jr), "conforme + anticonforme = J"
+    assert exacto(_dr["parte_conforme"], [[2.0, 1.25], [-1.25, 2.0]]), "parte conforme de [[1, 2], [−0.5, 3]]"
+    _J54 = np.diag(escalas_proyeccion_cilindrica(np.deg2rad(-54.0), "equidistante")[1:3][::-1])  # diag(k, h)
+    assert 29.0 < defecto_conformidad_jacobiano(_J54)["def_angular_max_deg"] < 31.0, "equidistante en −54°: ω_max ≈ 30°"
+    # --- Hilo conductor (las 20 unidades): claves = ids de unidades.yaml en orden, cadenas consistentes ---
     import re as _re
     from pathlib import Path as _Path
     _yaml_txt = (_Path(__file__).resolve().parent.parent / "mapa" / "_fragmentos" / "unidades.yaml").read_text(encoding="utf-8")
@@ -2789,7 +3017,7 @@ if __name__ == "__main__":
         _ids_yaml = [u["id"] for u in _yaml.safe_load(_yaml_txt)["unidades"]]
     except ImportError:
         _ids_yaml = _re.findall(r"^  - id: (\S+)\s*$", _yaml_txt, flags=_re.M)
-    assert len(_ids_yaml) == 19, f"unidades.yaml debería listar 19 unidades, lista {len(_ids_yaml)}"
+    assert len(_ids_yaml) == 20, f"unidades.yaml debería listar 20 unidades, lista {len(_ids_yaml)}"
     assert list(HILO_CONDUCTOR) == _ids_yaml, f"HILO_CONDUCTOR != unidades.yaml:\n{list(HILO_CONDUCTOR)}\n{_ids_yaml}"
     _campos = ("titulo", "venimos_de", "ladrillo_de_hoy", "vamos_hacia", "anterior", "siguiente")
     for _i, (_uid, _h) in enumerate(HILO_CONDUCTOR.items()):
@@ -2825,4 +3053,47 @@ if __name__ == "__main__":
         raise AssertionError("un id desconocido tiene que dar KeyError")
     except KeyError:
         pass
+    # --- autoevaluación (banco + motor) ---
+    assert set(HILO_CONDUCTOR) <= set(BANCO_AUTOEVALUACION), "faltan unidades en el banco"
+    for _uid, _qs in BANCO_AUTOEVALUACION.items():
+        assert len(_qs) == 6 and [sum(q["nivel"] == n for q in _qs) for n in _NIVELES] == [2, 2, 2], _uid
+        for _q in _qs:
+            assert _q["enunciado"].strip(), _uid
+            assert [o["id"] for o in _q["opciones"]] == list("abcd"), (_uid, _q["id"])
+            assert sum(bool(o["correcta"]) for o in _q["opciones"]) == 1, (_uid, _q["id"])
+            assert all(o["texto"].strip() and o["explicacion"].strip() for o in _q["opciones"]), (_uid, _q["id"])
+    _d = {f"op{i}": i for i in range(8)}
+    assert list(opciones_barajadas(_d, 3)) == list(opciones_barajadas(_d, 3))
+    assert dict(opciones_barajadas(_d, 3)) == _d and len(opciones_barajadas(_d)) == 8
+    _s2 = next(s for s in range(100) if list(opciones_barajadas(_d, s)) != list(opciones_barajadas(_d, 3)))
+    assert list(opciones_barajadas(_d, _s2)) != list(opciones_barajadas(_d, 3))
+
+    class _Mock:
+        class ui:
+            array = staticmethod(lambda elementos: types.SimpleNamespace(elementos=list(elementos), value=None))
+            radio = staticmethod(lambda **kw: types.SimpleNamespace(**kw))
+        md = staticmethod(lambda t: ("md", t))
+        callout = staticmethod(lambda c, kind="neutral": ("callout", kind, c))
+        vstack = staticmethod(lambda b: list(b))
+
+    import types
+    _uid0 = next(iter(HILO_CONDUCTOR))
+    _copia = repr(BANCO_AUTOEVALUACION)
+    _t, _r = preparar_autoevaluacion(_Mock, _uid0, semilla=1)
+    assert repr(BANCO_AUTOEVALUACION) == _copia, "el banco no se debe mutar"
+    assert len(_t) == 6 and len(_r.elementos) == 6
+    assert [q["nivel"] for q in _t] == ["elemental"] * 2 + ["medio"] * 2 + ["avanzado"] * 2
+    assert all(r.value is None and len(r.options) == 4 for r in _r.elementos)
+    assert _r.elementos[0].label.startswith("**1. (elemental)**")
+    try:
+        preparar_autoevaluacion(_Mock, "99_no_existe")
+        raise AssertionError("un id desconocido tiene que dar KeyError")
+    except KeyError:
+        pass
+    _r.value = [next(o["id"] for o in q["opciones"] if o["correcta"]) for q in _t]
+    _c = corregir_autoevaluacion(_Mock, _t, _r)
+    assert [x[1] for x in _c] == ["success"] * 6 + ["success"] and "Puntaje: 6 de 6" in _c[-1][2][1]
+    _r.value = [None] * 5 + [next(o["id"] for o in _t[5]["opciones"] if not o["correcta"])]
+    _c = corregir_autoevaluacion(_Mock, _t, _r)
+    assert [x[1] for x in _c] == ["warn", "neutral"] and "Faltan responder 5" in _c[-1][2][1]
     print("cb104: asserts OK")

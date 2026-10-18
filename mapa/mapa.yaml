@@ -839,6 +839,54 @@ conceptos:
   apunte:
   - "13"
   requiere: [trigonometria-esferica, geodesica, elipsoide]
+- id: transformacion-conforme
+  nombre: Transformación conforme
+  clase: "13"
+  unidad: 15_transformaciones_conformes
+  hecho_geometrico: 'Con lupa infinitesimal es una similaridad directa: el Jacobiano es k(P)·R(θ), de la forma [[a, −b], [b, a]] del número complejo; σ₁ = σ₂, F = 0 y E = G = k², Cauchy-Riemann. Sobre el elipsoide (K > 0) no hay isometría al plano: lo que se negocia es la escala, nunca el ángulo.'
+  que_se_conserva: Los ángulos entre curvas (y la forma de las figuras chicas); la escala k(P) cambia de punto a punto.
+  apunte:
+  - "06"
+  - "13"
+  requiere: [jacobiano, similaridad, svd, primera-forma-fundamental, numeros-complejos, elipsoide]
+- id: indicatriz-de-tissot
+  nombre: Indicatriz de Tissot
+  clase: "13"
+  unidad: 15_transformaciones_conformes
+  hecho_geometrico: 'La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y sólo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J.'
+  que_se_conserva: 'Lo que dice la elipse: forma (conforme) si σ₁ = σ₂, área (equivalente) si σ₁σ₂ = 1, el meridiano (equidistante) si h = 1.'
+  apunte:
+  - "06"
+  - "13"
+  requiere: [jacobiano, svd, valores-singulares, primera-forma-fundamental]
+- id: latitud-isometrica
+  nombre: Latitud isométrica
+  clase: "13"
+  unidad: 15_transformaciones_conformes
+  hecho_geometrico: 'q(φ) = ln tan(π/4 + φ/2) − (e/2) ln[(1 + e sin φ)/(1 − e sin φ)]: la coordenada norte que estira el meridiano hasta que dq = M dφ/(N cos φ) mide lo mismo que dλ; con ella ds² = N² cos²φ (dq² + dλ²) y la grilla (λ, q) tiene cuadraditos de verdad.'
+  que_se_conserva: 'La igualdad de escalas en las dos direcciones de la grilla: E = G, F = 0; q → ∞ en los polos.'
+  apunte:
+  - "13"
+  requiere: [elipsoide, primera-forma-fundamental, transformacion-conforme]
+- id: mercator
+  nombre: Proyección de Mercator
+  clase: "13"
+  unidad: 15_transformaciones_conformes
+  hecho_geometrico: 'x = a λ, y = a q(φ): la cilíndrica conforme; h = k = a/(N cos φ) crece hacia los polos, los círculos de Tissot siguen círculos y las loxodromias son rectas. La cilíndrica equidistante (y = S(φ), h = 1) y la equivalente (h·k = 1) son las otras dos respuestas a las preguntas del apunte del elipsoide.'
+  que_se_conserva: Los ángulos (rumbos); ni las distancias ni las áreas, que se inflan como 1/(N² cos²φ).
+  apunte:
+  - "06"
+  - "13"
+  requiere: [latitud-isometrica, transformacion-conforme, indicatriz-de-tissot]
+- id: gauss-kruger
+  nombre: Gauss-Krüger (Mercator transversa)
+  clase: "13"
+  unidad: 15_transformaciones_conformes
+  hecho_geometrico: 'La conforme que usa la Argentina (POSGAR, fajas): w = f(q + i Δλ) con f analítica (Cauchy-Riemann ⇒ conforme) y elegida para que sobre el meridiano central (Δλ = 0) la ordenada sea el arco de meridiano S(φ); el cilindro es tangente a un meridiano en vez del ecuador y la escala k crece con Δλ².'
+  que_se_conserva: Los ángulos; la escala 1 sólo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino).
+  apunte:
+  - "13"
+  requiere: [transformacion-conforme, latitud-isometrica, mercator, numeros-complejos]
 unidades:
 - id: 00_desaprender_el_cbc
   archivo: unidades/00_desaprender_el_cbc.py
@@ -1020,4 +1068,15 @@ unidades:
   - "14"
   pregunta: ¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?
   gancho_agrimensura: Entre tres vértices lejanos la suma de ángulos de la poligonal trae un exceso esférico; corregirlo es parte del cálculo.
+  nivel: complementario
+- id: 15_transformaciones_conformes
+  archivo: unidades/15_transformaciones_conformes.py
+  titulo: 'Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico'
+  estado: piloto
+  nota: desarrollo complementario del curso, cierre del arco; pendiente de validar por la cátedra
+  clases:
+  - "13"
+  - "14"
+  pregunta: ¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?
+  gancho_agrimensura: 'Dos visuales a 90° medidas con la estación total siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
   nivel: complementario

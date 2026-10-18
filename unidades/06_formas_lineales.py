@@ -75,8 +75,8 @@ def _(lib, mo, np):
         "mismas": fila.copy(),
     }
     prediccion = mo.ui.radio(
-        options={lib.vec_plano(candidatos[k]) + ("  (la misma)" if k == "mismas" else ""): k
-                 for k in ("como-punto", "mismas", "correcta", "hacia-atras")},
+        options=lib.opciones_barajadas({lib.vec_plano(candidatos[k]) + ("  (la misma)" if k == "mismas" else ""): k
+                 for k in ("como-punto", "mismas", "correcta", "hacia-atras")}),
         value=None,
         label=r"**Predicción.** Si los puntos del plano van a $p' = Ap$, la fila que da la cota sobre $p'$ es…",
     )
@@ -185,6 +185,12 @@ def _(mo):
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
     la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_desaprender_el_cbc/index.html).
     """), kind="neutral")])
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("01_dualidad_gradiente", "Vamos de la identidad a diag(2, 1) y volvemos: los puntos (violeta) van con A, las rectas de nivel de ω = (2, 1) (teal) con A⁻¹, el mojón (1, 1) sigue leyendo ω′x′ = 3 y la flecha Aωᵀ (rust) deja de ser perpendicular."))
     return
 
 
@@ -575,6 +581,39 @@ def _(editor_d, lib, mo, np):
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "06_formas_lineales")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

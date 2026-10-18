@@ -74,12 +74,12 @@ def _(lib, mo, np):
     d_viejo = float(np.linalg.norm(P_viejo[1] - P_viejo[0]))
     d_nuevo = float(np.linalg.norm(Q_nuevo[1] - Q_nuevo[0]))
     prediccion = mo.ui.radio(
-        options={
+        options=lib.opciones_barajadas({
             "Una rotación más un corrimiento: con un mojón alcanza, las distancias no cambian.": "rotacion",
             "Una similaridad: giro, cambio de escala y corrimiento; con los dos mojones alcanza.": "correcta",
             "Una reflexión: si el norte está para otro lado hay que dar vuelta el plano.": "reflexion",
             "Una afinidad cualquiera: hacen falta tres mojones, como en la lección 04.": "afinidad",
-        },
+        }),
         value=None,
         label="**Predicción.** ¿Qué transformación superpone el plano viejo sobre el relevamiento, y con cuántos mojones?",
     )
@@ -500,6 +500,39 @@ def _(editor_d, lib, mo, np):
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
     return A_ref, t_ref
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "03_reflexiones_similaridades")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
+    return
 
 
 @app.cell

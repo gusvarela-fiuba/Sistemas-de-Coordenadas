@@ -57,6 +57,7 @@ Radios de curvatura, lo que se ve: $M$ (meridiano) es el radio del círculo oscu
 - Apunte del profesor (Clavijo, elipsoide): fuente completa, resumida arriba.
 - Unidad marimo: `unidades/13_elipsoide.py` (**anticipada**: la clase no se dictó; lectura del alumno sobre el esqueleto 2025, el apunte del profesor y el v3, pendiente de validar por la cátedra): elipsoide 3D con meridiano, paralelo, normal y recta al centro; elipse meridiana con las tres latitudes; $M$, $N$, $(\varphi,\lambda,h)\to(X,Y,Z)$ y $E = M^2$, $G = N^2\cos^2\varphi$ con GRS80 en $45°$.
 - Página Notion de Gustavo: §5 esfera (tabla de 1° de longitud por latitud), útil como contraste.
+- Cierre del arco: `unidades/15_transformaciones_conformes.py` (desarrollo complementario, pendiente de validar por la cátedra) toma el "puntapié inicial" de la página 20 del apunte del profesor: las proyecciones conformes (Jacobiano = similaridad, Tissot círculo, Cauchy-Riemann), la latitud isométrica $q(\varphi)$, Mercator y las cilíndricas equidistante y equivalente sobre GRS80, y Gauss-Krüger como función analítica de $q + i\,\Delta\lambda$.
 - Bibliografía del campus: ninguna entrada comentada por el profesor sobre elipsoide; Sáenz, *Cálculo vectorial*, y Fortney, para superficies paramétricas (sin comentario).
 
 ## Enlaces del mapa

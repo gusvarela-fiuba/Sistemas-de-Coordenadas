@@ -53,6 +53,7 @@ Es la ley de cosenos, y salió de un solo producto interno. Versión sin coorden
 - Unidad marimo (**anticipada**, 2026-10-17, pendiente de validar por la cátedra): `unidades/14_trigonometria_esferica.py`, tres vértices sobre la esfera (octante, triángulo chico, tres ciudades argentinas, o $C$ con deslizadores), lados y ángulos por producto interno y cuña, exceso vs área, con las cuentas chicas de esta ficha (octante, ley del coseno) verificadas en `cb104.py`. No está en la serie propuesta de `21-apendice-notebooks.tex`.
 - Material de clase del profesor: existen notebooks wxMaxima en `Bibliografia/material de clase 2C2025/` (`Algun_ejemplo_de_rotacion.wxmx`, `Formas_Lineales.wxmx`); son de rotaciones y formas lineales, no del elipsoide. Un notebook "Máxima para el elipsoide" no está en el repo.
 - Bibliografía del campus: ninguna entrada comentada por el profesor sobre trigonometría esférica; Coxeter, *Geometría*, tiene un capítulo, sin comentario del profesor para esta clase.
+- Cierre del arco: `unidades/15_transformaciones_conformes.py` (desarrollo complementario, pendiente de validar por la cátedra): después de medir sobre la esfera y el elipsoide, cómo llevarlos al plano sin torcer los ángulos (proyecciones conformes, Mercator, Gauss-Krüger).
 
 ## Enlaces del mapa
 - Viene de: producto-interno (clase 1), producto-vectorial (clase 5), rotacion-3d (los vértices como vectores unitarios girados), geodesica y curvatura (clase 12), elipsoide (clase 13).

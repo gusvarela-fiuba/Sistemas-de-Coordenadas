@@ -180,3 +180,13 @@ unidades:
     pregunta: "¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?"
     gancho_agrimensura: "Entre tres vértices lejanos la suma de ángulos de la poligonal trae un exceso esférico; corregirlo es parte del cálculo."
     nivel: complementario
+
+  - id: 15_transformaciones_conformes
+    archivo: unidades/15_transformaciones_conformes.py
+    titulo: "Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico"
+    estado: piloto
+    nota: "desarrollo complementario del curso, cierre del arco; pendiente de validar por la cátedra"
+    clases: ["13", "14"]
+    pregunta: "¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?"
+    gancho_agrimensura: "Dos visuales a 90° medidas con la estación total siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
+    nivel: complementario

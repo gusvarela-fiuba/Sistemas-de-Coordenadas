@@ -8,8 +8,9 @@ Contenido:
 2. [Guía pedagógica del hilo conductor](#parte-2--guía-pedagógica-del-hilo-conductor-el-edificio-ladrillo-a-ladrillo)
 3. [Cómo clonar el repositorio para usarlo o editarlo](#parte-3--cómo-clonar-el-repositorio-para-usarlo-o-editarlo-en-una-computadora)
 4. [Cómo adoptar y publicar este curso a nombre de la cátedra](#parte-4--cómo-adoptar-y-publicar-este-curso-a-nombre-de-la-cátedra)
+5. [Autoevaluación y banco de preguntas para Moodle](#parte-5--autoevaluación-y-banco-de-preguntas-para-moodle)
 
-**[Curso interactivo: las 19 simulaciones con sus controles, ejercicios y enlaces (`CURSO_INTERACTIVO.md`)](CURSO_INTERACTIVO.md)** — el mapa unidad por unidad para ir directo a cada simulación.
+**[Curso interactivo: las 20 simulaciones con sus controles, ejercicios y enlaces (`CURSO_INTERACTIVO.md`)](CURSO_INTERACTIVO.md)** — el mapa unidad por unidad para ir directo a cada simulación.
 
 ## Parte 1 — Cómo entrar y navegar (sin instalar nada)
 
@@ -17,7 +18,7 @@ Contenido:
 
 Todo corre en el navegador; no hace falta instalar nada ni tener cuenta en ningún lado.
 
-- **Curso interactivo (portada con las 19 unidades):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
+- **Curso interactivo (portada con las 20 unidades):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
 - **Apunte formal en PDF (demostraciones y guías resueltas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
 
@@ -25,17 +26,17 @@ La dirección va con mayúsculas en `Sistemas-de-Coordenadas`; escrita en minús
 
 ### Los tres botones de arriba de la portada
 
-La portada es el hilo conductor: las 19 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, su estado y los enlaces a la lección, a las fichas de clase y a las secciones del apunte. Arriba de todo hay tres entradas:
+La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, su estado y los enlaces a la lección, a las fichas de clase y a las secciones del apunte. Arriba de todo hay tres entradas:
 
 - **Empezar.** Lleva a la Unidad 0 (Fundamentos), el punto de partida del recorrido. Es la entrada para quien arranca la materia o quiere ponerse el idioma antes de la primera clase.
 - **Seguir la cursada.** Lleva a la unidad que cubre la última clase dictada según el calendario 2026 cargado en el mapa; debajo del botón se lee a qué unidad y a qué clase apunta, con la fecha. Si todavía no se dictó ninguna clase, el botón lo dice. La Unidad 0 nunca es el destino de este botón, aunque cubra temas de las clases 1, 4 y 9: es encuadre, no cursada.
 - **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), que tiene dos controles: el selector **Ruta** (`todo` / `sólo troncal`) y el deslizador **hasta la clase N**, que atenúa los conceptos y las flechas de las clases posteriores a la elegida. Por defecto el deslizador queda en la última clase dictada, así que al abrirlo se ve exactamente lo que ya se dio. Debajo del mapa está la lista de clases con fechas, etiquetas y enlaces.
 
-Más abajo en la portada está el "Recorrido paso a paso" con las 19 unidades; cada una se abre desde ahí.
+Más abajo en la portada está el "Recorrido paso a paso" con las 20 unidades; cada una se abre desde ahí.
 
 ### Cómo usar una unidad (en clase con el proyector o estudiando en casa)
 
-Cada lección se abre en `https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/<id>/index.html` (los enlaces de cada unidad están en la [tabla del README](README.md#recorrido-de-las-19-unidades)). Las lecciones corren adentro del navegador con WebAssembly (Python ejecutándose en la página, sin servidor): la primera carga tarda unos segundos mientras se descargan el intérprete y las bibliotecas; después todo responde al instante. Los deslizadores, los menús de casos precargados, los botones de reproducir y el editor de código de los ejercicios se usan directamente en la página.
+Cada lección se abre en `https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/<id>/index.html` (los enlaces de cada unidad están en la [tabla del README](README.md#recorrido-de-las-20-unidades)). Las lecciones corren adentro del navegador con WebAssembly (Python ejecutándose en la página, sin servidor): la primera carga tarda unos segundos mientras se descargan el intérprete y las bibliotecas; después todo responde al instante. Los deslizadores, los menús de casos precargados, los botones de reproducir y el editor de código de los ejercicios se usan directamente en la página.
 
 Todas las unidades siguen el mismo molde de seis secciones, siempre de lo conceptual y geométrico al cálculo. Los nombres son fijos (los de `unidades/PLANTILLA_leccion.py`):
 
@@ -82,8 +83,9 @@ Cada unidad declara de qué ladrillo viene y hacia cuál va (es el diccionario `
 - **Cuatro problemas → Curvatura (unidad 16).** La regresión total termina en una forma cuadrática cuyas direcciones propias son extremos; sobre una superficie esa misma estructura mide cuánto se aparta del plano tangente: la segunda forma fundamental, las curvaturas principales como autovalores y la curvatura de Gauss.
 - **Curvatura → Elipsoide GRS80 (unidad 17).** Una superficie concreta donde todo sale de una sola simetría: los radios de curvatura M y N, las tres latitudes y el paso de (latitud, longitud, altura) a cartesianas.
 - **Elipsoide → Trigonometría esférica (unidad 18).** Entre tres vértices lejanos sobre la superficie los lados son arcos y los ángulos no suman 180°; sobre la esfera hay fórmula cerrada: el triángulo esférico como tres vectores desde el centro, ley del seno y exceso esférico igual al área. Queda abierto para Topografía y Geodesia lo que ya no tiene fórmula cerrada.
+- **Trigonometría esférica → Transformaciones conformes (unidad 19).** Medida la superficie, falta volcarla al papel sin torcer los ángulos: la condición conforme es que el jacobiano estire lo mismo en todas las direcciones (h = k, σ₁ = σ₂, el círculo de Tissot sigue siendo círculo), y sobre el elipsoide eso se consigue con la latitud isométrica, que es lo que hacen Mercator y Gauss-Krüger. El arco se cierra en los números complejos de la Clase 1: multiplicar por un complejo era rotar y escalar a la vez, y una matriz [[a, −b], [b, a]] es exactamente un jacobiano conforme.
 
-Los enlaces a cada lección, la clase del curso que cubre y qué construye están en la [tabla de las 19 unidades del README](README.md#recorrido-de-las-19-unidades). Las unidades 13 y 15 a 18 se anticipan a clases que todavía no se dictaron y están marcadas como "anticipación, pendiente de validar".
+Los enlaces a cada lección, la clase del curso que cubre y qué construye están en la [tabla de las 20 unidades del README](README.md#recorrido-de-las-20-unidades). Las unidades 13 y 15 a 19 se anticipan a clases que todavía no se dictaron y están marcadas como "anticipación, pendiente de validar".
 
 ## Parte 3 — Cómo clonar el repositorio para usarlo o editarlo en una computadora
 
@@ -129,7 +131,7 @@ uv sync
 uv run marimo edit unidades/08_cambio_de_base.py
 ```
 
-Se abre marimo en el navegador con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Los archivos de las 19 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_desaprender_el_cbc`, `01a_punto_quieto`, `14_trigonometria_esferica`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
+Se abre marimo en el navegador con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_desaprender_el_cbc`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
 
 ### Paso 5 — Levantar el sitio entero en la computadora
 
@@ -138,7 +140,7 @@ uv run python tools/build.py
 uv run python -m http.server -d site 8765
 ```
 
-y abrir http://localhost:8765/ en el navegador. El primer comando genera la portada, el mapa, las fichas de clase, copia el apunte y exporta las 19 lecciones a WebAssembly en `site/` (1 a 2 segundos por lección; la primera exportación después de `uv sync` puede tardar unos 40 segundos). El segundo sirve esa carpeta por HTTP, que es necesario: las lecciones exportadas no andan abriendo el archivo directamente con `file://`.
+y abrir http://localhost:8765/ en el navegador. El primer comando genera la portada, el mapa, las fichas de clase, copia el apunte y exporta las 20 lecciones a WebAssembly en `site/` (1 a 2 segundos por lección; la primera exportación después de `uv sync` puede tardar unos 40 segundos). El segundo sirve esa carpeta por HTTP, que es necesario: las lecciones exportadas no andan abriendo el archivo directamente con `file://`.
 
 Dos atajos de `tools/build.py` (detalle en `tools/README.md`):
 
@@ -187,7 +189,7 @@ Las opciones son tres:
 
 Qué reemplaza:
 
-- el nombre del alumno en la línea de firma de las 19 unidades interactivas (`unidades/NN_nombre.py`);
+- el nombre del alumno en la línea de firma de las 20 unidades interactivas (`unidades/NN_nombre.py`);
 - el pie de todas las páginas del sitio web (la constante `PIE` de `tools/build.py`);
 - la portada y los metadatos del apunte LaTeX (`\portadaAutor` y `pdfauthor` en `apunte/`);
 - si se pasó `--url-sitio`, la URL del sitio en `README.md` y en este `INSTRUCTIVO_DE_USO.md`.
@@ -217,3 +219,37 @@ Una vez por repositorio, en GitHub: **Settings → Pages → Build and deploymen
 ### Nota de licencia
 
 El contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) está bajo CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) bajo MIT (`LICENSE-CODE`). La adopción por la cátedra es libre: se puede copiar, modificar y republicar manteniendo la atribución al autor original en los términos de esos archivos (y, para el contenido, la misma licencia en las obras derivadas). Como dice el README, la licencia está pendiente de confirmación. Los PDFs de la cátedra y la bibliografía citada no están cubiertos: son de sus autores.
+
+## Parte 5 — Autoevaluación y banco de preguntas para Moodle
+
+### Qué hay
+
+Armamos un banco de 120 preguntas de opción múltiple: seis por unidad, dos elementales, dos medias y dos avanzadas. Cada pregunta tiene cuatro opciones, una sola correcta, y una explicación para cada opción. Las preguntas aparecen en dos lugares: dentro de cada unidad, al final de los ejercicios, y en una página propia, `autoevaluacion.html` (https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html), que tiene tres modos:
+
+- **Práctica.** Elegimos una unidad (o todas) y un nivel (o todos). Al marcar una opción vemos de inmediato si acertamos y por qué; si fallamos, también cuál era la correcta. El botón "Mezclar" vuelve a barajar preguntas y opciones. No guarda nada.
+- **Simulacro.** Veinte preguntas, una por unidad y en el orden de las unidades, con el nivel sorteado. No hay devolución hasta "Entregar"; entonces vemos el puntaje total, el puntaje por nivel y la corrección completa con explicaciones. "Nuevo simulacro" sortea otro. No guarda nada.
+- **Evaluación (4 intentos).** Treinta preguntas: una por unidad más diez al azar. Al entregar vemos el puntaje y qué unidades acertamos, sin explicaciones. Cada intento se anota (fecha, puntaje y nivel de cada pregunta) y se pueden hacer cuatro; al agotarlos queda el historial, la mejor nota y un botón para borrarlo (pide un segundo clic para confirmar). También se puede descargar el resultado como archivo de texto.
+
+El registro de la evaluación vive sólo en el navegador de cada alumno (`localStorage`, clave `cb104_evaluacion`): no se envía a ningún servidor, no lo ve la cátedra y se pierde si se borran los datos del sitio o se cambia de navegador o de computadora. Por eso el botón "Descargar resultado" es la forma de dejar constancia.
+
+### Cómo importar el banco en Moodle
+
+El archivo es `campus/moodle_banco_120_preguntas_cb104.xml` (el sitio publica una copia en `moodle_banco_120_preguntas_cb104.xml`, enlazada al pie de la página de autoevaluación). Para cargarlo:
+
+1. En el curso de Moodle, entramos en **Más → Banco de preguntas → Importar**.
+2. Elegimos el formato **Moodle XML** y subimos el archivo.
+3. Al importar se crean las categorías: una por unidad y, dentro de cada una, una por nivel (60 categorías en total, con las 120 preguntas repartidas).
+4. Cada pregunta queda con puntaje 100 para la opción correcta y 0 para las otras, y con penalidad de 0,33 por intento fallido.
+
+Para armar un cuestionario con preguntas al azar por categoría: creamos el cuestionario, entramos en **Editar cuestionario → Agregar → una pregunta aleatoria** y elegimos una categoría (por ejemplo, el nivel medio de una unidad). Repetimos por cada unidad o nivel que queramos incluir; así cada alumno recibe una combinación distinta. El detalle del procedimiento está en `campus/README.md`.
+
+### Cómo editar o agregar preguntas
+
+La fuente editable son los archivos `unidades/_banco/bloque_N.py`, uno por bloque de unidades; el esquema de cada pregunta está en `unidades/_banco/README.md` (identificador, nivel, enunciado con LaTeX entre `$...$`, cuatro opciones con una correcta y la explicación de cada una). `unidades/banco_autoevaluacion.py` es generado: no se edita a mano. Después de tocar un bloque:
+
+```
+uv run python tools/merge_banco.py
+uv run python tools/build.py
+```
+
+El primer comando valida los fragmentos y regenera el módulo del banco. El segundo regenera todo el sitio, incluidos `autoevaluacion.html` y el XML de Moodle (`campus/moodle_banco_120_preguntas_cb104.xml`, que `tools/build.py` vuelve a generar y copia a `site/`).

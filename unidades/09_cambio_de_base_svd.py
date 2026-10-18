@@ -80,12 +80,12 @@ def _(lib, mo, np):
         "singulares": float((A_pred @ Vt_pred[0]) @ (A_pred @ Vt_pred[1])),  # ⟨A v₁, A v₂⟩
     }
     prediccion = mo.ui.radio(
-        options={
+        options=lib.opciones_barajadas({
             "una elipse; sólo las direcciones propias de la unidad 08 siguen perpendiculares": "propias",
             "una elipse; cualquier par de direcciones perpendiculares sigue perpendicular": "siempre",
             "una elipse; ningún par perpendicular sigue perpendicular, porque A no es simétrica": "nunca",
             "una elipse; hay un par de direcciones perpendiculares que sigue perpendicular, y no son las propias": "correcta",
-        },
+        }),
         value=None,
         label=r"**Predicción.** Aplicamos $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$ al disco unitario. Sale…",
     )
@@ -174,6 +174,12 @@ def _(mo):
     Esto es una **muestra**; la construcción de $U, \Sigma, V$ a partir de $A^\top A$ está en el apunte y la demostración
     general en Strang (ver el cierre).
     """)
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("04_svd_circulo_a_elipse", "Llevamos el círculo unidad con v₁, v₂ a la elipse encadenando Vᵀ (giro de entrada), Σ (estiramientos) y U (giro de salida); la vuelta deshace el camino etapa por etapa."))
     return
 
 
@@ -558,6 +564,39 @@ def _(A3, editor_d, mo, np):
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "09_cambio_de_base_svd")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

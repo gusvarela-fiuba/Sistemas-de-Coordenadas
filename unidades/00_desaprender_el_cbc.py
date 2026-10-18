@@ -127,12 +127,12 @@ def _(altura, direccion_entera, go, grad_altura, lib, mo, np):
         "curva": direccion_entera(A_plano @ lib.perp2(bajada)),  # a lo largo de la curva de nivel
     }
     prediccion = mo.ui.radio(
-        options={
+        options=lib.opciones_barajadas({
             "dirección " + lib.vec_plano(candidatos["ingenua"]) + ": los dos números del gradiente, como flecha": "ingenua",
             "dirección " + lib.vec_plano(candidatos["perp-dibujo"]) + ": perpendicular a las curvas tal como se ven en el plano": "perp-dibujo",
             "dirección " + lib.vec_plano(candidatos["correcta"]): "correcta",
             "dirección " + lib.vec_plano(candidatos["curva"]) + ": a lo largo de la curva de nivel": "curva",
-        },
+        }),
         value=None,
         label=r"**Predicción.** En el plano dibujado (Este estirado por 2), ¿hacia dónde baja el agua desde el mojón?",
     )
@@ -359,6 +359,12 @@ def _(mo):
     métrica del tangente (ladrillo 5); y curvarse (hessiana, segunda forma) es una forma cuadrática, un número por cada
     dirección. Esto es una **muestra**; las demostraciones viven en el apunte (anexo).
     """)
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("01_dualidad_gradiente", "Estiramos el Este por 2 y volvemos: los mojones (violeta) viajan con A, las marcas de la regla wᵀ (teal) con A⁻¹, el mojón conserva su cota y la flecha ingenua Aw (rust) pierde la perpendicularidad."))
     return
 
 
@@ -807,6 +813,39 @@ def _(angulo_g, editor_e3, mo, np, subida_metrica):
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "00_desaprender_el_cbc")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

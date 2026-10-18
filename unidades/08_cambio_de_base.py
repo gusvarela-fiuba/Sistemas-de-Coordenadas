@@ -78,8 +78,8 @@ def _(lib, mo, np):
         "mismas": mojon.copy(),
     }
     prediccion = mo.ui.radio(
-        options={lib.vec_plano(candidatos[k]) + ("  (las mismas)" if k == "mismas" else ""): k
-                 for k in ("proyeccion", "mismas", "correcta", "por-B")},
+        options=lib.opciones_barajadas({lib.vec_plano(candidatos[k]) + ("  (las mismas)" if k == "mismas" else ""): k
+                 for k in ("proyeccion", "mismas", "correcta", "por-B")}),
         value=None,
         label=r"**Predicción.** Con $b_1 = (3, 1)$ y $b_2 = (1, 2)$ como ejes, las coordenadas del mojón $P = (4, 3)$ son…",
     )
@@ -204,6 +204,12 @@ def _(mo):
     porque los dos pares $A^{-1}A = I$ y $A\,A^{-1} = I$ se cancelan. Es la misma cuenta que $B^{-1}AB = \Lambda$ de
     arriba, con el nombre $A$ en el lugar de $B$ y $T$ en el lugar de $A$.
     """), kind="info")
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("03_cambio_de_base_viaje", "Recorremos las tres etapas de T = A·T_diag·A⁻¹ y las deshacemos: leemos p en la base de autovectores, estiramos cada dirección propia (λ₁ = 3, λ₂ = 1) y volvemos a la grilla canónica."))
     return
 
 
@@ -550,6 +556,39 @@ def _(A, editor_d, mo, np):
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "08_cambio_de_base")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

@@ -70,19 +70,19 @@ def _(lib, mo):
 
 
 @app.cell
-def _(mo, np):
+def _(lib, mo, np):
     # ---------- la situación y los números de la predicción salen de acá, nunca a mano ----------
     def silla(x, y):
         return (x**2 - y**2) / 4
 
     apart = {k: float(silla(np.cos(np.deg2rad(a)), np.sin(np.deg2rad(a)))) for k, a in (("este", 0), ("norte", 90), ("45°", 45))}
     prediccion = mo.ui.radio(
-        options={
+        options=lib.opciones_barajadas({
             f"sube {apart['este']:.2f} m en todos los rumbos: es un pozo": "pozo",
             f"baja {apart['este']:.2f} m en todos los rumbos: es una cima": "cima",
             f"sube {apart['este']:.2f} m hacia el este, baja {apart['este']:.2f} m hacia el norte y a 45° no se aparta": "correcta",
             "no se aparta en ningún rumbo: en el punto la tangente es horizontal": "plano",
-        },
+        }),
         value=None,
         label="**Predicción.** Damos un paso de 1 m desde el punto más bajo del paso. Respecto del plano del nivel, el terreno…",
     )
@@ -161,6 +161,12 @@ def _(mo):
     no, salvo el ecuador. Esta lectura es nuestra (el esqueleto sólo nombra las geodésicas); Euler y los extremos a
     $\pi/2$ se demuestran en el apunte del profesor, no en el v3 (ver el cierre).
     """)
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("05_elipsoide_euler_meusnier", "Sobre el elipsoide, giramos el plano normal en acimut (Euler: el radio del círculo osculador va de M a N) y después lo inclinamos hasta el paralelo (Meusnier: radio N·cos φ); el bucle vuelve sobre sus pasos."))
     return
 
 
@@ -442,6 +448,39 @@ def _(casos_cd, editor_d, lib, mo, np):
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "12_curvatura")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
     return
 
 

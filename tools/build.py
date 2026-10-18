@@ -119,6 +119,7 @@ a:hover {{ color: var(--rust); }}
                border-radius: 10px; padding: 1px 9px; background: #f7f5ef; }}
 .links span.pend {{ color: var(--gris); }}
 .pend {{ color: var(--gris); }}
+.topnav {{ display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 0 4px; font-size: .9rem; border-bottom: 1px solid var(--linea); }}
 .pie {{ color: var(--gris); font-size: .85rem; margin-top: 3em; border-top: 1px solid var(--linea); padding-top: .8em; }}
 /* fichas */
 .ficha table {{ border-collapse: collapse; margin: 1em 0; }}
@@ -343,6 +344,15 @@ def embeber_modulo_comun(texto: str, archivo: str) -> tuple[str, bool]:
     if not MODULO_COMUN.exists():
         raise RuntimeError(f"{archivo}: usa cb104 pero no existe {MODULO_COMUN.relative_to(RAIZ)}")
     fuente = MODULO_COMUN.read_text(encoding="utf-8")
+    # el banco de autoevaluación vive en un módulo generado (unidades/banco_autoevaluacion.py); en el
+    # export no hay archivos vecinos, así que su texto reemplaza al bloque de import marcado en cb104
+    ini, fin = fuente.find("# banco:begin"), fuente.find("# banco:end")
+    if ini != -1 and fin != -1:
+        banco = MODULO_COMUN.with_name("banco_autoevaluacion.py")
+        if not banco.exists():
+            raise RuntimeError(f"{archivo}: cb104 importa el banco pero falta {banco.name}; "
+                               "correr `uv run python tools/merge_banco.py`")
+        fuente = fuente[:ini] + banco.read_text(encoding="utf-8") + fuente[fin + len("# banco:end"):]
     sangria = m.group("sangria")
     bloque = (
         f"{sangria}import types as _types\n"
@@ -449,6 +459,18 @@ def md_a_html(texto: str) -> str:
     return _restaurar_math(cuerpo, guardadas)
 
 
+def nav_superior(raiz_rel: str = "") -> str:
+    """Barra de enlaces de arriba de cada página; raiz_rel es el prefijo para llegar a la raíz del sitio ("" o "../")."""
+    return (
+        '<nav class="topnav">'
+        f'<a href="{raiz_rel}index.html">Portada</a>'
+        f'<a href="{raiz_rel}mapa.html">Mapa</a>'
+        f'<a href="{raiz_rel}apunte.pdf">Apunte</a>'
+        f'<a href="{raiz_rel}autoevaluacion.html">Autoevaluación</a>'
+        "</nav>"
+    )
+
+
 def pagina(titulo: str, cuerpo: str, *, katex: bool = False, raiz_rel: str = "") -> str:
     cabeza_katex = ""
     if katex:
@@ -471,6 +493,7 @@ def pagina(titulo: str, cuerpo: str, *, katex: bool = False, raiz_rel: str = "")
 </head>
 <body>
 <main>
+{nav_superior(raiz_rel)}
 {cuerpo}
 </main>
 </body>
@@ -519,7 +542,7 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
             f'{VOLVER}\n<p class="etqs ficha-etqs">{etiquetas_clase(c)}</p>\n'
             f'<div class="ficha">\n{md_a_html(texto)}\n</div>'
         )
-        (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
+        (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
         generadas[c["id"]] = f"clases/{c['id']}.html"
         usados.add(src.resolve())
     # fichas sueltas no referidas por el yaml (sin README ni _borradores)
@@ -532,7 +555,7 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
             texto = sin_front_matter(src.read_text(encoding="utf-8"))
             titulo = titulo_de_md(texto, src.stem)
             cuerpo = f'{VOLVER}\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
-            (destino / f"{src.stem}.html").write_text(pagina(titulo, cuerpo, katex=True), encoding="utf-8")
+            (destino / f"{src.stem}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
     return generadas
 
 
@@ -969,6 +992,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         f'<a class="entrada" href="#unidad-0"><b>Empezar</b><small>unidad 0: {html.escape(unidades_portada[0]["titulo"])}</small></a>'
         f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
+        '<a class="entrada" href="autoevaluacion.html"><b>Autoevaluación (120 preguntas)</b><small>practicamos, hacemos un simulacro o rendimos la evaluación</small></a>'
         "</nav>"
     )
 
@@ -1022,6 +1046,566 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         partes.append('<p class="pend">El PDF del apunte no está compilado en este build.</p><p><a href="mapa.html">Mapa de conceptos</a>.</p>')
     partes.append(PIE)
     (out / "index.html").write_text(pagina(TITULO_CAMINO, "\n".join(partes)), encoding="utf-8")
+
+
+BANCO_PY = RAIZ / "unidades" / "banco_autoevaluacion.py"
+XML_MOODLE = RAIZ / "campus" / "moodle_banco_120_preguntas_cb104.xml"
+
+AUTOEVAL_PLANTILLA = r"""<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autoevaluación — Sistemas de Coordenadas (CB104)</title>
+  <style>/*__CSS__*/
+main { overflow-wrap: anywhere; }
+.modos { display: flex; flex-wrap: wrap; gap: 8px; margin: 1em 0; }
+.modos button { flex: 1 1 140px; }
+button { font: inherit; cursor: pointer; border: 1.5px solid var(--teal); background: #fff; color: var(--teal);
+         border-radius: 8px; padding: 8px 12px; }
+button:hover { border-color: var(--rust); color: var(--rust); }
+button.activo { background: var(--teal); color: #fff; }
+button.primario { background: var(--teal); color: #fff; }
+button.peligro { border-color: var(--rust); color: var(--rust); }
+button.peligro.armado { background: var(--rust); color: #fff; }
+button:disabled { opacity: .5; cursor: default; }
+.controles { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: .8em 0; }
+.controles label { display: flex; flex-direction: column; font-size: .85rem; color: var(--gris); min-width: 0; flex: 1 1 180px; }
+select { font: inherit; padding: 6px; border: 1px solid var(--linea); border-radius: 6px; background: #fff; max-width: 100%; }
+.preg { border: 1px solid var(--linea); border-left: 4px solid var(--teal); border-radius: 8px; background: #fff; padding: 10px 14px; margin: 14px 0; }
+.preg .meta { font-size: .8rem; color: var(--gris); margin-bottom: 4px; }
+.preg .enun p { margin: .4em 0; }
+.opc { display: block; width: 100%; text-align: left; margin: 6px 0; padding: 8px 10px; border: 1.5px solid var(--linea); color: var(--tinta); background: #fff; }
+.opc:hover { border-color: var(--teal); color: var(--tinta); }
+.opc.sel { border-color: var(--teal); background: #e6f1f1; }
+.opc.ok { border-color: #2e7d32; background: #e8f3e8; }
+.opc.mal { border-color: var(--rust); background: #f8e6dd; }
+.fb { margin: 4px 0 6px 12px; padding: 6px 10px; border-left: 3px solid var(--gold); background: #fbf5e1; font-size: .95rem; }
+.fb.bien { border-color: #2e7d32; background: #e8f3e8; }
+.fb.mal { border-color: var(--rust); background: #f8e6dd; }
+.resumen { border: 2px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: #fff; margin: 14px 0; }
+.resumen table { border-collapse: collapse; }
+.resumen td, .resumen th { padding: 2px 10px 2px 0; text-align: left; font-weight: normal; }
+.acc { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.bien-t { color: #2e7d32; } .mal-t { color: var(--rust); }
+.hist li { margin: 3px 0; }
+.katex-display { overflow-x: auto; overflow-y: hidden; max-width: 100%; }
+.aviso { color: var(--gris); font-size: .9rem; }
+</style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+<main>
+__NAV__
+<h1>Autoevaluación</h1>
+<p>Reunimos 120 preguntas de opción múltiple, seis por unidad (dos elementales, dos medias y dos avanzadas). Podemos practicar con devolución inmediata, hacer un simulacro de una pregunta por unidad o rendir la evaluación, que admite cuatro intentos.</p>
+<div class="modos" id="modos">
+  <button data-modo="practica">Práctica</button>
+  <button data-modo="simulacro">Simulacro</button>
+  <button data-modo="evaluacion">Evaluación (4 intentos)</button>
+</div>
+<div id="app"></div>
+<p class="pie"><a href="moodle_banco_120_preguntas_cb104.xml">Banco para Moodle (XML, 120 preguntas)</a> · <a href="index.html">Volver a la portada</a></p>
+</main>
+<script id="banco" type="application/json">__BANCO_JSON__</script>
+<script>
+(function () {
+  "use strict";
+  var DATOS = JSON.parse(document.getElementById("banco").textContent);
+  var UNIDADES = DATOS.unidades;
+  var BANCO = DATOS.banco;
+  var NIVELES = ["elemental", "medio", "avanzado"];
+  var MAX_INTENTOS = 4;
+  var CLAVE = "cb104_evaluacion";
+  var app = document.getElementById("app");
+  var modoActual = "practica";
+  var estado = {};
+
+  // ---------- utilidades ----------
+  function baraja(a) {
+    var r = a.slice();
+    for (var i = r.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = r[i]; r[i] = r[j]; r[j] = t;
+    }
+    return r;
+  }
+  function elige(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function el(tag, cls, texto) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (texto != null) e.textContent = texto;
+    return e;
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function inline(s) {
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+      .replace(/(^|[^*\w])\*([^*\s][^*]*)\*(?![*\w])/g, "$1<i>$2</i>");
+  }
+  // markdown mínimo que deja intactas las fórmulas $...$ y $$...$$
+  function md(texto) {
+    var partes = String(texto).split(/(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/);
+    var out = "";
+    for (var i = 0; i < partes.length; i++) {
+      if (i % 2 === 1) { out += esc(partes[i]); }
+      else { out += inline(partes[i]).replace(/\n\n+/g, "</p><p>").replace(/\n/g, "<br>"); }
+    }
+    return "<p>" + out + "</p>";
+  }
+  function mdInline(texto) { return md(texto).replace(/^<p>/, "").replace(/<\/p>$/, ""); }
+  function mate(nodo) {
+    if (window.renderMathInElement) {
+      window.renderMathInElement(nodo, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  function tituloUnidad(id) {
+    for (var i = 0; i < UNIDADES.length; i++) if (UNIDADES[i].id === id) return UNIDADES[i].titulo;
+    return id;
+  }
+  function indiceUnidad(id) {
+    for (var i = 0; i < UNIDADES.length; i++) if (UNIDADES[i].id === id) return i;
+    return 999;
+  }
+  function todasLasPreguntas() {
+    var r = [];
+    UNIDADES.forEach(function (u) {
+      (BANCO[u.id] || []).forEach(function (q) { r.push({ q: q, unidad: u.id }); });
+    });
+    return r;
+  }
+  function armaItem(p) {
+    return { q: p.q, unidad: p.unidad, orden: baraja(p.q.opciones), elegida: null };
+  }
+  function correctaDe(item) {
+    for (var i = 0; i < item.q.opciones.length; i++) if (item.q.opciones[i].correcta) return item.q.opciones[i];
+    return null;
+  }
+  function acerto(item) {
+    return item.elegida !== null && item.elegida.correcta === true;
+  }
+  function unaPorUnidad() {
+    var r = [];
+    UNIDADES.forEach(function (u) {
+      var lista = BANCO[u.id] || [];
+      if (!lista.length) return;
+      var nivel = elige(NIVELES);
+      var delNivel = lista.filter(function (q) { return q.nivel === nivel; });
+      r.push({ q: elige(delNivel.length ? delNivel : lista), unidad: u.id });
+    });
+    return r;
+  }
+  function porOrdenDeUnidad(items) {
+    return items.map(function (it, k) { return { it: it, k: k }; })
+      .sort(function (a, b) {
+        var d = indiceUnidad(a.it.unidad) - indiceUnidad(b.it.unidad);
+        return d !== 0 ? d : a.k - b.k;
+      }).map(function (x) { return x.it; });
+  }
+  function armaSimulacro(total) {
+    var base = unaPorUnidad();
+    if (total > base.length) {
+      var usadas = {};
+      base.forEach(function (p) { usadas[p.q.id] = true; });
+      var resto = baraja(todasLasPreguntas().filter(function (p) { return !usadas[p.q.id]; }));
+      base = base.concat(resto.slice(0, total - base.length));
+    }
+    return porOrdenDeUnidad(base.map(armaItem));
+  }
+
+  // ---------- dibujo de una pregunta ----------
+  // fase: "inmediato" (práctica), "abierta" (sin devolución), "corregida" (con explicaciones)
+  function dibujaPregunta(item, n, fase, alElegir) {
+    var caja = el("div", "preg");
+    var meta = el("div", "meta", "Pregunta " + n + " · " + tituloUnidad(item.unidad) + " · nivel " + item.q.nivel);
+    caja.appendChild(meta);
+    var enun = el("div", "enun");
+    enun.innerHTML = md(item.q.enunciado);
+    caja.appendChild(enun);
+    var correcta = correctaDe(item);
+    var contFb = el("div");
+    var botones = [];
+    item.orden.forEach(function (op, i) {
+      var b = el("button", "opc");
+      b.type = "button";
+      b.innerHTML = "<b>" + "ABCD".charAt(i) + ")</b> " + mdInline(op.texto);
+      botones.push({ b: b, op: op });
+      b.addEventListener("click", function () {
+        if (fase === "corregida") return;
+        if (fase === "inmediato" && item.elegida !== null) return;
+        item.elegida = op;
+        if (fase === "abierta") {
+          botones.forEach(function (x) { x.b.classList.toggle("sel", x.op === op); });
+          if (alElegir) alElegir();
+        } else {
+          pinta();
+        }
+      });
+      caja.appendChild(b);
+    });
+    caja.appendChild(contFb);
+    function pinta() {
+      contFb.innerHTML = "";
+      botones.forEach(function (x) {
+        x.b.classList.remove("ok", "mal");
+        if (item.elegida === x.op) x.b.classList.add(x.op.correcta ? "ok" : "mal");
+        if (item.elegida !== null && !x.op.correcta && item.elegida !== x.op) { /* sin marca */ }
+        if (item.elegida !== null && x.op.correcta) x.b.classList.add("ok");
+      });
+      if (item.elegida === null) {
+        if (fase === "corregida") contFb.appendChild(avisoSinResponder());
+        return;
+      }
+      var f1 = el("div", "fb " + (item.elegida.correcta ? "bien" : "mal"));
+      f1.innerHTML = "<b>" + (item.elegida.correcta ? "Correcta." : "Incorrecta.") + "</b> " + mdInline(item.elegida.explicacion || "");
+      contFb.appendChild(f1);
+      if (!item.elegida.correcta && correcta) {
+        var f2 = el("div", "fb");
+        f2.innerHTML = "<b>La correcta era:</b> " + mdInline(correcta.texto) + "<br>" + mdInline(correcta.explicacion || "");
+        contFb.appendChild(f2);
+      }
+      mate(contFb);
+    }
+    function avisoSinResponder() {
+      var f = el("div", "fb mal");
+      f.innerHTML = "<b>Sin responder.</b> La correcta era: " + (correcta ? mdInline(correcta.texto) + "<br>" + mdInline(correcta.explicacion || "") : "");
+      return f;
+    }
+    if (fase === "corregida") pinta();
+    return caja;
+  }
+
+  // ---------- modo práctica ----------
+  function vistaPractica() {
+    var st = estado.practica || (estado.practica = { unidad: "todas", nivel: "todos", items: null });
+    app.innerHTML = "";
+    var ctl = el("div", "controles");
+    var lu = el("label", null, "Unidad");
+    var su = el("select");
+    su.appendChild(new Option("Todas las unidades", "todas"));
+    UNIDADES.forEach(function (u, i) { su.appendChild(new Option(i + ". " + u.titulo, u.id)); });
+    su.value = st.unidad;
+    lu.appendChild(su);
+    var ln = el("label", null, "Nivel");
+    var sn = el("select");
+    sn.appendChild(new Option("Todos los niveles", "todos"));
+    NIVELES.forEach(function (n) { sn.appendChild(new Option(n, n)); });
+    sn.value = st.nivel;
+    ln.appendChild(sn);
+    var bm = el("button", "primario", "🔀 Mezclar");
+    bm.type = "button";
+    ctl.appendChild(lu); ctl.appendChild(ln); ctl.appendChild(bm);
+    app.appendChild(ctl);
+    var lista = el("div");
+    app.appendChild(lista);
+
+    function arma() {
+      var base = todasLasPreguntas().filter(function (p) {
+        return (st.unidad === "todas" || p.unidad === st.unidad) && (st.nivel === "todos" || p.q.nivel === st.nivel);
+      });
+      st.items = baraja(base).map(armaItem);
+      dibuja();
+    }
+    function dibuja() {
+      lista.innerHTML = "";
+      var c = el("p", "aviso", st.items.length + (st.items.length === 1 ? " pregunta" : " preguntas") + ". Elegimos una opción y vemos al instante si acertamos y por qué.");
+      lista.appendChild(c);
+      st.items.forEach(function (it, i) { lista.appendChild(dibujaPregunta(it, i + 1, "inmediato")); });
+      mate(lista);
+    }
+    su.addEventListener("change", function () { st.unidad = su.value; arma(); });
+    sn.addEventListener("change", function () { st.nivel = sn.value; arma(); });
+    bm.addEventListener("click", arma);
+    if (st.items) dibuja(); else arma();
+  }
+
+  // ---------- simulacro y evaluación: núcleo común ----------
+  function resumenPorNivel(items) {
+    var t = el("table");
+    NIVELES.forEach(function (n) {
+      var tot = 0, ok = 0;
+      items.forEach(function (it) { if (it.q.nivel === n) { tot++; if (acerto(it)) ok++; } });
+      if (!tot) return;
+      var tr = el("tr");
+      tr.appendChild(el("th", null, "Nivel " + n));
+      tr.appendChild(el("td", null, ok + " de " + tot));
+      t.appendChild(tr);
+    });
+    return t;
+  }
+  function puntaje(items) {
+    var ok = 0;
+    items.forEach(function (it) { if (acerto(it)) ok++; });
+    return ok;
+  }
+  function sinResponder(items) {
+    return items.filter(function (it) { return it.elegida === null; }).length;
+  }
+
+  // ---------- modo simulacro ----------
+  function vistaSimulacro() {
+    var st = estado.simulacro;
+    if (!st) { st = estado.simulacro = { items: armaSimulacro(20), entregado: false }; }
+    app.innerHTML = "";
+    app.appendChild(el("p", "aviso", "Veinte preguntas, una por unidad y en el orden de las unidades. No hay devolución hasta que entregamos."));
+    var lista = el("div");
+    app.appendChild(lista);
+    var barra = el("div", "acc");
+    app.appendChild(barra);
+    var resultado = el("div");
+    app.appendChild(resultado);
+    var bEntregar = el("button", "primario", "Entregar");
+    bEntregar.type = "button";
+    var bNuevo = el("button", null, "Nuevo simulacro");
+    bNuevo.type = "button";
+    barra.appendChild(bEntregar); barra.appendChild(bNuevo);
+    var contador = el("p", "aviso");
+    app.insertBefore(contador, barra);
+
+    function actualiza() {
+      var faltan = sinResponder(st.items);
+      contador.textContent = st.entregado ? "" : (faltan ? "Nos faltan " + faltan + " por responder." : "Respondimos todas; podemos entregar.");
+    }
+    function dibuja() {
+      lista.innerHTML = "";
+      st.items.forEach(function (it, i) {
+        lista.appendChild(dibujaPregunta(it, i + 1, st.entregado ? "corregida" : "abierta", actualiza));
+      });
+      resultado.innerHTML = "";
+      if (st.entregado) {
+        var r = el("div", "resumen");
+        r.appendChild(el("h2", null, "Puntaje: " + puntaje(st.items) + " de " + st.items.length));
+        r.appendChild(resumenPorNivel(st.items));
+        resultado.appendChild(r);
+        bEntregar.disabled = true;
+      } else {
+        bEntregar.disabled = false;
+      }
+      actualiza();
+      mate(lista);
+    }
+    bEntregar.addEventListener("click", function () {
+      st.entregado = true; dibuja();
+      resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    bNuevo.addEventListener("click", function () {
+      estado.simulacro = null; vistaSimulacro(); window.scrollTo(0, 0);
+    });
+    dibuja();
+  }
+
+  // ---------- modo evaluación ----------
+  function leeRegistro() {
+    try {
+      var r = JSON.parse(window.localStorage.getItem(CLAVE) || "null");
+      if (r && Array.isArray(r.intentos)) return r;
+    } catch (e) { /* sin registro */ }
+    return { intentos: [] };
+  }
+  function guardaRegistro(r) {
+    try { window.localStorage.setItem(CLAVE, JSON.stringify(r)); return true; }
+    catch (e) { return false; }
+  }
+  function fechaLinda(iso) {
+    var d = new Date(iso);
+    return isNaN(d.getTime()) ? iso : d.toLocaleString("es-AR");
+  }
+  function textoResultado(intento, k, items) {
+    var l = [];
+    l.push("Autoevaluación CB104 Sistemas de Coordenadas — Evaluación");
+    l.push("Fecha: " + intento.fecha);
+    l.push("Intento " + k + " de " + MAX_INTENTOS);
+    l.push("Puntaje: " + intento.puntaje + " de " + intento.total);
+    l.push("");
+    intento.preguntas.forEach(function (p, i) {
+      l.push((i + 1) + ". " + tituloUnidad(p.unidad) + " | nivel " + p.nivel + " | " + p.id + " | " + (p.ok ? "acertada" : "fallada"));
+    });
+    l.push("");
+    return l.join("\n");
+  }
+  function descarga(nombre, texto) {
+    var blob = new Blob([texto], { type: "text/plain;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = nombre;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  function dibujaHistorial(contenedor, reg) {
+    contenedor.innerHTML = "";
+    if (!reg.intentos.length) return;
+    contenedor.appendChild(el("h2", null, "Historial"));
+    var ul = el("ul", "hist");
+    var mejor = 0;
+    reg.intentos.forEach(function (it, i) {
+      if (it.puntaje > mejor) mejor = it.puntaje;
+      ul.appendChild(el("li", null, "Intento " + (i + 1) + " (" + fechaLinda(it.fecha) + "): " + it.puntaje + " de " + it.total));
+    });
+    contenedor.appendChild(ul);
+    contenedor.appendChild(el("p", null, "Mejor nota: " + mejor + " de " + reg.intentos[0].total + "."));
+  }
+  function botonBorrar(reg, alBorrar) {
+    var b = el("button", "peligro", "Borrar historial");
+    b.type = "button";
+    var armado = false;
+    b.addEventListener("click", function () {
+      if (!armado) {
+        armado = true;
+        b.classList.add("armado");
+        b.textContent = "Hacemos clic de nuevo para confirmar el borrado";
+        return;
+      }
+      try { window.localStorage.removeItem(CLAVE); } catch (e) { /* nada */ }
+      alBorrar();
+    });
+    return b;
+  }
+
+  function vistaEvaluacion() {
+    var reg = leeRegistro();
+    app.innerHTML = "";
+    if (reg.intentos.length >= MAX_INTENTOS) {
+      app.appendChild(el("h2", null, "Agotamos los " + MAX_INTENTOS + " intentos"));
+      var h = el("div");
+      dibujaHistorial(h, reg);
+      app.appendChild(h);
+      var acc = el("div", "acc");
+      acc.appendChild(botonBorrar(reg, function () { estado.evaluacion = null; vistaEvaluacion(); }));
+      app.appendChild(acc);
+      app.appendChild(el("p", "aviso", "El registro vive sólo en este navegador; si lo borramos, empezamos de cero."));
+      return;
+    }
+    var st = estado.evaluacion;
+    if (!st) { st = estado.evaluacion = { items: armaSimulacro(30), entregado: false, k: reg.intentos.length + 1 }; }
+    var k = st.k;
+    app.appendChild(el("h2", null, "Intento " + k + " de " + MAX_INTENTOS));
+    app.appendChild(el("p", "aviso", "Treinta preguntas: una por unidad más diez al azar. Al entregar vemos el puntaje y qué unidades acertamos, sin explicaciones. El intento se anota en este navegador."));
+    var lista = el("div");
+    var contador = el("p", "aviso");
+    var barra = el("div", "acc");
+    var resultado = el("div");
+    var histo = el("div");
+    app.appendChild(lista); app.appendChild(contador); app.appendChild(barra);
+    app.appendChild(resultado); app.appendChild(histo);
+    var bEntregar = el("button", "primario", "Entregar");
+    bEntregar.type = "button";
+    barra.appendChild(bEntregar);
+
+    function actualiza() {
+      var faltan = sinResponder(st.items);
+      contador.textContent = st.entregado ? "" : (faltan ? "Nos faltan " + faltan + " por responder." : "Respondimos todas; podemos entregar.");
+    }
+    function dibujaEntregado() {
+      var intento = st.intento;
+      var r = el("div", "resumen");
+      r.appendChild(el("h2", null, "Puntaje: " + intento.puntaje + " de " + intento.total));
+      r.appendChild(resumenPorNivel(st.items));
+      var ul = el("ul", "hist");
+      st.items.forEach(function (it) {
+        var li = el("li");
+        var ok = acerto(it);
+        li.innerHTML = (ok ? '<span class="bien-t">Acertada</span>' : '<span class="mal-t">Fallada</span>') + " — " + esc(tituloUnidad(it.unidad)) + " (" + it.q.nivel + ")";
+        ul.appendChild(li);
+      });
+      r.appendChild(ul);
+      if (!st.guardado) r.appendChild(el("p", "aviso", "No pudimos guardar el intento en este navegador; conviene descargar el resultado."));
+      resultado.appendChild(r);
+      barra.innerHTML = "";
+      var bd = el("button", "primario", "Descargar resultado");
+      bd.type = "button";
+      bd.addEventListener("click", function () {
+        descarga("resultado_evaluacion_cb104_intento" + k + ".txt", textoResultado(intento, k, st.items));
+      });
+      barra.appendChild(bd);
+      if (k < MAX_INTENTOS) {
+        var bs = el("button", null, "Siguiente intento");
+        bs.type = "button";
+        bs.addEventListener("click", function () { estado.evaluacion = null; vistaEvaluacion(); window.scrollTo(0, 0); });
+        barra.appendChild(bs);
+      } else {
+        var bh = el("button", null, "Ver el cierre de los intentos");
+        bh.type = "button";
+        bh.addEventListener("click", function () { estado.evaluacion = null; vistaEvaluacion(); window.scrollTo(0, 0); });
+        barra.appendChild(bh);
+      }
+      dibujaHistorial(histo, leeRegistro());
+    }
+    function dibuja() {
+      if (st.entregado) { lista.innerHTML = ""; contador.textContent = ""; dibujaEntregado(); return; }
+      lista.innerHTML = "";
+      st.items.forEach(function (it, i) { lista.appendChild(dibujaPregunta(it, i + 1, "abierta", actualiza)); });
+      actualiza();
+      dibujaHistorial(histo, reg);
+      mate(lista);
+    }
+    bEntregar.addEventListener("click", function () {
+      if (st.entregado) return;
+      var intento = {
+        fecha: new Date().toISOString(),
+        puntaje: puntaje(st.items),
+        total: st.items.length,
+        preguntas: st.items.map(function (it) {
+          return { id: it.q.id, unidad: it.unidad, nivel: it.q.nivel, ok: acerto(it) };
+        })
+      };
+      var r2 = leeRegistro();
+      r2.intentos.push(intento);
+      st.guardado = guardaRegistro(r2);
+      st.intento = intento;
+      st.entregado = true;
+      dibuja();
+      resultado.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    dibuja();
+  }
+
+  // ---------- pestañas ----------
+  function muestra(modo) {
+    modoActual = modo;
+    var bs = document.querySelectorAll("#modos button");
+    for (var i = 0; i < bs.length; i++) bs[i].classList.toggle("activo", bs[i].getAttribute("data-modo") === modo);
+    if (modo === "practica") vistaPractica();
+    else if (modo === "simulacro") vistaSimulacro();
+    else vistaEvaluacion();
+  }
+  var bs = document.querySelectorAll("#modos button");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].addEventListener("click", function () { muestra(this.getAttribute("data-modo")); });
+  }
+  muestra("practica");
+  window.addEventListener("load", function () { mate(app); });
+})();
+</script>
+</body>
+</html>
+"""
+
+
+def generar_autoevaluacion(datos_mapa: dict, out: Path) -> None:
+    """site/autoevaluacion.html: página autocontenida (JS inline + KaTeX por CDN) con práctica, simulacro y evaluación."""
+    import importlib.util
+    if not BANCO_PY.exists():
+        raise RuntimeError(f"no existe {BANCO_PY.relative_to(RAIZ)}; corré `uv run python tools/merge_banco.py`")
+    spec = importlib.util.spec_from_file_location("banco_autoevaluacion", BANCO_PY)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    banco = mod.BANCO_AUTOEVALUACION
+    unidades = [{"id": u["id"], "titulo": u.get("titulo", u["id"])} for u in datos_mapa["unidades"] if u["id"] in banco]
+    carga = json.dumps({"unidades": unidades, "banco": banco}, ensure_ascii=False).replace("</", "<\\/")
+    htm = (AUTOEVAL_PLANTILLA.replace("/*__CSS__*/", CSS)
+           .replace("__NAV__", nav_superior())
+           .replace("__BANCO_JSON__", carga))
+    (out / "autoevaluacion.html").write_text(htm, encoding="utf-8")
 
 
 # ----------------------------------------------------------------------------
@@ -1091,10 +1675,28 @@ def main() -> int:
     if hay_pdf:
         shutil.copy2(PDF_APUNTE, out / "apunte.pdf")
         print(f"  copiado apunte.pdf ({PDF_APUNTE.stat().st_size / 1e6:.1f} MB)")
+    anim = RAIZ / "animaciones"
+    if anim.is_dir():
+        dest = out / "animaciones"
+        dest.mkdir(exist_ok=True)
+        for f in sorted(anim.glob("*.mp4")) + sorted(anim.glob("*.gif")):
+            shutil.copy2(f, dest / f.name)
+        print(f"  copiadas {len(list(dest.iterdir()))} animaciones a site/animaciones/")
     else:
         print(f"  aviso: no existe {PDF_APUNTE.relative_to(RAIZ)}; el índice no linkea el PDF")
 
-    print("== portada y mapa")
+    print("== autoevaluación")
+    if not BANCO_PY.exists():
+        print(f"ERROR: falta {BANCO_PY.relative_to(RAIZ)}; corré `uv run python tools/merge_banco.py`", file=sys.stderr)
+        return 1
+    subprocess.run([sys.executable, str(RAIZ / "tools" / "exportar_moodle_xml.py")], check=True)
+    shutil.copy2(XML_MOODLE, out / XML_MOODLE.name)
+    generar_autoevaluacion(datos, out)
+    print(f"  {out / 'autoevaluacion.html'}")
+    print(f"  {out / XML_MOODLE.name}")
+
+    print("== portada y mapa"
+    )
     generar_indice(datos, fichas, exportadas, hay_pdf, out)
     generar_mapa(datos, fichas, exportadas, hay_pdf, out)
     (out / ".nojekyll").write_text("", encoding="utf-8")

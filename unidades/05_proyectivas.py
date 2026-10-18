@@ -79,7 +79,7 @@ def _(lib, mo, np):
         "mismas": centro.copy(),
     }
     prediccion = mo.ui.radio(
-        options={lib.vec_plano(candidatos[k]): k for k in ("afin", "mismas", "correcta", "sin-dividir")},
+        options=lib.opciones_barajadas({lib.vec_plano(candidatos[k]): k for k in ("afin", "mismas", "correcta", "sin-dividir")}),
         value=None,
         label=r"**Predicción.** El mojón del centro del lote, $(2, 2)$ en el terreno, aparece en la foto en…",
     )
@@ -173,6 +173,12 @@ def _(lib, mo, np):
         """),
         mo.ui.plotly(fig_rayos),
     ], widths=[1, 2], align="start")
+    return
+
+
+@app.cell
+def _(lib, mo):
+    mo.Html(lib.video_loop("02_homogeneas_pentagono_3d", "Vemos el pentágono como cinco rayos que salen del origen y cortan la lámina z = 1: H(s) mueve los rayos, el pentágono se deforma proyectivamente y a la vuelta recupera su forma."))
     return
 
 
@@ -516,6 +522,39 @@ def _(H_foto, editor_d, foto, lib, mo, np, terr):
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
     return H_ft, foto5, pozo_terr
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    ### Autoevaluación: seis preguntas sobre esta unidad
+
+    Dos elementales, dos medias y dos avanzadas, con las opciones en un orden distinto cada vez. Respondemos cada una
+    y leemos la explicación: la corrección aparece abajo a medida que elegimos. El botón vuelve a barajar preguntas y
+    respuestas, para repasar sin memorizar la letra.
+    """)
+    return
+
+
+@app.cell
+def _(mo):
+    mezclar = mo.ui.button(label="🔀 Mezclar preguntas y orden de respuestas", value=0, on_click=lambda v: v + 1)
+    mezclar
+    return (mezclar,)
+
+
+@app.cell
+def _(lib, mezclar, mo):
+    _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "05_proyectivas")
+    respuestas_radio
+    return preguntas_tanda, respuestas_radio
+
+
+@app.cell
+def _(lib, mo, preguntas_tanda, respuestas_radio):
+    lib.corregir_autoevaluacion(mo, preguntas_tanda, respuestas_radio)
+    return
 
 
 @app.cell

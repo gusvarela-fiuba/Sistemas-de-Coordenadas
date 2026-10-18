@@ -4,21 +4,26 @@ Guía de estudio de la materia CB104 Sistemas de Coordenadas (Agrimensura, FIUBA
 
 Todo se usa desde el navegador, sin instalar nada:
 
-- **Curso interactivo online (19 unidades en el navegador):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
-- **Apunte formal y guías resueltas en PDF (109 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
+- **Curso interactivo online (20 unidades en el navegador):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
+- **Apunte formal y guías resueltas en PDF (114 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
+- **Autoevaluación (120 preguntas, 3 modos):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html
 
 **[Instructivo de uso, guía pedagógica y cómo clonar o adoptar este repositorio para la cátedra (`INSTRUCTIVO_DE_USO.md`)](INSTRUCTIVO_DE_USO.md)**
 
-**[Curso interactivo: las 19 simulaciones con sus controles, ejercicios y enlaces (`CURSO_INTERACTIVO.md`)](CURSO_INTERACTIVO.md)**
+**[Curso interactivo: las 20 simulaciones con sus controles, ejercicios y enlaces (`CURSO_INTERACTIVO.md`)](CURSO_INTERACTIVO.md)**
 
 ## Cómo usar y navegar este material
+
+### Autoevaluación
+
+Cada unidad cierra con seis preguntas de opción múltiple (dos elementales, dos medias, dos avanzadas), y la página [autoevaluacion.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html) reúne las 120 en tres modos: práctica con devolución inmediata, simulacro de 20 preguntas y evaluación de 4 intentos. El banco completo para importar en Moodle está en [`campus/`](campus/).
 
 ### Las tres capas
 
 De la más guiada a la más completa:
 
-1. **El hilo conductor** (la portada del sitio): las 19 unidades interactivas, construidas ladrillo a ladrillo, una por lección, en el orden en que el profesor da la materia. Cada unidad tiene su pregunta de campo, su gancho de agrimensura, su estado de procedencia y la lección, que corre en el navegador. Es el recorrido para cursar.
+1. **El hilo conductor** (la portada del sitio): las 20 unidades interactivas, construidas ladrillo a ladrillo, una por lección, en el orden en que el profesor da la materia. Cada unidad tiene su pregunta de campo, su gancho de agrimensura, su estado de procedencia y la lección, que corre en el navegador. Es el recorrido para cursar.
 2. **El mapa de conceptos** ([mapa.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html)): los conceptos de las 14 clases como grafo, con filtro de ruta (troncal / todo) y un control "hasta la clase N" que oculta lo que todavía no se dio. Es la herramienta de repaso: sirve para ver de qué depende cada concepto y qué habilita.
 3. **El apunte formal** ([apunte.pdf](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf)): las demostraciones en LaTeX, las guías resueltas y las deducciones completas. Cada unidad enlaza por sección a la parte del apunte que la respalda, así que se puede ir de la pantalla al papel sin buscar.
 
@@ -47,7 +52,35 @@ Todas las unidades siguen el mismo molde, siempre de lo conceptual y geométrico
 
 Al cierre, un anexo "Dónde está la demostración" enlaza las secciones del apunte. Lo interactivo es una muestra; las demostraciones formales son las del apunte.
 
-## Recorrido de las 19 unidades
+### Seis animaciones en bucle
+
+Seis bucles cortos de ida y vuelta (en `animaciones/`, como `.mp4` en las unidades y `.gif` acá) sintetizan el hecho geométrico antes de la manipulación:
+
+![Dualidad punto–gradiente](animaciones/01_dualidad_gradiente.gif)
+
+*Dualidad punto–gradiente* — al estirar el Este por 2 los mojones van con A, las rectas de nivel de ω = (2, 1) van con A⁻¹, el mojón (1, 1) sigue leyendo 3 y la flecha ingenua Aωᵀ pierde la perpendicularidad. Unidad 0 (Fundamentos) y Unidad 8 (Formas lineales y dualidad).
+
+![Coordenadas homogéneas: pentágono en 3D](animaciones/02_homogeneas_pentagono_3d.gif)
+
+*Coordenadas homogéneas en 3D* — los vértices del pentágono son rayos desde el origen que cortan la lámina z = 1; H(s) mueve los rayos y el pentágono se deforma proyectivamente. Unidad 7 (Proyectivas); también sirve en la Unidad 6 (Afinidades y coordenadas homogéneas).
+
+![Cambio de base: el viaje de T = A T_diag A⁻¹](animaciones/03_cambio_de_base_viaje.gif)
+
+*El viaje del cambio de base* — las tres etapas de T = A·T_diag·A⁻¹: leer p en la base de autovectores, estirar cada dirección propia (λ₁ = 3, λ₂ = 1) y volver a la canónica. Unidad 12 (Cambio de base y diagonalización).
+
+![SVD: del círculo unidad a la elipse](animaciones/04_svd_circulo_a_elipse.gif)
+
+*SVD: del círculo a la elipse* — el círculo unidad con v₁, v₂ encadena Vᵀ (giro de entrada), Σ (estiramientos) y U (giro de salida); la vuelta deshace el camino. Unidad 13 (Cambio de base, SVD e inversas).
+
+![Elipsoide: Euler y Meusnier](animaciones/05_elipsoide_euler_meusnier.gif)
+
+*Euler y Meusnier sobre el elipsoide* — el plano normal gira en acimut (Euler: el círculo osculador entre M y N) y luego se inclina hasta el paralelo de radio N cos φ (Meusnier). Unidad 16 (Curvatura como forma cuadrática) y Unidad 17 (Geometría del elipsoide).
+
+![Tissot: equidistante vs. Mercator](animaciones/06_conforme_tissot_mercator.gif)
+
+*Tissot: cilíndrica equidistante contra Mercator* — lado a lado, la cilíndrica equidistante (h = 1, no conforme) aplasta los círculos de Tissot en elipses y tuerce las dos visuales a 90°, mientras Mercator, con la latitud isométrica, manda cuadraditos a cuadraditos y conserva los círculos y el ángulo. Unidad 19 (Transformaciones conformes).
+
+## Recorrido de las 20 unidades
 
 El orden es el del hilo conductor de la portada. "Clase del curso" es la clase del esqueleto del profesor que cubre cada unidad.
 
@@ -72,8 +105,9 @@ El orden es el del hilo conductor de la portada. "Clase del curso" es la clase d
 | Unidad 16 | [Curvatura como forma cuadrática](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/12_curvatura/index.html) | clase 12 | La segunda forma fundamental, la curvatura normal en cada rumbo, las curvaturas principales como autovalores y la curvatura de Gauss. |
 | Unidad 17 | [Geometría del elipsoide](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/13_elipsoide/index.html) | clase 13 | El elipsoide de revolución GRS80: los radios de curvatura M y N, las tres latitudes y el paso de (latitud, longitud, altura) a cartesianas. |
 | Unidad 18 | [Trigonometría esférica](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/14_trigonometria_esferica/index.html) | clase 14 | El triángulo esférico como tres vectores desde el centro: lados por producto interno, ángulos por producto cruz, ley del seno y el exceso esférico igual al área. |
+| Unidad 19 | [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html) | clases 13–14 (desarrollo complementario) | Las cuatro caras de la conformidad (multiplicar por un complejo, una matriz [[a, −b], [b, a]], un jacobiano con σ₁ = σ₂, un círculo de Tissot que sigue siendo círculo), la latitud isométrica, Mercator y Gauss-Krüger: el arco que empezó en los complejos de la Clase 1 se cierra en el plano cartográfico. |
 
-Las unidades 13 y 15 a 18 se anticipan a clases que todavía no se dictaron (ver Procedencia y trazabilidad).
+Las unidades 13 y 15 a 19 se anticipan a clases que todavía no se dictaron (ver Procedencia y trazabilidad).
 
 ## Guías de problemas y entregas resueltas
 
@@ -102,7 +136,7 @@ Trabajos prácticos entregados al campus (alumno Gustavo Varela, padrón 56798),
 
 Cada clase lleva dos etiquetas independientes, visibles en las fichas y en las unidades de la portada:
 
-- **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 10–14, es decir las lecciones 11, 12, 13 y 14; la clase 07 se dictó el 7/10 sin transcripción).
+- **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 10–14, es decir las lecciones 11, 12, 13, 14 y 15; la clase 07 se dictó el 7/10 sin transcripción).
 - **Validación** (cuánto se revisó): `validación pendiente`; `revisado` (revisada contra el material, todavía sin la cátedra); `validado por la cátedra` (confirmada por el profesor). Hoy todas las clases están en `pendiente`.
 
 Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tienen además un estado propio (`piloto`, `migrada`, `legacy`, `pendiente`) que dice si se exportan; el estado de cada unidad (lista / en clase / todavía no) lo calcula el build.
@@ -121,7 +155,7 @@ uv run python tools/build.py --skip-wasm      # portada, mapa, fichas y apunte.p
 uv run python -m http.server -d site 8765     # http://localhost:8765/
 ```
 
-`uv run python tools/build.py` sin `--skip-wasm` exporta además las 19 lecciones a WebAssembly (1–2 s cada una, ~27 MB por lección en `site/unidades/`); para una sola, `--only NN_nombre`. Las lecciones exportadas necesitan HTTP, no andan desde `file://`. Para editar una lección: `uv run marimo edit unidades/NN_nombre.py`. El flujo completo, el molde de lección y cómo agregar una están en `tools/README.md`.
+`uv run python tools/build.py` sin `--skip-wasm` exporta además las 20 lecciones a WebAssembly (1–2 s cada una, ~27 MB por lección en `site/unidades/`); para una sola, `--only NN_nombre`. Las lecciones exportadas necesitan HTTP, no andan desde `file://`. Para editar una lección: `uv run marimo edit unidades/NN_nombre.py`. El flujo completo, el molde de lección y cómo agregar una están en `tools/README.md`.
 
 El apunte se compila aparte con TeX Live (LuaLaTeX, tres pasadas desde `apunte/`, ver `apunte/README.md`); el PDF compilado está commiteado y el build lo copia a `site/apunte.pdf`, así que ni el runner de GitHub ni quien clona necesitan TeX.
 

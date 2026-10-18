@@ -1,10 +1,14 @@
-# Curso interactivo — las 19 simulaciones, ladrillo a ladrillo
+# Curso interactivo — las 20 simulaciones, ladrillo a ladrillo
 
-Este archivo es el mapa directo de las 19 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan la clase del esqueleto del profesor que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Lo escribió Gustavo Varela como alumno de la cursada 2C2026 (profesor Javier Clavijo); no es material oficial de la cátedra.
+Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan la clase del esqueleto del profesor que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Lo escribió Gustavo Varela como alumno de la cursada 2C2026 (profesor Javier Clavijo); no es material oficial de la cátedra.
 Cada simulación corre adentro del navegador con WebAssembly: no hay que instalar nada ni tener cuenta en ningún lado (la primera carga tarda unos segundos). En una pantalla 16:9 cada sección interactiva muestra la figura a la izquierda y, a la derecha, el panel de controles con el selector de caso, los deslizadores y los números vivos que se recalculan con cada movimiento.
 Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 1 hecho geométrico, 2 manipulación, 3 cuenta a mano y código lado a lado, 4 Python de hoy, 5 ejercicios (lápiz y código con hueco, verificado en la página).
 
 ## Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
+
+![Dualidad punto–gradiente](animaciones/01_dualidad_gradiente.gif)
+
+*Bucle ida y vuelta: al estirar el Este por 2, los mojones van con A, las marcas de la regla wᵀ van con A⁻¹, el mojón conserva su cota y la flecha ingenua Aw pierde la perpendicularidad.*
 
 Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujamos?
 
@@ -107,6 +111,10 @@ Clases del esqueleto: 02 y 03. Pregunta guía: un plano viejo a otra escala y co
 
 ## Unidad 6 — Afinidades y coordenadas homogéneas
 
+![Coordenadas homogéneas: rayos y lámina z = 1](animaciones/02_homogeneas_pentagono_3d.gif)
+
+*Bucle ida y vuelta: cada vértice del pentágono es un rayo desde el origen que corta la lámina z = 1; H(s) mueve los rayos y el pentágono se deforma sobre la lámina.*
+
 Clase del esqueleto: 03. Pregunta guía: un plano escaneado quedó estirado distinto en cada eje e inclinado; conociendo dónde cayeron las dos esquinas de un lado, ¿dónde tiene que aparecer el mojón intermedio?
 
 **Qué se manipula:**
@@ -125,6 +133,10 @@ Clase del esqueleto: 03. Pregunta guía: un plano escaneado quedó estirado dist
 
 ## Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor
 
+![Pentágono en 3D: rayos, lámina z = 1 y homografía](animaciones/02_homogeneas_pentagono_3d.gif)
+
+*Bucle ida y vuelta: los rayos desde el origen a los vértices del pentágono se mueven con H(s) y el pentágono sobre la lámina z = 1 se deforma proyectivamente, luego vuelve.*
+
 Clase del esqueleto: 03p. Pregunta guía: en la foto inclinada del dron el lote cuadrado es un trapecio y los alambrados paralelos se juntan; el mojón del centro del lote, ¿dónde aparece en la foto?
 
 **Qué se manipula:**
@@ -141,6 +153,10 @@ Clase del esqueleto: 03p. Pregunta guía: en la foto inclinada del dron el lote 
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/05_proyectivas/index.html)
 
 ## Unidad 8 — Formas lineales y dualidad
+
+![Dualidad: puntos con A, formas con A⁻¹](animaciones/01_dualidad_gradiente.gif)
+
+*Bucle ida y vuelta: A(s) = (1−s)I + s·diag(2, 1); las rectas de nivel de ω = (2, 1) se arrastran con A⁻¹, el mojón (1, 1) sigue en ω′x′ = 3 y la flecha Aωᵀ deja de ser perpendicular.*
 
 Clase del esqueleto: 04. Pregunta guía: la cota de un lote inclinado es la fila (2, 1) más una constante; si el plano digitalizado deforma los puntos con A, ¿qué fila sigue leyendo la misma cota sobre el mojón deformado?
 
@@ -213,6 +229,10 @@ Clase del esqueleto: 06. Pregunta guía: nivelar (90° alrededor de y) y despué
 
 ## Unidad 12 — Cambio de base y diagonalización
 
+![Cambio de base: el viaje de T = A T_diag A⁻¹](animaciones/03_cambio_de_base_viaje.gif)
+
+*Bucle ida y vuelta: leemos p en la base de autovectores, estiramos cada dirección propia (λ₁ = 3, λ₂ = 1) y volvemos a la canónica; después se deshace el camino.*
+
 Clase del esqueleto: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, medido en frentes y lados de una parcela cuyos rumbos b₁ = (3, 1) y b₂ = (1, 2) forman 45°; ¿cuántas veces b₁ y cuántas b₂ hay que avanzar para llegar a él?
 
 **Qué se manipula:**
@@ -229,6 +249,10 @@ Clase del esqueleto: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, 
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/08_cambio_de_base/index.html)
 
 ## Unidad 13 — Cambio de base, SVD e inversas
+
+![SVD: del círculo unidad a la elipse](animaciones/04_svd_circulo_a_elipse.gif)
+
+*Bucle ida y vuelta: el círculo unidad con v₁, v₂ pasa por Vᵀ (giro de entrada), Σ (estiramientos) y U (giro de salida); la vuelta deshace las tres etapas.*
 
 Clases del esqueleto: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre alrededor de un mojón pasa por A = [[2, 1], [0, 1]] y se vuelve la elipse de error; ¿qué le pasa a dos direcciones perpendiculares del disco, si las direcciones propias de A no son perpendiculares entre sí?
 
@@ -281,6 +305,10 @@ Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendi
 
 ## Unidad 16 — Curvatura como forma cuadrática
 
+![Euler y Meusnier sobre el elipsoide](animaciones/05_elipsoide_euler_meusnier.gif)
+
+*Bucle ida y vuelta: el plano normal gira en acimut (Euler: el círculo osculador entre M y N) y después se inclina hasta el paralelo de radio N cos φ (Meusnier).*
+
 Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: parados en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
 
 **Qué se manipula:**
@@ -296,6 +324,10 @@ Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la c
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/12_curvatura/index.html)
 
 ## Unidad 17 — Geometría del elipsoide
+
+![Elipsoide: Euler y Meusnier](animaciones/05_elipsoide_euler_meusnier.gif)
+
+*Bucle ida y vuelta: el plano normal gira en acimut (Euler, círculo osculador entre M y N) y luego se inclina hasta el paralelo de radio N cos φ (Meusnier).*
 
 Clase del esqueleto: 13 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: un mojón sobre GRS80 con latitud geodésica 45° según el GNSS; la recta del mojón al centro de la Tierra, ¿qué ángulo forma con el plano del ecuador?
 
@@ -326,3 +358,33 @@ Clase del esqueleto: 14 (anticipación del alumno; pendiente de validar por la c
 - Ficha: [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Polígonos geodésicos y trigonometría esférica".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/14_trigonometria_esferica/index.html)
+
+## Unidad 19 — Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico
+
+![Tissot: equidistante vs. Mercator](animaciones/06_conforme_tissot_mercator.gif)
+
+*Bucle ida y vuelta, lado a lado: a la izquierda la cilíndrica equidistante, no conforme, aplasta los círculos de Tissot y tuerce las visuales a 90°; a la derecha Mercator, con la latitud isométrica, manda cuadraditos a cuadraditos y conserva los círculos y el ángulo.*
+
+Clases del esqueleto: 13 y 14 (desarrollo complementario del alumno que cierra el arco Clase 1 complejos → Clase 3 similaridades → Clase 7 SVD y Tissot → Clase 9 Jacobiano y métrica → Clase 13 elipsoide M, N → Mercator y Gauss-Krüger; pendiente de validar por la cátedra). Pregunta guía: medimos en Tierra del Fuego (φ = −54°) dos visuales a 90°; si volcamos (λ, φ) directo en una hoja cuadriculada, ¿siguen a 90°?
+
+**Qué se manipula:**
+- Dropdown `caso`: Mercator conforme (h = k); cilíndrica equidistante (h = 1); cilíndrica equivalente (h·k = 1); mapa complejo (w = z², eᶻ o z + α z̄).
+- Deslizadores `latitud φ (°)` (de −75 a 75, por defecto −54), `rumbo α` de una de las visuales y `α` de la parte no conforme en z + α z̄.
+- La figura, en dos paneles: a la izquierda el terreno, con la grilla de cuadraditos métricos, los círculos de Tissot en 0°, −34,6°, −54° y −65° y dos visuales a 90°; a la derecha el mapa proyectado, con lo que le pasó a cada cosa. Los números vivos: el Jacobiano, h = σ₁, k = σ₂, h·k, la deformación angular máxima ω_max y el ángulo entre las visuales antes y después.
+
+**Ejercicios en Python:** `es_jacobiano_conforme(J)` (c) y `latitud_isometrica_elipsoide(phi_deg, e)` (d). Lápiz (a): el producto de dos matrices de la forma [[a, −b], [b, a]] vuelve a tener esa forma, así que componer conformes da conforme; (b): la condición de la cilíndrica equivalente (h·k = 1) y por qué conservar áreas obliga a torcer los ángulos.
+
+- Notebook: [unidades/15_transformaciones_conformes.py](unidades/15_transformaciones_conformes.py)
+- Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Transformaciones conformes" del capítulo de la tercera lectura.
+- [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html)
+
+## Autoevaluación
+
+Al final de cada unidad hay seis preguntas de opción múltiple para chequear que el ladrillo quedó firme. Las 120 juntas están en `autoevaluacion.html`, con tres maneras de usarlas:
+
+- **Práctica:** elegimos unidad y nivel, y cada respuesta se explica en el momento.
+- **Simulacro:** veinte preguntas, una por unidad; la corrección llega al entregar.
+- **Evaluación:** treinta preguntas y hasta cuatro intentos, que quedan anotados sólo en nuestro navegador.
+
+Para la cátedra, el mismo banco está como XML de Moodle en `campus/moodle_banco_120_preguntas_cb104.xml`.
