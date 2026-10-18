@@ -469,7 +469,7 @@ def _(mo):
 def _(lib, mezclar, mo):
     _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
     preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "07c_autovalores_3d_puntos_fijos")
-    respuestas_radio
+    mo.vstack(respuestas_radio.elements, gap=1.0)
     return preguntas_tanda, respuestas_radio
 
 

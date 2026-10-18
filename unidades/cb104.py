@@ -2550,7 +2550,7 @@ def preparar_autoevaluacion(mo_mod, unidad_id, semilla=None):
     """Arma la tanda de autoevaluación de una unidad: devuelve `(tanda, radios)`. `tanda` son las 6 preguntas del
     banco (copias), ordenadas elemental → medio → avanzado con orden aleatorio dentro de cada nivel y las 4
     opciones barajadas; `radios` es un `mo.ui.array` con un `mo.ui.radio` por pregunta (sin respuesta marcada,
-    valor = id de la opción elegida). Con `semilla` es reproducible."""
+    valor = letra elegida; las opciones se reasignan a a–d en el orden barajado). Con `semilla` es reproducible."""
     if unidad_id not in BANCO_AUTOEVALUACION:
         raise KeyError(f"{unidad_id!r} no está en BANCO_AUTOEVALUACION: {list(BANCO_AUTOEVALUACION)}")
     azar = random.Random(semilla) if semilla is not None else random.Random()
@@ -2562,15 +2562,13 @@ def preparar_autoevaluacion(mo_mod, unidad_id, semilla=None):
         tanda += del_nivel
     for q in tanda:
         azar.shuffle(q["opciones"])
+        for o, letra in zip(q["opciones"], "abcd"):
+            o["id"] = letra
     radios = []
     for n, q in enumerate(tanda, start=1):
-        opciones = {}
-        for o in q["opciones"]:
-            clave = o["texto"]
-            while clave in opciones:
-                clave += " "
-            opciones[clave] = o["id"]
-        radios.append(mo_mod.ui.radio(options=opciones, value=None, label=f"**{n}. ({q['nivel']})** {q['enunciado']}"))
+        rotulo = f"**{n}. ({q['nivel']})** {q['enunciado']}\n\n" + "\n\n".join(
+            f"**{o['id']})** {o['texto']}" for o in q["opciones"])
+        radios.append(mo_mod.ui.radio(options=["a", "b", "c", "d"], value=None, inline=True, label=rotulo))
     return tanda, mo_mod.ui.array(radios)
 
 
@@ -3083,7 +3081,9 @@ if __name__ == "__main__":
     assert repr(BANCO_AUTOEVALUACION) == _copia, "el banco no se debe mutar"
     assert len(_t) == 6 and len(_r.elementos) == 6
     assert [q["nivel"] for q in _t] == ["elemental"] * 2 + ["medio"] * 2 + ["avanzado"] * 2
-    assert all(r.value is None and len(r.options) == 4 for r in _r.elementos)
+    assert all(r.value is None and r.options == list('abcd') and r.inline is True for r in _r.elementos)
+    assert all([o['id'] for o in q['opciones']] == list('abcd') and sum(o['correcta'] for o in q['opciones']) == 1 for q in _t)
+    assert all(f"**{o['id']})** {o['texto']}" in r.label for q, r in zip(_t, _r.elementos) for o in q['opciones'])
     assert _r.elementos[0].label.startswith("**1. (elemental)**")
     try:
         preparar_autoevaluacion(_Mock, "99_no_existe")
