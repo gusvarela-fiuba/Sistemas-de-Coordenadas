@@ -19,7 +19,9 @@ Qué toca (y nada más):
   3. LaTeX: pdfauthor={...} y \\newcommand/\\providecommand{\\portadaAutor}{...} en
      apunte/Apunte_Sistemas_de_Coordenadas.tex, apunte/portada/portada-standalone.tex y
      apunte/portada/portada-tikz.tex. Se escapan & % # _ del autor para LaTeX.
-  4. Con --url-sitio: la URL del sitio publicado en README.md e INSTRUCTIVO_DE_USO.md.
+  4. Con --url-sitio: la URL del sitio publicado en README.md, INSTRUCTIVO_DE_USO.md y
+     CURSO_INTERACTIVO.md, y la línea `\\newcommand{\\sitioURL}{...}` (sin barra final) de
+     apunte/apunte-formato.sty. Si el .sty todavía no tiene esa línea, se avisa y se sigue.
 
 Es idempotente: una segunda corrida con los mismos argumentos no cambia nada.
 Sólo stdlib. Sale con 0. Después de correrlo hay que regenerar el sitio y el apunte
@@ -43,7 +45,10 @@ ARCHIVOS_LATEX = (
     "apunte/portada/portada-standalone.tex",
     "apunte/portada/portada-tikz.tex",
 )
-ARCHIVOS_URL = ("README.md", "INSTRUCTIVO_DE_USO.md")
+ARCHIVOS_URL = ("README.md", "INSTRUCTIVO_DE_USO.md", "CURSO_INTERACTIVO.md")
+ARCHIVO_STY = "apunte/apunte-formato.sty"
+# `\newcommand{\sitioURL}{https://...}` del .sty: la URL va SIN barra final (el .tex le agrega las rutas).
+RE_SITIOURL = re.compile(r"^\\newcommand\{\\sitioURL\}\{[^}]*\}", re.M)
 
 # Firma bajo el H1 de cada lección (markdown dentro de mo.md).
 RE_FIRMA = re.compile(r"^(\s*\*\*Sistemas de Coordenadas\*\* · Agrimensura · FIUBA · ).*$", re.M)
@@ -99,6 +104,15 @@ def adoptar_url(texto: str, url_nueva: str) -> tuple[str, int]:
     return texto.replace(URL_ACTUAL, url_nueva), n
 
 
+def adoptar_sty(texto: str, url_nueva: str) -> tuple[str, int]:
+    """Reescribe `\\newcommand{\\sitioURL}{...}` con la URL nueva sin barra final; si no está, avisa y no toca nada."""
+    if not RE_SITIOURL.search(texto):
+        print(f"  [aviso] {ARCHIVO_STY}: no tiene la línea \\newcommand{{\\sitioURL}}{{...}}; se omite (agregarla y volver a correr)")
+        return texto, 0
+    nueva = r"\newcommand{\sitioURL}{" + url_nueva.rstrip("/") + "}"
+    return _sustituir(RE_SITIOURL, texto, lambda m: nueva)
+
+
 def lecciones() -> list[Path]:
     return sorted(p for p in (RAIZ / "unidades").glob("*.py") if p.name != "cb104.py")
 
@@ -106,7 +120,9 @@ def lecciones() -> list[Path]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--autor", default=AUTOR_DEFAULT, help=f"membrete que reemplaza al alumno (default: {AUTOR_DEFAULT!r})")
-    ap.add_argument("--url-sitio", default=None, help="URL nueva del sitio publicado (reemplaza la de README/INSTRUCTIVO)")
+    ap.add_argument("--url-sitio", default=None,
+                    help="URL nueva del sitio publicado (reemplaza la de README, INSTRUCTIVO_DE_USO y CURSO_INTERACTIVO, "
+                         "y \\sitioURL en apunte/apunte-formato.sty, sin barra final)")
     ap.add_argument("--dry-run", action="store_true", help="mostrar qué cambiaría sin escribir nada")
     args = ap.parse_args(argv)
 
@@ -120,6 +136,7 @@ def main(argv: list[str] | None = None) -> int:
     tareas += [(RAIZ / rel, lambda t, a=autor: adoptar_latex(t, a)) for rel in ARCHIVOS_LATEX]
     if url:
         tareas += [(RAIZ / rel, lambda t, u=url: adoptar_url(t, u)) for rel in ARCHIVOS_URL]
+        tareas.append((RAIZ / ARCHIVO_STY, lambda t, u=url: adoptar_sty(t, u)))
 
     modo = "DRY-RUN (no se escribe nada)" if args.dry_run else "aplicando"
     print(f"adoptar_para_catedra · raíz: {RAIZ} · {modo}")

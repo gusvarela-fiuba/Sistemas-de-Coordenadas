@@ -9,6 +9,8 @@ Contenido:
 3. [Cómo clonar el repositorio para usarlo o editarlo](#parte-3--cómo-clonar-el-repositorio-para-usarlo-o-editarlo-en-una-computadora)
 4. [Cómo adoptar y publicar este curso a nombre de la cátedra](#parte-4--cómo-adoptar-y-publicar-este-curso-a-nombre-de-la-cátedra)
 
+**[Curso interactivo: las 19 simulaciones con sus controles, ejercicios y enlaces (`CURSO_INTERACTIVO.md`)](CURSO_INTERACTIVO.md)** — el mapa unidad por unidad para ir directo a cada simulación.
+
 ## Parte 1 — Cómo entrar y navegar (sin instalar nada)
 
 ### Los tres accesos directos
