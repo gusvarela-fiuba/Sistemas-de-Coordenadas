@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Rotaciones II — la rotación en el plano (lección 01b, molde v2 sobre cb104). Clase 1.
+"""Rotaciones II — la rotación en el plano (unidad 01b, molde v2 sobre cb104). Clase 1.
 
 Una sola idea: R(θ) es "a dónde van e1 y e2"; conserva longitudes, ángulos, producto interno y área (det = 1);
 R(α)R(β) = R(α+β); e^{iθ} es la misma rotación. Casos precargados con contraejemplos, estelas, parcela girando.
@@ -147,7 +147,7 @@ def _(mo):
     **El mismo giro como número.** Si $(x, y)$ es el complejo $z = x + iy$, multiplicar por $e^{i\theta} = \cos\theta +
     i\sin\theta$ es girarlo $\theta$: el módulo no cambia y el argumento se suma; multiplicar por $i$ es un cuarto de
     vuelta. Es la **misma operación** que $R(\theta)$ con dos números en vez de cuatro (sección 3). La demostración de
-    que conservar el producto interno obliga a $R^TR = I$ está en el apunte, sección 7.
+    que conservar el producto interno obliga a $R^TR = I$ está en el apunte, «Bloque geométrico: fundamentos y rotaciones».
     """)
     return
 
@@ -468,8 +468,8 @@ def _(mo):
     En esta unidad demostramos qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
-    - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)
-    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:07)
+    - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones III — tres ejes y el orden importa](../01c_rotaciones_3d/index.html): en 3D hay un
     giro por cada eje, no conmutan, y toda composición es un solo giro alrededor de un eje fijo.

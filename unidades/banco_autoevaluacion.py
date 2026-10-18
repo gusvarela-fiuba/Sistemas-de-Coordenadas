@@ -222,11 +222,11 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                           'texto': 'Hacia $(1, 2)$: perpendicular a las curvas de nivel tal '
                                                    'como se ven dibujadas.',
                                           'correcta': False,
-                                          'explicacion': '$(1, 2)$ es la regla arrastrada $w^T A^{-1} = '
-                                                         '(\\tfrac12, 1)$ leída como flecha: perpendicular '
-                                                         'con $G = I$, la métrica del papel, pero el papel '
-                                                         'está estirado y ese ángulo recto es falso en el '
-                                                         'terreno.'},
+                                          'explicacion': '$(1, 2)$ es proporcional a la regla arrastrada '
+                                                         '$\\pm(\\tfrac12, 1)$, leída como flecha: '
+                                                         'perpendicular con $G = I$, la métrica del papel, '
+                                                         'pero el papel está estirado y ese ángulo recto es '
+                                                         'falso en el terreno.'},
                                          {'id': 'd',
                                           'texto': 'Hacia $(2, -1)$: a lo largo de la curva de nivel que '
                                                    'pasa por el mojón.',
@@ -551,7 +551,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                       'de área $1$. ¿Es una rotación?',
                          'opciones': [{'id': 'a',
                                        'texto': 'No: $\\det = 1$ no alcanza; falla $M^T M = I$, y $M$ no '
-                                                'conserva ni los largos ni los ángulos.',
+                                                'conserva en general largos ni ángulos.',
                                        'correcta': True,
                                        'explicacion': '$M e_2 = (0.5, 1)$ tiene largo $\\sqrt{1.25}$ y ya no '
                                                       'es perpendicular a $M e_1 = (1, 0)$; la rotación es '
@@ -772,23 +772,25 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                    'columnas dicen adonde van los ejes'},
                        {'id': '01c_m2',
                         'nivel': 'medio',
-                        'enunciado': 'Para nivelar, primero inclinamos la estación alrededor de $y$ ($R_y$) '
-                                     'y después la giramos alrededor de $z$ ($R_z$). ¿Qué matriz describe la '
-                                     'operación completa?',
+                        'enunciado': 'Para nivelar, primero inclinamos la estación alrededor del eje fijo '
+                                     '$y$ de la obra ($R_y$, con $90°$ para fijar ideas) y después la '
+                                     'giramos alrededor del eje fijo $z$ ($R_z$, también $90°$). ¿Qué matriz '
+                                     'describe la operación completa?',
                         'opciones': [{'id': 'a',
                                       'texto': '$R_z R_y$: la matriz de la derecha es la que actúa primero '
                                                'sobre el punto.',
                                       'correcta': True,
                                       'explicacion': 'Aplicar $R_y$ y después $R_z$ a un punto $p$ es '
                                                      '$R_z(R_y p) = (R_z R_y)p$; la escritura va al revés '
-                                                     'del orden de aplicación, igual que `rot_z @ rot_y`.'},
+                                                     'del orden de aplicación, como en el producto $R_z R_y$ '
+                                                     'del cuaderno.'},
                                      {'id': 'b',
                                       'texto': '$R_y R_z$: se escriben en el orden en que se hacen, de '
                                                'izquierda a derecha.',
                                       'correcta': False,
-                                      'explicacion': '$R_y R_z\\,p$ aplica primero $R_z$; con el ejemplo de '
-                                                     '$90°$ manda $e_x$ a $(0, 1, 0)$ en vez de $(0, 0, '
-                                                     '-1)$, otro destino.'},
+                                      'explicacion': '$R_y R_z\\,p$ aplica primero $R_z$; con giros de $90°$ '
+                                                     'manda $e_x$ a $(0, 1, 0)$ en vez de $(0, 0, -1)$, otro '
+                                                     'destino.'},
                                      {'id': 'c',
                                       'texto': 'Cualquiera de las dos, $R_z R_y = R_y R_z$: los giros '
                                                'conmutan como en el plano.',
@@ -1049,11 +1051,11 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                         'correcta': False,
                                         'explicacion': 'El segundo producto es $(-4)(-3) = +12$, no $-12$; '
                                                        'con el signo bien la suma da $0$. Un ángulo casi '
-                                                       'llano pondría a $A$ y a $C$ de lados opuestos de '
-                                                       '$B$, y están del mismo lado.'},
+                                                       'llano exigiría que $BA$ y $BC$ apuntaran en sentidos '
+                                                       'casi opuestos, y acá son perpendiculares.'},
                                        {'id': 'd',
-                                        'texto': '$45°$: usamos $A$ y $C$ tal cual, $\\langle A, C\\rangle = '
-                                                 '98 + 42 = 140$, y los largos desde el origen.',
+                                        'texto': 'Unos $14°$: usamos $A$ y $C$ tal cual, $\\langle A, '
+                                                 'C\\rangle = 98 + 42 = 140$, y los largos desde el origen.',
                                         'correcta': False,
                                         'explicacion': 'Los vectores $A$ y $C$ medidos desde el origen '
                                                        'forman un ángulo en el origen, no en $B$; el ángulo '
@@ -1190,9 +1192,10 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                           'espejos.',
                                                  'correcta': False,
                                                  'explicacion': 'El ángulo de giro es el doble del ángulo '
-                                                                'entre los espejos: $e_1$ va a $\\alpha$ de '
-                                                                'un lado y cae a $\\alpha$ del otro. Falta '
-                                                                'el factor $2$.'},
+                                                                'entre los espejos: $e_1$ queda sobre el '
+                                                                'primer espejo y el segundo lo refleja al '
+                                                                'otro lado, a $2\\cdot 30° = 60°$. Falta el '
+                                                                'factor $2$.'},
                                                 {'id': 'b',
                                                  'texto': 'Otra reflexión, respecto de la bisectriz de '
                                                           '$15°$.',
@@ -1342,7 +1345,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                            'nivel': 'elemental',
                            'enunciado': 'Escaneamos un plano y la hoja pasó torcida por el rodillo. Si la '
                                         'deformación es una afinidad, ¿en qué figura puede convertirse un '
-                                        'cuadrado de la cuadrícula?',
+                                        'cuadrado de la cuadrícula? (Llamamos trapecio al cuadrilátero con '
+                                        'dos lados que, prolongados, se cruzan.)',
                            'opciones': [{'id': 'a',
                                          'texto': 'En un paralelogramo cualquiera, nunca en un trapecio.',
                                          'correcta': True,
@@ -1407,9 +1411,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                       'en la 3×3 con última fila (0, 0, 1); el plano afín es w = 1'},
                           {'id': '04_m1',
                            'nivel': 'medio',
-                           'enunciado': 'Tres mojones: $(0, 0) \\mapsto (1, 2)$, $(1, 0) \\mapsto (3, 3)$ y '
-                                        '$(0, 1) \\mapsto (2, 4)$. ¿Cuál es la afinidad $x \\mapsto Ax + t$ '
-                                        'que los lleva?',
+                           'enunciado': "Tres mojones $a = (0, 0)$, $b = (1, 0)$ y $c = (0, 1)$ van a $a' = "
+                                        "(1, 2)$, $b' = (3, 3)$ y $c' = (2, 4)$. ¿Cuál es la afinidad $x "
+                                        '\\mapsto Ax + t$ que los lleva?',
                            'opciones': [{'id': 'a',
                                          'texto': '$A = \\begin{pmatrix} 3 & 2 \\\\ 3 & 4 \\end{pmatrix}$, '
                                                   '$t = (1, 2)$.',
@@ -1431,8 +1435,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                          'correcta': True,
                                          'explicacion': "Como $a$ es el origen, $t = a' = (1, 2)$; después "
                                                         '$Ae_1 = (3, 3) - (1, 2) = (2, 1)$ y $Ae_2 = (2, 4) '
-                                                        '- (1, 2) = (1, 2)$. Control: $d = (1, 1) \\mapsto '
-                                                        '(3, 3) + (1, 2) = (4, 5)$.'},
+                                                        '- (1, 2) = (1, 2)$. Control: el punto $d = (1, 1) '
+                                                        '\\mapsto (3, 3) + (1, 2) = (4, 5)$.'},
                                         {'id': 'd',
                                          'texto': '$A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$, '
                                                   '$t = (-1, -2)$.',
@@ -1611,8 +1615,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                    'texto': 'En $(2, 1.333)$.',
                                    'correcta': True,
                                    'explicacion': '$(3/1.5,\\ 2/1.5) = (2, 4/3)$: justo el cruce de las '
-                                                  'diagonales de la foto. Queda más abajo que la mitad del '
-                                                  'trapecio porque el lado lejano se achica.'},
+                                                  'diagonales de la foto. Queda más arriba que la mitad del '
+                                                  'trapecio (que está en $y = 1$), hacia el lado lejano, '
+                                                  'porque ese lado se achica.'},
                                   {'id': 'd',
                                    'texto': 'En $(2, 2)$: una homografía deja quieto el centro del '
                                             'cuadrilátero.',
@@ -1744,9 +1749,11 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                             'eje $AB$.',
                                    'correcta': True,
                                    'explicacion': 'Las matrices proporcionales son la misma homografía. $H$ '
-                                                  'intercambia $C$ con $E$ y $D$ con el centro de dos en '
-                                                  "dos; la razón doble $(D, D'; O, X) = -1$ confirma la "
-                                                  'cuaterna armónica.'},
+                                                  'intercambia $C$ con $E$ y manda $D$ al centro del '
+                                                  "pentágono; la razón doble $(D, D'; O, X) = -1$ confirma "
+                                                  "la cuaterna armónica, con $D = (0, 1)$, su imagen $D' = "
+                                                  '(0, 0)$, el centro de la homología $O = (0, 0.309)$ y el '
+                                                  'corte $X = (0, -0.809)$ con el eje $AB$.'},
                                   {'id': 'b',
                                    'texto': 'Aplicarla dos veces multiplica todas las coordenadas por $5$: '
                                             'una homotecia de factor $5$ desde el origen.',
@@ -1844,8 +1851,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                          'nivel': 'medio',
                          'enunciado': 'La cota es $h = 2x + y + 100$ y el plano digitalizado quedó deformado '
                                       'por $A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 1 \\end{pmatrix}$: cada '
-                                      "punto aparece en $p' = Ap$. ¿Qué fila lee sobre $p'$ la misma cota "
-                                      'que $(2, 1)$ sobre $p$?',
+                                      "punto aparece en $p' = Ap$. Sea $\\ell = (2, 1)$ la fila de la cota. "
+                                      "¿Qué fila $\\ell'$ lee sobre $p' = Ap$, para todo $p$, la misma cota "
+                                      'que $\\ell$ sobre $p$?',
                          'opciones': [{'id': 'a',
                                        'texto': '$(5, 1)$.',
                                        'correcta': False,
@@ -1958,17 +1966,19 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                     'dualidad punto–recta (ℓ·p = 0) y su lectura como autovectores de Hᵀ'},
                         {'id': '06_a2',
                          'nivel': 'avanzado',
-                         'enunciado': 'El profesor se corrigió en vivo: el gradiente de una función es una '
-                                      'forma lineal, no un vector. ¿Qué cambia en la práctica para la cota '
+                         'enunciado': 'Alguien dice que el gradiente de una función es un vector, pero en '
+                                      'realidad es una forma lineal. ¿Qué cambia en la práctica para la cota '
                                       '$h(x, y)$ de un terreno?',
                          'opciones': [{'id': 'a',
-                                       'texto': 'Nada: los números $(h_x, h_y)$ son los mismos, el nombre es '
-                                                'una formalidad.',
+                                       'texto': 'Nada: los números $(h_x, h_y)$ son los mismos en cualquier '
+                                                'grilla, y decir forma lineal en vez de vector es sólo una '
+                                                'formalidad de nombre.',
                                        'correcta': False,
                                        'explicacion': 'Los números coinciden sólo en la base canónica con el '
-                                                      'producto interno usual. Cambiá las unidades de un eje '
-                                                      'y la fila se transforma con $A^{-1}$, mientras una '
-                                                      'flecha iría con $A$: los números dejan de coincidir.'},
+                                                      'producto interno usual. Si cambiamos las unidades de '
+                                                      'un eje, la fila se transforma con $A^{-1}$, mientras '
+                                                      'una flecha iría con $A$: los números dejan de '
+                                                      'coincidir.'},
                                       {'id': 'b',
                                        'texto': 'La flecha perpendicular a las curvas de nivel sólo tiene '
                                                 'sentido con un producto interno fijado; si cambiamos las '
@@ -1983,7 +1993,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                       'no es la de la grilla.'},
                                       {'id': 'c',
                                        'texto': 'El gradiente deja de ser perpendicular a las curvas de '
-                                                'nivel en cualquier sistema de coordenadas.',
+                                                'nivel en cualquier sistema de coordenadas, porque su '
+                                                'dirección depende de cómo dibujemos el plano.',
                                        'correcta': False,
                                        'explicacion': 'Demasiado fuerte: en la base canónica con el producto '
                                                       'interno usual la flecha $(h_x, h_y)$ sí es '
@@ -1992,7 +2003,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                       'métrica.'},
                                       {'id': 'd',
                                        'texto': 'El gradiente pasa a transformarse como un punto, con $A$, '
-                                                'en vez de con $A^{-1}$.',
+                                                'en vez de con $A^{-1}$, porque al cambiar de grilla viaja '
+                                                'igual que las posiciones del terreno.',
                                        'correcta': False,
                                        'explicacion': 'Justo al revés: por ser forma lineal se transforma '
                                                       'como una fila, con $A^{-1}$ a la derecha. Un vector '
@@ -2009,7 +2021,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                    'agranda, y cero es nada.',
                                           'correcta': False,
                                           'explicacion': 'No cambiar el área es $\\det = 1$. Con $\\det = 0$ '
-                                                         'el área después es $0 \\cdot 12 = 0$: la parcela '
+                                                         'el área después es $0$ por la de antes: la parcela '
                                                          'cae entera sobre una recta.'},
                                          {'id': 'b',
                                           'texto': 'Sale dada vuelta, como en un espejo.',
@@ -2068,8 +2080,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                           'correcta': False,
                                           'explicacion': 'Las $x$ crecen de a $3$, pero las $y$ de a $2$ y '
                                                          'después de a $3$: $(6, 5)$ no es múltiplo de $(3, '
-                                                         '2)$. Cero sería $15 - 12 = 3$ igual a cero, y no '
-                                                         'lo es.'}],
+                                                         '2)$. El detector da $15 - 12 = 3$, que no es '
+                                                         'cero.'}],
                             'rubrica': 'Productos · avanzado: el producto cuña arma formas lineales que '
                                        'detectan colinealidad'},
                            {'id': '07a_m1',
@@ -2077,7 +2089,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                             'enunciado': 'La parcela tiene área con signo $12$ (recorrida antihorario). ¿Qué '
                                          'área con signo tiene después de $A = \\begin{pmatrix} 2 & 1 \\\\ 1 '
                                          '& 2 \\end{pmatrix}$, y qué área después del espejo '
-                                         '$\\mathrm{diag}(1, -1)$?',
+                                         '$\\mathrm{diag}(1, -1)$ (cada transformación aplicada por separado '
+                                         'a la parcela original)?',
                             'opciones': [{'id': 'a',
                                           'texto': '$36$ y $12$.',
                                           'correcta': False,
@@ -2122,9 +2135,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                    'interno, $u \\wedge v = v \\wedge u$.',
                                           'correcta': False,
                                           'explicacion': '$(3, 1) \\wedge (1, 2) = 5$ y $(1, 2) \\wedge (3, '
-                                                         '1) = -5$. Si fuera simétrica, $u \\wedge u$ no '
-                                                         'tendría por qué ser cero y el detector de '
-                                                         'colinealidad no funcionaría.'},
+                                                         '1) = -5$. Dos signos distintos para el mismo par '
+                                                         'de vectores: no es simétrica.'},
                                          {'id': 'c',
                                           'texto': 'Porque es lineal en cada vector y $w \\wedge w = 0$: '
                                                    'desarrollando $(u + v) \\wedge (u + v) = 0$ queda $u '
@@ -2168,7 +2180,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                          'plano por el origen. Tres ternas en un plano son '
                                                          'linealmente dependientes y el volumen orientado '
                                                          '$\\det[\\vec A\\ \\vec B\\ \\vec C]$ se anula. Es '
-                                                         'la misma condición de sin tres alineados de la '
+                                                         'la misma condición «sin tres alineados» de la '
                                                          'homografía.'},
                                          {'id': 'c',
                                           'texto': 'Porque con la columna de unos el determinante se reduce '
@@ -2598,9 +2610,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                     'correcta': False,
                                                     'explicacion': 'Control: $R(1, 1, 1) = (-1, 1, -1) \\neq '
                                                                    '(1, 1, 1)$. La cruz $(-1, -1, 0) \\times '
-                                                                   '(0, -1, 1)$ tiene un signo cambiado '
-                                                                   'respecto de ésta: la primera componente '
-                                                                   'es $(-1)(1) - 0 \\cdot (-1) = -1$.'},
+                                                                   '(0, -1, 1)$ da $(-1, 1, 1)$: la primera '
+                                                                   'componente es $(-1)(1) - 0 \\cdot (-1) = '
+                                                                   '-1$, no $1$.'},
                                                    {'id': 'c',
                                                     'texto': '$(-1, 1, 1)$: la cruz de las dos primeras '
                                                              'filas, y $R(-1, 1, 1) = (-1, 1, 1)$.',
@@ -2906,11 +2918,12 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                       'texto': '$B\\,A\\,B^{-1}$: primero $B^{-1}$ a la derecha para entrar, '
                                                'después $A$, después $B$ para salir.',
                                       'correcta': False,
-                                      'explicacion': 'Con $B$ de propia a canónica, $B^{-1}$ lleva un punto '
-                                                     'canónico a la base propia: ésa es la entrada. '
-                                                     '$BAB^{-1}$ entra con la traducción equivocada y en '
-                                                     'general no es diagonal; es la fórmula de $A = '
-                                                     'B\\Lambda B^{-1}$ con los papeles cambiados.'},
+                                      'explicacion': '$BAB^{-1}$ traduce a la base propia, aplica $A$ (que '
+                                                     'espera coordenadas canónicas) y vuelve a canónica: '
+                                                     'mezcla las bases y en general no es diagonal. Lo '
+                                                     'correcto es $B^{-1}AB$: de propia a canónica con $B$, '
+                                                     'transformar con $A$, y de canónica a propia con '
+                                                     '$B^{-1}$.'},
                                      {'id': 'b',
                                       'texto': '$B^\\top A\\,B$: la transpuesta deshace a $B$, como en '
                                                'Rotaciones I.',
@@ -3021,8 +3034,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                      'propios no sean perpendiculares no molesta; sólo '
                                                      'impide usar $B^\\top$.'},
                                      {'id': 'd',
-                                      'texto': 'Ninguna de las tres: para diagonalizar hace falta que la '
-                                               'matriz sea simétrica.',
+                                      'texto': 'Ninguna de las anteriores: para diagonalizar hace falta que '
+                                               'la matriz sea simétrica.',
                                       'correcta': False,
                                       'explicacion': 'La simetría garantiza base propia **ortogonal**, pero '
                                                      'no es necesaria. La condición es tener tantos '
@@ -3041,7 +3054,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                           'texto': 'Los autovalores de $A$ en valor absoluto, para cualquier '
                                                    'matriz $A$.',
                                           'correcta': False,
-                                          'explicacion': 'Eso vale sólo si $A$ es simétrica ($U = V$). Para '
+                                          'explicacion': 'En general no vale: sí para las simétricas y, más '
+                                                         'en general, para las normales (como una rotación '
+                                                         'por una escala), pero no para cualquier $A$. Para '
                                                          '$\\begin{pmatrix} 2 & 1 \\\\ 0 & 1 \\end{pmatrix}$ '
                                                          'los autovalores son $2, 1$ y los valores '
                                                          'singulares $2.288, 0.874$: dos preguntas distintas '
@@ -3117,11 +3132,11 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                        'negativa)'},
                            {'id': '09_m1',
                             'nivel': 'medio',
-                            'enunciado': 'Con el DEM $Z$ de $128\\times128$ alturas hacemos `U, s, Vt = '
-                                         'np.linalg.svd(Z)` y armamos $Z_k$ = `U[:, :k] @ np.diag(s[:k]) @ '
-                                         'Vt[:k]` con $k = 10$. ¿Qué es $Z_k$?',
+                            'enunciado': 'Con el recorte del DEM $Z$, de $512\\times512$ alturas, hacemos '
+                                         '`U, s, Vt = np.linalg.svd(Z)` y armamos $Z_k$ = `U[:, :k] @ '
+                                         'np.diag(s[:k]) @ Vt[:k]` con $k = 10$. ¿Qué es $Z_k$?',
                             'opciones': [{'id': 'a',
-                                          'texto': 'Una matriz de rango $128$ como $Z$, porque $U$ y '
+                                          'texto': 'Una matriz de rango $512$ como $Z$, porque $U$ y '
                                                    '$V^\\top$ siguen siendo las matrices completas.',
                                           'correcta': False,
                                           'explicacion': 'Recortamos $10$ columnas de $U$, $10$ valores de '
@@ -3175,10 +3190,11 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                          {'id': 'b',
                                           'texto': '$5$: los autovalores al cuadrado, $2^2 + 1^2$.',
                                           'correcta': False,
-                                          'explicacion': '$\\sigma_k = \\lvert\\lambda_k\\rvert$ sólo si $A$ '
-                                                         'es simétrica, y ésta no lo es. Control: '
-                                                         '$\\sigma_1^2 + \\sigma_2^2 = (3 + \\sqrt5) + (3 - '
-                                                         '\\sqrt5) = 6 \\neq 5$.'},
+                                          'explicacion': '$\\sigma_k = \\lvert\\lambda_k\\rvert$ vale para '
+                                                         'las matrices normales (por ejemplo las '
+                                                         'simétricas), y ésta no lo es ($AA^\\top \\neq '
+                                                         'A^\\top A$). Control: $\\sigma_1^2 + \\sigma_2^2 = '
+                                                         '(3 + \\sqrt5) + (3 - \\sqrt5) = 6 \\neq 5$.'},
                                          {'id': 'c',
                                           'texto': '$6$: la traza de $A^\\top A$, que es la suma de los '
                                                    'cuadrados de todas las entradas de $A$.',
@@ -3194,8 +3210,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                           'correcta': False,
                                           'explicacion': '$\\sigma_1\\sigma_2 = \\lvert\\det A\\rvert = 2$ '
                                                          'es el **producto**, no la suma de cuadrados. El '
-                                                         'producto da el área de la elipse (sobre $\\pi$); '
-                                                         'la suma de cuadrados, la traza de $A^\\top A$.'}],
+                                                         'producto $\\sigma_1\\sigma_2$ es el área de la '
+                                                         'elipse dividida por $\\pi$; la suma de cuadrados, '
+                                                         'la traza de $A^\\top A$.'}],
                             'rubrica': 'Cambio de base y SVD · medio: en la SVD las bases de entrada y '
                                        'salida son distintas, A = UΣVᵀ (construcción de σ a partir de AᵀA)'},
                            {'id': '09_a1',
@@ -3309,8 +3326,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                         '\\langle r_u, r_v\\rangle$, $G = \\langle r_v, '
                                                         'r_v\\rangle$.',
                                                'correcta': True,
-                                               'explicacion': 'Es la $VV^\\top$ de la lección 02 con los '
-                                                              'ejes locales como columnas: largos al '
+                                               'explicacion': 'Es la $VV^\\top$ de la lección 02, con los '
+                                                              'ejes en las filas de $V$ (con los ejes como '
+                                                              'columnas de $J$ es $J^\\top J$): largos al '
                                                               'cuadrado en la diagonal, el ángulo escondido '
                                                               'en $F$. Con ella medimos pasitos, ángulos y '
                                                               'áreas sin salir de la grilla $(u, v)$.'},
@@ -3355,10 +3373,12 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                         'cilindro, que se desenrolla.',
                                                'correcta': False,
                                                'explicacion': '$F$ habla del ángulo entre los ejes locales, '
-                                                              'no de la curvatura. La esfera tiene $F = 0$ '
-                                                              'en todos lados y no se desenrolla sobre el '
-                                                              'plano; eso lo decide la segunda forma, no la '
-                                                              'primera.'},
+                                                              'no de si la superficie es plana. La esfera '
+                                                              'tiene $F = 0$ en todos lados y no se '
+                                                              'desenrolla sobre el plano: eso lo decide la '
+                                                              'curvatura (que sale de $E, F, G$ y sus '
+                                                              'derivadas, lección 12), no el valor de $F$ en '
+                                                              'un punto.'},
                                               {'id': 'b',
                                                'texto': 'Que los ejes locales $r_\\varphi$ y $r_\\lambda$ '
                                                         'son perpendiculares (meridianos y paralelos se '
@@ -3497,9 +3517,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                'correcta': False,
                                                'explicacion': 'Ignora $G = R^2\\cos^2\\varphi$: hacia el '
                                                               'polo el eje $r_\\lambda$ se achica hasta '
-                                                              'desaparecer (\\"mover la longitud no me '
-                                                              'mueve\\"). Sólo en el ecuador, $\\cos 0 = 1$, '
-                                                              'el grado de longitud vale $111.2$ km.'},
+                                                              'desaparecer (mover la longitud casi no nos '
+                                                              'mueve). Sólo en el ecuador, $\\cos 0 = 1$, el '
+                                                              'grado de longitud vale $111.2$ km.'},
                                               {'id': 'b',
                                                'texto': '$78.6$ km: $ds = \\sqrt{G}\\,d\\lambda = R\\cos '
                                                         '45°\\cdot\\pi/180$.',
@@ -3534,9 +3554,10 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                 {'id': '10_a2',
                                  'nivel': 'avanzado',
                                  'enunciado': 'Sobre la grilla $(u, v)$ de la loma tenemos la altura $h(u, '
-                                              'v)$. El profesor se corrigió en vivo: el gradiente \\"no es '
-                                              'un vector\\". ¿Qué es entonces, y qué hace falta para dibujar '
-                                              'la dirección de máxima pendiente sobre el terreno?',
+                                              'v)$. Alguien afirma que el gradiente es un vector de la '
+                                              'grilla, pero no lo es. ¿Qué es entonces, y qué hace falta '
+                                              'para dibujar la dirección de máxima pendiente sobre el '
+                                              'terreno?',
                                  'opciones': [{'id': 'a',
                                                'texto': 'Es el vector $(h_u, h_v)$ de la grilla; su '
                                                         'perpendicular a las curvas de nivel en el papel ya '
@@ -3762,9 +3783,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                         'correcta': True,
                                         'explicacion': 'Como las nubes son la misma figura, $\\Sigma$ es un '
                                                        'múltiplo de la identidad y $R$ es exacto; sin $s$ '
-                                                       'cada punto queda a su distancia real por $1/3{,}28$ '
-                                                       'del correcto, y el residuo mide ese error de unidad, '
-                                                       'no de giro.'},
+                                                       'cada punto queda a $1/3{,}28$ de su distancia '
+                                                       'correcta, y el residuo mide ese error de unidad, no '
+                                                       'de giro.'},
                                        {'id': 'c',
                                         'texto': 'La rotación sale mal, porque $H$ cambia de forma al '
                                                  'multiplicar $Q$ por una constante.',
@@ -3777,49 +3798,50 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                  'si las dos nubes tienen la misma escala.',
                                         'correcta': False,
                                         'explicacion': 'Procrustes con escala resuelve exactamente ese caso: '
-                                                       '$s$ sale de $\\operatorname{tr}\\Sigma / '
-                                                       '\\|P_0\\|^2$ sin convertir nada a mano.'}],
+                                                       '$s$ sale de $\\operatorname{tr}\\Sigma / \\lVert '
+                                                       'P_0\\rVert^2$ sin convertir nada a mano.'}],
                           'rubrica': 'Cambio de base y SVD · medio: en la SVD las bases de entrada y salida '
                                      'son distintas, girar, estirar, girar; $R = VU^\\top$ se queda con los '
                                      'giros'},
                          {'id': '11_a2',
                           'nivel': 'avanzado',
-                          'enunciado': 'Cuatro puntos ya centrados, $(1, 0)$, $(-1, 0)$, $(0, 2)$, $(0, '
-                                       '-2)$, con $X^\\top X = \\begin{pmatrix} 2 & 0 \\\\ 0 & 8 '
-                                       '\\end{pmatrix}$. ¿Qué recta da la regresión total y cuál la '
-                                       'regresión simple de $y$ sobre $x$?',
+                          'enunciado': 'Cuatro puntos ya centrados, $(2, 2)$, $(-2, -2)$, $(1, -1)$, $(-1, '
+                                       '1)$, con $X^\\top X = \\begin{pmatrix} 10 & 6 \\\\ 6 & 10 '
+                                       '\\end{pmatrix}$ (autovalores $16$ y $4$). ¿Qué recta da la regresión '
+                                       'total y cuál la regresión simple de $y$ sobre $x$?',
                           'opciones': [{'id': 'a',
-                                        'texto': 'Total: $x = 0$ (dirección del autovalor $8$); simple: $y = '
-                                                 '0$ (pendiente $\\sum x_i y_i / \\sum x_i^2 = 0$).',
+                                        'texto': 'Total: $y = x$ (dirección del autovalor $16$); simple: $y '
+                                                 '= 0{,}6\\,x$ (pendiente $\\sum x_i y_i / \\sum x_i^2 = '
+                                                 '6/10$).',
                                         'correcta': True,
                                         'explicacion': 'La recta total va por la dirección de mayor '
-                                                       'dispersión, el eje $y$, y deja residuo '
-                                                       '$\\lambda_{\\min} = 2$; la simple sólo puede '
-                                                       'inclinar una recta $y = ax$ y con $\\sum x_i y_i = '
-                                                       '0$ se queda horizontal. Dos rectas perpendiculares '
-                                                       'para la misma nube.'},
+                                                       'dispersión, $(1, 1)$, y deja residuo '
+                                                       '$\\lambda_{\\min} = 4$; la simple minimiza sólo '
+                                                       'residuos verticales y su pendiente es $6/10$, más '
+                                                       'chata que la total. Dos rectas distintas para la '
+                                                       'misma nube.'},
                                        {'id': 'b',
-                                        'texto': 'Total: $y = 0$ (dirección del autovalor $2$); simple: $y = '
-                                                 '0$.',
+                                        'texto': 'Total: $y = -x$ (dirección del autovalor $4$); simple: $y '
+                                                 '= 0{,}6\\,x$.',
                                         'correcta': False,
-                                        'explicacion': 'El autovalor menor, $2$, da la normal a la recta '
+                                        'explicacion': 'El autovalor menor, $4$, da la normal a la recta '
                                                        'total, no su dirección; la recta sigue la dirección '
-                                                       'de mayor autovalor, que es el eje $y$.'},
+                                                       'de mayor autovalor, $(1, 1)$.'},
                                        {'id': 'c',
-                                        'texto': 'Las dos dan $x = 0$: con la nube simétrica no hay '
-                                                 'diferencia entre vertical y perpendicular.',
+                                        'texto': 'Las dos dan $y = x$: la nube es simétrica respecto de esa '
+                                                 'bisectriz y por eso las dos rectas coinciden.',
                                         'correcta': False,
-                                        'explicacion': 'La simple no puede devolver una recta vertical: '
-                                                       'busca $y = ax + b$ y mide residuos verticales, y '
-                                                       'para esta nube la pendiente sale $0$.'},
+                                        'explicacion': 'La simple mide residuos sólo en $y$ y su pendiente '
+                                                       'es $\\sum x_i y_i / \\sum x_i^2 = 6/10 \\neq 1$; '
+                                                       'sólo coincidiría con la total si la correlación '
+                                                       'fuera perfecta.'},
                                        {'id': 'd',
-                                        'texto': 'Total: $y = x$ (bisectriz de los dos ejes); simple: $y = '
-                                                 '0$.',
+                                        'texto': 'Total: $y = 0{,}6\\,x$ (el cociente $6/10$ de la matriz); '
+                                                 'simple: $y = x$ (la dirección del autovalor $16$).',
                                         'correcta': False,
-                                        'explicacion': 'La bisectriz sería la respuesta si los dos '
-                                                       'autovalores fueran iguales (ninguna dirección '
-                                                       'privilegiada); acá $8 > 2$ y la dirección propia es '
-                                                       'el eje $y$.'}],
+                                        'explicacion': 'Están cambiadas: $6/10$ es la pendiente de la '
+                                                       'regresión simple, y la dirección propia del '
+                                                       'autovalor $16$, $y = x$, es la de la total.'}],
                           'rubrica': 'Cambio de base y SVD · elemental: la circunferencia unidad se '
                                      'transforma en una elipse y sus ejes son la base; leída al revés, datos '
                                      '→ elipse de dispersión → ejes'}],
@@ -3965,9 +3987,10 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'texto': '$\\rho_\\beta = 20$ m: inclinar el plano aplana la curva y '
                                           'agranda el radio.',
                                  'correcta': False,
-                                 'explicacion': 'Al revés: el círculo osculador de la sección oblicua es la '
-                                                'proyección del de la sección normal, y proyectar acorta; el '
-                                                'radio se achica, no se agranda.'},
+                                 'explicacion': 'Al revés: el círculo osculador de la sección oblicua tiene '
+                                                'por centro la proyección del centro de curvatura de la '
+                                                'sección normal sobre el plano oblicuo, y el radio queda '
+                                                '$\\rho_\\alpha\\cos\\theta$: se achica, no se agranda.'},
                                 {'id': 'b',
                                  'texto': '$\\rho_\\beta = 10$ m: el radio depende sólo de la dirección '
                                           'tangente, no del plano que corta.',
@@ -3987,7 +4010,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'texto': '$\\rho_\\beta = 10/\\cos 60° = 20$ m, porque la sección oblicua '
                                           'es más larga.',
                                  'correcta': False,
-                                 'explicacion': 'Dividir por $\\cos\\theta$ es el error de signo en la '
+                                 'explicacion': 'Dividir por $\\cos\\theta$ es invertir el factor de la '
                                                 'fórmula de Meusnier; la sección oblicua es más curva, así '
                                                 'que su radio es $\\rho_\\alpha\\cos\\theta$, menor.'}],
                    'rubrica': 'propuesta: Curvatura · avanzado · Meusnier $\\rho_\\beta = '
@@ -4033,9 +4056,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                               'cáscara no se aplana'}],
  '13_elipsoide': [{'id': '13_e1',
                    'nivel': 'elemental',
-                   'enunciado': 'Un receptor GNSS nos da latitud $\\varphi = 45°$ sobre el elipsoide. ¿Qué '
-                                'ángulo forma la recta del mojón al centro de la Tierra con el plano del '
-                                'ecuador?',
+                   'enunciado': 'Un receptor GNSS nos da latitud $\\varphi = 45°$ para un punto de la '
+                                'superficie del elipsoide ($h = 0$). ¿Qué ángulo forma la recta del mojón al '
+                                'centro de la Tierra con el plano del ecuador?',
                    'opciones': [{'id': 'a',
                                  'texto': '$45°$: toda normal a la superficie pasa por el centro.',
                                  'correcta': False,
@@ -4053,7 +4076,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'texto': 'Un poco más de $45°$: el achatamiento empina la recta al centro.',
                                  'correcta': False,
                                  'explicacion': 'El signo está al revés: $(1 - e^2) < 1$ achica la tangente, '
-                                                'así que $|\\psi| \\le |\\varphi|$ siempre.'},
+                                                'así que $\\lvert\\psi\\rvert \\le \\lvert\\varphi\\rvert$ '
+                                                'siempre.'},
                                 {'id': 'd',
                                  'texto': 'No se puede saber sin la altura $h$ del mojón.',
                                  'correcta': False,
@@ -4199,7 +4223,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'correcta': False,
                                  'explicacion': 'Eso sería si la normal pasara por el centro; como corta el '
                                                 'eje polar a $N e^2\\sin\\varphi$ debajo, hay que descontar '
-                                                'esa parte: en GRS80 el error son unos $20$ km.'},
+                                                'esa parte: en GRS80 el error es de unos $30$ km a $45°$, y '
+                                                'llega a $43$ km cerca del polo.'},
                                 {'id': 'b',
                                  'texto': '$Z = N(1 - e^2)\\sin\\varphi$: el tramo de la normal desde el eje '
                                           'polar hasta el punto mide $N$, pero arranca debajo del centro.',
@@ -4232,8 +4257,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                              'como vectores desde el centro. ¿Qué es el lado $a$ del '
                                              'triángulo esférico, opuesto a $A$?',
                                 'opciones': [{'id': 'a',
-                                              'texto': 'El segmento recto entre $B$ y $C$, de largo $\\|B - '
-                                                       'C\\|$.',
+                                              'texto': 'El segmento recto entre $B$ y $C$, de largo $\\lVert '
+                                                       'B - C\\rVert$.',
                                               'correcta': False,
                                               'explicacion': 'La cuerda atraviesa la esfera; el lado va por '
                                                              'la superficie, y lo que se mide es el ángulo '
@@ -4347,13 +4372,13 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                               'texto': '$\\cos a = 0$: con $A = 90°$ el lado opuesto también '
                                                        'es recto.',
                                               'correcta': False,
-                                              'explicacion': 'Eso pasa sólo si $b = c = 90°$ (el octante); '
-                                                             'con $b = c = 60°$ queda el producto $\\cos '
-                                                             'b\\cos c \\ne 0$.'},
+                                              'explicacion': 'Eso pasa si $b$ o $c$ valen $90°$ (por ejemplo '
+                                                             'en el octante); con $b = c = 60°$ queda el '
+                                                             'producto $\\cos b\\cos c \\ne 0$.'},
                                              {'id': 'c',
-                                              'texto': '$\\cos a = \\tfrac12$: en el triángulo rectángulo '
-                                                       '$a^2 = b^2 + c^2$ da $a = 60°\\sqrt{2} \\approx '
-                                                       '85°$.',
+                                              'texto': '$\\cos a \\approx 0{,}09$: en el triángulo '
+                                                       'rectángulo $a^2 = b^2 + c^2$ da $a = 60°\\sqrt{2} '
+                                                       '\\approx 85°$.',
                                               'correcta': False,
                                               'explicacion': 'Pitágoras es el límite plano de la ley del '
                                                              'coseno para lados chicos; a $60°$ de lado la '
@@ -4361,13 +4386,12 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                              '$\\cos a = 1/4$, $a \\approx 75{,}5°$, no '
                                                              '$85°$.'},
                                              {'id': 'd',
-                                              'texto': '$\\cos a = \\tfrac34$: $\\cos 60°\\cos 60° + \\sin '
-                                                       '60°\\sin 60°$.',
+                                              'texto': '$\\cos a = 1$: $\\cos 60°\\cos 60° + \\sin 60°\\sin '
+                                                       '60°$.',
                                               'correcta': False,
                                               'explicacion': 'Falta el $\\cos A$ en el segundo término; sin '
-                                                             'él se calcula $\\cos(b - c) = 1$ corregido, '
-                                                             'que no es el lado; con $A = 90°$ el segundo '
-                                                             'término se va.'}],
+                                                             'él sale $\\cos(b - c) = 1$, que no es el lado; '
+                                                             'con $A = 90°$ el segundo término se anula.'}],
                                 'rubrica': 'Productos, determinante y autovectores · elemental: el producto '
                                            'interno decide ángulos (la ley del coseno es $\\langle B, '
                                            'C\\rangle$ con los vértices en coordenadas)'},
@@ -4496,7 +4520,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                    {'id': '15_e2',
                                     'nivel': 'elemental',
                                     'enunciado': '¿Cuál de estas matrices puede ser el Jacobiano de una '
-                                                 'transformación conforme en un punto?',
+                                                 'transformación conforme en un punto, es decir, que '
+                                                 'conserva ángulos y orientación (directa)?',
                                     'opciones': [{'id': 'a',
                                                   'texto': '$\\begin{pmatrix} 2 & 0 \\\\ 0 & 1 '
                                                            '\\end{pmatrix}$',

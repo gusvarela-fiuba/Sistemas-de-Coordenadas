@@ -6,10 +6,10 @@
 #     "plotly",
 # ]
 # ///
-"""Jacobiano y primera forma fundamental (lección 10, molde v2 sobre cb104). Clase 9 (14/10/2026).
+"""Jacobiano y primera forma fundamental (unidad 10, molde v2 sobre cb104). Clase 9 (14/10/2026).
 
 Una sola idea: r_u, r_v son los ejes locales de la superficie; la jacobiana los tiene como columnas; E, F, G es su tabla
-de productos internos (la V Vᵀ de la lección 02) y mide pasitos, ángulos y áreas chicas desde los números (u, v).
+de productos internos (la V Vᵀ de la unidad 02) y mide pasitos, ángulos y áreas chicas desde los números (u, v).
 
 Chequear:  uv run marimo check --select MW unidades/10_jacobiano_primera_forma.py
 Exportar:  uv run python tools/build.py --only 10_jacobiano_primera_forma
@@ -131,7 +131,7 @@ def _(mo):
 
     **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hacemos zoom en un punto
     hasta que la curva parece recta y la superficie parece plana; la derivada es esa recta o ese plano, una transformación
-    lineal ("la matriz es lo que le pasa a la grilla", [lección 04](../04_afines_homogeneas/index.html)) que cambia de
+    lineal ("la matriz es lo que le pasa a la grilla", [unidad 04](../04_afines_homogeneas/index.html)) que cambia de
     punto a punto. El profesor, con una pelota: *"cortás un pedacito y le hacés zoom, cortás uno más chico y lo escalás de
     nuevo… hay un momento en que el pedazo parece plano. La matriz jacobiana describe esa transformación lineal local."*
 
@@ -145,21 +145,21 @@ def _(mo):
     uno de $\mathbb R^3$: $3 \times 2$. Columna 1 = a dónde va el eje $u$ ($r_u = \partial r/\partial u$),
     columna 2 = a dónde va el eje $v$; el pasito $(du, dv)$ va a $dr = r_u\,du + r_v\,dv$ y el cuadradito $du \times dv$,
     a un paralelogramo de lados $r_u$, $r_v$. Lo que no se puede recorrer a la salida es la normal $r_u \times r_v$:
-    *"el espacio que no puedo recorrer es la normal, por eso el producto cruz"*.
+    *"el espacio que no puedo recorrer es la normal, por eso el producto cruz"* (cita textual del profesor).
 
     **La primera forma fundamental es la tabla de productos internos de los ejes locales**, la $V V^T$ sembrada en la
-    [lección 02](../02_producto_interno/index.html), con los ejes como columnas:
+    [unidad 02](../02_producto_interno/index.html), con los ejes como columnas:
 
     $$J^T J = \begin{pmatrix} E & F \\ F & G \end{pmatrix}, \qquad E = \langle r_u, r_u\rangle, \quad F = \langle r_u, r_v\rangle, \quad G = \langle r_v, r_v\rangle.$$
 
     $E$ y $G$ son los largos al cuadrado de los ejes locales; $F$ dice qué ángulo forman ($F = 0$: perpendiculares). Con
     esa tabla medimos sin salir de la grilla: el largo del pasito, $ds^2 = \langle dr, dr\rangle = E\,du^2 + 2F\,du\,dv + G\,dv^2$;
-    el ángulo entre dos pasitos (el coseno de la lección 02 con esta tabla); el área del cuadradito,
+    el ángulo entre dos pasitos (el coseno de la unidad 02 con esta tabla); el área del cuadradito,
     $\lvert r_u \times r_v \rvert\,du\,dv = \sqrt{EG - F^2}\,du\,dv$.
 
     **¿Qué se conserva?** A primer orden, el pasito: direcciones y largos de lo chico. Lo que cambia es la regla: en el
     plano cartesiano $E = G = 1$, $F = 0$ en todos lados; sobre una superficie la tabla depende del punto, y en el polo una
-    columna se anula: *"mover la latitud me saca del polo, mover la longitud no me mueve"*.
+    columna se anula: *"mover la latitud me saca del polo, mover la longitud no me mueve"* (cita textual del profesor).
 
     Dos cosas más de la clase, en la [ficha 9](../../clases/09.html): el **gradiente** de $h$ *"es una forma lineal, no
     un vector"*, la regla graduada que mide cuánto sube $h$ con cada pasito, $h_u\,du + h_v\,dv$; y la **función implícita**,
@@ -170,7 +170,7 @@ def _(mo):
     **El gradiente es una forma lineal, no un vector (recordatorio del 14/10).** El profesor se corrigió en vivo: "el
     gradiente de una función es un vector… no, mentí, lo dije mal. Es una forma lineal, porque me permite hacer una
     aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Sobre la grilla $(u, v)$, el
-    gradiente de la altura es la **fila** $(h_u, h_v)$: la regla graduada de la [lección 06](../06_formas_lineales/index.html),
+    gradiente de la altura es la **fila** $(h_u, h_v)$: la regla graduada de la [unidad 06](../06_formas_lineales/index.html),
     que lee $dh = h_u\,du + h_v\,dv$ sobre cada pasito y cambia de coordenadas con $A^{-1}$, como toda forma. Para
     convertirla en **una flecha** sobre el terreno (la dirección de máxima pendiente, perpendicular a las curvas de nivel)
     hace falta la tabla de arriba: la flecha es $g^{-1} (h_u, h_v)^T$ con $g = J^T J$, el único puente entre formas y
@@ -379,7 +379,7 @@ def _(mo):
         qué ángulo se cruzan sobre el plano las líneas de la grilla, perpendiculares en el papel.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
-        $F = \langle r_u, r_v\rangle = \lvert r_u \rvert\,\lvert r_v \rvert \cos\theta$ (lección 02). Si ninguno es nulo,
+        $F = \langle r_u, r_v\rangle = \lvert r_u \rvert\,\lvert r_v \rvert \cos\theta$ (unidad 02). Si ninguno es nulo,
         $F = 0 \iff \cos\theta = 0 \iff \theta = 90°$: la sombra de un eje sobre el otro es nula. Plano inclinado:
         $r_u = (1, 0, 0.4)$, $r_v = (0, 1, 0.3)$; $E = 1.16$, $G = 1.09$, $F = 0.12$; $\cos\theta = 0.12/\sqrt{1.16 \cdot 1.09} = 0.1067$,
         $\theta \approx 83.9°$: a $90°$ en el papel, a $83.9°$ sobre el plano.
@@ -472,7 +472,7 @@ def _(editor_d, lib, mo, np):
         if np.allclose(_obtenido, _esperado):
             _res = mo.callout(mo.md("✅ coincide en los 13 casos, incluido el grado de longitud a 45° (78.6 km)."), kind="success")
         elif np.allclose(_obtenido, _esperado**2):
-            _res = mo.callout(mo.md("❌ devolvés $ds^2$, el largo **al cuadrado**: falta la raíz, como $\\lvert v \\rvert = \\sqrt{\\langle v, v\\rangle}$ en la lección 02."), kind="warn")
+            _res = mo.callout(mo.md("❌ devolvés $ds^2$, el largo **al cuadrado**: falta la raíz, como $\\lvert v \\rvert = \\sqrt{\\langle v, v\\rangle}$ en la unidad 02."), kind="warn")
         elif np.allclose(_obtenido, np.sqrt(_E * _du**2 + _F * _du * _dv + _G * _dv**2)):
             _res = mo.callout(mo.md("❌ falta el $2$ en $2F\\,du\\,dv$: al desarrollar $\\langle r_u du + r_v dv,\\ r_u du + r_v dv\\rangle$ el término cruzado aparece dos veces."), kind="warn")
         else:
@@ -525,14 +525,15 @@ def _(mo):
     Acá verificamos que los ejes locales son las columnas de la jacobiana y que su tabla de productos internos mide desde la
     grilla. Las demostraciones:
 
-    - [apunte, sección 6: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
-    - [apunte, sección 13: coordenadas curvilíneas, espacio tangente, métrica](../../apunte.pdf#nameddest=cap:13)
+    - [apunte, «Pasar del plano a una superficie»](../../apunte.pdf#nameddest=cap:06)
+    - [apunte, «Coordenadas curvilíneas y bases locales» (coordenadas curvilíneas, espacio tangente, métrica)](../../apunte.pdf#nameddest=cap:13)
     - [ficha de la clase 9](../../clases/09.html) (gradiente como forma lineal, función implícita) ·
-      [lección 02](../02_producto_interno/index.html) · [el hilo conductor](../../index.html)
+      [unidad 02](../02_producto_interno/index.html) · [el hilo conductor](../../index.html)
 
-    **Lo que viene:** [curvatura](../12_curvatura/index.html) (anticipada, pendiente de validar): cuánto se aparta la
-    superficie de su plano tangente, la **segunda forma fundamental**. El hilo: $E, F, G$ es la regla; la curvatura es
-    cuánto se dobla.
+    **Lo que viene:** [Cuatro problemas: regresión, círculos, Procrustes, regresión total](../11_cuatro_problemas/index.html):
+    la matriz $A^T A$ y las ecuaciones normales como herramienta de ajuste. Como ramal,
+    [curvatura](../12_curvatura/index.html) (anticipada, pendiente de validar): cuánto se aparta la superficie de su plano
+    tangente, la **segunda forma fundamental**. El hilo: $E, F, G$ es la regla; la curvatura es cuánto se dobla.
     """)
     return
 

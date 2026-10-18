@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Reflexiones y similaridades (lección 03, molde v2 sobre cb104). Clase 3, reconstruida: sin transcripción.
+"""Reflexiones y similaridades (unidad 03, molde v2 sobre cb104). Clase 3, reconstruida: sin transcripción.
 
 Una sola idea: la reflexión (det = −1) conserva todo pero da vuelta la orientación, y dos seguidas son una rotación;
 la similaridad k·R(θ) x + t conserva forma y ángulos, escala todo por k y tiene un centro fijo: con dos puntos se
@@ -78,7 +78,7 @@ def _(lib, mo, np):
             "Una rotación más un corrimiento: con un mojón alcanza, las distancias no cambian.": "rotacion",
             "Una similaridad: giro, cambio de escala y corrimiento; con los dos mojones alcanza.": "correcta",
             "Una reflexión: si el norte está para otro lado hay que dar vuelta el plano.": "reflexion",
-            "Una afinidad cualquiera: hacen falta tres mojones, como en la lección 04.": "afinidad",
+            "Una afinidad cualquiera: hacen falta tres mojones, como en la unidad 04.": "afinidad",
         }),
         value=None,
         label="**Predicción.** ¿Qué transformación superpone el plano viejo sobre el relevamiento, y con cuántos mojones?",
@@ -118,7 +118,7 @@ def _(mo, prediccion):
                       r"un guante: los vértices irían antihorario en el terreno y horario en el plano. Un plano dibujado mirando el "
                       r"terreno desde arriba no hace eso; en la sección 2 el área con signo lo delata."),
         "afinidad": ("warn",
-                     r"**No es la mejor.** Con tres mojones y la receta de la lección 04 sale una afinidad que pasa exacto por los tres, "
+                     r"**No es la mejor.** Con tres mojones y la receta de la unidad 04 sale una afinidad que pasa exacto por los tres, "
                      r"pero cualquier error de lectura entra como un estiramiento distinto en cada eje, que el plano no tiene. Si los "
                      r"ángulos se conservan hay sólo cuatro incógnitas: dos mojones, y el tercero controla."),
     }
@@ -136,12 +136,12 @@ def _(mo):
     su perpendicular, a la misma distancia. Distancias y ángulos quedan iguales, pero lo que iba antihorario ahora va
     horario: $\det = -1$. Hacerla dos veces devuelve cada punto a su lugar: es su propia inversa. Y **dos espejos
     seguidos** respecto de rectas que se cortan en $o$ son una **rotación** alrededor de $o$ por el doble del ángulo
-    entre ellas (muestra en la sección 2; demostración en el apunte, sección 9, teorema 4).
+    entre ellas (muestra en la sección 2; demostración en el apunte, «Guía resuelta: reflexión respecto de un punto», teorema 4).
 
     **La similaridad conserva la forma, no el tamaño.** Gira $\theta$, multiplica **todas** las longitudes por un mismo
     $k$ y corre $t$: $S(x) = k\,R(\theta)\,x + t$. Conserva ángulos y **razones** de distancias; el área va $\times k^2$.
     Si $k \neq 1$ tiene un único punto quieto, el **centro** $c$, solución de $(I - A)\,c = t$; con el origen en $c$ es
-    sólo girar y escalar (apéndice 16). Con $\theta = 0$ es una **homotecia**: todo se agranda desde el centro, sobre rayos.
+    sólo girar y escalar (apunte, «Composición afín práctica: rotación y escala»). Con $\theta = 0$ es una **homotecia**: todo se agranda desde el centro, sobre rayos.
 
     | | reflexión | similaridad |
     |---|---|---|
@@ -368,7 +368,7 @@ def _(A_sit, P_viejo, a_c, b_c, lib, mo, np, t_sit):
 
         Una sola idea: **una similaridad es un número complejo**. La nube $N\times2$ se vuelve un array de complejos con
         `z = puntos[:, 0] + 1j * puntos[:, 1]`, la similaridad entera es `a * z + b` (sin matrices) y volvemos con
-        `np.column_stack([w.real, w.imag])`. Es la misma cuenta que `puntos @ A.T + t` de la lección 04, con
+        `np.column_stack([w.real, w.imag])`. Es la misma cuenta que `puntos @ A.T + t` de la unidad 04, con
         $A = \lvert a \rvert\,R(\arg a)$. El centro sale de `np.linalg.solve(np.eye(2) - A, t)`, o en complejos de $c = b / (1 - a)$.
         """),
         mo.md("```python\nz = puntos[:, 0] + 1j * puntos[:, 1]      # shape (N,), complejos\nw = a * z + b                              # la similaridad entera\nnp.column_stack([w.real, w.imag])          # de vuelta a (N, 2)\nnp.linalg.solve(np.eye(2) - A, t)          # el centro: (I − A) c = t\n```"),
@@ -543,8 +543,8 @@ def _(mo):
     Acá verificamos; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
-    - [apunte, sección 8: la guía de seis teoremas](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)
-    - [apéndice 16: rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo](../../apunte.pdf#nameddest=cap:16)
+    - [apunte, «Bloque geométrico: transformaciones euclídeas y similaridades» (la guía de seis teoremas)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Guía resuelta: reflexión respecto de un punto» (guía resuelta)](../../apunte.pdf#nameddest=cap:09)
+    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 
     **Lo que viene:** [Afinidades y coordenadas homogéneas](../04_afines_homogeneas/index.html): cuando los ángulos ya

@@ -47,9 +47,9 @@ regular \(S\subset\R^3\) tiene en cada punto \(p\) un espacio tangente
 El plano tangente es la mejor aproximación lineal local a la superficie. No es una proyección
 cartográfica: pertenece al punto \(p\) y cambia al desplazarse sobre \(S\).
 
-Si \(F:S\to M\) es una aplicación entre variedades, su derivada
+Si \(\Phi:S\to\mathcal N\) es una aplicación entre superficies (variedades), su derivada
 \[
-  dF_p:T_pS\longrightarrow T_{F(p)}M
+  d\Phi_p:T_pS\longrightarrow T_{\Phi(p)}\mathcal N
 \]
 es una transformación lineal entre espacios tangentes. Esa transformación contiene la
 información local sobre escala, orientación, deformación angular y deformación de áreas.
@@ -293,7 +293,9 @@ curva'': si \(\alpha\) es el ángulo de la tangente con una dirección fija y \(
   \chi=\left|\frac{d\alpha}{ds}\right|,\qquad \text{circunferencia de radio } R:\ \chi=\frac1R .
 \]
 Hecho geométrico: en cada punto hay una circunferencia que besa a la curva (osculadora) y
-la curvatura es \(1/R\) de esa circunferencia; en una recta, \(R=\infty\) y \(\chi=0\).
+la curvatura es \(1/R\) de esa circunferencia; en una recta, \(R=\infty\) y \(\chi=0\). Conservamos la letra
+\(\chi\) del apunte del profesor; en las unidades interactivas 12 y 13 es la \(\kappa\)
+(\(\chi_1,\chi_2\) son allí \(\kappa_1,\kappa_2\)).
 Para un gráfico \(y=f(x)\), con \(\tan\alpha=f'\) y \(ds=\sqrt{1+f'^2}\,dx\),
 \[
   \chi=\frac{|f''|}{(1+f'^2)^{3/2}} ,
@@ -349,8 +351,9 @@ Midiendo \(\alpha\) desde una dirección principal, con curvaturas principales
   =\frac{\cos^2\alpha}{R_1}+\frac{\sin^2\alpha}{R_2}.
 \]
 El apunte del profesor promedia el radio \(1/\chi(\alpha)\) sobre un cuadrante con la
-sustitución \(u=\sqrt{R_2/R_1}\tan\alpha\), que convierte la integral en
-\(\int_0^\infty du/(1+u^2)=\pi/2\), y obtiene el \emph{radio medio}
+sustitución \(u=\sqrt{R_1/R_2}\tan\alpha\) (dividiendo por \(\cos^2\alpha\), el
+integrando queda \(R_1\,d(\tan\alpha)/(1+\tfrac{R_1}{R_2}\tan^2\alpha)\)), que convierte la
+integral en \(\sqrt{R_1R_2}\int_0^\infty du/(1+u^2)=\sqrt{R_1R_2}\,\pi/2\), y obtiene el \emph{radio medio}
 \[
   \boxed{\ R=\frac2\pi\int_0^{\pi/2}\frac{d\alpha}{\chi(\alpha)}=\sqrt{R_1R_2}\ }.
 \]
@@ -373,9 +376,14 @@ respecto del normal, la corta con radio \(\rho_\beta\), entonces
 \[
   \boxed{\ \rho_\beta=\rho_\alpha\cos\theta\ }.
 \]
-Hecho geométrico: la circunferencia osculadora de la sección oblicua es la proyección de
-la de la sección normal sobre el plano inclinado; proyectar acorta el radio por
-\(\cos\theta\). Aplicación al paralelo: el paralelo de latitud \(\varphi\) es una
+Hecho geométrico: el \emph{centro} de la circunferencia osculadora de la sección oblicua
+es la proyección ortogonal, sobre el plano inclinado, del centro de la osculadora de la
+sección normal. Ese centro está sobre la normal a distancia \(\rho_\alpha\) del punto;
+proyectado sobre un plano que forma ángulo \(\theta\) con la normal, queda a distancia
+\(\rho_\alpha\cos\theta\). Dicho de otro modo: las dos osculadoras están sobre la esfera
+de radio \(\rho_\alpha\) tangente a la superficie en el punto, y el plano inclinado corta
+esa esfera en un círculo menor de radio \(\rho_\alpha\cos\theta\). (Ojo: proyectar la
+\emph{circunferencia} entera daría una elipse, no la osculadora.) Aplicación al paralelo: el paralelo de latitud \(\varphi\) es una
 circunferencia de radio \(x'\) que comparte tangente (la dirección este-oeste) con la
 sección normal perpendicular al meridiano, el \emph{primer vertical}; el plano del
 paralelo está inclinado justo \(\varphi\) respecto de la normal. Por Meusnier,
@@ -665,19 +673,20 @@ las tres, \(x=a\lambda\) (el ecuador se desarrolla sin deformación) y lo que ca
     dx\,dy=MN\cos\varphi\,d\varphi\,d\lambda\quad\Longrightarrow\quad
     dy=\frac{MN\cos\varphi}{a}\,d\varphi .
   \]
-  Integrando, \(y=\tfrac a2\,q(\varphi)\) con
+  Integrando, \(y=\tfrac a2\,q_A(\varphi)\) con (\(q_A\), de ``autálica'', para no
+  confundirla con la latitud isométrica \(q\) de la sección~\ref{sec:transformaciones-conformes})
   \[
-    q(\varphi)=(1-e^2)\Bigl[\frac{\sin\varphi}{1-e^2\sin^2\varphi}
+    q_A(\varphi)=(1-e^2)\Bigl[\frac{\sin\varphi}{1-e^2\sin^2\varphi}
     -\frac1{2e}\ln\frac{1-e\sin\varphi}{1+e\sin\varphi}\Bigr]:
   \]
   \(y(45^\circ)=4\,489\,858{,}887\) m, \(y(-34{,}6^\circ)=-3\,602\,726{,}723\) m.
   \item \textbf{Elipsoide a esfera sin modificar las áreas.} Condición: una esfera de
-  radio \(R_q\) con la misma área total, \(4\pi R_q^2=2\pi a^2q(\pi/2)\), es decir
-  \(R_q=a\sqrt{q(\pi/2)/2}=6\,371\,007{,}181\) m (control: el área del elipsoide GRS80
+  radio \(R_q\) con la misma área total, \(4\pi R_q^2=2\pi a^2q_A(\pi/2)\), es decir
+  \(R_q=a\sqrt{q_A(\pi/2)/2}=6\,371\,007{,}181\) m (control: el área del elipsoide GRS80
   es \(510\,065\,621{,}7\) km\(^2\) por la fórmula exacta
   \(2\pi a^2+\pi\frac{b^2}e\ln\frac{1+e}{1-e}\), y \(4\pi R_q^2\) da lo mismo); y a cada
-  paralelo \(\varphi\) le corresponde en la esfera la latitud \(\beta_q\) con
-  \(\sin\beta_q=q(\varphi)/q(\pi/2)\) (latitud autálica): \(44{,}8717^\circ\) para
+  paralelo \(\varphi\) le corresponde en la esfera la latitud \(\beta_A\) con
+  \(\sin\beta_A=q_A(\varphi)/q_A(\pi/2)\) (latitud autálica): \(44{,}8717^\circ\) para
   \(45^\circ\), \(-34{,}4801^\circ\) para Buenos Aires. Lo demás (las longitudes) no cambia.
   \item \textbf{Transversa de Mercator.} Condiciones: conforme (misma escala en todas las
   direcciones en cada punto), y el meridiano central sin deformación, con \(y=S(\varphi)\)
@@ -765,14 +774,14 @@ es \(\varepsilon=0{,}1785^\circ=642{,}7''=3{,}1159\cdot10^{-3}\) rad, y el área
 con \(s\) el semiperímetro angular, da el mismo \(\varepsilon\) con doce decimales; el
 teorema del coseno cierra, \(\cos a=0{,}997349\) por los dos lados; y los tres cocientes
 \(\sin a/\sin A\) valen \(0{,}18223\). El triángulo plano con los mismos lados tiene en
-Buenos Aires \(23{,}4755^\circ\); el esférico menos un tercio del exceso,
-\(23{,}5351^\circ-0{,}0595^\circ=23{,}4756^\circ\): Legendre funciona con una diferencia de
-\(0{,}02''\). En una poligonal entre estas tres ciudades, \(10'43''\) de la suma angular son
+Buenos Aires \(23{,}475527^\circ\); el esférico menos un tercio del exceso,
+\(23{,}535060^\circ-0{,}059510^\circ=23{,}475550^\circ\): Legendre funciona con una
+diferencia de \(0{,}08''\). En una poligonal entre estas tres ciudades, \(10'43''\) de la suma angular son
 geometría de la esfera, no error de medición.
 
 \paragraph{La esfera local del elipsoide.} Sobre el elipsoide los lados de la poligonal
-son geodésicas que no son círculos (los meridianos sí lo son; los paralelos no, salvo el
-ecuador) y no hay teorema del coseno cerrado: los problemas directo (punto, acimut y
+son geodésicas, que en general no son curvas planas (los meridianos, que son elipses, y
+el ecuador sí son geodésicas; los demás paralelos no lo son) y no hay teorema del coseno cerrado: los problemas directo (punto, acimut y
 distancia \(\to\) punto) e inverso (dos puntos \(\to\) distancia y acimutes) se resuelven
 con series como la del arco de meridiano, o numéricamente. Para una zona de trabajo
 alcanza con reemplazar el elipsoide por la esfera de radio medio
@@ -796,8 +805,9 @@ Esta sección no fue dictada por la cátedra en 2C2026. La armamos nosotros para
 arco de la materia: el número complejo de la clase 1 (sección~\ref{sec:rot-complejos}),
 las similaridades de la clase 3 (secciones~\ref{sec:escalar} y~\ref{cap:08}), la SVD de la
 clase 7 (sección~\ref{sec:svd}), el Jacobiano y la primera forma de la clase 9
-(sección~\ref{sec:metrica}) y el elipsoide de la clase 13
-(sección~\ref{sec:elipsoide}) son, vistos desde acá, cuatro maneras de decir lo mismo. Y
+(sección~\ref{sec:metrica}) son, vistos desde acá, cuatro maneras de decir lo mismo, y
+el elipsoide de la clase 13 (sección~\ref{sec:elipsoide}) es el escenario donde las
+aplicamos. Y
 con ese lenguaje resolvemos las preguntas con que termina el apunte del elipsoide del
 profesor, incluida la transversa de Mercator que en la sección~\ref{sec:arco-meridiano}
 dejamos planteada. Pendiente de validar por la cátedra.
@@ -816,8 +826,10 @@ una mezcla. Hecho geométrico: una cáscara de naranja no se aplana sin rajarse.
 
 Entonces elegimos qué conservar. Un agrimensor no negocia el ángulo: los \(90^\circ\)
 medidos con la estación total entre dos alineaciones tienen que cortarse a \(90^\circ\) en
-el plano de la mensura, y un acimut medido en el terreno tiene que ser el acimut del
-plano más una corrección que dependa del punto, no de la dirección. Eso es una
+el plano de la mensura, y la dirección de la tangente a una visual en el terreno tiene
+que ser la del plano más una corrección que dependa del punto, no de la dirección (la
+convergencia de meridianos; para un lado finito se suma además la corrección
+arco-cuerda, que sí depende de la dirección y del largo). Eso es una
 \emph{transformación conforme}: en cada punto conserva los ángulos entre curvas, con su
 orientación (no refleja). Lo que sí cambia de punto a punto es la escala, y la pagamos con
 un factor \(k(P)\) que hay que conocer (la ``escala de la proyección'').
@@ -833,7 +845,8 @@ versores), de modo que \(J\) es una matriz real \(2\times2\) común y corriente 
 pregunta ``¿conserva ángulos?'' es la de la clase 3.
 
 \begin{resultado}[Las cuatro caras de una transformación conforme]
-Sea \(J=J(P)\) la jacobiana en un punto, invertible. Son equivalentes:
+Sea \(J=J(P)\) la jacobiana en un punto, con \(\det J>0\) (invertible y sin reflejar:
+conserva la orientación). Son equivalentes:
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Similaridad directa.} \(J=\rho\,R(\theta)\) con \(\rho>0\): una rotación
   seguida de una homotecia, la similaridad directa con punto fijo de la clase 3
@@ -872,7 +885,10 @@ clase 1: la matriz de la izquierda tiene dos parámetros, no cuatro. Leer \(a=x_
 
 (i)\(\Leftrightarrow\)(ii), por la SVD. Si \(J=U\Sigma V^T\) con \(\Sigma=kI\), entonces
 \(J=k\,UV^T\), y \(UV^T\) es ortogonal (producto de ortogonales) con
-\(\det(UV^T)=\det J/k^2>0\), es decir, una rotación: \(J=k\,R(\theta)\). Al revés, si
+\(\det(UV^T)=\det J/k^2\). Acá usamos la hipótesis \(\det J>0\): ese determinante es
+\(+1\), así que \(UV^T\) es una rotación y \(J=k\,R(\theta)\). Sin la hipótesis, \(UV^T\)
+podría ser una reflexión: \(J=\operatorname{diag}(1,-1)\) tiene \(\sigma_1=\sigma_2=1\) y no
+es una similaridad directa. Al revés, si
 \(J=\rho R(\theta)\), su SVD es \(U=R(\theta)\), \(\Sigma=\rho I\), \(V=I\), y los dos
 valores singulares valen \(\rho\). Geométricamente: la circunferencia unidad va a una
 elipse de semiejes \(\sigma_1,\sigma_2\); la elipse es circunferencia si y sólo si los
@@ -882,20 +898,22 @@ semiejes son iguales.
 \(ds^2_{\text{mapa}}=(du\ dv)\,J^TJ\,(du\ dv)^T\), de modo que \(E,F,G\) son las
 entradas de \(J^TJ\). Si \(J=\rho R\), \(J^TJ=\rho^2R^TR=\rho^2I\): \(F=0\) y
 \(E=G=\rho^2\). Al revés, si \(J^TJ=k^2I\), la matriz \(J/k\) cumple \((J/k)^T(J/k)=I\),
-es ortogonal; si además \(\det J>0\) es una rotación y \(J=k\,R(\theta)\). (Con
-\(\det J<0\) sería una reflexión por una homotecia: conserva los ángulos pero invierte la
-orientación, una similaridad inversa; las proyecciones cartográficas se toman directas.)
+es ortogonal; por la hipótesis \(\det J>0\) es una rotación y \(J=k\,R(\theta)\). (Con
+\(\det J<0\) sería una reflexión por una homotecia: conserva el tamaño de los ángulos pero
+invierte la orientación, una similaridad inversa; por eso la hipótesis va en el enunciado:
+sin ella (ii) y (iii) no implican (i). Las proyecciones cartográficas se toman directas.)
 \(\square\)
 
 \begin{atencion}[¿Sobre qué Jacobiano pedimos \(J^TJ=k^2I\)? Coordenadas \((\varphi,\lambda)\) vs.\ metros en el plano tangente]
-\emph{En coordenadas.} Si derivamos la carta \(F(\varphi,\lambda)=(x,y)\) respecto de las
+\emph{En coordenadas.} Si derivamos la carta \(\Phi(\varphi,\lambda)=(x,y)\) respecto de las
 coordenadas geodésicas en radianes, obtenemos el Jacobiano de coordenadas
 \(J_{\varphi,\lambda}=\partial(x,y)/\partial(\varphi,\lambda)\). Pero \((\varphi,\lambda)\) no
 están en metros ni son isótropas: el elipsoide tiene la primera forma fundamental
-\(G=\operatorname{diag}(M^2,\,N^2\cos^2\varphi)\). La condición exacta de conformidad es
+\(\mathbf G=\operatorname{diag}(M^2,\,N^2\cos^2\varphi)\) (la matriz de la primera forma, con
+\(E=M^2\), \(F=0\), \(G=N^2\cos^2\varphi\)). La condición exacta de conformidad es
 entonces
 \[
-  J_{\varphi,\lambda}^T\,J_{\varphi,\lambda}=k(\varphi,\lambda)^2\,G
+  J_{\varphi,\lambda}^T\,J_{\varphi,\lambda}=k(\varphi,\lambda)^2\,\mathbf G
   =k^2\begin{pmatrix}M^2&0\\0&N^2\cos^2\varphi\end{pmatrix}.
 \]
 Pedir \(J_{\varphi,\lambda}^TJ_{\varphi,\lambda}=k^2I\) directo sobre \((\varphi,\lambda)\)
@@ -906,7 +924,7 @@ longitud como si midieran lo mismo.
 (\(ds_{\text{mer}}=M\,d\varphi\), \(ds_{\text{par}}=N\cos\varphi\,d\lambda\)), el Jacobiano
 físico es
 \[
-  \tilde J=J_{\varphi,\lambda}\,G^{-1/2}
+  \tilde J=J_{\varphi,\lambda}\,\mathbf G^{-1/2}
   =J_{\varphi,\lambda}\,\operatorname{diag}\!\Bigl(\frac1M,\,\frac1{N\cos\varphi}\Bigr),
 \]
 y recién ahí la condición toma la forma euclídea \(\tilde J^T\tilde J=k^2I\) (con
@@ -1022,9 +1040,8 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \frac{dy}{d\varphi}=\frac{MN\cos\varphi}{a}\quad\Longrightarrow\quad
     y=\frac1a\int_0^\varphi MN\cos u\,du ,
   \]
-  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{sec:arco-meridiano} (ahí la
-  función se llamó \(q\); acá la escribimos \(q_A\), de ``autálica'', para no confundirla
-  con la latitud isométrica). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
+  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{sec:arco-meridiano} (\(q_A\), de ``autálica'', para no
+  confundirla con la latitud isométrica \(q\)). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
   ecuador.
   \item \textbf{Cilíndrica equidistante.} Meridianos a escala verdadera, \(h=1\):
   \(y=S(\varphi)\), el arco de meridiano de la sección~\ref{sec:arco-meridiano}. Ni

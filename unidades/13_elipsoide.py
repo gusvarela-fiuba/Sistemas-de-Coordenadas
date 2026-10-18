@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Geometría del elipsoide (lección 13, molde v2 sobre cb104). Clase 13 del esqueleto 2025, no dictada en 2C2026.
+"""Geometría del elipsoide (unidad 13, molde v2 sobre cb104). Clase 13 del esqueleto 2025, no dictada en 2C2026.
 
 Lección anticipada (esqueleto 2025 "deducciones a partir de la simetría" + apunte del profesor sobre el elipsoide +
 apunte v3), pendiente de validar por la cátedra. Una sola idea: el elipsoide de revolución es una elipse girada
@@ -133,7 +133,7 @@ def _(mo):
     ahí deducimos (nuestra lectura del título del esqueleto):
 
     1. nada métrico depende de $\lambda$: $M$, $N$, $K$ y la primera forma son funciones de $\varphi$ sola;
-    2. el plano meridiano es plano de simetría: la forma cuadrática de la curvatura (lección 12) es simétrica
+    2. el plano meridiano es plano de simetría: la forma cuadrática de la curvatura (unidad 12) es simétrica
        respecto del rumbo del meridiano y sus extremos están a $90°$, así que las direcciones principales **tienen
        que ser** el meridiano y el **primer vertical** (la sección normal perpendicular), sin calcular nada;
     3. en los polos pasan todos los meridianos: todos los rumbos son iguales y $M = N$ (punto umbilical);
@@ -149,9 +149,9 @@ def _(mo):
     GNSS), la **geocéntrica** $\psi$ (ángulo del radio) y la **reducida** $\beta$ (ángulo del punto de la
     circunferencia auxiliar de radio $a$ con la misma $x'$):
 
-    $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad \psi \le \beta \le \varphi.$$
+    $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad |\psi| \le |\beta| \le |\varphi|.$$
 
-    **Dos radios de curvatura** (apunte v3, sección 13; deducción en el apunte del profesor):
+    **Dos radios de curvatura** (apunte v3, «Coordenadas curvilíneas y bases locales»; deducción en el apunte del profesor):
 
     $$N = \frac{a}{\sqrt{1 - e^2\sin^2\varphi}}\ \text{(primer vertical)}, \qquad
       M = \frac{a(1 - e^2)}{(1 - e^2\sin^2\varphi)^{3/2}}\ \text{(meridiano)}, \qquad K = \frac{1}{MN}.$$
@@ -163,9 +163,9 @@ def _(mo):
     **De $(\varphi, \lambda, h)$ a cartesianas geocéntricas**, con $h$ sobre la normal:
     $X = (N + h)\cos\varphi\cos\lambda$, $Y = (N + h)\cos\varphi\sin\lambda$, $Z = \big(N(1 - e^2) + h\big)\sin\varphi$
     ($X$ hacia el meridiano origen; el apunte del profesor escribe $x = x'\sin\lambda$, $y = x'\cos\lambda$, otra
-    convención de ejes). La **primera forma** (lección 10) sale de $\|r_\varphi\| = M$ y $\|r_\lambda\| = x'$:
-    $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$ (la esfera de la lección 10 es $M = N = R$). Es una **muestra**; el
-    enlace con la lección 12 es que $1/M$ y $1/N$ son $\kappa_1$ y $\kappa_2$ de la segunda forma.
+    convención de ejes). La **primera forma** (unidad 10) sale de $\|r_\varphi\| = M$ y $\|r_\lambda\| = x'$:
+    $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$ (la esfera de la unidad 10 es $M = N = R$). Es una **muestra**; el
+    enlace con la unidad 12 es que $1/M$ y $1/N$ son $\kappa_1$ y $\kappa_2$ de la segunda forma.
     """)
     return
 
@@ -181,7 +181,7 @@ def _(mo):
     # ---------- casos precargados: etiqueta → (a, f, unidad, φ inicial, λ inicial, qué pasa) ----------
     casos = {
         "esfera (f = 0)": (1.0, 0.0, "", 45.0, 30.0,
-                           r"la normal es un radio: $\varphi = \psi = \beta$ y $M = N = a$ en todo punto; es la grilla de la lección 10."),
+                           r"la normal es un radio: $\varphi = \psi = \beta$ y $M = N = a$ en todo punto; es la grilla de la unidad 10."),
         "elipsoide exagerado (f = 0.3)": (1.0, 0.3, "", 45.0, 30.0,
                                           r"achatado a ojo: la normal corta el eje polar lejos del centro y $\varphi - \psi$ llega a decenas de grados; $M < N$ salvo en los polos."),
         "elipsoide de juguete a = 5, b = 4": (5.0, 0.2, "", 45.0, 30.0,
@@ -397,7 +397,7 @@ def _(editor_c, grs80, lib, mo, np, puntos_cd):
         elif np.allclose(_obtenido, _esperado, atol=1e-3):
             _res = mo.callout(mo.md("✅ coincide en los 20 puntos, al milímetro."), kind="success")
         elif np.allclose(_obtenido[:, :2], _esperado[:, :2], atol=1e-3) and np.allclose(_obtenido[:, 2], (_N + _h) * np.sin(_ph), atol=1e-3):
-            _res = mo.callout(mo.md(r"❌ $X$ e $Y$ están bien pero en $Z$ olvidaste el $(1 - e^2)$: es $Z = (N(1 - e^2) + h)\sin\varphi$, porque la normal corta el eje polar debajo del centro (unos 20 km de error)."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ $X$ e $Y$ están bien pero en $Z$ olvidaste el $(1 - e^2)$: es $Z = (N(1 - e^2) + h)\sin\varphi$, porque la normal corta el eje polar debajo del centro (el error es $N e^2 \sin\varphi$: unos 30 km en $45°$, hasta unos 43 km cerca del polo)."), kind="warn")
         elif np.allclose(_obtenido[:, :2], np.column_stack([(_a + _h) * np.cos(_ph) * np.cos(_la), (_a + _h) * np.cos(_ph) * np.sin(_la)]), atol=1e-3):
             _res = mo.callout(mo.md(r"❌ usaste $a$ donde va $N = a/\sqrt{1 - e^2\sin^2\varphi}$: la distancia del punto al eje polar por la normal cambia con la latitud (hasta 21 km)."), kind="warn")
         elif np.allclose(_obtenido, lib.geodesica_a_cartesiana(puntos_cd[:, 0], puntos_cd[:, 1], _h, _a, _e2), atol=1e-3):
@@ -502,11 +502,11 @@ def _(mo):
       meridiano" con sus controles numéricos
     - fe de erratas del apunte del profesor, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
       secciones y el cierre [Material y fuentes: fe de erratas y precisiones](../../apunte.pdf#nameddest=cap:22)
-    - [apunte, sección 13: esfera, elipsoide y curvatura](../../apunte.pdf#nameddest=cap:13) ($e^2 = 2f - f^2$, $M$, $N$,
-      $K = 1/(MN)$) · [apunte, sección 06: esfera, elipsoide y representación plana](../../apunte.pdf#nameddest=cap:06)
+    - [apunte, «Coordenadas curvilíneas y bases locales» (esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:13) ($e^2 = 2f - f^2$, $M$, $N$,
+      $K = 1/(MN)$) · [apunte, «Pasar del plano a una superficie» (esfera, elipsoide y representación plana)](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): latitud elipsoidal,
       conversión $\varphi, \lambda \to X, Y, Z$, radios $M$ (meridiano) y $N$ (primer vertical, Meusnier), arco de meridiano
-    - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [lección 12](../12_curvatura/index.html)
+    - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
 
     **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (clase 14): triángulos de lados
     geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.
@@ -526,7 +526,7 @@ def _(M, N, P, a, beta_sit, dif_sit, el, f, grs80, lib, mo, np, ok_mano, phi, ph
          lib.exacto(lib.latitudes(0.0, grs80["e2"]), [0, 0]) and lib.exacto(lib.latitudes(np.pi / 2, grs80["e2"]), [np.pi / 2] * 2)),
         ("sección 2: el mojón está sobre el elipsoide, tan ψ = (1 − e²) tan φ, M ≤ N",
          lib.exacto((P[0] ** 2 + P[1] ** 2) / a**2 + P[2] ** 2 / el["b"] ** 2, 1.0, tol=1e-9) and lib.exacto(np.tan(psi), (1 - el["e2"]) * np.tan(phi), tol=1e-9) and M <= N + 1e-9),
-        ("sección 2: primera forma E = M², F = 0, G = N² cos²φ y curvaturas principales 1/M, 1/N (lección 12)",
+        ("sección 2: primera forma E = M², F = 0, G = N² cos²φ y curvaturas principales 1/M, 1/N (unidad 12)",
          bool(np.allclose([_ff["E"], _ff["F"], _ff["G"]], [M**2, 0.0, N**2 * np.cos(phi) ** 2], rtol=1e-5, atol=1e-6 * a**2))
          and bool(np.allclose(_k, [1 / M, 1 / N], rtol=1e-4))),
         ("sección 3: GRS80 en 45°: N = 6388838.29, M = 6367381.82, X, Y, Z y ψ a mano = código", ok_mano),

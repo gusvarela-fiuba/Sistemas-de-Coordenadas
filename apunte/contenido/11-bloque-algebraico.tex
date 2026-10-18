@@ -34,7 +34,8 @@ también:
 Por lo tanto la operación debe producir un vector \emph{ortogonal a sus dos argumentos}. Y
 más: si ponemos dos veces el mismo punto no hay recta que determinar, así que \(p\times p=0\).
 Estas exigencias, junto con la linealidad en cada argumento, \emph{obligan} a que la
-operación sea el producto vectorial de \(\R^3\):
+operación sea, a menos de una constante, el producto vectorial de \(\R^3\) (en homogéneas
+la constante no importa):
 \[
   p\times q=\begin{pmatrix}p_2q_3-p_3q_2\\ p_3q_1-p_1q_3\\ p_1q_2-p_2q_1\end{pmatrix}.
 \]
@@ -67,9 +68,9 @@ recta y se pregunta por la incidencia:
 \[
   (p\times q)\cdot r=0 .
 \]
-Esta cantidad es simétrica en los tres puntos (si \(r\) está en \(pq\), entonces \(p\) está
-en \(qr\) y \(q\) en \(rp\)), se anula si dos de ellos coinciden, es lineal en cada uno y
-cambia de signo al intercambiar dos. Es, término a término, el determinante:
+Su anulación es simétrica en los tres puntos (si \(r\) está en \(pq\), entonces \(p\) está
+en \(qr\) y \(q\) en \(rp\)); el valor, en cambio, es antisimétrico: se anula si dos de
+ellos coinciden, es lineal en cada uno y cambia de signo al intercambiar dos. Es, término a término, el determinante:
 \[
   (p\times q)\cdot r=\det\begin{pmatrix}p_1&p_2&p_3\\q_1&q_2&q_3\\r_1&r_2&r_3\end{pmatrix}.
 \]
@@ -122,8 +123,9 @@ De ahí la regla de los signos \(+,-,+\) del desarrollo por menores.
 En \(\R^3\) hay \(3\) direcciones de vectores, \(3\) planos elementales y \(1\) volumen; por
 eso el resultado final es un número. En \(\R^4\) hay \(4\) direcciones, \(6\) planos, \(4\)
 volúmenes tridimensionales y \(1\) hipervolumen. La operación es mecánica en cualquier
-dimensión, y eso es lo que la hace útil: permite buscar un vector ortogonal a un subespacio
-en \(\R^n\), que es lo que se necesita para autovectores de matrices grandes.
+dimensión: da una fórmula cerrada para un vector ortogonal a un hiperplano de \(\R^n\), útil
+para autovectores en dimensión baja cuando \(\operatorname{rango}(A-\lambda I)=n-1\). Para
+matrices grandes los autovectores se calculan con otros algoritmos (QR, Lanczos).
 \end{idea}
 
 \paragraph{Ortogonal es lo que maximiza el volumen.} Entre todos los vectores de norma
@@ -173,8 +175,10 @@ Para \(A\) de \(3\times3\) es un polinomio de grado \(3\) en \(\lambda\).
   vienen de a pares conjugados.
   \item A cada autovalor real le corresponde un autovector real. A un autovalor complejo no
   le corresponde ningún vector de \(\R^3\).
-  \item Una matriz de rotación de \(\R^3\) tiene siempre exactamente un autovalor real, que
-  vale \(1\): su autovector es el eje. Los otros dos son complejos.
+  \item Una matriz de rotación de \(\R^3\) tiene siempre el autovalor \(1\): su autovector es
+  el eje. Los otros dos son \(e^{\pm i\theta}\), con \(\theta\) el ángulo de giro; son reales
+  sólo para \(\theta=0^\circ\) (identidad: \(1,1,1\)) y \(\theta=180^\circ\) (\(1,-1,-1\)),
+  y complejos conjugados en cualquier otro caso.
 \end{itemize}
 \end{resultado}
 
@@ -185,8 +189,11 @@ Entonces el autovector es el producto vectorial de dos de esas filas:
   v=(\text{fila}_i)\times(\text{fila}_j) .
 \]
 Si esas dos filas son paralelas y el producto da cero, se toma otro par. Si \emph{todos} los
-pares dan cero, \(\lambda\) es raíz doble y hay todo un plano de autovectores (en
-homogéneas: toda una recta de puntos fijos). No hace falta resolver el sistema: es la
+pares dan cero, \(\operatorname{rango}(A-\lambda I)\le1\): el autoespacio tiene dimensión
+\(\ge2\) (multiplicidad \emph{geométrica} \(\ge2\)) y hay al menos todo un plano de
+autovectores (en homogéneas: toda una recta de puntos fijos). La vuelta no vale: una raíz
+doble del polinomio (multiplicidad \emph{algebraica} \(2\)) no garantiza que los pares se
+anulen; ver la matriz 3a de la tabla de testigos más abajo. No hace falta resolver el sistema: es la
 misma operación de ``unir dos rectas en su punto común'' de la sección anterior.
 \end{idea}
 
@@ -438,8 +445,11 @@ Si \(P\) tiene en sus columnas los vectores de la base nueva escritos en la can�
 \]
 Con \(P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\), \(P^{-1}=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
 y \(P^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. Los tres tipos de objeto cambian
-de base distinto: los vectores con \(P^{-1}\), las formas lineales del lado contrario
-(sección~\ref{sec:formas-lineales}) y las transformaciones con
+de base distinto, y conviene escribir siempre el sentido (acá, de la canónica a la nueva):
+los vectores como \([v]_{\text{nueva}}=P^{-1}[v]_{\text{can}}\); las formas lineales, que
+son filas, multiplicando por \(P\) del lado derecho, \([\varphi]_{\text{nueva}}=[\varphi]_{\text{can}}\,P\)
+(sección~\ref{sec:formas-lineales}), para que \(\varphi(v)\) dé lo mismo en las dos bases;
+y las transformaciones con
 \[
   A_{\text{nueva}}=P^{-1}\,A\,P ,
 \]
@@ -495,18 +505,23 @@ columnas (la \(P\) del recuadro de arriba, con otro nombre) y \(T\) es la transf
 (la \(A\) del párrafo anterior).
 
 \emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola
-cadena:
+cadena, escrita en orden de aplicación (de izquierda a derecha):
 \[
-  (P)\;\to\;(A)\;\to\;[\,A^{-1}\to T\to A\,]\;\to\;(A^{-1})\;\to\;(\ell) .
+  (p)\;\to\;(A)\;\to\;[\,A^{-1}\to T_{\mathrm{diag}}\to A\,]\;\to\;(A^{-1})\;\to\;(\ell) .
 \]
-En un extremo entra un punto \(P\) y en el otro sale una recta \(\ell\); lo que se mide
-es la incidencia \(\ell\,T\,P\). Al cambiar de base los puntos se convierten con \(A\) y
-las formas (las rectas) con \(A^{-1}\), del lado contrario, de modo que las conversiones
-se absorben de a pares (\(A^{-1}A=I\)) y la incidencia no cambia: el punto transformado
-sigue cayendo en la recta transformada. Lo que queda en el recuadro del medio ya no es
-\(T\) sino la misma transformación escrita en la base de autovectores,
-\(T^{*}=A^{-1}\,T\,A\), con \(A^{-1}\) a la izquierda y \(A\) a la derecha. Todo se
-convierte a la vez para que nada cambie.
+En un extremo entra un punto \(p\) y en el otro una recta \(\ell\), los dos escritos en la
+base de autovectores; lo que se mide es la incidencia. Con la convención de abajo (\(A\)
+lleva de la base de autovectores a la canónica), el punto pasa a la canónica como \(A\,p\)
+y la forma como \(\ell\,A^{-1}\) (multiplicando del lado derecho). El recuadro del medio
+recibe y devuelve coordenadas canónicas: adentro actúa \(T_{\mathrm{diag}}\), en la base
+de autovectores, y el recuadro entero, leído como producto (lo que se aplica último va a la
+izquierda), es \(A\,T_{\mathrm{diag}}\,A^{-1}=T_{\mathrm{can}}\), la misma transformación
+escrita en la base canónica. La cadena completa es
+\(\ell A^{-1}\,(A\,T_{\mathrm{diag}}\,A^{-1})\,A\,p=\ell\,T_{\mathrm{diag}}\,p\): las
+conversiones se absorben de a pares (\(A^{-1}A=I\)) y la incidencia no cambia; el punto
+transformado sigue cayendo en la recta transformada. Despejar
+\(T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A\) es sacar la diagonal del recuadro, como
+hacemos más abajo. Todo se convierte a la vez para que nada cambie.
 
 \emph{La matriz con los autovectores en columnas.} Definimos \(A=[\,v_1\mid v_2\,]\), los
 autovectores escritos en la base canónica, uno por columna, y la probamos con el vector
@@ -543,7 +558,8 @@ productos \(A^{-1}A=I\) y \(A\,A^{-1}=I\) que aparecen se cancelan y queda
 autovectores, \(A\) para la transformación) es exactamente el \(D=P^{-1}AP\) del párrafo
 anterior: misma matriz, otro nombre.
 
-\paragraph{Potencias y la trayectoria de un punto.} Como \(A=PDP^{-1}\),
+\paragraph{Potencias y la trayectoria de un punto.} Volvemos a los nombres del apunte:
+\(P\) es la matriz de autovectores y \(A\) la transformación. Como \(A=PDP^{-1}\),
 \(A^n=PD^nP^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
 propio. Para \(n=5\),
 \[
@@ -590,36 +606,43 @@ pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones apa
 \noindent\begin{tabular}{@{}p{2.6cm}p{1.1cm}p{2.2cm}p{2.1cm}p{5.6cm}@{}}
 \textbf{Matriz} & \(\det\) & \textbf{Autovalores} & \textbf{¿Base de autovectores?} & \textbf{Hecho geométrico}\\
 \hline
-\(\bigl(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\bigr)\) & \(2\ne0\) & \(2,\ 1\) & sí, \(e_1,e_2\) &
+\textbf{1.}~\(\bigl(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\bigr)\) & \(2\ne0\) & \(2,\ 1\) & sí, \(e_1,e_2\) &
 diagonalizable e invertible: estira el eje \(x\) al doble y deja fijo el \(y\); dos direcciones propias independientes.\\
-\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
+\textbf{2.}~\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
 proyección sobre el eje \(x\): aplasta el eje \(y\) al origen, sin inversa, pero con base completa de autovectores.\\
-\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
+\textbf{3a.}~\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
 corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); sólo el eje \(x\) queda fijo.\\
-\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
+\textbf{3b.}~\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
 giro de \(90^\circ\): invertible, ninguna recta real queda fija.\\
-\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
+\textbf{4.}~\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
 ni diagonalizable ni invertible: manda \(e_2\mapsto e_1\) y \(e_1\mapsto0\).\\
 \end{tabular}
 \renewcommand{\arraystretch}{1.18}
 \medskip
 
-\textbf{Segunda fila.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
+\textbf{Matriz 2.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
 \(\det=0\)) y no impide diagonalizar: \(e_1\) y \(e_2\) son autovectores con
 \(\lambda_1=1\), \(\lambda_2=0\), y en esa base la matriz ya es diagonal.
 
-\textbf{Tercera fila.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
+\textbf{Matriz 3a.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
 \(\lambda=1\) tiene multiplicidad algebraica \(2\). Pero \((A-I)v=0\) da \(v_2=0\), de modo
 que el autoespacio es sólo el eje \(x\): multiplicidad geométrica \(1\). Falta un segundo
-autovector, y sin él no hay base. En el giro el motivo es otro: no hay rectas reales
-fijas, los autovalores \(\pm i\) no son reales.
+autovector, y sin él no hay base.
 
-\textbf{Cuarta fila.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
+\textbf{Matriz 3b.} En el giro el motivo es otro: no hay rectas reales fijas, los
+autovalores \(\pm i\) no son reales.
+
+\textbf{Matriz 4.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
 autovector \(e_1\).
 
-El defecto de las filas 3 y 4 es exactamente por lo que la sección~\ref{sec:svd} pasa a la
-SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra a la salida
-(\(U\)), toda matriz, incluso un corte o una rectangular, vuelve a ser diagonal.
+El defecto de las matrices 3a, 3b y 4 es exactamente por lo que la sección~\ref{sec:svd}
+pasa a la SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
+\emph{distinta} a la salida (\(U\)), toda matriz, incluso un corte o una rectangular, se
+lee como diagonal. Es diagonal entre dos grillas distintas, no una semejanza: \(\Sigma\) no
+es ``\(A\) en otra base'', los \(\sigma\) no son autovalores (en el corte,
+\(\sigma=(\sqrt5\pm1)/2\) y \(\lambda=1\) doble) y no sirve para potencias,
+\(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden sólo si \(A\) es simétrica
+semidefinida positiva.
 \linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: cambio de base y SVD}
 \end{resultado}
 
@@ -711,9 +734,9 @@ parar a la base ortogonal \(\{(1,3),(3,-1)\}\) de la salida.
     \draw[axisline] (-7.5,0)--(7.5,0); \draw[axisline] (0,-7.5)--(0,7.5);
     \draw[mainline,rotate=71.565] (0,0) ellipse (6.708 and 2.236);
     \draw[rust,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(2.121,6.364)
-      node[right,font=\small,labelback] {\(\sigma_1u_1=(3,9)\)};
+      node[right,font=\small,labelback] {\(\sigma_1u_1=(3,9)/\sqrt2\)};
     \draw[tealdark,line width=1pt,-{Latex[length=2.2mm]}] (0,0)--(2.121,-0.707)
-      node[below right,font=\small,labelback] {\(\sigma_2u_2=(3,-1)\)};
+      node[below right,font=\small,labelback] {\(\sigma_2u_2=(3,-1)/\sqrt2\)};
     \node[text=muted,font=\small] at (0,-8.3) {salida: elipse de semiejes \(3\sqrt5\) y \(\sqrt5\)};
   \end{scope}
 \end{tikzpicture}
@@ -897,29 +920,31 @@ entonces \(B^{+}=v_1\tfrac12u_1^T=\tfrac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\)
 \((\tfrac12,\tfrac12)\)), deshace el estiramiento por \(2\) y no pone nada en la dirección
 del núcleo. Otra que aplasta, la de la unidad \texttt{09}:
 \(C=\begin{pmatrix}1&2\\2&4\end{pmatrix}\), rango \(1\), \(\sigma_1=5\),
-\(u_1=v_1=\tfrac1{\sqrt5}(1,2)\), \(C^{+}=v_1\tfrac15u_1^T=\tfrac1{25}C\). Chequeo con la
-propiedad que define a la pseudoinversa, \(CC^{+}C=C\): como \(C^2=5C\), \(C^3=25C\) y
+\(u_1=v_1=\tfrac1{\sqrt5}(1,2)\), \(C^{+}=v_1\tfrac15u_1^T=\tfrac1{25}C\). Chequeo con
+\(CC^{+}C=C\), una de las cuatro condiciones de Moore--Penrose (las otras:
+\(C^{+}CC^{+}=C^{+}\), y \(CC^{+}\) y \(C^{+}C\) simétricas; las cuatro juntas fijan
+\(C^{+}\) de manera única): como \(C^2=5C\), \(C^3=25C\) y
 \(C\cdot\tfrac1{25}C\cdot C=C\). Lo que \(C\) aplastó, la dirección \((2,-1)\), no vuelve:
 \(C^{+}C=\tfrac15\begin{pmatrix}1&2\\2&4\end{pmatrix}\) es la proyección sobre \((1,2)\),
 no la identidad.
 
 \paragraph{Sistema sobredeterminado: una recta por tres puntos que no están alineados.}
-Puntos \((0,0)\), \((1,1)\), \((2,3)\), recta \(y=a+bx\). Las tres ecuaciones no se pueden
+Puntos \((0,0)\), \((1,1)\), \((2,3)\), recta \(y=ax+b\). Las tres ecuaciones no se pueden
 cumplir a la vez:
 \[
-  \underbrace{\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix}}_{A}
+  \underbrace{\begin{pmatrix}0&1\\1&1\\2&1\end{pmatrix}}_{A}
   \begin{pmatrix}a\\b\end{pmatrix}
   =\underbrace{\begin{pmatrix}0\\1\\3\end{pmatrix}}_{y},\qquad
-  A^TA=\begin{pmatrix}3&3\\3&5\end{pmatrix},\quad A^Ty=\begin{pmatrix}4\\7\end{pmatrix}.
+  A^TA=\begin{pmatrix}5&3\\3&3\end{pmatrix},\quad A^Ty=\begin{pmatrix}7\\4\end{pmatrix}.
 \]
-De \(3a+3b=4\) y \(3a+5b=7\): \(b=\tfrac32\), \(a=-\tfrac16\). Residuo
+De \(5a+3b=7\) y \(3a+3b=4\): \(a=\tfrac32\), \(b=-\tfrac16\). Residuo
 \(y-A\hat x=(\tfrac16,-\tfrac13,\tfrac16)\), perpendicular a las dos columnas de \(A\):
-\(\tfrac16-\tfrac13+\tfrac16=0\) y \(0-\tfrac13+\tfrac26=0\). Hecho geométrico: en
+\(0-\tfrac13+\tfrac26=0\) y \(\tfrac16-\tfrac13+\tfrac16=0\). Hecho geométrico: en
 \(\R^3\) el vector \(y\) no está en el plano generado por las dos columnas de \(A\);
 \(A\hat x\) es su proyección ortogonal sobre ese plano y el residuo vive en el espacio
 inaccesible. Es ``el punto de la entrada que corresponde en la salida a lo más cercano al
 término independiente'' (resumen 2025). Verificado con \texttt{np.linalg.lstsq} y
-\texttt{np.linalg.pinv(A) @ y}: \((-0{,}1667,\ 1{,}5)\). Situación de campo: una poligonal
+\texttt{np.linalg.pinv(A) @ y}: \((1{,}5,\ -0{,}1667)\). Situación de campo: una poligonal
 con más mediciones que incógnitas no cierra exactamente; compensarla es elegir las
 coordenadas cuya salida queda más cerca de lo medido, con el residuo repartido
 perpendicularmente a lo que el modelo puede explicar.
@@ -954,9 +979,14 @@ residuo \(r=b-A\hat x\) es perpendicular a todas las columnas de \(A\), y eso se
 \[
   A^T(b-A\hat x)=0\iff A^TA\,\hat x=A^Tb ,
 \]
-las ecuaciones normales. Los cuatro problemas de la guía son este mismo dibujo con
-distintos \(A\) y \(b\) (el cuarto, con la salvedad de que se mide la distancia
-perpendicular y no la vertical).
+las ecuaciones normales. Que el pie es el más cercano es Pitágoras: para cualquier otro
+\(x\), el vector \(A(\hat x-x)\) está en la imagen, es perpendicular a \(r\), y
+\(\|b-Ax\|^2=\|b-A\hat x\|^2+\|A(\hat x-x)\|^2\ge\|b-A\hat x\|^2\). El pie \(A\hat x\) es
+único aunque \(\hat x\) no lo sea (si las columnas son dependientes, \(A^{+}b\) elige la
+\(\hat x\) de norma mínima). Los problemas 1 y 2 de la guía son este mismo dibujo con
+distintos \(A\) y \(b\); los problemas 3 y 4 son mínimos cuadrados con otra geometría (una
+restricción ortogonal; la distancia perpendicular en lugar de la vertical) y no se
+resuelven con \(A^{+}b\) sino con la SVD de una matriz armada con los datos.
 
 \begin{center}
 \begin{tikzpicture}[scale=.9]
@@ -975,18 +1005,27 @@ perpendicular y no la vertical).
 \end{center}
 \end{idea}
 
-\begin{resultado}[De Gauss y el asteroide Ceres al ajuste de una elipse en el terreno]
+\begin{resultado}[De Gauss y Ceres al ajuste de una elipse en el terreno]
 ``Lineal'' quiere decir lineal en las \emph{incógnitas} (los coeficientes), no en la curva
-que se ajusta. En 1801 Gauss recuperó la órbita del asteroide Ceres a partir de unas
-pocas observaciones con este método. La misma idea ajusta una sección elíptica
+que se ajusta. En 1801 Gauss calculó la órbita de Ceres con su propio método a partir de
+unas pocas observaciones, y con esa predicción von Zach y Olbers lo reencontraron entre el
+31 de diciembre de 1801 y el 1 de enero de 1802. Los mínimos cuadrados los publicó en 1809,
+en \emph{Theoria motus}; Legendre los había publicado en 1805. Su problema era kepleriano,
+no lineal y en el espacio, no el ajuste de una cónica en el plano; lo que nos llevamos es
+la idea de mínimos cuadrados. Con ella se ajusta una sección elíptica
 \(x^2+By^2+Cxy+Dx+Ey+F=0\) a \(m\ge5\) puntos \((x_i,y_i)\) medidos sobre un contorno
-del terreno: cada punto aporta una ecuación lineal en \(B,C,D,E,F\),
+del terreno (normalizar en \(1\) el coeficiente de \(x^2\) no deja afuera ninguna elipse:
+toda elipse lo tiene distinto de cero): cada punto aporta una ecuación lineal en \(B,C,D,E,F\),
 \[
   B\,y_i^2+C\,x_iy_i+D\,x_i+E\,y_i+F\approx-x_i^2 ,
 \]
 que forma un sistema sobredeterminado de \(m\times5\), con las filas
 \((y_i^2,\ x_iy_i,\ x_i,\ y_i,\ 1)\). Se resuelve con la misma pseudoinversa:
-\((B,C,D,E,F)^T=A^{+}(-x_1^2,\dots,-x_m^2)^T\).
+\((B,C,D,E,F)^T=A^{+}(-x_1^2,\dots,-x_m^2)^T\). Dos advertencias: el ajuste minimiza
+el residuo algebraico, no la distancia geométrica a la curva, y no impone que la cónica sea
+una elipse; con datos ruidosos o un arco corto puede devolver una hipérbola, así que hay
+que verificar \(4B-C^2>0\). Con coordenadas de campo grandes conviene centrar y escalar
+antes de armar \(A\).
 \linkUnidad{11_cuatro_problemas}{Simulación interactiva: cuatro problemas}
 \end{resultado}
 
@@ -1048,8 +1087,11 @@ Con \(m\) mojones salen \(m-1\) rectas: sistema lineal \(m-1\) por \(2\), determ
 (\(9+16=25\), \(9+16=25\), \(0+9=9\)). Sin el tercer mojón quedaban \((3,\pm4)\). Con el
 cuarto mojón la tercera recta es \(16y=64\), el sistema es \(3\times2\) y
 \texttt{lstsq} devuelve el mismo \((3,4)\) con residuo cero porque las medidas son
-exactas; con mediciones reales las rectas no pasan por un único punto y el residuo mide
-la calidad de la trilateración. Es el esqueleto del posicionamiento por distancias.
+exactas. Con mediciones reales las rectas no pasan por un único punto, y \texttt{lstsq}
+minimiza los residuos de las rectas restadas, que están en m\(^2\), no en metros de
+cinta: da una muy buena aproximación, y el óptimo de \(\sum(d_i-\|p-M_i\|)^2\) se obtiene
+iterando desde ahí (Gauss--Newton; en el ejemplo de la unidad 11 difieren en unos
+\(3\) cm). Es el esqueleto del posicionamiento por distancias.
 
 \subsection{Problema 3: Procrustes ortogonal (calzar dos relevamientos de mojones)}
 
@@ -1061,7 +1103,9 @@ mejor llevan el relevamiento viejo sobre el nuevo.
 \end{enunciado}
 
 \textbf{Interpretación geométrica.} Es la transformación de Helmert plana con puntos
-comunes: la misma figura rígida vista desde dos sistemas. Centrar las dos nubes saca la
+comunes: la misma figura vista desde dos sistemas, a menos de giro, escala y traslación (una
+similaridad: con escala \(s\neq1\) se conservan ángulos y razones de distancias, no las
+distancias). Centrar las dos nubes saca la
 traslación gratis; queda encontrar el giro (y la escala) que mejor superpone una nube
 sobre la otra, con el criterio de mínima suma de distancias al cuadrado entre
 \(sRp_i\) y \(q_i\).
@@ -1074,7 +1118,8 @@ sobre la otra, con el criterio de mínima suma de distancias al cuadrado entre
 La SVD de \(H\) separa ``cuánto giro'' (\(U\), \(V\)) de ``cuánto estiro'' (\(\Sigma\));
 la rotación buscada es la que queda al tirar \(\Sigma\). Si \(\det(UV^T)=-1\) la mejor
 ortogonal es una reflexión; para forzar rotación se cambia el signo de la última columna
-de \(U\).
+de \(U\), y entonces la escala usa \(\operatorname{tr}(\operatorname{diag}(1,\dots,1,-1)\,\Sigma)\)
+en lugar de \(\operatorname{tr}\Sigma\).
 
 \textbf{Cuenta.} Las nubes ya están centradas (suman cero).
 \(H=Q^TP=\begin{pmatrix}0&-2\\2&0\end{pmatrix}=2\,R(90^\circ)\): \(\Sigma=2I\) y
@@ -1094,7 +1139,7 @@ que fijar en qué orden se arma \(H\) antes de programarla.
 Tres mojones posicionados con GNSS, \((0,0)\), \((1,1)\), \((2,3)\), deberían estar sobre
 un alineamiento. Las dos coordenadas tienen error. Hallar la recta que minimiza las
 distancias \emph{perpendiculares} y compararla con la regresión simple de \(y\) sobre
-\(x\) de la sección~\ref{sec:pseudoinversa} (\(y=-\tfrac16+\tfrac32x\)).
+\(x\) de la sección~\ref{sec:pseudoinversa} (\(y=\tfrac32x-\tfrac16\)).
 \end{enunciado}
 
 \textbf{Interpretación geométrica.} No hay motivo para privilegiar la vertical. La nube
@@ -1127,9 +1172,11 @@ puntos, dos rectas perpendiculares: la pregunta cambia la respuesta. El DEM de
 \begin{itemize}
   \item Problemas 1 y 2: \(A\theta=b\) sobredeterminado, \(\theta=A^{+}b\); el residuo
   queda perpendicular a la imagen. El 2 se linealiza restando la primera ecuación.
-  \item Problema 3: SVD de \(H=Q^TP\), \(R=UV^T\); se conservan distancias y ángulos de
-  la nube, sólo giro y escala.
+  \item Problema 3: SVD de \(H=Q^TP\), \(R=UV^T\); se conservan ángulos y razones de
+  distancias de la nube, sólo giro y escala.
   \item Problema 4: SVD de la nube centrada; la respuesta está en el menor valor singular.
+  \item Los problemas 3 y 4 no son \(A^{+}b\): son mínimos cuadrados con otra geometría,
+  resueltos con la SVD de una matriz armada con los datos.
   \item Escalera: en \(\R\), ajustar \(n\) medidas \(y_i\approx c\) es promediar
   (proyección sobre la columna de unos); en \(\R^2\) aparece la recta y la diferencia
   vertical/perpendicular; en \(\R^n\) todo sigue igual.

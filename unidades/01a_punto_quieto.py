@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Rotaciones I — el punto no se movió (lección 01a, molde v2 sobre el módulo común cb104).
+"""Rotaciones I — el punto no se movió (unidad 01a, molde v2 sobre el módulo común cb104).
 
 Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · 2C2026 · Gustavo Varela (padrón 56798).
 Sigue la clase 1. Una sola idea: todo vector es un punto; si giramos los ejes, el punto (el mojón) se queda quieto y
@@ -147,7 +147,7 @@ def _(mo):
 
     Lo que se ve en la figura de abajo: girar los ejes $+\theta$ y leer, da los mismos números que girar el punto
     $-\theta$ y leer en los ejes viejos. **Una es la inversa de la otra**, y para una rotación la inversa es la
-    transpuesta (eso lo verificamos en la sección 3; la demostración está en el apunte, sección 7).
+    transpuesta (eso lo verificamos en la sección 3; la demostración está en el apunte, «Bloque geométrico: fundamentos y rotaciones»).
 
     | | ¿qué podemos girar? | lo que se ve |
     |---|---|---|
@@ -403,7 +403,7 @@ def _(mo):
     En esta unidad demostramos que el punto no se mueve y que las coordenadas nuevas son $R^T P$. La demostración de que la inversa de
     una rotación es su transpuesta (y por qué) está en el apunte:
 
-    - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)
+    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:07)
     - [ficha de la clase 1](../../clases/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva

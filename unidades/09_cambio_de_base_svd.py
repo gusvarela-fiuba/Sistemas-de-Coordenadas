@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Cambio de base, SVD e inversas (lección 09, molde v2 sobre cb104). Clases 7 y 10.
+"""Cambio de base, SVD e inversas (unidad 09, molde v2 sobre cb104). Clases 7 y 10.
 
 LECCIÓN ANTICIPADA: las clases 7 y 10 no se dictaron todavía en 2C2026; lectura del esqueleto 2025, pendiente de
 validar por la cátedra. Una sola idea: toda matriz manda algún par de direcciones perpendiculares a otro par
@@ -117,7 +117,7 @@ def _(A_pred, B_pred, Vt_pred, candidatos, lib, mo, prediccion, s_pred):
                      r"Abajo mostramos que ese par siempre existe."),
         "siempre": ("warn",
                     rf"**No.** Los ejes $e_1, e_2$ van a $(2, 0)$ y $(1, 1)$, con producto interno ${lib.num_tex(candidatos['ejes'])} \ne 0$: la cizalla "
-                    r"los cierra. Sólo un giro o una reflexión conservan **todos** los ángulos; una matriz cualquiera conserva el ángulo recto de un solo par."),
+                    r"los cierra. Sólo las similaridades (un giro o una reflexión, con escala) conservan **todos** los ángulos; una matriz cualquiera conserva el ángulo recto de un solo par."),
         "nunca": ("warn",
                   rf"**No.** Que $A$ no sea simétrica quita las direcciones propias perpendiculares, no las singulares: con {_par} las imágenes tienen "
                   rf"producto interno ${_pi}$. Ese par existe para **toda** matriz, también para un giro, que no tiene autovectores reales."),
@@ -143,22 +143,24 @@ def _(mo):
     | | álgebra | lo que se ve |
     |---|---|---|
     | $\mathbb R$ | $a = (\pm 1)\cdot\lvert a\rvert$: signo a la salida, estiramiento $\lvert a\rvert$ | dar vuelta y estirar |
-    | $\mathbb R^2$ | $A = U\Sigma V^\top$, $\Sigma = \mathrm{diag}(\sigma_1, \sigma_2)$ | el círculo unitario va a una **elipse** de semiejes $\sigma_1u_1$, $\sigma_2u_2$, que vienen de $v_1 \perp v_2$ |
+    | $\mathbb R^2$ | $A = U\Sigma V^T$, $\Sigma = \mathrm{diag}(\sigma_1, \sigma_2)$ | el círculo unitario va a una **elipse** de semiejes $\sigma_1u_1$, $\sigma_2u_2$, que vienen de $v_1 \perp v_2$ |
     | $\mathbb R^3$ | lo mismo, $3\times3$ | la esfera va a un elipsoide de tres semiejes |
 
     **Rotar, estirar, rotar.** $A v_k = \sigma_k u_k$ con $V = [\textcolor{#1b6f6a}{v_1}\ \textcolor{#b5451b}{v_2}]$
-    y $U = [u_1\ u_2]$ ortogonales. De derecha a izquierda, $A = U\Sigma V^\top$: $V^\top$ **gira** la entrada hasta
+    y $U = [u_1\ u_2]$ ortogonales. De derecha a izquierda, $A = U\Sigma V^T$: $V^T$ **gira** la entrada hasta
     que $v_1, v_2$ caen sobre los ejes, $\Sigma$ **estira** cada eje, $U$ **gira** (o refleja) al lugar final. Es la
     "base privilegiada" que buscaba el profesor: una grilla a la entrada, otra a la salida, y entre las dos la matriz
-    es diagonal. Si $A$ es simétrica, $U = V$ y $\sigma_k = \lvert\lambda_k\rvert$: la diagonalización de la unidad 08.
+    es diagonal. Ojo: diagonal entre **dos** grillas distintas, no es una semejanza; los $\sigma$ no son autovalores y
+    $A^n \ne U\Sigma^nV^T$. Si $A$ es simétrica, $\sigma_k = \lvert\lambda_k\rvert$ y $u_k = \pm v_k$ ($U = V$ si
+    además todos los $\lambda_k \ge 0$): ahí sí es la diagonalización de la unidad 08.
     Si $A$ gira, $\Sigma = I$.
 
-    **Inversa.** Deshacer tres movimientos es deshacerlos al revés: $A^{-1} = V\,\Sigma^{-1}U^\top$, "invertir una
+    **Inversa.** Deshacer tres movimientos es deshacerlos al revés: $A^{-1} = V\,\Sigma^{-1}U^T$, "invertir una
     matriz diagonal es tomar recíprocos". Existe si ninguna $\sigma$ es $0$; $\det A = \pm\sigma_1\sigma_2$. Si
     $\sigma_2 = 0$ la elipse se aplastó en un segmento y no se sabe de dónde vino cada punto: no hay inversa, como $1/0$.
 
     **Pseudoinversa.** Si $\sigma_2 = 0$, o si $A$ es $N\times2$ (más mediciones que incógnitas), lo más parecido a
-    deshacer es $A^{+} = V\,\Sigma^{+}U^\top$, con $1/\sigma$ sólo donde $\sigma \ne 0$ y ceros donde había ceros: la
+    deshacer es $A^{+} = V\,\Sigma^{+}U^T$, con $1/\sigma$ sólo donde $\sigma \ne 0$ y ceros donde había ceros: la
     solución de **mínimos cuadrados** de norma mínima, que proyecta el término independiente sobre lo que $A$ puede
     producir y deshace sólo esa parte. En $\mathbb R$, la pseudoinversa de $0$ es $0$.
 
@@ -167,11 +169,11 @@ def _(mo):
     | | quién lo genera | qué es |
     |---|---|---|
     | **imagen** de $A$ | los $u_k$ con $\sigma_k \ne 0$ | lo alcanzable a la salida |
-    | **contra-imagen** (núcleo de $A^\top$) | los $u_k$ restantes | lo inaccesible, perpendicular a la imagen: **ahí vive el residuo** |
-    | **co-imagen** (imagen de $A^\top$) | los $v_k$ con $\sigma_k \ne 0$ | lo que entra y se distingue a la salida |
+    | **contra-imagen** (núcleo de $A^T$) | los $u_k$ restantes | lo inaccesible, perpendicular a la imagen: **ahí vive el residuo** |
+    | **co-imagen** (imagen de $A^T$) | los $v_k$ con $\sigma_k \ne 0$ | lo que entra y se distingue a la salida |
     | **núcleo** de $A$ | los $v_k$ con $\sigma_k = 0$ | lo que entra y cae al $0$ (unidad 07b) |
 
-    Esto es una **muestra**; la construcción de $U, \Sigma, V$ a partir de $A^\top A$ está en el apunte y la demostración
+    Esto es una **muestra**; la construcción de $U, \Sigma, V$ a partir de $A^T A$ está en el apunte y la demostración
     general en Strang (ver el cierre).
     """)
     return
@@ -204,7 +206,7 @@ def _(mo, np):
 
     Tres capas. En **gris**, la grilla antes y el círculo unitario con sus direcciones singulares $v_1$ (teal) y
     $v_2$ (rust). En **teal**, la grilla después. En **violeta**, la elipse imagen con sus semiejes $\sigma_1u_1$ y
-    $\sigma_2u_2$. **Reproducir** recorre las tres etapas: $V^\top$ gira (los $v_k$ caen sobre los ejes), $\Sigma$
+    $\sigma_2u_2$. **Reproducir** recorre las tres etapas: $V^T$ gira (los $v_k$ caen sobre los ejes), $\Sigma$
     estira los ejes, $U$ gira al lugar final. Arranca en el caso general, con los deslizadores habilitados; en los
     casos precargados se bloquean.
     """)
@@ -261,15 +263,15 @@ def _(caso, casos, es_general, go, lib, mo, np, s_a, s_b, s_c, s_d):
     if s[1] < 1e-9 * max(s[0], 1e-12):
         _cond, _inv = r"\infty", r"**no hay inversa** ($\sigma_2 = 0$): queda la pseudoinversa, sección 3.3"
     else:
-        _cond, _inv = lib.num_tex(s[0] / s[1]), rf"$A^{{-1}} = V\Sigma^{{-1}}U^\top = {lib.pmat(V @ np.diag(1 / s) @ U.T)}$"
+        _cond, _inv = lib.num_tex(s[0] / s[1]), rf"$A^{{-1}} = V\Sigma^{{-1}}U^T = {lib.pmat(V @ np.diag(1 / s) @ U.T)}$"
     _panel = mo.vstack([
         mo.md("**Controles**"), caso, s_a, s_b, s_c, s_d,
         mo.md(rf"""
         **Números vivos**
 
-        $$A = {lib.matriz_coloreada(A)} = U\Sigma V^\top$$
+        $$A = {lib.matriz_coloreada(A)} = U\Sigma V^T$$
 
-        $$U = {lib.pmat(U)},\ \Sigma = {lib.pmat(np.diag(s))},\ V^\top = {lib.pmat(Vt)}$$
+        $$U = {lib.pmat(U)},\ \Sigma = {lib.pmat(np.diag(s))},\ V^T = {lib.pmat(Vt)}$$
 
         - $\sigma_1 = {lib.num_tex(s[0])}$, $\sigma_2 = {lib.num_tex(s[1])}$; $\det A = {lib.num_tex(det_A)} = \pm\sigma_1\sigma_2 = \pm{lib.num_tex(s[0] * s[1])}$
         - `np.allclose(U @ S @ Vt, A)` = `{bool(np.allclose(U @ np.diag(s) @ Vt, A))}` · número de condición $\sigma_1/\sigma_2 = {_cond}$
@@ -303,7 +305,7 @@ def _(lib, mo, np, y3):
         mo.md(rf"""
         - $A = {lib.matriz_coloreada(A3, 0)}$, $\sigma = {lib.vec_tex(sub['s'])}$, rango $2$ · $x = (a, b) = A^{{+}}y = \mathbf{{{lib.vec_tex(x_pinv)}}}$;
           por ecuaciones normales ${lib.vec_tex(x_mc)}$ (`np.allclose` = `{bool(np.allclose(x_mc, x_pinv))}`)
-        - $r = y - Ax = {lib.vec_tex(r_mc)}$ · $A^\top r = {lib.vec_tex(A3.T @ r_mc, 6)}$ · $\langle r, u_3\rangle\,u_3 = {lib.vec_tex(float(r_mc @ u3) * u3)}$: **el residuo entero vive en la contra-imagen**
+        - $r = y - Ax = {lib.vec_tex(r_mc)}$ · $A^T r = {lib.vec_tex(A3.T @ r_mc, 6)}$ · $\langle r, u_3\rangle\,u_3 = {lib.vec_tex(float(r_mc @ u3) * u3)}$: **el residuo entero vive en la contra-imagen**
         - los cuatro subespacios: imagen (en $\mathbb R^3$) $= \langle u_1, u_2\rangle$ con $u_1 = {lib.vec_tex(sub['imagen'][:, 0])}$, $u_2 = {lib.vec_tex(sub['imagen'][:, 1])}$;
           contra-imagen $= \langle u_3\rangle$, $u_3 = {lib.vec_tex(u3)}$; co-imagen (en $\mathbb R^2$) $= \langle v_1, v_2\rangle$ = todo el plano $(a, b)$;
           núcleo $= \{{0\}}$ (dimensiones {sub['imagen'].shape[1]}, {sub['contra_imagen'].shape[1]}, {sub['coimagen'].shape[1]}, {sub['nucleo'].shape[1]})
@@ -324,7 +326,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 3. Cuenta a mano y código lado a lado
 
-        A mano alcanza con $A^\top A$: es simétrica, se diagonaliza como en la unidad 08 y sus autovalores son los
+        A mano alcanza con $A^T A$: es simétrica, se diagonaliza como en la unidad 08 y sus autovalores son los
         $\sigma^2$ (ejercicio (a)). Izquierda, el cuaderno; derecha, numpy.
         """),
         mo.hstack([
@@ -342,11 +344,11 @@ def _(lib, mo, np):
             mo.md(r"""
             **3.2 La de la predicción: $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$.**
 
-            $$A^\top A = \begin{pmatrix} 2 & 0 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix},\quad
+            $$A^T A = \begin{pmatrix} 2 & 0 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix},\quad
             \mu^2 - 6\mu + 4 = 0 \Rightarrow \mu = 3 \pm \sqrt5.$$
 
             $\sigma_1 = \sqrt{3 + \sqrt5} = \tfrac{1 + \sqrt5}{\sqrt2} \approx 2.288$, $\sigma_2 = \tfrac{\sqrt5 - 1}{\sqrt2} \approx 0.874$;
-            control $\sigma_1\sigma_2 = \tfrac{5 - 1}{2} = 2 = \det A$. Los $v_k$ son los autovectores de $A^\top A$ y $u_k = Av_k/\sigma_k$.
+            control $\sigma_1\sigma_2 = \tfrac{5 - 1}{2} = 2 = \det A$. Los $v_k$ son los autovectores de $A^T A$ y $u_k = Av_k/\sigma_k$.
             """),
             mo.vstack([
                 mo.md("```python\nA = np.array([[2., 1.], [0., 1.]])\nU, s, Vt = np.linalg.svd(A)\n# autovalores de AᵀA, de mayor a menor\nmu = np.linalg.eigvalsh(A.T @ A)[::-1]\nnp.allclose(s**2, mu)\nnp.allclose(U @ np.diag(s) @ Vt, A)\n```"),
@@ -355,10 +357,13 @@ def _(lib, mo, np):
         ], widths="equal", align="start"),
         mo.hstack([
             mo.md(r"""
-            **3.3 Pseudoinversa de la aplastante $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.** $P^\top P = \begin{pmatrix} 5 & 10 \\ 10 & 20 \end{pmatrix}$,
+            **3.3 Pseudoinversa de la aplastante $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$.** $P^T P = \begin{pmatrix} 5 & 10 \\ 10 & 20 \end{pmatrix}$,
             $\mu = 25, 0$: $\sigma_1 = 5$, $\sigma_2 = 0$, $v_1 = \tfrac{1}{\sqrt5}(1, 2)$, $u_1 = Pv_1/5 = v_1$.
 
-            $$P^{+} = v_1\,\tfrac15\,u_1^\top = \tfrac1{25}\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix};\qquad PP^{+}P = \tfrac1{25}P^3 = P.\ ✓$$
+            $$P^{+} = v_1\,\tfrac15\,u_1^T = \tfrac1{25}\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix};\qquad PP^{+}P = \tfrac1{25}P^3 = P.\ ✓$$
+
+            $PP^{+}P = P$ es **una** de las cuatro condiciones de Moore–Penrose; las otras son $P^{+}PP^{+} = P^{+}$ y
+            $PP^{+}$, $P^{+}P$ simétricas. Las cuatro juntas fijan $P^{+}$ de manera única.
 
             El $1/\sigma_2 = 1/0$ no se toma: ahí va un $0$.
             """),
@@ -389,7 +394,7 @@ def _(mo):
     $\approx 120$ m por celda, que viaja embebida en la lección; con el repo clonado es el recorte entero de
     $512\times512$ a 30 m. Alturas entre $1014$ y $2989$ m, media $\approx 1600$ m: una meseta alta con relieve
     encima. Por eso $\sigma_1$ se lleva casi toda la energía ($99{,}6\,\%$ con $k = 1$): el primer término
-    $\sigma_1 u_1 v_1^{\top}$ es la meseta, no el relieve. Tildar la casilla resta la media antes de la SVD: con
+    $\sigma_1 u_1 v_1^T$ es la meseta, no el relieve. Tildar la casilla resta la media antes de la SVD: con
     $k = 1$ se ve qué queda cuando el primer término ya no tiene que pagar la altura media.
     """)
     return centrar, k_svd
@@ -457,14 +462,16 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *("existe una base ortogonal de la entrada que va a una base ortogonal de la salida").*
-        Si $A = U\Sigma V^\top$, calculá $A^\top A$ y explicá por qué los $\sigma_k^2$ son sus autovalores y los $v_k$ sus
+        Si $A = U\Sigma V^T$, calculá $A^T A$ y explicá por qué los $\sigma_k^2$ son sus autovalores y los $v_k$ sus
         autovectores. ¿Por qué eso garantiza que los $\sigma$ nunca son complejos?
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
-        $A^\top A = V\Sigma^\top U^\top U\Sigma V^\top = V\,\Sigma^2\,V^\top$ porque $U^\top U = I$: es $B\Lambda B^{-1}$
-        de la unidad 08 con $B = V$ ($V^{-1} = V^\top$), diagonal en la grilla de los $v_k$ con $\sigma_k^2$ en la
-        diagonal. $A^\top A$ es simétrica (autovalores reales) y $\langle v, A^\top Av\rangle = \lVert Av\rVert^2 \ge 0$
-        (no negativos): $\sigma_k = \sqrt{\mu_k}$ existe siempre. Que $U$ también salga ortogonal lo demuestra Strang.
+        $A^T A = V\Sigma^T U^T U\Sigma V^T = V\,\Sigma^2\,V^T$ porque $U^T U = I$: es $B\Lambda B^{-1}$
+        de la unidad 08 con $B = V$ ($V^{-1} = V^T$), diagonal en la grilla de los $v_k$ con $\sigma_k^2$ en la
+        diagonal. $A^T A$ es simétrica (autovalores reales) y $\langle v, A^T Av\rangle = \lVert Av\rVert^2 \ge 0$
+        (no negativos): $\sigma_k = \sqrt{\mu_k}$ existe siempre. Que $U$ también salga ortogonal es una línea:
+        $\langle Av_i, Av_j\rangle = v_i^T A^T A\,v_j = \sigma_j^2\,v_i^T v_j = \sigma_j^2\,\delta_{ij}$, así que
+        los $u_k = Av_k/\sigma_k$ son perpendiculares y de largo $1$.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *("invertir una matriz diagonal es tomar recíprocos").* ¿Cuándo $A^{+} = A^{-1}$? Calculá
@@ -472,7 +479,7 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         Coinciden cuando $A$ es cuadrada y **ningún $\sigma$ es cero** ($\det A \ne 0$): $\Sigma^{+} = \Sigma^{-1}$ y
-        $V\Sigma^{-1}U^\top$ es la inversa. $D$: $D^{-1} = D^{+} = \mathrm{diag}(\tfrac13, -\tfrac12)$, $D^{+}D = I$.
+        $V\Sigma^{-1}U^T$ es la inversa. $D$: $D^{-1} = D^{+} = \mathrm{diag}(\tfrac13, -\tfrac12)$, $D^{+}D = I$.
         $P$: $\sigma_2 = 0$, no hay $P^{-1}$; $P^{+} = \tfrac1{25}P$ (3.3) y $P^{+}P = \tfrac15P$ es la **proyección** sobre la
         recta de $(1, 2)$: deshace lo que $P$ no aplastó y manda a $0$ el núcleo $(2, -1)$. En $\mathbb R$: $1/a$ si $a \ne 0$, $0$ si $a = 0$.
         """)}),
@@ -513,11 +520,11 @@ def _(editor_c, lib, mo, np):
         elif np.allclose(_r2, _M):
             _res = mo.callout(mo.md(r"❌ con $k = 2$ devolvés la matriz entera: usaste `np.diag(s)` sin recortar. Quedate con `s[:k]`, `U[:, :k]` y `Vt[:k]`."), kind="warn")
         elif np.allclose(_r6, _U @ np.diag(_s) @ _Vt.T) or np.allclose(_r2, _U[:, :2] @ np.diag(_s[:2]) @ _Vt.T[:2]):
-            _res = mo.callout(mo.md(r"❌ transpusiste `Vt`: `np.linalg.svd` ya devuelve $V^\top$, se usa `Vt[:k]` tal cual (filas = los $v_k^\top$)."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ transpusiste `Vt`: `np.linalg.svd` ya devuelve $V^T$, se usa `Vt[:k]` tal cual (filas = los $v_k^T$)."), kind="warn")
         else:
             _res = mo.callout(mo.md(f"❌ no coincide. Para k = 2 el error RMS contra la referencia es `{np.sqrt(np.mean((_r2 - lib.truncar_svd(_U, _s, _Vt, 2)) ** 2)):.3f}`."), kind="danger")
     except ValueError as _e:  # las formas no encajan: casi siempre un Vt[:k].T
-        _res = mo.callout(mo.md(f"❌ las formas no encajan (`{_e}`): seguramente transpusiste `Vt`. `np.linalg.svd` ya devuelve $V^\\top$; usá `Vt[:k]` tal cual."), kind="warn")
+        _res = mo.callout(mo.md(f"❌ las formas no encajan (`{_e}`): seguramente transpusiste `Vt`. `np.linalg.svd` ya devuelve $V^T$; usá `Vt[:k]` tal cual."), kind="warn")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -554,11 +561,11 @@ def _(A3, editor_d, mo, np):
         _U1, _s1, _Vt1 = np.linalg.svd(_M1, full_matrices=False)
         _sp1 = np.array([1 / x if x > 1e-10 else 0.0 for x in _s1])
         if _ok:
-            _res = mo.callout(mo.md("✅ coincide con `np.linalg.pinv` en las tres matrices: $A^{+} = V\\Sigma^{+}U^\\top$ con ceros donde $\\sigma = 0$."), kind="success")
+            _res = mo.callout(mo.md("✅ coincide con `np.linalg.pinv` en las tres matrices: $A^{+} = V\\Sigma^{+}U^T$ con ceros donde $\\sigma = 0$."), kind="success")
         elif any(not np.all(np.isfinite(o)) for o in _obt):
             _res = mo.callout(mo.md(r"❌ aparecen `inf` o `nan`: invertiste un $\sigma = 0$. Donde $\sigma$ es cero va un $0$ en $\Sigma^{+}$, no $1/0$ (`np.where(s > tol, 1/s, 0)`)."), kind="warn")
         elif _obt[1].shape == (2, 2) and np.allclose(_obt[1], _U1 @ np.diag(_sp1) @ _Vt1):
-            _res = mo.callout(mo.md(r"❌ $U$ y $V$ en el orden de $A$: la pseudoinversa deshace al revés, $V\Sigma^{+}U^\top$ (`Vt.T @ np.diag(s_plus) @ U.T`). En una simétrica no se nota; en $\begin{pmatrix} 1 & 1 \\ 2 & 2 \end{pmatrix}$ sí."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ $U$ y $V$ en el orden de $A$: la pseudoinversa deshace al revés, $V\Sigma^{+}U^T$ (`Vt.T @ np.diag(s_plus) @ U.T`). En una simétrica no se nota; en $\begin{pmatrix} 1 & 1 \\ 2 & 2 \end{pmatrix}$ sí."), kind="warn")
         else:
             _res = mo.callout(mo.md(f"❌ no coincide. Para la no simétrica obtuve\n```\n{np.round(_obt[1], 4)}\n```\ny `pinv` da\n```\n{np.round(np.linalg.pinv(_M1), 4)}\n```"), kind="danger")
     except Exception as _e:
@@ -614,15 +621,16 @@ def _(mo):
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
     aplicaciones*, y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
 
-    - [apunte, sección 11: bloque algebraico](../../apunte.pdf#nameddest=cap:11) · [sección 2: el hilo](../../apunte.pdf#nameddest=cap:02)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (bloque algebraico)](../../apunte.pdf#nameddest=cap:11) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
     - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·
       [producto interno](../02_producto_interno/index.html) (el residuo perpendicular)
 
-    **Lo que viene:** [Cuatro problemas](../11_cuatro_problemas/index.html): regresión, círculos, Procrustes y
-    regresión total son `lstsq`, o sea $A^{+}$, cuatro veces; y [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html):
-    una $3\times2$ cuya imagen es el plano tangente y cuya contra-imagen es la normal.
+    **Lo que viene:** [Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html): una $3\times2$
+    cuya imagen es el plano tangente y cuya contra-imagen es la normal. Como ramal, [Cuatro problemas](../11_cuatro_problemas/index.html):
+    regresión y círculos son `lstsq`, o sea $A^{+}$; Procrustes y regresión total usan la SVD de una matriz armada con los
+    datos (otra geometría: restricción ortogonal, distancia perpendicular).
     """)
     return
 

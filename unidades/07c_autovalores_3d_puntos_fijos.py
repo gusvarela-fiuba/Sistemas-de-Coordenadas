@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Autovalores en 3D y puntos fijos proyectivos (lección 07c, complementaria, molde v2 sobre cb104). Clase 6.
+"""Autovalores en 3D y puntos fijos proyectivos (unidad 07c, complementaria, molde v2 sobre cb104). Clase 6.
 
 Una sola idea: en 3D el polinomio característico es de grado 3 y siempre tiene una raíz real, así que siempre hay una
 recta que cae sobre sí misma; el eje de una rotación es su autovector de autovalor 1 (cruz de dos filas de R − I);
@@ -50,7 +50,7 @@ def _(mo):
 
     Colores: **columnas** <span style="color:#1b6f6a">**teal**</span>, <span style="color:#b5451b">**rust**</span>,
     <span style="color:#c9a227">**gold**</span> (a dónde van $e_1, e_2, e_3$); las **rectas invariantes** en negro a
-    rayas; el pentágono de la lección 05 en <span style="color:#7a4e9e">**violeta**</span>, lo de antes en gris, lo de
+    rayas; el pentágono de la unidad 05 en <span style="color:#7a4e9e">**violeta**</span>, lo de antes en gris, lo de
     después en teal.
     """)
     return
@@ -84,7 +84,7 @@ def _(lib, mo, np):
         ## 0. Situación de campo y predicción
 
         Nivelamos la estación total girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
-        $z$ (lección 01c). El resultado es **un solo giro** alrededor de un eje nuevo: la única dirección del espacio que
+        $z$ (unidad 01c). El resultado es **un solo giro** alrededor de un eje nuevo: la única dirección del espacio que
         la rotación compuesta deja quieta. Es la dirección $v$ con $Rv = v$: un autovector de autovalor $1$.
 
         Columnas de $R$: $e_x \mapsto (0, 0, -1)$, $e_y \mapsto (-1, 0, 0)$, $e_z \mapsto (0, 1, 0)$: los tres ejes se
@@ -137,13 +137,13 @@ def _(mo):
 
     | | álgebra | lo que se ve |
     |---|---|---|
-    | $\mathbb R^2$ | autovector $=$ perpendicular a **una** fila de $A - \lambda I$ | la dirección que las dos reglas no ven (lección 07b) |
+    | $\mathbb R^2$ | autovector $=$ perpendicular a **una** fila de $A - \lambda I$ | la dirección que las dos reglas no ven (unidad 07b) |
     | $\mathbb R^3$ | autovector $=$ cruz de **dos** filas de $A - \lambda I$; rotación: $\lambda = 1$ y nada más real | el **eje**: la recta que la rotación deja quieta; reflexión: $\lambda = -1$ en la normal, $1$ doble en el plano del espejo |
     | $\mathbb P^2$ (homogéneas) | autovector $v$ de la $3\times3$ $H$ con $Hv = \lambda v$ | la recta invariante de $\mathbb R^3$ **pincha** el plano $z = 1$ en un **punto fijo** $(v_1/v_3, v_2/v_3)$; si $v_3 = 0$ es paralela: punto fijo **impropio** |
 
     Con las palabras del profesor: *los puntos fijos de una transformación proyectiva del plano son los subespacios
-    invariantes de $\mathbb R^3$*. Esto es una **muestra**; la demostración está en el apunte, sección 11, y el caso del
-    pentágono en el apéndice 18.
+    invariantes de $\mathbb R^3$*. Esto es una **muestra**; la demostración está en el apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores», y el caso del
+    pentágono en el apunte, «Pentágono regular: cuentas y script».
     """)
     return
 
@@ -156,16 +156,16 @@ def _(lib, mo, np):
     casos = {
         "R_z(θ) R_y(90°): una rotación, el eje es su único autovector": ("rotacion", None, 3.0, r"un solo autovalor real, $\lambda = 1$; los otros dos son complejos (el giro en el plano perpendicular). En $z = 1$: un solo punto fijo propio, donde el eje pincha."),
         "reflexión diag(1, 1, −1): λ = 1 doble (plano xy) y λ = −1 (eje z)": ("fijo", np.diag([1.0, 1.0, -1.0]), 3.0, r"el núcleo de $A - I$ es el plano $z = 0$ entero (raíz doble, cruces nulas) y el eje $z$ se invierte. Como proyectiva: la simetría central $(x, y) \mapsto (-x, -y)$, centro en el origen y recta de puntos fijos impropios."),
-        "H_c del pentágono (lección 05): homología, recta de puntos fijos y centro": ("fijo", np.array([[2.0, -4.0, 8.0], [0.0, -4.0, 12.0], [0.0, -1.0, 4.0]]), 7.0, r"$\lambda = 2$ doble con cruces nulas: **una recta entera de puntos fijos**, $y = 2$ ($B$ y $D$ quedan quietos); $\lambda = -2$ en $(4, 6, 1)$: el centro. La homología del caso (c)."),
+        "H_c del pentágono (unidad 05): homología, recta de puntos fijos y centro": ("fijo", np.array([[2.0, -4.0, 8.0], [0.0, -4.0, 12.0], [0.0, -1.0, 4.0]]), 7.0, r"$\lambda = 2$ doble con cruces nulas: **una recta entera de puntos fijos**, $y = 2$ ($B$ y $D$ quedan quietos); $\lambda = -2$ en $(4, 6, 1)$: el centro. La homología del caso (c)."),
         "giro de 72° alrededor de (2, 1): un solo punto fijo propio": ("fijo", _Hg, 4.5, r"$\lambda = 1$ en $(2, 1, 1)$, el centro del giro, y $e^{\pm i\,72°}$ complejos: un solo punto fijo propio, como la rotación cíclica del pentágono."),
         "traslación (1, 2): el punto fijo es impropio": ("fijo", lib.matriz_afin(np.eye(2), [1.0, 2.0]), 4.5, r"$\lambda = 1$ triple y el núcleo de $H - I$ es el plano $z = 0$: **toda** dirección es fija, ningún punto propio. La recta fija es la del infinito."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="R_z(θ) R_y(90°): una rotación, el eje es su único autovector", label="caso precargado")
-    pentagono = np.array([[0, 0], [0, 2], [2, 3], [4, 2], [4, 0]], dtype=float)  # A, B, C, D, E de la lección 05
+    pentagono = np.array([[0, 0], [0, 2], [2, 3], [4, 2], [4, 0]], dtype=float)  # A, B, C, D, E de la unidad 05
     mo.md(r"""
     ## 2. Manipulación
 
-    **Gris**: el cubo unitario antes y el plano $z = 1$ con el pentágono $ABCDE$ de la lección 05. **Teal**: el cubo
+    **Gris**: el cubo unitario antes y el plano $z = 1$ con el pentágono $ABCDE$ de la unidad 05. **Teal**: el cubo
     después, con las columnas como flechas. **Negro a rayas**: las rectas invariantes (autovectores reales) y el
     **rombo** donde pinchan $z = 1$: el punto fijo; un autovalor doble con cruces nulas da un plano entero de
     autovectores (gold), que corta $z = 1$ en una recta de puntos fijos. **Violeta**: el pentágono después, proyectado
@@ -297,7 +297,7 @@ def _(R_sit, lib, mo, np):
         ], widths="equal", align="start"),
         mo.hstack([
             mo.md(r"""
-            **3.3 Puente a la lección 05: $H_c$ del pentágono.** $\det(H_c - \lambda I) = (2 - \lambda)\big[(-4 - \lambda)(4 - \lambda) + 12\big] = (2 - \lambda)(\lambda^2 - 4)$:
+            **3.3 Puente a la unidad 05: $H_c$ del pentágono.** $\det(H_c - \lambda I) = (2 - \lambda)\big[(-4 - \lambda)(4 - \lambda) + 12\big] = (2 - \lambda)(\lambda^2 - 4)$:
             raíces $2, 2, -2$. Las filas de $H_c - 2I$ son múltiplos de $(0, -1, 2)$: cruces nulas, **recta de puntos fijos**
             $y = 2$. Filas de $H_c + 2I$: $(4, -4, 8) \times (0, -2, 12) = (-32, -48, -8) \sim (4, 6, 1)$: el **centro** $(4, 6)$,
             $H_c(4, 6, 1) = -2\,(4, 6, 1)$ ✓. Una homología: la foto en perspectiva de una reflexión.
@@ -370,7 +370,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("hago el producto cruz de dos filas y me tiene que dar el eje").* Completá
+        **(c) Código con hueco — medio** *("hacemos el producto cruz de dos filas y nos tiene que dar el eje").* Completá
         `eje(R)`: recibe una rotación $3\times3$ y devuelve su eje unitario, por la cruz de dos filas de $R - I$. Tenés `np`.
         Se verifica con `np.allclose(R @ v, v)` en cinco rotaciones al azar (`rodrigues`), y que `|v| = 1`.
         """),
@@ -487,9 +487,9 @@ def _(mo):
     Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
     puntos y rectas fijas de una homografía, la homología del pentágono):
 
-    - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 12: puntos fijos y rectas fijas de una homografía](../../apunte.pdf#nameddest=cap:12)
-    - [apéndice 18: pentágono regular, autovector por producto cruz](../../apunte.pdf#nameddest=cap:18) · [apéndice 14: rotaciones 3D](../../apunte.pdf#nameddest=cap:14)
-    - [ficha de la clase 6](../../clases/06.html) · [lección anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [lección 05: proyectivas](../05_proyectivas/index.html) · [lección 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Bloque geométrico: transformaciones proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:12)
+    - [apunte, «Pentágono regular: cuentas y script» (pentágono regular, autovector por producto cruz)](../../apunte.pdf#nameddest=cap:18) · [apunte, «Construcción geométrica de las matrices de rotación 3D» (rotaciones 3D)](../../apunte.pdf#nameddest=cap:14)
+    - [ficha de la clase 6](../../clases/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armamos una base con los
     autovectores, en esa grilla la transformación es sólo estirar cada eje por su $\lambda$.

@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Proyectivas: la foto del dron y el pentágono del profesor (lección 05, molde v2 sobre cb104). Clase 03p.
+"""Proyectivas: la foto del dron y el pentágono del profesor (unidad 05, molde v2 sobre cb104). Clase 03p.
 
 Una sola idea: un punto del plano es un rayo por el origen de R³ y la foto de una cámara inclinada es una 3×3 que
 actúa sobre esos rayos; al dividir por la tercera coordenada las rectas siguen rectas pero las paralelas se cortan.
@@ -92,7 +92,7 @@ def _(lib, mo, np):
         en decámetros para que la grilla se lea: las esquinas están en el terreno en $(0,0)$, $(4,0)$, $(4,4)$, $(0,4)$
         y en la foto las leemos en $(0,0)$, $(4,0)$, $(3,2)$, $(1,2)$.
 
-        Hay un quinto mojón, en el centro del lote, $(2, 2)$. En la lección 04 una afinidad mandaba el punto medio al
+        Hay un quinto mojón, en el centro del lote, $(2, 2)$. En la unidad 04 una afinidad mandaba el punto medio al
         punto medio. Acá la cámara **no** hace una afinidad: lo que sigue valiendo es que las rectas van a rectas, así
         que el centro, que está sobre las dos diagonales, tiene que caer **donde se cruzan las diagonales de la foto**.
         """),
@@ -106,8 +106,8 @@ def _(mo, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success", r"**Sí.** $(2, 1.333)$ es el cruce de las diagonales de la foto, $y = \tfrac{2}{3}x$ con $y = -\tfrac{2}{3}(x - 4)$. "
-                     r"El centro quedó **más abajo que la mitad** de la altura del trapecio: el lado lejano se achica y con él todo lo que "
-                     r"está cerca. En la sección 3 sale de la cuenta $H\,(2, 2, 1)^T = (3, 2, 1.5)^T$ y la división por $1.5$."),
+                     r"El centro quedó **más arriba que la mitad** de la altura del trapecio, hacia el lado lejano: la mitad lejana del lote "
+                     r"se achica en la foto y ocupa menos alto, así que el centro sube. En la sección 3 sale de la cuenta $H\,(2, 2, 1)^T = (3, 2, 1.5)^T$ y la división por $1.5$."),
         "sin-dividir": ("warn", r"**No.** $(3, 2)$ son las dos primeras coordenadas de $H\,(2, 2, 1)^T = (3, 2, 1.5)^T$ **sin dividir por la "
                         r"tercera**. En homogéneas el punto es el rayo entero: hay que volver al plano $W = 1$ dividiendo por $1.5$, y queda $(2, 1.333)$."),
         "afin": ("warn", r"**No.** $(2, 1)$ es el promedio de las cuatro esquinas de la foto, lo que haría una **afinidad** (punto medio al punto "
@@ -144,7 +144,7 @@ def _(mo):
 
     **La fila 3 es la recta que se va al infinito.** Los puntos con $W = 0$ no tienen imagen en el plano: es la recta
     $h_{31}x + h_{32}y + h_{33} = 0$. Si $h_{31} = h_{32} = 0$ ningún punto propio se va, $W$ vale siempre lo mismo y la
-    transformación es **afín** (la lección 04). Si la recta atraviesa la figura, la imagen **se parte**: un lado que la
+    transformación es **afín** (la unidad 04). Si la recta atraviesa la figura, la imagen **se parte**: un lado que la
     cruza se vuelve dos semirrectas unidas por el infinito. Nueve números menos la escala son **8 grados de libertad**,
     dos por cada par punto–imagen: **cuatro puntos**, sin tres alineados, la fijan. Esto es una **muestra**; la
     demostración está en el apunte, secciones 5 y 12.
@@ -565,11 +565,11 @@ def _(mo):
     Acá verificamos; las demostraciones (por qué un rayo es un punto, por qué cuatro puntos alcanzan y tres no, la
     clasificación por autovalores, el pentágono regular con los tres casos y la tabla de verificación):
 
-    - [apunte, sección 5: primera lectura de homogéneas y proyectivas](../../apunte.pdf#nameddest=cap:05) ·
-      [sección 12: bloque de proyectivas](../../apunte.pdf#nameddest=cap:12) ·
-      [apéndice 18: el pentágono](../../apunte.pdf#nameddest=cap:18)
+    - [apunte, «Coordenadas homogéneas: puntos como rayos» (primera lectura de homogéneas y proyectivas)](../../apunte.pdf#nameddest=cap:05) ·
+      [apunte, «Bloque geométrico: transformaciones proyectivas» (bloque de proyectivas)](../../apunte.pdf#nameddest=cap:12) ·
+      [apunte, «Pentágono regular: cuentas y script» (el pentágono)](../../apunte.pdf#nameddest=cap:18)
     - [ficha de la clase 03p](../../clases/03p.html) · [el hilo conductor](../../index.html) ·
-      [lección 04: afinidades y homogéneas](../04_afines_homogeneas/index.html) (el caso $W = 1$)
+      [unidad 04: afinidades y homogéneas](../04_afines_homogeneas/index.html) (el caso $W = 1$)
 
     **Lo que viene:** [Formas lineales y dualidad](../06_formas_lineales/index.html): las rectas $\ell^T p = 0$ son
     formas lineales y se transforman al revés que los puntos, $\ell' \sim H^{-T}\ell$; es lo que hace falta para las

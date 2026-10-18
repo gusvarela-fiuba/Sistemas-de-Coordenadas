@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Rotaciones III — tres ejes y el orden importa (lección 01c, molde v2 sobre cb104). Clases 1 y 2.
+"""Rotaciones III — tres ejes y el orden importa (unidad 01c, molde v2 sobre cb104). Clases 1 y 2.
 
 Una sola idea: en 3D hay una rotación por cada eje coordenado, no conmutan, y toda composición es una sola rotación
 alrededor de un eje fijo (Euler; la fórmula es la de Rodrigues). Cubo unitario y terreno con figura_espacio;
@@ -141,15 +141,15 @@ def _(mo):
     R_z(\gamma) = \begin{pmatrix} \textcolor{#1b6f6a}{\cos\gamma} & \textcolor{#b5451b}{-\sin\gamma} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{\sin\gamma} & \textcolor{#b5451b}{\cos\gamma} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{0} & \textcolor{#c9a227}{1} \end{pmatrix}.$$
 
     ($R_y$ parece tener los signos cambiados de lado: el plano que gira es el $(z, x)$, en ese orden, para que la mano
-    derecha valga en los tres; apunte, sección 14.)
+    derecha valga en los tres; apunte, «Construcción geométrica de las matrices de rotación 3D».)
 
     **El orden importa.** Hacer $R_y$ y después $R_z$ es la matriz $R_z R_y$: **la de la derecha actúa primero**. Y
     $R_z R_y \neq R_y R_z$: la predicción de arriba son dos destinos distintos para el mismo punto. Con ángulos chicos
-    la diferencia es de segundo orden (apunte, sección 15).
+    la diferencia es de segundo orden (apunte, «Rotaciones infinitesimales y orden de composición»).
 
     **Toda composición es un solo giro.** El producto sigue cumpliendo $R^TR = I$ y $\det R = 1$, y toda matriz así deja
     fija una recta (el **eje**) y gira el plano perpendicular (teorema de Euler). La fórmula que arma la matriz desde
-    eje y ángulo es la de Rodrigues (apunte, sección 14; `lib.rodrigues`). La figura lo muestra: el eje violeta no se mueve.
+    eje y ángulo es la de Rodrigues (apunte, «Construcción geométrica de las matrices de rotación 3D»; `lib.rodrigues`). La figura lo muestra: el eje violeta no se mueve.
 
     | | giros que dejan quieto el $0$ | lo que se ve |
     |---|---|---|
@@ -423,13 +423,14 @@ def _(mo):
 
     En esta unidad demostramos que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
 
-    - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07) (el orden importa, el ejemplo de $90°$)
-    - [apunte, sección 14: $R_x, R_y, R_z$ por columnas y Rodrigues](../../apunte.pdf#nameddest=cap:14)
-    - [apunte, sección 15: por qué el orden aparece recién en el segundo orden](../../apunte.pdf#nameddest=cap:15)
-    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [lección anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:07) (el orden importa, el ejemplo de $90°$)
+    - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:14)
+    - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:15)
+    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [unidad anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
 
-    **Lo que viene:** reflexiones y similaridades (clase 3): las ortogonales con $\det = -1$ y la escala. Ya disponible:
-    [autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html), donde el eje reaparece como
+    **Lo que viene:** [producto interno: proyección, longitud, ángulo](../02_producto_interno/index.html), la herramienta
+    que mide largos y ángulos y que las reflexiones y similaridades (las ortogonales con $\det = -1$ y la escala) usan después.
+    Ya disponible: [autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html), donde el eje reaparece como
     autovector de autovalor $1$.
     """)
     return

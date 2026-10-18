@@ -1339,7 +1339,7 @@ def escalas_proyeccion_cilindrica(phi, tipo, elipsoide=_GRS80):
 def defecto_conformidad_jacobiano(J):
     """Cuánto le falta a una jacobiana 2×2 para ser conforme: dict con `sigmas` (σ₁ ≥ σ₂ de la SVD: semiejes de la
     indicatriz de Tissot), `razon` σ₁/σ₂, `def_angular_max_deg` = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)) en grados (0 si y
-    sólo si J es una similaridad), `parte_conforme` ½[[j₁₁ + j₂₂, j₁₂ − j₂₁], [j₂₁ − j₁₂, j₁₁ + j₂₂]] (la parte de la
+    sólo si J es una similaridad, directa o inversa; conforme exige además det J > 0), `parte_conforme` ½[[j₁₁ + j₂₂, j₁₂ − j₂₁], [j₂₁ − j₁₂, j₁₁ + j₂₂]] (la parte de la
     forma [[a, −b], [b, a]] del número complejo, Cauchy-Riemann) y `parte_anticonforme` = J − parte_conforme."""
     J = np.asarray(J, dtype=float).reshape(2, 2)
     s = np.linalg.svd(J, compute_uv=False)

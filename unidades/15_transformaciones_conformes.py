@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Transformaciones conformes (lección 15, molde v2 sobre cb104). Cierre del arco: clases 13 y 14.
+"""Transformaciones conformes (unidad 15, molde v2 sobre cb104). Cierre del arco: clases 13 y 14.
 
 DESARROLLO COMPLEMENTARIO del curso, pendiente de validar por la cátedra. Una sola idea: una transformación es
 conforme cuando, mirada con lupa, es una similaridad directa; eso se escribe de cuatro maneras equivalentes (Jacobiano
@@ -157,9 +157,9 @@ def _(mo):
     | cara | álgebra | lo que se ve |
     |---|---|---|
     | **A** · similaridad (unidad 03) | con lupa infinitesimal, $J = k(P)\,R(\theta)$: rotación más escala uniforme | un cuadradito del terreno va a un cuadradito girado, más grande o más chico |
-    | **B** · SVD (unidad 09) | $\sigma_1 = \sigma_2$; la elipse imagen del círculo unitario es un círculo | la **indicatriz de Tissot** es un círculo; si no, elipse, y la deformación angular máxima es $\omega_{\max} = 2\arcsin\dfrac{\sigma_1 - \sigma_2}{\sigma_1 + \sigma_2}$ |
-    | **C** · primera forma (unidad 10) | $F = 0$ y $E = G = k^2$: $ds^2_{\text{mapa}} = k^2\,ds^2_{\text{terreno}}$ | las líneas coordenadas se cortan a $90°$ y los dos pasos de grilla miden lo mismo: cuadraditos a cuadraditos |
-    | **D** · número complejo (unidades 00 y 01, clase 1) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
+    | **B** · SVD (unidad 09) | $\sigma_1 = \sigma_2$ y $\det J > 0$; la elipse imagen del círculo unitario es un círculo, recorrido en el mismo sentido | la **indicatriz de Tissot** es un círculo; si no, elipse, y la deformación angular máxima es $\omega_{\max} = 2\arcsin\dfrac{\sigma_1 - \sigma_2}{\sigma_1 + \sigma_2}$ |
+    | **C** · primera forma (unidad 10) | en bases ortonormales (metros) del terreno y del mapa, $F = 0$ y $E = G = k^2$, con $\det J > 0$: $ds^2_{\text{mapa}} = k^2\,ds^2_{\text{terreno}}$ | las líneas coordenadas se cortan a $90°$ y los dos pasos de grilla miden lo mismo: cuadraditos a cuadraditos |
+    | **D** · número complejo (unidades 00 y 01a-01c, clase 1) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
 
     """)
     return
@@ -170,17 +170,17 @@ def _(mo):
     mo.md(r"""
     > **⚠ ¿Sobre qué Jacobiano pedimos $J^T J = k^2 I$? Coordenadas $(\varphi, \lambda)$ vs. metros en el plano tangente**
     >
-    > **En coordenadas.** Si derivamos la carta $F(\varphi, \lambda) = (x, y)$ respecto de las coordenadas geodésicas en
+    > **En coordenadas.** Si derivamos la carta $\Phi(\varphi, \lambda) = (x, y)$ respecto de las coordenadas geodésicas en
     > radianes, obtenemos el Jacobiano de coordenadas $J_{\varphi,\lambda} = \partial(x,y)/\partial(\varphi,\lambda)$.
     > Pero $(\varphi, \lambda)$ no están en metros ni son isótropas: el elipsoide tiene la primera forma fundamental
-    > $G = \operatorname{diag}(M^2,\, N^2\cos^2\varphi)$. La condición exacta de conformidad es entonces
-    > $$J_{\varphi,\lambda}^T\, J_{\varphi,\lambda} = k(\varphi,\lambda)^2\, G = k^2 \begin{pmatrix} M^2 & 0 \\ 0 & N^2\cos^2\varphi \end{pmatrix}.$$
+    > $\mathbf{G} = \operatorname{diag}(M^2,\, N^2\cos^2\varphi)$ (la matriz de la primera forma: $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$). La condición exacta de conformidad es entonces
+    > $$J_{\varphi,\lambda}^T\, J_{\varphi,\lambda} = k(\varphi,\lambda)^2\, \mathbf{G} = k^2 \begin{pmatrix} M^2 & 0 \\ 0 & N^2\cos^2\varphi \end{pmatrix}.$$
     > Pedir $J_{\varphi,\lambda}^T J_{\varphi,\lambda} = k^2 I$ directo sobre $(\varphi, \lambda)$ sería el error de la hoja
     > cuadriculada de la sección 0: tratar radianes de latitud y de longitud como si midieran lo mismo.
     >
     > **En metros.** Cuando pasamos a la base ortonormal en metros del plano tangente ($ds_{\text{mer}} = M\, d\varphi$,
     > $ds_{\text{par}} = N\cos\varphi\, d\lambda$), el Jacobiano físico es
-    > $$\tilde{J} = J_{\varphi,\lambda}\, G^{-1/2} = J_{\varphi,\lambda}\, \operatorname{diag}\!\left(\frac{1}{M},\, \frac{1}{N\cos\varphi}\right),$$
+    > $$\tilde{J} = J_{\varphi,\lambda}\, \mathbf{G}^{-1/2} = J_{\varphi,\lambda}\, \operatorname{diag}\!\left(\frac{1}{M},\, \frac{1}{N\cos\varphi}\right),$$
     > y recién ahí la condición toma la forma euclídea $\tilde{J}^T \tilde{J} = k^2 I$ (con $\det \tilde{J} > 0$ para
     > conservar la orientación). El $\tilde{J}$ es el que mira la unidad (la cara A de la tabla), y $h$ y $k$ son sus
     > escalas en meridiano y paralelo. (El $J = \begin{pmatrix} 3 & -4 \\ 4 & 3 \end{pmatrix}$ de la sección 3.1 es de este
@@ -236,7 +236,7 @@ def _(mo):
        y $y = a\,q(\varphi)$. Con $q$ como coordenada norte, $ds^2 = N^2\cos^2\varphi\,(dq^2 + d\lambda^2)$: cara C.
     2. **Cilíndrica equidistante**: $h = 1$, $y = S(\varphi) = \int_0^\varphi M\,du$, el arco de meridiano del apunte.
     3. **Cilíndrica equivalente**: $hk = 1$, $y = \dfrac{1}{a}\int_0^\varphi MN\cos u\,du$; conserva áreas y aplasta ángulos.
-    4. **Esfera autálica**: la esfera de igual área que el elipsoide, con la latitud $\beta_a$ tal que $\sin\beta_a$ es
+    4. **Esfera autálica**: la esfera de igual área que el elipsoide, con la latitud $\beta_A$ tal que $\sin\beta_A$ es
        proporcional a la misma integral de 3: elipsoide $\to$ esfera equivalente, y de ahí cualquier proyección esférica.
     5. **Mercator transversa / Gauss-Krüger** (la de POSGAR): el cilindro tangente a un meridiano, no al ecuador. Por la
        cara D, es $w = f(q + i\,\Delta\lambda)$ con $f$ analítica, elegida para que sobre el meridiano central
@@ -268,7 +268,7 @@ def _(mo):
         ),
         "cilíndrica equivalente (h·k = 1, conserva áreas, aplasta ángulos)": (
             "equivalente",
-            r"$y = \frac{1}{a}\int_0^\varphi MN\cos u\,du$: lo que el paralelo se estira ($k$) el meridiano se aplasta ($h = 1/k$); la elipse de Tissot tiene el área del círculo y el ángulo se tuerce el doble que en la equidistante.",
+            r"$y = \frac{1}{a}\int_0^\varphi MN\cos u\,du$: lo que el paralelo se estira ($k$) el meridiano se aplasta ($h = 1/k$); la elipse de Tissot tiene el área del círculo y el ángulo se tuerce casi el doble que en la equidistante.",
         ),
         "mapa complejo en el plano: w = z², e^z o z + α z̄": (
             "complejo",
@@ -554,7 +554,7 @@ def _(go, grs80, lib, mo, np):
         `(y, h, k, ω)`; `[f(p)[1:] for p in phis]` toma las tres últimas de cada latitud y `np.array(...)` las apila en una
         matriz `(71, 3)`: una fila por latitud, columnas `h`, `k`, `ω`. Las curvas salen de indexar columnas, `res[:, 0]`,
         sin un solo bucle de dibujo. $k$ es la misma para las tres familias (todas tienen $x = a\lambda$); lo que cambia es $h$,
-        y con él $\omega_{\max}$: $0$ en Mercator, el doble en la equivalente que en la equidistante.
+        y con él $\omega_{\max}$: $0$ en Mercator, casi el doble en la equivalente que en la equidistante ($\sin\frac{\omega}{2} = \tanh(\ln k)$ contra $\tanh(\tfrac12\ln k)$).
         """),
         mo.md("```python\nphis = np.arange(0.0, 70.01, 1.0)\nres = np.array([lib.escalas_proyeccion_cilindrica(np.deg2rad(p), \"equidistante\", g)[1:] for p in phis])   # (71, 3): h, k, ω\nres[:, 2]   # ω_max en grados, una por latitud\n```"),
         mo.hstack([mo.ui.plotly(_fig_hk), mo.ui.plotly(_fig_w)], widths="equal", gap=0.5),
@@ -746,8 +746,8 @@ def _(mo):
       Gauss-Krüger como $w = f(q + i\,\Delta\lambda)$
     - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=sec:elipsoide): $M$, $N$, la primera forma
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
-    - [apunte, sección 13: esfera, elipsoide y curvatura](../../apunte.pdf#nameddest=cap:13) ($K = 1/(MN)$, lo que
-      impide la isometría) · [apunte, sección 06: esfera, elipsoide y representación plana](../../apunte.pdf#nameddest=cap:06)
+    - [apunte, «Coordenadas curvilíneas y bases locales» (esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:13) ($K = 1/(MN)$, lo que
+      impide la isometría) · [apunte, «Pasar del plano a una superficie» (esfera, elipsoide y representación plana)](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12), última página: las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
     - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·
@@ -776,8 +776,9 @@ def _(J, J_sit, ang_despues, ang_sit, d1, d2, d_ne, d_se, grs80, h_v, k_v, lib, 
         ("sección 2: Mercator h = k y ω = 0; equidistante h = 1; equivalente hk = 1 (en la latitud elegida)",
          {"conforme_mercator": lib.exacto(h_v, k_v) and omega_v == 0.0, "equidistante": h_v == 1.0,
           "equivalente": lib.exacto(h_v * k_v, 1.0), "complejo": True}[tipo]),
-        ("sección 2: el ángulo después de J coincide con la cuenta directa, y es 90° exactamente cuando ω = 0",
-         lib.exacto(ang_despues, np.rad2deg(lib.angulo(J @ d1, J @ d2))) and (lib.exacto(ang_despues, 90.0, tol=1e-6) == (omega_v < 1e-9))),
+        ("sección 2: el ángulo después de J coincide con la cuenta directa; es 90° si y sólo si ω = 0 o las visuales van por las direcciones principales (autovectores de JᵀJ)",
+         lib.exacto(ang_despues, np.rad2deg(lib.angulo(J @ d1, J @ d2)))
+         and (lib.exacto(ang_despues, 90.0, tol=1e-6) == (omega_v < 1e-9 or abs(lib.cuna2(J.T @ J @ d1, d1)) < 1e-9 * np.linalg.norm(J.T @ J)))),
         ("sección 3.1: [[3, −4], [4, 3]] tiene JᵀJ = 25 I, σ = 5, ω = 0", ok_31),
         ("sección 3.2: q(−54°) = −1.11875 y h = k = 1.69757 en Mercator GRS80", ok_32),
         ("sección 3.3: dS/dq = N cos φ en −34.6°", ok_33),

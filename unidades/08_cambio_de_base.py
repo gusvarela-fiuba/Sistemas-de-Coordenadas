@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Cambio de base y diagonalización (lección 08, molde v2 sobre cb104). Clase 8 (2026-09-30).
+"""Cambio de base y diagonalización (unidad 08, molde v2 sobre cb104). Clase 8 (2026-09-30).
 
 Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambiamos la grilla con que la
 medimos y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
@@ -161,8 +161,9 @@ def _(mo):
 
     Escalera: en $\mathbb R$ toda matriz ya es diagonal; en $\mathbb R^2$ hacen falta dos ejes propios reales e
     independientes: una rotación no tiene ninguno y una cizalla tiene uno solo, y ninguna se diagonaliza (la SVD,
-    unidad 09, lo arregla con dos bases). Esto es una **muestra**; la demostración de $A = B\Lambda B^{-1}$ todavía no
-    está en el apunte (ver el cierre). El profesor escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
+    unidad 09, la esquiva con dos bases distintas). El argumento general cabe en una línea, columna por columna:
+    $A\,b_k = \lambda_k b_k$ para cada $k$ es lo mismo que $AB = B\Lambda$, y si las columnas son independientes
+    $B$ se invierte y queda $B^{-1}AB = \Lambda$. El profesor escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
     esa matriz es $B$, para no confundirla con la transformación.
     """)
     return
@@ -173,15 +174,19 @@ def _(mo):
     mo.callout(mo.md(r"""
     **La matriz de cambio de base y el despeje de la diagonalización.**
 
+    En este recuadro seguimos la notación del pizarrón del profesor: $A = [\,v_1 \mid v_2\,]$ es la matriz de cambio de base (la $B$ del resto de la unidad) y la transformación se llama $T$. Fuera del recuadro, $A$ es la transformación y $B$ el cambio de base.
+
     **(1) Quién se transforma con qué.** El diagrama de conmutatividad, escrito en orden de aplicación:
 
     $$(P)\to(A)\to[\,A^{-1}\to T\to A\,]\to(A^{-1})\to(\ell).$$
 
     Los puntos se transforman con $A$ y las formas (las rectas) con $A^{-1}$, para que la incidencia $\ell\,P = 0$
-    siga dando cero. La transformación que actúa en la base nueva es la caja del medio: leída como producto de
-    matrices (lo que se aplica último va a la izquierda) es $A\,T\,A^{-1}$ cuando $A$ lleva de la base en la que
-    está escrita $T$ a la base en la que queremos verla, y $A^{-1}\,T\,A$ si $A$ va en el sentido contrario. El
-    sentido lo fija la definición de (2): $A$ va de la base de autovectores a la canónica.
+    siga dando cero. Con el sentido que fija la definición de (2), $A$ de la base de autovectores a la canónica, la
+    caja del medio recibe coordenadas canónicas y devuelve coordenadas canónicas: el $T$ de adentro es la diagonal
+    $T_{\text{diag}}$ (actúa en la base de autovectores) y la caja entera, leída como producto (lo que se aplica
+    último va a la izquierda), es $A\,T_{\text{diag}}\,A^{-1} = T_{\text{can}}$, la misma transformación escrita en
+    la base vieja. La diagonal $T_{\text{diag}} = A^{-1}\,T_{\text{can}}\,A$ es lo que queda adentro cuando la
+    despejamos en (3).
 
     **(2) Los autovectores en columnas.** Definimos $A = [\,v_1 \mid v_2\,]$ con los autovectores como columnas y lo
     probamos con el vector $(1, 0)^T$: $A\,(1, 0)^T$ devuelve la primera columna, $v_1$, escrita en canónica. Entra un
@@ -242,9 +247,12 @@ def _(mo):
     **Matriz 4.** $\lambda = 0$ doble (algebraica $2$), pero $Av = 0$ sólo para $v = (x, 0)$: un único autovector,
     $e_1$ (geométrica $1$). Tiene núcleo **y** le falta una dirección propia.
 
-    El defecto de las matrices 3 y 4 es exactamente la razón por la que en la [unidad siguiente](../09_cambio_de_base_svd/index.html)
-    pasamos a la SVD, $A = U\Sigma V^T$: con una base ortonormal a la entrada ($V$) y otra a la salida ($U$), toda
-    matriz, incluso un corte o una rectangular, vuelve a ser diagonal.
+    El defecto de las matrices 3a, 3b y 4 es exactamente la razón por la que en la [unidad siguiente](../09_cambio_de_base_svd/index.html)
+    pasamos a la SVD, $A = U\Sigma V^T$: con una base ortonormal a la entrada ($V$) y **otra distinta** a la salida
+    ($U$), toda matriz, incluso un corte o una rectangular, se lee como diagonal. Ojo: es diagonal entre dos grillas
+    distintas, no es una semejanza. $\Sigma$ no es "$A$ en otra base", los $\sigma$ no son autovalores (en el corte
+    $\sigma = (\sqrt5 \pm 1)/2$ y $\lambda = 1$ doble) y no sirve para potencias: $A^n \ne U\Sigma^nV^T$. Las dos
+    descomposiciones coinciden sólo si $A$ es simétrica semidefinida positiva.
     """), kind="info")
     return
 
@@ -526,7 +534,7 @@ def _(mo):
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         Triangular: $\lambda = 3, 2$. Para $\lambda = 3$, filas $(0, 1)$: $v = (1, 0)$; para $\lambda = 2$, filas $(1, 1)$:
         $v = (1, -1)$. No son perpendiculares ($A$ no es simétrica). $B = \begin{pmatrix} 1 & 1 \\ 0 & -1 \end{pmatrix}$
-        y $B^{-1} = B$ (verificá $B^2 = I$); $B^{-1}AB = B\begin{pmatrix} 3 & 1 \\ 0 & -2 \end{pmatrix} = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}$. ✓
+        y $B^{-1} = B$ (verificá $B^2 = I$); $B^{-1}AB = B\begin{pmatrix} 3 & 2 \\ 0 & -2 \end{pmatrix} = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}$. ✓
         $A^3 = B\,\mathrm{diag}(27, 8)\,B = B\begin{pmatrix} 27 & 27 \\ 0 & -8 \end{pmatrix} = \begin{pmatrix} 27 & 19 \\ 0 & 8 \end{pmatrix}$;
         control: $A^2 = \begin{pmatrix} 9 & 5 \\ 0 & 4 \end{pmatrix}$, $A^2A = \begin{pmatrix} 27 & 19 \\ 0 & 8 \end{pmatrix}$. ✓
         """)}),
@@ -661,14 +669,15 @@ def _(mo):
     Acá verificamos que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
 
     - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
-      "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (la
-      demostración de $A = B\Lambda B^{-1}$, escrita ahí como $P^{-1}AP = D$) y el párrafo sobre la clase del 30 de
+      "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (el ejemplo
+      numérico de $P^{-1}AP = D$; el argumento general, $AB = B\Lambda$ columna por columna, está en la sección 1 de
+      esta unidad) y el párrafo sobre la clase del 30 de
       septiembre, con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
-      · [sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11)
+      · [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (bloque algebraico (autovectores, formas lineales))](../../apunte.pdf#nameddest=cap:11)
     - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
     **Lo que viene:** la SVD (unidad 09, cuando se dicte): dos bases perpendiculares, una a la entrada y otra a la
-    salida, para que toda matriz sea "sólo estirar", también las que no tienen ejes propios. Y las superficies
+    salida, para que toda matriz sea "sólo estirar" de una grilla a otra, también las que no tienen ejes propios. Y las superficies
     (unidad 10): la grilla $(u, v)$ dibujada sobre el terreno.
     """)
     return

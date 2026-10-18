@@ -11,8 +11,8 @@
 # CDN al abrir cada lección, no el runner. La primera exportación después de `uv sync` tarda ~40 s
 # (compila bytecode); las siguientes 1–2 s por lección.
 #
-# Tamaño: cada lección exportada lleva los assets completos de marimo (~27 MB); con 18 lecciones el sitio
-# ronda 500 MB. El límite de un sitio publicado en GitHub Pages es 1 GB (ver tools/README.md, "Tamaño
+# Tamaño: cada lección exportada lleva los assets completos de marimo (~27 MB); con 20 lecciones el sitio
+# ronda 540 MB. El límite de un sitio publicado en GitHub Pages es 1 GB (ver tools/README.md, "Tamaño
 # del sitio", para la mejora de compartir un único assets/).
 
 name: pages

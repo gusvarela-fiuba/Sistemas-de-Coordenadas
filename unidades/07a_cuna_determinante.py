@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Cuña y determinante: el detector de colinealidad (lección 07a, molde v2 sobre cb104). Clase 5.
+"""Cuña y determinante: el detector de colinealidad (unidad 07a, molde v2 sobre cb104). Clase 5.
 
 Una sola idea: el área orientada de dos vectores (producto cuña) es una cuenta con coordenadas; vale cero si están
 alineados; el determinante de una matriz es cuánto agranda el área (en 3D el volumen) y su signo dice si da vuelta
@@ -326,7 +326,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             $$\det\begin{pmatrix} 1 & 1 & 1 \\ 4 & 3 & 1 \\ 7 & 6 & 1 \end{pmatrix} = (24 - 21) - (6 - 7) + (3 - 4) = 3 .$$
 
             El mismo $3$ que $(B - A) \wedge (C - A)$: "tres puntos alineados" es "tres vectores en un plano por el origen",
-            y el volumen cero lo detecta. Es la condición "sin tres alineados" de la lección 05.
+            y el volumen cero lo detecta. Es la condición "sin tres alineados" de la unidad 05.
             """),
             mo.vstack([
                 mo.md("```python\n# A, B, C, una fila por mojón\nP = np.array([[1., 1.], [4., 3.], [7., 6.]])\nnp.linalg.det(lib.hom(P))   # filas (x, y, 1)\nlib.cuna2(P[1] - P[0], P[2] - P[0])\nlib.alineados(P[0], P[1], P[2])\n```"),
@@ -363,7 +363,7 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *("hagan el producto cruz y después el producto interno: eso es el determinante").*
-        La apuesta del pizarrón del 16/9: $p = (1, 2, 3)$, $q = (4, 5, -1)$, $r = (0, 0, 1)$. Calculá $p \times q$, después
+        La apuesta de clase del 16/9: $p = (1, 2, 3)$, $q = (4, 5, -1)$, $r = (0, 0, 1)$. Calculá $p \times q$, después
         $(p \times q) \cdot r$, y controlá con el determinante desarrollado por la fila de $r$ (la que tiene ceros).
         ¿Están alineados, como puntos homogéneos del plano?
         """),
@@ -516,8 +516,8 @@ def _(mo):
     Acá verificamos; las demostraciones (el determinante como la única operación lineal en cada vector y nula con dos
     iguales, el producto exterior en cualquier dimensión, incidencia y alineación en homogéneas):
 
-    - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)
-    - [ficha de la clase 5](../../clases/05.html) · [el hilo conductor](../../index.html) · [lección 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Coordenadas homogéneas: puntos como rayos» (la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:05)
+    - [ficha de la clase 5](../../clases/05.html) · [el hilo conductor](../../index.html) · [unidad 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
 
     **Lo que viene:** [Núcleo y autovectores: las direcciones que no giran](../07b_nucleo_autovectores/index.html):
     cuando el detector da cero hay una dirección entera que va al cero (el núcleo), y restando $\lambda I$ se usa

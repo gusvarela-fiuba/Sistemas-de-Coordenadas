@@ -6,11 +6,12 @@
 #     "plotly",
 # ]
 # ///
-"""Cuatro problemas: regresión, círculos, Procrustes, regresión total (lección 11, molde v2 sobre cb104). Clase 11.
+"""Cuatro problemas: regresión, círculos, Procrustes, regresión total (unidad 11, molde v2 sobre cb104). Clase 11.
 
 LECCIÓN ANTICIPADA: la clase no se dictó todavía en 2C2026; lectura del esqueleto 2025, pendiente de validar por la
-cátedra. Una sola idea: los cuatro problemas son el mismo (más mediciones que incógnitas) y la mejor solución deja el
-residuo perpendicular a lo que la matriz puede producir. Ecuaciones normales y `lstsq`; SVD y pseudoinversa en la 09.
+cátedra. Una sola idea: los cuatro problemas tienen más mediciones que incógnitas; en los dos primeros la mejor
+solución deja el residuo perpendicular a lo que la matriz puede producir (ecuaciones normales y `lstsq`), y los dos
+últimos son mínimos cuadrados con otra geometría, resueltos con la SVD de una matriz armada con los datos (unidad 09).
 
 Chequear:  uv run marimo check --select MW unidades/11_cuatro_problemas.py
 Exportar:  uv run python tools/build.py --only 11_cuatro_problemas
@@ -73,7 +74,14 @@ def _(lib, mo, np):
     dist_medidas = np.array([5.05, 6.35, 5.90, 4.45])  # cinta: las exactas son 5, 6.403, 5.831, 4.472
     p_mc, r_mc = lib.punto_por_distancias(mojones, dist_medidas)
     p_tres, _ = lib.punto_por_distancias(mojones[:3], dist_medidas[:3])
+    # óptimo en metros de cinta, min Σ(dᵢ − ‖p − Mᵢ‖)²: Gauss–Newton arrancando del punto linealizado
+    p_gn = p_mc.copy()
+    for _it in range(8):
+        _dif = p_gn - mojones
+        _rho = np.linalg.norm(_dif, axis=1)
+        p_gn = p_gn + np.linalg.lstsq(_dif / _rho[:, None], dist_medidas - _rho, rcond=None)[0]
     errores_mc = np.linalg.norm(mojones - p_mc, axis=1) - dist_medidas
+    errores_gn = np.linalg.norm(mojones - p_gn, axis=1) - dist_medidas
     errores_tres = np.linalg.norm(mojones - p_tres, axis=1) - dist_medidas
     prediccion = mo.ui.radio(
         options=lib.opciones_barajadas({
@@ -96,18 +104,23 @@ def _(lib, mo, np):
         """),
         prediccion,
     ])
-    return dist_medidas, errores_mc, errores_tres, mojones, p_mc, p_tres, prediccion, punto_real, r_mc
+    return dist_medidas, errores_gn, errores_mc, errores_tres, mojones, p_gn, p_mc, p_tres, prediccion, punto_real, r_mc
 
 
 @app.cell
-def _(errores_mc, errores_tres, lib, mo, p_mc, p_tres, prediccion):
+def _(errores_gn, errores_mc, errores_tres, lib, mo, np, p_gn, p_mc, p_tres, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success",
                      rf"**Sí.** Es la idea de toda la lección: con más mediciones que incógnitas no buscamos el punto que cumple todo "
-                     rf"(no existe) sino el que deja el **residuo** más chico en conjunto, suma de cuadrados: $p = {lib.vec_tex(p_mc, 3)}$, "
-                     rf"diferencias $({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m repartidas entre las cuatro cintas. "
-                     rf"La sección 1 dice **por qué** ese residuo queda perpendicular a lo que las ecuaciones pueden producir."),
+                     rf"(no existe) sino el que deja el **residuo** más chico en conjunto, suma de cuadrados. Ojo con **qué** residuo: "
+                     rf"`punto_por_distancias` resta los círculos y resuelve el sistema linealizado (ejes radicales), que minimiza los "
+                     rf"residuos de esas rectas, en m², no en metros de cinta: da $p = {lib.vec_tex(p_mc, 3)}$, con diferencias "
+                     rf"$({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m. El punto que minimiza de verdad "
+                     rf"$\sum (d_i - \lVert p - M_i\rVert)^2$ exige iterar (Gauss–Newton, arrancando del anterior): "
+                     rf"$p = {lib.vec_tex(p_gn, 3)}$, diferencias $({', '.join(lib.num_tex(e, 3) for e in errores_gn)})$ m, a "
+                     rf"${lib.num_tex(100 * np.linalg.norm(p_gn - p_mc), 1)}$ cm del linealizado. La linealización es una muy buena "
+                     rf"aproximación. La sección 1 dice **por qué** el residuo queda perpendicular a lo que las ecuaciones pueden producir."),
         "tres": ("warn",
                  rf"**No.** Con tres mojones las dos rectas de la sección 1 se cortan en un punto, $p = {lib.vec_tex(p_tres, 3)}$, pero "
                  rf"ese punto tampoco cumple las cintas (tienen error) y la cuarta queda con ${lib.num_tex(errores_tres[3], 3)}$ m que nadie "
@@ -118,7 +131,7 @@ def _(errores_mc, errores_tres, lib, mo, p_mc, p_tres, prediccion):
         "promedio": ("warn",
                      r"**No.** Promediar mojones da un punto adentro del lote, pero no usa las distancias como distancias: nada "
                      r"dice que el error de las cintas quedó chico. La solución sí es 'un promedio', pero de las **ecuaciones**, "
-                     r"con los pesos que impone la geometría ($A^\top A$)."),
+                     r"con los pesos que impone la geometría ($A^T A$)."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -132,34 +145,39 @@ def _(mo):
 
     **Más ecuaciones que incógnitas: $A x = y$ no tiene solución.** $A$ es alta ($n$ filas, $2$ columnas) y lo que puede
     producir, $\{A x\}$, es apenas un plano (la **imagen**, 07b) adentro de $\mathbb R^n$; el vector $y$ de mediciones no
-    cae en él. Lo mejor es el punto del plano **más cercano** a $y$: su sombra, la proyección ortogonal (lección 02). Y
+    cae en él. Lo mejor es el punto del plano **más cercano** a $y$: su sombra, la proyección ortogonal (unidad 02). Y
     la sombra se reconoce por una sola propiedad: lo que sobra, el **residuo** $r = y - A x$, es **perpendicular al
     plano**, o sea a cada columna de $A$:
 
-    $$A^\top (y - A x) = 0 \iff A^\top A\, x = A^\top y \qquad \text{(ecuaciones normales).}$$
+    $$A^T (y - A x) = 0 \iff A^T A\, x = A^T y \qquad \text{(ecuaciones normales).}$$
 
-    El sistema alto se volvió uno de $2\times2$. Esto es una **muestra**; la demostración (que la sombra minimiza
-    $|r|^2$) está en Strang, y la pseudoinversa $A^+ = (A^\top A)^{-1}A^\top$ y la SVD se desarrollan en la unidad 09.
+    El sistema alto se volvió uno de $2\times2$. Que la sombra minimiza $|r|^2$ es Pitágoras: si $r = y - A\hat x$ es
+    perpendicular a la imagen, para cualquier otro $x$ el vector $A(\hat x - x)$ está en la imagen y
+    $\lVert y - Ax\rVert^2 = \lVert y - A\hat x\rVert^2 + \lVert A(\hat x - x)\rVert^2 \ge \lVert y - A\hat x\rVert^2$.
+    La pseudoinversa vale $A^+ = (A^T A)^{-1}A^T$ **si las columnas de $A$ son independientes**; si no, $A^T A$
+    es singular, las ecuaciones normales tienen infinitas soluciones (todas con el mismo pie $A\hat x$) y $A^+y$ elige
+    la de norma mínima. La SVD y $A^+$ se desarrollan en la unidad 09.
 
     | | la cuenta | lo que se ve |
     |---|---|---|
-    | $\mathbb R$ | $n$ medidas de **un** largo: $A$ es una columna de unos, $A^\top A = n$, $A^\top y = \sum y_i$ | el **promedio**; el residuo suma cero |
+    | $\mathbb R$ | $n$ medidas de **un** largo: $A$ es una columna de unos, $A^T A = n$, $A^T y = \sum y_i$ | el **promedio**; el residuo suma cero |
     | $\mathbb R^2$ | $A = [\,x \mid 1\,]$, $x = (a, b)$: la recta $y = ax + b$ | residuos verticales, perpendiculares a las dos columnas |
-    | $\mathbb R^n$ | cualquier $A$ alta: $A^\top A\, x = A^\top y$ | la fórmula no se entera de cuántas mediciones hay |
+    | $\mathbb R^n$ | cualquier $A$ alta: $A^T A\, x = A^T y$ | la fórmula no se entera de cuántas mediciones hay |
 
-    **Los cuatro problemas son este mismo problema**, con la incógnita cambiando de ropa:
+    **Los dos primeros son este mismo problema; los dos últimos son mínimos cuadrados con otra geometría** (una
+    restricción ortogonal; la distancia perpendicular), y se resuelven con la SVD de una matriz armada con los datos:
 
     - **(a) recta de ajuste**: incógnitas $(a, b)$, $A = [\,x \mid 1\,]$, directo.
     - **(b) punto por distancias**: cada mojón da un círculo $(x - a_i)^2 + (y - b_i)^2 = d_i^2$, no lineal; pero
       **restar dos círculos cancela $x^2 + y^2$** y deja una recta (el eje radical). $m$ mojones, $m - 1$ rectas, $A x \approx b$.
     - **(c) Procrustes**: dos relevamientos del mismo lote; la incógnita es **giro, escala y traslación**. Centramos las
-      nubes y la rotación sale de la SVD de $H = P_0^\top Q_0$: $R = V U^\top$ (una frase; la SVD es de la unidad 09).
+      nubes y la rotación sale de la SVD de $H = P_0^T Q_0$: $R = V U^T$ (una frase; la SVD es de la unidad 09).
     - **(d) regresión total**: la recta que minimiza las distancias **perpendiculares**. Pasa por el centroide con la
-      **dirección propia de mayor autovalor** de $C = X_0^\top X_0$ (07b, 08); la normal es la de menor, y ese
+      **dirección propia de mayor autovalor** de $C = X_0^T X_0$ (07b, 08); la normal es la de menor, y ese
       autovalor es la suma de residuos al cuadrado.
 
-    **¿Qué se conserva?** (a), (b): el residuo perpendicular a la imagen. (c): distancias y ángulos dentro de cada
-    nube. (d): la dirección que menos cambia bajo $C$.
+    **¿Qué se conserva?** (a), (b): el residuo perpendicular a la imagen. (c): ángulos y razones de distancias dentro
+    de cada nube (con escala $s \ne 1$ las distancias se multiplican por $s$). (d): la dirección que menos cambia bajo $C$.
     """)
     return
 
@@ -186,7 +204,7 @@ def _(go, lib, mo, np):
     $\hat x = A^+ b$ elige el punto $A\hat x \in \mathrm{Im}(A)$ **más cercano** a $b$: el **pie de la perpendicular**
     bajada desde $b$ al plano. Como el residuo $r = b - A\hat x$ es perpendicular a todas las columnas de $A$,
 
-    $$A^\top (b - A\hat x) = 0 \iff A^\top A\,\hat x = A^\top b,$$
+    $$A^T (b - A\hat x) = 0 \iff A^T A\,\hat x = A^T b,$$
 
     las mismas ecuaciones normales de arriba, ahora con $b$ en lugar de $y$. La figura es el caso $m = 3$: el plano
     (teal) lo generan dos columnas, $b$ (óxido) queda afuera y el residuo (dorado) baja en ángulo recto al pie.
@@ -199,16 +217,22 @@ def _(go, lib, mo, np):
 @app.cell
 def _(mo):
     mo.callout(mo.md(r"""
-    **De Gauss y el asteroide Ceres al ajuste de una elipse en el terreno.** "Lineal" en mínimos cuadrados quiere
-    decir lineal en las **incógnitas** (los coeficientes), no que la curva del terreno sea una recta. Si medimos
-    $m \ge 5$ puntos $(x_i, y_i)$ sobre el borde de una sección elíptica
-    $x^2 + B y^2 + C xy + D x + E y + F = 0$ (como hizo Gauss en 1801 para recuperar la órbita elíptica de Ceres),
-    al evaluar los datos queda el sistema lineal sobredeterminado
+    **De Gauss y Ceres al ajuste de una elipse en el terreno.** En 1801 Gauss calculó la órbita de Ceres con su
+    propio método, y con esa predicción von Zach y Olbers lo reencontraron entre el 31 de diciembre de 1801 y el 1 de
+    enero de 1802. El método de mínimos cuadrados lo publicó en 1809, en *Theoria motus*; Legendre lo había publicado
+    en 1805. Su problema era kepleriano, no lineal y en el espacio: no un ajuste de cónica en el plano. Lo que nos
+    llevamos es la idea. "Lineal" en mínimos cuadrados quiere decir lineal en las **incógnitas** (los coeficientes),
+    no que la curva del terreno sea una recta. Si medimos $m \ge 5$ puntos $(x_i, y_i)$ sobre el borde de una sección
+    elíptica $x^2 + B y^2 + C xy + D x + E y + F = 0$ (normalizar en $1$ el coeficiente de $x^2$ no deja afuera
+    ninguna elipse: toda elipse lo tiene distinto de cero), al evaluar los datos queda el sistema lineal sobredeterminado
 
     $$B y_i^2 + C x_i y_i + D x_i + E y_i + F \approx -x_i^2,$$
 
     con incógnitas $(B, C, D, E, F)$, que se resuelve con **exactamente la misma pseudoinversa** $A^+$: la geometría es
     la misma, $b = (-x_i^2)$ afuera del plano que generan las cinco columnas, y el residuo perpendicular a todas.
+    Dos advertencias. El ajuste minimiza el residuo **algebraico**, no la distancia geométrica a la curva, y no impone
+    que la cónica sea una elipse: con datos ruidosos o un arco corto puede devolver una hipérbola, así que hay que
+    verificar $4B - C^2 > 0$. Y con coordenadas de campo grandes conviene centrar y escalar antes de armar $A$.
     """), kind="info")
     return
 
@@ -250,7 +274,7 @@ def _(mo):
     ## 2. Manipulación
 
     Elegí el problema y subí el **ruido** en el panel de la derecha (misma semilla: el ruido es la única diferencia).
-    Los residuos (punteados) crecen pero siguen **repartidos**, y la comprobación $A^\top r \approx 0$ no cambia. Con
+    Los residuos (punteados) crecen pero siguen **repartidos**, y la comprobación $A^T r \approx 0$ no cambia. Con
     ruido $0$ la solución es exacta.
     """)
     return caso, casos
@@ -295,9 +319,9 @@ def _(caso, casos, go, lib, mo, np, ruido):
         _nube(_P, lib.VIOLETA_OBJETO, "puntos medidos")
         _recta(np.array([0, sol[1]]), np.array([1, sol[0]]) / np.hypot(1, sol[0]), lib.TEAL_DESPUES, f"ajuste: y = {sol[0]:.3f}x + {sol[1]:.3f}")
         numeros = rf"""
-        - $A = [\,x \mid 1\,]$ de $9\times2$ · $A^\top A = {lib.matriz_coloreada(A.T @ A, 1)}$ · $A^\top y = {lib.vec_tex(A.T @ ys9, 2)}$
+        - $A = [\,x \mid 1\,]$ de $9\times2$ · $A^T A = {lib.matriz_coloreada(A.T @ A, 1)}$ · $A^T y = {lib.vec_tex(A.T @ ys9, 2)}$
         - $(a, b) = \mathbf{{{lib.vec_tex(sol, 3)}}}$ (sin ruido: $(0.6, 1.5)$) · $\lvert r\rvert = {lib.num_tex(np.linalg.norm(res), 3)}$
-        - comprobación $A^\top r = {lib.vec_tex(A.T @ res, 6)}$: perpendicular a la columna $x$ y a la de unos (suma cero).
+        - comprobación $A^T r = {lib.vec_tex(A.T @ res, 6)}$: perpendicular a la columna $x$ y a la de unos (suma cero).
         """
     elif tipo == "circulos":
         M = np.array([[0.0, 0.0], [8.0, 0.0], [8.0, 7.0], [1.0, 8.0]])
@@ -313,8 +337,8 @@ def _(caso, casos, go, lib, mo, np, ruido):
         _segs(np.tile(sol, (4, 1)), M + d[:, None] * _dir, "residuos (a cada círculo)")
         lib.punto(figura, sol, lib.TEAL_DESPUES, f"poste: ({sol[0]:.3f}, {sol[1]:.3f})", tam=13, texto="p")
         numeros = rf"""
-        - tres ejes radicales: $A = {lib.matriz_coloreada(A, 0)}$, $b = {lib.vec_tex(_b, 2)}$ · $A^\top A = {lib.matriz_coloreada(A.T @ A, 0)}$
-        - $p = \mathbf{{{lib.vec_tex(sol, 3)}}}$ (real: $(3, 4)$) · $\lvert r\rvert = {lib.num_tex(np.linalg.norm(res), 3)}$ · $A^\top r = {lib.vec_tex(A.T @ res, 6)}$
+        - tres ejes radicales: $A = {lib.matriz_coloreada(A, 0)}$, $b = {lib.vec_tex(_b, 2)}$ · $A^T A = {lib.matriz_coloreada(A.T @ A, 0)}$
+        - $p = \mathbf{{{lib.vec_tex(sol, 3)}}}$ (real: $(3, 4)$) · $\lvert r\rvert = {lib.num_tex(np.linalg.norm(res), 3)}$ · $A^T r = {lib.vec_tex(A.T @ res, 6)}$
         - diferencias cinta a cinta: $({', '.join(lib.num_tex(e, 3) for e in np.linalg.norm(M - sol, axis=1) - d)})$ m.
         """
     elif tipo == "procrustes":
@@ -329,7 +353,7 @@ def _(caso, casos, go, lib, mo, np, ruido):
         _nube(Q[5:], lib.VIOLETA_OBJETO, "interiores, relevamiento 2")
         lib.objeto(figura, Pl[:5], lib.TEAL_DESPUES, "relevamiento 1 llevado: s R p + t")
         numeros = rf"""
-        - $H = P_0^\top Q_0 = {lib.matriz_coloreada(_H, 2)}$ · $R = {lib.matriz_coloreada(R)}$, giro $\theta = \mathbf{{{np.degrees(np.arctan2(R[1, 0], R[0, 0])):.2f}°}}$
+        - $H = P_0^T Q_0 = {lib.matriz_coloreada(_H, 2)}$ · $R = {lib.matriz_coloreada(R)}$, giro $\theta = \mathbf{{{np.degrees(np.arctan2(R[1, 0], R[0, 0])):.2f}°}}$
         - $s = \mathbf{{{lib.num_tex(esc, 4)}}}$ · $t = {lib.vec_tex(tras, 3)}$ · rms $= {lib.num_tex(rms, 3)}$ m (sin ruido: $25°$, $1.2$, $(1.5, 0.5)$)
         - comprobación $\sum_i \langle r_i, R p_{{0i}}\rangle = {lib.num_tex(np.sum((Q - Pl) * lib.transformar(P - P.mean(0), R)), 6)}$: residuo perpendicular a la nube llevada.
         """
@@ -345,9 +369,9 @@ def _(caso, casos, go, lib, mo, np, ruido):
         _recta(cen, dvec, lib.TEAL_DESPUES, "regresión total")
         _recta(np.array([0, ab[1]]), np.array([1, ab[0]]) / np.hypot(1, ab[0]), lib.COLORES[1], "regresión simple (vertical), para comparar", "dash")
         numeros = rf"""
-        - $C = X_0^\top X_0 = {lib.matriz_coloreada(_C, 2)}$ · autovalores $\lambda = ({lib.num_tex(_lam[1], 3)},\ {lib.num_tex(_lam[0], 3)})$
+        - $C = X_0^T X_0 = {lib.matriz_coloreada(_C, 2)}$ · autovalores $\lambda = ({lib.num_tex(_lam[1], 3)},\ {lib.num_tex(_lam[0], 3)})$
         - dirección $d = \mathbf{{{lib.vec_tex(dvec, 4)}}}$ (pendiente ${lib.num_tex(dvec[1] / dvec[0], 3)}$; la simple da ${lib.num_tex(ab[0], 3)}$) · normal $n = {lib.vec_tex(nvec, 4)}$
-        - $\sum r_i^2 = \lambda_{{\min}} = {lib.num_tex(r2, 4)}$ · comprobación $d^\top C\, n = {lib.num_tex(dvec @ _C @ nvec, 6)}$: residuos perpendiculares a la recta, sin correlación con el avance sobre ella.
+        - $\sum r_i^2 = \lambda_{{\min}} = {lib.num_tex(r2, 4)}$ · comprobación $d^T C\, n = {lib.num_tex(dvec @ _C @ nvec, 6)}$: residuos perpendiculares a la recta, sin correlación con el avance sobre ella.
         """
     _panel = mo.vstack([mo.md("**Controles**"), caso, ruido, mo.md("**Números vivos**\n" + numeros)], gap=0.55)
     lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
@@ -373,7 +397,7 @@ def _(lib, mo, np):
             no están alineados (pendientes $1$ y $2$). Buscamos $y = ax + b$:
 
             $$A = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{2} & \textcolor{#b5451b}{1} \end{pmatrix},\quad
-            A^\top A = \begin{pmatrix} 5 & 3 \\ 3 & 3 \end{pmatrix},\quad A^\top y = \begin{pmatrix} 7 \\ 4 \end{pmatrix}.$$
+            A^T A = \begin{pmatrix} 5 & 3 \\ 3 & 3 \end{pmatrix},\quad A^T y = \begin{pmatrix} 7 \\ 4 \end{pmatrix}.$$
 
             $5a + 3b = 7$ y $3a + 3b = 4$; restando, $2a = 3$, $a = \tfrac32$; entonces $3b = 4 - \tfrac92$, $b = -\tfrac16$.
             Residuo $r = (\tfrac16, -\tfrac13, \tfrac16)$: suma cero (columna de unos) y
@@ -415,7 +439,7 @@ def _(mo, np):
         Una sola idea: **`np.linalg.lstsq(A, y, rcond=None)` resuelve el sistema alto** y devuelve cuatro cosas: la
         solución, la suma de residuos al cuadrado, el rango de $A$ y sus valores singulares (unidad 09). La matriz alta
         se arma con `np.column_stack([xs, np.ones(n)])`: una columna por incógnita, una fila por medición. `lstsq` no
-        forma $A^\top A$ (va por SVD, más estable), pero da la misma respuesta.
+        forma $A^T A$ (va por SVD, más estable), pero da la misma respuesta.
         """),
         mo.md("```python\nA = np.column_stack([[0., 1., 2.], np.ones(3)])    # shape (3, 2)\nx, res2, rango, sigmas = np.linalg.lstsq(A, [0., 1., 3.], rcond=None)\n```"),
         mo.md(f"`x` = `{np.round(_sol[0], 4).tolist()}` · `res2` = `{np.round(_sol[1], 4).tolist()}` ($= \\lvert r\\rvert^2 = \\tfrac16$) · `rango` = `{_sol[2]}` · `sigmas` = `{np.round(_sol[3], 4).tolist()}`"),
@@ -434,16 +458,16 @@ def _(mo):
         de unos, las ecuaciones normales, la solución y el residuo. ¿Qué cuenta conocida es?
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
-        $A = (1, 1, 1)^\top$, $A^\top A = 3$, $A^\top y = 36.3$: $x = 12.1$, el **promedio**. Residuo $(0, -0.2, 0.2)$,
+        $A = (1, 1, 1)^T$, $A^T A = 3$, $A^T y = 36.3$: $x = 12.1$, el **promedio**. Residuo $(0, -0.2, 0.2)$,
         que suma cero: perpendicular a la columna de unos. Promediar es proyectar sobre la recta de $(1, 1, 1)$.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *("resolver un sistema de ecuaciones sobre-determinado").* Puntos $(-1, 1)$, $(0, 1)$,
-        $(1, 4)$. Ajustá $y = ax + b$ con las ecuaciones normales (fijate que $A^\top A$ sale diagonal porque las $x$
+        $(1, 4)$. Ajustá $y = ax + b$ con las ecuaciones normales (fijate que $A^T A$ sale diagonal porque las $x$
         están centradas), calculá el residuo y comprobá que es perpendicular a las dos columnas.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
-        $A^\top A = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$, $A^\top y = (3, 6)$: $a = \tfrac32$, $b = 2$, recta
+        $A^T A = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$, $A^T y = (3, 6)$: $a = \tfrac32$, $b = 2$, recta
         $y = \tfrac32 x + 2$. Residuo $r = (1 - \tfrac12,\ 1 - 2,\ 4 - \tfrac72) = (\tfrac12, -1, \tfrac12)$: suma cero
         y $-\tfrac12 + 0 + \tfrac12 = 0$ contra la columna $x$. ✓
         """)}),
@@ -479,13 +503,13 @@ def _(editor_c, lib, mo, np):
         _sin_unos = np.array([[float(x @ y / (x @ x)), 0.0] for x, y in _nubes])
         _mal_div = np.array([[float(((x - x.mean()) @ (y - y.mean())) / ((y - y.mean()) @ (y - y.mean()))), np.nan] for x, y in _nubes])
         if np.allclose(_obt, _esp):
-            _res = mo.callout(mo.md("✅ coincide en las cuatro nubes: $(a, b) = (A^\\top A)^{-1} A^\\top y$."), kind="success")
+            _res = mo.callout(mo.md("✅ coincide en las cuatro nubes: $(a, b) = (A^T A)^{-1} A^T y$."), kind="success")
         elif np.allclose(_obt, _esp[:, ::-1]):
             _res = mo.callout(mo.md("❌ devolvés `(b, a)`: las columnas de `A` son `[x, 1]`, así que la **primera** incógnita es la pendiente."), kind="warn")
         elif np.allclose(_obt, _sin_unos):
             _res = mo.callout(mo.md("❌ te olvidaste la **columna de unos**: así la recta pasa por el origen a la fuerza ($b = 0$) y la pendiente queda $\\sum x y / \\sum x^2$."), kind="warn")
         elif np.allclose(_obt[:, 0], _mal_div[:, 0]):
-            _res = mo.callout(mo.md("❌ dividiste por la dispersión de $y$: la pendiente es $S_{xy} / S_{xx}$, y sale sola de $A^\\top A$ (no hace falta centrar)."), kind="warn")
+            _res = mo.callout(mo.md("❌ dividiste por la dispersión de $y$: la pendiente es $S_{xy} / S_{xx}$, y sale sola de $A^T A$ (no hace falta centrar)."), kind="warn")
         else:
             _res = mo.callout(mo.md(f"❌ no coincide. Para la nube de la sección 3 se esperaba `{np.round(_esp[0], 4).tolist()}` y se obtuvo `{np.round(_obt[0], 4).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
@@ -579,19 +603,20 @@ def _(mo):
     ## Dónde está la demostración, y lo que viene
 
     Acá verificamos que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
-    Las demostraciones (la proyección minimiza $|r|^2$; por qué $R = VU^\top$; por qué la dirección propia mayor es la
-    recta total) están desarrolladas en la guía resuelta del apunte; de fondo, Strang y Calvetti–Somersalo, nombrados
-    por el profesor el 2026-10-14.
+    Que la proyección minimiza $|r|^2$ quedó demostrado en la sección 1 (Pitágoras). Por qué $R = VU^T$ y por qué
+    la dirección propia mayor es la recta total están enunciados y verificados numéricamente en la guía resuelta del
+    apunte; las demostraciones completas (traza máxima, cociente de Rayleigh) están en Strang y Calvetti–Somersalo,
+    nombrados por el profesor el 2026-10-14.
 
     - [apunte, sección "Guía resuelta de los cuatro problemas (Clase 11)"](../../apunte.pdf#nameddest=sec:cuatro-problemas):
       Problema 1, regresión simple (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas) ·
-      Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^\top$,
+      Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^T$,
       con la caja sobre la convención de $H$) · Problema 4, regresión total (la dirección de la recta es $v_1$, la
       normal es $v_2$, el menor valor singular); cierra con el resultado "Los cuatro con la misma maquinaria"
-    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [sección 11: producto interno y núcleo](../../apunte.pdf#nameddest=cap:11)
-    - [ficha de la clase 11](../../clases/11.html) · [lección anterior: cambio de base](../08_cambio_de_base/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno y núcleo)](../../apunte.pdf#nameddest=cap:11)
+    - [ficha de la clase 11](../../clases/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
 
-    **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^\top X_0$ de la
+    **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^T X_0$ de la
     regresión total es una forma cuadrática, y sus direcciones propias vuelven como direcciones principales de una
     superficie. La [unidad 09 (SVD y pseudoinversa)](../09_cambio_de_base_svd/index.html) le pone nombre a lo que acá
     hizo `lstsq`.

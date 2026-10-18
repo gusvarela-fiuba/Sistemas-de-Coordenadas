@@ -1,4 +1,4 @@
-"""Línea de tiempo ping-pong, paleta y figura HD comunes a las cinco animaciones."""
+"""Línea de tiempo ping-pong, paleta y figura HD comunes a las seis animaciones."""
 from __future__ import annotations
 
 from pathlib import Path

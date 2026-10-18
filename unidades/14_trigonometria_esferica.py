@@ -6,12 +6,12 @@
 #     "plotly",
 # ]
 # ///
-"""Trigonometría esférica (lección 14, molde v2 sobre cb104). Clase 14.
+"""Trigonometría esférica (unidad 14, molde v2 sobre cb104). Clase 14.
 
 LECCIÓN ANTICIPADA: la clase no se dictó todavía en 2C2026; lectura del esqueleto 2025 (sólo el título), pendiente de
 validar por la cátedra. Una sola idea: un triángulo sobre la esfera tiene lados que son ángulos (arcos de círculo máximo
 medidos desde el centro) y sus ángulos suman más de 180°; el exceso es el área (Girard), y las leyes del coseno y del
-seno salen de productos internos y cuñas de los tres vectores unitarios de los vértices (lecciones 02 y 07a).
+seno salen de productos internos y cuñas de los tres vectores unitarios de los vértices (unidades 02 y 07a).
 
 Chequear:  uv run marimo check --select MW unidades/14_trigonometria_esferica.py
 Exportar:  uv run python tools/build.py --only 14_trigonometria_esferica
@@ -130,7 +130,7 @@ def _(mo):
     $a$, opuesto a $A$, es el ángulo entre $B$ y $C$. Nada mide en metros: sobre la esfera de radio $R$ el arco mide
     $R\,a$. Cada **ángulo** es el que forman dos planos (el diedro), o sea el ángulo entre sus normales.
 
-    Con eso, las dos herramientas de las lecciones 02 y 07a alcanzan:
+    Con eso, las dos herramientas de las unidades 02 y 07a alcanzan:
 
     - **lado = producto interno**: $\cos a = \langle B, C\rangle$;
     - **ángulo = ángulo entre normales**: las normales de los planos $OAB$ y $OAC$ son $A \times B$ y $A \times C$, y
@@ -145,8 +145,12 @@ def _(mo):
 
     **Los ángulos suman más de $180°$, y el sobrante es el área** (Girard): $A + B + C - \pi = \text{área}/R^2$. Se
     **muestra** así: los tres círculos máximos cortan la esfera en seis husos; el huso de ángulo $A$ tiene área
-    $2A R^2$ (es la fracción $A/2\pi$ de $4\pi R^2$), y sumando los tres husos que contienen al triángulo se lo cuenta
-    tres veces (una vez en cada huso) y a su antípoda tres veces también, con la esfera entera cubierta una vez: $2(A + B + C)R^2 = 4\pi R^2 + 4\,\text{área}$.
+    $2A R^2$ (es la fracción $A/2\pi$ de $4\pi R^2$). Cada vértice da **dos** husos opuestos de ángulo $A$ (uno contiene
+    al triángulo, el otro a su antípoda), así que los seis husos suman $2(2A + 2B + 2C)R^2 = 4(A + B + C)R^2$. Esos seis
+    husos cubren la esfera entera: cada punto fuera del triángulo y de su antípoda cae en exactamente uno, mientras que el
+    triángulo cae en los tres husos de sus vértices y la antípoda en los tres opuestos. Contamos así la esfera una vez y
+    el triángulo y su antípoda dos veces de más cada uno: $4(A + B + C)R^2 = 4\pi R^2 + 4\,\text{área}$, que es
+    $A + B + C - \pi = \text{área}/R^2$. Control con el octante: $4 \cdot \tfrac{3\pi}{2} = 4\pi + 4\cdot\tfrac{\pi}{2}$.
     En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica)
     deduce los teoremas del coseno y del seno con producto interno y determinante, enuncia el exceso de Girard con el
     control del octante y resuelve el triángulo entre tres ciudades; la demostración completa del exceso por husos está
@@ -156,9 +160,9 @@ def _(mo):
     |---|---|---|
     | plano | $a^2 = b^2 + c^2 - 2bc\cos A$; $A + B + C = 180°$ | lados en metros, suma fija |
     | esfera | $\cos a = \cos b\cos c + \sin b\sin c\cos A$; $A + B + C = 180° + \text{área}/R^2$ | lados que son ángulos; el exceso crece con el área |
-    | elipsoide | sin fórmula cerrada: los lados son geodésicas que no son círculos | problemas directo e inverso por series o con Maxima (unidad 13) |
+    | elipsoide | sin fórmula cerrada: los lados son geodésicas que no son círculos | problemas directo e inverso por series o con Maxima (clase 14 del esqueleto) |
 
-    **¿Qué se conserva?** Al rotar la esfera (lección 01c) no cambian ni lados, ni ángulos, ni área: el producto interno
+    **¿Qué se conserva?** Al rotar la esfera (unidad 01c) no cambian ni lados, ni ángulos, ni área: el producto interno
     y la cuña son invariantes por rotaciones. Y para lados chicos ($\sin b \approx b$, $\cos b \approx 1 - b^2/2$) la ley
     del coseno esférica se vuelve la plana: una Tierra lo bastante chica es plana.
     """)
@@ -283,8 +287,9 @@ def _(lib, mo, np):
 
 @app.cell
 def _(lib, mo, np):
-    _p, _q = lib.punto_esfera(0.3, 0.2), lib.punto_esfera(0.3, 0.2)  # el mismo punto dos veces: ⟨p, q⟩ = 1.0000000000000002
-    _cos = float(_p @ _q)
+    _p = lib.punto_esfera(np.radians(45.0), np.radians(30.0))
+    _q = _p.copy()  # el mismo punto dos veces
+    _cos = float(_p @ _q / (np.linalg.norm(_p) * np.linalg.norm(_q)))
     with np.errstate(invalid="ignore"):
         _sin_clip = float(np.arccos(_cos))
     _robusto = float(np.arctan2(np.linalg.norm(np.cross(_p, _q)), _cos))
@@ -293,13 +298,15 @@ def _(lib, mo, np):
         ## 4. Python de hoy
 
         Una sola idea: **el ángulo entre dos vectores sale más robusto de `np.arctan2(|p × q|, p · q)` que de
-        `np.arccos(p · q)`**. Con `arccos` hay que proteger con `np.clip(..., -1, 1)` (lección 02: dos vectores iguales
-        dan $1.0000000000000002$ y `nan`), y para ángulos chicos pierde precisión porque $\cos$ es plano cerca de $0$.
+        `np.arccos(p · q / (|p||q|))`**. El coseno así calculado puede salirse de $[-1, 1]$ por redondeo: con el punto
+        $(45°, 30°)$ contra sí mismo, el cociente da $1.0000000000000002$ (abajo, en vivo) y `arccos` devuelve `nan`.
+        Por eso con `arccos` hay que proteger con `np.clip(..., -1, 1)`; además, para ángulos chicos pierde precisión
+        porque $\cos$ es plano cerca de $0$ (un error de $10^{-16}$ en el coseno es un error de $10^{-8}$ rad en el ángulo).
         `arctan2` usa el seno (la cuña, $|p\times q|$) y el coseno a la vez, no necesita clip y es exacto en todo el rango:
         es lo que hace `lib.angulo_vertice`. Convertir con `np.degrees` sólo para mostrar.
         """),
-        mo.md("```python\np = q = punto_esfera(0.3, 0.2)\nnp.arccos(p @ q)                                   # nan: p @ q = 1.0000000000000002\nnp.arctan2(np.linalg.norm(np.cross(p, q)), p @ q)  # 0.0\n```"),
-        mo.md(f"`p @ q` = `{_cos!r}` · `arccos` → `{_sin_clip}` · `arctan2` → `{_robusto}`"),
+        mo.md("```python\np = punto_esfera(np.radians(45), np.radians(30)); q = p.copy()\nnp.arccos(p @ q / (np.linalg.norm(p) * np.linalg.norm(q)))  # nan: el cociente da 1.0000000000000002\nnp.arctan2(np.linalg.norm(np.cross(p, q)), p @ q)  # 0.0\n```"),
+        mo.md(f"`p @ q / (|p||q|)` = `{_cos!r}` · `arccos` → `{_sin_clip}` · `arctan2` → `{_robusto}`"),
     ])
     return
 
@@ -363,7 +370,7 @@ def _(mo):
 def _(editor_c, lib, mo, np):
     _rng = np.random.default_rng(56798)
     _pares = [(_rng.normal(size=3), _rng.normal(size=3)) for _ in range(8)]
-    _pp = lib.punto_esfera(0.3, 0.2)
+    _pp = lib.punto_esfera(np.radians(45.0), np.radians(30.0))  # cociente 1.0000000000000002 y −1.0000000000000002
     _pares += [(_pp, _pp.copy()), (2 * _pp, -3 * _pp)]
     _esp = np.array([np.degrees(lib.lado_esferico(p, q)) for p, q in _pares])
     _ns = {"np": np}
@@ -374,7 +381,7 @@ def _(editor_c, lib, mo, np):
         if np.allclose(_obt, _esp):
             _res = mo.callout(mo.md("✅ coincide en los diez pares, incluidos el punto repetido ($0°$) y las antípodas ($180°$)."), kind="success")
         elif np.isnan(_obt).any() and np.allclose(_obt[~np.isnan(_obt)], _esp[~np.isnan(_obt)]):
-            _res = mo.callout(mo.md("❌ casi: en el punto repetido devolvés `nan`. El cociente dio $1.0000000000000002$ y `arccos` no lo acepta: falta `np.clip(..., -1, 1)` (o `arctan2`, sección 4)."), kind="warn")
+            _res = mo.callout(mo.md("❌ casi: en el punto repetido o en las antípodas devolvés `nan`. El cociente se salió de $[-1, 1]$ por redondeo (±1.0000000000000002) y `arccos` no lo acepta: falta `np.clip(..., -1, 1)` (o `arctan2`, sección 4)."), kind="warn")
         elif np.allclose(_obt, np.radians(_esp)):
             _res = mo.callout(mo.md("❌ devolvés **radianes**. Falta `np.degrees(...)` al final."), kind="warn")
         else:
@@ -472,7 +479,7 @@ def _(lib, mo, preguntas_tanda, respuestas_radio):
 @app.cell
 def _(mo):
     mo.md(r"""
-    ## Dónde está la demostración, y el final del recorrido
+    ## Dónde está la demostración, y lo que viene
 
     Acá verificamos que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
     el exceso es el área. En el apunte está en la sección
@@ -481,13 +488,14 @@ def _(mo):
     exceso esférico con el control del octante y el problema resuelto entre tres ciudades. Las herramientas y la esfera
     como superficie:
 
-    - [apunte, sección 11: producto interno y producto vectorial](../../apunte.pdf#nameddest=cap:11) · [sección 13: esfera, métrica y curvatura](../../apunte.pdf#nameddest=cap:13)
-    - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [lección anterior: el elipsoide](../13_elipsoide/index.html)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Coordenadas curvilíneas y bases locales» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:13)
+    - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
 
-    **Esta unidad cierra el hilo conductor.** De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
+    **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),
+    la unidad que cierra el hilo conductor. De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
     cierra en $180°$, todo fue producto interno, cuña y cambio de coordenadas. Para repasar: volvé a
     [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro "hasta la clase N".
-    Lo que sigue es de Topografía y Geodesia: compensar poligonales con el exceso separado, y los problemas directo e
+    Lo que sigue después es de Topografía y Geodesia: compensar poligonales con el exceso separado, y los problemas directo e
     inverso sobre el elipsoide.
     """)
     return
@@ -519,6 +527,8 @@ def _(R_TIERRA, V, V_ciudades, angulos, candidatos, exceso, exceso_c, lados, lad
          and lib.exacto(_B60, lib.triangulo_esferico(_e3, lib.punto_esfera(np.pi / 6, 0), lib.punto_esfera(np.pi / 6, np.pi / 2))[1][1])),
         ("ejercicio (b): exceso de 10 km ≈ 0.22″ y de 100 km ≈ 22″",
          abs(np.degrees(np.sqrt(3) / 4 * 100 / R_TIERRA**2) * 3600 - 0.22) < 0.01 and abs(np.degrees(np.sqrt(3) / 4 * 1e4 / R_TIERRA**2) * 3600 - 22) < 0.5),
+        ("sección 4 y ejercicio (c): (45°, 30°) contra sí mismo da coseno > 1 y contra su antípoda < −1 (sin clip, arccos → nan)",
+         (lambda p: p @ p / np.linalg.norm(p) ** 2 > 1 and (2 * p) @ (-3 * p) / (np.linalg.norm(2 * p) * np.linalg.norm(-3 * p)) < -1)(lib.punto_esfera(np.radians(45.0), np.radians(30.0)))),
     ]
     assert all(ok for _, ok in _checks), lib.verificar(_checks)
     mo.md(lib.verificar(_checks))

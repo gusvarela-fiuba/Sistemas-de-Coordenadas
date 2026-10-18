@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Formas lineales y dualidad (lección 06, molde v2 sobre cb104). Clase 4 (parte dictada el 2026-09-30).
+"""Formas lineales y dualidad (unidad 06, molde v2 sobre cb104). Clase 4 (parte dictada el 2026-09-30).
 
 Una sola idea: una forma lineal es una regla graduada tirada en el plano (ℓ(p) = a x + b y, curvas de nivel = rectas
 paralelas, se escribe como fila). Si los puntos van con A, la regla va al revés (ℓ' = ℓ A⁻¹) para que la lectura no
@@ -164,6 +164,8 @@ def _(mo):
     eso cambia con $A^{-1}$ a la derecha (o $A^{-T}$ como columna) mientras un punto cambia con $A$. En
     [Cambio de base](../08_cambio_de_base/index.html), $c = B^{-1}p$ y la fila pasa a $\ell B$.
 
+    **Una nota de notación.** Acá la recta se escribe como la **fila** $\ell$ (y como columna sería $\ell^T$). En [Proyectivas](../05_proyectivas/index.html) aparecía como columna, $\ell^T p = 0$, porque allí $\ell$ son las coordenadas homogéneas de la recta como punto del plano dual; es el mismo objeto escrito de otra forma, y las cuentas no cambian.
+
     | | punto $p$ | forma $\ell$ |
     |---|---|---|
     | se escribe | columna | fila |
@@ -171,7 +173,7 @@ def _(mo):
     | se dibuja | una flecha | una familia de rectas de nivel |
     | juntos | $\ell\,p$ es un número: la medición | $\ell\,p = 0$ es una recta |
 
-    Esto es una **muestra**; la demostración está en el apunte, sección 11.
+    Esto es una **muestra**; la demostración está en el apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores».
     """)
     mo.vstack([_texto, mo.callout(mo.md(r"""
     **El recordatorio del 14/10 (clase 9).** El profesor se corrigió en vivo: "el gradiente de una función es un
@@ -625,9 +627,9 @@ def _(mo):
     Acá verificamos que una forma lineal es una regla, que sus marcas son rectas paralelas y que se transforma con $A^{-1}$
     para que la lectura no cambie. Las demostraciones:
 
-    - [apunte, sección 11: "Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
-      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras")](../../apunte.pdf#nameddest=cap:11)
-    - [apunte, sección 5: tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» ("Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
+      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras"))](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, «Coordenadas homogéneas: puntos como rayos» (tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$)](../../apunte.pdf#nameddest=cap:05)
     - [ficha de la clase 4](../../clases/04.html) · [el hilo conductor](../../index.html) ·
       [Producto interno](../02_producto_interno/index.html) · [Cambio de base](../08_cambio_de_base/index.html)
 

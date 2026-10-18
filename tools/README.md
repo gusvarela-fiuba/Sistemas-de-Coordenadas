@@ -151,7 +151,7 @@ Patrones plotly que funcionan en WASM:
   Al mover un control marimo reconstruye la figura (y sus frames). Ver también `_prueba_plotly.py`.
 - Verificación antes de commitear: `uv run marimo check unidades/<id>.py`, ejecución headless
   (`uv run python -c "…app.run()"`, corre las celdas y los asserts) y `uv run tools/build.py --only <id>` +
-  `http.server` + curl 200. La extensión Claude in Chrome sirve para la revisión visual si está disponible.
+  `http.server` + curl 200. La revisión visual se hace en el navegador sobre el sitio publicado o sobre `site/` servido en local.
 
 ### Módulo común y export WASM
 
@@ -191,7 +191,7 @@ def _():
 
 ### Tamaño del sitio
 
-Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos). Con 14 unidades el sitio pasaría de 350 MB; si eso molesta en GitHub Pages, una mejora posible es compartir un único `site/assets/` reescribiendo las rutas `./assets/` de cada `index.html` (no está hecho; hay que verificar que los chunks que marimo carga en forma diferida sigan resolviendo).
+Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos). Con 20 unidades el sitio pasa de 540 MB; si eso molesta en GitHub Pages, una mejora posible es compartir un único `site/assets/` reescribiendo las rutas `./assets/` de cada `index.html` (no está hecho; hay que verificar que los chunks que marimo carga en forma diferida sigan resolviendo).
 
 ## Cómo agregar una lección en 5 pasos
 

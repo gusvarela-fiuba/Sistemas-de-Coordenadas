@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Núcleo y autovectores: las direcciones que no giran (lección 07b, molde v2 sobre cb104). Clases 5 y 6.
+"""Núcleo y autovectores: las direcciones que no giran (unidad 07b, molde v2 sobre cb104). Clases 5 y 6.
 
 Una sola idea: el núcleo son los vectores que van al cero (ahí la transformación aplasta: det = 0); un autovector es
 una dirección que la transformación no gira, sólo estira por λ; encontrarlos es buscar el núcleo de A − λI, y el
@@ -81,7 +81,7 @@ def _(lib, mo, np):
         ## 0. Situación de campo y predicción
 
         Un plano viejo pasó por un escáner que lo deformó con la matriz $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$
-        (lección 04): $e_1 = (1, 0)$ va a $(2, 1)$ y $e_2 = (0, 1)$ va a $(1, 2)$. Los dos ejes **giran**: el eje $x$ se
+        (unidad 04): $e_1 = (1, 0)$ va a $(2, 1)$ y $e_2 = (0, 1)$ va a $(1, 2)$. Los dos ejes **giran**: el eje $x$ se
         levanta y el eje $y$ se acuesta, y con ellos gira casi cualquier lado de la parcela.
 
         Casi cualquiera. Un lado cuyo rumbo **no gira** (sale paralelo a como entró, aunque cambie de largo) es lo que
@@ -138,9 +138,9 @@ def _(mo):
     |---|---|---|
     | $\mathbb R$ | $a x = 0$ sólo con $x = 0$, salvo $a = 0$; $a x = \lambda x$ para **todo** $x$ con $\lambda = a$ | el núcleo es $\{0\}$ o la recta entera; **toda** dirección es propia (hay una sola) |
     | $\mathbb R^2$ | núcleo $\{0\}$, una recta o todo; $\det(A - \lambda I)$ de grado $2$: $0$, $1$ ó $2$ raíces reales | a lo sumo dos direcciones que no giran; un giro no tiene ninguna; una homotecia, todas |
-    | $\mathbb R^3$ | grado $3$: **siempre** una raíz real; autovector $=$ cruz de dos filas | siempre hay una recta que cae sobre sí misma: el eje (lección 07c) |
+    | $\mathbb R^3$ | grado $3$: **siempre** una raíz real; autovector $=$ cruz de dos filas | siempre hay una recta que cae sobre sí misma: el eje (unidad 07c) |
 
-    Esto es una **muestra**; la demostración está en el apunte, sección 11.
+    Esto es una **muestra**; la demostración está en el apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores».
     """)
     return
 
@@ -486,8 +486,8 @@ def _(mo):
     Acá verificamos; las demostraciones (núcleo no trivial $\Leftrightarrow$ $\det = 0$, el pase de magia $(A - \lambda I)v = 0$,
     cuántas raíces reales, el método de la cruz de filas):
 
-    - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)
-    - [ficha de la clase 5](../../clases/05.html) · [ficha de la clase 6](../../clases/06.html) · [lección anterior: cuña y determinante](../07a_cuna_determinante/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Coordenadas homogéneas: puntos como rayos» (la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:05)
+    - [ficha de la clase 5](../../clases/05.html) · [ficha de la clase 6](../../clases/06.html) · [unidad anterior: cuña y determinante](../07a_cuna_determinante/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html):
     en 3D el autovector es la cruz de dos filas, el eje de una rotación es su autovector de autovalor $1$, y un

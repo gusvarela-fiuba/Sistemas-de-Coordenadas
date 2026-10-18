@@ -233,7 +233,8 @@ def _(mo):
 
     **En el campo.** Los giros de la estación total alrededor de su eje vertical forman un grupo: girar $30°$ y después
     $50°$ es girar $80°$ (operación interna), no girar es el neutro, girar $-30°$ deshace el $30°$. Las traslaciones
-    (mover la estación total de un mojón a otro) también, y en el plano conmutan. En 3D no: un giro horizontal y un cabeceo
+    (mover la estación total de un mojón a otro) también, y conmutan en cualquier dimensión. Los giros conmutan en el
+    plano; en 3D no: un giro horizontal y un cabeceo
     en distinto orden dejan el anteojo apuntando a lugares distintos; "la composición de transformaciones lineales no
     es conmutativa" (resumen 2025, clase 1) y "otro ejemplo de operaciones que no conmutan son las rotaciones y las
     traslaciones" (19/8). Lo mide [Rotaciones III](../01c_rotaciones_3d/index.html).
@@ -248,7 +249,7 @@ def _(mo):
     el producto distribuye sobre la suma. Los escalares de esta materia viven en dos cuerpos: $\mathbb R$ y $\mathbb C$.
 
     **Lo que hacen sobre el terreno.** Un real $a$ actúa sobre la recta como $x \mapsto ax$: *escala*; su inversa es
-    $\tfrac1a$ y su "determinante" es $\lvert a\rvert$. Agregar un $i$ con $i^2 = -1$ equivale **exactamente** a pasar
+    $\tfrac1a$, su determinante es $a$ y $\lvert a\rvert$ es cuánto escala la longitud. Agregar un $i$ con $i^2 = -1$ equivale **exactamente** a pasar
     de números a matrices: $z = a + ib$ actúa sobre el plano como
 
     $$M(z) = \begin{pmatrix} \textcolor{#1b6f6a}{a} & \textcolor{#b5451b}{-b} \\ \textcolor{#1b6f6a}{b} & \textcolor{#b5451b}{a} \end{pmatrix},
@@ -305,7 +306,7 @@ def _(mo):
     Se escribe como fila $w^T$ y evalúa por fila por columna: $w^T x = w_1 x_1 + w_2 x_2$, **sin producto interno**.
 
     **Lo que se ve.** Una forma es una **regla graduada** tirada sobre el plano: sus conjuntos de nivel
-    $\{x : w^T x = c\}$ son rectas paralelas equiespaciadas (marcas a distancia $1/\lvert w\rvert$), y leer un punto es
+    $\{x : w^T x = c\}$ son rectas paralelas equiespaciadas (marcas a distancia $1/\lvert w\rvert$ en la cinta canónica), y leer un punto es
     ver qué marca lo atraviesa. Dos formas dan una grilla. Si los puntos se mueven con $x' = Ax$, las marcas se
     arrastran con la **inversa**, $w'^T = w^T A^{-1}$, para que cada mojón conserve su lectura: $w'^T x' = w^T A^{-1} A x = w^T x$.
     La derivada de una función escalar es de este tipo: $df = \nabla f\,dx$ toma un pasito $dx \in V$ y devuelve cuánto
@@ -373,16 +374,17 @@ def _(mo):
     mo.md(r"""
     ### Las tres ecuaciones maestras de la materia ($Ax = b$, $Ax = \lambda x$, $Ax \approx b$)
 
-    Fijados los cinco ladrillos, todas las cuentas de Agrimensura del curso responden a una de tres preguntas:
+    Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden a una de tres preguntas (las que
+    quedan afuera son las de medir con la métrica, $J$ y $J^T J$, en las unidades 02, 10, 13 y 14):
 
     | ecuación | pregunta de campo | dónde la desarrollamos |
     |---|---|---|
-    | $Ax = b$ | **Transformar, cambiar de grilla o deshacer un movimiento.** Conocemos la transformación $A$ y buscamos a dónde va un mojón, cómo se lee en otra base ($A^{-1}b$) o qué homografía rectifica los cuatro puntos de una foto de dron. | [Rotaciones I](../01a_punto_quieto/index.html), [II](../01b_rotacion_plano/index.html) y [III](../01c_rotaciones_3d/index.html); [Producto interno](../02_producto_interno/index.html); [Reflexiones y similaridades](../03_reflexiones_similaridades/index.html); [Afines](../04_afines_homogeneas/index.html); [Proyectivas](../05_proyectivas/index.html); [Formas lineales y dualidad](../06_formas_lineales/index.html); [Cambio de base](../08_cambio_de_base/index.html) |
-    | $Ax = \lambda x$ y $Av_i = \sigma_i u_i$ | **Buscar las direcciones propias que no giran.** Son los ejes invariantes de la transformación: el eje de giro en $\mathbb R^3$, los puntos fijos de una afinidad o proyectiva, los semiejes de la elipse de Tissot en la SVD, los radios principales de curvatura $M$ y $N$ de la hessiana sobre el elipsoide. | [Cuña y determinante](../07a_cuna_determinante/index.html); [Núcleo y autovectores](../07b_nucleo_autovectores/index.html); [Autovalores en 3D y puntos fijos](../07c_autovalores_3d_puntos_fijos/index.html); [Cambio de base](../08_cambio_de_base/index.html); [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Curvatura](../12_curvatura/index.html); [Geometría del elipsoide](../13_elipsoide/index.html); [Trigonometría esférica](../14_trigonometria_esferica/index.html); [Transformaciones conformes](../15_transformaciones_conformes/index.html) |
-    | $Ax \approx b$ | **Aproximar cuando sobran mediciones y hay error de campaña.** Hay más ecuaciones que incógnitas y el vector medido $b$ cae fuera de la imagen de $A$; buscamos $\hat{x} = A^+ b$, cuya imagen $A\hat{x}$ es la proyección perpendicular de $b$ sobre el subespacio columna $\mathrm{Im}(A)$: regresión, intersección de círculos por distancias, Procrustes. | [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Cuatro problemas](../11_cuatro_problemas/index.html) |
+    | $Ax = b$ | **Transformar o deshacer.** Evaluar $Ax$ es transformar: conocemos $A$ y calculamos a dónde va un mojón. Resolver $Ax = b$ es la pregunta inversa: conocemos $A$ y el resultado $b$ y buscamos de dónde vino, $x = A^{-1}b$; leer un punto en otra base es eso mismo (las coordenadas nuevas son la $x$ que cumple $Px = b$). Hallar la homografía que rectifica los cuatro puntos de una foto de dron también es un $Ax = b$, pero con la matriz como incógnita: un sistema lineal $8\times8$ en los coeficientes de $H$. | [Rotaciones I](../01a_punto_quieto/index.html), [II](../01b_rotacion_plano/index.html) y [III](../01c_rotaciones_3d/index.html); [Reflexiones y similaridades](../03_reflexiones_similaridades/index.html); [Afines](../04_afines_homogeneas/index.html); [Proyectivas](../05_proyectivas/index.html); [Formas lineales y dualidad](../06_formas_lineales/index.html); [Cambio de base](../08_cambio_de_base/index.html) |
+    | $Ax = \lambda x$ y $Av_i = \sigma_i u_i$ | **Buscar direcciones privilegiadas.** Las que no giran (autovectores): el eje de giro en $\mathbb R^3$, los puntos fijos de una afinidad o proyectiva, las direcciones principales de curvatura del elipsoide, cuyas curvaturas principales $1/M$ y $1/N$ son los autovalores de $I^{-1}II$ (el operador de forma). Y, con la SVD, el par de bases perpendiculares que sigue perpendicular: los $v_i$ (direcciones propias de $A^T A$) van a los $u_i$ girando, pero sin perder el ángulo recto; son los semiejes de la elipse de Tissot. | preparación: [Cuña y determinante](../07a_cuna_determinante/index.html); [Núcleo y autovectores](../07b_nucleo_autovectores/index.html); [Autovalores en 3D y puntos fijos](../07c_autovalores_3d_puntos_fijos/index.html); [Cambio de base](../08_cambio_de_base/index.html); [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Curvatura](../12_curvatura/index.html); [Geometría del elipsoide](../13_elipsoide/index.html); [Transformaciones conformes](../15_transformaciones_conformes/index.html) |
+    | $Ax \approx b$ | **Aproximar cuando sobran mediciones y hay error de campaña.** Hay más ecuaciones que incógnitas y el vector medido $b$ cae fuera de la imagen de $A$; buscamos $\hat{x} = A^+ b$, cuya imagen $A\hat{x}$ es la proyección perpendicular de $b$ sobre el subespacio columna $\mathrm{Im}(A)$: regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con la SVD de una matriz armada con los datos. | [Producto interno](../02_producto_interno/index.html); [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Cuatro problemas](../11_cuatro_problemas/index.html) |
 
     Los cinco ladrillos son el idioma de la materia, y estas tres ecuaciones son las tres frases que se dicen con él:
-    transformamos, buscamos las direcciones que no giran, o proyectamos lo medido sobre lo que el modelo puede
+    transformamos o deshacemos, buscamos direcciones privilegiadas, o proyectamos lo medido sobre lo que el modelo puede
     explicar. Cada vez que aparezca una cuenta nueva, nos preguntamos cuál de las tres es.
     """)
     return
@@ -876,9 +878,9 @@ def _(mo):
 
     En esta unidad presentamos los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
 
-    - [apunte, sección 0: cómo leer, los cinco ladrillos](../../apunte.pdf#nameddest=cap:00) ·
-      [sección 3: la mirada geométrica](../../apunte.pdf#nameddest=cap:03) ·
-      [sección 4: el punto y sus coordenadas no son lo mismo](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Cómo leer este apunte» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
+      [apunte, «La mirada geométrica»](../../apunte.pdf#nameddest=cap:03) ·
+      [apunte, «El punto y sus coordenadas no son lo mismo»](../../apunte.pdf#nameddest=cap:04)
     - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 4](../../clases/04.html) ·
       [ficha de la clase 9](../../clases/09.html) · [el hilo conductor](../../index.html)
 

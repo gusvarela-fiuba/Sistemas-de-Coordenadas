@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Producto interno: proyección, longitud, ángulo (lección 02, molde v2 sobre cb104). Clase 1.
+"""Producto interno: proyección, longitud, ángulo (unidad 02, molde v2 sobre cb104). Clase 1.
 
 Una sola idea: una sola cuenta con las coordenadas (suma de productos) mide cuánto de un vector cae sobre otro; de ahí
 salen longitud, distancia, ángulo y perpendicularidad, y es lo que una rotación conserva. Entre Rotaciones III y Reflexiones.
@@ -126,7 +126,7 @@ def _(mo):
     aritmética: coordenada por coordenada, y sumamos. Que den lo mismo se **muestra** así: con $u = (|u|, 0)$ sobre el eje
     $x$ y $v = (|v|\cos\theta, |v|\sin\theta)$, la suma de productos da $|u|\,|v|\cos\theta$ directo; para un par
     cualquiera giramos los dos hasta que $u$ caiga sobre el eje $x$, y girar no cambia la cuenta (Rotaciones II, 3.2). La
-    demostración está en el apunte, sección 7.
+    demostración está en el apunte, «Bloque geométrico: fundamentos y rotaciones».
 
     | | la cuenta | lo que se ve |
     |---|---|---|
@@ -438,9 +438,9 @@ def _(mo):
 
     En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
-    - [apunte, sección 7: rotaciones y lo que conservan](../../apunte.pdf#nameddest=cap:07)
-    - [apunte, sección 11: producto interno como incidencia, formas y "fila por columna"](../../apunte.pdf#nameddest=cap:11)
-    - [ficha de la clase 1](../../clases/01.html) · [lección anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:07)
+    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:11)
+    - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva
     ángulos pero no largos. Más adelante, en las superficies, los ejes locales ya no son perpendiculares ni de largo $1$,

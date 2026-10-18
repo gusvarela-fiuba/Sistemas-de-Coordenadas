@@ -6,7 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Afinidades y coordenadas homogéneas (lección 04, molde v2 sobre cb104). Clase 3.
+"""Afinidades y coordenadas homogéneas (unidad 04, molde v2 sobre cb104). Clase 3.
 
 Una sola idea: la matriz es lo que le pasa a la grilla (cada columna, a dónde va un eje; paralelogramos; área × det).
 La traslación no entra en una 2×2: tercera coordenada, 3×3. Tres puntos conocidos determinan la afinidad.
@@ -148,7 +148,7 @@ def _(mo):
     $$\begin{pmatrix} x' \\ y' \\ 1 \end{pmatrix} = \begin{pmatrix} \textcolor{#1b6f6a}{a} & \textcolor{#b5451b}{b} & \textcolor{#c9a227}{e} \\ \textcolor{#1b6f6a}{c} & \textcolor{#b5451b}{d} & \textcolor{#c9a227}{f} \\ 0 & 0 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \\ 1 \end{pmatrix}.$$
 
     Componer vuelve a ser multiplicar. Esto es una **muestra**; la demostración de que $Ax + t$ conserva paralelas
-    está en el apunte, sección 10.
+    está en el apunte, «Bloque geométrico: transformaciones afines».
     """)
     return
 
@@ -341,7 +341,7 @@ def _(A_esc, lib, mo, np, t_esc):
         mo.hstack([
             mo.md(r"""
             **3.3 Tres puntos determinan la afinidad.** $a = (1,1)$, $b = (3,1)$, $c = (1,2)$ van a $a' = (2,2)$,
-            $b' = (4,2)$, $c' = (3,3)$ (apunte, apéndice 17). Seis incógnitas, seis ecuaciones: cada par da
+            $b' = (4,2)$, $c' = (3,3)$ (apunte, «Resolución de los ejercicios de afinidades»). Seis incógnitas, seis ecuaciones: cada par da
             $x' = ax + by + e$, $y' = cx + dy + f$. A mano, restando, $A(b - a) = b' - a'$ y $A(c - a) = c' - a'$:
             $A\binom{2}{0} = \binom{2}{0}$, $A\binom{0}{1} = \binom{1}{1}$, luego
 
@@ -393,7 +393,7 @@ def _(mo):
         $(0,0) \mapsto (1,0)$, $(1,0) \mapsto (3,0)$, $(1,1) \mapsto (4,1)$, $(0,1) \mapsto (2,1)$: paralelogramo de base $2$ y
         altura $1$, área $2 = \det A$. Los lados paralelos siguen paralelos: los vértices de cada lado difieren en el mismo
         vector y $A$ lo manda al mismo vector. Un trapecio **no** puede salir; que dos paralelas se crucen es una
-        transformación proyectiva (lección 05).
+        transformación proyectiva (unidad 05).
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *("definir la imagen de un triángulo ya nos define completamente la afinidad").*
@@ -543,9 +543,9 @@ def _(mo):
 
     Acá verificamos; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
 
-    - [apunte, sección 10: transformaciones afines y coordenadas homogéneas](../../apunte.pdf#nameddest=cap:10) · [sección 5: puntos como rayos](../../apunte.pdf#nameddest=cap:05)
-    - [apunte, sección 8: la guía de reflexiones y similaridades](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)
-    - [apéndice 16: rotar alrededor de un centro y escalar alrededor de otro](../../apunte.pdf#nameddest=cap:16) · [apéndice 17: los seis ejercicios de afinidades](../../apunte.pdf#nameddest=cap:17)
+    - [apunte, «Bloque geométrico: transformaciones afines» (transformaciones afines y coordenadas homogéneas)](../../apunte.pdf#nameddest=cap:10) · [apunte, «Coordenadas homogéneas: puntos como rayos» (puntos como rayos)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Bloque geométrico: transformaciones euclídeas y similaridades» (la guía de reflexiones y similaridades)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Guía resuelta: reflexión respecto de un punto» (guía resuelta)](../../apunte.pdf#nameddest=cap:09)
+    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Proyectivas](../05_proyectivas/index.html): sin la restricción de la última fila $(0\ 0\ 1)$ las

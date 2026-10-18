@@ -6,10 +6,10 @@
 #     "plotly",
 # ]
 # ///
-"""Curvatura como forma cuadrática (lección 12, molde v2 sobre cb104). Clase 12 del esqueleto 2025, no dictada en 2C2026.
+"""Curvatura como forma cuadrática (unidad 12, molde v2 sobre cb104). Clase 12 del esqueleto 2025, no dictada en 2C2026.
 
 Lección anticipada (esqueleto 2025 + apunte del profesor sobre el elipsoide, prueba 1 + apunte v3), pendiente de
-validar por la cátedra. Una sola idea: la primera forma (lección 10) es la regla; la curvatura es cuánto se aparta la
+validar por la cátedra. Una sola idea: la primera forma (unidad 10) es la regla; la curvatura es cuánto se aparta la
 superficie del plano tangente al dar un paso en cada rumbo, y eso es otra forma cuadrática (L, M, N). Sus rumbos
 propios son las direcciones principales (autovectores de solve(I, II)), la curvatura de Gauss es su producto
 (det II / det I), e ir derecho sobre la superficie es no doblar dentro de ella.
@@ -57,7 +57,7 @@ def _(mo):
     sección normal y el círculo osculador en <span style="color:#7a4e9e">**violeta**</span>; las dos direcciones
     principales en <span style="color:#1b6f6a">**teal**</span> ($\kappa_1$, la máxima) y
     <span style="color:#b5451b">**rust**</span> ($\kappa_2$, la mínima), que son las columnas de la matriz $D$;
-    la normal en <span style="color:#c9a227">**gold**</span>. Todo lo de [la lección 10](../10_jacobiano_primera_forma/index.html)
+    la normal en <span style="color:#c9a227">**gold**</span>. Todo lo de [la unidad 10](../10_jacobiano_primera_forma/index.html)
     sigue valiendo: $E, F, G$ es la regla; acá se le suma $L, M, N$.
     """)
     return
@@ -129,7 +129,7 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **¿Qué se conserva?** Si giramos los ejes dentro del plano tangente cambian $L, M, N$ pero no las dos curvaturas
-    principales ni su producto (autovalores, lección 08); si doblamos la superficie sin estirarla (una hoja, un cilindro)
+    principales ni su producto (autovalores, unidad 08); si doblamos la superficie sin estirarla (una hoja, un cilindro)
     cambian $\kappa_1$ y $\kappa_2$ pero no $K = \kappa_1 \kappa_2$ (Gauss; ver el ejercicio b).
 
     | | álgebra | lo que se ve |
@@ -146,14 +146,14 @@ def _(mo):
     $z = f(x, y)$ y tangente horizontal, $I$ es la identidad y $II$ es la hessiana de la clase 9: el apunte del
     profesor (prueba 1) llega a $\kappa_n(\alpha) = L\cos^2\alpha + 2M\cos\alpha\sin\alpha + N\sin^2\alpha$
     y a que *los máximos y mínimos se dan a intervalos de $\pi/2$*. (Él llama $N$ al término mixto y $M$ a
-    $f_{yy}$; usamos la notación usual, $M$ mixto, la de la lección 10 y la bibliografía.)
+    $f_{yy}$; usamos la notación usual, $M$ mixto, la de la unidad 10 y la bibliografía.)
 
     **Direcciones principales.** El máximo y el mínimo de $II(d)$ entre los rumbos con $I(d) = 1$ son los
     autovalores de $S = I^{-1} II$ (`solve(I, II)`): $\kappa_1 \ge \kappa_2$, con autovectores $d_1, d_2$ (las columnas
     de $D$), perpendiculares sobre la superficie. En el rumbo a $\alpha$ de $d_1$ vale $\kappa_n = \kappa_1\cos^2\alpha + \kappa_2\sin^2\alpha$
     (Euler). Escalera por casos: **esfera**, todas iguales a $1/R$, ningún rumbo privilegiado; **cilindro**, una vale
     $1/R$ y la otra $0$; **silla**, signos opuestos. La **curvatura de Gauss** es el producto,
-    $K = \kappa_1\kappa_2 = \det II / \det I$ ($\det S$, lección 07a: cuánto agranda el área), y la media es $H = (\kappa_1 + \kappa_2)/2$.
+    $K = \kappa_1\kappa_2 = \det II / \det I$ ($\det S$, unidad 07a: cuánto agranda el área la aplicación normal de Gauss, que lleva cada punto a su normal sobre la esfera unidad), y la media es $H = (\kappa_1 + \kappa_2)/2$.
 
     **Geodésica.** La aceleración de una curva sobre la superficie tiene una parte normal (la que la superficie le
     obliga, $\kappa_n$) y una tangencial (la que dobla **dentro** de la superficie, $\kappa_g$). Ir derecho es
@@ -193,7 +193,7 @@ def _(mo, np):
     En **gris**, la superficie con su grilla $(x, y)$ y el plano tangente; en **gold**, la normal. En **violeta**,
     el rumbo $\alpha$ (desde el eje $x$, dentro del plano tangente), la **sección normal** (el corte con el plano
     que contiene al rumbo y a la normal) y su **círculo osculador**, de radio $1/\kappa_n$. En **teal** y
-    **rust**, las direcciones principales: el radio es mínimo en teal y máximo en rust (en la esfera, no cambia).
+    **rust**, las direcciones principales: la curvatura normal con signo es máxima en teal ($\kappa_1$) y mínima en rust ($\kappa_2$); si las dos son positivas, el radio es mínimo en teal y máximo en rust (en la esfera, no cambia).
     En el panel de la derecha: el caso, el punto $(x_0, y_0)$ y el rumbo.
     """)
     return caso, casos, x0, y0
@@ -296,7 +296,7 @@ def _(lib, mo, np):
 
             $$II = \begin{pmatrix} 0.5 & 0 \\ 0 & 0 \end{pmatrix}, \quad \kappa_1 = 0.5 \text{ (rumbo } x),\ \kappa_2 = 0 \text{ (rumbo } y),\ K = 0.$$
 
-            El mismo $K$ que el plano: por eso una hoja se enrolla en un cilindro sin estirarse.
+            Como una hoja se enrolla en un cilindro sin estirarse, el *Theorema Egregium* obliga a que tenga el mismo $K$ que el plano: $K = 0$.
             """),
             mo.vstack([
                 mo.md("```python\nr = lambda x, y: lib.xyz(x, y, R - np.sqrt(R**2 - x**2) + 0*y)\nff = lib.formas_fundamentales(r, 0.3, -0.2)\nk1, k2, D = lib.curvaturas_principales(*(ff[k] for k in \"EFGLMN\"))\nnp.allclose([k1, k2, K], [1/R, 0, 0], atol=1e-5)\n```"),
@@ -355,7 +355,7 @@ def _(mo):
         $\kappa_1 = 1/R$, $\kappa_2 = 0$). Gauss demostró que eso vale siempre: $K$ se calcula sólo con la regla $E, F, G$
         y sus derivadas, así que cualquier mapa que conserve distancias conserva $K$ (su *theorema egregium*; acá lo
         mostramos, no lo demostramos). Pero el plano tiene $K = 0$ y la esfera $K = 1/R^2 > 0$ (y el elipsoide, $K = 1/(MN) > 0$,
-        lección 13): no hay mapa plano sin deformación. Toda proyección elige qué sacrificar.
+        unidad 13): no hay mapa plano sin deformación. Toda proyección elige qué sacrificar.
         """)}),
     ])
     return
@@ -498,11 +498,11 @@ def _(mo):
       ($R = \sqrt{R_1 R_2}$), la Prueba 2 (Meusnier, $x' = N\cos\varphi$) y por qué meridiano y primer vertical son las
       direcciones principales del elipsoide · [sección "Polígonos geodésicos y trigonometría
       esférica"](../../apunte.pdf#nameddest=sec:trigonometria-esferica): las geodésicas como las "rectas" de la superficie
-    - [apunte, sección 13: métrica y primera forma; esfera, elipsoide y curvatura](../../apunte.pdf#nameddest=cap:13)
-      ($M$, $N$ y $K = 1/(MN)$) · [apunte, sección 06: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)
+    - [apunte, «Coordenadas curvilíneas y bases locales» (métrica y primera forma; esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:13)
+      ($M$, $N$ y $K = 1/(MN)$) · [apunte, «Pasar del plano a una superficie»](../../apunte.pdf#nameddest=cap:06)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): "Radios de curvatura",
       prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
-    - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [lección 10](../10_jacobiano_primera_forma/index.html)
+    - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
 
     **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (clase 13): una superficie donde $\kappa_1 = 1/M$
     y $\kappa_2 = 1/N$ se deducen de una sola simetría, y la normal no pasa por el centro.
