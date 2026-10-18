@@ -369,6 +369,26 @@ def _(lib, mo):
 
 
 @app.cell
+def _(mo):
+    mo.md(r"""
+    ### Las tres ecuaciones maestras de la materia ($Ax = b$, $Ax = \lambda x$, $Ax \approx b$)
+
+    Fijados los cinco ladrillos, todas las cuentas de Agrimensura del curso responden a una de tres preguntas:
+
+    | ecuación | pregunta de campo | dónde la desarrollamos |
+    |---|---|---|
+    | $Ax = b$ | **Transformar, cambiar de grilla o deshacer un movimiento.** Conocemos la transformación $A$ y buscamos a dónde va un mojón, cómo se lee en otra base ($A^{-1}b$) o qué homografía rectifica los cuatro puntos de una foto de dron. | [Rotaciones I](../01a_punto_quieto/index.html), [II](../01b_rotacion_plano/index.html) y [III](../01c_rotaciones_3d/index.html); [Producto interno](../02_producto_interno/index.html); [Reflexiones y similaridades](../03_reflexiones_similaridades/index.html); [Afines](../04_afines_homogeneas/index.html); [Proyectivas](../05_proyectivas/index.html); [Formas lineales y dualidad](../06_formas_lineales/index.html); [Cambio de base](../08_cambio_de_base/index.html) |
+    | $Ax = \lambda x$ y $Av_i = \sigma_i u_i$ | **Buscar las direcciones propias que no giran.** Son los ejes invariantes de la transformación: el eje de giro en $\mathbb R^3$, los puntos fijos de una afinidad o proyectiva, los semiejes de la elipse de Tissot en la SVD, los radios principales de curvatura $M$ y $N$ de la hessiana sobre el elipsoide. | [Cuña y determinante](../07a_cuna_determinante/index.html); [Núcleo y autovectores](../07b_nucleo_autovectores/index.html); [Autovalores en 3D y puntos fijos](../07c_autovalores_3d_puntos_fijos/index.html); [Cambio de base](../08_cambio_de_base/index.html); [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Curvatura](../12_curvatura/index.html); [Geometría del elipsoide](../13_elipsoide/index.html); [Trigonometría esférica](../14_trigonometria_esferica/index.html); [Transformaciones conformes](../15_transformaciones_conformes/index.html) |
+    | $Ax \approx b$ | **Aproximar cuando sobran mediciones y hay error de campaña.** Hay más ecuaciones que incógnitas y el vector medido $b$ cae fuera de la imagen de $A$; buscamos $\hat{x} = A^+ b$, cuya imagen $A\hat{x}$ es la proyección perpendicular de $b$ sobre el subespacio columna $\mathrm{Im}(A)$: regresión, intersección de círculos por distancias, Procrustes. | [Cambio de base, SVD e inversas](../09_cambio_de_base_svd/index.html); [Cuatro problemas](../11_cuatro_problemas/index.html) |
+
+    Los cinco ladrillos son el idioma de la materia, y estas tres ecuaciones son las tres frases que se dicen con él:
+    transformamos, buscamos las direcciones que no giran, o proyectamos lo medido sobre lo que el modelo puede
+    explicar. Cada vez que aparezca una cuenta nueva, nos preguntamos cuál de las tres es.
+    """)
+    return
+
+
+@app.cell
 def _(lib, mo, np):
     # ---------- sección 2: selector de objeto y casos precargados ----------
     casos = {

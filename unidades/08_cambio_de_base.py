@@ -214,6 +214,67 @@ def _(lib, mo):
 
 
 @app.cell
+def _(mo):
+    mo.callout(mo.md(r"""
+    **Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo.** En la clase 6 quedaron
+    abiertas dos preguntas: ¿qué pasa si hay algo en el núcleo?, ¿y si un autovalor repetido no alcanza para armar una
+    base? Las respondemos con cuatro matrices $2\times2$. Una cosa es **invertir** (no aplastar nada: $\det \ne 0$) y
+    otra **diagonalizar** (tener dos rectas propias independientes que armen una grilla).
+
+    | | matriz | hecho geométrico | $\det$ | ¿base de autovectores? |
+    |---|---|---|---|---|
+    | 1. diagonalizable e invertible | $\begin{pmatrix}2&0\\0&1\end{pmatrix}$ | estira el eje $x$ al doble y deja el $y$; dos direcciones propias independientes, $e_1, e_2$ | $2$ | sí |
+    | 2. diagonalizable, **no** invertible | $\begin{pmatrix}1&0\\0&0\end{pmatrix}$ | proyecta sobre el eje $x$ y aplasta todo el eje $y$ al origen (ese eje es el núcleo) | $0$ | sí: $e_1, e_2$ con $\lambda_1 = 1$, $\lambda_2 = 0$ |
+    | 3a. invertible, **no** diagonalizable | $\begin{pmatrix}1&1\\0&1\end{pmatrix}$ | corte (cizalladura): el eje $x$ queda fijo y las demás rectas se inclinan | $1$ | no: un solo autovector |
+    | 3b. invertible, **no** diagonalizable en $\mathbb R$ | $\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ | giro de $90^\circ$: ninguna recta real queda fija | $1$ | no: $\lambda = \pm i$ |
+    | 4. ni una ni otra | $\begin{pmatrix}0&1\\0&0\end{pmatrix}$ | aplasta todo sobre el eje $x$ y además manda $e_2$ a $e_1$ | $0$ | no: un solo autovector |
+
+    **Matriz 2: tener autovalor $0$ impide invertir, no impide diagonalizar.** Ya es diagonal: $\Lambda = A$. El
+    núcleo es justamente la recta propia de $\lambda_2 = 0$, y junto con la de $\lambda_1 = 1$ arma la base completa.
+
+    **Matriz 3a.** Es invertible, con inversa $\begin{pmatrix}1&-1\\0&1\end{pmatrix}$ (el corte hacia el otro lado). Su
+    polinomio característico es $(\lambda - 1)^2 = 0$: raíz doble $\lambda = 1$, **multiplicidad algebraica** $2$.
+    Pero $(A - I)v = 0$ da $v_2 = 0$, o sea sólo el eje $x$: **multiplicidad geométrica** $1$. Falta un segundo
+    autovector para armar la grilla, así que no hay $B$ invertible con $B^{-1}AB$ diagonal.
+
+    **Matriz 3b.** El polinomio es $\lambda^2 + 1 = 0$, sin raíces reales: un giro no deja ninguna recta en su lugar.
+
+    **Matriz 4.** $\lambda = 0$ doble (algebraica $2$), pero $Av = 0$ sólo para $v = (x, 0)$: un único autovector,
+    $e_1$ (geométrica $1$). Tiene núcleo **y** le falta una dirección propia.
+
+    El defecto de las matrices 3 y 4 es exactamente la razón por la que en la [unidad siguiente](../09_cambio_de_base_svd/index.html)
+    pasamos a la SVD, $A = U\Sigma V^T$: con una base ortonormal a la entrada ($V$) y otra a la salida ($U$), toda
+    matriz, incluso un corte o una rectangular, vuelve a ser diagonal.
+    """), kind="info")
+    return
+
+
+@app.cell
+def _(mo, np):
+    _testigos = {
+        "1. diag(2, 1)": np.array([[2.0, 0.0], [0.0, 1.0]]),
+        "2. proyección diag(1, 0)": np.array([[1.0, 0.0], [0.0, 0.0]]),
+        "3a. corte": np.array([[1.0, 1.0], [0.0, 1.0]]),
+        "3b. giro 90°": np.array([[0.0, -1.0], [1.0, 0.0]]),
+        "4. nilpotente": np.array([[0.0, 1.0], [0.0, 0.0]]),
+    }
+    _filas = []
+    for _nombre, _M in _testigos.items():
+        _w, _V = np.linalg.eig(_M)
+        _base = np.isreal(_w).all() and np.linalg.matrix_rank(_V, tol=1e-8) == 2
+        _auto = ", ".join(f"{_x:.2f}".replace("+0.00j", "").replace("-0.00j", "") for _x in _w)
+        _filas.append(
+            f"| {_nombre} | ${np.linalg.det(_M):.0f}$ | ${_auto}$ | {'sí' if _base else 'no'} |"
+        )
+    mo.md(
+        "Verificación con numpy de los cuatro casos:\n\n"
+        "| matriz | $\\det$ | autovalores | ¿base de autovectores? |\n|---|---|---|---|\n"
+        + "\n".join(_filas)
+    )
+    return
+
+
+@app.cell
 def _(mo, np):
     # ---------- casos precargados: etiqueta → (b₁, b₂ del caso, A que se mira en esa base o None, qué pasa) ----------
     casos = {

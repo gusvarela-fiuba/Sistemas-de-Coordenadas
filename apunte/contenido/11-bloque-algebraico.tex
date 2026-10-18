@@ -579,6 +579,50 @@ con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no
 nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
 \end{atencion}
 
+\begin{resultado}[Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo]
+Las dos preguntas de la clase 6, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
+un autovalor repetido no alcanza para armar una base?'', son independientes. Invertir
+pide que el núcleo sea \(\{0\}\), es decir, que ningún autovalor sea \(0\). Diagonalizar
+pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones aparecen:
+\medskip
+
+\renewcommand{\arraystretch}{1.35}
+\noindent\begin{tabular}{@{}p{2.6cm}p{1.1cm}p{2.2cm}p{2.1cm}p{5.6cm}@{}}
+\textbf{Matriz} & \(\det\) & \textbf{Autovalores} & \textbf{¿Base de autovectores?} & \textbf{Hecho geométrico}\\
+\hline
+\(\bigl(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\bigr)\) & \(2\ne0\) & \(2,\ 1\) & sí, \(e_1,e_2\) &
+diagonalizable e invertible: estira el eje \(x\) al doble y deja fijo el \(y\); dos direcciones propias independientes.\\
+\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
+proyección sobre el eje \(x\): aplasta el eje \(y\) al origen, sin inversa, pero con base completa de autovectores.\\
+\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
+corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); sólo el eje \(x\) queda fijo.\\
+\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
+giro de \(90^\circ\): invertible, ninguna recta real queda fija.\\
+\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
+ni diagonalizable ni invertible: manda \(e_2\mapsto e_1\) y \(e_1\mapsto0\).\\
+\end{tabular}
+\renewcommand{\arraystretch}{1.18}
+\medskip
+
+\textbf{Segunda fila.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
+\(\det=0\)) y no impide diagonalizar: \(e_1\) y \(e_2\) son autovectores con
+\(\lambda_1=1\), \(\lambda_2=0\), y en esa base la matriz ya es diagonal.
+
+\textbf{Tercera fila.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
+\(\lambda=1\) tiene multiplicidad algebraica \(2\). Pero \((A-I)v=0\) da \(v_2=0\), de modo
+que el autoespacio es sólo el eje \(x\): multiplicidad geométrica \(1\). Falta un segundo
+autovector, y sin él no hay base. En el giro el motivo es otro: no hay rectas reales
+fijas, los autovalores \(\pm i\) no son reales.
+
+\textbf{Cuarta fila.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
+autovector \(e_1\).
+
+El defecto de las filas 3 y 4 es exactamente por lo que la sección~\ref{sec:svd} pasa a la
+SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra a la salida
+(\(U\)), toda matriz, incluso un corte o una rectangular, vuelve a ser diagonal.
+\linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: cambio de base y SVD}
+\end{resultado}
+
 \section{Descomposición en valores singulares (SVD)}\label{sec:svd}
 
 {\small\vspace{1mm}\linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: Unidad 13 — Cambio de base, SVD e inversas}\par}
@@ -900,6 +944,51 @@ con ecuaciones normales; el segundo necesita antes un truco para volverse lineal
 últimos usan la SVD de una matriz chica armada con los datos, y en el cuarto la respuesta
 está en el \emph{menor} valor singular. Cada uno lleva enunciado, interpretación
 geométrica, planteo matricial y cuenta numérica verificada en NumPy.
+
+\begin{idea}[El dibujo único detrás de \(Ax\approx b\)]
+Las columnas de \(A\) generan el subespacio \(\operatorname{Im}(A)\subset\R^m\): ahí viven
+todas las mediciones sin ruido que el modelo puede producir. Las mediciones reales \(b\)
+traen error de campaña y caen afuera. La solución \(\hat x=A^{+}b\) elige el punto
+\(A\hat x\in\operatorname{Im}(A)\) más cercano a \(b\): el pie de la perpendicular. El
+residuo \(r=b-A\hat x\) es perpendicular a todas las columnas de \(A\), y eso se escribe
+\[
+  A^T(b-A\hat x)=0\iff A^TA\,\hat x=A^Tb ,
+\]
+las ecuaciones normales. Los cuatro problemas de la guía son este mismo dibujo con
+distintos \(A\) y \(b\) (el cuarto, con la salvedad de que se mide la distancia
+perpendicular y no la vertical).
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \fill[teallight!60] (0,0)--(5,0)--(6.4,1.3)--(1.4,1.3)--cycle;
+  \draw[mainline] (0,0)--(5,0)--(6.4,1.3)--(1.4,1.3)--cycle;
+  \node[font=\small,text=muted] at (5.4,0.35) {\(\operatorname{Im}(A)\)};
+  \coordinate (O) at (2.4,0.4);
+  \coordinate (P) at (3.4,0.65);
+  \coordinate (B) at (3.4,2.7);
+  \draw[-{Latex[length=2.2mm]},line width=.9pt,ink] (O)--(B) node[above,font=\small] {\(b\)};
+  \draw[-{Latex[length=2.2mm]},line width=.9pt,tealdark] (O)--(P) node[below,font=\small] {\(A\hat x\)};
+  \draw[rust,line width=1pt,-{Latex[length=2.2mm]}] (P)--(B) node[midway,right,font=\small] {\(r\)};
+  \draw[rust] ($(P)+(0,.25)$)--($(P)+(.25,.25)$)--($(P)+(.25,0)$);
+  \fill (O) circle (1.3pt);
+\end{tikzpicture}
+\end{center}
+\end{idea}
+
+\begin{resultado}[De Gauss y el asteroide Ceres al ajuste de una elipse en el terreno]
+``Lineal'' quiere decir lineal en las \emph{incógnitas} (los coeficientes), no en la curva
+que se ajusta. En 1801 Gauss recuperó la órbita del asteroide Ceres a partir de unas
+pocas observaciones con este método. La misma idea ajusta una sección elíptica
+\(x^2+By^2+Cxy+Dx+Ey+F=0\) a \(m\ge5\) puntos \((x_i,y_i)\) medidos sobre un contorno
+del terreno: cada punto aporta una ecuación lineal en \(B,C,D,E,F\),
+\[
+  B\,y_i^2+C\,x_iy_i+D\,x_i+E\,y_i+F\approx-x_i^2 ,
+\]
+que forma un sistema sobredeterminado de \(m\times5\), con las filas
+\((y_i^2,\ x_iy_i,\ x_i,\ y_i,\ 1)\). Se resuelve con la misma pseudoinversa:
+\((B,C,D,E,F)^T=A^{+}(-x_1^2,\dots,-x_m^2)^T\).
+\linkUnidad{11_cuatro_problemas}{Simulación interactiva: cuatro problemas}
+\end{resultado}
 
 \subsection{Problema 1: regresión simple}
 

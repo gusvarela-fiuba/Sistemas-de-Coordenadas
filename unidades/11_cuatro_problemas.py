@@ -165,6 +165,79 @@ def _(mo):
 
 
 @app.cell
+def _(go, lib, mo, np):
+    _A = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])  # m = 3 mediciones, 2 incógnitas
+    _b = np.array([1.2, 0.4, 1.9])  # b cae afuera del plano
+    _xh = np.linalg.pinv(_A) @ _b
+    _pie = _A @ _xh
+    _fig = lib.figura_espacio(rango=2.2, titulo="b afuera de Im(A); el pie es A x̂", alto=460)
+    lib.plano_3d(_fig, _A[:, 0], _A[:, 1], k=1.6, color=lib.TEAL_DESPUES, nombre="plano Im(A)", opacidad=0.25)
+    _fig.add_trace(go.Scatter3d(x=[_b[0], _pie[0]], y=[_b[1], _pie[1]], z=[_b[2], _pie[2]], mode="lines",
+                                line=dict(color=lib.COLORES[2], width=7), name="residuo r = b − A x̂"))
+    _fig.add_trace(go.Scatter3d(x=[_b[0]], y=[_b[1]], z=[_b[2]], mode="markers+text", text=["b"],
+                                marker=dict(size=6, color=lib.COLORES[1]), name="b (mediciones)"))
+    _fig.add_trace(go.Scatter3d(x=[_pie[0]], y=[_pie[1]], z=[_pie[2]], mode="markers+text", text=["A x̂"],
+                                marker=dict(size=5, color=lib.TEAL_DESPUES), name="pie A x̂"))
+    mo.vstack([
+        mo.md(r"""
+    **Un solo dibujo detrás de $A x \approx b$.** Las columnas de $A$ generan un subespacio: el plano imagen
+    $\mathrm{Im}(A)\subset\mathbb R^m$, donde viven **todas las mediciones sin ruido posibles**. Como las mediciones
+    reales $b$ traen error de campaña, $b$ cae **afuera** de ese plano. La solución de mínimos cuadrados
+    $\hat x = A^+ b$ elige el punto $A\hat x \in \mathrm{Im}(A)$ **más cercano** a $b$: el **pie de la perpendicular**
+    bajada desde $b$ al plano. Como el residuo $r = b - A\hat x$ es perpendicular a todas las columnas de $A$,
+
+    $$A^\top (b - A\hat x) = 0 \iff A^\top A\,\hat x = A^\top b,$$
+
+    las mismas ecuaciones normales de arriba, ahora con $b$ en lugar de $y$. La figura es el caso $m = 3$: el plano
+    (teal) lo generan dos columnas, $b$ (óxido) queda afuera y el residuo (dorado) baja en ángulo recto al pie.
+    """),
+        _fig,
+    ])
+    return
+
+
+@app.cell
+def _(mo):
+    mo.callout(mo.md(r"""
+    **De Gauss y el asteroide Ceres al ajuste de una elipse en el terreno.** "Lineal" en mínimos cuadrados quiere
+    decir lineal en las **incógnitas** (los coeficientes), no que la curva del terreno sea una recta. Si medimos
+    $m \ge 5$ puntos $(x_i, y_i)$ sobre el borde de una sección elíptica
+    $x^2 + B y^2 + C xy + D x + E y + F = 0$ (como hizo Gauss en 1801 para recuperar la órbita elíptica de Ceres),
+    al evaluar los datos queda el sistema lineal sobredeterminado
+
+    $$B y_i^2 + C x_i y_i + D x_i + E y_i + F \approx -x_i^2,$$
+
+    con incógnitas $(B, C, D, E, F)$, que se resuelve con **exactamente la misma pseudoinversa** $A^+$: la geometría es
+    la misma, $b = (-x_i^2)$ afuera del plano que generan las cinco columnas, y el residuo perpendicular a todas.
+    """), kind="info")
+    return
+
+
+@app.cell
+def _(np):
+    # elipse conocida: centro, semiejes y giro
+    _c = np.array([3.0, -2.0]); _sa, _sb, _t = 5.0, 3.0, np.deg2rad(30)
+    _R = np.array([[np.cos(_t), -np.sin(_t)], [np.sin(_t), np.cos(_t)]])
+    _Q = _R @ np.diag([1 / _sa**2, 1 / _sb**2]) @ _R.T
+    _Qc = _Q @ _c
+    _verd = np.array([_Q[1, 1], 2 * _Q[0, 1], -2 * _Qc[0], -2 * _Qc[1], _c @ _Qc - 1]) / _Q[0, 0]  # B, C, D, E, F
+
+    _rng = np.random.default_rng(56798)
+    _th = np.linspace(0, 2 * np.pi, 12, endpoint=False)
+    _P = _c + (_R @ np.vstack([_sa * np.cos(_th), _sb * np.sin(_th)])).T + _rng.normal(0, 0.01, (12, 2))
+    _x, _y = _P[:, 0], _P[:, 1]
+
+    _A = np.column_stack([_y**2, _x * _y, _x, _y, np.ones(12)])
+    _b = -_x**2
+    _hat = np.linalg.pinv(_A) @ _b
+    print("verdaderos  (B, C, D, E, F):", np.round(_verd, 4))
+    print("recuperados (B, C, D, E, F):", np.round(_hat, 4))
+    print("|residuo| =", round(float(np.linalg.norm(_b - _A @ _hat)), 4), " |A^T r| =", float(np.linalg.norm(_A.T @ (_b - _A @ _hat))))
+    print("coinciden:", np.allclose(_hat, _verd, rtol=0.05, atol=0.1))
+    return
+
+
+@app.cell
 def _(mo):
     casos = {
         "(a) recta de ajuste: y = ax + b por nueve puntos": ("recta", "ruido en y (m)"),

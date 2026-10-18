@@ -237,7 +237,7 @@ def _(abcd, caso, casos, go, lib, mo, np, param, parcela, rango):
     area_antes = lib.area_poligono(parcela)
     area_despues = lib.area_poligono(lib.transformar(parcela, M))
     _panel = mo.vstack([
-        mo.md("**Controles**"), caso, param, abcd if _tipo == "general" else mo.md(""),
+        mo.md("**Controles**"), caso, param, *(list(abcd) if _tipo == "general" else []),
         mo.md(rf"""
         **Números vivos**
 

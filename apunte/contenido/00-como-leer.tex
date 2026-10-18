@@ -124,6 +124,32 @@ dual (ladrillo 4); la primera forma fundamental \(J^TJ\) es la métrica del tang
 cada dirección. La subsección~\ref{sec:puntos-formas-grillas} pone los tres objetos en
 una tabla y la Unidad 0 los manipula.
 
+\begin{resultado}[Las tres ecuaciones maestras de la materia (\(Ax=b\), \(Ax=\lambda x\), \(Ax\approx b\))]
+Fijados los cinco ladrillos, todas las cuentas de Agrimensura del curso responden a una de tres preguntas:
+
+\smallskip
+\small
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{19mm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{47mm}}
+\textbf{Ecuación} & \textbf{Pregunta de campo} & \textbf{Dónde la desarrollamos} \\
+\hline
+\(Ax=b\) &
+\textbf{Transformar, cambiar de grilla o deshacer un movimiento.} Conocemos la transformación \(A\) y buscamos a dónde va un mojón, cómo se lee en otra base (\(A^{-1}b\)) o qué homografía rectifica los cuatro puntos de una foto de dron. &
+\linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}, \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}, \linkUnidad{04_afines_homogeneas}{04}, \linkUnidad{05_proyectivas}{05}, \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08} \\
+\hline
+\(Ax=\lambda x\) y \(Av_i=\sigma_i u_i\) &
+\textbf{Buscar las direcciones propias que no giran.} Son los ejes invariantes de la transformación: el eje de giro en \(\mathbb{R}^3\), los puntos fijos de una afinidad o proyectiva, los semiejes de la elipse de Tissot en la SVD, los radios principales de curvatura \(M\) y \(N\) de la hessiana sobre el elipsoide. &
+\linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}, \linkUnidad{08_cambio_de_base}{08}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{12_curvatura}{12}, \linkUnidad{13_elipsoide}{13}, \linkUnidad{14_trigonometria_esferica}{14}, \linkUnidad{15_transformaciones_conformes}{15} \\
+\hline
+\(Ax\approx b\) &
+\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\mathrm{Im}(A)\): regresión, intersección de círculos por distancias, Procrustes. &
+\linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{11_cuatro_problemas}{11} \\
+\end{tabularx}
+\normalsize
+
+\smallskip
+Los cinco ladrillos son el idioma de la materia, y estas tres ecuaciones son las tres frases que se dicen con él: transformamos, buscamos las direcciones que no giran, o proyectamos lo medido sobre lo que el modelo puede explicar. Cada vez que aparece una cuenta nueva, nos preguntamos cuál de las tres es.
+\end{resultado}
+
 \subsection{Convención para componer}
 
 En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después \(F\)'':
