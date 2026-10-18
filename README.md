@@ -157,6 +157,15 @@ uv run python -m http.server -d site 8765     # http://localhost:8765/
 
 `uv run python tools/build.py` sin `--skip-wasm` exporta además las 20 lecciones a WebAssembly (1–2 s cada una, ~27 MB por lección en `site/unidades/`); para una sola, `--only NN_nombre`. Las lecciones exportadas necesitan HTTP, no andan desde `file://`. Para editar una lección: `uv run marimo edit unidades/NN_nombre.py`. El flujo completo, el molde de lección y cómo agregar una están en `tools/README.md`.
 
+Para usar o tocar una lección sin romper nada (detalle en la Parte 3, Paso 4 de [INSTRUCTIVO_DE_USO.md](INSTRUCTIVO_DE_USO.md)):
+
+```
+uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la lección sin mostrar el código y sin tocar el archivo
+cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
+uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
+git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
+```
+
 El apunte se compila aparte con TeX Live (LuaLaTeX, tres pasadas desde `apunte/`, ver `apunte/README.md`); el PDF compilado está commiteado y el build lo copia a `site/apunte.pdf`, así que ni el runner de GitHub ni quien clona necesitan TeX.
 
 ### Estructura

@@ -125,13 +125,54 @@ uv sync
 
 `uv sync` crea un entorno aislado dentro de la carpeta (`.venv`) con la versión de Python y las bibliotecas exactas del archivo `uv.lock`. No toca nada fuera del repositorio.
 
-### Paso 4 — Abrir una lección en modo editable
+### Paso 4 — Abrir, probar y modificar una lección Marimo sin romper el repositorio
+
+Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_desaprender_el_cbc`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
+
+**1. Modo proyección, sólo uso (`marimo run`).** No toca el archivo:
 
 ```
-uv run marimo edit unidades/08_cambio_de_base.py
+uv run marimo run unidades/08_cambio_de_base.py
 ```
 
-Se abre marimo en el navegador con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_desaprender_el_cbc`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
+Abre la unidad en el navegador sobre el Python local, sin mostrar las celdas de código y sin modificar nunca el `.py`. Es lo ideal para proyectar la lección en clase o para que un alumno la pruebe.
+
+**2. Modo borrador seguro (copia con guion bajo inicial).** Para experimentar con las celdas sin riesgo:
+
+```
+cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py
+uv run marimo edit unidades/_ensayo_08.py
+```
+
+Se abre marimo con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Como la copia queda en `unidades/`, encuentra el módulo común `cb104.py`; y como no figura en `mapa/_fragmentos/unidades.yaml`, `tools/build.py` nunca la exporta ni rompe el sitio (el build sólo exporta las unidades listadas ahí; no recorre la carpeta). El guion bajo es la convención para reconocer a simple vista que es un borrador. Conviene no commitearlo, o borrarlo al terminar.
+
+**3. Editar una unidad original sin romper la exportación a WebAssembly.** Si se edita directamente `unidades/08_cambio_de_base.py` (con `uv run marimo edit unidades/08_cambio_de_base.py`), hay tres reglas de oro:
+
+1. No borrar el encabezado `# /// script … # ///` del principio del archivo ni el comentario `# cb104:inline` de la celda `import cb104 as lib  # cb104:inline`: el build los usa para declarar las dependencias e inyectar la biblioteca `cb104.py` dentro de la lección exportada.
+2. Las variables que se usan sólo dentro de una celda llevan guion bajo (`_fig`, `_panel`, `_res`). Marimo exige nombres únicos entre celdas y, así, no chocan con las de otras.
+3. Antes de dar por bueno un cambio, correr el chequeo; si da 0 avisos (no imprime nada), exportar sólo esa unidad para probar que sigue andando:
+
+```
+uv run marimo check --select MW unidades/08_cambio_de_base.py
+uv run python tools/build.py --only 08_cambio_de_base
+```
+
+**4. Botón de pánico.** Si algo salió mal:
+
+```
+git checkout -- unidades/08_cambio_de_base.py
+```
+
+Descarta los cambios locales de ese archivo y restaura la versión del repositorio. No deshace lo que ya se commiteó; para eso están `git log` (ver la historia) y `git revert` (deshacer un commit puntual).
+
+**Resumen de los cuatro comandos:**
+
+```
+uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la lección sin mostrar el código y sin tocar el archivo
+cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
+uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
+git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
+```
 
 ### Paso 5 — Levantar el sitio entero en la computadora
 

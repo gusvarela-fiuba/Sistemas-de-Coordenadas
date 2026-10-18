@@ -4,6 +4,19 @@ Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de
 Cada simulación corre adentro del navegador con WebAssembly: no hay que instalar nada ni tener cuenta en ningún lado (la primera carga tarda unos segundos). En una pantalla 16:9 cada sección interactiva muestra la figura a la izquierda y, a la derecha, el panel de controles con el selector de caso, los deslizadores y los números vivos que se recalculan con cada movimiento.
 Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 1 hecho geométrico, 2 manipulación, 3 cuenta a mano y código lado a lado, 4 Python de hoy, 5 ejercicios (lápiz y código con hueco, verificado en la página).
 
+## Correr y modificar una simulación en la computadora
+
+Para usar una lección con el Python de la propia computadora (después de clonar el repositorio y correr `uv sync`) alcanzan cuatro comandos:
+
+```
+uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la lección sin mostrar el código y sin tocar el archivo
+cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
+uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
+git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
+```
+
+El primero proyecta la lección sin tocar el archivo; el segundo hace una copia de borrador (el guion bajo evita que el build la exporte) y la abre para editar; el tercero revisa que una unidad editada no tenga avisos de marimo; el cuarto descarta los cambios locales de un archivo. El paso a paso, con las tres reglas para no romper la exportación, está en la [Parte 3, Paso 4 del instructivo](INSTRUCTIVO_DE_USO.md).
+
 ## Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
 
 ![Dualidad punto–gradiente](animaciones/01_dualidad_gradiente.gif)
