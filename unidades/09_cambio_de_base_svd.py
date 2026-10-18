@@ -45,18 +45,18 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    *Lección anticipada: las clases 7 y 10 no se dictaron todavía; lo que sigue es mi lectura del esqueleto 2025, de la
-    nota de formas cuadráticas del campus y del apunte, pendiente de validar por la cátedra.*
+    *Lección anticipada: las clases 7 y 10 no se dictaron todavía; lo que sigue desarrolla el esqueleto 2025, la
+    nota de formas cuadráticas del campus y el apunte, pendiente de validar por la cátedra.*
 
-    Sigo las clases 7 y 10. La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
+    Seguimos las clases 7 y 10. La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
     transformar, y qué es lo más parecido a deshacer cuando no hay inversa?** El gancho: *más mediciones que incógnitas
     (una recta por puntos que no están alineados): la pseudoinversa elige la que deja el residuo perpendicular.*
 
     Colores: las direcciones de **entrada** $v_1$ (<span style="color:#1b6f6a">**teal**</span>) y $v_2$
     (<span style="color:#b5451b">**rust**</span>) son las columnas de $V$; sus imágenes $\sigma_1u_1$, $\sigma_2u_2$
     van del mismo color. Círculo unitario y elipse imagen en <span style="color:#7a4e9e">**violeta**</span>; grilla
-    gris antes, teal después. En [Cambio de base](../08_cambio_de_base/index.html) busqué **una** grilla en la que
-    $A$ sólo estira, y no siempre existe; acá uso dos, una a la entrada y otra a la salida, y siempre existe.
+    gris antes, teal después. En [Cambio de base](../08_cambio_de_base/index.html) buscamos **una** grilla en la que
+    $A$ sólo estira, y no siempre existe; acá usamos dos, una a la entrada y otra a la salida, y siempre existe.
     """)
     return
 
@@ -87,14 +87,14 @@ def _(lib, mo, np):
             "una elipse; hay un par de direcciones perpendiculares que sigue perpendicular, y no son las propias": "correcta",
         },
         value=None,
-        label=r"**Predicción.** Aplico $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$ al disco unitario. Sale…",
+        label=r"**Predicción.** Aplicamos $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$ al disco unitario. Sale…",
     )
     mo.vstack([
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Alrededor de un mojón dibujo el **disco de 1 m** que marca con qué incertidumbre lo ubiqué: igual en todas
-        las direcciones. Después paso las coordenadas a otro marco con $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
+        Alrededor de un mojón dibujamos el **disco de 1 m** que marca con qué incertidumbre lo ubicamos: igual en todas
+        las direcciones. Después pasamos las coordenadas a otro marco con $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
         que estira el doble en $x$ y además **corre** (cizalla): el disco se vuelve la elipse de error de Topografía.
         ¿Qué le pasa a dos direcciones perpendiculares del disco? Dato: las direcciones propias de esta $A$ (unidad 08)
         son $(1, 0)$ y $(1, -1)$, que **no** son perpendiculares entre sí.
@@ -114,7 +114,7 @@ def _(A_pred, B_pred, Vt_pred, candidatos, lib, mo, prediccion, s_pred):
         "correcta": ("success",
                      rf"**Sí.** {_par} van a $Av_1 = {lib.vec_tex(A_pred @ _v1)}$ y $Av_2 = {lib.vec_tex(A_pred @ _v2)}$, con producto interno ${_pi}$: "
                      rf"siguen perpendiculares y son los **semiejes de la elipse**, de largos $\sigma_1 = {lib.num_tex(s_pred[0])}$ y $\sigma_2 = {lib.num_tex(s_pred[1])}$. "
-                     r"Abajo muestro que ese par siempre existe."),
+                     r"Abajo mostramos que ese par siempre existe."),
         "siempre": ("warn",
                     rf"**No.** Los ejes $e_1, e_2$ van a $(2, 0)$ y $(1, 1)$, con producto interno ${lib.num_tex(candidatos['ejes'])} \ne 0$: la cizalla "
                     r"los cierra. Sólo un giro o una reflexión conservan **todos** los ángulos; una matriz cualquiera conserva el ángulo recto de un solo par."),
@@ -367,7 +367,7 @@ def _(lib, mo, np):
 
 @app.cell
 def _(mo):
-    k_svd = mo.ui.slider(1, 50, value=10, step=1, label="k (valores singulares que conservo)", show_value=True)
+    k_svd = mo.ui.slider(1, 50, value=10, step=1, label="k (valores singulares que conservamos)", show_value=True)
     centrar = mo.ui.checkbox(label="Restar altura media antes de truncar")
     mo.md(r"""
     ## 4. Python de hoy
@@ -566,7 +566,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
+    Acá verificamos que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
     deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
     [Descomposición en valores singulares (SVD)](../../apunte.pdf#nameddest=sec:svd) construye $U$, $\Sigma$, $V$ con
     un ejemplo a mano, rehace el cuaderno `LaSVD.wxmx` del profesor y remata con la SVD de un modelo digital de

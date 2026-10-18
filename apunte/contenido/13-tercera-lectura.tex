@@ -277,7 +277,7 @@ dictaron en 2C2026. Las cuatro secciones que siguen se armaron antes de que la c
 diera, a partir del resumen 2025 del profesor (una oración para la clase 12, sólo títulos
 para las 13 y 14), de su apunte ``Geometría del Elipsoide y cálculos Geodésicos'' (guía
 para clase, CC-BY-SA, figuras de Mariano Harguinteguy) y de bibliografía. Los valores
-numéricos de control los calculé con NumPy. Pendiente de validar.
+numéricos de control los calculamos con NumPy. Pendiente de validar.
 \end{atencion}
 
 El resumen 2025 de la clase 12 dice todo en una oración: ``la curvatura de una línea y la
@@ -334,7 +334,7 @@ En la página 8 el apunte define \(L=f_{xx}\), \(N=f_{yy}\), \(M=f_{xy}\) y a re
 seguido escribe \(\chi=|L\cos^2\alpha+2N\cos\alpha\sin\alpha+M\sin^2\alpha|\): el término
 mixto lleva \(N\) y el de \(\sin^2\alpha\) lleva \(M\), al revés de las definiciones. La
 fórmula es correcta si \(M\) es el mixto y \(N=f_{yy}\) (la notación habitual); la línea de
-definiciones es la que está cambiada. Lo verifiqué con \(f=\tfrac12x^2+2xy+\tfrac32y^2\)
+definiciones es la que está cambiada. Lo verificamos con \(f=\tfrac12x^2+2xy+\tfrac32y^2\)
 (\(f_{xx}=1\), \(f_{xy}=2\), \(f_{yy}=3\)): la curvatura de la sección en \(\alpha=90^\circ\),
 calculada por diferencias finitas, da \(3=f_{yy}\); la fórmula con las letras del apunte
 da \(2\).
@@ -386,7 +386,7 @@ con \(N\) el radio del primer vertical. Es la deducción del apunte del profesor
 lo largo de la normal''.
 
 \paragraph{Por qué las direcciones principales del elipsoide son meridiano y primer
-vertical.} Lectura mía del título de la clase 13, ``deducciones a partir de la simetría'':
+vertical.} Nuestra lectura del título de la clase 13, ``deducciones a partir de la simetría'':
 el plano meridiano es un plano de simetría del elipsoide (reflejar en él lo deja igual).
 Entonces la forma cuadrática de la curvatura en un punto es simétrica respecto de la
 dirección del meridiano, y como sus extremos están a \(90^\circ\) uno de otro, tienen que
@@ -463,7 +463,7 @@ a lo largo de la normal: \(N\to N+h\) en \(x,y\) y \(N(1-e^2)\to N(1-e^2)+h\) en
 \begin{itemize}
   \item En la página 15, la expresión de \(z\) ``en términos de \(e^2\)'' lleva
   \(\sqrt{1-e^2\cos^2\varphi}\) en el denominador; el correcto es
-  \(\sqrt{1-e^2\sin^2\varphi}\), el mismo denominador que \(x'\) y que \(N\). Lo verifiqué
+  \(\sqrt{1-e^2\sin^2\varphi}\), el mismo denominador que \(x'\) y que \(N\). Lo verificamos
   de dos maneras: algebraicamente, desde la forma en \(e'^2\) que el propio apunte da dos
   líneas antes; y numéricamente en GRS80 para \(\varphi=-34{,}6^\circ\): la fórmula correcta
   da \(z=-3\,601\,428{,}7\) m y la errónea \(-3\,605\,726{,}3\) m, una diferencia de
@@ -634,8 +634,8 @@ la integral numérica, como muestran los controles de arriba.
 profesor termina con un ``puntapié inicial'': con la conversión, los módulos
 \(\|r_\varphi\|=M\), \(\|r_\lambda\|=N\cos\varphi\) y los arcos, ``¿cómo plantearían las
 condiciones para desarrollar una proyección sobre el elipsoide?'', y propone bosquejar
-cinco (conté cinco en la página 20). Los planteo acá; en las tres cilíndricas la cuenta la
-verifiqué contra la integral numérica y contra \texttt{pyproj} (proyecciones
+cinco (contamos cinco en la página 20). Los planteamos acá; en las tres cilíndricas la cuenta la
+verificamos contra la integral numérica y contra \texttt{pyproj} (proyecciones
 \texttt{merc}, \texttt{eqc} y \texttt{cea} sobre GRS80), que coinciden al milímetro. En
 las tres, \(x=a\lambda\) (el ecuador se desarrolla sin deformación) y lo que cambia es
 \(y(\varphi)\).
@@ -679,7 +679,7 @@ las tres, \(x=a\lambda\) (el ecuador se desarrolla sin deformación) y lo que ca
   \(45^\circ\), \(-34{,}4801^\circ\) para Buenos Aires. Lo demás (las longitudes) no cambia.
   \item \textbf{Transversa de Mercator.} Condiciones: conforme (misma escala en todas las
   direcciones en cada punto), y el meridiano central sin deformación, con \(y=S(\varphi)\)
-  sobre él. Es la que usa Gauss--Krüger y la cartografía oficial argentina. No la resuelvo:
+  sobre él. Es la que usa Gauss--Krüger y la cartografía oficial argentina. No la resolvemos:
   sobre el elipsoide no tiene fórmula cerrada y se desarrolla en serie de potencias de la
   diferencia de longitud al meridiano central; queda como bosquejo, igual que en el apunte.
 \end{enumerate}
@@ -711,7 +711,7 @@ vectores: \(\cos a=B\cdot C\), \(\cos b=A\cdot C\), \(\cos c=A\cdot B\)
   \cos a=\cos b\cos c+\sin b\sin c\cos A,\qquad
   \frac{\sin a}{\sin A}=\frac{\sin b}{\sin B}=\frac{\sin c}{\sin C}.
 \]
-Deducción del coseno con un solo producto interno: pongo \(A\) en el polo, \(A=(0,0,1)\);
+Deducción del coseno con un solo producto interno: ponemos \(A\) en el polo, \(A=(0,0,1)\);
 \(B\) a distancia \(c\) sobre el meridiano \(\lambda=0\), \(B=(\sin c,0,\cos c)\); \(C\)
 a distancia \(b\) sobre el meridiano \(\lambda=A\) (el ángulo en el polo es la diferencia
 de longitudes), \(C=(\sin b\cos A,\sin b\sin A,\cos b)\). Entonces
@@ -739,7 +739,7 @@ equilátero de \(1\) km de lado sobre \(R=6371\) km tiene área \(0{,}433\) km\(
 \(1{,}07\cdot10^{-8}\) rad \(\approx0{,}002''\); con lados de \(100\) km, área
 \(4330\) km\(^2\) y exceso \(1{,}07\cdot10^{-4}\) rad \(\approx22''\). En una poligonal de
 agrimensura el ``error angular de cierre'' tiene una parte que no es error sino exceso
-esférico, y hay que separarla antes de compensar (nota mía, no del profesor: el teorema
+esférico, y hay que separarla antes de compensar (nota nuestra, no del profesor: el teorema
 de Legendre resuelve un triángulo esférico chico como plano restando \(\varepsilon/3\) a
 cada ángulo).
 

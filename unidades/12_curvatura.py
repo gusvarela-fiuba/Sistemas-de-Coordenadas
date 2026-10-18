@@ -46,10 +46,10 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue es mi lectura del esqueleto 2025 y del apunte,
+    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025 y el apunte de la cátedra,
     pendiente de validar por la cátedra.*
 
-    Sigo la clase 12 del esqueleto. La pregunta: **¿Cuánto se aparta la superficie de su plano tangente en cada
+    Seguimos la clase 12 del esqueleto. La pregunta: **¿Cuánto se aparta la superficie de su plano tangente en cada
     rumbo, y qué quiere decir ir derecho sobre ella?** El gancho: *un nivel apoyado en el terreno: la curvatura dice
     cuánto cambia la vertical al dar un paso en cada rumbo.*
 
@@ -84,14 +84,14 @@ def _(mo, np):
             "no se aparta en ningún rumbo: en el punto la tangente es horizontal": "plano",
         },
         value=None,
-        label="**Predicción.** Doy un paso de 1 m desde el punto más bajo del paso. Respecto del plano del nivel, el terreno…",
+        label="**Predicción.** Damos un paso de 1 m desde el punto más bajo del paso. Respecto del plano del nivel, el terreno…",
     )
     mo.vstack([
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Estoy parado en un **paso de montaña**: hacia el este y el oeste el terreno sube (los dos cerros), hacia el
-        norte y el sur baja (los dos valles). Apoyo el nivel en el punto más bajo del paso: la burbuja centra, el
+        Estamos parados en un **paso de montaña**: hacia el este y el oeste el terreno sube (los dos cerros), hacia el
+        norte y el sur baja (los dos valles). Apoyamos el nivel en el punto más bajo del paso: la burbuja centra, el
         plano del nivel es horizontal. Medido en metros desde ese punto, el terreno cerca de ahí es la silla
         $z = (x^2 - y^2)/4$, con $x$ hacia el este y $y$ hacia el norte.
         """),
@@ -107,7 +107,7 @@ def _(apart, mo, prediccion):
         "correcta": ("success",
                      rf"**Sí.** Hacia el este $z = 1/4 = {apart['este']:+.2f}$ m, hacia el norte $z = -1/4 = {apart['norte']:+.2f}$ m, y a $45°$ "
                      rf"$z = (\tfrac12 - \tfrac12)/4 = {apart['45°']:.0f}$. El apartamiento **depende del rumbo** y cambia de signo: eso es lo que "
-                     r"mide la curvatura, y abajo muestro que es una forma cuadrática en el rumbo."),
+                     r"mide la curvatura, y abajo mostramos que es una forma cuadrática en el rumbo."),
         "pozo": ("warn",
                  r"**No.** Un pozo sube en todos los rumbos ($z = (x^2 + y^2)/4$); el paso sube hacia los cerros y **baja** hacia los valles: "
                  r"el signo de $-y^2$ lo dice. La burbuja centrada sólo dice que el plano tangente es horizontal, no cómo se aparta el terreno de él."),
@@ -128,8 +128,8 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **¿Qué se conserva?** Si giro los ejes dentro del plano tangente cambian $L, M, N$ pero no las dos curvaturas
-    principales ni su producto (autovalores, lección 08); si doblo la superficie sin estirarla (una hoja, un cilindro)
+    **¿Qué se conserva?** Si giramos los ejes dentro del plano tangente cambian $L, M, N$ pero no las dos curvaturas
+    principales ni su producto (autovalores, lección 08); si doblamos la superficie sin estirarla (una hoja, un cilindro)
     cambian $\kappa_1$ y $\kappa_2$ pero no $K = \kappa_1 \kappa_2$ (Gauss; ver el ejercicio b).
 
     | | álgebra | lo que se ve |
@@ -146,7 +146,7 @@ def _(mo):
     $z = f(x, y)$ y tangente horizontal, $I$ es la identidad y $II$ es la hessiana de la clase 9: el apunte del
     profesor (prueba 1) llega a $\kappa_n(\alpha) = L\cos^2\alpha + 2M\cos\alpha\sin\alpha + N\sin^2\alpha$
     y a que *los máximos y mínimos se dan a intervalos de $\pi/2$*. (Él llama $N$ al término mixto y $M$ a
-    $f_{yy}$; uso la notación usual, $M$ mixto, la de la lección 10 y la bibliografía.)
+    $f_{yy}$; usamos la notación usual, $M$ mixto, la de la lección 10 y la bibliografía.)
 
     **Direcciones principales.** El máximo y el mínimo de $II(d)$ entre los rumbos con $I(d) = 1$ son los
     autovalores de $S = I^{-1} II$ (`solve(I, II)`): $\kappa_1 \ge \kappa_2$, con autovectores $d_1, d_2$ (las columnas
@@ -158,7 +158,7 @@ def _(mo):
     **Geodésica.** La aceleración de una curva sobre la superficie tiene una parte normal (la que la superficie le
     obliga, $\kappa_n$) y una tangencial (la que dobla **dentro** de la superficie, $\kappa_g$). Ir derecho es
     $\kappa_g = 0$: el volante recto, el hilo tenso sobre la cáscara. En la esfera, los círculos máximos; un paralelo
-    no, salvo el ecuador. Esto es mi lectura (el esqueleto sólo nombra las geodésicas); Euler y los extremos a
+    no, salvo el ecuador. Esta lectura es nuestra (el esqueleto sólo nombra las geodésicas); Euler y los extremos a
     $\pi/2$ se demuestran en el apunte del profesor, no en el v3 (ver el cierre).
     """)
     return
@@ -265,7 +265,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 3. Cuenta a mano y código lado a lado
 
-        A mano elijo el punto cómodo: el fondo del cuenco, donde la tangente es horizontal y la grilla $(x, y)$ es
+        A mano elegimos el punto cómodo: el fondo del cuenco, donde la tangente es horizontal y la grilla $(x, y)$ es
         la regla misma ($I$ = identidad). El código mide en un punto cualquiera, $(0.3, -0.2)$, con diferencias
         finitas: ahí $E, F, G, L, M, N$ cambian, pero las curvaturas principales y $K$ dan lo mismo.
         """),
@@ -348,7 +348,7 @@ def _(mo):
         No. El cilindro mostró que doblar sin estirar no cambia $K$ (la hoja plana tiene $K = 0$ y la canaleta también:
         $\kappa_1 = 1/R$, $\kappa_2 = 0$). Gauss demostró que eso vale siempre: $K$ se calcula sólo con la regla $E, F, G$
         y sus derivadas, así que cualquier mapa que conserve distancias conserva $K$ (su *theorema egregium*; acá lo
-        muestro, no lo demuestro). Pero el plano tiene $K = 0$ y la esfera $K = 1/R^2 > 0$ (y el elipsoide, $K = 1/(MN) > 0$,
+        mostramos, no lo demostramos). Pero el plano tiene $K = 0$ y la esfera $K = 1/R^2 > 0$ (y el elipsoide, $K = 1/(MN) > 0$,
         lección 13): no hay mapa plano sin deformación. Toda proyección elige qué sacrificar.
         """)}),
     ])
@@ -397,7 +397,7 @@ def _(casos_cd, editor_c, lib, mo, np):
         elif np.allclose(_obtenido, _sin_FM):
             _res = mo.callout(mo.md(r"❌ te quedaste con $L/E$ y $N/G$: olvidaste $F$ y $M$. Sólo vale cuando la grilla es ortogonal **y** las direcciones principales la siguen."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer caso esperaba `{np.round(_esperado[0], 4).tolist()}` y obtuve `{np.round(_obtenido[0], 4).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer caso se esperaba `{np.round(_esperado[0], 4).tolist()}` y se obtuvo `{np.round(_obtenido[0], 4).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -438,7 +438,7 @@ def _(casos_cd, editor_d, lib, mo, np):
         elif np.allclose(_obtenido, [(c[3] * c[5]) / (c[0] * c[2] - c[1] ** 2) for c in _casos]):
             _res = mo.callout(mo.md(r"❌ en $\det II$ olvidaste $M$: es $LN - M^2$."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer caso esperaba `{_esperado[0]:.4f}` y obtuve `{_obtenido[0]:.4f}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer caso se esperaba `{_esperado[0]:.4f}` y se obtuvo `{_obtenido[0]:.4f}`."), kind="danger")
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -450,7 +450,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que el apartamiento del plano tangente es una forma cuadrática en el rumbo, que sus rumbos propios
+    Acá verificamos que el apartamiento del plano tangente es una forma cuadrática en el rumbo, que sus rumbos propios
     son perpendiculares y que $K$ sobrevive al doblado. Las demostraciones:
 
     - [apunte, sección "Curvatura: de la curva plana a la forma cuadrática"](../../apunte.pdf#nameddest=sec:curvatura):

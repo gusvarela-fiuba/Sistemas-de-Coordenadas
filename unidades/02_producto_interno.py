@@ -43,18 +43,18 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 1. La pregunta: **¿qué cuenta con dos columnas de coordenadas me da la distancia entre dos mojones, el
+    Seguimos la clase 1. La pregunta: **¿qué cuenta con dos columnas de coordenadas nos da la distancia entre dos mojones, el
     ángulo entre dos lados y cuánto de un lado cae sobre el otro?** El gancho: con las coordenadas de tres mojones
-    calculo el ángulo en el vértice sin medirlo, y proyecto un lado sobre el rumbo de la línea de base.
+    calculamos el ángulo en el vértice sin medirlo, y proyectamos un lado sobre el rumbo de la línea de base.
 
-    Colores: $u$, sobre el que proyecto, en <span style="color:#1b6f6a">**teal**</span>; $v$, el proyectado, en
+    Colores: $u$, sobre el que proyectamos, en <span style="color:#1b6f6a">**teal**</span>; $v$, el proyectado, en
     <span style="color:#b5451b">**rust**</span>; su sombra en <span style="color:#c9a227">**gold**</span>. Grados en los
     controles, radianes adentro.
 
     ## 0. Situación de campo y predicción
 
     Tres mojones en el sistema de la obra, en metros: $A = (6, 4)$, $B = (2, 1)$, $C = (6, -2)$; la línea de base es
-    $BA$. Quiero dos números sin volver al campo: el **ángulo en $B$** entre $BA$ y $BC$, y **cuánto de $BC$ cae sobre la
+    $BA$. Queremos dos números sin volver al campo: el **ángulo en $B$** entre $BA$ y $BC$, y **cuánto de $BC$ cae sobre la
     dirección $BA$** (su sombra sobre la línea de base). Los vectores salen restando coordenadas: $BA = A - B = (4, 3)$ y
     $BC = C - B = (4, -3)$, los dos de largo $5$.
     """)
@@ -92,7 +92,7 @@ def _(mo, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success",
-                     r"**Sí.** Coordenada por coordenada y sumo: $4\cdot4 + (-3)\cdot3 = 7$; dividido por el largo de $BA$, "
+                     r"**Sí.** Coordenada por coordenada y sumamos: $4\cdot4 + (-3)\cdot3 = 7$; dividido por el largo de $BA$, "
                      r"$7/5 = 1.4$ m. Esa cuenta es el **producto interno**, y de ella sale también el ángulo: "
                      r"$\cos\hat B = 7/(5\cdot5) = 0.28$, $\hat B \approx 73.7°$. La sección 2 lo muestra como sombra."),
         "distancia": ("warn",
@@ -103,7 +103,7 @@ def _(mo, prediccion):
                  r"sombra, no la sombra. La sombra va con el coseno: $5\cos\hat B = 1.4$. Pitágoras lo cierra: "
                  r"$1.4^2 + 4.8^2 = 25 = 5^2$."),
         "sumar": ("warn",
-                  r"**No.** $4 + (-3) = 1$ suma las coordenadas de $BC$, y eso no mide nada: cambia si giro los ejes aunque el "
+                  r"**No.** $4 + (-3) = 1$ suma las coordenadas de $BC$, y eso no mide nada: cambia si giramos los ejes aunque el "
                   r"mojón no se mueva (lección I). La cuenta que mide multiplica coordenada **con** coordenada del otro vector y "
                   r"recién después suma: $4\cdot4 + (-3)\cdot3 = 7$."),
     }
@@ -117,15 +117,15 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **Una sola cuenta mide cuánto de un vector cae sobre otro.** Con la regla mido largos y con el transportador
+    **Una sola cuenta mide cuánto de un vector cae sobre otro.** Con la regla medimos largos y con el transportador
     ángulos; el producto interno hace las dos cosas de una vez con las coordenadas:
 
     $$\langle v, u\rangle = |v|\,|u|\cos\theta = x_1 x_2 + y_1 y_2.$$
 
     A la izquierda, geometría: la sombra de $v$ sobre $u$ (que mide $|v|\cos\theta$) por el largo de $u$. A la derecha,
-    aritmética: coordenada por coordenada, y sumo. Que den lo mismo se **muestra** así: con $u = (|u|, 0)$ sobre el eje
+    aritmética: coordenada por coordenada, y sumamos. Que den lo mismo se **muestra** así: con $u = (|u|, 0)$ sobre el eje
     $x$ y $v = (|v|\cos\theta, |v|\sin\theta)$, la suma de productos da $|u|\,|v|\cos\theta$ directo; para un par
-    cualquiera giro los dos hasta que $u$ caiga sobre el eje $x$, y girar no cambia la cuenta (Rotaciones II, 3.2). La
+    cualquiera giramos los dos hasta que $u$ caiga sobre el eje $x$, y girar no cambia la cuenta (Rotaciones II, 3.2). La
     demostración está en el apunte, sección 7.
 
     | | la cuenta | lo que se ve |
@@ -349,7 +349,7 @@ def _(editor_c, lib, mo, np):
             _res = mo.callout(mo.md("❌ usaste `arcsin`: el cociente $\\langle v,u\\rangle/(|v||u|)$ es el **coseno** del ángulo (la sombra), no el seno. Va `np.arccos`."), kind="warn")
         else:
             _i = int(np.argmax(~np.isclose(_obtenido, _esperado)))
-            _res = mo.callout(mo.md(f"❌ no coincide. Para `v = {np.round(_pares[_i][0], 2).tolist()}`, `u = {np.round(_pares[_i][1], 2).tolist()}` esperaba `{_esperado[_i]:.2f}` y obtuve `{_obtenido[_i]:.2f}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para `v = {np.round(_pares[_i][0], 2).tolist()}`, `u = {np.round(_pares[_i][1], 2).tolist()}` se esperaba `{_esperado[_i]:.2f}` y se obtuvo `{_obtenido[_i]:.2f}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -391,7 +391,7 @@ def _(editor_d, lib, mo, np):
         elif np.allclose(_obtenido, [lib.proyeccion(u, v) for v, u in _pares]):
             _res = mo.callout(mo.md("❌ proyectaste $u$ sobre $v$: el resultado tiene que ser un múltiplo de $u$, el vector sobre el que cae la sombra."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Primer par: esperaba `{np.round(_esperado[0], 3).tolist()}`, obtuve `{np.round(_obtenido[0], 3).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Primer par: se esperaba `{np.round(_esperado[0], 3).tolist()}`, se obtuvo `{np.round(_obtenido[0], 3).tolist()}`."), kind="danger")
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -403,7 +403,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
+    En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
     - [apunte, sección 7: rotaciones y lo que conservan](../../apunte.pdf#nameddest=cap:07)
     - [apunte, sección 11: producto interno como incidencia, formas y "fila por columna"](../../apunte.pdf#nameddest=cap:11)

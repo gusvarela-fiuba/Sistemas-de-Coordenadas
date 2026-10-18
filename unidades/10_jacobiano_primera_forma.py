@@ -43,7 +43,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 9 (14/10/2026). La pregunta: **¿Cómo mido una distancia chica sobre una superficie curva usando sólo
+    Seguimos la clase 9 (14/10/2026). La pregunta: **¿Cómo medimos una distancia chica sobre una superficie curva usando sólo
     los números (u, v) de la grilla?** El gancho: *sobre el terreno, un pasito en latitud y otro en longitud no miden lo
     mismo en metros: la primera forma fundamental es la regla que los convierte.*
 
@@ -88,9 +88,9 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Relevé una loma con el dron y la tengo como modelo digital: a cada par $(u, v)$ de la grilla, en metros, le
+        Relevamos una loma con el dron y la tenemos como modelo digital: a cada par $(u, v)$ de la grilla, en metros, le
         corresponde la altura $h(u, v) = 2\,e^{-(u^2+v^2)/8}$: el punto del terreno es $r(u, v) = (u, v, h(u, v))$. La cima
-        está en $(0, 0)$, a $2$ m; en $(2, 1)$ estoy sobre la ladera. Desde los dos puntos doy **el mismo paso en la grilla**:
+        está en $(0, 0)$, a $2$ m; en $(2, 1)$ estamos sobre la ladera. Desde los dos puntos damos **el mismo paso en la grilla**:
         una unidad en $u$, nada en $v$.
         """),
         prediccion,
@@ -106,7 +106,7 @@ def _(E_l, J_ladera, cinta_ladera, mo, np, prediccion):
         "correcta": ("success",
                      rf"**Sí.** En la cima la loma es horizontal: el paso mide $1$. En la ladera, al avanzar $1$ en $u$ bajo "
                      rf"$h_u = {_hu:.3f}$: el paso es la hipotenusa $\sqrt{{1 + h_u^2}} = {np.sqrt(E_l):.2f}$ m. Ese $1 + h_u^2$ es $E$, el largo al "
-                     rf"cuadrado del eje local $r_u = (1, 0, h_u)$. Con cinta mediría ${cinta_ladera:.2f}$ m, porque la pendiente afloja a "
+                     rf"cuadrado del eje local $r_u = (1, 0, h_u)$. Con cinta mediríamos ${cinta_ladera:.2f}$ m, porque la pendiente afloja a "
                      rf"lo largo del paso: la regla vale **a primer orden**, para pasitos (sección 2)."),
         "siempre-1": ("warn",
                       r"**No.** $1$ en la grilla es $1$ sobre el terreno sólo donde es horizontal (la cima). En la ladera el paso además "
@@ -117,7 +117,7 @@ def _(E_l, J_ladera, cinta_ladera, mo, np, prediccion):
                       rf"**perpendiculares**: Pitágoras, $\sqrt{{1 + h_u^2}} = {np.sqrt(E_l):.2f}$, el largo del vector $r_u = (1, 0, h_u)$."),
         "paso-v": ("warn",
                    rf"**No.** ${np.sqrt(1 + _hv**2):.2f}$ m es lo que mide en la ladera un paso de $1$ **en $v$**, donde la loma está "
-                   rf"menos empinada ($h_v = {_hv:.3f}$). Pregunté por el paso en $u$: cada eje tiene su largo, $E$ para $u$ y $G$ para $v$."),
+                   rf"menos empinada ($h_v = {_hv:.3f}$). Preguntamos por el paso en $u$: cada eje tiene su largo, $E$ para $u$ y $G$ para $v$."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -129,7 +129,7 @@ def _(mo):
     _texto = mo.md(r"""
     ## 1. Hecho geométrico
 
-    **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hago zoom en un punto
+    **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hacemos zoom en un punto
     hasta que la curva parece recta y la superficie parece plana; la derivada es esa recta o ese plano, una transformación
     lineal ("la matriz es lo que le pasa a la grilla", [lección 04](../04_afines_homogeneas/index.html)) que cambia de
     punto a punto. El profesor, con una pelota: *"cortás un pedacito y le hacés zoom, cortás uno más chico y lo escalás de
@@ -153,7 +153,7 @@ def _(mo):
     $$J^T J = \begin{pmatrix} E & F \\ F & G \end{pmatrix}, \qquad E = \langle r_u, r_u\rangle, \quad F = \langle r_u, r_v\rangle, \quad G = \langle r_v, r_v\rangle.$$
 
     $E$ y $G$ son los largos al cuadrado de los ejes locales; $F$ dice qué ángulo forman ($F = 0$: perpendiculares). Con
-    esa tabla mido sin salir de la grilla: el largo del pasito, $ds^2 = \langle dr, dr\rangle = E\,du^2 + 2F\,du\,dv + G\,dv^2$;
+    esa tabla medimos sin salir de la grilla: el largo del pasito, $ds^2 = \langle dr, dr\rangle = E\,du^2 + 2F\,du\,dv + G\,dv^2$;
     el ángulo entre dos pasitos (el coseno de la lección 02 con esta tabla); el área del cuadradito,
     $\lvert r_u \times r_v \rvert\,du\,dv = \sqrt{EG - F^2}\,du\,dv$.
 
@@ -306,7 +306,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 3. Cuenta a mano y código lado a lado
 
-        La esfera de radio $R$ con latitud $\varphi$ y longitud $\lambda$ (mi página de Notion usa colatitud; acá, latitud,
+        La esfera de radio $R$ con latitud $\varphi$ y longitud $\lambda$ (las notas de clase en Notion usan colatitud; acá, latitud,
         como el apunte). Izquierda, el cuaderno; derecha, numpy: diferencias finitas contra la derivada exacta.
         """),
         mo.hstack([
@@ -489,7 +489,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que los ejes locales son las columnas de la jacobiana y que su tabla de productos internos mide desde la
+    Acá verificamos que los ejes locales son las columnas de la jacobiana y que su tabla de productos internos mide desde la
     grilla. Las demostraciones:
 
     - [apunte, sección 6: pasar del plano a una superficie](../../apunte.pdf#nameddest=cap:06)

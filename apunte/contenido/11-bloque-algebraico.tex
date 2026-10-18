@@ -32,7 +32,7 @@ también:
   (p\times q)\cdot p=0,\qquad (p\times q)\cdot q=0 .
 \]
 Por lo tanto la operación debe producir un vector \emph{ortogonal a sus dos argumentos}. Y
-más: si pongo dos veces el mismo punto no hay recta que determinar, así que \(p\times p=0\).
+más: si ponemos dos veces el mismo punto no hay recta que determinar, así que \(p\times p=0\).
 Estas exigencias, junto con la linealidad en cada argumento, \emph{obligan} a que la
 operación sea el producto vectorial de \(\R^3\):
 \[
@@ -361,7 +361,7 @@ forma. Ir a lo chico (la forma lineal en un punto) para volver a lo grande (la s
 completa) es lo que hace la tercera lectura con el plano tangente y la métrica.
 
 \begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
-Aporte propio, desde la especialización en IA (CEIA); no es de la cátedra. Un
+Desarrollo complementario, desde la especialización en IA (CEIA); no es de la cátedra. Un
 \emph{clasificador lineal} separa dos lotes de puntos del plano (dos clases, \(y_i=\pm1\))
 con una regla \(\omega(x)=w_1x+w_2y+b\): la clase es el signo de \(\omega\). Es exactamente
 una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
@@ -380,7 +380,7 @@ producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros
 de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
 dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
 \(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
-verifiqué resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
+verificamos resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
 \texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
 \texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
 \end{idea}
@@ -408,21 +408,21 @@ verifiqué resolviendo el problema de minimización con \texttt{scipy.optimize}.
 
 \begin{atencion}[Anticipado]
 El cambio de base y la diagonalización se dictaron el 30 de septiembre de 2026 (clase 8 del
-esqueleto) y están respaldados por fotos del pizarrón tomadas en clase (párrafo ``Lo que
-quedó en el pizarrón''). Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: lo
-armé antes de que la cátedra lo diera, a partir del resumen 2025 del profesor y de las
+esqueleto) y se desarrollan en el párrafo ``La matriz de cambio de base y el despeje de la
+diagonalización''. Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: se
+desarrolla antes de que la cátedra lo dicte, a partir del resumen 2025 del profesor y de las
 fichas de clase. Pendiente de validar con lo que efectivamente se dicte.
 \end{atencion}
 
 \paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
-coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos uso
+coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos usamos
 las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
 \[
   \begin{pmatrix}3\\4\end{pmatrix}
   =\tfrac72\begin{pmatrix}1\\1\end{pmatrix}-\tfrac12\begin{pmatrix}1\\-1\end{pmatrix},
   \qquad\text{coordenadas nuevas }(\tfrac72,-\tfrac12).
 \]
-El mojón está donde estaba; cambió la regla con que lo mido. Escalera: en \(\R\) cambiar
+El mojón está donde estaba; cambió la regla con que lo medimos. Escalera: en \(\R\) cambiar
 de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
 longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
 \(\R^n\) es una matriz \(n\times n\) invertible. El profesor observó en 2025 que ``no parece
@@ -441,8 +441,8 @@ de base distinto: los vectores con \(P^{-1}\), las formas lineales del lado cont
 \[
   A_{\text{nueva}}=P^{-1}\,A\,P ,
 \]
-que se lee de derecha a izquierda: paso las coordenadas nuevas a canónicas, aplico \(A\)
-como siempre, vuelvo a las nuevas. Todo se convierte a la vez para que ninguna relación
+que se lee de derecha a izquierda: pasamos las coordenadas nuevas a canónicas, aplicamos \(A\)
+como siempre, volvemos a las nuevas. Todo se convierte a la vez para que ninguna relación
 cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
 \end{resultado}
 
@@ -465,7 +465,7 @@ Inversa por adjunta sobre determinante, \(\det T=1{,}56+0{,}05=1{,}61\):
 \]
 Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
 \(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
-curva de la primera forma y en la quinta de la segunda. En el pizarrón la forma \((1,1)\)
+curva de la primera forma y en la quinta de la segunda. En clase la forma \((1,1)\)
 quedó ``\((0{,}86,\ 0{,}43)\), se acostó un poco'' (redondeo) y la \((-1,2)\) ``un poco más
 vertical''. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
 plano; medido con la grilla deformada, el punto está donde estaba. ``No hacemos nada,
@@ -487,48 +487,59 @@ independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\
 no tiene lectura fácil. Es lo que el resumen 2025 describe como ``aplicar dos afinidades
 axiales sucesivas''.
 
-\paragraph{Lo que quedó en el pizarrón el 30 de septiembre.} Tres fotos que tomé en clase
-(\file{2026-09-30\_pizarron\_dualidad\_cajas.jpg},
-\file{2026-09-30\_pizarron\_matriz\_A\_autovectores\_columnas.jpg} y
-\file{2026-09-30\_pizarron\_despeje\_diagonalizacion.jpg}, copias en
-\file{fuentes/campus/profesor/}); la lectura es del autor.
+\paragraph{La matriz de cambio de base y el despeje de la diagonalización.} En este
+párrafo usamos los nombres de la clase: \(A\) es la matriz que tiene los autovectores en
+columnas (la \(P\) del recuadro de arriba, con otro nombre) y \(T\) es la transformación
+(la \(A\) del párrafo anterior).
 
-\emph{El diagrama de cajas.} A la izquierda, el plano \(z=1\) con el punto \(P\), su imagen
-\(AP\), la recta \(l\) y su imagen \(lA^{-1}\): los puntos van con \(A\) y las rectas con
-\(A^{-1}\). A la derecha, una cadena de óvalos, tal cual quedó escrita:
+\emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola
+cadena:
 \[
-  (P)\;\to\;(A)\;\to\;\bigl[\,(A^{-1})\to(T)\to(A)\,\bigr]\;\to\;(A^{-1})\;\to\;(l),
+  (P)\;\to\;(A)\;\to\;[\,A^{-1}\to T\to A\,]\;\to\;(A^{-1})\;\to\;(\ell) .
 \]
-con la caja del medio recuadrada y una llave debajo rotulada \(T^{*}\). El punto entra
-convertido por \(A\), la recta sale convertida por \(A^{-1}\), y lo que queda en el medio ya
-no es \(T\) sino \(T^{*}\): la misma transformación escrita en la otra base. Leída como
-cadena de aplicaciones (primero \(A^{-1}\), después \(T\), después \(A\)) es el
-\(A\,T\,A^{-1}\) de la frase ``cambiar \(T\) de base implica aplicar \(A\,T\,A^{-1}\)'' del
-pizarrón de al lado. Todo se convierte a la vez para que la incidencia no cambie.
+En un extremo entra un punto \(P\) y en el otro sale una recta \(\ell\); lo que se mide
+es la incidencia \(\ell\,T\,P\). Al cambiar de base los puntos se convierten con \(A\) y
+las formas (las rectas) con \(A^{-1}\), del lado contrario, de modo que las conversiones
+se absorben de a pares (\(A^{-1}A=I\)) y la incidencia no cambia: el punto transformado
+sigue cayendo en la recta transformada. Lo que queda en el recuadro del medio ya no es
+\(T\) sino la misma transformación escrita en la base de autovectores,
+\(T^{*}=A^{-1}\,T\,A\), con \(A^{-1}\) a la izquierda y \(A\) a la derecha. Todo se
+convierte a la vez para que nada cambie.
 
-\emph{La matriz con los autovectores en columnas.} El profesor definió
-\(A=[\,Av_1\mid Av_2\,]\) y la probó con el vector \((1,0)^T\):
+\emph{La matriz con los autovectores en columnas.} Definimos \(A=[\,v_1\mid v_2\,]\), los
+autovectores escritos en la base canónica, uno por columna, y la probamos con el vector
+\((1,0)^T\):
 \[
-  \begin{pmatrix}A_1&A_2\\A_3&A_4\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
-  =\begin{pmatrix}A_1\\A_3\end{pmatrix},
+  A\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}\\A_{21}\end{pmatrix}=v_1 .
 \]
-con ``base \(Av\)'' anotado sobre el vector de entrada y ``base can.'' sobre la matriz:
-entra una unidad del primer autovector escrita en la base \(Av\) y sale ese mismo
-autovector escrito en la canónica. \(A\) lleva de la base \(Av\) a la canónica y \(A^{-1}\)
-hace el camino inverso. Es la \(P\) del recuadro de arriba, con la base nueva (los
-autovectores) en columnas: \(A\) es el nombre del pizarrón, \(P\) el de este apunte.
+Entra una unidad del primer autovector escrita en la base de autovectores y sale ese mismo
+autovector escrito en la canónica: \(A\) traduce de la base de autovectores a la canónica
+y \(A^{-1}\) hace el camino inverso, de la canónica a la de autovectores. El recorrido
+completo para un punto cualquiera: el punto \((1,1)=e_x+e_y\), dado en la canónica, pasa
+con \(A^{-1}\) a coordenadas \((c_1,c_2)\) en la base de autovectores, es decir
+\((1,1)=c_1v_1+c_2v_2\); ahí la transformación es diagonal y devuelve
+\((\lambda_1c_1,\ \lambda_2c_2)\); y \(A\) traduce ese resultado de vuelta a la canónica,
+\(\lambda_1c_1v_1+\lambda_2c_2v_2\), que es \(T(1,1)\). Con la matriz del párrafo
+anterior, \(v_1=(1,1)\) y \(v_2=(1,-1)\), el punto \((1,1)\) es el propio \(v_1\):
+\((c_1,c_2)=(1,0)\), la diagonal da \((3,0)\) y \(A\) devuelve \(3v_1=(3,3)\), que
+coincide con \(\begin{pmatrix}2&1\\1&2\end{pmatrix}(1,1)^T=(3,3)^T\).
 
-\emph{El despeje.} Con \(T\) diagonal en la base de autovectores y no diagonal en la
-canónica,
+\emph{El despeje.} El mismo recorrido, escrito como producto de matrices, dice que la
+transformación en la base canónica es la diagonal conjugada por el cambio de base:
 \[
-  A\,T_{\mathrm{diag}\langle Av\rangle}A^{-1}=T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}
+  T_{\mathrm{can}}=A\,T_{\mathrm{diag}}\,A^{-1}
   \quad\Longrightarrow\quad
-  T_{\mathrm{diag}\langle Av\rangle}=A^{-1}\,T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}\,A ,
+  T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A ,
 \]
-multiplicando por \(A^{-1}\) a la izquierda y por \(A\) a la derecha; los dos productos
-\(A^{-1}A=I\) que aparecen son los tachones del pizarrón (un par en negro, el otro en
-rojo). Con los nombres de este apunte (\(P\) para la matriz de autovectores, \(A\) para la
-transformación) es el \(D=P^{-1}AP\) del párrafo anterior.
+leída de derecha a izquierda: \(A^{-1}\) lleva a la base de autovectores,
+\(T_{\mathrm{diag}}\) estira cada eje propio, \(A\) vuelve a la canónica. El despeje se
+hace multiplicando por \(A^{-1}\) a la izquierda y por \(A\) a la derecha; los dos
+productos \(A^{-1}A=I\) y \(A\,A^{-1}=I\) que aparecen se cancelan y queda
+\(T_{\mathrm{diag}}\) sola. Con los nombres de este apunte (\(P\) para la matriz de
+autovectores, \(A\) para la transformación) es exactamente el \(D=P^{-1}AP\) del párrafo
+anterior: misma matriz, otro nombre.
 
 \paragraph{Potencias y la trayectoria de un punto.} Como \(A=PDP^{-1}\),
 \(A^n=PD^nP^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
@@ -560,7 +571,7 @@ el que actúa primero sobre un vector en canónica, es el que \emph{convierte de
 misma lectura el factor de la derecha debería ser el que convierte de \(av\) a \(e\)
 (un vector en base \(av\) entra primero). Los subíndices de la clase 8 están al revés de
 los de las clases 7 y 10. En la clase del 30 de septiembre de 2026 quedó con subíndices
-descriptivos, no direccionales (foto \file{2026-09-30\_pizarron\_despeje\_diagonalizacion.jpg}):
+descriptivos, no direccionales:
 \(A\,T_{\mathrm{diag}\langle Av\rangle}A^{-1}=T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}\)
 con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base
 nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
@@ -875,8 +886,8 @@ perpendicularmente a lo que el modelo puede explicar.
 En el campus 2025 la clase 11 es sólo una lista de cuatro títulos: ``Regresión simple,
 Intersección de círculos, Procrustes, Regresión total''. La clase no se dictó en 2C2026
 (anunciada el 14/10 como ``usar la SVD para resolver problemas: regresión, ajuste de
-puntos''). Los enunciados son míos, escritos como problemas de campo; el desarrollo entre
-los títulos es lectura mía sobre el cierre de la clase 10 del resumen 2025 y bibliografía
+puntos''). Los enunciados son propuesta del curso, escritos como problemas de campo; el texto entre
+los títulos desarrolla el cierre de la clase 10 del resumen 2025 y bibliografía
 (Strang; Calvetti y Somersalo). Pendiente de validar.
 \end{atencion}
 

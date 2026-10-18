@@ -45,7 +45,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo las clases 5 y 6. La pregunta: **¿qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro
+    Seguimos las clases 5 y 6. La pregunta: **¿qué direcciones caen sobre sí mismas al transformar, y cómo las encontramos
     con una cuenta?** El gancho: *un plano deformado por el escáner: casi todos los rumbos giran, pero hay dos que
     salen con el mismo rumbo que entraron; el eje de una rotación es la dirección que no gira.*
 
@@ -85,7 +85,7 @@ def _(lib, mo, np):
         levanta y el eje $y$ se acuesta, y con ellos gira casi cualquier lado de la parcela.
 
         Casi cualquiera. Un lado cuyo rumbo **no gira** (sale paralelo a como entró, aunque cambie de largo) es lo que
-        voy a llamar dirección propia o **autovector**. Antes de mirar la figura:
+        vamos a llamar dirección propia o **autovector**. Antes de mirar la figura:
         """),
         prediccion,
     ])
@@ -130,7 +130,7 @@ def _(mo):
     **Después, las direcciones que no giran.** $Av = \lambda v$: la recta de $v$ cae sobre sí misma, sólo estirada por
     el **autovalor** $\lambda$ ($1$ queda quieta, $-1$ se invierte, $0$ es el núcleo). El pase de magia del profesor:
     $Av = \lambda v$ es lo mismo que $(A - \lambda I)\,v = 0$: **$v$ está en el núcleo de $A - \lambda I$**, una versión
-    modificada de la transformación. Y ya sé cuándo un núcleo no es trivial: cuando el detector da cero,
+    modificada de la transformación. Y ya sabemos cuándo un núcleo no es trivial: cuando el detector da cero,
     $\det(A - \lambda I) = 0$. Esa ecuación en $\lambda$ es el **polinomio característico**; sus raíces reales son los
     autovalores, y para cada una el autovector es la perpendicular a una fila de $A - \lambda I$.
 
@@ -450,7 +450,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (núcleo no trivial $\Leftrightarrow$ $\det = 0$, el pase de magia $(A - \lambda I)v = 0$,
+    Acá verificamos; las demostraciones (núcleo no trivial $\Leftrightarrow$ $\det = 0$, el pase de magia $(A - \lambda I)v = 0$,
     cuántas raíces reales, el método de la cruz de filas):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)

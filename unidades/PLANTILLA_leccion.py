@@ -28,8 +28,10 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
   5. Ejercicios                        (dos de lápiz, dos de código con hueco verificados con np.allclose)
   Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:NN) y verificación silenciosa.
 
-Tono: primera persona del singular, voz activa ("acá muestro", "lo demuestro en el apunte"). Distinguir siempre
-"muestra" (la figura muestra que…) de "demostración" (la demostración está en el apunte, sección NN).
+Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo libro de cátedra ("seguimos la
+clase", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
+primera persona del singular ("muestro", "mi lectura") ni pasado ("mostré"). Distinguir siempre "muestra" (la
+figura muestra que…) de "demostración" (la demostración está en el apunte, sección NN).
 Grados en la interfaz, radianes adentro. Sólo numpy y plotly, vía el módulo común `cb104` (celda marcada).
 
 Chequear:  uv run marimo check --select MW unidades/NN_<tema>.py
@@ -64,8 +66,9 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    [PLANTILLA: una o dos líneas: qué clase sigue esta unidad y qué pregunta de campo responde. Por ejemplo:
-    "Sigo la clase N (…). La pregunta: ¿qué le pasa a … cuando …?"]
+    [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué clase sigue esta
+    unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos la clase N (…). La pregunta: ¿qué le pasa a …
+    cuando …?"]
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
     <span style="color:#1b6f6a">**teal**</span>, la **segunda** <span style="color:#b5451b">**rust**</span> y la
@@ -408,7 +411,7 @@ def _(mo):
     mo.md(r"""
     ## Anexo: dónde está la demostración
 
-    Acá mostré; la demostración está en el apunte:
+    Acá verificamos; la demostración está en el apunte:
 
     - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:NN)
     - [ficha de la clase N](../../clases/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)

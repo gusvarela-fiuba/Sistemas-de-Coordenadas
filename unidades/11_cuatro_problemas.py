@@ -44,10 +44,10 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue es mi lectura del esqueleto 2025, pendiente de validar
+    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025, pendiente de validar
     por la cátedra.*
 
-    Sigo la clase 11. La pregunta: **¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer
+    Seguimos la clase 11. La pregunta: **¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer
     dos relevamientos y ajustar una recta con error en las dos coordenadas?** El gancho: *compensar un relevamiento con
     más mediciones que incógnitas: la misma cuenta resuelve la recta de ajuste y la transformación entre dos sistemas de
     mojones.*
@@ -77,20 +77,20 @@ def _(lib, mo, np):
     errores_tres = np.linalg.norm(mojones - p_tres, axis=1) - dist_medidas
     prediccion = mo.ui.radio(
         options={
-            "uso tres mojones, resuelvo exacto y descarto la cuarta distancia": "tres",
+            "usamos tres mojones, resolvemos exacto y descartamos la cuarta distancia": "tres",
             "no hay punto: las cuatro distancias se contradicen": "ninguno",
             "el punto que deja las cuatro diferencias lo más chicas posible en conjunto": "correcta",
             "el promedio de los cuatro mojones, pesado por las distancias": "promedio",
         },
         value=None,
-        label="**Predicción.** ¿Qué punto anoto como posición del poste?",
+        label="**Predicción.** ¿Qué punto anotamos como posición del poste?",
     )
     mo.vstack([
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Tengo que ubicar un poste en el sistema del lote. Cuatro mojones de coordenadas conocidas, en metros:
-        $M_1 = (0, 0)$, $M_2 = (8, 0)$, $M_3 = (8, 7)$, $M_4 = (1, 8)$. Mido con cinta las distancias del poste a cada
+        Tenemos que ubicar un poste en el sistema del lote. Cuatro mojones de coordenadas conocidas, en metros:
+        $M_1 = (0, 0)$, $M_2 = (8, 0)$, $M_3 = (8, 7)$, $M_4 = (1, 8)$. Medimos con cinta las distancias del poste a cada
         uno: $5.05$, $6.35$, $5.90$ y $4.45$ m. Dos distancias ya definen el punto (salvo el espejo); con cuatro sobran
         dos. Y la cinta tiene error: ningún punto está **exactamente** a esas cuatro distancias. Dos incógnitas, cuatro mediciones.
         """),
@@ -104,14 +104,14 @@ def _(errores_mc, errores_tres, lib, mo, p_mc, p_tres, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success",
-                     rf"**Sí.** Es la idea de toda la lección: con más mediciones que incógnitas no busco el punto que cumple todo "
+                     rf"**Sí.** Es la idea de toda la lección: con más mediciones que incógnitas no buscamos el punto que cumple todo "
                      rf"(no existe) sino el que deja el **residuo** más chico en conjunto, suma de cuadrados: $p = {lib.vec_tex(p_mc, 3)}$, "
                      rf"diferencias $({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m repartidas entre las cuatro cintas. "
                      rf"La sección 1 dice **por qué** ese residuo queda perpendicular a lo que las ecuaciones pueden producir."),
         "tres": ("warn",
                  rf"**No.** Con tres mojones las dos rectas de la sección 1 se cortan en un punto, $p = {lib.vec_tex(p_tres, 3)}$, pero "
                  rf"ese punto tampoco cumple las cintas (tienen error) y la cuarta queda con ${lib.num_tex(errores_tres[3], 3)}$ m que nadie "
-                 rf"reparte. Peor: depende de **cuáles** tres elegí. Con las cuatro: $({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m."),
+                 rf"reparte. Peor: depende de **cuáles** tres elegimos. Con las cuatro: $({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m."),
         "ninguno": ("warn",
                     r"**No.** Que se contradigan es lo normal: toda medición tiene error. La pregunta cambia de '¿qué punto cumple "
                     r"las cuatro?' a '¿cuál las cumple **lo mejor posible**?', y esa sí tiene respuesta única."),
@@ -152,7 +152,7 @@ def _(mo):
     - **(a) recta de ajuste**: incógnitas $(a, b)$, $A = [\,x \mid 1\,]$, directo.
     - **(b) punto por distancias**: cada mojón da un círculo $(x - a_i)^2 + (y - b_i)^2 = d_i^2$, no lineal; pero
       **restar dos círculos cancela $x^2 + y^2$** y deja una recta (el eje radical). $m$ mojones, $m - 1$ rectas, $A x \approx b$.
-    - **(c) Procrustes**: dos relevamientos del mismo lote; la incógnita es **giro, escala y traslación**. Centro las
+    - **(c) Procrustes**: dos relevamientos del mismo lote; la incógnita es **giro, escala y traslación**. Centramos las
       nubes y la rotación sale de la SVD de $H = P_0^\top Q_0$: $R = V U^\top$ (una frase; la SVD es de la unidad 09).
     - **(d) regresión total**: la recta que minimiza las distancias **perpendiculares**. Pasa por el centroide con la
       **dirección propia de mayor autovalor** de $C = X_0^\top X_0$ (07b, 08); la normal es la de menor, y ese
@@ -297,7 +297,7 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.1 Recta por tres puntos.** Un alambrado que debería ser recto, relevado en $(0, 0)$, $(1, 1)$, $(2, 3)$:
-            no están alineados (pendientes $1$ y $2$). Busco $y = ax + b$:
+            no están alineados (pendientes $1$ y $2$). Buscamos $y = ax + b$:
 
             $$A = \begin{pmatrix} \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{1} \\ \textcolor{#1b6f6a}{2} & \textcolor{#b5451b}{1} \end{pmatrix},\quad
             A^\top A = \begin{pmatrix} 5 & 3 \\ 3 & 3 \end{pmatrix},\quad A^\top y = \begin{pmatrix} 7 \\ 4 \end{pmatrix}.$$
@@ -357,7 +357,7 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *("el punto de la entrada que corresponde en la salida a lo más cercano al término
-        independiente").* Medí tres veces el mismo lado: $12.1$, $11.9$ y $12.3$ m. Escribí $Ax = y$ con $A$ la columna
+        independiente").* Medimos tres veces el mismo lado: $12.1$, $11.9$ y $12.3$ m. Escribí $Ax = y$ con $A$ la columna
         de unos, las ecuaciones normales, la solución y el residuo. ¿Qué cuenta conocida es?
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -414,7 +414,7 @@ def _(editor_c, lib, mo, np):
         elif np.allclose(_obt[:, 0], _mal_div[:, 0]):
             _res = mo.callout(mo.md("❌ dividiste por la dispersión de $y$: la pendiente es $S_{xy} / S_{xx}$, y sale sola de $A^\\top A$ (no hace falta centrar)."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para la nube de la sección 3 esperaba `{np.round(_esp[0], 4).tolist()}` y obtuve `{np.round(_obt[0], 4).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para la nube de la sección 3 se esperaba `{np.round(_esp[0], 4).tolist()}` y se obtuvo `{np.round(_obt[0], 4).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -458,7 +458,7 @@ def _(editor_d, lib, mo, np):
             elif np.allclose(_obt, 2 * _p):
                 _fallas.append(f"caso {_i}: falta el factor 2 en `A` (el punto sale el doble de lejos)")
             else:
-                _fallas.append(f"caso {_i}: esperaba `{np.round(_p, 3).tolist()}`, obtuve `{np.round(_obt, 3).tolist()}`; ¿restaste la primera ecuación a las demás? Sin restar no es lineal")
+                _fallas.append(f"caso {_i}: se esperaba `{np.round(_p, 3).tolist()}`, se obtuvo `{np.round(_obt, 3).tolist()}`; ¿restaste la primera ecuación a las demás? Sin restar no es lineal")
         _res = (mo.callout(mo.md("✅ los tres casos: el punto está a las distancias pedidas de todos los mojones."), kind="success")
                 if not _fallas else mo.callout(mo.md("❌ " + "; ".join(_fallas) + "."), kind="warn"))
     except Exception as _e:
@@ -472,7 +472,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
+    Acá verificamos que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
     Las demostraciones (la proyección minimiza $|r|^2$; por qué $R = VU^\top$; por qué la dirección propia mayor es la
     recta total) están desarrolladas en la guía resuelta del apunte; de fondo, Strang y Calvetti–Somersalo, nombrados
     por el profesor el 2026-10-14.

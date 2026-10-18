@@ -1399,7 +1399,7 @@ def cortes_caja(l, c, rango=5):
         raise ValueError("la forma nula no tiene rectas de nivel")
     tol = 1e-9 * (b - a)
     puntos = []
-    for i in (0, 1):  # fijo la coordenada i en cada borde y despejo la otra
+    for i in (0, 1):  # fijamos la coordenada i en cada borde y despejamos la otra
         j = 1 - i
         if abs(l[j]) < 1e-12:
             continue
@@ -1457,7 +1457,7 @@ def svd2(A):
     dibujar v₁, v₂ y para animar Vᵀ como un giro."""
     A = np.asarray(A, dtype=float)
     U, s, Vt = np.linalg.svd(A)
-    if abs(s[0] - s[1]) < 1e-9 * max(s[0], 1.0):  # σ₁ = σ₂ (un giro, una homotecia): cualquier V sirve; elijo V = I
+    if abs(s[0] - s[1]) < 1e-9 * max(s[0], 1.0):  # σ₁ = σ₂ (un giro, una homotecia): cualquier V sirve; elegimos V = I
         Vt = np.eye(2)
         U = A / s[0] if s[0] > 1e-12 else np.eye(2)
     if np.linalg.det(Vt) < 0:  # cambiar el signo de v₂ y de u₂ a la vez no cambia el producto
@@ -2076,7 +2076,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             "y `lib.coordenadas_en_base(p, R)`; el punto no se mueve."
         ),
         "vamos_hacia": (
-            r"Si en vez de los ejes giro la parcela entera (rotación activa, $R\,p$), hace falta saber qué conserva $R$ "
+            r"Si en vez de los ejes giramos la parcela entera (rotación activa, $R\,p$), hace falta saber qué conserva $R$ "
             "y por qué su inversa es la transpuesta: unidad 01b."
         ),
         "anterior": "00_desaprender_el_cbc",
@@ -2128,7 +2128,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             r"proyección (`lib.proyeccion`, `lib.angulo`); invariante bajo $R$ porque $R^T R = I$."
         ),
         "vamos_hacia": (
-            r"Con largos y ángulos medibles puedo clasificar lo que los conserva dando vuelta la hoja (espejo, "
+            r"Con largos y ángulos medibles podemos clasificar lo que los conserva dando vuelta la hoja (espejo, "
             r"$\det = -1$) y lo que sólo conserva ángulos (similaridad $k\,R$): unidad 03."
         ),
         "anterior": "01c_rotaciones_3d",
@@ -2163,7 +2163,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             r"$\times \det A$."
         ),
         "vamos_hacia": (
-            r"La fila $(0\ 0\ 1)$ es lo que mantiene las paralelas; si la libero, las paralelas se cruzan como en una "
+            r"La fila $(0\ 0\ 1)$ es lo que mantiene las paralelas; si la liberamos, las paralelas se cruzan como en una "
             "foto y hacen falta cuatro puntos: unidad 05."
         ),
         "anterior": "03_reflexiones_similaridades",
@@ -2182,7 +2182,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
         ),
         "vamos_hacia": (
             r"Las rectas $\ell^T p = 0$ se transforman con $H^{-T}$, al revés que los puntos; para entender eso "
-            "necesito el dual: unidad 06."
+            "necesitamos el dual: unidad 06."
         ),
         "anterior": "04_afines_homogeneas",
         "siguiente": "06_formas_lineales",

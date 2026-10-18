@@ -11,7 +11,6 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
   - entregas/pentagono/Pentagono_Proyectivas_Varela_56798.tex
   - entregas/pentagono/Problema_transformaciones_proyectivas.pdf
-  - fuentes/campus/profesor/2026-09-16_pizarron_pentagono.jpg
   - fuentes/campus/profesor/Proyectivas_del_pentagono.xlsx
 conceptos: [plano-proyectivo, punto-impropio, homografia, recta-fija, razon-doble]
 apunte: ["05", "12", "18"]
@@ -56,10 +55,9 @@ Pentágono ABCDE. 1. ¿Cuáles son las posibles transformaciones proyectivas en 
 caen en otros cuatro? 2. ¿Cómo se calculan? 3. ¿Dónde cae el vértice restante? 4. ¿Tiene punto
 fijo?"
 
-La foto del pizarrón de ese día (16:28, `fuentes/campus/profesor/2026-09-16_pizarron_pentagono.jpg`,
-mandada por el profesor por Google Chat el 2026-10-17) muestra las mismas cuatro preguntas y dos
-dibujos: el pentágono ABCDE con su centro F y un punto G debajo, y una segunda figura con los
-vértices reubicados y el C con signo de pregunta.
+La consigna, tal como la planteó en clase, venía con esas cuatro preguntas y dos dibujos: el
+pentágono ABCDE con su centro F y un punto G debajo, y una segunda figura con los vértices
+reubicados y el C con signo de pregunta.
 
 Cómo lo contó el profesor *(transcripción auto-traducida)*: "mi idea era pensar un pentágono
 regular, construir una transformación proyectiva que intercambie los vértices y preguntarnos dónde

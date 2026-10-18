@@ -44,7 +44,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 5. La pregunta: **¿cómo detecto con una cuenta, sin medir ningún ángulo, que unos vectores (o unos
+    Seguimos la clase 5. La pregunta: **¿cómo detectamos con una cuenta, sin medir ningún ángulo, que unos vectores (o unos
     mojones) se aplastaron a algo de menor dimensión?** El gancho: *tres mojones que deberían estar alineados: el
     determinante de sus coordenadas homogéneas los delata.*
 
@@ -88,7 +88,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Relevé tres mojones de un alambrado que, según el título, es **recto**: $A = (1, 1)$, $B = (4, 3)$ y
+        Relevamos tres mojones de un alambrado que, según el título, es **recto**: $A = (1, 1)$, $B = (4, 3)$ y
         $C = (7, 6)$ (metros). Si los tres están alineados, el vector $B - A = (3, 2)$ y el vector $C - A = (6, 5)$
         tienen que ser **paralelos**: uno es un múltiplo del otro, y entre los dos no arman ningún área.
 
@@ -292,7 +292,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
         """),
         mo.hstack([
             mo.md(r"""
-            **3.1 El área con las dos reglas.** $u = (3, 1)$, $v = (1, 2)$. Escribo cada uno en la base y distribuyo, con
+            **3.1 El área con las dos reglas.** $u = (3, 1)$, $v = (1, 2)$. Escribimos cada uno en la base y distribuimos, con
             $e_1 \wedge e_1 = e_2 \wedge e_2 = 0$ y $e_2 \wedge e_1 = -\,e_1 \wedge e_2$:
 
             $$u \wedge v = (3e_1 + e_2) \wedge (e_1 + 2e_2) = 3 \cdot 2\; e_1 \wedge e_2 + 1 \cdot 1\; e_2 \wedge e_1 = (6 - 1)\; e_1 \wedge e_2 .$$
@@ -320,7 +320,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
         ], widths="equal", align="start"),
         mo.hstack([
             mo.md(r"""
-            **3.3 Los tres mojones, en homogéneas.** Cada mojón como terna $(x, y, 1)$, las tres como filas; desarrollo
+            **3.3 Los tres mojones, en homogéneas.** Cada mojón como terna $(x, y, 1)$, las tres como filas; desarrollamos
             por la columna de unos:
 
             $$\det\begin{pmatrix} 1 & 1 & 1 \\ 4 & 3 & 1 \\ 7 & 6 & 1 \end{pmatrix} = (24 - 21) - (6 - 7) + (3 - 4) = 3 .$$
@@ -480,7 +480,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (el determinante como la única operación lineal en cada vector y nula con dos
+    Acá verificamos; las demostraciones (el determinante como la única operación lineal en cada vector y nula con dos
     iguales, el producto exterior en cualquier dimensión, incidencia y alineación en homogéneas):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 5: la misma idea en cada dimensión](../../apunte.pdf#nameddest=cap:05)

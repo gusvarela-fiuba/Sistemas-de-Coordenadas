@@ -44,7 +44,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 6 (lección complementaria). La pregunta: **¿qué recta del espacio deja quieta una rotación compuesta,
+    Seguimos la clase 6 (lección complementaria). La pregunta: **¿qué recta del espacio deja quieta una rotación compuesta,
     y qué tiene que ver eso con los puntos fijos del pentágono?** El gancho: *el eje de una rotación es la dirección
     que no gira; en la foto rectificada, un punto fijo es un autovector de la $3\times3$.*
 
@@ -83,7 +83,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Nivelo la estación girando $90°$ alrededor del eje $y$ y después la oriento girando $90°$ alrededor del eje
+        Nivelamos la estación total girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
         $z$ (lección 01c). El resultado es **un solo giro** alrededor de un eje nuevo: la única dirección del espacio que
         la rotación compuesta deja quieta. Es la dirección $v$ con $Rv = v$: un autovector de autovalor $1$.
 
@@ -133,7 +133,7 @@ def _(mo):
 
     **El autovector es la cruz de dos filas.** Las tres filas de $A - \lambda I$ son reglas que marcan cero sobre $v$:
     $v$ es perpendicular a las tres, y el producto vectorial de dos de ellas lo da. Si ese par da cero (filas paralelas)
-    tomo otro par; si **todos** los pares dan cero, $\lambda$ es raíz doble y el núcleo es un plano entero de autovectores.
+    tomamos otro par; si **todos** los pares dan cero, $\lambda$ es raíz doble y el núcleo es un plano entero de autovectores.
 
     | | álgebra | lo que se ve |
     |---|---|---|
@@ -281,7 +281,7 @@ def _(R_sit, lib, mo, np):
         ], widths="equal", align="start"),
         mo.hstack([
             mo.md(r"""
-            **3.2 El eje de $R = R_z(90°)R_y(90°)$, sin polinomio.** Es rotación (la armé componiendo rotaciones):
+            **3.2 El eje de $R = R_z(90°)R_y(90°)$, sin polinomio.** Es rotación (la armamos componiendo rotaciones):
             $\lambda = 1$ y listo. Filas de $R - I$: $(-1, -1, 0)$, $(0, -1, 1)$, $(-1, 0, -1)$. Cruz de las dos primeras:
 
             $$(-1, -1, 0) \times (0, -1, 1) = \big((-1)(1) - 0(-1),\ 0 \cdot 0 - (-1)(1),\ (-1)(-1) - (-1)(0)\big) = (-1, 1, 1).$$
@@ -320,9 +320,9 @@ def _(R_sit, lib, mo, np):
         mo.md(r"""
         ## 4. Python de hoy
 
-        Una sola idea: **`np.linalg.eig` devuelve complejos cuando hay giro, y me quedo con los reales**. `w` es el array
-        de autovalores (`dtype complex`), `V` tiene los autovectores por columnas; filtro con `abs(w.imag) < 1e-9`, tomo
-        `.real` y escalo la columna como me convenga (un autovector es una dirección: cualquier múltiplo sirve).
+        Una sola idea: **`np.linalg.eig` devuelve complejos cuando hay giro, y nos quedamos con los reales**. `w` es el array
+        de autovalores (`dtype complex`), `V` tiene los autovectores por columnas; filtramos con `abs(w.imag) < 1e-9`, tomamos
+        `.real` y escalamos la columna como convenga (un autovector es una dirección: cualquier múltiplo sirve).
         """),
         mo.md("```python\nw, V = np.linalg.eig(R)\nreales = [k for k in range(3) if abs(w[k].imag) < 1e-9]\nv = V[:, reales[0]].real\nv / np.abs(v).max()               # escalado para leerlo\n```"),
         mo.md(f"`w` = `{np.round(_w, 4).tolist()}` → reales en las posiciones `{_reales}` · `v` escalado = `{np.round((_V[:, _reales[0]].real / np.abs(_V[:, _reales[0]].real).max()), 6).tolist()}`"),
@@ -451,14 +451,14 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
+    Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
     puntos y rectas fijas de una homografía, la homología del pentágono):
 
     - [apunte, sección 11: productos, determinante y autovectores](../../apunte.pdf#nameddest=cap:11) · [sección 12: puntos fijos y rectas fijas de una homografía](../../apunte.pdf#nameddest=cap:12)
     - [apéndice 18: pentágono regular, autovector por producto cruz](../../apunte.pdf#nameddest=cap:18) · [apéndice 14: rotaciones 3D](../../apunte.pdf#nameddest=cap:14)
     - [ficha de la clase 6](../../clases/06.html) · [lección anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [lección 05: proyectivas](../05_proyectivas/index.html) · [lección 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
-    **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armo una base con los
+    **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armamos una base con los
     autovectores, en esa grilla la transformación es sólo estirar cada eje por su $\lambda$.
     """)
     return

@@ -43,7 +43,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 3. La pregunta: **¿Cómo meto la traslación adentro de la matriz para componer rotar, escalar y mover
+    Seguimos la clase 3. La pregunta: **¿Cómo metemos la traslación adentro de la matriz para componer rotar, escalar y mover
     con una sola cuenta?** El gancho: *un plano escaneado que quedó estirado distinto en cada eje: las paralelas siguen
     paralelas y tres puntos conocidos alcanzan para corregirlo.*
 
@@ -84,12 +84,12 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Escaneé un plano viejo de una parcela y la hoja pasó torcida por el rodillo: quedó **estirada distinto en cada
-        eje y un poco inclinada**. Lo sé porque las cuadrículas del plano, que eran cuadrados, en la imagen son
+        Escaneamos un plano viejo de una parcela y la hoja pasó torcida por el rodillo: quedó **estirada distinto en cada
+        eje y un poco inclinada**. Lo sabemos porque las cuadrículas del plano, que eran cuadrados, en la imagen son
         paralelogramos iguales. Nada se curvó ni se cruzó.
 
         Sobre el lado oeste hay tres mojones: las esquinas, en el terreno $(1, 1)$ y $(1, 5)$, y uno intermedio a mitad
-        del lado, $(1, 3)$ (metros). En la imagen mido dónde cayeron las esquinas. ¿Dónde tiene que aparecer el intermedio?
+        del lado, $(1, 3)$ (metros). En la imagen medimos dónde cayeron las esquinas. ¿Dónde tiene que aparecer el intermedio?
         """),
         prediccion,
     ])
@@ -103,7 +103,7 @@ def _(mo, prediccion):
         "correcta": ("success",
                      r"**Sí.** $(4, 4.75)$ es el **punto medio** de las esquinas escaneadas. Una afinidad estira, inclina y corre, "
                      r"pero conserva las **razones sobre cada recta**: lo que estaba a mitad de camino sigue a mitad de camino, "
-                     r"sin conocer la deformación. En la sección 3 la calculo igual, a partir de tres puntos."),
+                     r"sin conocer la deformación. En la sección 3 la calculamos igual, a partir de tres puntos."),
         "rotacion": ("warn",
                      r"**No.** Dejaste el mojón a $2$ unidades de la esquina, como si el escaneo fuera un **giro** que conserva "
                      r"distancias. Pero el lado de $4$ m aparece con largo $\sqrt{29} \approx 5.39$: se estiró. Una afinidad no "
@@ -113,7 +113,7 @@ def _(mo, prediccion):
                        r"sólo **corriera** la hoja. Ese punto ni está sobre el segmento entre las esquinas escaneadas, y una afinidad "
                        r"lleva rectas a rectas: el intermedio tiene que caer sobre ese segmento."),
         "mismas": ("warn",
-                   r"**No.** $(1, 3)$ son las coordenadas en el **terreno**. El mojón no se movió, pero pregunto dónde aparece en la "
+                   r"**No.** $(1, 3)$ son las coordenadas en el **terreno**. El mojón no se movió, pero preguntamos dónde aparece en la "
                    r"**imagen**, donde las esquinas ya no están en $(1,1)$ y $(1,5)$: cambió la hoja, no la parcela."),
     }
     _kind, _texto = _respuestas[prediccion.value]
@@ -265,7 +265,7 @@ def _(mo):
                         value="girar, escalar y después mover", label="orden de composición")
     mo.md(r"""
     **La traslación entra por la tercera columna.** Tres matrices $3\times3$: $R$ gira, $S$ escala, $T$ mueve.
-    Compongo multiplicando (la de la derecha actúa primero) y leo en $H$ la parte lineal $A$ (teal y rust) y a
+    Componemos multiplicando (la de la derecha actúa primero) y leemos en $H$ la parte lineal $A$ (teal y rust) y a
     dónde fue el origen (gold). Cambiá el orden (en el panel de la derecha): $A$ es la misma, $t$ no, porque mover
     antes de girar gira también el corrimiento.
     """)
@@ -464,8 +464,8 @@ def _(mo):
     mo.vstack([
         mo.md(r"""
         **(d) Código con hueco — avanzado: corregir el plano escaneado** *("tres puntos conocidos alcanzan para
-        corregirlo").* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leo en el escaneo, `esc`.
-        El cuarto sólo lo tengo en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
+        corregirlo").* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
+        El cuarto sólo lo tenemos en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
         mojón. Tenés `np`, `hom`, `dehom` y los tres arrays cargados.
         """),
         editor_d,
@@ -508,7 +508,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
+    Acá verificamos; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
 
     - [apunte, sección 10: transformaciones afines y coordenadas homogéneas](../../apunte.pdf#nameddest=cap:10) · [sección 5: puntos como rayos](../../apunte.pdf#nameddest=cap:05)
     - [apunte, sección 8: la guía de reflexiones y similaridades](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)

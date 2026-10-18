@@ -45,10 +45,10 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue es mi lectura del esqueleto 2025, pendiente de validar
+    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025, pendiente de validar
     por la cátedra.*
 
-    Sigo la clase 14. La pregunta: **¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por
+    Seguimos la clase 14. La pregunta: **¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por
     qué sus ángulos suman más de 180°?** El gancho: *entre tres vértices lejanos la suma de ángulos de la poligonal trae
     un exceso esférico; corregirlo es parte del cálculo.*
 
@@ -86,8 +86,8 @@ def _(lib, mo, np):
 
         Una red de tres vértices que no caben en ningún plano: Buenos Aires, Mendoza y Ushuaia, con lados de
         ${R_TIERRA * lados_c[2]:.0f}$, ${R_TIERRA * lados_c[0]:.0f}$ y ${R_TIERRA * lados_c[1]:.0f}$ km (por el camino más corto sobre la
-        Tierra, que tomo como esfera de radio $6371$ km). En cada vértice mido el ángulo entre las dos líneas más
-        cortas que salen hacia los otros dos. En el plano, los tres ángulos suman $180°$ y con eso cierro la poligonal.
+        Tierra, que tomamos como esfera de radio $6371$ km). En cada vértice medimos el ángulo entre las dos líneas más
+        cortas que salen hacia los otros dos. En el plano, los tres ángulos suman $180°$ y con eso cerramos la poligonal.
         """),
         prediccion,
     ])
@@ -379,7 +379,7 @@ def _(editor_c, lib, mo, np):
             _res = mo.callout(mo.md("❌ devolvés **radianes**. Falta `np.degrees(...)` al final."), kind="warn")
         else:
             _i = int(np.argmax(~np.isclose(_obt, _esp)))
-            _res = mo.callout(mo.md(f"❌ no coincide. Para el par {_i + 1} esperaba `{_esp[_i]:.3f}°` y obtuve `{_obt[_i]:.3f}`. ¿Dividiste por los dos largos?"), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para el par {_i + 1} se esperaba `{_esp[_i]:.3f}°` y se obtuvo `{_obt[_i]:.3f}`. ¿Dividiste por los dos largos?"), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -429,7 +429,7 @@ def _(editor_d, lib, mo, np):
         elif np.allclose(_obt, _en_grados, equal_nan=True):
             _res = mo.callout(mo.md("❌ le pasaste **grados** a `np.cos` y `np.sin`: convertí con `np.radians` primero."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para el triángulo (a): esperaba `{_esp[1]:.3f}°`, obtuve `{_obt[1]:.3f}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para el triángulo (a): se esperaba `{_esp[1]:.3f}°`, se obtuvo `{_obt[1]:.3f}`."), kind="danger")
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -441,7 +441,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y el final del recorrido
 
-    Acá mostré que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
+    Acá verificamos que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
     el exceso es el área. En el apunte está en la sección
     [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica): el triángulo
     como tres planos por el centro, los teoremas del coseno y del seno deducidos con producto interno y determinante, el

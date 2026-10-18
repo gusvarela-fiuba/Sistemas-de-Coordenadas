@@ -43,8 +43,8 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 1. En la lección I el mojón quedaba quieto y giraban los ejes. Acá giro la **parcela entera** con los
-    ejes quietos (rotación activa) y me pregunto **qué le pasa y qué no le pasa**: eso define a la rotación.
+    Seguimos la clase 1. En la lección I el mojón quedaba quieto y giraban los ejes. Acá giramos la **parcela entera** con los
+    ejes quietos (rotación activa) y nos preguntamos **qué le pasa y qué no le pasa**: eso define a la rotación.
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
     <span style="color:#1b6f6a">**teal**</span> y la **segunda** <span style="color:#b5451b">**rust**</span>; cada
@@ -65,8 +65,8 @@ def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
 
-    Relevé una parcela de cinco vértices con el eje $x$ a lo largo del frente. Para dibujarla con el norte para arriba
-    tengo que girar el plano entero **un cuarto de vuelta antihorario**, $90°$. Giran los cinco vértices a la vez, y
+    Relevamos una parcela de cinco vértices con el eje $x$ a lo largo del frente. Para dibujarla con el norte para arriba
+    tenemos que girar el plano entero **un cuarto de vuelta antihorario**, $90°$. Giran los cinco vértices a la vez, y
     con ellos cada distancia, cada ángulo entre lados y el área que figura en el título de propiedad.
 
     El vértice del frente es $(4, 1)$. Antes de mirar la figura: ¿a dónde va?
@@ -93,7 +93,7 @@ def _(lib, mo, np):
             lib.vec_plano(candidatos["sentido-contrario"]): "sentido-contrario",
         },
         value=None,
-        label=r"**Predicción.** Giro la parcela $90°$ antihorario alrededor del origen. El vértice $(4, 1)$ va a parar a…",
+        label=r"**Predicción.** Giramos la parcela $90°$ antihorario alrededor del origen. El vértice $(4, 1)$ va a parar a…",
     )
     prediccion
     return R90, candidatos, prediccion, vertice
@@ -129,7 +129,7 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **¿Qué se conserva?** Dejo quieto un punto, muevo otro sin cambiarle la distancia al primero, y el resto de la hoja
+    **¿Qué se conserva?** Dejamos quieto un punto, movemos otro sin cambiarle la distancia al primero, y el resto de la hoja
     se acomoda sola, cada punto a la misma distancia y con los mismos ángulos que antes. Eso es una rotación:
     **conserva distancias y ángulos**, y no da vuelta la hoja. Lo que se ve: cada punto recorre una circunferencia.
 
@@ -432,7 +432,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
+    En esta unidad demostramos qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)

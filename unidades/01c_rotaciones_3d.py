@@ -44,9 +44,9 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo el final de la clase 1 y el comienzo de la 2. En el plano alcanzaba un ángulo. En el espacio hay que decir
-    **alrededor de qué eje**, hay un giro básico por cada eje coordenado, y **el orden en que los encadeno cambia el
-    resultado**. La parte buena: por más giros que encadene, el resultado es **un solo giro** alrededor de algún eje.
+    Seguimos el final de la clase 1 y el comienzo de la 2. En el plano alcanzaba un ángulo. En el espacio hay que decir
+    **alrededor de qué eje**, hay un giro básico por cada eje coordenado, y **el orden en que los encadenamos cambia el
+    resultado**. La parte buena: por más giros que encadenemos, el resultado es **un solo giro** alrededor de algún eje.
 
     Colores: la **primera columna** de la matriz es <span style="color:#1b6f6a">**teal**</span>, la **segunda**
     <span style="color:#b5451b">**rust**</span> y la **tercera** <span style="color:#c9a227">**gold**</span>: las tres
@@ -67,11 +67,11 @@ def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
 
-    Para nivelar la estación total la inclino alrededor de un eje horizontal y después la giro alrededor del eje
+    Para nivelar la estación total la inclinamos alrededor de un eje horizontal y después la giramos alrededor del eje
     vertical para apuntar al mojón. Un compañero hace lo mismo al revés: primero gira, después inclina. Con
     correcciones chiquitas los dos terminan casi igual. Con giros grandes, no.
 
-    Un caso extremo, con un punto de prueba: el extremo del eje $x$ del instrumento, $e_x = (1, 0, 0)$. Lo giro $90°$
+    Un caso extremo, con un punto de prueba: el extremo del eje $x$ del instrumento, $e_x = (1, 0, 0)$. Lo giramos $90°$
     alrededor de $y$ y **después** $90°$ alrededor de $z$ (mano derecha: antihorario mirando desde la punta del eje).
     ¿Dónde termina?
     """)
@@ -97,7 +97,7 @@ def _(lib, mo, np):
             lib.vec_plano(candidatos["reflexion"]): "reflexion",
         },
         value=None,
-        label=r"**Predicción.** Giro $e_x = (1, 0, 0)$ primero $90°$ alrededor de $y$ y después $90°$ alrededor de $z$. Termina en…",
+        label=r"**Predicción.** Giramos $e_x = (1, 0, 0)$ primero $90°$ alrededor de $y$ y después $90°$ alrededor de $z$. Termina en…",
     )
     prediccion
     return Ry90, Rz90, candidatos, ex, prediccion
@@ -112,7 +112,7 @@ def _(mo, prediccion):
                      r"$z$ deja quieto todo lo que está sobre el eje $z$: $-e_z$ se queda. En la sección 2 fijate que en el otro "
                      r"orden termina en otro lado."),
         "otro-orden": ("warn",
-                       r"**No.** $(0, 1, 0)$ es donde termina si giro **primero alrededor de $z$** ($e_x \to e_y$) y después alrededor "
+                       r"**No.** $(0, 1, 0)$ es donde termina si giramos **primero alrededor de $z$** ($e_x \to e_y$) y después alrededor "
                        r"de $y$ ($e_y$ queda quieto). Invertiste el orden, y en 3D el orden cambia el resultado: eso es lo que "
                        r"muestra la lección."),
         "mismas": ("warn",
@@ -249,7 +249,7 @@ def _(Ry90, Rz90, ex, lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.1 La composición, columna por columna.** Para armar $R = R_z(90°)R_y(90°)$ no hace falta multiplicar
-            nueve por nueve: la columna $k$ es "a dónde va $e_k$", y lo sigo giro por giro (primero $y$, después $z$):
+            nueve por nueve: la columna $k$ es "a dónde va $e_k$", y lo seguimos giro por giro (primero $y$, después $z$):
 
             - $e_x \xrightarrow{R_y} -e_z \xrightarrow{R_z} -e_z$ (sobre el eje $z$, $R_z$ no lo toca): columna 1 $= \textcolor{#1b6f6a}{(0, 0, -1)}$
             - $e_y \xrightarrow{R_y} e_y \xrightarrow{R_z} -e_x$: columna 2 $= \textcolor{#b5451b}{(-1, 0, 0)}$
@@ -277,7 +277,7 @@ def _(Ry90, Rz90, lib, mo, np):
     mo.hstack([
         mo.md(r"""
         **3.2 Un solo giro.** $R = R_z(90°)R_y(90°)$ es ortogonal con $\det = 1$, así que tiene que dejar quieta una recta.
-        Pruebo $u = (-1, 1, 1)/\sqrt3$:
+        Probamos $u = (-1, 1, 1)/\sqrt3$:
 
         $$R\,u = \tfrac{1}{\sqrt3}\begin{pmatrix} 0\cdot(-1) - 1\cdot1 + 0 \\ 0 + 0 + 1\cdot1 \\ -1\cdot(-1) + 0 + 0 \end{pmatrix} = \tfrac{1}{\sqrt3}\begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix} = u.$$
 
@@ -388,7 +388,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
+    En esta unidad demostramos que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
 
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07) (el orden importa, el ejemplo de $90°$)
     - [apunte, sección 14: $R_x, R_y, R_z$ por columnas y Rodrigues](../../apunte.pdf#nameddest=cap:14)

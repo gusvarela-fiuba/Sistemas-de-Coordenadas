@@ -45,10 +45,10 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue es mi lectura del esqueleto 2025 y del apunte,
+    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025 y el apunte de la cátedra,
     pendiente de validar por la cátedra.*
 
-    Sigo la clase 13 del esqueleto. La pregunta: **¿Qué se deduce del elipsoide con sólo saber que todos sus
+    Seguimos la clase 13 del esqueleto. La pregunta: **¿Qué se deduce del elipsoide con sólo saber que todos sus
     meridianos son la misma elipse?** El gancho: *la latitud geodésica y la geocéntrica no coinciden porque la normal
     al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón.*
 
@@ -56,7 +56,7 @@ def _(mo):
     **meridiano** del punto en <span style="color:#1b6f6a">**teal**</span> y su **paralelo** en
     <span style="color:#c9a227">**gold**</span>; la **normal** (la vertical elipsoidal) en
     <span style="color:#b5451b">**rust**</span>; la recta al centro en gris; el mojón en
-    <span style="color:#7a4e9e">**violeta**</span>. Sigo la notación del apunte del profesor (*Geometría del
+    <span style="color:#7a4e9e">**violeta**</span>. Seguimos la notación del apunte del profesor (*Geometría del
     Elipsoide y cálculos Geodésicos*): $a, b, f, e^2, e'^2$, $M$, $N$, $x'$ el radio del paralelo.
     """)
     return
@@ -106,7 +106,7 @@ def _(dif_sit, lib, mo, np, prediccion, psi_sit):
         "correcta": ("success",
                      rf"**Sí.** Es la **latitud geocéntrica** $\psi$: $\tan\psi = (1 - e^2)\tan\varphi$; con $\varphi = 45°$, "
                      rf"$\psi = \arctan(1 - e^2) = {_psi}$, {dif_sit * 60:.1f}′ menos. La normal es más empinada que el radio: corta "
-                     r"el eje polar **debajo** del centro. Abajo lo muestro en la elipse meridiana."),
+                     r"el eje polar **debajo** del centro. Abajo lo mostramos en la elipse meridiana."),
         "misma": ("warn",
                   r"**No.** Vale en la esfera, donde toda normal es un radio. En la elipse la normal es perpendicular a la tangente, "
                   r"y la tangente no es perpendicular al radio salvo en los vértices: la normal en $45°$ corta el eje polar a "
@@ -130,7 +130,7 @@ def _(mo):
 
     **¿Qué se conserva?** Al girar el elipsoide alrededor del eje polar cae sobre sí mismo; al reflejarlo en un
     plano meridiano, también. Eso es "todos los meridianos son la misma elipse y los paralelos son círculos", y de
-    ahí deduzco (mi lectura del título del esqueleto):
+    ahí deducimos (nuestra lectura del título del esqueleto):
 
     1. nada métrico depende de $\lambda$: $M$, $N$, $K$ y la primera forma son funciones de $\varphi$ sola;
     2. el plano meridiano es plano de simetría: la forma cuadrática de la curvatura (lección 12) es simétrica
@@ -397,7 +397,7 @@ def _(editor_c, grs80, lib, mo, np, puntos_cd):
         elif np.allclose(_obtenido, lib.geodesica_a_cartesiana(puntos_cd[:, 0], puntos_cd[:, 1], _h, _a, _e2), atol=1e-3):
             _res = mo.callout(mo.md(r"❌ pasaste los grados directo a `np.cos` y `np.sin`, que trabajan en radianes: `np.deg2rad` primero."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer punto esperaba `{np.round(_esperado[0], 2).tolist()}` y obtuve `{np.round(_obtenido[0], 2).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para el primer punto se esperaba `{np.round(_esperado[0], 2).tolist()}` y se obtuvo `{np.round(_obtenido[0], 2).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -439,7 +439,7 @@ def _(editor_d, grs80, lib, mo, np, puntos_cd):
         elif np.allclose(_obtenido, np.rad2deg(np.arctan((1 - _e2) * np.tan(_phis))), atol=1e-6, equal_nan=True) or np.allclose(_obtenido, np.arctan((1 - _e2) * np.tan(np.deg2rad(_phis))), atol=1e-6):
             _res = mo.callout(mo.md(r"❌ los grados: `np.tan` y `np.arctan` trabajan en radianes. `np.deg2rad` al entrar y `np.rad2deg` al salir."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para $\\varphi = {_phis[0]:.4f}°$ esperaba `{_esperado[0]:.6f}` y obtuve `{_obtenido[0]:.6f}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para $\\varphi = {_phis[0]:.4f}°$ se esperaba `{_esperado[0]:.6f}` y se obtuvo `{_obtenido[0]:.6f}`."), kind="danger")
     except Exception as _e:
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -451,7 +451,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que de la elipse girada salen las tres latitudes, $M \ne N$, la conversión a cartesianas y la primera
+    Acá verificamos que de la elipse girada salen las tres latitudes, $M \ne N$, la conversión a cartesianas y la primera
     forma. Las demostraciones:
 
     - [apunte, sección "Geometría del elipsoide: latitudes, radios y conversión"](../../apunte.pdf#nameddest=sec:elipsoide):

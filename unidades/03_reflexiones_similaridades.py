@@ -44,7 +44,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 3. *La clase 3 no tiene transcripción: esta lección está reconstruida desde el esqueleto 2025 del
+    Seguimos la clase 3. *La clase 3 no tiene transcripción: esta lección está reconstruida desde el esqueleto 2025 del
     profesor, la guía de seis teoremas y el apunte.* La pregunta: **¿qué movimiento conserva la forma pero no el
     tamaño, y cuál da vuelta la orientación?** El gancho: *un plano viejo en otra escala y con el norte para otro lado
     hay que superponerlo sobre el relevamiento nuevo.*
@@ -87,14 +87,14 @@ def _(lib, mo, np):
         mo.md(rf"""
         ## 0. Situación de campo y predicción
 
-        Tengo un **plano viejo** de la parcela, a otra escala y con el norte para otro lado, y el **relevamiento
+        Tenemos un **plano viejo** de la parcela, a otra escala y con el norte para otro lado, y el **relevamiento
         nuevo** en metros. El plano viejo está bien dibujado, con regla y transportador: los ángulos son los del terreno
         y todas las distancias están reducidas por el mismo factor.
 
-        Dos mojones aparecen en los dos: en el plano viejo los leo en ${lib.vec_tex(P_viejo[0])}$ y
+        Dos mojones aparecen en los dos: en el plano viejo los leemos en ${lib.vec_tex(P_viejo[0])}$ y
         ${lib.vec_tex(P_viejo[1])}$; en el relevamiento están en ${lib.vec_tex(Q_nuevo[0])}$ y ${lib.vec_tex(Q_nuevo[1])}$.
         Distan $\sqrt{{10}} \approx {d_viejo:.2f}$ en el papel y $\sqrt{{20}} \approx {d_nuevo:.2f}$ en el terreno. Un tercer
-        mojón, ${lib.vec_tex(P_viejo[2])}$ en el plano viejo, todavía no lo medí.
+        mojón, ${lib.vec_tex(P_viejo[2])}$ en el plano viejo, todavía no lo medimos.
         """),
         prediccion,
     ])
@@ -108,10 +108,10 @@ def _(mo, prediccion):
         "correcta": ("success",
                      r"**Sí.** Girar, escalar por un mismo factor y correr son cuatro números ($k$, $\theta$ y el corrimiento); cada "
                      r"mojón conocido en los dos planos da dos ecuaciones. Dos alcanzan y el tercero controla. En la sección 3 lo "
-                     r"calculo con un solo número complejo."),
+                     r"calculamos con un solo número complejo."),
         "rotacion": ("warn",
                      r"**No.** Un giro más un corrimiento conserva las distancias, pero los mojones distan $\sqrt{10}$ en el papel y "
-                     r"$\sqrt{20}$ en el terreno: la escala cambió. Y con un solo mojón no sabría cuánto girar. Falta el factor $k$: "
+                     r"$\sqrt{20}$ en el terreno: la escala cambió. Y con un solo mojón no sabríamos cuánto girar. Falta el factor $k$: "
                      r"el escalón que separa la rotación de la similaridad."),
         "reflexion": ("warn",
                       r"**No.** Que el norte apunte para otro lado es un **giro**, no un espejo. Un espejo daría vuelta la parcela como "
@@ -132,7 +132,7 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **La reflexión conserva todo y da vuelta la hoja.** Elijo una recta como espejo; cada punto va al otro lado, sobre
+    **La reflexión conserva todo y da vuelta la hoja.** Elegimos una recta como espejo; cada punto va al otro lado, sobre
     su perpendicular, a la misma distancia. Distancias y ángulos quedan iguales, pero lo que iba antihorario ahora va
     horario: $\det = -1$. Hacerla dos veces devuelve cada punto a su lugar: es su propia inversa. Y **dos espejos
     seguidos** respecto de rectas que se cortan en $o$ son una **rotación** alrededor de $o$ por el doble del ángulo
@@ -185,7 +185,7 @@ def _(mo, np):
     ## 2. Manipulación
 
     Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después, con las columnas de la
-    matriz como flechas; **violeta**, la parcela con estelas. En los espejos dibujo la recta espejo (a rayas); en la
+    matriz como flechas; **violeta**, la parcela con estelas. En los espejos dibujamos la recta espejo (a rayas); en la
     similaridad con centro, el centro fijo en gold. Mirá el **área con signo**: cambia de signo con un espejo, vuelve
     a ser positiva con dos, y va $\times k^2$ con la similaridad. A la derecha de la figura, el panel con el caso,
     los deslizadores y los números vivos.
@@ -292,7 +292,7 @@ def _(go, lib, mo, n_pasos, np):
         $p, Ap, A^2p, \dots$, la identifica: la **rotación** lo pasea por una circunferencia, la **homotecia** por un
         rayo, y la **similaridad**, las dos a la vez, por una espiral que se acerca al centro si $k < 1$ y se aleja si
         $k > 1$. Rotación y homotecia con el mismo centro **conmutan**; sus trayectorias, círculos y rayos, son las
-        **líneas coordenadas** polares: cada punto es "cuánto giré y cuánto escalé". Las rectas de la grilla, en cambio,
+        **líneas coordenadas** polares: cada punto es "cuánto giramos y cuánto escalamos". Las rectas de la grilla, en cambio,
         siempre van a rectas (la grilla teal de arriba): eso es lo afín.
         """),
         lib.mesa_interactiva(mo, mo.ui.plotly(fig_t), mo.md("**Controles**"), n_pasos,
@@ -367,7 +367,7 @@ def _(A_sit, P_viejo, a_c, b_c, lib, mo, np, t_sit):
         ## 4. Python de hoy
 
         Una sola idea: **una similaridad es un número complejo**. La nube $N\times2$ se vuelve un array de complejos con
-        `z = puntos[:, 0] + 1j * puntos[:, 1]`, la similaridad entera es `a * z + b` (sin matrices) y vuelvo con
+        `z = puntos[:, 0] + 1j * puntos[:, 1]`, la similaridad entera es `a * z + b` (sin matrices) y volvemos con
         `np.column_stack([w.real, w.imag])`. Es la misma cuenta que `puntos @ A.T + t` de la lección 04, con
         $A = \lvert a \rvert\,R(\arg a)$. El centro sale de `np.linalg.solve(np.eye(2) - A, t)`, o en complejos de $c = b / (1 - a)$.
         """),
@@ -507,7 +507,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
+    Acá verificamos; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
     - [apunte, sección 8: la guía de seis teoremas](../../apunte.pdf#nameddest=cap:08) · [sección 9: guía resuelta](../../apunte.pdf#nameddest=cap:09)

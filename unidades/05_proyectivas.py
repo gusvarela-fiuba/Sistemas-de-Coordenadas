@@ -44,8 +44,8 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase extra del 16/9 y 23/9. La pregunta: **¿por qué en la foto los alambrados paralelos se juntan en un
-    punto, y con cuántos puntos enderezo la imagen?** El gancho: *una foto de dron inclinada sobre un lote plano: cuatro
+    Seguimos la clase extra del 16/9 y 23/9. La pregunta: **¿por qué en la foto los alambrados paralelos se juntan en un
+    punto, y con cuántos puntos enderezamos la imagen?** El gancho: *una foto de dron inclinada sobre un lote plano: cuatro
     mojones de coordenadas conocidas la rectifican.* Y el problema del profesor: un pentágono regular, una proyectiva
     que deja dos vértices quietos e intercambia otros dos; ¿dónde cae el quinto?
 
@@ -88,9 +88,9 @@ def _(lib, mo, np):
         ## 0. Situación de campo y predicción
 
         Un dron fotografió un lote plano y cuadrado de $40$ m de lado, pero la cámara estaba **inclinada**: en la foto
-        el lote es un trapecio, y los alambrados que en el terreno son paralelos se van juntando hacia arriba. Trabajo
+        el lote es un trapecio, y los alambrados que en el terreno son paralelos se van juntando hacia arriba. Trabajamos
         en decámetros para que la grilla se lea: las esquinas están en el terreno en $(0,0)$, $(4,0)$, $(4,4)$, $(0,4)$
-        y en la foto las leo en $(0,0)$, $(4,0)$, $(3,2)$, $(1,2)$.
+        y en la foto las leemos en $(0,0)$, $(4,0)$, $(3,2)$, $(1,2)$.
 
         Hay un quinto mojón, en el centro del lote, $(2, 2)$. En la lección 04 una afinidad mandaba el punto medio al
         punto medio. Acá la cámara **no** hace una afinidad: lo que sigue valiendo es que las rectas van a rectas, así
@@ -112,7 +112,7 @@ def _(mo, prediccion):
                         r"tercera**. En homogéneas el punto es el rayo entero: hay que volver al plano $W = 1$ dividiendo por $1.5$, y queda $(2, 1.333)$."),
         "afin": ("warn", r"**No.** $(2, 1)$ es el promedio de las cuatro esquinas de la foto, lo que haría una **afinidad** (punto medio al punto "
                  r"medio). Pero una afinidad conserva paralelas, y en la foto los lados $x = 0$ y $x = 4$ ya no lo son: no está sobre las diagonales."),
-        "mismas": ("warn", r"**No.** $(2, 2)$ es el centro en el **terreno**. Pregunto dónde aparece en la **foto**, donde las esquinas de arriba ya "
+        "mismas": ("warn", r"**No.** $(2, 2)$ es el centro en el **terreno**. Preguntamos dónde aparece en la **foto**, donde las esquinas de arriba ya "
                    r"se corrieron a $(1, 2)$ y $(3, 2)$: cambió la imagen, no el lote."),
     }
     _kind, _texto = _respuestas[prediccion.value]
@@ -301,7 +301,7 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
             mo.md(r"""
             **3.1 Un $\lambda$ por punto (la planilla del profesor).** Pentágono regular centrado, $D = (0, 1)$ y los
             demás vértices por giros de $72°$: $A = (0.588, -0.809)$, $B = (-0.588, -0.809)$, $C = (-0.951, 0.309)$,
-            $E = (0.951, 0.309)$. Quiero $H$ con $A$ y $B$ fijos y $C \leftrightarrow E$. Como $Hp$ es el punto **a
+            $E = (0.951, 0.309)$. Queremos $H$ con $A$ y $B$ fijos y $C \leftrightarrow E$. Como $Hp$ es el punto **a
             menos de escala**, cada par da tres ecuaciones con una incógnita más:
 
             $$H\begin{pmatrix} a_x \\ a_y \\ 1 \end{pmatrix} = \lambda_A \begin{pmatrix} a_x \\ a_y \\ 1 \end{pmatrix},\quad
@@ -355,7 +355,7 @@ def _(H_foto, foto, lib, mo, np, terr):
 
         Fila 3: la recta $0.25y + 1 = 0$, $y = -4$, se va al infinito: está abajo del lote, la foto sale entera.
         Columna 2: el punto impropio de las rectas $x = $ cte va a $(0.5, 1, 0.25) \sim (2, 4)$, el punto de fuga.
-        **Rectificar** es aplicar $H^{-1}$ a lo que leo en la foto.
+        **Rectificar** es aplicar $H^{-1}$ a lo que leemos en la foto.
         """),
         mo.vstack([
             mo.md("```python\nA, b = [], []\nfor (x, y), (u, v) in zip(terr, foto):\n    A.append([x, y, 1, 0, 0, 0, -u*x, -u*y])\n    b.append(u)\n    A.append([0, 0, 0, x, y, 1, -v*x, -v*y])\n    b.append(v)\nh = np.linalg.solve(np.array(A), b)   # 8×8\nH = np.append(h, 1).reshape(3, 3)\nlib.homografia_4puntos(terr, foto)   # 8×9\nnp.linalg.inv(H)                      # rectifica\n```"),
@@ -383,7 +383,7 @@ def _(H_foto, lib, mo, np, terr):
         reparta fila a fila). Es `lib.aplicar_proyectiva`. Para hallar $H$: `np.linalg.solve` cuando el sistema es
         cuadrado (el $8\times8$ con $h_{33} = 1$ o el $13\times13$ del profesor); con **más de cuatro mojones** el sistema
         tiene más ecuaciones que incógnitas y va `np.linalg.lstsq(A, b, rcond=None)[0]`, que es lo que hace
-        `lib.homografia_4puntos` por la SVD cuando le paso $N > 4$ pares.
+        `lib.homografia_4puntos` por la SVD cuando le pasamos $N > 4$ pares.
         """),
         mo.md("```python\nP = lib.hom(terr)                 # (4, 3): una terna por mojón\nQ = P @ H.T                       # (4, 3): x, y, W\nQ[:, :2] / Q[:, 2:3]              # (4, 2): dividir por W\nlib.aplicar_proyectiva(terr, H)   # lo mismo\nlib.homografia_4puntos(terr5, foto5)   # 5 pares: 10×9, mínimos cuadrados\n```"),
         mo.md(f"`P.shape` = `{_P.shape}`, `Q.shape` = `{_Q.shape}` → resultado:\n```\n{np.round(_res, 3)}\n```\n"
@@ -480,8 +480,8 @@ def _(mo):
     mo.vstack([
         mo.md(r"""
         **(d) Código con hueco — avanzado: rectificar la foto** *("cuatro mojones de coordenadas conocidas la
-        rectifican").* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leo en la foto, `foto4`.
-        Un pozo sólo lo tengo en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
+        rectifican").* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
+        Un pozo sólo lo tenemos en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
         `np`, `hom`, `dehom`, `homografia_4puntos(origen, destino)`, `aplicar_proyectiva(nube, H)` y los tres arrays.
         """),
         editor_d,
@@ -523,7 +523,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré; las demostraciones (por qué un rayo es un punto, por qué cuatro puntos alcanzan y tres no, la
+    Acá verificamos; las demostraciones (por qué un rayo es un punto, por qué cuatro puntos alcanzan y tres no, la
     clasificación por autovalores, el pentágono regular con los tres casos y la tabla de verificación):
 
     - [apunte, sección 5: primera lectura de homogéneas y proyectivas](../../apunte.pdf#nameddest=cap:05) ·

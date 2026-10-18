@@ -9,7 +9,7 @@
 """Rotaciones I — el punto no se movió (lección 01a, molde v2 sobre el módulo común cb104).
 
 Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · 2C2026 · Gustavo Varela (padrón 56798).
-Sigue la clase 1. Una sola idea: todo vector es un punto; si giro los ejes, el punto (el mojón) se queda quieto y
+Sigue la clase 1. Una sola idea: todo vector es un punto; si giramos los ejes, el punto (el mojón) se queda quieto y
 lo que cambian son sus coordenadas (rotación pasiva). Girar el punto con los ejes quietos es la rotación activa, y una
 es la transpuesta de la otra. La matriz R(θ) aparece recién al final, como la cuenta que hace lo que ya se vio.
 
@@ -45,7 +45,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 1. La pregunta de esta lección es una sola: **si giro los ejes 30°, ¿se mueve el mojón o se mueven
+    Seguimos la clase 1. La pregunta de esta lección es una sola: **si giramos los ejes 30°, ¿se mueve el mojón o se mueven
     sus coordenadas?** Lo que viene después (la matriz, qué conserva, el 3D) queda para las lecciones II y III.
 
     Código de colores, igual en la figura y en el álgebra: lo que estaba **antes** va en gris, lo que queda **después**
@@ -68,7 +68,7 @@ def _(mo):
     ## 0. Situación de campo y predicción
 
     Una parcela y, adentro, un **mojón** clavado en el terreno. En el sistema de la obra (origen en un vértice, eje $x$
-    a lo largo del frente) el mojón es $P = (4, 3)$, en metros. Ahora planto la estación total en el mismo origen, pero
+    a lo largo del frente) el mojón es $P = (4, 3)$, en metros. Ahora plantamos la estación total en el mismo origen, pero
     el instrumento mide **en sus propios ejes**: su eje $x$ apunta $30°$ a la izquierda del frente. El mojón no se
     tocó; es el mismo pedazo de hierro.
 
@@ -147,9 +147,9 @@ def _(mo):
 
     Lo que se ve en la figura de abajo: girar los ejes $+\theta$ y leer, da los mismos números que girar el punto
     $-\theta$ y leer en los ejes viejos. **Una es la inversa de la otra**, y para una rotación la inversa es la
-    transpuesta (eso lo muestro en la sección 3; la demostración está en el apunte, sección 7).
+    transpuesta (eso lo verificamos en la sección 3; la demostración está en el apunte, sección 7).
 
-    | | ¿qué puedo girar? | lo que se ve |
+    | | ¿qué podemos girar? | lo que se ve |
     |---|---|---|
     | $\mathbb R$ | nada: en una recta el único "giro" es dar vuelta la regla, $x \mapsto -x$ | el mojón queda; cambia el signo de su número |
     | $\mathbb R^2$ | los dos ejes a la vez, un ángulo $\theta$ | el mojón queda; sus dos números se mezclan con senos y cosenos |
@@ -165,7 +165,7 @@ def _(mo):
 
     Tres capas. En **gris**, la grilla de la obra (los ejes de antes). En **teal**, la grilla de la estación: los mismos
     ejes girados $\theta$, con el eje $x'$ en teal y el eje $y'$ en rust. En **violeta**, el mojón, que no se mueve, y el
-    **camino de lectura**: para leer sus coordenadas en los ejes nuevos avanzo por $x'$ y después paralelo a $y'$.
+    **camino de lectura**: para leer sus coordenadas en los ejes nuevos avanzamos por $x'$ y después paralelo a $y'$.
     Los dos tramos de ese camino son los dos números que anota la estación.
 
     Movelo: cambiá $\theta$ y mirá que el punto queda clavado mientras los números cambian. Cambiá el punto y mirá qué
@@ -245,7 +245,7 @@ def _(R30, go, lib, mo, mojon, np):
         mo.md(r"""
         ## 3. La cuenta que hace lo que acabás de ver
 
-        Recién ahora, la matriz. Los dos ejes girados son dos flechas de largo $1$; si las pongo como **columnas** de
+        Recién ahora, la matriz. Los dos ejes girados son dos flechas de largo $1$; si las ponemos como **columnas** de
         una matriz, la primera columna es el eje $x'$ (teal) y la segunda el eje $y'$ (rust):
         """),
         mo.hstack([
@@ -355,7 +355,7 @@ def _(editor_b, lib, mo, np):
         elif np.allclose(_obtenido, lib.transformar(_puntos, lib.rot2(_grados).T)):
             _res = mo.callout(mo.md("❌ usaste los grados como si fueran radianes. Falta `np.deg2rad(theta_grados)`."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para `{np.round(_puntos[0], 3).tolist()}` esperaba `{np.round(_esperado[0], 3).tolist()}` y obtuve `{np.round(_obtenido[0], 3).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para `{np.round(_puntos[0], 3).tolist()}` se esperaba `{np.round(_esperado[0], 3).tolist()}` y se obtuvo `{np.round(_obtenido[0], 3).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -367,7 +367,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que el punto no se mueve y que las coordenadas nuevas son $R^T P$. La demostración de que la inversa de
+    En esta unidad demostramos que el punto no se mueve y que las coordenadas nuevas son $R^T P$. La demostración de que la inversa de
     una rotación es su transpuesta (y por qué) está en el apunte:
 
     - [apunte, sección 7: rotaciones](../../apunte.pdf#nameddest=cap:07)

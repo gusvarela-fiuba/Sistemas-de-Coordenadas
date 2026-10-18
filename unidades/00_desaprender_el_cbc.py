@@ -8,13 +8,13 @@
 # ///
 """Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia).
 
-Repaso fundacional de elaboración propia (procedencia: clases 1, 4 y 9 + bibliografía del campus); no es contenido
+Repaso fundacional de desarrollo complementario (procedencia: clases 1, 4 y 9 + bibliografía del campus); no es contenido
 dictado por la cátedra. Cinco ladrillos en orden deductivo, al estilo de Apostol pero con el vocabulario del profesor
 y con el terreno como ejemplo: (1) conjuntos, operaciones y grupos; (2) los cuerpos R y C, con C como matrices 2×2;
 (3) espacio afín (mojones) vs. espacio vectorial (nace al plantar un origen); (4) el dual V*: una fila es una forma
 lineal y el gradiente también; (5) producto interno y métrica G: la cinta métrica que V y V* solos no tienen. Las
 frases entre comillas atribuidas al profesor están en `fuentes/` (resúmenes 2025 o transcripciones 2026); lo demás es
-paráfrasis mía.
+desarrollo del apunte.
 
 Chequear:  uv run marimo check --select MW unidades/00_desaprender_el_cbc.py
 Exportar:  uv run python tools/build.py --only 00_desaprender_el_cbc
@@ -48,7 +48,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Esto es un repaso de elaboración propia, no contenido dictado: lo armé a partir de las clases 1, 4 y 9 y de la
+    Esto es un repaso de desarrollo complementario, no contenido dictado: lo armamos a partir de las clases 1, 4 y 9 y de la
     bibliografía del campus, para que el resto de las lecciones se lea con una sola cabeza. En el CBC el álgebra lineal
     y el análisis fueron dos materias con dos cuadernos; acá son **una sola herramienta geométrica sobre el terreno**.
     Para que eso cierre hacen falta cinco ladrillos, cada uno con su definición (precisa, sin aparato), su traducción al
@@ -162,10 +162,10 @@ def _(altura, direccion_entera, go, grad_altura, lib, mo, np):
         $\left(\tfrac{{\partial h}}{{\partial x}}, \tfrac{{\partial h}}{{\partial y}}\right) = {lib.vec_tex(w_mojon)}$:
         el agua baja hacia $-\nabla h$, o sea en la dirección ${lib.vec_tex(bajada)}$ sobre el terreno.
 
-        El plano que tengo en la mesa está dibujado con el **eje Este estirado por 2** (como una planilla con columnas de
+        El plano que tenemos en la mesa está dibujado con el **eje Este estirado por 2** (como una planilla con columnas de
         distinto paso): el punto de terreno $(x, y)$ aparece en $(2x, y)$. Las curvas de nivel se ven como elipses y el
-        mojón cae en $(4, 2)$. La pregunta de campo: si dibujo sobre ese plano la flecha de "hacia dónde baja el agua",
-        **¿para dónde la dibujo?** Las cuatro direcciones están en unidades del dibujo.
+        mojón cae en $(4, 2)$. La pregunta de campo: si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua",
+        **¿para dónde la dibujamos?** Las cuatro direcciones están en unidades del dibujo.
         """),
         mo.ui.plotly(figura_plano0),
         prediccion,
@@ -215,9 +215,9 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico: los cinco ladrillos fundacionales
 
-    **¿Qué se conserva?** El terreno. Mojones, cotas, distancias y ángulos están ahí antes de que yo elija origen, ejes,
-    grilla o escala del dibujo; lo que cambia con mis elecciones son los **números**. Los ladrillos van en orden
-    deductivo: cada uno usa sólo los anteriores, y cada uno pone un nombre a algo que ya hago en el campo.
+    **¿Qué se conserva?** El terreno. Mojones, cotas, distancias y ángulos están ahí antes de que elijamos origen, ejes,
+    grilla o escala del dibujo; lo que cambia con nuestras elecciones son los **números**. Los ladrillos van en orden
+    deductivo: cada uno usa sólo los anteriores, y cada uno pone un nombre a algo que ya hacemos en el campo.
 
     ### Ladrillo 1 — Conjuntos, operaciones y grupos
 
@@ -275,7 +275,7 @@ def _(mo):
     sin origen: la diferencia de dos puntos es un vector de $V$, y a un punto se le puede sumar un vector.
 
     **En el campo.** En el terreno hay mojones $P$, $Q$, no flechas: el terreno es afín. Un desplazamiento $Q - P$ sí es
-    un vector. Cuando planto la estación total en un mojón $O$ y lo declaro origen, cada mojón se vuelve el vector
+    un vector. Cuando plantamos la estación total en un mojón $O$ y lo declaramos origen, cada mojón se vuelve el vector
     $P - O$ y **nace $V$**: recién ahí hay combinaciones, bases y coordenadas. La otra manera de que nazca es
     homogeneizar: el punto $(x, y)$ pasa a ser el vector $(x, y, 1)$ de $\mathbb R^3$, y las traslaciones, que no son
     lineales porque "las transformaciones lineales conservan el cero" (19/8), pasan a ser matrices $3\times3$
@@ -288,7 +288,7 @@ def _(mo):
     coordenadas, las coordenadas es algo que yo le pongo por comodidad para trabajar". En el espíritu de todo eso: en
     esta materia **todo vector es un punto** (un mojón visto desde $O$) o un desplazamiento entre dos.
 
-    **En NumPy.** Un punto y un desplazamiento son el mismo `np.array([x, y])`; la diferencia la pongo yo. Independencia:
+    **En NumPy.** Un punto y un desplazamiento son el mismo `np.array([x, y])`; la diferencia la ponemos nosotros. Independencia:
     `np.linalg.matrix_rank(np.column_stack([u, v])) == 2`. Homogeneizar: `np.append(p, 1.0)` (`lib.hom`).
     """)
     return
@@ -611,7 +611,7 @@ def _(lib, loma3d, mo, np):
         Cuatro reflejos. **`eye`, `inv`, `solve` son el neutro y la inversa del ladrillo 1**: `np.eye(2)` es el
         neutro; `np.linalg.inv(A)` arma la inversa entera; `np.linalg.solve(A, y)` aplica la inversa a un solo dato sin
         armarla (más rápido y más estable). **numpy no distingue fila de columna**: `np.array([1., 1.])` es un punto si
-        va a la derecha (`A @ x`) y una forma si va a la izquierda (`w @ A`); la diferencia la pongo yo con el lado.
+        va a la derecha (`A @ x`) y una forma si va a la izquierda (`w @ A`); la diferencia la ponemos nosotros con el lado.
         **Una forma se arrastra con `solve(A.T, w)`**, que es `w @ inv(A)` sin invertir. **El jacobiano se calcula**:
         `lib.jacobiana_numerica(r, u, v)` evalúa $r$ en $u \pm h$, $v \pm h$ y apila las dos columnas; `J.T @ J` es
         la tabla $E, F, G$.
@@ -688,7 +688,7 @@ def _(editor_e1, matriz_complejo, mo, np):
         elif all(np.allclose(_M(z1 + z2), _M(z1) + _M(z2)) for z1, z2 in _pares):
             _res = mo.callout(mo.md(r"❌ respeta la suma (es lineal en $a, b$) pero no el producto: $M(i)^2$ tiene que dar $-I$ y $M(z) e_1 = (a, b)$. Revisá dónde van $a$, $b$ y el signo."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ no coincide. Para `z = 1+1j` esperaba `{matriz_complejo(1 + 1j).tolist()}` y obtuve `{np.round(_M(1 + 1j), 3).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ no coincide. Para `z = 1+1j` se esperaba `{matriz_complejo(1 + 1j).tolist()}` y se obtuvo `{np.round(_M(1 + 1j), 3).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -744,7 +744,7 @@ def _(editor_e2, lib, mo, np):
         elif np.allclose(_w2, [np.linalg.solve(A, w) for A, x, w in _casos]):
             _res = mo.callout(mo.md(r"❌ `solve(A, w)` es `inv(A) @ w`: la inversa está, pero del lado de la columna ($A^{-1}w$ en vez de $wA^{-1}$). La fila va a la derecha: `solve(A.T, w)`."), kind="warn")
         else:
-            _res = mo.callout(mo.md(f"❌ el punto está bien pero la forma no. Para `A = diag(2, 1)`, `w = [1, 1]` esperaba `{_w_ok[0].tolist()}` y obtuve `{np.round(_w2[0], 3).tolist()}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ el punto está bien pero la forma no. Para `A = diag(2, 1)`, `w = [1, 1]` se esperaba `{_w_ok[0].tolist()}` y se obtuvo `{np.round(_w2[0], 3).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -791,7 +791,7 @@ def _(angulo_g, editor_e3, mo, np, subida_metrica):
         elif np.allclose(_ang, np.radians(_ang_ok), atol=1e-6):
             _res = mo.callout(mo.md("❌ `angulo_g` está en radianes: falta `np.degrees(...)`."), kind="warn")
         elif not np.allclose(_ang, _ang_ok, atol=1e-6):
-            _res = mo.callout(mo.md(f"❌ `angulo_g` no coincide. Para `a = [2, 1]`, `b = [2, -1]`, `g = diag(1/4, 1)` esperaba `{_ang_ok[0]:.1f}` y obtuve `{_ang[0]:.3f}`."), kind="danger")
+            _res = mo.callout(mo.md(f"❌ `angulo_g` no coincide. Para `a = [2, 1]`, `b = [2, -1]`, `g = diag(1/4, 1)` se esperaba `{_ang_ok[0]:.1f}` y se obtuvo `{_ang[0]:.3f}`."), kind="danger")
         else:
             _sub = np.array([np.asarray(_ns["subida_metrica"](w.copy(), g.copy()), dtype=float).reshape(-1) for a, b, g, w in _casos])
             if _sub.shape != _sub_ok.shape:
@@ -803,7 +803,7 @@ def _(angulo_g, editor_e3, mo, np, subida_metrica):
             elif np.allclose(_sub, [g @ w for a, b, g, w in _casos]):
                 _res = mo.callout(mo.md(r"❌ `g @ w` va al revés: $g$ **baja** un vector a forma. Para **subir** una forma a vector hace falta $g^{-1}$: `np.linalg.solve(g, w)`."), kind="warn")
             else:
-                _res = mo.callout(mo.md(f"❌ `angulo_g` bien, `subida_metrica` no. Para `w = [1/2, 1]`, `g = diag(1/4, 1)` esperaba `{_sub_ok[0].tolist()}` y obtuve `{np.round(_sub[0], 3).tolist()}`."), kind="danger")
+                _res = mo.callout(mo.md(f"❌ `angulo_g` bien, `subida_metrica` no. Para `w = [1/2, 1]`, `g = diag(1/4, 1)` se esperaba `{_sub_ok[0].tolist()}` y se obtuvo `{np.round(_sub[0], 3).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
     _res
@@ -815,7 +815,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
+    En esta unidad presentamos los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
 
     - [apunte, sección 0: cómo leer, los cinco ladrillos](../../apunte.pdf#nameddest=cap:00) ·
       [sección 3: la mirada geométrica](../../apunte.pdf#nameddest=cap:03) ·

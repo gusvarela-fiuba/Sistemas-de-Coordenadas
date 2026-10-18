@@ -54,7 +54,7 @@ En las lecciones publicadas no se pueden editar las celdas del notebook (corren 
 
 ### Por qué arranca en la Unidad 0
 
-La Unidad 0 (Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica) es encuadre propio del autor, no contenido de la cátedra. Resuelve un problema concreto: la materia usa desde la primera clase un idioma que el CBC no da, y sin ese idioma cada transformación se aprende aparte, sin manera de encadenarlas. Son cinco ladrillos, en orden deductivo (cada uno usa sólo los anteriores), y cada uno está escrito con la definición, la frase del profesor que lo respalda, lo que significa en el campo y cómo se escribe en NumPy:
+La Unidad 0 (Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica) es encuadre complementario del curso, no contenido de la cátedra. Resuelve un problema concreto: la materia usa desde la primera clase un idioma que el CBC no da, y sin ese idioma cada transformación se aprende aparte, sin manera de encadenarlas. Son cinco ladrillos, en orden deductivo (cada uno usa sólo los anteriores), y cada uno está escrito con la definición, la frase del profesor que lo respalda, lo que significa en el campo y cómo se escribe en NumPy:
 
 1. **Conjuntos, operaciones y grupos.** Las transformaciones forman un grupo: componer es la operación, no hacer nada es el neutro, deshacer es la inversa. Los giros de la estación total son el ejemplo; en el plano conmutan, en 3D no.
 2. **Los cuerpos R y C.** Los escalares de la materia. Un real escala la recta; multiplicar por un complejo ya es rotar y escalar a la vez: las matrices 2×2 de la forma `[[a, -b], [b, a]]` son C con otro ropaje.
@@ -216,4 +216,4 @@ Una vez por repositorio, en GitHub: **Settings → Pages → Build and deploymen
 
 ### Nota de licencia
 
-El contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) está bajo CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) bajo MIT (`LICENSE-CODE`). La adopción por la cátedra es libre: se puede copiar, modificar y republicar manteniendo la atribución al autor original en los términos de esos archivos (y, para el contenido, la misma licencia en las obras derivadas). Como dice el README, esta licencia es una propuesta del asistente, pendiente de confirmación de Gustavo Varela. Los PDFs de la cátedra y la bibliografía citada no están cubiertos: son de sus autores.
+El contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) está bajo CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) bajo MIT (`LICENSE-CODE`). La adopción por la cátedra es libre: se puede copiar, modificar y republicar manteniendo la atribución al autor original en los términos de esos archivos (y, para el contenido, la misma licencia en las obras derivadas). Como dice el README, la licencia está pendiente de confirmación. Los PDFs de la cátedra y la bibliografía citada no están cubiertos: son de sus autores.

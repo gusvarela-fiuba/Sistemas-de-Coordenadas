@@ -44,7 +44,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 4 (la parte dictada el 30/9). La pregunta: **¿Qué es una regla graduada tirada en el plano, y por qué
+    Seguimos la clase 4 (la parte dictada el 30/9). La pregunta: **¿Qué es una regla graduada tirada en el plano, y por qué
     una recta se transforma al revés que un punto?** El gancho: *las curvas de nivel de un plano acotado son las marcas
     de una regla: cerca de cada punto, la cota es una forma lineal.*
 
@@ -88,11 +88,11 @@ def _(lib, mo, np):
         curvas de nivel $h = 101, 102, 103, \ldots$ son **rectas paralelas**: la cota es la fila $(2, 1)$ más una
         constante. El mojón $p = (1, 1)$ está a $h = 103$.
 
-        El plano digitalizado quedó deformado: cada punto mío aparece en $p' = Ap$ con
+        El plano digitalizado quedó deformado: cada uno de nuestros puntos aparece en $p' = Ap$ con
         $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$ (dobla $x$ y la corre con $y$). La cota del mojón **no**
-        cambió; necesito la fila que, aplicada a $p' = (3, 1)$, siga dando $3$. Si la deformación fuera un giro de
+        cambió; necesitamos la fila que, aplicada a $p' = (3, 1)$, siga dando $3$. Si la deformación fuera un giro de
         $90°$ la fila giraría igual que los puntos, $(2, 1) \mapsto (-1, 2)$ de las dos maneras, y no se vería nada
-        raro; por eso elegí una $A$ que no es un giro.
+        raro; por eso elegimos una $A$ que no es un giro.
         """),
         prediccion,
     ])
@@ -152,7 +152,7 @@ def _(mo):
 
     **La flecha $(a, b)$ es perpendicular a las marcas sólo en la base canónica**, donde $\ell(p) = \langle (a, b),
     p\rangle$ y la forma se disfraza de vector ([Producto interno](../02_producto_interno/index.html): "no hay base
-    privilegiada salvo por el producto interno"). Si deformo el plano con una $A$ que no lo conserva, $A(a, b)^T$ deja
+    privilegiada salvo por el producto interno"). Si deformamos el plano con una $A$ que no lo conserva, $A(a, b)^T$ deja
     de ser perpendicular a las rectas nuevas; la regla, no.
 
     **Dualidad: la regla se transforma al revés.** Si $p' = Ap$, la fila que lee lo mismo sobre $p'$ es
@@ -178,8 +178,8 @@ def _(mo):
     vector… no, mentí, lo dije mal. **El gradiente es una forma lineal, no un vector**: me permite hacer una
     aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Es esta misma regla:
     cerca de un punto, los escalones de altura son las marcas de $\nabla h = (h_x, h_y)$. Dibujarlo como flecha
-    perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado: si cambio de unidades en un
-    eje (metros en $x$, pies en $y$), o estoy en el plano $(d\varphi, d\lambda)$ del elipsoide, donde un paso en
+    perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado: si cambiamos de unidades en un
+    eje (metros en $x$, pies en $y$), o estamos en el plano $(d\varphi, d\lambda)$ del elipsoide, donde un paso en
     $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
     es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
@@ -349,7 +349,7 @@ def _(mo, np):
         ## 4. Python de hoy
 
         numpy no distingue fila de columna: un array `(2,)` es las dos cosas, y `l @ p` y `p @ l` dan el mismo número.
-        **La diferencia la pongo yo con el lado de la matriz**: `A @ p` mueve un punto (columna, a la derecha de $A$);
+        **La diferencia la ponemos nosotros con el lado de la matriz**: `A @ p` mueve un punto (columna, a la derecha de $A$);
         `l @ A` aplica la fila a la izquierda. La fila arrastrada es `l @ np.linalg.inv(A)` o, sin invertir,
         `np.linalg.solve(A.T, l)`, que resuelve $A^T x = \ell^T$, o sea $(\ell A^{-1})^T$. Con una nube $N\times2$
         (una fila por punto), `P @ l` lee la marca de cada punto de una vez: las curvas de nivel de toda la nube.
@@ -363,7 +363,7 @@ def _(mo, np):
 
 @app.cell
 def _(lib, mo, np):
-    # ---------- aporte propio (CEIA): dos nubes separables y su SVM de margen duro, sin scikit-learn ----------
+    # ---------- desarrollo complementario (CEIA): dos nubes separables y su SVM de margen duro, sin scikit-learn ----------
     nube_A = np.array([[0.0, 0.0], [2.0, 0.0], [0.0, 2.0], [0.5, 0.5]])  # mojones de la parcela A
     nube_B = np.array([[4.0, 3.0], [6.0, 3.0], [4.0, 5.0], [5.0, 6.0]])  # mojones de la parcela B
     svm = lib.svm_margen_duro_2d(nube_A, nube_B)
@@ -374,9 +374,9 @@ def _(lib, mo, np):
     }
     deformacion = mo.ui.radio(options=list(deformaciones), value="identidad", label="deformación A del plano")
     mo.md(r"""
-    ### 4b. Conexión con IA (aporte desde la CEIA): una SVM es una forma lineal con margen
+    ### 4b. Conexión con IA (desarrollo complementario desde la CEIA): una SVM es una forma lineal con margen
 
-    Esto **no es contenido de la cátedra**: lo traigo de la especialización en IA, porque es la misma regla
+    Esto **no es contenido de la cátedra**: viene de la especialización en IA, porque es la misma regla
     graduada de esta lección con otro nombre. Dos parcelas vecinas, cada una con sus mojones relevados, y la
     pregunta de una *máquina de vectores de soporte* (SVM): ¿cuál es la **calle más ancha** que pasa entre las dos
     nubes? La respuesta es una forma lineal afín, $w^T x + b$: la marca $0$ es la divisoria, las marcas $-1$ y $+1$
@@ -385,10 +385,10 @@ def _(lib, mo, np):
     máximo. En homogéneas $(x, y, 1)$ toda la SVM es **una sola forma lineal** $(w_1, w_2, b)$: la divisoria es su
     marca cero, como la recta $\ell\,\tilde p = 0$ de la sección 1.
 
-    La dualidad se aplica tal cual. Si deformo el plano con $A$, los mojones van a $Ax$ y la regla se arrastra con
+    La dualidad se aplica tal cual. Si deformamos el plano con $A$, los mojones van a $Ax$ y la regla se arrastra con
     $A^{-1}$: $(w^T A^{-1},\ b)$ sigue leyendo $-1$, $0$, $+1$ sobre los mismos puntos. Lo que **sí** cambia es el
     ancho físico $2/\lVert w A^{-1}\rVert$, porque el largo de $w$ lo da el producto interno, no la regla. Por eso,
-    si vuelvo a entrenar la SVM sobre los puntos deformados, elige **otra** divisoria (punteada, en negro): la calle
+    si volvemos a entrenar la SVM sobre los puntos deformados, elige **otra** divisoria (punteada, en negro): la calle
     más ancha medida con el producto interno de la grilla nueva. Reescalar los datos antes de entrenar no es un
     detalle de implementación: cambia el producto interno, y con él qué cuenta como margen. El helper
     `lib.svm_margen_duro_2d` es numpy puro: prueba los pares y tríos de soporte posibles y se queda con la franja
@@ -583,7 +583,7 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que una forma lineal es una regla, que sus marcas son rectas paralelas y que se transforma con $A^{-1}$
+    Acá verificamos que una forma lineal es una regla, que sus marcas son rectas paralelas y que se transforma con $A^{-1}$
     para que la lectura no cambie. Las demostraciones:
 
     - [apunte, sección 11: "Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,

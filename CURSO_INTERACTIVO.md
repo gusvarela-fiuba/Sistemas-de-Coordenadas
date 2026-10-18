@@ -6,7 +6,7 @@ Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 
 
 ## Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
 
-Clases del esqueleto: 01, 04 y 09 (elaboración propia que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujo sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujo?
+Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujamos?
 
 **Qué se manipula:**
 - Dropdown `objeto`: (a) punto x, (b) regla graduada wᵀ (el gradiente), (c) parche curvo r(u, v), (d) complejo z como matriz.
@@ -41,7 +41,7 @@ Clase del esqueleto: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no s
 
 ## Unidad 2 — Rotaciones II: la rotación en el plano
 
-Clase del esqueleto: 01. Pregunta guía: para dibujar la parcela con el norte arriba giro el plano entero un cuarto de vuelta antihorario; el vértice del frente es (4, 1), ¿a dónde va?
+Clase del esqueleto: 01. Pregunta guía: para dibujar la parcela con el norte arriba giramos el plano entero un cuarto de vuelta antihorario; el vértice del frente es (4, 1), ¿a dónde va?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: identidad (0°), un cuarto de vuelta (90°), media vuelta (180°), giro de 30°, −90° (horario), y tres contraejemplos que no son rotaciones: espejo diag(1, −1), corte [[1, 0.5], [0, 1]], proyección [[1, 0], [0, 0]].
@@ -74,7 +74,7 @@ Clases del esqueleto: 01 y 02. Pregunta guía: nivelar la estación es inclinar 
 
 ## Unidad 4 — Producto interno: proyección, longitud, ángulo
 
-Clase del esqueleto: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y la línea de base BA, quiero sin volver al campo el ángulo en B y cuánto del lado BC cae sobre la dirección BA (su sombra).
+Clase del esqueleto: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y la línea de base BA, queremos sin volver al campo el ángulo en B y cuánto del lado BC cae sobre la dirección BA (su sombra).
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: el triángulo de mojones (v = BC), perpendiculares, paralelos, opuestos, a mano.
@@ -148,7 +148,7 @@ Clase del esqueleto: 04. Pregunta guía: la cota de un lote inclinado es la fila
 - Dropdown `caso precargado`: la cota 2x + y sin deformar, giro de 30°, escala anisótropa diag(2, 1), cizalla [[1, 1], [0, 1]], a la base oblicua de 08 (A = B⁻¹).
 - Un deslizador por caso: `θ (°)`, `k: factor en x` o `s: corte`.
 - Botón reproducir: de la identidad a A, con la regla acompañando a la figura.
-- En la sección 4b (aporte propio: una SVM es una forma lineal con margen): radio `deformación A del plano` (identidad, estirar x al doble, cizalla), que deforma dos nubes de mojones y reentrena la divisoria.
+- En la sección 4b (desarrollo complementario: una SVM es una forma lineal con margen): radio `deformación A del plano` (identidad, estirar x al doble, cizalla), que deforma dos nubes de mojones y reentrena la divisoria.
 - La figura: gris, grilla, parcela y regla antes, más la fila (2, 1) llevada como si fuera un punto (flecha gruesa); teal, la regla después (marca 0 gruesa, valor de cada marca) y la flecha que sí es perpendicular a las marcas nuevas; violeta, la parcela deformada y el mojón con su cota.
 
 **Ejercicios en Python:** `forma_transformada(l, A)` (c) y `recta_por_dos_puntos(p, q)` (d). Lápiz (a): la regla (3, 4): su núcleo, la separación entre marcas, la marca que pasa por (2, 1) y su escritura como combinación de las selectoras x e y; (b): el ejemplo del apunte con A = [[1, 1], [0, 2]], φ = (2, 3), v = (1, 1): cuál de φA y φA⁻¹ es la regla arrastrada.
@@ -249,7 +249,7 @@ Clases del esqueleto: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre 
 
 ## Unidad 14 — Jacobiano y primera forma fundamental
 
-Clase del esqueleto: 09. Pregunta guía: sobre el modelo digital de una loma doy el mismo paso de grilla (una unidad en u, nada en v) desde la cima y desde la ladera; ¿cuánto mide ese paso con cinta, sobre el terreno, en cada lugar?
+Clase del esqueleto: 09. Pregunta guía: sobre el modelo digital de una loma damos el mismo paso de grilla (una unidad en u, nada en v) desde la cima y desde la ladera; ¿cuánto mide ese paso con cinta, sobre el terreno, en cada lugar?
 
 **Qué se manipula:**
 - Dropdown `superficie precargada`: la loma r = (u, v, 2·exp(−(u²+v²)/8)); plano inclinado z = 1 + 0.4u + 0.3v; cilindro de radio 1.5 (u ángulo, v altura); esfera de radio 2 (φ latitud, λ longitud).
@@ -265,7 +265,7 @@ Clase del esqueleto: 09. Pregunta guía: sobre el modelo digital de una loma doy
 
 ## Unidad 15 — Cuatro problemas: regresión, círculos, Procrustes, regresión total
 
-Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendiente de validar por la cátedra). Pregunta guía: ubicar un poste midiendo con cinta sus distancias a cuatro mojones conocidos, con dos incógnitas y cuatro mediciones con error; ¿qué punto anoto como posición del poste?
+Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendiente de validar por la cátedra). Pregunta guía: ubicar un poste midiendo con cinta sus distancias a cuatro mojones conocidos, con dos incógnitas y cuatro mediciones con error; ¿qué punto anotamos como posición del poste?
 
 **Qué se manipula:**
 - Dropdown `problema`: (a) recta de ajuste y = ax + b por nueve puntos; (b) punto por distancias a cuatro mojones; (c) Procrustes: dos relevamientos del mismo lote; (d) regresión total: error en x y en y.
@@ -281,7 +281,7 @@ Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendi
 
 ## Unidad 16 — Curvatura como forma cuadrática
 
-Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: parado en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
+Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: parados en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: esfera (cuenco de radio 2.5); cilindro (canaleta de radio 2.5, eje y); silla z = (x² − y²)/4; loma (terreno suave).

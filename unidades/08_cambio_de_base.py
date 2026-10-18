@@ -8,8 +8,8 @@
 # ///
 """Cambio de base y diagonalización (lección 08, molde v2 sobre cb104). Clase 8 (2026-09-30).
 
-Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambié la grilla con que la
-mido y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
+Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambiamos la grilla con que la
+medimos y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
 grilla de los autovectores una transformación es sólo estirar por λ en cada eje (A = B Λ B⁻¹) y Aⁿ sale sola.
 Generaliza a una base oblicua lo que Rotaciones I (01a) mostró con una base girada.
 
@@ -45,7 +45,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
 
-    Sigo la clase 8 (30/9). La pregunta: **Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y
+    Seguimos la clase 8 (30/9). La pregunta: **Si la flecha no se movió pero cambiamos la grilla, ¿cómo cambian los números, y
     en qué grilla una transformación es sólo estirar?** El gancho: *el mismo mojón con coordenadas en tres marcos:
     cambia la grilla con que se mide, no el punto.*
 
@@ -105,7 +105,7 @@ def _(candidatos, lib, mo, prediccion):
         "correcta": ("success",
                      r"**Sí.** Un frente más un lado: $1\,b_1 + 1\,b_2 = (3,1) + (1,2) = (4,3)$. Las coordenadas nuevas son el $c$ "
                      r"que **resuelve** $Bc = p$, con $B$ la matriz que tiene a $b_1$ y $b_2$ como columnas: $c = B^{-1}p$. "
-                     r"Abajo lo muestro con la grilla y el camino de lectura."),
+                     r"Abajo lo mostramos con la grilla y el camino de lectura."),
         "proyeccion": ("warn",
                        rf"**No.** ${_pr}$ sale de proyectar $P$ sobre cada eje con el producto interno, "
                        r"$\langle P, b_k\rangle / \langle b_k, b_k\rangle$. Valió en Rotaciones I porque los ejes girados seguían "
@@ -171,36 +171,38 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.callout(mo.md(r"""
-    **Del pizarrón del 30/9.** Tres fotos que tomé en clase y leo así.
+    **La matriz de cambio de base y el despeje de la diagonalización.**
 
-    **(a) La matriz con los autovectores en columnas.** El profesor escribió $A = [\,Av_1 \mid Av_2\,]$ y la probó
-    con el vector $(1, 0)^T$: $A\,(1, 0)^T$ devuelve la primera columna, $Av_1$, escrita en canónica. Entra un vector
-    en **base $Av$** (una unidad del primer autovector, nada del segundo) y sale el mismo vector en **base can.**:
-    $A$ lleva de base $Av$ a base canónica, y $A^{-1}$ hace el camino inverso. Es la $B$ de esta lección.
+    **(1) Quién se transforma con qué.** El diagrama de conmutatividad, escrito en orden de aplicación:
 
-    **(b) Los dos muñequitos.** El muñequito rojo vive en la base canónica: $(1, 1) = 1\,e_x + 1\,e_y$. Con $A^{-1}$
-    pasa a la grilla de los autovectores y se vuelve el muñequito azul: $(0.3,\ 1.2) = 0.3\,Av_1 + 1.2\,Av_2$. Ahí la
-    transformación es diagonal, sólo multiplica cada coordenada por su autovalor; con autovalores $1$ y $0.1$ queda
-    $0.3 \cdot 1\,Av_1 + 1.2 \cdot 0.1\,Av_2 = 0.3\,Av_1 + 0.12\,Av_2$ (en el pizarrón quedó escrito rápido
-    "$1\,Av_1 + 0.1\,Av_2$", para mostrar los factores $1$ y $0.1$). Después $A$ lo devuelve a la canónica, el
-    "$?\,e_x + ?\,e_y$" del dibujo. Los números $0.3$ y $1.2$ son ilustrativos: no hay una matriz concreta detrás.
-    La frase del pizarrón: *cambiar $T$ de base implica aplicar $A\,T\,A^{-1}$*, leída de derecha a izquierda:
-    entrar con $A^{-1}$, estirar, salir con $A$.
+    $$(P)\to(A)\to[\,A^{-1}\to T\to A\,]\to(A^{-1})\to(\ell).$$
 
-    **(c) El despeje con tachones.** Si $T$ es diagonal en la base $Av$ y no diagonal en la canónica,
+    Los puntos se transforman con $A$ y las formas (las rectas) con $A^{-1}$, para que la incidencia $\ell\,P = 0$
+    siga dando cero. La transformación que actúa en la base nueva es la caja del medio: leída como producto de
+    matrices (lo que se aplica último va a la izquierda) es $A\,T\,A^{-1}$ cuando $A$ lleva de la base en la que
+    está escrita $T$ a la base en la que queremos verla, y $A^{-1}\,T\,A$ si $A$ va en el sentido contrario. El
+    sentido lo fija la definición de (2): $A$ va de la base de autovectores a la canónica.
 
-    $$A\,T_{\text{diag}\,\langle Av\rangle}\,A^{-1} = T_{\text{no diag}\,\langle\text{can}\rangle}
-    \quad\Longrightarrow\quad
-    T_{\text{diag}\,\langle Av\rangle} = A^{-1}\,T_{\text{no diag}\,\langle\text{can}\rangle}\,A.$$
+    **(2) Los autovectores en columnas.** Definimos $A = [\,v_1 \mid v_2\,]$ con los autovectores como columnas y lo
+    probamos con el vector $(1, 0)^T$: $A\,(1, 0)^T$ devuelve la primera columna, $v_1$, escrita en canónica. Entra un
+    vector en **base de autovectores** (una unidad de $v_1$, nada de $v_2$) y sale el mismo vector en **base
+    canónica**: $A$ traduce de la base de autovectores a la canónica, y $A^{-1}$ de la canónica a la de autovectores.
+    Es la $B$ de esta lección. Ejemplo: el punto $(1, 1) = 1\,e_x + 1\,e_y$ pasa con $A^{-1}$ a coordenadas
+    $(c_1, c_2)$ en la base de autovectores, $(1, 1) = c_1 v_1 + c_2 v_2$. Ahí la transformación es diagonal: cada
+    coordenada se multiplica por su autovalor, $(c_1, c_2) \mapsto (\lambda_1 c_1,\ \lambda_2 c_2)$. Después $A$
+    devuelve el resultado a la canónica: $\lambda_1 c_1 v_1 + \lambda_2 c_2 v_2$, otra vez en $e_x, e_y$.
 
-    Multiplico por $A^{-1}$ a la izquierda y por $A$ a la derecha; los dos $A^{-1}A = I$ que aparecen son lo tachado
-    en el pizarrón (un par en negro, el otro en rojo). Es la misma cuenta que $B^{-1}AB = \Lambda$ de arriba, con el
-    nombre $A$ en el lugar de $B$ y $T$ en el lugar de $A$. Lo que el profesor dijo después del despeje sobre de
-    dónde surge $A$ no lo tengo: tuve que salir del aula.
+    **(3) El camino en tres pasos y el despeje.** Lo de (2) dice que, con $A$ de autovectores a canónica,
 
-    Fotos en `fuentes/campus/profesor/`: `2026-09-30_pizarron_cambio_base_grillas_munequitos.jpg`,
-    `2026-09-30_pizarron_matriz_A_autovectores_columnas.jpg` y `2026-09-30_pizarron_despeje_diagonalizacion.jpg`.
-    La lectura es mía.
+    $$T_{\text{can}} = A\,T_{\text{diag}}\,A^{-1},$$
+
+    leída de derecha a izquierda: entrar con $A^{-1}$, estirar con $T_{\text{diag}}$, salir con $A$. Para despejar la
+    diagonal multiplicamos por $A^{-1}$ a la izquierda y por $A$ a la derecha,
+
+    $$A^{-1}\,T_{\text{can}}\,A = A^{-1}A\;T_{\text{diag}}\;A\,A^{-1} = T_{\text{diag}},$$
+
+    porque los dos pares $A^{-1}A = I$ y $A\,A^{-1} = I$ se cancelan. Es la misma cuenta que $B^{-1}AB = \Lambda$ de
+    arriba, con el nombre $A$ en el lugar de $B$ y $T$ en el lugar de $A$.
     """), kind="info")
     return
 
@@ -231,7 +233,7 @@ def _(mo, np):
 
     Tres capas. En **gris**, la grilla de la obra. En **teal**, la grilla **oblicua** que generan los ejes nuevos
     $b_1$ (teal) y $b_2$ (rust) con todas sus paralelas. En **violeta**, el mojón, que no se mueve, y el **camino
-    de lectura**: avanzo $c_1$ veces $b_1$ y después $c_2$ veces $b_2$; los dos tramos son las coordenadas nuevas.
+    de lectura**: avanzamos $c_1$ veces $b_1$ y después $c_2$ veces $b_2$; los dos tramos son las coordenadas nuevas.
     Los deslizadores desvían $b_2$ respecto del caso (giro y largo); con $b_2$ paralelo a $b_1$ no hay base.
     """)
     return caso, casos
@@ -291,7 +293,7 @@ def _(caso, casos, desvio, factor, lib, mo, mojon, np):
 def _(mo):
     n_pot = mo.ui.slider(1, 8, value=5, step=1, label="n (potencia)", show_value=True)
     mo.md(r"""
-    **La transformación en su grilla propia.** Ahora la grilla no la elijo yo: la elige
+    **La transformación en su grilla propia.** Ahora la grilla no la elegimos nosotros: la elige
     $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. En gris, la grilla de la obra y el cuadrado de vértices
     $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así "no se
     entiende"). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
@@ -556,12 +558,12 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá mostré que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
+    Acá verificamos que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
 
     - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
       "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (la
-      demostración de $A = B\Lambda B^{-1}$, escrita ahí como $P^{-1}AP = D$) y "Lo que quedó en el pizarrón el 30 de
-      septiembre", con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
+      demostración de $A = B\Lambda B^{-1}$, escrita ahí como $P^{-1}AP = D$) y el párrafo sobre la clase del 30 de
+      septiembre, con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
       · [sección 11: bloque algebraico (autovectores, formas lineales)](../../apunte.pdf#nameddest=cap:11)
     - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 

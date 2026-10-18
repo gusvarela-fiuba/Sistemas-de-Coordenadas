@@ -5,7 +5,7 @@ Guía de estudio de la materia CB104 Sistemas de Coordenadas (Agrimensura, FIUBA
 Todo se usa desde el navegador, sin instalar nada:
 
 - **Curso interactivo online (19 unidades en el navegador):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
-- **Apunte formal y guías resueltas en PDF (110 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
+- **Apunte formal y guías resueltas en PDF (109 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
 
 **[Instructivo de uso, guía pedagógica y cómo clonar o adoptar este repositorio para la cátedra (`INSTRUCTIVO_DE_USO.md`)](INSTRUCTIVO_DE_USO.md)**
@@ -24,7 +24,7 @@ De la más guiada a la más completa:
 
 ### Por qué empieza en la Unidad 0 — Fundamentos
 
-La Unidad 0 es encuadre propio del autor, no contenido de la cátedra: el idioma que la materia usa desde la primera clase y que el CBC no da. Son cinco ladrillos, en este orden:
+La Unidad 0 es encuadre complementario del curso, no contenido de la cátedra: el idioma que la materia usa desde la primera clase y que el CBC no da. Son cinco ladrillos, en este orden:
 
 1. **Conjuntos, operaciones y grupos:** las transformaciones forman un grupo; componer y deshacer son las operaciones.
 2. **Los cuerpos R y C:** los números con los que se escriben las coordenadas, y por qué multiplicar por un complejo ya es girar.
@@ -53,7 +53,7 @@ El orden es el del hilo conductor de la portada. "Clase del curso" es la clase d
 
 | Unidad | Lección (enlace) | Clase del curso | Qué construye |
 |---|---|---|---|
-| Unidad 0 | [Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_desaprender_el_cbc/index.html) | clases 01, 04 y 09 (elaboración propia) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
+| Unidad 0 | [Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_desaprender_el_cbc/index.html) | clases 01, 04 y 09 (desarrollo complementario) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
 | Unidad 1 | [Rotaciones I: el punto no se movió](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01a_punto_quieto/index.html) | clase 01 | La rotación pasiva: giran los ejes, cambian las coordenadas, el mojón no se mueve. |
 | Unidad 2 | [Rotaciones II: la rotación en el plano](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01b_rotacion_plano/index.html) | clase 01 | La rotación activa como matriz ortogonal de determinante +1: sus columnas son adónde van los ejes, y el mismo giro como número complejo. |
 | Unidad 3 | [Rotaciones III: tres ejes y el orden importa](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html) | clases 01–02 | Las rotaciones alrededor de cada eje de R3, la composición que no conmuta y Euler–Rodrigues: toda composición es un solo giro alrededor de un eje. |
@@ -88,7 +88,7 @@ El apéndice "Material de clase y notebooks" del apunte tiene un índice general
 - **SVD sobre el DEM de la Precordillera de Mendoza**: dos SVD a mano y la compresión por rango de un modelo digital de elevación real.
 - **Los cuatro problemas de la clase 11**: guía resuelta de regresión, intersección de círculos, Procrustes y regresión total.
 - **Deducciones del elipsoide**: latitudes, radios de curvatura y conversión (GRS80 en 45° y en −34,6°), arco de meridiano y proyecciones, trigonometría esférica con el octante y tres ciudades.
-- **Fe de erratas de las fuentes**: precisiones sobre la guía de euclídeas y afinidades, y cuatro erratas del apunte del elipsoide del profesor confirmadas con una cuenta propia en NumPy.
+- **Fe de erratas de las fuentes**: precisiones sobre la guía de euclídeas y afinidades, y cuatro erratas del apunte del elipsoide del profesor confirmadas con una cuenta nuestra en NumPy.
 
 ### En `entregas/`
 
@@ -103,7 +103,7 @@ Trabajos prácticos entregados al campus (alumno Gustavo Varela, padrón 56798),
 Cada clase lleva dos etiquetas independientes, visibles en las fichas y en las unidades de la portada:
 
 - **Procedencia** (de dónde sale el contenido): `con transcripción` (hay transcripción de la clase dictada en 2026); `reconstruida` (armada desde el material del campus y la cursada 2025, sin transcripción); `no dictada` (la clase no se dio: todavía no llegó, o en 2C2026 se salteó, como la 02); `anticipación, pendiente de validar` (lección armada antes de que la clase se dicte; hoy las clases 10–14, es decir las lecciones 11, 12, 13 y 14; la clase 07 se dictó el 7/10 sin transcripción).
-- **Validación** (cuánto se revisó): `validación pendiente`; `revisado` (revisada por el autor contra el material); `validado por la cátedra` (confirmada por el profesor). Hoy todas las clases están en `pendiente`.
+- **Validación** (cuánto se revisó): `validación pendiente`; `revisado` (revisada contra el material, todavía sin la cátedra); `validado por la cátedra` (confirmada por el profesor). Hoy todas las clases están en `pendiente`.
 
 Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tienen además un estado propio (`piloto`, `migrada`, `legacy`, `pendiente`) que dice si se exportan; el estado de cada unidad (lista / en clase / todavía no) lo calcula el build.
 
@@ -149,4 +149,4 @@ Cada push a `main` corre `.github/workflows/pages.yml`: `uv sync --frozen`, veri
 
 Doble esquema: el contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) es CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) es MIT (`LICENSE-CODE`); titular Gustavo Varela, 2026.
 No están cubiertos los PDFs de la cátedra ni la bibliografía citada: son de sus autores y no se redistribuyen en el repo, salvo los del profesor ya incluidos en `apunte/` (`01_Ejercicios_original.pdf`, `02_afinidad_original.pdf`), que quedan como material de la cátedra.
-Esta licencia es una propuesta del asistente, pendiente de confirmación de Gustavo.
+La licencia está pendiente de confirmación.
