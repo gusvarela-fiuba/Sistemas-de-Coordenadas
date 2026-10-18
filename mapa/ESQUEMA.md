@@ -26,7 +26,7 @@ conceptos:
     unidad: 01_rotaciones        # OPCIONAL: id de una unidad existente; el nodo linkea ahí (si no, a la ficha de la clase)
     hecho_geometrico: "dejar quieto un punto, mover otro, acomodar el resto conservando distancias y ángulos"
     que_se_conserva: "distancias y ángulos"
-    apunte: ["07", "14", "15"]   # prefijos de apunte/contenido/NN-*.tex; cada uno tiene que existir
+    apunte: ["07", "14", "15"]   # prefijos de apunte/contenido/NN-*.tex (00-11 por tema, 14-22 apéndices; 12 y 13 no existen); cada uno tiene que existir
     requiere: [producto-interno] # ids de conceptos que lo motivan; se dibujan como flechas requerido → concepto
 
 unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su orden es el de las unidades en la portada

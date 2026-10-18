@@ -6,7 +6,7 @@ Entradas (relativas a la raíz del repo):
   clases/*.md                           fichas por clase
   unidades/*.py                         notebooks marimo
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
-  apunte/contenido/NN-*.tex             sólo para validar prefijos y leer títulos de sección
+  apunte/contenido/NN-*.tex             sólo para validar prefijos (sin exigir numeración continua: 12 y 13 no existen) y leer el título del primer \chapter/\section
 
 Salida:
   site/index.html                       portada = el hilo conductor: tres entradas (Empezar / Seguir la cursada / Repasar)
@@ -191,7 +191,7 @@ def cargar_mapa(ruta: Path) -> dict:
 
 
 def prefijos_apunte_existentes() -> dict[str, Path]:
-    """{'07': Path('.../07-bloque-rotaciones.tex'), ...}"""
+    """{'04': Path('.../04-rotaciones.tex'), ...}"""
     res: dict[str, Path] = {}
     if CONTENIDO_APUNTE.is_dir():
         for p in sorted(CONTENIDO_APUNTE.glob("*.tex")):
@@ -745,7 +745,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
 
 
 def titulos_secciones_apunte() -> dict[str, str]:
-    """{'07': 'Bloque geométrico: fundamentos y rotaciones', ...} a partir del primer \\section{} de cada .tex."""
+    """{'04': 'Rotaciones', ...} a partir del primer \\chapter{} (o \\section{} en los apéndices) de cada .tex."""
     res: dict[str, str] = {}
     for pref, p in prefijos_apunte_existentes().items():
         try:

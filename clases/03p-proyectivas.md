@@ -13,7 +13,7 @@ fuentes:
   - entregas/pentagono/Problema_transformaciones_proyectivas.pdf
   - fuentes/campus/profesor/Proyectivas_del_pentagono.xlsx
 conceptos: [plano-proyectivo, punto-impropio, homografia, recta-fija, razon-doble]
-apunte: ["05", "12", "18"]
+apunte: ["07", "18"]
 unidad: 05_proyectivas
 ---
 
@@ -186,9 +186,9 @@ Verificación: `uv run --with numpy python entregas/pentagono/verificacion_penta
 2026-10-17 y coinciden. Interactivo: `unidades/05_proyectivas.py` (Fraction, exacto).
 
 ## Dónde está desarrollado
-- Apunte: `05-primera-lectura-homogeneas-proyectivas.tex` (puntos como rayos, puntos en el infinito,
+- Apunte: `06-afines-homogeneas.tex` y `07-proyectivas.tex`, nivel La idea (puntos como rayos, puntos en el infinito,
   "conservar rectas, nada más", por qué un cuadrilátero, la cadena incidencia→punto fijo);
-  `12-bloque-proyectivas.tex` (homografías, $H=K_2K_1^{-1}$ por el cuadrilátero patrón, puntos y
+  `07-proyectivas.tex`, niveles de cuentas y profundidad (homografías, $H=K_2K_1^{-1}$ por el cuadrilátero patrón, puntos y
   rectas fijas, clasificación, jerarquía isometría→similaridad→afinidad→proyectiva, el pentágono
   regular con los tres casos y ejercicios de consolidación); `18-apendice-pentagono.tex` (tabla de
   verificación, autovector por cruz en el caso (c), figura de la imagen partida, script).

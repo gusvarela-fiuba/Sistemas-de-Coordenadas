@@ -10,7 +10,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-4
   - fuentes/transcripciones/2026-09-16.md
 conceptos: [subespacio-lineal, subespacio-afin, producto-vectorial, producto-cuna, determinante, nucleo, colinealidad]
-apunte: ["11", "05"]
+apunte: ["08"]
 unidad: 07a_cuna_determinante   # y 07b_nucleo_autovectores (núcleo)
 ---
 
@@ -181,14 +181,14 @@ $p\times q=(-17,13,-3)$, $\det=-3$, $\det B=0$. En Excel: `MDETERM`; en GeoGebra
 `ProductoVectorial`.
 
 ## Dónde está desarrollado
-- Apunte: `11-bloque-algebraico.tex` secciones "Producto interno: incidencia", "Producto vectorial:
+- Apunte: `08-algebra-transformaciones.tex` secciones "Producto interno: incidencia", "Producto vectorial:
   unir dos puntos, cortar dos rectas" (las dos propiedades, área orientada, paralelas → punto
   ideal), "Tres puntos alineados: el determinante" (unicidad, verificación $-3$), "Producto
   exterior: la misma idea en cualquier dimensión" (bivectores, conteo $3/3/1$ y $4/6/4/1$,
   "ortogonal es lo que maximiza el volumen"), "Núcleo de una matriz y determinante nulo"; y la
   subsección "La matriz como pila de formas" dentro de formas lineales (núcleo desde las filas).
-  `05-primera-lectura-homogeneas-proyectivas.tex`: tabla "La misma idea en cada dimensión" (filas
-  Tamaño con signo, Producto) y tabla "Del álgebra a la geometría: qué pregunta cada operación" con
+  `06-afines-homogeneas.tex`: tabla "La misma idea en cada dimensión" (filas
+  Tamaño con signo, Producto) y, en `08-algebra-transformaciones.tex`, tabla "Del álgebra a la geometría: qué pregunta cada operación" con
   la cadena incidencia → unión → alineación → determinante → núcleo → autovectores → puntos fijos.
 - Unidades marimo (molde v2 sobre `cb104`, 2026-10-17): `unidades/07a_cuna_determinante.py`
   (área orientada y detector de colinealidad, volumen y tres vectores en un plano, los tres mojones en

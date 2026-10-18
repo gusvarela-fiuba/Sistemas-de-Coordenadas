@@ -878,9 +878,9 @@ def _(mo):
 
     En esta unidad presentamos los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
 
-    - [apunte, «Cómo leer este apunte» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
-      [apunte, «La mirada geométrica»](../../apunte.pdf#nameddest=cap:03) ·
-      [apunte, «El punto y sus coordenadas no son lo mismo»](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
+      [apunte, «Repaso de Álgebra del CBC con la mirada de Clavijo»](../../apunte.pdf#nameddest=cap:03) ·
+      [apunte, «Rotaciones» (el punto y sus coordenadas no son lo mismo)](../../apunte.pdf#nameddest=cap:04)
     - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 4](../../clases/04.html) ·
       [ficha de la clase 9](../../clases/09.html) · [el hilo conductor](../../index.html)
 

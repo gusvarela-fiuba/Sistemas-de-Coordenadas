@@ -11,7 +11,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-9
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [espacio-vectorial, transformacion-lineal, forma-lineal, dualidad, curvas-de-nivel]
-apunte: ["11", "05"]
+apunte: ["08"]
 unidad: 06_formas_lineales
 ---
 
@@ -200,13 +200,13 @@ la adjunta; las lecturas 7 y 5 se conservan). En Excel: `MINVERSE`, `MMULT` para
 fila por matriz; en GeoGebra, las rectas $x+y=c$ y $-x+2y=c$ para $c=0..8$ y su imagen por $T$.
 
 ## Dónde está desarrollado
-- Apunte: `11-bloque-algebraico.tex`, sección "Formas lineales: la recta como máquina de medir"
+- Apunte: `08-algebra-transformaciones.tex`, sección "Formas lineales: la recta como máquina de medir"
   (`sec:formas-lineales`): primero en $\mathbb{R}$, el ejemplo $2x+3y$, figura de la regla graduada,
   selectoras y espacio dual, matriz como pila de formas y núcleo visto desde las filas, cómo se
   transforma una forma ($\varphi A$ y $\varphi A^{-1}$ con verificación numérica), el gradiente como
-  forma lineal, caja "Dualidad en pocas palabras". `05-primera-lectura-homogeneas-proyectivas.tex`,
-  tabla "La misma idea en cada dimensión" (fila "Recta": forma lineal $n\cdot x=c$) y sección "Del
-  álgebra a la geometría". `13-tercera-lectura.tex` para el gradiente y el plano tangente.
+  forma lineal, caja "Dualidad en pocas palabras". `06-afines-homogeneas.tex`,
+  tabla "La misma idea en cada dimensión" (fila "Recta": forma lineal $n\cdot x=c$) y, en `08-algebra-transformaciones.tex`, sección "Del
+  álgebra a la geometría". `11-superficies-geodesia.tex` para el gradiente y el plano tangente.
 - Unidad marimo: `unidades/06_formas_lineales.py` — "Formas lineales y dualidad" (piloto, 2026-10-17):
   la cota como regla graduada, deformaciones con casos y deslizador, la fila con $A^{-1}$, el ejercicio
   del 30/9 reproducido con `forma_transformada`, y la recta por dos puntos como cuña homogénea.

@@ -9,7 +9,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
   - fuentes/transcripciones/2026-10-14.md
 conceptos: [inversa, cuatro-subespacios, pseudoinversa, sistema-sobredeterminado]
-apunte: ["02", "05"]
+apunte: ["02", "08"]
 unidad: 09_cambio_de_base_svd
 ---
 
@@ -82,7 +82,7 @@ Lo mismo con la pseudoinversa explícita: $A^{+}=(A^{T}A)^{-1}A^{T}=\tfrac16\beg
 
 ## Dónde está desarrollado
 
-- **Apunte: cubierto desde la versión 3 (2026-10-17)** en `11-bloque-algebraico.tex`, sección `sec:pseudoinversa`, anticipado y pendiente de validar por la cátedra. Lo que sigue describe el estado anterior: La inversa como concepto y la pseudoinversa no tienen sección propia. Menciones: `02-hilo-de-la-materia.tex` (fila 10: "inversa = deshacer el movimiento; una transformación que pierde dimensiones aplasta y no se deshace del todo; la pseudoinversa elige el punto de la imagen más cercano", marcada "pseudoinversa pendiente"); `05-primera-lectura-homogeneas-proyectivas.tex` §La misma idea en cada dimensión (`sec:misma-idea`: la cita de la clase 10 y la fila "Inversa: $1/a$, no existe si $a=0$ / $A^{-1}$, no existe si $\det A=0$ / deshacer el movimiento"); `13-tercera-lectura.tex` §Sistemas de ecuaciones (`sec:sistemas-ecuaciones`: "ajustar coordenadas a partir de observaciones redundantes", bloque "a precisar con los enunciados de la cátedra"); `11-bloque-algebraico.tex` §Núcleo (`sec:nucleo`) para el subespacio que impide invertir. Tabla de propuesta en `19-apendice-rubricas.tex` (última fila: recíprocos, inversa respecto de una operación, Moore-Penrose como proyección sobre la imagen).
+- **Apunte: cubierto desde la versión 3 (2026-10-17)** en `09-svd.tex`, sección `sec:pseudoinversa`, anticipado y pendiente de validar por la cátedra. Lo que sigue describe el estado anterior: La inversa como concepto y la pseudoinversa no tienen sección propia. Menciones: `02-hilo-de-la-materia.tex` (fila 10: "inversa = deshacer el movimiento; una transformación que pierde dimensiones aplasta y no se deshace del todo; la pseudoinversa elige el punto de la imagen más cercano", marcada "pseudoinversa pendiente"); `06-afines-homogeneas.tex` §La misma idea en cada dimensión (`sec:misma-idea`: la cita de la clase 10 y la fila "Inversa: $1/a$, no existe si $a=0$ / $A^{-1}$, no existe si $\det A=0$ / deshacer el movimiento"); `09-svd.tex` §Sistemas de ecuaciones (`sec:sistemas-ecuaciones`: "ajustar coordenadas a partir de observaciones redundantes", bloque "a precisar con los enunciados de la cátedra"); `08-algebra-transformaciones.tex` §Núcleo (`sec:nucleo`) para el subespacio que impide invertir. Tabla de propuesta en `19-apendice-rubricas.tex` (última fila: recíprocos, inversa respecto de una operación, Moore-Penrose como proyección sobre la imagen).
 - **Unidad marimo:** `unidades/09_cambio_de_base_svd.py` (lección **anticipada**, 2026-10-17: $A^{-1} = V\,(1/\Sigma)\,U^{T}$, pseudoinversa de $\begin{pmatrix}1&2\\2&4\end{pmatrix}$ a mano y con `pinv`, los cuatro subespacios de la $3\times2$ del ajuste $(0,0),(1,1),(2,y_3)$ con el residuo sobre $u_3$; pendiente de validar por la cátedra).
 - **Bibliografía del campus:** Noble & Daniel, *Álgebra Lineal Aplicada* (sólo parte 1); Strang; Calvetti & Somersalo (ver ficha 07); Lay ("los primeros dos capítulos sirven como introducción, bastante enfocada a resolver operaciones"). Sin comentario textual del profesor sobre inversas o pseudoinversa en la lista del campus.
 - **Material del profesor:** ninguno específico; la exploración marimo de la clase 8 (2025) es el antecedente.

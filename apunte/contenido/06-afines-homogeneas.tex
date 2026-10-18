@@ -1,10 +1,190 @@
-% Segunda lectura — Bloque geométrico: transformaciones afines
-\section{Bloque geométrico: transformaciones afines}\label{cap:10}
+% Capítulo 6 — Afinidades y coordenadas homogéneas
+\chapter{Afinidades y coordenadas homogéneas}\label{cap:06}
+
+\section{La idea}
+
+Aflojamos la rigidez: una afinidad conserva rectas y paralelismo, y las coordenadas homogéneas permiten escribir la traslación como un producto de matrices. La formulación sigue lo dictado y los resúmenes del profesor; el paso a cada dimensión es desarrollo nuestro.
+
+\subsection{Afinidades: conservar rectas y paralelismo}\label{sec:afinidades-primera}
 
 {\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
 
 
-\section{Afinidades: idea geométrica y forma algebraica}\label{sec:afinidades-geom}
+Una afinidad permite deformaciones más generales. Un cuadrado puede convertirse en
+paralelogramo y un círculo en elipse, pero las rectas siguen siendo rectas y las paralelas
+siguen siendo paralelas cuando la transformación es invertible.
+
+\begin{center}
+\begin{tikzpicture}[scale=.86]
+  \draw[teal,line width=1.1pt] (1,1) rectangle (3.7,3.7);
+  \draw[rust,line width=1.1pt] (7,1)--(10.2,1.5)--(9.1,4.2)--(5.9,3.7)--cycle;
+  \draw[-{Latex[length=2.8mm]},tealdark,line width=1pt]
+    (4.3,2.4)--(5.4,2.4);
+  \node[labelback,text=teal] at (2.35,.55) {cuadrado};
+  \node[labelback,text=rust] at (8.05,.55) {paralelogramo};
+\end{tikzpicture}
+\end{center}
+
+Los puntos fijos muestran dónde se ``ancla'' la transformación. Las direcciones propias
+muestran líneas que conservan su dirección aunque puedan estirarse, contraerse o invertirse.
+Las coordenadas homogéneas permiten tratar la traslación dentro del mismo lenguaje matricial.
+
+\paragraph{Primera traducción algebraica.}
+\[
+  F(x)=Ax+t.
+\]
+La parte \(A\) deforma el paralelogramo de la base y \(t\) transporta su origen. Si \(A\) es
+invertible, ninguna dirección completa colapsa en un punto.
+
+\begin{idea}[En palabras del profesor]
+``Una afinidad conserva paralelas las paralelas'' o ``una afinidad conserva rectas las
+rectas y proporcionales las distancias sobre una recta'' (resumen de clase 3, cursada 2025).
+\end{idea}
+
+\subsection{Coordenadas homogéneas: puntos como rayos}\label{sec:homogeneas-primera}
+
+{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+
+
+En clase presentamos el plano afín como el plano \(w=1\) dentro de un espacio
+vectorial tridimensional. El punto afín \((x,y)\) se representa mediante
+\[
+  (x,y)\longleftrightarrow
+  \begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+Sin embargo, en geometría proyectiva no importa el representante concreto, sino el rayo que
+parte del origen:
+\[
+\begin{pmatrix}x\\y\\1\end{pmatrix}
+\sim
+\lambda
+\begin{pmatrix}x\\y\\1\end{pmatrix},
+\qquad \lambda\neq0.
+\]
+Todos esos vectores pertenecen al mismo subespacio vectorial de dimensión uno y cortan al
+plano \(w=1\) en el mismo punto afín.
+
+\begin{center}
+\begin{tikzpicture}[scale=.92]
+  \coordinate (o) at (1,1);
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(8.2,1) node[right] {$y$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(-.2,-.1) node[below left] {$x$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(1,6) node[above] {$w$};
+  \draw[teallight,fill=teallight!55,line width=.8pt]
+    (-.2,3.2)--(6.8,3.2)--(8.2,4.25)--(1.2,4.25)--cycle;
+  \node[labelback,text=tealdark] at (7.1,4.55) {plano \(w=1\)};
+  \coordinate (p) at (4.8,3.74);
+  \fill[rust] (p) circle (2.7pt) node[labelback,above] {\((x,y,1)\)};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.5mm]}] (o)--($(o)!1.38!(p)$);
+  \fill[ink] (o) circle (2.4pt) node[labelback,below] {origen};
+  \node[labelback,font=\small,text=rust] at (3.4,2.1)
+    {un rayo representa un punto};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Puntos en el infinito.}
+Una recta afín con dirección \(v\) puede escribirse
+\[
+  p(\mu)=p+\mu v.
+\]
+Homogéneamente:
+\[
+\begin{pmatrix}p+\mu v\\1\end{pmatrix}
+=
+\begin{pmatrix}p\\1\end{pmatrix}
++\mu
+\begin{pmatrix}v\\0\end{pmatrix}.
+\]
+Cuando \(|\mu|\) crece, la dirección dominante es \((v,0)\). La última coordenada nula
+identifica un punto ideal o punto en el infinito. Todas las rectas paralelas con dirección
+\(v\) comparten ese mismo punto ideal.
+
+\paragraph{Primera traducción algebraica.}
+Una matriz proyectiva general produce
+\[
+\begin{pmatrix}X\\Y\\W\end{pmatrix}
+=H
+\begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+Si \(W\neq0\), se vuelve al plano afín normalizando:
+\[
+  (x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
+\]
+Las afinidades son el caso especial en que la última fila de \(H\) es \((0,0,1)\), por lo
+que \(W\) permanece igual a \(1\).
+
+\begin{idea}[En palabras del profesor]
+``Terminamos con dos formas de expresión algebraica, una en \(\R^2\) y otra en el plano
+proyectivo. [\ldots] Sobre el espacio proyectivo nos preguntamos especialmente qué pasaba con
+los puntos impropios y cómo se expresaría una transformación con puntos fijos'' (resumen de clase 3, cursada 2025).
+\end{idea}
+
+\subsection{La misma idea en cada dimensión}\label{sec:misma-idea}
+
+\textbf{Desarrollo.} Casi todo lo que la materia hace en \(\R^2\), \(\R^3\) y \(\R^n\) ya
+existe en \(\R\), donde es tan simple que ni se nota. Leer cada concepto primero en la
+recta, después en el plano y después en el espacio es la versión más chica de ``ir a lo
+chico para volver a lo grande'': si la idea se entiende con un número, la matriz sólo
+agrega direcciones. La clase 10 del profesor hace exactamente esto con la inversa: ``la
+inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
+neutro respecto de esa operación'', sea la suma, el producto, la composición o el producto
+de matrices.
+
+{\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{17mm}>{\raggedright\arraybackslash}p{26mm}>{\raggedright\arraybackslash}p{32mm}>{\raggedright\arraybackslash}p{32mm}Y}
+\toprule
+& \(\R\) & \(\R^2\) & \(\R^3\) y \(\R^n\) & Hecho geométrico\\
+\midrule
+Identidad & el número \(1\): \(1\cdot a=a\) & la matriz \(I\): \(Iv=v\) & \(I\) de
+\(n\times n\) & la transformación que no mueve nada; es el neutro de la composición\\
+\addlinespace
+Inversa & \(1/a\); no existe si \(a=0\) & \(A^{-1}\); no existe si \(\det A=0\) & igual;
+si \(\det A=0\) hay núcleo & deshacer el movimiento; imposible si alguna dirección fue
+aplastada a un punto (clase 10)\\
+\addlinespace
+Tamaño con signo & \(|a|\) estira; el signo dice si da vuelta & \(\det A\): área orientada
+del paralelogramo imagen del cuadrado unidad & volumen orientado; en \(\R^n\),
+hipervolumen & cuánto se agranda una figura y si cambia de orientación\\
+\addlinespace
+Producto & \(a\cdot b\) & producto interno \(u\cdot v=|u||v|\cos\theta\) & igual; en
+homogéneas, \(\ell\cdot p=0\) es incidencia & proyección de un vector sobre otro; cero si
+son perpendiculares\\
+\addlinespace
+Reflexión y rotación & \(x\mapsto -x\): la única ``rotación'' de la recta es media vuelta
+& multiplicar por \(e^{i\theta}\) en \(\mathbb{C}=\R^2\); reflejar es conjugar &
+matriz de rotación \(3\times3\) con un eje; reflexión en un plano & conservar distancias;
+la rotación conserva la orientación, la reflexión la invierte\\
+\addlinespace
+Autovector & \(a\,x=\lambda x\): trivial, todo \(x\) sirve con \(\lambda=a\) &
+\(Av=\lambda v\): sólo algunas direcciones, o ninguna real si hay giro & una rotación de
+\(\R^3\) tiene exactamente una: el eje & dirección que cae sobre sí misma, sólo estirada o
+invertida\\
+\addlinespace
+Derivada & \(f'(x)\): un número, la pendiente & gradiente: una forma lineal con dos
+números; jacobiano \(2\times2\) si la función es vectorial & gradiente con \(n\) números;
+jacobiano \(m\times n\) & la mejor aproximación lineal: recta tangente, plano tangente\\
+\addlinespace
+Recta & \(a\,x=b\): un punto & forma lineal \(n\cdot x=c\): una recta; al variar \(c\),
+rectas paralelas & \(n\cdot x=c\): un plano; en \(\R^n\), hiperplano & el conjunto de
+nivel de una regla graduada (sección~\ref{sec:formas-lineales})\\
+\bottomrule
+\end{tabularx}
+}
+
+\begin{idea}[Cómo usar la tabla]
+Ante una fórmula nueva con matrices, escribirla primero con un solo número. Si en \(\R\)
+la fórmula es obvia, la versión matricial dice lo mismo dirección por dirección; lo único
+que agregan las dimensiones es que ahora las direcciones pueden mezclarse, y por eso
+aparecen el orden de composición, los autovectores y el determinante.
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+Ahora construimos las afinidades geométricamente, las escribimos como \(F(x)=Ax+t\), buscamos sus puntos fijos y las seguimos sobre una figura concreta en la clase práctica. Los ejercicios de la guía son material docente; las cuentas y las figuras son desarrollo.
+
+{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+
+\subsection{Afinidades: idea geométrica y forma algebraica}\label{sec:afinidades-geom}
 
 Una afinidad es una transformación que conserva el paralelismo. Como consecuencia, lleva
 rectas en rectas y paralelogramos en paralelogramos. En coordenadas cartesianas adopta la forma
@@ -45,7 +225,7 @@ Sus imágenes son
 \]
 Ambas comparten la dirección \(Av\); por lo tanto siguen siendo paralelas.
 
-\section{Puntos fijos y forma afín}\label{sec:puntos-fijos-afin}
+\subsection{Puntos fijos y forma afín}\label{sec:puntos-fijos-afin}
 
 Esta sección enlaza la guía con el comienzo de la clase siguiente. Toda transformación afín
 del plano puede escribirse
@@ -84,7 +264,7 @@ queda puramente lineal:
 \]
 Esta es la idea detrás de buscar un sistema de coordenadas adecuado.
 
-\section{Coordenadas homogéneas}\label{sec:homogeneas}
+\subsection{Coordenadas homogéneas}\label{sec:homogeneas}
 
 Las coordenadas homogéneas incorporan la traslación dentro de una multiplicación matricial.
 El punto cartesiano \((x,y)\) se representa por \((x,y,1)\), y
@@ -120,7 +300,7 @@ a \(w=1\). Los vectores de dirección o puntos ideales se representan con \(w=0\
 rectas paralelas pueden interpretarse proyectivamente como rectas que comparten un punto en
 el infinito.
 
-\section{Afinidades construidas geométricamente}\label{sec:afinidades-construidas}
+\subsection{Afinidades construidas geométricamente}\label{sec:afinidades-construidas}
 
 El material de la segunda clase propone una afinidad definida por un eje fijo, una dirección
 de desplazamiento y un factor. Los puntos del eje permanecen fijos; los demás se desplazan
@@ -154,7 +334,7 @@ lados independientes determinan la acción lineal \(A\), y un vértice determina
 \(t\).
 \end{idea}
 
-\section{Clase práctica: rotación y escala de una figura}
+\subsection{Clase práctica: rotación y escala de una figura}
 
 Para disponer de un caso reproducible, se toma una figura en forma de T con vértices
 \[
@@ -237,7 +417,7 @@ incluir la figura inicial, la imagen después de la rotación, la imagen despué
 y, si existe, el punto fijo de la composición.
 \end{idea}
 
-\subsection{Elementos a realizar}
+\subsubsection{Elementos a realizar}
 
 \begin{itemize}[label=\(\square\)]
   \item Definir una figura propia mediante una tabla de coordenadas.
@@ -248,39 +428,7 @@ y, si existe, el punto fijo de la composición.
   \item Hallar el punto fijo y comprobar que la matriz compuesta lo deja invariado.
 \end{itemize}
 
-\section{Autovalores y geometría de una transformación}\label{sec:autovalores-geom}
-
-Una dirección \(v\neq0\) es propia de \(A\) si
-\[
-  Av=\lambda v.
-\]
-La dirección se conserva y solo cambia su escala o su sentido. Para hallar autovalores:
-\[
-  \det(A-\lambda I)=0.
-\]
-Geométricamente:
-\begin{itemize}
-  \item \(\lambda=1\) identifica una dirección que no cambia;
-  \item \(\lambda=-1\) identifica una dirección que invierte su sentido;
-  \item \(|\lambda|>1\) indica expansión;
-  \item \(0<|\lambda|<1\) indica contracción.
-\end{itemize}
-
-En una rotación de \(\R^3\), el eje proporciona un autovector real con autovalor \(1\). Esta
-observación conecta el estudio de rotaciones de la primera clase con las preguntas matriciales
-de la clase de afinidades.
-
-\begin{idea}[Preguntas guía para una matriz afín]
-\begin{itemize}
-  \item ¿Es invertible? Revisar \(\det A\).
-  \item ¿Conserva orientación? Revisar el signo de \(\det A\).
-  \item ¿Tiene puntos fijos? Resolver \((I-A)x=t\).
-  \item ¿Tiene direcciones invariantes? Buscar autovectores de \(A\).
-  \item ¿Cómo cambia áreas? El factor es \(|\det A|\).
-\end{itemize}
-\end{idea}
-
-\section{Resumen de resultados}
+\subsection{Resumen de resultados}
 
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{31mm} X X}
@@ -318,7 +466,43 @@ escala y rotación con centro fijo\\
 \end{tabularx}
 \end{center}
 
-\section{Ejercicios adicionales de consolidación}
+\section{En profundidad}
+
+Para cerrar leemos la afinidad por sus autovalores y proponemos ejercicios de consolidación. Es desarrollo nuestro y prepara el cambio de base del capítulo~\ref{cap:08}.
+
+\subsection{Autovalores y geometría de una transformación}\label{sec:autovalores-geom}
+
+Una dirección \(v\neq0\) es propia de \(A\) si
+\[
+  Av=\lambda v.
+\]
+La dirección se conserva y solo cambia su escala o su sentido. Para hallar autovalores:
+\[
+  \det(A-\lambda I)=0.
+\]
+Geométricamente:
+\begin{itemize}
+  \item \(\lambda=1\) identifica una dirección que no cambia;
+  \item \(\lambda=-1\) identifica una dirección que invierte su sentido;
+  \item \(|\lambda|>1\) indica expansión;
+  \item \(0<|\lambda|<1\) indica contracción.
+\end{itemize}
+
+En una rotación de \(\R^3\), el eje proporciona un autovector real con autovalor \(1\). Esta
+observación conecta el estudio de rotaciones de la primera clase con las preguntas matriciales
+de la clase de afinidades.
+
+\begin{idea}[Preguntas guía para una matriz afín]
+\begin{itemize}
+  \item ¿Es invertible? Revisar \(\det A\).
+  \item ¿Conserva orientación? Revisar el signo de \(\det A\).
+  \item ¿Tiene puntos fijos? Resolver \((I-A)x=t\).
+  \item ¿Tiene direcciones invariantes? Buscar autovectores de \(A\).
+  \item ¿Cómo cambia áreas? El factor es \(|\det A|\).
+\end{itemize}
+\end{idea}
+
+\subsection{Ejercicios adicionales de consolidación}
 
 \begin{enumerate}
   \item Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calcule
@@ -357,7 +541,7 @@ escala y rotación con centro fijo\\
   composición produzca el giro.
 \end{enumerate}
 
-\subsection{Respuestas para autocorrección}
+\subsubsection{Respuestas para autocorrección}
 
 \begin{enumerate}
   \item
@@ -451,4 +635,3 @@ escala y rotación con centro fijo\\
   \item ¿El ejemplo confirma exactamente la conclusión del teorema?
 \end{itemize}
 \end{idea}
-

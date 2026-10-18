@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - datos/dem_copernicus/README.md
 conceptos: [regresion-simple, interseccion-de-circulos, procrustes, regresion-total]
-apunte: ["13", "11"]
+apunte: ["09"]
 unidad: 11_cuatro_problemas
 ---
 
@@ -51,7 +51,7 @@ Escalera: en $\mathbb R$, ajustar $n$ medidas $y_i\approx c$ es tomar el promedi
 **Problema 3.** Cuadrado $P$: $(1,0),(0,1),(-1,0),(0,-1)$; $Q$ es el mismo cuadrado girado $90^\circ$. $H=P^{\mathsf T}Q=\begin{pmatrix}0&2\\-2&0\end{pmatrix}=2\,R(-90^\circ)$, con $\Sigma=2I$; la receta $R=VU^{\mathsf T}$ devuelve $R(90^\circ)$ y escala $4/4=1$. Verificación en marimo con `numpy.linalg.svd(H)`.
 
 ## Dónde está desarrollado
-- Apunte: `13-tercera-lectura.tex` §"Sistemas de ecuaciones y aplicaciones" sólo enumera ("ajustar coordenadas a partir de observaciones redundantes", "determinar intersecciones") y dice "este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra"; `11-bloque-algebraico.tex` tiene producto interno y núcleo. Ninguno de los cuatro problemas está desarrollado en el apunte.
+- Apunte: `09-svd.tex` §"Sistemas de ecuaciones y aplicaciones" sólo enumera ("ajustar coordenadas a partir de observaciones redundantes", "determinar intersecciones") y dice "este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra"; `08-algebra-transformaciones.tex` tiene producto interno y núcleo. Ninguno de los cuatro problemas está desarrollado en el apunte.
 - Unidad marimo (**anticipada**, 2026-10-17, pendiente de validar por la cátedra): `unidades/11_cuatro_problemas.py`, los cuatro problemas como un solo problema (residuo perpendicular a la imagen; ecuaciones normales y `lstsq`, autocontenida porque la unidad 09 de SVD/pseudoinversa sigue pendiente), con las cuentas chicas de esta ficha (problemas 1 a 4) verificadas en `cb104.py`. La serie propuesta (`21-apendice-notebooks.tex`) tiene el nº 9 "Cambio de base y SVD: ... inversa y pseudoinversa"; el prototipo `datos/dem_copernicus/svd_dem_proto.py` ya hace el problema 4 sobre un DEM (reconstrucciones $k=1\ldots100$, RMS vs $k$).
 - Bibliografía del campus: Strang, *Álgebra lineal y sus aplicaciones*; Calvetti y Somersalo, *Less is More Linear Algebra* (ambos nombrados el 2026-10-14 para SVD, sin comentario escrito del profesor); Efimov, *Formas cuadráticas y matrices* (sin comentario).
 - Material de clase: la "nota sobre formas cuadráticas" del campus que el profesor pidió leer no está bajada en `fuentes/`.

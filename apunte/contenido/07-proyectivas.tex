@@ -1,11 +1,94 @@
-% Segunda lectura — Bloque geométrico: transformaciones proyectivas
-\section{Bloque geométrico: transformaciones proyectivas}\label{cap:12}\label{sec:bloque-proyectivas}
+% Capítulo 7 — Transformaciones proyectivas
+\chapter{Transformaciones proyectivas}\label{cap:07}\label{sec:bloque-proyectivas}
+
+\section{La idea}
+
+Quitamos la última condición: una proyectiva conserva rectas y nada más. Partimos de la frase dictada en clase, que un cuadrilátero la determina, y la ubicamos en la jerarquía de transformaciones del plano.
+
+\subsection{Transformaciones proyectivas: conservar rectas, nada más}\label{sec:proyectivas-primera}
+
+{\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor}\par}
+
+
+\textbf{Dictado}: \emph{``Transformaciones proyectivas: mantienen rectas las rectas
+\(\Rightarrow\) quedan definidas por un cuadrilátero''}.
+
+\textbf{Desarrollo.} La imagen mental es la toma de una cámara. Una cámara inclinada sobre un
+terreno plano convierte un lote rectangular en un trapecio: los alambrados paralelos
+convergen hacia un punto de fuga, las distancias no se conservan en ninguna proporción fija,
+y sin embargo toda recta del terreno sigue siendo una recta en la foto. Esa es la única
+propiedad que sobrevive, y es la que define a la familia.
+
+\begin{idea}[Qué agrega la perspectiva]
+Las afinidades conservan rectas \emph{y paralelismo}. Las transformaciones proyectivas
+conservan rectas \emph{solamente}: dos paralelas pueden dejar de serlo y cortarse en un punto
+de fuga; un punto ordinario puede irse al infinito y un punto ideal puede volverse ordinario.
+Las afinidades son un caso particular de las proyectivas.
+\end{idea}
+
+En coordenadas homogéneas la diferencia es mínima y muy visible. Una afinidad tiene matriz
+con última fila \((0,0,1)\), de modo que \(W\) siempre vale \(1\). Una transformación
+proyectiva tiene una matriz \(3\times3\) invertible \emph{cualquiera}:
+\[
+\begin{pmatrix}X\\Y\\W\end{pmatrix}=H\begin{pmatrix}x\\y\\1\end{pmatrix},
+\qquad
+(x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
+\]
+Ahora \(W=h_{31}x+h_{32}y+h_{33}\) depende del punto, y la división por \(W\) es
+exactamente la perspectiva: lo que ``está lejos'' se achica. Los puntos con \(W=0\) forman
+una recta que se va al infinito, el horizonte de la foto.
+
+\paragraph{Por qué un cuadrilátero.}
+La matriz tiene nueve entradas, pero \(H\) y \(\lambda H\) representan la misma
+transformación (el factor se cancela al dividir por \(W\)). Quedan ocho números
+independientes. Cada correspondencia ``el punto \(p\) va al punto \(p'\)'' aporta dos
+ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
+transformación queda determinada. Con tres puntos falta decidir ``cuánta perspectiva hay'';
+con cinco puntos, en general, no hay solución, y el quinto va a donde la transformación lo
+mande.
+
+\paragraph{Puntos fijos.}
+Un punto es fijo cuando \(Hp=\lambda p\): un autovector de \(H\). El polinomio característico
+tiene grado \(3\), y un polinomio real de grado impar siempre tiene una raíz real. Por lo tanto
+\textbf{toda transformación proyectiva del plano tiene al menos un punto fijo}, que puede ser
+un punto ordinario o un punto ideal (una dirección fija, como en una traslación).
+
+\begin{idea}[En palabras del profesor]
+``Estos espacios invariantes ya habían aparecido cuando usábamos las coordenadas
+homogéneas para analizar transformaciones afines o proyectivas. En ese caso los subespacios
+invariantes de la transformación lineal de \(\R^3\) correspondían a los puntos fijos en
+\(\mathbb{P}\R^2\)'' (resumen de clase 6, cursada 2025).
+\end{idea}
+
+\subsection{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} p{44mm} c c X}
+\toprule
+Familia & Forma de \(H\) & g.d.l. & Puntos & Conserva\\
+\midrule
+Isometrías & \(\begin{pmatrix}R&t\\0&1\end{pmatrix}\), \(R^TR=I\) & 3 & 2 &
+distancias, ángulos, áreas\\
+Similaridades & \(\begin{pmatrix}kR&t\\0&1\end{pmatrix}\) & 4 & 2 &
+ángulos, razones de longitudes\\
+Afinidades & \(\begin{pmatrix}A&t\\0&1\end{pmatrix}\), \(\det A\neq0\) & 6 & 3 &
+paralelismo, razón simple, razón de áreas\\
+Proyectivas & \(H\) invertible cualquiera & 8 & 4 &
+rectas, incidencia, razón doble\\
+\bottomrule
+\end{tabularx}
+\end{center}
+``Puntos'' es la cantidad de correspondencias \(p_i\mapsto p_i'\) que determinan la
+transformación. Cada familia contiene a la anterior y conserva menos.
+
+\section{Construcciones, cuentas y ejemplos}
+
+Escribimos la homografía como una matriz de \(3\times3\), mostramos que cuatro puntos la determinan y buscamos sus puntos y rectas fijas. La construcción es desarrollo nuestro sobre lo dictado, con ejercicios de consolidación al final.
 
 {\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor}\par}
 {\small\vspace{1mm}\linkAnimacion{02_homogeneas_pentagono_3d}{Animación: el pentágono en coordenadas homogéneas (3D)}\par}
 
-
-\section{Homografías: forma algebraica}\label{sec:homografias}
+\subsection{Homografías: forma algebraica}\label{sec:homografias}
 
 \textbf{Desarrollo.} Una \emph{transformación proyectiva} u \emph{homografía} del plano es la
 aplicación
@@ -46,7 +129,7 @@ Ningún punto ordinario se pierde, las paralelas siguen paralelas y las figuras 
 parten. Recíprocamente, toda homografía que deja fija la recta ideal es una afinidad.
 \end{atencion}
 
-\section{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
+\subsection{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
 
 \paragraph{Conteo.} Cada correspondencia \(p_i\mapsto p_i'\) aporta dos ecuaciones
 (\(X/W=x_i'\), \(Y/W=y_i'\)). Cuatro correspondencias dan ocho ecuaciones para ocho
@@ -94,9 +177,9 @@ Es el mismo esquema del ejercicio 6 de afinidades (\(A=P'P^{-1}\)), con un punto
 absorber la perspectiva. Los \(\lambda_i\), invisibles punto a punto, son precisamente los
 grados de libertad que faltaban.
 
-\section{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
+\subsection{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
 
-\textbf{Desarrollo.} Acá se cierra la cadena del bloque anterior. \(p\) es fijo si
+\textbf{Desarrollo.} Acá se cierra la cadena de los autovectores (secciones~\ref{sec:autovalores-geom} y~\ref{sec:autovalores}). \(p\) es fijo si
 \(Hp\sim p\), es decir si existe \(\lambda\neq0\) con \(Hp=\lambda p\): \emph{los puntos
 fijos son los autovectores reales de \(H\)}. Se calculan como se explicó: raíces reales de
 \(\det(H-\lambda I)=0\), y para cada una el producto cruz de dos filas de \(H-\lambda I\).
@@ -126,28 +209,38 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
   homología es \emph{armónica}, una involución, como una reflexión.
 \end{itemize}
 
-\section{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
+\subsection{Ejercicios de consolidación: proyectivas}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} p{44mm} c c X}
-\toprule
-Familia & Forma de \(H\) & g.d.l. & Puntos & Conserva\\
-\midrule
-Isometrías & \(\begin{pmatrix}R&t\\0&1\end{pmatrix}\), \(R^TR=I\) & 3 & 2 &
-distancias, ángulos, áreas\\
-Similaridades & \(\begin{pmatrix}kR&t\\0&1\end{pmatrix}\) & 4 & 2 &
-ángulos, razones de longitudes\\
-Afinidades & \(\begin{pmatrix}A&t\\0&1\end{pmatrix}\), \(\det A\neq0\) & 6 & 3 &
-paralelismo, razón simple, razón de áreas\\
-Proyectivas & \(H\) invertible cualquiera & 8 & 4 &
-rectas, incidencia, razón doble\\
-\bottomrule
-\end{tabularx}
-\end{center}
-``Puntos'' es la cantidad de correspondencias \(p_i\mapsto p_i'\) que determinan la
-transformación. Cada familia contiene a la anterior y conserva menos.
+\begin{enumerate}
+  \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
+  y que \(A,O,C\) tampoco (\(O\) el centro).
+  \item Calcule la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\).
+  Compruebe que el centro \(O_c=(-1.5388,-3.7361)\) \emph{no} está en ella.
+  \item Con \(H_c\), calcule la imagen del centro \(O\) y compruebe que no es \(O\): en
+  (c) el centro del pentágono no queda fijo.
+  \item Calcule \(H_c^2\) y normalice: debe dar la identidad. Interprete.
+  \item Construya la matriz \(K\) del patrón para el cuadrado \((0,0),(1,0),(1,1),(0,1)\),
+  en ese orden. ¿Es afín la homografía que lleva el patrón al cuadrado? Explique por qué.
+\end{enumerate}
 
-\section{El ejercicio del pentágono regular}
+\subsubsection{Respuestas para autocorrección}
+\begin{enumerate}
+  \item \(\det[A\ B\ C]=1.3143\neq0\); \(\det[A\ O\ C]=-0.5878\neq0\).
+  \item \(B\times D=(0.3090+0.8090,\ 0.5878+0.9511,\ 0.7694-0.1816)\cdot\) (a menos de
+  escala) \(\sim(0.7265,\,1,\,0.3820)\); en \(O_c\): \(-1.118-3.736+0.382=-4.47\neq0\).
+  \item \(H_c(0,0,1)^T=(-0.2245,-0.5451,1)^T\): \(O\mapsto(-0.22,-0.55)\).
+  \item \(H_c^2=0.7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
+  \item \(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
+  \(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
+  \((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
+  propios, cosa que una afinidad nunca hace.
+\end{enumerate}
+
+\section{En profundidad}
+
+Resolvemos caso por caso el ejercicio del pentágono regular. El enunciado es dictado; la planilla que envió el profesor es material docente, y la resolución es desarrollo nuestro.
+
+\subsection{El ejercicio del pentágono regular}
 
 \begin{enunciado}[Dictado, clase del 18 de septiembre]
 Tomar un pentágono \emph{regular} \(ABCDE\). Una transformación proyectiva queda definida
@@ -265,31 +358,3 @@ script del apéndice.
   cruz de dos filas de \(H-\lambda I\).
 \end{itemize}
 \end{resultado}
-
-\section{Ejercicios de consolidación: proyectivas}
-
-\begin{enumerate}
-  \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
-  y que \(A,O,C\) tampoco (\(O\) el centro).
-  \item Calcule la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\).
-  Compruebe que el centro \(O_c=(-1.5388,-3.7361)\) \emph{no} está en ella.
-  \item Con \(H_c\), calcule la imagen del centro \(O\) y compruebe que no es \(O\): en
-  (c) el centro del pentágono no queda fijo.
-  \item Calcule \(H_c^2\) y normalice: debe dar la identidad. Interprete.
-  \item Construya la matriz \(K\) del patrón para el cuadrado \((0,0),(1,0),(1,1),(0,1)\),
-  en ese orden. ¿Es afín la homografía que lleva el patrón al cuadrado? Explique por qué.
-\end{enumerate}
-
-\subsection{Respuestas para autocorrección}
-\begin{enumerate}
-  \item \(\det[A\ B\ C]=1.3143\neq0\); \(\det[A\ O\ C]=-0.5878\neq0\).
-  \item \(B\times D=(0.3090+0.8090,\ 0.5878+0.9511,\ 0.7694-0.1816)\cdot\) (a menos de
-  escala) \(\sim(0.7265,\,1,\,0.3820)\); en \(O_c\): \(-1.118-3.736+0.382=-4.47\neq0\).
-  \item \(H_c(0,0,1)^T=(-0.2245,-0.5451,1)^T\): \(O\mapsto(-0.22,-0.55)\).
-  \item \(H_c^2=0.7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
-  \item \(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
-  \(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
-  \((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
-  propios, cosa que una afinidad nunca hace.
-\end{enumerate}
-

@@ -1,27 +1,49 @@
-% Cómo leer este apunte
-\section{Cómo leer este apunte}\label{cap:00}
+% Capítulo 0 — Antes de empezar: cómo leer este apunte, organización e hilo de la materia
+\chapter{Antes de empezar: cómo leer este apunte, organización e hilo de la materia}\label{cap:00}
+\section{Cómo leer este apunte}
 
-El documento está organizado en capas que permiten volver sobre las mismas ideas con una
-profundidad creciente:
+El apunte tiene un capítulo por tema. Dentro de cada capítulo, tres secciones del mismo
+nombre y del mismo orden permiten volver sobre las ideas con una profundidad creciente:
 
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X}
 \toprule
-Recorrido & Objetivo\\
+Sección & Objetivo\\
 \midrule
-Primera lectura & Comprender qué representa cada concepto, qué se mueve y qué permanece.
+La idea & Comprender qué representa el concepto, qué se mueve y qué permanece.
 Incluye una primera expresión algebraica, explicada término por término.\\
-Segunda lectura & Construir figuras, seguir puntos e imágenes y reconocer visualmente
-invariantes, centros, ejes y direcciones.\\
-Tercera lectura & Relacionar las transformaciones con superficies, cartografía y problemas
-de Agrimensura.\\
+Construcciones, cuentas y ejemplos & Construir figuras, seguir puntos e imágenes, reconocer
+visualmente invariantes, centros, ejes y direcciones, resolver las guías paso a paso y
+verificar numéricamente.\\
+En profundidad & Reunir las demostraciones largas, las conexiones con el resto del programa
+y la relación con la práctica de Agrimensura.\\
 Apéndices & Reunir matrices, demostraciones, desarrollos de Taylor, casos excepcionales y
 soluciones completas de las guías.\\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-Dentro de cada capa, \textbf{dictado} identifica lo trabajado en clase,
+Esa estructura habilita dos modos de lectura. \emph{Por tema}: se toma un capítulo y se lo
+sigue de punta a punta, de la idea a las cuentas y de ahí a las conexiones. \emph{Por nivel}:
+se leen primero todas las secciones ``La idea'', en el orden de los capítulos, y recién
+después las de cuentas y las de profundidad; es la lectura en capas con la que se
+estudiaba antes.
+
+Los capítulos temáticos son nueve:
+
+\begin{enumerate}
+  \item Capítulo~\ref{cap:03}, \nameref{cap:03}.
+  \item Capítulo~\ref{cap:04}, \nameref{cap:04}.
+  \item Capítulo~\ref{cap:05}, \nameref{cap:05}.
+  \item Capítulo~\ref{cap:06}, \nameref{cap:06}.
+  \item Capítulo~\ref{cap:07}, \nameref{cap:07}.
+  \item Capítulo~\ref{cap:08}, \nameref{cap:08}.
+  \item Capítulo~\ref{cap:09}, \nameref{cap:09}.
+  \item Capítulo~\ref{cap:10}, \nameref{cap:10}.
+  \item Capítulo~\ref{cap:11}, \nameref{cap:11}.
+\end{enumerate}
+
+Dentro de cada sección, \textbf{dictado} identifica lo trabajado en clase,
 \textbf{material docente} identifica los documentos enviados por la cátedra y
 \textbf{desarrollo} reúne las explicaciones agregadas para hacer el material autónomo.
 
@@ -41,122 +63,6 @@ Para cada definición o teorema conviene producir:
   orientación o punto fijo.
 \end{enumerate}
 \end{idea}
-
-\subsection{Fundamentos: los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
-
-{\small\vspace{1mm}\linkUnidad{00_desaprender_el_cbc}{Simulación interactiva: Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)}\par}
-
-
-Desarrollo complementario, armado sobre las clases 1, 4 y 9 y la
-bibliografía del campus; no es contenido dictado. El álgebra y el análisis del CBC dejan
-reflejos que funcionan en el papel y que esta materia pide cambiar, no porque estén mal
-sino porque acá los objetos tienen un significado en el terreno. Para leer el resto con una
-sola cabeza alcanzan cinco ladrillos, en orden deductivo: cada uno usa sólo los anteriores.
-La Unidad 0 del sitio (\texttt{00\_desaprender\_el\_cbc}, apéndice~\ref{ap:notebooks}) los
-trabaja con figuras y ejercicios en Python; la subsección~\ref{sec:puntos-formas-grillas}
-los resume en una tabla. Las frases entre comillas son del profesor y están en los
-resúmenes 2025 o en las transcripciones 2026; lo demás es desarrollo del apunte.
-\begin{enumerate}
-  \item \textbf{Conjuntos, operaciones y grupos.} Un grupo es un conjunto con una
-  operación interna asociativa, un neutro y una inversa para cada elemento; si el orden no
-  importa, conmuta. Es el molde de todo lo que la materia llama \emph{transformación}:
-  ``Transformaciones y Operaciones [\ldots] son dos conceptos que van atravesando la
-  materia'' (resumen 2025, clase 1), y la inversa, dicha para todos los casos a la vez,
-  ``es un elemento de un conjunto que, al operar con otro resulta en el elemento neutro
-  respecto de esa operación'' (resumen 2025, clase 10). Los giros de la estación total
-  alrededor de su eje vertical conmutan; los de \(\R^3\) no, ``porque la composición de
-  transformaciones lineales no es conmutativa'' (resumen 2025, clase 1). En NumPy:
-  \texttt{A @ B}, \texttt{np.eye(n)}, \texttt{np.linalg.solve(A, y)}.
-  \item \textbf{Los cuerpos \(\R\) y \(\mathbb{C}\).} Un cuerpo tiene dos operaciones, suma
-  y producto, cada una un grupo conmutativo (el producto, sin el \(0\)), y el producto
-  distribuye. Un real escala la recta; agregar \(i^2=-1\) equivale exactamente a pasar a las
-  matrices \(\bigl(\begin{smallmatrix}a&-b\\ b&a\end{smallmatrix}\bigr)\), que respetan
-  suma, producto e inverso y rotan \(\arg z\) mientras escalan \(|z|\): ``la matriz de
-  rotación de 2x2 que vimos en algebra del CBC hace exactamente la misma operación que
-  hacíamos con los complejos'' (resumen 2025, clase 1). La ``interesantísima equivalencia
-  en la estructura de los numeros complejos y algunas matrices de 2x2'' el profesor la
-  remite a Gentile, \emph{Complejos y Generalización} (bibliografía del campus,
-  apéndice~\ref{ap:bibliografia}). En NumPy:
-  \texttt{np.array([[z.real, -z.imag], [z.imag, z.real]])}.
-  \item \textbf{Espacio afín y espacio vectorial: todo vector es un punto.} Un espacio
-  vectorial es un conjunto con suma y producto por escalar que respetan linealidad (``un
-  conjunto al que se asocian dos operaciones [\ldots] que cumplen con algunas propiedades
-  básicas a las que llamamos `linealidad'\,'', resumen 2025, clase 4); de ahí salen
-  combinación lineal, independencia, base y dimensión. Un espacio afín es un conjunto de
-  puntos sin origen: la diferencia de dos puntos es un vector. El terreno es afín (hay
-  mojones \(P\), \(Q\), no flechas); \(V\) nace cuando plantamos la estación total en un mojón
-  \(O\) y cada mojón pasa a ser \(P-O\), o cuando homogeneizamos \((x,y)\mapsto(x,y,1)\). Toda
-  transformación lineal ``conserva el cero'' (19/8/2026), por eso las traslaciones piden
-  homogéneas. En el espíritu de lo que dice el profesor sobre los campos vectoriales
-  (``tiene sentido pensarlos como puntos'', 14/10/2026, transcripción auto-traducida): en
-  esta materia un vector es un mojón visto desde \(O\) o un desplazamiento entre dos. En
-  NumPy, punto y desplazamiento son el mismo \texttt{np.array([x, y])}; independencia:
-  \texttt{np.linalg.matrix\_rank}.
-  \item \textbf{El dual \(V^{*}\): una fila es una forma lineal, y el gradiente también.}
-  Una forma lineal es una función lineal \(\omega:V\to\R\); las formas de \(V\) forman un
-  espacio vectorial de la misma dimensión, con base las selectoras de coordenadas (``las
-  más básicas de esas funciones son las funciones selectoras de coordenadas'', resumen
-  2025, clase 4). Se escribe como fila y evalúa fila por columna, sin producto interno; se
-  ve como una regla graduada, un mazo de rectas de nivel equiespaciadas. ``No existe el
-  vector fila. Lo que comúnmente llamamos vector fila se llama forma lineal''
-  (30/9/2026, transcripción auto-traducida). Si los puntos van con \(A\), la regla se
-  arrastra con \(A^{-1}\) para que la lectura no cambie: ``una forma lineal se transforma
-  con una transformación lineal del lado `contrario' que un vector'' (resumen 2025,
-  clase 4). Y \(df=\nabla f\,dx\) es una de ellas: ``dato clave: el gradiente es una forma
-  lineal no un vector'' (resumen 2025, clase 9). En NumPy: \texttt{w @ x} lee,
-  \texttt{np.linalg.solve(A.T, w)} arrastra.
-  \item \textbf{Producto interno y métrica \(G\): la cinta métrica.} Un producto interno
-  es \(\langle u,v\rangle_G=u^TGv\) con \(G\) simétrica definida positiva; recién con él
-  hay largos y ángulos, y es el único puente entre \(V\) y \(V^{*}\): baja un vector a forma
-  (\(w=Gv\)) y sube una forma a vector (\(v=G^{-1}w\)). ``Lo único que define a la base que
-  llamamos canónica es que sobre ella tenemos definida la noción de distancia a través del
-  producto interno'' (resumen 2025, clase 6): en esa base \(G=I\) y la cinta coincide con la
-  grilla; en la grilla de un plano estirado, \(G'=A^{-T}A^{-1}\); en \((\varphi,\lambda)\)
-  sobre una superficie, \(G\) es la primera forma fundamental, que cambia de punto a punto.
-  En NumPy: \texttt{a @ g @ b}, \texttt{np.linalg.solve(g, w)}, \texttt{J.T @ J}.
-\end{enumerate}
-
-El puente al cálculo en superficies, que es lo que hace de las clases 9 a 14 la misma
-materia que las clases 1 a 8: derivar una parametrización es usar una matriz lineal, la
-jacobiana \(J\), en el espacio tangente (ladrillos 1 y 3); el gradiente es una forma del
-dual (ladrillo 4); la primera forma fundamental \(J^TJ\) es la métrica del tangente
-(ladrillo 5); y curvarse, hessiana o segunda forma, es una forma cuadrática: un número por
-cada dirección. La subsección~\ref{sec:puntos-formas-grillas} pone los tres objetos en
-una tabla y la Unidad 0 los manipula.
-
-\begin{resultado}[Las tres ecuaciones maestras de la materia (\(Ax=b\), \(Ax=\lambda x\), \(Ax\approx b\))]
-Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden a una de tres preguntas (las que quedan afuera son las de medir con la métrica, \(J\) y \(J^TJ\), en las unidades 02, 10, 13 y 14):
-
-\smallskip
-\small
-\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{19mm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{47mm}}
-\textbf{Ecuación} & \textbf{Pregunta de campo} & \textbf{Dónde la desarrollamos} \\
-\hline
-\(Ax=b\) &
-\textbf{Transformar o deshacer.} Evaluar \(Ax\) es transformar: conocemos \(A\) y calculamos a dónde va un mojón. Resolver \(Ax=b\) es la pregunta inversa: conocemos \(A\) y el resultado \(b\) y buscamos de dónde vino, \(x=A^{-1}b\); leer un punto en otra base es eso mismo (las coordenadas nuevas son la \(x\) que cumple \(Px=b\)). Hallar la homografía que rectifica los cuatro puntos de una foto de dron también es un \(Ax=b\), pero con la matriz como incógnita: un sistema lineal \(8\times8\) en los coeficientes de \(H\). &
-\linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}, \linkUnidad{03_reflexiones_similaridades}{03}, \linkUnidad{04_afines_homogeneas}{04}, \linkUnidad{05_proyectivas}{05}, \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08} \\
-\hline
-\(Ax=\lambda x\) y \(Av_i=\sigma_i u_i\) &
-\textbf{Buscar direcciones privilegiadas.} Las que no giran (autovectores): el eje de giro en \(\mathbb{R}^3\), los puntos fijos de una afinidad o proyectiva, las direcciones principales de curvatura del elipsoide, cuyas curvaturas principales \(1/M\) y \(1/N\) son los autovalores de \(I^{-1}II\) (el operador de forma). Y, con la SVD, el par de bases perpendiculares que sigue perpendicular: los \(v_i\) (direcciones propias de \(A^TA\)) van a los \(u_i\) girando, pero sin perder el ángulo recto; son los semiejes de la elipse de Tissot. &
-preparación: \linkUnidad{07a_cuna_determinante}{07a}; \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}, \linkUnidad{08_cambio_de_base}{08}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{12_curvatura}{12}, \linkUnidad{13_elipsoide}{13}, \linkUnidad{15_transformaciones_conformes}{15} \\
-\hline
-\(Ax\approx b\) &
-\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\mathrm{Im}(A)\): regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con la SVD de una matriz armada con los datos. &
-\linkUnidad{02_producto_interno}{02}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{11_cuatro_problemas}{11} \\
-\end{tabularx}
-\normalsize
-
-\smallskip
-Los cinco ladrillos son el idioma de la materia, y estas tres ecuaciones son las tres frases que se dicen con él: transformamos o deshacemos, buscamos direcciones privilegiadas, o proyectamos lo medido sobre lo que el modelo puede explicar. Cada vez que aparece una cuenta nueva, nos preguntamos cuál de las tres es.
-\end{resultado}
-
-\subsection{Convención para componer}
-
-En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después \(F\)'':
-\[
-  (F G)(x)=F\bigl(G(x)\bigr).
-\]
-Esta convención es importante porque, en general, cambiar el orden cambia el resultado.
 
 \subsection{Mapa conceptual}
 
@@ -182,4 +88,3 @@ Esta convención es importante porque, en general, cambiar el orden cambia el re
   \draw[arr] (hom)--(sim);
 \end{tikzpicture}
 \end{center}
-

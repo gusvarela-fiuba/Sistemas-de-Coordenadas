@@ -1,5 +1,86 @@
-% Tercera lectura: conexiones con el resto del programa
-\section{Coordenadas curvilíneas y bases locales}\label{cap:13}\label{sec:curvilineas}
+% Capítulo 11 — Superficies, elipsoide y geodesia
+\chapter{Superficies, elipsoide y geodesia}\label{cap:11}
+
+\section{La idea}
+
+Pasamos del plano a la superficie curva: plano tangente, base local y métrica. Seguimos los resúmenes del profesor, con su apunte del elipsoide como horizonte.
+
+\subsection{Pasar del plano a una superficie}\label{sec:plano-superficie}
+
+{\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
+
+
+Sobre una superficie curva no existe una única base cartesiana válida en todas partes. En
+cada punto aparece un plano tangente y una base local que cambia al desplazarse. La métrica
+indica cómo convertir pequeños cambios de coordenadas en distancias y ángulos reales sobre
+la superficie.
+
+\paragraph{Primera traducción algebraica.}
+\[
+  ds^2=E\,du^2+2F\,du\,dv+G\,dv^2.
+\]
+Los coeficientes \(E,F,G\) describen cuánto miden y qué ángulo forman los dos vectores de la
+base local. La expresión transforma pequeños cambios \((du,dv)\) en una distancia geométrica.
+
+\begin{idea}[De lo global a lo local]
+Una superficie curva se estudia mediante pequeños parches que se parecen a un plano. En cada
+parche se usan coordenadas locales; al conectar los parches se recupera la geometría global.
+Esta es la intuición básica de una variedad.
+\end{idea}
+
+\begin{idea}[En palabras del profesor]
+``La derivada es la mejor aproximación lineal a una función en determinado punto''; ``el
+gradiente es perpendicular a una superficie/curva de nivel [\ldots] porque el gradiente es
+una forma lineal, y la curva de nivel 0 de esa forma lineal es el plano tangente'' (resumen de clase 9, cursada 2025).
+\end{idea}
+
+\subsection{Esfera, elipsoide y representación plana}\label{sec:esfera-primera}
+
+{\small\vspace{1mm}\linkUnidad{12_curvatura}{Simulación interactiva: Unidad 16 — Curvatura como forma cuadrática}\par}
+{\small\vspace{1mm}\linkUnidad{13_elipsoide}{Simulación interactiva: Unidad 17 — Geometría del elipsoide}\par}
+
+
+La Tierra se aproxima primero mediante una esfera y luego mediante un elipsoide de revolución.
+Su curvatura cambia con la posición, por lo que una diferencia angular no representa la misma
+distancia en todas las latitudes.
+
+Una proyección cartográfica lleva esa superficie al plano. Como una superficie curva no puede
+desarrollarse perfectamente sobre un plano, toda proyección debe elegir qué propiedad
+privilegiar: ángulos, áreas o determinadas distancias.
+
+\begin{idea}[En palabras del profesor]
+``Buscar una intuición de rotaciones y coordenadas sobre la cáscara de la esfera, que va
+a terminar conectando con el sistema de coordenadas de latitud y longitud'' (resumen de clase 2, cursada 2025).
+\end{idea}
+
+\subsection{Sistemas, marcos y grillas}\label{sec:sistemas-marcos}
+
+Un sistema de coordenadas define reglas matemáticas para expresar posiciones. Un marco de
+referencia materializa esas reglas en una época concreta mediante puntos, estaciones y
+observaciones.
+
+Cuando se cambia de marco pueden bastar traslaciones, rotaciones y escala. Si existen
+deformaciones regionales, se utilizan grillas de corrección que asignan desplazamientos
+variables según la ubicación. En datos ráster, el cambio de coordenadas obliga además a
+remuestrear porque los centros de píxel no coinciden exactamente.
+
+\begin{resultado}[Mapa mental de la materia]
+Las primeras transformaciones enseñan a reconocer invariantes. Las afinidades amplían la
+familia permitiendo deformaciones. La geometría diferencial lleva esas ideas a superficies
+curvas, y la geodesia las aplica al elipsoide, las proyecciones y los marcos de referencia.
+\end{resultado}
+
+\begin{idea}[En palabras del profesor]
+``Una operación muy importante es la composición [\ldots]: en general es necesario para
+construir un sistema de coordenadas que haya conmutatividad a la hora de componer
+movimientos por coordenadas'' (resumen de clase 2, cursada 2025).
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+Ponemos el aparato en cuentas: parametrizaciones, espacio tangente, primera forma fundamental, esfera y elipsoide, marcos de referencia y remuestreo. La cátedra aporta los resúmenes y el apunte del elipsoide; las cuentas son desarrollo nuestro.
+
+\subsection{Coordenadas curvilíneas y bases locales}\label{sec:curvilineas}
 
 Una parametrización
 \[
@@ -37,7 +118,7 @@ En coordenadas cartesianas la base es fija. En una superficie curva, la base cam
 orientación y de longitud al cambiar el punto. Esta dependencia espacial es la razón por la
 cual los productos internos y las derivadas adquieren coeficientes adicionales.
 
-\section{Variedades y espacio tangente}\label{sec:variedades}
+\subsection{Variedades y espacio tangente}\label{sec:variedades}
 
 Una variedad es un objeto que localmente se parece a un espacio euclídeo. Una superficie
 regular \(S\subset\R^3\) tiene en cada punto \(p\) un espacio tangente
@@ -54,7 +135,7 @@ Si \(\Phi:S\to\mathcal N\) es una aplicación entre superficies (variedades), su
 es una transformación lineal entre espacios tangentes. Esa transformación contiene la
 información local sobre escala, orientación, deformación angular y deformación de áreas.
 
-\section{Métrica y primera forma fundamental}\label{sec:metrica}
+\subsection{Métrica y primera forma fundamental}\label{sec:metrica}
 
 {\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
 
@@ -85,7 +166,7 @@ Para una esfera de radio \(R\), usando longitud \(\lambda\) y latitud \(\varphi\
 El factor \(\cos\varphi\) explica por qué un incremento fijo de longitud representa una
 distancia cada vez menor al acercarse a los polos.
 
-\section{Esfera, elipsoide y curvatura}
+\subsection{Esfera, elipsoide y curvatura}
 
 El elipsoide de revolución se caracteriza habitualmente mediante el semieje mayor \(a\) y
 el achatamiento \(f\). La primera excentricidad satisface
@@ -125,56 +206,13 @@ del elipsoide de revolución puede expresarse como
 \end{tikzpicture}
 \end{center}
 
-\section{Proyecciones cartográficas}\label{sec:proyecciones}
-
-Una proyección es una aplicación desde una superficie de referencia al plano:
-\[
-  P:S\longrightarrow\R^2.
-\]
-No puede conservar simultáneamente todas las propiedades métricas. Según la propiedad
-priorizada se distingue:
-
-\begin{center}
-\begin{tabularx}{.92\textwidth}{>{\bfseries}l X X}
-\toprule
-Tipo & Conserva localmente & Ejemplos\\
-\midrule
-Conforme & ángulos & Mercator, Gauss--Krüger, UTM\\
-Equivalente & áreas & Albers, Mollweide\\
-Equidistante & ciertas distancias & azimutal equidistante\\
-\bottomrule
-\end{tabularx}
-\end{center}
-
-La derivada \(dP_p\) actúa entre planos tangentes. Sus valores singulares describen las
-escalas principales de deformación; su determinante describe el cambio local de área.
-
-\section{Variable compleja y conformidad}
-
-Una función compleja \(w=f(z)\) es derivable en sentido complejo cuando existe
-\[
-  f'(z)=\lim_{\Delta z\to0}
-  \frac{f(z+\Delta z)-f(z)}{\Delta z}.
-\]
-Cuando \(f'(z)\neq0\), la transformación lineal local es multiplicación por el complejo
-\(f'(z)\): una rotación combinada con un escalado uniforme. Por ello las funciones holomorfas
-preservan ángulos localmente.
-
-La proyección estereográfica es un ejemplo central y conduce naturalmente al plano complejo
-extendido
-\[
-  \widehat{\mathbb C}=\mathbb C\cup\{\infty\}.
-\]
-La relación entre rotaciones, multiplicación compleja y conformidad conecta la primera clase
-con este bloque posterior del programa.
-
-\section{Marcos de referencia y transformaciones geodésicas}
+\subsection{Marcos de referencia y transformaciones geodésicas}
 
 Un sistema de coordenadas indica cómo expresar posiciones; un marco de referencia materializa
 ese sistema mediante convenciones, época y puntos o estaciones observadas. Cambiar de marco
 puede exigir traslaciones, rotaciones, escala y correcciones espaciales.
 
-\subsection{Transformaciones paramétricas}
+\subsubsection{Transformaciones paramétricas}
 
 Las transformaciones tridimensionales de semejanza suelen organizarse como
 \[
@@ -184,7 +222,7 @@ donde \(t\) es una traslación, \(\mu\) una pequeña variación de escala y \(R\
 Las fórmulas de Molodensky permiten transformar coordenadas geodésicas considerando cambios
 de datum y de elipsoide sin pasar necesariamente por una proyección plana.
 
-\subsection{Transformaciones mediante grillas}
+\subsubsection{Transformaciones mediante grillas}
 
 Una grilla NTv2 almacena correcciones \(\Delta\varphi,\Delta\lambda\) en nodos regulares. Para
 un punto interior se interpolan las correcciones de los cuatro nodos vecinos, típicamente por
@@ -199,7 +237,7 @@ interpolación bilineal:
 Este enfoque representa deformaciones regionales que una transformación global de pocos
 parámetros no puede modelar.
 
-\section{Discretización, grillas y remuestreo}
+\subsection{Discretización, grillas y remuestreo}
 
 Al pasar de coordenadas continuas a una grilla aparecen decisiones sobre resolución,
 origen, orientación y regla de muestreo. Una transformación geométrica rara vez lleva los
@@ -220,53 +258,11 @@ Bicúbico & usa un vecindario mayor; mayor suavidad y costo\\
 El jacobiano de la transformación permite estudiar deformaciones locales y convertir áreas
 y densidades entre sistemas de coordenadas.
 
-\section{Sistemas de ecuaciones y aplicaciones}\label{sec:sistemas-ecuaciones}
+\section{En profundidad}
 
-El programa incluye sistemas de ecuaciones y ecuaciones de segundo orden. En el contexto de
-coordenadas pueden aparecer al:
-\begin{itemize}
-  \item determinar intersecciones, puntos fijos y parámetros de transformación;
-  \item ajustar coordenadas a partir de observaciones redundantes;
-  \item describir curvas y superficies cuadráticas;
-  \item formular ecuaciones diferenciales sobre superficies.
-\end{itemize}
+Acá está lo que armamos antes de que la cátedra lo dictara: curvatura, geometría del elipsoide, arco de meridiano y trigonometría esférica, a partir del apunte del profesor y su fe de erratas. Está marcado como anticipado y pendiente de validar, y cerramos con la conexión con la práctica de Agrimensura.
 
-Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra. Mientras tanto, los cuatro problemas del esqueleto 2025 (regresión, intersección de círculos, Procrustes, regresión total) están desarrollados, como anticipo, en la sección~\ref{sec:cuatro-problemas}.
-
-\section{Conexión con la práctica de Agrimensura}
-
-\begin{center}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{47mm} X}
-\toprule
-Concepto & Aplicación\\
-\midrule
-Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de observaciones GNSS\\
-Base tangente y métrica & distancias y ángulos locales sobre el elipsoide\\
-Radios \(M,N\) & variación geométrica con la latitud\\
-Proyección conforme & coordenadas planas para cartografía y mensura\\
-Transformaciones de marco & compatibilidad entre realizaciones geodésicas\\
-Grillas de corrección & transformación regional de alta precisión\\
-Remuestreo & ortomosaicos, modelos de elevación y datos ráster\\
-Jacobiano & escala, deformación y propagación local\\
-\bottomrule
-\end{tabularx}
-\end{center}
-
-\begin{idea}[Estrategia de estudio acumulativa]
-Cada nuevo tema debería incorporarse con la secuencia
-\[
-\text{definición}\rightarrow
-\text{representación geométrica}\rightarrow
-\text{fórmula}\rightarrow
-\text{ejemplo numérico}\rightarrow
-\text{implementación}.
-\]
-Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
-GeographicLib y QGIS según el bloque.
-\end{idea}
-
-
-\section{Curvatura: de la curva plana a la forma cuadrática}\label{sec:curvatura}
+\subsection{Curvatura: de la curva plana a la forma cuadrática}\label{sec:curvatura}
 
 {\small\vspace{1mm}\linkUnidad{12_curvatura}{Simulación interactiva: Unidad 16 — Curvatura como forma cuadrática}\par}
 {\small\vspace{1mm}\linkAnimacion{05_elipsoide_euler_meusnier}{Animación: Euler y Meusnier sobre el elipsoide}\par}
@@ -404,7 +400,7 @@ caer en el meridiano y en su perpendicular, sin calcular nada. Es lo que el apun
 depende de \(\lambda\): \(M\), \(N\) y \(K=1/(MN)\) son funciones de \(\varphi\) sola. Y en
 los polos todas las direcciones son meridianos, así que ahí \(M=N\).
 
-\section{Geometría del elipsoide: latitudes, radios y conversión}\label{sec:elipsoide}
+\subsection{Geometría del elipsoide: latitudes, radios y conversión}\label{sec:elipsoide}
 
 {\small\vspace{1mm}\linkUnidad{13_elipsoide}{Simulación interactiva: Unidad 17 — Geometría del elipsoide}\par}
 {\small\vspace{1mm}\linkAnimacion{05_elipsoide_euler_meusnier}{Animación: Euler y Meusnier sobre el elipsoide}\par}
@@ -546,7 +542,7 @@ Chequeo: en cada columna \(x'^2/a^2+z^2/b^2=1\) con doce decimales. Un mojón en
 \(N-M\) en el ecuador es \(ae^2=42\,698\) m.
 \end{resultado}
 
-\section{Arco de meridiano}\label{sec:arco-meridiano}
+\subsection{Arco de meridiano}\label{sec:arco-meridiano}
 
 \textbf{Campo.} Cuánto mide, en metros, un tramo de meridiano entre dos latitudes: es lo
 que necesita cualquier proyección que respete distancias a lo largo del meridiano (el
@@ -695,7 +691,7 @@ las tres, \(x=a\lambda\) (el ecuador se desarrolla sin deformación) y lo que ca
   diferencia de longitud al meridiano central; queda como bosquejo, igual que en el apunte.
 \end{enumerate}
 
-\section{Polígonos geodésicos y trigonometría esférica}\label{sec:trigonometria-esferica}
+\subsection{Polígonos geodésicos y trigonometría esférica}\label{sec:trigonometria-esferica}
 
 {\small\vspace{1mm}\linkUnidad{14_trigonometria_esferica}{Simulación interactiva: Unidad 18 — Trigonometría esférica}\par}
 
@@ -794,363 +790,34 @@ simetría total, y por eso se pierden las fórmulas cerradas. La unidad
 \texttt{14\_trigonometria\_esferica} (apéndice~\ref{ap:notebooks}) hace la cuenta con
 tres vértices movibles.
 
-\section{Transformaciones conformes: del número complejo y el Jacobiano a la proyección del elipsoide}\label{sec:transformaciones-conformes}
+\subsection{Conexión con la práctica de Agrimensura}
 
-{\small\vspace{1mm}\linkUnidad{15_transformaciones_conformes}{Simulación interactiva: Unidad 19 — Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico}\par}
-{\small\linkAnimacion{06_conforme_tissot_mercator}{Animación: indicatriz de Tissot, equidistante vs. Mercator}\par}
-
-
-\begin{atencion}[Desarrollo complementario]
-Esta sección no fue dictada por la cátedra en 2C2026. La armamos nosotros para cerrar el
-arco de la materia: el número complejo de la clase 1 (sección~\ref{sec:rot-complejos}),
-las similaridades de la clase 3 (secciones~\ref{sec:escalar} y~\ref{cap:08}), la SVD de la
-clase 7 (sección~\ref{sec:svd}), el Jacobiano y la primera forma de la clase 9
-(sección~\ref{sec:metrica}) son, vistos desde acá, cuatro maneras de decir lo mismo, y
-el elipsoide de la clase 13 (sección~\ref{sec:elipsoide}) es el escenario donde las
-aplicamos. Y
-con ese lenguaje resolvemos las preguntas con que termina el apunte del elipsoide del
-profesor, incluida la transversa de Mercator que en la sección~\ref{sec:arco-meridiano}
-dejamos planteada. Pendiente de validar por la cátedra.
-\end{atencion}
-
-\paragraph{El problema cartográfico.} En la sección~\ref{sec:curvatura} vimos que la
-curvatura gaussiana del elipsoide es \(K=1/(MN)>0\) en todos los puntos; la del plano es
-\(K=0\). El \emph{theorema egregium} de Gauss dice que \(K\) se puede calcular con la
-primera forma fundamental sola (con \(E,F,G\) y sus derivadas), es decir, midiendo
-longitudes \emph{dentro} de la superficie, sin salir a \(\R^3\). La consecuencia es
-inmediata: si existiera una aplicación del elipsoide al plano que conservara todas las
-longitudes (una isometría local), las dos superficies tendrían la misma \(K\), y
-\(1/(MN)\neq0\). No existe. Toda carta, y todo sistema de coordenadas planas
-(Gauss--Krüger en las fajas de POSGAR), deforma \emph{algo}: longitudes, áreas, ángulos o
-una mezcla. Hecho geométrico: una cáscara de naranja no se aplana sin rajarse.
-
-Entonces elegimos qué conservar. Un agrimensor no negocia el ángulo: los \(90^\circ\)
-medidos con la estación total entre dos alineaciones tienen que cortarse a \(90^\circ\) en
-el plano de la mensura, y la dirección de la tangente a una visual en el terreno tiene
-que ser la del plano más una corrección que dependa del punto, no de la dirección (la
-convergencia de meridianos; para un lado finito se suma además la corrección
-arco-cuerda, que sí depende de la dirección y del largo). Eso es una
-\emph{transformación conforme}: en cada punto conserva los ángulos entre curvas, con su
-orientación (no refleja). Lo que sí cambia de punto a punto es la escala, y la pagamos con
-un factor \(k(P)\) que hay que conocer (la ``escala de la proyección'').
-
-\paragraph{Qué es una transformación en un punto.} Una aplicación \(P\mapsto P'\) entre
-superficies (o entre planos) es, cerca de cada punto, su jacobiana \(J(P)\): la matriz
-\(2\times2\) que lleva un pasito \((du,dv)\) del terreno al pasito correspondiente del mapa
-(sección~\ref{sec:metrica}). Para que ``conservar ángulos'' tenga sentido métrico, medimos
-los pasitos del terreno con la primera forma del terreno y los del mapa con la del mapa; en
-lo que sigue suponemos que trabajamos en bases ortonormales de los dos planos tangentes
-(sobre el elipsoide, \(r_\varphi/M\) y \(r_\lambda/(N\cos\varphi)\); en el plano, los
-versores), de modo que \(J\) es una matriz real \(2\times2\) común y corriente y la
-pregunta ``¿conserva ángulos?'' es la de la clase 3.
-
-\begin{resultado}[Las cuatro caras de una transformación conforme]
-Sea \(J=J(P)\) la jacobiana en un punto, con \(\det J>0\) (invertible y sin reflejar:
-conserva la orientación). Son equivalentes:
-\begin{enumerate}[label=(\roman*)]
-  \item \textbf{Similaridad directa.} \(J=\rho\,R(\theta)\) con \(\rho>0\): una rotación
-  seguida de una homotecia, la similaridad directa con punto fijo de la clase 3
-  (sección~\ref{sec:escalar}).
-  \item \textbf{Valores singulares iguales.} \(\sigma_1=\sigma_2=k\) en la SVD de \(J\)
-  (sección~\ref{sec:svd}): la indicatriz de Tissot (la imagen de la circunferencia unidad
-  del terreno) es una circunferencia de radio \(k\), no una elipse.
-  \item \textbf{Métrica proporcional.} \(J^TJ=k^2I\): en la primera forma inducida,
-  \(F=0\) y \(E=G=k^2\), es decir \(ds^2_{\text{mapa}}=k^2\,ds^2_{\text{terreno}}\).
-  \item \textbf{Número complejo.} \(J=\begin{pmatrix}a&-b\\b&a\end{pmatrix}\), la matriz
-  de multiplicar por \(a+ib\) (sección~\ref{sec:rot-complejos}). Si la transformación es
-  \((u,v)\mapsto(x,y)\), esto son las ecuaciones de Cauchy--Riemann
-  \[
-    x_u=y_v,\qquad x_v=-y_u ,
-  \]
-  y \(J\) es multiplicar por \(f'(z)=x_u+i\,y_u\), con \(z=u+iv\) y \(f=x+iy\): toda
-  función analítica con \(f'(z)\neq0\) es conforme, y recíprocamente.
-\end{enumerate}
-En todas, \(k=\rho=|f'(z)|=\sqrt{\det J}\) es la escala local y \(\theta=\arg f'(z)\) la
-rotación local (la ``convergencia de meridianos'' en las proyecciones).
-\end{resultado}
-
-\emph{Demostración.} Son tres equivalencias con el centro en (i).
-
-(i)\(\Leftrightarrow\)(iv), por la forma de las matrices. Una rotación por homotecia es
-\[
-  \rho\,R(\theta)=\begin{pmatrix}\rho\cos\theta&-\rho\sin\theta\\ \rho\sin\theta&\rho\cos\theta\end{pmatrix}
-  =\begin{pmatrix}a&-b\\b&a\end{pmatrix}\quad\text{con } a=\rho\cos\theta,\ b=\rho\sin\theta ,
-\]
-y al revés: toda matriz \(\begin{pmatrix}a&-b\\b&a\end{pmatrix}\) con \((a,b)\neq(0,0)\)
-se escribe así tomando \(\rho=\sqrt{a^2+b^2}\) y \(\theta=\operatorname{atan2}(b,a)\). Es
-exactamente la identificación \(\rho e^{i\theta}\leftrightarrow\rho R(\theta)\) de la
-clase 1: la matriz de la izquierda tiene dos parámetros, no cuatro. Leer \(a=x_u\),
-\(b=y_u\) y comparar con la jacobiana general
-\(\begin{pmatrix}x_u&x_v\\y_u&y_v\end{pmatrix}\) da Cauchy--Riemann.
-
-(i)\(\Leftrightarrow\)(ii), por la SVD. Si \(J=U\Sigma V^T\) con \(\Sigma=kI\), entonces
-\(J=k\,UV^T\), y \(UV^T\) es ortogonal (producto de ortogonales) con
-\(\det(UV^T)=\det J/k^2\). Acá usamos la hipótesis \(\det J>0\): ese determinante es
-\(+1\), así que \(UV^T\) es una rotación y \(J=k\,R(\theta)\). Sin la hipótesis, \(UV^T\)
-podría ser una reflexión: \(J=\operatorname{diag}(1,-1)\) tiene \(\sigma_1=\sigma_2=1\) y no
-es una similaridad directa. Al revés, si
-\(J=\rho R(\theta)\), su SVD es \(U=R(\theta)\), \(\Sigma=\rho I\), \(V=I\), y los dos
-valores singulares valen \(\rho\). Geométricamente: la circunferencia unidad va a una
-elipse de semiejes \(\sigma_1,\sigma_2\); la elipse es circunferencia si y sólo si los
-semiejes son iguales.
-
-(i)\(\Leftrightarrow\)(iii), por el producto \(J^TJ\). La primera forma inducida es
-\(ds^2_{\text{mapa}}=(du\ dv)\,J^TJ\,(du\ dv)^T\), de modo que \(E,F,G\) son las
-entradas de \(J^TJ\). Si \(J=\rho R\), \(J^TJ=\rho^2R^TR=\rho^2I\): \(F=0\) y
-\(E=G=\rho^2\). Al revés, si \(J^TJ=k^2I\), la matriz \(J/k\) cumple \((J/k)^T(J/k)=I\),
-es ortogonal; por la hipótesis \(\det J>0\) es una rotación y \(J=k\,R(\theta)\). (Con
-\(\det J<0\) sería una reflexión por una homotecia: conserva el tamaño de los ángulos pero
-invierte la orientación, una similaridad inversa; por eso la hipótesis va en el enunciado:
-sin ella (ii) y (iii) no implican (i). Las proyecciones cartográficas se toman directas.)
-\(\square\)
-
-\begin{atencion}[¿Sobre qué Jacobiano pedimos \(J^TJ=k^2I\)? Coordenadas \((\varphi,\lambda)\) vs.\ metros en el plano tangente]
-\emph{En coordenadas.} Si derivamos la carta \(\Phi(\varphi,\lambda)=(x,y)\) respecto de las
-coordenadas geodésicas en radianes, obtenemos el Jacobiano de coordenadas
-\(J_{\varphi,\lambda}=\partial(x,y)/\partial(\varphi,\lambda)\). Pero \((\varphi,\lambda)\) no
-están en metros ni son isótropas: el elipsoide tiene la primera forma fundamental
-\(\mathbf G=\operatorname{diag}(M^2,\,N^2\cos^2\varphi)\) (la matriz de la primera forma, con
-\(E=M^2\), \(F=0\), \(G=N^2\cos^2\varphi\)). La condición exacta de conformidad es
-entonces
-\[
-  J_{\varphi,\lambda}^T\,J_{\varphi,\lambda}=k(\varphi,\lambda)^2\,\mathbf G
-  =k^2\begin{pmatrix}M^2&0\\0&N^2\cos^2\varphi\end{pmatrix}.
-\]
-Pedir \(J_{\varphi,\lambda}^TJ_{\varphi,\lambda}=k^2I\) directo sobre \((\varphi,\lambda)\)
-sería el error de la hoja cuadriculada de la sección~0: tratar radianes de latitud y de
-longitud como si midieran lo mismo.
-
-\emph{En metros.} Cuando pasamos a la base ortonormal en metros del plano tangente
-(\(ds_{\text{mer}}=M\,d\varphi\), \(ds_{\text{par}}=N\cos\varphi\,d\lambda\)), el Jacobiano
-físico es
-\[
-  \tilde J=J_{\varphi,\lambda}\,\mathbf G^{-1/2}
-  =J_{\varphi,\lambda}\,\operatorname{diag}\!\Bigl(\frac1M,\,\frac1{N\cos\varphi}\Bigr),
-\]
-y recién ahí la condición toma la forma euclídea \(\tilde J^T\tilde J=k^2I\) (con
-\(\det\tilde J>0\) para conservar la orientación). El \(\tilde J\) es el que mira la unidad
-(la cara~(i) de arriba), y \(h\) y \(k\) son sus escalas en meridiano y paralelo.
-\end{atencion}
-
-\paragraph{Conforme es una propiedad local.} Una proyección conforme conserva exactamente
-el ángulo en el punto donde se cortan dos curvas y lleva circulitos infinitesimales en
-circulitos. Pero el factor de escala \(k(P)\) varía con la posición, así que las figuras
-extensas no mantienen ni su área ni su forma global (Groenlandia en Mercator parece del
-tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas de
-Gauss--Krüger de \(3^\circ\) de ancho: no para ``mantener la conformidad'' (Gauss--Krüger
-ya es conforme a cualquier distancia del meridiano central), sino para acotar la
-deformación lineal \(k-1\approx\tfrac12\,\Delta\lambda^2\cos^2\varphi\) (con \(\Delta\lambda\)
-en radianes) por debajo de unos \(3{,}4\times10^{-4}\), es decir \(34\) cm/km, en el borde
-de la faja (\(\Delta\lambda=1{,}5^\circ\)).
-
-\paragraph{Por qué (iii) es ``conservar ángulos''.} El ángulo entre dos pasitos \(p,q\)
-del terreno se calcula con el producto interno, \(\cos\alpha=p\cdot q/(\|p\|\|q\|)\). En el
-mapa los pasitos son \(Jp\) y \(Jq\), y \((Jp)\cdot(Jq)=p^T(J^TJ)q=k^2\,p\cdot q\): el
-numerador se multiplica por \(k^2\), cada norma por \(k\), y el coseno no cambia. Es el
-mismo argumento de la clase 1 (el producto interno es invariante por rotaciones) con una
-homotecia más. Y es lo único que lo logra: si \(J^TJ\) no fuera múltiplo de la identidad,
-sus dos autovectores (las direcciones \(v_1,v_2\) de la SVD) se estirarían distinto y
-alguna dirección intermedia giraría respecto de las otras.
-
-\paragraph{Cuánto se deforma un ángulo cuando no es conforme.} Con la SVD podemos
-medirlo. En las bases \(v_1,v_2\) y \(u_1,u_2\) la jacobiana es \(\operatorname{diag}(\sigma_1,\sigma_2)\),
-\(\sigma_1\ge\sigma_2>0\). La dirección de ángulo \(\alpha\) del terreno,
-\((\cos\alpha,\sin\alpha)\), va a \((\sigma_1\cos\alpha,\sigma_2\sin\alpha)\), de ángulo
-\(\alpha'\) con \(\tan\alpha'=r\tan\alpha\), \(r=\sigma_2/\sigma_1\le1\). El giro de esa
-dirección es \(\delta=\alpha-\alpha'\), con
-\[
-  \tan\delta=\frac{\tan\alpha-\tan\alpha'}{1+\tan\alpha\tan\alpha'}
-  =\frac{(1-r)\,t}{1+r\,t^2},\qquad t=\tan\alpha .
-\]
-Derivando en \(t\) y anulando, \(1+rt^2-2rt^2=0\), o sea \(t^2=1/r\): el giro es máximo
-en la dirección con \(\tan\alpha=\sqrt{\sigma_1/\sigma_2}\), y ahí
-\(\tan\alpha'=\sqrt{\sigma_2/\sigma_1}=1/\tan\alpha\), de modo que \(\alpha+\alpha'=90^\circ\):
-la dirección y su imagen son simétricas respecto de la diagonal de la elipse. En ese
-máximo \(\tan\delta=(1-r)/(2\sqrt r)\), y pasando a seno
-(\(\sin\delta=\tan\delta/\sqrt{1+\tan^2\delta}\), con \((1-r)^2+4r=(1+r)^2\)):
-\[
-  \sin\delta_{\max}=\frac{1-r}{1+r}=\frac{\sigma_1-\sigma_2}{\sigma_1+\sigma_2}.
-\]
-La dirección simétrica, de ángulo \(-\alpha\), gira lo mismo en sentido contrario, así
-que el ángulo \(2\alpha\) entre ambas es el que más cambia, y cambia en
-\[
-  \boxed{\ \omega=2\arcsin\frac{\sigma_1-\sigma_2}{\sigma_1+\sigma_2}\ }
-\]
-(deformación angular máxima de Tissot). Control: \(\omega=0\) si y sólo si
-\(\sigma_1=\sigma_2\), que es (ii). Con \(r=1/2\), \(\omega=38{,}94^\circ\), lo mismo
-que da maximizar numéricamente \(2(\alpha-\alpha')\).
-
-\paragraph{Las proyecciones del cierre del apunte del elipsoide, con este lenguaje.} En
-la sección~\ref{sec:arco-meridiano} planteamos las cinco proyecciones que el apunte del
-profesor deja como ``puntapié inicial'' (página 20) y resolvimos las cilíndricas
-integrando una condición cada vez. Ahora las vemos con las cuatro caras. Sobre el
-elipsoide, con la base \((\varphi,\lambda)\),
-\[
-  ds^2=M^2\,d\varphi^2+N^2\cos^2\varphi\,d\lambda^2 :
-\]
-\(F=0\), la grilla de meridianos y paralelos es ortogonal, pero un paso \(d\varphi=d\lambda\)
-no es un cuadradito: mide \(M\,d\varphi\) hacia el norte y \(N\cos\varphi\,d\lambda\) hacia
-el este. En una proyección cilíndrica \(x=a\lambda\), \(y=y(\varphi)\), la jacobiana en las
-bases ortonormales del terreno y del plano es diagonal,
-\[
-  J=\operatorname{diag}(h,k),\qquad
-  h=\frac{dy/d\varphi}{M}\ \ (\text{meridiano}),\qquad
-  k=\frac{dx/d\lambda}{N\cos\varphi}=\frac{a}{N\cos\varphi}\ \ (\text{paralelo}),
-\]
-así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en \(h\) y \(k\).
-\begin{enumerate}[label=(\alph*)]
-  \item \textbf{Mercator: conforme.} Cara (ii), \(h=k\):
-  \[
-    \frac{dy}{d\varphi}=\frac{a\,M}{N\cos\varphi}
-    \quad\Longrightarrow\quad
-    y=a\,q(\varphi),\qquad
-    q(\varphi)=\int_0^\varphi\frac{M}{N\cos u}\,du ,
-  \]
-  la \emph{latitud isométrica}. La integral sale con una identidad: como
-  \(M/N=(1-e^2)/(1-e^2\sin^2\varphi)\),
-  \[
-    \frac{M}{N\cos\varphi}=\frac{1-e^2}{(1-e^2\sin^2\varphi)\cos\varphi}
-    =\frac1{\cos\varphi}-\frac{e^2\cos\varphi}{1-e^2\sin^2\varphi}
-  \]
-  (se verifica poniendo a común denominador: \(1-e^2\sin^2\varphi-e^2\cos^2\varphi=1-e^2\)).
-  El primer término integra \(\ln\tan(\pi/4+\varphi/2)\), el de Mercator esférico. En el
-  segundo, con \(t=\sin\varphi\), queda \(e^2\int dt/(1-e^2t^2)\), y las fracciones simples
-  \(\frac1{1-e^2t^2}=\frac12\bigl(\frac1{1+et}+\frac1{1-et}\bigr)\) dan
-  \(\frac e2\ln\frac{1+et}{1-et}\). Por lo tanto
-  \[
-    \boxed{\ q(\varphi)=\ln\tan\Bigl(\frac\pi4+\frac\varphi2\Bigr)
-    -\frac e2\ln\frac{1+e\sin\varphi}{1-e\sin\varphi}\ } .
-  \]
-  Verificación derivando: \(\frac{d}{d\varphi}\ln\tan(\pi/4+\varphi/2)=1/\cos\varphi\) y
-  \(\frac{d}{d\varphi}\frac e2\ln\frac{1+e\sin\varphi}{1-e\sin\varphi}
-  =\frac e2\Bigl(\frac{e\cos\varphi}{1+e\sin\varphi}+\frac{e\cos\varphi}{1-e\sin\varphi}\Bigr)
-  =\frac{e^2\cos\varphi}{1-e^2\sin^2\varphi}\), que es lo que había que obtener; y
-  numéricamente, en \(\varphi=-34{,}6^\circ\), \(q=-0{,}640531\) tanto por la fórmula como
-  por \texttt{quad}, y \(a\,q=-4\,085\,391{,}659\) m, el valor de la sección~\ref{sec:arco-meridiano}.
-  Lo importante no es la fórmula sino lo que hace: en las coordenadas \((\lambda,q)\), con
-  \(d\varphi=(N\cos\varphi/M)\,dq\), la métrica del elipsoide queda
-  \[
-    ds^2=N^2\cos^2\varphi\,\bigl(dq^2+d\lambda^2\bigr),
-  \]
-  múltiplo escalar de la métrica plana: cara (iii) con \(k=N\cos\varphi\). La grilla
-  \((\lambda,q)\) \emph{es} la carta conforme, y Mercator es simplemente dibujarla con
-  \(x=a\lambda\), \(y=aq\).
-  \item \textbf{Cilíndrica equivalente.} Conservar áreas es \(\det J=hk=1\):
-  \[
-    \frac{dy}{d\varphi}=\frac{MN\cos\varphi}{a}\quad\Longrightarrow\quad
-    y=\frac1a\int_0^\varphi MN\cos u\,du ,
-  \]
-  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{sec:arco-meridiano} (\(q_A\), de ``autálica'', para no
-  confundirla con la latitud isométrica \(q\)). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
-  ecuador.
-  \item \textbf{Cilíndrica equidistante.} Meridianos a escala verdadera, \(h=1\):
-  \(y=S(\varphi)\), el arco de meridiano de la sección~\ref{sec:arco-meridiano}. Ni
-  conforme ni equivalente: \(\sigma_1=k\), \(\sigma_2=1\).
-  \item \textbf{Esfera autálica.} El área del elipsoide se integra con la misma jacobiana
-  \(3\times2\) de la sección~\ref{sec:metrica}: el elemento de área es
-  \(\sqrt{EG-F^2}\,d\varphi\,d\lambda=MN\cos\varphi\,d\varphi\,d\lambda\), y
-  \[
-    A=\int_{-\pi/2}^{\pi/2}2\pi N\cos\varphi\,M\,d\varphi
-    =2\pi a^2(1-e^2)\int_{-1}^{1}\frac{dt}{(1-e^2t^2)^2}
-  \]
-  \[
-    \phantom{A}=2\pi a^2(1-e^2)\Bigl[\frac{t}{2(1-e^2t^2)}+\frac1{4e}\ln\frac{1+et}{1-et}\Bigr]_{-1}^{1},
-  \]
-  con \(t=\sin\varphi\) y \(MN\cos\varphi=a^2(1-e^2)\cos\varphi/(1-e^2\sin^2\varphi)^2\)
-  (la primitiva se verifica derivando, igual que en (a)). Evaluando,
-  \[
-    \boxed{\ A=2\pi a^2+\pi\frac{b^2}{e}\ln\frac{1+e}{1-e}
-    =2\pi a^2\Bigl[1+\frac{1-e^2}{e}\operatorname{artanh}e\Bigr]\ },
-    \qquad R_A=\sqrt{\frac{A}{4\pi}} .
-  \]
-  En GRS80, \(A=510\,065\,621{,}7\) km\(^2\) y \(R_A=6\,371\,007{,}181\) m (la integral
-  numérica da lo mismo con nueve cifras). Es el \(R_q\) de la sección~\ref{sec:arco-meridiano};
-  para comparar, el radio medio \((2a+b)/3=6\,371\,008{,}771\) m y el de igual volumen
-  \(\sqrt[3]{a^2b}=6\,371\,000{,}790\) m: los tres ``radios de la Tierra'' difieren en
-  metros. Pasar a la esfera autálica es equivalente (cara \(\det J=1\)), no conforme.
-  \item \textbf{Transversa de Mercator (Gauss--Krüger), el planteo.} Queremos conforme
-  \emph{y} el meridiano central \(\lambda_0\) sin deformación (\(h=k=1\) sobre él), porque
-  la Argentina se cubre con fajas de \(3^\circ\) de ancho (POSGAR) donde lo que importa es
-  deformar poco cerca del meridiano central, no cerca del ecuador. Con las cuatro caras la
-  estrategia es clara: la grilla \((q,\lambda)\) ya es conforme por (a), y por (iv) toda
-  función analítica de \(z=q+i(\lambda-\lambda_0)\) también lo es. Buscamos entonces
-  \[
-    w=\mathrm N+i\,\mathrm E=f(z),\qquad f \text{ analítica},\qquad
-    f(q)=S(\varphi(q))\ \text{para } \lambda=\lambda_0 ,
-  \]
-  con \(S\) el arco de meridiano: sobre el meridiano central el norte es la distancia
-  medida y el este es cero. Esa condición fija \(f\) sobre el eje real, y una función
-  analítica queda determinada por sus valores en una recta (es la unicidad de la
-  prolongación analítica): la carta es única. Para escribirla, desarrollamos en serie de
-  Taylor en \(\Delta\lambda=\lambda-\lambda_0\) alrededor del eje real, con
-  \('=d/dq\):
-  \[
-    f(q+i\Delta\lambda)=S+i\,\Delta\lambda\,S'-\frac{\Delta\lambda^2}2S''
-    -i\frac{\Delta\lambda^3}6S'''+\cdots
-  \]
-  Las derivadas respecto de \(q\) son derivadas respecto de \(\varphi\) por
-  \(d\varphi/dq=N\cos\varphi/M\): \(S'=M\cdot N\cos\varphi/M=N\cos\varphi\), y
-  \(S''=\frac{N\cos\varphi}{M}\frac{d(N\cos\varphi)}{d\varphi}=-N\cos\varphi\sin\varphi\),
-  porque \(\frac{d}{d\varphi}(N\cos\varphi)=-M\sin\varphi\) (sale derivando
-  \(a\cos\varphi(1-e^2\sin^2\varphi)^{-1/2}\); lo controlamos numéricamente en
-  \(-34{,}6^\circ\): \(3\,609\,219{,}47\) por los dos lados). Separando parte real e
-  imaginaria, los dos primeros términos de cada coordenada son
-  \[
-    \mathrm N\approx S(\varphi)+\frac{\Delta\lambda^2}2\,N\sin\varphi\cos\varphi,\qquad
-    \mathrm E\approx N\cos\varphi\,\Delta\lambda
-    +\frac{\Delta\lambda^3}{6}\,N\cos^3\varphi\,(1-\tan^2\varphi+e'^2\cos^2\varphi),
-  \]
-  y la escala \(k=|f'(z)|/(N\cos\varphi)\approx1+\tfrac12\Delta\lambda^2\cos^2\varphi\)
-  (es \(1\) sobre el meridiano central y crece con el cuadrado de la distancia a él; por
-  eso Gauss--Krüger argentino no aplica factor de reducción y las fajas son angostas). El
-  término cúbico de \(\mathrm E\) lo transcribimos de la bibliografía, no lo deducimos:
-  sale de \(S'''\) con la misma mecánica. Control con los dos primeros términos, en
-  \(\varphi=-34{,}6^\circ\) y \(\Delta\lambda=1{,}5^\circ\) (el borde de una faja):
-  \(\mathrm N=-3\,831\,240{,}9\) m, \(\mathrm E=137\,595{,}3\) m, contra
-  \(-3\,831\,241{,}1\) y \(137\,600{,}9\) de \texttt{pyproj} (\texttt{tmerc}, GRS80):
-  \(0{,}2\) m en el norte y \(5{,}6\) m en el este, que es el término cúbico que falta.
-  Queda como desarrollo complementario; lo que la materia aporta es el planteo:
-  \emph{conforme} es ``analítica'', y ``sin deformación sobre el meridiano central'' es la
-  condición de contorno que la vuelve única.
-\end{enumerate}
-
-\begin{resultado}[Buenos Aires y Ushuaia en las tres cilíndricas, GRS80]
-\(\varphi=-34{,}6^\circ\) (Buenos Aires) y \(\varphi=-54^\circ\) (Ushuaia). Latitud
-isométrica \(q\), escalas \(h\) (meridiano) y \(k=a/(N\cos\varphi)\) (paralelo),
-deformación angular máxima \(\omega=2\arcsin\frac{|h-k|}{h+k}\) y factor de área \(hk\).
-
-{\small
 \begin{center}
-\begin{tabular}{l l rrrr}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{47mm} X}
 \toprule
-\(\varphi\) & Proyección & \(h\) & \(k\) & \(\omega\) & \(hk\)\\
+Concepto & Aplicación\\
 \midrule
-\(-34{,}6^\circ\) & Mercator (\(h=k\)) & 1{,}2136 & 1{,}2136 & \(0^\circ\) & 1{,}4727\\
-\(q=-0{,}6405\) & Equidistante (\(h=1\)) & 1{,}0000 & 1{,}2136 & \(11{,}0725^\circ\) & 1{,}2136\\
- & Equivalente (\(hk=1\)) & 0{,}8240 & 1{,}2136 & \(22{,}0423^\circ\) & 1{,}0000\\
-\midrule
-\(-54^\circ\) & Mercator (\(h=k\)) & 1{,}6976 & 1{,}6976 & \(0^\circ\) & 2{,}8817\\
-\(q=-1{,}1188\) & Equidistante (\(h=1\)) & 1{,}0000 & 1{,}6976 & \(29{,}9731^\circ\) & 1{,}6976\\
- & Equivalente (\(hk=1\)) & 0{,}5891 & 1{,}6976 & \(57{,}9945^\circ\) & 1{,}0000\\
+Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de observaciones GNSS\\
+Base tangente y métrica & distancias y ángulos locales sobre el elipsoide\\
+Radios \(M,N\) & variación geométrica con la latitud\\
+Proyección conforme & coordenadas planas para cartografía y mensura\\
+Transformaciones de marco & compatibilidad entre realizaciones geodésicas\\
+Grillas de corrección & transformación regional de alta precisión\\
+Remuestreo & ortomosaicos, modelos de elevación y datos ráster\\
+Jacobiano & escala, deformación y propagación local\\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{center}
-}
 
-Lectura: en Mercator un ángulo medido en Ushuaia se dibuja exacto, pero cada metro del
-terreno son \(1{,}70\) en el mapa y cada hectárea \(2{,}88\); en la equivalente las áreas
-son exactas pero hay direcciones que giran \(29^\circ\): un ángulo de \(119^\circ\) entre dos
-alineaciones se dibuja de \(61^\circ\) (las dos direcciones más giradas y sus imágenes son
-simétricas respecto de la diagonal, así que el ángulo y su imagen son suplementarios). No hay
-proyección con las dos columnas en \(1\): es el \emph{theorema egregium} en números.
-\end{resultado}
-
-\paragraph{Control numérico.} Los valores de la tabla, \(q\), \(A\) y \(R_A\) los
-calculamos con NumPy y SciPy (\texttt{quad}) en GRS80, \(a=6\,378\,137\) m,
-\(f=1/298{,}257222101\), \(e^2=0{,}00669438\): \(M=a(1-e^2)/(1-e^2\sin^2\varphi)^{3/2}\),
-\(N=a/(1-e^2\sin^2\varphi)^{1/2}\), \(k=a/(N\cos\varphi)\), y \(h=k\), \(1\), \(1/k\)
-según la proyección. En \(-54^\circ\): \(M=6\,377\,306{,}911\) m, \(N=6\,392\,156{,}080\) m,
-\(y_{\text{Mercator}}=aq=-7\,135\,562{,}567\) m, \(S=-5\,985\,916{,}028\) m,
-\(y_{\text{equivalente}}=-5\,140\,508{,}988\) m. La \(q\) de la fórmula cerrada y la de
-la integral numérica coinciden en las seis cifras mostradas, y
-\(dq/d\varphi=1{,}697349\) por diferencias finitas, igual a \(M/(N\cos\varphi)\).
+\begin{idea}[Estrategia de estudio acumulativa]
+Cada nuevo tema debería incorporarse con la secuencia
+\[
+\text{definición}\rightarrow
+\text{representación geométrica}\rightarrow
+\text{fórmula}\rightarrow
+\text{ejemplo numérico}\rightarrow
+\text{implementación}.
+\]
+Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
+GeographicLib y QGIS según el capítulo.
+\end{idea}

@@ -12,7 +12,7 @@ fuentes:
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
   - apunte/01_Ejercicios_original.pdf
 conceptos: [composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia]
-apunte: ["07", "15", "16", "13"]
+apunte: ["04", "15", "16", "11"]
 unidad: 01c_rotaciones_3d
 ---
 
@@ -70,7 +70,7 @@ La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c
 
 ## Dónde está desarrollado
 
-- Apunte: `07-bloque-rotaciones.tex` §"El orden importa" y §"Eje de rotación, autovectores y exponencial" (el experimento de rotación por repetición, eje $(1,1,1)$, $\Theta \approx n\varepsilon\sqrt3$); `15-apendice-infinitesimales.tex` (por qué el orden no aparece a primer orden, conmutador, interpretación con $\varepsilon = \delta = 0.01$); `16-apendice-composicion-afin.tex` (composición en homogéneas, "la matriz situada a la derecha actúa primero", orden rotación–escala); `13-tercera-lectura.tex` §"Coordenadas curvilíneas y bases locales" (grilla $(u,v)$ sobre una superficie, $r_u, r_v$). El problema de los vasos no está en el apunte.
+- Apunte: `04-rotaciones.tex` §"El orden importa" y §"Eje de rotación, autovectores y exponencial" (el experimento de rotación por repetición, eje $(1,1,1)$, $\Theta \approx n\varepsilon\sqrt3$); `15-apendice-infinitesimales.tex` (por qué el orden no aparece a primer orden, conmutador, interpretación con $\varepsilon = \delta = 0.01$); `16-apendice-composicion-afin.tex` (composición en homogéneas, "la matriz situada a la derecha actúa primero", orden rotación–escala); `11-superficies-geodesia.tex` §"Coordenadas curvilíneas y bases locales" (grilla $(u,v)$ sobre una superficie, $r_u, r_v$). El problema de los vasos no está en el apunte.
 - Unidad marimo: `unidades/01c_rotaciones_3d.py` (Rotaciones III: $R_zR_y \neq R_yR_z$ con el mismo cubo, la diferencia de segundo orden con ángulos chicos, el eje fijo de la composición) cubre el arranque de esta clase; la legacy `unidades/_legacy/01_rotaciones_v1.py` cubre la no conmutatividad (curva $\|R_xR_yR_z - R_zR_yR_x\|$ contra el ángulo) y la trayectoria $R^kv$. Pendiente: una unidad de líneas coordenadas (vasos, polares, esfera) sin número asignado todavía.
 - Bibliografía del campus: Miles Reid, *Geometry and Topology*, caps. 1 y 2 ("Clase 2 y Clase 3. Los capítulos 1 y 2 del libro de Reid explican muy bien cómo se pueden formar todas las similaridades del plano con reflexiones, es muy bueno para entender la composición de transformaciones y transformaciones en el plano en general"); Behnke, *Fundamentals of Mathematics* V2, cap. 2 ("Clase 2 y 3. El capítulo 2 también está muy bueno, a partir de reflexiones construye todas las transformaciones de similaridad (afinidades que no deforman ángulos)"). Mahecha cap. 7 para rotaciones 3D (clase 1).
 - Material de clase del profesor (2025, en `Bibliografia/material de clase 2C2025/`): `Rotaciones_No_Conmutan.xlsx` (Planilla Clase 2025.2.2), `Algun_ejemplo_de_rotacion.wxmx` (Maxima 2025.2.2, 25-08-2025, conmutatividad + yapa de autovectores), `Ejemplo Clase 2025/Ejemplo_para_pensar.py` + `.jpeg` (rotación de $\pi/20$ vía `expm` más traslación, iterada 100 veces con tres $k$). Notion de Gustavo: "las rotaciones infinitesimales conmutan, igual que los pasitos $du$, $dv$; lo infinitesimal simplifica; lo finito se construye por acumulación".
@@ -87,5 +87,5 @@ La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c
 - Fecha 2025 estimada (2025-08-28); el campus no la dice.
 - La clase no se dictó en 2C2026 (dato de Gustavo, 2026-10-17). Queda por confirmar si el 09-02, al que Gustavo faltó, se retomó algo de los vasos, la esfera o el producto cruz.
 - La "yapa relativa a autovectores" del wxMaxima no está descripta en ningún lado; abrir `Algun_ejemplo_de_rotacion.wxmx` y anotar qué calcula.
-- El vínculo esfera → latitud/longitud → producto cruz quedó enunciado en 2025 y no desarrollado en clase; el apunte lo trata recién en la tercera lectura. La cuenta chica 4 es reconstrucción propia, no del pizarrón.
+- El vínculo esfera → latitud/longitud → producto cruz quedó enunciado en 2025 y no desarrollado en clase; el apunte lo trata recién en el capítulo 11 (superficies y geodesia). La cuenta chica 4 es reconstrucción propia, no del pizarrón.
 - La página Notion de Gustavo cierra con "el tensor métrico se transforma con la jacobiana $J$ como $g' = J^Tg\,J$, el mismo patrón que las rotaciones": vale anotarlo acá como puente a la clase 9, pero no consta que el profesor lo haya dicho en la clase 2.
