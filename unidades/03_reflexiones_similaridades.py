@@ -181,17 +181,15 @@ def _(mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="espejo de la recta de ángulo α", label="caso precargado")
     rango = 6
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después, con las columnas de la
-        matriz como flechas; **violeta**, la parcela con estelas. En los espejos dibujo la recta espejo (a rayas); en la
-        similaridad con centro, el centro fijo en gold. Mirá el **área con signo**: cambia de signo con un espejo, vuelve
-        a ser positiva con dos, y va $\times k^2$ con la similaridad.
-        """),
-        caso,
-    ])
+    Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después, con las columnas de la
+    matriz como flechas; **violeta**, la parcela con estelas. En los espejos dibujo la recta espejo (a rayas); en la
+    similaridad con centro, el centro fijo en gold. Mirá el **área con signo**: cambia de signo con un espejo, vuelve
+    a ser positiva con dos, y va $\times k^2$ con la similaridad. A la derecha de la figura, el panel con el caso,
+    los deslizadores y los números vivos.
+    """)
     return caso, casos, parcela, rango
 
 
@@ -258,7 +256,7 @@ def _(caso, casos, go, lib, mo, np, params, parcela, rango, t_sit):
     else:
         _extra = r"- traslación pura, **sin centro**" if con_t else r"- el centro es el origen: $S(0) = 0$"
     _panel = mo.vstack([
-        mo.md("**Controles**"), mo.vstack(params.elements),
+        mo.md("**Controles**"), caso, mo.vstack(params.elements),
         mo.md(rf"""
         **Números vivos**
 
@@ -270,8 +268,8 @@ def _(caso, casos, go, lib, mo, np, params, parcela, rango, t_sit):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.5)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, area_antes, area_despues, centro, t_M
 
 
@@ -283,7 +281,7 @@ def _(go, lib, mo, n_pasos, np):
     tray_R = lib.trayectoria(lib.rot2(np.deg2rad(30)), [0, 0], p0, _n)
     tray_H = lib.trayectoria(0.85 * np.eye(2), [0, 0], p0, _n)
     tray_S = lib.trayectoria(0.85 * lib.rot2(np.deg2rad(30)), [0, 0], p0, _n)
-    fig_t = lib.figura_plano(3.6, "trayectorias: rotación, homotecia y similaridad repetidas", ancho=460, alto=460)
+    fig_t = lib.figura_plano(3.6, "trayectorias: rotación, homotecia y similaridad repetidas")
     for _tr, _col, _nom in ((tray_R, lib.COLORES[0], "R(30°) repetida: círculo"), (tray_H, lib.COLORES[2], "0.85·I repetida: rayo"),
                             (tray_S, lib.VIOLETA_OBJETO, "0.85·R(30°) repetida: espiral")):
         fig_t.add_trace(go.Scatter(x=_tr[:, 0], y=_tr[:, 1], mode="lines+markers", line=dict(color=_col, width=2), marker=dict(size=6), name=_nom))
@@ -297,8 +295,8 @@ def _(go, lib, mo, n_pasos, np):
         **líneas coordenadas** polares: cada punto es "cuánto giré y cuánto escalé". Las rectas de la grilla, en cambio,
         siempre van a rectas (la grilla teal de arriba): eso es lo afín.
         """),
-        mo.hstack([mo.vstack([n_pasos, mo.md(rf"tras $n = {_n}$ pasos: círculo ${lib.vec_tex(tray_R[-1], 2)}$, rayo ${lib.vec_tex(tray_H[-1], 2)}$, espiral ${lib.vec_tex(tray_S[-1], 2)}$")]),
-                   mo.ui.plotly(fig_t)], widths=[1, 2], align="start"),
+        lib.mesa_interactiva(mo, mo.ui.plotly(fig_t), mo.md("**Controles**"), n_pasos,
+                             mo.md(rf"**Números vivos**\n\ntras $n = {_n}$ pasos: círculo ${lib.vec_tex(tray_R[-1], 2)}$, rayo ${lib.vec_tex(tray_H[-1], 2)}$, espiral ${lib.vec_tex(tray_S[-1], 2)}$")),
     ])
     return p0, tray_H, tray_R, tray_S
 

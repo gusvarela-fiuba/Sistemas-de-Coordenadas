@@ -159,17 +159,14 @@ def _(lib, mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="A = [[2, 1], [1, 2]]: dos direcciones perpendiculares", label="caso precargado")
     rango = 6
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # el lado (5, 3) → (3, 5) tiene rumbo (−1, 1)
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        **Gris**: grilla y parcela antes. **Teal**: la grilla deformada, con las columnas como flechas. **Negro a rayas**:
-        las direcciones propias, con la flecha $\lambda\,\hat v$ que muestra cuánto se estiran. **Violeta**: la parcela
-        con estelas y una **flecha de prueba** $v$ que elegís con el deslizador ($v$ gris, $Av$ violeta): sobre una
-        dirección propia no gira ($0°$ ó $180°$); en cualquier otra, sí. **Reproducir** muestra el camino desde la identidad.
-        """),
-        caso,
-    ])
+    **Gris**: grilla y parcela antes. **Teal**: la grilla deformada, con las columnas como flechas. **Negro a rayas**:
+    las direcciones propias, con la flecha $\lambda\,\hat v$ que muestra cuánto se estiran. **Violeta**: la parcela
+    con estelas y una **flecha de prueba** $v$ que elegís con el deslizador ($v$ gris, $Av$ violeta): sobre una
+    dirección propia no gira ($0°$ ó $180°$); en cualquier otra, sí. **Reproducir** muestra el camino desde la identidad.
+    """)
     return caso, casos, parcela, rango
 
 
@@ -206,7 +203,7 @@ def _(caso, casos, go, lib, mo, np, parcela, phi, rango):
     giro_v = np.rad2deg(lib.angulo(v_prueba, Av)) if np.linalg.norm(Av) > 1e-12 else float("nan")
     _lams = ", ".join(lib.num_tex(p["lam"], 3) for p in propios) or "ninguno real"
     _panel = mo.vstack([
-        mo.md("**Controles**"), phi,
+        mo.md("**Controles**"), caso, phi,
         mo.md(rf"""
         **Números vivos**
 
@@ -217,24 +214,21 @@ def _(caso, casos, go, lib, mo, np, parcela, phi, rango):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return A, Av, giro_v, propios, v_prueba
 
 
 @app.cell
 def _(mo):
     lam = mo.ui.slider(0, 4, value=2.0, step=0.05, label="λ", show_value=True)
-    mo.vstack([
-        mo.md(r"""
-        **El detector sobre $A - \lambda I$.** Con $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, la versión
-        modificada $A - \lambda I$ aplicada a la circunferencia unitaria da una elipse (teal). A la derecha, el detector
-        $p(\lambda) = \det(A - \lambda I)$. Llevá $\lambda$ a $1$ y a $3$: la elipse **se aplasta a un segmento**
-        (apareció un núcleo) justo donde $p(\lambda) = 0$. El segmento queda perpendicular al autovector, que es la
-        dirección que fue al cero.
-        """),
-        lam,
-    ])
+    mo.md(r"""
+    **El detector sobre $A - \lambda I$.** Con $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$, la versión
+    modificada $A - \lambda I$ aplicada a la circunferencia unitaria da una elipse (teal). Al lado, el detector
+    $p(\lambda) = \det(A - \lambda I)$. Llevá $\lambda$ a $1$ y a $3$: la elipse **se aplasta a un segmento**
+    (apareció un núcleo) justo donde $p(\lambda) = 0$. El segmento queda perpendicular al autovector, que es la
+    dirección que fue al cero.
+    """)
     return (lam,)
 
 
@@ -243,22 +237,29 @@ def _(A_esc, go, lam, lib, mo, np):
     B_lam = A_esc - lam.value * np.eye(2)
     _circ = lib.circulo()
     _el = lib.transformar(_circ, B_lam)
-    fig_el = lib.figura_plano(3.5, f"(A − λI) · circunferencia, λ = {lam.value:.2f}", ancho=380, alto=380)
+    fig_el = lib.figura_plano(3.5, f"(A − λI) · circunferencia, λ = {lam.value:.2f}", ancho=370, alto=370)
     fig_el.add_trace(go.Scatter(x=_circ[:, 0], y=_circ[:, 1], mode="lines", line=dict(color=lib.GRIS_ANTES, width=1.5), name="circunferencia"))
     fig_el.add_trace(go.Scatter(x=_el[:, 0], y=_el[:, 1], mode="lines", line=dict(color=lib.TEAL_DESPUES, width=2.5), name="(A − λI) · circunferencia"))
     lib.direcciones_propias(fig_el, A_esc, 3.5)
     _ls = np.linspace(0, 4, 161)
     _ps = [np.linalg.det(A_esc - l * np.eye(2)) for l in _ls]
-    fig_p = go.Figure(layout=go.Layout(width=380, height=380, margin=dict(l=40, r=10, t=56, b=40), plot_bgcolor="white",
+    fig_p = go.Figure(layout=go.Layout(width=370, height=370, margin=dict(l=40, r=10, t=56, b=40), plot_bgcolor="white",
                                       title=dict(text="p(λ) = det(A − λI) = λ² − 4λ + 3", font=dict(size=14), x=0.01, xanchor="left"),
                                       xaxis=dict(title="λ", gridcolor="#eceae4"), yaxis=dict(title="p(λ)", gridcolor="#eceae4", zeroline=True, zerolinecolor="#444"),
                                       showlegend=False))
     fig_p.add_trace(go.Scatter(x=_ls, y=_ps, mode="lines", line=dict(color=lib.VIOLETA_OBJETO, width=2)))
     fig_p.add_trace(go.Scatter(x=[lam.value], y=[np.linalg.det(B_lam)], mode="markers", marker=dict(size=11, color="#222")))
-    mo.vstack([
-        mo.hstack([mo.ui.plotly(fig_el), mo.ui.plotly(fig_p)], widths="equal"),
-        mo.md(rf"$A - \lambda I = {lib.matriz_coloreada(B_lam, 2)}$, $\det(A - \lambda I) = \mathbf{{{lib.num_tex(np.linalg.det(B_lam), 3)}}}$"),
-    ])
+    _panel = mo.vstack([
+        mo.md("**Controles**"), lam,
+        mo.md(rf"""
+        **Números vivos**
+
+        $$A - \lambda I = {lib.matriz_coloreada(B_lam, 2)}$$
+
+        $\det(A - \lambda I) = \mathbf{{{lib.num_tex(np.linalg.det(B_lam), 3)}}}$
+        """),
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.hstack([mo.ui.plotly(fig_el), mo.ui.plotly(fig_p)], widths="equal", gap=0.5), _panel)
     return (B_lam,)
 
 

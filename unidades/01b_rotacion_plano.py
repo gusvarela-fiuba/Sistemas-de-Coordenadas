@@ -254,8 +254,8 @@ def _(angulo, caso, casos, con_estela, es_rotacion, go, lib, mo, np, par_distanc
         Columna 1 = <span style="color:{lib.COLORES[0]}">$Me_1$</span>, columna 2 = <span style="color:{lib.COLORES[1]}">$Me_2$</span>:
         las dos flechas. **Qué pasa acá:** {que_conserva}
         """),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, area_cuadrado, dist_antes, dist_despues, parcela_despues, theta
 
 

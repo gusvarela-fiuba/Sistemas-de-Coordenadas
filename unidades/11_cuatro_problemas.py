@@ -173,15 +173,13 @@ def _(mo):
         "(d) regresión total: error en x y en y": ("total", "ruido en x y en y (m)"),
     }
     caso = mo.ui.dropdown(options=list(casos), value=list(casos)[0], label="problema")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Elegí el problema y subí el **ruido** (misma semilla: el ruido es la única diferencia). Los residuos (punteados)
-        crecen pero siguen **repartidos**, y la comprobación $A^\top r \approx 0$ no cambia. Con ruido $0$ la solución es exacta.
-        """),
-        caso,
-    ])
+    Elegí el problema y subí el **ruido** en el panel de la derecha (misma semilla: el ruido es la única diferencia).
+    Los residuos (punteados) crecen pero siguen **repartidos**, y la comprobación $A^\top r \approx 0$ no cambia. Con
+    ruido $0$ la solución es exacta.
+    """)
     return caso, casos
 
 
@@ -278,8 +276,8 @@ def _(caso, casos, go, lib, mo, np, ruido):
         - dirección $d = \mathbf{{{lib.vec_tex(dvec, 4)}}}$ (pendiente ${lib.num_tex(dvec[1] / dvec[0], 3)}$; la simple da ${lib.num_tex(ab[0], 3)}$) · normal $n = {lib.vec_tex(nvec, 4)}$
         - $\sum r_i^2 = \lambda_{{\min}} = {lib.num_tex(r2, 4)}$ · comprobación $d^\top C\, n = {lib.num_tex(dvec @ _C @ nvec, 6)}$: residuos perpendiculares a la recta, sin correlación con el avance sobre ella.
         """
-    _panel = mo.vstack([mo.md("**Controles**"), ruido, mo.md("**Números vivos**\n" + numeros)], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    _panel = mo.vstack([mo.md("**Controles**"), caso, ruido, mo.md("**Números vivos**\n" + numeros)], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return
 
 

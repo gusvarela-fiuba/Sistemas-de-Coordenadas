@@ -218,8 +218,8 @@ def _(a_mano, caso, casos, go, largo, lib, mo, np, phi, u):
         mismo número; una rotación conserva la cuenta, y con ella largos, ángulos y sombras
         ([Rotaciones II](../01b_rotacion_plano/index.html)).
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return p, sombra, theta, v, vu
 
 

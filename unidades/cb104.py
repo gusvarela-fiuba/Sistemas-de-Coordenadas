@@ -317,7 +317,7 @@ def _rango2(rango):
     return (float(a), float(b))
 
 
-def figura_plano(rango=5, titulo="", ancho=600, alto=600):
+def figura_plano(rango=5, titulo="", ancho=540, alto=500):
     """Figura 2D vacía con ejes iguales, grilla fina y el cero marcado. `rango` = semilado o (min, max)."""
     import plotly.graph_objects as go
 
@@ -488,7 +488,7 @@ def _rgba(hexcolor, alpha):
 # ----------------------------------------------------------------------------
 
 
-def figura_espacio(rango=2.6, titulo="", ancho=640, alto=660):
+def figura_espacio(rango=2.6, titulo="", ancho=540, alto=520):
     """Figura 3D vacía con los tres ejes dibujados, aspecto cúbico y cámara libre. `rango` = semilado o (min, max)."""
     import plotly.graph_objects as go
 
@@ -2386,6 +2386,18 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
     },
 }
 
+
+
+def mesa_interactiva(mo_mod, figura_o_widget, *controles_y_bloques, proporcion=(10, 6)):
+    """Layout estándar de las secciones interactivas: figura a la IZQUIERDA (10/16) y, a la DERECHA (6/16),
+    el panel con el selector de caso, los deslizadores y los números vivos. Pensado para pantallas 16:9 con la
+    columna de marimo ensanchada a 1240 px (tools/build.py inyecta ese ancho en el export).
+
+    Uso: `lib.mesa_interactiva(mo, mo.ui.plotly(fig), mo.md("**Controles**"), caso, s1, s2, mo.md(numeros))`.
+    Si ya tenés el panel armado como un vstack, pasalo como único bloque."""
+    bloques = list(controles_y_bloques)
+    panel = bloques[0] if len(bloques) == 1 else mo_mod.vstack(bloques, gap=0.55)
+    return mo_mod.hstack([figura_o_widget, panel], widths=list(proporcion), align="start", gap=1.25)
 
 def bloque_hilo_conductor(unidad_id):
     """Markdown para `mo.md(...)`: el hilo conductor de una unidad (de dónde viene, qué ladrillo agrega, a dónde va)

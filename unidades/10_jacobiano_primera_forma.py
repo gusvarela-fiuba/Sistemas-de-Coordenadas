@@ -210,17 +210,14 @@ def _(lib, mo, np):
             que_pasa=r"$E = R^2 = 4$ siempre, $F = 0$ (paralelos ⊥ meridianos), $G = R^2\cos^2\varphi$: a $45°$ vale $2$, hacia el polo $r_\lambda$ desaparece. El caso de agrimensura."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="la loma r = (u, v, 2·exp(−(u²+v²)/8))", label="superficie precargada")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas: **gris**, la grilla $(u, v)$ plana, abajo; **teal**, la misma grilla levantada sobre la superficie, con
-        el plano tangente y los ejes locales $r_u$ (teal) y $r_v$ (rust) saliendo del punto; **violeta**, un pasito $(du, dv)$
-        en la grilla, su imagen sobre la superficie (curva) y en el plano tangente (punteado, $J\,(du, dv)$). Mové el punto
-        y mirá los ejes locales y la tabla $E, F, G$; agrandá el pasito y mirá cuándo la fórmula deja de coincidir con la cinta.
-        """),
-        caso,
-    ])
+    Tres capas: **gris**, la grilla $(u, v)$ plana, abajo; **teal**, la misma grilla levantada sobre la superficie, con
+    el plano tangente y los ejes locales $r_u$ (teal) y $r_v$ (rust) saliendo del punto; **violeta**, un pasito $(du, dv)$
+    en la grilla, su imagen sobre la superficie (curva) y en el plano tangente (punteado, $J\,(du, dv)$). Mové el punto
+    y mirá los ejes locales y la tabla $E, F, G$; agrandá el pasito y mirá cuándo la fórmula deja de coincidir con la cinta.
+    """)
     return caso, casos
 
 
@@ -270,11 +267,13 @@ def _(caso, casos, du, dv, go, lib, mo, np, u0, v0):
     figura.add_trace(go.Scatter3d(x=[p[0]], y=[p[1]], z=[p[2]], mode="markers", marker=dict(size=6, color="#222"), name="r(u₀, v₀)"))
 
     _panel = mo.vstack([
-        mo.md("**Controles**"), u0, v0, du, dv,
+        mo.md("**Controles**"), caso, u0, v0, du, dv,
         mo.md(rf"""
         **Números vivos** (radianes adentro)
 
-        $$J = {lib.matriz_coloreada(J)} \ (3 \times 2), \qquad J^T J = {lib.pmat([[E, F], [F, G]])}$$
+        $$J = {lib.matriz_coloreada(J)} \ (3 \times 2)$$
+
+        $$J^T J = {lib.pmat([[E, F], [F, G]])}$$
 
         - ejes locales: $\lvert r_u \rvert = \sqrt{{E}} = {np.sqrt(E):.3f}$, $\lvert r_v \rvert = \sqrt{{G}} = {np.sqrt(G):.3f}$, ángulo entre ellos $\mathbf{{{ang_ejes:.1f}°}}$
         - factor de área: $\lvert r_u \times r_v \rvert = {factor_area:.3f}$ y $\sqrt{{EG - F^2}} = {np.sqrt(max(E * G - F**2, 0.0)):.3f}$
@@ -283,8 +282,8 @@ def _(caso, casos, du, dv, go, lib, mo, np, u0, v0):
 
         **Qué pasa acá:** {_c["que_pasa"]}
         """),
-    ], gap=0.5)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return E, F, G, J, ddu, ddv, factor_area, l_cinta, l_formula, p, r, r_u, r_v, uu, vv
 
 

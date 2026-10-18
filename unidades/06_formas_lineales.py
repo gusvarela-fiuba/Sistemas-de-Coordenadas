@@ -205,18 +205,15 @@ def _(lib, mo, np):
             r"coordenadas nuevas $c = B^{-1}p$ y fila $\ell B = (7, 4)$: en frentes y lados la cota es $7c_1 + 4c_2 + 100$. Mismo mojón, misma cota, otros números."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="giro de 30°", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas. En **gris**, grilla, parcela y regla antes, y la fila $(2, 1)$ llevada **como si fuera un punto**
-        ($A(2, 1)^T$, flecha gruesa). En **teal**, la regla después ($\ell A^{-1}$, marca $0$ gruesa, valor de cada
-        marca) y la flecha $(\ell A^{-1})^T$, que sí es perpendicular a las marcas nuevas. En **violeta**, la parcela
-        deformada y el mojón con su cota. **Reproducir** va de la identidad a $A$: la regla acompaña a la figura y la
-        lectura del mojón no cambia.
-        """),
-        caso,
-    ])
+    Tres capas. En **gris**, grilla, parcela y regla antes, y la fila $(2, 1)$ llevada **como si fuera un punto**
+    ($A(2, 1)^T$, flecha gruesa). En **teal**, la regla después ($\ell A^{-1}$, marca $0$ gruesa, valor de cada
+    marca) y la flecha $(\ell A^{-1})^T$, que sí es perpendicular a las marcas nuevas. En **violeta**, la parcela
+    deformada y el mojón con su cota. **Reproducir** va de la identidad a $A$: la regla acompaña a la figura y la
+    lectura del mojón no cambia. A la derecha de la figura, el panel con el caso, el deslizador y los números vivos.
+    """)
     return B_08, caso, casos
 
 
@@ -267,7 +264,7 @@ def _(caso, casos, fila, go, h0, lib, mo, np, param):
     _ang = np.degrees(lib.angulo(A @ fila, lib.perp2(fila_despues)))
     _ang = min(_ang, 180 - _ang)
     _panel = mo.vstack([
-        mo.md("**Controles**"), param,
+        mo.md("**Controles**"), caso, param,
         mo.md(rf"""
         **Números vivos**
 
@@ -280,8 +277,8 @@ def _(caso, casos, fila, go, h0, lib, mo, np, param):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return A, fila_despues, mojon, mojon_despues
 
 
@@ -376,30 +373,27 @@ def _(lib, mo, np):
         "cizalla [[1, 1], [0, 1]]": np.array([[1.0, 1.0], [0.0, 1.0]]),
     }
     deformacion = mo.ui.radio(options=list(deformaciones), value="identidad", label="deformación A del plano")
-    mo.vstack([
-        mo.md(r"""
-        ### 4b. Conexión con IA (aporte desde la CEIA): una SVM es una forma lineal con margen
+    mo.md(r"""
+    ### 4b. Conexión con IA (aporte desde la CEIA): una SVM es una forma lineal con margen
 
-        Esto **no es contenido de la cátedra**: lo traigo de la especialización en IA, porque es la misma regla
-        graduada de esta lección con otro nombre. Dos parcelas vecinas, cada una con sus mojones relevados, y la
-        pregunta de una *máquina de vectores de soporte* (SVM): ¿cuál es la **calle más ancha** que pasa entre las dos
-        nubes? La respuesta es una forma lineal afín, $w^T x + b$: la marca $0$ es la divisoria, las marcas $-1$ y $+1$
-        son los bordes de la calle y **apoyan contra los mojones más cercanos**, los *puntos de soporte*. El ancho de la
-        calle es $2/\lVert w\rVert$, dos separaciones entre marcas (sección 1), y la SVM elige la regla que lo hace
-        máximo. En homogéneas $(x, y, 1)$ toda la SVM es **una sola forma lineal** $(w_1, w_2, b)$: la divisoria es su
-        marca cero, como la recta $\ell\,\tilde p = 0$ de la sección 1.
+    Esto **no es contenido de la cátedra**: lo traigo de la especialización en IA, porque es la misma regla
+    graduada de esta lección con otro nombre. Dos parcelas vecinas, cada una con sus mojones relevados, y la
+    pregunta de una *máquina de vectores de soporte* (SVM): ¿cuál es la **calle más ancha** que pasa entre las dos
+    nubes? La respuesta es una forma lineal afín, $w^T x + b$: la marca $0$ es la divisoria, las marcas $-1$ y $+1$
+    son los bordes de la calle y **apoyan contra los mojones más cercanos**, los *puntos de soporte*. El ancho de la
+    calle es $2/\lVert w\rVert$, dos separaciones entre marcas (sección 1), y la SVM elige la regla que lo hace
+    máximo. En homogéneas $(x, y, 1)$ toda la SVM es **una sola forma lineal** $(w_1, w_2, b)$: la divisoria es su
+    marca cero, como la recta $\ell\,\tilde p = 0$ de la sección 1.
 
-        La dualidad se aplica tal cual. Si deformo el plano con $A$, los mojones van a $Ax$ y la regla se arrastra con
-        $A^{-1}$: $(w^T A^{-1},\ b)$ sigue leyendo $-1$, $0$, $+1$ sobre los mismos puntos. Lo que **sí** cambia es el
-        ancho físico $2/\lVert w A^{-1}\rVert$, porque el largo de $w$ lo da el producto interno, no la regla. Por eso,
-        si vuelvo a entrenar la SVM sobre los puntos deformados, elige **otra** divisoria (punteada, en negro): la calle
-        más ancha medida con el producto interno de la grilla nueva. Reescalar los datos antes de entrenar no es un
-        detalle de implementación: cambia el producto interno, y con él qué cuenta como margen. El helper
-        `lib.svm_margen_duro_2d` es numpy puro: prueba los pares y tríos de soporte posibles y se queda con la franja
-        factible más ancha.
-        """),
-        deformacion,
-    ])
+    La dualidad se aplica tal cual. Si deformo el plano con $A$, los mojones van a $Ax$ y la regla se arrastra con
+    $A^{-1}$: $(w^T A^{-1},\ b)$ sigue leyendo $-1$, $0$, $+1$ sobre los mismos puntos. Lo que **sí** cambia es el
+    ancho físico $2/\lVert w A^{-1}\rVert$, porque el largo de $w$ lo da el producto interno, no la regla. Por eso,
+    si vuelvo a entrenar la SVM sobre los puntos deformados, elige **otra** divisoria (punteada, en negro): la calle
+    más ancha medida con el producto interno de la grilla nueva. Reescalar los datos antes de entrenar no es un
+    detalle de implementación: cambia el producto interno, y con él qué cuenta como margen. El helper
+    `lib.svm_margen_duro_2d` es numpy puro: prueba los pares y tríos de soporte posibles y se queda con la franja
+    factible más ancha. A la derecha de la figura, la deformación $A$ que se aplica y los números vivos.
+    """)
     return deformacion, deformaciones, nube_A, nube_B, svm
 
 
@@ -425,7 +419,7 @@ def _(deformacion, deformaciones, go, lib, mo, np, nube_A, nube_B, svm):
                                    line=dict(color=color, width=2.5 * ancho if k == 0 else ancho, dash=dash),
                                    name=nombre, legendgroup=nombre, showlegend=(k == -1)))
 
-    figura_svm = lib.figura_plano(rango_svm, f"{deformacion.value} · las marcas siguen apoyando en los mismos mojones", alto=560)
+    figura_svm = lib.figura_plano(rango_svm, f"{deformacion.value} · las marcas siguen apoyando en los mismos mojones")
     lib.capa_antes(figura_svm, rango_svm, cuadrado=False)
     _regla(figura_svm, w_svm, b_svm, lib.GRIS_ANTES, "regla antes: (w, b)", etiquetas=False)
     for _N, _nombre in ((nube_A, "parcela A antes"), (nube_B, "parcela B antes")):
@@ -443,7 +437,7 @@ def _(deformacion, deformaciones, go, lib, mo, np, nube_A, nube_B, svm):
     _mismo = bool(np.allclose(_lee_A, nube_A @ w_svm + b_svm) and np.allclose(_lee_B, nube_B @ w_svm + b_svm))
     _nota = ("coincide con la arrastrada: con la identidad no hay nada que re-entrenar" if np.allclose(A_svm, np.eye(2))
              else "otra divisoria: el margen se mide con el producto interno de la grilla nueva")
-    _panel = mo.md(rf"""
+    _panel = mo.vstack([mo.md("**Controles**"), deformacion, mo.md(rf"""
     **Números vivos**
 
     - SVM sobre los mojones originales: $w = {lib.pmat(w_svm.reshape(1, 2))}$, $b = {lib.num_tex(b_svm)}$; en homogéneas, la
@@ -455,8 +449,8 @@ def _(deformacion, deformaciones, go, lib, mo, np, nube_A, nube_B, svm):
     - Ancho físico de la regla arrastrada: $2/\lVert w A^{{-1}}\rVert = {lib.num_tex(2 / np.linalg.norm(w_def))}$. SVM
       re-entrenada sobre $Ax$: $w'' = {lib.pmat(svm_def["w"].reshape(1, 2))}$, $b'' = {lib.num_tex(svm_def["b"])}$, ancho
       ${lib.num_tex(svm_def["margen"])}$ ({_nota}).
-    """)
-    mo.vstack([mo.ui.plotly(figura_svm), _panel])
+    """)], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura_svm), _panel)
     return A_svm, svm_def, w_def
 
 

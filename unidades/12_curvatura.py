@@ -181,17 +181,15 @@ def _(mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="silla z = (x² − y²)/4", label="caso precargado")
     x0 = mo.ui.slider(-1.0, 1.0, value=0.4, step=0.1, label="x₀", show_value=True)
     y0 = mo.ui.slider(-1.0, 1.0, value=0.2, step=0.1, label="y₀", show_value=True)
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        En **gris**, la superficie con su grilla $(x, y)$ y el plano tangente; en **gold**, la normal. En **violeta**,
-        el rumbo $\alpha$ (desde el eje $x$, dentro del plano tangente), la **sección normal** (el corte con el plano
-        que contiene al rumbo y a la normal) y su **círculo osculador**, de radio $1/\kappa_n$. En **teal** y
-        **rust**, las direcciones principales: el radio es mínimo en teal y máximo en rust (en la esfera, no cambia).
-        """),
-        mo.hstack([caso, x0, y0], widths="equal"),
-    ])
+    En **gris**, la superficie con su grilla $(x, y)$ y el plano tangente; en **gold**, la normal. En **violeta**,
+    el rumbo $\alpha$ (desde el eje $x$, dentro del plano tangente), la **sección normal** (el corte con el plano
+    que contiene al rumbo y a la normal) y su **círculo osculador**, de radio $1/\kappa_n$. En **teal** y
+    **rust**, las direcciones principales: el radio es mínimo en teal y máximo en rust (en la esfera, no cambia).
+    En el panel de la derecha: el caso, el punto $(x_0, y_0)$ y el rumbo.
+    """)
     return caso, casos, x0, y0
 
 
@@ -215,7 +213,7 @@ def _(caso, casos, go, lib, mo, np, rumbo, x0, y0):
     t = np.cos(_a) * ff["r_u"] + np.sin(_a) * ff["r_v"]
     t = t / np.linalg.norm(t)
 
-    figura = lib.figura_espacio((-1.6, 1.6), f"{caso.value} · punto ({x0.value}, {y0.value}) · α = {rumbo.value}°", ancho=620, alto=620)
+    figura = lib.figura_espacio((-1.6, 1.6), f"{caso.value.split(':')[0]} · punto ({x0.value}, {y0.value}) · α = {rumbo.value}°")
     _u = np.linspace(-1.5, 1.5, 13)
     lib.superficie_malla(figura, r, _u, _u, color=lib.GRIS_ANTES, nombre="superficie", ancho=1.5, opacidad=0.6)
     lib.plano_3d(figura, ff["r_u"], ff["r_v"], k=0.5, origen=p, nombre="plano tangente", opacidad=0.25)
@@ -236,7 +234,7 @@ def _(caso, casos, go, lib, mo, np, rumbo, x0, y0):
         _radio = r"$\lvert\kappa_n\rvert < 0.06$: radio mayor que $16$, la sección es casi una recta y el círculo no entra en la figura"
     figura.add_trace(go.Scatter3d(x=[p[0]], y=[p[1]], z=[p[2]], mode="markers", marker=dict(size=6, color=lib.VIOLETA_OBJETO), name="punto"))
     _panel = mo.vstack([
-        mo.md("**Controles**"), rumbo,
+        mo.md("**Controles**"), caso, x0, y0, rumbo,
         mo.md(rf"""
         **Números vivos** (en el punto, con la grilla $(x, y)$)
 
@@ -248,8 +246,8 @@ def _(caso, casos, go, lib, mo, np, rumbo, x0, y0):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return D, E, F, G, H, K, L, M, N, ff, k1, k2, kn
 
 

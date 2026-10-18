@@ -172,17 +172,15 @@ def _(mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="escala anisótropa diag(1.5, s)", label="caso precargado")
     rango = 6
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después, con las columnas de $A$ como
-        flechas; **violeta**, la parcela con estelas. La grilla sigue siendo de **paralelogramos iguales** en todos los
-        casos, y el área de la parcela se multiplica por $\det A$. Con un caso precargado manda un deslizador; en
-        *general* mandan los cuatro números. **Reproducir** muestra el camino desde la identidad.
-        """),
-        caso,
-    ])
+    Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después, con las columnas de $A$ como
+    flechas; **violeta**, la parcela con estelas. La grilla sigue siendo de **paralelogramos iguales** en todos los
+    casos, y el área de la parcela se multiplica por $\det A$. Con un caso precargado manda un deslizador; en
+    *general* mandan los cuatro números. **Reproducir** muestra el camino desde la identidad. A la derecha de la
+    figura, el panel con el caso, los deslizadores y los números vivos.
+    """)
     return caso, casos, parcela, rango
 
 
@@ -239,7 +237,7 @@ def _(abcd, caso, casos, go, lib, mo, np, param, parcela, rango):
     area_antes = lib.area_poligono(parcela)
     area_despues = lib.area_poligono(lib.transformar(parcela, M))
     _panel = mo.vstack([
-        mo.md("**Controles**"), param, abcd if _tipo == "general" else mo.md(""),
+        mo.md("**Controles**"), caso, param, abcd if _tipo == "general" else mo.md(""),
         mo.md(rf"""
         **Números vivos**
 
@@ -252,8 +250,8 @@ def _(abcd, caso, casos, go, lib, mo, np, param, parcela, rango):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, area_antes, area_despues
 
 
@@ -265,15 +263,12 @@ def _(mo):
     ty = mo.ui.slider(-3, 3, value=1.0, step=0.5, label="tᵧ", show_value=True)
     orden = mo.ui.radio(options=["girar, escalar y después mover", "mover y después girar y escalar"],
                         value="girar, escalar y después mover", label="orden de composición")
-    mo.vstack([
-        mo.md(r"""
-        **La traslación entra por la tercera columna.** Tres matrices $3\times3$: $R$ gira, $S$ escala, $T$ mueve.
-        Compongo multiplicando (la de la derecha actúa primero) y leo en $H$ la parte lineal $A$ (teal y rust) y a
-        dónde fue el origen (gold). Cambiá el orden: $A$ es la misma, $t$ no, porque mover antes de girar gira también
-        el corrimiento.
-        """),
-        orden,
-    ])
+    mo.md(r"""
+    **La traslación entra por la tercera columna.** Tres matrices $3\times3$: $R$ gira, $S$ escala, $T$ mueve.
+    Compongo multiplicando (la de la derecha actúa primero) y leo en $H$ la parte lineal $A$ (teal y rust) y a
+    dónde fue el origen (gold). Cambiá el orden (en el panel de la derecha): $A$ es la misma, $t$ no, porque mover
+    antes de girar gira también el corrimiento.
+    """)
     return escala, giro, orden, tx, ty
 
 
@@ -286,23 +281,24 @@ def _(escala, giro, lib, mo, np, orden, parcela, rango, tx, ty):
     H = (_S @ _R @ _T) if primero_mover else (_T @ _S @ _R)
     A_h, t_h = lib.partes_afin(H)
     _nombre = "SRT" if primero_mover else "TSR"
-    fig_t = lib.figura_plano(rango + 1, f"H = {_nombre}: la grilla se deforma y se corre", ancho=520, alto=520)
+    fig_t = lib.figura_plano(rango + 1, f"H = {_nombre}: la grilla se deforma y se corre")
     lib.capa_antes(fig_t, rango)
     lib.capa_despues_afin(fig_t, A_h, t_h, rango)
     lib.objeto(fig_t, parcela, lib.GRIS_ANTES, "parcela antes", relleno=False)
     lib.objeto(fig_t, lib.dehom(lib.hom(parcela) @ H.T), lib.VIOLETA_OBJETO, "parcela después")
     lib.punto(fig_t, t_h, lib.COLORES[2], "imagen del origen", texto="F(0)")
     _panel = mo.vstack([
-        mo.md("**Controles**"), giro, escala, tx, ty,
+        mo.md("**Controles**"), orden, giro, escala, tx, ty,
         mo.md(rf"""
+        **Números vivos**
 
         $$H = {_nombre[0]}\,{_nombre[1]}\,{_nombre[2]} = {lib.matriz_coloreada(H)}$$
 
         - $A\,(0,0) = (0, 0)$ con la $2\times2$; con la $3\times3$, $H\,(0, 0, 1)^T = {lib.vec_tex(H @ lib.hom([0, 0]))}$: el origen **sí** se mueve.
         - $\det A = {lib.num_tex(np.linalg.det(A_h), 3)}$ ($= k^2$); $t = {lib.vec_tex(t_h)}$.
         """),
-    ], gap=0.5)
-    mo.hstack([_panel, mo.ui.plotly(fig_t)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(fig_t), _panel)
     return A_h, H, t_h
 
 

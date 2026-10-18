@@ -352,6 +352,14 @@ def embeber_modulo_comun(texto: str, archivo: str) -> tuple[str, bool]:
     return texto[: m.start()] + bloque + texto[m.end():], True
 
 
+# ancho útil de la columna de celdas en pantallas anchas: marimo define `--content-width-medium: 1110px` y la columna
+# es `div.max-w-(--content-width-medium)`; en 16:9 la llevamos a 1240 px para que el hstack 10:6 (figura | controles)
+# entre sin apilar. Por debajo de 1300 px de viewport queda el ancho normal de marimo.
+ESTILO_ANCHO = ('<style id="cb104-ancho">'
+                '@media (min-width: 1300px){:root{--content-width-medium:1240px !important}}'
+                '</style>')
+
+
 def exportar_unidad(u: dict, out: Path) -> float:
     fuente = RAIZ / u["archivo"]
     texto = fuente.read_text(encoding="utf-8")
@@ -387,6 +395,16 @@ def exportar_unidad(u: dict, out: Path) -> float:
         raise RuntimeError(f"marimo export falló para {u['id']} (código {r.returncode})")
     if not (destino / "index.html").exists():
         raise RuntimeError(f"marimo export no dejó {destino / 'index.html'}")
+    # marimo export copia un CLAUDE.md (instrucciones para asistentes, del paquete marimo) dentro de cada export:
+    # no es parte del material y no se publica
+    for _p in destino.rglob("CLAUDE.md"):
+        _p.unlink()
+    _idx = destino / "index.html"
+    _html = _idx.read_text(encoding="utf-8")
+    if ESTILO_ANCHO not in _html:
+        if "</head>" not in _html:
+            raise RuntimeError(f"{_idx}: no encuentro </head> para inyectar el ancho 16:9")
+        _idx.write_text(_html.replace("</head>", ESTILO_ANCHO + "</head>", 1), encoding="utf-8")
     print(f"  listo {u['id']} en {dt:.1f}s", flush=True)
     return dt
 
@@ -1087,6 +1105,8 @@ def main() -> int:
         print("== tiempos de export WASM")
         for k, v in tiempos.items():
             print(f"  {k}: {v:.1f}s")
+    for _p in out.rglob("CLAUDE.md"):   # por si quedó alguno de un export anterior
+        _p.unlink()
     print(f"== listo en {time.perf_counter() - t_total:.1f}s")
     return 0
 

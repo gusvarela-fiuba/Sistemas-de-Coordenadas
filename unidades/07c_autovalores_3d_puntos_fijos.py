@@ -162,18 +162,15 @@ def _(lib, mo, np):
     }
     caso = mo.ui.dropdown(options=list(casos), value="R_z(θ) R_y(90°): una rotación, el eje es su único autovector", label="caso precargado")
     pentagono = np.array([[0, 0], [0, 2], [2, 3], [4, 2], [4, 0]], dtype=float)  # A, B, C, D, E de la lección 05
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        **Gris**: el cubo unitario antes y el plano $z = 1$ con el pentágono $ABCDE$ de la lección 05. **Teal**: el cubo
-        después, con las columnas como flechas. **Negro a rayas**: las rectas invariantes (autovectores reales) y el
-        **rombo** donde pinchan $z = 1$: el punto fijo; un autovalor doble con cruces nulas da un plano entero de
-        autovectores (gold), que corta $z = 1$ en una recta de puntos fijos. **Violeta**: el pentágono después, proyectado
-        sobre $z = 1$ (dividido por $w$). **Reproducir** anima el camino.
-        """),
-        caso,
-    ])
+    **Gris**: el cubo unitario antes y el plano $z = 1$ con el pentágono $ABCDE$ de la lección 05. **Teal**: el cubo
+    después, con las columnas como flechas. **Negro a rayas**: las rectas invariantes (autovectores reales) y el
+    **rombo** donde pinchan $z = 1$: el punto fijo; un autovalor doble con cruces nulas da un plano entero de
+    autovectores (gold), que corta $z = 1$ en una recta de puntos fijos. **Violeta**: el pentágono después, proyectado
+    sobre $z = 1$ (dividido por $w$). **Reproducir** anima el camino.
+    """)
     return caso, casos, pentagono
 
 
@@ -211,7 +208,7 @@ def _(caso, casos, es_rotacion, go, lib, mo, np, pentagono, theta_z):
         return list(f.data)
 
     _L = _rango
-    figura = lib.figura_espacio((-_L, _L), caso.value.split(":")[0], ancho=620, alto=620)
+    figura = lib.figura_espacio((-_L, _L), caso.value.split(":")[0])
     lib.plano_3d(figura, [1, 0, 0], [0, 1, 0], k=_L, origen=(0, 0, 1), nombre="plano z = 1")
     _x, _y, _z = lib.segmentos_3d(cubo, aristas)
     figura.add_trace(go.Scatter3d(x=_x, y=_y, z=_z, mode="lines", line=dict(color=lib.GRIS_ANTES, width=3), name="cubo antes"))
@@ -240,7 +237,7 @@ def _(caso, casos, es_rotacion, go, lib, mo, np, pentagono, theta_z):
     lib.animar(figura, [_dinamicas(i) for i in range(len(camino))], duracion=70)
     _w = np.linalg.eigvals(M)
     _panel = mo.vstack([
-        mo.md("**Controles**"), theta_z,
+        mo.md("**Controles**"), caso, theta_z,
         mo.md(rf"""
         **Números vivos**
 
@@ -251,8 +248,8 @@ def _(caso, casos, es_rotacion, go, lib, mo, np, pentagono, theta_z):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, fijos
 
 

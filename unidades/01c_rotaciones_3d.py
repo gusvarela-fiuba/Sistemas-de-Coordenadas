@@ -218,7 +218,7 @@ def _(alfa, beta, gama, go, lib, mo, np, orden):
 
     _panel = mo.vstack([
         mo.md("**Controles**"),
-        alfa, beta, gama, orden,
+        orden, alfa, beta, gama,
         mo.md(rf"""
         **Números vivos**
 
@@ -233,8 +233,8 @@ def _(alfa, beta, gama, go, lib, mo, np, orden):
         $Re_z$ (<span style="color:{lib.COLORES[2]}">gold</span>): perpendiculares entre sí y de largo $1$. Tres giros
         encadenados, y lo que queda es **un** giro de ${lib.num_tex(np.rad2deg(ang), 1)}°$ alrededor del eje violeta.
         """),
-    ], gap=0.5)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return R, R_xyz, R_zyx, ang, dist_ordenes, eje, terreno, terreno_despues
 
 

@@ -387,20 +387,17 @@ def _(lib, mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="estirar Este ×2: diag(2, 1)", label="A (casos a y b)")
     parche = mo.ui.dropdown(options=list(parches), value="la loma r = (u, v, 2·exp(−(u²+v²)/8))", label="parche (caso c)")
     zeta = mo.ui.dropdown(options=list(complejos), value="z = 1 + i (giro 45°, escala √2)", label="z (caso d)")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Un selector con los tres objetos de la tabla y el cuerpo $\mathbb C$ del ladrillo 2. **(a)** Un punto $x = (1, 2)$
-        y una parcela: van con $A$. **(b)** La regla $w^T = (1, 1)$ (la cota $h = x + y$): sus marcas se arrastran con
-        $A^{-1}$ y el mojón conserva su cota; se dibujan además la flecha perpendicular a las marcas nuevas **en el
-        papel** y la bajada real del terreno, $Aw = G'^{-1} w'$, que es la perpendicular **con la métrica**. **(c)** Un
-        parche curvo: el jacobiano arma la grilla tangente y $E, F, G$ dicen cuánto mide cada paso. **(d)** Multiplicar
-        el plano por un complejo $z$: la matriz $M(z)$ rota y escala. Tres capas: gris antes, teal después, violeta el
-        objeto. En (a), (b) y (d), **reproducir** va de la identidad a la transformación.
-        """),
-        mo.hstack([objeto_sel, caso, parche, zeta], widths="equal"),
-    ])
+    Un selector con los tres objetos de la tabla y el cuerpo $\mathbb C$ del ladrillo 2, en el panel de la derecha de
+    la figura. **(a)** Un punto $x = (1, 2)$ y una parcela: van con $A$. **(b)** La regla $w^T = (1, 1)$ (la cota
+    $h = x + y$): sus marcas se arrastran con $A^{-1}$ y el mojón conserva su cota; se dibujan además la flecha
+    perpendicular a las marcas nuevas **en el papel** y la bajada real del terreno, $Aw = G'^{-1} w'$, que es la
+    perpendicular **con la métrica**. **(c)** Un parche curvo: el jacobiano arma la grilla tangente y $E, F, G$ dicen
+    cuánto mide cada paso. **(d)** Multiplicar el plano por un complejo $z$: la matriz $M(z)$ rota y escala. Tres capas:
+    gris antes, teal después, violeta el objeto. En (a), (b) y (d), **reproducir** va de la identidad a la transformación.
+    """)
     return caso, casos, complejos, objeto_sel, parche, parches, zeta
 
 
@@ -494,7 +491,8 @@ def _(angulo_g, caso, casos, complejos, esfera3d, go, lib, loma3d, matriz_comple
             - la columna teal es $M(z) e_1 = (a, b)$: el propio $z$ dibujado; la rust es $z \cdot i$, el mismo girado $90°$
             """
         _texto_caso = que_pasa if _objeto != "(d)" else r"la grilla gira $\arg z$ y se estira $\lvert z\rvert$, nada más: dos números, no cuatro. Las cizallas y proyecciones de (a) no son complejos."
-        _panel = mo.md(_vivos + "\n\n**Qué pasa acá:** " + _texto_caso)
+        _selector = zeta if _objeto == "(d)" else caso
+        _panel = mo.vstack([mo.md("**Controles**"), objeto_sel, _selector, mo.md(_vivos + "\n\n**Qué pasa acá:** " + _texto_caso)], gap=0.55)
     else:
         _tipo, _u, _v = parches[parche.value]
         r = loma3d if _tipo == "loma" else esfera3d
@@ -511,7 +509,7 @@ def _(angulo_g, caso, casos, complejos, esfera3d, go, lib, loma3d, matriz_comple
         lib.superficie_malla(figura, r, _us, _vs, lib.TEAL_DESPUES, "grilla sobre el parche", opacidad=0.55)
         lib.plano_tangente(figura, p, J[:, 0], J[:, 1])
         figura.add_trace(go.Scatter3d(x=[p[0]], y=[p[1]], z=[p[2]], mode="markers", marker=dict(size=6, color=lib.VIOLETA_OBJETO), name="r(u₀, v₀)"))
-        _panel = mo.vstack([u0, v0, mo.md(rf"""
+        _panel = mo.vstack([mo.md("**Controles**"), objeto_sel, parche, u0, v0, mo.md(rf"""
             **Números vivos (c)** (radianes adentro)
 
             $$J = {lib.matriz_coloreada(J)}\ (3\times2), \qquad J^T J = {lib.pmat([[E, F], [F, G]])}$$
@@ -519,8 +517,8 @@ def _(angulo_g, caso, casos, complejos, esfera3d, go, lib, loma3d, matriz_comple
             - un paso $du = 1$ de la grilla mide $\sqrt{{E}} = {np.sqrt(E):.3f}$ sobre el parche; un paso $dv = 1$ mide $\sqrt{{G}} = {np.sqrt(G):.3f}$
             - ángulo entre los ejes locales $r_u$ y $r_v$: ${np.degrees(lib.angulo(J[:, 0], J[:, 1])):.1f}°$ ($F = 0$ si es recto)
             - el puente: derivar es esta matriz (ladrillos 1 y 3); $E, F, G$ es la métrica (ladrillo 5). Lo desarrolla [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html).
-            """)], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+            """)], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return A, Mz, ang_papel, ang_terreno, g_despues, subida_despues, tangente_despues, w, w_despues, x_pt, z
 
 

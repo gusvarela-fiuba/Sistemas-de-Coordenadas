@@ -194,18 +194,16 @@ def _(H_foto, lib, mo, np):
                                                       r"$D$ **cae en el centro** $(0, 0)$. $W$ es negativa en $A$ y $B$ y positiva en $C$, $D$, $E$: la recta $4y + 1 = 0$ cruza el pentágono y la imagen se parte. Es una homología armónica: eje $AB$, centro $(0, 0.309)$, $H^2 \sim I$."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="foto de dron: cámara inclinada (k)", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después (la grilla sigue hecha de
-        rectas, pero ya no paralelas), con las columnas de $H$ leídas como puntos: × teal y rust son los **puntos de
-        fuga** de las rectas $y = $ cte y $x = $ cte (si siguen impropios, una flecha con la dirección), el punto gold es
-        la imagen del origen; **violeta**, el objeto con estelas. Con el caso del dron manda el deslizador $k$;
-        **reproducir** muestra el camino desde la identidad (en el pentágono, pasando por el espejo).
-        """),
-        caso,
-    ])
+    Tres capas: **gris**, grilla y cuadrado unitario antes; **teal**, los mismos después (la grilla sigue hecha de
+    rectas, pero ya no paralelas), con las columnas de $H$ leídas como puntos: × teal y rust son los **puntos de
+    fuga** de las rectas $y = $ cte y $x = $ cte (si siguen impropios, una flecha con la dirección), el punto gold es
+    la imagen del origen; **violeta**, el objeto con estelas. Con el caso del dron manda el deslizador $k$;
+    **reproducir** muestra el camino desde la identidad (en el pentágono, pasando por el espejo). A la derecha de la
+    figura, el panel con el caso, el deslizador y los números vivos.
+    """)
     return H_pent, caso, casos, lam_pent, parcela, pent
 
 
@@ -269,7 +267,7 @@ def _(caso, casos, go, inclina, k_incl, lib, mo, np):
         else:
             _fijos.append(_lam + rf"punto fijo ${lib.vec_tex(_p['punto'], 3)}$")
     _panel = mo.vstack([
-        mo.md("**Controles**"), k_incl,
+        mo.md("**Controles**"), caso, k_incl,
         mo.md(rf"""
         **Números vivos**
 
@@ -281,8 +279,8 @@ def _(caso, casos, go, inclina, k_incl, lib, mo, np):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return H, W, objeto
 
 

@@ -174,17 +174,14 @@ def _(ciudades, mo):
         "a mano: A y B fijos, C con los deslizadores": [(0.0, 0.0), (0.0, 60.0), None],
     }
     caso = mo.ui.dropdown(options=list(casos), value="a mano: A y B fijos, C con los deslizadores", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        **Gris**: la esfera unitaria. **Teal, rust, gold**: los vectores $A$, $B$, $C$ desde el centro, con sus
-        latitudes y longitudes. **Teal grueso**: los tres lados, arcos de círculo máximo. Arranca **a mano**: mové el
-        vértice $C$ con los deslizadores y mirá cómo cambian lados y ángulos, y cómo el exceso sigue al área; los otros
-        casos fijan los tres vértices. Arrastrá la figura para girarla.
-        """),
-        caso,
-    ])
+    **Gris**: la esfera unitaria. **Teal, rust, gold**: los vectores $A$, $B$, $C$ desde el centro, con sus
+    latitudes y longitudes. **Teal grueso**: los tres lados, arcos de círculo máximo. Arranca **a mano**: mové el
+    vértice $C$ con los deslizadores y mirá cómo cambian lados y ángulos, y cómo el exceso sigue al área; los otros
+    casos (selector del panel) fijan los tres vértices. Arrastrá la figura para girarla.
+    """)
     return caso, casos
 
 
@@ -205,7 +202,7 @@ def _(R_TIERRA, a_mano, caso, casos, go, lam_c, lib, mo, np, phi_c):
     lados, angulos = lib.triangulo_esferico(*V)
     exceso = lib.exceso_esferico(*V)
 
-    figura = lib.figura_espacio(1.25, caso.value.split(":")[0], ancho=560, alto=560)
+    figura = lib.figura_espacio(1.25, caso.value.split(":")[0])
     lib.esfera_malla(figura)
     for (_p, _q), _n in zip(((V[1], V[2]), (V[0], V[2]), (V[0], V[1])), "abc"):
         _arc = lib.arco_maximo(_p, _q)
@@ -218,7 +215,7 @@ def _(R_TIERRA, a_mano, caso, casos, go, lam_c, lib, mo, np, phi_c):
     _cos_ley = np.cos(lados[1]) * np.cos(lados[2]) + np.sin(lados[1]) * np.sin(lados[2]) * np.cos(angulos[0])
     _seno = [np.sin(an) / np.sin(la) for an, la in zip(angulos, lados)]
     _panel = mo.vstack([
-        mo.md("**Controles**"), phi_c, lam_c,
+        mo.md("**Controles**"), caso, phi_c, lam_c,
         mo.md(rf"""
         **Números vivos**
 
@@ -230,8 +227,8 @@ def _(R_TIERRA, a_mano, caso, casos, go, lam_c, lib, mo, np, phi_c):
         - ley del coseno: $\cos a = {np.cos(lados[0]):.6f}$ y $\cos b\cos c + \sin b\sin c\cos A = {_cos_ley:.6f}$ · ley del seno:
           $\sin A/\sin a = {_seno[0]:.4f}$, $\sin B/\sin b = {_seno[1]:.4f}$, $\sin C/\sin c = {_seno[2]:.4f}$
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 1.6], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return V, angulos, exceso, lados
 
 

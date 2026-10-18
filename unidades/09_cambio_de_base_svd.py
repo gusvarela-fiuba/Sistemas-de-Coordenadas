@@ -193,18 +193,15 @@ def _(mo, np):
                                    r"arranca en la matriz de la predicción, $[[2, 1], [0, 1]]$; movelos. Si llegás a $\det < 0$ la tercera etapa es una **reflexión** y la animación la hace en línea recta."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="general (deslizadores)", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas. En **gris**, la grilla antes y el círculo unitario con sus direcciones singulares $v_1$ (teal) y
-        $v_2$ (rust). En **teal**, la grilla después. En **violeta**, la elipse imagen con sus semiejes $\sigma_1u_1$ y
-        $\sigma_2u_2$. **Reproducir** recorre las tres etapas: $V^\top$ gira (los $v_k$ caen sobre los ejes), $\Sigma$
-        estira los ejes, $U$ gira al lugar final. Arranca en el caso general, con los deslizadores habilitados; en los
-        casos precargados se bloquean.
-        """),
-        caso,
-    ])
+    Tres capas. En **gris**, la grilla antes y el círculo unitario con sus direcciones singulares $v_1$ (teal) y
+    $v_2$ (rust). En **teal**, la grilla después. En **violeta**, la elipse imagen con sus semiejes $\sigma_1u_1$ y
+    $\sigma_2u_2$. **Reproducir** recorre las tres etapas: $V^\top$ gira (los $v_k$ caen sobre los ejes), $\Sigma$
+    estira los ejes, $U$ gira al lugar final. Arranca en el caso general, con los deslizadores habilitados; en los
+    casos precargados se bloquean.
+    """)
     return caso, casos
 
 
@@ -260,11 +257,13 @@ def _(caso, casos, es_general, go, lib, mo, np, s_a, s_b, s_c, s_d):
     else:
         _cond, _inv = lib.num_tex(s[0] / s[1]), rf"$A^{{-1}} = V\Sigma^{{-1}}U^\top = {lib.pmat(V @ np.diag(1 / s) @ U.T)}$"
     _panel = mo.vstack([
-        mo.md("**Controles**"), s_a, s_b, s_c, s_d,
+        mo.md("**Controles**"), caso, s_a, s_b, s_c, s_d,
         mo.md(rf"""
         **Números vivos**
 
-        $$A = {lib.matriz_coloreada(A)} = U\Sigma V^\top,\quad U = {lib.pmat(U)},\ \Sigma = {lib.pmat(np.diag(s))},\ V^\top = {lib.pmat(Vt)}$$
+        $$A = {lib.matriz_coloreada(A)} = U\Sigma V^\top$$
+
+        $$U = {lib.pmat(U)},\ \Sigma = {lib.pmat(np.diag(s))},\ V^\top = {lib.pmat(Vt)}$$
 
         - $\sigma_1 = {lib.num_tex(s[0])}$, $\sigma_2 = {lib.num_tex(s[1])}$; $\det A = {lib.num_tex(det_A)} = \pm\sigma_1\sigma_2 = \pm{lib.num_tex(s[0] * s[1])}$
         - `np.allclose(U @ S @ Vt, A)` = `{bool(np.allclose(U @ np.diag(s) @ Vt, A))}` · número de condición $\sigma_1/\sigma_2 = {_cond}$
@@ -272,8 +271,8 @@ def _(caso, casos, es_general, go, lib, mo, np, s_a, s_b, s_c, s_d):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return A, U, V, Vt, camino, det_A, figura, que_pasa, s
 
 
@@ -370,26 +369,23 @@ def _(lib, mo, np):
 def _(mo):
     k_svd = mo.ui.slider(1, 50, value=10, step=1, label="k (valores singulares que conservo)", show_value=True)
     centrar = mo.ui.checkbox(label="Restar altura media antes de truncar")
-    mo.vstack([
-        mo.md(r"""
-        ## 4. Python de hoy
+    mo.md(r"""
+    ## 4. Python de hoy
 
-        Cuatro funciones de `np.linalg`: `svd(A)` devuelve `(U, s, Vt)`, `s` de mayor a menor y **`Vt` ya
-        transpuesta**; `pinv(A)` es $A^{+}$; `lstsq(A, y, rcond=None)` resuelve el sistema alto (lo que usó la unidad 11:
-        adentro hace $A^{+}y$ con la SVD); `cond(A)` es $\sigma_1/\sigma_2$, cuánto amplifica $A$ los errores. Y una
-        idea: una **matriz de alturas** también es una transformación, y `U[:, :k] @ np.diag(s[:k]) @ Vt[:k]` es su mejor
-        aproximación de rango $k$.
+    Cuatro funciones de `np.linalg`: `svd(A)` devuelve `(U, s, Vt)`, `s` de mayor a menor y **`Vt` ya
+    transpuesta**; `pinv(A)` es $A^{+}$; `lstsq(A, y, rcond=None)` resuelve el sistema alto (lo que usó la unidad 11:
+    adentro hace $A^{+}y$ con la SVD); `cond(A)` es $\sigma_1/\sigma_2$, cuánto amplifica $A$ los errores. Y una
+    idea: una **matriz de alturas** también es una transformación, y `U[:, :k] @ np.diag(s[:k]) @ Vt[:k]` es su mejor
+    aproximación de rango $k$.
 
-        La matriz de acá es real: el recorte de la Precordillera de Mendoza del DEM Copernicus GLO-30
-        (`datos/dem_copernicus/`, `lib.dem_precordillera()`). En el navegador es una submuestra de $128\times128$ a
-        $\approx 120$ m por celda, que viaja embebida en la lección; con el repo clonado es el recorte entero de
-        $512\times512$ a 30 m. Alturas entre $1014$ y $2989$ m, media $\approx 1600$ m: una meseta alta con relieve
-        encima. Por eso $\sigma_1$ se lleva casi toda la energía ($99{,}6\,\%$ con $k = 1$): el primer término
-        $\sigma_1 u_1 v_1^{\top}$ es la meseta, no el relieve. Tildar la casilla resta la media antes de la SVD: con
-        $k = 1$ se ve qué queda cuando el primer término ya no tiene que pagar la altura media.
-        """),
-        mo.hstack([k_svd, centrar], justify="start", gap=2, wrap=True),
-    ])
+    La matriz de acá es real: el recorte de la Precordillera de Mendoza del DEM Copernicus GLO-30
+    (`datos/dem_copernicus/`, `lib.dem_precordillera()`). En el navegador es una submuestra de $128\times128$ a
+    $\approx 120$ m por celda, que viaja embebida en la lección; con el repo clonado es el recorte entero de
+    $512\times512$ a 30 m. Alturas entre $1014$ y $2989$ m, media $\approx 1600$ m: una meseta alta con relieve
+    encima. Por eso $\sigma_1$ se lleva casi toda la energía ($99{,}6\,\%$ con $k = 1$): el primer término
+    $\sigma_1 u_1 v_1^{\top}$ es la meseta, no el relieve. Tildar la casilla resta la media antes de la SVD: con
+    $k = 1$ se ve qué queda cuando el primer término ya no tiene que pagar la altura media.
+    """)
     return centrar, k_svd
 
 
@@ -410,7 +406,7 @@ def _(centrar, go, k_svd, lib, mo, np):
                               name=f"rango {k_svd.value}", hovertemplate="%{z:.0f} m<extra>rango k</extra>"))
     _fig.add_trace(go.Heatmap(z=Rz, colorscale="RdBu", zmin=-_rmax, zmax=_rmax, showscale=False, xaxis="x3", yaxis="y3",
                               name="residuo", hovertemplate="%{z:+.0f} m<extra>Z − Zk</extra>"))
-    _fig.update_layout(width=640, height=250, margin=dict(l=4, r=4, t=44, b=4),
+    _fig.update_layout(width=700, height=270, margin=dict(l=4, r=4, t=44, b=4),
                        xaxis=dict(domain=[0, 0.32], visible=False), xaxis2=dict(domain=[0.34, 0.66], visible=False),
                        xaxis3=dict(domain=[0.68, 1], visible=False),
                        yaxis=dict(visible=False, autorange="reversed"), yaxis2=dict(visible=False, autorange="reversed", anchor="x2"),
@@ -425,13 +421,17 @@ def _(centrar, go, k_svd, lib, mo, np):
               "| recorte 512×512, fuera del navegador (`svd_dem_proto.py`) | " + " | ".join(f"{_proto[k]:.1f}" for k in _ks) + " |\n"
               f"| la matriz de acá ({Z.shape[0]}×{Z.shape[1]}), en vivo | " + " | ".join(f"{_vivo[k]:.1f}" for k in _ks) + " |\n"
               "| la misma con la media restada, en vivo | " + " | ".join(f"{_vivo_c[k]:.1f}" for k in _ks) + " |")
+    _panel = mo.vstack([
+        mo.md("**Controles**"), k_svd, centrar,
+        mo.md("**Números vivos**\n\n"
+              f"- `Z.shape` = `{Z.shape}` · alturas `{_zmin:.0f}`–`{_zmax:.0f}` m, media `{Z.mean():.0f}` m, desvío `{Z.std():.0f}` m\n"
+              f"- `s[:4]` = `{np.round(sz[:4], 0).tolist()}` · `np.linalg.cond(Z)` = `{np.linalg.cond(Z):.3g}`\n"
+              f"- con k = {k_svd.value}{' y la media restada' if centrar.value else ''}: `rms` = `{rms_k:.1f}` m de `{Z.std():.0f}` m de desvío"
+              + ("" if centrar.value else f"\n- $\\sigma_1 / (\\bar z\\, n)$ = `{sz[0] / (Z.mean() * Z.shape[0]):.3f}`: el primer término es la meseta")),
+    ], gap=0.55)
     mo.vstack([
         mo.md("```python\nZ = lib.dem_precordillera()   # alturas, m\nU, s, Vt = np.linalg.svd(Z)\nZk = U[:, :k] @ np.diag(s[:k]) @ Vt[:k]\nrms = np.sqrt(np.mean((Z - Zk) ** 2))\n```"),
-        mo.md(f"`Z.shape` = `{Z.shape}` · alturas `{_zmin:.0f}`–`{_zmax:.0f}` m, media `{Z.mean():.0f}` m, desvío `{Z.std():.0f}` m  \n"
-              f"`s[:4]` = `{np.round(sz[:4], 0).tolist()}` · `np.linalg.cond(Z)` = `{np.linalg.cond(Z):.3g}` · "
-              f"con k = {k_svd.value}{' y la media restada' if centrar.value else ''}: `rms` = `{rms_k:.1f}` m de `{Z.std():.0f}` m de desvío"
-              + ("" if centrar.value else f" · $\\sigma_1 / (\\bar z\\, n)$ = `{sz[0] / (Z.mean() * Z.shape[0]):.3f}`: el primer término es la meseta")),
-        mo.ui.plotly(_fig),
+        lib.mesa_interactiva(mo, mo.ui.plotly(_fig), _panel),
         mo.md(_tabla),
         mo.md(r"""
         La primera fila está calculada fuera del navegador con `datos/dem_copernicus/svd_dem_proto.py` sobre el recorte

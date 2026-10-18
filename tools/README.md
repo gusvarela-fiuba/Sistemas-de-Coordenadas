@@ -110,9 +110,16 @@ la interfaz y radianes adentro, rotación/transformación activa por default, f�
    (área −1 o 0, distancia distinta) y se fuerza modo activo. La animación recorre un `camino` de matrices: `rot2(t)` de 0
    a θ para rotaciones, `I + s·(M − I)` para contraejemplos; las estelas son la trayectoria de cada vértice por ese camino
    (arco o segmento). Los asserts de los números vivos van bajo `if es_rotacion:`.
-   Layout `mo.hstack([mo.vstack(controles), mo.ui.plotly(figura)], widths=[1, 2])`. Controles en una celda aparte
-   de la figura (el slider/checkbox/dropdown se define en una celda y se *muestra* dentro del `vstack` de la otra).
-   3D: `height ≥ 600` y `scene.aspectmode="cube"`.
+   **Layout estándar (pantalla 16:9)**: la figura a la **izquierda** (10/16 ≈ 775 px) y a la **derecha** (6/16 ≈ 465 px)
+   un único panel `_panel = mo.vstack([mo.md("**Controles**"), caso, <selectores>, <deslizadores>, mo.md("**Números
+   vivos** …")], gap=0.55)`; la celda de la figura termina con `lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)`,
+   que equivale a `mo.hstack([mo.ui.plotly(figura), _panel], widths=[10, 6], align="start", gap=1.25)`. El build inyecta
+   CSS para que la columna de marimo mida 1240 px en pantallas anchas. Nada de figura arriba y controles abajo, nada de
+   panel a la izquierda. Controles en una celda aparte de la figura (el slider/checkbox/dropdown se define en una celda
+   y se *muestra* una sola vez, dentro del panel de la celda de la figura); la celda que crea el dropdown `caso` muestra
+   a lo sumo el encabezado `## 2. Manipulación`, nunca el dropdown suelto. Tamaños por default: `figura_plano` 540×500 y
+   `figura_espacio` 540×520 (no pasar `ancho`/`alto` mayores en la figura de manipulación; dos figuras en una misma
+   sección van apiladas en la columna izquierda o lado a lado con ≈ 370 px cada una). 3D: `scene.aspectmode="cube"`.
 3. **Cuenta a mano y código lado a lado.** `mo.hstack([mo.md(latex), mo.vstack([mo.md("```python …```"), salida])],
    widths="equal")`, un hstack por cuenta, enteros y valores exactos; el código del bloque es el mismo que corre en la celda.
    Las matrices del LaTeX llevan cada columna en `\textcolor{…}` con los mismos colores que las flechas de la figura.
@@ -211,7 +218,8 @@ Gotchas conocidos:
 - Las etiquetas de `mo.ui.radio` / `mo.ui.dropdown` no pasan por KaTeX: para mostrar vectores en las opciones usar `lib.vec_plano`, no `$…$`.
 - Un `|` dentro de `$…$` en una tabla markdown parte la celda: escribir `\lvert … \rvert`.
 - En los `r"""…"""` los escapes van simples (`\.`, `\,`), no dobles (`\\.`): el string crudo ya los conserva.
-- `mo.hstack` con un panel largo tapa el texto de la figura: usar `mo.vstack([figura, panel])`.
+- `mo.hstack` con un panel largo a la izquierda tapaba el texto de la figura: por eso el panel va a la derecha con
+  `lib.mesa_interactiva(...)` (`widths=[10, 6]`), no un `mo.vstack([figura, panel])`.
 - Los helpers nuevos van a `unidades/cb104.py` con su `assert` en el bloque `__main__`, no a la lección.
 - La celda `import cb104 as lib  # cb104:inline` tiene que quedar exactamente así (una celda propia que devuelve `lib`); cualquier otra forma de importar cb104 hace fallar el build.
 

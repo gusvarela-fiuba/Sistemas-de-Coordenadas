@@ -56,27 +56,27 @@ cátedra.
 \endhead
 \bottomrule
 \endlastfoot
-00\_desaprender\_el\_cbc & Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica & ---\\
-01a\_punto\_quieto & Rotaciones I: el punto no se movió & 01\\
-01b\_rotacion\_plano & Rotaciones II: la rotación en el plano & 01\\
-01c\_rotaciones\_3d & Rotaciones III: tres ejes y el orden importa & 01, 02\\
-02\_producto\_interno & Producto interno: proyección, longitud, ángulo & 01\\
-03\_reflexiones\_similaridades & Reflexiones y similaridades & 02, 03\\
-04\_afines\_homogeneas & Afinidades y coordenadas homogéneas & 03\\
-05\_proyectivas & Proyectivas & 03p\\
-06\_formas\_lineales & Formas lineales y dualidad & 04\\
-07a\_cuna\_determinante & Cuña y determinante: el detector de colinealidad & 05\\
-07b\_nucleo\_autovectores & Núcleo y autovectores: las direcciones que no giran & 05, 06\\
-07c\_autovalores\_3d\_\allowbreak puntos\_fijos & Autovalores en 3D y puntos fijos proyectivos & 06\\
-08\_cambio\_de\_base & Cambio de base y diagonalización & 08\\
-09\_cambio\_de\_base\_svd & Cambio de base, SVD e inversas (con el DEM real de la
+\linkUnidadId{00_desaprender_el_cbc} & Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica & ---\\
+\linkUnidadId{01a_punto_quieto} & Rotaciones I: el punto no se movió & 01\\
+\linkUnidadId{01b_rotacion_plano} & Rotaciones II: la rotación en el plano & 01\\
+\linkUnidadId{01c_rotaciones_3d} & Rotaciones III: tres ejes y el orden importa & 01, 02\\
+\linkUnidadId{02_producto_interno} & Producto interno: proyección, longitud, ángulo & 01\\
+\linkUnidadId{03_reflexiones_similaridades} & Reflexiones y similaridades & 02, 03\\
+\linkUnidadId{04_afines_homogeneas} & Afinidades y coordenadas homogéneas & 03\\
+\linkUnidadId{05_proyectivas} & Proyectivas & 03p\\
+\linkUnidadId{06_formas_lineales} & Formas lineales y dualidad & 04\\
+\linkUnidadId{07a_cuna_determinante} & Cuña y determinante: el detector de colinealidad & 05\\
+\linkUnidadId{07b_nucleo_autovectores} & Núcleo y autovectores: las direcciones que no giran & 05, 06\\
+\href{\sitioURL/unidades/07c_autovalores_3d_puntos_fijos/index.html}{\texttt{\detokenize{07c_autovalores_3d_}\allowbreak\detokenize{puntos_fijos}}} & Autovalores en 3D y puntos fijos proyectivos & 06\\
+\linkUnidadId{08_cambio_de_base} & Cambio de base y diagonalización & 08\\
+\linkUnidadId{09_cambio_de_base_svd} & Cambio de base, SVD e inversas (con el DEM real de la
 sección~\ref{sec:svd}) & 07, 10\\
-10\_jacobiano\_primera\_forma & Jacobiano y primera forma fundamental & 09\\
-11\_cuatro\_problemas & Cuatro problemas: regresión, círculos, Procrustes, regresión total
+\linkUnidadId{10_jacobiano_primera_forma} & Jacobiano y primera forma fundamental & 09\\
+\linkUnidadId{11_cuatro_problemas} & Cuatro problemas: regresión, círculos, Procrustes, regresión total
 (anticipada) & 11\\
-12\_curvatura & Curvatura como forma cuadrática (anticipada) & 12\\
-13\_elipsoide & Geometría del elipsoide (anticipada) & 13\\
-14\_trigonometria\_esferica & Trigonometría esférica (anticipada) & 14\\
+\linkUnidadId{12_curvatura} & Curvatura como forma cuadrática (anticipada) & 12\\
+\linkUnidadId{13_elipsoide} & Geometría del elipsoide (anticipada) & 13\\
+\linkUnidadId{14_trigonometria_esferica} & Trigonometría esférica (anticipada) & 14\\
 \end{longtable}
 }
 
@@ -211,38 +211,38 @@ las unidades.
 \bottomrule
 \endlastfoot
 Desaprender el CBC: los cuatro cambios de chip &
-\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & --- & 00\\
+\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & --- & \linkUnidad{00_desaprender_el_cbc}{00}\\
 Rotaciones 2D y 3D, eje y ángulo, exponencial &
-\S\ref{cap:07}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & --- & 01a, 01b, 01c\\
+\S\ref{cap:07}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & --- & \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}\\
 Guía de reflexiones, traslaciones, rotaciones, homotecias y similaridades (teoremas 1 a 6) &
-enunciados en \S\ref{cap:08}, guía resuelta completa en \S\ref{cap:09} & --- & 02, 03\\
+enunciados en \S\ref{cap:08}, guía resuelta completa en \S\ref{cap:09} & --- & \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}\\
 Afinidades: los seis ejercicios de la clase del 9/9 &
 resolución en ap.~\ref{cap:17}; composición en ap.~\ref{ap:composicion-afin} &
 \file{Afinidades\_Ejercicios\_Varela\_56798.pdf} (fuente y verificación NumPy en
 \file{afinidades/}); extra no pedido: \file{Afinidades\_Triangulo\_Varela\_56798.pdf},
-llevar un triángulo sobre otro con afinidades axiales & 04\\
+llevar un triángulo sobre otro con afinidades axiales & \linkUnidad{04_afines_homogeneas}{04}\\
 Proyectivas del pentágono (consigna del 16/9, aclaración del 18/9) &
 cuentas y script en ap.~\ref{ap:pentagono}; teoría en \S\ref{cap:12} &
 \file{Pentagono\_Proyectivas\_Varela\_56798.pdf} (20 páginas: pentágono regular, tres
 casos y composiciones, más el mismo problema sobre un pentágono irregular con enteros y
 la parte conceptual; fuente, notebook marimo y verificación en \file{pentagono/}) &
-05, 07c\\
+\linkUnidad{05_proyectivas}{05}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Productos, determinante, núcleo, autovectores por producto cruz &
-ejemplos resueltos en \S\ref{cap:11} (reflexión, rotación compuesta) & --- & 07a, 07b, 07c\\
+ejemplos resueltos en \S\ref{cap:11} (reflexión, rotación compuesta) & --- & \linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Formas lineales, cambio de base, diagonalización &
 \S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio del
-30/9, \(A^5\), \(A^t\)) & --- & 06, 08\\
+30/9, \(A^5\), \(A^t\)) & --- & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
 SVD, inversas, pseudoinversa &
 \S\ref{sec:svd} (dos SVD a mano, DEM), \S\ref{sec:pseudoinversa} (recta por tres puntos)
-& --- & 09\\
+& --- & \linkUnidad{09_cambio_de_base_svd}{09}\\
 Los cuatro problemas: regresión, círculos, Procrustes, regresión total &
-guía resuelta en \S\ref{sec:cuatro-problemas} & --- & 11\\
+guía resuelta en \S\ref{sec:cuatro-problemas} & --- & \linkUnidad{11_cuatro_problemas}{11}\\
 Jacobiano, primera forma, curvatura &
-\S\ref{sec:metrica}, \S\ref{sec:curvatura} (silla, esfera) & --- & 10, 12\\
+\S\ref{sec:metrica}, \S\ref{sec:curvatura} (silla, esfera) & --- & \linkUnidad{10_jacobiano_primera_forma}{10}, \linkUnidad{12_curvatura}{12}\\
 Elipsoide, arco de meridiano, proyecciones &
 \S\ref{sec:elipsoide} (GRS80 en \(45^\circ\) y \(-34{,}6^\circ\)),
-\S\ref{sec:arco-meridiano} (serie y cinco proyecciones) & --- & 13\\
+\S\ref{sec:arco-meridiano} (serie y cinco proyecciones) & --- & \linkUnidad{13_elipsoide}{13}\\
 Trigonometría esférica, exceso &
-\S\ref{sec:trigonometria-esferica} (octante, tres ciudades) & --- & 14\\
+\S\ref{sec:trigonometria-esferica} (octante, tres ciudades) & --- & \linkUnidad{14_trigonometria_esferica}{14}\\
 \end{longtable}
 }

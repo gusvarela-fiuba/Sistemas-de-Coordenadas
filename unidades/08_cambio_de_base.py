@@ -226,17 +226,14 @@ def _(mo, np):
             r"$B^{-1}AB$ **nunca** es diagonal: sin segundo eje propio no se diagonaliza."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="base oblicua de la parcela", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        Tres capas. En **gris**, la grilla de la obra. En **teal**, la grilla **oblicua** que generan los ejes nuevos
-        $b_1$ (teal) y $b_2$ (rust) con todas sus paralelas. En **violeta**, el mojón, que no se mueve, y el **camino
-        de lectura**: avanzo $c_1$ veces $b_1$ y después $c_2$ veces $b_2$; los dos tramos son las coordenadas nuevas.
-        Los deslizadores desvían $b_2$ respecto del caso (giro y largo); con $b_2$ paralelo a $b_1$ no hay base.
-        """),
-        caso,
-    ])
+    Tres capas. En **gris**, la grilla de la obra. En **teal**, la grilla **oblicua** que generan los ejes nuevos
+    $b_1$ (teal) y $b_2$ (rust) con todas sus paralelas. En **violeta**, el mojón, que no se mueve, y el **camino
+    de lectura**: avanzo $c_1$ veces $b_1$ y después $c_2$ veces $b_2$; los dos tramos son las coordenadas nuevas.
+    Los deslizadores desvían $b_2$ respecto del caso (giro y largo); con $b_2$ paralelo a $b_1$ no hay base.
+    """)
     return caso, casos
 
 
@@ -283,28 +280,25 @@ def _(caso, casos, desvio, factor, lib, mo, mojon, np):
         """
     lib.punto(figura, P, nombre="mojón (quieto)", texto="P")
     _panel = mo.vstack([
-        mo.md("**Controles**"), desvio, factor,
+        mo.md("**Controles**"), caso, desvio, factor,
         mo.md("**Números vivos**\n" + "\n".join(_l.strip() for _l in _numeros.splitlines()) + f"\n**Qué pasa acá:** {que_pasa}"),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(figura), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return B, P, c, singular
 
 
 @app.cell
 def _(mo):
     n_pot = mo.ui.slider(1, 8, value=5, step=1, label="n (potencia)", show_value=True)
-    mo.vstack([
-        mo.md(r"""
-        **La transformación en su grilla propia.** Ahora la grilla no la elijo yo: la elige
-        $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. En gris, la grilla de la obra y el cuadrado de vértices
-        $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así "no se
-        entiende"). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
-        con $\lambda_2 = 1$; el rombo se estira $\times 3$ a lo largo de $b_1$ y queda igual a lo largo de $b_2$.
-        **Reproducir** recorre $A^t$ de $t = 0$ a $1$: la película, con las estelas curvándose hacia el eje de
-        $\lambda = 3$. Abajo, $A^n$ multiplicando $n$ veces y por $B\Lambda^nB^{-1}$.
-        """),
-        n_pot,
-    ])
+    mo.md(r"""
+    **La transformación en su grilla propia.** Ahora la grilla no la elijo yo: la elige
+    $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. En gris, la grilla de la obra y el cuadrado de vértices
+    $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así "no se
+    entiende"). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
+    con $\lambda_2 = 1$; el rombo se estira $\times 3$ a lo largo de $b_1$ y queda igual a lo largo de $b_2$.
+    **Reproducir** recorre $A^t$ de $t = 0$ a $1$: la película, con las estelas curvándose hacia el eje de
+    $\lambda = 3$. En el panel, $A^n$ multiplicando $n$ veces y por $B\Lambda^nB^{-1}$.
+    """)
     return (n_pot,)
 
 
@@ -340,15 +334,19 @@ def _(go, lib, mo, n_pot, np):
         mo.md(rf"""
         **Números vivos**
 
-        $$\Lambda = {lib.pmat(Lam)}, \quad B = {lib.matriz_coloreada(B_prop, dec=0)}, \quad B^{{-1}}AB = {lib.pmat(np.linalg.inv(B_prop) @ A @ B_prop)}$$
+        $$\Lambda = {lib.pmat(Lam)}, \quad B = {lib.matriz_coloreada(B_prop, dec=0)}$$
 
-        $$A^{{{n_pot.value}}} = {lib.pmat(An_mult)} \text{{ (multiplicando)}}, \qquad B\,\Lambda^{{{n_pot.value}}}B^{{-1}} = {lib.pmat(An_diag)}$$
+        $$B^{{-1}}AB = {lib.pmat(np.linalg.inv(B_prop) @ A @ B_prop)}$$
+
+        $$A^{{{n_pot.value}}} = {lib.pmat(An_mult)} \text{{ (multiplicando)}}$$
+
+        $$B\,\Lambda^{{{n_pot.value}}}B^{{-1}} = {lib.pmat(An_diag)}$$
 
         - `np.allclose` entre las dos: `{bool(np.allclose(An_mult, An_diag))}`. $\Lambda^n$ es elevar dos números; $A^n$ a mano son $n - 1$ productos.
         - $\det A = {lib.num_tex(np.linalg.det(A))} = \lambda_1\lambda_2$, traza $= {lib.num_tex(np.trace(A))} = \lambda_1 + \lambda_2$: no cambian con la base.
         """),
-    ], gap=0.6)
-    mo.vstack([mo.ui.plotly(fig_A), _panel])
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(fig_A), _panel)
     return A, An_diag, An_mult, B_prop, Lam, lam
 
 

@@ -167,17 +167,15 @@ def _(lib, mo, np):
     caso = mo.ui.dropdown(options=list(casos), value="v gira alrededor de u = (3, 1)", label="caso precargado")
     rango = 6
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        $M = [\,u \mid v\,]$ tiene a $u$ y $v$ como columnas. **Gris**: grilla y cuadrado unitario antes. **Teal**: los
-        mismos después; el cuadrado unitario es ahora **el paralelogramo de $u$ y $v$** (flechas teal y rust).
-        **Violeta**: la parcela con estelas; su área se multiplica por $\det M$, sea cual sea su forma. **Reproducir**
-        muestra el camino desde la identidad.
-        """),
-        caso,
-    ])
+    $M = [\,u \mid v\,]$ tiene a $u$ y $v$ como columnas. **Gris**: grilla y cuadrado unitario antes. **Teal**: los
+    mismos después; el cuadrado unitario es ahora **el paralelogramo de $u$ y $v$** (flechas teal y rust).
+    **Violeta**: la parcela con estelas; su área se multiplica por $\det M$, sea cual sea su forma. **Reproducir**
+    muestra el camino desde la identidad. A la derecha de la figura, el panel con el caso, el deslizador y los
+    números vivos.
+    """)
     return caso, casos, parcela, rango, u0, v0
 
 
@@ -223,7 +221,7 @@ def _(angulo_v, caso, casos, gira, go, lib, mo, np, parcela, rango, u0):
     area_antes = lib.area_poligono(parcela)
     area_despues = lib.area_poligono(lib.transformar(parcela, M))
     _panel = mo.vstack([
-        mo.md("**Controles**"), angulo_v,
+        mo.md("**Controles**"), caso, angulo_v,
         mo.md(rf"""
         **Números vivos**
 
@@ -235,23 +233,21 @@ def _(angulo_v, caso, casos, gira, go, lib, mo, np, parcela, rango, u0):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, area_antes, area_despues, cuna_uv
 
 
 @app.cell
 def _(mo):
     s_w = mo.ui.slider(0, 1.5, value=1.0, step=0.05, label="s (posición de w)", show_value=True)
-    mo.vstack([
-        mo.md(r"""
-        **Un piso más arriba: la caja.** $u = (1, 2, 0)$ y $v = (0, 1, 1)$ quedan fijos y arman el plano gris. El tercer
-        lado $w$ viaja en línea recta desde $w_0 = (1, 0, 2)$ hasta $u + v = (1, 3, 1)$, que **está en ese plano**:
-        $w(s) = (1 - s)\,w_0 + s\,(u + v)$. El volumen orientado $\det[u\ v\ w]$ baja hasta cero cuando la caja se
-        vuelve una lámina, y pasado $s = 1$ cambia de signo: $w$ cruzó al otro lado del plano.
-        """),
-        s_w,
-    ])
+    mo.md(r"""
+    **Un piso más arriba: la caja.** $u = (1, 2, 0)$ y $v = (0, 1, 1)$ quedan fijos y arman el plano gris. El tercer
+    lado $w$ viaja en línea recta desde $w_0 = (1, 0, 2)$ hasta $u + v = (1, 3, 1)$, que **está en ese plano**:
+    $w(s) = (1 - s)\,w_0 + s\,(u + v)$. El volumen orientado $\det[u\ v\ w]$ baja hasta cero cuando la caja se
+    vuelve una lámina, y pasado $s = 1$ cambia de signo: $w$ cruzó al otro lado del plano. El deslizador $s$ va en el
+    panel de la derecha.
+    """)
     return (s_w,)
 
 
@@ -261,13 +257,14 @@ def _(lib, mo, np, s_w):
     w3 = (1 - s_w.value) * w0 + s_w.value * (u3 + v3)
     vol = lib.cuna3(u3, v3, w3)
     _vert, _aristas = lib.paralelepipedo(u3, v3, w3)
-    fig3 = lib.figura_espacio((-0.6, 3.4), f"s = {s_w.value:.2f}: det[u v w] = {vol:+.2f}", ancho=560, alto=560)
+    fig3 = lib.figura_espacio((-0.6, 3.4), f"s = {s_w.value:.2f}: det[u v w] = {vol:+.2f}")
     lib.plano_3d(fig3, u3, v3, k=1.2, origen=0.5 * (u3 + v3), nombre="plano de u y v")
     _x, _y, _z = lib.segmentos_3d(_vert, _aristas)
     fig3.add_trace(dict(type="scatter3d", x=_x, y=_y, z=_z, mode="lines", line=dict(color=lib.TEAL_DESPUES, width=4), name="caja de u, v, w"))
     lib.flechas_columnas_3d(fig3, np.column_stack([u3, v3, w3]), "M")
     _cruz = np.cross(u3, v3)
-    mo.hstack([
+    _panel = mo.vstack([
+        mo.md("**Controles**"), s_w,
         mo.md(rf"""
         **Números vivos**
 
@@ -278,8 +275,8 @@ def _(lib, mo, np, s_w):
         Columnas: $u$ <span style="color:{lib.COLORES[0]}">teal</span>, $v$ <span style="color:{lib.COLORES[1]}">rust</span>,
         $w$ <span style="color:{lib.COLORES[2]}">gold</span>. La caja es el cubo unitario transformado por $[u\ v\ w]$.
         """),
-        mo.ui.plotly(fig3),
-    ], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(fig3), _panel)
     return u3, v3, vol, w0, w3
 
 

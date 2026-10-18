@@ -63,6 +63,16 @@
   urlcolor=teal
 }
 
+%% --- Enlaces a las simulaciones del sitio ---
+%% \sitioURL: raíz del sitio (sin barra final). \linkUnidad{<id>}{<texto>}: enlace a la
+%% simulación interactiva de una unidad (negrita, color teal = urlcolor, triángulo final).
+%% \linkFicha{<slug>}{<texto>}: enlace a la ficha de una clase (color teal, sin negrita).
+%% \linkUnidadId{<id>}: el id de la unidad como texto monoespaciado del enlace (tablas).
+\newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}
+\newcommand{\linkUnidad}[2]{\href{\sitioURL/unidades/#1/index.html}{\textcolor{teal}{\textbf{#2 \(\triangleright\)}}}}
+\newcommand{\linkFicha}[2]{\href{\sitioURL/clases/#1.html}{\textcolor{teal}{#2}}}
+\newcommand{\linkUnidadId}[1]{\href{\sitioURL/unidades/#1/index.html}{\texttt{\detokenize{#1}}}}
+
 %% --- Encabezado y pie de página (fancyhdr) ---
 \pagestyle{fancy}
 \setlength{\headheight}{22pt}

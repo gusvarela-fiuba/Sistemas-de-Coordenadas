@@ -226,8 +226,8 @@ def _(angulo, go, lib, mo, np, px, py):
         Las dos lecturas son etiquetas del **mismo lugar**. Lo que se conserva es la distancia al origen (y, en
         general, toda distancia y todo ángulo: lección II).
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return P, R, coords_nuevas, theta
 
 

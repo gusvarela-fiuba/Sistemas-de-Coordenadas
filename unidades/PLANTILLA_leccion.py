@@ -14,6 +14,15 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
   0. Situación de campo y predicción   (mo.ui.radio + un callout por opción)
   1. Hecho geométrico                  (qué se conserva, escalera R → R² → R³)
   2. Manipulación                      (figura de tres capas: gris antes / teal después / objeto; deslizador + casos precargados)
+                                       LAYOUT ESTÁNDAR (pantalla 16:9, columna de marimo de 1240 px): la figura a la
+                                       IZQUIERDA (10/16 ≈ 775 px) y a la DERECHA (6/16 ≈ 465 px) UN solo panel con el
+                                       selector `caso` arriba, los deslizadores y los números vivos. Se arma con
+                                       `lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)`, que equivale a
+                                       `mo.hstack([mo.ui.plotly(figura), _panel], widths=[10, 6], align="start", gap=1.25)`.
+                                       Tamaños por default: `lib.figura_plano` 540×500 y `lib.figura_espacio` 540×520
+                                       (no pasar ancho/alto mayores en la figura de manipulación). La celda que crea el
+                                       dropdown `caso` NO lo muestra suelto: `caso` se muestra sólo adentro del panel.
+                                       Nada de figura arriba y controles abajo, nada de panel a la izquierda.
   3. Cuenta a mano y código lado a lado (matriz coloreada por columnas)
   4. Python de hoy                     (una sola idea nueva)
   5. Ejercicios                        (dos de lápiz, dos de código con hueco verificados con np.allclose)
@@ -146,7 +155,8 @@ def _(mo):
     ## 2. Manipulación
 
     [PLANTILLA: qué controlar y qué mirar. Tres capas: gris = antes, teal = después (columnas como flechas),
-    violeta = el objeto reconocible con estelas. Casos precargados arriba del deslizador.]
+    violeta = el objeto reconocible con estelas. La figura a la izquierda; a la derecha el panel con los casos
+    precargados arriba del deslizador y los números vivos debajo.]
     """)
     return
 
@@ -163,6 +173,8 @@ def _(mo, np):
         "proyección det = 0 (no es rotación)": ("matriz", np.array([[1.0, 0.0], [0.0, 0.0]]), "aplasta el plano: área 0."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="giro de 35°", label="caso precargado")
+    # PLANTILLA: esta celda no muestra `caso` (ni nada, o a lo sumo el encabezado de la sección); el dropdown se
+    # muestra una sola vez, adentro del panel de la celda de la figura.
     return caso, casos
 
 
@@ -214,6 +226,7 @@ def _(angulo, caso, casos, cuadrado, es_rotacion, go, lib, mo, np, objeto_puntos
     lib.animar(figura, [_dinamicas(i) for i in range(len(camino))])
 
     area_cuadrado = lib.area_poligono(lib.transformar(cuadrado, M))
+    # PLANTILLA: panel único a la derecha: título, selector de caso, deslizadores, números vivos (en ese orden).
     _panel = mo.vstack([
         mo.md("**Controles**"),
         caso,
@@ -227,8 +240,10 @@ def _(angulo, caso, casos, cuadrado, es_rotacion, go, lib, mo, np, objeto_puntos
 
         **Qué pasa acá:** {que_conserva} Apretá **reproducir** para ver el camino de la identidad a $M$.
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    # PLANTILLA: figura a la IZQUIERDA (10/16) y panel a la DERECHA (6/16). Equivale a
+    # mo.hstack([mo.ui.plotly(figura), _panel], widths=[10, 6], align="start", gap=1.25).
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, area_cuadrado
 
 

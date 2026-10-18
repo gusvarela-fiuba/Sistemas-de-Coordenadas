@@ -184,16 +184,13 @@ def _(mo):
                                   r"la Tierra: el achatamiento no se ve ($b$ es $21$ km más corto que $a$), pero $\varphi - \psi$ llega a $11.5′$ y $N - M$ a $42.7$ km."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="elipsoide exagerado (f = 0.3)", label="caso precargado")
-    mo.vstack([
-        mo.md(r"""
-        ## 2. Manipulación
+    mo.md(r"""
+    ## 2. Manipulación
 
-        La figura va en unidades de $a$; los **números vivos** usan el $a$ del caso. En **gris**, el elipsoide con su
-        grilla y la recta al centro; en **teal** el meridiano del punto, en **gold** su paralelo; en **rust** la
-        normal, desde el eje polar hasta el punto y un poco más: el tramo hasta el eje mide exactamente $N$.
-        """),
-        caso,
-    ])
+    La figura va en unidades de $a$; los **números vivos** (panel de la derecha) usan el $a$ del caso. En **gris**, el
+    elipsoide con su grilla y la recta al centro; en **teal** el meridiano del punto, en **gold** su paralelo; en
+    **rust** la normal, desde el eje polar hasta el punto y un poco más: el tramo hasta el eje mide exactamente $N$.
+    """)
     return caso, casos
 
 
@@ -216,7 +213,7 @@ def _(caso, casos, go, lam_s, lib, mo, np, phi_s):
     n = lib.normal_elipsoide(phi, lam)
     r1 = lambda p, l: lib.geodesica_a_cartesiana(p, l, 0.0, 1.0, el["e2"])  # noqa: E731  (en unidades de a)
 
-    figura = lib.figura_espacio((-1.25, 1.25), f"{caso.value} · φ = {phi_s.value}°, λ = {lam_s.value}°", ancho=620, alto=620)
+    figura = lib.figura_espacio((-1.25, 1.25), f"{caso.value} · φ = {phi_s.value}°, λ = {lam_s.value}°")
     lib.superficie_malla(figura, r1, np.deg2rad(np.arange(-90, 91, 15)), np.deg2rad(np.arange(-180, 181, 15)), color=lib.GRIS_ANTES,
                          nombre="elipsoide", ancho=1, opacidad=0.5)
     _m = r1(np.linspace(-np.pi / 2, np.pi / 2, 91), lam)
@@ -229,7 +226,7 @@ def _(caso, casos, go, lam_s, lib, mo, np, phi_s):
     figura.add_trace(go.Scatter3d(x=[_p1[0]], y=[_p1[1]], z=[_p1[2]], mode="markers", marker=dict(size=6, color=lib.VIOLETA_OBJETO), name="mojón"))
     _fmt = (lambda v: f"{v:,.2f}{unidad}") if a > 100 else (lambda v: f"{v:.4f}")
     _panel = mo.vstack([
-        mo.md("**Controles**"), phi_s, lam_s,
+        mo.md("**Controles**"), caso, phi_s, lam_s,
         mo.md(rf"""
         **Números vivos** ($a = {a:g}$, $f = {f:.6g}$, $e^2 = {el['e2']:.6g}$)
 
@@ -240,8 +237,8 @@ def _(caso, casos, go, lam_s, lib, mo, np, phi_s):
 
         **Qué pasa acá:** {que_pasa}
         """),
-    ], gap=0.6)
-    mo.hstack([_panel, mo.ui.plotly(figura)], widths=[1, 2], align="start")
+    ], gap=0.55)
+    lib.mesa_interactiva(mo, mo.ui.plotly(figura), _panel)
     return M, N, P, a, beta, el, f, phi, psi
 
 
@@ -254,7 +251,7 @@ def _(N, a, beta, el, go, lib, mo, np, phi, psi):
     xp, zp = (N / a) * np.cos(phi), (N / a) * (1 - _e2) * np.sin(phi)  # el punto
     _pie = np.array([(N / a) * _e2 * np.cos(phi), 0.0])  # donde la normal corta al ecuador
     _eje = np.array([0.0, -(N / a) * _e2 * np.sin(phi)])  # donde corta al eje polar
-    fig2 = lib.figura_plano((-1.3, 1.3), "elipse meridiana: φ (normal), ψ (radio), β (círculo auxiliar)", ancho=560, alto=560)
+    fig2 = lib.figura_plano((-1.3, 1.3), "elipse meridiana: φ (normal), ψ (radio), β (círculo auxiliar)")
     fig2.add_trace(go.Scatter(x=np.cos(_t), y=np.sin(_t), mode="lines", line=dict(color=lib.GRIS_ANTES, width=1, dash="dash"), name="círculo auxiliar de radio a"))
     fig2.add_trace(go.Scatter(x=np.cos(_t), y=_b * np.sin(_t), mode="lines", line=dict(color=lib.COLORES[0], width=2.5), name="meridiano (elipse a, b)"))
     lib.flecha(fig2, _eje, (xp, zp) + 0.3 * np.array([np.cos(phi), np.sin(phi)]), lib.COLORES[1], "normal (φ con el ecuador)", ancho=4)
@@ -267,15 +264,13 @@ def _(N, a, beta, el, go, lib, mo, np, phi, psi):
     lib.arco_angulo(fig2, [1, 0], [xp, zp], 0.34, "#555", "", "ψ")
     lib.arco_angulo(fig2, [1, 0], [np.cos(beta), np.sin(beta)], 0.46, lib.COLORES[2], "", "β")
     lib.punto(fig2, (xp, zp), nombre="mojón", texto="P")
-    mo.vstack([
-        mo.md(rf"""
-        **La misma cosa en el plano del meridiano.** El punto $P = (x', z) = (N\cos\varphi,\ N(1 - e^2)\sin\varphi)$,
-        en unidades de $a$. La normal (rust) corta el ecuador en $x' = N e^2\cos\varphi = {_pie[0]:.3f}\,a$ y el eje polar en
-        $z = -N e^2\sin\varphi = {_eje[1]:.3f}\,a$: pasa por el centro sólo si $e^2 = 0$ o $\varphi \in \{{0, \pm 90°\}}$. Los tres
-        arcos son $\varphi = {lib.gms(np.rad2deg(phi))}$, $\psi = {lib.gms(np.rad2deg(psi), 1)}$ y $\beta = {lib.gms(np.rad2deg(beta), 1)}$.
-        """),
-        mo.ui.plotly(fig2),
-    ])
+    lib.mesa_interactiva(mo, mo.ui.plotly(fig2), mo.md(rf"""
+    **La misma cosa en el plano del meridiano.** El punto $P = (x', z) = (N\cos\varphi,\ N(1 - e^2)\sin\varphi)$,
+    en unidades de $a$. La normal (rust) corta el ecuador en $x' = N e^2\cos\varphi = {_pie[0]:.3f}\,a$ y el eje polar en
+    $z = -N e^2\sin\varphi = {_eje[1]:.3f}\,a$: pasa por el centro sólo si $e^2 = 0$ o $\varphi \in \{{0, \pm 90°\}}$. Los tres
+    arcos son $\varphi = {lib.gms(np.rad2deg(phi))}$, $\psi = {lib.gms(np.rad2deg(psi), 1)}$ y $\beta = {lib.gms(np.rad2deg(beta), 1)}$.
+    Se mueve con los deslizadores de arriba.
+    """))
     return
 
 
