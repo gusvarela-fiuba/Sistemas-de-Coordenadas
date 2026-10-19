@@ -13,14 +13,14 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 787 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
-| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 779 | 7 | 12 | 18 | 6 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 784 | 7 | 12 | 18 | 6 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/02-traslaciones-movimientos-rigidos.tex | chapter: Traslaciones y movimientos rígidos | 508 | 10 | 5 | 9 | 4 | 6 | 3 | S | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1087 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1125 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/04-afinidades-homogeneas.tex | chapter: Afinidades y coordenadas homogéneas | 1077 | 10 | 5 | 8 | 3 | 3 | 0 | — | 9 | 9 | 4 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 742 | 6 | 4 | 8 | 5 | 5 | 0 | — | 6 | 6 | 3 | 2 | 0 | sí | sí | 0 | 15 | sí |  |
-| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 716 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 4 | 2 | 0 | sí | sí | 0 | 24 | sí |  |
-| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 819 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 3 | 2 | 0 | sí | sí | 0 | 21 | sí |  |
-| contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 562 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 5 | sí |  |
+| contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 669 | 6 | 4 | 8 | 5 | 5 | 0 | — | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 646 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 754 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 524 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 861 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 4 | 2 | 0 | sí | sí | 0 | 32 | sí |  |
 | contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 593 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 4 | 2 | 0 | sí | sí | 0 | 3 | sí |  |
 | contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 673 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 18 | sí |  |
@@ -28,7 +28,7 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 659 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 4 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 555 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 12 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 634 | 3 | 4 | 13 | 7 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 1 | sí |  |
-| **Total** | | 11761 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 99 | 38 | 0 |  |  | 0 | 143 |  |  |
+| **Total** | | 11558 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 95 | 38 | 0 |  |  | 0 | 78 |  |  |
 
 ## Complementos (C1 a C4)
 
@@ -53,12 +53,12 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 
 ## Enlaces
 
-- Total de enlaces a unidades: 140; a animaciones: 8; recuadros: 38
+- Total de enlaces a unidades: 136; a animaciones: 8; recuadros: 38
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: f936a08
-- Páginas del último PDF: 260 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: 442485c
+- Páginas del último PDF: 257 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91

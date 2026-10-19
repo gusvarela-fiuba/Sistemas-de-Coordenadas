@@ -57,7 +57,7 @@ matrices se representa con una matriz múltiplo de la identidad.
 
 \section{Construcciones, cuentas y ejemplos}
 
-\subsection{Reflejar en un punto es tomarlo como punto medio}
+\subsection{Reflejar en un punto es tomarlo como punto medio}\label{sec:refl-punto}
 
 \begin{definicion}[Reflexión respecto de un punto]\label{def:reflexion-puntual}
 Sea \(b\) un punto del plano. La \emph{reflexión respecto de \(b\)} es la transformación
@@ -111,7 +111,7 @@ La fórmula \(\rhoP{b}(x)=b-(x-b)\) muestra además que la reflexión puntual es
 Si \(b=(2,1)\) y \(x=(5,3)\), entonces \(\rhoP{b}(x)=2(2,1)-(5,3)=(-1,-1)\), y el punto medio
 entre \((5,3)\) y \((-1,-1)\) es \((2,1)\).
 
-\subsection{Dos reflexiones puntuales dan una traslación}
+\subsection{Dos reflexiones puntuales dan una traslación}\label{sec:dos-puntuales}
 
 \begin{proposicion}[La composición de dos reflexiones puntuales es una traslación]\label{prop:dos-puntuales}
 Para todo par de puntos \(a\), \(b\),
@@ -159,7 +159,7 @@ Con \(a=(3,2)\) y \(b=(1,1)\), la traslación resultante tiene vector \(2(a-b)=2
 Para \(x=(2,-1)\): \(\rhoP{b}(x)=(0,3)\) y
 \(\rhoP{a}(0,3)=(6,1)=x+(4,2)\).
 
-\subsection{Tres reflexiones puntuales cierran un paralelogramo}
+\subsection{Tres reflexiones puntuales cierran un paralelogramo}\label{sec:tres-puntuales}
 
 \begin{proposicion}[Tres reflexiones puntuales componen una reflexión puntual]\label{prop:tres-puntuales}
 Para todos los puntos \(a\), \(b\), \(c\), la composición \(\rhoP{a}\rhoP{b}\rhoP{c}\) es la
@@ -222,7 +222,7 @@ el extremo de \(v\) respecto de su origen. Esto se relaciona con la involución 
 reflejar dos veces no \enquote{anula} el punto, sino que devuelve la posición inicial.
 \end{idea}
 
-\subsection{La reflexión respecto de una recta invierte la orientación}
+\subsection{La reflexión respecto de una recta invierte la orientación}\label{sec:refl-recta}
 
 \begin{definicion}[Reflexión respecto de una recta]\label{def:reflexion-recta}
 Sea \(B\) una recta del plano. La \emph{reflexión respecto de \(B\)} es la transformación
@@ -327,7 +327,7 @@ conservan: \(\lVert X-P\rVert^2=4^2+6^2=52\) y
 \(\lVert \refl{L}(X)-Q\rVert^2=1{,}2^2+3{,}4^2=13\).
 \end{ejemplo}
 
-\subsection{Dos espejos paralelos dan una traslación}
+\subsection{Dos espejos paralelos dan una traslación}\label{sec:espejos-paralelos}
 
 \begin{teorema}[Dos reflexiones en rectas paralelas componen una traslación]\label{teo:traslacion-dos-reflexiones}
 Sean \(A:\ n\cdot x=\alpha\) y \(B:\ n\cdot x=\beta\) dos rectas paralelas, con \(n\) un
@@ -386,7 +386,7 @@ Si \(B:x=1\), \(A:x=4\) y \(p=(0,2)\), entonces
 \(\refl{A}\refl{B}(x,y)=(x+6,y)\). La distancia entre los ejes es \(3\), la traslación tiene
 módulo \(6\) y el punto intermedio \((2,2)\) muestra las dos reflexiones separadamente.
 
-\subsection{Dos espejos que se cortan dan un giro}
+\subsection{Dos espejos que se cortan dan un giro}\label{sec:espejos-secantes}
 
 \begin{teorema}[Dos reflexiones en rectas secantes componen una rotación]\label{teo:rotacion-dos-reflexiones}
 Sean \(A\) y \(B\) dos rectas que se cortan en \(o\), y sea \(\theta\) el ángulo orientado
@@ -518,7 +518,7 @@ Con \(p=(4,0)\): \(\refl{B'}(p)=(-3,7)\) y \(\refl{A}(-3,7)=(8,-4)=p+(4,-4)\).
 
 \unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Verificá: elegí «dos espejos seguidos», poné \(\beta=45^\circ\) y comprobá que el resultado es \(R(90^\circ)\), con \(\det=+1\).}
 
-\subsection{Trasladar y girar: el orden cambia el centro}
+\subsection{Trasladar y girar: el orden cambia el centro}\label{sec:trasladar-girar}
 
 \begin{proposicion}[Una traslación compuesta con una rotación es una rotación]\label{prop:traslacion-rotacion}
 Sea \(T_v(x)=x+v\) y sea \(Q_c(x)=c+R(x-c)\) la rotación de centro \(c\) y parte lineal
@@ -579,7 +579,7 @@ p\xmapsto{\ R\ }(0,1)\xmapsto{\ T_v\ }(2,1),
 p\xmapsto{\ T_v\ }(3,0)\xmapsto{\ R\ }(0,3).
 \]
 
-\subsection{Tres espejos alcanzan para cualquier isometría}
+\subsection{Tres espejos alcanzan para cualquier isometría}\label{sec:tres-espejos}
 
 Una \emph{isometría} del plano es una transformación \(f\) que conserva las distancias:
 \(\lVert f(x)-f(y)\rVert=\lVert x-y\rVert\) para todo \(x\), \(y\). Reflexiones, traslaciones y
@@ -644,7 +644,7 @@ ortogonal y \(\det Q=(-1)^k\), donde \(k\) es la cantidad de reflexiones usadas.
 La isometría es \emph{directa} si \(\det Q=1\) (conserva la orientación) e \emph{inversa} si
 \(\det Q=-1\).
 
-\subsection{Las isometrías del plano son de cinco tipos}
+\subsection{Las isometrías del plano son de cinco tipos}\label{sec:cinco-tipos}
 
 Falta un solo tipo nuevo, el que aparece con tres espejos.
 
@@ -718,7 +718,7 @@ rotación \(o+R(x-o)=x\) solo fija \(o\) porque \(I-R\) es invertible
 Este teorema extiende el teorema~\ref{teo:clasificacion-rigidos}: los movimientos rígidos son
 las isometrías directas, y reflexiones y antitraslaciones completan las inversas.
 
-\subsection{La homotecia escala desde un centro}
+\subsection{La homotecia escala desde un centro}\label{sec:homotecia}
 
 \begin{definicion}[Homotecia]\label{def:homotecia}
 Sean \(o\) un punto y \(k\neq0\) un número real. La \emph{homotecia de centro \(o\) y razón
@@ -790,7 +790,7 @@ Valor de \(k\) & Efecto geométrico\\
 Con \(o=(1,1)\), \(k=2\) y \(a=(3,2)\): \(\homot{o}{2}(a)=(1,1)+2(2,1)=(5,3)\). La distancia al
 centro se duplica y la dirección desde \(o\) se conserva.
 
-\subsection{Dos espejos y una homotecia dan una similaridad}
+\subsection{Dos espejos y una homotecia dan una similaridad}\label{sec:similaridad}
 
 \begin{definicion}[Similaridad]\label{def:similaridad}
 Una \emph{similaridad de razón \(\lambda>0\)} es una transformación \(f\) del plano que
@@ -1098,6 +1098,46 @@ datos de una similaridad exacta: unos pocos centímetros son compatibles con err
 medición, mientras que un residuo grande delata un punto mal identificado o mal medido.
 Repartir esa discrepancia entre todos los puntos de control de la mejor manera posible es el
 problema de mínimos cuadrados (capítulo~\ref{cap:cuatro-problemas}).
+
+\section{Resumen de resultados}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{40mm} Y c@{}}
+\toprule
+Resultado & Qué dice & Sección\\
+\midrule
+Proposición~\ref{prop:reflexion-puntual} &
+\(\rhoP{b}(x)=2b-x\): involución con único punto fijo \(b\) & \ref{sec:refl-punto}\\
+Proposición~\ref{prop:dos-puntuales} &
+\(\rhoP{a}\rhoP{b}=T_{\,2(a-b)}\): dos reflexiones puntuales dan una traslación & \ref{sec:dos-puntuales}\\
+Proposición~\ref{prop:tres-puntuales} &
+\(\rhoP{a}\rhoP{b}\rhoP{c}=\rhoP{d}\), \(d=a-b+c\): \(a,b,c,d\) forman un paralelogramo & \ref{sec:tres-puntuales}\\
+Proposición~\ref{prop:reflexion-recta} &
+\(\refl{B}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}n\): el eje queda fijo & \ref{sec:refl-recta}\\
+Teorema~\ref{teo:traslacion-dos-reflexiones} &
+ejes paralelos: \(\refl{A}\refl{B}(x)=x+2(\alpha-\beta)n\), traslación perpendicular & \ref{sec:espejos-paralelos}\\
+Teorema~\ref{teo:rotacion-dos-reflexiones} &
+ejes secantes: \(\refl{A}\refl{B}=R_{o,2\theta}\), rotación alrededor de la intersección & \ref{sec:espejos-secantes}\\
+Proposición~\ref{prop:traslacion-rotacion} &
+\(T_vQ_c\) y \(Q_cT_v\): rotaciones del mismo ángulo con centros distintos & \ref{sec:trasladar-girar}\\
+Proposición~\ref{prop:isometria-tres-fijos} &
+una isometría que fija tres puntos no alineados es la identidad & \ref{sec:tres-espejos}\\
+Teorema~\ref{teo:tres-reflexiones} &
+toda isometría es composición de a lo sumo tres reflexiones & \ref{sec:tres-espejos}\\
+Teorema~\ref{teo:clasificacion-isometrias} &
+identidad, traslación, rotación, reflexión o antitraslación (definición~\ref{def:antitraslacion}) & \ref{sec:cinco-tipos}\\
+Proposición~\ref{prop:homotecia} &
+\(\homot{o}{k}(x)=o+k(x-o)\) multiplica las distancias por \(|k|\) & \ref{sec:homotecia}\\
+Proposición~\ref{prop:similaridad-afin} &
+toda similaridad es una homotecia compuesta con una isometría & \ref{sec:similaridad}\\
+Teorema~\ref{teo:similaridad-descomposicion} &
+directa: \(\refl{A}\refl{B}\homot{o}{\lambda}\); inversa: \(\refl{A}\homot{o}{\lambda}\), con centro fijo \(o\) & \ref{sec:similaridad}\\
+Transformación de Helmert &
+\(E=ax-by+t_E\), \(N=bx+ay+t_N\); \(\lambda=\sqrt{a^2+b^2}\), \(\theta=\operatorname{atan2}(b,a)\) & \ref{sec:aplicacion-helmert}\\
+\bottomrule
+\end{tabularx}
+\end{center}
 
 \section{Ejercicios con solución}
 

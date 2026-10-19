@@ -4,17 +4,17 @@
 
 \section{La idea}
 
-Una transformación lineal del plano mueve casi todas las direcciones: una flecha que apuntaba
-al este sale apuntando a otro rumbo. Pero muchas transformaciones tienen unas pocas
-direcciones privilegiadas que \emph{no giran}: la flecha sale más larga, más corta o dada
-vuelta, pero sobre la misma recta. Esas rectas son la estructura de la transformación; si las
-conocemos, sabemos qué hace la matriz sin mirar sus cuatro (o nueve) números uno por uno.
+El capítulo~\ref{cap:subespacios} dejó dos herramientas: el determinante se anula cuando una
+matriz aplasta alguna dirección, y el cuña de filas da esa dirección sin resolver sistemas;
+ahora las usamos para buscar las direcciones que una transformación no hace girar. Casi todas
+giran: una flecha que apuntaba al este sale apuntando a otro rumbo. Pero muchas
+transformaciones tienen unas pocas direcciones privilegiadas en las que la flecha sale más
+larga, más corta o dada vuelta, pero sobre la misma recta. Esas rectas son la estructura de la
+transformación: si las conocemos, sabemos qué hace la matriz sin mirar sus números uno por uno.
 
-\paragraph{Convenciones del capítulo.} Matrices en mayúscula itálica (\(A\), \(S\), \(M\));
-vectores en minúscula, escritos en el texto como \((x,y)\) o \((x,y,z)\) y en las cuentas
-como columnas; \(I\) es la identidad; \(\operatorname{tr}A\) es la traza (suma de la
-diagonal). \(\lambda\) designa siempre un autovalor. En la aplicación, la primera coordenada
-es el Este y la segunda el Norte, y los acimutes se miden desde el Norte en sentido horario.
+\paragraph{Convenciones del capítulo.} \(\operatorname{tr}A\) es la traza (suma de la
+diagonal); en la aplicación, \((E,N)\) con la convención de la caja de la
+sección~\ref{caja:convencion-en}.
 
 \begin{definicion}[Subespacio invariante]\label{def:subespacio-invariante}
 Un subespacio lineal \(W\subseteq\R^n\) es \emph{invariante} por la matriz \(A\) de
@@ -26,17 +26,10 @@ Un subespacio lineal \(W\subseteq\R^n\) es \emph{invariante} por la matriz \(A\)
 
 Los subespacios \(\{0\}\) y \(\R^n\) son invariantes por cualquier matriz; los interesantes
 son los intermedios. Para la matriz
-\[
-  A=\begin{pmatrix}4&1\\2&3\end{pmatrix}
-\]
-la figura~\ref{fig:autovec-grilla} muestra la grilla deformada. El vector \((1,0)\) va a
-\(A(1,0)^T=(4,2)^T\): giró \(26{,}57^\circ\). En cambio
-\[
-  A\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}5\\5\end{pmatrix}=5\begin{pmatrix}1\\1\end{pmatrix},
-  \qquad
-  A\begin{pmatrix}1\\-2\end{pmatrix}=\begin{pmatrix}2\\-4\end{pmatrix}=2\begin{pmatrix}1\\-2\end{pmatrix}:
-\]
-sobre la recta de \((1,1)\) la matriz sólo estira al quíntuple, y sobre la de \((1,-2)\) sólo
+\(A=\left(\begin{smallmatrix}4&1\\2&3\end{smallmatrix}\right)\), la
+figura~\ref{fig:autovec-grilla} muestra la grilla deformada. El vector \((1,0)\) va a
+\(A(1,0)^T=(4,2)^T\): giró \(26{,}57^\circ\). En cambio \(A(1,1)^T=(5,5)^T=5\,(1,1)^T\) y
+\(A(1,-2)^T=(2,-4)^T=2\,(1,-2)^T\): sobre la recta de \((1,1)\) la matriz solo estira al quíntuple, y sobre la de \((1,-2)\) solo
 al doble. Esas dos rectas forman un ángulo de \(108{,}43^\circ\); no tienen por qué ser
 perpendiculares.
 
@@ -45,7 +38,7 @@ perpendiculares.
 \includegraphics[width=.66\linewidth]{figuras/autovectores/autovec_grilla.png}
 \caption{La grilla cuadrada (gris) deformada por
 \(A=\left(\begin{smallmatrix}4&1\\2&3\end{smallmatrix}\right)\) (teal). Sobre la recta de
-\((1,1)\) (negra) y la de \((1,-2)\) (dorada) la matriz sólo estira, por \(5\) y por \(2\);
+\((1,1)\) (negra) y la de \((1,-2)\) (dorada) la matriz solo estira, por \(5\) y por \(2\);
 el vector \((1,0)\) (rojo) sale girado \(26{,}57^\circ\). Generada con
 \texttt{apunte/scripts/cap07\_autovectores.py}.}
 \label{fig:autovec-grilla}
@@ -55,8 +48,7 @@ el vector \((1,0)\) (rojo) sale girado \(26{,}57^\circ\). Generada con
 Los vectores que caen sobre su propia recta son los \emph{autovectores}, y el factor por el
 que se estiran es el \emph{autovalor}. Conociendo dos autovectores independientes de una
 matriz de \(2\times2\) y sus autovalores, la matriz queda determinada: todo vector se
-descompone sobre esas dos rectas y cada componente se estira por su factor. El resto del
-capítulo responde cómo se calculan, cuándo existen y qué dicen de la geometría.
+descompone sobre esas dos rectas y cada componente se estira por su factor.
 \end{idea}
 
 \unidadInteractiva{07b_nucleo_autovectores}{Núcleo y autovectores: las direcciones que no giran}{Explorá: elegí el caso «B = [[3, 1], [0, 2]]: dos direcciones, no perpendiculares» y mové la flecha de prueba hasta que \(v\) y \(Av\) queden alineados; después pasá a «corte [[1, 1], [0, 1]]» y a «giro de 30°» y contá cuántas direcciones quedan sin girar.}
@@ -65,53 +57,37 @@ capítulo responde cómo se calculan, cuándo existen y qué dicen de la geometr
 
 \subsection{Autovalores y autovectores}\label{sec:autovalores}
 
-{\small\vspace{1mm}\linkUnidad{07c_autovalores_3d_puntos_fijos}{Simulación interactiva: Unidad 11 — Autovalores en 3D y puntos fijos proyectivos}\par}
+Un \(v\neq0\) con \(Av=\lambda v\) es un \emph{autovector} de \(A\) con \emph{autovalor}
+\(\lambda\) (definición~\ref{def:subespacio-invariante}). En coordenadas homogéneas eso dice
+que la transformación deja fijo el punto que \(v\) representa.
 
-
-\textbf{Definición.} \(v\neq0\) es \emph{autovector} de \(A\) con \emph{autovalor}
-\(\lambda\) si \(Av=\lambda v\): la transformación lo deja sobre su propia recta. En
-coordenadas homogéneas eso es exactamente ``la transformación deja fijo el punto que \(v\)
-representa''.
-
-\paragraph{El pase de magia.} \(Av=\lambda v\) equivale a \(Av-\lambda Iv=0\), es decir
-\[
-  (A-\lambda I)\,v=0 :
-\]
-\(v\) está en el núcleo de \(A-\lambda I\). Para que ese núcleo no sea trivial,
+\paragraph{El pase de magia.} \(Av=\lambda v\) equivale a \((A-\lambda I)\,v=0\):
+\(v\) está en el núcleo de \(A-\lambda I\), y por la equivalencia de la
+sección~\ref{sec:nucleo} ese núcleo no es trivial si y solo si
 \[
   \boxed{\ \det(A-\lambda I)=0\ }\qquad\text{(polinomio característico)} .
 \]
-Para \(A\) de \(3\times3\) es un polinomio de grado \(3\) en \(\lambda\).
-
-Es la equivalencia de la sección~\ref{sec:nucleo}, núcleo no trivial si y sólo si
-determinante nulo, aplicada a la familia de matrices \(A-\lambda I\): buscamos los valores de
-\(\lambda\) para los que \(A-\lambda I\) aplasta alguna dirección. Desarrollando el
-determinante quedan fórmulas cerradas en \(2\times2\) y en \(3\times3\):
-\[
+Buscamos los valores de \(\lambda\) para los que \(A-\lambda I\) aplasta alguna dirección.
+Desarrollando el determinante quedan fórmulas cerradas en \(2\times2\) y en \(3\times3\):
+\begin{gather*}
   \det\begin{pmatrix}a-\lambda&b\\c&d-\lambda\end{pmatrix}
-  =\lambda^2-(\operatorname{tr}A)\,\lambda+\det A ,
-\]
-\[
+  =\lambda^2-(\operatorname{tr}A)\,\lambda+\det A ,\\
   \det(A-\lambda I)=-\lambda^3+(\operatorname{tr}A)\,\lambda^2-c_2\,\lambda+\det A
   \qquad(3\times3),
-\]
+\end{gather*}
 donde \(c_2\) es la suma de los tres menores principales de \(2\times2\) (los que quedan al
 tachar la fila y la columna \(i\), para \(i=1,2,3\)). Para la matriz de la sección
 anterior, \(\operatorname{tr}A=7\) y \(\det A=10\): \(\lambda^2-7\lambda+10=(\lambda-5)(\lambda-2)\),
 y aparecen los factores \(5\) y \(2\) de la figura~\ref{fig:autovec-grilla}.
 
 \begin{resultado}[Cuántos autovalores reales]
-\begin{itemize}
-  \item Un polinomio real de grado \(3\) tiene tres raíces, todas reales, o una real y dos
-  complejas conjugadas. Nunca tres complejas: las raíces complejas de un polinomio real
-  vienen de a pares conjugados.
-  \item A cada autovalor real le corresponde un autovector real. A un autovalor complejo no
-  le corresponde ningún vector de \(\R^3\).
-  \item Una matriz de rotación de \(\R^3\) tiene siempre el autovalor \(1\): su autovector es
-  el eje. Los otros dos son \(e^{\pm i\theta}\), con \(\theta\) el ángulo de giro; son reales
-  sólo para \(\theta=0^\circ\) (identidad: \(1,1,1\)) y \(\theta=180^\circ\) (\(1,-1,-1\)),
-  y complejos conjugados en cualquier otro caso.
-\end{itemize}
+Un polinomio real de grado \(3\) tiene tres raíces reales, o una real y dos complejas
+conjugadas; nunca tres complejas, porque las raíces complejas de un polinomio real vienen de a
+pares conjugados. A cada autovalor real le corresponde un autovector real; a uno complejo,
+ningún vector de \(\R^3\). Una matriz de rotación de \(\R^3\) tiene siempre el autovalor \(1\),
+cuyo autovector es el eje; los otros dos son \(e^{\pm i\theta}\), con \(\theta\) el ángulo de
+giro, reales solo para \(\theta=0^\circ\) (identidad: \(1,1,1\)) y \(\theta=180^\circ\)
+(\(1,-1,-1\)).
 \end{resultado}
 
 \begin{idea}[Método del producto cruz para el autovector]
@@ -126,18 +102,15 @@ pares dan cero, \(\operatorname{rango}(A-\lambda I)\le1\): el autoespacio tiene 
 autovectores (en homogéneas: toda una recta de puntos fijos). La vuelta no vale: una raíz
 doble del polinomio (multiplicidad \emph{algebraica} \(2\)) no garantiza que los pares se
 anulen; ver el ejemplo~\ref{ej:autovec-cizalla} y la matriz 3a de la tabla de testigos del
-capítulo~\ref{cap:cambio-base}. No hace falta resolver el sistema: es la
-misma operación de ``unir dos rectas en su punto común'' de la sección~\ref{sec:vectorial},
+capítulo~\ref{cap:cambio-base}. No hace falta resolver el sistema: es la misma operación de
+\enquote{unir dos rectas en su punto común} de la sección~\ref{sec:vectorial},
 y el producto cuña de filas con que se calculó el núcleo en el ejemplo~\ref{ej:nucleo-cuna}.
 \end{idea}
 
 \subsubsection{Ejemplo 1: reflexión respecto del plano \texorpdfstring{$xy$}{xy}}
 
-\(A=\operatorname{diag}(1,1,-1)\) conserva \(x,y\) e invierte \(z\).
-\[
-  \det(A-\lambda I)=(1-\lambda)^2(-1-\lambda)=0
-  \quad\Longrightarrow\quad\lambda=1\ (\text{doble}),\ \lambda=-1 .
-\]
+\(A=\operatorname{diag}(1,1,-1)\) conserva \(x,y\) e invierte \(z\):
+\(\det(A-\lambda I)=(1-\lambda)^2(-1-\lambda)=0\) da \(\lambda=1\) (doble) y \(\lambda=-1\).
 Para \(\lambda=-1\): \(A+I=\operatorname{diag}(2,2,0)\), y el producto cruz de las dos
 primeras filas es \((2,0,0)\times(0,2,0)=(0,0,4)\): el eje \(z\), como se esperaba, con
 \(A(0,0,4)^T=(0,0,-4)^T\). Para \(\lambda=1\): \(A-I=\operatorname{diag}(0,0,-2)\), y
@@ -156,22 +129,18 @@ alrededor de \(z\):
 \]
 Es una rotación, así que \emph{sin calcular el polinomio} se sabe que \(\lambda=1\) es
 autovalor y que su autovector es el eje. Filas de \(R-I\): \((-1,-1,0)\), \((0,-1,1)\),
-\((-1,0,-1)\). Producto cruz de las dos primeras:
-\[
-  (-1,-1,0)\times(0,-1,1)=(-1,\,1,\,1),
-  \qquad
-  R\begin{pmatrix}-1\\1\\1\end{pmatrix}=\begin{pmatrix}-1\\1\\1\end{pmatrix}\ \checkmark
-\]
+\((-1,0,-1)\). Producto cruz de las dos primeras: \((-1,-1,0)\times(0,-1,1)=(-1,1,1)\), y
+\(R(-1,1,1)^T=(-1,1,1)^T\)~\(\checkmark\).
 El eje es la dirección \((-1,1,1)\). Los otros autovalores son \(-\frac12\pm\frac{\sqrt3}2 i\):
 un giro de \(120^\circ\) alrededor de ese eje. Con ángulos genéricos (por ejemplo
 \(R_z(30^\circ)R_y(50^\circ)\)) la receta es idéntica y se hace en planilla o en NumPy: el
 eje resulta \((-0{,}2263;\ 0{,}8446;\ 0{,}4853)\), y \(Rv=v\) se verifica multiplicando.
 
-\begin{atencion}[Sobre los ``números lindos'']
+\begin{atencion}[Sobre los \enquote{números lindos}]
 Los ejercicios de álgebra están diseñados para que den enteros. Una matriz genérica, como
 la de una rotación de \(37^\circ\) o la homografía de un pentágono regular, da raíces
 irracionales y autovalores con muchos decimales. Eso no es un error: es lo normal. Por eso
-el método debe funcionar en planilla o en código, no sólo a mano.
+el método debe funcionar en planilla o en código, no solo a mano.
 \end{atencion}
 
 \subsection{En \texorpdfstring{$2\times2$}{2x2}: el autovector se lee en una fila}\label{sec:autovec-2x2}
@@ -183,11 +152,10 @@ dos, así que está en el núcleo. Es el cuña del plano del capítulo~\ref{cap:
 \(u\wedge v=u^\perp\cdot v\), leído al revés.
 
 \begin{ejemplo}[Una matriz simétrica y sus ejes principales]\label{ej:autovec-simetrica}
-Sea \(S=\begin{pmatrix}5&2\\2&2\end{pmatrix}\). Con \(\operatorname{tr}S=7\) y \(\det S=6\),
-\[
-  \det(S-\lambda I)=\lambda^2-7\lambda+6=(\lambda-6)(\lambda-1),
-  \qquad \lambda_1=6,\quad \lambda_2=1 .
-\]
+Sea \(S=\left(\begin{smallmatrix}5&2\\2&2\end{smallmatrix}\right)\). Con
+\(\operatorname{tr}S=7\) y \(\det S=6\),
+\(\det(S-\lambda I)=\lambda^2-7\lambda+6=(\lambda-6)(\lambda-1)\): \(\lambda_1=6\),
+\(\lambda_2=1\).
 Para \(\lambda_1=6\), \(S-6I=\left(\begin{smallmatrix}-1&2\\2&-4\end{smallmatrix}\right)\);
 de la primera fila \((-1,2)\) sale \(v_1=(2,1)\), y en efecto \(S(2,1)^T=(12,6)^T=6\,(2,1)^T\).
 Para \(\lambda_2=1\), \(S-I=\left(\begin{smallmatrix}4&2\\2&1\end{smallmatrix}\right)\); de
@@ -214,15 +182,13 @@ miden \(1/\sqrt6\approx0{,}408\) y \(1\). Generada con
 \end{figure}
 
 \begin{ejemplo}[Cizalla: autovalor doble con una sola dirección]\label{ej:autovec-cizalla}
-Sea \(C=\begin{pmatrix}2&1\\0&2\end{pmatrix}\), una homotecia de razón \(2\) compuesta con un
+Sea \(A=\begin{pmatrix}2&1\\0&2\end{pmatrix}\), una homotecia de razón \(2\) compuesta con un
 corte horizontal. El polinomio es \(\lambda^2-4\lambda+4=(\lambda-2)^2\): un único
 autovalor, \(\lambda=2\), doble. Pero
-\[
-  C-2I=\begin{pmatrix}0&1\\0&0\end{pmatrix}
-\]
-no es la matriz nula: tiene rango \(1\), y su núcleo es sólo la recta del eje \(x\), con
-\(C(1,0)^T=(2,0)^T\). Cualquier otro vector gira hacia ese eje: \(C(0,1)^T=(1,2)^T\),
-\(C(1,1)^T=(3,2)^T\). Compárese con \(2I\), que tiene el mismo polinomio
+\(A-2I=\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)\) no es la matriz nula:
+tiene rango \(1\), y su núcleo es solo la recta del eje \(x\), con \(A(1,0)^T=(2,0)^T\).
+Cualquier otro vector gira hacia ese eje: \(A(0,1)^T=(1,2)^T\), \(A(1,1)^T=(3,2)^T\).
+Comparemos con \(2I\), que tiene el mismo polinomio
 \((\lambda-2)^2\) y para la cual \(2I-2I\) es nula, de rango \(0\): \emph{todas} las
 direcciones son invariantes. El polinomio no distingue los dos casos; el rango de
 \(A-\lambda I\), sí.
@@ -270,12 +236,8 @@ radial. Generada con \texttt{apunte/scripts/cap07\_autovectores.py}.}
 \end{figure}
 
 \paragraph{Autovalores complejos: una rotación con escala.} La rotación \(R(\theta)\) del
-capítulo~\ref{cap:rotaciones} tiene traza \(2\cos\theta\) y determinante \(1\):
-\[
-  \det(R(\theta)-\lambda I)=\lambda^2-2\cos\theta\,\lambda+1=0
-  \quad\Longrightarrow\quad
-  \lambda=\cos\theta\pm i\sin\theta=e^{\pm i\theta}.
-\]
+capítulo~\ref{cap:rotaciones} tiene traza \(2\cos\theta\) y determinante \(1\), y
+\(\lambda^2-2\cos\theta\,\lambda+1=0\) da \(\lambda=\cos\theta\pm i\sin\theta=e^{\pm i\theta}\).
 Es la misma \(e^{i\theta}\) de la sección~\ref{sec:rot-complejos}: allí girar era multiplicar
 por \(e^{i\theta}\), y acá ese número aparece como autovalor. Para \(\theta\neq0^\circ,
 180^\circ\) el discriminante \(4\cos^2\theta-4\) es negativo y ninguna dirección real queda
@@ -289,11 +251,8 @@ figura~\ref{fig:autovec-cuatro-casos}).
 \subsection{En \texorpdfstring{$3\times3$}{3x3}: tres direcciones por cuña de filas}\label{sec:autovec-3x3}
 
 \begin{ejemplo}[Una matriz de \(3\times3\) con tres direcciones invariantes]\label{ej:autovec-3x3}
-Sea
-\[
-  M=\begin{pmatrix}2&1&0\\1&3&1\\0&1&2\end{pmatrix}.
-\]
-Con \(\operatorname{tr}M=7\), menores principales \(5\), \(4\), \(5\) (suma \(c_2=14\)) y
+Sea \(M=\left(\begin{smallmatrix}2&1&0\\1&3&1\\0&1&2\end{smallmatrix}\right)\). Con
+\(\operatorname{tr}M=7\), menores principales \(5\), \(4\), \(5\) (suma \(c_2=14\)) y
 \(\det M=8\), el polinomio es
 \(-\lambda^3+7\lambda^2-14\lambda+8=-(\lambda-1)(\lambda-2)(\lambda-4)\). Para cada
 autovalor tomamos el cuña de las dos primeras filas de \(M-\lambda I\):
@@ -311,7 +270,7 @@ autovalor tomamos el cuña de las dos primeras filas de \(M-\lambda I\):
 La última columna confirma \(Mv=\lambda v\) en los tres casos. Las tres direcciones son
 perpendiculares dos a dos (los tres productos internos dan \(0\)), porque \(M\) es simétrica,
 y \(1+2+4=7=\operatorname{tr}M\), \(1\cdot2\cdot4=8=\det M\). En la base
-\(\{(1,-1,1),(1,0,-1),(1,2,1)\}\) la matriz sólo estira cada eje por su autovalor; ese cambio
+\(\{(1,-1,1),(1,0,-1),(1,2,1)\}\) la matriz solo estira cada eje por su autovalor; ese cambio
 de base es el tema del capítulo~\ref{cap:cambio-base}.
 \end{ejemplo}
 
@@ -319,15 +278,12 @@ de base es el tema del capítulo~\ref{cap:cambio-base}.
 
 \unidadInteractiva{07c_autovalores_3d_puntos_fijos}{Autovalores en 3D y puntos fijos proyectivos}{Verificá: con el caso «R\_z(θ) R\_y(90°)» y \(\theta=90^\circ\), comprobá que la única recta invariante es la de \((-1,1,1)\), el eje del ejemplo 2, y que los otros dos autovalores son complejos.}
 
-Las cuentas del capítulo se comprueban con el script
-\texttt{apunte/scripts/cap07\_autovectores.py} o con tres funciones de NumPy:
-\texttt{np.poly} para los coeficientes del polinomio característico,
-\texttt{np.linalg.eig} (o \texttt{eigh} para matrices simétricas) para autovalores y
-autovectores, y \texttt{np.cross} para el cuña de filas.
+Las cuentas del capítulo se comprueban con \texttt{apunte/scripts/cap07\_autovectores.py} o
+con NumPy: \texttt{np.poly} (polinomio característico), \texttt{np.linalg.eig} o
+\texttt{eigh} (autovalores y autovectores) y \texttt{np.cross} (cuña de filas).
 
 \section{En profundidad}
 
-% --- de 06-afines-homogeneas.tex (En profundidad) ---
 \subsection{Autovalores y geometría de una transformación}\label{sec:autovalores-geom}
 
 \begin{definicion}[Dirección propia]\label{def:06-direccion-propia}
@@ -336,25 +292,17 @@ Una dirección \(d\neq0\) es \emph{propia} para la parte lineal \(A\) de una afi
 autovector de \(A\). Los autovalores son las raíces de \(\det(A-\lambda I)=0\).
 \end{definicion}
 
-Sobre una dirección propia la afinidad sólo estira, contrae o invierte; no gira:
-\begin{itemize}
-  \item \(\lambda=1\): la dirección no cambia;
-  \item \(\lambda=-1\): la dirección invierte su sentido;
-  \item \(|\lambda|>1\): expansión; \(0<|\lambda|<1\): contracción;
-  \item autovalores complejos: no hay direcciones propias reales, la parte lineal gira.
-\end{itemize}
+Sobre una dirección propia la afinidad solo estira, contrae o invierte; no gira. Con
+\(\lambda=1\) la dirección no cambia; con \(\lambda=-1\) invierte su sentido; con
+\(|\lambda|>1\) se expande y con \(0<|\lambda|<1\) se contrae. Con autovalores complejos no
+hay direcciones propias reales: la parte lineal gira.
 
 \begin{ejemplo}[Direcciones propias de la afinidad axial]\label{ej:06-autovalores-axial}
 Para la afinidad axial del ejemplo~\ref{ej:06-axial}, \(A=\begin{pmatrix}1&1\\0&2\end{pmatrix}\)
 y \(\det(A-\lambda I)=(1-\lambda)(2-\lambda)\). Los autovalores son \(1\) y \(2\):
-\[
-  A\begin{pmatrix}1\\0\end{pmatrix}=1\cdot\begin{pmatrix}1\\0\end{pmatrix},
-  \qquad
-  A\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\2\end{pmatrix}=2\begin{pmatrix}1\\1\end{pmatrix}.
-\]
-Las dos direcciones propias son la del eje (autovalor \(1\): el eje queda fijo) y la de
+\(A(1,0)^T=1\cdot(1,0)^T\) y \(A(1,1)^T=(2,2)^T=2\,(1,1)^T\). Las dos direcciones propias son la del eje (autovalor \(1\): el eje queda fijo) y la de
 desplazamiento \(d=(1,1)\) (autovalor \(2\): la razón \(k\)). Los datos geométricos de la
-construcción son exactamente los datos espectrales de la matriz. En cambio, en el
+construcción son los datos espectrales de la matriz. En cambio, en el
 ejemplo~\ref{ej:06-rot-escala} los autovalores de \(A\) son \(0{,}354\pm0{,}354\,i\): no hay
 direcciones propias reales porque la parte lineal gira \(45^\circ\).
 \end{ejemplo}
@@ -365,13 +313,13 @@ puntos fijos de una afinidad.
 
 \begin{proposicion}[Punto fijo como autovector de autovalor 1]\label{prop:06-fijo-autovector}
 Sea \(M=\begin{pmatrix}A&b\\0\ \ 0&1\end{pmatrix}\) la matriz homogénea de una afinidad. El
-punto \(p\) es fijo si y sólo si \((p,1)^T\) es autovector de \(M\) con autovalor \(1\). Un
+punto \(p\) es fijo si y solo si \((p,1)^T\) es autovector de \(M\) con autovalor \(1\). Un
 autovector de autovalor \(1\) con última coordenada \(0\) no es un punto fijo, sino una
 dirección propia de \(A\) con autovalor \(1\).
 \end{proposicion}
 
 \begin{demostracion}
-Por bloques, \(M(p,1)^T=(Ap+b,\ 1)^T\). Esto es igual a \((p,1)^T\) si y sólo si \(Ap+b=p\),
+Por bloques, \(M(p,1)^T=(Ap+b,\ 1)^T\). Esto es igual a \((p,1)^T\) si y solo si \(Ap+b=p\),
 la definición de punto fijo. Si en cambio \(M(d,0)^T=(d,0)^T\), entonces \(Ad=d\). Un
 autovector \((X,Y,W)^T\) con \(W\neq0\) se normaliza dividiendo por \(W\) y da el punto fijo
 \((X/W,\ Y/W)\).
@@ -382,14 +330,10 @@ y \(1\), y el autovector de \(1\) normalizado es \((0{,}293,\ 0{,}293,\ 1)^T\): 
 \(p_\ast\).
 
 \begin{idea}[Preguntas para leer una matriz afín]
-\begin{itemize}
-  \item ¿Es invertible? Revisar \(\det A\).
-  \item ¿Conserva la orientación? Revisar el signo de \(\det A\).
-  \item ¿Cómo cambian las áreas? El factor es \(|\det A|\).
-  \item ¿Tiene puntos fijos? Resolver \((I-A)p=b\), o buscar autovectores de \(M\) de
-  autovalor \(1\) con última coordenada no nula.
-  \item ¿Tiene direcciones invariantes? Buscar autovectores reales de \(A\).
-\end{itemize}
+¿Es invertible? Mirá \(\det A\). ¿Conserva la orientación? Mirá su signo. ¿Cómo cambian las
+áreas? Por el factor \(|\det A|\). ¿Tiene puntos fijos? Resolvé \((I-A)p=b\), o buscá
+autovectores de \(M\) de autovalor \(1\) con última coordenada no nula. ¿Tiene direcciones
+invariantes? Buscá autovectores reales de \(A\).
 \end{idea}
 
 \subsection{Traza y determinante: suma y producto de los autovalores}\label{sec:traza-det-autovalores}
@@ -440,12 +384,9 @@ rotación del ejemplo 2, \(\operatorname{tr}R=0\), de modo que \(\cos\theta=-\tf
 
 \subsection{La traza como derivada del determinante}\label{sec:traza-derivada-det}
 
-La proposición~\ref{prop:traza-det} lee la traza a través de los autovalores. Hay otra
-lectura, que no los necesita: la traza es lo que cambia el determinante cuando la matriz se
-aparta un poco de la identidad. Como el determinante es el factor de área o de volumen
-(proposición~\ref{prop:det-factor}; en \(\R^3\), el volumen con signo de la
-sección~\ref{sec:producto-mixto}), la traza mide cuánto se agranda o se achica una figura
-bajo una transformación cercana a la identidad.
+Hay otra lectura de la traza que no necesita los autovalores: es lo que cambia el
+determinante, el factor de área o de volumen (proposición~\ref{prop:det-factor}), cuando la
+matriz se aparta un poco de la identidad.
 
 \begin{proposicion}[La traza es la derivada del determinante en la identidad]\label{prop:traza-derivada-det}
 Sea \(E\) una matriz de \(n\times n\). Para \(\varepsilon\) pequeño,
@@ -463,7 +404,7 @@ En \(2\times2\) la igualdad es exacta con el término siguiente:
   =(1+\varepsilon a)(1+\varepsilon d)-\varepsilon^2bc
   =1+\varepsilon(a+d)+\varepsilon^2(ad-bc).
 \]
-El término de orden \(\varepsilon\) sale sólo del producto de la diagonal; las entradas
+El término de orden \(\varepsilon\) sale solo del producto de la diagonal; las entradas
 fuera de la diagonal aparecen multiplicadas entre sí y aportan a \(\varepsilon^2\).
 
 \emph{En \(n\times n\).} Por inducción en \(n\); el caso \(n=1\) es
@@ -485,17 +426,14 @@ lleva un factor \(\varepsilon\), así que \(M_{1j}=O(\varepsilon)\) y el términ
   =1+\varepsilon\bigl(e_{11}+\operatorname{tr}E'\bigr)+O(\varepsilon^2)
   =1+\varepsilon\operatorname{tr}E+O(\varepsilon^2).
 \]
-Los términos de orden \(\varepsilon\) vienen sólo de la diagonal: cualquier otro producto
+Los términos de orden \(\varepsilon\) vienen solo de la diagonal: cualquier otro producto
 del desarrollo usa por lo menos dos entradas fuera de ella.
 \end{demostracion}
 
 \paragraph{Lectura: el cambio relativo de área.} Si \(I+\varepsilon E\) actúa sobre una
 figura de área \(S\), la imagen tiene área \(S\det(I+\varepsilon E)\), y el cambio
-relativo es
-\[
-  \frac{\Delta S}{S}=\det(I+\varepsilon E)-1=\varepsilon\operatorname{tr}E+O(\varepsilon^2).
-\]
-A primer orden sólo importa la diagonal de \(E\): \(\varepsilon e_{11}\) es el
+relativo es \(\Delta S/S=\det(I+\varepsilon E)-1=\varepsilon\operatorname{tr}E+O(\varepsilon^2)\).
+A primer orden solo importa la diagonal de \(E\): \(\varepsilon e_{11}\) es el
 estiramiento relativo en la dirección \(x\), \(\varepsilon e_{22}\) el de la dirección
 \(y\), y los dos se suman. Una cizalla pura, con ceros en la diagonal, no cambia el área a
 primer orden; lo mismo un giro pequeño. En \(\R^3\) vale igual para el volumen, con
@@ -520,8 +458,7 @@ la diferencia es \(\varepsilon^2\det E\). Generada con
 \label{fig:traza-area}
 \end{figure}
 
-\paragraph{Otras lecturas de la traza.} La traza apareció varias veces en el apunte, con
-significados que ahora se pueden reunir.
+\paragraph{Otras lecturas de la traza.}
 \begin{itemize}
 \item \emph{Rotaciones.} En el plano,
 \(\operatorname{tr}R(\theta)=2\cos\theta\), directamente de la matriz de rotación del
@@ -553,15 +490,13 @@ proposición~\ref{prop:traza-derivada-det}.
 
 \begin{idea}[La traza suma lo que pasa en cada eje]
 El determinante multiplica los factores de cada dirección; la traza los suma. Cerca de la
-identidad, multiplicar \((1+\varepsilon e_{11})(1+\varepsilon e_{22})\cdots\) y sumar
-\(1+\varepsilon(e_{11}+e_{22}+\cdots)\) dan lo mismo a primer orden: por eso la traza es el
-cambio relativo de área o de volumen de una transformación casi idéntica.
+identidad las dos cuentas coinciden a primer orden.
 \end{idea}
 
 \subsection{Subespacios invariantes de dimensión 2: el plano de una rotación}\label{sec:plano-invariante}
 
 Una matriz real sin autovalores reales no tiene rectas invariantes, pero puede tener planos
-invariantes. El autovector complejo los delata.
+invariantes, y el autovector complejo los delata.
 
 \begin{proposicion}[Plano invariante de un autovalor complejo]\label{prop:plano-invariante}
 Sea \(A\) real de \(n\times n\) con un autovalor \(\lambda=\alpha+i\beta\), \(\beta\neq0\), y
@@ -574,10 +509,8 @@ autovector complejo \(u+iw\), con \(u,w\in\R^n\). Entonces el plano generado por
 \end{proposicion}
 
 \begin{demostracion}
-Desarrollando \(A(u+iw)=(\alpha+i\beta)(u+iw)\),
-\[
-  Au+i\,Aw=(\alpha u-\beta w)+i\,(\beta u+\alpha w).
-\]
+Desarrollando \(A(u+iw)=(\alpha+i\beta)(u+iw)\) queda
+\(Au+i\,Aw=(\alpha u-\beta w)+i\,(\beta u+\alpha w)\).
 Como \(A\), \(u\) y \(w\) son reales, se igualan partes reales e imaginarias, y quedan las dos
 fórmulas. Ambas imágenes son combinaciones de \(u\) y \(w\), así que el plano que generan es
 invariante. (Si \(u\) y \(w\) fueran paralelos, \(u+iw\) sería un múltiplo complejo de un
@@ -614,7 +547,7 @@ proposición~\ref{prop:cuatro-casos}.
 
 \begin{proposicion}[Autovalores y autovectores de una matriz simétrica]\label{prop:simetrica}
 \begin{enumerate}
-  \item Una matriz simétrica real de \(2\times2\) tiene sus dos autovalores reales, y sólo
+  \item Una matriz simétrica real de \(2\times2\) tiene sus dos autovalores reales, y solo
   pueden coincidir si es un múltiplo de \(I\).
   \item Si \(S\) es simétrica de \(n\times n\) y \(Sv_1=\lambda_1v_1\), \(Sv_2=\lambda_2v_2\)
   con \(\lambda_1\neq\lambda_2\), entonces \(v_1\cdot v_2=0\).
@@ -623,7 +556,7 @@ proposición~\ref{prop:cuatro-casos}.
 
 \begin{demostracion}
 (1) Para \(S=\left(\begin{smallmatrix}a&b\\b&c\end{smallmatrix}\right)\),
-\(\Delta=(a+c)^2-4(ac-b^2)=(a-c)^2+4b^2\ge0\), y vale \(0\) sólo si \(a=c\) y \(b=0\), es
+\(\Delta=(a+c)^2-4(ac-b^2)=(a-c)^2+4b^2\ge0\), y vale \(0\) solo si \(a=c\) y \(b=0\), es
 decir, si \(S=aI\).
 
 (2) Usando \(x\cdot y=x^Ty\) y \(S^T=S\),
@@ -655,8 +588,8 @@ base del capítulo~\ref{cap:svd}, donde la elipse viene de una matriz cualquiera
 \subsection{Aplicación topográfica: deformación de una red de control entre dos épocas}\label{sec:aplicacion-deformacion}
 
 Tres puntos de una red de control se midieron en dos campañas, en coordenadas Gauss-Krüger,
-faja 5, en metros. La pregunta es si el terreno se deformó entre una época y otra, cuánto y
-en qué direcciones.
+faja 5, en metros. ¿Se deformó el terreno entre una época y otra? ¿Cuánto y en qué
+direcciones?
 
 \begin{center}
 \small
@@ -672,7 +605,7 @@ punto & \(E\) época 1 & \(N\) época 1 & \(E\) época 2 & \(N\) época 2 & \(\D
 \end{center}
 
 Los desplazamientos, de \(55\), \(57\) y \(30\) mm, mezclan tres cosas: una traslación de todo
-el bloque, un giro de todo el bloque y una deformación propiamente dicha. Sólo la última
+el bloque, un giro de todo el bloque y una deformación propiamente dicha. Solo la última
 cambia distancias; los autovalores la separan.
 
 \paragraph{La transformación afín exacta.} Buscamos \(F\) de \(2\times2\) y \(t\) con
@@ -762,7 +695,7 @@ lado & \(d\) época 1 (m) & \(d\) época 2 (m) & \(\Delta d\) (mm) & acimut & \(
 \bottomrule
 \end{tabular}
 \end{center}
-El lado \(P_1P_2\), de acimut \(73{,}86^\circ\), está a sólo \(14^\circ\) de la dirección de
+El lado \(P_1P_2\), de acimut \(73{,}86^\circ\), está a solo \(14^\circ\) de la dirección de
 \(e_1\) y se alargó casi tanto como permite \(e_1\); el lado \(P_2P_3\), de acimut
 \(316{,}02^\circ\) (o \(136{,}02^\circ\) en sentido contrario), está cerca de la dirección de
 \(e_2\) y se acortó. Ningún lado puede alargarse más que \(e_1\) ni menos que \(e_2\): los
@@ -778,8 +711,8 @@ el mismo planteo se resuelve por cuadrados mínimos y los residuos dan la precis
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:autovec-2x2}
-Hallar autovalores y autovectores de \(A=\begin{pmatrix}1&2\\3&2\end{pmatrix}\), verificar
-traza y determinante, y describir qué hace \(A\) sobre cada dirección invariante.
+Hallá autovalores y autovectores de \(A=\begin{pmatrix}1&2\\3&2\end{pmatrix}\), verificá
+traza y determinante, y describí qué hace \(A\) sobre cada dirección invariante.
 \end{ejercicio}
 \solucion{\(\det(A-\lambda I)=\lambda^2-3\lambda-4=(\lambda-4)(\lambda+1)\): \(\lambda_1=4\),
 \(\lambda_2=-1\). Para \(4\), la fila \((-3,2)\) de \(A-4I\) da \(v_1=(2,3)\), con
@@ -790,7 +723,7 @@ de \((1,-1)\), invierte el sentido sin cambiar el largo. Como \(\det A<0\), \(A\
 orientación. Las dos direcciones no son perpendiculares (\(A\) no es simétrica).}
 
 \begin{ejercicio}\label{ex:autovec-casos}
-Clasificar según la proposición~\ref{prop:cuatro-casos} y dar las direcciones invariantes
+Clasificá según la proposición~\ref{prop:cuatro-casos} e indicá las direcciones invariantes
 reales, si las hay: (a) \(\left(\begin{smallmatrix}3&-2\\1&1\end{smallmatrix}\right)\);
 (b) \(\left(\begin{smallmatrix}3&1\\0&3\end{smallmatrix}\right)\);
 (c) \(\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\).
@@ -807,7 +740,7 @@ una sola dirección, el eje \(x\) (es una cizalla, caso 3). (c) \(\operatorname{
 perpendicular.}
 
 \begin{ejercicio}\label{ex:autovec-rotacion}
-Sea \(R=R_x(90^\circ)\,R_z(90^\circ)\). Calcular \(R\), su eje por cuña de filas de \(R-I\)
+Sea \(R=R_x(90^\circ)\,R_z(90^\circ)\). Calculá \(R\), su eje por cuña de filas de \(R-I\)
 y el ángulo de giro usando la traza.
 \end{ejercicio}
 \solucion{\(R_z(90^\circ)=\left(\begin{smallmatrix}0&-1&0\\1&0&0\\0&0&1\end{smallmatrix}\right)\),
@@ -820,7 +753,7 @@ y el ángulo de giro usando la traza.
 \(x-y+z=0\), perpendicular al eje, es invariante.}
 
 \begin{ejercicio}\label{ex:autovec-elipse}
-Hallar los ejes principales, los semiejes y el área de la elipse \(3x^2+2xy+3y^2=1\).
+Hallá los ejes principales, los semiejes y el área de la elipse \(3x^2+2xy+3y^2=1\).
 \end{ejercicio}
 \solucion{La forma es \(x^TSx\) con \(S=\left(\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right)\)
 (el coeficiente \(2\) del término cruzado se reparte en dos entradas iguales a \(1\)).
@@ -832,7 +765,7 @@ Hallar los ejes principales, los semiejes y el área de la elipse \(3x^2+2xy+3y^
 
 \begin{ejercicio}\label{ex:autovec-deformacion}
 En una zona se estimó el tensor de deformación (primera coordenada Este, segunda Norte)
-\(E=\left(\begin{smallmatrix}30&10\\10&-10\end{smallmatrix}\right)\ \mu\varepsilon\). Hallar
+\(E=\left(\begin{smallmatrix}30&10\\10&-10\end{smallmatrix}\right)\ \mu\varepsilon\). Hallá
 las deformaciones principales, sus acimutes, la dilatación, la cizalla máxima y cuánto cambió
 una base de \(1500\) m orientada al Norte.
 \end{ejercicio}
@@ -850,10 +783,10 @@ Cuatro puntos de una red local, en coordenadas planas \((E,N)\) en metros, se mi
 dos épocas. En la época 1 son \(P_1=(1000;\ 1000)\), \(P_2=(3400;\ 1200)\),
 \(P_3=(3000;\ 3300)\) y \(P_4=(1200;\ 2900)\), y entre épocas se desplazaron
 \((39;\ -4)\), \((84;\ -11)\), \((95;\ 3)\) y \((60;\ 8)\) mm. (a) Con cuatro puntos no hay
-una transformación afín exacta: ajustar \(F-I\) por mínimos cuadrados, con coordenadas
-reducidas al baricentro, y dar los residuos. (b) Calcular \(\operatorname{tr}E\).
-(c) Calcular el área del cuadrilátero \(P_1P_2P_3P_4\) en las dos épocas con la fórmula de
-Gauss (sección~\ref{sec:poligono-cunas}) y comparar el cambio relativo de área con
+una transformación afín exacta: ajustá \(F-I\) por mínimos cuadrados, con coordenadas
+reducidas al baricentro, y calculá los residuos. (b) Calculá \(\operatorname{tr}E\).
+(c) Calculá el área del cuadrilátero \(P_1P_2P_3P_4\) en las dos épocas con la fórmula de
+Gauss (sección~\ref{sec:poligono-cunas}) y compará el cambio relativo de área con
 \(\operatorname{tr}E\).
 \end{ejercicio}
 \solucion{Se usan los cuatro puntos con mínimos cuadrados, y no tres con el cuarto de
@@ -868,10 +801,9 @@ desplazamientos reducidos \(\delta_i\): \((-30{,}5;\ -3)\), \((14{,}5;\ -10)\),
 matriz \(X\) de filas \(x_i\):
 \(X^TX=\left(\begin{smallmatrix}4\,510\,000&400\,000\\400\,000&4\,100\,000\end{smallmatrix}\right)\)
 m\(^2\), \(X^T\delta_E=(83\,900;\ 43\,500)\) y \(X^T\delta_N=(-14\,200;\ 24\,300)\) m\(\cdot\)mm.
-Resolviendo, en mm/km, es decir en \(\mu\varepsilon\),
-\[
-  F-I=\begin{pmatrix}17{,}8163&8{,}8716\\-3{,}7063&6{,}2884\end{pmatrix}\ \mu\varepsilon .
-\]
+Resolviendo, en mm/km, o sea en \(\mu\varepsilon\),
+\(F-I=\left(\begin{smallmatrix}17{,}8163&8{,}8716\\-3{,}7063&6{,}2884\end{smallmatrix}\right)\
+\mu\varepsilon\).
 Los residuos \(\delta_i-(F-I)x_i\) no superan \(0{,}45\) mm.
 (b) La parte antisimétrica tiene diagonal nula, así que
 \(\operatorname{tr}E=\operatorname{tr}(F-I)=17{,}8163+6{,}2884=24{,}105\ \mu\varepsilon\).
@@ -888,7 +820,7 @@ perímetro de \(8\,300\) m equivalen a que los lados se corran hacia afuera, en 
 \(12\) mm.}
 
 \begin{ejercicio}\label{ex:autovec-rotacion-so3}
-Sea \(R\in SO(3)\) una rotación distinta de la identidad. Demostrar que \(\lambda=1\) es
+Sea \(R\in SO(3)\) una rotación distinta de la identidad. Demostrá que \(\lambda=1\) es
 autovalor de \(R\) y que su autovector es la dirección del eje de rotación.
 \end{ejercicio}
 \solucion{Al ser \(R\) una matriz real de dimensión impar, su polinomio característico tiene
@@ -900,7 +832,7 @@ en la identidad todos los vectores son propios con autovalor \(1\) y no hay un e
 distinguido.}
 
 \begin{ejercicio}\label{ex:autovec-ortogonal-det-negativo}
-Decidir si es cierto que toda matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
+Decidí si es cierto que toda matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
 autovalores reales iguales a \(1\) o \(-1\).
 \end{ejercicio}
 \solucion{No es cierto en general. Por ser real y de dimensión impar, la matriz tiene al menos
