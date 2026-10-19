@@ -380,6 +380,88 @@ largo de \(v_1\) y deja quieto \(v_2\); aplicada dos veces, estira \(6\).
 
 \unidadInteractiva{08_cambio_de_base}{Cambio de base y diagonalización}{Verificá: elegí el caso «base de autovectores de A = [[2, 1], [1, 2]]» y comprobá que \(B^{-1}AB=\operatorname{diag}(3,1)\); después girá \(b_2\) con el deslizador y verificá que \(B^{-1}AB\) deja de ser diagonal pero la suma de su diagonal sigue valiendo \(4\): la traza no depende de la base.}
 
+\subsection{En el CAD}\label{sec:cad-cap09}
+
+Un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD; en adelante, el CAD) tiene un comando,
+\texttt{UCS}, que cambia el sistema de coordenadas con que lee el dibujo sin mover nada. Es la
+lectura pasiva de la sección~\ref{sec:activa-pasiva-cb}: la parcela queda donde está y cambian
+sus etiquetas. Para qué nos sirve: comprobar con un dibujo de verdad que las coordenadas nuevas
+salen con la inversa de la matriz de cambio de base, y ver por qué el CAD solo acepta bases
+ortonormales. La parcela es la de siempre: \(A=(10,10)\), \(B=(34,17)\), \(C=(40,36)\),
+\(D=(24,38)\) y \(E=(6,32)\), en metros, con el frente \(AB\) de \(25\) m; cada archivo trae su
+respuesta en la carpeta \texttt{esperado} del sitio.
+
+\paragraph{\texttt{UCS} alineado con el frente: las coordenadas cambian con \(C^{-1}\).}
+Imaginá que hay que ubicar construcciones dentro de la parcela y que todas las medidas se toman
+desde el frente: \enquote{tantos metros a lo largo del frente, tantos hacia adentro}. ¿Qué
+números tiene cada vértice en ese sistema? El sistema nuevo tiene el origen en \(A\), el primer
+vector de la base a lo largo del frente y el segundo perpendicular, hacia adentro:
+\[
+  b_1=\frac{B-A}{25}=(0{,}96;\ 0{,}28),\qquad b_2=(-0{,}28;\ 0{,}96),\qquad
+  C=[\,b_1\mid b_2\,]=\begin{pmatrix}0{,}96&-0{,}28\\0{,}28&0{,}96\end{pmatrix},
+\]
+con \(\det C=1\). \(C\) es la matriz de cambio de base de la
+definición~\ref{def:matriz-cambio-base}, con la base nueva en columnas, y lo que cambia de base
+es el vector \(p-A\), que va del origen nuevo al punto: sus coordenadas nuevas son
+\([p-A]_b=C^{-1}[p-A]_e\) (proposición~\ref{prop:cb-coordenadas}). Como la letra \(C\)
+sola es la matriz, al vértice lo nombramos siempre \enquote{el vértice \(C\)}.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap09_ucs.dxf}.
+  \item Definí el sistema nuevo con \texttt{UCS}, dando tres puntos: el origen en \(A\), un punto
+  del eje \(x\) en \(B\) y un punto del lado positivo del eje \(y\) en \(D\). La parcela no se
+  mueve.
+  \item Listá con \texttt{ID} las coordenadas de los vértices \(B\), \(C\), \(D\) y \(E\): ahora salen en el
+  sistema del frente. Medí también el área con \texttt{AREA}.
+  \item Calculá \(C^{-1}(p-A)\) para el vértice \(C\) y compará.
+  \item Volvé al sistema del dibujo (\texttt{UCS}, opción \texttt{World}) y aplicá
+  \texttt{ALIGN} sin escalado, con \(A\to(0,0)\) y \(B\to(25,0)\). Guardá con otro nombre.
+  \item Volvé al original y rotá la parcela con \texttt{ROTATE}, punto base \(A\), opción
+  \texttt{Reference}: marcás \(A\) y \(B\) y das el ángulo nuevo \(0\). Guardá.
+\end{enumerate}
+LibreCAD no tiene \texttt{UCS}: ahí la lectura pasiva se hace a mano con \(C^{-1}(p-A)\), o con
+los pasos 5 y 6, moviendo y rotando por separado desde el menú \texttt{Modify}. Como la base es
+ortonormal, \(C^{-1}=C^T\) y cada coordenada nueva es un producto interno
+(proposición~\ref{prop:cb-ortonormal}): \(b_1\cdot(p-A)\) mide cuánto avanza el punto a lo
+largo del frente y \(b_2\cdot(p-A)\), cuánto se aparta hacia adentro. Para el vértice \(C\),
+\(p-A=(30,26)\), \(b_1\cdot(30,26)=28{,}8+7{,}28=36{,}08\) y
+\(b_2\cdot(30,26)=-8{,}4+24{,}96=16{,}56\). En el sistema del frente tienen que dar
+\(B=(25;\ 0)\), el vértice \(C=(36{,}080;\ 16{,}560)\), \(D=(21{,}280;\ 22{,}960)\) y
+\(E=(2{,}320;\ 22{,}240)\), y el área sigue siendo \(655\) m\(^2\): en una base ortonormal las
+longitudes no cambian, y con \(\det C=1\) las áreas tampoco. Respuesta (lectura pasiva):
+\dxfEnlace{esperado/cap09_ucs_frente.dxf}.
+
+El paso 5 da esas mismas coordenadas, ahora como coordenadas del dibujo: es
+\(p\mapsto C^T(p-A)\), con parte lineal
+\(M=C^T=\left(\begin{smallmatrix}0{,}960&0{,}280\\-0{,}280&0{,}960\end{smallmatrix}\right)\),
+traslación \(t=(-12{,}400;\ -6{,}800)\) y \(\det M=1\): una rotación de \(-16{,}260^\circ\),
+porque el frente forma \(16{,}260^\circ\) con el eje este. El paso 6 es la lectura activa con
+la misma \(M\): la parcela gira alrededor de \(A\), que queda en \((10,10)\), y
+\(t=(-2{,}400;\ 3{,}200)\). Girar los ejes \(16{,}260^\circ\) produce las mismas etiquetas que
+girar la parcela \(-16{,}260^\circ\), como en el ejemplo~\ref{ej:cb-activa-pasiva}. Respuesta
+(lectura activa): \dxfEnlace{esperado/cap09_ucs_activa.dxf}.
+
+\paragraph{Por qué el CAD no acepta una base oblicua.} El archivo DXF guarda siempre las
+coordenadas del sistema del dibujo: cambiar el \texttt{UCS} no cambia el archivo, porque no
+mueve nada, y por eso para comparar con \texttt{que\_matriz.py} la lectura pasiva se convierte
+en un movimiento (paso 5). Además, \texttt{UCS} solo arma sistemas con ejes perpendiculares y
+la misma unidad en los dos: con tres puntos toma el origen, la dirección del eje \(x\) y el lado
+del eje \(y\), y construye el resto. Las distancias y las áreas que informa el CAD salen de la
+cuenta de siempre, \(\sqrt{x^2+y^2}\) y la fórmula del agrimensor, que solo vale en una base
+ortonormal. En la base oblicua del ejemplo~\ref{ej:cb-oblicua}, con \(b_1=(3,1)\) y
+\(b_2=(1,2)\), el vector \(v=(7,4)\) tiene coordenadas \((2,1)\), y la cuenta ingenua
+\(2^2+1^2=5\) no es su largo al cuadrado, \(65\): hace falta la matriz de Gram
+\(G=C^TC\) de la sección~\ref{sec:bases-ortonormales}. Un CAD que aceptara esa base tendría
+que cambiar la fórmula de cada medición; prefiere no aceptarla.
+
+Para comprobar, guardá cada resultado como DXF y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\) (la parte lineal), \(t\) (la traslación), \(\det M\), el área de la parcela en
+los dos archivos con su cociente, y la familia. En los dos archivos sale una rotación con
+\(M=C^T\), \(\det M=1\) y cociente de áreas \(1\); en la lectura activa, el centro es el
+vértice \(A\).
+
 \section{En profundidad}
 
 \subsection{Cambio de base y diagonalización}\label{sec:cambio-base}

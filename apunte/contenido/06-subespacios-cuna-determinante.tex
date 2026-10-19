@@ -619,6 +619,84 @@ cuentas del capítulo se comprueban con el script
 \texttt{apunte/scripts/cap06\_cuna\_determinante.py}; las funciones de cálculo que usa están
 en la sección~\ref{sec:demos-determinante}.
 
+\subsection{En el CAD}\label{sec:cad-cap06}
+
+Un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD; en adelante, el CAD) mide la
+superficie de una figura con el comando \texttt{AREA}, y lo que hace por dentro es la cuenta de
+la proposición~\ref{prop:area-poligono}: la mitad de la suma de los cuñas de vértices
+consecutivos. Para qué nos sirve: comprobar con un dibujo de verdad que esa suma de áreas con
+signo da la superficie, y ver que \texttt{SCALE} y un bloque con dos escalas multiplican esa
+superficie por el determinante, como dice la proposición~\ref{prop:det-factor}. La parcela es
+la de siempre: \(A=(10,10)\), \(B=(34,17)\), \(C=(40,36)\), \(D=(24,38)\) y \(E=(6,32)\), en
+metros; cada archivo trae su respuesta en la carpeta \texttt{esperado} del sitio.
+
+\paragraph{\texttt{AREA}: la superficie de la parcela es una suma de cuñas.} Antes de abrir el
+archivo, anticipá: si sumamos las áreas de los triángulos que forman el origen con cada lado de
+la parcela, ¿no estamos contando también la zona entre el origen y la parcela, que no es
+nuestra? Cada término \(\tfrac12\,p_i\wedge p_{i+1}\) es el área con signo del triángulo de
+vértices el origen, \(p_i\) y \(p_{i+1}\): positiva si ese triángulo se recorre en sentido
+antihorario y negativa si se recorre en sentido horario.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap06_area.dxf}.
+  \item Medí la superficie con \texttt{AREA}, opción \texttt{Object}, eligiendo la polilínea
+  (también la informa \texttt{LIST} sobre la polilínea). En LibreCAD, el equivalente es la
+  herramienta de área poligonal del menú de información: marcás los vértices \(A\), \(B\),
+  \(C\), \(D\) y \(E\) en orden, con el enganche a extremos activado.
+  \item Calculá a mano los cinco términos \(x_iy_{i+1}-x_{i+1}y_i\), de \(A\) a \(B\), de \(B\)
+  a \(C\) y así hasta volver de \(E\) a \(A\), y la mitad de su suma.
+  \item Repetí la cuenta con el origen en \(A\): restá \(A\) a todos los vértices.
+\end{enumerate}
+El CAD informa un área de \(655\) m\(^2\) y un perímetro de \(102{,}384\) m. Los cinco términos
+son \(-170\), \(544\), \(656\), \(540\) y \(-260\); suman \(1310\), y la mitad es
+\(S=655\) m\(^2\). Sale positiva porque \(A\), \(B\), \(C\), \(D\), \(E\) están en sentido
+antihorario; en el orden inverso da \(-655\), y el CAD informa el valor absoluto. Los
+triángulos desde el origen aportan \(-85\), \(272\), \(328\), \(270\) y \(-130\) m\(^2\): los
+dos negativos, los de los lados \(AB\) y \(EA\), descuentan la zona entre el origen y la parcela
+que los otros tres cuentan de más, como en la figura~\ref{fig:cuna-poligono}. Con el origen en
+\(A\) los términos son \(0\), \(414\), \(476\), \(420\) y \(0\), y la suma vuelve a ser
+\(1310\): la superficie no depende de dónde pongamos el origen, y el más cómodo es un vértice,
+como en la sección~\ref{sec:aplicacion-superficie}. Respuesta:
+\dxfEnlace{esperado/cap06_area_cunas.dxf}, la misma parcela con los cinco triángulos y el área
+de cada uno.
+
+\paragraph{\texttt{SCALE} e \texttt{INSERT}: el área se multiplica por el determinante.}
+Antes de abrir el archivo, anticipá: si duplicamos los lados de la parcela en las dos
+direcciones, ¿por cuánto se multiplica la superficie? ¿Y si los duplicamos solo a lo ancho? El
+archivo trae la parcela y el bloque \texttt{PARCELA\_BLOQUE}, definido con punto base en el
+origen (sección~\ref{sec:cad-cap04}).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap06_scale.dxf}, seleccioná la polilínea, los puntos y las letras, y
+  aplicá \texttt{SCALE} con punto base \(A\) y factor \(2\). Medí el área con \texttt{AREA} y
+  guardá con otro nombre.
+  \item Volvé al original e insertá el bloque con \texttt{INSERT} en \((0,0)\), con escala
+  \(2\) en \(x\), \(1\) en \(y\) y rotación \(0\). Medí su área marcando sus cinco vértices
+  con \texttt{AREA} y guardá.
+  \item Corré \texttt{que\_matriz.py} sobre cada archivo y compará el determinante con el
+  cociente entre el área nueva y la original.
+\end{enumerate}
+En LibreCAD, \texttt{SCALE} está en el menú \texttt{Modify}; si tu versión no deja escalas
+distintas en \(x\) y en \(y\) para un bloque, hacé el paso 2 en QCAD o AutoCAD.
+\texttt{SCALE} con factor \(2\) es la homotecia \(p\mapsto A+2(p-A)\), con parte lineal
+\(M=2I\) y \(\det M=4\): el área pasa de \(655\) a \(2620\) m\(^2\), cuatro veces más, porque
+cada cuadradito de la grilla de la figura~\ref{fig:cuna-grilla} se duplica a lo ancho y a lo
+alto. El bloque con escalas \(2\) y \(1\) es
+\(M=\left(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\right)\), con \(\det M=2\): el área
+pasa a \(1310\) m\(^2\), el doble, aunque los ángulos de los vértices cambian. Una rotación o
+una reflexión, con determinante \(1\) o \(-1\), no cambian la superficie; por eso la
+sección~\ref{sec:aplicacion-superficie} pudo girar las coordenadas sin tocar el resultado.
+Respuestas: \dxfEnlace{esperado/cap06_scale_2.dxf} y
+\dxfEnlace{esperado/cap06_bloque_x2_y1_area.dxf}.
+
+Para comprobar, guardá cada resultado como DXF y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\) (la parte lineal), \(t\) (la traslación), \(\det M\), el área de la parcela en
+los dos archivos con su cociente, y la familia. Con \texttt{SCALE} da
+\(655\to2620\) m\(^2\), cociente \(4\) y \(\lvert\det M\rvert=4\); con el bloque,
+\(655\to1310\) m\(^2\), cociente \(2\) y \(\lvert\det M\rvert=2\): el cociente de áreas es
+siempre \(\lvert\det M\rvert\).
+
 \section{En profundidad}
 
 \subsection{Producto exterior: la misma idea en cualquier dimensión}\label{sec:exterior}
