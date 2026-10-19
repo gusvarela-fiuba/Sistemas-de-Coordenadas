@@ -3,24 +3,18 @@
 
 \section{La idea}
 
-Reflejamos y escalamos. Con reflexiones se construyen rotaciones, y con una escala común se pasa a las similaridades. Seguimos el hilo de la construcción: reflexiones, rotaciones, escalas.
+El capítulo~\ref{cap:traslaciones} dejó sin demostrar que toda traslación y toda rotación son
+producto de dos reflexiones, y le faltó la mitad de las isometrías: las que invierten la
+orientación. Ahora reflejamos, demostramos esos dos teoremas y agregamos la escala.
 
 \subsection{Reflejar y componer}\label{sec:reflejar}
 
 \unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Explorá: elegí el caso «espejo de la recta de ángulo \(\alpha\)», mové \(\alpha\) y mirá cómo el área con signo de la parcela cambia de signo mientras las distancias no cambian.}
 
-Una reflexión invierte una figura respecto de un centro o de una recta. Aplicada dos veces
-respecto del mismo elemento devuelve la figura original. Esta propiedad se llama involución.
-
-La riqueza geométrica aparece al combinar reflexiones distintas:
-\begin{itemize}
-  \item dos reflexiones puntuales producen una traslación;
-  \item dos reflexiones en rectas paralelas producen una traslación perpendicular a ellas;
-  \item dos reflexiones en rectas secantes producen una rotación alrededor de su intersección;
-  \item tres reflexiones puntuales vuelven a producir una reflexión puntual y construyen un
-  paralelogramo;
-  \item toda isometría del plano se obtiene con a lo sumo tres reflexiones en rectas.
-\end{itemize}
+Una reflexión invierte una figura respecto de un centro o de una recta; aplicada dos veces
+devuelve la figura original (es una \emph{involución}). Lo interesante aparece al combinar
+reflexiones distintas: así salen traslaciones, rotaciones y, con a lo sumo tres espejos, todas
+las isometrías del plano.
 
 \paragraph{Primera traducción algebraica.}
 \[
@@ -44,13 +38,10 @@ ser una rotación.
 
 \subsection{Escalar: homotecias y similaridades}\label{sec:escalar}
 
-Una homotecia cambia el tamaño respecto de un centro. Cada punto permanece sobre la recta que
-lo une con ese centro. Si la razón es positiva conserva el semirayo; si es negativa pasa al
-semirayo opuesto.
-
-Una similaridad combina escala uniforme, giro y, eventualmente, reflexión o traslación. La
-figura puede cambiar de tamaño y posición, pero conserva sus ángulos y sus proporciones. Dos
-triángulos relacionados por una similaridad tienen la misma forma.
+Una homotecia cambia el tamaño respecto de un centro: cada punto sigue sobre la recta que lo
+une con el centro, en el mismo semirayo si la razón es positiva y en el opuesto si es negativa.
+Una similaridad combina escala uniforme, giro y, eventualmente, reflexión o traslación: la
+figura cambia de tamaño y posición, pero conserva ángulos y proporciones.
 
 \paragraph{Primera traducción algebraica.}
 \[
@@ -65,14 +56,6 @@ matrices se representa con una matriz múltiplo de la identidad.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
-
-El recorrido es deductivo. Primero se define la reflexión, respecto de un punto y respecto de
-una recta, y se obtiene su fórmula vectorial. Después se compone: dos reflexiones dan una
-traslación o una rotación según la posición relativa de los centros o de los ejes. Con eso se
-prueba que toda isometría del plano es producto de a lo sumo tres reflexiones, lo que lleva a
-clasificarlas en cinco tipos. Finalmente se agrega la escala: la homotecia, y la similaridad
-como composición de una homotecia con una isometría. Cada resultado va acompañado de una
-construcción y de un ejemplo con vectores.
 
 \subsection{Reflejar en un punto es tomarlo como punto medio}
 
@@ -94,14 +77,13 @@ En consecuencia, \(\rhoP{b}\circ\rhoP{b}=\operatorname{Id}\) (es una involución
 \begin{demostracion}
 Si \(x=b\), la fórmula da \(2b-b=b\), como pide la definición. Si \(x\neq b\), sea
 \(x'=\rhoP{b}(x)\). Que \(x'\) esté en la recta \(\overline{xb}\), del otro lado de \(b\) y a la
-misma distancia, dice exactamente que \(x'-b\) es el opuesto de \(x-b\):
-\(x'-b=-(x-b)\), es decir, \(b\) es el punto medio del segmento \(xx'\):
+misma distancia, dice que \(x'-b=-(x-b)\): \(b\) es el punto medio del segmento \(xx'\):
 \[
   \frac{x+x'}{2}=b\qquad\Longrightarrow\qquad x'=2b-x .
 \]
 Recíprocamente, el punto \(2b-x\) cumple \((2b-x)-b=-(x-b)\), así que satisface las tres
 condiciones de la definición. Las propiedades salen de la fórmula:
-\(\rhoP{b}(\rhoP{b}(x))=2b-(2b-x)=x\); \(2b-x=x\) sólo si \(x=b\); y
+\(\rhoP{b}(\rhoP{b}(x))=2b-(2b-x)=x\); \(2b-x=x\) solo si \(x=b\); y
 \(\rhoP{b}(x)-\rhoP{b}(y)=-(x-y)\), de modo que
 \(\lVert\rhoP{b}(x)-\rhoP{b}(y)\rVert=\lVert x-y\rVert\).
 \end{demostracion}
@@ -126,11 +108,8 @@ La fórmula \(\rhoP{b}(x)=b-(x-b)\) muestra además que la reflexión puntual es
 \end{center}
 
 \paragraph{Ejemplo.}
-Si \(b=(2,1)\) y \(x=(5,3)\), entonces
-\[
-  \rhoP{b}(x)=2(2,1)-(5,3)=(-1,-1).
-\]
-El punto medio entre \((5,3)\) y \((-1,-1)\) es efectivamente \((2,1)\).
+Si \(b=(2,1)\) y \(x=(5,3)\), entonces \(\rhoP{b}(x)=2(2,1)-(5,3)=(-1,-1)\), y el punto medio
+entre \((5,3)\) y \((-1,-1)\) es \((2,1)\).
 
 \subsection{Dos reflexiones puntuales dan una traslación}
 
@@ -176,10 +155,7 @@ Invertir el orden invierte el vector: \(\rhoP{b}\rhoP{a}=T_{2(b-a)}\).
 \end{center}
 
 \paragraph{Ejemplo.}
-Con \(a=(3,2)\) y \(b=(1,1)\), la traslación resultante tiene vector
-\[
-  2(a-b)=2(2,1)=(4,2).
-\]
+Con \(a=(3,2)\) y \(b=(1,1)\), la traslación resultante tiene vector \(2(a-b)=2(2,1)=(4,2)\).
 Para \(x=(2,-1)\): \(\rhoP{b}(x)=(0,3)\) y
 \(\rhoP{a}(0,3)=(6,1)=x+(4,2)\).
 
@@ -229,11 +205,8 @@ con \(d=a-b+c\); el centro es único porque es el único punto fijo de la reflex
 \end{center}
 
 \paragraph{Ejemplo.}
-Si \(a=(1,1)\), \(b=(4,1)\) y \(c=(6,3)\), entonces
-\[
-  d=(1,1)-(4,1)+(6,3)=(3,3).
-\]
-Se verifica \(a+c=(7,4)=b+d\); por lo tanto, las diagonales se bisecan.
+Si \(a=(1,1)\), \(b=(4,1)\) y \(c=(6,3)\), entonces \(d=(1,1)-(4,1)+(6,3)=(3,3)\), y
+\(a+c=(7,4)=b+d\): las diagonales se bisecan.
 
 \begin{idea}[Las reflexiones puntuales suman y restan vectores]
 La fórmula \(d=a-b+c\) permite construir geométricamente la operación
@@ -246,7 +219,7 @@ el extremo de \(v\) respecto de su origen. Esto se relaciona con la involución 
 \[
   \rho_b^2=\operatorname{Id};
 \]
-reflejar dos veces no ``anula'' el punto, sino que devuelve exactamente la posición inicial.
+reflejar dos veces no \enquote{anula} el punto, sino que devuelve la posición inicial.
 \end{idea}
 
 \subsection{La reflexión respecto de una recta invierte la orientación}
@@ -274,10 +247,8 @@ fijos son exactamente los de \(B\).
 
 \begin{demostracion}
 La perpendicular a \(B\) por \(x\) tiene la dirección de \(n\); su intersección con \(B\) es el
-punto \(p=x-s\,n\) con \(n\cdot p=c\), es decir \(n\cdot x-s\lVert n\rVert^2=c\):
-\[
-  p=x-\frac{n\cdot x-c}{\lVert n\rVert^2}\,n .
-\]
+punto \(p=x-s\,n\) con \(n\cdot p=c\), o sea \(n\cdot x-s\lVert n\rVert^2=c\), y
+\(p=x-\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\).
 La definición pide que \(p\) sea el punto medio entre \(x\) y su imagen, así que
 \(\refl{B}(x)=2p-x\), que es la fórmula del recuadro (y vale también para \(x\in B\), donde
 \(p=x\)). Como \((n\cdot x)\,n=nn^Tx\), la fórmula se separa en \(Hx+t\).
@@ -315,50 +286,29 @@ Las consecuencias: \(\refl{B}(x)-\refl{B}(y)=H(x-y)\) y \(H\) ortogonal conserva
 \end{center}
 
 \paragraph{Ejemplo.}
-Para \(B:\ x+2y=4\), \(n=(1,2)\) y \(x_0=(4,3)\):
+Para \(B:\ x+2y=4\), \(n=(1,2)\) y \(x_0=(4,3)\): \(n\cdot x_0-c=6\), \(\lVert n\rVert^2=5\) y
 \[
-  n\cdot x_0-c=6,\qquad \lVert n\rVert^2=5,
+  \refl{B}(x_0)=(4,3)-\frac{12}{5}(1,2)=\left(\frac85,-\frac95\right),\qquad
+  p=(4,3)-\frac65(1,2)=\left(\frac{14}{5},\frac35\right).
 \]
-\[
-  \refl{B}(x_0)
-  =(4,3)-\frac{12}{5}(1,2)
-  =\left(\frac85,-\frac95\right).
-\]
-La proyección es
-\[
-  p=(4,3)-\frac65(1,2)
-  =\left(\frac{14}{5},\frac35\right).
-\]
-Además,
-\[
-  x_0-p=p-\refl{B}(x_0)=\frac65(1,2),
-\]
-lo que verifica simultáneamente que ambos segmentos tienen la misma longitud y que son
+Además \(x_0-p=p-\refl{B}(x_0)=\frac65(1,2)\): los dos segmentos tienen la misma longitud y son
 perpendiculares a la recta, pues son paralelos al normal \(n=(1,2)\).
 
 \begin{ejemplo}[Reflexión respecto de la recta que pasa por dos puntos]\label{ej:reflexion-dos-puntos}
 Reflejamos \(X=(5,8)\) respecto de la recta \(L\) que pasa por \(P=(1,2)\) y \(Q=(7,5)\).
 
 \emph{Ecuación de la recta.} La dirección es \(d=Q-P=(6,3)=3\,(2,1)\), y un vector
-perpendicular a \((2,1)\) es \(n=(1,-2)\). Con \(c=n\cdot P=1-4=-3\) queda
-\[
-  L:\ x-2y=-3 ,
-\]
+perpendicular a \((2,1)\) es \(n=(1,-2)\). Con \(c=n\cdot P=1-4=-3\) queda \(L:\ x-2y=-3\),
 y \(Q\) la verifica: \(7-10=-3\).
 
 \emph{Proyección.} Con la fórmula de la normal, \(n\cdot X-c=5-16+3=-8\) y
-\(\lVert n\rVert^2=5\), así que
-\[
-  p=X-\frac{-8}{5}\,n=(5,8)+\frac85(1,-2)=(6{,}6;\ 4{,}8).
-\]
+\(\lVert n\rVert^2=5\), así que \(p=X-\frac{-8}{5}\,n=(5,8)+\frac85(1,-2)=(6{,}6;\ 4{,}8)\).
 El mismo punto sale proyectando \(X-P=(4,6)\) sobre la dirección:
 \(t=\dfrac{(X-P)\cdot d}{\lVert d\rVert^2}=\dfrac{42}{45}=\dfrac{14}{15}\) y
 \(p=P+t\,d=(1,2)+(5{,}6;\ 2{,}8)=(6{,}6;\ 4{,}8)\).
 
 \emph{Reflejo.} Como \(p\) es el punto medio entre \(X\) y su imagen,
-\[
-  \refl{L}(X)=2p-X=(8{,}2;\ 1{,}6).
-\]
+\(\refl{L}(X)=2p-X=(8{,}2;\ 1{,}6)\).
 
 \emph{Forma matricial.} Desarrollando \(\refl{L}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\)
 se separa una parte lineal y una traslación:
@@ -410,8 +360,8 @@ cualquiera y \(A:\ n\cdot x=\beta+\frac12\lVert v\rVert\), que es \(B\) desplaza
 \(\frac12v\). La fórmula da \(2(\alpha-\beta)n=\lVert v\rVert\,n=v\).
 \end{demostracion}
 
-Este resultado demuestra el teorema~\ref{teo:traslacion-dos-reflexiones-enunciado}, enunciado
-en el capítulo de traslaciones. Si \(A=B\), la composición es la identidad.
+Este resultado demuestra el teorema~\ref{teo:traslacion-dos-reflexiones-enunciado}. Si
+\(A=B\), la composición es la identidad; invertir el orden invierte el vector de traslación.
 
 \begin{center}
 \begin{tikzpicture}[scale=.94]
@@ -430,24 +380,11 @@ en el capítulo de traslaciones. Si \(A=B\), la composición es la identidad.
 \end{tikzpicture}
 \end{center}
 
-\paragraph{Lectura geométrica.}
-La primera reflexión cruza \(B\); la segunda cruza \(A\). El desplazamiento total es
-perpendicular a ambas rectas y su módulo es dos veces la distancia entre ellas. Invertir el
-orden invierte el vector de traslación.
-
 \paragraph{Ejemplo gráfico y algebraico común.}
 Si \(B:x=1\), \(A:x=4\) y \(p=(0,2)\), entonces
-\[
-  p=(0,2)
-  \xmapsto{\ \refl{B}\ }(2,2)
-  \xmapsto{\ \refl{A}\ }(6,2).
-\]
-Por tanto,
-\[
-  \refl{A}\refl{B}(x,y)=(x+6,y).
-\]
-La distancia entre los ejes es \(3\), la traslación tiene módulo \(6\) y el punto intermedio
-\((2,2)\) muestra las dos reflexiones separadamente.
+\(p=(0,2)\xmapsto{\ \refl{B}\ }(2,2)\xmapsto{\ \refl{A}\ }(6,2)\), y
+\(\refl{A}\refl{B}(x,y)=(x+6,y)\). La distancia entre los ejes es \(3\), la traslación tiene
+módulo \(6\) y el punto intermedio \((2,2)\) muestra las dos reflexiones separadamente.
 
 \subsection{Dos espejos que se cortan dan un giro}
 
@@ -503,8 +440,7 @@ la rotación no depende de esa elección. Para el recíproco, dado \(\phi\), se 
 \(\beta+\phi/2\).
 \end{demostracion}
 
-Este resultado demuestra el teorema~\ref{teo:rotacion-dos-reflexiones-enunciado} del capítulo
-de traslaciones. Ambas reflexiones invierten la orientación y la composición la preserva:
+Este resultado demuestra el teorema~\ref{teo:rotacion-dos-reflexiones-enunciado}. Ambas reflexiones invierten la orientación y la composición la preserva:
 \(\det\bigl(H(\alpha)H(\beta)\bigr)=(-1)(-1)=1\).
 
 \begin{center}
@@ -532,39 +468,25 @@ de traslaciones. Ambas reflexiones invierten la orientación y la composición l
 
 \paragraph{Ejemplo numérico completo.}
 Sea \(B\) el eje \(x\), sea \(A\) una recta por el origen que forma \(30^\circ\) con \(B\),
-y sea \(p=(1,1)\). Primero:
-\[
-  p_1=\varphi_B(p)=(1,-1).
-\]
-La reflexión respecto de \(A\) tiene matriz
+y sea \(p=(1,1)\). Primero, \(p_1=\varphi_B(p)=(1,-1)\). La reflexión respecto de \(A\) tiene
+matriz \(H(30^\circ)\), y
 \[
 H(30^\circ)=
 \begin{pmatrix}
 \frac12&\frac{\sqrt3}{2}\\
 \frac{\sqrt3}{2}&-\frac12
-\end{pmatrix}.
-\]
-Por lo tanto,
-\[
+\end{pmatrix},
+\qquad
 p_2=\varphi_A(p_1)
 =
 \begin{pmatrix}
 \frac12-\frac{\sqrt3}{2}\\[1mm]
 \frac{\sqrt3}{2}+\frac12
-\end{pmatrix}.
-\]
-Este es exactamente
-\[
-R(60^\circ)(1,1)^T.
+\end{pmatrix}
+=R(60^\circ)(1,1)^T.
 \]
 El punto \(p\) se refleja primero debajo de \(B\) y luego cruza \(A\); el ángulo neto observado
 desde el origen es el doble del ángulo entre los ejes.
-
-\begin{idea}[Dos reflexiones producen la matriz de rotación]
-El producto \(H(\alpha)H(\beta)\) es la matriz de rotación \(R(\theta)\) del capítulo de
-rotaciones, ahora obtenida por una construcción geométrica: una rotación plana se genera con
-dos espejos que se cortan en su centro y forman la mitad del ángulo de giro.
-\end{idea}
 
 \begin{ejemplo}[Dos reflexiones: rotación o traslación según los ejes]\label{ej:dos-reflexiones}
 Sean \(B:\ y=1\) y \(A:\ x-y=1\). Se cortan en \(o=(2,1)\); \(B\) es horizontal y \(A\) forma
@@ -572,15 +494,9 @@ Sean \(B:\ y=1\) y \(A:\ x-y=1\). Se cortan en \(o=(2,1)\); \(B\) es horizontal 
 
 \emph{Las dos reflexiones.} Para \(B\) basta reflejar la ordenada respecto de \(1\):
 \(\refl{B}(x,y)=(x,\,2-y)\). Para \(A\), con \(n=(1,-1)\), \(\lVert n\rVert^2=2\) y \(c=1\),
-\[
-  \refl{A}(x,y)=(x,y)-(x-y-1)(1,-1)=(y+1,\ x-1).
-\]
+\(\refl{A}(x,y)=(x,y)-(x-y-1)(1,-1)=(y+1,\ x-1)\).
 
-\emph{La composición.}
-\[
-  \refl{A}\refl{B}(x,y)=\refl{A}(x,\,2-y)=(3-y,\ x-1).
-\]
-La rotación de \(90^\circ\) con centro \(o\) da lo mismo:
+\emph{La composición.} \(\refl{A}\refl{B}(x,y)=\refl{A}(x,\,2-y)=(3-y,\ x-1)\). La rotación de \(90^\circ\) con centro \(o\) da lo mismo:
 \(o+R(90^\circ)\bigl((x,y)-o\bigr)=(2,1)+\bigl(-(y-1),\,x-2\bigr)=(3-y,\ x-1)\).
 Con \(p=(4,0)\): \(\refl{B}(p)=(4,2)\) y \(\refl{A}(4,2)=(3,3)\). Desde \(o\), los vectores
 \(p-o=(2,-1)\) y \((3,3)-o=(1,2)\) miden ambos \(\sqrt5\) y son perpendiculares.
@@ -621,10 +537,7 @@ distintas.
 Primero, \(I-R\) es invertible:
 \(\det(I-R)=(1-\cos\theta)^2+\sin^2\theta=2(1-\cos\theta)\neq0\). Una transformación
 \(F(x)=Rx+w\) tiene entonces un único punto fijo \(p=(I-R)^{-1}w\), y como \(w=(I-R)p\),
-\[
-  F(x)=Rx+(I-R)p=p+R(x-p):
-\]
-es la rotación de ángulo \(\theta\) y centro \(p\). Ahora bien,
+\(F(x)=Rx+(I-R)p=p+R(x-p)\) es la rotación de ángulo \(\theta\) y centro \(p\). Ahora bien,
 \(Q_c(x)=Rx+(I-R)c\), de modo que
 \[
   T_vQ_c(x)=Rx+(I-R)c+v,
@@ -655,38 +568,22 @@ Finalmente, \(c_1-c_2=(I-R)^{-1}(v-Rv)=(I-R)^{-1}(I-R)v=v\).
 \end{tikzpicture}
 \end{center}
 
-Si \(\theta\equiv0\) no hay rotación propiamente dicha: \(R=I\) y las dos composiciones son la
-traslación \(T_v\). Por eso la proposición pide un ángulo no nulo.
-
 \paragraph{Ejemplo de orden.}
 Sea \(R\) el giro de \(90^\circ\) alrededor del origen y \(v=(2,0)\). Entonces
+\(T_vR(x)=Rx+(2,0)\) y \(RT_v(x)=Rx+(0,2)\). El centro del primero es \((1,1)\); el del segundo,
+\((-1,1)\), y su diferencia es \((2,0)=v\): mismo ángulo, transformaciones distintas. Siguiendo
+el punto \(p=(1,0)\),
 \[
-  T_vR(x)=Rx+(2,0),
-  \qquad
-  RT_v(x)=Rx+(0,2).
+p\xmapsto{\ R\ }(0,1)\xmapsto{\ T_v\ }(2,1),
+\qquad\text{mientras que}\qquad
+p\xmapsto{\ T_v\ }(3,0)\xmapsto{\ R\ }(0,3).
 \]
-El centro del primero es \((1,1)\); el del segundo es \((-1,1)\), y su diferencia es
-\((2,0)=v\). El ángulo es el mismo, pero las transformaciones son distintas.
-
-Siguiendo el mismo punto \(p=(1,0)\):
-\[
-p\xmapsto{\ R\ }(0,1)
-\xmapsto{\ T_v\ }(2,1),
-\]
-mientras que
-\[
-p\xmapsto{\ T_v\ }(3,0)
-\xmapsto{\ R\ }(0,3).
-\]
-La separación entre \((2,1)\) y \((0,3)\) permite ver directamente que el orden cambió la
-transformación.
 
 \subsection{Tres espejos alcanzan para cualquier isometría}
 
 Una \emph{isometría} del plano es una transformación \(f\) que conserva las distancias:
-\(\lVert f(x)-f(y)\rVert=\lVert x-y\rVert\) para todo \(x\), \(y\). Las reflexiones, las
-traslaciones y las rotaciones lo son. El paso siguiente es mostrar que no hay otras que las
-que se obtienen componiendo reflexiones.
+\(\lVert f(x)-f(y)\rVert=\lVert x-y\rVert\) para todo \(x\), \(y\). Reflexiones, traslaciones y
+rotaciones lo son, y no hay otras que las que se obtienen componiendo reflexiones.
 
 \begin{proposicion}[Una isometría que fija tres puntos no alineados es la identidad]\label{prop:isometria-tres-fijos}
 Si una isometría \(g\) cumple \(g(a)=a\), \(g(b)=b\) y \(g(c)=c\) para tres puntos \(a\),
@@ -743,15 +640,9 @@ es decir, \(f=h\).
 Como cada reflexión es \(x\mapsto Hx+t\) con \(H\) ortogonal y \(\det H=-1\)
 (proposición~\ref{prop:reflexion-recta}), toda isometría es de la forma \(f(x)=Qx+s\) con \(Q\)
 ortogonal y \(\det Q=(-1)^k\), donde \(k\) es la cantidad de reflexiones usadas. El signo de
-\(\det Q\) depende sólo de \(f\): la paridad de \(k\) es la misma en cualquier descomposición.
+\(\det Q\) depende solo de \(f\): la paridad de \(k\) es la misma en cualquier descomposición.
 La isometría es \emph{directa} si \(\det Q=1\) (conserva la orientación) e \emph{inversa} si
 \(\det Q=-1\).
-
-\begin{idea}[Tres espejos alcanzan para cualquier movimiento]
-Una isometría queda determinada por lo que hace con tres puntos no alineados, y cada espejo
-acomoda un punto sin desacomodar los anteriores. Por eso alcanzan tres reflexiones; el
-número par o impar de espejos decide si se conserva o se invierte la orientación.
-\end{idea}
 
 \subsection{Las isometrías del plano son de cinco tipos}
 
@@ -816,7 +707,7 @@ perpendicular a \(M\) y a \(C'\), luego paralelo a \(L\). Si \(w=0\), \(f=\refl{
 Los cinco tipos son distintos. Por la observación previa al teorema, las tres primeras tienen
 \(\det Q=1\) y las dos últimas \(\det Q=-1\). Los puntos fijos los separan dentro de cada
 grupo: la identidad fija todo, una traslación \(x+v=x\) no fija nada si \(v\neq0\), una
-rotación \(o+R(x-o)=x\) sólo fija \(o\) porque \(I-R\) es invertible
+rotación \(o+R(x-o)=x\) solo fija \(o\) porque \(I-R\) es invertible
 (proposición~\ref{prop:traslacion-rotacion}), y una reflexión fija su eje
 (proposición~\ref{prop:reflexion-recta}). Para la antitraslación, si \(\refl{L}(x+v)=x\), con
 \(L:\ n\cdot x=c\) y \(n\cdot v=0\), el producto con \(n\) da \(2c-n\cdot x=n\cdot x\), o sea
@@ -824,9 +715,8 @@ rotación \(o+R(x-o)=x\) sólo fija \(o\) porque \(I-R\) es invertible
 \(v\neq0\). No tiene puntos fijos.
 \end{demostracion}
 
-Este teorema extiende al de clasificación de los movimientos rígidos
-(teorema~\ref{teo:clasificacion-rigidos}): los movimientos rígidos son las isometrías directas,
-y las reflexiones y antitraslaciones completan el cuadro con las inversas.
+Este teorema extiende el teorema~\ref{teo:clasificacion-rigidos}: los movimientos rígidos son
+las isometrías directas, y reflexiones y antitraslaciones completan las inversas.
 
 \subsection{La homotecia escala desde un centro}
 
@@ -897,11 +787,8 @@ Valor de \(k\) & Efecto geométrico\\
 \end{center}
 
 \paragraph{Ejemplo.}
-Con \(o=(1,1)\), \(k=2\) y \(a=(3,2)\):
-\[
-  \homot{o}{2}(a)=(1,1)+2(2,1)=(5,3).
-\]
-La distancia al centro se duplica y la dirección desde \(o\) se conserva.
+Con \(o=(1,1)\), \(k=2\) y \(a=(3,2)\): \(\homot{o}{2}(a)=(1,1)+2(2,1)=(5,3)\). La distancia al
+centro se duplica y la dirección desde \(o\) se conserva.
 
 \subsection{Dos espejos y una homotecia dan una similaridad}
 
@@ -974,9 +861,8 @@ teorema~\ref{teo:rotacion-dos-reflexiones}, \(x\mapsto o+H(\gamma)(x-o)\) es la 
 que en (2) da \(f=\homot{o}{\lambda}\refl{A}=\refl{A}\homot{o}{\lambda}\).
 \end{demostracion}
 
-La homotecia conmuta con las reflexiones cuyos ejes pasan por \(o\), porque todas actúan
-sobre el vector \(x-o\). Sin punto fijo sólo quedan las similaridades de razón \(1\): las
-traslaciones y las antitraslaciones.
+Sin punto fijo solo quedan las similaridades de razón \(1\): las traslaciones y las
+antitraslaciones.
 
 \begin{center}
 \begin{tikzpicture}[scale=.88]
@@ -1012,24 +898,14 @@ el ángulo de \(\alpha\) y escalar por \(\lvert\alpha\rvert\). En matrices,
 \(S(x)=\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)x+t\).
 
 \emph{Razón y ángulo.} Restando \(S(Q)-S(P)\) desaparece \(\beta\):
-\[
-  \alpha=\frac{Q'-P'}{Q-P}=\frac{5i}{2+i}=\frac{5i\,(2-i)}{5}=1+2i .
-\]
-La razón es \(\lambda=\lvert\alpha\rvert=\sqrt5\approx2{,}236\), que coincide con
+\(\alpha=\frac{Q'-P'}{Q-P}=\frac{5i}{2+i}=\frac{5i\,(2-i)}{5}=1+2i\). La razón es \(\lambda=\lvert\alpha\rvert=\sqrt5\approx2{,}236\), que coincide con
 \(\lVert P'Q'\rVert/\lVert PQ\rVert=5/\sqrt5\), y el ángulo es
 \(\theta=\operatorname{atan2}(2,1)\approx63{,}43^\circ\).
 
-\emph{Traslación.} \(\beta=P'-\alpha P=(-3-i)-(1+2i)(1+i)=(-3-i)-(-1+3i)=-2-4i\), es decir
-\[
-  S(x,y)=(x-2y-2,\ 2x+y-4),
-\]
-y en efecto \(S(3,2)=(-3,4)\).
+\emph{Traslación.} \(\beta=P'-\alpha P=(-3-i)-(1+2i)(1+i)=(-3-i)-(-1+3i)=-2-4i\), o sea \(S(x,y)=(x-2y-2,\ 2x+y-4)\), y en efecto \(S(3,2)=(-3,4)\).
 
 \emph{Centro.} El punto fijo cumple \(c=\alpha c+\beta\):
-\[
-  c=\frac{\beta}{1-\alpha}=\frac{-2-4i}{-2i}=2-i,
-\]
-o sea \(c=(2,-1)\); en matrices, \((I-A)c=t\) con
+\(c=\frac{\beta}{1-\alpha}=\frac{-2-4i}{-2i}=2-i\), o sea \(c=(2,-1)\); en matrices, \((I-A)c=t\) con
 \(I-A=\left(\begin{smallmatrix}0&2\\-2&0\end{smallmatrix}\right)\) da lo mismo. Control:
 \(\lVert P-c\rVert=\lVert(-1,2)\rVert=\sqrt5\) y \(\lVert P'-c\rVert=\lVert(-5,0)\rVert=5=\sqrt5\cdot\sqrt5\),
 y el ángulo de \(P-c\) a \(P'-c\) es \(63{,}43^\circ\).
@@ -1041,34 +917,15 @@ formen un ángulo de \(\theta/2\approx31{,}72^\circ\).
 
 \section{En profundidad}
 
-Tres complementos cierran el capítulo: un ejemplo numérico completo de la descomposición del
-teorema~\ref{teo:similaridad-descomposicion}, el método para recuperar el centro de una
-similaridad a partir de un triángulo y su imagen, y una aplicación topográfica de las
-similaridades directas: la transformación de Helmert.
-
 \subsection{Ejemplo numérico de la descomposición}
 
 \begin{ejemplo}[Una similaridad de razón \(2\) y giro de \(90^\circ\) como dos reflexiones y una homotecia]\label{ej:descomposicion-similaridad}
 Tomemos \(o=(0,0)\), una escala \(\lambda=2\) y una rotación de \(90^\circ\). Para el
-triángulo
-\[
-  a=(1,0),\qquad b=(0,1),\qquad c=(1,1),
-\]
-la similaridad
-\[
-  S(x)=2R(90^\circ)x
-\]
-produce
-\[
-  a'=(0,2),\qquad b'=(-2,0),\qquad c'=(-2,2).
-\]
-Se elige como primer eje de reflexión \(B\) el eje \(x\), y como segundo eje \(A\) la recta
-\(y=x\), que forma \(45^\circ\) con \(B\). Entonces
-\[
-  \varphi_A\varphi_B=R(90^\circ),
-\]
-porque el giro resultante es el doble del ángulo entre los ejes. Finalmente, la homotecia
-\(\eta_o^2\) duplica todas las distancias al origen:
+triángulo \(a=(1,0)\), \(b=(0,1)\), \(c=(1,1)\), la similaridad \(S(x)=2R(90^\circ)x\) produce
+\(a'=(0,2)\), \(b'=(-2,0)\), \(c'=(-2,2)\). Elegimos como primer eje de reflexión \(B\) el eje
+\(x\), y como segundo eje \(A\) la recta \(y=x\), que forma \(45^\circ\) con \(B\). Entonces
+\(\varphi_A\varphi_B=R(90^\circ)\), porque el giro resultante es el doble del ángulo entre los
+ejes. Finalmente, la homotecia \(\eta_o^2\) duplica todas las distancias al origen:
 \[
   \boxed{S=\varphi_A\varphi_B\eta_o^2}.
 \]
@@ -1078,26 +935,15 @@ desde \(o\).
 
 \subsection{El centro de una similaridad a partir de un triángulo y su imagen}
 
-Supongamos que una similaridad directa lleva los vértices
-\[
-  a\mapsto a',\qquad b\mapsto b',\qquad c\mapsto c'.
-\]
-Primero se determina el factor de escala y el ángulo:
+Supongamos que una similaridad directa lleva los vértices \(a\mapsto a'\), \(b\mapsto b'\),
+\(c\mapsto c'\). Primero determinamos el factor de escala y el ángulo:
 \[
   \lambda=\frac{\lVert b'-a'\rVert}{\lVert b-a\rVert},
   \qquad
   \theta=\angle\bigl(b-a,b'-a'\bigr).
 \]
-Con estos datos, el centro \(o\) satisface
-\[
-  a'=o+\lambda R(\theta)(a-o).
-\]
-Reordenando:
-\[
-  \bigl(I-\lambda R(\theta)\bigr)o
-  =a'-\lambda R(\theta)a,
-\]
-y, como la matriz es invertible cuando \(\lambda\neq1\)
+El centro \(o\) satisface \(a'=o+\lambda R(\theta)(a-o)\), o sea
+\(\bigl(I-\lambda R(\theta)\bigr)o=a'-\lambda R(\theta)a\), y, como la matriz es invertible cuando \(\lambda\neq1\)
 (teorema~\ref{teo:similaridad-descomposicion}) o cuando \(\lambda=1\) y \(\theta\neq0\)
 (proposición~\ref{prop:traslacion-rotacion}),
 \[
@@ -1111,22 +957,10 @@ El mismo resultado debe obtenerse usando \(b\mapsto b'\) o \(c\mapsto c'\).
 
 \paragraph{Construcción geométrica.}
 Como la similaridad multiplica todas las distancias al centro por \(\lambda\),
-\[
-  \lVert o-a'\rVert=\lambda\lVert o-a\rVert,
-  \qquad
-  \lVert o-b'\rVert=\lambda\lVert o-b\rVert.
-\]
-El primer lugar geométrico es el círculo de Apolonio asociado al par \((a,a')\), y el segundo
-es el correspondiente a \((b,b')\). Sus intersecciones proporcionan los centros candidatos.
-Se elige el que verifica el ángulo orientado \(\theta\). Si \(\lambda=1\), ambos lugares se
+\(\lVert o-a'\rVert=\lambda\lVert o-a\rVert\) y \(\lVert o-b'\rVert=\lambda\lVert o-b\rVert\). El primer lugar geométrico es el círculo de Apolonio del par \((a,a')\); el segundo, el de
+\((b,b')\). Sus intersecciones son los centros candidatos, y se elige el que verifica el
+ángulo orientado \(\theta\). Si \(\lambda=1\), ambos lugares se
 reducen a las mediatrices de \(aa'\) y \(bb'\), como ocurre en una rotación pura.
-
-\begin{resultado}[Verificación constructiva del teorema~\ref{teo:similaridad-descomposicion}]
-El centro se obtiene como intersección de dos condiciones geométricas de razón de distancias.
-Una vez hallado, todos los segmentos que parten de \(o\) se escalan por \(\lambda\) y giran
-el mismo ángulo \(\theta\): son los dos factores de la descomposición
-\(f=\refl{A}\refl{B}\homot{o}{\lambda}\), vistos ahora en el dibujo y en la cuenta.
-\end{resultado}
 
 \subsection{Aplicación topográfica: pasar un levantamiento local al sistema oficial}\label{sec:aplicacion-helmert}
 
@@ -1134,11 +968,10 @@ Un levantamiento con estación total suele hacerse en un sistema local arbitrari
 la orientación de los ejes \(x\), \(y\) se eligen en el terreno, por comodidad. Para integrarlo a
 la cartografía hay que expresarlo en el sistema oficial, aquí coordenadas Gauss-Krüger de la
 faja~5: \(E\) hacia el este y \(N\) hacia el norte, en metros. Entre los dos sistemas hay una
-traslación, una rotación y, además, un factor de escala apenas distinto de \(1\), porque las
-distancias medidas en el terreno no coinciden exactamente con las distancias en el plano de
-la proyección. En el sistema oficial argentino Gauss-Krüger la coordenada \(X\) es el norte y
-la \(Y\) el este, con el número de faja como prefijo de \(Y\); en este apunte se escribe
-\((E,N)\) por claridad. Las tres cosas juntas forman una similaridad directa (sección~\ref{sec:escalar}):
+traslación, una rotación y un factor de escala apenas distinto de \(1\), porque las
+distancias medidas en el terreno no coinciden con las del plano de la proyección (sobre el
+orden \((E,N)\), véase la caja de la sección~\ref{caja:convencion-en}). Las tres cosas juntas forman una
+similaridad directa (sección~\ref{sec:escalar}):
 \[
   \begin{pmatrix}E\\N\end{pmatrix}
   =\begin{pmatrix}t_E\\t_N\end{pmatrix}
@@ -1159,7 +992,7 @@ ejemplo~\ref{ej:similaridad-segmento}: en complejos,
 transformación de Helmert en el plano.
 
 \paragraph{Datos.} Dos puntos de control tienen coordenadas en ambos sistemas; de otros tres
-sólo se conocen las locales.
+solo se conocen las locales.
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
@@ -1264,76 +1097,27 @@ ahora es \(C_2\) el que no cierra, con una discrepancia de \((0{,}014;\ 0{,}043)
 datos de una similaridad exacta: unos pocos centímetros son compatibles con errores de
 medición, mientras que un residuo grande delata un punto mal identificado o mal medido.
 Repartir esa discrepancia entre todos los puntos de control de la mejor manera posible es el
-problema de mínimos cuadrados, que se trata en otro capítulo.
+problema de mínimos cuadrados (capítulo~\ref{cap:cuatro-problemas}).
 
 \section{Ejercicios con solución}
 
-\subsection{Resumen de resultados}
-
-\begin{center}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{31mm} X X}
-\toprule
-Objeto & Fórmula & Resultado clave\\
-\midrule
-Reflexión puntual &
-\(\rho_b(x)=2b-x\) &
-involución con único punto fijo \(b\)\\
-Dos reflexiones puntuales &
-\(\rho_a\rho_b(x)=x+2(a-b)\) &
-traslación\\
-Tres reflexiones puntuales &
-\(\rho_a\rho_b\rho_c=\rho_d,\ d=a-b+c\) &
-\(a,b,c,d\) forman paralelogramo\\
-Reflexión en recta &
-\(\varphi_B(x)=x-2\frac{n\cdot x-c}{\|n\|^2}n\) &
-el eje queda fijo\\
-Ejes paralelos &
-\(\varphi_A\varphi_B(x)=x+2(\alpha-\beta)n\) &
-traslación perpendicular\\
-Ejes secantes &
-\(\varphi_A\varphi_B=R_{o,2\theta}\) &
-rotación alrededor de la intersección\\
-Traslación y rotación &
-\(T_vQ_c\neq Q_cT_v\) en general &
-mismo ángulo, centros distintos\\
-Homotecia &
-\(\eta_o^k(x)=o+k(x-o)\) &
-distancias multiplicadas por \(|k|\)\\
-Isometría &
-a lo sumo tres reflexiones &
-identidad, traslación, rotación, reflexión o antitraslación\\
-Similaridad directa &
-\(S=\varphi_A\varphi_B\eta_o^\lambda\) &
-escala y rotación con centro fijo\\
-Similaridad inversa &
-\(S=\varphi_A\eta_o^\lambda\) &
-escala y reflexión con centro fijo\\
-Helmert en el plano &
-\(E=ax-by+t_E,\ N=bx+ay+t_N\) &
-\(\lambda=\sqrt{a^2+b^2}\), \(\theta=\operatorname{atan2}(b,a)\)\\
-\bottomrule
-\end{tabularx}
-\end{center}
-
-\subsection{Ejercicios}
-
 \begin{ejercicio}\label{ex:refl-dos-puntuales}
-Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calcular \(\rho_a\rho_b(x)\) paso a paso y
-verificar que coincide con \(x+2(a-b)\). Dibujar los cinco puntos relevantes.
+Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calculá \(\rho_a\rho_b(x)\) paso a paso y
+verificá que coincide con \(x+2(a-b)\). Dibujá los cinco puntos relevantes.
 \end{ejercicio}
 \solucion{\(\rho_b(4,3)=2(-1,2)-(4,3)=(-6,1)\) y \(\rho_a(-6,1)=2(2,-1)-(-6,1)=(10,-3)\).
 Como \(2(a-b)=(6,-6)\), también \((4,3)+(6,-6)=(10,-3)\). En el dibujo, \(b\) es el punto
 medio entre \(x\) y \((-6,1)\), y \(a\) el punto medio entre \((-6,1)\) y \((10,-3)\).}
 
 \begin{ejercicio}\label{ex:refl-paralelogramo}
-Dados \(a=(1,0)\), \(b=(3,1)\) y \(c=(5,4)\), construir \(d=a-b+c\). Verificar con vectores
+Dados \(a=(1,0)\), \(b=(3,1)\) y \(c=(5,4)\), construí \(d=a-b+c\). Verificá con vectores
 que \(abcd\) es un paralelogramo.
 \end{ejercicio}
 \solucion{\(d=a-b+c=(3,3)\). Se verifica \(b-a=c-d=(2,1)\) y \(c-b=d-a=(2,3)\): los lados
 opuestos son iguales y paralelos.}
 
 \begin{ejercicio}\label{ex:refl-recta}
-Reflejar \(x=(3,4)\) respecto de \(B:\ 2x-y=1\) usando (a) la fórmula con el vector normal;
+Reflejá \(x=(3,4)\) respecto de \(B:\ 2x-y=1\) usando (a) la fórmula con el vector normal;
 (b) la proyección perpendicular; (c) una construcción gráfica.
 \end{ejercicio}
 \solucion{Con \(n=(2,-1)\), \(\lVert n\rVert^2=5\) y \(n\cdot(3,4)-1=1\): (a)
@@ -1344,16 +1128,16 @@ y \(2p-x\) da el mismo reflejo. (c) Se traza por \(x\) la perpendicular a \(B\) 
 \(\lVert x-p\rVert=1/\sqrt5\).}
 
 \begin{ejercicio}\label{ex:refl-ejes-paralelos}
-Componer las reflexiones respecto de \(B:\ y=0\) y \(A:\ y=3\). Repetir invirtiendo el orden y
-comparar los vectores de traslación.
+Componé las reflexiones respecto de \(B:\ y=0\) y \(A:\ y=3\). Repetí invirtiendo el orden y
+compará los vectores de traslación.
 \end{ejercicio}
 \solucion{\(\refl{A}\refl{B}(x,y)=(x,\,y+6)\) y \(\refl{B}\refl{A}(x,y)=(x,\,y-6)\). Ambas son
 traslaciones perpendiculares a los ejes, de módulo \(6\), el doble de la distancia entre ellos;
 el orden invierte el sentido.}
 
 \begin{ejercicio}\label{ex:refl-30}
-Tomar dos rectas por el origen que formen \(30^\circ\). Multiplicar sus matrices de reflexión y
-comprobar que resulta una rotación de \(60^\circ\).
+Tomá dos rectas por el origen que formen \(30^\circ\). Multiplicá sus matrices de reflexión y
+comprobá que resulta una rotación de \(60^\circ\).
 \end{ejercicio}
 \solucion{Con \(B\) el eje \(x\) y \(A\) a \(30^\circ\):
 \(H(30^\circ)H(0^\circ)=
@@ -1363,7 +1147,7 @@ comprobar que resulta una rotación de \(60^\circ\).
 =R(60^\circ)\), es decir \(\left(\begin{smallmatrix}0{,}5&-0{,}866\\0{,}866&0{,}5\end{smallmatrix}\right)\).}
 
 \begin{ejercicio}\label{ex:traslacion-rotacion}
-Para \(R=R(90^\circ)\) y \(v=(1,2)\), escribir \(T_vR\) y \(RT_v\). Hallar el punto fijo de cada
+Para \(R=R(90^\circ)\) y \(v=(1,2)\), escribí \(T_vR\) y \(RT_v\). Hallá el punto fijo de cada
 una resolviendo \((I-R)c=t\).
 \end{ejercicio}
 \solucion{\(T_vR(x)=Rx+(1,2)\) y \(RT_v(x)=Rx+Rv=Rx+(-2,1)\). Con
@@ -1372,7 +1156,7 @@ una resolviendo \((I-R)c=t\).
 centros distintos.}
 
 \begin{ejercicio}\label{ex:homotecia-triangulo}
-Dibujar un triángulo y aplicarle una homotecia de centro exterior con \(k=\frac32\). Comprobar
+Dibujá un triángulo y aplicale una homotecia de centro exterior con \(k=\frac32\). Comprobá
 que las longitudes se multiplican por \(\frac32\) y que los lados correspondientes son
 paralelos.
 \end{ejercicio}
@@ -1382,8 +1166,8 @@ pasan de longitud \(2\) a \(3\), y \(B'-A'=\frac32(B-A)\), \(C'-A'=\frac32(C-A)\
 paralelos.}
 
 \begin{ejercicio}\label{ex:similaridad-40}
-Elegir una escala \(\lambda=2\) y una rotación de \(40^\circ\) con centro \(o=(1,1)\). Escribir la
-similaridad \(S(x)=o+2R(40^\circ)(x-o)\), calcular \(S(2,1)\) y proponer dos ejes de reflexión
+Elegí una escala \(\lambda=2\) y una rotación de \(40^\circ\) con centro \(o=(1,1)\). Escribí la
+similaridad \(S(x)=o+2R(40^\circ)(x-o)\), calculá \(S(2,1)\) y proponé dos ejes de reflexión
 cuya composición produzca el giro.
 \end{ejercicio}
 \solucion{Dos ejes por \(o=(1,1)\): \(B\) con dirección \(0^\circ\) y \(A\) con dirección
@@ -1394,7 +1178,7 @@ razón \(2\), \(S=\refl{A}\refl{B}\homot{o}{2}\). Por ejemplo,
 \begin{ejercicio}\label{ex:helmert-inversa}
 Con los parámetros de la aplicación de la sección~\ref{sec:aplicacion-helmert}
 (\(a=0{,}884305017\), \(b=0{,}467226434\), \(t_E=5\,432\,100{,}000\), \(t_N=6\,154\,300{,}001\)),
-hallar la transformación inversa, del sistema oficial al local, y su escala y giro. Aplicarla a
+hallá la transformación inversa, del sistema oficial al local, y su escala y giro. Aplicala a
 las coordenadas oficiales de \(F\) y al dato oficial de \(C_3\).
 \end{ejercicio}
 \solucion{La inversa de \(\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)\) es
@@ -1407,8 +1191,8 @@ escala \(1/\lambda=0{,}9998521\) y giro \(-27{,}84993^\circ\). Para \(F\) se rec
 locales.}
 
 \begin{ejercicio}\label{ex:tres-reflexiones-antitraslacion}
-Sean \(A:\ x=0\), \(B:\ y=0\) y \(C:\ y=1\). Calcular \(f=\refl{A}\refl{B}\refl{C}\),
-decidir de qué tipo es según el teorema~\ref{teo:clasificacion-isometrias} y calcular
+Sean \(A:\ x=0\), \(B:\ y=0\) y \(C:\ y=1\). Calculá \(f=\refl{A}\refl{B}\refl{C}\),
+decidí de qué tipo es según el teorema~\ref{teo:clasificacion-isometrias} y calculá
 \(f\circ f\).
 \end{ejercicio}
 \solucion{\(\refl{C}(x,y)=(x,\,2-y)\), \(\refl{B}(x,2-y)=(x,\,y-2)\) y
@@ -1418,7 +1202,7 @@ es imposible, y es inversa (tres reflexiones). Además \(f\circ f(x,y)=(x,\,y-4)
 misma antitraslación dan una traslación.}
 
 \begin{ejercicio}\label{ex:refl-dos-puntuales-general}
-Dados \(a\neq b\), demostrar que \(\rho_a\circ\rho_b\) no tiene puntos fijos.
+Dados \(a\neq b\), demostrá que \(\rho_a\circ\rho_b\) no tiene puntos fijos.
 \end{ejercicio}
 \solucion{\(\rho_a\rho_b(x)=x+2(a-b)\). Si existiera un punto fijo, \(x+2(a-b)=x\) daría
 \(a=b\), lo que contradice \(a\neq b\). Por lo tanto \(\operatorname{Fix}(\rho_a\rho_b)=\varnothing\)
@@ -1427,7 +1211,7 @@ desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer e
 \(a=b\), las dos reflexiones se anulan y la composición es la identidad.}
 
 \begin{ejercicio}\label{ex:refl-cuatro-rectas}
-Dadas cuatro rectas \(a,b,c,d\), hallar, por un método analítico y por uno gráfico, el punto
+Dadas cuatro rectas \(a,b,c,d\), hallá, por un método analítico y por uno gráfico, el punto
 fijo de \(F=\refl{a}\refl{b}\refl{c}\refl{d}\), si existe.
 \end{ejercicio}
 \solucion{Cada reflexión en una recta es una afinidad \(\refl{i}(x)=H_ix+q_i\), con \(H_i\)

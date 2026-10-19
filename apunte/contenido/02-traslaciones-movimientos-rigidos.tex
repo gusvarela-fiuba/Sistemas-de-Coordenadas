@@ -3,11 +3,11 @@
 
 \section{La idea}
 
-Una traslación mueve todos los puntos la misma cantidad en la misma dirección; una rotación los
-hace girar alrededor de un centro. Componiendo las dos se obtienen todos los movimientos que
-un cuerpo rígido puede hacer en el plano: es lo que hace falta para pasar una figura de un
-sistema de coordenadas a otro del mismo tamaño y la misma orientación, por ejemplo un
-relevamiento hecho desde un instrumento al sistema de una obra.
+El capítulo~\ref{cap:rotaciones} dejó la rotación alrededor de un centro \(c\neq o\) como una
+transformación que no es lineal; ahora le agregamos la traslación, que tampoco lo es, y las
+componemos. Una traslación mueve todos los puntos la misma cantidad en la misma dirección;
+componiéndola con rotaciones se obtienen todos los movimientos de un cuerpo rígido en el plano,
+los que llevan, por ejemplo, un relevamiento del sistema del instrumento al de una obra.
 
 \begin{definicion}[Traslación]\label{def:traslacion}
 La \emph{traslación de vector \(v\)} es la transformación \(\tau_v\colon\mathbb{R}^2\to\mathbb{R}^2\),
@@ -20,13 +20,9 @@ coordenadas homogéneas (sección~\ref{sec:homogeneas-rotacion}, punto \((x,y,1)
 \end{definicion}
 
 \paragraph{Por qué coordenadas homogéneas.}\label{sec:homogeneas-traslacion}
-La traslación no es lineal en \((x,y)\): si \(v\neq0\) mueve el origen, y toda transformación
-lineal lo deja fijo (proposición~\ref{prop:lineal-origen}), así que ninguna matriz \(2\times2\)
-la representa. En coordenadas homogéneas, en cambio, es la matriz \(3\times3\) de la
-definición, y por eso se compone multiplicando: el producto de las matrices de \(\tau_w\) y
-\(\tau_v\) es la de \(\tau_{v+w}\), y una rotación seguida de una traslación también es un
-producto de matrices \(3\times3\) (sección~\ref{sec:grupo-rigidos}). La teoría completa está en
-el capítulo~\ref{cap:afines}.
+Si \(v\neq0\), la traslación mueve el origen y no es lineal (proposición~\ref{prop:lineal-origen});
+en homogéneas es la matriz de la definición y se compone multiplicando: \(\tau_w\tau_v=\tau_{v+w}\)
+(sección~\ref{sec:grupo-rigidos}).
 
 \begin{definicion}[Movimiento rígido]\label{def:movimiento-rigido}
 Un \emph{movimiento rígido} del plano es una transformación que conserva las distancias y la
@@ -37,39 +33,26 @@ F(x)=R(\theta)\,x+v,
 con \(R(\theta)\) la rotación lineal del capítulo~\ref{cap:rotaciones} y \(v\) un vector.
 \end{definicion}
 
-(La equivalencia sale de que componer \(x\mapsto R_1x+v_1\) con \(x\mapsto R_2x+v_2\) da
-\(x\mapsto R_2R_1x+(R_2v_1+v_2)\), de la misma forma; se desarrolla en la
-sección~\ref{sec:grupo-rigidos}.)
-
 \subsection{Componer transformaciones con centros distintos}\label{sec:componer-centros}
 
 Supongamos que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
-\(90^\circ\) alrededor de otro punto \(c_2\). Cada etapa es una rotación, pero ninguno de los
-dos centros queda fijo en el resultado: \(c_1\) no se mueve en la primera etapa pero sí en la
-segunda, y \(c_2\) se mueve en la primera. La pregunta natural es si el resultado sigue siendo
-una rotación y, en ese caso, dónde está su centro.
-
-La respuesta (proposición de la sección~\ref{sec:composicion-rotaciones}) es que los ángulos
-se suman y que aparece un centro nuevo, distinto de los dos originales; en el ejemplo, una
-rotación de \(180^\circ\). Solo cuando los ángulos se cancelan el resultado es una traslación,
-que no tiene punto fijo.
-
-Si una de las dos etapas es una homotecia \(\homot{c_2}{k}\) en lugar de una rotación, la parte
-lineal resulta \(kR(\theta)\) y la composición es una similaridad, que también tiene un único
-punto fijo cuando \(k\neq1\) (capítulo~\ref{cap:reflexiones}).
+\(90^\circ\) alrededor de otro punto \(c_2\). Ninguno de los dos centros queda fijo en el
+resultado. ¿Sigue siendo una rotación? Sí: los
+ángulos se suman y aparece un centro nuevo (sección~\ref{sec:composicion-rotaciones}); solo
+cuando los ángulos se cancelan el resultado es una traslación, sin punto fijo. Si una de las
+etapas es una homotecia \(\homot{c_2}{k}\), la parte lineal resulta \(kR(\theta)\) y la
+composición es una similaridad, con un único punto fijo cuando \(k\neq1\)
+(capítulo~\ref{cap:reflexiones}).
 
 \paragraph{Movimiento discreto y trayectoria imaginada.}
-Una transformación lleva cada punto directamente a su imagen. Dibujar el movimiento como
-``primero un arco alrededor de \(c_1\), después otro arco alrededor de \(c_2\)'' es una
-interpolación útil para seguir las dos etapas, pero no forma parte de la transformación
-compuesta: el arco único alrededor del centro nuevo une los mismos extremos por otro camino.
+Una transformación lleva cada punto directamente a su imagen. El dibujo \enquote{un arco
+alrededor de \(c_1\), después otro alrededor de \(c_2\)} sigue las dos etapas, pero no es la
+transformación compuesta: su arco único, alrededor del centro nuevo, une los mismos extremos.
 
 \begin{idea}[Las traslaciones conmutan; las rotaciones de centros distintos no]
 Dos traslaciones compuestas en cualquier orden llevan cada punto al mismo lugar: la suma de
 vectores es conmutativa. Dos rotaciones de centros distintos, en cambio, dan rotaciones con
-\emph{centros finales distintos} según cuál se aplique primero. Todo lo que sigue, desde las
-líneas coordenadas hasta el orden en que se aplican traslación y rotación a un relevamiento,
-depende de saber cuándo el orden importa.
+\emph{centros finales distintos} según cuál se aplique primero.
 \end{idea}
 
 \begin{center}
@@ -106,19 +89,15 @@ depende de saber cuándo el orden importa.
 \end{minipage}
 \end{center}
 
-En la figura de la derecha, el triángulo \(T\) de vértices \((1,1)\), \((3,1)\), \((1,2)\) se
-gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y luego \(90^\circ\) alrededor de
-\(c_2=(4,0)\) (resultado inferior, centro \((2,-2)\)); si se aplican en el orden contrario el
-resultado es otro triángulo (superior) y el centro es \((2,2)\). Por ejemplo, \((1,1)\) va a
-\((3,-5)\) en un orden y a \((3,3)\) en el otro.
+En la figura de la derecha, el triángulo \(T\) gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y
+luego \(90^\circ\) alrededor de \(c_2=(4,0)\) (abajo, centro \((2,-2)\)); en el orden contrario
+queda arriba, con centro \((2,2)\): \((1,1)\) va a \((3,-5)\) en un orden y a \((3,3)\) en el otro.
 
 \paragraph{Un adelanto sobre la esfera.}
-Sobre una esfera los giros alrededor de ejes distintos juegan el papel de los centros distintos
-del plano. Girar un vaso un cuarto de vuelta alrededor de un eje vertical y después un cuarto
-de vuelta alrededor de un eje horizontal no lo deja en la misma posición que hacerlo en el
-orden inverso. El mismo hecho está detrás de ubicar un punto de la esfera con dos giros
-alrededor de ejes distintos (longitud y latitud): por qué el orden importa, y cuál es la
-consecuencia para el sistema de coordenadas, se desarrolla en el capítulo~\ref{cap:esfera}.
+Sobre una esfera, los giros alrededor de ejes distintos juegan el papel de los centros
+distintos: un vaso girado un cuarto de vuelta alrededor de un eje vertical y después de uno
+horizontal no queda como en el orden inverso. Lo mismo pasa al ubicar un punto con longitud y
+latitud (capítulo~\ref{cap:esfera}).
 
 \section{Construcciones, cuentas y ejemplos}
 
@@ -181,11 +160,11 @@ igual radio y el centro va a la imagen del centro.
 \end{proposicion}
 
 \begin{demostracion}
-(3) \(x\) es fijo si y sólo si \(x=R x+w\), o sea \((I-R)x=w\). Se tiene
+(3) \(x\) es fijo si y solo si \(x=R x+w\), o sea \((I-R)x=w\). Se tiene
 \[
 \det(I-R(\theta))=(1-\cos\theta)^2+\sin^2\theta=2-2\cos\theta,
 \]
-que se anula sólo si \(\cos\theta=1\), es decir \(\theta\equiv0\). Si \(\theta\not\equiv0\), la
+que se anula solo si \(\cos\theta=1\), o sea si \(\theta\equiv0\). Si \(\theta\not\equiv0\), la
 matriz \(I-R\) es invertible y hay una única solución. (1) es el caso
 \(w=(I-R)c\): la solución única es \(c\). (2) es el caso \(R=I\): \(x=x+v\) obliga a \(v=0\).
 \end{demostracion}
@@ -213,11 +192,10 @@ son las \emph{líneas coordenadas}, y el par \((u,v)\) son las coordenadas del p
 
 Con dos traslaciones, \(T_u=\tau_{u e_1}\), \(S_v=\tau_{v e_2}\) y \(p_0=0\), se tiene
 \(T_uS_v(0)=(u,v)\): las líneas coordenadas son las rectas \(x=u\) y \(y=v\), la grilla
-cartesiana. Con la rotación \(S_\varphi=\rhoP{0,\varphi}\) y la homotecia
-\(T_r(x)=r\,x\) (\(r>0\)) de centro el origen, que conmutan, y \(p_0=(1,0)\), se tiene
-\(T_rS_\varphi(p_0)=r(\cos\varphi,\sin\varphi)\): las líneas coordenadas son las circunferencias
-\(r=\text{cte}\) y las semirrectas \(\varphi=\text{cte}\), la grilla polar. (Una
-traslación y una rotación no sirven para este fin: no conmutan.)
+cartesiana. Con la rotación \(S_\varphi=\rhoP{0,\varphi}\) y la homotecia \(T_r(x)=r\,x\)
+(\(r>0\)), que conmutan, y \(p_0=(1,0)\), queda \(T_rS_\varphi(p_0)=r(\cos\varphi,\sin\varphi)\):
+circunferencias \(r=\text{cte}\) y semirrectas \(\varphi=\text{cte}\), la grilla polar. Una
+traslación y una rotación no sirven: no conmutan.
 
 \begin{center}
 \begin{minipage}{.48\linewidth}\centering
@@ -245,8 +223,8 @@ traslación y una rotación no sirven para este fin: no conmutan.)
 \end{center}
 
 \begin{atencion}[La conmutatividad es lo que permite usar \((u,v)\) como coordenadas]
-Que \(T_u\) y \(S_v\) conmuten significa que ``primero \(u\), después \(v\)'' y ``primero
-\(v\), después \(u\)'' llegan al mismo punto. Si no conmutaran, el par \((u,v)\) no
+Que \(T_u\) y \(S_v\) conmuten significa que \enquote{primero \(u\), después \(v\)} y \enquote{primero
+\(v\), después \(u\)} llegan al mismo punto. Si no conmutaran, el par \((u,v)\) no
 identificaría un punto: habría que decir en qué orden se aplicaron.
 \end{atencion}
 
@@ -255,10 +233,8 @@ identificaría un punto: habría que decir en qué orden se aplicaron.
 La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
 dos reflexiones, y una reflexión aplicada dos veces se cancela.
 
-La reflexión \(\sigma_L\) respecto de una recta \(L\) deja fijos los puntos de \(L\) y lleva cada
-punto a su simétrico respecto de \(L\) (definición~\ref{def:reflexion-recta}, en el
-capítulo~\ref{cap:reflexiones}). Si \(L\) pasa por el punto \(q\) con ángulo de dirección
-\(\delta\), se escribe
+Si la recta \(L\) pasa por \(q\) con ángulo de dirección \(\delta\), la reflexión en \(L\)
+(definición~\ref{def:reflexion-recta}) se escribe
 \[
 \sigma_L(p)=q+S(\delta)(p-q),\qquad
 S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
@@ -373,11 +349,9 @@ La parte lineal es \(-I=R(180^\circ)\). El punto fijo resuelve \(-c+(4,-4)=c\), 
 
 \subsubsection{Experimento: rotar una figura con dos centros distintos}
 
-Tomemos el triángulo de vértices \((1,1)\), \((3,1)\), \((1,2)\) y apliquemos las dos
-rotaciones del ejemplo~\ref{ej:composicion-centros}. Tras \(\rhoP{c_1,90^\circ}\) los vértices
-van a \((-1,1)\), \((-1,3)\), \((-2,1)\); tras \(\rhoP{c_2,90^\circ}\), a \((3,-5)\),
-\((1,-5)\), \((3,-6)\). La rotación única \(\rhoP{(2,-2),180^\circ}\), \(p\mapsto(4,-4)-p\),
-da exactamente los mismos tres puntos: por ejemplo \((4,-4)-(1,1)=(3,-5)\).
+Con el triángulo \(T\) y las rotaciones del ejemplo~\ref{ej:composicion-centros}, los vértices
+van a \((-1,1)\), \((-1,3)\), \((-2,1)\) y después a \((3,-5)\), \((1,-5)\), \((3,-6)\); la
+rotación única \(p\mapsto(4,-4)-p\) da los mismos puntos: \((4,-4)-(1,1)=(3,-5)\).
 
 \begin{center}
 \begin{tikzpicture}[scale=.62]
@@ -397,15 +371,10 @@ da exactamente los mismos tres puntos: por ejemplo \((4,-4)-(1,1)=(3,-5)\).
 \end{tikzpicture}
 \end{center}
 
-El vértice \((1,1)\) recorre primero un arco alrededor de \(c_1\) y después otro alrededor de
-\(c_2\); el resultado final, en cambio, es un único medio giro alrededor de \(c=(2,-2)\), un
-punto que no aparece en ninguna de las dos etapas.
-
-
 \subsection{Toda traslación y toda rotación es un producto de dos reflexiones}\label{sec:t3-t4}
 
-Los dos enunciados siguientes dan la razón de fondo de lo anterior: las reflexiones
-\(\sigma_L\) generan todos los movimientos rígidos.
+La razón de fondo de lo anterior es que las reflexiones \(\sigma_L\) generan todos los
+movimientos rígidos.
 
 \begin{teorema}[Toda traslación es producto de dos reflexiones]\label{teo:traslacion-dos-reflexiones-enunciado}
 Sea \(v\neq0\). Si \(L_1\) y \(L_2\) son rectas paralelas, perpendiculares a \(v\), con \(L_2\)
@@ -413,9 +382,8 @@ a distancia \(|v|/2\) de \(L_1\) en el sentido de \(v\), entonces
 \(\sigma_{L_2}\circ\sigma_{L_1}=\tau_v\).
 \end{teorema}
 
-La demostración usa las reflexiones, que se definen en el capítulo~\ref{cap:reflexiones};
-véase \ref{teo:traslacion-dos-reflexiones}. La parte de las rectas paralelas ya figura en la
-proposición~\ref{prop:dos-reflexiones}.
+La demostración está en el capítulo~\ref{cap:reflexiones} (\ref{teo:traslacion-dos-reflexiones});
+la parte de las paralelas ya figura en la proposición~\ref{prop:dos-reflexiones}.
 
 \begin{ejemplo}[\(v=(4,0)\) con las rectas \(x=0\) y \(x=2\)]\label{ej:t3}
 Las rectas \(L_1\colon x=0\) y \(L_2\colon x=2\) son perpendiculares a \(v\) y están a distancia
@@ -442,9 +410,8 @@ Sea \(\theta\not\equiv0\). Si \(L_1\) y \(L_2\) son rectas por el centro \(c\) y
 \(L_1\) a \(L_2\) es \(\theta/2\), entonces \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{c,\theta}\).
 \end{teorema}
 
-La demostración usa las reflexiones, que se definen en el capítulo~\ref{cap:reflexiones};
-véase \ref{teo:rotacion-dos-reflexiones}. Es el caso (1) de la
-proposición~\ref{prop:dos-reflexiones}.
+La demostración está en el capítulo~\ref{cap:reflexiones} (\ref{teo:rotacion-dos-reflexiones});
+es el caso (1) de la proposición~\ref{prop:dos-reflexiones}.
 
 \begin{ejemplo}[Rotación de \(90^\circ\) en el origen]\label{ej:t4}
 Con \(L_1\colon y=0\) (\(\delta_1=0\)) y \(L_2\colon y=x\) (\(\delta_2=45^\circ\)), el ángulo
@@ -494,15 +461,13 @@ Todo movimiento rígido \(F(x)=R(\theta)x+v\) del plano es una traslación (si
 
 \begin{demostracion}
 Si \(\theta\equiv0\), \(F(x)=x+v=\tau_v(x)\). Si \(\theta\not\equiv0\), por la
-proposición~\ref{prop:puntos-fijos} existe un único punto fijo \(c\), con \(c=Rc+v\), es decir
+proposición~\ref{prop:puntos-fijos} existe un único punto fijo \(c\), con \(c=Rc+v\), o sea
 \(v=(I-R)c\). Entonces \(F(x)=Rx+(I-R)c=c+R(x-c)=\rhoP{c,\theta}(x)\).
 \end{demostracion}
 \comprobacion{teo:clasificacion-rigidos}{SIMBOLICA}
 
-\paragraph{Puente.} Los movimientos rígidos conservan la orientación: \(\det R=1\). Al agregar
-las reflexiones aparecen las isometrías con \(\det=-1\), que invierten la orientación. Son el
-tema del capítulo~\ref{cap:reflexiones}, donde además se ve que todo movimiento rígido
-es un producto de a lo sumo dos reflexiones.
+Los movimientos rígidos conservan la orientación, \(\det R=1\); falta la otra mitad de las
+isometrías, las que la invierten.
 
 \subsection{Aplicación topográfica: llevar una poligonal del sistema del instrumento a un origen de obra}\label{sec:aplicacion-poligonal}
 
@@ -516,10 +481,9 @@ acimut \(\mathrm{Az}_0=37{,}25^\circ\).
 \paragraph{El ángulo de giro.} Por la proposición~\ref{prop:acimut-theta} (sección~\ref{sec:acimut-campo}),
 el ángulo matemático de la dirección del cero del limbo es
 \(\theta_0=90^\circ-\mathrm{Az}_0=52{,}75^\circ\): el eje \(x\) local, que apunta al cero del limbo,
-queda a \(52{,}75^\circ\) antihorarios del este. (Este \(\theta_0\) es el ángulo de la rotación
-que lleva la dirección local \(e_1\) a su dirección en la obra; no se confunde con la corrección
-\(\kappa\) de orientación de lecturas de la sección~\ref{sec:acimut-campo}, medida en sentido
-horario.) La transformación local a obra es una rotación seguida de una traslación,
+queda a \(52{,}75^\circ\) antihorarios del este (no confundir con la corrección horaria
+\(\kappa\) de la sección~\ref{sec:acimut-campo}). La transformación local a obra es una
+rotación seguida de una traslación,
 \[
 x_{\text{obra}}=E+R(\theta_0)\,x_{\text{local}},
 \]
@@ -575,8 +539,6 @@ correcto; hasta \(V_1\) va a \((-986{,}710;\ 2006{,}590)\) en lugar de \(E\). La
 rotar alrededor del origen del instrumento y trasladar después, que es la composición
 \(\tau_E\circ\rhoP{0,\theta_0}\), la matriz \(H\) de arriba.
 
-Dos unidades permiten ver la rotación con centro y la composición de dos reflexiones.
-
 \unidadInteractiva{01b_rotacion_plano}{Rotaciones II: la rotación en el plano}{Explorá: mové el deslizador \(\theta\) y mirá cómo gira el plano alrededor del centro.}
 
 \unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Verificá: componé dos reflexiones y comprobá que el resultado es una rotación.}
@@ -584,22 +546,22 @@ Dos unidades permiten ver la rotación con centro y la composición de dos refle
 \section{Ejercicios con solución}
 
 \begin{ejercicio}
-Calcular \(\rhoP{(2,0),-90^\circ}\circ\rhoP{(0,0),90^\circ}\) y explicar el resultado con la
+Calculá \(\rhoP{(2,0),-90^\circ}\circ\rhoP{(0,0),90^\circ}\) y explicá el resultado con la
 proposición~\ref{prop:composicion-rotaciones}.
 \solucion{Como \(90^\circ+(-90^\circ)=0\), es una traslación: la matriz homogénea es
 \(\left(\begin{smallmatrix}1&0&2\\0&1&2\\0&0&1\end{smallmatrix}\right)\), traslación de vector \((2,2)\).}
 \end{ejercicio}
 
 \begin{ejercicio}
-Hallar el punto fijo de \(F(x)=R(60^\circ)x+(3,0)\) e identificar \(F\).
+Hallá el punto fijo de \(F(x)=R(60^\circ)x+(3,0)\) e identificá \(F\).
 \solucion{\(\det(I-R(60^\circ))=2-2\cos60^\circ=1\), así que existe un único punto fijo:
 \(c'=(I-R)^{-1}(3,0)=\bigl(\tfrac32,\tfrac{3\sqrt3}{2}\bigr)\approx(1{,}5;\,2{,}598)\). \(F\) es la
 rotación de \(60^\circ\) alrededor de \(c'\).}
 \end{ejercicio}
 
 \begin{ejercicio}
-(a) Componer \(\tau_{(3,-1)}\) con \(\tau_{(1,2)}\). (b) Hallar la imagen de \(p=(3,1)\) por
-\(\rhoP{0,90^\circ}\circ\tau_{(1,2)}\) y por \(\tau_{(1,2)}\circ\rhoP{0,90^\circ}\), y decir
+(a) Componé \(\tau_{(3,-1)}\) con \(\tau_{(1,2)}\). (b) Hallá la imagen de \(p=(3,1)\) por
+\(\rhoP{0,90^\circ}\circ\tau_{(1,2)}\) y por \(\tau_{(1,2)}\circ\rhoP{0,90^\circ}\), y decí
 si las composiciones coinciden.
 \solucion{(a) \(\tau_{(4,1)}\), en cualquier orden. (b) \(\rhoP{0,90^\circ}(\tau(p))=R(4,3)=(-3,4)\);
 \(\tau(\rhoP{0,90^\circ}(p))=(-1,3)+(1,2)=(0,5)\). No coinciden: los centros son
@@ -607,14 +569,14 @@ si las composiciones coinciden.
 \end{ejercicio}
 
 \begin{ejercicio}
-Escribir la traslación de vector \(v=(0,6)\) como producto de dos reflexiones y comprobarlo con
+Escribí la traslación de vector \(v=(0,6)\) como producto de dos reflexiones y comprobalo con
 \(p=(2,1)\).
 \solucion{Rectas horizontales a distancia \(|v|/2=3\): por ejemplo \(L_1\colon y=0\) y \(L_2\colon y=3\).
 \(\sigma_{L_1}(2,1)=(2,-1)\) y \(\sigma_{L_2}(2,-1)=(2,7)=p+v\).}
 \end{ejercicio}
 
 \begin{ejercicio}
-Con el mismo \(E=(1000;\,2000)\) pero \(\mathrm{Az}_0=120^\circ\), pasar a coordenadas de obra el
+Con el mismo \(E=(1000;\,2000)\) pero \(\mathrm{Az}_0=120^\circ\), pasá a coordenadas de obra el
 punto local \((50;\,20)\).
 \solucion{\(\theta_0=90^\circ-120^\circ=-30^\circ\). \(R(-30^\circ)(50,20)=(53{,}301;\,-7{,}679)\), y
 \(x_{\text{obra}}=(1053{,}301;\ 1992{,}321)\).}

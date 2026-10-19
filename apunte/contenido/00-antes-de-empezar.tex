@@ -24,49 +24,28 @@ soluciones completas de los ejercicios.\\
 \end{tabularx}
 \end{center}
 
-Esa estructura habilita dos modos de lectura. \emph{Por tema}: se toma un capítulo y se lo
-sigue de punta a punta, de la idea a las cuentas y de ahí a las conexiones. \emph{Por nivel}:
-se leen primero todas las secciones ``La idea'', en el orden de los capítulos, y recién
-después las de cuentas y las de profundidad; es la lectura en capas con la que se
-estudiaba antes.
+Esa estructura habilita dos modos de lectura. \emph{Por tema}: tomamos un capítulo y lo
+seguimos de punta a punta. \emph{Por nivel}: leemos primero todas las secciones
+\enquote{La idea}, en el orden de los capítulos, y recién después las de cuentas y las de
+profundidad.
 
-Los capítulos temáticos son diecinueve:
-
-\begin{enumerate}
-  \item Capítulo~\ref{cap:rotaciones}, \nameref{cap:rotaciones}.
-  \item Capítulo~\ref{cap:traslaciones}, \nameref{cap:traslaciones}.
-  \item Capítulo~\ref{cap:reflexiones}, \nameref{cap:reflexiones}.
-  \item Capítulo~\ref{cap:afines}, \nameref{cap:afines}.
-  \item Complemento~\ref{cap:proyectivas}, \nameref{cap:proyectivas}.
-  \item Capítulo~\ref{cap:formas-lineales}, \nameref{cap:formas-lineales}.
-  \item Capítulo~\ref{cap:subespacios}, \nameref{cap:subespacios}.
-  \item Capítulo~\ref{cap:autovectores}, \nameref{cap:autovectores}.
-  \item Capítulo~\ref{cap:svd}, \nameref{cap:svd}.
-  \item Complemento~\ref{cap:dem}, \nameref{cap:dem}.
-  \item Capítulo~\ref{cap:cambio-base}, \nameref{cap:cambio-base}.
-  \item Capítulo~\ref{cap:derivada}, \nameref{cap:derivada}.
-  \item Capítulo~\ref{cap:inversas}, \nameref{cap:inversas}.
-  \item Capítulo~\ref{cap:cuatro-problemas}, \nameref{cap:cuatro-problemas}.
-  \item Capítulo~\ref{cap:curvatura}, \nameref{cap:curvatura}.
-  \item Capítulo~\ref{cap:elipsoide}, \nameref{cap:elipsoide}.
-  \item Capítulo~\ref{cap:esfera}, \nameref{cap:esfera}.
-  \item Complemento~\ref{cap:conformes}, \nameref{cap:conformes}.
-  \item Complemento~\ref{cap:marcos}, \nameref{cap:marcos}.
-\end{enumerate}
-
-Los quince capítulos numerados cierran con una sección de ejercicios con solución.
-
-La sección~\ref{sec:hilo} ordena los temas en un recorrido único, y los
-apéndices~\ref{ap:bibliografia} y~\ref{ap:notebooks} reúnen la bibliografía comentada y los notebooks.
+Los diecinueve capítulos temáticos, quince numerados y cuatro complementos, figuran en la tabla
+de la sección~\ref{cap:programa}; los numerados cierran con una sección de ejercicios con
+solución. Los apéndices~\ref{ap:bibliografia} y~\ref{ap:notebooks} reúnen la bibliografía
+comentada y los notebooks.
 
 \begin{idea}[Método de estudio: construir, escribir y verificar]
-Para cada definición o teorema conviene producir:
+Para cada definición o teorema, seguí este orden:
 \begin{enumerate}
-  \item una construcción o dibujo que muestre qué puntos se mueven y cuáles quedan fijos;
-  \item una fórmula vectorial;
-  \item un ejemplo numérico que permita comprobar la conclusión;
-  \item una frase que identifique la propiedad esencial: distancia, ángulo, paralelismo,
-  orientación o punto fijo.
+  \item \textbf{Construcción}: dibujá el punto y su imagen; marcá qué se mueve y qué queda fijo.
+  \item \textbf{Movimiento}: describí la trayectoria y el sentido.
+  \item \textbf{Invariantes}: identificá qué no cambia (distancia, ángulo, paralelismo,
+  orientación o punto fijo) y decilo en una frase.
+  \item \textbf{Composición}: seguí los pasos intermedios en el orden correcto.
+  \item \textbf{Traducción algebraica}: escribí la fórmula vectorial o la matriz que resume el
+  dibujo.
+  \item \textbf{Verificación}: usá un ejemplo numérico para comprobar, no para sustituir, la
+  comprensión geométrica.
 \end{enumerate}
 \end{idea}
 
@@ -80,7 +59,7 @@ tipos:
 \begin{itemize}
   \item \textbf{Verificación simbólica}: el programa hace la cuenta con letras (biblioteca
   SymPy) y comprueba que una identidad algebraica vale para todos los valores de las
-  variables. Demuestra esa identidad y sólo esa: no comprueba las hipótesis del enunciado ni
+  variables. Demuestra esa identidad y solo esa: no comprueba las hipótesis del enunciado ni
   los pasos de la demostración que no son cuentas.
   \item \textbf{Comprobación numérica}: el programa genera al menos 200 casos al azar, con
   una semilla fija para que el resultado sea reproducible, y verifica el enunciado en cada
@@ -88,7 +67,7 @@ tipos:
   demostración}: muestra que el enunciado vale en los casos probados y detecta errores de
   signo, de orden o de fórmula, pero no cubre todos los casos posibles.
   \item \textbf{Contraejemplo}: el programa exhibe un caso concreto en el que la afirmación,
-  sin alguna de sus hipótesis o en su forma general, falla: muestra que «en general no vale».
+  sin alguna de sus hipótesis o en su forma general, falla: muestra que \enquote{en general no vale}.
 \end{itemize}
 Lo que justifica cada resultado es la demostración del texto; el código es un control
 independiente de las cuentas.
@@ -101,7 +80,7 @@ independiente de las cuentas.
   \item \(\triangleright\) marca una \emph{unidad interactiva}; \(\circlearrowright\) marca una \emph{animación}.
   \item El texto en \texttt{monoespaciado} es un identificador de archivo o una ruta del sitio, por ejemplo \texttt{unidades/01b\_rotacion\_plano}.
 \end{itemize}
-Las unidades interactivas son cuadernos de marimo (Python) exportados a páginas web que corren en el navegador, sin instalar nada. Se abren desde el sitio \url{\urlsitio} o localmente con \texttt{uv run marimo run unidades/<id>.py}.
+Las unidades interactivas son cuadernos de marimo (Python) exportados a páginas web que corren en el navegador, sin instalar nada. Abrilas desde el sitio \url{\urlsitio} o, en tu máquina, con \texttt{uv run marimo run unidades/<id>.py}.
 \end{resultado}
 
 \subsubsection{Mapa conceptual}
@@ -131,8 +110,7 @@ Las unidades interactivas son cuadernos de marimo (Python) exportados a páginas
 
 \section{Programa}\label{cap:programa}\label{sec:organizacion}
 
-El programa oficial recorre una cadena conceptual que comienza con transformaciones lineales
-y termina en problemas geodésicos y cartográficos:
+El programa va de las transformaciones lineales a los problemas geodésicos y cartográficos:
 \[
 \boxed{\text{álgebra lineal}}
 \longrightarrow
@@ -172,10 +150,8 @@ autálica y planteo de Gauss--Krüger \\
 \end{tabularx}
 \end{center}
 
-El bloque de transformaciones recorre una cadena de familias del plano. La
-figura~\ref{fig:hacia-donde-vamos} muestra el mismo predio transformado por cada una; el mapa
-completo, con lo que conserva cada familia y cuántos puntos homólogos la fijan, está en la
-sección~\ref{sec:mapa-transformaciones}.
+La figura~\ref{fig:hacia-donde-vamos} muestra el mismo predio transformado por cada familia del
+bloque de transformaciones.
 
 \begin{figure}[htbp]
 \centering
@@ -191,8 +167,7 @@ y~\ref{cap:conformes}; el mapa completo está en la sección~\ref{sec:mapa-trans
 
 \subsection{Tabla del programa}
 
-Cada tema del programa tiene su capítulo y su unidad interactiva; los complementos (C1 a C4)
-tratan temas sin lugar propio en la secuencia.
+Los complementos (C1 a C4) tratan temas sin lugar propio en la secuencia.
 
 {\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{9mm}>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{42mm}>{\raggedright\arraybackslash}p{22mm}@{}}
@@ -226,18 +201,16 @@ tratan temas sin lugar propio en la secuencia.
 
 \section{El hilo conductor}\label{cap:hilo}\label{sec:hilo}
 
-La materia no es una lista de temas sueltos sino un
-recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando un bloque parece
-desconectado del anterior, casi siempre es porque cambió la \emph{cara} desde la que se mira
-la misma idea.
+La materia es un recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando
+un bloque parece desconectado del anterior, casi siempre es porque cambió la \emph{cara} desde
+la que miramos la misma idea.
 
 \begin{idea}[Las tres ideas que se repiten]
 \begin{enumerate}
   \item \textbf{Transformaciones, operaciones y coordenadas} son tres caras de lo mismo. Una
   transformación mueve puntos; una operación (componer, multiplicar matrices, hacer un
   producto interno) es la cuenta que la representa; una coordenada es lo que queda cuando se
-  pregunta ``hasta dónde llegué con esta transformación''. Una de las cosas importantes de
-  la materia es entender la relación entre transformaciones, operaciones y coordenadas.
+  pregunta \enquote{hasta dónde llegué con esta transformación}.
   \item \textbf{Ir a lo chico para volver a lo grande.} Una rotación grande es muchas
   rotaciones chiquitas; la derivada de una transformación da vectores tangentes a las
   trayectorias; la exponencial rearma el movimiento completo. La misma jugada reaparece con
@@ -250,15 +223,14 @@ la misma idea.
 \end{enumerate}
 \end{idea}
 
-Antes del bloque 1 va la Unidad 0 del sitio de la materia, ``fundamentos y lenguaje''
-(subsección~\ref{sec:desaprender}): no es un bloque temático sino
-el encuadre del curso con el que conviene entrar a la tabla. El sitio tiene tres capas: el
-hilo conductor (las 20 unidades interactivas en marimo + Python, construidas ladrillo a
-ladrillo en el orden de esta tabla), el mapa de conceptos, para repasar, y este apunte
-formal en \LaTeX{} con las demostraciones (apéndice~\ref{ap:notebooks}).
+Antes del bloque 1 va la Unidad 0 del sitio, \enquote{fundamentos y lenguaje}
+(subsección~\ref{sec:desaprender}), que no es un bloque temático sino el encuadre con el que
+conviene entrar a la tabla. El sitio tiene tres capas: las 20 unidades interactivas en
+marimo, en el orden de la tabla; el mapa de conceptos, para repasar; y este apunte, con las
+demostraciones (apéndice~\ref{ap:notebooks}).
 
-La tabla ubica cada bloque con su idea central, el hecho geométrico que está detrás de la fórmula, y la sección de este apunte donde se
-desarrolla. Regla del apunte: una fórmula sin su hecho geométrico es magia.
+La tabla da, para cada bloque, su idea central, el hecho geométrico que está detrás de la
+fórmula y dónde se desarrolla. Regla del apunte: una fórmula sin su hecho geométrico es magia.
 
 {\small
 \begin{longtable}{>{\raggedright\arraybackslash}p{20mm}>{\raggedright\arraybackslash}p{60mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{28mm}}
@@ -275,78 +247,71 @@ desarrolla. Regla del apunte: una fórmula sin su hecho geométrico es magia.
 \bottomrule
 \endlastfoot
 1. Rotaciones &
-Una rotación implica dejar quieto un punto, mover otro, y en base a esos acomodar todos
-los demás; se puede porque había una estructura de algo que se conservaba (distancias y
-ángulos). Complejos, matrices ortogonales, rotaciones 3D, no conmutatividad, ángulos
-chicos, exponencial. &
+Rotar es dejar quieto un punto, mover otro y acomodar todos los demás a partir de esos dos;
+se puede porque algo se conserva: distancias y ángulos. Complejos, matrices ortogonales,
+rotaciones 3D, no conmutatividad, ángulos chicos, exponencial. &
 Rotación = conservar distancias alrededor de un punto fijo; cada punto recorre una
 circunferencia y multiplicar por \(i\) es girar un cuarto de vuelta. &
 \S\ref{sec:rotar}, \S\ref{sec:rot-plano}, \S\ref{sec:rot-complejos}, \S\ref{sec:rot-3d},
 \S\ref{sec:eje-exp}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales}\\
 2. Más rotaciones, composición y líneas coordenadas &
-En general es necesario para construir un sistema de coordenadas que haya conmutatividad
-a la hora de componer movimientos por coordenadas. El problema de los vasos; rotaciones
-sobre la cáscara de la esfera hacia latitud y longitud. &
+Para construir un sistema de coordenadas, los movimientos que generan cada coordenada
+tienen que conmutar. El problema de los vasos; rotaciones sobre la esfera hacia latitud y
+longitud. &
 Componer en distinto orden lleva a lugares distintos; las trayectorias de un movimiento
 repetido son las líneas coordenadas (meridianos y paralelos). &
 \S\ref{sec:orden-importa}, \S\ref{sec:sistemas-marcos}, \S\ref{sec:curvilineas}\\
 3. Transformaciones afines &
-Una afinidad conserva paralelas las paralelas; con reflexiones se construyen
-rotaciones; un tema insistente es la composición como una operación entre
-transformaciones. Dos escrituras: en \(\R^2\) y en coordenadas homogéneas. &
+Una afinidad mantiene paralelas las paralelas; con reflexiones se construyen rotaciones;
+la composición es una operación entre transformaciones. Dos escrituras: en \(\R^2\) y en
+coordenadas homogéneas. &
 Afinidad = los paralelogramos siguen siendo paralelogramos; dos reflexiones en rectas
 secantes son una rotación; rotar y trasladar repetidamente dibuja círculos alrededor del
 punto fijo. &
 \S\ref{sec:afinidades-primera}, \S\ref{sec:reflejar}, \S\ref{sec:componer-centros},
 \S\ref{sec:homogeneas-primera}, \S\ref{sec:bloque-euclideas}--\S\ref{sec:afinidades-construidas}\\
 4. Espacios lineales, transformaciones lineales y formas lineales &
-Las formas lineales, funciones que van de un espacio vectorial a un escalar; se
-comportan igual que las ecuaciones de las rectas o los planos; una forma lineal se
-transforma con una transformación lineal del lado contrario que un vector. &
+Una forma lineal va de un espacio vectorial a los escalares y se comporta como la ecuación
+de una recta o de un plano; se transforma del lado contrario que un vector. &
 Forma lineal = una regla graduada tirada en el plano: sus curvas de nivel son rectas
 paralelas equiespaciadas; la matriz es una pila de reglas. &
 \S\ref{sec:transf-plano}, \S\ref{sec:formas-lineales}\\
 5. Subespacios y producto cuña &
-El producto cuña, una operación relacionada al determinante que sirve para armar formas
-lineales; construir una transformación lineal que tuviera un vector especial (o varios)
-en el núcleo. &
+El producto cuña, emparentado con el determinante, sirve para armar formas lineales y
+transformaciones lineales con uno o varios vectores elegidos en el núcleo. &
 Producto cuña = área o volumen orientado; vale cero cuando los vectores están alineados;
 una transformación con núcleo aplasta una dirección entera a un punto. &
 \S\ref{sec:vectorial}, \S\ref{sec:determinante}, \S\ref{sec:exterior}, \S\ref{sec:nucleo}\\
 6. Subespacios invariantes y autovectores &
-\((A-\lambda\,Id)\cdot\vec v=0\): hay un vector que está en el núcleo de
-\(A-\lambda\,Id\); los subespacios invariantes de la transformación lineal de
-\(\R^3\) correspondían a los puntos fijos en \(\mathbb{P}\R^2\). &
+\((A-\lambda\,Id)\cdot\vec v=0\): un vector en el núcleo de \(A-\lambda\,Id\); los
+subespacios invariantes de una transformación lineal de \(\R^3\) corresponden a los puntos
+fijos en \(\mathbb{P}\R^2\). &
 Autovector = dirección que cae sobre sí misma; en homogéneas es un punto fijo del plano;
 el cero siempre queda quieto. &
 \S\ref{sec:autovalores}, \S\ref{sec:autovalores-geom}, \S\ref{sec:homografia-fijos}\\
 7. Transformaciones lineales II: subespacios y SVD &
-Encontrar una base privilegiada de la transformación; siempre existe una base
-ortogonal del espacio de entrada que se conserva ortogonal a la salida. Polya y las
-estrategias para resolver problemas. &
+Buscamos una base privilegiada de la transformación: siempre hay una base ortogonal de
+entrada que sigue ortogonal a la salida. Polya y las estrategias para resolver problemas. &
 Diagonalizar = mirar la transformación desde sus direcciones fijas (estiramientos
 axiales); SVD = la circunferencia unidad se vuelve elipse, con ejes ortogonales antes y
 después. &
 \S\ref{sec:autovalores-geom}, \S\ref{sec:svd}, ap.~\ref{ap:notebooks}\\
 8. Cambios de base, autovectores y Marimo &
-El cambio de base se construye con una matriz que tiene en sus columnas los vectores de
-una base expresada en la otra; no parece haber un conjunto de vectores privilegiado
-a priori; potencias de una matriz y trayectorias. &
+El cambio de base es una matriz con los vectores de una base, escritos en la otra, en sus
+columnas; a priori no hay una base privilegiada. Potencias de una matriz y trayectorias. &
 Cambio de base = la misma flecha medida con otra grilla; potencia real de una matriz =
 trayectoria continua de un punto bajo la transformación. &
 \S\ref{sec:cambio-base}, ap.~\ref{ap:notebooks}\\
 9. Repaso de análisis (con álgebra de contrabando) &
-La derivada es la mejor aproximación lineal a una función en determinado punto;
-dato clave: el gradiente es una forma lineal, no un vector. Hessiana como forma
-cuadrática. &
+La derivada es la mejor aproximación lineal de una función en un punto, y el gradiente es
+una forma lineal, no un vector. Hessiana como forma cuadrática. &
 Derivada = el plano tangente; gradiente = forma lineal cuya recta de nivel cero es la
 tangente, perpendicular a la curva de nivel. &
 \S\ref{sec:plano-superficie}, \S\ref{sec:variedades}, \S\ref{sec:metrica},
 \S\ref{sec:formas-lineales}\\
 10. Inversas &
-La inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
-neutro respecto de esa operación; núcleo, imagen, co-imagen y espacio inaccesible;
-pseudoinversa de Moore--Penrose. &
+La inversa se define respecto de una operación: operada con el elemento, da el neutro.
+Núcleo, imagen, coimagen y espacio inaccesible; pseudoinversa de Moore--Penrose. &
 Inversa = deshacer el movimiento; una transformación que pierde dimensiones aplasta y no se
 deshace del todo; la pseudoinversa elige el punto de la imagen más cercano. &
 \S\ref{sec:pseudoinversa}, \S\ref{cap:cuatro-problemas}, \S\ref{sec:sistemas-ecuaciones}\\
@@ -366,18 +331,15 @@ cada tema.
 % --- 03-cbc-nivel1 ---
 \subsection{Lo que trajimos del CBC y qué le cambia la mirada}\label{sec:cbc-mirada}
 
-En Álgebra del CBC cada objeto llegaba con su regla de cálculo: el producto escalar se
-hacía multiplicando componente a componente y sumando, el determinante se desarrollaba por
-una fila, el sistema se triangulaba con Gauss, la inversa salía de pivotear contra la
-identidad. Todas esas reglas siguen valiendo y no las vamos a reemplazar. Lo que cambia es
-la pregunta que hacemos antes de calcular: qué se mueve, qué queda quieto, qué se conserva,
-con qué se mide. Cada cuenta del CBC tiene un significado en el terreno, y la materia
-consiste en leerlo. Transformaciones y
-Operaciones (por ahora definidas coloquialmente) son dos conceptos que van atravesando la
-materia desde el primer capítulo. No agregamos álgebra nueva; cambiamos la pregunta.
+En Álgebra del CBC cada objeto llegaba con su regla de cálculo: el producto escalar se hacía
+multiplicando componente a componente y sumando, el determinante se desarrollaba por una fila,
+el sistema se triangulaba con Gauss, la inversa salía de pivotear contra la identidad. Todas
+esas reglas siguen valiendo. Lo que cambia es la pregunta que hacemos antes de calcular: qué se
+mueve, qué queda quieto, qué se conserva, con qué se mide. Cada cuenta del CBC tiene un
+significado en el terreno, y la materia consiste en leerlo.
 
-La tabla recorre los temas del CBC en el orden en que suelen aparecer y dice, en una línea,
-cómo los miramos acá y en qué capítulo vuelven.
+La tabla recorre los temas del CBC y dice, en una línea, cómo los miramos acá y en qué
+capítulo vuelven.
 
 {\small
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{30mm} Y >{\raggedright\arraybackslash}p{17mm}}
@@ -414,7 +376,7 @@ producto es la composición. &
 cap.~\ref{cap:rotaciones}, cap.~\ref{cap:formas-lineales}\\
 Inversa \(A^{-1}\) &
 Deshacer el movimiento. La inversa se dice respecto de una operación: le llamamos a algo
-``inversa con respecto a \ldots''. Es el opuesto para la suma, el
+\enquote{inversa con respecto a \ldots}. Es el opuesto para la suma, el
 recíproco para el producto, la transformación que devuelve cada punto a su lugar para la
 composición. &
 cap.~\ref{cap:subespacios}, cap.~\ref{cap:inversas}\\
@@ -443,10 +405,9 @@ cap.~\ref{cap:reflexiones}, cap.~\ref{cap:derivada}\\
 
 \subsubsection*{Los cuatro cambios de chip, en \(\R\) y en \(\R^2\)}
 
-Las cuatro maneras de soltar el reflejo del CBC que usa este curso (las unidades
-interactivas las llaman ``cambios de chip'') las desarrollamos, como ladrillos, en la
-sección~\ref{sec:desaprender}. Acá alcanza con un ejemplo mínimo de cada una, primero sobre
-la recta y después en el plano.
+Las unidades llaman \enquote{cambios de chip} a cuatro maneras de soltar los reflejos del
+CBC; la sección~\ref{sec:desaprender} las desarrolla. Acá va un ejemplo mínimo de cada una,
+primero sobre la recta y después en el plano.
 
 \paragraph{1. No hay flechas flotando: todo vector es un punto o un desplazamiento entre
 mojones.}
@@ -471,7 +432,7 @@ transforman al revés. En el plano, la recta \(2x+y=4\) es la regla \(\omega=(2\
 leída en el nivel \(4\); el punto \((1,2)\) está sobre ella porque \(2\cdot1+2=4\).
 Estiramos el eje \(x\) con \(A=\mathrm{diag}(2,1)\): el punto va a \((2,2)\) y la regla va a
 \(\omega A^{-1}=(1\ \ 1)\), que lo sigue leyendo en \(4\). Si en cambio movemos \((2,1)\)
-como si fuera una flecha, obtenemos \((4,1)\), y la ``recta'' \(4x+y\) lee \(10\) en el
+como si fuera una flecha, obtenemos \((4,1)\), y la \enquote{recta} \(4x+y\) lee \(10\) en el
 punto movido: ya no pasa por él. El hecho geométrico: una regla se dibuja como un mazo de
 rectas de nivel equiespaciadas, y si el plano se estira, las marcas se juntan.
 
@@ -485,7 +446,7 @@ terreno
   u^TGv=4-1=3,\qquad \|u\|_G=\|v\|_G=\sqrt5,\qquad \cos\alpha=\tfrac35,\quad
   \alpha\approx53{,}13^\circ .
 \]
-El hecho geométrico: ``perpendicular'' y ``largo'' son preguntas a la métrica, no a la
+El hecho geométrico: \enquote{perpendicular} y \enquote{largo} son preguntas a la métrica, no a la
 grilla.
 
 \paragraph{4. Álgebra y análisis son la misma materia.}
@@ -494,8 +455,7 @@ En \(\R\), cerca de \(x=3\), \(f(x)=x^2\) se comporta como la multiplicación po
 escala los pasitos. En el plano, las coordenadas polares \((r,\theta)\mapsto(r\cos\theta,
 r\sin\theta)\) tienen en \((2,0)\) la jacobiana \(J=\mathrm{diag}(1,2)\): un pasito
 \(d\theta=0{,}01\) se vuelve un arco de \(0{,}02\) metros, y \(J^TJ=\mathrm{diag}(1,4)\) es
-la métrica de esa grilla, la \(G\) del cambio anterior. Es la jugada de
-ir a lo chico para volver a lo grande.
+la métrica de esa grilla, la \(G\) del cambio anterior: ir a lo chico para volver a lo grande.
 
 \subsubsection*{Un mismo objeto con las dos miradas: el cuarto de vuelta}
 
@@ -504,9 +464,7 @@ En el CBC, girar \(90^\circ\) era multiplicar por una matriz:
   R=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad
   R\begin{pmatrix}2\\1\end{pmatrix}=\begin{pmatrix}-1\\2\end{pmatrix}.
 \]
-Con eso termina la cuenta del CBC. Una rotación implica dejar quieto un
-punto, mover otro, y en base a esos acomodar todos los demás, y
-cada propiedad de \(R\) tiene su dibujo.
+Ahí termina la cuenta del CBC. Ahora cada propiedad de \(R\) tiene su dibujo.
 
 \emph{Es una operación de un grupo.} Componerla consigo misma da media vuelta,
 \(R^2=-I\), y cuatro veces vuelve a la identidad, \(R^4=I\). Su inversa es girar en sentido
@@ -529,7 +487,7 @@ perpendicular al radio porque \(2\cdot(-1)+1\cdot2=0\): tangente a la circunfere
 cuarto de vuelta es a la vez un salto y el campo de velocidades del giro continuo.
 
 \emph{Tiene un único punto fijo.} \(Rx=x\) pide \((-y,x)=(x,y)\), es decir \(x=-y\) e
-\(y=x\), y eso sólo lo cumple el origen. El centro es lo único que no se mueve; si giramos
+\(y=x\), y eso solo lo cumple el origen. El centro es lo único que no se mueve; si giramos
 alrededor de otro centro \(c\), con \(x\mapsto c+R(x-c)\), el punto fijo pasa a ser \(c\).
 
 \emph{No tiene direcciones propias reales.} El polinomio característico es
@@ -550,7 +508,7 @@ antes; \(i^2=-1\) es \(R^2=-I\), y \(1/i=-i\) es \(R^T\). Multiplicar por \(i\) 
 el \(0\) son \(x\mapsto x\) y \(x\mapsto-x\): un cuarto de vuelta pediría un número \(a\)
 con \(a^2=-1\), y no lo hay. En \(\R^2\) aparece, y es \(R\). En \(\R^3\) el cuarto de vuelta
 alrededor del eje \(z\) agrega una dirección quieta, el eje: autovalor \(1\) junto a
-\(\pm i\). En \(\R^n\) el mismo dibujo se repite: planos que giran como éste y direcciones
+\(\pm i\). En \(\R^n\) el mismo dibujo se repite: planos que giran como este y direcciones
 que quedan quietas.
 
 \begin{idea}[Qué conviene traer del CBC y qué conviene soltar]
@@ -565,79 +523,62 @@ regla se mide.
 
 \subsection{Los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
 
-{\small\vspace{1mm}\linkUnidad{00_fundamentos}{Simulación interactiva: Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)}\par}
-
-
-Desarrollo complementario, armado sobre los capítulos~\ref{cap:rotaciones},
-\ref{cap:formas-lineales} y~\ref{cap:derivada} y la
-bibliografía. El álgebra y el análisis del CBC dejan
-reflejos que funcionan en el papel y que esta materia pide cambiar, no porque estén mal
-sino porque acá los objetos tienen un significado en el terreno. Para leer el resto con una
-sola cabeza alcanzan cinco ladrillos, en orden deductivo: cada uno usa sólo los anteriores.
-La Unidad 0 del sitio (\texttt{00\_desaprender\_el\_cbc}, apéndice~\ref{ap:notebooks}) los
-trabaja con figuras y ejercicios en Python; la subsección~\ref{sec:puntos-formas-grillas}
-los resume en una tabla. \begin{enumerate}
-  \item \textbf{Conjuntos, operaciones y grupos.} Un grupo es un conjunto con una
-  operación interna asociativa, un neutro y una inversa para cada elemento; si el orden no
-  importa, conmuta. Es el molde de todo lo que la materia llama \emph{transformación}:
-  Transformaciones y Operaciones son dos conceptos que van atravesando la
-  materia, y la inversa, dicha para todos los casos a la vez,
-  es un elemento de un conjunto que, al operar con otro, resulta en el elemento neutro
-  respecto de esa operación. Los giros de la estación total
-  alrededor de su eje vertical conmutan; los de \(\R^3\) no, porque la composición de
-  transformaciones lineales no es conmutativa. En NumPy:
-  \texttt{A @ B}, \texttt{np.eye(n)}, \texttt{np.linalg.solve(A, y)}.
+El álgebra y el análisis del CBC dejan reflejos que funcionan en el papel y que esta materia
+pide cambiar, porque acá los objetos tienen un significado en el terreno. Para leer el resto
+con una sola cabeza alcanzan cinco ladrillos, en orden deductivo: cada uno usa solo los
+anteriores. La Unidad 0 del sitio (\texttt{00\_desaprender\_el\_cbc},
+apéndice~\ref{ap:notebooks}) los trabaja con figuras y ejercicios en Python.
+\begin{enumerate}
+  \item \textbf{Conjuntos, operaciones y grupos.} Un grupo es un conjunto con una operación
+  interna asociativa, un neutro y una inversa para cada elemento; si el orden no importa,
+  conmuta. Es el molde de todo lo que la materia llama \emph{transformación}. La inversa, dicha
+  para todos los casos a la vez, es un elemento de un conjunto que, al operar con otro, resulta
+  en el elemento neutro respecto de esa operación. Cuándo conmuta el grupo decide si se puede
+  armar un sistema de coordenadas: los giros de la estación total alrededor de su eje vertical
+  conmutan; los de \(\R^3\) no (sección~\ref{sec:orden-importa}). En NumPy: \texttt{A @ B},
+  \texttt{np.eye(n)}, \texttt{np.linalg.solve(A, y)}.
   \item \textbf{Los cuerpos \(\R\) y \(\mathbb{C}\).} Un cuerpo tiene dos operaciones, suma
   y producto, cada una un grupo conmutativo (el producto, sin el \(0\)), y el producto
-  distribuye. Un real escala la recta; agregar \(i^2=-1\) equivale exactamente a pasar a las
-  matrices \(\bigl(\begin{smallmatrix}a&-b\\ b&a\end{smallmatrix}\bigr)\), que respetan
-  suma, producto e inverso y rotan \(\arg z\) mientras escalan \(|z|\): la matriz de
-  rotación de \(2\times2\) que vimos en el álgebra del CBC hace exactamente la misma operación que
-  los complejos. Sobre esa equivalencia de estructuras entre los números complejos y algunas
-  matrices de \(2\times2\) puede verse Gentile, \emph{Complejos y Generalización}
-  (apéndice~\ref{ap:bibliografia}). En NumPy:
+  distribuye. Un real \(a\) escala la recta, \(x\mapsto ax\), con inversa \(1/a\) y
+  determinante \(|a|\). Agregar \(i^2=-1\) equivale a pasar a las matrices
+  \[
+    M(z)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},\qquad
+    \begin{aligned}
+      &M(z_1+z_2)=M(z_1)+M(z_2),\\
+      &M(z_1z_2)=M(z_1)M(z_2),\quad M(1/z)=M(z)^{-1},
+    \end{aligned}
+  \]
+  que rotan \(\arg z\) mientras escalan \(|z|\), con \(\det M(z)=|z|^2\): son \(\mathbb{C}\)
+  con otro ropaje, y la matriz de rotación de \(2\times2\) del CBC hace la misma operación
+  que los complejos (sección~\ref{sec:rot-complejos}; sobre esta equivalencia de estructuras,
+  Gentile, \emph{Complejos y Generalización}, apéndice~\ref{ap:bibliografia}). En NumPy:
   \texttt{np.array([[z.real, -z.imag], [z.imag, z.real]])}.
   \item \textbf{Espacio afín y espacio vectorial: todo vector es un punto.} Un espacio
-  vectorial es un conjunto con suma y producto por escalar que respetan linealidad (un
-  conjunto al que se asocian dos operaciones que cumplen con algunas propiedades
-  básicas a las que llamamos linealidad); de ahí salen
-  combinación lineal, independencia, base y dimensión. Un espacio afín es un conjunto de
-  puntos sin origen: la diferencia de dos puntos es un vector. El terreno es afín (hay
-  mojones \(P\), \(Q\), no flechas); \(V\) nace cuando plantamos la estación total en un mojón
-  \(O\) y cada mojón pasa a ser \(P-O\), o cuando homogeneizamos \((x,y)\mapsto(x,y,1)\). Toda
-  transformación lineal conserva el cero, por eso las traslaciones piden
-  homogéneas. Vale lo mismo para los campos vectoriales, que tiene sentido pensarlos como puntos: en
-  esta materia un vector es un mojón visto desde \(O\) o un desplazamiento entre dos. En
-  NumPy, punto y desplazamiento son el mismo \texttt{np.array([x, y])}; independencia:
-  \texttt{np.linalg.matrix\_rank}.
-  \item \textbf{El dual \(V^{*}\): una fila es una forma lineal, y el gradiente también.}
-  Una forma lineal es una función lineal \(\omega:V\to\R\); las formas de \(V\) forman un
-  espacio vectorial de la misma dimensión, con base las selectoras de coordenadas (las
-  más básicas de esas funciones son las selectoras de coordenadas). Se escribe como fila y evalúa fila por columna, sin producto interno; se
-  ve como una regla graduada, un mazo de rectas de nivel equiespaciadas. No existe el
-  vector fila: lo que comúnmente llamamos vector fila es una forma lineal. Si los puntos van con \(A\), la regla se
-  arrastra con \(A^{-1}\) para que la lectura no cambie: una forma lineal se transforma
-  con una transformación lineal del lado contrario que un vector. Y \(df=\nabla f\,dx\) es
-  una de ellas: el gradiente es una forma lineal, no un vector. En NumPy: \texttt{w @ x} lee,
-  \texttt{np.linalg.solve(A.T, w)} arrastra.
-  \item \textbf{Producto interno y métrica \(G\): la cinta métrica.} Un producto interno
-  es \(\langle u,v\rangle_G=u^TGv\) con \(G\) simétrica definida positiva; recién con él
-  hay largos y ángulos, y es el único puente entre \(V\) y \(V^{*}\): baja un vector a forma
-  (\(w=Gv\)) y sube una forma a vector (\(v=G^{-1}w\)). Lo único que define a la base que
-  llamamos canónica es que sobre ella tenemos definida la noción de distancia a través del
-  producto interno: en esa base \(G=I\) y la cinta coincide con la
-  grilla; en la grilla de un plano estirado, \(G'=A^{-T}A^{-1}\); en \((\varphi,\lambda)\)
-  sobre una superficie, \(G\) es la primera forma fundamental, que cambia de punto a punto.
-  En NumPy: \texttt{a @ g @ b}, \texttt{np.linalg.solve(g, w)}, \texttt{J.T @ J}.
+  vectorial es un conjunto con suma y producto por escalar que cumplen las propiedades de
+  linealidad; de ahí salen combinación lineal, independencia, base y dimensión. Un espacio afín
+  es un conjunto de puntos sin origen: la diferencia de dos puntos es un vector. El terreno es
+  afín (hay mojones \(P\), \(Q\), no flechas); \(V\) nace cuando plantamos la estación total en
+  un mojón \(O\) y cada mojón pasa a ser \(P-O\), o cuando homogeneizamos
+  \((x,y)\mapsto(x,y,1)\). Toda transformación lineal conserva el cero, por eso las
+  traslaciones piden homogéneas. En NumPy, punto y desplazamiento son el mismo
+  \texttt{np.array([x, y])}; independencia: \texttt{np.linalg.matrix\_rank}.
+  \item \textbf{El dual \(V^{*}\): una fila es una forma lineal, y el gradiente también.} Una
+  forma lineal es una función lineal \(\omega:V\to\R\); las formas de \(V\) forman un espacio
+  vectorial de la misma dimensión, con base las selectoras de coordenadas. Se escribe como fila
+  y evalúa fila por columna, sin producto interno; se ve como una regla graduada, un mazo de
+  rectas de nivel equiespaciadas. Lo que suele llamarse vector fila es una forma lineal. Si los
+  puntos van con \(A\), la regla se arrastra con \(A^{-1}\), del lado contrario, para que la
+  lectura no cambie. Y \(df=\nabla f\,dx\) es una de ellas: el gradiente es una forma lineal,
+  no un vector. En NumPy: \texttt{w @ x} lee, \texttt{np.linalg.solve(A.T, w)} arrastra.
+  \item \textbf{Producto interno y métrica \(G\): la cinta métrica.} Un producto interno es
+  \(\langle u,v\rangle_G=u^TGv\) con \(G\) simétrica definida positiva; recién con él hay
+  largos y ángulos, y es el único puente entre \(V\) y \(V^{*}\): baja un vector a forma
+  (\(w=Gv\)) y sube una forma a vector (\(v=G^{-1}w\)). Lo único que distingue a la base
+  canónica es que en ella \(G=I\) y la cinta coincide con la grilla; en la grilla de un plano
+  estirado, \(G'=A^{-T}A^{-1}\); en \((\varphi,\lambda)\) sobre una superficie, \(G\) es la
+  primera forma fundamental, que cambia de punto a punto. En NumPy: \texttt{a @ g @ b},
+  \texttt{np.linalg.solve(g, w)}, \texttt{J.T @ J}.
 \end{enumerate}
-
-El puente al cálculo en superficies, que es lo que hace de los capítulos~\ref{cap:derivada} a~\ref{cap:esfera} la misma
-materia que los capítulos~\ref{cap:rotaciones} a~\ref{cap:cambio-base}: derivar una parametrización es usar una matriz lineal, la
-jacobiana \(J\), en el espacio tangente (ladrillos 1 y 3); el gradiente es una forma del
-dual (ladrillo 4); la primera forma fundamental \(J^TJ\) es la métrica del tangente
-(ladrillo 5); y curvarse, hessiana o segunda forma, es una forma cuadrática: un número por
-cada dirección. La subsección~\ref{sec:puntos-formas-grillas} pone los tres objetos en
-una tabla y la Unidad 0 los manipula.
 
 \begin{resultado}[Las tres ecuaciones maestras de la materia (\(Ax=b\), \(Ax=\lambda x\), \(Ax\approx b\))]
 Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden a una de tres preguntas (las que quedan afuera son las de medir con la métrica, \(J\) y \(J^TJ\), en las unidades 02, 10, 13 y 14):
@@ -648,7 +589,7 @@ Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden
 \textbf{Ecuación} & \textbf{Pregunta de campo} & \textbf{Dónde la desarrollamos} \\
 \hline
 \(Ax=b\) &
-\textbf{Transformar o deshacer.} Evaluar \(Ax\) es transformar: conocemos \(A\) y calculamos a dónde va un mojón. Resolver \(Ax=b\) es la pregunta inversa: conocemos \(A\) y el resultado \(b\) y buscamos de dónde vino, \(x=A^{-1}b\); leer un punto en otra base es eso mismo (las coordenadas nuevas son la \(x\) que cumple \(Px=b\)). Hay problemas del mismo tipo en los que la incógnita es la propia matriz (véase el capítulo~\ref{cap:proyectivas}). &
+\textbf{Transformar o deshacer.} Evaluar \(Ax\) es transformar: conocemos \(A\) y calculamos a dónde va un mojón. Resolver \(Ax=b\) es la pregunta inversa: conocemos \(A\) y el resultado \(b\) y buscamos de dónde vino, \(x=A^{-1}b\); leer un punto en otra base es eso mismo (las coordenadas nuevas son la \(x\) que cumple \(Cx=b\)). Hay problemas del mismo tipo en los que la incógnita es la propia matriz (véase el capítulo~\ref{cap:proyectivas}). &
 \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}, \linkUnidad{03_reflexiones_similaridades}{03}, \linkUnidad{04_afines_homogeneas}{04}, \linkUnidad{05_proyectivas}{05}, \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08} \\
 \hline
 \(Ax=\lambda x\) y \(Av_i=\sigma_i u_i\) &
@@ -665,18 +606,10 @@ preparación: \linkUnidad{07a_cuna_determinante}{07a}; \linkUnidad{07b_nucleo_au
 Los cinco ladrillos son el idioma de la materia, y estas tres ecuaciones son las tres frases que se dicen con él: transformamos o deshacemos, buscamos direcciones privilegiadas, o proyectamos lo medido sobre lo que el modelo puede explicar. Cada vez que aparece una cuenta nueva, nos preguntamos cuál de las tres es.
 \end{resultado}
 
-\subsection{Convención para componer}
-
-En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después \(F\)'':
-\[
-  (F G)(x)=F\bigl(G(x)\bigr).
-\]
-Esta convención es importante porque, en general, cambiar el orden cambia el resultado.
-
 \subsection{La mirada geométrica}
 
-El hilo conductor de la materia no es memorizar matrices, sino aprender a \emph{ver} qué
-transformación describe cada fórmula. Antes de calcular conviene interrogar la figura.
+Más que memorizar matrices, se trata de \emph{ver} qué transformación describe cada fórmula.
+Antes de calcular, interrogamos la figura.
 
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{38mm} X}
@@ -695,19 +628,6 @@ operaciones simples\\
 \end{tabularx}
 \end{center}
 
-\begin{idea}[Regla de lectura]
-Para cada teorema se seguirá este orden:
-\begin{enumerate}
-  \item \textbf{Construcción}: dibujar el punto y su imagen.
-  \item \textbf{Movimiento}: describir la trayectoria y el sentido.
-  \item \textbf{Invariantes}: identificar qué no cambia.
-  \item \textbf{Composición}: seguir los pasos intermedios en el orden correcto.
-  \item \textbf{Traducción algebraica}: escribir la matriz o fórmula que resume el dibujo.
-  \item \textbf{Verificación}: usar un ejemplo numérico para comprobar, no para sustituir,
-  la comprensión geométrica.
-\end{enumerate}
-\end{idea}
-
 \begin{resultado}[La matriz como geometría comprimida]
 Las columnas de una matriz \(A\) son las imágenes de los vectores de la base:
 \[
@@ -718,48 +638,12 @@ Por eso, para interpretar geométricamente una transformación lineal basta obse
 con dos direcciones independientes y con el paralelogramo que generan.
 \end{resultado}
 
-
 \subsubsection{Los tres objetos que no hay que confundir: puntos, reglas de medir y grillas}\label{sec:puntos-formas-grillas}
 
 {\small\vspace{1mm}\linkAnimacion{01_dualidad_gradiente}{Animación: puntos con \(A\), reglas de medir con \(A^{-1}\)}\par}
 
-Síntesis del curso, como brújula para el resto del apunte: en la materia circulan tres objetos
-que se escriben con números parecidos y son cosas distintas. El hilo conductor es que
-todo vector es un mojón o un desplazamiento entre mojones, y toda matriz es una manera de
-mover el espacio o de cambiar la grilla con que se lo mide.
-
-Los dos ladrillos de abajo de esa tabla, desarrollados en la subsección~\ref{sec:desaprender}
-y en la Unidad 0, son el idioma en que están escritas las tres filas:
-
-\begin{description}
-  \item[Grupos de transformaciones (ladrillo 1).] Las transformaciones de un mismo tipo
-  (rotaciones, traslaciones, afinidades, transformaciones proyectivas, véase el capítulo~\ref{cap:proyectivas}) forman un grupo: componer dos da otra
-  del mismo tipo, la identidad es el neutro y cada una tiene inversa. Transformaciones y
-  Operaciones son dos conceptos que van atravesando la materia; la inversa es un elemento
-  de un conjunto que, al operar con otro, resulta en el elemento neutro respecto de esa
-  operación. Cuándo conmuta el
-  grupo es la pregunta que decide si se puede armar un sistema de coordenadas: las
-  rotaciones del plano y las traslaciones conmutan; las rotaciones de \(\R^3\) no
-  (sección~\ref{sec:orden-importa}). En NumPy la operación es \texttt{A @ B}, el neutro
-  \texttt{np.eye(n)} y la inversa aplicada a un dato \texttt{np.linalg.solve(A, y)}.
-  \item[Los cuerpos \(\R\) y \(\mathbb{C}\) como matrices (ladrillo 2).] Los escalares
-  escalan: un real \(a\) actúa sobre la recta como \(x\mapsto ax\), con inversa \(1/a\) y
-  determinante \(|a|\). Un complejo \(z=a+ib\) actúa sobre el plano como la matriz
-  \[
-    M(z)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},\qquad
-    \begin{aligned}
-      &M(z_1+z_2)=M(z_1)+M(z_2),\\
-      &M(z_1z_2)=M(z_1)M(z_2),\quad M(1/z)=M(z)^{-1},
-    \end{aligned}
-  \]
-  es decir rota \(\arg z\) y escala \(|z|\) a la vez, con \(\det M(z)=|z|^2\): las matrices
-  de esa forma \emph{son} \(\mathbb{C}\) con otro ropaje. La matriz de rotación de \(2\times2\) que
-  vimos en el álgebra del CBC hace exactamente la misma operación que los
-  complejos (sobre la equivalencia de estructuras, Gentile,
-  \emph{Complejos y Generalización}, apéndice~\ref{ap:bibliografia}). Sección~\ref{sec:rot-complejos}.
-\end{description}
-
-Con el grupo y el cuerpo puestos, los tres objetos:
+En la materia circulan tres objetos que se escriben con números parecidos y son cosas
+distintas; toda matriz mueve el espacio o cambia la grilla con que se lo mide:
 
 {\small
 \begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{30mm}YY}
@@ -777,19 +661,18 @@ del lado contrario: \(\omega\mapsto\omega A^{-1}\), para que \(\omega v\) no cam
 Producto interno / métrica & matriz simétrica \(G\) (en una superficie, la primera forma
 fundamental \(E,F,G\)) &
 la grilla con que se mide: permite largos y ángulos, \(\|v\|^2=v^TGv\); es el único
-puente entre una forma lineal y una dirección perpendicular (``el gradiente es
-perpendicular a la curva de nivel'' necesita a \(G\)) &
+puente entre una forma lineal y una dirección perpendicular (\enquote{el gradiente es
+perpendicular a la curva de nivel} necesita a \(G\)) &
 como forma cuadrática: \(G\mapsto J^TGJ\) (sección~\ref{sec:metrica})\\
 \bottomrule
 \end{tabularx}
 }
 
-Sin producto interno no hay ``vector perpendicular a una recta'': hay la recta (forma) y
-hay los puntos (vectores), y nada más. Con producto interno, la forma \(\omega\) se
-``disfraza'' del vector \(G^{-1}\omega^T\) y recién ahí se puede hablar de la dirección
-normal. En la base canónica \(G=I\) y el disfraz es transponer la fila, por eso en el
-plano la confusión no cuesta nada; en una superficie, donde \(E,F,G\) cambian de punto a
-punto, cuesta metros.
+Sin producto interno no hay \enquote{vector perpendicular a una recta}: hay la recta (forma)
+y los puntos (vectores). Con \(G\), la forma \(\omega\) se \enquote{disfraza} del vector
+\(G^{-1}\omega^T\), la dirección normal. En la base canónica el disfraz es transponer la fila y
+la confusión no cuesta nada; en una superficie, donde \(E,F,G\) cambian de punto a punto,
+cuesta metros.
 
 \begin{atencion}[Por qué el gradiente no es un vector]
 \(df=\nabla f\,dx\) es una forma lineal: toma un desplazamiento \(dx\) y devuelve cuánto
@@ -805,7 +688,7 @@ vectorial de dos tangentes, o levantando el gradiente con la métrica.
 \end{atencion}
 
 \begin{resultado}[El puente al cálculo en superficies]
-Los cinco ladrillos de la subsección~\ref{sec:desaprender} son también el idioma de las
+Los cinco ladrillos de la subsección~\ref{sec:desaprender} son también el idioma de los
 capítulos~\ref{cap:derivada} a~\ref{cap:esfera}. Derivar una parametrización \(r(u,v)\) es usar una matriz lineal, la
 jacobiana \(J=(r_u\ \ r_v)\), en el espacio tangente: entra un pasito \((du,dv)\) de la
 grilla, sale el pasito \(J\,(du,dv)^T\) sobre la superficie (ladrillos 1 y 3,
@@ -841,9 +724,10 @@ Sean \(u=(1,2)\) y \(w=(3,1)\). El producto interno es \(u\cdot w=1\cdot3+2\cdot
 
 \section{Notación y leyenda de símbolos}\label{sec:notacion}
 
-Esta tabla fija las convenciones que se usan en todo el apunte; cuando un capítulo necesita un
-símbolo distinto, lo declara donde lo introduce. Una sola regla de lectura: lo que se compone
-se aplica de derecha a izquierda, como cualquier función.
+Esta tabla fija las convenciones de todo el apunte; un capítulo que necesita un símbolo
+distinto lo declara donde lo introduce. Lo que se compone se aplica de derecha a izquierda,
+como cualquier función: \(FG\) significa \enquote{primero aplicar \(G\) y después \(F\)}, \((F
+G)(x)=F\bigl(G(x)\bigr)\), y en general cambiar el orden cambia el resultado.
 
 {\small
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{38mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{62mm}@{}}
@@ -871,7 +755,7 @@ Cambio de base & \(C=C_{b\to e}\) & Base nueva en columnas; lleva coordenadas en
 Conjugación y diagonalización & \(C^{-1}AC\); \(A=CDC^{-1}\) & \(D\) diagonal, con los autovectores en las columnas de \(C\).\\
 Autovalores & \(\lambda\) en los capítulos 3 a 9 y 11; \(\mu_1,\mu_2\) en los capítulos 10, 12 a 15 y los complementos C2 y C4 & En esos últimos, \(\lambda\) es la longitud geodésica.\\
 Valores singulares & \(\sigma_1\ge\sigma_2\ge\cdots\) & \\
-Latitud y longitud & \(\varphi\) (sólo latitud), \(\lambda\) (longitud) & \\
+Latitud y longitud & \(\varphi\) (solo latitud), \(\lambda\) (longitud) & \\
 Elipsoide GRS80 & \(a=6\,378\,137\ \mathrm{m}\), \(1/f=298{,}257222101\) & \\
 \end{longtable}
 }
@@ -888,12 +772,10 @@ planilla lo llame \(Y\), y el otro es el norte, aunque la planilla lo llame \(X\
 
 \subsection*{Qué mide cada operación}
 
-El cuadro~\ref{tab:operaciones} reúne, en una página, la lectura geométrica de cada operación
-del álgebra que usa el apunte: qué mide, cuándo se anula o da la identidad, dónde se
-desarrolla y en qué aplicación topográfica aparece. Es una tabla de consulta: cada celda
-remite a la sección donde la afirmación se demuestra o se ilustra, y conviene volver a ella
-al terminar cada capítulo. Una raya en la última columna indica que la operación es una
-herramienta de cálculo sin aplicación topográfica propia en el apunte.
+El cuadro~\ref{tab:operaciones} reúne la lectura geométrica de cada operación del álgebra
+que usa el apunte: qué mide, cuándo se anula o da la identidad, dónde se desarrolla y en qué
+aplicación topográfica aparece. Una raya en la última columna indica una herramienta de
+cálculo sin aplicación topográfica propia en el apunte.
 
 \begin{table}[p]
 \centering
@@ -906,17 +788,17 @@ herramienta de cálculo sin aplicación topográfica propia en el apunte.
 \textbf{Operación} & \textbf{Qué mide o hace geométricamente} & \textbf{Cuándo vale cero o la identidad} & \textbf{Sec.} & \textbf{Uso en topografía}\\
 \midrule
 Producto interno \(u\cdot v\) & Proyección de un vector sobre otro y, con las normas, el ángulo; en homogéneas, \(\ell\cdot p=0\): el punto está en la recta & \(u\cdot v=0\): \(u\) y \(v\) son perpendiculares & \ref{sec:interno} & Componentes de obra \(d_L=u_L\cdot d\)\\
-Norma \(\lVert v\rVert\) & Longitud del vector; las rotaciones y las isometrías la conservan & \(\lVert v\rVert=0\) sólo para \(v=0\) & \ref{sec:rot-plano} & Pendiente máxima \(\sqrt{a^2+b^2}\); residuo de Helmert\\
-Producto cuña \(u\wedge v\) en 2D & Área con signo del paralelogramo de \(u\) y \(v\); el signo dice de qué lado de \(u\) está \(v\) & \(u\wedge v=0\) si y sólo si \(u\) y \(v\) son colineales & \ref{sec:cuna-plano} & Superficie de una parcela por coordenadas\\
+Norma \(\lVert v\rVert\) & Longitud del vector; las rotaciones y las isometrías la conservan & \(\lVert v\rVert=0\) solo para \(v=0\) & \ref{sec:rot-plano} & Pendiente máxima \(\sqrt{a^2+b^2}\); residuo de Helmert\\
+Producto cuña \(u\wedge v\) en 2D & Área con signo del paralelogramo de \(u\) y \(v\); el signo dice de qué lado de \(u\) está \(v\) & \(u\wedge v=0\) si y solo si \(u\) y \(v\) son colineales & \ref{sec:cuna-plano} & Superficie de una parcela por coordenadas\\
 Producto vectorial \(u\times v\) & Vector perpendicular a ambos, de norma igual al área del paralelogramo; en homogéneas, recta por dos puntos y corte de dos rectas & Se anula para vectores paralelos (\(p\times p=0\)); dos rectas paralelas se cortan en un punto impropio & \ref{sec:vectorial} & ---\\
 Producto mixto \(u\cdot(v\times w)\) & Volumen con signo del paralelepípedo de \(u\), \(v\), \(w\); es \(\det[u\ v\ w]\) & Cero si los tres vectores son linealmente dependientes (coplanares) & \ref{sec:producto-mixto} & ¿cuatro puntos de una losa son coplanares?\\
 Determinante \(\det A\) & Factor de área o de volumen; el signo indica si conserva o invierte la orientación; \(\det(AB)=\det A\,\det B\) & \(\det A=0\): \(A\) aplasta el espacio (núcleo no trivial). \(\det R=1\) en las rotaciones & \ref{sec:det-factor} & Ortofoto: \(\det A<0\), la georreferenciación invierte la orientación\\
 Traza \(\operatorname{tr}A\) & Suma de los autovalores; cambio relativo de área: \(\det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+O(\varepsilon^2)\) & \(\operatorname{tr}E=0\): la deformación infinitesimal conserva el área a primer orden & \ref{sec:traza-det-autovalores}, \ref{sec:traza-derivada-det} & Dilatación de una red de control\\
 Transpuesta \(A^T\) & Adjunta geométrica: \(\langle Au,v\rangle=\langle u,A^Tv\rangle\); las normales se transforman con \(A^{-T}\) & \(A^TA=I\): \(A\) es ortogonal (rotación o reflexión) y \(A^{-1}=A^T\) & \ref{sec:transpuesta-normales} & Nivelación: ecuaciones normales y residuo con \(A^Tv=0\)\\
-Inversa \(A^{-1}\) & Deshace la transformación: \(AA^{-1}=A^{-1}A=I\) & Existe si y sólo si \(\det A\neq0\), \(\ker A=\{0\}\), \(\operatorname{rango}A=n\); \(R(\theta)^{-1}=R(\theta)^T\) & \ref{sec:pseudoinversa} & Nivelación con cota fija: \((A^TA)^{-1}\) da las cotas y su precisión\\
+Inversa \(A^{-1}\) & Deshace la transformación: \(AA^{-1}=A^{-1}A=I\) & Existe si y solo si \(\det A\neq0\), \(\ker A=\{0\}\), \(\operatorname{rango}A=n\); \(R(\theta)^{-1}=R(\theta)^T\) & \ref{sec:pseudoinversa} & Nivelación con cota fija: \((A^TA)^{-1}\) da las cotas y su precisión\\
 Adjugada \(\operatorname{adj}A\) & \(A\operatorname{adj}A=(\det A)\,I\); en \(3\times3\), sus columnas son cuñas de pares de filas & Si \(\det A=0\), \(A\operatorname{adj}A=0\) y no hay inversa; si no, \(A^{-1}=\operatorname{adj}A/\det A\) & \ref{sec:pseudoinversa} & ---\\
 Rango & Dimensión de la imagen; \(\dim\ker A+\operatorname{rango}A=n\); cantidad de valores singulares no nulos & Rango \(n\) en una cuadrada: \(A\) es invertible & \ref{sec:nucleo} & Red de nivelación libre: rango \(3\) con \(4\) cotas\\
-Núcleo \(\ker A\) & Vectores que \(A\) manda a cero: las direcciones que aplasta & \(\ker A\neq\{0\}\) si y sólo si \(\det A=0\) (cuadrada) & \ref{sec:nucleo} & Datum de la red libre; curva de nivel, núcleo de \(dh\)\\
+Núcleo \(\ker A\) & Vectores que \(A\) manda a cero: las direcciones que aplasta & \(\ker A\neq\{0\}\) si y solo si \(\det A=0\) (cuadrada) & \ref{sec:nucleo} & Datum de la red libre; curva de nivel, núcleo de \(dh\)\\
 Autovalores y autovectores & \(Av=\lambda v\): direcciones que \(A\) deja sobre su recta, estiradas por \(\lambda\) & \(\lambda=0\): \(v\) está en el núcleo; \(\lambda=1\) en homogéneas: punto fijo & \ref{sec:autovalores} & Direcciones principales de deformación de una red\\
 Valores singulares \(\sigma_i\) & Semiejes de la elipse imagen del círculo unidad; \(\sigma_1=\max_{\lVert x\rVert=1}\lVert Ax\rVert\); \(\lvert\det A\rvert=\sigma_1\cdots\sigma_n\) & \(\sigma_i=0\): una dirección aplastada; el rango cuenta los \(\sigma_i\neq0\) & \ref{prop:svd-mide} & Elipse de error de un punto GNSS\\
 Pseudoinversa \(A^{+}\) & \(A^{+}=V\Sigma^{+}U^T\): solución de mínimos cuadrados de norma mínima; \(AA^{+}\) proyecta sobre la imagen & Coincide con \(A^{-1}\) cuando \(A\) es invertible; caracterizada por las cuatro condiciones de Moore--Penrose & \ref{sec:pinv-svd} & Red de nivelación libre: cotas de norma mínima\\
@@ -930,8 +812,8 @@ Congruencia \(C^TAC\) & Regla con que cambia la matriz de una forma cuadrática 
 
 \section{Glosario}\label{sec:glosario}
 
-Algunos términos del apunte tienen nombre propio y aparecen en capítulos distintos; otros
-comparten la raíz sin compartir el significado. Cada entrada remite a su definición.
+Cada entrada remite a su definición; varias separan términos que comparten la raíz sin
+compartir el significado.
 
 \begin{description}[style=nextline,leftmargin=1.2em,itemsep=2pt]
 \item[Adjunta] Nombre geométrico de la transpuesta \(A^T\): la única matriz con

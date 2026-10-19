@@ -3,36 +3,20 @@
 
 \section{La idea}
 
+El capítulo~\ref{cap:antes-de-empezar} dejó el cuarto de vuelta como ejemplo de una matriz que
+se lee como movimiento; ahora construimos todas las rotaciones a partir de tres afirmaciones:
+un punto no es lo mismo que sus coordenadas, transformar es mover figuras y rotar es conservar
+distancias alrededor de un centro.
 
-Este capítulo parte de tres afirmaciones: un punto no es lo mismo que sus coordenadas,
-transformar es mover figuras y rotar es conservar distancias alrededor de un centro. Primero
-las miramos geométricamente; después las traducimos a matrices y las verificamos con cuentas.
-
-\paragraph{Convenciones del capítulo.}
-Puntos y vectores se escriben con minúscula cursiva (\(p,q,c,o\)) y un vector se identifica
-con el punto que señala desde el origen \(o\); en el texto escribimos \((x,y)\) y en las
-cuentas matriciales lo escribimos como columna, \((x,y)^T\). Las matrices van en
-mayúscula itálica (\(A\), \(R\)), \(I\) es la identidad, \(A^T\) la transpuesta y \(\det A\) el
-determinante. Los ángulos se llaman \(\theta\), se miden en radianes salvo que lleven el
-símbolo de grados (como en \(30^\circ\)), y son \emph{positivos en sentido antihorario}. La composición \(T_2\circ T_1\)
-aplica primero \(T_1\), y las matrices actúan a la izquierda del vector columna.
-
-\begin{atencion}[Acimut no es \(\theta\)]
-En topografía, el acimut \(\mathrm{Az}\) se mide desde el norte y en sentido \emph{horario}.
-El ángulo \(\theta\) de este capítulo se mide desde el eje \(x\) (el este) y en sentido
-\emph{antihorario}. Ambos describen la misma dirección con números distintos; la conversión
-\(\theta=90^\circ-\mathrm{Az}\) (módulo \(360^\circ\)) se deduce en la
-sección~\ref{sec:acimut-campo}.
-\end{atencion}
+\paragraph{Convenciones del capítulo.} El origen se llama \(o\) y los ángulos \(\theta\),
+\emph{positivos en sentido antihorario}; el resto sigue la sección~\ref{sec:notacion}.
 
 \subsection{El punto y sus coordenadas no son lo mismo}\label{sec:punto-coordenadas}
 
 \unidadInteractiva{01a_punto_quieto}{Rotaciones I: el punto no se movió}{Explorá: girá los ejes con el deslizador \(\theta\) y mirá cómo cambian las coordenadas del mojón mientras el punto queda quieto.}
 
-
-Un punto geométrico existe independientemente de la manera elegida para describirlo. Sus
-coordenadas son una lista de números que aparece recién después de elegir un sistema de
-referencia.
+Un punto existe independientemente de cómo lo describamos; sus coordenadas aparecen recién
+después de elegir un sistema de referencia.
 
 \begin{definicion}[Sistema de coordenadas cartesiano]
 Un sistema de coordenadas cartesiano del plano consiste en un punto \(o\), el \emph{origen};
@@ -43,8 +27,7 @@ coordenadas de un punto \(p\) son los únicos números \((x,y)\) tales que
 girando \(e_x\) un cuarto de vuelta en sentido antihorario.
 \end{definicion}
 
-Si cambia el sistema de coordenadas, cambian los números, pero el punto sigue en su lugar.
-Hay entonces dos maneras de que cambien las coordenadas de un punto.
+Las coordenadas de un punto pueden cambiar, entonces, de dos maneras.
 
 \begin{definicion}[Transformación activa y pasiva]
 Una transformación es \emph{activa} cuando los ejes quedan fijos y el punto se mueve a otro
@@ -83,12 +66,6 @@ unitarios son \(e_{x'}=(0,1)\) y \(e_{y'}=(-1,0)\), y las nuevas coordenadas son
 que se construyen en la sección~\ref{sec:rot-plano}.
 \end{ejemplo}
 
-\begin{idea}[Mover el objeto o cambiar las coordenadas: lectura activa o pasiva]
-La materia estudia a la vez dos problemas distintos: mover o deformar objetos geométricos y
-cambiar la manera de asignarles coordenadas. Las fórmulas se parecen; la lectura activa o
-pasiva decide qué está cambiando realmente.
-\end{idea}
-
 \begin{idea}[La rotación sugiere las coordenadas polares]
 Al girar alrededor de un centro, cada punto recorre una circunferencia. La familia de esas
 circunferencias, junto con las semirrectas que salen del centro, forma las líneas coordenadas
@@ -103,15 +80,9 @@ Una \emph{transformación del plano} es una función \(F:\R^2\to\R^2\) que asign
 \(F(q)=q\).
 \end{definicion}
 
-Para comprender una transformación geométricamente conviene imaginar una figura sencilla,
-como un triángulo, y observar:
-\begin{itemize}
-  \item hacia dónde se desplaza cada vértice;
-  \item si los lados conservan longitud;
-  \item si los ángulos se mantienen;
-  \item si las rectas paralelas continúan siendo paralelas;
-  \item si existe un punto, una recta o una dirección que permanezca fija.
-\end{itemize}
+Para comprender una transformación seguimos una figura sencilla, como un triángulo: adónde va
+cada vértice, si se conservan longitudes, ángulos y paralelas, y si algún punto, recta o
+dirección queda fijo.
 
 \begin{center}
 \begin{tikzpicture}[scale=.88]
@@ -137,21 +108,13 @@ recorre en sentido antihorario. Si el sentido se invierte, la transformación \e
 la orientación (como un espejo).
 \end{definicion}
 
-Muchas de las transformaciones de este apunte tienen la forma \(F(p)=Ap+t\): la matriz \(A\)
-transforma direcciones y formas, mientras que el vector \(t\) desplaza toda la figura sin
-deformarla. En la sección~\ref{sec:transf-plano} las definimos con precisión y comprobamos que
-las columnas de \(A\) son las imágenes de \(e_x\) y \(e_y\).
-
-\begin{idea}[Una transformación se reconoce por lo que conserva]
-Muchas transformaciones se definen por lo que conservan: las rotaciones conservan distancias
-y dejan fijo un punto, las similaridades conservan ángulos, las afinidades conservan el
-paralelismo. Saber qué se conserva es saber de qué transformación se trata.
-\end{idea}
+Muchas transformaciones del apunte tienen la forma \(F(p)=Ap+t\): la matriz \(A\) transforma
+direcciones y formas, y el vector \(t\) desplaza toda la figura sin deformarla
+(sección~\ref{sec:transf-plano}).
 
 \subsection{Rotar: conservar distancias alrededor de un centro}\label{sec:rotar}
 
 \unidadInteractiva{01b_rotacion_plano}{Rotaciones II: la rotación en el plano}{Verificá: mové el deslizador \(\theta\) y comprobá que la distancia al centro no cambia.}
-
 
 Una rotación mueve cada punto sobre una circunferencia cuyo centro es el centro de rotación,
 y todos los puntos barren el mismo ángulo.
@@ -164,15 +127,6 @@ Sean \(c\) un punto y \(\theta\) un ángulo. La \emph{rotación de centro \(c\) 
 escribimos \(R(\theta)\).
 \end{definicion}
 
-De la definición se siguen (y en la sección~\ref{sec:rot-plano} se demuestran con la matriz)
-estas propiedades:
-\begin{itemize}
-  \item conserva la distancia de cada punto al centro;
-  \item conserva las distancias entre puntos;
-  \item conserva los ángulos y, por lo tanto, la forma;
-  \item conserva la orientación.
-\end{itemize}
-
 En dos dimensiones basta un centro y un ángulo. En tres dimensiones también se necesita un
 \emph{eje}: una recta por el centro cuyos puntos quedan fijos; todo plano perpendicular al eje
 gira como un plano bidimensional (sección~\ref{sec:rot-3d}).
@@ -184,12 +138,6 @@ gira como un plano bidimensional (sección~\ref{sec:rot-3d}).
 El vector \(p-c\) expresa la posición vista desde el centro; \(R(\theta)\) lo gira, y sumar
 \(c\) devuelve el resultado al sistema original.
 
-\begin{resultado}[Lectura inmediata]
-Si una transformación del espacio es una rotación, debe existir una dirección que no cambie:
-la del eje. En la sección~\ref{sec:eje-exp} esa propiedad se escribe como \(Rv=v\) y en el
-capítulo~\ref{cap:autovectores} se la reconoce como un caso de autovector.
-\end{resultado}
-
 \begin{idea}[El centro y un punto imagen determinan la rotación]
 Una rotación deja fijo un punto, el centro, y conserva las distancias y los ángulos. Todo lo
 demás se deduce de esa propiedad: fijado el centro y la imagen de un segundo punto, la imagen
@@ -198,20 +146,7 @@ de cualquier otro queda determinada.
 
 \section{Construcciones, cuentas y ejemplos}
 
-
-Pasamos a las cuentas: las transformaciones lineales y afines, la matriz de rotación en el
-plano, su uso para orientar mediciones de campo, la composición de rotaciones de centros
-distintos, el número complejo como giro y las rotaciones del espacio.
-
 \subsection{Transformaciones del plano}\label{sec:transf-plano}
-
-Estudiar una transformación \(F:\R^2\to\R^2\) significa responder cuatro preguntas:
-\begin{itemize}
-  \item ¿qué puntos permanecen fijos?;
-  \item ¿qué magnitudes conserva: distancias, ángulos, áreas o paralelismo?;
-  \item ¿cómo se representa algebraicamente?;
-  \item ¿qué ocurre al componerla con otra transformación?
-\end{itemize}
 
 \subsubsection{Transformaciones lineales y afines}
 
@@ -256,7 +191,6 @@ La afinidad \(F(p)=Ap+t\) cumple \(Ae_x=(2,0)\) y \(Ae_y=(0,1)\): estira el eje 
 
 {\small\vspace{1mm}\linkUnidad{01a_punto_quieto}{Simulación interactiva: Unidad 1 — Rotaciones I: el punto no se movió}\par}
 {\small\vspace{1mm}\linkUnidad{01b_rotacion_plano}{Simulación interactiva: Unidad 2 — Rotaciones II: la rotación en el plano}\par}
-
 
 \subsubsection{Matriz de rotación}
 
@@ -338,12 +272,12 @@ usa \(R(-\pi/2)=R(\pi/2)^T\) y da \((1,-3)\).
 
 \subsubsection{Rotación alrededor de un centro cualquiera}
 
-Para rotar alrededor de \(c\), primero se traslada el centro al origen, luego se rota y
-finalmente se deshace la traslación:
+Para rotar alrededor de \(c\) trasladamos el centro al origen, rotamos y deshacemos la
+traslación, y distribuyendo
 \[
-  \boxed{\rhoP{c,\theta}(p)=c+R(\theta)(p-c)}.
+  \boxed{\rhoP{c,\theta}(p)=c+R(\theta)(p-c)=R(\theta)p+\bigl(I-R(\theta)\bigr)c}.
 \]
-Distribuyendo, \(c+R(\theta)p-R(\theta)c=R(\theta)p+\bigl(I-R(\theta)\bigr)c\). Es una
+Es una
 transformación afín con parte lineal \(R(\theta)\) y traslación \(t=(I-R(\theta))c\), que es
 distinta de cero si \(c\neq o\) y \(\theta\not\equiv0\).
 
@@ -369,8 +303,7 @@ R(\theta) & (I-R(\theta))c\\
 \]
 La última columna guarda la traslación \((I-R(\theta))c\) y la última fila, \((0\ 0\ 1)\),
 conserva el \(1\). Componer rotaciones es multiplicar estas matrices. Son las coordenadas
-homogéneas; el capítulo~\ref{cap:traslaciones} las usa para la traslación y el
-capítulo~\ref{cap:afines} (sección~\ref{sec:homogeneas}) reúne la teoría completa.
+homogéneas, cuya teoría completa está en la sección~\ref{sec:homogeneas}.
 
 \begin{center}
 \begin{tikzpicture}[scale=.95]
@@ -436,17 +369,15 @@ mismo: \((I-R(30^\circ))c\approx(0{,}634;\,-0{,}366)\) y
 Una estación total mide direcciones horizontales sobre un limbo graduado. Al estacionar el
 instrumento, el cero del limbo apunta a una dirección arbitraria, de modo que cada lectura
 \(\mathrm{Lec}\) es la dirección medida desde ese cero, en sentido horario. Para pasar a
-acimutes se visa un punto de referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce
-(por ejemplo, a partir de coordenadas de una red) y se calcula la \emph{corrección de
+acimutes se visa un punto de referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce y se calcula la \emph{corrección de
 orientación} \(\kappa\)
 \[
 \kappa=\mathrm{Az}_{\text{ref}}-\mathrm{Lec}_{\text{ref}}\pmod{360^\circ},
 \qquad
 \mathrm{Az}_i=\mathrm{Lec}_i+\kappa\pmod{360^\circ}.
 \]
-Sumar la misma constante a todas las lecturas es girar el haz de direcciones completo: es una
-rotación, en sentido horario, de ángulo \(\kappa\). En el lenguaje de este capítulo, con
-\(\theta\) antihorario, es la rotación \(R(-\kappa)\).
+Sumar la misma constante a todas las lecturas es girar el haz de direcciones completo: una
+rotación horaria de ángulo \(\kappa\), que con \(\theta\) antihorario es \(R(-\kappa)\).
 
 \begin{proposicion}[Acimut y ángulo matemático]\label{prop:acimut-theta}
 Si el eje \(x\) apunta al este y el eje \(y\) al norte, la dirección de acimut \(\mathrm{Az}\)
@@ -512,25 +443,15 @@ corresponde al punto \((-1,3)\): el mismo resultado que \(R(\pi/2)(3,1)\).
 \end{ejemplo}
 
 \begin{idea}[Relación entre la forma compleja y la matricial]
-\[
-(a+ib)(x+iy)=(ax-by)+i(bx+ay)
-\]
-equivale a
-\[
-\begin{pmatrix}x'\\y'\end{pmatrix}
-=
-\begin{pmatrix}a&-b\\b&a\end{pmatrix}
-\begin{pmatrix}x\\y\end{pmatrix}.
-\]
-La multiplicación compleja es una familia especial de transformaciones lineales reales:
-solo usa dos parámetros, frente a los cuatro de una matriz real \(2\times2\) general. La
-familia es cerrada por producto, porque el producto de dos complejos es otro complejo.
+Multiplicar por \(a+ib\) es aplicar la matriz
+\(\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)\) (ladrillo 2 de la
+subsección~\ref{sec:desaprender}): una familia de transformaciones lineales reales con dos
+parámetros en lugar de cuatro, cerrada por producto.
 \end{idea}
 
 \subsection{Rotaciones en tres dimensiones}\label{sec:rot-3d}
 
 \unidadInteractiva{01c_rotaciones_3d}{Rotaciones III: tres ejes y el orden importa}{Explorá: fijá \(\alpha,\beta,\gamma\), cambiá el orden de los ejes en el menú y comprobá que el resultado cambia.}
-
 
 \subsubsection{Rotaciones elementales}
 
@@ -592,12 +513,11 @@ propiedad geométrica de las rotaciones espaciales.
 
 \subsection{Aplicación topográfica: acimut y estación total}\label{sec:rotaciones-aplicacion}
 
-La sección~\ref{sec:acimut-campo} mostró que orientar las lecturas de una estación total es
-girar el haz de direcciones. Ahora seguimos la cuenta completa de un \emph{radiado}: desde una
-estación de coordenadas conocidas se miden, para cada punto nuevo, una distancia horizontal
-\(d\) y un ángulo horizontal \(\beta\), contado en sentido horario desde la visual a un punto
-de referencia; con eso se calculan las coordenadas del punto. Vamos a ver que cada paso es una
-rotación de las de este capítulo y que, por eso, las distancias no se alteran.
+Seguimos ahora la cuenta completa de un \emph{radiado}: desde una estación de coordenadas
+conocidas se miden, para cada punto nuevo, una distancia horizontal \(d\) y un ángulo
+horizontal \(\beta\), contado en sentido horario desde la visual a un punto de referencia; con
+eso se calculan las coordenadas del punto. Cada paso es una rotación, y por eso las distancias
+no se alteran.
 
 \paragraph{Los datos.} La estación es el punto \(A\) y la referencia es el punto \(B\), ambos
 con coordenadas Gauss-Krüger de la faja~5, en metros:
@@ -680,12 +600,6 @@ otro modo: \(R(-\mathrm{Az})(0,d)=R(90^\circ-\mathrm{Az})(d,0)=R(\theta)(d,0)\),
 antihorario es lo mismo que intercambiar los papeles de los ejes: por eso en topografía el
 seno va con el este y el coseno con el norte.
 
-\begin{idea}[El radiado gira el norte un acimut y lo traslada a la estación]
-Las coordenadas de un punto radiado son la estación más el vector \((0,d)\) girado por
-\(R(-\mathrm{Az})\). Orientar suma ángulos, y sumar ángulos es multiplicar matrices de
-rotación.
-\end{idea}
-
 \begin{ejemplo}[Radiado de \(P\) y \(Q\)]\label{ej:radiado-PQ}
 Para \(P\), con \(\mathrm{Az}_P=82{,}786448^\circ\),
 \[
@@ -726,7 +640,7 @@ radiados puede calcularse de tres maneras independientes.
   \(Q'=R(-\beta_Q)(0,d_Q)=(111{,}780;\ -89{,}533)\), y \(\overline{P'Q'}=155{,}699\) m. Las
   coordenadas finales son \(A+R(-\mathrm{Az}_{AB})\,P'\) y \(A+R(-\mathrm{Az}_{AB})\,Q'\): un
   movimiento rígido, que por la proposición~\ref{prop:propiedades-R} no cambia la distancia.
-  \item Sólo con las medidas, por la ley del coseno en el triángulo \(APQ\), cuyo ángulo en
+  \item Solo con las medidas, por la ley del coseno en el triángulo \(APQ\), cuyo ángulo en
   \(A\) es \(\gamma=\beta_Q-\beta_P=81^\circ\,18'\,23{,}0''\):
   \(\overline{PQ}=\sqrt{d_P^2+d_Q^2-2\,d_Pd_Q\cos\gamma}=155{,}699\) m.
 \end{itemize}
@@ -746,21 +660,15 @@ cuadrante. La función de dos argumentos da
 y el acimut inverso es \(\mathrm{Az}_{QP}=17^\circ\,22'\,56{,}9''\). El valor ingenuo coincidía
 con \(\mathrm{Az}_{QP}\): el error es exactamente media vuelta.
 
-Las dos unidades del comienzo del capítulo permiten repetir la cuenta con otros ángulos.
-
 \unidadInteractiva{01a_punto_quieto}{Rotaciones I: el punto no se movió}{Explorá: girá los ejes un ángulo como el de orientación \(\mathrm{Az}_{AB}\) y comprobá que el punto queda quieto aunque cambien sus coordenadas, como pasa al llevar \(P'\) del sistema del instrumento al de la faja.}
 
 \unidadInteractiva{02_producto_interno}{Producto interno: proyección, longitud, ángulo}{Verificá: con dos vectores de longitudes \(d_P\) y \(d_Q\) que formen el ángulo \(\gamma\), comprobá que la distancia entre sus extremos es la que da la ley del coseno.}
 
 \section{En profundidad}
 
-
-Quedan tres temas: qué pasa cuando los ángulos son chicos, por qué todo giro del espacio tiene
-un eje y cómo se acumulan muchos giros pequeños. El apéndice~\ref{ap:infinitesimales}
-desarrolla las rotaciones infinitesimales y su relación con la exponencial; el
-apéndice~\ref{ap:rot3d} construye las matrices de rotación 3D y la fórmula de Rodrigues para
-un eje arbitrario. El eje como dirección fija es la puerta a los autovectores del
-capítulo~\ref{cap:autovectores}.
+El apéndice~\ref{ap:infinitesimales} desarrolla las rotaciones infinitesimales y su relación
+con la exponencial; el apéndice~\ref{ap:rot3d} construye las matrices de rotación 3D y la
+fórmula de Rodrigues para un eje arbitrario.
 
 \subsection{Rotaciones pequeñas}
 
@@ -905,7 +813,7 @@ Q_\varepsilon
 =R_z(\varepsilon)R_y(\varepsilon)R_x(\varepsilon),
 \qquad \varepsilon=0{,}01,
 \]
-por ejemplo con \texttt{MMULT} en una hoja de cálculo o con \texttt{numpy}. Por la
+con \texttt{MMULT} en una planilla o con \texttt{numpy}. Por la
 proposición~\ref{prop:rot-pequenas}, a primer orden
 \(Q_\varepsilon\approx I+\varepsilon(A_x+A_y+A_z)\). La matriz \(A_x+A_y+A_z\) es la de la
 proposición~\ref{prop:generador} con \(\omega=(1,1,1)\), cuya norma es \(\sqrt3\): cada paso
@@ -923,34 +831,32 @@ cercano es \(n=121\):
   \approx120{,}079^\circ.
 \]
 El producto exacto \(Q_\varepsilon^{121}\), calculado numéricamente, tiene eje
-\(\approx(0{,}575;\,0{,}581;\,0{,}575)\), muy cerca de \((1,1,1)/\sqrt3\), cuyas
-componentes valen \(\approx0{,}577\), y ángulo \(\approx119{,}879^\circ\); sus entradas difieren de las de \(P\) en
+\(\approx(0{,}575;\,0{,}581;\,0{,}575)\), muy cerca de \((1,1,1)/\sqrt3\),
+de componentes \(\approx0{,}577\), y ángulo \(\approx119{,}879^\circ\); sus entradas difieren de las de \(P\) en
 menos de \(0{,}008\). La pequeña discrepancia es el término de segundo orden de la
 proposición~\ref{prop:rot-pequenas}, acumulado a lo largo de los 121 pasos.
 
-% --- de 08-algebra-transformaciones.tex (Construcciones) ---
 \subsection{Producto interno: incidencia}\label{sec:interno}
 
 \unidadInteractiva{02_producto_interno}{Producto interno: proyección, longitud, ángulo}{Verificá: variá el ángulo \(\theta\) entre \(u\) y \(v\) y comprobá que el producto interno se anula cuando son perpendiculares.}
 
-
-\textbf{Desarrollo.} El producto interno sirve para dos cosas: proyectar, y decidir si dos
-vectores son ortogonales (\(u\cdot v=0\)). En coordenadas homogéneas aparece un tercer uso.
+El producto interno sirve para proyectar y para decidir si dos vectores son ortogonales
+(\(u\cdot v=0\)). En coordenadas homogéneas aparece un tercer uso.
 Un punto se representa por una terna \(p=(x,y,w)^T\) y una recta \(ax+by+c=0\) por otra
 terna \(\ell=(a,b,c)^T\). Son objetos distintos (se los suele dibujar con símbolos
 distintos), pero ambos son vectores de \(\R^3\), y
 \[
   \boxed{\ \ell\cdot p=ax+by+cw=0\quad\Longleftrightarrow\quad p\ \text{está en}\ \ell\ }.
 \]
-La ecuación cartesiana de la recta es literalmente ``el producto interno con la normal es
-cero''. Ni \(\ell\) ni \(p\) cambian de significado si se los multiplica por un número, y la
+La ecuación cartesiana de la recta dice \enquote{el producto interno con la normal es
+cero}. Ni \(\ell\) ni \(p\) cambian de significado si se los multiplica por un número, y la
 condición tampoco.
 
 \section{Ejercicios con solución}
 
 \begin{ejercicio}
-Calcular la imagen de \(p=(5,2)\) por la rotación de \(60^\circ\) alrededor de \(c=(2,-1)\) y
-verificar que \(|p'-c|=|p-c|\).
+Calculá la imagen de \(p=(5,2)\) por la rotación de \(60^\circ\) alrededor de \(c=(2,-1)\) y
+verificá que \(|p'-c|=|p-c|\).
 \solucion{\(p-c=(3,3)\), \(R(60^\circ)(3,3)\approx(-1{,}098;\,4{,}098)\),
 \(p'\approx(0{,}902;\,3{,}098)\); ambas distancias valen \(3\sqrt2\approx4{,}243\).}
 \end{ejercicio}
@@ -960,7 +866,7 @@ La matriz homogénea
 \[
 H=\begin{pmatrix}0&-1&4\\1&0&2\\0&0&1\end{pmatrix}
 \]
-representa una rotación. Hallar su
+representa una rotación. Hallá su
 ángulo y su centro.
 \solucion{La parte lineal es \(R(90^\circ)\). El centro resuelve
 \((I-R)c=(4,2)\); con \(c=(x,y)\): \(x+y=4\), \(-x+y=2\), de donde \(c=(1,3)\); en efecto
@@ -968,7 +874,7 @@ representa una rotación. Hallar su
 \end{ejercicio}
 
 \begin{ejercicio}
-Un punto está a \(100\) m de una estación, en \(p=(100,0)\). Comparar su rotación exacta en
+Un punto está a \(100\) m de una estación, en \(p=(100,0)\). Compará su rotación exacta en
 \(\varepsilon=0{,}02\) rad con la aproximación \((I+\varepsilon J)p\),
 \(J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\).
 \solucion{Exacta \(\approx(99{,}980;\,2{,}000)\), aproximada \((100;\,2)\); el error es
@@ -976,13 +882,13 @@ Un punto está a \(100\) m de una estación, en \(p=(100,0)\). Comparar su rotac
 \end{ejercicio}
 
 \begin{ejercicio}
-Calcular \(R_z(90^\circ)R_x(90^\circ)e_y\) y \(R_x(90^\circ)R_z(90^\circ)e_y\). ¿Conmutan?
+Calculá \(R_z(90^\circ)R_x(90^\circ)e_y\) y \(R_x(90^\circ)R_z(90^\circ)e_y\). ¿Conmutan?
 \solucion{El primero da \(e_z\) (\(R_x\) lleva \(e_y\) a \(e_z\), que \(R_z\) deja fijo); el
 segundo da \(-e_x\) (\(R_z\) lleva \(e_y\) a \(-e_x\), que \(R_x\) deja fijo). No conmutan.}
 \end{ejercicio}
 
 \begin{ejercicio}
-Convertir el acimut \(\mathrm{Az}=230^\circ\) en ángulo matemático \(\theta\), y el ángulo
+Convertí el acimut \(\mathrm{Az}=230^\circ\) en ángulo matemático \(\theta\), y el ángulo
 \(\theta=30^\circ\) en acimut.
 \solucion{\(\theta=90^\circ-230^\circ=-140^\circ\equiv220^\circ\);
 \(\mathrm{Az}=90^\circ-30^\circ=60^\circ\).}
