@@ -3,17 +3,29 @@
 
 \section{La idea}
 
-El capítulo~\ref{cap:antes-de-empezar} dejó el cuarto de vuelta como ejemplo de una matriz que
-se lee como movimiento; ahora construimos todas las rotaciones a partir de tres afirmaciones:
-un punto no es lo mismo que sus coordenadas, transformar es mover figuras y rotar es conservar
-distancias alrededor de un centro.
+Imaginá que estás parado sobre una plataforma grande que gira despacio, sin sacudones. ¿Qué
+cambia y qué no? La distancia a cualquier persona que esté con vos sobre la plataforma no
+cambia. El centro no se mueve. Cada punto del piso recorre una circunferencia, y todos barren
+el mismo ángulo en el mismo tiempo. Y si mirás hacia afuera, ves que el paisaje gira alrededor
+tuyo en sentido contrario. Esas observaciones son el capítulo entero: una rotación conserva
+distancias y deja fijo un centro, y se puede leer de dos maneras, según se mire desde afuera o
+desde arriba de la plataforma. En coordenadas, además, \emph{girar es multiplicar} por una
+matriz.
+
+Para llegar ahí usamos tres ideas que vuelven en toda la materia: un punto no es lo mismo que
+sus coordenadas, transformar es mover figuras y rotar es conservar distancias alrededor de un
+centro. El capítulo~\ref{cap:antes-de-empezar} dejó el cuarto de vuelta como primer ejemplo de
+una matriz que se lee como movimiento; ahora construimos todas las rotaciones.
 
 \paragraph{Convenciones del capítulo.} El origen se llama \(o\) y los ángulos \(\theta\),
 \emph{positivos en sentido antihorario}; el resto sigue la sección~\ref{sec:notacion}.
 
 \begin{atencion}[Acimut no es \(\theta\)]
-El acimut \(\mathrm{Az}\) se mide desde el norte y en sentido \emph{horario}; \(\theta\), desde el
-este y en sentido \emph{antihorario}. Describen la misma dirección con números distintos:
+En topografía las direcciones se dan con el \emph{acimut} \(\mathrm{Az}\), que se lee como las
+agujas de un reloj: arranca en el norte, que haría de las 12, y avanza en sentido
+\emph{horario}. El ángulo \(\theta\) de la matemática arranca en el este, que serían las 3, y
+avanza al revés, en sentido \emph{antihorario}. Describen la misma dirección con números
+distintos:
 \(\theta=90^\circ-\mathrm{Az}\) (módulo \(360^\circ\)), como deducimos en la sección~\ref{sec:acimut-campo}.
 \end{atencion}
 
@@ -22,7 +34,11 @@ este y en sentido \emph{antihorario}. Describen la misma dirección con números
 \unidadInteractiva{01a_punto_quieto}{Rotaciones I: el punto no se movió}{Explorá: girá los ejes con el deslizador \(\theta\) y mirá cómo cambian las coordenadas del mojón mientras el punto queda quieto.}
 
 Un punto existe independientemente de cómo lo describamos; sus coordenadas aparecen recién
-después de elegir un sistema de referencia.
+después de elegir un sistema de referencia. Pasa lo mismo con una casa y su dirección: si el
+municipio renumera las calles, la casa sigue en el mismo lugar, pero su dirección cambia. Un
+\emph{mojón}, el hito de hierro o de hormigón que marca un punto en el terreno, es la casa;
+sus coordenadas son su dirección en un sistema que elegimos nosotros. Cambiar el sistema cambia
+los números, no el mojón.
 
 \begin{definicion}[Sistema de coordenadas cartesiano]
 Un sistema de coordenadas cartesiano del plano consiste en un punto \(o\), el \emph{origen};
@@ -33,7 +49,10 @@ coordenadas de un punto \(p\) son los únicos números \((x,y)\) tales que
 girando \(e_x\) un cuarto de vuelta en sentido antihorario.
 \end{definicion}
 
-Las coordenadas de un punto pueden cambiar, entonces, de dos maneras.
+Las coordenadas de un punto pueden cambiar, entonces, de dos maneras, y la plataforma del
+comienzo muestra las dos. Quien mira desde afuera ve que la plataforma giró con todo lo que
+tiene encima: los objetos se movieron. Quien está arriba no ve moverse nada a su alrededor;
+para él lo que giró, y en sentido contrario, es el paisaje: cambió el punto de vista.
 
 \begin{definicion}[Transformación activa y pasiva]
 Una transformación es \emph{activa} cuando los ejes quedan fijos y el punto se mueve a otro
@@ -72,6 +91,13 @@ unitarios son \(e_{x'}=(0,1)\) y \(e_{y'}=(-1,0)\), y las nuevas coordenadas son
 que se construyen en la sección~\ref{sec:rot-plano}.
 \end{ejemplo}
 
+\begin{idea}[Mover el objeto o cambiar las coordenadas: lectura activa o pasiva]
+La materia estudia a la vez dos problemas distintos: mover o deformar objetos geométricos y
+cambiar la manera de asignarles coordenadas. Las fórmulas se parecen; la lectura activa o
+pasiva decide qué está cambiando realmente: si giró la plataforma o cambió desde dónde
+miramos.
+\end{idea}
+
 \begin{idea}[La rotación sugiere las coordenadas polares]
 Al girar alrededor de un centro, cada punto recorre una circunferencia. La familia de esas
 circunferencias, junto con las semirrectas que salen del centro, forma las líneas coordenadas
@@ -86,9 +112,17 @@ Una \emph{transformación del plano} es una función \(F:\R^2\to\R^2\) que asign
 \(F(q)=q\).
 \end{definicion}
 
-Para comprender una transformación seguimos una figura sencilla, como un triángulo: adónde va
-cada vértice, si se conservan longitudes, ángulos y paralelas, y si algún punto, recta o
-dirección queda fijo.
+Una transformación es una regla que le asigna a cada punto del plano un destino. Para
+entenderla no hace falta seguir todos los puntos: alcanza con mirar qué le hace a una figura
+sencilla, como un triángulo, y hacerle siempre las mismas cuatro preguntas:
+\begin{itemize}
+  \item ¿qué puntos quedan fijos?;
+  \item ¿qué conserva: distancias, ángulos, áreas o paralelas?;
+  \item ¿cómo se escribe en coordenadas?;
+  \item ¿qué pasa si la aplicamos dos veces, o seguida de otra?
+\end{itemize}
+A lo largo del curso se las hacemos a cada familia de transformaciones, y el cuadro de la sección~\ref{sec:mapa-transformaciones} reúne las
+respuestas.
 
 \begin{center}
 \begin{tikzpicture}[scale=.88]
@@ -118,12 +152,18 @@ Muchas transformaciones del apunte tienen la forma \(F(p)=Ap+t\): la matriz \(A\
 direcciones y formas, y el vector \(t\) desplaza toda la figura sin deformarla
 (sección~\ref{sec:transf-plano}).
 
+\begin{idea}[Una transformación se reconoce por lo que conserva]
+Muchas transformaciones se definen por lo que conservan: las rotaciones conservan distancias y
+dejan fijo un punto, las similaridades conservan ángulos, las afinidades conservan el
+paralelismo. Saber qué se conserva es saber de qué transformación se trata.
+\end{idea}
+
 \subsection{Rotar: conservar distancias alrededor de un centro}\label{sec:rotar}
 
 \unidadInteractiva{01b_rotacion_plano}{Rotaciones II: la rotación en el plano}{Verificá: mové el deslizador \(\theta\) y comprobá que la distancia al centro no cambia.}
 
 Una rotación mueve cada punto sobre una circunferencia cuyo centro es el centro de rotación,
-y todos los puntos barren el mismo ángulo.
+y todos los puntos barren el mismo ángulo, como el piso de la plataforma.
 
 \begin{definicion}[Rotación del plano]
 Sean \(c\) un punto y \(\theta\) un ángulo. La \emph{rotación de centro \(c\) y ángulo
@@ -141,8 +181,8 @@ gira como un plano bidimensional (sección~\ref{sec:rot-3d}).
 \[
   \rhoP{c,\theta}(p)=c+R(\theta)(p-c).
 \]
-El vector \(p-c\) expresa la posición vista desde el centro; \(R(\theta)\) lo gira, y sumar
-\(c\) devuelve el resultado al sistema original.
+La fórmula se lee como una instrucción en tres pasos: pararse en el centro (\(p-c\) es el
+punto visto desde ahí), girar (\(R(\theta)\)) y volver al sistema original (sumar \(c\)).
 
 \begin{idea}[El centro y un punto imagen determinan la rotación]
 Una rotación deja fijo un punto, el centro, y conserva las distancias y los ángulos. Todo lo
@@ -370,12 +410,15 @@ mismo: \((I-R(30^\circ))c\approx(0{,}634;\,-0{,}366)\) y
 \end{center}
 \end{ejemplo}
 
-\subsection{Orientar una estación total: acimut y ángulo matemático}\label{sec:acimut-campo}
+\subsection{Orientar un instrumento: acimut y ángulo matemático}\label{sec:acimut-campo}
 
-Una estación total mide direcciones horizontales sobre un limbo graduado. Al estacionar el
-instrumento, el cero del limbo apunta a una dirección arbitraria, de modo que cada lectura
+Hay instrumentos que miden en el terreno ángulos horizontales con una precisión de hasta un
+segundo de arco, la 3600-ava parte de un grado, y distancias al milímetro. Miran por un
+anteojo y leen la dirección sobre un círculo graduado. Al instalarlos, el cero de ese círculo
+queda apuntando a cualquier lado, de modo que cada lectura
 \(\mathrm{Lec}\) es la dirección medida desde ese cero, en sentido horario. Para pasar a
-acimutes se visa un punto de referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce y se calcula la \emph{corrección de
+acimutes hay que referir las lecturas a una dirección conocida: se mira un punto de
+referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce y se calcula la \emph{corrección de
 orientación} \(\kappa\)
 \[
 \kappa=\mathrm{Az}_{\text{ref}}-\mathrm{Lec}_{\text{ref}}\pmod{360^\circ},
@@ -517,9 +560,11 @@ Como \(-e_y\neq e_x\), \(R_yR_x\neq R_xR_y\). La diferencia no es un error numé
 propiedad geométrica de las rotaciones espaciales.
 \end{ejemplo}
 
-\subsection{Aplicación topográfica: acimut y estación total}\label{sec:rotaciones-aplicacion}
+\subsection{Aplicación topográfica: coordenadas a partir de un ángulo y una distancia}\label{sec:rotaciones-aplicacion}
 
-Seguimos ahora la cuenta completa de un \emph{radiado}: desde una estación de coordenadas
+Seguimos ahora la cuenta completa de un \emph{radiado}, la forma más simple de ubicar puntos
+nuevos en el terreno. Funciona como un radar: desde un punto fijo, la \emph{estación}, se
+apunta a cada objetivo y se anota hacia dónde está y a qué distancia. Desde una estación de coordenadas
 conocidas se miden, para cada punto nuevo, una distancia horizontal \(d\) y un ángulo
 horizontal \(\beta\), contado en sentido horario desde la visual a un punto de referencia; con
 eso se calculan las coordenadas del punto. Cada paso es una rotación, y por eso las distancias
@@ -531,7 +576,12 @@ con coordenadas Gauss-Krüger de la faja~5, en metros:
 A=(E_A,N_A)=(5\,412\,837{,}425;\ 6\,171\,254{,}318),\qquad
 B=(5\,413\,096{,}512;\ 6\,171\,618{,}903).
 \]
-Con el cero de la medición en la visual a \(B\), se observan dos puntos \(P\) y \(Q\):
+Los números son largos porque el origen del sistema oficial está muy lejos, como si diéramos
+la altura de una persona medida desde el centro de la Tierra; para las cuentas importan las
+diferencias entre puntos, que acá son de unos cientos de metros. La \emph{faja~5} es una de
+las franjas en que se divide el país para dibujarlo en un plano (complemento~\ref{cap:conformes});
+por ahora alcanza con saber que \(E\) crece hacia el este y \(N\) hacia el norte. Con el cero
+de la medición en la visual a \(B\), se observan dos puntos \(P\) y \(Q\):
 \[
 \beta_P=47^\circ\,23'\,15'',\quad d_P=86{,}452\text{ m};\qquad
 \beta_Q=128^\circ\,41'\,38'',\quad d_Q=143{,}217\text{ m}.
