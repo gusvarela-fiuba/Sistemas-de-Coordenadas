@@ -17,7 +17,7 @@ Todo se usa desde el navegador, sin instalar nada:
 
 ### Autoevaluación
 
-Cada unidad cierra con seis preguntas de opción múltiple (dos elementales, dos medias, dos avanzadas), y la página [autoevaluacion.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html) reúne las 120 en tres modos: práctica con devolución inmediata, simulacro de 20 preguntas y evaluación de 4 intentos. El banco completo para importar en Moodle está en [`campus/`](campus/).
+Cada unidad cierra con seis preguntas de opción múltiple (dos elementales, dos medias, dos avanzadas), y la página [autoevaluacion.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html) reúne las 120 en tres modos: práctica con devolución inmediata, simulacro de 20 preguntas y evaluación de 4 intentos. El banco completo para importar en Moodle está en [`moodle/`](campus/).
 
 ### Las tres capas
 
@@ -86,7 +86,7 @@ El orden es el del hilo conductor de la portada. "Clase del curso" es la clase d
 
 | Unidad | Lección (enlace) | Clase del curso | Qué construye |
 |---|---|---|---|
-| Unidad 0 | [Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_desaprender_el_cbc/index.html) | clases 01, 04 y 09 (desarrollo complementario) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
+| Unidad 0 | [Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html) | clases 01, 04 y 09 (desarrollo complementario) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
 | Unidad 1 | [Rotaciones I: el punto no se movió](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01a_punto_quieto/index.html) | clase 01 | La rotación pasiva: giran los ejes, cambian las coordenadas, el mojón no se mueve. |
 | Unidad 2 | [Rotaciones II: la rotación en el plano](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01b_rotacion_plano/index.html) | clase 01 | La rotación activa como matriz ortogonal de determinante +1: sus columnas son adónde van los ejes, y el mismo giro como número complejo. |
 | Unidad 3 | [Rotaciones III: tres ejes y el orden importa](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html) | clases 01–02 | Las rotaciones alrededor de cada eje de R3, la composición que no conmuta y Euler–Rodrigues: toda composición es un solo giro alrededor de un eje. |

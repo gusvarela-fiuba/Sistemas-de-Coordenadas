@@ -185,7 +185,7 @@ def _(lib, mo):
 @app.cell
 def _(H_foto, lib, mo, np):
     # ---------- casos precargados: etiqueta → (tipo, dato, objeto, rango, paso, qué pasa) ----------
-    pent = lib.pentagono_profesor()  # A..E, D = (0, 1), horario
+    pent = lib.pentagono_ejemplo()  # A..E, D = (0, 1), horario
     H_pent, lam_pent = lib.homografia_lambda(pent[[0, 1, 2, 4]], pent[[0, 1, 4, 2]])  # A, B fijos; C ↔ E
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
     H_afin = H_foto.copy()
@@ -324,7 +324,7 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
             negativos de $A$ y $B$ dicen que la recta $4y + 1 = 0$ pasa entre $AB$ y $CE$: la imagen se parte.
             """),
             mo.vstack([
-                mo.md("```python\nP = lib.pentagono_profesor()        # A..E\no, d = P[[0, 1, 2, 4]], P[[0, 1, 4, 2]]\nM, b = lib.sistema_lambda(o, d)     # 13×13\nx = np.linalg.solve(M, b)\nH, lam = x[:9].reshape(3, 3), x[9:]\nH @ lib.hom(P[3])                   # D\n```"),
+                mo.md("```python\nP = lib.pentagono_ejemplo()        # A..E\no, d = P[[0, 1, 2, 4]], P[[0, 1, 4, 2]]\nM, b = lib.sistema_lambda(o, d)     # 13×13\nx = np.linalg.solve(M, b)\nH, lam = x[:9].reshape(3, 3), x[9:]\nH @ lib.hom(P[3])                   # D\n```"),
                 mo.md(f"`M.shape` = `{_M.shape}` → `H` =\n```\n{np.round(_x[:9].reshape(3, 3), 3)}\n```\n`lam` = `{np.round(_x[9:], 3).tolist()}`  \n"
                       f"`H @ hom(D)` = `{np.round(_HD, 3).tolist()}` → `{np.round(lib.dehom(_HD), 3).tolist()}`  \n"
                       f"`lib.homografia_lambda(o, d)` da lo mismo: `{bool(np.allclose(_x[:9].reshape(3, 3), H_pent) and np.allclose(_x[9:], lam_pent))}`"),

@@ -237,7 +237,7 @@ uv run python tools/merge_banco.py [--check] [--parcial]   # --check no escribe;
 
 ## `exportar_moodle_xml.py` — banco para el Campus
 
-Genera `campus/moodle_banco_120_preguntas_cb104.xml` (Moodle XML) desde `unidades/banco_autoevaluacion.py`, con una categoría por unidad y nivel. Correr después de `merge_banco.py`.
+Genera `moodle/moodle_banco_120_preguntas_cb104.xml` (Moodle XML) desde `unidades/banco_autoevaluacion.py`, con una categoría por unidad y nivel. Correr después de `merge_banco.py`.
 
 ```
 uv run python tools/exportar_moodle_xml.py [--salida ARCHIVO] [--parcial]

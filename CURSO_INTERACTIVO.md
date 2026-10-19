@@ -35,10 +35,10 @@ Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pre
 
 **Ejercicios en Python:** `matriz_complejo(z)` (E1), `arrastrar_punto_y_forma(A, x, w)` (E2), `angulo_g(a, b, g)` y `subida_metrica(w, g)` (E3). Lápiz (a): con la cota h = 3x + y y el Norte estirado por 2, calcular la cota del mojón, el mojón dibujado, la regla arrastrada y decidir si la flecha (3, 1) dibujada en el papel es la subida más empinada. Esta unidad no tiene ejercicio de lápiz (b); los tres de código lo reemplazan.
 
-- Notebook: [unidades/00_desaprender_el_cbc.py](unidades/00_desaprender_el_cbc.py)
+- Notebook: [unidades/00_fundamentos.py](unidades/00_fundamentos.py)
 - Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/04-espacios-lineales-formas.md](clases/04-espacios-lineales-formas.md), [clases/09-analisis-derivada-jacobiano.md](clases/09-analisis-derivada-jacobiano.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "El punto y sus coordenadas no son lo mismo", "Formas lineales: la recta como máquina de medir" y "Métrica y primera forma fundamental".
-- [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_desaprender_el_cbc/index.html)
+- [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html)
 
 ## Unidad 1 — Rotaciones I: el punto no se movió
 
@@ -400,4 +400,4 @@ Al final de cada unidad hay seis preguntas de opción múltiple para chequear qu
 - **Simulacro:** veinte preguntas, una por unidad; la corrección llega al entregar.
 - **Evaluación:** treinta preguntas y hasta cuatro intentos, que quedan anotados sólo en nuestro navegador.
 
-Para la cátedra, el mismo banco está como XML de Moodle en `campus/moodle_banco_120_preguntas_cb104.xml`.
+Para la cátedra, el mismo banco está como XML de Moodle en `moodle/moodle_banco_120_preguntas_cb104.xml`.

@@ -16,8 +16,8 @@ lineal y el gradiente también; (5) producto interno y métrica G: la cinta mét
 frases entre comillas atribuidas al profesor están en `fuentes/` (resúmenes 2025 o transcripciones 2026); lo demás es
 desarrollo del apunte.
 
-Chequear:  uv run marimo check --select MW unidades/00_desaprender_el_cbc.py
-Exportar:  uv run python tools/build.py --only 00_desaprender_el_cbc
+Chequear:  uv run marimo check --select MW unidades/00_fundamentos.py
+Exportar:  uv run python tools/build.py --only 00_fundamentos
 """
 
 import marimo
@@ -64,7 +64,7 @@ def _(mo):
 
 @app.cell
 def _(lib, mo):
-    mo.md(lib.bloque_hilo_conductor("00_desaprender_el_cbc"))
+    mo.md(lib.bloque_hilo_conductor("00_fundamentos"))
     return
 
 
@@ -860,7 +860,7 @@ def _(mo):
 @app.cell
 def _(lib, mezclar, mo):
     _vez = mezclar.value  # al apretar el botón esta celda vuelve a correr y baraja de nuevo
-    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "00_desaprender_el_cbc")
+    preguntas_tanda, respuestas_radio = lib.preparar_autoevaluacion(mo, "00_fundamentos")
     mo.vstack(respuestas_radio.elements, gap=1.0)
     return preguntas_tanda, respuestas_radio
 

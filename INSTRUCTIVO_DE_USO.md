@@ -127,7 +127,7 @@ uv sync
 
 ### Paso 4 — Abrir, probar y modificar una lección Marimo sin romper el repositorio
 
-Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_desaprender_el_cbc`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
+Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_fundamentos`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
 
 **1. Modo proyección, sólo uso (`marimo run`).** No toca el archivo:
 
@@ -275,7 +275,7 @@ El registro de la evaluación vive sólo en el navegador de cada alumno (`localS
 
 ### Cómo importar el banco en Moodle
 
-El archivo es `campus/moodle_banco_120_preguntas_cb104.xml` (el sitio publica una copia en `moodle_banco_120_preguntas_cb104.xml`, enlazada al pie de la página de autoevaluación). Para cargarlo:
+El archivo es `moodle/moodle_banco_120_preguntas_cb104.xml` (el sitio publica una copia en `moodle_banco_120_preguntas_cb104.xml`, enlazada al pie de la página de autoevaluación). Para cargarlo:
 
 1. En el curso de Moodle, entramos en **Más → Banco de preguntas → Importar**.
 2. Elegimos el formato **Moodle XML** y subimos el archivo.
@@ -293,4 +293,4 @@ uv run python tools/merge_banco.py
 uv run python tools/build.py
 ```
 
-El primer comando valida los fragmentos y regenera el módulo del banco. El segundo regenera todo el sitio, incluidos `autoevaluacion.html` y el XML de Moodle (`campus/moodle_banco_120_preguntas_cb104.xml`, que `tools/build.py` vuelve a generar y copia a `site/`).
+El primer comando valida los fragmentos y regenera el módulo del banco. El segundo regenera todo el sitio, incluidos `autoevaluacion.html` y el XML de Moodle (`moodle/moodle_banco_120_preguntas_cb104.xml`, que `tools/build.py` vuelve a generar y copia a `site/`).

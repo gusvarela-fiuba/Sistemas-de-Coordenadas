@@ -4,238 +4,224 @@ Banco de autoevaluación: 6 preguntas por unidad (2 elementales, 2 medias, 2 ava
 con explicación cada una. Lo importa cb104.py y tools/build.py lo embebe en cada export WASM.
 """
 
-BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
-                            'nivel': 'elemental',
-                            'enunciado': 'La cota de una loma es $h = 3x + y$, o sea la forma lineal $w^T = '
-                                         '(3, 1)$. Si la dibujamos sobre el plano de la parcela, ¿qué vemos?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Una familia de rectas paralelas equiespaciadas, las '
-                                                   'curvas de nivel $3x + y = c$: una regla graduada tirada '
-                                                   'sobre el plano.',
-                                          'correcta': True,
-                                          'explicacion': 'Una forma lineal se ve por sus conjuntos de nivel, '
-                                                         'que son rectas paralelas a distancia $1/\\lvert '
-                                                         'w\\rvert$; leer un punto es ver qué marca lo '
-                                                         'atraviesa.'},
-                                         {'id': 'b',
-                                          'texto': 'Una flecha clavada en el origen con extremo en $(3, 1)$, '
-                                                   'como cualquier vector de $\\mathbb R^2$.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso es tratar la fila como columna: los números de '
-                                                         'una forma no son una flecha, y sin métrica no hay '
-                                                         'manera de convertirlos en una.'},
-                                         {'id': 'c',
-                                          'texto': 'Una sola recta, la $3x + y = 0$, porque una forma lineal '
-                                                   'es una ecuación y una ecuación es una recta.',
-                                          'correcta': False,
-                                          'explicacion': 'Esa recta es sólo la marca cero de la regla (el '
-                                                         'núcleo de $w^T$); la forma entera asigna un número '
-                                                         'a cada punto del plano, no sólo a los que dan '
-                                                         '$0$.'},
-                                         {'id': 'd',
-                                          'texto': 'El número $3 \\cdot 1 + 1 \\cdot 1 = 4$, la lectura de '
-                                                   'la forma en el punto $(1, 1)$.',
-                                          'correcta': False,
-                                          'explicacion': 'Esa es una sola lectura, el valor de la forma en '
-                                                         'un punto; la forma es la función entera, no uno de '
-                                                         'sus resultados.'}],
-                            'rubrica': 'Productos/elemental: una forma lineal es una regla graduada, familia '
-                                       'de rectas paralelas equiespaciadas'},
-                           {'id': '00_e2',
-                            'nivel': 'elemental',
-                            'enunciado': 'Los giros de la estación total alrededor de su eje vertical, con '
-                                         'la operación hacer uno y después el otro, forman un grupo. ¿Cuál '
-                                         'es la inversa de girar $30°$ y respecto de qué operación lo es?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Girar $-30°$, respecto de la composición: hecho después '
-                                                   'del primero da el neutro, que es no girar.',
-                                          'correcta': True,
-                                          'explicacion': 'La inversa es siempre respecto de una operación: '
-                                                         'compuesto con el giro de $30°$ devuelve el '
-                                                         'elemento neutro, y el neutro de componer giros es '
-                                                         'el giro nulo.'},
-                                         {'id': 'b',
-                                          'texto': 'Girar $\\tfrac{1}{30}$ de grado, porque la inversa de un '
-                                                   'elemento es su recíproco.',
-                                          'correcta': False,
-                                          'explicacion': 'El recíproco es la inversa respecto del producto '
-                                                         'de números; acá la operación es componer giros, y '
-                                                         '$\\tfrac{1}{30}°$ compuesto con $30°$ da '
-                                                         '$30\\tfrac{1}{30}°$, no el neutro.'},
-                                         {'id': 'c',
-                                          'texto': 'Girar $150°$, porque $30° + 150° = 180°$ y media vuelta '
-                                                   'deshace lo hecho.',
-                                          'correcta': False,
-                                          'explicacion': 'Media vuelta no es el neutro: deja la estación '
-                                                         'apuntando al revés. El neutro es el giro de $0°$, '
-                                                         'y lo que suma $0°$ con $30°$ es $-30°$.'},
-                                         {'id': 'd',
-                                          'texto': 'No tiene inversa: una vez girada, la estación no vuelve '
-                                                   'sola a la posición inicial.',
-                                          'correcta': False,
-                                          'explicacion': 'Que no vuelva sola no quita que exista el giro que '
-                                                         'la devuelve; en un grupo todo elemento tiene '
-                                                         'inversa, y girar $-30°$ lo es.'}],
-                            'rubrica': 'SVD/medio: la inversa es siempre respecto de una operacion (suma, '
-                                       'producto, composicion)'},
-                           {'id': '00_m1',
-                            'nivel': 'medio',
-                            'enunciado': 'Dibujamos el plano con el Este estirado por 2, $A = '
-                                         '\\mathrm{diag}(2, 1)$. La cota es la regla $w^T = (1, 1)$ y el '
-                                         'mojón está en $x = (1, 2)$, cota $3$. ¿Qué regla hay que dibujar '
-                                         'en el papel para que el mojón dibujado $Ax = (2, 2)$ siga leyendo '
-                                         'cota $3$?',
-                            'opciones': [{'id': 'a',
-                                          'texto': '$(\\tfrac12, 1)$, que es $w^T A^{-1}$: en efecto '
-                                                   '$\\tfrac12 \\cdot 2 + 1 \\cdot 2 = 3$.',
-                                          'correcta': True,
-                                          'explicacion': 'La forma se arrastra con la inversa y por la '
-                                                         "derecha, $w'^T = w^T A^{-1}$, justamente para que "
-                                                         "$w'^T(Ax) = w^T x$ y la lectura no cambie."},
-                                         {'id': 'b',
-                                          'texto': '$(2, 1)$, que es $Aw$: la regla va con la misma matriz '
-                                                   'que los puntos.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso mueve la fila como si fuera un punto; con $(2, '
-                                                         '1)$ el mojón dibujado lee $2 \\cdot 2 + 1 \\cdot 2 '
-                                                         '= 6$, el doble de su cota.'},
-                                         {'id': 'c',
-                                          'texto': '$(1, 1)$, la misma: la cota es del terreno y no depende '
-                                                   'de cómo dibujemos el plano.',
-                                          'correcta': False,
-                                          'explicacion': 'La cota del mojón no depende del dibujo, pero la '
-                                                         'regla escrita en la grilla del papel sí: con $(1, '
-                                                         '1)$ el punto $(2, 2)$ lee $4$, no $3$.'},
-                                         {'id': 'd',
-                                          'texto': '$(2, 2)$, que es $Ax$: regla y mojón van juntos al mismo '
-                                                   'lugar.',
-                                          'correcta': False,
-                                          'explicacion': '$(2, 2)$ es el mojón dibujado, un punto; confunde '
-                                                         'el objeto que se lee con la regla que lo lee, y '
-                                                         '$(2, 2)\\cdot(2, 2) = 8$.'}],
-                            'rubrica': 'Productos/medio: las formas lineales se transforman del lado '
-                                       'contrario que los vectores (las rectas de nivel se arrastran con la '
-                                       'figura)'},
-                           {'id': '00_m2',
-                            'nivel': 'medio',
-                            'enunciado': 'Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa '
-                                         'a leerse $(x - 5, y)$. ¿Por qué esa traslación no es una '
-                                         'transformación lineal del plano?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Porque no manda el origen al origen: el $(0, 0)$ pasa a '
-                                                   '$(-5, 0)$, y toda lineal conserva el cero.',
-                                          'correcta': True,
-                                          'explicacion': '$T(0) = T(0 \\cdot v) = 0 \\cdot T(v) = 0$ para '
-                                                         'cualquier lineal; la traslación lo viola, y por '
-                                                         'eso hace falta homogeneizar para escribirla como '
-                                                         'matriz.'},
-                                         {'id': 'b',
-                                          'texto': 'Porque no conserva las distancias entre mojones: al '
-                                                   'correr todo $5$ m los largos cambian.',
-                                          'correcta': False,
-                                          'explicacion': 'Una traslación conserva todas las distancias y los '
-                                                         'ángulos; además, conservar distancias no es lo que '
-                                                         'define a una lineal (el corte es lineal y no las '
-                                                         'conserva).'},
-                                         {'id': 'c',
-                                          'texto': 'Porque no tiene inversa: una vez corridos los mojones no '
-                                                   'se puede volver atrás.',
-                                          'correcta': False,
-                                          'explicacion': 'Correr $5$ m al Oeste la deshace; ser invertible '
-                                                         'no es ni necesario ni suficiente para ser lineal '
-                                                         '(la proyección es lineal y no es invertible).'},
-                                         {'id': 'd',
-                                          'texto': 'Porque cambia los ángulos entre los lados de la parcela '
-                                                   'al correrla.',
-                                          'correcta': False,
-                                          'explicacion': 'Correr la parcela entera deja idénticos sus '
-                                                         'ángulos; la falla no está en lo que conserva sino '
-                                                         'en que el cero no queda en el cero.'}],
-                            'rubrica': 'Productos/medio: el cero siempre va al cero (ladrillo 3, espacio '
-                                       'afin vs. vectorial)'},
-                           {'id': '00_a1',
-                            'nivel': 'avanzado',
-                            'enunciado': 'El plano se dibuja con el Este estirado por 2, $A = '
-                                         '\\mathrm{diag}(2, 1)$. Queremos medir largos y ángulos de terreno '
-                                         "sobre el papel con $\\langle a, b\\rangle_{G'} = a^T G' b$. ¿Qué "
-                                         "matriz $G'$ hay que usar?",
-                            'opciones': [{'id': 'a',
-                                          'texto': "$G' = A^{-T} A^{-1} = \\mathrm{diag}(\\tfrac14, 1)$: "
-                                                   'cada paso Este del papel vale medio metro.',
-                                          'correcta': True,
-                                          'explicacion': "Si $x' = Ax$, el largo de terreno es $x^T x = x'^T "
-                                                         "A^{-T} A^{-1} x'$; con $A^{-1} = "
-                                                         '\\mathrm{diag}(\\tfrac12, 1)$ queda '
-                                                         '$\\mathrm{diag}(\\tfrac14, 1)$, y con ella la '
-                                                         'subida $(2, 1)$ y la marca $(2, -1)$ dan $1 - 1 = '
-                                                         '0$: recto.'},
-                                         {'id': 'b',
-                                          'texto': "$G' = A^T A = \\mathrm{diag}(4, 1)$: la métrica se "
-                                                   'transforma con la misma matriz que los puntos.',
-                                          'correcta': False,
-                                          'explicacion': '$A^T A$ es la métrica que pondría al terreno lo '
-                                                         'que el papel mide con $I$, el sentido contrario: '
-                                                         'con ella un paso Este del papel valdría dos metros '
-                                                         'en vez de medio.'},
-                                         {'id': 'c',
-                                          'texto': "$G' = A = \\mathrm{diag}(2, 1)$: la propia deformación "
-                                                   'del dibujo es la métrica.',
-                                          'correcta': False,
-                                          'explicacion': '$A$ mueve puntos, no mide; una métrica es '
-                                                         'simétrica definida positiva y relaciona dos copias '
-                                                         'del mismo vector, por eso aparece elevada al '
-                                                         'cuadrado ($A^{-T}A^{-1}$).'},
-                                         {'id': 'd',
-                                          'texto': "$G' = I$: la cuenta $x_1 x_2 + y_1 y_2$ mide bien en "
-                                                   'cualquier grilla.',
-                                          'correcta': False,
-                                          'explicacion': 'Con $I$ el ángulo recto del terreno entre $(2, 1)$ '
-                                                         'y $(2, -1)$ se mide como $53.1°$; la suma de '
-                                                         'productos mide de verdad sólo en una grilla '
-                                                         'ortonormal.'}],
-                            'rubrica': 'SVD/avanzado: no hay base privilegiada a priori; lo unico especial '
-                                       'de la canonica es que el producto interno es suma de productos'},
-                           {'id': '00_a2',
-                            'nivel': 'avanzado',
-                            'enunciado': 'En el mojón $(2, 2)$ de la loma $h = 100 - \\tfrac{x^2 + y^2}{4}$ '
-                                         'el gradiente es $(-1, -1)$, así que en el terreno el agua baja '
-                                         'hacia $(1, 1)$. Dibujamos el plano con el Este estirado por 2. '
-                                         '¿Hacia dónde dibujamos la flecha de la bajada más empinada?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Hacia $(2, 1)$: la bajada real $(1, 1)$ pasada por $A = '
-                                                   '\\mathrm{diag}(2, 1)$, aunque en el papel no se vea '
-                                                   'perpendicular a las elipses.',
-                                          'correcta': True,
-                                          'explicacion': 'La bajada es un desplazamiento del terreno y viaja '
-                                                         'con $A$ como cualquier punto; el ángulo recto con '
-                                                         'la curva de nivel vive en la métrica del terreno, '
-                                                         'no en la del papel.'},
-                                         {'id': 'b',
-                                          'texto': 'Hacia $(1, 1)$: los dos números del gradiente, puestos '
-                                                   'tal cual como flecha en el dibujo.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso trata la forma $\\nabla h$ como si fuera un '
-                                                         'vector en una grilla que no mide metros; ese trazo '
-                                                         'del papel es el desplazamiento $(\\tfrac12, 1)$ '
-                                                         'del terreno, que no es la bajada más empinada.'},
-                                         {'id': 'c',
-                                          'texto': 'Hacia $(1, 2)$: perpendicular a las curvas de nivel tal '
-                                                   'como se ven dibujadas.',
-                                          'correcta': False,
-                                          'explicacion': '$(1, 2)$ es proporcional a la regla arrastrada '
-                                                         '$\\pm(\\tfrac12, 1)$, leída como flecha: '
-                                                         'perpendicular con $G = I$, la métrica del papel, '
-                                                         'pero el papel está estirado y ese ángulo recto es '
-                                                         'falso en el terreno.'},
-                                         {'id': 'd',
-                                          'texto': 'Hacia $(2, -1)$: a lo largo de la curva de nivel que '
-                                                   'pasa por el mojón.',
-                                          'correcta': False,
-                                          'explicacion': 'A lo largo de la curva de nivel la cota no cambia; '
-                                                         'es la marca de la regla, y la bajada la cruza en '
-                                                         'vez de seguirla.'}],
-                            'rubrica': "Productos/avanzado: el gradiente es una forma lineal; 'perpendicular "
-                                       "a la curva de nivel' es una frase sobre G^{-1} grad f"}],
+BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
+                     'nivel': 'elemental',
+                     'enunciado': 'La cota de una loma es $h = 3x + y$, o sea la forma lineal $w^T = (3, '
+                                  '1)$. Si la dibujamos sobre el plano de la parcela, ¿qué vemos?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Una familia de rectas paralelas equiespaciadas, las curvas de '
+                                            'nivel $3x + y = c$: una regla graduada tirada sobre el plano.',
+                                   'correcta': True,
+                                   'explicacion': 'Una forma lineal se ve por sus conjuntos de nivel, que '
+                                                  'son rectas paralelas a distancia $1/\\lvert w\\rvert$; '
+                                                  'leer un punto es ver qué marca lo atraviesa.'},
+                                  {'id': 'b',
+                                   'texto': 'Una flecha clavada en el origen con extremo en $(3, 1)$, como '
+                                            'cualquier vector de $\\mathbb R^2$.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso es tratar la fila como columna: los números de una '
+                                                  'forma no son una flecha, y sin métrica no hay manera de '
+                                                  'convertirlos en una.'},
+                                  {'id': 'c',
+                                   'texto': 'Una sola recta, la $3x + y = 0$, porque una forma lineal es una '
+                                            'ecuación y una ecuación es una recta.',
+                                   'correcta': False,
+                                   'explicacion': 'Esa recta es sólo la marca cero de la regla (el núcleo de '
+                                                  '$w^T$); la forma entera asigna un número a cada punto del '
+                                                  'plano, no sólo a los que dan $0$.'},
+                                  {'id': 'd',
+                                   'texto': 'El número $3 \\cdot 1 + 1 \\cdot 1 = 4$, la lectura de la forma '
+                                            'en el punto $(1, 1)$.',
+                                   'correcta': False,
+                                   'explicacion': 'Esa es una sola lectura, el valor de la forma en un '
+                                                  'punto; la forma es la función entera, no uno de sus '
+                                                  'resultados.'}],
+                     'rubrica': 'Productos/elemental: una forma lineal es una regla graduada, familia de '
+                                'rectas paralelas equiespaciadas'},
+                    {'id': '00_e2',
+                     'nivel': 'elemental',
+                     'enunciado': 'Los giros de la estación total alrededor de su eje vertical, con la '
+                                  'operación hacer uno y después el otro, forman un grupo. ¿Cuál es la '
+                                  'inversa de girar $30°$ y respecto de qué operación lo es?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Girar $-30°$, respecto de la composición: hecho después del '
+                                            'primero da el neutro, que es no girar.',
+                                   'correcta': True,
+                                   'explicacion': 'La inversa es siempre respecto de una operación: '
+                                                  'compuesto con el giro de $30°$ devuelve el elemento '
+                                                  'neutro, y el neutro de componer giros es el giro nulo.'},
+                                  {'id': 'b',
+                                   'texto': 'Girar $\\tfrac{1}{30}$ de grado, porque la inversa de un '
+                                            'elemento es su recíproco.',
+                                   'correcta': False,
+                                   'explicacion': 'El recíproco es la inversa respecto del producto de '
+                                                  'números; acá la operación es componer giros, y '
+                                                  '$\\tfrac{1}{30}°$ compuesto con $30°$ da '
+                                                  '$30\\tfrac{1}{30}°$, no el neutro.'},
+                                  {'id': 'c',
+                                   'texto': 'Girar $150°$, porque $30° + 150° = 180°$ y media vuelta deshace '
+                                            'lo hecho.',
+                                   'correcta': False,
+                                   'explicacion': 'Media vuelta no es el neutro: deja la estación apuntando '
+                                                  'al revés. El neutro es el giro de $0°$, y lo que suma '
+                                                  '$0°$ con $30°$ es $-30°$.'},
+                                  {'id': 'd',
+                                   'texto': 'No tiene inversa: una vez girada, la estación no vuelve sola a '
+                                            'la posición inicial.',
+                                   'correcta': False,
+                                   'explicacion': 'Que no vuelva sola no quita que exista el giro que la '
+                                                  'devuelve; en un grupo todo elemento tiene inversa, y '
+                                                  'girar $-30°$ lo es.'}],
+                     'rubrica': 'SVD/medio: la inversa es siempre respecto de una operacion (suma, producto, '
+                                'composicion)'},
+                    {'id': '00_m1',
+                     'nivel': 'medio',
+                     'enunciado': 'Dibujamos el plano con el Este estirado por 2, $A = \\mathrm{diag}(2, '
+                                  '1)$. La cota es la regla $w^T = (1, 1)$ y el mojón está en $x = (1, 2)$, '
+                                  'cota $3$. ¿Qué regla hay que dibujar en el papel para que el mojón '
+                                  'dibujado $Ax = (2, 2)$ siga leyendo cota $3$?',
+                     'opciones': [{'id': 'a',
+                                   'texto': '$(\\tfrac12, 1)$, que es $w^T A^{-1}$: en efecto $\\tfrac12 '
+                                            '\\cdot 2 + 1 \\cdot 2 = 3$.',
+                                   'correcta': True,
+                                   'explicacion': 'La forma se arrastra con la inversa y por la derecha, '
+                                                  "$w'^T = w^T A^{-1}$, justamente para que $w'^T(Ax) = w^T "
+                                                  'x$ y la lectura no cambie.'},
+                                  {'id': 'b',
+                                   'texto': '$(2, 1)$, que es $Aw$: la regla va con la misma matriz que los '
+                                            'puntos.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso mueve la fila como si fuera un punto; con $(2, 1)$ el '
+                                                  'mojón dibujado lee $2 \\cdot 2 + 1 \\cdot 2 = 6$, el '
+                                                  'doble de su cota.'},
+                                  {'id': 'c',
+                                   'texto': '$(1, 1)$, la misma: la cota es del terreno y no depende de cómo '
+                                            'dibujemos el plano.',
+                                   'correcta': False,
+                                   'explicacion': 'La cota del mojón no depende del dibujo, pero la regla '
+                                                  'escrita en la grilla del papel sí: con $(1, 1)$ el punto '
+                                                  '$(2, 2)$ lee $4$, no $3$.'},
+                                  {'id': 'd',
+                                   'texto': '$(2, 2)$, que es $Ax$: regla y mojón van juntos al mismo lugar.',
+                                   'correcta': False,
+                                   'explicacion': '$(2, 2)$ es el mojón dibujado, un punto; confunde el '
+                                                  'objeto que se lee con la regla que lo lee, y $(2, '
+                                                  '2)\\cdot(2, 2) = 8$.'}],
+                     'rubrica': 'Productos/medio: las formas lineales se transforman del lado contrario que '
+                                'los vectores (las rectas de nivel se arrastran con la figura)'},
+                    {'id': '00_m2',
+                     'nivel': 'medio',
+                     'enunciado': 'Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa a '
+                                  'leerse $(x - 5, y)$. ¿Por qué esa traslación no es una transformación '
+                                  'lineal del plano?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Porque no manda el origen al origen: el $(0, 0)$ pasa a $(-5, '
+                                            '0)$, y toda lineal conserva el cero.',
+                                   'correcta': True,
+                                   'explicacion': '$T(0) = T(0 \\cdot v) = 0 \\cdot T(v) = 0$ para cualquier '
+                                                  'lineal; la traslación lo viola, y por eso hace falta '
+                                                  'homogeneizar para escribirla como matriz.'},
+                                  {'id': 'b',
+                                   'texto': 'Porque no conserva las distancias entre mojones: al correr todo '
+                                            '$5$ m los largos cambian.',
+                                   'correcta': False,
+                                   'explicacion': 'Una traslación conserva todas las distancias y los '
+                                                  'ángulos; además, conservar distancias no es lo que define '
+                                                  'a una lineal (el corte es lineal y no las conserva).'},
+                                  {'id': 'c',
+                                   'texto': 'Porque no tiene inversa: una vez corridos los mojones no se '
+                                            'puede volver atrás.',
+                                   'correcta': False,
+                                   'explicacion': 'Correr $5$ m al Oeste la deshace; ser invertible no es ni '
+                                                  'necesario ni suficiente para ser lineal (la proyección es '
+                                                  'lineal y no es invertible).'},
+                                  {'id': 'd',
+                                   'texto': 'Porque cambia los ángulos entre los lados de la parcela al '
+                                            'correrla.',
+                                   'correcta': False,
+                                   'explicacion': 'Correr la parcela entera deja idénticos sus ángulos; la '
+                                                  'falla no está en lo que conserva sino en que el cero no '
+                                                  'queda en el cero.'}],
+                     'rubrica': 'Productos/medio: el cero siempre va al cero (ladrillo 3, espacio afin vs. '
+                                'vectorial)'},
+                    {'id': '00_a1',
+                     'nivel': 'avanzado',
+                     'enunciado': 'El plano se dibuja con el Este estirado por 2, $A = \\mathrm{diag}(2, '
+                                  '1)$. Queremos medir largos y ángulos de terreno sobre el papel con '
+                                  "$\\langle a, b\\rangle_{G'} = a^T G' b$. ¿Qué matriz $G'$ hay que usar?",
+                     'opciones': [{'id': 'a',
+                                   'texto': "$G' = A^{-T} A^{-1} = \\mathrm{diag}(\\tfrac14, 1)$: cada paso "
+                                            'Este del papel vale medio metro.',
+                                   'correcta': True,
+                                   'explicacion': "Si $x' = Ax$, el largo de terreno es $x^T x = x'^T A^{-T} "
+                                                  "A^{-1} x'$; con $A^{-1} = \\mathrm{diag}(\\tfrac12, 1)$ "
+                                                  'queda $\\mathrm{diag}(\\tfrac14, 1)$, y con ella la '
+                                                  'subida $(2, 1)$ y la marca $(2, -1)$ dan $1 - 1 = 0$: '
+                                                  'recto.'},
+                                  {'id': 'b',
+                                   'texto': "$G' = A^T A = \\mathrm{diag}(4, 1)$: la métrica se transforma "
+                                            'con la misma matriz que los puntos.',
+                                   'correcta': False,
+                                   'explicacion': '$A^T A$ es la métrica que pondría al terreno lo que el '
+                                                  'papel mide con $I$, el sentido contrario: con ella un '
+                                                  'paso Este del papel valdría dos metros en vez de medio.'},
+                                  {'id': 'c',
+                                   'texto': "$G' = A = \\mathrm{diag}(2, 1)$: la propia deformación del "
+                                            'dibujo es la métrica.',
+                                   'correcta': False,
+                                   'explicacion': '$A$ mueve puntos, no mide; una métrica es simétrica '
+                                                  'definida positiva y relaciona dos copias del mismo '
+                                                  'vector, por eso aparece elevada al cuadrado '
+                                                  '($A^{-T}A^{-1}$).'},
+                                  {'id': 'd',
+                                   'texto': "$G' = I$: la cuenta $x_1 x_2 + y_1 y_2$ mide bien en cualquier "
+                                            'grilla.',
+                                   'correcta': False,
+                                   'explicacion': 'Con $I$ el ángulo recto del terreno entre $(2, 1)$ y $(2, '
+                                                  '-1)$ se mide como $53.1°$; la suma de productos mide de '
+                                                  'verdad sólo en una grilla ortonormal.'}],
+                     'rubrica': 'SVD/avanzado: no hay base privilegiada a priori; lo unico especial de la '
+                                'canonica es que el producto interno es suma de productos'},
+                    {'id': '00_a2',
+                     'nivel': 'avanzado',
+                     'enunciado': 'En el mojón $(2, 2)$ de la loma $h = 100 - \\tfrac{x^2 + y^2}{4}$ el '
+                                  'gradiente es $(-1, -1)$, así que en el terreno el agua baja hacia $(1, '
+                                  '1)$. Dibujamos el plano con el Este estirado por 2. ¿Hacia dónde '
+                                  'dibujamos la flecha de la bajada más empinada?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Hacia $(2, 1)$: la bajada real $(1, 1)$ pasada por $A = '
+                                            '\\mathrm{diag}(2, 1)$, aunque en el papel no se vea '
+                                            'perpendicular a las elipses.',
+                                   'correcta': True,
+                                   'explicacion': 'La bajada es un desplazamiento del terreno y viaja con '
+                                                  '$A$ como cualquier punto; el ángulo recto con la curva de '
+                                                  'nivel vive en la métrica del terreno, no en la del '
+                                                  'papel.'},
+                                  {'id': 'b',
+                                   'texto': 'Hacia $(1, 1)$: los dos números del gradiente, puestos tal cual '
+                                            'como flecha en el dibujo.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso trata la forma $\\nabla h$ como si fuera un vector en '
+                                                  'una grilla que no mide metros; ese trazo del papel es el '
+                                                  'desplazamiento $(\\tfrac12, 1)$ del terreno, que no es la '
+                                                  'bajada más empinada.'},
+                                  {'id': 'c',
+                                   'texto': 'Hacia $(1, 2)$: perpendicular a las curvas de nivel tal como se '
+                                            'ven dibujadas.',
+                                   'correcta': False,
+                                   'explicacion': '$(1, 2)$ es proporcional a la regla arrastrada '
+                                                  '$\\pm(\\tfrac12, 1)$, leída como flecha: perpendicular '
+                                                  'con $G = I$, la métrica del papel, pero el papel está '
+                                                  'estirado y ese ángulo recto es falso en el terreno.'},
+                                  {'id': 'd',
+                                   'texto': 'Hacia $(2, -1)$: a lo largo de la curva de nivel que pasa por '
+                                            'el mojón.',
+                                   'correcta': False,
+                                   'explicacion': 'A lo largo de la curva de nivel la cota no cambia; es la '
+                                                  'marca de la regla, y la bajada la cruza en vez de '
+                                                  'seguirla.'}],
+                     'rubrica': "Productos/avanzado: el gradiente es una forma lineal; 'perpendicular a la "
+                                "curva de nivel' es una frase sobre G^{-1} grad f"}],
  '01a_punto_quieto': [{'id': '01a_e1',
                        'nivel': 'elemental',
                        'enunciado': 'Plantamos la estación total en el origen de la obra, pero con su eje '

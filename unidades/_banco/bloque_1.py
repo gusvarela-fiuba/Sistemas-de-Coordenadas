@@ -6,7 +6,7 @@ pregunta cubre. Lo mezcla `tools/merge_banco.py`; no se importa directo.
 """
 
 BANCO = {
-    "00_desaprender_el_cbc": [
+    "00_fundamentos": [
         {
             "id": "00_e1",
             "nivel": "elemental",

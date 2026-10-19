@@ -2,7 +2,7 @@
 <quiz>
   <question type="category">
     <category>
-      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_desaprender_el_cbc/elemental</text>
+      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/elemental</text>
     </category>
     <info format="html">
       <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel elemental</p>]]></text>
@@ -44,7 +44,7 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>elemental</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="multichoice">
@@ -83,12 +83,12 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>elemental</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="category">
     <category>
-      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_desaprender_el_cbc/medio</text>
+      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/medio</text>
     </category>
     <info format="html">
       <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel medio</p>]]></text>
@@ -130,7 +130,7 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>medio</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="multichoice">
@@ -169,12 +169,12 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>medio</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="category">
     <category>
-      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_desaprender_el_cbc/avanzado</text>
+      <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/avanzado</text>
     </category>
     <info format="html">
       <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel avanzado</p>]]></text>
@@ -216,7 +216,7 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>avanzado</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="multichoice">
@@ -255,7 +255,7 @@
     <tags>
       <tag><text>cb104</text></tag>
       <tag><text>avanzado</text></tag>
-      <tag><text>00_desaprender_el_cbc</text></tag>
+      <tag><text>00_fundamentos</text></tag>
     </tags>
   </question>
   <question type="category">

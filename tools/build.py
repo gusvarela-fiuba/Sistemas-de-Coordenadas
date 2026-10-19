@@ -1066,7 +1066,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
 
 
 BANCO_PY = RAIZ / "unidades" / "banco_autoevaluacion.py"
-XML_MOODLE = RAIZ / "campus" / "moodle_banco_120_preguntas_cb104.xml"
+XML_MOODLE = RAIZ / "moodle" / "moodle_banco_120_preguntas_cb104.xml"
 
 AUTOEVAL_PLANTILLA = r"""<!DOCTYPE html>
 <html lang="es">

@@ -6,8 +6,8 @@
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
 
 unidades:
-  - id: 00_desaprender_el_cbc
-    archivo: unidades/00_desaprender_el_cbc.py
+  - id: 00_fundamentos
+    archivo: unidades/00_fundamentos.py
     titulo: "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)"
     estado: piloto
     clases: ["01", "04", "09"]

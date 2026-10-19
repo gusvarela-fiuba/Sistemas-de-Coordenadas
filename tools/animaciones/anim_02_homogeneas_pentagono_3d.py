@@ -47,7 +47,7 @@ def _mezcla(c1: str, c2: str, t: float) -> tuple[float, float, float]:
 
 def verificar() -> None:
     """Chequeos numéricos de la consigna: ningún (H(s) p)_z se acerca a 0 y los cortes quedan en la lámina."""
-    P_hom = lib.hom(lib.pentagono_profesor())
+    P_hom = lib.hom(lib.pentagono_ejemplo())
     z_min, xy_max = np.inf, 0.0
     for s in np.linspace(0.0, 1.0, 201):
         q, corte = vertices_en_lamina(P_hom, homografia_parcial(s))
@@ -55,14 +55,14 @@ def verificar() -> None:
         xy_max = max(xy_max, float(np.abs(corte[:, :2]).max()))
     assert z_min > 0.4, f"(H(s)p)_z se acerca a 0: mínimo {z_min:.3f}"
     assert xy_max < LADO_LAMINA, f"un vértice se sale de la lámina: |xy| máximo {xy_max:.3f}"
-    esperado = lib.aplicar_proyectiva(lib.pentagono_profesor(), H_DRON)
+    esperado = lib.aplicar_proyectiva(lib.pentagono_ejemplo(), H_DRON)
     _, corte_1 = vertices_en_lamina(P_hom, homografia_parcial(1.0))
     assert np.allclose(corte_1[:, :2], esperado), "el corte con la lámina no coincide con aplicar_proyectiva"
 
 
 def render(out_dir: Path, s: np.ndarray) -> None:
     verificar()
-    P = lib.pentagono_profesor()              # 5×2, vértices A..E
+    P = lib.pentagono_ejemplo()              # 5×2, vértices A..E
     P_hom = lib.hom(P)                        # 5×3, (x, y, 1)
     letras = "ABCDE"
 

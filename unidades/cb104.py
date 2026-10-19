@@ -72,7 +72,7 @@ __all__ = [
     # DEM Precordillera (lección 09)
     "dem_precordillera", "rms_rango_k",
     # proyectivas (lección 05)
-    "pentagono_profesor", "aplicar_proyectiva", "recta_al_infinito", "sistema_lambda", "homografia_lambda",
+    "pentagono_ejemplo", "aplicar_proyectiva", "recta_al_infinito", "sistema_lambda", "homografia_lambda",
     "homografia_4puntos", "razon_doble", "curva_proyectiva", "grilla_proyectiva", "estelas_proyectivas",
     "capa_despues_proyectiva",
     # SVM de margen duro (lección 06, aporte CEIA)
@@ -1607,7 +1607,7 @@ def capa_direcciones_singulares(fig, A, antes=True, despues=True, nombre="A"):
 # ----------------------------------------------------------------------------
 
 
-def pentagono_profesor():
+def pentagono_ejemplo():
     """Los vértices A..E (5×2) del pentágono regular de la planilla del profesor (23/9): D = (0, 1) y los demás por
     giros de 72° alrededor del origen, C = R(72°) D, B = R(144°) D, A = R(216°) D, E = R(288°) D. Recorrido
     A → B → C → D → E horario; el centro (0, 0) es el punto fijo (0, 0, 1) de cualquier giro."""
@@ -2128,7 +2128,7 @@ def svm_margen_duro_2d(C1, C2):
 # ----------------------------------------------------------------------------
 
 HILO_CONDUCTOR: dict[str, dict[str, str]] = {
-    "00_desaprender_el_cbc": {
+    "00_fundamentos": {
         "titulo": "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)",
         "venimos_de": (
             "Del CBC: vectores como flechas sueltas, el gradiente como una flecha más, la distancia siempre "
@@ -2161,7 +2161,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             r"Si en vez de los ejes giramos la parcela entera (rotación activa, $R\,p$), hace falta saber qué conserva $R$ "
             "y por qué su inversa es la transpuesta: unidad 01b."
         ),
-        "anterior": "00_desaprender_el_cbc",
+        "anterior": "00_fundamentos",
         "siguiente": "01b_rotacion_plano",
     },
     "01b_rotacion_plano": {
@@ -2899,7 +2899,7 @@ if __name__ == "__main__":
     assert exacto(truncar_svd(_U9, _s9, _Vt9, 4), _M9) and np.linalg.matrix_rank(truncar_svd(_U9, _s9, _Vt9, 2)) == 2, "truncar_svd: k = todo devuelve la matriz; k = 2 tiene rango 2"
     assert elipse_imagen(np.diag([3.0, 2.0]), 5).shape == (5, 2) and exacto(elipse_imagen(np.diag([3.0, 2.0]), 5)[0], [3, 0])
     # --- Proyectivas (lección 05) ---
-    _P5 = pentagono_profesor()
+    _P5 = pentagono_ejemplo()
     assert exacto(_P5[3], [0, 1]) and exacto(np.linalg.norm(_P5, axis=1), np.ones(5)) and exacto(_P5[2], rot2(np.deg2rad(72)) @ [0, 1]), "planilla: D = (0, 1), C = R(72°) D"
     assert exacto(abs(area_poligono(_P5)), abs(area_poligono(pentagono_regular(1.0)))) and area_poligono(_P5) < 0, "el mismo pentágono que pentagono_regular(1), recorrido horario"
     _Hp, _lam = homografia_lambda(_P5[[0, 1, 2, 4]], _P5[[0, 1, 4, 2]])

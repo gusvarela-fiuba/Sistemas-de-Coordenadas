@@ -798,8 +798,8 @@ conceptos:
   apunte: [conformes]
   requiere: [transformacion-conforme, latitud-isometrica, mercator, numeros-complejos]
 unidades:
-- id: 00_desaprender_el_cbc
-  archivo: unidades/00_desaprender_el_cbc.py
+- id: 00_fundamentos
+  archivo: unidades/00_fundamentos.py
   titulo: 'Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)'
   estado: piloto
   clases:
