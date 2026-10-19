@@ -24,11 +24,11 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 769 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 546 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 631 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 681 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 801 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 633 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 538 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 618 | 3 | 4 | 13 | 7 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 11348 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 11468 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
@@ -57,8 +57,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: ae00621
-- Páginas del último PDF: 253 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: f97f4b9
+- Páginas del último PDF: 255 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91

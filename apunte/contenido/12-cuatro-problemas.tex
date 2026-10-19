@@ -4,19 +4,35 @@
 
 \section{La idea}
 
-El capítulo~\ref{cap:inversas} ajustó modelos que son subespacios, como la red de nivelación;
-ahora el modelo puede ser curvo. En el trabajo de campo casi nunca se mide lo justo. Para trazar el eje de una medianera se
-toman diez puntos, aunque dos alcanzan; para ubicar el centro de una rotonda se relevan nueve
-puntos del cordón, aunque tres determinan un círculo; para comparar dos levantamientos del
-mismo predio se usan todos los vértices, aunque dos puntos homólogos fijan una similaridad.
-La redundancia protege contra errores groseros y permite estimar la precisión, pero tiene un
-precio: las mediciones, por pequeños errores, no son compatibles entre sí, y ninguna recta,
-ningún círculo y ningún movimiento las satisface a todas a la vez.
+Imaginá que tenés que marcar en un plano el eje de una medianera, la pared que comparten dos
+terrenos vecinos. Dos puntos de la pared alcanzan para trazar una recta. ¿Para qué tomar
+diez? Porque cada medición trae un error chico, y con dos puntos no hay manera de enterarse:
+cualquier par de puntos define una recta, esté bien tomado o no. Con diez, un punto mal tomado
+salta a la vista, y lo que se desparraman los demás dice cuánto confiar en la recta. Medir de
+más, lo que se llama \emph{redundancia}, protege contra las equivocaciones gruesas y permite
+estimar la precisión. Pero tiene un precio: por esos pequeños errores, las mediciones no son
+compatibles entre sí, y ninguna recta pasa por todas.
 
-La recta por mínimos cuadrados (regresión simple), la recta con error en las dos coordenadas
-(regresión total), el círculo por puntos y el calce de dos nubes homólogas (Procrustes)
-parecen cuatro técnicas distintas, pero son una sola geometría. Hay un \emph{dato}, un vector
-\(b\) que junta todas las mediciones; hay un \emph{modelo}, el conjunto de los vectores de
+Pasa lo mismo en otras situaciones. Para ubicar el centro de una rotonda se marcan nueve
+puntos del cordón, aunque tres determinan un círculo; para comparar dos mediciones del mismo
+terreno, hechas en años distintos y con ejes distintos, se usan todos los vértices, aunque dos
+puntos que se corresponden fijan una similaridad. Y siempre vuelve la misma pregunta: si nada
+pasa por todos los puntos, ¿qué es lo que pasa \enquote{más cerca}?
+
+Tomá una regla transparente y apoyala sobre una hoja con diez puntos casi alineados. Para cada
+punto mirá lo que le falta para caer sobre la regla: un segmento cortito, que llamamos el
+\emph{residuo} de ese punto. Mover la regla agranda unos segmentos y achica otros. El criterio
+de todo el capítulo es elegir la posición que hace más chica la suma de los cuadrados de los
+residuos, y se llama \emph{mínimos cuadrados}. El capítulo~\ref{cap:inversas} lo usó cuando lo
+que el modelo puede producir es un subespacio, como al calcular las alturas de varios puntos a
+partir de las diferencias de altura medidas entre ellos; ahora puede ser un conjunto curvo.
+
+Los cuatro problemas del capítulo son la recta que mide las distancias en vertical
+(\emph{regresión simple}), la recta que los mide en perpendicular porque las dos coordenadas
+tienen error (\emph{regresión total}), el círculo por muchos puntos y el calce de dos nubes de
+puntos que se corresponden uno a uno (\emph{Procrustes}). Parecen cuatro técnicas distintas,
+pero son una sola geometría. Hay un \emph{dato}, un vector \(b\) que junta todas las
+mediciones en una sola lista de números; hay un \emph{modelo}, el conjunto de los vectores de
 mediciones que el modelo puede producir exactamente al variar sus parámetros, a veces un
 subespacio (la recta simple, el círculo algebraico) y a veces un conjunto curvo (la recta
 total, el círculo geométrico, las rotaciones de Procrustes); y la \emph{mejor aproximación}
@@ -33,6 +49,12 @@ dispersión} \(C=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\
 con \(X_0\) de \(n\times2\) de filas \(p_i-\bar p\) (una matriz de nube tiene un punto por
 fila); coordenadas \((E,N)\) como en la caja de la sección~\ref{caja:convencion-en}.
 
+En palabras: el baricentro es el promedio de los puntos, su centro de gravedad; \(S_{xx}\) y
+\(S_{yy}\) miden cuánto se desparraman las \(x\) y las \(y\) alrededor de su promedio, y
+\(S_{xy}\) dice si las dos coordenadas suben juntas (positiva) o si una baja cuando la otra
+sube (negativa). La matriz de dispersión \(C\) reúne las tres sumas y, como veremos en la
+regresión total, dice cuánto se estira la nube en cada dirección.
+
 \begin{idea}[Ajustar es proyectar el dato sobre lo que el modelo puede producir]
 Cambia la forma del conjunto de lo \enquote{explicable} (plano, superficie curva, órbita de
 rotaciones), no la idea: el residuo queda perpendicular a lo que el modelo puede producir.
@@ -44,9 +66,18 @@ rotaciones), no la idea: el residuo queda perpendicular a lo que el modelo puede
 
 \subsection{Recta por mínimos cuadrados y regresión total}\label{sec:cuatro-problemas-regresion}
 
-\paragraph{Regresión simple.} Se buscan \(m\) y \(c\) tales que la recta \(y=mx+c\) pase lo
-más cerca posible de los puntos, midiendo la distancia \emph{en vertical}: el residuo de cada
-punto es \(r_i=y_i-(mx_i+c)\). Las \(n\) ecuaciones \(mx_i+c=y_i\) forman un sistema
+\paragraph{Regresión simple.} Imaginá que colgás de un resorte pesos distintos y medís cuánto
+se estira con cada uno. El peso lo conocés sin error; el estiramiento lo leés en una regla, y
+ahí se cuela el error. Si marcás los pares (peso, estiramiento) en una hoja, los puntos quedan
+casi alineados, y querés la recta que permita predecir el estiramiento para un peso que no
+probaste. Como toda la duda está en la altura, lo razonable es medir lo que le falta a cada
+punto para caer sobre la recta en vertical, sin tocar la \(x\). Esa recta se llama
+\emph{regresión simple}.
+
+Se buscan la pendiente \(m\) y la ordenada al origen \(c\) tales que la recta \(y=mx+c\) pase
+lo más cerca posible de los puntos, midiendo la distancia \emph{en vertical}: el residuo de
+cada punto es \(r_i=y_i-(mx_i+c)\), positivo si el punto queda arriba de la recta y negativo
+si queda abajo. Las \(n\) ecuaciones \(mx_i+c=y_i\), una por punto, forman un sistema
 sobredeterminado \(A\binom{m}{c}=y\) con
 \[
   A=\begin{pmatrix}x_1&1\\\vdots&\vdots\\x_n&1\end{pmatrix},\qquad
@@ -75,11 +106,17 @@ con \(x_i-\bar x\) en lugar de \(x_i\) (la diferencia es \(\bar x\sum_ir_i=0\)),
 \(\sum_ir_i^2=\sum_ir_i(y_i-\bar y)=S_{yy}-mS_{xy}\).
 \end{demostracion}
 
-\paragraph{Por qué no es simétrica.} El residuo vertical atribuye todo el error a la \(y\):
-la \(x\) se supone exacta. Si los papeles se intercambian, ajustando \(x=m'y+c'\) con residuos
-horizontales, sale \(m'=S_{xy}/S_{yy}\), y escrita como \(y\) en función de \(x\) esa recta
+\paragraph{Por qué no es simétrica.} ¿Qué pasa si intercambiamos los papeles y suponemos que
+la exacta es la \(y\)? Medir en vertical atribuye todo el error a la \(y\): la \(x\) se
+supone exacta. Si los papeles se intercambian, buscando \(x=m'y+c'\) con distancias medidas
+en horizontal, sale \(m'=S_{xy}/S_{yy}\), y escrita como \(y\) en función de \(x\) esa recta
 tiene pendiente \(1/m'=S_{yy}/S_{xy}\). Las dos rectas pasan por el baricentro, pero en
 general no coinciden.
+
+Para compararlas conviene un número que mida qué tan alineada está la nube: el
+\emph{coeficiente de correlación} \(\rho\), que vale \(\pm1\) cuando los puntos están sobre una
+recta y \(0\) cuando las dos coordenadas no muestran ninguna tendencia a subir o a bajar
+juntas.
 
 \begin{proposicion}[Las dos regresiones simples]\label{prop:cp-dos-regresiones}
 Sea \(\rho=S_{xy}/\sqrt{S_{xx}S_{yy}}\) el coeficiente de correlación. Entonces
@@ -99,16 +136,33 @@ son paralelos: si \(y_i-\bar y=k(x_i-\bar x)\) para todo \(i\): los puntos está
 sobre una recta. Si \(\rho^2<1\), \(\lvert m\rvert<\lvert 1/m'\rvert\).
 \end{demostracion}
 
-Hecho geométrico: la regresión simple no es una construcción geométrica del plano, sino una
-de \(\R^n\) que privilegia un eje. Si se gira el sistema de coordenadas, la recta ajustada no
-gira con los puntos: cambia.
+Probá esto con la hoja y la regla: girá la hoja \(30^\circ\) sobre la mesa, con los puntos
+dibujados. Los puntos giran con la hoja, pero el criterio sigue midiendo en vertical, respecto
+de los bordes de la mesa, y la recta que ahora hace más chicos esos segmentos no es la recta
+vieja girada. Hecho geométrico: la regresión simple no es una construcción geométrica del
+plano, sino una de \(\R^n\) que privilegia un eje. Si se gira el sistema de coordenadas, la
+recta que resulta no gira con los puntos: cambia.
 
-\paragraph{Regresión total.} Cuando las dos coordenadas tienen error, lo natural es medir la
-distancia de cada punto a la recta en perpendicular, como se mide la distancia de un punto a
-una recta en geometría. Una recta del plano se describe con un punto \(p_0\) y una normal
-unitaria \(n\); la distancia con signo de \(p_i\) a ella es \((p_i-p_0)\cdot n\). Es el mismo
-razonamiento del plano ajustado a una nube del capítulo~\ref{cap:svd}
-(ejemplo~\ref{ej:svd-plano}), una dimensión más abajo.
+\paragraph{Regresión total.} Suponé ahora lo contrario: los puntos se marcaron con un lápiz
+que tiembla igual en cualquier dirección, de modo que las dos coordenadas tienen error y
+ninguna es más confiable que la otra. ¿Por qué medir en vertical, entonces? Lo natural es
+medir la distancia más corta de cada punto a la regla, en perpendicular, como se mide la
+distancia de un punto a una recta en geometría. La recta que se obtiene así se llama
+\emph{regresión total}, y es la que sirve cuando ningún eje es privilegiado, como al trazar el
+eje de una pared con puntos medidos con el mismo error en las dos direcciones.
+
+Una recta del plano se describe con un punto \(p_0\) por el que pasa y una normal unitaria
+\(n\), un vector de largo \(1\) perpendicular a ella; la distancia con signo de \(p_i\) a la
+recta es \((p_i-p_0)\cdot n\). Es el mismo razonamiento del plano que mejor pasa por una nube del
+capítulo~\ref{cap:svd} (ejemplo~\ref{ej:svd-plano}), una dimensión más abajo.
+
+En el enunciado que sigue aparecen dos herramientas de capítulos anteriores. Los autovalores
+\(\lambda_1\ge\lambda_2\) de la matriz de dispersión \(C\): \(\lambda_1\) mide cuánto se
+desparrama la nube a lo largo de su dirección más larga, y \(\lambda_2\), a lo ancho. Y la
+descomposición en valores singulares \(X_0=U\Sigma V^T\) del capítulo~\ref{cap:svd}: las
+columnas \(v_1\), \(v_2\) de \(V\) son las dos direcciones principales de la nube, y la
+diagonal de \(\Sigma\) tiene los valores singulares \(\sigma_1\ge\sigma_2\), que miden el largo
+y el ancho de la nube en esas direcciones.
 
 \begin{proposicion}[Recta de regresión total]\label{prop:cp-regresion-total}
 La recta que minimiza la suma de los cuadrados de las distancias perpendiculares
@@ -130,11 +184,15 @@ autovector de \(C\) con autovalor \(\lambda_2=\sigma_2^2\). La dirección es la 
 \(v_1\).
 \end{demostracion}
 
-La regresión total sí es geométrica: si se giran las coordenadas con una matriz ortogonal
+Volvamos a la hoja que giramos. La
+regresión total sí es geométrica: si se giran las coordenadas con una matriz ortogonal
 \(Q\), la nube centrada pasa a \(X_0Q^T\), la matriz de dispersión a \(QCQ^T\), y sus
-autovectores giran con \(Q\) (sección~\ref{sec:congruencia}). La recta ajustada gira con los
+autovectores giran con \(Q\) (sección~\ref{sec:congruencia}). La recta gira con los
 puntos. La pendiente de la dirección \(v_1=(d_1,d_2)\) sale de
 \((C-\lambda_1I)v_1=0\): \(d_2/d_1=(\lambda_1-S_{xx})/S_{xy}\).
+
+¿Dónde queda la recta total respecto de las dos simples? Una supone exacta la \(x\); la otra,
+la \(y\); la total no privilegia ninguna, y queda en el medio.
 
 \begin{proposicion}[La recta total queda entre las dos simples]\label{prop:cp-total-entre}
 Si los puntos no están alineados y \(S_{xy}>0\), la pendiente \(t\) de la regresión total
@@ -145,33 +203,8 @@ cumple
 Si \(S_{xy}<0\), las desigualdades se invierten: \(1/m'<t<m\).
 \end{proposicion}
 
-\begin{demostracion}
-Sea \(v_1=(d_1,d_2)\). Si fuera \(d_1=0\), la primera fila de \(Cv_1=\lambda_1v_1\) daría
-\(S_{xy}d_2=0\), imposible; así que \(t=d_2/d_1\) existe. Las dos filas de
-\(Cv_1=\lambda_1v_1\) son \(S_{xx}d_1+S_{xy}d_2=\lambda_1d_1\) y
-\(S_{xy}d_1+S_{yy}d_2=\lambda_1d_2\). Multiplicando la primera por \(d_2\), la segunda por
-\(d_1\) e igualando, y dividiendo por \(d_1^2\),
-\[
-  p(t)=S_{xy}t^2+(S_{xx}-S_{yy})\,t-S_{xy}=0 .
-\]
-Con \(S_{xy}>0\), \(p\) es una parábola que abre hacia arriba y el producto de sus raíces es
-\(-1\): una raíz es negativa y la otra positiva. La pendiente \(t\) es la positiva, porque el
-autovalor mayor supera a cada elemento de la diagonal cuando \(S_{xy}\neq0\):
-\[
-  \lambda_1=\frac{S_{xx}+S_{yy}}2+\sqrt{\Big(\frac{S_{xx}-S_{yy}}2\Big)^2+S_{xy}^2}
-  >\frac{S_{xx}+S_{yy}}2+\frac{\lvert S_{xx}-S_{yy}\rvert}2=\max(S_{xx},S_{yy}),
-\]
-así que \(t=(\lambda_1-S_{xx})/S_{xy}>0\). Evaluando,
-\[
-  p(m)=\frac{S_{xy}}{S_{xx}^2}\,\big(S_{xy}^2-S_{xx}S_{yy}\big)<0,\qquad
-  p\Big(\frac1{m'}\Big)=\frac{S_{xx}S_{yy}-S_{xy}^2}{S_{xy}}>0,
-\]
-por Cauchy--Schwarz estricta (proposición~\ref{prop:cp-dos-regresiones}). Como \(p(m)<0\),
-\(m\) está entre las dos raíces, y por ser \(m>0\), \(m<t\). Como \(p(1/m')>0\) y
-\(1/m'>0\), \(1/m'\) está a la derecha de las dos raíces: \(t<1/m'\). Si \(S_{xy}<0\), el
-cambio \(y\mapsto-y\) cambia el signo de \(S_{xy}\), de \(m\), de \(1/m'\) y de \(t\), y da
-las desigualdades invertidas.
-\end{demostracion}
+La demostración, una cuenta con la parábola cuyas raíces son las pendientes de las dos
+direcciones principales, está en la sección~\ref{sec:cp-demostraciones}.
 
 \begin{ejemplo}[Recta simple y regresión total por seis puntos]\label{ej:cp-rectas}
 Los puntos son \((1,1)\), \((2,3)\), \((3,2)\), \((4,5)\), \((5,4)\), \((6,6)\). Las
@@ -219,20 +252,33 @@ cada panel la otra recta aparece de trazos. Generada con
 
 \subsection{Ajuste de un círculo}\label{sec:cuatro-problemas-circulo}
 
-Ajustar el círculo \((x-a)^2+(y-b)^2=r^2\) a \(n\ge4\) puntos no es un problema lineal en
-\((a,b,r)\), pero un cambio de parámetros lo vuelve lineal.
+Imaginá que tenés que ubicar el centro y el radio de una rotonda a la que no se puede entrar
+por el tránsito: solo se pueden marcar puntos sobre el cordón. Tres puntos determinan un
+círculo, pero con nueve cada terna da un círculo un poco distinto. ¿Cuál pasa mejor por
+todos? La misma pregunta aparece con cualquier cosa redonda que no se puede medir desde
+adentro: un tanque, la base de una columna, una curva de un camino.
 
-\paragraph{Ajuste algebraico.} Desarrollando,
+Buscar el círculo \((x-a)^2+(y-b)^2=r^2\), de centro \((a,b)\) y radio \(r\), que mejor pasa
+por \(n\ge4\) puntos no es un problema lineal en \((a,b,r)\), porque los tres parámetros
+aparecen elevados al cuadrado; pero un cambio de parámetros lo vuelve lineal.
+
+\paragraph{Círculo algebraico.} Desarrollando los cuadrados,
 \[
   x^2+y^2+Dx+Ey+F=0,\qquad D=-2a,\quad E=-2b,\quad F=a^2+b^2-r^2 .
 \]
-Las incógnitas \(D\), \(E\), \(F\) aparecen en forma lineal: cada punto da una ecuación
+Los números \(D\), \(E\), \(F\) no tienen un significado geométrico directo; su ventaja es que
+aparecen en forma lineal: cada punto da una ecuación
 \(Dx_i+Ey_i+F=-(x_i^2+y_i^2)\), y con más de tres puntos se resuelve por mínimos cuadrados,
 con matriz de columnas \((x_i)\), \((y_i)\), \((1)\). De la solución salen \(a=-\tfrac D2\),
 \(b=-\tfrac E2\) y \(r=\sqrt{a^2+b^2-F}\).
 Es la misma idea de los parámetros \(a=\lambda\cos\theta\), \(b=\lambda\sin\theta\) de la
-transformación de Helmert (sección~\ref{sec:aplicacion-helmert}): elegir parámetros en los
-que el modelo es lineal y recuperar los geométricos al final.
+transformación de Helmert, la similaridad que lleva coordenadas medidas con ejes propios al
+sistema oficial (sección~\ref{sec:aplicacion-helmert}): elegir parámetros en los que el modelo
+es lineal y recuperar los geométricos al final.
+
+¿Qué se achica, en realidad, con ese atajo? No la distancia de cada punto al círculo, sino el
+número \(x_i^2+y_i^2+Dx_i+Ey_i+F\), que llamamos \emph{residuo algebraico}. La proposición
+siguiente dice cuánto se parece a una distancia.
 
 \begin{proposicion}[Qué mide el residuo algebraico]\label{prop:cp-residuo-algebraico}
 Si \(d_i=\lVert p_i-(a,b)\rVert\) es la distancia del punto al centro, el residuo
@@ -249,24 +295,33 @@ Reemplazando \(D\), \(E\), \(F\):
 \(d_i=r+\varepsilon\), \(d_i+r=2r+\varepsilon\approx2r\).
 \end{demostracion}
 
-El ajuste algebraico minimiza entonces, aproximadamente, \(4r^2\sum_i(d_i-r)^2\): la suma de
+El círculo algebraico minimiza entonces, aproximadamente, \(4r^2\sum_i(d_i-r)^2\): la suma de
 cuadrados de las distancias radiales, salvo un factor. La aproximación es buena cuando los
-residuos son chicos; cuando no lo son, el ajuste algebraico pesa más los puntos que quedan
-afuera del círculo (\(d_i+r\) mayor) y tiende a subestimar el radio si los puntos cubren solo
-un arco corto.
+puntos quedan cerca del círculo; cuando no lo son, el círculo algebraico pesa más los puntos que quedan
+afuera (\(d_i+r\) mayor) y tiende a subestimar el radio si los puntos cubren solo un arco
+corto.
 
-\paragraph{Ajuste geométrico.} El criterio geométrico minimiza
+\paragraph{Círculo geométrico.} Lo que de verdad queremos achicar es la distancia de cada punto
+al círculo, medida sobre el radio: cuánto queda el punto afuera (positivo) o adentro
+(negativo). El criterio geométrico minimiza
 \(\sum_if_i^2\) con \(f_i=d_i-r\), el residuo radial: la distancia de cada punto al
 círculo, medida sobre el radio. El modelo ya no es un subespacio: al variar \((a,b,r)\), el
-vector \((f_1,\dots,f_n)\) recorre un conjunto curvo. Lo resolvemos linealizando: en una
-estimación \((a,b,r)\), la derivada de \(f_i\) respecto de los tres parámetros es la fila
+vector \((f_1,\dots,f_n)\) recorre un conjunto curvo.
+
+Lo resolvemos linealizando: partimos de una estimación, reemplazamos el problema curvo por su
+aproximación lineal cerca de ella, lo resolvemos, corregimos y
+repetimos. Para eso hace falta saber cuánto cambia cada \(f_i\) si movemos un poco el centro o
+el radio. Esa información es la matriz \(J\), la jacobiana del capítulo~\ref{cap:derivada}:
+tiene una fila por punto y una columna por parámetro. En una estimación \((a,b,r)\), la
+derivada de \(f_i\) respecto de los tres parámetros es la fila
 \[
   J_i=\Big(-\frac{x_i-a}{d_i},\ -\frac{y_i-b}{d_i},\ -1\Big),
 \]
-o sea, menos el versor radial del punto y un \(-1\) para el radio. El paso de
-Gauss--Newton es la solución por mínimos cuadrados de \(J\delta=-f\), con ecuaciones normales
+o sea, menos el versor radial del punto y un \(-1\) para el radio. La corrección \(\delta\) de
+los tres parámetros, el paso de Gauss--Newton, es la solución por mínimos cuadrados de
+\(J\delta=-f\), con ecuaciones normales
 \(J^TJ\,\delta=-J^Tf\): el método de Newton de la sección~\ref{sec:newton}, con más
-ecuaciones que incógnitas. El ajuste algebraico es un buen punto de partida, y una o dos
+ecuaciones que incógnitas. El círculo algebraico es un buen punto de partida, y una o dos
 iteraciones alcanzan en los casos de campo.
 
 \begin{proposicion}[El residuo radial en el óptimo]\label{prop:cp-circulo-optimo}
@@ -281,9 +336,12 @@ se anula. La tercera columna de \(J\) es \(-\mathbf 1\), y las dos primeras form
 \(-u_i^T\) en cada fila.
 \end{demostracion}
 
-Hecho geométrico: \(\sum_if_i=0\) dice que el radio ajustado es el promedio de las distancias
-al centro; \(\sum_if_iu_i=0\) dice que los residuos radiales, vistos como vectores, se
-equilibran: no queda ninguna dirección hacia la que convenga correr el centro.
+El versor radial \(u_i\) es el vector de largo \(1\) que va del centro hacia el punto \(i\).
+Imaginá cada residuo como un elástico que une el punto con el círculo a lo largo del radio y
+tira con una fuerza proporcional a su largo. Hecho geométrico: \(\sum_if_i=0\) dice que el
+radio que resulta es el promedio de las distancias al centro (los elásticos no consiguen agrandar
+ni achicar el círculo); \(\sum_if_iu_i=0\) dice que los residuos radiales, vistos como
+vectores, se equilibran: no queda ninguna dirección hacia la que convenga correr el centro.
 
 \begin{ejemplo}[Círculo por siete puntos de un arco]\label{ej:cp-circulo}
 El script genera siete puntos (semilla fija) cerca del círculo de centro \((3,2)\) y radio
@@ -292,17 +350,17 @@ El script genera siete puntos (semilla fija) cerca del círculo de centro \((3,2
   (7{,}63;\ 0{,}30),\ (7{,}69;\ 3{,}26),\ (6{,}01;\ 5{,}83),\ (3{,}65;\ 6{,}73),\
   (0{,}52;\ 6{,}43),\ (-1{,}69;\ 4{,}00),\ (-1{,}85;\ 0{,}92).
 \]
-El ajuste algebraico da \(D=-5{,}8097\), \(E=-3{,}9233\), \(F=-12{,}3116\), de donde
+El círculo algebraico tiene \(D=-5{,}8097\), \(E=-3{,}9233\), \(F=-12{,}3116\), de donde
 \[
   (a,b)=(2{,}9049;\ 1{,}9616),\qquad r=\sqrt{2{,}9049^2+1{,}9616^2+12{,}3116}=4{,}9596 .
 \]
 Los residuos algebraicos \(d_i^2-r^2\) valen
 \((0{,}490;\ -0{,}015;\ 0{,}008;\ -1{,}305;\ 1{,}056;\ 0{,}670;\ -0{,}904)\) y son
 perpendiculares a las tres columnas. Los residuos
-radiales correspondientes, \(d_i-r\), suman \(-0{,}0045\): no cero, porque el ajuste
+radiales correspondientes, \(d_i-r\), suman \(-0{,}0045\): no cero, porque el círculo
 algebraico no minimiza esas distancias.
 
-Una iteración de Gauss--Newton desde el ajuste algebraico resuelve
+Una iteración de Gauss--Newton desde el círculo algebraico resuelve
 \[
   J^TJ=\begin{pmatrix}4{,}2485&0{,}0034&0{,}3271\\0{,}0034&2{,}7515&2{,}7717\\
   0{,}3271&2{,}7717&7\end{pmatrix},\qquad
@@ -310,9 +368,10 @@ Una iteración de Gauss--Newton desde el ajuste algebraico resuelve
 \]
 con paso \(\delta=(0{,}0008;\ -0{,}0037;\ 0{,}0008)\). El resultado,
 \((a,b)=(2{,}9057;\ 1{,}9579)\) y \(r=4{,}9604\), coincide a cuatro decimales con el valor
-al que convergen las iteraciones (seis, con tolerancia \(10^{-12}\)). Los residuos radiales
+al que convergen las iteraciones (seis, deteniéndolas cuando la corrección baja de
+\(10^{-12}\)). Los residuos radiales
 finales son \((0{,}046;\ -0{,}002;\ 0{,}002;\ -0{,}131;\ 0{,}108;\ 0{,}069;\ -0{,}093)\),
-con suma de cuadrados \(0{,}044243\) (menor que la del ajuste algebraico, \(0{,}044273\)),
+con suma de cuadrados \(0{,}044243\) (menor que la del círculo algebraico, \(0{,}044273\)),
 suma cero y \(J^Tf=0\) a la precisión de la máquina (figura~\ref{fig:cp-circulo}).
 \end{ejemplo}
 
@@ -329,17 +388,27 @@ y en el radio, y a esta escala queda tapado. Generada con
 
 \subsection{Procrustes ortogonal}\label{sec:cuatro-problemas-procrustes}
 
+Imaginá dos calcos del mismo terreno, dibujados por dos personas que eligieron ejes distintos
+y, quizás, unidades apenas distintas. Ponés uno encima del otro a contraluz y lo girás y lo
+corrés, sin deformarlo, hasta que los vértices coincidan lo mejor posible. ¿Cuánto hay que
+girar y cuánto correr? Responderlo con números sirve para pasar una medición hecha con ejes
+propios al sistema oficial, o para comparar dos mediciones del mismo terreno y descubrir si
+algún vértice se movió.
+
 Dos nubes homólogas \(a_1,\dots,a_n\) y \(b_1,\dots,b_n\) son el mismo conjunto de puntos
 medido en dos sistemas: el punto \(a_i\) de una corresponde al \(b_i\) de la otra. Buscamos
-la rotación \(R\) (ortogonal, con \(\det R=+1\)), la traslación \(t\) y, si corresponde, la
-escala \(s>0\) que mejor llevan una nube sobre la otra:
+la rotación \(R\) (ortogonal, con \(\det R=+1\)), la traslación \(t\), que es el corrimiento,
+y, si corresponde, la escala \(s>0\), el factor que estira o encoge, que mejor llevan una nube
+sobre la otra:
 \[
   \min\ \sum_i\lVert b_i-(sRa_i+t)\rVert^2 .
 \]
 El nombre viene del posadero de la mitología griega que estiraba o recortaba a sus huéspedes
 para que cupieran en la cama; acá solo se permite mover y, a lo sumo, escalar.
 
-\paragraph{Primero, centrar.} Para \(s\) y \(R\) fijos, la derivada respecto de \(t\) da
+\paragraph{Primero, centrar.} Con los calcos, lo primero que uno hace es superponer los centros
+de los dos dibujos y recién después girar. La cuenta dice lo mismo. Para \(s\) y \(R\) fijos,
+la derivada respecto de \(t\) da
 \(\sum_i\big(b_i-sRa_i-t\big)=0\): los residuos suman cero y \(t=\bar b-sR\,\bar a\), el
 baricentro de una nube va al baricentro de la otra. Con las nubes centradas,
 \(a_i'=a_i-\bar a\), \(b_i'=b_i-\bar b\), el problema queda sin traslación:
@@ -351,7 +420,13 @@ conserva las normas,
 \]
 y minimizar es maximizar \(\sum_ib_i'^{\,T}Ra_i'=\operatorname{tr}(RM^T)\), con
 \(M=B_0^TA_0=\sum_i b_i'\,a_i'^{\,T}\), donde \(A_0\) y \(B_0\) son las matrices de \(n\times2\) de las nubes centradas, un punto por
-fila. (La igualdad sale de \(b^TRa=\operatorname{tr}(Rab^T)\).)
+fila. (La igualdad sale de \(b^TRa=\operatorname{tr}(Rab^T)\).) La traza \(\operatorname{tr}\)
+es la suma de la diagonal, y la matriz \(M\), de \(2\times2\), resume cómo se corresponden las
+dos nubes: es lo único de los datos que necesita la rotación.
+
+Para hallar la rotación usamos la descomposición en valores singulares de \(M\),
+\(M=U\Sigma V^T\): \(U\) y \(V\) son matrices ortogonales (rotaciones o reflexiones) y
+\(\Sigma\) es diagonal, con los valores singulares \(\sigma_1\ge\sigma_2\) de \(M\).
 
 \begin{proposicion}[Rotación óptima de Procrustes]\label{prop:cp-procrustes}
 Sea \(M=B_0^TA_0=U\Sigma V^T\) su SVD, con \(\sigma_1\ge\sigma_2\ge0\). La rotación que
@@ -364,25 +439,14 @@ que se reduce a \(R=UV^T\) cuando \(\det(UV^T)=+1\). La escala óptima es
 \(t=\bar b-sR\bar a\).
 \end{proposicion}
 
-\begin{demostracion}
-\(\operatorname{tr}(RM^T)=\operatorname{tr}(RV\Sigma U^T)=\operatorname{tr}(U^TRV\,\Sigma)
-=\sigma_1z_{11}+\sigma_2z_{22}\), con \(Z=U^TRV\), que es ortogonal porque lo son \(U\), \(R\)
-y \(V\). Las entradas de una matriz ortogonal no superan \(1\) en valor absoluto, así que
-\(\operatorname{tr}(RM^T)\le\sigma_1+\sigma_2\), con igualdad si \(Z=I\), es decir,
-\(R=UV^T\). Esa \(R\) es una rotación si \(\det(UV^T)=+1\). Si \(\det(UV^T)=-1\), toda
-rotación \(R\) da \(\det Z=\det U\det V=-1\): \(Z\) es una reflexión,
-\(Z=\left(\begin{smallmatrix}\cos\varphi&\sin\varphi\\\sin\varphi&-\cos\varphi\end{smallmatrix}\right)\),
-y \(\sigma_1z_{11}+\sigma_2z_{22}=(\sigma_1-\sigma_2)\cos\varphi\), máximo en \(\varphi=0\):
-\(Z=\operatorname{diag}(1,-1)\). En los dos casos el máximo vale
-\(\sigma_1+\det(UV^T)\sigma_2\). Para \(R\) fija, la expresión de arriba es una parábola en
-\(s\), con mínimo en \(s=\operatorname{tr}(RM^T)/\sum_i\lVert a_i'\rVert^2\).
-\end{demostracion}
+La demostración, que separa el caso en que \(UV^T\) es una rotación del caso en que es una
+reflexión, está en la sección~\ref{sec:cp-demostraciones}.
 
 La corrección del determinante no es un detalle: sin ella, la SVD puede devolver una
-reflexión, que lleva una nube sobre la otra \enquote{dada vuelta}. Si los datos fueron relevados
-con un sistema de mano izquierda (por ejemplo, con un eje invertido por error al cargar una
-planilla), la reflexión ajusta mejor, y el valor \(\det(UV^T)=-1\) es la alarma
-(ejercicio~\ref{ex:cp-reflexion}).
+reflexión, que lleva una nube sobre la otra \enquote{dada vuelta}, como un calco puesto del
+revés. Si los datos fueron tomados con ejes en espejo (por ejemplo, con un eje invertido por
+error al cargar una planilla), la reflexión calza mejor, y el valor \(\det(UV^T)=-1\) es la
+alarma (ejercicio~\ref{ex:cp-reflexion}).
 
 \begin{ejemplo}[Procrustes con cuatro puntos]\label{ej:cp-procrustes}
 La nube \(A\) tiene los puntos \((0,0)\), \((4,0)\), \((4,2)\), \((0,3)\). La nube \(B\) se
@@ -431,6 +495,9 @@ centímetros, son los segmentos que todavía separan cada par. Generada con
 
 \subsection{Una sola geometría}
 
+Volvamos a la pregunta de \enquote{La idea}: si nada pasa por todos los puntos, ¿qué pasa más cerca?
+El cuadro reúne las cuatro respuestas.
+
 {\small
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} Y Y Y}
@@ -463,15 +530,16 @@ La diferencia práctica entre modelos lineales y curvos es que los primeros se r
 un paso y los segundos necesitan una idea más: la SVD, cuando la curvatura es la de las
 rotaciones o la de las direcciones (regresión total, Procrustes), o la linealización
 iterada, en los demás casos. El mismo Gauss--Newton resuelve la intersección de
-circunferencias del capítulo~\ref{cap:derivada}: allí los centros son mojones conocidos y
-solo el punto es incógnita, con la fila \(J_i=-u_i^T\) de la sección anterior sin la
-columna del radio.
+circunferencias del capítulo~\ref{cap:derivada}: allí los centros son puntos de coordenadas
+conocidas y solo el punto buscado es incógnita, con la fila \(J_i=-u_i^T\) de la sección
+anterior sin la columna del radio.
 
 \subsection{Procrustes y Helmert}
 
 La transformación de Helmert de la sección~\ref{sec:aplicacion-helmert} es una similaridad
 \(q=sR(\theta)p+t\), escrita con los parámetros lineales \(a=s\cos\theta\),
-\(b=s\sin\theta\). Con dos puntos de control, la solución es exacta; con tres o más, el
+\(b=s\sin\theta\). Para fijarla se usan puntos de control, puntos cuyas coordenadas se conocen
+en los dos sistemas. Con dos puntos de control, la solución es exacta; con tres o más, el
 sistema es incompatible y se resuelve por mínimos cuadrados. Procrustes con escala resuelve
 el mismo problema por otro camino, y los dos coinciden.
 
@@ -506,7 +574,8 @@ la manera directa de resolver por mínimos cuadrados el mismo modelo de la simil
 terminó con tres puntos de control, \(C_1\), \(C_2\), \(C_3\), que ninguna similaridad
 satisface a la vez, y dejó planteado el reparto de la discrepancia. Con los datos de esa
 sección (coordenadas oficiales reducidas a su baricentro, \(E=5\,432\,175{,}305\),
-\(N=6\,154\,500{,}022\)), Procrustes con escala da
+\(N=6\,154\,500{,}022\); los números son largos porque el origen oficial está lejos, y lo que
+importa son las diferencias entre puntos), Procrustes con escala da
 \[
   s=1{,}0000751,\qquad \theta=27{,}85114^\circ,\qquad
   t=(5\,432\,100{,}017;\ 6\,154\,300{,}002),
@@ -522,16 +591,30 @@ se reparte entre los tres.
 
 \subsection{Aplicación topográfica: eje de una medianera, una rotonda y dos levantamientos}
 
-Las tres partes usan coordenadas Gauss-Krüger de la faja~5, escritas \((E,N)\) como en la caja
-de la sección~\ref{caja:convencion-en}. Las coordenadas completas tienen siete cifras enteras, y elevarlas
-al cuadrado (como pide el círculo algebraico) o multiplicarlas entre sí pierde cifras
-significativas en doble precisión; por eso todas las cuentas se hacen con coordenadas
-reducidas al baricentro de cada nube, y los resultados se vuelven a expresar en coordenadas
-completas al final. Los datos son sintéticos: los generó el script con semilla fija, con
-errores de algunos centímetros.
+Volvemos a las tres situaciones de \enquote{La idea}, ahora con números de terreno: trazar el eje de
+una pared con diez puntos, ubicar el centro de una rotonda con nueve puntos del cordón y
+comparar dos mediciones del mismo terreno hechas con años de diferencia.
 
-\paragraph{1. El eje de una medianera.} Se relevaron con GNSS diez puntos de una medianera
-de unos \(18\) m, con un error de unos \(3\) cm en cada coordenada:
+\begin{idea}[Esto lo vas a usar en Topografía]
+Las coordenadas de esta sección están en el sistema plano oficial del país, llamado
+Gauss-Krüger: \(E\) crece hacia el este y \(N\) hacia el norte, en metros, y el país se divide
+en franjas norte-sur (las \emph{fajas}) para poder dibujarlo en un plano; acá todo está en la
+faja~5. Los números tienen siete cifras porque el origen del sistema está muy lejos; importan
+las diferencias entre puntos, que son de algunas decenas de metros. La dirección de una recta
+se da con el \emph{acimut}, el ángulo que forma con el norte contado en sentido horario.
+\end{idea}
+
+Escritas \((E,N)\) como en la caja de la sección~\ref{caja:convencion-en}, las coordenadas
+completas tienen siete cifras enteras, y elevarlas al cuadrado (como pide el círculo
+algebraico) o multiplicarlas entre sí pierde cifras significativas en doble precisión; por eso
+todas las cuentas se hacen con coordenadas reducidas al baricentro de cada nube, y los
+resultados se vuelven a expresar en coordenadas completas al final. Los datos son sintéticos:
+los generó el script con semilla fija, con errores de algunos centímetros.
+
+\paragraph{1. El eje de una medianera.} Hay que trazar el eje de una pared medianera de unos
+\(18\) m. Con un receptor satelital, un aparato que calcula su posición con las señales de los
+satélites con un error de pocos centímetros, se tomaron diez puntos sobre la pared, con un
+error de unos \(3\) cm en cada coordenada:
 \begin{center}
 \small
 \begin{tabular}{crr@{\qquad}crr}
@@ -551,9 +634,9 @@ El baricentro es \((5\,434\,517{,}963;\ 6\,152\,852{,}750)\), y con las coordena
 recta se mide desde el norte en sentido horario: si la recta avanza \(\Delta E\) al este por
 cada \(\Delta N\) al norte, su acimut es \(\operatorname{atan2}(\Delta E,\Delta N)\).
 \begin{itemize}
-  \item Recta de \(N\) sobre \(E\) (residuos en \(N\)): \(dN/dE=S_{EN}/S_{EE}=1{,}132311\),
+  \item Recta de \(N\) sobre \(E\) (distancias medidas en \(N\)): \(dN/dE=S_{EN}/S_{EE}=1{,}132311\),
   acimut \(41^\circ26'57{,}6''\).
-  \item Recta de \(E\) sobre \(N\) (residuos en \(E\)): \(dE/dN=S_{EN}/S_{NN}=0{,}883066\),
+  \item Recta de \(E\) sobre \(N\) (distancias medidas en \(E\)): \(dE/dN=S_{EN}/S_{NN}=0{,}883066\),
   acimut \(41^\circ26'47{,}9''\).
   \item Regresión total: \(d=v_1=(0{,}6619;\ 0{,}7496)\), con valores singulares
   \(\sigma_1=18{,}159\) m y \(\sigma_2=0{,}0875\) m; acimut \(41^\circ26'52{,}1''\).
@@ -571,16 +654,18 @@ Por qué la total es la correcta acá: el error está en las dos coordenadas y c
 precisión, de modo que no hay un eje privilegiado. La regresión simple supone que una
 coordenada es exacta, y la respuesta depende de cuál se elija y de cómo estén orientados los
 ejes; la total minimiza distancias, que no dependen de los ejes. Conviene leer las magnitudes con
-cuidado: con una base de \(18\) m y \(3\) cm de error, el desvío del acimut es de unos
-\(\sigma_0/\sigma_1\approx351''\), con \(\sigma_0=\sigma_2/\sqrt{n-2}=3{,}09\) cm, de modo que
+cuidado. Llamamos \(\sigma_0\) al error típico de un punto, estimado con los mismos datos:
+\(\sigma_0=\sigma_2/\sqrt{n-2}=3{,}09\) cm. Con una base de \(18\) m y \(3\) cm de error, la
+incertidumbre típica (el desvío) de la dirección del eje es de unos
+\(\sigma_0/\sigma_1\approx351''\), de modo que
 la diferencia entre métodos (segundos) es chica frente a la incertidumbre del eje (minutos).
 El eje se generó con acimut \(41^\circ30'\), y la total lo recupera con una diferencia de
 \(188''\), dentro de ese desvío. Lo que hace inaceptable a la regresión simple no es el
 tamaño de su diferencia, sino que es sistemática y depende de una elección arbitraria.
 
-\paragraph{2. El centro y el radio de una rotonda.} Del cordón de una rotonda se relevaron
-nueve puntos sobre la mitad sur del cordón, de este a oeste (el resto quedaba tapado por el
-tránsito):
+\paragraph{2. El centro y el radio de una rotonda.} Hay que ubicar el centro y el radio de
+una rotonda. Del cordón se marcaron nueve puntos sobre la mitad sur, de este a oeste (el resto
+quedaba tapado por el tránsito):
 \begin{center}
 \small
 \begin{tabular}{crr@{\qquad}crr}
@@ -595,8 +680,8 @@ punto & \(E\) (m) & \(N\) (m) & punto & \(E\) (m) & \(N\) (m)\\
 \bottomrule
 \end{tabular}
 \end{center}
-Con coordenadas reducidas al baricentro \((5\,434\,653{,}606;\ 6\,152\,923{,}356)\), el ajuste
-algebraico da \(D=-2{,}7640\), \(E=-15{,}2909\), \(F=-135{,}1478\): centro reducido
+Con coordenadas reducidas al baricentro \((5\,434\,653{,}606;\ 6\,152\,923{,}356)\), el círculo
+algebraico tiene \(D=-2{,}7640\), \(E=-15{,}2909\), \(F=-135{,}1478\): centro reducido
 \((1{,}3820;\ 7{,}6455)\) y radio \(13{,}9825\) m. Una iteración de Gauss--Newton lo corrige en
 décimas de milímetro, y las siguientes (cuatro en total) ya no lo mueven. El resultado es
 \[
@@ -608,14 +693,16 @@ Los residuos radiales, en centímetros, son
 \]
 con valor cuadrático medio \(1{,}82\) cm y máximo \(2{,}96\) cm (figura~\ref{fig:cp-rotonda}).
 Verificaciones: suman cero y \(J^Tf=0\) (proposición~\ref{prop:cp-circulo-optimo}); el
-residuo algebraico es perpendicular a las tres columnas. Con \(\sigma_0=2{,}23\) cm
-(\(9-3=6\) grados de libertad) y \((J^TJ)^{-1}\), los desvíos estimados del centro son
+residuo algebraico es perpendicular a las tres columnas. Con \(\sigma_0=2{,}23\) cm, el error
+típico de un punto estimado con las \(9-3=6\) mediciones de más (los grados de libertad), y
+con \((J^TJ)^{-1}\), que dice cómo pasan los errores de las mediciones al centro y al radio,
+los desvíos estimados del centro son
 \(1{,}04\) cm en \(E\) y \(2{,}01\) cm en \(N\), y el del radio, \(1{,}35\) cm. Que el desvío
-en \(N\) duplique al de \(E\) es geometría: los puntos relevados están casi todos al sur del
-centro, y el norte del círculo no aporta. Con residuos de centímetros sobre un radio de
-\(14\) m, el ajuste algebraico y el geométrico coinciden a la décima de milímetro: la
+en \(N\) duplique al de \(E\) es geometría: los puntos marcados están casi todos al sur del
+centro, y el norte del círculo no aporta. Con errores de centímetros sobre un radio de
+\(14\) m, el círculo algebraico y el geométrico coinciden a la décima de milímetro: la
 aproximación \(d_i^2-r^2\approx2r(d_i-r)\) es excelente. La rotonda se generó con radio
-\(14{,}000\) m; el ajuste da \(13{,}983\) m, a poco más de un desvío.
+\(14{,}000\) m; el resultado da \(13{,}983\) m, a poco más de un desvío.
 
 \begin{figure}[htbp]
 \centering
@@ -627,9 +714,11 @@ centímetros (positivo: el punto está afuera del círculo). Generada con
 \label{fig:cp-rotonda}
 \end{figure}
 
-\paragraph{3. Dos levantamientos del mismo predio.} Un predio de seis vértices está
-levantado en Gauss-Krüger (levantamiento 1) y, años después, con estación total en un
-sistema local con origen arbitrario (levantamiento 2):
+\paragraph{3. Dos levantamientos del mismo predio.} Un predio de seis vértices se midió dos
+veces. La primera vez, en el sistema oficial (levantamiento 1); años después, con un
+instrumento que mide ángulos y distancias desde un punto elegido a gusto, en ejes propios con
+origen arbitrario (levantamiento 2). ¿Son compatibles las dos mediciones, o algún vértice se
+movió? Para saberlo, llevamos una sobre la otra con la mejor similaridad y miramos lo que sobra:
 \begin{center}
 \small
 \begin{tabular}{crrrr}
@@ -666,18 +755,70 @@ con \(\det R=1{,}000000000000\). Los residuos, en centímetros, son
 \bottomrule
 \end{tabular}
 \end{center}
-y el RMS por punto es de \(0{,}70\) cm (\(0{,}50\) cm por coordenada). Verificaciones: los
+y el RMS por punto (la raíz del promedio de los cuadrados, el mismo valor cuadrático medio de
+antes) es de \(0{,}70\) cm (\(0{,}50\) cm por coordenada). Verificaciones: los
 residuos suman \((0,0)\), \(\sum_ir_i\times sRa_i'=0\) y \(\det R=+1\). Sin escala, el giro es
 el mismo y el RMS sube a \(0{,}76\) cm: las \(92\) partes por millón representan unos
 \(3\) mm a \(30\) m, del orden de los residuos, de modo que la escala no
 alcanza a distinguirse del error de medición (los vértices están, en promedio, a unos \(31\) m del
 baricentro). Lectura de la comparación: ningún vértice se
-aparta más de \(1{,}02\) cm de la similaridad, compatible con los errores de los dos
-levantamientos; un mojón movido o mal identificado aparecería como un residuo varias veces
-mayor que el resto. Los datos se generaron con un giro de \(-63{,}25^\circ\) y una escala de
+aparta más de \(1{,}02\) cm de la similaridad, compatible con los errores de las dos
+mediciones; una marca de vértice movida o confundida con otra aparecería como un residuo
+varias veces mayor que el resto. Los datos se generaron con un giro de \(-63{,}25^\circ\) y una escala de
 \(0{,}99988\) del levantamiento 1 al 2; la transformación inversa tiene giro
 \(+63^\circ15'\) y escala \(1/0{,}99988=1{,}00012\), y la estimación difiere en
 \(3''\) y en \(28\) partes por millón.
+
+\subsection{Demostraciones de la regresión total y de Procrustes}\label{sec:cp-demostraciones}
+
+\paragraph{Demostración de la proposición~\ref{prop:cp-total-entre}.} La idea es escribir la
+condición de autovector como una ecuación de segundo grado en la pendiente y ubicar \(m\) y
+\(1/m'\) respecto de sus raíces.
+
+\begin{demostracion}
+Sea \(v_1=(d_1,d_2)\). Si fuera \(d_1=0\), la primera fila de \(Cv_1=\lambda_1v_1\) daría
+\(S_{xy}d_2=0\), imposible; así que \(t=d_2/d_1\) existe. Las dos filas de
+\(Cv_1=\lambda_1v_1\) son \(S_{xx}d_1+S_{xy}d_2=\lambda_1d_1\) y
+\(S_{xy}d_1+S_{yy}d_2=\lambda_1d_2\). Multiplicando la primera por \(d_2\), la segunda por
+\(d_1\) e igualando, y dividiendo por \(d_1^2\),
+\[
+  p(t)=S_{xy}t^2+(S_{xx}-S_{yy})\,t-S_{xy}=0 .
+\]
+Con \(S_{xy}>0\), \(p\) es una parábola que abre hacia arriba y el producto de sus raíces es
+\(-1\): una raíz es negativa y la otra positiva. La pendiente \(t\) es la positiva, porque el
+autovalor mayor supera a cada elemento de la diagonal cuando \(S_{xy}\neq0\):
+\[
+  \lambda_1=\frac{S_{xx}+S_{yy}}2+\sqrt{\Big(\frac{S_{xx}-S_{yy}}2\Big)^2+S_{xy}^2}
+  >\frac{S_{xx}+S_{yy}}2+\frac{\lvert S_{xx}-S_{yy}\rvert}2=\max(S_{xx},S_{yy}),
+\]
+así que \(t=(\lambda_1-S_{xx})/S_{xy}>0\). Evaluando,
+\[
+  p(m)=\frac{S_{xy}}{S_{xx}^2}\,\big(S_{xy}^2-S_{xx}S_{yy}\big)<0,\qquad
+  p\Big(\frac1{m'}\Big)=\frac{S_{xx}S_{yy}-S_{xy}^2}{S_{xy}}>0,
+\]
+por Cauchy--Schwarz estricta (proposición~\ref{prop:cp-dos-regresiones}). Como \(p(m)<0\),
+\(m\) está entre las dos raíces, y por ser \(m>0\), \(m<t\). Como \(p(1/m')>0\) y
+\(1/m'>0\), \(1/m'\) está a la derecha de las dos raíces: \(t<1/m'\). Si \(S_{xy}<0\), el
+cambio \(y\mapsto-y\) cambia el signo de \(S_{xy}\), de \(m\), de \(1/m'\) y de \(t\), y da
+las desigualdades invertidas.
+\end{demostracion}
+
+\paragraph{Demostración de la proposición~\ref{prop:cp-procrustes}.} La idea es pasar la
+rotación buscada a las bases de la SVD, donde la traza se lee en la diagonal.
+
+\begin{demostracion}
+\(\operatorname{tr}(RM^T)=\operatorname{tr}(RV\Sigma U^T)=\operatorname{tr}(U^TRV\,\Sigma)
+=\sigma_1z_{11}+\sigma_2z_{22}\), con \(Z=U^TRV\), que es ortogonal porque lo son \(U\), \(R\)
+y \(V\). Las entradas de una matriz ortogonal no superan \(1\) en valor absoluto, así que
+\(\operatorname{tr}(RM^T)\le\sigma_1+\sigma_2\), con igualdad si \(Z=I\), es decir,
+\(R=UV^T\). Esa \(R\) es una rotación si \(\det(UV^T)=+1\). Si \(\det(UV^T)=-1\), toda
+rotación \(R\) da \(\det Z=\det U\det V=-1\): \(Z\) es una reflexión,
+\(Z=\left(\begin{smallmatrix}\cos\varphi&\sin\varphi\\\sin\varphi&-\cos\varphi\end{smallmatrix}\right)\),
+y \(\sigma_1z_{11}+\sigma_2z_{22}=(\sigma_1-\sigma_2)\cos\varphi\), máximo en \(\varphi=0\):
+\(Z=\operatorname{diag}(1,-1)\). En los dos casos el máximo vale
+\(\sigma_1+\det(UV^T)\sigma_2\). Para \(R\) fija, la expresión de arriba es una parábola en
+\(s\), con mínimo en \(s=\operatorname{tr}(RM^T)/\sum_i\lVert a_i'\rVert^2\).
+\end{demostracion}
 
 \section{Ejercicios con solución}
 
