@@ -66,7 +66,7 @@ TERMINOS_CAMPO = [
 ]
 RE_CAMPO = re.compile(r"(?<![a-z0-9])(?:" + "|".join(TERMINOS_CAMPO) + r")(?![a-z0-9])")
 # Chequeo 10 (advertencia): instrumentos.
-INSTRUMENTOS = [r"estacion(?:es)? totales?", r"niveles? opticos?", r"gnss", r"limbos?", r"teodolitos?",
+INSTRUMENTOS = [r"estacion(?:es)? total(?:es)?", r"niveles? opticos?", r"gnss", r"limbos?", r"teodolitos?",
                 r"distanciometros?"]
 RE_INSTR = re.compile(r"(?<![a-z0-9])(?:" + "|".join(INSTRUMENTOS) + r")(?![a-z0-9])")
 # Chequeo 11 (advertencia): preguntas o experimentos mentales en «La idea».

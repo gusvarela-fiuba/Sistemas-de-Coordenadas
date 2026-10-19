@@ -21,7 +21,8 @@ Salida:
   site/apunte.pdf                       copia del apunte
   site/cad/index.html, site/cad/dxf/    laboratorio CAD: página desde cad/index.md (las secciones «## Capítulo N»
                                         llevan id="capN") y copia de cad/dxf/**/*.dxf (antes del menú, que la enlaza)
-  site/menu.html, site/menu.pdf         piezas por tema para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
+  site/menu.html, site/menu.pdf         piezas por capítulo para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
+  site/menu-por-capitulo.html           entradas, platos y postres por capítulo, A4 apaisado (tools/menu_por_capitulo/gen.py, después del menú)
   site/.nojekyll                        para GitHub Pages
 
 Uso:  uv run tools/build.py [--skip-wasm] [--only <unidad_id>] [--out site]
@@ -1062,7 +1063,8 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir el programa</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
         '<a class="entrada" href="autoevaluacion.html"><b>Autoevaluación (120 preguntas)</b><small>practicamos, hacemos un simulacro o rendimos la evaluación</small></a>'
-        '<a class="entrada" href="menu.html"><b>Para el aula: qué hay para cada tema</b><small>piezas por capítulo, con duración y estado; también en PDF</small></a>'
+        '<a class="entrada" href="menu.html"><b>Para el aula: qué hay para cada capítulo</b><small>piezas por capítulo, con duración y estado; también en PDF</small></a>'
+        '<a class="entrada" href="menu-por-capitulo.html"><b>Para el aula: entradas, platos y postres por capítulo</b><small>un menú por capítulo para elegir qué servir; A4 apaisado, para imprimir</small></a>'
         "</nav>"
     )
 
@@ -1819,10 +1821,18 @@ def main() -> int:
     for _p in out.rglob("CLAUDE.md"):   # por si quedó alguno de un export anterior
         _p.unlink()
     shutil.rmtree(out / "_build", ignore_errors=True)
-    print("== menú por tema")
+    print("== menú: piezas por capítulo")
     import menu
     if menu.main(["--site", str(out)]) != 0:
         print("ERROR: tools/menu.py falló (enlace roto o mención prohibida en el menú)", file=sys.stderr)
+        return 1
+    print("== menú por capítulo")
+    import importlib.util
+    _spec = importlib.util.spec_from_file_location("menu_por_capitulo", RAIZ / "tools" / "menu_por_capitulo" / "gen.py")
+    menu_por_capitulo = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(menu_por_capitulo)
+    if menu_por_capitulo.main(["--site", str(out)]) != 0:
+        print("ERROR: tools/menu_por_capitulo/gen.py falló (enlace roto en menu-por-capitulo.html)", file=sys.stderr)
         return 1
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
