@@ -16,12 +16,12 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 | contenido/c1-proyectivas.tex | capituloComplemento: Transformaciones proyectivas | 522 | 3 | 1 | 3 | 1 | 0 | 0 | 2 | 0 | 0 | no | sí | 0 | no | ejemplos<2, soluciones<4, aplicación |
 | contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 583 | 5 | 4 | 4 | 2 | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | sí |  |
 | contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 547 | 3 | 4 | 7 | 3 | 5 | 5 | 4 | 2 | 0 | sí | sí | 0 | sí |  |
-| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 141 | 0 | 1 | 2 | 1 | 0 | 0 | 1 | 0 | 0 | no | sí | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 622 | 4 | 4 | 7 | 5 | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | sí |  |
 | contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 562 | 4 | 3 | 4 | 2 | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | sí |  |
 | contenido/c3-terreno-como-matriz.tex | capituloComplemento: El terreno como matriz | 343 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | sí | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
-| contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 204 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | no | sí | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación |
-| contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 103 | 1 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | no | sí | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación |
-| contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 128 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | sí | sí | 0 | no | ejemplos<2, figuras<3, soluciones<4, simulaciones<2 |
+| contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 691 | 4 | 4 | 6 | 5 | 4 | 4 | 4 | 2 | 0 | sí | sí | 0 | sí |  |
+| contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 574 | 5 | 4 | 3 | 2 | 5 | 5 | 4 | 2 | 0 | sí | sí | 0 | sí |  |
+| contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 611 | 4 | 4 | 7 | 5 | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | sí |  |
 | contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 19 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
 | contenido/13-curvatura.tex | chapter: Curvatura | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 14 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
@@ -34,14 +34,14 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 | contenido/ap4-bibliografia.tex | section: Bibliografía comentada | 78 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
 | contenido/ap5-notebooks.tex | section: Material de práctica y notebooks | 112 | 0 | 0 | 0 | 0 | 0 | 0 | 42 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación |
 | contenido/ap6-material-y-fuentes.tex | section*: Material de partida | 48 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
-| **Total** | | 8633 | 56 | 39 | 56 | 22 | 39 | 39 | 125 | 16 | 0 |  |  | 0 |  |  |
+| **Total** | | 10555 | 72 | 54 | 77 | 38 | 58 | 58 | 134 | 25 | 0 |  |  | 0 |  |  |
 
 ## Enlaces
 
-- Total de enlaces a unidades: 121; a animaciones: 6; recuadros: 16
+- Total de enlaces a unidades: 130; a animaciones: 6; recuadros: 25
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: df62300
-- Páginas del último PDF: 164 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
-- Archivos que cumplen el mínimo: 6 de 26
+- HEAD: 195708d
+- Páginas del último PDF: 200 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- Archivos que cumplen el mínimo: 10 de 26
