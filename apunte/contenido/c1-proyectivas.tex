@@ -1,10 +1,40 @@
 % Complemento C1: Transformaciones proyectivas
+% Números del pentágono y de la razón doble: apunte/scripts/capc1_proyectivas.py
+% Números y figura del conjugado armónico: apunte/scripts/capc1_conjugado_armonico.py
+% Números y figuras de la aplicación (la fachada): apunte/scripts/c1_proyectivas.py
 \capituloComplemento[1]{Transformaciones proyectivas}\label{cap:proyectivas}\label{sec:bloque-proyectivas}
 
 
 \section{La idea}
 
-Quitamos la última condición: una proyectiva conserva rectas y nada más. Mostramos que un cuadrilátero la determina y la ubicamos en la jerarquía de transformaciones del plano.
+Mirá la sombra de una reja al mediodía, sobre el piso del patio. ¿Los barrotes de la sombra
+siguen siendo paralelos? Sí: los rayos del sol llegan prácticamente paralelos entre sí y la
+sombra es una afinidad de la reja, como las del capítulo~\ref{cap:afines}.
+Ahora prendé de noche una lámpara cerca de la misma reja. ¿Qué les pasa a las sombras de los
+barrotes? Se abren en abanico: siguen siendo rectas, pero dejaron de ser paralelas.
+Pensá en las vías del tren vistas desde el andén: ¿dónde se juntan dos rieles que en el
+terreno nunca se tocan? En un punto del horizonte que se llama \emph{punto de fuga}: en la
+imagen, dos paralelas se cortan.
+Sacale una foto de costado, y un poco desde abajo, a una pared con una ventana rectangular.
+¿La ventana sale rectangular en la foto? ¿Los lados opuestos siguen paralelos?
+¿Podés medir sobre la foto, con una regla, el ancho de una puerta de la misma pared?
+Mirá qué sobrevivió: las rectas de la pared siguen siendo rectas en la foto, y un punto que
+estaba sobre una recta sigue sobre ella.
+¿Alcanza con eso para deshacer la perspectiva y ver la pared de frente? ¿Cuántos puntos de la
+pared hay que reconocer en la foto para lograrlo?
+
+Esas preguntas arman el complemento. En la cadena de familias del
+capítulo~\ref{cap:afines} quitamos ahora la última condición: una transformación
+\emph{proyectiva} conserva rectas y nada más. Para qué sirve: describe lo que hace una cámara
+con una superficie plana (una pared, un terreno) y permite deshacerlo. Mostramos que cuatro
+puntos la determinan, que hay un número que se conserva, la \emph{razón doble}, y la ubicamos
+en la jerarquía de transformaciones del plano. Al final enderezamos la foto de la pared y
+medimos la puerta (sección~\ref{sec:c1-aplicacion-fachada}).
+
+\paragraph{Convenciones del complemento.} Puntos en coordenadas homogéneas \((x,y,1)^T\);
+\(\mu\) es un número distinto de cero que multiplica una terna sin cambiar el punto, como en el
+capítulo~\ref{cap:afines}; \(\lambda\) son autovalores; el resto sigue la
+sección~\ref{sec:notacion}.
 
 \subsection{Transformaciones proyectivas: conservar rectas, nada más}\label{sec:proyectivas-primera}
 
@@ -25,8 +55,10 @@ de fuga; un punto ordinario puede irse al infinito y un punto ideal puede volver
 Las afinidades son un caso particular de las proyectivas.
 \end{idea}
 
-En coordenadas homogéneas la diferencia es mínima y muy visible. Una afinidad tiene matriz
-con última fila \((0,0,1)\), de modo que \(W\) siempre vale \(1\). Una transformación
+En coordenadas homogéneas la diferencia es mínima y muy visible. Llamamos \(H\) a la matriz
+de \(3\times3\) que transforma la terna \((x,y,1)^T\) de un punto y \(X,Y,W\) a las tres
+coordenadas de la terna que resulta; \(W\), la tercera, es la que decide la escala. Una
+afinidad tiene matriz con última fila \((0,0,1)\), de modo que \(W\) siempre vale \(1\). Una transformación
 proyectiva tiene una matriz \(3\times3\) invertible \emph{cualquiera}:
 \[
 \begin{pmatrix}X\\Y\\W\end{pmatrix}=H\begin{pmatrix}x\\y\\1\end{pmatrix},
@@ -38,7 +70,7 @@ exactamente la perspectiva: lo que \enquote{está lejos} se achica. Los puntos c
 una recta que se va al infinito, el horizonte de la foto.
 
 \paragraph{Por qué un cuadrilátero.}
-La matriz tiene nueve entradas, pero \(H\) y \(\lambda H\) representan la misma
+La matriz tiene nueve entradas, pero \(H\) y \(\mu H\), con \(\mu\neq0\), representan la misma
 transformación (el factor se cancela al dividir por \(W\)). Quedan ocho números
 independientes. Cada correspondencia \enquote{el punto \(p\) va al punto \(p'\)} aporta dos
 ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
@@ -100,7 +132,7 @@ Las distancias, los ángulos, las áreas y las razones simples no lo son, y se p
 
 \section{Construcciones, cuentas y ejemplos}
 
-Escribimos la homografía como una matriz de \(3\times3\), mostramos que cuatro puntos la determinan y buscamos sus puntos y rectas fijas. Cerramos con ejercicios sobre el pentágono regular.
+Escribimos la homografía como una matriz de \(3\times3\), mostramos que cuatro puntos la determinan y buscamos sus puntos y rectas fijas. Cerramos enderezando la foto de una fachada.
 
 {\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la perspectiva de una cámara y el pentágono regular}\par}
 {\small\vspace{1mm}\linkAnimacion{02_homogeneas_pentagono_3d}{Animación: el pentágono en coordenadas homogéneas (3D)}\par}
@@ -115,7 +147,7 @@ aplicación
 \]
 con \(H\) una matriz real \(3\times3\) invertible que actúa sobre las coordenadas
 homogéneas \(p=(x,y,1)^T\). El símbolo \(\sim\) recuerda que el resultado se lee \emph{a menos
-de escala}: se normaliza dividiendo por la tercera coordenada. Como \(H\) y \(\lambda H\)
+de escala}: se normaliza dividiendo por la tercera coordenada. Como \(H\) y \(\mu H\)
 definen la misma transformación, una homografía tiene \(8\) grados de libertad.
 \end{definicion}
 
@@ -137,7 +169,11 @@ después \(H_2\).
 \end{resultado}
 
 \paragraph{Razón doble.}
-Las distancias y las razones simples se pierden, pero hay un número que se conserva.
+Imaginá cuatro postes alineados a lo largo de un alambrado, fotografiados de costado. En la foto
+las distancias entre ellos cambian, y también sus cocientes: el poste que estaba en el medio de
+dos ya no está en el medio. ¿Queda algún número, calculado con las cuatro posiciones, que la
+foto respete? Si existe, sirve para controlar una foto o para deducir dónde está un punto que
+no se ve. Las distancias y las razones simples se pierden, pero ese número existe.
 Sobre una recta se fija una coordenada afín: un origen y una unidad, de modo que cada punto
 queda identificado con un número real.
 
@@ -343,6 +379,10 @@ glosario de la sección~\ref{sec:glosario} las separa.
 
 \subsection{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
 
+¿Cuántos puntos de una pared hay que reconocer en su foto para poder deshacer la perspectiva?
+Con tres alcanzaba para una afinidad (proposición~\ref{prop:06-tres-puntos}); la perspectiva pide
+uno más.
+
 \paragraph{Conteo.} Cada correspondencia \(p_i\mapsto p_i'\) aporta dos ecuaciones
 (\(X/W=x_i'\), \(Y/W=y_i'\)). Cuatro correspondencias dan ocho ecuaciones para ocho
 incógnitas. La condición es que ni entre los cuatro puntos de partida ni entre los cuatro de
@@ -392,6 +432,9 @@ grados de libertad que faltaban.
 
 \subsection{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
 
+¿Hay algún punto que una homografía deje en su lugar? Saberlo dice qué tipo de
+transformación es: un giro alrededor de un punto, un espejo, o una perspectiva más general.
+
 Los puntos fijos de una homografía son autovectores; la teoría general de autovalores y
 autovectores se desarrolla en las secciones~\ref{sec:autovalores} y~\ref{sec:autovalores-geom}.
 Un punto \(p\) es fijo si
@@ -427,32 +470,182 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
   homología es \emph{armónica}, una involución, como una reflexión.
 \end{itemize}
 
-\subsection{Ejercicios: proyectivas}
+\subsection{Aplicación: enderezar la foto de una fachada}\label{sec:c1-aplicacion-fachada}
 
-\begin{enumerate}
-  \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
-  y que \(A,O,C\) tampoco (\(O\) el centro).
-  \item Calcule la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\).
-  Compruebe que el centro \(O_c=(-1{,}5388;\ -3{,}7361)\) \emph{no} está en ella.
-  \item Con \(H_c\), calcule la imagen del centro \(O\) y compruebe que no es \(O\): en
-  (c) el centro del pentágono no queda fijo.
-  \item Calcule \(H_c^2\) y normalice: debe dar la identidad. Interprete.
-  \item Construya la matriz \(K\) del patrón para el cuadrado \((0,0),(1,0),(1,1),(0,1)\),
-  en ese orden. ¿Es afín la homografía que lleva el patrón al cuadrado? Explique por qué.
-\end{enumerate}
+Tenemos una foto de una pared, sacada de costado y un poco desde abajo, y queremos saber cuánto
+mide una puerta de esa pared sin ir a medirla. De la pared conocemos una sola cosa: tiene una
+ventana rectangular de \(1{,}50\ \mathrm{m}\) de ancho por \(1{,}20\ \mathrm{m}\) de alto, que
+medimos con una cinta. En la foto la ventana no sale rectangular: es un cuadrilátero con los
+lados opuestos inclinados distinto, y la puerta, que está más lejos de la cámara, sale más
+chica de lo que es. ¿Podemos usar la ventana como patrón para enderezar la pared entera y medir
+la puerta sobre la pared enderezada? Por la sección~\ref{sec:cuatro-puntos}, sí: los cuatro
+vértices de la ventana, en la foto y en la pared, determinan la homografía que lleva una a la
+otra.
 
-\subsubsection{Respuestas para autocorrección}
-\begin{enumerate}
-  \item \(\det[A\ B\ C]=1{,}3143\neq0\); \(\det[A\ O\ C]=-0{,}5878\neq0\).
-  \item \(B\times D=(0{,}3090+0{,}8090;\ 0{,}5878+0{,}9511;\ 0{,}7694-0{,}1816)\cdot\) (a menos de
-  escala) \(\sim(0{,}7265;\ 1;\ 0{,}3820)\); en \(O_c\): \(-1{,}118-3{,}736+0{,}382=-4{,}47\neq0\).
-  \item \(H_c(0,0,1)^T=(-0{,}2245;\ -0{,}5451;\ 1)^T\): \(O\mapsto(-0{,}22;\ -0{,}55)\).
-  \item \(H_c^2=0{,}7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
-  \item \(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
-  \(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
-  \((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
-  propios, cosa que una afinidad nunca hace.
-\end{enumerate}
+\begin{idea}[Esto lo vas a usar en Topografía]
+Enderezar la foto de una superficie plana a partir de puntos cuyas medidas se conocen se llama
+\emph{rectificar} la foto. Sirve para dibujar fachadas y para medir sobre cualquier superficie
+plana fotografiada sin recorrerla con la cinta.
+\end{idea}
+
+\paragraph{Dos sistemas de coordenadas.} En la foto usamos, como en la ortofoto del
+capítulo~\ref{cap:afines} (sección~\ref{sec:aplicacion-ortofoto}), la columna \(c\) y la fila
+\(f\) de cada píxel, con origen en el vértice superior izquierdo y \emph{la fila creciendo hacia
+abajo}. En la pared usamos metros: \(x\) hacia la derecha e \(y\) hacia arriba, con origen en el
+vértice inferior izquierdo de la ventana. Buscamos la matriz \(H\) de \(3\times3\) que lleva
+\((c,f,1)^T\) a un múltiplo de \((x,y,1)^T\).
+
+\paragraph{Datos.} Son sintéticos, generados por el script
+\texttt{apunte/scripts/c1\_proyectivas.py}. El script parte de una pared de juguete (la ventana de
+\(1{,}50\times1{,}20\ \mathrm{m}\) y una puerta de \(0{,}90\times2{,}05\ \mathrm{m}\)), la
+fotografía con una homografía conocida, la que produciría una cámara de distancia focal
+\(1300\) píxeles girada \(40^\circ\) respecto de la pared y levantada \(12^\circ\), y a cada
+vértice le suma un error al azar de medio píxel (semilla \(2026\)), redondeando al décimo de
+píxel, como cuando se marcan los vértices a mano sobre la pantalla. Las medidas de la puerta no
+entran en el cálculo: las guardamos para comparar al final.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & foto \((c;\,f)\) (px) & pared \((x;\,y)\) (m)\\
+\midrule
+\(V_1\) ventana, abajo a la izquierda & \(93{,}3;\ 692{,}1\) & \(0;\ 0\)\\
+\(V_2\) ventana, abajo a la derecha & \(567{,}7;\ 730{,}9\) & \(1{,}50;\ 0\)\\
+\(V_3\) ventana, arriba a la derecha & \(581{,}0;\ 405{,}2\) & \(1{,}50;\ 1{,}20\)\\
+\(V_4\) ventana, arriba a la izquierda & \(139{,}2;\ 290{,}2\) & \(0;\ 1{,}20\)\\
+\midrule
+\(P_1\) puerta, abajo a la izquierda & \(768{,}2;\ 997{,}9\) & a medir\\
+\(P_2\) puerta, abajo a la derecha & \(935{,}5;\ 985{,}7\) & a medir\\
+\(P_3\) puerta, arriba a la derecha & \(925{,}3;\ 516{,}3\) & a medir\\
+\(P_4\) puerta, arriba a la izquierda & \(770{,}9;\ 477{,}9\) & a medir\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/proyectivas/c1_fachada_foto.png}
+\caption{Izquierda: la foto sintética de la fachada, con la ventana (\(V_1\) a \(V_4\)) y la
+puerta (\(P_1\) a \(P_4\)); en gris, las prolongaciones de los lados. Derecha: la misma foto vista
+de lejos. Los lados que en la pared son horizontales se cortan en el punto de fuga \(F_h\), los
+verticales en \(F_v\), y la recta que los une es el horizonte, la recta que \(H\) manda al
+infinito. Generada con \texttt{apunte/scripts/c1\_proyectivas.py}.}
+\label{fig:c1-fachada-foto}
+\end{figure}
+
+\paragraph{Lo que la foto no respeta.} Medidos contra la horizontal de la foto, el lado de
+abajo de la ventana baja \(4{,}68^\circ\) hacia la derecha y el de arriba \(14{,}59^\circ\): en
+la pared son paralelos y en la foto no. Los lados verticales forman \(83{,}48^\circ\) y
+\(87{,}66^\circ\) con la horizontal: tampoco son paralelos. ¿Dónde se cortan? Con las rectas en
+coordenadas homogéneas, la recta por dos puntos y el punto común a dos rectas se calculan con
+el producto cruz. Los lados de abajo y de arriba se cortan en el punto de fuga
+\(F_h=(2411{,}6;\ 881{,}7)\), fuera de la foto a la derecha; los lados verticales, en
+\(F_v=(834{,}2;\ -5795{,}1)\), muy por encima de la foto, porque la cámara mira hacia arriba
+(figura~\ref{fig:c1-fachada-foto}). Si quisiéramos medir la puerta con una regla sobre la foto,
+usando como escala la ventana (\(1{,}50\ \mathrm{m}\) en los \(476{,}0\) px del lado de abajo y
+\(1{,}20\ \mathrm{m}\) en los \(404{,}5\) px del lado izquierdo), los \(167{,}7\) px del lado de
+abajo de la puerta darían \(0{,}53\ \mathrm{m}\) y los \(520{,}0\) px del lado izquierdo,
+\(1{,}54\ \mathrm{m}\): \(37\ \mathrm{cm}\) de menos en el ancho y \(51\ \mathrm{cm}\) en el
+alto. En la foto la escala cambia de un punto a otro.
+
+\paragraph{Ocho ecuaciones lineales.} Escribimos la homografía buscada coordenada por
+coordenada, con \(h_{ij}\) la entrada de la fila \(i\) y la columna \(j\) de \(H\):
+\[
+  x=\frac{h_{11}c+h_{12}f+h_{13}}{h_{31}c+h_{32}f+h_{33}},
+  \qquad
+  y=\frac{h_{21}c+h_{22}f+h_{23}}{h_{31}c+h_{32}f+h_{33}} .
+\]
+Como \(H\) y \(\mu H\) dan la misma transformación, podemos elegir la escala: fijamos
+\(h_{33}=1\). (Esa elección solo falla si \(h_{33}=0\), cuando el píxel \((0,0)\) va al infinito;
+no es el caso de una foto en la que la pared ocupa el cuadro.) Pasando el denominador a la
+izquierda y ordenando, cada vértice da dos ecuaciones \emph{lineales} en las ocho incógnitas:
+\[
+\begin{aligned}
+  h_{11}c+h_{12}f+h_{13}-h_{31}\,c\,x-h_{32}\,f\,x&=x,\\
+  h_{21}c+h_{22}f+h_{23}-h_{31}\,c\,y-h_{32}\,f\,y&=y .
+\end{aligned}
+\]
+Es la \emph{transformación lineal directa} (en inglés, DLT): directa porque el problema, que
+parecía de cocientes, quedó como un sistema lineal común. Por ejemplo, \(V_2\), con
+\((c;\,f)=(567{,}7;\ 730{,}9)\) y \((x;\,y)=(1{,}5;\ 0)\), aporta las filas
+\[
+\begin{aligned}
+  567{,}7\,h_{11}+730{,}9\,h_{12}+h_{13}-851{,}55\,h_{31}-1096{,}35\,h_{32}&=1{,}5,\\
+  567{,}7\,h_{21}+730{,}9\,h_{22}+h_{23}&=0 .
+\end{aligned}
+\]
+Con los cuatro vértices de la ventana queda un sistema de \(8\times8\), con solución única
+porque no hay tres vértices alineados. Resulta
+\[
+  H=10^{-3}\begin{pmatrix}
+  2{,}5710&0{,}2936&-443{,}09\\
+  0{,}2342&-2{,}8633&1959{,}87\\
+  -0{,}4539&0{,}1072&1000
+  \end{pmatrix}.
+\]
+El script comprueba que el método del patrón de la sección~\ref{sec:cuatro-puntos},
+\(H=K_2K_1^{-1}\) normalizada con \(h_{33}=1\), da la misma matriz, y que \(H\) lleva los cuatro
+vértices de la ventana a \((0;\ 0)\), \((1{,}5;\ 0)\), \((1{,}5;\ 1{,}2)\) y \((0;\ 1{,}2)\).
+
+\paragraph{El horizonte.} La tercera fila de \(H\) es la recta de la foto que se va al infinito
+(sección~\ref{sec:jerarquia}): \(-0{,}4539\,c+0{,}1072\,f+1000=0\). Tiene que pasar por \(F_h\) y
+por \(F_v\), porque las imágenes de los lados de la ventana son paralelas y sus puntos comunes
+están en el infinito. El script calcula la recta \(F_h\times F_v\) y comprueba que es la misma.
+Es el horizonte dorado de la figura~\ref{fig:c1-fachada-foto}.
+
+\paragraph{Las rectas siguen rectas, las razones simples no.} Tomemos en la foto el punto medio
+del borde izquierdo de la puerta, \((769{,}55;\ 737{,}9)\), a mitad de camino entre \(P_1\) y
+\(P_4\). \(H\) lo lleva a \((2{,}401;\ 0{,}037)\), y el determinante de las ternas de las tres
+imágenes (los extremos y ese punto) da cero: siguen alineadas. Pero el punto ya no está a mitad
+de altura: queda a \(0{,}480\) del recorrido, contando desde abajo. Lo que la foto muestra como
+mitad, en la pared no lo es.
+
+\paragraph{La razón doble se conserva.} Prolonguemos en la foto el lado de abajo de la ventana,
+la recta del alféizar (el borde inferior de la ventana). Corta a los bordes verticales de la
+puerta en dos puntos, \(Q\) y \(R\), que se calculan otra vez con productos cruz. Sobre esa recta
+de la foto, la columna \(c\) sirve de coordenada afín, y los cuatro puntos \(V_1,V_2,Q,R\) tienen
+\(c=93{,}3;\ 567{,}7;\ 769{,}5;\ 930{,}6\). En la pared enderezada caen sobre la recta \(y=0\), en
+\(x=0;\ 1{,}5;\ 2{,}401;\ 3{,}296\). La razón doble
+(definición~\ref{def:c1-razon-doble}) vale
+\[
+  (V_1,V_2;Q,R)=1{,}4523
+\]
+en las dos, con todas las cifras que calcula el script, como asegura la
+proposición~\ref{prop:c1-razon-doble}. La razón simple, en cambio, cambia: \(V_1V_2/V_1Q\) es
+\(0{,}702\) en la foto y \(0{,}625\) en la pared. En la pared verdadera, con los bordes de la
+puerta en \(x=2{,}4\) y \(x=3{,}3\), la razón doble es \(16/11\approx1{,}4545\); la diferencia con
+\(1{,}4523\) es el error de medio píxel de los vértices marcados.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.92\linewidth]{figuras/proyectivas/c1_fachada_enderezada.png}
+\caption{La pared enderezada por \(H\): la ventana vuelve a ser el rectángulo de
+\(1{,}50\times1{,}20\ \mathrm{m}\) y la puerta aparece con sus medidas. Los puntos dorados son
+\(V_1\), \(V_2\), \(Q\) y \(R\) sobre la recta \(y=0\), la del alféizar, con la misma razón doble
+que en la foto. Generada con \texttt{apunte/scripts/c1\_proyectivas.py}.}
+\label{fig:c1-fachada-enderezada}
+\end{figure}
+
+\paragraph{La puerta, medida.} Aplicando \(H\) a \(P_1,\dots,P_4\) obtenemos, en metros,
+\[
+  P_1\mapsto(2{,}406;\ -0{,}946),\quad P_2\mapsto(3{,}306;\ -0{,}945),\quad
+  P_3\mapsto(3{,}285;\ 1{,}099),\quad P_4\mapsto(2{,}394;\ 1{,}101).
+\]
+Los lados de abajo y de arriba miden \(0{,}899\) y \(0{,}891\ \mathrm{m}\), y los bordes
+izquierdo y derecho \(2{,}047\) y \(2{,}044\ \mathrm{m}\)
+(figura~\ref{fig:c1-fachada-enderezada}). Promediando, la puerta mide \(0{,}895\ \mathrm{m}\) de
+ancho por \(2{,}045\ \mathrm{m}\) de alto. Las medidas con que el script armó la pared son
+\(0{,}90\) y \(2{,}05\ \mathrm{m}\): la diferencia, de unos \(5\ \mathrm{mm}\), viene del medio
+píxel de error al marcar los ocho vértices. Los bordes verticales de la puerta, que en la foto
+forman entre sí \(1{,}54^\circ\), en la pared enderezada forman \(0{,}23^\circ\): casi
+paralelos, y lo que falta también es error de marcado.
+
+\begin{atencion}[Una pared, no un edificio]
+La homografía endereza \emph{un plano}. Todo lo que está sobre la pared (ventanas, puertas,
+juntas de ladrillos) queda bien medido; lo que sobresale de ella (un balcón, el marco de la
+ventana si está hundido) no, porque no está en el plano que fijaron los cuatro vértices.
+\end{atencion}
+
+\unidadInteractiva{05_proyectivas}{Proyectivas: la perspectiva de una cámara y el pentágono regular}{Explorá: en «caso precargado» elegí «foto de dron: cámara inclinada (k)» y mové el deslizador «k (inclinación, h\(_{32}\))». Con \(k=0\) la tercera fila de la matriz es \((0\ \ 0\ \ 1)\): la transformación es afín y las rectas \(x=\) constante siguen paralelas. Con cualquier otro \(k\) convergen al punto de fuga marcado con una cruz, como los bordes verticales de la puerta en la foto de la fachada.}
 
 \section{En profundidad}
 
@@ -696,3 +889,68 @@ for k, dst in casos.items():
             v = v / v[2]                # punto propio (x, y, 1)
         print(f"  lambda={lam:.4f}: punto fijo", v)
 \end{verbatim}
+
+\section{Ejercicios con solución}
+
+Los ejercicios 1 a 5 usan el pentágono regular de la sección~\ref{ap:pentagono}; los dos
+últimos, la foto de la fachada de la sección~\ref{sec:c1-aplicacion-fachada}.
+
+\begin{ejercicio}
+Verificá con el determinante que \(A,B,C\) del pentágono regular no están alineados y que
+\(A,O,C\) tampoco (\(O\) el centro).
+\solucion{\(\det[A\ B\ C]=1{,}3143\neq0\); \(\det[A\ O\ C]=-0{,}5878\neq0\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Calculá la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\). Comprobá que el
+centro \(O_c=(-1{,}5388;\ -3{,}7361)\) \emph{no} está en ella.
+\solucion{\(B\times D=(0{,}3090+0{,}8090;\ 0{,}5878+0{,}9511;\ 0{,}7694-0{,}1816)\cdot\) (a menos de
+escala) \(\sim(0{,}7265;\ 1;\ 0{,}3820)\); en \(O_c\): \(-1{,}118-3{,}736+0{,}382=-4{,}47\neq0\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Con \(H_c\), calculá la imagen del centro \(O\) y comprobá que no es \(O\): en el caso (c) el
+centro del pentágono no queda fijo.
+\solucion{\(H_c(0,0,1)^T=(-0{,}2245;\ -0{,}5451;\ 1)^T\): \(O\mapsto(-0{,}22;\ -0{,}55)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Calculá \(H_c^2\) y normalizá: tiene que dar la identidad. Interpretá el resultado.
+\solucion{\(H_c^2=0{,}7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución,
+aplicarla dos veces es no hacer nada, como con una reflexión.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Construí la matriz \(K\) del patrón para el cuadrado \((0,0),(1,0),(1,1),(0,1)\), en ese orden.
+¿Es afín la homografía que lleva el patrón al cuadrado? Explicá por qué.
+\solucion{\(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
+\(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
+\((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
+propios, cosa que una afinidad nunca hace.}
+\end{ejercicio}
+
+\begin{ejercicio}
+En la foto de la fachada, \(V_1\) y \(V_2\) tienen columnas \(c=93{,}3\) y \(c=567{,}7\), y el
+punto de fuga de los lados horizontales, \(F_h\), tiene \(c=2411{,}6\). ¿En qué columna de la
+foto está el punto medio del alféizar, el punto de la pared \((0{,}75;\ 0)\)? Usá que el punto
+medio de un segmento y el punto impropio de su recta son conjugados armónicos respecto de los
+extremos, y que la homografía conserva la razón doble. Compará con el promedio de las columnas
+de \(V_1\) y \(V_2\).
+\solucion{En la pared, \((V_1,V_2;\text{medio},\infty)=-1\); en la foto el punto impropio va a
+\(F_h\), así que el punto buscado es el conjugado armónico de \(F_h\) respecto de \(V_1\) y
+\(V_2\). Con origen en \(V_1\): \(b=567{,}7-93{,}3=474{,}4\), \(d=2411{,}6-93{,}3=2318{,}3\), y de
+\((c-0)(d-b)=-(c-b)(d-0)\) sale \(c=\dfrac{bd}{2d-b}=\dfrac{474{,}4\cdot2318{,}3}{4162{,}2}=264{,}2\).
+La columna es \(93{,}3+264{,}2=357{,}5\), la misma que da \(H^{-1}\) aplicada a \((0{,}75;\ 0)\).
+El promedio de las columnas es \(330{,}5\): el punto medio de la pared está \(27\) píxeles más
+lejos, del lado que se aleja de la cámara.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Calculá la razón doble \((0;\ 1{,}5;\ 2{,}4;\ 3{,}3)\) de los puntos \(V_1,V_2,Q,R\) de la pared
+verdadera. ¿Por qué la foto da \(1{,}4523\)? ¿Qué daría la foto si los vértices se hubieran
+marcado sin error?
+\solucion{\(\dfrac{(2{,}4-0)(3{,}3-1{,}5)}{(2{,}4-1{,}5)(3{,}3-0)}=\dfrac{4{,}32}{2{,}97}=\dfrac{16}{11}\approx1{,}4545\).
+La foto da \(1{,}4523\) porque sus vértices tienen medio píxel de error; \(H\) conserva la razón
+doble de la foto, y por eso la pared enderezada da también \(1{,}4523\). Sin error, foto, pared
+enderezada y pared verdadera darían las tres \(16/11\).}
+\end{ejercicio}
