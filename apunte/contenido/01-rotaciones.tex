@@ -3,11 +3,14 @@
 
 \section{La idea}
 
-Pensemos en una calesita. Cuando arranca, cada caballito da vueltas en su propio círculo, el
-eje del centro no se mueve y todos giran el mismo ángulo al mismo tiempo: ninguno se acerca ni
-se aleja del eje, y la distancia entre dos caballitos no cambia. Eso es una rotación. En este
-capítulo convertimos esa imagen en cuentas, y la idea del título es que, en coordenadas,
-\emph{girar es multiplicar} por una matriz.
+Imaginá que estás parado sobre una plataforma grande que gira despacio, sin sacudones. ¿Qué
+cambia y qué no? La distancia a cualquier persona que esté con vos sobre la plataforma no
+cambia. El centro no se mueve. Cada punto del piso recorre una circunferencia, y todos barren
+el mismo ángulo en el mismo tiempo. Y si mirás hacia afuera, ves que el paisaje gira alrededor
+tuyo en sentido contrario. Esas observaciones son el capítulo entero: una rotación conserva
+distancias y deja fijo un centro, y se puede leer de dos maneras, según se mire desde afuera o
+desde arriba de la plataforma. En coordenadas, además, \emph{girar es multiplicar} por una
+matriz.
 
 Para llegar ahí usamos tres ideas que vuelven en toda la materia: un punto no es lo mismo que
 sus coordenadas, transformar es mover figuras y rotar es conservar distancias alrededor de un
@@ -46,10 +49,10 @@ coordenadas de un punto \(p\) son los únicos números \((x,y)\) tales que
 girando \(e_x\) un cuarto de vuelta en sentido antihorario.
 \end{definicion}
 
-Las coordenadas de un punto pueden cambiar, entonces, de dos maneras. Una torta sobre una mesa
-giratoria las muestra bien: podemos girar la torta, o dejarla quieta y caminar alrededor de la
-mesa. En los dos casos la vemos desde otro lado, pero en el primero se movió el objeto y en el
-segundo nos movimos nosotros.
+Las coordenadas de un punto pueden cambiar, entonces, de dos maneras, y la plataforma del
+comienzo muestra las dos. Quien mira desde afuera ve que la plataforma giró con todo lo que
+tiene encima: los objetos se movieron. Quien está arriba no ve moverse nada a su alrededor;
+para él lo que giró, y en sentido contrario, es el paisaje: cambió el punto de vista.
 
 \begin{definicion}[Transformación activa y pasiva]
 Una transformación es \emph{activa} cuando los ejes quedan fijos y el punto se mueve a otro
@@ -91,7 +94,8 @@ que se construyen en la sección~\ref{sec:rot-plano}.
 \begin{idea}[Mover el objeto o cambiar las coordenadas: lectura activa o pasiva]
 La materia estudia a la vez dos problemas distintos: mover o deformar objetos geométricos y
 cambiar la manera de asignarles coordenadas. Las fórmulas se parecen; la lectura activa o
-pasiva decide qué está cambiando realmente: si giró la torta o caminamos nosotros.
+pasiva decide qué está cambiando realmente: si giró la plataforma o cambió desde dónde
+miramos.
 \end{idea}
 
 \begin{idea}[La rotación sugiere las coordenadas polares]
@@ -108,7 +112,7 @@ Una \emph{transformación del plano} es una función \(F:\R^2\to\R^2\) que asign
 \(F(q)=q\).
 \end{definicion}
 
-Una transformación es como una receta que le dice a cada punto del plano adónde ir. Para
+Una transformación es una regla que le asigna a cada punto del plano un destino. Para
 entenderla no hace falta seguir todos los puntos: alcanza con mirar qué le hace a una figura
 sencilla, como un triángulo, y hacerle siempre las mismas cuatro preguntas:
 \begin{itemize}
@@ -117,8 +121,7 @@ sencilla, como un triángulo, y hacerle siempre las mismas cuatro preguntas:
   \item ¿cómo se escribe en coordenadas?;
   \item ¿qué pasa si la aplicamos dos veces, o seguida de otra?
 \end{itemize}
-Son como una ficha de identidad: a lo largo del curso se las hacemos a cada familia de
-transformaciones, y el cuadro de la sección~\ref{sec:mapa-transformaciones} reúne las
+A lo largo del curso se las hacemos a cada familia de transformaciones, y el cuadro de la sección~\ref{sec:mapa-transformaciones} reúne las
 respuestas.
 
 \begin{center}
@@ -160,7 +163,7 @@ paralelismo. Saber qué se conserva es saber de qué transformación se trata.
 \unidadInteractiva{01b_rotacion_plano}{Rotaciones II: la rotación en el plano}{Verificá: mové el deslizador \(\theta\) y comprobá que la distancia al centro no cambia.}
 
 Una rotación mueve cada punto sobre una circunferencia cuyo centro es el centro de rotación,
-y todos los puntos barren el mismo ángulo, como los caballitos de la calesita.
+y todos los puntos barren el mismo ángulo, como el piso de la plataforma.
 
 \begin{definicion}[Rotación del plano]
 Sean \(c\) un punto y \(\theta\) un ángulo. La \emph{rotación de centro \(c\) y ángulo
@@ -407,14 +410,15 @@ mismo: \((I-R(30^\circ))c\approx(0{,}634;\,-0{,}366)\) y
 \end{center}
 \end{ejemplo}
 
-\subsection{Orientar una estación total: acimut y ángulo matemático}\label{sec:acimut-campo}
+\subsection{Orientar un instrumento: acimut y ángulo matemático}\label{sec:acimut-campo}
 
-Una \emph{estación total} es, en esencia, un transportador con anteojo: un telescopio montado
-sobre un círculo graduado, el \emph{limbo}, que mide hacia dónde se mira y a qué distancia
-está lo que se mira. Al instalarla, el cero del limbo queda apuntando a cualquier lado, como un
-reloj recién comprado que todavía no está en hora, de modo que cada lectura
+Hay instrumentos que miden en el terreno ángulos horizontales con una precisión de hasta un
+segundo de arco, la 3600-ava parte de un grado, y distancias al milímetro. Miran por un
+anteojo y leen la dirección sobre un círculo graduado. Al instalarlos, el cero de ese círculo
+queda apuntando a cualquier lado, de modo que cada lectura
 \(\mathrm{Lec}\) es la dirección medida desde ese cero, en sentido horario. Para pasar a
-acimutes hay que \enquote{ponerla en hora}: se mira un punto de referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce y se calcula la \emph{corrección de
+acimutes hay que referir las lecturas a una dirección conocida: se mira un punto de
+referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce y se calcula la \emph{corrección de
 orientación} \(\kappa\)
 \[
 \kappa=\mathrm{Az}_{\text{ref}}-\mathrm{Lec}_{\text{ref}}\pmod{360^\circ},
@@ -556,11 +560,11 @@ Como \(-e_y\neq e_x\), \(R_yR_x\neq R_xR_y\). La diferencia no es un error numé
 propiedad geométrica de las rotaciones espaciales.
 \end{ejemplo}
 
-\subsection{Aplicación topográfica: acimut y estación total}\label{sec:rotaciones-aplicacion}
+\subsection{Aplicación topográfica: coordenadas a partir de un ángulo y una distancia}\label{sec:rotaciones-aplicacion}
 
-Seguimos ahora la cuenta completa de un \emph{radiado}, que es la forma más simple de
-levantar puntos: como quien desde un faro apunta a cada barco y anota hacia dónde mira y a qué
-distancia está. Desde una estación de coordenadas
+Seguimos ahora la cuenta completa de un \emph{radiado}, la forma más simple de ubicar puntos
+nuevos en el terreno. Funciona como un radar: desde un punto fijo, la \emph{estación}, se
+apunta a cada objetivo y se anota hacia dónde está y a qué distancia. Desde una estación de coordenadas
 conocidas se miden, para cada punto nuevo, una distancia horizontal \(d\) y un ángulo
 horizontal \(\beta\), contado en sentido horario desde la visual a un punto de referencia; con
 eso se calculan las coordenadas del punto. Cada paso es una rotación, y por eso las distancias
