@@ -1,6 +1,7 @@
 # Laboratorio CAD: un ejercicio por entrada, en el orden del apunte (subsecciones «En el CAD»,
-# sec:cad-cap01 a sec:cad-cap04) y de cad/index.md. Lo lee tools/menu.py (claves capitulo,
-# archivo, titulo, comando); el enlace del menú es cad/#cap<capitulo>.
+# sec:cad-cap01 a sec:cad-cap04, sec:cad-cap06 y sec:cad-cap09) y de cad/index.md. Lo lee
+# tools/menu.py (claves capitulo, archivo, titulo, comando); el enlace del menú es
+# cad/#cap<capitulo>.
 # archivo: DXF original en cad/dxf/. respuesta: respuesta principal en cad/dxf/esperado/;
 # otras_respuestas: las demás respuestas del mismo ejercicio, si las hay.
 - capitulo: 1
@@ -53,3 +54,20 @@
   titulo: "Un comando que no es una transformación afín"
   comando: STRETCH
   respuesta: esperado/cap04_stretch_10.dxf
+- capitulo: 6
+  archivo: cap06_area.dxf
+  titulo: "El área de la parcela es una suma de cuñas"
+  comando: AREA
+  respuesta: esperado/cap06_area_cunas.dxf
+- capitulo: 6
+  archivo: cap06_scale.dxf
+  titulo: "Escalar multiplica el área por el determinante"
+  comando: SCALE + INSERT
+  respuesta: esperado/cap06_scale_2.dxf
+  otras_respuestas: [esperado/cap06_bloque_x2_y1_area.dxf]
+- capitulo: 9
+  archivo: cap09_ucs.dxf
+  titulo: "Un sistema alineado con el frente: cambio de base"
+  comando: UCS
+  respuesta: esperado/cap09_ucs_frente.dxf
+  otras_respuestas: [esperado/cap09_ucs_activa.dxf]
