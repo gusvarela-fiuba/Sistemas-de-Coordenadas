@@ -1,4 +1,4 @@
-% Formas lineales: el gradiente no es un vector (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+% Formas lineales: el gradiente no es un vector
 % Números del texto nuevo verificados con apunte/scripts/cap05_formas_lineales.py
 \chapter{Formas lineales: el gradiente no es un vector}\label{cap:formas-lineales}
 
@@ -212,31 +212,6 @@ del punto. Su recta de nivel cero, \(2(x-1)+(y-1)=0\), es la tangente a la curva
 misma figura de arriba: el vector \((2,1)\) es perpendicular a la familia de rectas de la
 forma. Ir a lo chico (la forma lineal en un punto) para volver a lo grande (la superficie
 completa) es lo que hace el capítulo~\ref{cap:derivada} con el plano tangente y la métrica.
-
-\begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
-Desarrollo complementario, desde la especialización en IA (CEIA); no es de la cátedra. Un
-\emph{clasificador lineal} separa dos lotes de puntos del plano (dos clases, \(y_i=\pm1\))
-con una regla \(\omega(x)=w_1x+w_2y+b\): la clase es el signo de \(\omega\). Es exactamente
-una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
-clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
-entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
-sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
-que separan, la que deja más \emph{margen}: pide \(\omega(x_i)\ge+1\) para una clase y
-\(\le-1\) para la otra, y entre las que cumplen toma la de \(\|w\|\) mínima. Las tres
-rectas de nivel \(-1\), \(0\), \(+1\) son el borde de un lado, la frontera y el borde del
-otro; los puntos que tocan los bordes son los \emph{vectores soporte}. El ancho de la
-franja entre las rectas \(-1\) y \(+1\) es \(2/\|w\|\), porque la separación entre
-curvas de nivel consecutivas de una forma es \(1/\|w\|\) (cuanto más
-largo el vector de la forma, más apretadas las curvas), y esa cuenta necesita el
-producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros: clase
-\(+1\) en \((1,1)\) y \((2,0)\), clase \(-1\) en \((-1,-1)\) y \((-2,0)\). La frontera
-de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
-dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
-\(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
-verificamos resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
-\texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
-\texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
-\end{idea}
 
 \begin{resultado}[Dualidad en pocas palabras]
 \begin{itemize}
@@ -595,6 +570,31 @@ máxima pendiente. El error no está en la forma sino en haberla levantado a vec
 \(57{,}71^\circ\).
 
 \unidadInteractiva{00_fundamentos}{Fundamentos: puntos, formas lineales y métrica}{Verificá: con el objeto «(b) regla graduada \(w^T\) (el gradiente)» y el caso «estirar Este ×2: diag(2, 1)», comprobá que la fila pasa de \((1,1)\) a \((\tfrac12,1)\), que el mojón conserva su cota y que la perpendicular dibujada en el papel deja de ser la bajada real del terreno.}
+
+\begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
+Un
+\emph{clasificador lineal} separa dos lotes de puntos del plano (dos categorías, \(y_i=\pm1\))
+con una regla \(\omega(x)=w_1x+w_2y+b\): la categoría es el signo de \(\omega\). Es exactamente
+una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
+clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
+entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
+sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
+que separan, la que deja más \emph{margen}: pide \(\omega(x_i)\ge+1\) para una categoría y
+\(\le-1\) para la otra, y entre las que cumplen toma la de \(\|w\|\) mínima. Las tres
+rectas de nivel \(-1\), \(0\), \(+1\) son el borde de un lado, la frontera y el borde del
+otro; los puntos que tocan los bordes son los \emph{vectores soporte}. El ancho de la
+franja entre las rectas \(-1\) y \(+1\) es \(2/\|w\|\), porque la separación entre
+curvas de nivel consecutivas de una forma es \(1/\|w\|\) (cuanto más
+largo el vector de la forma, más apretadas las curvas), y esa cuenta necesita el
+producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros: categoría
+\(+1\) en \((1,1)\) y \((2,0)\), categoría \(-1\) en \((-1,-1)\) y \((-2,0)\). La frontera
+de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
+dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
+\(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
+verificamos resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
+\texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
+\texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
+\end{idea}
 
 \section{Ejercicios con solución}
 

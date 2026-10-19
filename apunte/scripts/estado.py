@@ -77,13 +77,35 @@ def analizar(path):
     )
     n = sum(1 for m in MOLDE if m in secs_n)
     d["molde"] = "sí" if n == 3 else ("parcial" if n else "no")
+    nombre = path.name
+    d["tipo"] = ("cap0" if re.match(r"00-", nombre) else "cap" if re.match(r"(0[1-9]|1[0-5])-", nombre)
+                 else "comp" if re.match(r"c\d", nombre) else "ap" if re.match(r"ap\d", nombre) else "otro")
     falta = []
-    if d["ej"] < 2: falta.append("ejemplos<2")
-    if d["fig"] < 3: falta.append("figuras<3")
-    if d["sol"] < 4: falta.append("soluciones<4")
-    if d["aplic"] != "sí": falta.append("aplicación")
-    if d["sim"] < 2: falta.append("simulaciones<2")
-    if d["prohib"]: falta.append("prohibidas")
+    if d["tipo"] == "cap0":
+        secs_l = [norm(s) for s in secs]
+        for etiqueta, claves in (("orientación (cómo usar)", ("como usar",)), ("notación", ("notacion",)),
+                                 ("leyenda de símbolos", ("simbolos", "leyenda")), ("cómo usar las unidades", ("unidades",)),
+                                 ("repaso", ("repaso",))):
+            if not any(k in s for s in secs_l for k in claves):
+                falta.append(etiqueta)
+        m = re.search(r"\\section\*?(?:\[[^\]]*\])?\{[^{}]*[Rr]epaso", txt)
+        if m:
+            fin = re.search(r"\\section\b", txt[m.end():])
+            tr = txt[m.start(): m.end() + (fin.start() if fin else len(txt))]
+            if len(re.findall(r"\\begin\{ejemplo\}", tr)) < 2:
+                falta.append("repaso con ejemplos<2")
+        elif "repaso" not in falta:
+            falta.append("repaso")
+        if d["prohib"]: falta.append("prohibidas")
+    elif d["tipo"] == "ap":
+        if d["prohib"]: falta.append("prohibidas")
+    else:
+        if d["ej"] < 2: falta.append("ejemplos<2")
+        if d["fig"] < 3: falta.append("figuras<3")
+        if d["sol"] < 4: falta.append("soluciones<4")
+        if d["aplic"] != "sí": falta.append("aplicación")
+        if d["sim"] < 2: falta.append("simulaciones<2")
+        if d["prohib"]: falta.append("prohibidas")
     d["cumple"] = "sí" if not falta else "no"
     d["falta"] = ", ".join(falta)
     return d
@@ -94,7 +116,11 @@ COLS = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("F
         ("Aplic", "aplic"), ("Molde", "molde"), ("Prohib", "prohib"), ("Cumple", "cumple"), ("Falta", "falta")]
 
 
-def tabla(rows):
+COLS_AP = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Sim", "sim"),
+           ("Enlaces rotos", "rotos"), ("Prohib", "prohib")]
+
+
+def tabla(rows, COLS=COLS):
     out = ["| " + " | ".join(h for h, _ in COLS) + " |", "|" + "---|" * len(COLS)]
     for r in rows:
         out.append("| " + " | ".join(str(r[k]).replace("|", "/") for _, k in COLS) + " |")
@@ -115,6 +141,10 @@ def main():
         p = APUNTE / (i if i.endswith(".tex") else i + ".tex")
         if p.exists():
             cont.append(analizar(p))
+    caps = [r for r in cont if r["tipo"] in ("cap0", "cap")]
+    comps = [r for r in cont if r["tipo"] == "comp"]
+    aps = [r for r in cont if r["tipo"] == "ap"]
+    otros = [r for r in cont if r["tipo"] == "otro"]
     prep = [analizar(Path(p)) for p in sorted(glob.glob(str(APUNTE / "preparacion" / "*.tex")))]
     enl = enlaces.analizar_todo()
     rotos = [b for r in enl for b in r['rotos']]
@@ -134,13 +164,19 @@ def main():
             pass
     md = ["# Estado del apunte", "", "Generado por `apunte/scripts/estado.py`. No editar a mano.", "",
           "Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicación topográfica, Simulaciones ≥ 2, Prohibidas = 0.", "",
-          "## Archivos incluidos por el maestro (en orden)", "", tabla(cont), "",
+          "Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso de las unidades, repaso con ≥ 2 ejemplos).", "",
+          "## Capítulos (0 a 15)", "", tabla(caps), "",
+          "## Complementos (C1 a C4)", "", tabla(comps), "",
+          "## Apéndices (sin molde)", "", tabla(aps, COLS_AP), "",
+          *(["## Otros archivos", "", tabla(otros), ""] if otros else []),
           *(["## Preparación (no incluidos en el maestro)", "", tabla(prep), ""] if prep else []),
           "## Enlaces", "",
           f"- Total de enlaces a unidades: {sum(r['unidades'] for r in enl)}; a animaciones: {sum(r['animaciones'] for r in enl)}; recuadros: {sum(r['recuadros'] for r in enl)}",
           f"- Enlaces rotos: {len(rotos)}", *[f"  - {b}" for b in rotos], "",
           f"- Fecha: {datetime.date.today().isoformat()}", f"- HEAD: {head}", f"- Páginas del último PDF: {pags}",
-          f"- Archivos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in cont)} de {len(cont)}", ""]
+          f"- Capítulos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in caps if r['tipo']=='cap')} de {sum(r['tipo']=='cap' for r in caps)}",
+          f"- Complementos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in comps)} de {len(comps)}",
+          f"- Capítulo 0 (criterio propio): {'cumple' if all(r['cumple']=='sí' for r in caps if r['tipo']=='cap0') else 'no cumple'}", ""]
     Path(a.md).write_text("\n".join(md), encoding="utf-8")
     print(f"escrito {a.md}")
 

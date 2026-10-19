@@ -175,7 +175,7 @@ def _(mo):
     vectores. Si $E \ne G$ o $F \ne 0$, la perpendicular dibujada en la grilla **no** es la perpendicular en el terreno: en
     la esfera un paso en $\lambda$ mide $\cos\varphi$ veces lo que uno en $\varphi$, y en el elipsoide $M\,d\varphi$ contra
     $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha 9](../../clases/09.html); como cambio
-    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_fundamentos/index.html).
+    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
     """), kind="neutral")])
     return
 

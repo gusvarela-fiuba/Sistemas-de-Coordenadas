@@ -72,6 +72,8 @@ Para cada definición o teorema conviene producir:
 \end{enumerate}
 \end{idea}
 
+\subsection{Cómo usar las unidades interactivas}
+
 \begin{resultado}[Cómo leer los enlaces]
 \begin{itemize}
   \item \(\triangleright\) marca una \emph{unidad interactiva}; \(\circlearrowright\) marca una \emph{animación}.
@@ -176,7 +178,7 @@ tratan temas sin lugar propio en la secuencia.
 13 & Curvatura & \ref{cap:curvatura}. \nameref{cap:curvatura} & \linkUnidad{12_curvatura}{Curvatura} & En preparación\\
 14 & Geometría del elipsoide & \ref{cap:elipsoide}. \nameref{cap:elipsoide} & \linkUnidad{13_elipsoide}{Geometría del elipsoide}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
 15 & Trigonometría esférica & \ref{cap:esfera}. \nameref{cap:esfera} & \linkUnidad{14_trigonometria_esferica}{Trigonometría esférica}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
---- & Transformaciones proyectivas & \ref{cap:proyectivas}. \nameref{cap:proyectivas} & \linkUnidad{05_proyectivas}{Proyectivas} & Tema de clase extra, en dos fechas\\
+--- & Transformaciones proyectivas & \ref{cap:proyectivas}. \nameref{cap:proyectivas} & \linkUnidad{05_proyectivas}{Proyectivas} & Tema complementario\\
 --- & El terreno como matriz & \ref{cap:dem}. \nameref{cap:dem} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
 --- & Transformaciones conformes & \ref{cap:conformes}. \nameref{cap:conformes} & \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & \\
 --- & Marcos de referencia, grillas y remuestreo & \ref{cap:marcos}. \nameref{cap:marcos} & --- & \\
@@ -778,7 +780,27 @@ es. Y curvarse, la hessiana o la segunda forma fundamental, es una forma cuadrá
 número por cada dirección, cuya diagonalización da las direcciones principales
 (sección~\ref{cap:curvatura}).
 \end{resultado}
-\section{Notación}\label{sec:notacion}
+\begin{ejemplo}[Una rotación de \(90^\circ\) conserva la norma]
+Sea \(v=(3,4)\) y \(R(90^\circ)=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\). Entonces
+\[
+R(90^\circ)\,v=\begin{pmatrix}0\cdot3-1\cdot4\\ 1\cdot3+0\cdot4\end{pmatrix}=\begin{pmatrix}-4\\3\end{pmatrix},
+\qquad
+\lVert v\rVert=\sqrt{3^2+4^2}=5,\quad \lVert R(90^\circ)v\rVert=\sqrt{(-4)^2+3^2}=5.
+\]
+El vector gira un cuarto de vuelta y conserva su largo; además \(v\cdot R(90^\circ)v=3\cdot(-4)+4\cdot3=0\), de modo que
+el giro lo deja perpendicular a sí mismo.
+\end{ejemplo}
+
+\begin{ejemplo}[Producto interno y ángulo entre dos vectores]
+Sean \(u=(1,2)\) y \(w=(3,1)\). El producto interno es \(u\cdot w=1\cdot3+2\cdot1=5\), y las normas son
+\(\lVert u\rVert=\sqrt5\) y \(\lVert w\rVert=\sqrt{10}\). Por lo tanto
+\[
+\cos\alpha=\frac{u\cdot w}{\lVert u\rVert\,\lVert w\rVert}=\frac{5}{\sqrt{50}}=\frac{1}{\sqrt2}
+\quad\Longrightarrow\quad \alpha=45^\circ.
+\]
+\end{ejemplo}
+
+\section{Notación y leyenda de símbolos}\label{sec:notacion}
 
 Esta tabla fija las convenciones que se usan en todo el apunte; cuando un capítulo necesita un
 símbolo distinto, lo declara donde lo introduce. Una sola regla de lectura: lo que se compone
@@ -812,3 +834,12 @@ Latitud y longitud & \(\varphi\) (sólo latitud), \(\lambda\) (longitud) & \\
 Elipsoide GRS80 & \(a=6\,378\,137\ \mathrm{m}\), \(1/f=298{,}257222101\) & \\
 \end{longtable}
 }
+
+\begin{atencion}[Coordenadas (E, N) y planillas oficiales]
+En el apunte, las coordenadas Gauss-Krüger y POSGAR se escriben \((E,N)\): primero el este y
+después el norte. En la cartografía oficial argentina el orden de los nombres es otro: \(X\)
+es el norte e \(Y\) es el este, y a \(Y\) se le antepone el número de faja (por ejemplo,
+\(Y=5\,4xx\,xxx\) en la faja~5). Al copiar coordenadas de una planilla oficial hay que
+cuidar qué columna es cuál: el valor que empieza con el número de faja es el este, aunque la
+planilla lo llame \(Y\), y el otro es el norte, aunque la planilla lo llame \(X\).
+\end{atencion}

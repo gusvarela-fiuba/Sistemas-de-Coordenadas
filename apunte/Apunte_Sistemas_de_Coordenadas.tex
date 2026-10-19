@@ -17,6 +17,7 @@
 }
 
 \begin{document}
+\pagenumbering{roman}
 
 \begin{titlepage}
 \pagecolor{paper}
@@ -24,6 +25,7 @@
 \newcommand{\portadaAutor}{Trabajo final de Sistemas de Coordenadas (CB104, FIUBA) \textperiodcentered{} Gustavo Varela}
 \input{portada/portada-tikz}
 \end{titlepage}
+\setcounter{page}{2}
 
 \clearpage
 \thispagestyle{empty}
@@ -56,9 +58,11 @@ unidades interactivas. Todo número de un ejemplo proviene de un script del repo
 
 %% --- Cuerpo: una línea \input por archivo de contenido/, en orden ---
 \setcounter{chapter}{-1}
+\clearpage
+\pagenumbering{arabic}\apunteCuerpotrue
 \input{contenido/00-antes-de-empezar}
 
-%% Capítulos de clase (1 a 15) y complementos (C1 a C4), en el orden del programa.
+%% Capítulos (1 a 15) y complementos (C1 a C4), en el orden del programa.
 %% Los capítulos 12 a 15 son páginas «en preparación».
 \input{contenido/01-rotaciones}
 \input{contenido/02-traslaciones-movimientos-rigidos}
@@ -88,6 +92,5 @@ unidades interactivas. Todo número de un ejemplo proviene de un script del repo
 \input{contenido/ap3-composicion-afin}
 \input{contenido/ap4-bibliografia}
 \input{contenido/ap5-notebooks}
-\input{contenido/ap6-material-y-fuentes}
 
 \end{document}

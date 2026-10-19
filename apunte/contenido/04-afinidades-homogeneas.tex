@@ -2,6 +2,7 @@
 \chapter{Afinidades y coordenadas homogéneas}\label{cap:afines}
 
 % Números de los ejemplos y soluciones: apunte/scripts/cap06_afines.py
+% Números y figura de la aplicación (ortofoto): apunte/scripts/cap04_afinidad_ortofoto.py
 
 \section{La idea}
 
@@ -44,10 +45,12 @@ puntos medios siguen siendo puntos medios.
 \end{tikzpicture}
 \end{center}
 
-\begin{idea}[Idea]
+\begin{idea}[Rectas y paralelas sobreviven; distancias y ángulos, no]
 Una afinidad es una transformación lineal seguida de una traslación: conserva rectas,
 paralelismo y razones sobre una recta, pero no distancias ni ángulos.
 \end{idea}
+
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Explorá: en «caso precargado» elegí «escala anisótropa diag(1.5, s)» y mové el deslizador \(s\): la grilla sigue formada por paralelogramos iguales y el área de la parcela se multiplica por \(\det A=1{,}5\,s\). Pasá a «corte [[1, s], [0, 1]]» y mirá cómo los ángulos rectos dejan de serlo mientras el área no cambia.}
 
 En fórmulas, una afinidad del plano se escribe
 \[
@@ -135,7 +138,7 @@ se cortan en el infinito.
 \end{tikzpicture}
 \end{center}
 
-\begin{idea}[Idea]
+\begin{idea}[Una coordenada más vuelve producto a la traslación]
 Las coordenadas homogéneas agregan una coordenada igual a \(1\). Con ella, la traslación pasa
 a ser una columna más de la matriz, componer afinidades es multiplicar matrices \(3\times3\),
 y las direcciones aparecen como puntos con última coordenada \(0\).
@@ -483,7 +486,7 @@ al eje en un punto fijo, y su imagen pasa por ese mismo punto.
 números y \(b\) dos: seis incógnitas. Cada punto con su imagen aporta dos ecuaciones, así que
 alcanzan tres puntos, siempre que no estén alineados.
 
-\begin{idea}[Idea]
+\begin{idea}[Un triángulo es un sistema de referencia afín]
 Tres puntos no alineados forman un triángulo, y un triángulo es un sistema de referencia
 afín: un vértice hace de origen y los dos lados que salen de él hacen de ejes. Decir adónde
 van los tres vértices es decir adónde van el origen y los ejes, y eso fija toda la
@@ -732,6 +735,201 @@ sobre sí misma\\
 \end{tabularx}
 }
 
+\subsection{Aplicación topográfica: georreferenciar una ortofoto de dron por puntos de apoyo}\label{sec:aplicacion-ortofoto}
+
+Un vuelo de dron procesado da una ortofoto: una imagen de \(4000\times3000\) píxeles en la que
+cada píxel cubre unos \(3\ \mathrm{cm}\) de terreno (el \emph{GSD}, tamaño del píxel en el
+suelo). Mientras no está georreferenciada, sus únicas coordenadas son las de imagen: la
+columna \(c\) y la fila \(f\), en píxeles, con origen en el vértice superior izquierdo y
+\emph{la fila creciendo hacia abajo}. Para usarla en la cartografía hay que pasarla al
+sistema oficial Gauss-Krüger, faja~5. En el sistema oficial argentino la coordenada \(X\) es
+la norte y la \(Y\) la este; en este apunte se escribe \((E,N)\), con \(E\) hacia el este y
+\(N\) hacia el norte.
+
+El ejemplo~\ref{ej:06-dron} supuso un píxel cuadrado y una imagen alineada con la
+cuadrícula; el ejemplo~\ref{ej:06-tres-puntos} resolvió una afinidad exacta con tres puntos
+y dejó un cuarto para controlar. En un caso real la imagen está girada unos grados, y el
+proceso de ortorrectificación deja la escala de las columnas apenas distinta de la de las
+filas. Una afinidad absorbe las dos cosas:
+\[
+  \boxed{E=a_0+a_1\,c+a_2\,f,\qquad N=b_0+b_1\,c+b_2\,f,}
+  \qquad
+  \begin{pmatrix}E\\N\\1\end{pmatrix}
+  =\begin{pmatrix}a_1&a_2&a_0\\ b_1&b_2&b_0\\ 0&0&1\end{pmatrix}
+   \begin{pmatrix}c\\f\\1\end{pmatrix}.
+\]
+Son seis parámetros. Para fijarlos se marcan en el terreno \emph{puntos de apoyo}: señales
+visibles en la imagen cuyas coordenadas oficiales se miden con GNSS.
+
+\paragraph{Datos.} Cuatro puntos de apoyo, cerca de las esquinas, y un quinto punto
+\(P_5\) que se reserva para control y no entra en el cálculo.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & imagen \((c;\,f)\) (px) & terreno \((E;\,N)\) (m)\\
+\midrule
+\(P_1\) & \(412;\ 287\) & \(5\,432\,192{,}864;\ 6\,154\,752{,}126\)\\
+\(P_2\) & \(3611;\ 352\) & \(5\,432\,288{,}751;\ 6\,154\,756{,}055\)\\
+\(P_3\) & \(3548;\ 2716\) & \(5\,432\,291{,}123;\ 6\,154\,684{,}908\)\\
+\(P_4\) & \(377;\ 2659\) & \(5\,432\,196{,}052;\ 6\,154\,680{,}831\)\\
+\midrule
+\(P_5\) (control) & \(1980;\ 2905\) & \(5\,432\,244{,}512;\ 6\,154\,676{,}380\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Ocho ecuaciones, seis incógnitas.} Cada punto de apoyo aporta una ecuación para
+\(E\) y otra para \(N\): hay ocho ecuaciones y seis incógnitas, y con datos medidos ninguna
+afinidad las cumple todas a la vez. Se busca la que hace mínima la suma de los cuadrados de
+los residuos; es el problema de mínimos cuadrados, cuya teoría (ecuaciones normales,
+proyección, pseudoinversa) está en la sección~\ref{sec:ecuaciones-normales} del
+capítulo~\ref{cap:inversas}. Como en el ejemplo~\ref{ej:06-tres-puntos}, el sistema se separa
+en dos con la misma matriz
+\[
+  U=\begin{pmatrix}1&c_1&f_1\\1&c_2&f_2\\1&c_3&f_3\\1&c_4&f_4\end{pmatrix}
+   =\begin{pmatrix}1&412&287\\1&3611&352\\1&3548&2716\\1&377&2659\end{pmatrix},
+\]
+ahora de \(4\times3\): \(U(a_0,a_1,a_2)^T\approx(E_i)\) y \(U(b_0,b_1,b_2)^T\approx(N_i)\). Para
+no arrastrar siete cifras se reducen las coordenadas: \(E'=E-5\,432\,000\) y
+\(N'=N-6\,154\,000\). Las ecuaciones normales \(U^TU\,x=U^TE'\) y \(U^TU\,y=U^TN'\) son
+\[
+  U^TU=\begin{pmatrix}
+  4&7948&6014\\ 7948&25\,939\,498&12\,028\,127\\ 6014&12\,028\,127&14\,653\,210
+  \end{pmatrix},
+\]
+\[
+  U^TE'=\begin{pmatrix}968{,}790\\2\,228\,955{,}837\\1\,468\,984{,}656\end{pmatrix},
+  \qquad
+  U^TN'=\begin{pmatrix}2873{,}920\\5\,726\,717{,}388\\4\,152\,531{,}279\end{pmatrix}.
+\]
+Las entradas de \(U^TU\) son las sumas \(\sum1\), \(\sum c_i\), \(\sum f_i\), \(\sum c_i^2\),
+\(\sum c_if_i\), \(\sum f_i^2\); las de la derecha, \(\sum E'_i\), \(\sum c_iE'_i\), \(\sum
+f_iE'_i\) (y lo mismo con \(N'\)). Los dos sistemas de \(3\times3\) dan los términos independientes reducidos
+\(a_0'=180{,}003\) y \(b_0'=760{,}002\); deshaciendo la reducción,
+\[
+  a_0=5\,432\,180{,}003,\quad a_1=0{,}0299433,\quad a_2=0{,}0017936,
+\]
+\[
+  b_0=6\,154\,760{,}002,\quad b_1=0{,}0018322,\quad b_2=-0{,}0300385 .
+\]
+La matriz homogénea de la georreferenciación es
+\[
+  M=\begin{pmatrix}0{,}0299433&0{,}0017936&5\,432\,180{,}003\\
+  0{,}0018322&-0{,}0300385&6\,154\,760{,}002\\ 0&0&1\end{pmatrix}.
+\]
+Su última columna es la imagen del píxel \((0,0)\): el vértice superior izquierdo de la
+ortofoto cae en \(E=5\,432\,180{,}003\), \(N=6\,154\,760{,}002\).
+
+\paragraph{Residuos.} Restando a cada dato la predicción \(M(c_i,f_i,1)^T\):
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+punto & \(r_E\) (cm) & \(r_N\) (cm) & \(\lVert r\rVert\) (cm)\\
+\midrule
+\(P_1\) & \(+0{,}9\) & \(-1{,}0\) & \(1{,}4\)\\
+\(P_2\) & \(-0{,}9\) & \(+1{,}0\) & \(1{,}4\)\\
+\(P_3\) & \(+0{,}9\) & \(-1{,}0\) & \(1{,}4\)\\
+\(P_4\) & \(-0{,}9\) & \(+1{,}0\) & \(1{,}4\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+El error medio cuadrático por punto es
+\(\mathrm{RMS}=\sqrt{\tfrac14\sum_i\lVert r_i\rVert^2}=1{,}4\ \mathrm{cm}\), menos de medio
+píxel. Que los cuatro residuos tengan el mismo tamaño y signos alternados no es casualidad:
+con cuatro puntos y tres incógnitas por coordenada sobra una sola ecuación, y el vector de
+residuos de \(E\) (igual que el de \(N\)) es ortogonal a las tres columnas de \(U\). Eso lo
+obliga a ser múltiplo del único vector \(w\) con \(U^Tw=0\), que para esta geometría es
+\(w\approx(-0{,}988;\ 0{,}991;\ -1;\ 0{,}997)\). Con más puntos de apoyo los residuos ya no
+quedan atados a un patrón fijo y dicen más sobre cada punto.
+
+\paragraph{Qué dicen los seis números.} La parte lineal
+\(A=\left(\begin{smallmatrix}a_1&a_2\\b_1&b_2\end{smallmatrix}\right)\) tiene por columnas las
+imágenes de un paso de una columna y de un paso de una fila.
+\begin{itemize}
+\item \emph{Escalas.} \(\lVert(a_1,b_1)\rVert=2{,}9999\ \mathrm{cm}\) por píxel a lo largo de
+las filas de la imagen y \(\lVert(a_2,b_2)\rVert=3{,}0092\ \mathrm{cm}\) por píxel a lo largo de
+las columnas: difieren en un \(0{,}31\) por ciento.
+\item \emph{Rotación.} La dirección de \(c\) creciente forma \(3{,}501^\circ\) con el eje \(E\);
+la de «fila hacia arriba», \(-(a_2,b_2)\), forma \(3{,}417^\circ\) con el eje \(N\), los dos en
+sentido antihorario. La imagen está girada unos \(3{,}5^\circ\).
+\item \emph{Cizalla.} Las dos columnas de \(A\) forman \(90{,}084^\circ\): los ejes de la imagen
+llegan al terreno apenas oblicuos, \(0{,}084^\circ\) fuera de la perpendicular.
+\item \emph{Signo de \(b_2\).} \(b_2<0\) porque la fila crece hacia abajo y \(N\) hacia arriba:
+bajar una fila es ir unos \(3\ \mathrm{cm}\) al sur. Por eso
+\(\det A=-0{,}00090274\ \mathrm{m}^2\): la georreferenciación invierte la orientación, como en el
+ejemplo~\ref{ej:06-dron}, y cada píxel cubre \(9{,}0274\ \mathrm{cm}^2\).
+\end{itemize}
+Para separar estos efectos se quita primero la inversión de la fila,
+\(A=A'\operatorname{diag}(1,-1)\), y \(A'\) (de determinante positivo) se descompone como una
+rotación por una matriz simétrica definida positiva, \(A'=R(\theta)\,S\), con la SVD del
+capítulo~\ref{cap:svd}: si \(A'=U\Sigma V^T\), es \(R(\theta)=UV^T\) y \(S=V\Sigma V^T\). Resulta
+\[
+  A=R(3{,}459^\circ)\,S\,\begin{pmatrix}1&0\\0&-1\end{pmatrix},
+  \qquad
+  S=\begin{pmatrix}2{,}9999&0{,}0022\\0{,}0022&3{,}0092\end{pmatrix}\ \mathrm{cm/px}.
+\]
+El factor \(R\) es el giro de la imagen; \(\operatorname{diag}(1,-1)\), la fila hacia abajo;
+\(S\) estira sin girar. Sus autovalores, \(2{,}9994\) y \(3{,}0097\ \mathrm{cm/px}\), son las
+escalas extremas, y la dirección de la mayor forma \(77{,}2^\circ\) con el eje \(c\): está
+cerca del eje \(f\). El término fuera de la diagonal es la cizalla. Una similaridad
+tendría \(S\) múltiplo de la identidad.
+
+\paragraph{Comparación con la similaridad.} La similaridad de cuatro parámetros de la
+sección~\ref{sec:aplicacion-helmert} supone una sola escala. Como aquí la orientación se
+invierte, la que corresponde es la similaridad inversa
+\[
+  E=t_E+a\,c+b\,f,\qquad N=t_N+b\,c-a\,f,
+  \qquad
+  \begin{pmatrix}a&b\\b&-a\end{pmatrix}=\lambda\,R(\theta)\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\]
+Ajustada por mínimos cuadrados a los mismos cuatro puntos da
+\(\lambda=3{,}0032\ \mathrm{cm/px}\) (un promedio de las dos escalas) y \(\theta=3{,}470^\circ\),
+con residuos
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+punto & \(r_E\) (cm) & \(r_N\) (cm) & \(\lVert r\rVert\) (cm)\\
+\midrule
+\(P_1\) & \(+9{,}2\) & \(+4{,}2\) & \(10{,}1\)\\
+\(P_2\) & \(-3{,}6\) & \(+10{,}4\) & \(11{,}0\)\\
+\(P_3\) & \(-7{,}3\) & \(-6{,}3\) & \(9{,}6\)\\
+\(P_4\) & \(+1{,}7\) & \(-8{,}4\) & \(8{,}5\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+y \(\mathrm{RMS}=9{,}9\ \mathrm{cm}\), \(7{,}2\) veces el de la afinidad. Entre los puntos de apoyo
+de arriba y los de abajo hay, en promedio, \(2368\) filas, \(71{,}3\ \mathrm{m}\); la diferencia
+de escala del \(0{,}31\) por ciento acumula sobre esa distancia \(21{,}9\ \mathrm{cm}\). La
+similaridad no puede absorberla y la reparte como residuos de unos \(10\ \mathrm{cm}\). Con cuatro parámetros sobran cuatro ecuaciones, pero los residuos no
+miden sólo ruido: miden un modelo que se queda corto.
+
+\paragraph{Verificación con el punto de control.} \(P_5\) no intervino en ningún ajuste. La
+afinidad predice
+\[
+  M\begin{pmatrix}1980\\2905\\1\end{pmatrix}
+  =\begin{pmatrix}5\,432\,244{,}502\\6\,154\,676{,}368\\1\end{pmatrix},
+\]
+y lo medido es \((5\,432\,244{,}512;\ 6\,154\,676{,}380)\): la diferencia (medido menos
+predicho) es \((+1{,}0;\ +1{,}2)\ \mathrm{cm}\), de módulo \(1{,}6\ \mathrm{cm}\), del orden del
+RMS del ajuste. La similaridad predice \((5\,432\,244{,}536;\ 6\,154\,676{,}454)\) y falla por
+\((-2{,}4;\ -7{,}4)\ \mathrm{cm}\), de módulo \(7{,}8\ \mathrm{cm}\). El punto de control
+confirma lo que sugerían los residuos: la afinidad es el modelo adecuado para esta
+ortofoto.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.98\linewidth]{figuras/afines/afinidad_ortofoto.png}
+\caption{Izquierda: la ortofoto en coordenadas de imagen, con la fila creciendo hacia abajo;
+triángulos, los puntos de apoyo; cuadrado, el punto de control \(P_5\). Derecha: los mismos
+puntos en el terreno (coordenadas reducidas) y el contorno de la imagen georreferenciada,
+girado unos \(3{,}5^\circ\). Las flechas son los residuos (medido menos predicho) multiplicados
+por \(300\): rojizas las de la afinidad, de \(1\)--\(2\ \mathrm{cm}\); doradas las de la
+similaridad, de \(7{,}8\) a \(11{,}0\ \mathrm{cm}\). Generada con
+\texttt{apunte/scripts/cap04\_afinidad\_ortofoto.py}.}
+\end{figure}
+
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Verificá: en «caso precargado» elegí «general (a, b, c, d)» y poné \(a=1\), \(b=0\), \(c=0\), \(d=-1\), la inversión de la fila hacia abajo: comprobá que \(\det A=-1\) y que el área con signo de la parcela cambia de signo sin cambiar de tamaño. Después llevá \(a\) a \(1{,}1\): la grilla se estira distinto en cada eje, sigue formada por paralelogramos iguales y \(\det A=-1{,}1\), como la parte lineal de la ortofoto a otra escala.}
+
 % Apéndice: resolución de los ejercicios de afinidades
 \section{Resolución de los ejercicios de afinidades}\label{cap:17}\label{ap:ejercicios-afinidades}
 
@@ -961,7 +1159,7 @@ A_{21}&A_{22}&t_y\\
 \begin{pmatrix}x\\y\\1\end{pmatrix}.
 \]
 
-\begin{resultado}[Estado de la guía de afinidades]
+\begin{resultado}[Estado de los ejercicios de afinidades]
 Los seis ejercicios quedan resueltos de forma algebraica y geométrica. Los ejercicios 3, 4
 y 5 incluyen además las salvedades necesarias para interpretar correctamente sus enunciados.
 \end{resultado}

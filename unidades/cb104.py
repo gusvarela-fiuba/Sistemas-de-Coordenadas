@@ -2500,7 +2500,7 @@ def mesa_interactiva(mo_mod, figura_o_widget, *controles_y_bloques, proporcion=(
     return mo_mod.hstack([figura_o_widget, panel], widths=list(proporcion), align="start", gap=1.25)
 
 def video_loop(nombre_base, pie=""):
-    """HTML de una animación en bucle (`animaciones/<nombre_base>.mp4`) para `mo.Html(...)`: se reproduce sola,
+    """HTML de una animación en bucle (`animaciones/<nombre_base>.mp4`) para `mo.Html(...)`: se muestra sola,
     en bucle continuo, muda y sin controles, como un GIF en HD. La ruta es relativa al export en
     `site/unidades/<id>/` (tools/build.py copia `animaciones/` a `site/animaciones/`). `pie`: una frase al pie."""
     return (

@@ -495,8 +495,8 @@ def _(mo):
       · [sección "Arco de meridiano"](../../apunte.pdf#nameddest=cap:elipsoide): serie binomial, potencias del seno
       como cosenos de ángulos múltiples, la tabla de coeficientes $A \ldots E$ y el resultado "Longitud del arco de
       meridiano" con sus controles numéricos
-    - fe de erratas del apunte del elipsoide, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
-      secciones y el cierre [Material y fuentes: fe de erratas y precisiones](../../apunte.pdf#nameddest=cap:22)
+    - [apunte, capítulo «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): precisiones verificadas
+      numéricamente en GRS80, que figuran en esas secciones
     - [apunte, «Superficies, elipsoide, curvatura…» (esfera, elipsoide, curvatura y representación plana)](../../apunte.pdf#nameddest=cap:elipsoide) ($e^2 = 2f - f^2$, $M$, $N$,
       $K = 1/(MN)$)
     - apunte *Geometría del Elipsoide y cálculos Geodésicos*: latitud elipsoidal,

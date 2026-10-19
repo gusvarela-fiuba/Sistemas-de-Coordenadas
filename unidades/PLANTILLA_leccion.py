@@ -28,8 +28,8 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
   5. Ejercicios                        (dos de lápiz, dos de código con hueco verificados con np.allclose)
   Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:<clave>) y verificación silenciosa.
 
-Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo libro de cátedra ("seguimos la
-clase", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
+Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo de libro de texto ("seguimos con
+el tema", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
 primera persona del singular ("muestro", "mi lectura") ni pasado ("mostré"). Distinguir siempre "muestra" (la
 figura muestra que…) de "demostración" (la demostración está en el apunte, sección NN).
 Grados en la interfaz, radianes adentro. Sólo numpy y plotly, vía el módulo común `cb104` (celda marcada).

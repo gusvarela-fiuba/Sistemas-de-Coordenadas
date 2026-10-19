@@ -6,6 +6,8 @@ Uso (desde la raíz del repo):
   --dir RUTA revisa SÓLO ese directorio (artefacto publicado), sin el árbol git, e incluye el
   texto de los *.pdf vía `pdftotext -layout` (requerido; si falta, falla).
 Imprime `ruta:línea: texto` por cada coincidencia fuera de EXCEPCIONES.
+Regla «guía»: «guía resuelta»/«la guía» sólo se admiten en .md de la raíz, mapa/ y docs/ (árbol git);
+  nunca en apunte/, unidades/, tools/, clases/ ni en el sitio/PDF (--dir).
 Exit 1 si hay alguna. Solo biblioteca estándar.
 """
 import argparse, re, shutil, subprocess, sys
@@ -14,7 +16,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra del|alumno de|Dropbox|/Users/", re.I)
+PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|la gu[ií]a|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA", re.I)
+
+# Regla (no por archivo): «guía resuelta» / «la guía» sólo se admiten en archivos .md de documentación del repo
+# que NO van al PDF ni al sitio: los .md de la raíz y los de mapa/ y docs/. NUNCA en apunte/, unidades/, tools/,
+# clases/ (las fichas clases/*.md se convierten a HTML y van al sitio) ni en el sitio/PDF (--dir).
+GUIA = re.compile(r"gu[ií]a resuelta|la gu[ií]a", re.I)
+DIRS_GUIA_OK = ("mapa", "docs")
 
 # (ruta relativa a la raíz, None = todo el archivo | fragmento literal que debe estar en la línea)
 EXCEPCIONES = [
@@ -24,6 +32,8 @@ EXCEPCIONES = [
     ("README.md", "NOTA_DE_DONACION.md"),
     # Licencia de un dato externo (Copernicus DEM).
     ("datos/dem_copernicus/README.md", "Licencia: Copernicus DEM licence"),
+    # Herramienta para que otro curso adopte el material: la palabra es su propósito (sólo árbol, no va al sitio).
+    ("tools/adoptar_para_catedra.py", None),
     # El patrón mismo.
     ("apunte/scripts/prohibidas.py", None),
 ]
@@ -35,8 +45,18 @@ def coincidencias_en_texto(texto):
     return [(i, l) for i, l in enumerate(texto.split("\n"), 1) if PATRON.search(l)]
 
 
-def permitida(ruta_rel, linea):
+def _guia_ok(ruta_rel, linea):
+    """True si TODAS las coincidencias de la línea son de la regla «guía» y la ruta es un .md admitido."""
+    partes = Path(ruta_rel).parts
+    if not ruta_rel.endswith(".md") or not (len(partes) == 1 or partes[0] in DIRS_GUIA_OK):
+        return False
+    return all(GUIA.fullmatch(m.group(0)) for m in PATRON.finditer(linea))
+
+
+def permitida(ruta_rel, linea, arbol=True):
     ruta_rel = str(ruta_rel)
+    if arbol and _guia_ok(ruta_rel, linea):
+        return True
     for r, frag in EXCEPCIONES:
         if r == ruta_rel and (frag is None or frag in linea):
             return True
@@ -56,7 +76,7 @@ def _leer(p):
         return None
 
 
-def revisar_archivos(rutas, raiz):
+def revisar_archivos(rutas, raiz, arbol=True):
     raiz = Path(raiz).resolve()
     out = []
     for p in rutas:
@@ -69,7 +89,7 @@ def revisar_archivos(rutas, raiz):
         except ValueError:
             rel = p.name
         for n, l in coincidencias_en_texto(t):
-            if not permitida(rel, l):
+            if not permitida(rel, l, arbol):
                 out.append((rel, n, l.strip()))
     return out
 
@@ -113,13 +133,13 @@ def revisar_pdfs(pdfs, site):
         rel = str(p.relative_to(site))
         for pag, txt in enumerate(r.stdout.split("\f"), 1):
             for n, l in coincidencias_en_texto(txt):
-                if not permitida(rel, l):
+                if not permitida(rel, l, False):
                     out.append((f"{rel}:pág {pag}", n, l.strip()))
     return out
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Sin opciones: árbol git + site/. "
+    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Regla «guía»: «guía resuelta»/«la guía» sólo admitidas en .md de la raíz, mapa/ y docs/ (no en apunte/, unidades/, tools/, clases/, site/ ni PDF). Sin opciones: árbol git + site/. "
                                  "Con --dir/--site RUTA: sólo ese directorio (más PDF), sin el árbol git.")
     ap.add_argument("--dir", "--site", dest="dir", default=None, metavar="RUTA",
                     help="directorio a revisar (artefacto publicado); al pasarlo NO se revisa el árbol git "
@@ -143,7 +163,7 @@ def main(argv=None):
     if not a.solo_arbol and site.is_dir():
         fs = archivos_site(site)
         cuenta.update(f.suffix.lower().lstrip(".") for f in fs)
-        res += [(f"[site] {r}", n, l) for r, n, l in revisar_archivos(fs, site)]
+        res += [(f"[site] {r}", n, l) for r, n, l in revisar_archivos(fs, site, False)]
         pdfs = pdfs_site(site)
         cuenta["pdf"] += len(pdfs)
         res += [(f"[site] {r}", n, l) for r, n, l in revisar_pdfs(pdfs, site)]

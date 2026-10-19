@@ -599,10 +599,10 @@ def _(mo):
 
     Acá verificamos que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
     Que la proyección minimiza $|r|^2$ quedó demostrado en la sección 1 (Pitágoras). Por qué $R = VU^T$ y por qué
-    la dirección propia mayor es la recta total están enunciados y verificados numéricamente en la guía resuelta del
+    la dirección propia mayor es la recta total están enunciados y verificados numéricamente en el capítulo de los cuatro problemas del
     apunte; las demostraciones completas (traza máxima, cociente de Rayleigh) están en Strang y Calvetti–Somersalo.
 
-    - [apunte, sección "Guía resuelta de los cuatro problemas (Clase 11)"](../../apunte.pdf#nameddest=cap:cuatro-problemas):
+    - [apunte, sección "Resolución de los cuatro problemas"](../../apunte.pdf#nameddest=cap:cuatro-problemas):
       Problema 1, regresión simple (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas) ·
       Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^T$,
       con la caja sobre la convención de $H$) · Problema 4, regresión total (la dirección de la recta es $v_1$, la

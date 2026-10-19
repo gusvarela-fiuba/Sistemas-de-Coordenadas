@@ -135,7 +135,7 @@ def _(mo):
     su perpendicular, a la misma distancia. Distancias y ángulos quedan iguales, pero lo que iba antihorario ahora va
     horario: $\det = -1$. Hacerla dos veces devuelve cada punto a su lugar: es su propia inversa. Y **dos espejos
     seguidos** respecto de rectas que se cortan en $o$ son una **rotación** alrededor de $o$ por el doble del ángulo
-    entre ellas (muestra en la sección 2; demostración en el apunte, «Guía resuelta: reflexión respecto de un punto», teorema 4).
+    entre ellas (muestra en la sección 2; demostración en el apunte, «Reflexión respecto de un punto», teorema 4).
 
     **La similaridad conserva la forma, no el tamaño.** Gira $\theta$, multiplica **todas** las longitudes por un mismo
     $k$ y corre $t$: $S(x) = k\,R(\theta)\,x + t$. Conserva ángulos y **razones** de distancias; el área va $\times k^2$.
@@ -542,7 +542,7 @@ def _(mo):
     Acá verificamos; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
-    - [apunte, «Reflexiones, isometrías y similaridades» (la guía de seis teoremas y la guía resuelta)](../../apunte.pdf#nameddest=cap:reflexiones)
+    - [apunte, «Reflexiones, isometrías y similaridades» (los seis teoremas y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 

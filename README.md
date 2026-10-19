@@ -113,7 +113,7 @@ El orden es el del hilo conductor de la portada. "Tema del programa" indica qué
 
 El apéndice "Material de clase y notebooks" del apunte tiene un índice general que dice dónde está resuelto cada tipo de problema (en el apunte o en los ejercicios de las unidades). Lo que hay resuelto en el PDF:
 
-- **Guía de transformaciones euclídeas y similaridades** (reflexiones puntuales y axiales, traslación, rotación, homotecia, similaridades; teoremas 1 a 6): enunciados originales y resolución completa, ejercicio por ejercicio.
+- **Guía de transformaciones euclídeas y similaridades** (reflexiones puntuales y axiales, traslación, rotación, homotecia, similaridades; teoremas 1 a 6): enunciados y resolución completa, ejercicio por ejercicio.
 - **Guía de afinidades**: los seis ejercicios de afinidades, más la composición práctica de rotación y escala.
 - **El pentágono proyectivo**: teoría de homografías, puntos y rectas fijas, y el ejercicio del pentágono regular con cuentas y script.
 - **SVM como formas lineales**: la aplicación a Inteligencia Artificial, con la máquina de vectores de soporte vista como una forma lineal con margen.
