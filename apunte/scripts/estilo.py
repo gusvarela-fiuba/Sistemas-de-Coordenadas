@@ -58,7 +58,7 @@ RE_DEF = re.compile(r"\\begin\{definicion\}\[")
 TERMINOS_CAMPO = [
     r"acimut(?:al(?:es)?|es)?", r"cotas?", r"gauss-kruger", r"fajas?", r"posgar",
     r"minimos cuadrados", r"residuos?", r"tolerancias?", r"redundancias?", r"covarianzas?",
-    r"radiad[oa]s?", r"radiacion(?:es)?", r"nivelacion(?:es)?", r"desniveles?", r"poligonal(?:es)?",
+    r"radiad[oa]s?", r"radiacion(?:es)?", r"nivelacion(?:es)?", r"desnivel(?:es)?", r"poligonal(?:es)?",
     r"ajust(?:e|es|ar|ada|adas|ado|ados)", r"red(?:es)? libres?", r"propagacion de errores",
     r"helmert", r"elipses? de error(?:es)?", r"grs80", r"wgs84", r"mercator",
     r"latitud(?:es)? geodesicas?", r"dem", r"marcos? de referencia", r"grillas?",
