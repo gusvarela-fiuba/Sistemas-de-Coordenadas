@@ -204,9 +204,12 @@ y \(\det A=f_1\cdot(f_2\times f_3)=4-3+0=1\). Por lo tanto
 \]
 Control: la primera fila de \(A\) por la primera columna de \(A^{-1}\) da \(4-3+0=1\); por
 la segunda, \(-6+6+0=0\); por la tercera, \(2-2+0=0\); y así con las demás: \(AA^{-1}=I\).
-Como \(A\) es simétrica, \(A^{-1}\) también lo es. Que el determinante valga \(1\) explica
-que la inversa tenga entradas enteras: la transformación conserva los volúmenes, y deshacerla
-no obliga a dividir.
+Como \(A\) es simétrica, \(A^{-1}\) también lo es. Como \(A\) tiene entradas enteras y
+determinante \(1\), la fórmula \(A^{-1}=\operatorname{adj}(A)/\det A\)
+(proposición~\ref{prop:adjugada-inversa}) muestra que la inversa también tiene entradas
+enteras: la adjugada (definición~\ref{def:adjugada}) solo suma y multiplica enteros, y dividir
+por \(1\) no cambia nada. Geométricamente, \(\det A=1\) significa que la transformación
+conserva los volúmenes.
 \end{ejemplo}
 
 \begin{resultado}[Invertir con las descomposiciones]

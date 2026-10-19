@@ -38,9 +38,6 @@ EXCEPCIONES = [
     ("apunte/scripts/prohibidas.py", None),
 ]
 
-# Bitácoras internas de revisión: nombran los problemas que buscan (sólo árbol, no van al PDF ni al sitio).
-DIRS_BITACORA_OK = ("apunte/revision/",)
-
 EXT_SITE = {".html", ".md", ".xml", ".js", ".py", ".txt", ".yaml", ".yml", ".json", ".css"}
 
 
@@ -83,8 +80,6 @@ def permitida(ruta_rel, linea, arbol=True):
     if arbol and _guia_ok(ruta_rel, linea):
         return True
     if arbol and _clase_esquema_ok(ruta_rel, linea):
-        return True
-    if arbol and ruta_rel.startswith(DIRS_BITACORA_OK):
         return True
     for r, frag in EXCEPCIONES:
         if r == ruta_rel and (frag is None or frag in linea):
