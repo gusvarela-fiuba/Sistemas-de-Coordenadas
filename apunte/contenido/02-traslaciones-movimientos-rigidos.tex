@@ -3,11 +3,30 @@
 
 \section{La idea}
 
+Imaginá una hoja apoyada sobre la mesa y un alfiler clavado en la mesa, fuera de la hoja.
+Deslizá la hoja diez centímetros hacia la derecha, sin girarla, y después girala un cuarto de
+vuelta alrededor del alfiler. Ahora volvé a empezar y hacé lo mismo al revés: primero el giro
+alrededor del alfiler, después el deslizamiento. ¿La hoja termina en el mismo lugar? No: en los
+dos casos queda girada un cuarto de vuelta, pero en lugares distintos de la mesa. Esa pregunta,
+y su respuesta, son el corazón del capítulo.
+
 El capítulo~\ref{cap:rotaciones} dejó la rotación alrededor de un centro \(c\neq o\) como una
 transformación que no es lineal; ahora le agregamos la traslación, que tampoco lo es, y las
-componemos. Una traslación mueve todos los puntos la misma cantidad en la misma dirección;
+componemos. Una traslación mueve todos los puntos la misma cantidad en la misma dirección, como
+la hoja que se desliza;
 componiéndola con rotaciones se obtienen todos los movimientos de un cuerpo rígido en el plano,
-los que llevan, por ejemplo, un relevamiento del sistema del instrumento al de una obra.
+los que llevan, por ejemplo, un relevamiento del sistema del instrumento al de una obra: un
+dibujo medido en unos ejes se pasa a otros sin deformarlo.
+
+\paragraph{Correr sin girar.}
+Pensá de nuevo en la hoja que se desliza sobre la mesa sin girar. Cada punto de la hoja se
+corre lo mismo y hacia el mismo lado, de modo que todo el movimiento queda descrito por una
+sola flecha: hacia dónde y cuánto. ¿Hay algún punto de la hoja que quede donde estaba? Si la
+flecha no es nula, ninguno. Para qué nos sirve este movimiento tan simple: es el que cambia el
+origen de un dibujo, el que pasa de medir desde un punto a medir desde otro, y es el comando
+que en un programa de dibujo mueve una figura de un lugar a otro. Lo llamamos traslación, y
+escribimos \(\tau_v\) (tau, por traslación) para la traslación cuya flecha es el vector \(v\):
+el subíndice dice cuánto y hacia dónde se corre cada punto.
 
 \begin{definicion}[Traslación]\label{def:traslacion}
 La \emph{traslación de vector \(v\)} es la transformación \(\tau_v\colon\mathbb{R}^2\to\mathbb{R}^2\),
@@ -19,10 +38,31 @@ coordenadas homogéneas (sección~\ref{sec:homogeneas-rotacion}, punto \((x,y,1)
 \]
 \end{definicion}
 
+La matriz de \(3\times3\) de la definición es la traslación escrita en coordenadas
+homogéneas, el recurso que el capítulo~\ref{cap:rotaciones} presentó para la rotación
+alrededor de un centro: al punto \((x,y)\) le agregamos una tercera coordenada igual a \(1\).
+Las dos primeras columnas, las de la identidad, dejan las direcciones como estaban; la última
+columna guarda la flecha \((v_1,v_2)\). Multiplicada por \((x,y,1)^T\), la primera fila da
+\(x+v_1\), la segunda \(y+v_2\) y la tercera devuelve el \(1\): es la traslación.
+
 \paragraph{Por qué coordenadas homogéneas.}\label{sec:homogeneas-traslacion}
+Probá a escribir \(\tau_v\) como una matriz de \(2\times2\) que multiplica a \(x\). ¿Qué matriz
+lleva el origen al punto \(v\)? Ninguna: toda matriz multiplicada por el vector nulo da el
+vector nulo.
 Si \(v\neq0\), la traslación mueve el origen y no es lineal (proposición~\ref{prop:lineal-origen});
 en homogéneas es la matriz de la definición y se compone multiplicando: \(\tau_w\tau_v=\tau_{v+w}\)
-(sección~\ref{sec:grupo-rigidos}).
+(sección~\ref{sec:grupo-rigidos}). Es lo mismo que pasa con la hoja: deslizarla con una flecha
+y después con otra es deslizarla una sola vez con la flecha suma.
+
+\paragraph{Mover sin deformar.}
+Imaginá ahora que levantás una placa de madera de la mesa y la volvés a apoyar en otro lugar,
+sin darla vuelta. ¿Qué cambió? Dónde está y hacia dónde apunta. ¿Qué no cambió? La distancia
+entre dos marcas cualesquiera de la placa, y el sentido en que se recorren tres marcas (el que
+era antihorario sigue siéndolo, porque la placa no se dio vuelta). Para qué nos sirve: es lo que
+le pasa a un relevamiento cuando cambiamos de ejes, que se mueve entero sin estirarse ni
+doblarse. Esos movimientos se llaman movimientos rígidos, y escribimos \(F\) para uno
+cualquiera: un giro alrededor del origen, la rotación lineal \(R(\theta)\) del
+capítulo~\ref{cap:rotaciones}, seguido de una traslación de vector \(v\).
 
 \begin{definicion}[Movimiento rígido]\label{def:movimiento-rigido}
 Un \emph{movimiento rígido} del plano es una transformación que conserva las distancias y la
@@ -33,19 +73,33 @@ F(x)=R(\theta)\,x+v,
 con \(R(\theta)\) la rotación lineal del capítulo~\ref{cap:rotaciones} y \(v\) un vector.
 \end{definicion}
 
+Con la placa: \(R(\theta)\) dice cuánto giró y \(v\) dice adónde fue a parar el punto de la
+placa que estaba en el origen. Darla vuelta sería otra cosa, un espejo, que invierte la
+orientación y queda para el capítulo~\ref{cap:reflexiones}.
+
 \subsection{Componer transformaciones con centros distintos}\label{sec:componer-centros}
 
-Supongamos que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
+Tomá una hoja con un triángulo dibujado, clavá un alfiler en un punto \(c_1\) de la hoja y
+girala un cuarto de vuelta; sacá el alfiler, clavalo en otro punto \(c_2\) y girá otro cuarto.
+¿Hay algún punto de la hoja que, después de los dos giros, haya vuelto a su lugar? Saber
+responder sirve para reemplazar dos giros por uno solo, que es más fácil de calcular y de
+dibujar.
+
+Supongamos, entonces, que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
 \(90^\circ\) alrededor de otro punto \(c_2\). Ninguno de los dos centros queda fijo en el
 resultado. ¿Sigue siendo una rotación? Sí: los
 ángulos se suman y aparece un centro nuevo (sección~\ref{sec:composicion-rotaciones}); solo
 cuando los ángulos se cancelan el resultado es una traslación, sin punto fijo. Si una de las
-etapas es una homotecia \(\homot{c_2}{k}\), la parte lineal resulta \(kR(\theta)\) y la
-composición es una similaridad, con un único punto fijo cuando \(k\neq1\)
+etapas es una homotecia \(\homot{c_2}{k}\), la transformación que deja fijo \(c_2\) y multiplica
+por \(k\) la distancia de cada punto a \(c_2\) (una ampliación o una reducción, como la de una
+fotocopiadora), la parte lineal resulta \(kR(\theta)\) y la
+composición es una similaridad, una transformación que cambia el tamaño pero no la forma, con
+un único punto fijo cuando \(k\neq1\)
 (capítulo~\ref{cap:reflexiones}).
 
 \paragraph{Movimiento discreto y trayectoria imaginada.}
-Una transformación lleva cada punto directamente a su imagen. El dibujo \enquote{un arco
+¿Qué camino recorrió un punto de la hoja durante los dos giros? Para la transformación, ninguno:
+una transformación lleva cada punto directamente a su imagen. El dibujo \enquote{un arco
 alrededor de \(c_1\), después otro alrededor de \(c_2\)} sigue las dos etapas, pero no es la
 transformación compuesta: su arco único, alrededor del centro nuevo, une los mismos extremos.
 
@@ -89,9 +143,13 @@ vectores es conmutativa. Dos rotaciones de centros distintos, en cambio, dan rot
 \end{minipage}
 \end{center}
 
-En la figura de la derecha, el triángulo \(T\) gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y
+La figura de la izquierda es la hoja que se desliza dos veces: por cualquiera de los dos
+caminos del paralelogramo se llega a \(p+a+b\). En la de la derecha, \(\rho_{c}\) es la
+rotación alrededor de \(c\) del capítulo~\ref{cap:rotaciones}, de ángulo \(90^\circ\) en los
+dos casos: el triángulo \(T\) gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y
 luego \(90^\circ\) alrededor de \(c_2=(4,0)\) (abajo, centro \((2,-2)\)); en el orden contrario
 queda arriba, con centro \((2,2)\): \((1,1)\) va a \((3,-5)\) en un orden y a \((3,3)\) en el otro.
+Es la hoja con el alfiler cambiado de lugar: el orden de los dos giros decide dónde termina.
 
 Sobre una esfera pasa lo mismo con los giros alrededor de ejes distintos
 (capítulo~\ref{cap:esfera}).
@@ -99,6 +157,11 @@ Sobre una esfera pasa lo mismo con los giros alrededor de ejes distintos
 \section{Construcciones, cuentas y ejemplos}
 
 \subsection{Una traslación seguida de una rotación: el círculo descentrado}\label{sec:circulo-descentrado}
+
+Mirá la fórmula \(F(x)=R(90^\circ)x+(2,0)\). Parece decir \enquote{girá un cuarto de vuelta
+alrededor del origen y después corré todo dos unidades hacia la derecha}. ¿Hay algún punto del
+plano que no se mueva? Si lo hay, la hoja entera gira alrededor de ese punto, y \(F\) no es un
+giro seguido de un corrimiento sino un giro solo, con otro centro. El ejemplo lo busca.
 
 \begin{ejemplo}[El círculo descentrado]\label{ej:circulo-descentrado}
 Sea \(F(x)=R(90^\circ)x+(2,0)\), con \(R(90^\circ)=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\).
@@ -139,7 +202,16 @@ igual radio y el centro va a la imagen del centro.
 \end{tikzpicture}
 \end{center}
 
+En la figura, el origen y el centro de la imagen, \((2,0)\), están a la misma distancia del
+punto dorado \((1,1)\), y los dos segmentos punteados forman un ángulo recto: es el giro de
+\(90^\circ\) alrededor de \((1,1)\) que encontró la cuenta.
+
 \subsection{Puntos fijos}\label{sec:puntos-fijos}
+
+¿Cómo se reconoce de qué tipo es un movimiento rígido si solo tenemos su fórmula? El ejemplo
+anterior sugiere el método: buscar los puntos que no se mueven. Un giro tiene uno solo, su
+centro; un corrimiento no tiene ninguno. La proposición lo dice para todos los casos. En ella
+llamamos \(c'\) al punto fijo de \(F\), que es el centro del giro escondido en la fórmula.
 
 \begin{proposicion}[Puntos fijos de rotaciones y traslaciones]\label{prop:puntos-fijos}
 \begin{enumerate}
@@ -167,6 +239,9 @@ matriz \(I-R\) es invertible y hay una única solución. (1) es el caso
 \end{demostracion}
 \comprobacion{prop:puntos-fijos}{NUMERICA}
 
+El ejemplo que sigue convierte en cuenta la hoja y el alfiler de \enquote{La idea}: un
+deslizamiento y un giro alrededor del origen, en los dos órdenes.
+
 \begin{ejemplo}[Punto fijo de una composición]\label{ej:punto-fijo-composicion}
 Sea \(v=(1,2)\) y \(\theta=90^\circ\). La composición \(\rhoP{0,90^\circ}\circ\tau_v\) es
 \(x\mapsto R(x+v)=Rx+Rv\), con \(Rv=(-2,1)\). Como
@@ -176,6 +251,15 @@ Sea \(v=(1,2)\) y \(\theta=90^\circ\). La composición \(\rhoP{0,90^\circ}\circ\
 \end{ejemplo}
 
 \subsection{Líneas coordenadas}\label{sec:lineas-coordenadas}
+
+Imaginá que, para llevar a alguien a un lugar, le das dos instrucciones: \enquote{caminá \(u\)
+metros hacia el este} y \enquote{caminá \(v\) metros hacia el norte}. ¿Importa en qué orden las
+cumpla? No: llega al mismo lugar. Entonces el par de números \((u,v)\) alcanza para nombrar el
+lugar de llegada, y eso es un sistema de coordenadas. Para qué sirve mirar las coordenadas
+así: cada par de movimientos que se pueden cumplir en cualquier orden fabrica un sistema de
+coordenadas, con sus propias líneas. En la definición, \(T_u\) y \(S_v\) son esas dos
+instrucciones: dos familias de transformaciones, una para cada valor del número \(u\) y otra
+para cada valor de \(v\); \(p_0\) es el punto de partida.
 
 \begin{definicion}[Líneas coordenadas de un par de transformaciones]\label{def:lineas-coordenadas}
 Sean \(T_u\) y \(S_v\) dos familias de transformaciones con parámetros reales \(u\) y \(v\) tales
@@ -188,11 +272,16 @@ son las \emph{líneas coordenadas}, y el par \((u,v)\) son las coordenadas del p
 \end{definicion}
 
 Con dos traslaciones, \(T_u=\tau_{u e_1}\), \(S_v=\tau_{v e_2}\) y \(p_0=0\), se tiene
-\(T_uS_v(0)=(u,v)\): las líneas coordenadas son las rectas \(x=u\) y \(y=v\), la grilla
-cartesiana. Con la rotación \(S_\varphi=\rhoP{0,\varphi}\) y la homotecia \(T_r(x)=r\,x\)
+\(T_uS_v(0)=(u,v)\): las líneas coordenadas son las rectas \(x=u\) y \(y=v\), la cuadrícula
+cartesiana. Son las dos instrucciones del comienzo, con el este en el eje \(x\) y el norte en
+el eje \(y\). Con la rotación \(S_\varphi=\rhoP{0,\varphi}\) y la homotecia \(T_r(x)=r\,x\)
 (\(r>0\)), que conmutan, y \(p_0=(1,0)\), queda \(T_rS_\varphi(p_0)=r(\cos\varphi,\sin\varphi)\):
-circunferencias \(r=\text{cte}\) y semirrectas \(\varphi=\text{cte}\), la grilla polar. Una
-traslación y una rotación no sirven: no conmutan.
+circunferencias \(r=\text{cte}\) y semirrectas \(\varphi=\text{cte}\), la red polar. Ahora las
+instrucciones son \enquote{girá \(\varphi\) alrededor del origen} y \enquote{alejate del origen
+hasta multiplicar la distancia por \(r\)}, y tampoco importa el orden. Una
+traslación y una rotación no sirven: no conmutan. Con las instrucciones \enquote{caminá \(u\)
+hacia el este} y \enquote{girá \(\varphi\) alrededor del origen}, el lugar de llegada depende
+de cuál se cumple primero, como la hoja de \enquote{La idea}.
 
 \begin{center}
 \begin{minipage}{.48\linewidth}\centering
@@ -227,15 +316,25 @@ identificaría un punto: habría que decir en qué orden se aplicaron.
 
 \subsection{Composición de dos rotaciones de centros distintos}\label{sec:composicion-rotaciones}
 
-La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
-dos reflexiones, y una reflexión aplicada dos veces se cancela.
+Pensá en un probador de ropa con dos espejos que forman un ángulo. Te ves en un espejo, ves
+esa imagen reflejada en el otro, y la imagen de la imagen no aparece dada vuelta: aparece
+girada. Dos reflejos seguidos dan un giro, y si los espejos se abren o se cierran, el giro
+cambia. Esa observación es la herramienta para componer rotaciones: cada rotación se
+descompone en dos reflexiones, y una reflexión aplicada dos veces se cancela, como un
+reflejo que se vuelve a reflejar en el mismo espejo.
 
+Escribimos \(\sigma_L\) para la reflexión en la recta \(L\): lleva cada punto a su imagen en
+un espejo apoyado de canto sobre \(L\). Para escribirla en coordenadas hacen falta un punto
+\(q\) de la recta y su ángulo de dirección \(\delta\), el que forma \(L\) con el eje \(x\).
 Si la recta \(L\) pasa por \(q\) con ángulo de dirección \(\delta\), la reflexión en \(L\)
 (definición~\ref{def:reflexion-recta}) se escribe
 \[
 \sigma_L(p)=q+S(\delta)(p-q),\qquad
 S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
 \]
+La fórmula se lee como la de la rotación alrededor de un centro: pararse en \(q\), reflejar y
+volver. La matriz \(S(\delta)\) es la parte que refleja: hace el reflejo en la recta paralela
+a \(L\) que pasa por el origen.
 
 La matriz \(S(\delta)\) deja fija la dirección \((\cos\delta,\sin\delta)\) de \(L\) y cambia
 de signo la perpendicular; tiene \(\det S(\delta)=-1\), invierte la orientación y cumple
@@ -267,6 +366,14 @@ Si son paralelas, \(\delta_2=\delta_1\) (módulo \(\pi\)), la parte lineal de la
 \end{demostracion}
 \comprobacion{prop:dos-reflexiones}{SIMBOLICA}
 
+Es el probador: el giro es el doble del ángulo entre los espejos, y su centro es la arista
+donde se tocan.
+
+Con esa herramienta volvemos a la hoja con el alfiler que cambia de lugar. Para componer dos
+giros, \(\rhoP{c_1,\alpha}\) de ángulo \(\alpha\) alrededor de \(c_1\) y \(\rhoP{c_2,\beta}\)
+de ángulo \(\beta\) alrededor de \(c_2\), elegimos los espejos con astucia: los dos giros
+comparten un espejo, el apoyado sobre la recta que une los centros.
+
 \begin{proposicion}[Composición de dos rotaciones]\label{prop:composicion-rotaciones}
 Sean \(c_1\neq c_2\) y \(\alpha,\beta\) ángulos. Entonces:
 \begin{enumerate}
@@ -281,27 +388,12 @@ la recta por \(c_2\) que forma con \(L\) un ángulo \(\beta/2\) en sentido antih
 Entonces \(c=M_1\cap M_2\).
 \end{proposicion}
 
-\begin{demostracion}
-Sea \(\delta_0\) el ángulo de dirección de \(L\). Entonces \(M_1\) tiene dirección
-\(\delta_0-\alpha/2\) y \(M_2\), dirección \(\delta_0+\beta/2\). Por la
-proposición~\ref{prop:dos-reflexiones}, como \(L\) y \(M_1\) se cortan en \(c_1\),
-\[
-\sigma_L\circ\sigma_{M_1}=\rhoP{c_1,\,2(\delta_0-(\delta_0-\alpha/2))}=\rhoP{c_1,\alpha},
-\]
-y como \(M_2\) y \(L\) se cortan en \(c_2\),
-\(\sigma_{M_2}\circ\sigma_L=\rhoP{c_2,\,2(\beta/2)}=\rhoP{c_2,\beta}\). Luego
-\[
-\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}
-=\sigma_{M_2}\circ\sigma_L\circ\sigma_L\circ\sigma_{M_1}
-=\sigma_{M_2}\circ\sigma_{M_1},
-\]
-porque \(\sigma_L\circ\sigma_L\) es la identidad. La diferencia de direcciones entre \(M_2\) y
-\(M_1\) es \((\alpha+\beta)/2\). Si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), entonces
-\((\alpha+\beta)/2\not\equiv0\pmod{\pi}\), las rectas no son paralelas, se cortan en un punto
-\(c\) y, otra vez por la proposición~\ref{prop:dos-reflexiones}, la composición es
-\(\rhoP{c,\,\alpha+\beta}\). Si \(\alpha+\beta\equiv0\pmod{2\pi}\), las rectas \(M_1\) y
-\(M_2\) son paralelas y la composición es una traslación.
-\end{demostracion}
+La idea de la demostración cabe en una línea: el primer giro se escribe como dos reflexiones
+que terminan en \(L\), el segundo como dos reflexiones que empiezan en \(L\), y en la
+composición las dos reflexiones en \(L\) quedan juntas y se cancelan; sobreviven las
+reflexiones en \(M_1\) y \(M_2\), que por la proposición~\ref{prop:dos-reflexiones} dan un
+giro alrededor de su punto de corte. La demostración completa está en la
+sección~\ref{sec:demo-composicion-rotaciones}.
 
 \begin{center}
 \begin{tikzpicture}[scale=.95]
@@ -344,11 +436,18 @@ La parte lineal es \(-I=R(180^\circ)\). El punto fijo resuelve \(-c+(4,-4)=c\), 
 \(\rhoP{(2,-2),\,180^\circ}\), es decir \(p\mapsto(4,-4)-p\).
 \end{ejemplo}
 
+En la cuenta matricial, \(H_1\) es la matriz homogénea de \(3\times3\) del primer giro y
+\(H_2\) la del segundo; el producto se escribe con \(H_2\) a la izquierda porque se aplica
+después, igual que en \(\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}\).
+
 \subsubsection{Experimento: rotar una figura con dos centros distintos}
 
+Probá hacerlo con papel de calcar: copiá el triángulo, girá el calco un cuarto de vuelta con
+el alfiler en \(c_1\), cambiá el alfiler a \(c_2\) y girá otro cuarto. Las cuentas son estas.
 Con el triángulo \(T\) y las rotaciones del ejemplo~\ref{ej:composicion-centros}, los vértices
 van a \((-1,1)\), \((-1,3)\), \((-2,1)\) y después a \((3,-5)\), \((1,-5)\), \((3,-6)\); la
 rotación única \(p\mapsto(4,-4)-p\) da los mismos puntos: \((4,-4)-(1,1)=(3,-5)\).
+Un solo giro de media vuelta alrededor de \(c=(2,-2)\) reemplaza a los dos cuartos de vuelta.
 
 \begin{center}
 \begin{tikzpicture}[scale=.62]
@@ -370,6 +469,10 @@ rotación única \(p\mapsto(4,-4)-p\) da los mismos puntos: \((4,-4)-(1,1)=(3,-5
 
 \subsection{Toda traslación y toda rotación es un producto de dos reflexiones}\label{sec:t3-t4}
 
+En algunas peluquerías hay dos espejos enfrentados, paralelos. ¿Cómo aparece la imagen de la
+imagen? Ni dada vuelta ni girada: corrida, al doble de la distancia entre los espejos. Junto
+con el probador, eso sugiere que se puede ir al revés: partir de un movimiento y encontrar los
+dos espejos que lo producen.
 La razón de fondo de lo anterior es que las reflexiones \(\sigma_L\) generan todos los
 movimientos rígidos.
 
@@ -402,6 +505,8 @@ Las rectas \(L_1\colon x=0\) y \(L_2\colon x=2\) son perpendiculares a \(v\) y e
 \end{tikzpicture}
 \end{center}
 
+Son los espejos de la peluquería: separados \(2\), corren el punto \(4\).
+
 \begin{teorema}[Toda rotación es producto de dos reflexiones]\label{teo:rotacion-dos-reflexiones-enunciado}
 Sea \(\theta\not\equiv0\). Si \(L_1\) y \(L_2\) son rectas por el centro \(c\) y el ángulo de
 \(L_1\) a \(L_2\) es \(\theta/2\), entonces \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{c,\theta}\).
@@ -431,15 +536,19 @@ entre ellas es \(45^\circ=\theta/2\). Para \(p=(2,1)\): \(\sigma_{L_1}(p)=(2,-1)
 \end{tikzpicture}
 \end{center}
 
+Y este es el probador: espejos a \(45^\circ\), giro de \(90^\circ\).
+
 \subsection{En el CAD}\label{sec:cad-cap02}
 
 En un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD) \texttt{MOVE} es la traslación
 \(\tau_v\) de la definición~\ref{def:traslacion} y \texttt{ROTATE} con punto base, la rotación
 del capítulo~\ref{cap:rotaciones}. Para qué sirve el ejercicio: ver en la pantalla que el orden
 de dos comandos cambia el resultado, y leer ese cambio en las matrices homogéneas de
-\(3\times3\) (sección~\ref{sec:homogeneas-traslacion}). La parcela es la del
+\(3\times3\) (sección~\ref{sec:homogeneas-traslacion}). Es la hoja y el alfiler de \enquote{La idea},
+con el origen del dibujo haciendo de alfiler. La parcela es la del
 capítulo~\ref{cap:rotaciones}: \(A=(10,10)\), \(B=(34,17)\), \(C=(40,36)\), \(D=(24,38)\) y
-\(E=(6,32)\).
+\(E=(6,32)\). Antes de abrir el archivo, anticipá: ¿los dos órdenes dejan la parcela en el
+mismo lugar?
 
 \paragraph{\texttt{MOVE} y \texttt{ROTATE} frente a \texttt{ROTATE} y \texttt{MOVE}: el orden
 importa.}
@@ -478,6 +587,11 @@ que informa \(M\), \(t\), \(\det M\) y el centro de la rotación.
 
 \subsection{El grupo de los movimientos rígidos}\label{sec:grupo-rigidos}
 
+Volvamos a la placa que se levanta y se apoya en otro lugar. Dos movimientos seguidos son otro
+movimiento; dejarla quieta también cuenta como movimiento; y todo movimiento se deshace
+haciendo el camino inverso. Un conjunto de operaciones con esas propiedades es un grupo, el
+ladrillo~1 de la sección~\ref{sec:desaprender}. Lo comprobamos con las matrices.
+
 En coordenadas homogéneas, \(F(x)=Rx+v\) es la matriz
 \(\left(\begin{smallmatrix}R&v\\0&1\end{smallmatrix}\right)\), con \(R=R(\theta)\). El producto
 \[
@@ -494,6 +608,23 @@ como se comprueba multiplicando (\(R^TR=I\)). El conjunto de los movimientos rí
 composición, es un \emph{grupo}. Las traslaciones forman un subgrupo conmutativo; las
 rotaciones alrededor de un mismo centro, también; las rotaciones de centros distintos no.
 
+La matriz \(\left(\begin{smallmatrix}R&v\\0&1\end{smallmatrix}\right)\) está escrita por
+bloques: arriba a la izquierda va la matriz \(R\) de \(2\times2\), a su derecha la columna
+\(v\), y abajo la fila \((0\ 0\ 1)\). Es la matriz de \(3\times3\) de la traslación con la
+identidad reemplazada por \(R\).
+
+\paragraph{Caminar y girar.}
+Caminá diez pasos hacia adelante y girá un cuarto de vuelta a la izquierda. Repetilo. ¿Dónde
+estás después de cuatro veces? En el punto de partida y mirando hacia donde mirabas: recorriste
+un cuadrado. Cada tramo, avanzar y girar, es un movimiento rígido de tu cuerpo, y el recorrido
+entero es la composición de los cuatro, que da la identidad. Una poligonal es eso mismo medido
+en el terreno: una cadena de puntos unidos por tramos rectos, en la que en cada punto se mide
+cuánto hay que girar para apuntar al siguiente y cuánto mide el tramo que sigue. La posición y
+la dirección al final de la cadena son la composición de todos esos movimientos, y por eso el
+cálculo de la cadena se puede escribir como un producto de matrices homogéneas como las de
+esta sección. ¿Qué tipo de movimiento es el producto? El teorema que sigue responde: un giro o
+un corrimiento, nada más.
+
 \begin{teorema}[Clasificación de los movimientos rígidos]\label{teo:clasificacion-rigidos}
 Todo movimiento rígido \(F(x)=R(\theta)x+v\) del plano es una traslación (si
 \(\theta\equiv0\)) o una rotación (si \(\theta\not\equiv0\)).
@@ -506,21 +637,72 @@ proposición~\ref{prop:puntos-fijos} existe un único punto fijo \(c\), con \(c=
 \end{demostracion}
 \comprobacion{teo:clasificacion-rigidos}{SIMBOLICA}
 
+Con la placa: por complicado que haya sido el camino para llevarla de un lugar a otro, el
+resultado es el mismo que darle un solo giro alrededor de un punto bien elegido, o, si quedó
+apuntando igual que al principio, un solo deslizamiento.
+
 Los movimientos rígidos conservan la orientación, \(\det R=1\); falta la otra mitad de las
 isometrías, las que la invierten.
 
+\subsection{Demostración de la composición de dos rotaciones}\label{sec:demo-composicion-rotaciones}
+
+Demostramos la proposición~\ref{prop:composicion-rotaciones}. La construcción está en la
+figura de la sección~\ref{sec:composicion-rotaciones}: la recta \(L\) une los centros, y
+\(M_1\) y \(M_2\) son los otros dos espejos.
+
+\begin{demostracion}
+Sea \(\delta_0\) el ángulo de dirección de \(L\). Entonces \(M_1\) tiene dirección
+\(\delta_0-\alpha/2\) y \(M_2\), dirección \(\delta_0+\beta/2\). Por la
+proposición~\ref{prop:dos-reflexiones}, como \(L\) y \(M_1\) se cortan en \(c_1\),
+\[
+\sigma_L\circ\sigma_{M_1}=\rhoP{c_1,\,2(\delta_0-(\delta_0-\alpha/2))}=\rhoP{c_1,\alpha},
+\]
+y como \(M_2\) y \(L\) se cortan en \(c_2\),
+\(\sigma_{M_2}\circ\sigma_L=\rhoP{c_2,\,2(\beta/2)}=\rhoP{c_2,\beta}\). Luego
+\[
+\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}
+=\sigma_{M_2}\circ\sigma_L\circ\sigma_L\circ\sigma_{M_1}
+=\sigma_{M_2}\circ\sigma_{M_1},
+\]
+porque \(\sigma_L\circ\sigma_L\) es la identidad. La diferencia de direcciones entre \(M_2\) y
+\(M_1\) es \((\alpha+\beta)/2\). Si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), entonces
+\((\alpha+\beta)/2\not\equiv0\pmod{\pi}\), las rectas no son paralelas, se cortan en un punto
+\(c\) y, otra vez por la proposición~\ref{prop:dos-reflexiones}, la composición es
+\(\rhoP{c,\,\alpha+\beta}\). Si \(\alpha+\beta\equiv0\pmod{2\pi}\), las rectas \(M_1\) y
+\(M_2\) son paralelas y la composición es una traslación.
+\end{demostracion}
+
+En el lenguaje del probador: los dos espejos que comparten la recta \(L\) se anulan entre sí,
+y quedan dos espejos que forman el ángulo \((\alpha+\beta)/2\); su arista es el centro nuevo.
+
 \subsection{Aplicación topográfica: llevar una poligonal del sistema del instrumento a un origen de obra}\label{sec:aplicacion-poligonal}
 
-Una estación total mide los vértices de una poligonal en su sistema local: origen en el
-instrumento, eje \(x\) hacia el cero del limbo. Se midieron cuatro vértices, en metros:
+Imaginá que en un terreno se instaló un instrumento y desde ahí se midieron las cuatro esquinas
+de una figura. El instrumento da las posiciones en sus propios ejes: el origen es el punto donde
+está parado y el eje \(x\) apunta hacia donde quedó el cero de su círculo graduado al
+instalarlo, que puede ser cualquier dirección. La obra, en cambio, tiene sus ejes fijos: un
+origen conocido y el eje \(y\) hacia el norte. ¿Cómo pasamos las cuatro esquinas de unos ejes a
+los otros sin deformar la figura? Con un giro y un corrimiento, en ese orden.
+
+\begin{idea}[Esto lo vas a usar en Topografía]
+Hay instrumentos que miden ángulos horizontales con precisión de hasta un segundo de arco y
+distancias al milímetro; leen las direcciones sobre un círculo graduado cuyo cero queda donde
+cae al instalarlos (capítulo~\ref{cap:rotaciones}). Una poligonal es una cadena de puntos del
+terreno unidos por tramos rectos, como la del recorrido de la sección~\ref{sec:grupo-rigidos}.
+El acimut de una dirección es el ángulo que forma con el norte, contado en sentido horario.
+\end{idea}
+
+Un instrumento de ese tipo mide los vértices de una poligonal en su sistema local: origen en el
+instrumento, eje \(x\) hacia el cero de su círculo graduado. Se midieron cuatro vértices, en metros:
 \(V_1=(0;0)\), \(V_2=(48{,}215;\,12{,}630)\), \(V_3=(71{,}480;\,60{,}905)\),
-\(V_4=(23{,}117;\,84{,}992)\). La obra tiene su origen en la estación, de coordenadas conocidas
-\(E=(1000{,}000;\,2000{,}000)\), con el eje \(y\) hacia el norte, y el cero del limbo apunta con
+\(V_4=(23{,}117;\,84{,}992)\). La obra tiene su origen en el punto donde está el instrumento,
+de coordenadas conocidas
+\(E=(1000{,}000;\,2000{,}000)\), con el eje \(y\) hacia el norte, y el cero del círculo apunta con
 acimut \(\mathrm{Az}_0=37{,}25^\circ\).
 
 \paragraph{El ángulo de giro.} Por la proposición~\ref{prop:acimut-theta} (sección~\ref{sec:acimut-campo}),
-el ángulo matemático de la dirección del cero del limbo es
-\(\theta_0=90^\circ-\mathrm{Az}_0=52{,}75^\circ\): el eje \(x\) local, que apunta al cero del limbo,
+el ángulo matemático de la dirección del cero del círculo es
+\(\theta_0=90^\circ-\mathrm{Az}_0=52{,}75^\circ\): el eje \(x\) local, que apunta al cero del círculo,
 queda a \(52{,}75^\circ\) antihorarios del este (no confundir con la corrección horaria
 \(\kappa\) de la sección~\ref{sec:acimut-campo}). La transformación local a obra es una
 rotación seguida de una traslación,
@@ -532,6 +714,9 @@ en forma homogénea
 \[
 H=\begin{pmatrix}0{,}6053&-0{,}7960&1000\\0{,}7960&0{,}6053&2000\\0&0&1\end{pmatrix}.
 \]
+Leída por columnas, \(H\) cuenta la historia entera: las dos primeras dicen hacia dónde
+apuntan, en los ejes de la obra, los ejes del instrumento, y la tercera dice dónde está
+parado el instrumento.
 
 \begin{center}
 \begin{tabular}{lcc}
@@ -557,12 +742,12 @@ después: es un movimiento rígido.
     \draw[teal,line width=1.1pt,fill=teal!10] (0,0)--(48.215,12.630)--(71.480,60.905)--(23.117,84.992)--cycle;
     \foreach \p/\n/\d in {{(0,0)}/1/below left,{(48.215,12.630)}/2/below right,{(71.480,60.905)}/3/right,{(23.117,84.992)}/4/above}{
       \fill[ink] \p circle (1.8pt) node[\d] {$V_\n$};}
-    \node[text=teal,font=\small] at (40,-22) {sistema local (\(x\): cero del limbo)};
+    \node[text=teal,font=\small] at (40,-22) {sistema local (\(x\): cero del círculo)};
   \end{scope}
   \begin{scope}[xshift=215]
     \draw[axisline,-{Latex[length=2mm]}] (-65,0)--(30,0) node[right] {$E$};
     \draw[axisline,-{Latex[length=2mm]}] (0,-6)--(0,103) node[above left] {$N$};
-    \draw[auxline,-{Latex[length=2mm]}] (0,0)--(36.3,47.8) node[above right,font=\scriptsize] {cero del limbo};
+    \draw[auxline,-{Latex[length=2mm]}] (0,0)--(36.3,47.8) node[above right,font=\scriptsize] {cero del círculo};
     \draw[rust,line width=1.1pt,fill=rust!10] (0,0)--(19.131,46.024)--(-5.214,93.764)--(-53.661,69.846)--cycle;
     \foreach \p/\n/\d in {{(0,0)}/1/below right,{(19.131,46.024)}/2/right,{(-5.214,93.764)}/3/above,{(-53.661,69.846)}/4/left}{
       \fill[ink] \p circle (1.8pt) node[\d] {$V_\n$};}
@@ -571,9 +756,10 @@ después: es un movimiento rígido.
 \end{tikzpicture}
 \end{center}
 
-\paragraph{El orden importa.} Si se traslada primero y se rota después, se calcula
+\paragraph{El orden importa.} Es la hoja y el alfiler otra vez, ahora con números grandes.
+Si se traslada primero y se rota después, se calcula
 \(R(\theta_0)(x_{\text{local}}+E)=R(\theta_0)x_{\text{local}}+R(\theta_0)E\), con
-\(R(\theta_0)E\neq E\): la estación misma queda mal. Para \(V_2\) se obtiene
+\(R(\theta_0)E\neq E\): el punto donde está el instrumento queda mal. Para \(V_2\) se obtiene
 \((-967{,}579;\ 2052{,}614)\) en lugar de \((1019{,}131;\ 2046{,}024)\), a \(1986{,}721\) m del
 correcto; hasta \(V_1\) va a \((-986{,}710;\ 2006{,}590)\) en lugar de \(E\). La forma correcta es
 rotar alrededor del origen del instrumento y trasladar después, que es la composición
