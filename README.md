@@ -143,7 +143,13 @@ Nada se presenta como contenido de la cátedra si no se dio. Las lecciones tiene
 
 El diseño del hilo conductor (principios, secuencia de una lección, datos que lo alimentan, estado actual) está en `docs/camino.md`.
 
-## Para desarrolladores: ejecución local, estructura, publicación y licencia
+## Cómo citar
+
+Varela, G. (2026). *Sistemas de Coordenadas: apunte, unidades interactivas y ejercicios*. Trabajo final de Sistemas de Coordenadas, CB104, FIUBA.
+
+Metadatos de cita en [`CITATION.cff`](CITATION.cff); condiciones de uso en [`NOTA_DE_DONACION.md`](NOTA_DE_DONACION.md).
+
+## Para desarrolladores: ejecución local, estructura, publicación y donación
 
 ### Cómo correr local
 
@@ -188,8 +194,6 @@ site/       salida del build (ignorada por git); la publica .github/workflows/pa
 
 Cada push a `main` corre `.github/workflows/pages.yml`: `uv sync --frozen`, verificación de que `mapa/mapa.yaml` coincide con los fragmentos, `marimo check` de las lecciones, `tools/build.py` y despliegue a GitHub Pages. En los pull requests corre sólo el build, como CI. Una vez por repo: Settings → Pages → Source: GitHub Actions.
 
-### Licencia
+### Donación
 
-Doble esquema: el contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) es CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) es MIT (`LICENSE-CODE`); titular Gustavo Varela, 2026.
-No están cubiertos los PDFs de la cátedra ni la bibliografía citada: son de sus autores y no se redistribuyen en el repo, salvo los del profesor ya incluidos en `apunte/` (`01_Ejercicios_original.pdf`, `02_afinidad_original.pdf`), que quedan como material de la cátedra.
-La licencia está pendiente de confirmación.
+Ver [`NOTA_DE_DONACION.md`](NOTA_DE_DONACION.md).

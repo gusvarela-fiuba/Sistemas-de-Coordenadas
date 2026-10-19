@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Si usás este material, citalo como trabajo final de Sistemas de Coordenadas."
+title: "Sistemas de Coordenadas: apunte, unidades interactivas y ejercicios"
+type: software
+authors:
+  - family-names: Varela
+    given-names: Gustavo
+abstract: "Trabajo final de Sistemas de Coordenadas (CB104, FIUBA)."
+date-released: 2026-10-19
+repository-code: "https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas"
+url: "https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/"

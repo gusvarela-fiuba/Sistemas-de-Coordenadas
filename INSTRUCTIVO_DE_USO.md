@@ -235,7 +235,7 @@ Qué reemplaza:
 - la portada y los metadatos del apunte LaTeX (`\portadaAutor` y `pdfauthor` en `apunte/`);
 - si se pasó `--url-sitio`, la URL del sitio en `README.md` y en este `INSTRUCTIVO_DE_USO.md`.
 
-No hace nada más: no toca el contenido de las lecciones ni del apunte, ni la mención del alumno como autor original en los textos del README (esa queda como atribución, ver la nota de licencia más abajo).
+No hace nada más: no toca el contenido de las lecciones ni del apunte, ni la mención del alumno como autor original en los textos del README (esa queda como atribución, ver la nota de donación más abajo).
 
 ### Paso 3 — Si se quiere actualizar la portada del PDF
 
@@ -257,9 +257,9 @@ git push
 
 Una vez por repositorio, en GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. A partir de ahí, cada push a `main` dispara el workflow `.github/workflows/pages.yml`, que instala las dependencias con `uv sync --frozen`, verifica que el mapa de conceptos commiteado coincida con sus fragmentos, corre `marimo check` sobre las lecciones, genera el sitio con `tools/build.py` y lo despliega. El sitio queda en `https://<usuario>.github.io/Sistemas-de-Coordenadas/` en unos minutos; el progreso se sigue en la pestaña "Actions" del repositorio. En los pull requests el mismo workflow corre sólo el build, como verificación.
 
-### Nota de licencia
+### Nota de donación
 
-El contenido (texto de las lecciones, fichas, apunte y mapa de conceptos) está bajo CC BY-SA 4.0 (`LICENSE`) y el código (`tools/`, `unidades/cb104.py` y el código de los notebooks) bajo MIT (`LICENSE-CODE`). La adopción por la cátedra es libre: se puede copiar, modificar y republicar manteniendo la atribución al autor original en los términos de esos archivos (y, para el contenido, la misma licencia en las obras derivadas). Como dice el README, la licencia está pendiente de confirmación. Los PDFs de la cátedra y la bibliografía citada no están cubiertos: son de sus autores.
+Ver [`NOTA_DE_DONACION.md`](NOTA_DE_DONACION.md).
 
 ## Parte 5 — Autoevaluación y banco de preguntas para Moodle
 
