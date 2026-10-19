@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Menú por tema: qué piezas hay para usar en el aula en cada capítulo, cuánto duran y si están listas.
+"""Menú por capítulo: qué piezas hay para usar en el aula en cada capítulo, cuánto duran y si están listas.
 
 Genera `site/menu.html` (estilo del sitio) y `site/menu.pdf` (A4 apaisada, para imprimir, con enlaces).
 Todo sale de los datos del repo; no hay texto escrito a mano salvo el que ya está en las fichas:
@@ -9,11 +9,11 @@ Todo sale de los datos del repo; no hay texto escrito a mano salvo el que ya est
   explicar      viñetas de la sección «## Imágenes para explicar» de la ficha; si no está: «en preparación»
   televisor     unidades del frontmatter de la ficha (título y pregunta del mapa) y animaciones del
                 frontmatter (descripción: primera oración del docstring de tools/animaciones/anim_<id>.py)
-  puestos       viñetas de «## Ejercicios sugeridos» de la ficha (con las unidades del tema para resolverlos),
+  puestos       viñetas de «## Ejercicios sugeridos» de la ficha (con las unidades del capítulo para resolverlos),
                 «Ahora ustedes» si aparece en unidades/*.py o en apunte/contenido/*.tex (sólo lectura) y
                 ejercicio CAD desde cad/ejercicios.yaml (lista de {capitulo, archivo, titulo, comando})
   estudiar      capítulo(s) del PDF con su página, autoevaluación y cantidad de preguntas del banco
-                (unidades/banco_autoevaluacion.py) de las unidades del tema
+                (unidades/banco_autoevaluacion.py) de las unidades del capítulo
 
 Página del PDF: numeracion.json no guarda páginas. La página física sale de los destinos con nombre
 `cap:X` del PDF publicado (`pdfinfo -dests site/apunte.pdf`, columna 1: índice físico, contando portada y
@@ -53,10 +53,10 @@ MAPA = RAIZ / "mapa" / "mapa.yaml"
 CLAVE_FICHAS = "".join(("cla", "ses"))      # nombre de la lista de fichas en el esquema del mapa (mapa/ESQUEMA.md)
 DIR_ANIM_FUENTE = RAIZ / "tools" / "animaciones"
 CAD_YAML = RAIZ / "cad" / "ejercicios.yaml"
-TITULO = "Para el aula: qué hay para cada tema"
-BAJADA = "Material para usar en el aula, por tema. Cada pieza funciona sola."
+TITULO = "Para el aula: qué hay para cada capítulo"
+BAJADA = "Material para usar en el aula, por capítulo. Cada pieza funciona sola."
 LISTA, PREP = "lista", "en preparación"
-COLUMNAS = ("Tema", "Para explicar (2 min)", "Para mostrar en el televisor (5 a 10 min)",
+COLUMNAS = ("Capítulo", "Para explicar (2 min)", "Para mostrar en el televisor (5 a 10 min)",
             "Para los puestos (15 a 20 min)", "Para estudiar")
 SECCION_IMAGENES = "Imágenes para explicar"
 SECCION_EJERCICIOS = "Ejercicios sugeridos"
@@ -197,7 +197,7 @@ def armar_filas(site: Path) -> list[dict]:
         uids = [u for u in fm.get("unidades") or [] if u in unidades]
 
         tema = {"rotulo": rotulo_ficha(cid), "titulo": f.get("titulo", ""),
-                "ficha": pieza("ficha del tema", f"capitulos/{cid}.html", site)}
+                "ficha": pieza("ficha del capítulo", f"capitulos/{cid}.html", site)}
 
         explicar = [texto_suelto(t) for t in secs.get(SECCION_IMAGENES, [])] or [texto_suelto("", PREP)]
 
@@ -304,7 +304,7 @@ def generar_html(filas: list[dict], site: Path) -> str:
               + "".join(f"<th>{html.escape(c)}</th>" for c in COLUMNAS) + "</tr></thead><tbody>"]
     for f in filas:
         t = f["tema"]
-        ficha = f'<a href="{t["ficha"]["href"]}">ficha del tema</a>' if t["ficha"]["href"] else ""
+        ficha = f'<a href="{t["ficha"]["href"]}">ficha del capítulo</a>' if t["ficha"]["href"] else ""
         con = ""
         if f["con"]:
             con = '<p class="con">Con: ' + "; ".join(pieza_html(p) for p in f["con"]) + "</p>"
@@ -407,7 +407,7 @@ def generar_pdf(filas: list[dict], destino: Path, base: str) -> list[str]:
     datos = [[Paragraph(html.escape(c), est_cab) for c in COLUMNAS]]
     for f in filas:
         t = f["tema"]
-        ficha = "<br/>" + enlace(t["ficha"]["href"], "ficha del tema") if t["ficha"]["href"] else ""
+        ficha = "<br/>" + enlace(t["ficha"]["href"], "ficha del capítulo") if t["ficha"]["href"] else ""
         con = "<br/>Se resuelven con las unidades de la columna anterior." if f["con"] else ""
         estudiar = [dict(p, texto=p["texto"] + (f" ({p['detalle']})" if p["detalle"].startswith("pág.") else ""))
                     for p in f["estudiar"]]
@@ -449,7 +449,7 @@ def enlaces_rotos(site: Path, hrefs: list[str]) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Genera site/menu.html y site/menu.pdf (piezas por tema para el aula).")
+    ap = argparse.ArgumentParser(description="Genera site/menu.html y site/menu.pdf (piezas por capítulo para el aula).")
     ap.add_argument("--site", default="site", help="directorio del sitio ya generado (default: site)")
     a = ap.parse_args(argv)
     site = Path(a.site)
@@ -482,7 +482,7 @@ def main(argv: list[str] | None = None) -> int:
     pend = sum(p["estado"] == PREP for f in filas for k in ("explicar", "tele", "puestos", "estudiar") for p in f[k])
     total = sum(len(f[k]) for f in filas for k in ("explicar", "tele", "puestos", "estudiar"))
     print(f"  {site / 'menu.html'}")
-    print(f"  {site / 'menu.pdf'}  ({len(filas)} temas, {total - pend} piezas listas, {pend} en preparación)")
+    print(f"  {site / 'menu.pdf'}  ({len(filas)} capítulos, {total - pend} piezas listas, {pend} en preparación)")
     for e in errores:
         print(f"ERROR: {e}", file=sys.stderr)
     return 1 if errores else 0
