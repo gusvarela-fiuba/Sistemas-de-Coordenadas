@@ -19,6 +19,7 @@ Salida:
   site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm) desde la copia
   site/_build/<archivo>.py              generada con unidades/cb104.py embebido en la celda `# cb104:inline`
   site/apunte.pdf                       copia del apunte
+  site/menu.html, site/menu.pdf         piezas por tema para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
   site/.nojekyll                        para GitHub Pages
 
 Uso:  uv run tools/build.py [--skip-wasm] [--only <unidad_id>] [--out site]
@@ -1023,6 +1024,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir el programa</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
         '<a class="entrada" href="autoevaluacion.html"><b>Autoevaluación (120 preguntas)</b><small>practicamos, hacemos un simulacro o rendimos la evaluación</small></a>'
+        '<a class="entrada" href="menu.html"><b>Para el aula: qué hay para cada tema</b><small>piezas por capítulo, con duración y estado; también en PDF</small></a>'
         "</nav>"
     )
 
@@ -1773,6 +1775,11 @@ def main() -> int:
     for _p in out.rglob("CLAUDE.md"):   # por si quedó alguno de un export anterior
         _p.unlink()
     shutil.rmtree(out / "_build", ignore_errors=True)
+    print("== menú por tema")
+    import menu
+    if menu.main(["--site", str(out)]) != 0:
+        print("ERROR: tools/menu.py falló (enlace roto o mención prohibida en el menú)", file=sys.stderr)
+        return 1
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
     import prohibidas
