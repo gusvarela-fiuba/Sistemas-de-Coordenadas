@@ -7,8 +7,7 @@ Reflejamos y escalamos. Con reflexiones se construyen rotaciones, y con una esca
 
 \subsection{Reflejar y componer}\label{sec:reflejar}
 
-{\small\vspace{1mm}\linkUnidad{03_reflexiones_similaridades}{Simulación interactiva: Unidad 5 — Reflexiones y similaridades}\par}
-
+\unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Explorá: elegí el caso «espejo de la recta de ángulo \(\alpha\)», mové \(\alpha\) y mirá cómo el área con signo de la parcela cambia de signo mientras las distancias no cambian.}
 
 Una reflexión invierte una figura respecto de un centro o de una recta. Aplicada dos veces
 respecto del mismo elemento devuelve la figura original. Esta propiedad se llama involución.
@@ -30,7 +29,7 @@ La diferencia \(\rho_b(x)-b=-(x-b)\) indica que la imagen conserva la distancia 
 pero queda en la dirección opuesta. Al componer dos reflexiones, los términos que dependen de
 \(x\) recuperan su signo y queda un desplazamiento constante.
 
-\begin{idea}[Qué debe observarse]
+\begin{idea}[Una reflexión invierte la orientación; dos la restituyen]
 Cada reflexión individual cambia la orientación. Dos reflexiones vuelven a preservarla. La
 posición relativa de los centros o de los ejes decide si el resultado se interpreta como
 traslación o como rotación.
@@ -66,8 +65,6 @@ matrices se representa con una matriz múltiplo de la identidad.
 \section{Construcciones, cuentas y ejemplos}
 
 Este nivel es la guía de transformaciones. Reproducimos los enunciados de \texttt{Ejercicios.pdf}, y resolvemos cada definición y cada teorema de dos maneras, con una construcción y con un ejemplo con vectores. La resolución es desarrollo nuestro.
-
-{\small\vspace{1mm}\linkUnidad{03_reflexiones_similaridades}{Simulación interactiva: Unidad 5 — Reflexiones y similaridades}\par}
 
 \subsection{Enunciados originales de la guía}
 
@@ -188,7 +185,7 @@ Teorema 6 & escala y giro con centro común & \(S(x)=o+\lambda R(x-o)\)\\
 \end{tabularx}
 \end{center}
 
-\begin{idea}[Cómo reconocer que un ítem está resuelto]
+\begin{idea}[Cada ítem se resuelve con un dibujo y con una cuenta]
 Cada apartado presenta el dibujo o construcción, la propiedad geométrica que debe observarse,
 la demostración vectorial y un ejemplo numérico. Los ejercicios del final son práctica
 adicional y no sustituyen estas soluciones.
@@ -339,7 +336,7 @@ Si \(a=(1,1)\), \(b=(4,1)\) y \(c=(6,3)\), entonces
 \]
 Se verifica \(a+c=(7,4)=b+d\); por lo tanto, las diagonales se bisecan.
 
-\begin{idea}[Suma y resta de vectores]
+\begin{idea}[Las reflexiones puntuales suman y restan vectores]
 La fórmula \(d=a-b+c\) permite construir geométricamente la operación
 \(a+c-b\). Elegido un origen \(b\), el punto \(d\) representa la suma de los
 vectores \(\overrightarrow{ba}+\overrightarrow{bc}\).
@@ -411,6 +408,47 @@ Además,
 \]
 lo que verifica simultáneamente que ambos segmentos tienen la misma longitud y que son
 perpendiculares a la recta, pues son paralelos al normal \(n=(1,2)\).
+
+\begin{ejemplo}[Reflexión respecto de la recta que pasa por dos puntos]\label{ej:reflexion-dos-puntos}
+Reflejamos \(X=(5,8)\) respecto de la recta \(L\) que pasa por \(P=(1,2)\) y \(Q=(7,5)\).
+
+\emph{Ecuación de la recta.} La dirección es \(d=Q-P=(6,3)=3\,(2,1)\), y un vector
+perpendicular a \((2,1)\) es \(n=(1,-2)\). Con \(c=n\cdot P=1-4=-3\) queda
+\[
+  L:\ x-2y=-3 ,
+\]
+y \(Q\) la verifica: \(7-10=-3\).
+
+\emph{Proyección.} Con la fórmula de la normal, \(n\cdot X-c=5-16+3=-8\) y
+\(\lVert n\rVert^2=5\), así que
+\[
+  p=X-\frac{-8}{5}\,n=(5,8)+\frac85(1,-2)=(6{,}6;\ 4{,}8).
+\]
+El mismo punto sale proyectando \(X-P=(4,6)\) sobre la dirección:
+\(t=\dfrac{(X-P)\cdot d}{\lVert d\rVert^2}=\dfrac{42}{45}=\dfrac{14}{15}\) y
+\(p=P+t\,d=(1,2)+(5{,}6;\ 2{,}8)=(6{,}6;\ 4{,}8)\).
+
+\emph{Reflejo.} Como \(p\) es el punto medio entre \(X\) y su imagen,
+\[
+  \refl{L}(X)=2p-X=(8{,}2;\ 1{,}6).
+\]
+
+\emph{Forma matricial.} Desarrollando \(\refl{L}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\)
+se separa una parte lineal y una traslación:
+\[
+  \refl{L}(x)=Hx+t,\qquad
+  H=I-\frac{2\,nn^T}{\lVert n\rVert^2}=\frac15\begin{pmatrix}3&4\\4&-3\end{pmatrix},\qquad
+  t=\frac{2c}{\lVert n\rVert^2}\,n=(-1{,}2;\ 2{,}4).
+\]
+Para \(X\): \(HX=\frac15(47,-4)=(9{,}4;\ -0{,}8)\) y \(HX+t=(8{,}2;\ 1{,}6)\). Además
+\(\det H=-1\): la reflexión invierte la orientación.
+
+\emph{Control.} \(P\) y \(Q\) están en el eje, de modo que quedan fijos y las distancias a ellos se
+conservan: \(\lVert X-P\rVert^2=4^2+6^2=52\) y
+\(\lVert \refl{L}(X)-P\rVert^2=7{,}2^2+0{,}4^2=52\);
+\(\lVert X-Q\rVert^2=2^2+3^2=13\) y
+\(\lVert \refl{L}(X)-Q\rVert^2=1{,}2^2+3{,}4^2=13\).
+\end{ejemplo}
 
 \subsection{Guía resuelta: reflexiones en rectas paralelas}
 
@@ -553,11 +591,47 @@ R(60^\circ)(1,1)^T.
 El punto \(p\) se refleja primero debajo de \(B\) y luego cruza \(A\); el ángulo neto observado
 desde el origen es el doble del ángulo entre los ejes.
 
-\begin{idea}[Puente con la rotación matricial]
+\begin{idea}[Dos reflexiones producen la matriz de rotación]
 Esta matriz es exactamente la matriz de rotación ya trabajada. La guía aporta ahora
 una construcción geométrica: una rotación plana puede generarse con dos reflexiones en
 rectas que se cortan en su centro.
 \end{idea}
+
+\begin{ejemplo}[Dos reflexiones: rotación o traslación según los ejes]\label{ej:dos-reflexiones}
+Sean \(B:\ y=1\) y \(A:\ x-y=1\). Se cortan en \(o=(2,1)\); \(B\) es horizontal y \(A\) forma
+\(45^\circ\) con ella, así que el Teorema~4 predice un giro de \(90^\circ\) alrededor de \(o\).
+
+\emph{Las dos reflexiones.} Para \(B\) basta reflejar la ordenada respecto de \(1\):
+\(\refl{B}(x,y)=(x,\,2-y)\). Para \(A\), con \(n=(1,-1)\), \(\lVert n\rVert^2=2\) y \(c=1\),
+\[
+  \refl{A}(x,y)=(x,y)-(x-y-1)(1,-1)=(y+1,\ x-1).
+\]
+
+\emph{La composición.}
+\[
+  \refl{A}\refl{B}(x,y)=\refl{A}(x,\,2-y)=(3-y,\ x-1).
+\]
+La rotación de \(90^\circ\) con centro \(o\) da lo mismo:
+\(o+R(90^\circ)\bigl((x,y)-o\bigr)=(2,1)+\bigl(-(y-1),\,x-2\bigr)=(3-y,\ x-1)\).
+Con \(p=(4,0)\): \(\refl{B}(p)=(4,2)\) y \(\refl{A}(4,2)=(3,3)\). Desde \(o\), los vectores
+\(p-o=(2,-1)\) y \((3,3)-o=(1,2)\) miden ambos \(\sqrt5\) y son perpendiculares.
+
+\emph{El orden.} \(\refl{B}\refl{A}(p)=\refl{B}(1,3)=(1,-1)\), que es la rotación de
+\(-90^\circ\) alrededor de \(o\): \((2,1)+(-1,-2)=(1,-1)\). Invertir el orden invierte el giro.
+
+\emph{Ejes paralelos.} Si en lugar de \(B\) se toma \(B':\ x-y=-3\), paralela a \(A\),
+\[
+  \refl{B'}(x,y)=(x,y)-(x-y+3)(1,-1)=(y-3,\ x+3),
+  \qquad
+  \refl{A}\refl{B'}(x,y)=(x+4,\ y-4).
+\]
+Es la traslación de vector \((4,-4)\), paralelo a \(n\) y por lo tanto perpendicular a las dos
+rectas, de módulo \(4\sqrt2\approx5{,}657\): el doble de la distancia
+\(\dfrac{|1-(-3)|}{\sqrt2}=2\sqrt2\approx2{,}828\) entre ellas, como afirma el Teorema~3.
+Con \(p=(4,0)\): \(\refl{B'}(p)=(-3,7)\) y \(\refl{A}(-3,7)=(8,-4)=p+(4,-4)\).
+\end{ejemplo}
+
+\unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Verificá: elegí «dos espejos seguidos», poné \(\beta=45^\circ\) y comprobá que el resultado es \(R(90^\circ)\), con \(\det=+1\).}
 
 \subsection{Guía resuelta: traslación y rotación}
 
@@ -734,12 +808,48 @@ finito, aparece el caso especial de una traslación o una transformación con co
 traslación.
 \end{atencion}
 
+\begin{ejemplo}[La similaridad directa que lleva un segmento a otro]\label{ej:similaridad-segmento}
+Buscamos la similaridad directa \(S\) que lleva \(P=(1,1)\) a \(P'=(-3,-1)\) y \(Q=(3,2)\) a
+\(Q'=(-3,4)\). Identificamos el plano con \(\mathbb{C}\); una similaridad directa es
+\(S(z)=\alpha z+\beta\), con \(\alpha=a+ib\), porque multiplicar por \(\alpha\) es girar
+el ángulo de \(\alpha\) y escalar por \(\lvert\alpha\rvert\). En matrices,
+\(S(x)=\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)x+t\).
+
+\emph{Razón y ángulo.} Restando \(S(Q)-S(P)\) desaparece \(\beta\):
+\[
+  \alpha=\frac{Q'-P'}{Q-P}=\frac{5i}{2+i}=\frac{5i\,(2-i)}{5}=1+2i .
+\]
+La razón es \(\lambda=\lvert\alpha\rvert=\sqrt5\approx2{,}236\), que coincide con
+\(\lVert P'Q'\rVert/\lVert PQ\rVert=5/\sqrt5\), y el ángulo es
+\(\theta=\operatorname{atan2}(2,1)\approx63{,}43^\circ\).
+
+\emph{Traslación.} \(\beta=P'-\alpha P=(-3-i)-(1+2i)(1+i)=(-3-i)-(-1+3i)=-2-4i\), es decir
+\[
+  S(x,y)=(x-2y-2,\ 2x+y-4),
+\]
+y en efecto \(S(3,2)=(-3,4)\).
+
+\emph{Centro.} El punto fijo cumple \(c=\alpha c+\beta\):
+\[
+  c=\frac{\beta}{1-\alpha}=\frac{-2-4i}{-2i}=2-i,
+\]
+o sea \(c=(2,-1)\); en matrices, \((I-A)c=t\) con
+\(I-A=\left(\begin{smallmatrix}0&2\\-2&0\end{smallmatrix}\right)\) da lo mismo. Control:
+\(\lVert P-c\rVert=\lVert(-1,2)\rVert=\sqrt5\) y \(\lVert P'-c\rVert=\lVert(-5,0)\rVert=5=\sqrt5\cdot\sqrt5\),
+y el ángulo de \(P-c\) a \(P'-c\) es \(63{,}43^\circ\).
+
+\emph{Descomposición.} Por el Teorema~6,
+\(S=\refl{A}\refl{B}\homot{c}{\sqrt5}\), con dos rectas \(A\) y \(B\) por \(c=(2,-1)\) que
+formen un ángulo de \(\theta/2\approx31{,}72^\circ\).
+\end{ejemplo}
+
 \section{En profundidad}
 
 Cerramos el tema con dos complementos de la guía: un ejemplo numérico completo de la descomposición de una similaridad y el método para recuperar el centro a partir de un triángulo y su imagen. Ambos son desarrollo nuestro.
 
 \subsection{Ejemplo numérico de la descomposición}
 
+\begin{ejemplo}[Una similaridad de razón \(2\) y giro de \(90^\circ\) como dos reflexiones y una homotecia]\label{ej:descomposicion-similaridad}
 Tomemos \(o=(0,0)\), una escala \(\lambda=2\) y una rotación de \(90^\circ\). Para el
 triángulo
 \[
@@ -765,6 +875,7 @@ porque el giro resultante es el doble del ángulo entre los ejes. Finalmente, la
 \]
 Geométricamente se ven tres etapas: reflexión en \(B\), reflexión en \(A\) y expansión radial
 desde \(o\).
+\end{ejemplo}
 
 \subsection{Cómo hallar el centro a partir de un triángulo y su imagen}
 
@@ -816,8 +927,143 @@ el mismo ángulo \(\theta\). Esto completa la parte constructiva y la parte alge
 por la guía.
 \end{resultado}
 
-% Bloque trasladado desde 06-afines-homogeneas el 2026-10-19; se reescribe en la fase del capítulo 05.
-\section{Ejercicios resueltos de reflexiones y homotecias}
+\subsection{Aplicación topográfica: pasar un levantamiento local al sistema oficial}\label{sec:aplicacion-helmert}
+
+Un levantamiento con estación total suele hacerse en un sistema local arbitrario: el origen y
+la orientación de los ejes \(x\), \(y\) se eligen en el terreno, por comodidad. Para integrarlo a
+la cartografía hay que expresarlo en el sistema oficial, aquí coordenadas Gauss-Krüger de la
+faja~5: \(E\) hacia el este y \(N\) hacia el norte, en metros. Entre los dos sistemas hay una
+traslación, una rotación y, además, un factor de escala apenas distinto de \(1\), porque las
+distancias medidas en el terreno no coinciden exactamente con las distancias en el plano de
+la proyección. Las tres cosas juntas forman una similaridad directa (sección~\ref{sec:escalar}):
+\[
+  \begin{pmatrix}E\\N\end{pmatrix}
+  =\begin{pmatrix}t_E\\t_N\end{pmatrix}
+  +\lambda\,R(\theta)\begin{pmatrix}x\\y\end{pmatrix}.
+\]
+
+\paragraph{Cuatro parámetros lineales.} Escribiendo \(a=\lambda\cos\theta\) y
+\(b=\lambda\sin\theta\), la matriz \(\lambda R(\theta)\) es
+\(\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)\) y la transformación queda
+\[
+  \boxed{E=a\,x-b\,y+t_E,\qquad N=b\,x+a\,y+t_N.}
+\]
+Las incógnitas \(a\), \(b\), \(t_E\), \(t_N\) aparecen en forma lineal, aunque \(\lambda\) y
+\(\theta\) no lo hagan; una vez halladas, \(\lambda=\sqrt{a^2+b^2}\) y
+\(\theta=\operatorname{atan2}(b,a)\). Es la misma cuenta del
+ejemplo~\ref{ej:similaridad-segmento}: en complejos,
+\(E+iN=(a+ib)(x+iy)+(t_E+i\,t_N)\). Esta transformación de cuatro parámetros se conoce como
+transformación de Helmert en el plano.
+
+\paragraph{Datos.} Dos puntos de control tienen coordenadas en ambos sistemas; de otros tres
+sólo se conocen las locales.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & local \((x;\,y)\) & oficial \((E;\,N)\)\\
+\midrule
+\(C_1\) & \(50{,}000;\ 20{,}000\) & \(5\,432\,134{,}871;\ 6\,154\,341{,}048\)\\
+\(C_2\) & \(310{,}000;\ 145{,}000\) & \(5\,432\,306{,}387;\ 6\,154\,573{,}065\)\\
+\(D\) & \(180{,}000;\ 60{,}000\) & ?\\
+\(F\) & \(240{,}000;\ 210{,}000\) & ?\\
+\(G\) & \(70{,}000;\ 150{,}000\) & ?\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Resolución con dos puntos.} Cada punto de control aporta dos ecuaciones; con dos
+puntos hay cuatro ecuaciones para cuatro incógnitas. Restando las de \(C_1\) de las de \(C_2\)
+se eliminan las traslaciones:
+\[
+  \Delta E=a\,\Delta x-b\,\Delta y,\qquad \Delta N=b\,\Delta x+a\,\Delta y,
+\]
+con \(\Delta x=260\), \(\Delta y=125\), \(\Delta E=171{,}516\) y \(\Delta N=232{,}017\). Este
+sistema de \(2\times2\) se resuelve multiplicando la primera por \(\Delta x\) y la segunda por
+\(\Delta y\) y sumando, y combinándolas en cruz para \(b\):
+\[
+  a=\frac{\Delta x\,\Delta E+\Delta y\,\Delta N}{\Delta x^2+\Delta y^2}
+   =\frac{73\,596{,}285}{83\,225}=0{,}884305017,
+\]
+\[
+  b=\frac{\Delta x\,\Delta N-\Delta y\,\Delta E}{\Delta x^2+\Delta y^2}
+   =\frac{38\,884{,}920}{83\,225}=0{,}467226434.
+\]
+Volviendo a \(C_1\):
+\[
+  t_E=E_1-a\,x_1+b\,y_1=5\,432\,100{,}000,\qquad
+  t_N=N_1-b\,x_1-a\,y_1=6\,154\,300{,}001 .
+\]
+De \(a\) y \(b\) salen la escala y el giro:
+\[
+  \lambda=\sqrt{a^2+b^2}=1{,}0001479,\qquad
+  \theta=\operatorname{atan2}(b,a)=27{,}84993^\circ .
+\]
+La escala excede a \(1\) en \(147{,}9\) partes por millón: cada \(100\) m locales se convierten en
+unos \(100{,}015\) m oficiales. Reemplazando, \(C_1\) y \(C_2\) se reproducen al milímetro, como
+debe ser: la solución con dos puntos es exacta.
+
+\paragraph{Puntos nuevos.} Con los cuatro parámetros se transforman \(D\), \(F\) y \(G\):
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & local \((x;\,y)\) & oficial \((E;\,N)\)\\
+\midrule
+\(D\) & \(180{,}000;\ 60{,}000\) & \(5\,432\,231{,}142;\ 6\,154\,437{,}160\)\\
+\(F\) & \(240{,}000;\ 210{,}000\) & \(5\,432\,214{,}116;\ 6\,154\,597{,}839\)\\
+\(G\) & \(70{,}000;\ 150{,}000\) & \(5\,432\,091{,}818;\ 6\,154\,465{,}352\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Lo que se conserva y lo que no.} Las distancias cambian, todas en la misma
+proporción:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+lado & local (m) & oficial (m) & cociente\\
+\midrule
+\(DF\) & \(161{,}555\) & \(161{,}579\) & \(1{,}0001479\)\\
+\(FG\) & \(180{,}278\) & \(180{,}304\) & \(1{,}0001479\)\\
+\(GD\) & \(142{,}127\) & \(142{,}148\) & \(1{,}0001479\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+El cociente es \(\lambda\) en los tres lados; las diferencias, \(0{,}024\), \(0{,}027\) y
+\(0{,}021\) m, crecen con la longitud del lado. El ángulo en \(F\) del triángulo \(DFG\) vale
+\(48{,}75856^\circ\) en los dos sistemas. No es casualidad: para \(M=\lambda R(\theta)\),
+\(Mu\cdot Mv=\lambda^2\,u\cdot v\) y \(\lVert Mu\rVert\,\lVert Mv\rVert=\lambda^2\lVert u\rVert\,\lVert v\rVert\),
+así que el coseno del ángulo entre dos direcciones no cambia.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.95\linewidth]{figuras/similaridades/helmert.png}
+\caption{El levantamiento en el sistema local (izquierda) y en el oficial (derecha, con las
+coordenadas referidas a un origen próximo para que se lean). Los triángulos son los puntos de
+control; la cruz es el dato oficial de \(C_3\), separado de su predicción por el residuo de
+\(0{,}039\) m, que a esta escala no se distingue. Generada con
+\texttt{apunte/scripts/cap03\_similaridades.py}.}
+\end{figure}
+
+\paragraph{Un tercer punto de control.} Se conoce también \(C_3\), de coordenadas locales
+\((120{,}000;\ 260{,}000)\) y oficiales \((5\,432\,084{,}658;\ 6\,154\,585{,}953)\). Con los
+parámetros hallados, la predicción es \((5\,432\,084{,}638;\ 6\,154\,585{,}987)\), y el residuo
+\[
+  r=\text{dato}-\text{predicción}=(0{,}020;\ -0{,}034)\ \text{m},\qquad \lVert r\rVert=0{,}039\ \text{m}.
+\]
+Con tres puntos hay seis ecuaciones y cuatro incógnitas, y los datos medidos no las satisfacen
+todas a la vez: ninguna similaridad lleva exactamente los tres puntos locales a los tres
+oficiales. Lo confirma el cociente de distancias entre controles, que debería ser el mismo
+\(\lambda\) para todos los pares y no lo es: \(1{,}0001479\) para \(C_1C_2\), \(0{,}9999984\) para
+\(C_1C_3\) y \(1{,}0000492\) para \(C_2C_3\). Si se resuelve con \(C_1\) y \(C_3\) en lugar de
+\(C_1\) y \(C_2\), salen otros parámetros, \(\lambda=0{,}9999984\) y \(\theta=27{,}84701^\circ\);
+ahora es \(C_2\) el que no cierra, con una discrepancia de \((0{,}014;\ 0{,}043)\) m, de módulo
+\(0{,}046\) m, y el punto \(D\) se corre \(0{,}021\) m. El residuo mide cuánto se apartan los
+datos de una similaridad exacta: unos pocos centímetros son compatibles con errores de
+medición, mientras que un residuo grande delata un punto mal identificado o mal medido.
+Repartir esa discrepancia entre todos los puntos de control de la mejor manera posible es el
+problema de mínimos cuadrados, que se trata en otro capítulo.
+
+\section{Ejercicios con solución}
 
 \subsection{Resumen de resultados}
 
@@ -853,130 +1099,100 @@ distancias multiplicadas por \(|k|\)\\
 Similaridad directa &
 \(S=\varphi_A\varphi_B\eta_o^\lambda\) &
 escala y rotación con centro fijo\\
+Helmert en el plano &
+\(E=ax-by+t_E,\ N=bx+ay+t_N\) &
+\(\lambda=\sqrt{a^2+b^2}\), \(\theta=\operatorname{atan2}(b,a)\)\\
 \bottomrule
 \end{tabularx}
 \end{center}
 
-\subsection{Ejercicios adicionales de consolidación}
+\subsection{Ejercicios}
 
-\begin{enumerate}
-  \item Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calcule
-  \(\rho_a\rho_b(x)\) paso a paso y verifique que coincide con
-  \(x+2(a-b)\). Dibuje los cinco puntos relevantes.
+\begin{ejercicio}\label{ex:refl-dos-puntuales}
+Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calcular \(\rho_a\rho_b(x)\) paso a paso y
+verificar que coincide con \(x+2(a-b)\). Dibujar los cinco puntos relevantes.
+\end{ejercicio}
+\solucion{\(\rho_b(4,3)=2(-1,2)-(4,3)=(-6,1)\) y \(\rho_a(-6,1)=2(2,-1)-(-6,1)=(10,-3)\).
+Como \(2(a-b)=(6,-6)\), también \((4,3)+(6,-6)=(10,-3)\). En el dibujo, \(b\) es el punto
+medio entre \(x\) y \((-6,1)\), y \(a\) el punto medio entre \((-6,1)\) y \((10,-3)\).}
 
-  \item Dados \(a=(1,0)\), \(b=(3,1)\) y \(c=(5,4)\), construya
-  \(d=a-b+c\). Verifique con pendientes o vectores que \(abcd\) es un
-  paralelogramo.
+\begin{ejercicio}\label{ex:refl-paralelogramo}
+Dados \(a=(1,0)\), \(b=(3,1)\) y \(c=(5,4)\), construir \(d=a-b+c\). Verificar con vectores
+que \(abcd\) es un paralelogramo.
+\end{ejercicio}
+\solucion{\(d=a-b+c=(3,3)\). Se verifica \(b-a=c-d=(2,1)\) y \(c-b=d-a=(2,3)\): los lados
+opuestos son iguales y paralelos.}
 
-  \item Refleje \(x=(3,4)\) respecto de \(B:2x-y=1\) usando:
-  \begin{enumerate}[label=\alph*)]
-    \item la fórmula con el vector normal;
-    \item la proyección perpendicular;
-    \item una construcción gráfica.
-  \end{enumerate}
+\begin{ejercicio}\label{ex:refl-recta}
+Reflejar \(x=(3,4)\) respecto de \(B:\ 2x-y=1\) usando (a) la fórmula con el vector normal;
+(b) la proyección perpendicular; (c) una construcción gráfica.
+\end{ejercicio}
+\solucion{Con \(n=(2,-1)\), \(\lVert n\rVert^2=5\) y \(n\cdot(3,4)-1=1\): (a)
+\(\refl{B}(3,4)=(3,4)-\frac25(2,-1)=\left(\frac{11}{5},\frac{22}{5}\right)=(2{,}2;\ 4{,}4)\).
+(b) La proyección es \(p=(3,4)-\frac15(2,-1)=\left(\frac{13}{5},\frac{21}{5}\right)=(2{,}6;\ 4{,}2)\),
+y \(2p-x\) da el mismo reflejo. (c) Se traza por \(x\) la perpendicular a \(B\) (dirección
+\(n\)), se marca su pie \(p\) y se lleva del otro lado la misma distancia
+\(\lVert x-p\rVert=1/\sqrt5\).}
 
-  \item Componga las reflexiones respecto de \(B:y=0\) y \(A:y=3\).
-  Repita invirtiendo el orden. Compare los vectores de traslación.
+\begin{ejercicio}\label{ex:refl-ejes-paralelos}
+Componer las reflexiones respecto de \(B:\ y=0\) y \(A:\ y=3\). Repetir invirtiendo el orden y
+comparar los vectores de traslación.
+\end{ejercicio}
+\solucion{\(\refl{A}\refl{B}(x,y)=(x,\,y+6)\) y \(\refl{B}\refl{A}(x,y)=(x,\,y-6)\). Ambas son
+traslaciones perpendiculares a los ejes, de módulo \(6\), el doble de la distancia entre ellos;
+el orden invierte el sentido.}
 
-  \item Construya dos rectas por el origen que formen \(30^\circ\).
-  Multiplique sus matrices de reflexión y compruebe que resulta una rotación
-  de \(60^\circ\).
+\begin{ejercicio}\label{ex:refl-30}
+Tomar dos rectas por el origen que formen \(30^\circ\). Multiplicar sus matrices de reflexión y
+comprobar que resulta una rotación de \(60^\circ\).
+\end{ejercicio}
+\solucion{Con \(B\) el eje \(x\) y \(A\) a \(30^\circ\):
+\(H(30^\circ)H(0^\circ)=
+\left(\begin{smallmatrix}\frac12&\frac{\sqrt3}{2}\\\frac{\sqrt3}{2}&-\frac12\end{smallmatrix}\right)
+\left(\begin{smallmatrix}1&0\\0&-1\end{smallmatrix}\right)
+=\left(\begin{smallmatrix}\frac12&-\frac{\sqrt3}{2}\\\frac{\sqrt3}{2}&\frac12\end{smallmatrix}\right)
+=R(60^\circ)\), es decir \(\left(\begin{smallmatrix}0{,}5&-0{,}866\\0{,}866&0{,}5\end{smallmatrix}\right)\).}
 
-  \item Para \(R=R(90^\circ)\) y \(v=(1,2)\), calcule las expresiones
-  \(T_vR\) y \(RT_v\). Halle el punto fijo de cada una resolviendo
-  \((I-R)c=t\).
+\begin{ejercicio}\label{ex:traslacion-rotacion}
+Para \(R=R(90^\circ)\) y \(v=(1,2)\), escribir \(T_vR\) y \(RT_v\). Hallar el punto fijo de cada
+una resolviendo \((I-R)c=t\).
+\end{ejercicio}
+\solucion{\(T_vR(x)=Rx+(1,2)\) y \(RT_v(x)=Rx+Rv=Rx+(-2,1)\). Con
+\(I-R=\left(\begin{smallmatrix}1&1\\-1&1\end{smallmatrix}\right)\), los centros son
+\(c_1=\left(-\frac12,\frac32\right)\) y \(c_2=\left(-\frac32,-\frac12\right)\): mismo giro,
+centros distintos.}
 
-  \item Dibuje un triángulo y aplique una homotecia de centro exterior con
-  \(k=\frac32\). Compruebe que las longitudes se multiplican por
-  \(\frac32\) y que los lados correspondientes son paralelos.
+\begin{ejercicio}\label{ex:homotecia-triangulo}
+Dibujar un triángulo y aplicarle una homotecia de centro exterior con \(k=\frac32\). Comprobar
+que las longitudes se multiplican por \(\frac32\) y que los lados correspondientes son
+paralelos.
+\end{ejercicio}
+\solucion{Una elección concreta es \(o=(4,4)\), \(A=(0,0)\), \(B=(2,0)\), \(C=(0,2)\). Con
+\(\homot{o}{3/2}(x)=o+\frac32(x-o)\): \(A'=(-2,-2)\), \(B'=(1,-2)\), \(C'=(-2,1)\). Los catetos
+pasan de longitud \(2\) a \(3\), y \(B'-A'=\frac32(B-A)\), \(C'-A'=\frac32(C-A)\): lados
+paralelos.}
 
-  \item Elija una escala \(\lambda=2\) y una rotación de \(40^\circ\) con
-  centro \(o=(1,1)\). Escriba la similaridad como
-  \(S(x)=o+2R(40^\circ)(x-o)\) y proponga dos ejes de reflexión cuya
-  composición produzca el giro.
-\end{enumerate}
+\begin{ejercicio}\label{ex:similaridad-40}
+Elegir una escala \(\lambda=2\) y una rotación de \(40^\circ\) con centro \(o=(1,1)\). Escribir la
+similaridad \(S(x)=o+2R(40^\circ)(x-o)\), calcular \(S(2,1)\) y proponer dos ejes de reflexión
+cuya composición produzca el giro.
+\end{ejercicio}
+\solucion{Dos ejes por \(o=(1,1)\): \(B\) con dirección \(0^\circ\) y \(A\) con dirección
+\(20^\circ\); \(\refl{A}\refl{B}\) gira \(40^\circ\) alrededor de \(o\) y, con la homotecia de
+razón \(2\), \(S=\refl{A}\refl{B}\homot{o}{2}\). Por ejemplo,
+\(S(2,1)=(1,1)+2(\cos40^\circ,\sin40^\circ)\approx(2{,}532;\ 2{,}286)\).}
 
-\subsubsection{Respuestas para autocorrección}
-
-\begin{enumerate}
-  \item
-  \[
-  \rho_b(4,3)=(-6,1),\qquad
-  \rho_a(-6,1)=(10,-3).
-  \]
-  Como \(2(a-b)=(6,-6)\), también
-  \[
-    (4,3)+(6,-6)=(10,-3).
-  \]
-
-  \item
-  \[
-    d=a-b+c=(3,3).
-  \]
-  Se verifica
-  \[
-  b-a=c-d=(2,1),
-  \qquad
-  c-b=d-a=(2,3).
-  \]
-
-  \item Con \(n=(2,-1)\), \(\lVert n\rVert^2=5\) y
-  \(n\cdot(3,4)-1=1\):
-  \[
-  p=\left(\frac{13}{5},\frac{21}{5}\right),
-  \qquad
-  \varphi_B(3,4)=
-  \left(\frac{11}{5},\frac{22}{5}\right).
-  \]
-
-  \item
-  \[
-  \varphi_A\varphi_B(x,y)=(x,y+6),
-  \qquad
-  \varphi_B\varphi_A(x,y)=(x,y-6).
-  \]
-  El orden invierte el sentido de la traslación.
-
-  \item Tomando \(B\) como el eje \(x\) y \(A\) a \(30^\circ\):
-  \[
-  H_AH_B=
-  \begin{pmatrix}
-  \frac12&-\frac{\sqrt3}{2}\\
-  \frac{\sqrt3}{2}&\frac12
-  \end{pmatrix}
-  =R(60^\circ).
-  \]
-
-  \item Para \(R=R(90^\circ)\):
-  \[
-  T_vR(x)=Rx+(1,2),
-  \qquad
-  RT_v(x)=Rx+(-2,1).
-  \]
-  Sus centros son, respectivamente,
-  \[
-    c_1=\left(-\frac12,\frac32\right),
-    \qquad
-    c_2=\left(-\frac32,-\frac12\right).
-  \]
-
-  \item Una elección concreta es
-  \[
-  o=(4,4),\quad
-  A=(0,0),\quad B=(2,0),\quad C=(0,2).
-  \]
-  Con \(k=\frac32\):
-  \[
-  A'=(-2,-2),\quad B'=(1,-2),\quad C'=(-2,1).
-  \]
-  Los lados pasan de longitud \(2\) a \(3\), y los lados correspondientes permanecen
-  paralelos.
-
-  \item Pueden elegirse dos ejes que pasen por \(o=(1,1)\): \(B\) con dirección
-  \(0^\circ\) y \(A\) con dirección \(20^\circ\). La composición
-  \(\varphi_A\varphi_B\) gira \(40^\circ\); al combinarla con la homotecia de razón \(2\)
-  se obtiene
-  \[
-    S(x)=o+2R(40^\circ)(x-o).
-  \]
-\end{enumerate}
+\begin{ejercicio}\label{ex:helmert-inversa}
+Con los parámetros de la aplicación de la sección~\ref{sec:aplicacion-helmert}
+(\(a=0{,}884305017\), \(b=0{,}467226434\), \(t_E=5\,432\,100{,}000\), \(t_N=6\,154\,300{,}001\)),
+hallar la transformación inversa, del sistema oficial al local, y su escala y giro. Aplicarla a
+las coordenadas oficiales de \(F\) y al dato oficial de \(C_3\).
+\end{ejercicio}
+\solucion{La inversa de \(\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)\) es
+\(\frac1{a^2+b^2}\left(\begin{smallmatrix}a&b\\-b&a\end{smallmatrix}\right)\), otra matriz del
+mismo tipo con \(a'=a/(a^2+b^2)=0{,}884043425\) y \(b'=-b/(a^2+b^2)=-0{,}467088221\)
+(\(a^2+b^2=1{,}000295903\)). Entonces \(x=a'(E-t_E)-b'(N-t_N)\), \(y=b'(E-t_E)+a'(N-t_N)\):
+escala \(1/\lambda=0{,}9998521\) y giro \(-27{,}84993^\circ\). Para \(F\) se recupera
+\((240{,}000;\ 210{,}000)\). Para el dato de \(C_3\) se obtiene \((120{,}002;\ 259{,}961)\), no
+\((120{,}000;\ 260{,}000)\): el residuo de la aplicación reaparece, ahora en coordenadas
+locales.}
