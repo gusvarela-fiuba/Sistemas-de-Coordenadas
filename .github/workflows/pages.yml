@@ -7,7 +7,7 @@
 #
 # Red en el runner: `marimo export html-wasm` NO descarga nada en el build; copia el frontend desde el
 # wheel de marimo (`marimo/_static/`), y sólo en modo desarrollo de marimo (MARIMO_DEVELOPMENT_MODE)
-# lo pediría a jsdelivr. Pyodide y los paquetes (numpy, plotly) los baja el navegador del alumno desde el
+# lo pediría a jsdelivr. Pyodide y los paquetes (numpy, plotly) los baja el navegador de quien abre la lección desde el
 # CDN al abrir cada lección, no el runner. La primera exportación después de `uv sync` tarda ~40 s
 # (compila bytecode); las siguientes 1–2 s por lección.
 #
