@@ -16,12 +16,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|la gu[ií]a|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA", re.I)
+PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|(?:la|las) gu[ií]as?|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA", re.I)
 
 # Regla (no por archivo): «guía resuelta» / «la guía» sólo se admiten en archivos .md de documentación del repo
 # que NO van al PDF ni al sitio: los .md de la raíz y los de mapa/ y docs/. NUNCA en apunte/, unidades/, tools/,
 # clases/ (las fichas clases/*.md se convierten a HTML y van al sitio) ni en el sitio/PDF (--dir).
-GUIA = re.compile(r"gu[ií]a resuelta|la gu[ií]a", re.I)
+GUIA = re.compile(r"gu[ií]a resuelta|(?:la|las) gu[ií]as?", re.I)
 DIRS_GUIA_OK = ("mapa", "docs")
 
 # (ruta relativa a la raíz, None = todo el archivo | fragmento literal que debe estar en la línea)

@@ -1,0 +1,51 @@
+# Revisión semántica del capítulo 15 (Coordenadas sobre la esfera y trigonometría esférica)
+
+Archivos: `apunte/contenido/15-esfera-trigonometria-esferica.tex`, `apunte/scripts/cap15_trigonometria_esferica.py`, `unidades/14_trigonometria_esferica.py`. Revisión del 2026-10-19.
+
+**Resumen:** el capítulo es correcto en demostraciones y números (todo coincide con el script y con un recálculo independiente con numpy y pyproj); no hay graves en el `.tex`; la unidad 14 tiene referencias de procedencia desactualizadas y hay ocho observaciones menores.
+
+## Verificaciones hechas (todas pasan)
+
+- Teorema del coseno por vectores (con el sistema elegido y con la identidad de Lagrange), teorema del seno con `(u×v)×(u×w) = det[u v w] u`, y polar con `det > 0`: signos y fórmulas correctos. Las identidades de producto vectorial se verificaron a mano.
+- Girard por husos: las seis lúnulas cubren 3 veces el triángulo y su antípoda y una vez cada uno de los otros seis; la cuenta 4R²(A+B+C) = 4πR² + 4S es correcta.
+- Directo, inverso (α₁ y α₂ por atan2) y Clairaut: se comprobaron las componentes de la tangente en P₂ (`cosφ₂ cosα₂ = cosσ cosφ₁ cosα₁ − sinσ sinφ₁`) y la longitud Δλ del directo. Todo es consistente con la fórmula estándar.
+- Más de 15 números cotejados con el script y con un recálculo propio: lados 4,1730° / 8,8085° / 5,8208°; ángulos 23,5351° / 122,8281° / 33,8154°; exceso 642,7″; det = 6,2014·10⁻³; BA–Mendoza: σ = 8,808473°, d(GRS80) = 981 400,08 m con pyproj, acimutes de GRS80 278,1469° y 103,9365° (llegada 283,9365°); red de 46–55 km: lados 46,202 / 54,995 / 50,068 km, S = 1083,69 km², ε = 5,508″, ε/3 = 1,836″; ejercicios 15.1 a 15.5; BA–Ciudad del Cabo (pyproj da 6885 km sobre el elipsoide contra 6871 km sobre la esfera).
+- ¿Es coherente que BA–Mendoza dé ≈2 km (2150 ppm)? Sí. Con R_α/√(MN) − 1 = 6 383 635,9 / 6 369 914,3 − 1 = 2154 ppm, que coincide con la diferencia observada. Razonando por la componente este: N cosφ contra R cosφ da N/√(MN) − 1 = √(N/M) − 1 = 2280 ppm; el rumbo no es exactamente este-oeste, y de ahí 2150. La explicación del texto (Euler, rumbo 281°) es correcta y la coincidencia a 0,01 m está declarada como «en parte fortuita».
+- Las 3 figuras PNG existen y los `\ref` (`sec:acimut-campo`, `cap:subespacios`, `teo:euler-eje`, `ap:rot3d` y demás) existen.
+
+## Hallazgos
+
+1. **menor (notación, letra N)** — `15-esfera-trigonometria-esferica.tex:431-433`. Cita: «Los dos puntos y el polo norte \(N\) forman un triángulo… su ángulo en \(N\) es \(\Delta\lambda\)». La letra N nombra aquí un vértice (el polo) y, en la misma sección, el radio del primer vertical (línea 556: «\(M\) y \(N\) los radios de curvatura»), y la coordenada norte de la tabla del capítulo 0. El párrafo de convenciones (15-25) no la desambigua. Propuesta: llamar al polo \(P_N\) (o Π) en 431-437 y agregar en las convenciones «N sin subíndice es el radio del primer vertical (cap. 14)».
+
+2. **menor (notación, ψ)** — `15-esfera-trigonometria-esferica.tex:522-526`. Cita: «\(\psi=\ln\tan\bigl(\frac\pi4+\frac\varphi2\bigr)\)». En el capítulo 14 ψ es la latitud geocéntrica, y el complemento C2 (`c2-conformes.tex:333, 368`) llama q a la latitud isométrica y advierte expresamente que no se confunda. Propuesta: usar q en 522-526 («λ₂−λ₁ = tan α (q₂−q₁)»).
+
+3. **menor (hipótesis omitida)** — `15-esfera-trigonometria-esferica.tex:219-220`. Cita: «como \(\det[u\ v\ w]>0\), el polar del polar es el triángulo original. Aplicando la primera parte al triángulo polar…». Para aplicar la primera parte al polar hay que saber que el polar también está ordenado con determinante positivo. Es cierto: `det[u′ v′ w′] = det[u v w]² /(sin a sin b sin c) > 0`, pero no se dice. Propuesta: agregar esa línea. Además, la definición del polar exige `det > 0`, y el teorema del coseno para los ángulos (línea 223) dice «en todo triángulo»: aclarar que si el orden es el inverso se reetiquetan dos vértices (la fórmula es simétrica).
+
+4. **menor (región del triángulo)** — `15-esfera-trigonometria-esferica.tex:74-84`. Cita: «El triángulo esférico ABC es la región de la esfera limitada por los tres arcos menores». Tres arcos menores limitan dos regiones (el triángulo y su complemento), y Girard (línea 319) sólo vale para la que tiene ángulos menores que π. Propuesta: «la región que contiene los puntos de la forma αu + βv + γw con α, β, γ ≥ 0, normalizados (la intersección de los tres semiespacios)».
+
+5. **menor (Legendre, formato)** — `15-esfera-trigonometria-esferica.tex:402-407`. Cita: «\(A-\frac\varepsilon3,\qquad B-\frac\varepsilon3,\qquad C-\frac\varepsilon3,\)» seguido de una oración nueva. La fórmula termina en coma y la oración «La corrección ε/3…» queda colgada dentro del enunciado. Propuesta: quitar la coma y mover «La corrección…» al texto posterior al teorema. Está declarado correctamente sin demostración (línea 409).
+
+6. **menor (afirmación de autoridad)** — `15-esfera-trigonometria-esferica.tex:565-566`. Cita: «\texttt{pyproj.Geod(ellps='GRS80').inv}, equivalente a la solución de Vincenty». pyproj calcula las geodésicas con el algoritmo de Karney (no con Vincenty), que coincide con Vincenty a nivel de milímetro en distancias de ~1000 km. Propuesta: «cuyo algoritmo (Karney) es exacto a nivel de nanómetros y coincide con el de Vincenty a nivel de milímetro».
+
+7. **menor (denominador de la tolerancia)** — `15-esfera-trigonometria-esferica.tex:567-568`. Cita: «la diferencia relativa máxima entre los radios principales, \(e^2\approx6694\) ppm (en la latitud media, \((N-M)/M\approx4659\) ppm)». El valor 6694 ppm es (N−M)/N en el ecuador, y el 4659 es (N−M)/M: denominadores distintos en la misma frase. Con denominador M el máximo en el ecuador es e′² = 6739 ppm. Propuesta: usar e′² ≈ 6739 ppm en ambos, o aclarar que se divide por N en el primero.
+
+8. **menor (consigna)** — `15-esfera-trigonometria-esferica.tex:671-674`. Cita: «Un triángulo esférico equilátero tiene sus tres ángulos de 100°… ¿Por qué en el plano el problema no tiene solución única?». En el plano no existe un triángulo con ángulos de 100° (la suma de los ángulos es 180°), así que el problema no es «sin solución única» sino «sin solución». La solución del texto (líneas 681-682) responde otra cosa: que con 60° los lados quedan indeterminados. Propuesta: «¿Por qué en el plano no existe tal triángulo, y por qué con ángulos de 60° los lados no quedan determinados?».
+
+9. **menor (afirmación excesiva)** — `15-esfera-trigonometria-esferica.tex:554`. Cita: «sobre el que no hay fórmulas cerradas para los problemas directo e inverso». Existen series y métodos iterativos muy precisos (Vincenty, Karney), que el propio texto usa como control. La unidad 14 (línea 158) dice «sin fórmula cerrada». Propuesta: «sin fórmulas cerradas elementales (se resuelven por series o por iteración)».
+
+10. **menor (bibliografía)** — `15-esfera-trigonometria-esferica.tex:723-729`. Cita: «Hitchman…; Rosenfeld, Proyección Estereográfica; Mahecha…». Ninguna de las tres fuentes trata trigonometría esférica, L'Huilier, Legendre ni geodésicas sobre el elipsoide, que el capítulo usa «sin demostración». Propuesta: agregar una fuente para esos tres resultados (por ejemplo Todhunter, *Spherical Trigonometry*, para L'Huilier, a verificar por el autor) o decir que se enuncian y se verifican numéricamente. La unidad 14 (línea 152, 487) remite a «Coxeter, *Geometría*» para la demostración del exceso por husos, que el capítulo ya da completa; esa referencia está desactualizada.
+
+11. **menor (procedencia)** — `unidades/14_trigonometria_esferica.py:149, 481, 486-487, 158`. Citas: «la sección [Polígonos geodésicos y trigonometría esférica]», «[apunte, «Superficies, elipsoide, curvatura…»]», «ficha de la clase 14 (con la bibliografía: Coxeter, *Geometría*; el apunte sobre el elipsoide)», «problemas directo e inverso por series o con Maxima (unidad 14)». El capítulo se llama «Coordenadas sobre la esfera y trigonometría esférica»; los títulos de sección citados no existen; la unidad 14 dice «unidad 14» para sí misma (corresponde la siguiente, o ninguna); Maxima no se usa en el capítulo. Línea 152: «la demostración completa del exceso por husos está en Coxeter», cuando el capítulo la da. Propuesta: reescribir esas referencias con el capítulo 15 y sus subsecciones reales.
+
+12. **menor (recuadros)** — `15-esfera-trigonometria-esferica.tex:107` y `:379`.
+    - Línea 107, cita: «mirá cómo crecen a la vez la suma de los ángulos y el área». Moviendo C hacia el lado AB la suma y el área disminuyen; «varían juntos» es lo que la unidad permite (caso «a mano», deslizadores de latitud ±85° y longitud ±170° con A y B fijos en (0°, 0°) y (0°, 60°)).
+    - Línea 379, cita: «la suma queda a centésimas de grado de 180°». El caso «triángulo chico» da 180,0050°: a cinco milésimas de grado. Propuesta: «a menos de una centésima».
+    - Los casos «octante» y «triángulo chico» y las magnitudes nombradas (suma 270°, 12,5 % de 4π) existen en la unidad.
+
+13. **menor (consistencia con la unidad)** — `unidades/14_trigonometria_esferica.py:338` (respuesta b). Cita: «\(\varepsilon \approx 22''\) con 100 km, ya del orden de lo que mide un teodolito». Un exceso de 22″ es mucho mayor que la lectura de un teodolito (1″ a 6″), no «del orden». Propuesta: «muy por encima de la lectura de un teodolito (1″ a 6″)». Además, el caso «tres ciudades argentinas» de la unidad usa Buenos Aires–Mendoza–Ushuaia con coordenadas de cuatro decimales, y el ejemplo del capítulo usa Buenos Aires–Córdoba–Mendoza; no es un error, pero la unidad no reproduce el ejemplo del texto. Propuesta: agregar el caso del capítulo o aclarar en el recuadro.
+
+14. **menor (notación, cap. 0)** — `15-esfera-trigonometria-esferica.tex:21-23` frente a `00-antes-de-empezar.tex:868`. El capítulo usa α para el acimut («desde el norte en sentido horario») y el capítulo 0 fija «Acimut Az». El capítulo 14 usa α para el ángulo medido desde el meridiano (Euler). Propuesta: indicar en las convenciones «α = Az» o usar Az.
+
+## Graves del capítulo 15
+
+Ninguno en el `.tex`. La unidad 14 no tiene graves propios; sus referencias desactualizadas (hallazgo 11) las dejo como menores porque no contienen personas, fechas ni archivos de origen, sólo títulos de secciones viejas.
