@@ -65,6 +65,10 @@ TERMINOS_CAMPO = [
     r"puntos? fijos?", r"mojon(?:es)?", r"estacion(?:es)?",
 ]
 RE_CAMPO = re.compile(r"(?<![a-z0-9])(?:" + "|".join(TERMINOS_CAMPO) + r")(?![a-z0-9])")
+# Excepciones del chequeo 9: nombres propios que contienen un término de campo y que el texto no puede
+# evitar. «Copernicus DEM GLO-30» es el nombre del producto de datos del recorte de C3 y el crédito de
+# la figura lo exige tal cual (decisión del editor, 2026-10-19); se quita del texto antes de contar.
+EXCEPCIONES_CAMPO = re.compile(r"copernicus dem glo-30")
 # Chequeo 10 (advertencia): instrumentos.
 INSTRUMENTOS = [r"estacion(?:es)? total(?:es)?", r"niveles? opticos?", r"gnss", r"limbos?", r"teodolitos?",
                 r"distanciometros?"]
@@ -257,7 +261,7 @@ def analizar(path):
         hall["7"].append((n, linea(n)))
     # advertencias 9, 10 y 11 (no entran en el total)
     norm = normalizar(texto)
-    campo = len(RE_CAMPO.findall(norm))
+    campo = len(RE_CAMPO.findall(EXCEPCIONES_CAMPO.sub(" ", norm)))
     instr = []
     for n, l in enumerate(norm.split("\n"), 1):
         for _ in RE_INSTR.finditer(l):
