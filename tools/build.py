@@ -189,6 +189,17 @@ def capitulos_apunte() -> dict[str, str]:
     return res
 
 
+NUMERACION_JSON = MAESTRO_APUNTE.parent / "numeracion.json"
+
+
+def numeracion_apunte() -> dict:
+    """{'cap:X': {'numero', 'rotulo', 'titulo'}} de apunte/numeracion.json (lo escribe apunte/scripts/numeracion.py)."""
+    if not NUMERACION_JSON.exists():
+        raise SystemExit(f"ERROR: falta {NUMERACION_JSON}; compilar el apunte y correr "
+                         "`uv run python apunte/scripts/numeracion.py`")
+    return json.loads(NUMERACION_JSON.read_text(encoding="utf-8"))
+
+
 # compatibilidad: el resto del build llama «prefijos» a las claves de capítulo
 prefijos_apunte_existentes = capitulos_apunte
 
@@ -513,6 +524,7 @@ def validar_fichas(datos: dict) -> list[str]:
     """Chequea el frontmatter de cada ficha de clases/ contra el esquema (README de clases/). Devuelve los errores."""
     errores: list[str] = []
     caps = capitulos_apunte()
+    numeracion = numeracion_apunte()
     unidades = {u["id"] for u in datos["unidades"]}
     animaciones = {p.stem for p in (RAIZ / "animaciones").glob("*.mp4")}
     for src in sorted(DIR_CLASES.glob("[0-9]*.md")):
@@ -528,6 +540,9 @@ def validar_fichas(datos: dict) -> list[str]:
         for k in fm.get("apunte") or []:
             if str(k) not in caps:
                 errores.append(f"{donde}: clave de apunte '{k}' sin \\label{{cap:{k}}}")
+            elif f"cap:{k}" not in numeracion:
+                errores.append(f"{donde}: clave de apunte '{k}' sin entrada en numeracion.json "
+                               "(correr apunte/scripts/numeracion.py)")
         for u in fm.get("unidades") or []:
             if u not in unidades:
                 errores.append(f"{donde}: unidad '{u}' no está en el mapa")
@@ -543,12 +558,13 @@ def _lista_html(items: list[str]) -> str:
 
 def secciones_vinculos(fm: dict, datos: dict, exportadas: set[str], hay_pdf: bool) -> dict[str, str]:
     """HTML de las secciones «En el apunte», «Unidades interactivas» y «Animaciones», con enlaces (desde `../`)."""
-    caps = capitulos_apunte()
+    numeracion = numeracion_apunte()
     unidades = {u["id"]: u for u in datos["unidades"]}
     res: dict[str, str] = {}
     items = []
     for k in fm.get("apunte") or []:
-        tit = html.escape(caps.get(str(k), str(k)))
+        e = numeracion[f"cap:{k}"]
+        tit = html.escape(f'{e["rotulo"]} {e["numero"]}. {e["titulo"]}')
         items.append(f'<a href="../apunte.pdf#nameddest=cap:{html.escape(str(k))}">{tit}</a>' if hay_pdf else tit)
     if items:
         res["En el apunte"] = _lista_html(items)
@@ -1595,6 +1611,27 @@ def generar_autoevaluacion(datos_mapa: dict, out: Path) -> None:
 # ----------------------------------------------------------------------------
 
 
+REDIRECCIONES = {"unidades/00_desaprender_el_cbc/index.html": "../00_fundamentos/"}
+
+
+def generar_redirecciones(out: Path) -> None:
+    """Páginas mínimas de redirección para enlaces viejos (unidad renombrada)."""
+    for ruta, destino in REDIRECCIONES.items():
+        d = html.escape(destino)
+        nombre = html.escape(destino.strip("/").split("/")[-1])
+        pagina = (
+            '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
+            f'<meta http-equiv="refresh" content="0; url={d}">\n'
+            f'<link rel="canonical" href="{d}">\n'
+            "<title>Redirección</title>\n</head>\n<body>\n"
+            f'<p><a href="{d}">Esta unidad se movió: unidades/{nombre}/</a></p>\n</body>\n</html>\n'
+        )
+        dest = out / ruta
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_text(pagina, encoding="utf-8")
+        print(f"  redirección: {ruta} -> {destino}")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Genera el sitio estático en site/ a partir de mapa/mapa.yaml.")
     ap.add_argument("--skip-wasm", action="store_true", help="no exporta las unidades marimo (deja lo que ya haya en site/unidades/)")
@@ -1639,6 +1676,8 @@ def main() -> int:
     if args.skip_wasm:
         print("  --skip-wasm: no se exporta nada")
     else:
+        if not args.only:
+            shutil.rmtree(out / "_build", ignore_errors=True)
         for u in exportables:
             try:
                 tiempos[u["id"]] = exportar_unidad(u, out)
@@ -1650,6 +1689,9 @@ def main() -> int:
         u["id"] for u in datos["unidades"] if (out / "unidades" / u["id"] / "index.html").exists()
     }
     print(f"  unidades disponibles en {out.name}/unidades: {sorted(exportadas) or 'ninguna'}")
+
+    print("== redirecciones")
+    generar_redirecciones(out)
 
     print("== fichas")
     fichas = generar_fichas(datos, out, exportadas, PDF_APUNTE.exists())
@@ -1694,6 +1736,15 @@ def main() -> int:
             print(f"  {k}: {v:.1f}s")
     for _p in out.rglob("CLAUDE.md"):   # por si quedó alguno de un export anterior
         _p.unlink()
+    print("== menciones prohibidas")
+    sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
+    import prohibidas
+    _proh = prohibidas.revisar_archivos(prohibidas.archivos_site(out), out)
+    for _r, _n, _l in _proh:
+        print(f"  {_r}:{_n}: {_l[:200]}")
+    if _proh:
+        print(f"  TOTAL: {len(_proh)} coincidencias fuera de las excepciones")
+        return 1
     print(f"== listo en {time.perf_counter() - t_total:.1f}s")
     return 0
 

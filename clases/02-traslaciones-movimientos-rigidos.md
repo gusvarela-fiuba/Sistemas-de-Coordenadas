@@ -22,15 +22,25 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 - Homotecia: la escala $kI$ conmuta con las rotaciones del mismo centro
 - Traslaciones y movimientos rígidos $x\mapsto R(\theta)x+v$
 
-**composicion.** Álgebra: hacer $F$ y después $G$ es $G\circ F$, y en matrices $G F$; la matriz de la derecha actúa primero. Se ve: dos movimientos encadenados son un movimiento. La composición es una operación *entre transformaciones*, como la suma lo es entre números: tiene neutro (la identidad), inversa (deshacer) y asociativa, pero no siempre conmuta. Escalera: en $\mathbb R$ componer $x\mapsto ax$ con $x\mapsto bx$ da $abx$ y el orden no importa; en $\mathbb R^2$ las rotaciones alrededor del mismo centro conmutan, $R(\alpha)R(\beta) = R(\alpha+\beta)$; en $\mathbb R^3$ las rotaciones alrededor de ejes distintos no; en $\mathbb R^n$ dos matrices cualesquiera en general no.
+### Composición de transformaciones
 
-**conmutatividad.** Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: la falta de conmutatividad depende de la magnitud de los ángulos. Por qué importa para coordenadas: decir "el punto $(u,v)$" es decir "moví $u$ con la primera transformación y $v$ con la segunda"; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es "dar vuelta dos vasos a la vez", el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en "accesibles o no" del resumen.
+Álgebra: hacer $F$ y después $G$ es $G\circ F$, y en matrices $G F$; la matriz de la derecha actúa primero. Se ve: dos movimientos encadenados son un movimiento. La composición es una operación *entre transformaciones*, como la suma lo es entre números: tiene neutro (la identidad), inversa (deshacer) y asociativa, pero no siempre conmuta. Escalera: en $\mathbb R$ componer $x\mapsto ax$ con $x\mapsto bx$ da $abx$ y el orden no importa; en $\mathbb R^2$ las rotaciones alrededor del mismo centro conmutan, $R(\alpha)R(\beta) = R(\alpha+\beta)$; en $\mathbb R^3$ las rotaciones alrededor de ejes distintos no; en $\mathbb R^n$ dos matrices cualesquiera en general no.
 
-**trayectoria.** Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (clase 1).
+### Conmutatividad
 
-**lineas-coordenadas.** Álgebra: dos familias de transformaciones que conmutan, $T_u$ y $S_v$, y el punto $p(u,v) = T_u S_v p_0$. Se ve: las trayectorias de $T$ y de $S$ son las dos familias de líneas de la grilla. Cartesianas: traslaciones en $x$ y en $y$ (conmutan, grilla de rectas). Polares: rotación y homotecia desde el origen (conmutan, circunferencias y rayos). Esfera: paralelos como trayectorias de $R_z(\lambda)$, meridianos como trayectorias de la rotación alrededor de un eje horizontal; el eje de la rotación que mueve el punto $p$ a lo largo de su meridiano es $e_z\times p$, y ahí aparece el producto cruz como herramienta para hallar los ejes de giro. Como ese eje depende del punto, las dos familias no conmutan globalmente; latitud y longitud funcionan igual porque se fija una convención de orden (primero bajar del polo, después girar).
+Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: la falta de conmutatividad depende de la magnitud de los ángulos. Por qué importa para coordenadas: decir "el punto $(u,v)$" es decir "moví $u$ con la primera transformación y $v$ con la segunda"; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es "dar vuelta dos vasos a la vez", el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en "accesibles o no" del resumen.
 
-**homotecia.** Álgebra: $x' = o + k(x-o)$; con centro en el origen, la matriz $kI$. Se ve: todo se agranda o achica desde el centro, cada punto sobre el rayo que lo une al centro; conserva ángulos y paralelas, multiplica distancias por $|k|$. Conmuta con cualquier rotación del mismo centro ($kI\,R = R\,kI$), y por eso rotación y escala juntas dan coordenadas polares. En complejos es el $\rho$ de $\rho e^{i\theta}$, y la conmutatividad es la del producto de complejos. Es "la segunda transformación que me lleva de una trayectoria posible a otra": salta de una circunferencia a otra.
+### Trayectoria de una transformación
+
+Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (clase 1).
+
+### Líneas coordenadas
+
+Álgebra: dos familias de transformaciones que conmutan, $T_u$ y $S_v$, y el punto $p(u,v) = T_u S_v p_0$. Se ve: las trayectorias de $T$ y de $S$ son las dos familias de líneas de la grilla. Cartesianas: traslaciones en $x$ y en $y$ (conmutan, grilla de rectas). Polares: rotación y homotecia desde el origen (conmutan, circunferencias y rayos). Esfera: paralelos como trayectorias de $R_z(\lambda)$, meridianos como trayectorias de la rotación alrededor de un eje horizontal; el eje de la rotación que mueve el punto $p$ a lo largo de su meridiano es $e_z\times p$, y ahí aparece el producto cruz como herramienta para hallar los ejes de giro. Como ese eje depende del punto, las dos familias no conmutan globalmente; latitud y longitud funcionan igual porque se fija una convención de orden (primero bajar del polo, después girar).
+
+### Homotecia
+
+Álgebra: $x' = o + k(x-o)$; con centro en el origen, la matriz $kI$. Se ve: todo se agranda o achica desde el centro, cada punto sobre el rayo que lo une al centro; conserva ángulos y paralelas, multiplica distancias por $|k|$. Conmuta con cualquier rotación del mismo centro ($kI\,R = R\,kI$), y por eso rotación y escala juntas dan coordenadas polares. En complejos es el $\rho$ de $\rho e^{i\theta}$, y la conmutatividad es la del producto de complejos. Es "la segunda transformación que me lleva de una trayectoria posible a otra": salta de una circunferencia a otra.
 
 ## Conceptos previos
 
@@ -39,10 +49,10 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 
 ## En el apunte
 
-- Traslaciones y movimientos rígidos (`cap:traslaciones`)
-- Rotaciones infinitesimales y orden de composición (`cap:15`)
-- Composición afín práctica: rotación y escala (`cap:16`)
-- Coordenadas sobre la esfera y trigonometría esférica (`cap:esfera`)
+- Capítulo 2. Traslaciones y movimientos rígidos
+- Apéndice A.2. Rotaciones infinitesimales y orden de composición
+- Apéndice A.3. Composición afín práctica: rotación y escala
+- Capítulo 15. Coordenadas sobre la esfera y trigonometría esférica
 
 ## Unidades interactivas
 

@@ -49,7 +49,7 @@ Restringida de co-imagen a imagen, la transformación sí se invierte: ahí no s
 
 ## En el apunte
 
-- Inversas y pseudoinversa: los cuatro subespacios (`cap:inversas`)
+- Capítulo 11. Inversas y pseudoinversa: los cuatro subespacios
 
 ## Unidades interactivas
 

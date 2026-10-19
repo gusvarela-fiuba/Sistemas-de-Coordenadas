@@ -9,11 +9,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import enlaces
+from prohibidas import PATRON, permitida
 
 ROOT = Path(__file__).resolve().parents[2]
 APUNTE = ROOT / "apunte"
 MAESTRO = APUNTE / "Apunte_Sistemas_de_Coordenadas.tex"
-PROHIB = re.compile(r"profesor|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|donaci|licencia", re.I)
 MOLDE = ["La idea", "Construcciones, cuentas y ejemplos", "En profundidad"]
 
 
@@ -73,7 +73,7 @@ def analizar(path):
         aplic="sí" if any("aplicacion" in norm(s) for s in secs) else "no",
         recuadros=c(r"\\unidadInteractiva\{"),
         rotos=len(enlaces.analizar(path)["rotos"]),
-        prohib=sum(1 for l in raw.split("\n") if PROHIB.search(l)),
+        prohib=sum(1 for l in raw.split("\n") if PATRON.search(l) and not permitida(str(path.relative_to(ROOT)), l)),
     )
     n = sum(1 for m in MOLDE if m in secs_n)
     d["molde"] = "sí" if n == 3 else ("parcial" if n else "no")
@@ -120,11 +120,16 @@ def main():
     rotos = [b for r in enl for b in r['rotos']]
     head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     pags = "n/d"
-    pdfs = sorted(glob.glob("/tmp/build_A/*.pdf")) or glob.glob(str(ROOT / "site" / "apunte.pdf"))
+    pdfs = [p for p in (APUNTE / "Apunte_Sistemas_de_Coordenadas.pdf", ROOT / "site" / "apunte.pdf") if p.exists()]
     if pdfs:
         try:
-            o = subprocess.run(["pdfinfo", pdfs[0]], capture_output=True, text=True).stdout
-            pags = re.search(r"Pages:\s+(\d+)", o).group(1) + f" ({pdfs[0]})"
+            o = subprocess.run(["pdfinfo", str(pdfs[0])], capture_output=True, text=True).stdout
+            p0 = pdfs[0].resolve()
+            try:
+                nombre = str(p0.relative_to(ROOT))
+            except ValueError:
+                nombre = p0.name
+            pags = re.search(r"Pages:\s+(\d+)", o).group(1) + f" ({nombre})"
         except Exception:
             pass
     md = ["# Estado del apunte", "", "Generado por `apunte/scripts/estado.py`. No editar a mano.", "",

@@ -46,8 +46,8 @@ Toda matriz lleva una base ortonormal de la entrada en una base ortogonal de la 
 
 ## En el apunte
 
-- La SVD: leer la forma de las curvas de nivel (`cap:svd`)
-- El terreno como matriz (`cap:dem`)
+- Capítulo 8. La SVD: leer la forma de las curvas de nivel
+- Complemento C3. El terreno como matriz
 
 ## Unidades interactivas
 

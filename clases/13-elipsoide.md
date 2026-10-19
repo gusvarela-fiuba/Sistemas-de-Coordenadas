@@ -37,7 +37,7 @@ Radios de curvatura, lo que se ve: $M$ (meridiano) es el radio del círculo oscu
 
 ## En el apunte
 
-- Geometría del elipsoide (`cap:elipsoide`)
+- Capítulo 14. Geometría del elipsoide
 
 ## Unidades interactivas
 

@@ -22,25 +22,33 @@ Unir, cortar y detectar colinealidad son una misma operación: el producto cuña
 - Colinealidad: $\det[p\,q\,r]=0$
 - Núcleo visto desde las filas
 
-**subespacio-afin.** Álgebra: $p+S$ con $S$ subespacio lineal: $\{p+\mu v\}$, $\{p+\mu v+\nu w\}$.
+### Subespacio afín
+
+Álgebra: $p+S$ con $S$ subespacio lineal: $\{p+\mu v\}$, $\{p+\mu v+\nu w\}$.
 Se ve: una recta o un plano cualquiera, no necesariamente por el origen; es "la noción intuitiva de
 subespacio". Tres escrituras de la misma recta: paramétrica ($p+\mu v$), implícita (una forma lineal
 igualada a $c$: $n\cdot x=c$), y en homogéneas (una terna $\ell$ con $\ell\cdot(x,y,1)=0$).
 Escalera: en $\mathbb{R}$ un subespacio afín es un punto; en $\mathbb{R}^2$ puntos y rectas; en
 $\mathbb{R}^3$ además planos.
 
-**subespacio-lineal.** Álgebra: cerrado por suma y escala, contiene al cero. Se ve: rectas y planos
+### Subespacio lineal
+
+Álgebra: cerrado por suma y escala, contiene al cero. Se ve: rectas y planos
 *por el origen*; en homogéneas, un subespacio lineal de $\mathbb{R}^3$ (un rayo) es un punto del
 plano y un plano por el origen es una recta. Conviene pensar todo en términos de espacios y subespacios. Los planos elementales $e_1\wedge e_2$, $e_1\wedge e_3$,
 $e_2\wedge e_3$ son los subespacios coordenados de dimensión 2.
 
-**producto-vectorial.** Álgebra: $p\times q$ ortogonal a ambos, lineal en cada argumento,
+### Producto vectorial (producto cruz)
+
+Álgebra: $p\times q$ ortogonal a ambos, lineal en cada argumento,
 $p\times p=0$; coordenadas $(p_2q_3-p_3q_2,\ p_3q_1-p_1q_3,\ p_1q_2-p_2q_1)$. Se ve: la recta que
 une dos puntos ($\ell=p\times q$) y, por la simetría de la incidencia, el punto donde se cortan dos
 rectas ($\ell\times m$; dos paralelas dan un punto ideal, su dirección común). Su norma es el área
 del paralelogramo. Sólo existe en $\mathbb{R}^3$.
 
-**producto-cuna.** Álgebra: $u\wedge v$, definido sólo por linealidad y antisimetría; el resultado
+### Producto cuña (exterior)
+
+Álgebra: $u\wedge v$, definido sólo por linealidad y antisimetría; el resultado
 es un bivector (área orientada), $(u\wedge v)\wedge w=\det[u\,v\,w]\,e_1\wedge e_2\wedge e_3$. Se
 ve: el paralelogramo orientado de lados $u,v$; con $w$, el paralelepípedo. Escalera: en $\mathbb{R}$
 es $|a|$ con signo; en $\mathbb{R}^2$ el área $ad-bc$; en $\mathbb{R}^3$ el volumen; en
@@ -48,18 +56,24 @@ $\mathbb{R}^n$ hipervolumen, y la misma mecánica da "el vector ortogonal a un s
 necesita para autovectores grandes. El producto cuña es un detector de colinealidad: vale cero
 exactamente cuando los vectores se aplastan a algo de menor dimensión.
 
-**determinante.** Álgebra: la única operación de $n$ vectores lineal en cada uno y nula cuando dos
+### Determinante
+
+Álgebra: la única operación de $n$ vectores lineal en cada uno y nula cuando dos
 coinciden; $\det[p\,q\,r]=(p\times q)\cdot r$; cambia de signo al intercambiar filas; desarrollo por
 menores con signos $+,-,+$. Se ve: volumen orientado de la figura que forman los vectores; cuánto
 agranda la transformación un cubo unidad y si invierte la orientación. Escalera: $|a|$, área,
 volumen. Cero ⇔ dependientes ⇔ (en homogéneas) tres puntos alineados.
 
-**colinealidad.** Álgebra: $\det[p\,q\,r]=0$ para ternas homogéneas; $(p\times q)\cdot r=0$. Se ve:
+### Colinealidad (tres puntos alineados)
+
+Álgebra: $\det[p\,q\,r]=0$ para ternas homogéneas; $(p\times q)\cdot r=0$. Se ve:
 $r$ está en la recta que une $p$ y $q$ (y, simétricamente, cada uno en la recta de los otros dos).
 Es la condición "sin tres alineados" para que cuatro puntos fijen una homografía (03p) y lo que
 detecta el producto cuña en cualquier dimensión.
 
-**nucleo.** Álgebra: $\{v: Av=0\}$; no trivial ⇔ $\det A=0$. Se ve: las direcciones que la
+### Núcleo (espacio nulo)
+
+Álgebra: $\{v: Av=0\}$; no trivial ⇔ $\det A=0$. Se ve: las direcciones que la
 transformación aplasta a un punto; visto desde las filas, el vector donde todas las reglas (formas
 lineales) marcan cero: ortogonal a todas las filas, que entonces caben en un plano. Escalera: en
 $\mathbb{R}$, $ax=0$ tiene núcleo sólo si $a=0$; en $\mathbb{R}^2$ dos reglas con marcas cero
@@ -73,7 +87,7 @@ paralelas; en $\mathbb{R}^3$ tres filas coplanares. Construir una transformació
 
 ## En el apunte
 
-- Subespacios, producto cuña y determinante (`cap:subespacios`)
+- Capítulo 6. Subespacios, producto cuña y determinante
 
 ## Unidades interactivas
 

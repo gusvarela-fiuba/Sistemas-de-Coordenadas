@@ -39,7 +39,7 @@ Escalera: $\mathbb R$ (segunda derivada), $\mathbb R^2$ (curvatura de una curva,
 
 ## En el apunte
 
-- Curvatura (`cap:curvatura`)
+- Capítulo 13. Curvatura
 
 ## Unidades interactivas
 

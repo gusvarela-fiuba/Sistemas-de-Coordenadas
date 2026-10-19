@@ -1,0 +1,167 @@
+{
+  "cap:antes-de-empezar": {
+    "numero": "0",
+    "rotulo": "Capítulo",
+    "titulo": "Antes de empezar"
+  },
+  "cap:00": {
+    "numero": "0.1",
+    "rotulo": "Sección",
+    "titulo": "Cómo usar este apunte"
+  },
+  "cap:01": {
+    "numero": "0.2",
+    "rotulo": "Sección",
+    "titulo": "Programa"
+  },
+  "cap:02": {
+    "numero": "0.3",
+    "rotulo": "Sección",
+    "titulo": "El hilo conductor"
+  },
+  "cap:03": {
+    "numero": "0.4",
+    "rotulo": "Sección",
+    "titulo": "Repaso de álgebra lineal desde la geometría"
+  },
+  "cap:rotaciones": {
+    "numero": "1",
+    "rotulo": "Capítulo",
+    "titulo": "Rotaciones: girar es multiplicar"
+  },
+  "cap:traslaciones": {
+    "numero": "2",
+    "rotulo": "Capítulo",
+    "titulo": "Traslaciones y movimientos rígidos"
+  },
+  "cap:reflexiones": {
+    "numero": "3",
+    "rotulo": "Capítulo",
+    "titulo": "Reflexiones, isometrías y similaridades"
+  },
+  "cap:afines": {
+    "numero": "4",
+    "rotulo": "Capítulo",
+    "titulo": "Afinidades y coordenadas homogéneas"
+  },
+  "cap:17": {
+    "numero": "4.4",
+    "rotulo": "Sección",
+    "titulo": "Resolución de los ejercicios de afinidades"
+  },
+  "cap:proyectivas": {
+    "numero": "C1",
+    "rotulo": "Complemento",
+    "titulo": "Transformaciones proyectivas"
+  },
+  "cap:18": {
+    "numero": "C1.3.2",
+    "rotulo": "Sección",
+    "titulo": "El pentágono"
+  },
+  "cap:formas-lineales": {
+    "numero": "5",
+    "rotulo": "Capítulo",
+    "titulo": "Formas lineales: el gradiente no es un vector"
+  },
+  "cap:subespacios": {
+    "numero": "6",
+    "rotulo": "Capítulo",
+    "titulo": "Subespacios, producto cuña y determinante"
+  },
+  "cap:autovectores": {
+    "numero": "7",
+    "rotulo": "Capítulo",
+    "titulo": "Subespacios invariantes: autovalores y autovectores"
+  },
+  "cap:svd": {
+    "numero": "8",
+    "rotulo": "Capítulo",
+    "titulo": "La SVD: leer la forma de las curvas de nivel"
+  },
+  "cap:dem": {
+    "numero": "C3",
+    "rotulo": "Complemento",
+    "titulo": "El terreno como matriz"
+  },
+  "cap:cambio-base": {
+    "numero": "9",
+    "rotulo": "Capítulo",
+    "titulo": "Cambio de base: las coordenadas son etiquetas"
+  },
+  "cap:derivada": {
+    "numero": "10",
+    "rotulo": "Capítulo",
+    "titulo": "La derivada como aproximación lineal: jacobiano, gradiente y hessiana"
+  },
+  "cap:inversas": {
+    "numero": "11",
+    "rotulo": "Capítulo",
+    "titulo": "Inversas y pseudoinversa: los cuatro subespacios"
+  },
+  "cap:cuatro-problemas": {
+    "numero": "12",
+    "rotulo": "Capítulo",
+    "titulo": "Cuatro problemas de ajuste"
+  },
+  "cap:curvatura": {
+    "numero": "13",
+    "rotulo": "Capítulo",
+    "titulo": "Curvatura"
+  },
+  "cap:elipsoide": {
+    "numero": "14",
+    "rotulo": "Capítulo",
+    "titulo": "Geometría del elipsoide"
+  },
+  "cap:esfera": {
+    "numero": "15",
+    "rotulo": "Capítulo",
+    "titulo": "Coordenadas sobre la esfera y trigonometría esférica"
+  },
+  "cap:conformes": {
+    "numero": "C2",
+    "rotulo": "Complemento",
+    "titulo": "Transformaciones conformes"
+  },
+  "cap:marcos": {
+    "numero": "C4",
+    "rotulo": "Complemento",
+    "titulo": "Marcos de referencia, grillas y remuestreo"
+  },
+  "cap:apendices": {
+    "numero": "A",
+    "rotulo": "Apéndice",
+    "titulo": "Apéndices"
+  },
+  "cap:14": {
+    "numero": "A.1",
+    "rotulo": "Apéndice",
+    "titulo": "Construcción geométrica de las matrices de rotación 3D"
+  },
+  "cap:15": {
+    "numero": "A.2",
+    "rotulo": "Apéndice",
+    "titulo": "Rotaciones infinitesimales y orden de composición"
+  },
+  "cap:16": {
+    "numero": "A.3",
+    "rotulo": "Apéndice",
+    "titulo": "Composición afín práctica: rotación y escala"
+  },
+  "cap:20": {
+    "numero": "A.4",
+    "rotulo": "Apéndice",
+    "titulo": "Bibliografía comentada"
+  },
+  "cap:21": {
+    "numero": "A.5",
+    "rotulo": "Apéndice",
+    "titulo": "Material de práctica y notebooks"
+  },
+  "cap:22": {
+    "numero": "A.5.2",
+    "rotulo": "Sección",
+    "titulo": "Material de partida"
+  }
+}

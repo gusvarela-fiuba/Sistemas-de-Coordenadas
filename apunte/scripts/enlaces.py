@@ -7,6 +7,9 @@ Exit code 1 si hay enlaces rotos. Solo biblioteca estándar.
 import re, sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import prohibidas
+
 ROOT = Path(__file__).resolve().parents[2]
 APUNTE = ROOT / "apunte"
 MAESTRO = APUNTE / "Apunte_Sistemas_de_Coordenadas.tex"
@@ -34,7 +37,10 @@ def analizar(path):
     ani = [(k, n.replace("\\_", "_")) for k, n in ANI.findall(txt)]
     rotos = [f"unidades/{i}.py" for _, i in uni if not (ROOT / "unidades" / f"{i}.py").exists()]
     rotos += [f"animaciones/{n}.mp4" for _, n in ani if not (ROOT / "animaciones" / f"{n}.mp4").exists()]
-    return dict(archivo=str(path.relative_to(APUNTE)), unidades=len(uni), animaciones=len(ani),
+    rel = str(path.resolve().relative_to(ROOT))
+    proh = [(n, l.strip()) for n, l in prohibidas.coincidencias_en_texto(path.read_text(encoding="utf-8", errors="ignore"))
+            if not prohibidas.permitida(rel, l)]
+    return dict(prohibidas=proh, archivo=str(path.relative_to(APUNTE)), unidades=len(uni), animaciones=len(ani),
                 recuadros=sum(k == "unidadInteractiva" for k, _ in uni), rotos=rotos)
 
 
@@ -45,15 +51,18 @@ def analizar_todo():
 def main():
     rows = analizar_todo()
     for r in rows:
-        if r["unidades"] or r["animaciones"] or r["recuadros"] or r["rotos"]:
+        if r["unidades"] or r["animaciones"] or r["recuadros"] or r["rotos"] or r["prohibidas"]:
             print(f"{r['archivo']}: unidades={r['unidades']} animaciones={r['animaciones']} "
                   f"recuadros={r['recuadros']} rotos={len(r['rotos'])}")
             for b in r["rotos"]:
                 print(f"  ROTO: {b}")
+            for n, l in r["prohibidas"]:
+                print(f"  PROHIBIDA: apunte/{r['archivo']}:{n}: {l[:200]}")
     rotos = [b for r in rows for b in r["rotos"]]
+    proh = [x for r in rows for x in r["prohibidas"]]
     print(f"TOTAL: unidades={sum(r['unidades'] for r in rows)} animaciones={sum(r['animaciones'] for r in rows)} "
-          f"recuadros={sum(r['recuadros'] for r in rows)} rotos={len(rotos)}")
-    return 1 if rotos else 0
+          f"recuadros={sum(r['recuadros'] for r in rows)} rotos={len(rotos)} prohibidas={len(proh)}")
+    return 1 if (rotos or proh) else 0
 
 
 if __name__ == "__main__":

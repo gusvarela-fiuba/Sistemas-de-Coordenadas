@@ -38,8 +38,8 @@ Exceso esférico: en el plano los ángulos suman $\pi$; en la esfera suman más,
 
 ## En el apunte
 
-- Formas lineales: el gradiente no es un vector (`cap:formas-lineales`)
-- Coordenadas sobre la esfera y trigonometría esférica (`cap:esfera`)
+- Capítulo 5. Formas lineales: el gradiente no es un vector
+- Capítulo 15. Coordenadas sobre la esfera y trigonometría esférica
 
 ## Unidades interactivas
 

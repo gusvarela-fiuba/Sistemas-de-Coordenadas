@@ -1,13 +1,8 @@
 ---
-title: 🌐 Sistemas de Coordenadas
-origen: Notion, página propia de Gustavo
-fecha: 2026-08-22
-notion_id: 3c48449931b381a68ceafa99c0052939
-parent: 📐 Geometría Diferencial
-materia: CB104
+title: Sistemas de coordenadas sobre superficies
 ---
 
-# 🌐 Sistemas de Coordenadas
+# Sistemas de Coordenadas
 
 **Idea central.** Una superficie en 3D se describe con dos parámetros $u$ y $v$; cada par $(u, v)$ da un punto de la superficie. En la Tierra: $u$ = latitud, $v$ = longitud.
 

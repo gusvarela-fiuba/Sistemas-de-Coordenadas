@@ -37,7 +37,7 @@ Cambiar de base es medir la misma flecha con otra grilla: se convierten todos lo
 
 ## En el apunte
 
-- Cambio de base: las coordenadas son etiquetas (`cap:cambio-base`)
+- Capítulo 9. Cambio de base: las coordenadas son etiquetas
 
 ## Unidades interactivas
 

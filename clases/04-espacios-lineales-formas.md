@@ -21,20 +21,26 @@ Una forma lineal es una regla graduada: sus marcas son rectas paralelas, y al de
 - Dualidad: los vectores van con $A$ y las formas con $A^{-1}$
 - El gradiente como forma lineal
 
-**espacio-vectorial.** Álgebra: un conjunto con suma y producto por escalar que respetan linealidad.
+### Espacio vectorial
+
+Álgebra: un conjunto con suma y producto por escalar que respetan linealidad.
 Se ve: flechas que se encadenan (paralelogramo) y se estiran; el cero queda quieto. Escalera:
 $\mathbb{R}$ es un espacio vectorial donde todo es "multiplicar por un número"; $\mathbb{R}^2$
 agrega direcciones; $\mathbb{R}^n$ no agrega nada nuevo salvo que ya no se dibuja. Vocabulario de la
 materia: los vectores son puntos, y en homogéneas los puntos del plano son vectores de
 $\mathbb{R}^3$.
 
-**transformacion-lineal.** Álgebra: $T(v+u)=T(v)+T(u)$, $T(\lambda v)=\lambda T(v)$; el cero va al
+### Transformación lineal y su matriz
+
+Álgebra: $T(v+u)=T(v)+T(u)$, $T(\lambda v)=\lambda T(v)$; el cero va al
 cero. Se ve: la grilla cuadrada se vuelve una grilla de paralelogramos, pero sigue siendo grilla
 (rectas paralelas equiespaciadas). Cada coordenada de salida es una regla que mide la entrada: por
 eso la matriz es una pila de ecuaciones de rectas. La matriz es una pila de formas
 (filas) o una hilera de vectores (columnas: adónde van $e_1,e_2$).
 
-**forma-lineal.** Álgebra: $\varphi:\mathbb{R}^n\to\mathbb{R}$ lineal; en coordenadas, una fila
+### Forma lineal
+
+Álgebra: $\varphi:\mathbb{R}^n\to\mathbb{R}$ lineal; en coordenadas, una fila
 $(a,b)$ y $\varphi(x,y)=ax+by$. Se ve: una regla graduada tirada en el plano: sus marcas son rectas
 paralelas equiespaciadas, perpendiculares al vector $(a,b)$, con separación $1/\|(a,b)\|$. En
 $\mathbb{R}$: multiplicar por $a$, marcas a distancia $1/a$. En $\mathbb{R}^3$: planos paralelos.
@@ -42,7 +48,9 @@ Las selectoras $\mathsf{x},\mathsf{y}$ son las reglas de los ejes; cualquier for
 ellas. Incidencia proyectiva: la recta $\ell=(a,b,c)$ *es* una forma, y $\ell\cdot p=0$ dice que $p$
 está en su marca cero.
 
-**dualidad.** Álgebra: las formas forman un espacio vectorial del mismo tamaño (el dual); fila por
+### Dualidad vectores–formas
+
+Álgebra: las formas forman un espacio vectorial del mismo tamaño (el dual); fila por
 columna es un número; al transformar el plano con $A$ los vectores van con $A$ (columna, a la
 izquierda) y las formas con $A^{-1}$ (fila, a la derecha) para que $\varphi(v)$ no cambie; o bien
 "qué regla mide lo mismo sobre el $v$ original": $(\varphi A)(v)=\varphi(Av)$. Se ve: si deformo la
@@ -51,7 +59,9 @@ Sin producto interno, una forma y un vector son objetos distintos; el producto i
 permite disfrazar la forma $(2,3)$ de vector $(2,3)$ (no hay base privilegiada salvo por el
 producto interno). En proyectivas, intercambiar puntos y rectas es la dualidad.
 
-**curvas-de-nivel.** Álgebra: $\{v:\varphi(v)=c\}$ para $c=0,\pm1,\pm2,\ldots$ Se ve: la familia de
+### Curvas de nivel de una forma lineal
+
+Álgebra: $\{v:\varphi(v)=c\}$ para $c=0,\pm1,\pm2,\ldots$ Se ve: la familia de
 rectas paralelas de la regla; dos formas dan una grilla y un vector queda ubicado por qué par de
 marcas lo cruza (por ejemplo, la séptima con la quinta). Si la transformación estira el autovector, su grilla
 se comprime (forma con $A^{-1}$); una matriz diagonal estira grillas independientemente y no las
@@ -66,7 +76,7 @@ tangente a la curva de nivel (ir a lo chico para volver a lo grande).
 
 ## En el apunte
 
-- Formas lineales: el gradiente no es un vector (`cap:formas-lineales`)
+- Capítulo 5. Formas lineales: el gradiente no es un vector
 
 ## Unidades interactivas
 

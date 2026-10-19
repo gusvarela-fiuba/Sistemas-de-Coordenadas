@@ -22,19 +22,25 @@ Una homografía es lo que hace una cámara inclinada con un terreno plano: conse
 - Puntos y rectas fijos, clasificación por autovalores, homologías
 - Razón doble: lo único métrico que se conserva
 
-**plano-proyectivo.** Lo que dice el álgebra: un punto del plano es una terna $(x,y,w)$ a menos de
+### Plano proyectivo
+
+Lo que dice el álgebra: un punto del plano es una terna $(x,y,w)$ a menos de
 escala, $(x,y,1)\sim(\lambda x,\lambda y,\lambda)$. Lo que se ve: el plano de dibujo es el plano
 $w=1$ dentro de $\mathbb{R}^3$, y cada punto es el *rayo* que sale del origen y lo atraviesa. La
 foto de una cámara: todos los puntos de un mismo rayo caen en el mismo lugar de la imagen. Escalera:
 en $\mathbb{R}$, la recta proyectiva es la recta más un punto; en $\mathbb{R}^2$, el plano más una
 recta de puntos ideales.
 
-**punto-impropio.** Álgebra: terna con $w=0$, $(a,b,0)$. Se ve: la dirección $(a,b)$, el "punto de
+### Punto impropio (punto en el infinito)
+
+Álgebra: terna con $w=0$, $(a,b,0)$. Se ve: la dirección $(a,b)$, el "punto de
 fuga" común a todas las paralelas de esa dirección. Una recta afín $p+\mu v$ es $(p,1)+\mu(v,0)$;
 cuando $\mu\to\infty$ domina $(v,0)$. Las paralelas se cortan ahí, como los alambrados en la foto
 del dron.
 
-**homografia.** Álgebra: $p'\sim Hp$ con $H$ de $3\times3$ invertible; se normaliza dividiendo por
+### Homografía (transformación proyectiva)
+
+Álgebra: $p'\sim Hp$ con $H$ de $3\times3$ invertible; se normaliza dividiendo por
 la tercera coordenada $W=h_{31}x+h_{32}y+h_{33}$. Se ve: lo que hace una cámara inclinada con un
 lote plano: las rectas siguen rectas, nada más se conserva (ni paralelas, ni razones, ni puntos
 medios). Nueve números menos la escala: 8 grados de libertad, 2 por cada par punto-imagen, **cuatro
@@ -43,7 +49,9 @@ nadie se va al infinito. En una proyectiva general la recta $h_3\cdot p=0$ "se v
 atraviesa la figura, la imagen se parte (un segmento que la cruza se vuelve dos semirrectas unidas
 por el infinito).
 
-**recta-fija.** Álgebra: $p$ fijo si $Hp=\lambda p$, autovector real de $H$; una recta $\ell$ es
+### Puntos y rectas fijas de una homografía
+
+Álgebra: $p$ fijo si $Hp=\lambda p$, autovector real de $H$; una recta $\ell$ es
 fija si $H^{-T}\ell\sim\ell$, autovector de $H^{T}$ (cruz de dos *columnas* de $H-\lambda I$). Se
 ve: el polinomio característico es de grado 3, así que siempre hay una raíz real: **toda proyectiva
 del plano deja algo fijo**, un punto propio o una dirección. Clasificación por autovalores: tres reales distintos → triángulo invariante; uno real y dos complejos → "rotación
@@ -52,7 +60,9 @@ fijos (el eje) más un centro: *homología*; si además los autovalores son opue
 *armónica*, un espejo proyectivo. Es la misma cadena de la clase 6: incidencia → determinante →
 núcleo → autovector → punto fijo.
 
-**razon-doble.** Álgebra: para cuatro puntos alineados con coordenada $t$,
+### Razón doble
+
+Álgebra: para cuatro puntos alineados con coordenada $t$,
 $(A,B;C,D)=\frac{(C-A)(D-B)}{(C-B)(D-A)}$; es lo único métrico que una homografía conserva (la razón
 simple ya no). Se ve: en una homología armónica, sobre cada recta por el centro $O$ que corta al eje
 en $X$, los puntos intercambiados $A,B$ cumplen $(A,B;O,X)=-1$: $O$ es el *conjugado armónico* de
@@ -69,8 +79,8 @@ $\varphi$ del pentágono regular.
 
 ## En el apunte
 
-- Transformaciones proyectivas (`cap:proyectivas`)
-- El pentágono (`cap:18`)
+- Complemento C1. Transformaciones proyectivas
+- Sección C1.3.2. El pentágono
 
 ## Unidades interactivas
 

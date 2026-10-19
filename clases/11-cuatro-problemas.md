@@ -39,7 +39,7 @@ Escalera: en $\mathbb R$, ajustar $n$ medidas $y_i\approx c$ es tomar el promedi
 
 ## En el apunte
 
-- Cuatro problemas de ajuste (`cap:cuatro-problemas`)
+- Capítulo 12. Cuatro problemas de ajuste
 
 ## Unidades interactivas
 

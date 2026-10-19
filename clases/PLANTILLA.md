@@ -21,7 +21,7 @@ Los ítems de `que_se_estudia`, y para cada concepto un par «lo que dice el ál
 Qué hay que tener a mano de las fichas anteriores.
 
 ## En el apunte
-Capítulos y apéndices donde está desarrollado.
+Una línea por clave del frontmatter, con rótulo, número y título como en el PDF (p. ej. `- Capítulo 1. Rotaciones: girar es multiplicar`); sin la clave. Los números salen de `apunte/numeracion.json`.
 
 ## Unidades interactivas
 Lecciones de `unidades/` que acompañan la clase.

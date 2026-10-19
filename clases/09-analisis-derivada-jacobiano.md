@@ -45,7 +45,7 @@ La derivada es la mejor aproximación lineal local: el gradiente es una forma li
 
 ## En el apunte
 
-- La derivada como aproximación lineal: jacobiano, gradiente y hessiana (`cap:derivada`)
+- Capítulo 10. La derivada como aproximación lineal: jacobiano, gradiente y hessiana
 
 ## Unidades interactivas
 
