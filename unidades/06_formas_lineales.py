@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Formas lineales y dualidad (unidad 06, molde v2 sobre cb104). Clase 4 (parte dictada el 2026-09-30).
-
+"""Formas lineales y dualidad (unidad 06, molde v2 sobre cb104).
 Una sola idea: una forma lineal es una regla graduada tirada en el plano (ℓ(p) = a x + b y, curvas de nivel = rectas
 paralelas, se escribe como fila). Si los puntos van con A, la regla va al revés (ℓ' = ℓ A⁻¹) para que la lectura no
 cambie: eso es la dualidad, y por eso una recta (una forma igualada a cero) cambia al revés que un punto.
@@ -42,9 +41,9 @@ def _(mo):
     mo.md(r"""
     # Formas lineales y dualidad
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 4 (la parte dictada el 30/9). La pregunta: **¿Qué es una regla graduada tirada en el plano, y por qué
+    La pregunta: **¿Qué es una regla graduada tirada en el plano, y por qué
     una recta se transforma al revés que un punto?** El gancho: *las curvas de nivel de un plano acotado son las marcas
     de una regla: cerca de cada punto, la cota es una forma lineal.*
 
@@ -131,12 +130,12 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **¿Qué se conserva?** La lectura. Si los puntos van con $A$ y la regla con $A^{-1}$, cada punto sigue marcando el
-    mismo número en cada regla; en homogéneas, sigue estando en las mismas rectas. "Convertimos todo para que nada
-    cambie" (el profesor, 30/9).
+    mismo número en cada regla; en homogéneas, sigue estando en las mismas rectas. Convertimos todo para que nada
+    cambie.
 
     **Una forma lineal es una regla graduada.** Toma un vector y devuelve un número respetando sumas y escalas. En
-    coordenadas es una **fila**: $\ell = (a, b)$ y $\ell(p) = ax + by$, fila por columna. "No existe el vector fila.
-    Lo que comúnmente llamamos vector fila se llama *forma lineal*" (profesor, 30/9, transcripción auto-traducida).
+    coordenadas es una **fila**: $\ell = (a, b)$ y $\ell(p) = ax + by$, fila por columna. No existe el vector fila:
+    lo que comúnmente llamamos vector fila es una *forma lineal*.
 
     | | álgebra | lo que se ve |
     |---|---|---|
@@ -144,9 +143,9 @@ def _(mo):
     | $\mathbb R^2$ | $\ell(x, y) = ax + by$, la fila $(a, b)$ | rectas paralelas equiespaciadas, separación $1/\lvert(a, b)\rvert$ |
     | $\mathbb R^3$ | $\ell(x, y, z) = ax + by + cz$ | planos paralelos equiespaciados |
 
-    La separación, en palabras del profesor: "cuanto más largo el vector, más apretadas las curvas. Si el módulo es
-    $1$ la separación es $1$; si mide $2$, $\tfrac12$; si mide $4$, $\tfrac14$". Y "si tengo dos formas lineales tengo
-    una grilla": un vector queda ubicado por qué par de marcas lo cruza. $\mathsf x = (1, 0)$ y $\mathsf y = (0, 1)$
+    La separación: cuanto más largo el vector, más apretadas las curvas. Si el módulo es
+    $1$ la separación es $1$; si mide $2$, $\tfrac12$; si mide $4$, $\tfrac14$. Y con dos formas lineales tenemos
+    una grilla: un vector queda ubicado por qué par de marcas lo cruza. $\mathsf x = (1, 0)$ y $\mathsf y = (0, 1)$
     son la **base dual**, las reglas que leen cada coordenada; cualquier forma es $a\,\mathsf x + b\,\mathsf y$, y
     todas juntas forman el espacio **dual**.
 
@@ -159,8 +158,8 @@ def _(mo):
 
     $$\ell' = \ell A^{-1} \qquad\text{porque}\qquad \ell'(p') = \ell A^{-1} A\,p = \ell(p).$$
 
-    "Los puntos se transforman con la transformación; las formas lineales con la inversa, del otro lado. Así todas las
-    relaciones se conservan" (profesor, 30/9). Una recta es una forma igualada a cero, $\ell p = 0$ en homogéneas: por
+    Los puntos se transforman con la transformación; las formas lineales con la inversa, del otro lado. Así todas las
+    relaciones se conservan. Una recta es una forma igualada a cero, $\ell p = 0$ en homogéneas: por
     eso cambia con $A^{-1}$ a la derecha (o $A^{-T}$ como columna) mientras un punto cambia con $A$. En
     [Cambio de base](../08_cambio_de_base/index.html), $c = B^{-1}p$ y la fila pasa a $\ell B$.
 
@@ -176,9 +175,8 @@ def _(mo):
     Esto es una **muestra**; la demostración está en el apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores».
     """)
     mo.vstack([_texto, mo.callout(mo.md(r"""
-    **El recordatorio del 14/10 (clase 9).** El profesor se corrigió en vivo: "el gradiente de una función es un
-    vector… no, mentí, lo dije mal. **El gradiente es una forma lineal, no un vector**: me permite hacer una
-    aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Es esta misma regla:
+    **El gradiente es una forma lineal, no un vector.** Permite hacer una
+    aproximación lineal de la función. Es esta misma regla:
     cerca de un punto, los escalones de altura son las marcas de $\nabla h = (h_x, h_y)$. Dibujarlo como flecha
     perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado: si cambiamos de unidades en un
     eje (metros en $x$, pies en $y$), o estamos en el plano $(d\varphi, d\lambda)$ del elipsoide, donde un paso en
@@ -326,7 +324,7 @@ def _(lib, mo, np):
         ], widths="equal", align="start"),
         mo.hstack([
             mo.md(r"""
-            **3.2 El ejercicio del 30/9.** Formas $(1, 1)$ y $(-1, 2)$, vector $v = (3, 4)$,
+            **3.2 Un ejercicio con dos formas.** Formas $(1, 1)$ y $(-1, 2)$, vector $v = (3, 4)$,
             $T = \begin{pmatrix} \textcolor{#1b6f6a}{1.2} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{-0.1} & \textcolor{#b5451b}{1.3} \end{pmatrix}$.
             Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en "la séptima con la quinta".
             $\det T = 1.61$ y, por adjunta sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
@@ -371,7 +369,7 @@ def _(mo, np):
 
 @app.cell
 def _(lib, mo, np):
-    # ---------- desarrollo complementario (CEIA): dos nubes separables y su SVM de margen duro, sin scikit-learn ----------
+    # ---------- desarrollo complementario (complementario): dos nubes separables y su SVM de margen duro, sin scikit-learn ----------
     nube_A = np.array([[0.0, 0.0], [2.0, 0.0], [0.0, 2.0], [0.5, 0.5]])  # mojones de la parcela A
     nube_B = np.array([[4.0, 3.0], [6.0, 3.0], [4.0, 5.0], [5.0, 6.0]])  # mojones de la parcela B
     svm = lib.svm_margen_duro_2d(nube_A, nube_B)
@@ -382,9 +380,9 @@ def _(lib, mo, np):
     }
     deformacion = mo.ui.radio(options=list(deformaciones), value="identidad", label="deformación A del plano")
     mo.md(r"""
-    ### 4b. Conexión con IA (desarrollo complementario desde la CEIA): una SVM es una forma lineal con margen
+    ### 4b. Conexión con IA (desarrollo complementario): una SVM es una forma lineal con margen
 
-    Esto **no es contenido de la cátedra**: viene de la especialización en IA, porque es la misma regla
+    Esto es un **desarrollo complementario**: es la misma regla
     graduada de esta lección con otro nombre. Dos parcelas vecinas, cada una con sus mojones relevados, y la
     pregunta de una *máquina de vectores de soporte* (SVM): ¿cuál es la **calle más ancha** que pasa entre las dos
     nubes? La respuesta es una forma lineal afín, $w^T x + b$: la marca $0$ es la divisoria, las marcas $-1$ y $+1$
@@ -510,7 +508,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _casos = [(np.array([2.0, 1.0]), np.array([[2.0, 1.0], [0.0, 1.0]]))]
     while len(_casos) < 11:
         _M = _rng.uniform(-3, 3, (2, 2))
@@ -659,7 +657,7 @@ def _(A, A_pred, A_svm, B_08, T, candidatos, fila, fila_despues, formas_prof, fo
         ("ejercicios: (3, 4) ⊥ (4, −3), marcas cada 0.2, ℓ(2, 1) = 10; φA = (2, 8), φA⁻¹ = (2, 1/2) lee 5; la recta por (1, 1) y (3, 2) es −x + 2y − 1 = 0",
          _ok(np.array([3, 4]) @ [4, -3], 0.0) and _ok(1 / np.linalg.norm([3, 4]), 0.2) and _ok(np.array([3, 4]) @ [2, 1], 10) and _ok(np.array([2, 3]) @ _Ab, [2, 8])
          and _ok(_ft([2, 3], _Ab), [2, 0.5]) and _ok(_ft([2, 3], _Ab) @ [2, 2], 5) and _ok(lib.recta_por_dos_puntos([1, 1], [3, 2]), [-1, 2, -1])),
-        ("4b (aporte CEIA): SVM de las dos parcelas w = (0.4, 0.4), b = −1.8, ancho 5/√2, soportes (2,0), (0,2), (4,3); la regla arrastrada lee lo mismo sobre A x; "
+        ("4b (complemento): SVM de las dos parcelas w = (0.4, 0.4), b = −1.8, ancho 5/√2, soportes (2,0), (0,2), (4,3); la regla arrastrada lee lo mismo sobre A x; "
          "con diag(2, 1) el ancho físico pasa a √20 y la SVM re-entrenada da ancho 5; la re-entrenada nunca es más angosta que la arrastrada",
          _ok(svm["w"], [0.4, 0.4]) and _ok(svm["b"], -1.8) and _ok(svm["margen"], 5 / np.sqrt(2)) and _ok(svm["soporte_1"], [[2, 0], [0, 2]]) and _ok(svm["soporte_2"], [[4, 3]])
          and _ok(lib.transformar(nube_A, A_svm) @ w_def + svm["b"], nube_A @ svm["w"] + svm["b"]) and _ok(w_def, _ft(svm["w"], A_svm))

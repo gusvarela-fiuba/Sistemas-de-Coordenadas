@@ -64,7 +64,7 @@ def _(mo):
     mo.md(r"""
     # Unidad [NN] — [Título: la pregunta de campo que responde la unidad]
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
     [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué clase sigue esta
     unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos la clase N (…). La pregunta: ¿qué le pasa a …
@@ -304,7 +304,7 @@ def _(mo):
     mo.md(r"""
     ## 5. Ejercicios
 
-    **(a) Lápiz — elemental** *("[PLANTILLA: frase de la rúbrica del profesor]")*. [PLANTILLA: enunciado.]
+    **(a) Lápiz — elemental** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
     """)
     return
 

@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Afinidades y coordenadas homogéneas (unidad 04, molde v2 sobre cb104). Clase 3.
-
+"""Afinidades y coordenadas homogéneas (unidad 04, molde v2 sobre cb104).
 Una sola idea: la matriz es lo que le pasa a la grilla (cada columna, a dónde va un eje; paralelogramos; área × det).
 La traslación no entra en una 2×2: tercera coordenada, 3×3. Tres puntos conocidos determinan la afinidad.
 
@@ -41,9 +40,9 @@ def _(mo):
     mo.md(r"""
     # Afinidades y coordenadas homogéneas
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 3. La pregunta: **¿Cómo metemos la traslación adentro de la matriz para componer rotar, escalar y mover
+    La pregunta: **¿Cómo metemos la traslación adentro de la matriz para componer rotar, escalar y mover
     con una sola cuenta?** El gancho: *un plano escaneado que quedó estirado distinto en cada eje: las paralelas siguen
     paralelas y tres puntos conocidos alcanzan para corregirlo.*
 
@@ -429,7 +428,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _puntos = np.random.default_rng(56798).uniform(-5, 5, size=(20, 2))
+    _puntos = np.random.default_rng(0xDDDE).uniform(-5, 5, size=(20, 2))
     _theta, _t = np.deg2rad(37), np.array([2.0, -1.0])
     _R = lib.rot2(_theta)
     _esperado = lib.transformar_afin(_puntos, _R, _t)

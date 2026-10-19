@@ -19,6 +19,6 @@ Esquema de cada pregunta:
         {"id": "c", "texto": "...", "correcta": False, "explicacion": "..."},
         {"id": "d", "texto": "...", "correcta": False, "explicacion": "..."},
     ],
-    "rubrica": "...",              # opcional: celda de la rúbrica del apéndice 19 que cubre
+    "rubrica": "...",              # opcional: tema/nivel de contenido que cubre
 }
 ```

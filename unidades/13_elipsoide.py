@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Geometría del elipsoide (unidad 13, molde v2 sobre cb104). Clase 13 del esqueleto 2025, no dictada en 2C2026.
-
-Lección anticipada (esqueleto 2025 "deducciones a partir de la simetría" + apunte del profesor sobre el elipsoide +
-apunte v3), pendiente de validar por la cátedra. Una sola idea: el elipsoide de revolución es una elipse girada
+"""Geometría del elipsoide (unidad 13, molde v2 sobre cb104).
+Una sola idea: el elipsoide de revolución es una elipse girada
 alrededor de su eje menor, y de eso solo sale casi todo: la normal no pasa por el centro (tres latitudes), M ≠ N,
 (φ, λ, h) → (X, Y, Z) con N, y la primera forma E = M², F = 0, G = N² cos²φ.
 
@@ -43,12 +41,9 @@ def _(mo):
     mo.md(r"""
     # Geometría del elipsoide
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025 y el apunte de la cátedra,
-    pendiente de validar por la cátedra.*
-
-    Seguimos la clase 13 del esqueleto. La pregunta: **¿Qué se deduce del elipsoide con sólo saber que todos sus
+    La pregunta: **¿Qué se deduce del elipsoide con sólo saber que todos sus
     meridianos son la misma elipse?** El gancho: *la latitud geodésica y la geocéntrica no coinciden porque la normal
     al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón.*
 
@@ -56,8 +51,8 @@ def _(mo):
     **meridiano** del punto en <span style="color:#1b6f6a">**teal**</span> y su **paralelo** en
     <span style="color:#c9a227">**gold**</span>; la **normal** (la vertical elipsoidal) en
     <span style="color:#b5451b">**rust**</span>; la recta al centro en gris; el mojón en
-    <span style="color:#7a4e9e">**violeta**</span>. Seguimos la notación del apunte del profesor (*Geometría del
-    Elipsoide y cálculos Geodésicos*): $a, b, f, e^2, e'^2$, $M$, $N$, $x'$ el radio del paralelo.
+    <span style="color:#7a4e9e">**violeta**</span>. Notación del apunte *Geometría del
+    Elipsoide y cálculos Geodésicos*: $a, b, f, e^2, e'^2$, $M$, $N$, $x'$ el radio del paralelo.
     """)
     return
 
@@ -130,7 +125,7 @@ def _(mo):
 
     **¿Qué se conserva?** Al girar el elipsoide alrededor del eje polar cae sobre sí mismo; al reflejarlo en un
     plano meridiano, también. Eso es "todos los meridianos son la misma elipse y los paralelos son círculos", y de
-    ahí deducimos (nuestra lectura del título del esqueleto):
+    ahí deducimos:
 
     1. nada métrico depende de $\lambda$: $M$, $N$, $K$ y la primera forma son funciones de $\varphi$ sola;
     2. el plano meridiano es plano de simetría: la forma cuadrática de la curvatura (unidad 12) es simétrica
@@ -151,7 +146,7 @@ def _(mo):
 
     $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad |\psi| \le |\beta| \le |\varphi|.$$
 
-    **Dos radios de curvatura** (apunte v3, «Coordenadas curvilíneas y bases locales»; deducción en el apunte del profesor):
+    **Dos radios de curvatura** (apunte v3, «Coordenadas curvilíneas y bases locales»; deducción en el apunte *Geometría del Elipsoide*):
 
     $$N = \frac{a}{\sqrt{1 - e^2\sin^2\varphi}}\ \text{(primer vertical)}, \qquad
       M = \frac{a(1 - e^2)}{(1 - e^2\sin^2\varphi)^{3/2}}\ \text{(meridiano)}, \qquad K = \frac{1}{MN}.$$
@@ -162,7 +157,7 @@ def _(mo):
 
     **De $(\varphi, \lambda, h)$ a cartesianas geocéntricas**, con $h$ sobre la normal:
     $X = (N + h)\cos\varphi\cos\lambda$, $Y = (N + h)\cos\varphi\sin\lambda$, $Z = \big(N(1 - e^2) + h\big)\sin\varphi$
-    ($X$ hacia el meridiano origen; el apunte del profesor escribe $x = x'\sin\lambda$, $y = x'\cos\lambda$, otra
+    ($X$ hacia el meridiano origen; otro apunte escribe $x = x'\sin\lambda$, $y = x'\cos\lambda$, otra
     convención de ejes). La **primera forma** (unidad 10) sale de $\|r_\varphi\| = M$ y $\|r_\lambda\| = x'$:
     $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$ (la esfera de la unidad 10 es $M = N = R$). Es una **muestra**; el
     enlace con la unidad 12 es que $1/M$ y $1/N$ son $\kappa_1$ y $\kappa_2$ de la segunda forma.
@@ -365,7 +360,7 @@ def _(mo):
 
 @app.cell
 def _(mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     puntos_cd = np.column_stack([_rng.uniform(-80, 80, 20), _rng.uniform(-180, 180, 20), _rng.uniform(0, 3000, 20)])  # φ°, λ°, h m
     editor_c = mo.ui.code_editor(
         value="def geodesica_a_cartesiana(phi, lam, h):\n    # phi, lam en GRADOS; a y e2 (GRS80) ya están definidos\n    phi, lam = ...                     # a radianes\n    N = ...                            # radio del primer vertical\n    X = ...\n    Y = ...\n    Z = ...                            # ojo con el (1 - e2)\n    return np.array([X, Y, Z])\n",
@@ -500,15 +495,15 @@ def _(mo):
       · [sección "Arco de meridiano"](../../apunte.pdf#nameddest=cap:elipsoide): serie binomial, potencias del seno
       como cosenos de ángulos múltiples, la tabla de coeficientes $A \ldots E$ y el resultado "Longitud del arco de
       meridiano" con sus controles numéricos
-    - fe de erratas del apunte del profesor, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
+    - fe de erratas del apunte del elipsoide, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
       secciones y el cierre [Material y fuentes: fe de erratas y precisiones](../../apunte.pdf#nameddest=cap:22)
     - [apunte, «Superficies, elipsoide, curvatura…» (esfera, elipsoide, curvatura y representación plana)](../../apunte.pdf#nameddest=cap:elipsoide) ($e^2 = 2f - f^2$, $M$, $N$,
       $K = 1/(MN)$)
-    - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): latitud elipsoidal,
+    - apunte *Geometría del Elipsoide y cálculos Geodésicos*: latitud elipsoidal,
       conversión $\varphi, \lambda \to X, Y, Z$, radios $M$ (meridiano) y $N$ (primer vertical, Meusnier), arco de meridiano
     - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
 
-    **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (clase 14): triángulos de lados
+    **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (unidad 14): triángulos de lados
     geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.
     """)
     return

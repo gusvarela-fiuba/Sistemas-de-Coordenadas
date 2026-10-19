@@ -15,7 +15,7 @@ Correr desde cualquier directorio: el script ubica la raíz del repo por su prop
 
 Qué lee:
 
-- `mapa/mapa.yaml` — el mapa de conceptos (esquema documentado en `mapa/ESQUEMA.md`; se genera con `uv run tools/merge_mapa.py` a partir de `mapa/_fragmentos/`). Se valida antes de generar nada: ids únicos, referencias cruzadas (concepto → clase, concepto → unidad, unidad → `clases`, `requiere` → conceptos), vocabularios de `estado`, `validacion` y `nivel`, prefijos de `apunte` contra `apunte/contenido/NN-*.tex` (capítulos 00–11 por tema —rotaciones 04, euclídeas 05, afines 06, proyectivas 07, álgebra 08, SVD 09, conformes 10, superficies 11— y apéndices 14–22; los huecos 12 y 13 son válidos, no se exige numeración continua), archivos de las unidades exportables. Referencia rota = error y salida 1; ficha de clase inexistente = aviso y sigue.
+- `mapa/mapa.yaml` — el mapa de conceptos (esquema documentado en `mapa/ESQUEMA.md`; se genera con `uv run tools/merge_mapa.py` a partir de `mapa/_fragmentos/`). Se valida antes de generar nada: ids únicos, referencias cruzadas (concepto → clase, concepto → unidad, unidad → `clases`, `requiere` → conceptos), vocabularios de `estado`, `validacion` y `nivel`, prefijos de `apunte` contra los archivos de `apunte/contenido/` (`00-antes-de-empezar`, los capítulos `01` a `15`, los complementarios `c1` a `c4` y los apéndices `ap1` a `ap6`), archivos de las unidades exportables. Referencia rota = error y salida 1; ficha de clase inexistente = aviso y sigue.
 - `clases/*.md` — fichas por clase. Se convierten con el paquete `markdown` (extensiones `tables`, `fenced_code`, `toc`); las fórmulas `$…$` / `$$…$$` se protegen del parser y las renderiza KaTeX desde cdnjs en el navegador. `README.md`, `PLANTILLA.md` (cualquier nombre en mayúsculas) y `_*.md` se ignoran.
 - `unidades/*.py` — notebooks marimo con estado `piloto` o `migrada` en el yaml. Cada uno se exporta con `marimo export html-wasm --mode run --no-show-code` (se invoca `python -m marimo` del mismo venv; equivale a `uv run marimo export …`) sobre una copia en `site/_build/` con el módulo común embebido (ver "Módulo común y export WASM"). `legacy` y `pendiente` no se exportan.
 - `apunte/Apunte_Sistemas_de_Coordenadas.pdf` — se copia si existe; si no, el índice lo marca como no compilado.
@@ -24,17 +24,15 @@ Qué genera en `site/` (ignorado por git):
 
 ```
 site/index.html                  portada = el hilo conductor (docs/camino.md): tres entradas (Empezar → unidad 0; Seguir
-                                 la cursada → la unidad de la última clase con fechas_2026 ≤ hoy; Repasar → mapa.html) y
-                                 una entrada por unidad de mapa/_fragmentos/unidades.yaml, en ese orden, con número,
-                                 título, pregunta, gancho de agrimensura, estado calculado (lista / en clase / todavía no),
-                                 las clases que cubre con etiquetas de procedencia y validación, y enlaces a la unidad,
-                                 las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:<clave>). Última unidad
-                                 "Lo que viene": las clases sin unidad (11–14).
+                                 el recorrido → la primera unidad; Repasar → mapa.html) y una entrada por unidad de
+                                 mapa/_fragmentos/unidades.yaml, en ese orden, con número, título, pregunta, gancho de
+                                 agrimensura, estado calculado (lista / todavía no), las clases que cubre, y enlaces a la
+                                 unidad, las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:<clave>).
 site/mapa.html                   mapa de conceptos (SVG inline generado en Python) con dos controles en JS inline: filtro
                                  de ruta (troncal / todo, por el `nivel` de la clase de cada nodo) y deslizador "hasta la
-                                 clase N" (atenúa a opacity 0.25 los nodos y aristas de clases posteriores; default N =
-                                 última clase dictada). Debajo, la lista de clases con fechas/etiquetas/links y el apunte.
-site/clases/<id_clase>.html      fichas, con dos etiquetas arriba del título: procedencia (`estado`) y `validacion`
+                                 clase N" (atenúa a opacity 0.25 los nodos y aristas de clases posteriores). Debajo, la
+                                 lista de clases con etiquetas y links, y el apunte.
+site/clases/<id_clase>.html      fichas de contenido por tema
 site/unidades/<id_unidad>/       export WASM de cada unidad (index.html + assets/ de marimo, ~27 MB por unidad)
 site/apunte.pdf
 site/.nojekyll                   para que GitHub Pages no pase el sitio por Jekyll
@@ -59,7 +57,7 @@ uv run marimo run tools/_prueba_plotly.py
 
 Nota: el export WASM (sin `--execute`) no embebe salidas; el HTML contiene el código de las celdas y todo se calcula en el navegador. `--execute` intenta correr el notebook en un entorno aislado y, al no declarar dependencias en el script, falla con `No module named 'numpy'`; no se usa.
 
-### Molde de unidad v2 (lecciones piloto: `unidades/01a_punto_quieto.py`, `01b_rotacion_plano.py`, `01c_rotaciones_3d.py`; el piloto de una pieza quedó en `unidades/_legacy/01_rotaciones_v2.py`; secuencia en `docs/camino.md`)
+### Molde de unidad v2 (lecciones piloto: `unidades/01a_punto_quieto.py`, `01b_rotacion_plano.py`, `01c_rotaciones_3d.py`; secuencia en `docs/camino.md`)
 
 **Cabecera obligatoria.** Toda unidad DEBE empezar (antes del docstring) con el bloque de metadata PEP 723 que declara
 lo que importa; es lo que marimo embebe en el HTML y lo que Pyodide instala con micropip al cargar. Sin él, el export
@@ -129,7 +127,7 @@ la interfaz y radianes adentro, rotación/transformación activa por default, f�
    en `mo.ui.code_editor` (en el export el notebook corre en modo app, así que el alumno no puede editar celdas: el hueco
    va en un editor y una celda aparte hace `exec(editor.value, {"np": np, …})` y verifica con `np.allclose`, mostrando
    `mo.callout(…, kind="success" | "warn" | "danger")`; el `try/except` atrapa el `...` sin completar). Cada ejercicio
-   con el nivel de la rúbrica del profesor (elemental / medio / avanzado) y la frase de la rúbrica a la que apunta.
+   con su nivel (elemental / medio / avanzado) y la frase corta del criterio al que apunta.
 
 Cierre: una celda "Enlaces del mapa" con links relativos desde `site/unidades/<id>/index.html`
 (`../../clases/NN.html`, `../../apunte.pdf`, `../../index.html`, `../<otra_unidad>/index.html`) y una celda final de
@@ -235,7 +233,7 @@ Mezcla los fragmentos `unidades/_banco/bloque_*.py` en `unidades/banco_autoevalu
 uv run python tools/merge_banco.py [--check] [--parcial]   # --check no escribe; --parcial admite unidades faltantes
 ```
 
-## `exportar_moodle_xml.py` — banco para el Campus
+## `exportar_moodle_xml.py` — banco para Moodle
 
 Genera `moodle/moodle_banco_120_preguntas_cb104.xml` (Moodle XML) desde `unidades/banco_autoevaluacion.py`, con una categoría por unidad y nivel. Correr después de `merge_banco.py`.
 

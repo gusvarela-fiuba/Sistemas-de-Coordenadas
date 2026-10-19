@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Cuña y determinante: el detector de colinealidad (unidad 07a, molde v2 sobre cb104). Clase 5.
-
+"""Cuña y determinante: el detector de colinealidad (unidad 07a, molde v2 sobre cb104).
 Una sola idea: el área orientada de dos vectores (producto cuña) es una cuenta con coordenadas; vale cero si están
 alineados; el determinante de una matriz es cuánto agranda el área (en 3D el volumen) y su signo dice si da vuelta
 la orientación. Escalera R (|a|, factor de longitud) → R² (área) → R³ (volumen, producto vectorial como cuña).
@@ -42,9 +41,9 @@ def _(mo):
     mo.md(r"""
     # Cuña y determinante: el detector de colinealidad
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 5. La pregunta: **¿cómo detectamos con una cuenta, sin medir ningún ángulo, que unos vectores (o unos
+    La pregunta: **¿cómo detectamos con una cuenta, sin medir ningún ángulo, que unos vectores (o unos
     mojones) se aplastaron a algo de menor dimensión?** El gancho: *tres mojones que deberían estar alineados: el
     determinante de sus coordenadas homogéneas los delata.*
 
@@ -92,7 +91,7 @@ def _(lib, mo, np):
         $C = (7, 6)$ (metros). Si los tres están alineados, el vector $B - A = (3, 2)$ y el vector $C - A = (6, 5)$
         tienen que ser **paralelos**: uno es un múltiplo del otro, y entre los dos no arman ningún área.
 
-        El detector de colinealidad del profesor es justamente esa área, calculada con coordenadas:
+        El detector de colinealidad es justamente esa área, calculada con coordenadas:
         $u \wedge v = u_1 v_2 - u_2 v_1$. Antes de mirar la figura: ¿qué número da con estos tres mojones?
         """),
         prediccion,
@@ -130,7 +129,7 @@ def _(mo):
 
     **¿Qué mide?** Dos vectores del plano arman un paralelogramo; el producto cuña $u \wedge v$ es su **área con
     signo**: positiva si de $u$ a $v$ se gira antihorario, negativa si horario, y **cero exactamente cuando $u$ y $v$
-    son colineales**, porque el paralelogramo se aplastó a un segmento. Por eso el profesor lo llama *detector de
+    son colineales**, porque el paralelogramo se aplastó a un segmento. Por eso lo llamamos *detector de
     colinealidad*. Dos reglas lo calculan con coordenadas: es lineal en cada vector, y $v \wedge v = 0$ (de donde
     $v \wedge u = -\,u \wedge v$: "el único elemento igual a su opuesto es el cero").
 
@@ -349,7 +348,7 @@ def _(lib, mo, np):
         `np.linalg.det` es el detector en cualquier dimensión; en 3D `np.cross(u, v) @ w` es el mismo número. Dan
         `float`: "¿es cero?" con decimales se pregunta con `np.isclose(det, 0)`, nunca con `det == 0`.
         """),
-        mo.md("```python\np, q, r = np.array([1., 2., 3.]), np.array([4., 5., -1.]), np.array([0., 0., 1.])\nM = np.column_stack([p, q, r])      # shape (3, 3): columnas p, q, r\nnp.linalg.det(M)\nnp.cross(p, q) @ r                  # la apuesta del 16/9\nnp.isclose(np.linalg.det(M), 0)\n```"),
+        mo.md("```python\np, q, r = np.array([1., 2., 3.]), np.array([4., 5., -1.]), np.array([0., 0., 1.])\nM = np.column_stack([p, q, r])      # shape (3, 3): columnas p, q, r\nnp.linalg.det(M)\nnp.cross(p, q) @ r                  # la apuesta: ¿alineados?\nnp.isclose(np.linalg.det(M), 0)\n```"),
         mo.md(f"`M.shape` = `{_M.shape}` → `np.linalg.det(M)` = `{np.linalg.det(_M):.1f}` · `np.cross(p, q)` = `{np.cross(_p, _q).tolist()}` · "
               f"`np.cross(p, q) @ r` = `{np.cross(_p, _q) @ _r:.0f}` · alineados: `{bool(np.isclose(np.linalg.det(_M), 0))}`"),
     ])
@@ -363,7 +362,7 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *("hagan el producto cruz y después el producto interno: eso es el determinante").*
-        La apuesta de clase del 16/9: $p = (1, 2, 3)$, $q = (4, 5, -1)$, $r = (0, 0, 1)$. Calculá $p \times q$, después
+        La apuesta: $p = (1, 2, 3)$, $q = (4, 5, -1)$, $r = (0, 0, 1)$. Calculá $p \times q$, después
         $(p \times q) \cdot r$, y controlá con el determinante desarrollado por la fila de $r$ (la que tiene ceros).
         ¿Están alineados, como puntos homogéneos del plano?
         """),
@@ -405,7 +404,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _ternas = []
     for _k in range(3):  # alineadas: r = p + t (q − p)
         _p, _q = _rng.uniform(-5, 5, size=2), _rng.uniform(-5, 5, size=2)
@@ -452,7 +451,7 @@ def _(mo):
 
 @app.cell
 def _(editor_d, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _ternas = [_rng.uniform(-3, 3, size=(3, 3)) for _ in range(20)]
     _esperado = np.array([lib.cuna3(*t) for t in _ternas])
     _ns = {"np": np}

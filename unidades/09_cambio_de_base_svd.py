@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Cambio de base, SVD e inversas (unidad 09, molde v2 sobre cb104). Clases 7 y 10.
-
-LECCIÓN ANTICIPADA: las clases 7 y 10 no se dictaron todavía en 2C2026; lectura del esqueleto 2025, pendiente de
-validar por la cátedra. Una sola idea: toda matriz manda algún par de direcciones perpendiculares a otro par
+"""Cambio de base, SVD e inversas (unidad 09, molde v2 sobre cb104).
+Una sola idea: toda matriz manda algún par de direcciones perpendiculares a otro par
 perpendicular, estiradas por los valores singulares: A = U Σ Vᵀ es rotar, estirar, rotar. La inversa lo deshace si
 ninguna σ es cero; si no, lo más parecido a deshacer es la pseudoinversa A⁺ = V Σ⁺ Uᵀ.
 
@@ -43,12 +41,9 @@ def _(mo):
     mo.md(r"""
     # Cambio de base, SVD e inversas
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: las clases 7 y 10 no se dictaron todavía; lo que sigue desarrolla el esqueleto 2025, la
-    nota de formas cuadráticas del campus y el apunte, pendiente de validar por la cátedra.*
-
-    Seguimos las clases 7 y 10. La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
+    La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
     transformar, y qué es lo más parecido a deshacer cuando no hay inversa?** El gancho: *más mediciones que incógnitas
     (una recta por puntos que no están alineados): la pseudoinversa elige la que deja el residuo perpendicular.*
 
@@ -136,9 +131,8 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **¿Qué se conserva?** La perpendicularidad de **un** par de direcciones bien elegido de la entrada: "siempre existe
-    una base ortogonal del espacio de entrada que se asigna a una base ortogonal de la salida" (el profesor, resumen
-    2025). Los largos no se conservan: cada dirección se estira por su **valor singular** $\sigma_k \ge 0$, nunca complejo.
+    **¿Qué se conserva?** La perpendicularidad de **un** par de direcciones bien elegido de la entrada: siempre existe
+    una base ortogonal del espacio de entrada que se asigna a una base ortogonal de la salida. Los largos no se conservan: cada dirección se estira por su **valor singular** $\sigma_k \ge 0$, nunca complejo.
 
     | | álgebra | lo que se ve |
     |---|---|---|
@@ -149,7 +143,7 @@ def _(mo):
     **Rotar, estirar, rotar.** $A v_k = \sigma_k u_k$ con $V = [\textcolor{#1b6f6a}{v_1}\ \textcolor{#b5451b}{v_2}]$
     y $U = [u_1\ u_2]$ ortogonales. De derecha a izquierda, $A = U\Sigma V^T$: $V^T$ **gira** la entrada hasta
     que $v_1, v_2$ caen sobre los ejes, $\Sigma$ **estira** cada eje, $U$ **gira** (o refleja) al lugar final. Es la
-    "base privilegiada" que buscaba el profesor: una grilla a la entrada, otra a la salida, y entre las dos la matriz
+    «base privilegiada» que se buscaba: una grilla a la entrada, otra a la salida, y entre las dos la matriz
     es diagonal. Ojo: diagonal entre **dos** grillas distintas, no es una semejanza; los $\sigma$ no son autovalores y
     $A^n \ne U\Sigma^nV^T$. Si $A$ es simétrica, $\sigma_k = \lvert\lambda_k\rvert$ y $u_k = \pm v_k$ ($U = V$ si
     además todos los $\lambda_k \ge 0$): ahí sí es la diagonalización de la unidad 08.
@@ -164,7 +158,7 @@ def _(mo):
     solución de **mínimos cuadrados** de norma mínima, que proyecta el término independiente sobre lo que $A$ puede
     producir y deshace sólo esa parte. En $\mathbb R$, la pseudoinversa de $0$ es $0$.
 
-    **Los cuatro subespacios** (nombres del profesor), para $A$ de $m\times n$:
+    **Los cuatro subespacios** (con sus nombres usuales), para $A$ de $m\times n$:
 
     | | quién lo genera | qué es |
     |---|---|---|
@@ -506,7 +500,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _M = np.random.default_rng(56798).normal(size=(6, 6))
+    _M = np.random.default_rng(0xDDDE).normal(size=(6, 6))
     _U, _s, _Vt = np.linalg.svd(_M)
     _ns = {"np": np}
     try:
@@ -615,11 +609,11 @@ def _(mo):
     Acá verificamos que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
     deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
     [Descomposición en valores singulares (SVD)](../../apunte.pdf#nameddest=sec:svd) construye $U$, $\Sigma$, $V$ con
-    un ejemplo a mano, rehace el cuaderno `LaSVD.wxmx` del profesor y remata con la SVD de un modelo digital de
+    un ejemplo a mano, la rehace en un cuaderno de cálculo simbólico y remata con la SVD de un modelo digital de
     elevación; la sección [Inversas, los cuatro subespacios y la pseudoinversa](../../apunte.pdf#nameddest=sec:pseudoinversa)
     tiene la tabla de los cuatro subespacios y la pseudoinversa de Moore–Penrose. La demostración general de que $U$,
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
-    aplicaciones*, y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
+    aplicaciones*, y en Calvetti–Somersalo.
 
     - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:svd) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
     - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)

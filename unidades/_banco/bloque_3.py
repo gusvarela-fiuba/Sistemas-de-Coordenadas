@@ -323,7 +323,7 @@ BANCO = {
                  "explicacion": r"$B^\top = B^{-1}$ sólo si las columnas son perpendiculares de largo $1$, lo que pasa cuando $A$ es simétrica. Para $\begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$ los autovectores $(1, 0)$ y $(1, -1)$ no lo son y $B^\top AB$ no es diagonal."},
                 {"id": "c", "texto": r"$B^{-1} A\,B$: la de la derecha actúa primero, lleva a la base propia; $A$ estira; $B^{-1}$ vuelve a leer en la base propia.",
                  "correcta": True,
-                 "explicacion": r"Un vector escrito en la base propia pasa por $B$ a canónica, $A$ lo transforma, y $B^{-1}$ lo lee de vuelta en la base propia, donde cada eje sólo se estiró por su $\lambda$. Es el $T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A$ del profesor, con su $A$ en el lugar de nuestra $B$."},
+                 "explicacion": r"Un vector escrito en la base propia pasa por $B$ a canónica, $A$ lo transforma, y $B^{-1}$ lo lee de vuelta en la base propia, donde cada eje sólo se estiró por su $\lambda$. Es el $T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A$ de otra notación habitual, con su $A$ en el lugar de nuestra $B$."},
                 {"id": "d", "texto": r"$A\,B$: aplicar $A$ a cada autovector ya da $\lambda_k v_k$, que es diagonal.",
                  "correcta": False,
                  "explicacion": r"$AB = B\Lambda$ tiene en sus columnas $\lambda_k v_k$: los autovectores estirados, escritos todavía en canónica. Para que quede $\Lambda$ falta leerlos en la base propia, o sea multiplicar por $B^{-1}$ a la izquierda."},
@@ -430,7 +430,7 @@ BANCO = {
                  "correcta": False,
                  "explicacion": r"$Z_k$ no resta nada: el término $\sigma_1 u_1 v_1^\top$ **es** la meseta y $Z_k$ lo incluye. Restar la media antes de la SVD es otra operación (la casilla de la lección), y cambia qué significa $k = 1$."},
             ],
-            "rubrica": "Cambio de base y SVD · medio: A = UΣVᵀ, rotar, estirar, rotar (aplicación: la aproximación de rango k; sin celda propia en la rúbrica)",
+            "rubrica": "Cambio de base y SVD · medio: A = UΣVᵀ, rotar, estirar, rotar (aplicación: la aproximación de rango k)",
         },
         {
             "id": "09_m2",
@@ -512,7 +512,7 @@ BANCO = {
                  "correcta": False,
                  "explicacion": r"$h_u, h_v$ son el gradiente, una forma lineal que dice cuánto sube $h$. La primera forma mide **largos** de pasos sobre la superficie; para $r = (u, v, h)$ sale $E = 1 + h_u^2$, $F = h_uh_v$, $G = 1 + h_v^2$, que no es lo mismo."},
             ],
-            "rubrica": "Sin celda propia (la rúbrica del apéndice termina en SVD); más cercana: Rotaciones · elemental: el producto interno puede servir como base para definir tipos de transformaciones",
+            "rubrica": "Rotaciones · elemental: el producto interno puede servir como base para definir tipos de transformaciones",
         },
         {
             "id": "10_e2",
@@ -532,7 +532,7 @@ BANCO = {
                  "correcta": False,
                  "explicacion": r"La grilla $(u, v)$ es perpendicular en el papel **siempre**; eso no lo mide $F$. $F$ mide el ángulo **sobre el terreno**: en el plano inclinado $z = 1 + 0.4u + 0.3v$ la grilla es perpendicular en el papel y $F = 0.12 \neq 0$."},
             ],
-            "rubrica": "Sin celda propia; más cercana: Productos, determinante y autovectores · elemental: el producto interno decide incidencia y ortogonalidad",
+            "rubrica": "Productos, determinante y autovectores · elemental: el producto interno decide incidencia y ortogonalidad",
         },
         {
             "id": "10_m1",
@@ -552,7 +552,7 @@ BANCO = {
                  "correcta": True,
                  "explicacion": r"$r_u = (-R\sin u, R\cos u, 0)$ y $r_v = (0, 0, 1)$: $E = R^2 = 100$, $F = 0$, $G = 1$, sin depender del punto. Un paso de $1°$ en $u$ mide $\sqrt E\,du = 10 \cdot \pi/180 = 0.1745$ m; es la regla del plano con el eje $u$ reescalado, por eso el cilindro se desenrolla."},
             ],
-            "rubrica": "Sin celda propia; más cercana: Rotaciones · avanzado: existe la derivada de una transformación y genera un conjunto de vectores tangentes a trayectorias",
+            "rubrica": "Rotaciones · avanzado: existe la derivada de una transformación y genera un conjunto de vectores tangentes a trayectorias",
         },
         {
             "id": "10_m2",
@@ -572,7 +572,7 @@ BANCO = {
                  "correcta": False,
                  "explicacion": r"$F/\sqrt{EG}$ es el **coseno** del ángulo, no el seno; $6.1°$ es el complemento. Un $F$ chico respecto de los largos significa ejes **casi** perpendiculares, no casi paralelos."},
             ],
-            "rubrica": "Sin celda propia; más cercana: Productos, determinante y autovectores · elemental: el producto interno decide incidencia y ortogonalidad",
+            "rubrica": "Productos, determinante y autovectores · elemental: el producto interno decide incidencia y ortogonalidad",
         },
         {
             "id": "10_a1",
@@ -592,7 +592,7 @@ BANCO = {
                  "correcta": False,
                  "explicacion": r"Al revés: el paralelo a $45°$ tiene radio $R\cos 45°$, más chico que $R$, así que el mismo ángulo abarca **menos** arco. Se multiplica por $\cos\varphi$, no se divide."},
             ],
-            "rubrica": "Sin celda propia (métrica como JᵀJ); más cercana: Rotaciones · avanzado: existe la derivada de una transformación y genera vectores tangentes a trayectorias",
+            "rubrica": "Rotaciones · avanzado: existe la derivada de una transformación y genera vectores tangentes a trayectorias",
         },
         {
             "id": "10_a2",

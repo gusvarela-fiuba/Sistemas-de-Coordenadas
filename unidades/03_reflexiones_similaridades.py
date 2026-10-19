@@ -6,11 +6,11 @@
 #     "plotly",
 # ]
 # ///
-"""Reflexiones y similaridades (unidad 03, molde v2 sobre cb104). Clase 3, reconstruida: sin transcripción.
+"""Reflexiones y similaridades (unidad 03, molde v2 sobre cb104).
 
 Una sola idea: la reflexión (det = −1) conserva todo pero da vuelta la orientación, y dos seguidas son una rotación;
 la similaridad k·R(θ) x + t conserva forma y ángulos, escala todo por k y tiene un centro fijo: con dos puntos se
-superpone un plano viejo sobre el relevamiento. Menciona homotecia, trayectoria y líneas coordenadas (clase 2).
+superpone un plano viejo sobre el relevamiento. Menciona homotecia, trayectoria y líneas coordenadas.
 
 Chequear:  uv run marimo check --select MW unidades/03_reflexiones_similaridades.py
 Exportar:  uv run python tools/build.py --only 03_reflexiones_similaridades
@@ -42,10 +42,9 @@ def _(mo):
     mo.md(r"""
     # Reflexiones y similaridades
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 3. *La clase 3 no tiene transcripción: esta lección está reconstruida desde el esqueleto 2025 del
-    profesor, la guía de seis teoremas y el apunte.* La pregunta: **¿qué movimiento conserva la forma pero no el
+    La pregunta: **¿qué movimiento conserva la forma pero no el
     tamaño, y cuál da vuelta la orientación?** El gancho: *un plano viejo en otra escala y con el norte para otro lado
     hay que superponerlo sobre el relevamiento nuevo.*
 
@@ -288,7 +287,7 @@ def _(go, lib, mo, n_pasos, np):
     lib.punto(fig_t, p0, "#444", "p", texto="p")
     mo.vstack([
         mo.md(r"""
-        **Trayectorias y líneas coordenadas** (clase 2). Lo que deja un punto al repetir una transformación,
+        **Trayectorias y líneas coordenadas.** Lo que deja un punto al repetir una transformación,
         $p, Ap, A^2p, \dots$, la identifica: la **rotación** lo pasea por una circunferencia, la **homotecia** por un
         rayo, y la **similaridad**, las dos a la vez, por una espiral que se acerca al centro si $k < 1$ y se aleja si
         $k > 1$. Rotación y homotecia con el mismo centro **conmutan**; sus trayectorias, círculos y rayos, son las

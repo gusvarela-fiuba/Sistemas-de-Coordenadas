@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Cuatro problemas: regresión, círculos, Procrustes, regresión total (unidad 11, molde v2 sobre cb104). Clase 11.
-
-LECCIÓN ANTICIPADA: la clase no se dictó todavía en 2C2026; lectura del esqueleto 2025, pendiente de validar por la
-cátedra. Una sola idea: los cuatro problemas tienen más mediciones que incógnitas; en los dos primeros la mejor
+"""Cuatro problemas: regresión, círculos, Procrustes, regresión total (unidad 11, molde v2 sobre cb104).
+Una sola idea: los cuatro problemas tienen más mediciones que incógnitas; en los dos primeros la mejor
 solución deja el residuo perpendicular a lo que la matriz puede producir (ecuaciones normales y `lstsq`), y los dos
 últimos son mínimos cuadrados con otra geometría, resueltos con la SVD de una matriz armada con los datos (unidad 09).
 
@@ -43,12 +41,9 @@ def _(mo):
     mo.md(r"""
     # Cuatro problemas: regresión, círculos, Procrustes, regresión total
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025, pendiente de validar
-    por la cátedra.*
-
-    Seguimos la clase 11. La pregunta: **¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer
+    La pregunta: **¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer
     dos relevamientos y ajustar una recta con error en las dos coordenadas?** El gancho: *compensar un relevamiento con
     más mediciones que incógnitas: la misma cuenta resuelve la recta de ajuste y la transformación entre dos sistemas de
     mojones.*
@@ -246,7 +241,7 @@ def _(np):
     _Qc = _Q @ _c
     _verd = np.array([_Q[1, 1], 2 * _Q[0, 1], -2 * _Qc[0], -2 * _Qc[1], _c @ _Qc - 1]) / _Q[0, 0]  # B, C, D, E, F
 
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _th = np.linspace(0, 2 * np.pi, 12, endpoint=False)
     _P = _c + (_R @ np.vstack([_sa * np.cos(_th), _sb * np.sin(_th)])).T + _rng.normal(0, 0.01, (12, 2))
     _x, _y = _P[:, 0], _P[:, 1]
@@ -289,7 +284,7 @@ def _(caso, casos, mo):
 @app.cell
 def _(caso, casos, go, lib, mo, np, ruido):
     tipo = casos[caso.value][0]
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     sig = ruido.value
     rango = (-1, 11)
     figura = lib.figura_plano(rango, caso.value)
@@ -605,8 +600,7 @@ def _(mo):
     Acá verificamos que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
     Que la proyección minimiza $|r|^2$ quedó demostrado en la sección 1 (Pitágoras). Por qué $R = VU^T$ y por qué
     la dirección propia mayor es la recta total están enunciados y verificados numéricamente en la guía resuelta del
-    apunte; las demostraciones completas (traza máxima, cociente de Rayleigh) están en Strang y Calvetti–Somersalo,
-    nombrados por el profesor el 2026-10-14.
+    apunte; las demostraciones completas (traza máxima, cociente de Rayleigh) están en Strang y Calvetti–Somersalo.
 
     - [apunte, sección "Guía resuelta de los cuatro problemas (Clase 11)"](../../apunte.pdf#nameddest=cap:cuatro-problemas):
       Problema 1, regresión simple (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas) ·

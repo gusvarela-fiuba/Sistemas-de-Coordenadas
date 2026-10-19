@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Jacobiano y primera forma fundamental (unidad 10, molde v2 sobre cb104). Clase 9 (14/10/2026).
-
+"""Jacobiano y primera forma fundamental (unidad 10, molde v2 sobre cb104).
 Una sola idea: r_u, r_v son los ejes locales de la superficie; la jacobiana los tiene como columnas; E, F, G es su tabla
 de productos internos (la V Vᵀ de la unidad 02) y mide pasitos, ángulos y áreas chicas desde los números (u, v).
 
@@ -41,9 +40,9 @@ def _(mo):
     mo.md(r"""
     # Jacobiano y primera forma fundamental
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 9 (14/10/2026). La pregunta: **¿Cómo medimos una distancia chica sobre una superficie curva usando sólo
+    La pregunta: **¿Cómo medimos una distancia chica sobre una superficie curva usando sólo
     los números (u, v) de la grilla?** El gancho: *sobre el terreno, un pasito en latitud y otro en longitud no miden lo
     mismo en metros: la primera forma fundamental es la regla que los convierte.*
 
@@ -111,7 +110,7 @@ def _(E_l, J_ladera, cinta_ladera, mo, np, prediccion):
         "siempre-1": ("warn",
                       r"**No.** $1$ en la grilla es $1$ sobre el terreno sólo donde es horizontal (la cima). En la ladera el paso además "
                       r"baja: el largo es la hipotenusa, más que $1$. La grilla es el plano del dibujo; la superficie, *otro espacio, "
-                      r"completamente desconectado* (profesor); entre los dos hay una regla."),
+                      r"completamente desconectado*; entre los dos hay una regla."),
         "pendiente": ("warn",
                       rf"**No.** Sumaste la bajada: $1 + \lvert h_u \rvert = {1 + abs(_hu):.2f}$. El avance $1$ y la bajada $h_u$ son "
                       rf"**perpendiculares**: Pitágoras, $\sqrt{{1 + h_u^2}} = {np.sqrt(E_l):.2f}$, el largo del vector $r_u = (1, 0, h_u)$."),
@@ -132,8 +131,8 @@ def _(mo):
     **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hacemos zoom en un punto
     hasta que la curva parece recta y la superficie parece plana; la derivada es esa recta o ese plano, una transformación
     lineal ("la matriz es lo que le pasa a la grilla", [unidad 04](../04_afines_homogeneas/index.html)) que cambia de
-    punto a punto. El profesor, con una pelota: *"cortás un pedacito y le hacés zoom, cortás uno más chico y lo escalás de
-    nuevo… hay un momento en que el pedazo parece plano. La matriz jacobiana describe esa transformación lineal local."*
+    punto a punto. Con una pelota: si cortás un pedacito y le hacés zoom, cortás uno más chico y lo escalás de
+    nuevo… hay un momento en que el pedazo parece plano. La matriz jacobiana describe esa transformación lineal local.
 
     | | álgebra | lo que se ve |
     |---|---|---|
@@ -145,7 +144,7 @@ def _(mo):
     uno de $\mathbb R^3$: $3 \times 2$. Columna 1 = a dónde va el eje $u$ ($r_u = \partial r/\partial u$),
     columna 2 = a dónde va el eje $v$; el pasito $(du, dv)$ va a $dr = r_u\,du + r_v\,dv$ y el cuadradito $du \times dv$,
     a un paralelogramo de lados $r_u$, $r_v$. Lo que no se puede recorrer a la salida es la normal $r_u \times r_v$:
-    *"el espacio que no puedo recorrer es la normal, por eso el producto cruz"* (cita textual del profesor).
+    el espacio que no se puede recorrer es la normal, y por eso aparece el producto cruz.
 
     **La primera forma fundamental es la tabla de productos internos de los ejes locales**, la $V V^T$ sembrada en la
     [unidad 02](../02_producto_interno/index.html), con los ejes como columnas:
@@ -159,17 +158,16 @@ def _(mo):
 
     **¿Qué se conserva?** A primer orden, el pasito: direcciones y largos de lo chico. Lo que cambia es la regla: en el
     plano cartesiano $E = G = 1$, $F = 0$ en todos lados; sobre una superficie la tabla depende del punto, y en el polo una
-    columna se anula: *"mover la latitud me saca del polo, mover la longitud no me mueve"* (cita textual del profesor).
+    columna se anula: mover la latitud saca del polo, mover la longitud no mueve.
 
-    Dos cosas más de la clase, en la [ficha 9](../../clases/09.html): el **gradiente** de $h$ *"es una forma lineal, no
-    un vector"*, la regla graduada que mide cuánto sube $h$ con cada pasito, $h_u\,du + h_v\,dv$; y la **función implícita**,
+    Dos cosas más: el **gradiente** de $h$ es una forma lineal, no
+    un vector: la regla graduada que mide cuánto sube $h$ con cada pasito, $h_u\,du + h_v\,dv$; y la **función implícita**,
     $F(x, y, z) = 0$ define $z = g(x, y)$ cerca de un punto si la normal "le hace sombra" al eje $z$ ($\partial F/\partial z \neq 0$).
     Todo esto es una **muestra**; la demostración está en el apunte, secciones 6 y 13.
     """)
     mo.vstack([_texto, mo.callout(mo.md(r"""
-    **El gradiente es una forma lineal, no un vector (recordatorio del 14/10).** El profesor se corrigió en vivo: "el
-    gradiente de una función es un vector… no, mentí, lo dije mal. Es una forma lineal, porque me permite hacer una
-    aproximación lineal de la función" (transcripción auto-traducida del inglés, línea 114). Sobre la grilla $(u, v)$, el
+    **El gradiente es una forma lineal, no un vector.** Es una forma lineal porque permite hacer una
+    aproximación lineal de la función. Sobre la grilla $(u, v)$, el
     gradiente de la altura es la **fila** $(h_u, h_v)$: la regla graduada de la [unidad 06](../06_formas_lineales/index.html),
     que lee $dh = h_u\,du + h_v\,dv$ sobre cada pasito y cambia de coordenadas con $A^{-1}$, como toda forma. Para
     convertirla en **una flecha** sobre el terreno (la dirección de máxima pendiente, perpendicular a las curvas de nivel)
@@ -458,7 +456,7 @@ def _(mo):
 
 @app.cell
 def _(editor_d, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _E, _G = _rng.uniform(0.5, 4.0, 12), _rng.uniform(0.5, 4.0, 12)
     _F = _rng.uniform(-0.8, 0.8, 12) * np.sqrt(_E * _G)  # EG − F² > 0: tablas de verdad
     _du, _dv = _rng.uniform(-1, 1, 12), _rng.uniform(-1, 1, 12)
@@ -531,7 +529,7 @@ def _(mo):
 
     **Lo que viene:** [Cuatro problemas: regresión, círculos, Procrustes, regresión total](../11_cuatro_problemas/index.html):
     la matriz $A^T A$ y las ecuaciones normales como herramienta de ajuste. Como ramal,
-    [curvatura](../12_curvatura/index.html) (anticipada, pendiente de validar): cuánto se aparta la superficie de su plano
+    [curvatura](../12_curvatura/index.html) (ramal): cuánto se aparta la superficie de su plano
     tangente, la **segunda forma fundamental**. El hilo: $E, F, G$ es la regla; la curvatura es cuánto se dobla.
     """)
     return

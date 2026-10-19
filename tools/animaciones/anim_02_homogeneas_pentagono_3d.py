@@ -1,9 +1,9 @@
 """Animación 02 — coordenadas homogéneas en 3D: los puntos del plano son rayos por el origen y la lámina
-z = 1 es la foto. Una homografía H mueve los rayos; su corte con la lámina deforma el pentágono del
-profesor proyectivamente.
+z = 1 es la foto. Una homografía H mueve los rayos; su corte con la lámina deforma el pentágono
+proyectivamente.
 
 Elegimos la homografía "foto del dron inclinada" H = [[1, 0, 0], [0, 1, 0], [0, k, 1]] con k = 0.6: la del
-profesor (A y B fijas, C ↔ E) anula la tercera coordenada de A y B a mitad de la mezcla lineal
+pentágono (A y B fijas, C ↔ E) anula la tercera coordenada de A y B a mitad de la mezcla lineal
 (1 − s) I + s H, o sea que esos vértices se van al infinito y el rayo cruza la lámina por el lado opuesto.
 Con la del dron (H(s) p)_z = 1 + s k y ≥ 0.51 en todo el ciclo y el pentágono deformado queda dentro de
 la lámina.

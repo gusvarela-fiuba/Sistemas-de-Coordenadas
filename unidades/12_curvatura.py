@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Curvatura como forma cuadrática (unidad 12, molde v2 sobre cb104). Clase 12 del esqueleto 2025, no dictada en 2C2026.
-
-Lección anticipada (esqueleto 2025 + apunte del profesor sobre el elipsoide, prueba 1 + apunte v3), pendiente de
-validar por la cátedra. Una sola idea: la primera forma (unidad 10) es la regla; la curvatura es cuánto se aparta la
+"""Curvatura como forma cuadrática (unidad 12, molde v2 sobre cb104).
+Una sola idea: la primera forma (unidad 10) es la regla; la curvatura es cuánto se aparta la
 superficie del plano tangente al dar un paso en cada rumbo, y eso es otra forma cuadrática (L, M, N). Sus rumbos
 propios son las direcciones principales (autovectores de solve(I, II)), la curvatura de Gauss es su producto
 (det II / det I), e ir derecho sobre la superficie es no doblar dentro de ella.
@@ -44,12 +42,9 @@ def _(mo):
     mo.md(r"""
     # Curvatura como forma cuadrática
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025 y el apunte de la cátedra,
-    pendiente de validar por la cátedra.*
-
-    Seguimos la clase 12 del esqueleto. La pregunta: **¿Cuánto se aparta la superficie de su plano tangente en cada
+    La pregunta: **¿Cuánto se aparta la superficie de su plano tangente en cada
     rumbo, y qué quiere decir ir derecho sobre ella?** El gancho: *un nivel apoyado en el terreno: la curvatura dice
     cuánto cambia la vertical al dar un paso en cada rumbo.*
 
@@ -143,9 +138,8 @@ def _(mo):
     $L = r_{uu}\cdot n$, $M = r_{uv}\cdot n$, $N = r_{vv}\cdot n$, es cuánto de la segunda derivada del paso cae
     sobre la normal $n$. Las dos son **formas cuadráticas**: un número que sale de un vector pasando por una matriz
     simétrica, como $\|v\|^2 = v^{\mathsf T} v$ con otra matriz en el medio. Con la grilla $(x, y)$ de un gráfico
-    $z = f(x, y)$ y tangente horizontal, $I$ es la identidad y $II$ es la hessiana de la clase 9: el apunte del
-    profesor (prueba 1) llega a $\kappa_n(\alpha) = L\cos^2\alpha + 2M\cos\alpha\sin\alpha + N\sin^2\alpha$
-    y a que *los máximos y mínimos se dan a intervalos de $\pi/2$*. (Él llama $N$ al término mixto y $M$ a
+    $z = f(x, y)$ y tangente horizontal, $I$ es la identidad y $II$ es la hessiana de la unidad 10: la prueba 1 del apunte llega a $\kappa_n(\alpha) = L\cos^2\alpha + 2M\cos\alpha\sin\alpha + N\sin^2\alpha$
+    y a que *los máximos y mínimos se dan a intervalos de $\pi/2$*. (Algunos textos llaman $N$ al término mixto y $M$ a
     $f_{yy}$; usamos la notación usual, $M$ mixto, la de la unidad 10 y la bibliografía.)
 
     **Direcciones principales.** El máximo y el mínimo de $II(d)$ entre los rumbos con $I(d) = 1$ son los
@@ -158,8 +152,8 @@ def _(mo):
     **Geodésica.** La aceleración de una curva sobre la superficie tiene una parte normal (la que la superficie le
     obliga, $\kappa_n$) y una tangencial (la que dobla **dentro** de la superficie, $\kappa_g$). Ir derecho es
     $\kappa_g = 0$: el volante recto, el hilo tenso sobre la cáscara. En la esfera, los círculos máximos; un paralelo
-    no, salvo el ecuador. Esta lectura es nuestra (el esqueleto sólo nombra las geodésicas); Euler y los extremos a
-    $\pi/2$ se demuestran en el apunte del profesor, no en el v3 (ver el cierre).
+    no, salvo el ecuador. Euler y los extremos a
+    $\pi/2$ se demuestran en el apunte (ver el cierre).
     """)
     return
 
@@ -363,7 +357,7 @@ def _(mo):
 
 @app.cell
 def _(mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     casos_cd = []  # 20 pares (I, II): I = JᵀJ (regla oblicua), II simétrica al azar
     for _ in range(20):
         _J, _A = _rng.normal(size=(3, 2)), _rng.normal(size=(2, 2))
@@ -493,18 +487,18 @@ def _(mo):
     son perpendiculares y que $K$ sobrevive al doblado. Las demostraciones:
 
     - [apunte, sección "Curvatura: de la curva plana a la forma cuadrática"](../../apunte.pdf#nameddest=cap:curvatura):
-      la curvatura de una curva plana, la Prueba 1 de Clavijo (la curvatura normal es la hessiana evaluada en el
+      la curvatura de una curva plana, la Prueba 1 (la curvatura normal es la hessiana evaluada en el
       rumbo, los extremos a $\pi/2$, con su errata confirmada), el resultado "Fórmula de Euler y radio medio"
       ($R = \sqrt{R_1 R_2}$), la Prueba 2 (Meusnier, $x' = N\cos\varphi$) y por qué meridiano y primer vertical son las
       direcciones principales del elipsoide · [sección "Polígonos geodésicos y trigonometría
       esférica"](../../apunte.pdf#nameddest=cap:esfera): las geodésicas como las "rectas" de la superficie
     - [apunte, «Superficies, elipsoide, curvatura…» (métrica y primera forma; esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:curvatura)
       ($M$, $N$ y $K = 1/(MN)$)
-    - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): "Radios de curvatura",
+    - apunte *Geometría del Elipsoide y cálculos Geodésicos*: "Radios de curvatura",
       prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
     - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
 
-    **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (clase 13): una superficie donde $\kappa_1 = 1/M$
+    **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (unidad 13): una superficie donde $\kappa_1 = 1/M$
     y $\kappa_2 = 1/N$ se deducen de una sola simetría, y la normal no pasa por el centro.
     """)
     return

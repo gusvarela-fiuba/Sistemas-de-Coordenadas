@@ -1,9 +1,7 @@
 """Bloque 4 del banco de autoevaluación: unidades 11 a 15 (cuatro problemas, curvatura, elipsoide, trigonometría
 esférica, transformaciones conformes). Esquema en unidades/_banco/README.md; lo mezcla tools/merge_banco.py.
 
-Rúbrica: el apéndice 19 del apunte no tiene rúbrica para las clases 11 a 15. Donde una celda de las rúbricas existentes
-(Rotaciones, Productos, Cambio de base y SVD) cubre de verdad la pregunta, se cita; si no, se anota "propuesta:" con la
-celda que la unidad sugiere (elemental / medio / avanzado), para armar la rúbrica del bloque cuando la cátedra valide.
+El campo `rubrica` anota el tema y el nivel (elemental / medio / avanzado) que cubre cada pregunta.
 """
 
 BANCO = {
@@ -38,7 +36,7 @@ BANCO = {
                 {"id": "d", "texto": r"La simple usa dos puntos y la total usa todos.", "correcta": False,
                  "explicacion": r"Las dos usan todos los puntos; dos puntos definen una recta exacta sin residuo, y eso no es ajuste."},
             ],
-            "rubrica": "propuesta: Cuatro problemas · elemental · vertical contra perpendicular, la misma nube y dos preguntas distintas",
+            "rubrica": "Cuatro problemas · elemental · vertical contra perpendicular, la misma nube y dos preguntas distintas",
         },
         {
             "id": "11_m1",
@@ -120,7 +118,7 @@ BANCO = {
                 {"id": "d", "texto": r"La curvatura en el rumbo de la grilla $u$, $L / E$.", "correcta": False,
                  "explicacion": r"$L/E$ es la curvatura normal en una dirección particular de la grilla, que depende de cómo se parametrizó; $K$ no depende de la grilla."},
             ],
-            "rubrica": "propuesta: Curvatura · elemental · $K = \\kappa_1\\kappa_2 = \\det II/\\det I$; hecho geométrico: su signo dice cuenco, canaleta o silla",
+            "rubrica": "Curvatura · elemental · $K = \\kappa_1\\kappa_2 = \\det II/\\det I$; hecho geométrico: su signo dice cuenco, canaleta o silla",
         },
         {
             "id": "12_e2",
@@ -136,12 +134,12 @@ BANCO = {
                 {"id": "d", "texto": r"Es una cima: la curvatura es negativa en todos los rumbos.", "correcta": False,
                  "explicacion": r"Una cima baja en todos los rumbos; hacia el este el paso sube, así que hay un rumbo de curvatura positiva."},
             ],
-            "rubrica": "propuesta: Curvatura · elemental · tangente horizontal no es curvatura cero; hecho geométrico: la silla sube en un rumbo y baja en el perpendicular",
+            "rubrica": "Curvatura · elemental · tangente horizontal no es curvatura cero; hecho geométrico: la silla sube en un rumbo y baja en el perpendicular",
         },
         {
             "id": "12_m1",
             "nivel": "medio",
-            "enunciado": r"En un punto los radios de curvatura principales valen $R_1 = 4$ m y $R_2 = 9$ m. El apunte del profesor promedia el radio $1/\chi(\alpha)$ sobre un cuadrante. ¿Qué radio medio obtiene?",
+            "enunciado": r"En un punto los radios de curvatura principales valen $R_1 = 4$ m y $R_2 = 9$ m. El apunte promedia el radio $1/\chi(\alpha)$ sobre un cuadrante. ¿Qué radio medio obtiene?",
             "opciones": [
                 {"id": "a", "texto": r"$R = 6{,}5$ m, el promedio aritmético de $R_1$ y $R_2$.", "correcta": False,
                  "explicacion": r"Promediar los dos extremos a mano ignora cómo varía $1/\chi(\alpha)$ entre ellos; la integral con la sustitución $u = \sqrt{R_2/R_1}\tan\alpha$ da la media geométrica, no la aritmética."},
@@ -152,7 +150,7 @@ BANCO = {
                 {"id": "d", "texto": r"$R \approx 5{,}54$ m, el promedio de las curvaturas invertido: $2/(1/R_1 + 1/R_2)$.", "correcta": False,
                  "explicacion": r"Esa es la inversa de la curvatura media $H$; el apunte promedia radios sobre el ángulo, no curvaturas, y eso lleva a la media geométrica."},
             ],
-            "rubrica": "propuesta: Curvatura · medio · Euler $\\chi(\\alpha) = \\chi_1\\cos^2\\alpha + \\chi_2\\sin^2\\alpha$ y el radio medio $\\sqrt{R_1 R_2}$",
+            "rubrica": "Curvatura · medio · Euler $\\chi(\\alpha) = \\chi_1\\cos^2\\alpha + \\chi_2\\sin^2\\alpha$ y el radio medio $\\sqrt{R_1 R_2}$",
         },
         {
             "id": "12_m2",
@@ -168,7 +166,7 @@ BANCO = {
                 {"id": "d", "texto": r"$\kappa_n = 0$: la sección a $45°$ es una recta porque el cilindro se desenrolla en el plano.", "correcta": False,
                  "explicacion": r"Desenrollarse sin estirar dice $K = \kappa_1\kappa_2 = 0$, no que toda sección sea recta; la única sección normal recta es la paralela al eje."},
             ],
-            "rubrica": "propuesta: Curvatura · medio · la curvatura normal es cuadrática en el rumbo (Euler); hecho geométrico: el cilindro sólo es recto a lo largo del eje",
+            "rubrica": "Curvatura · medio · la curvatura normal es cuadrática en el rumbo (Euler); hecho geométrico: el cilindro sólo es recto a lo largo del eje",
         },
         {
             "id": "12_a1",
@@ -184,7 +182,7 @@ BANCO = {
                 {"id": "d", "texto": r"$\rho_\beta = 10/\cos 60° = 20$ m, porque la sección oblicua es más larga.", "correcta": False,
                  "explicacion": r"Dividir por $\cos\theta$ es invertir el factor de la fórmula de Meusnier; la sección oblicua es más curva, así que su radio es $\rho_\alpha\cos\theta$, menor."},
             ],
-            "rubrica": "propuesta: Curvatura · avanzado · Meusnier $\\rho_\\beta = \\rho_\\alpha\\cos\\theta$; hecho geométrico: el paralelo es sección oblicua del primer vertical, $x' = N\\cos\\varphi$",
+            "rubrica": "Curvatura · avanzado · Meusnier $\\rho_\\beta = \\rho_\\alpha\\cos\\theta$; hecho geométrico: el paralelo es sección oblicua del primer vertical, $x' = N\\cos\\varphi$",
         },
         {
             "id": "12_a2",
@@ -200,7 +198,7 @@ BANCO = {
                 {"id": "d", "texto": r"No se puede porque $\kappa_1 \ne \kappa_2$ en el elipsoide; en la esfera, donde son iguales, sí.", "correcta": False,
                  "explicacion": r"La esfera tiene $K = 1/R^2 > 0$ y tampoco se aplana; lo que impide la isometría es $K \ne 0$, no que las curvaturas principales sean distintas."},
             ],
-            "rubrica": "propuesta: Curvatura · avanzado · $K$ sobrevive al doblado sin estirar (theorema egregium); hecho geométrico: la hoja se enrolla en cilindro pero la cáscara no se aplana",
+            "rubrica": "Curvatura · avanzado · $K$ sobrevive al doblado sin estirar (theorema egregium); hecho geométrico: la hoja se enrolla en cilindro pero la cáscara no se aplana",
         },
     ],
     "13_elipsoide": [
@@ -218,7 +216,7 @@ BANCO = {
                 {"id": "d", "texto": r"No se puede saber sin la altura $h$ del mojón.", "correcta": False,
                  "explicacion": r"Sobre la superficie ($h = 0$) $\psi$ depende sólo de $\varphi$ y de $e^2$; la altura cambia la cuenta sólo si el punto se corre por la normal."},
             ],
-            "rubrica": "propuesta: Elipsoide · elemental · tres latitudes, $\\psi \\le \\beta \\le \\varphi$; hecho geométrico: la normal no pasa por el centro",
+            "rubrica": "Elipsoide · elemental · tres latitudes, $\\psi \\le \\beta \\le \\varphi$; hecho geométrico: la normal no pasa por el centro",
         },
         {
             "id": "13_e2",
@@ -234,7 +232,7 @@ BANCO = {
                 {"id": "d", "texto": r"$M$ es el radio del meridiano y $N$ la distancia del punto al centro de la Tierra.", "correcta": False,
                  "explicacion": r"$N$ es la distancia del punto al eje polar medida a lo largo de la normal, no al centro; por eso la normal corta el eje polar a $N e^2 \sin\varphi$ del centro."},
             ],
-            "rubrica": "propuesta: Elipsoide · elemental · $M$ meridiano y $N$ primer vertical son las direcciones principales; hecho geométrico: $N$ es el tramo de la normal hasta el eje polar",
+            "rubrica": "Elipsoide · elemental · $M$ meridiano y $N$ primer vertical son las direcciones principales; hecho geométrico: $N$ es el tramo de la normal hasta el eje polar",
         },
         {
             "id": "13_m1",
@@ -250,7 +248,7 @@ BANCO = {
                 {"id": "d", "texto": r"$a e^2 / 2 \approx 21{,}3$ km, porque $M$ lleva exponente $3/2$ y $N$ exponente $1/2$.", "correcta": False,
                  "explicacion": r"Los exponentes actúan sobre $1 - e^2\sin^2\varphi$, que en el ecuador vale $1$; lo que distingue $M$ de $N$ ahí es el factor $(1 - e^2)$ entero."},
             ],
-            "rubrica": "propuesta: Elipsoide · medio · $M$ y $N$ en ecuador y polo; hecho geométrico: más curvo a lo largo del meridiano que a lo ancho",
+            "rubrica": "Elipsoide · medio · $M$ y $N$ en ecuador y polo; hecho geométrico: más curvo a lo largo del meridiano que a lo ancho",
         },
         {
             "id": "13_m2",
@@ -266,7 +264,7 @@ BANCO = {
                 {"id": "d", "texto": r"$R/4$.", "correcta": False,
                  "explicacion": r"Es $\cos^2 60°$: el cuadrado aparece en la primera forma, $G = N^2\cos^2\varphi$, pero el radio del paralelo lleva el coseno sin elevar."},
             ],
-            "rubrica": "propuesta: Elipsoide · medio · primera forma $E = M^2$, $G = N^2\\cos^2\\varphi$; hecho geométrico: el paralelo se achica con $\\cos\\varphi$",
+            "rubrica": "Elipsoide · medio · primera forma $E = M^2$, $G = N^2\\cos^2\\varphi$; hecho geométrico: el paralelo se achica con $\\cos\\varphi$",
         },
         {
             "id": "13_a1",
@@ -282,7 +280,7 @@ BANCO = {
                 {"id": "d", "texto": r"$M = N = a^2/b = 6{,}25$: en el polo coinciden.", "correcta": True,
                  "explicacion": r"Con $\sin^2\varphi = 1$, $N = a/\sqrt{1 - e^2} = 5/0{,}8$ y $M = a(1 - e^2)/(1 - e^2)^{3/2}$, el mismo valor; en el polo pasan todos los meridianos, todos los rumbos son iguales y el punto es umbilical."},
             ],
-            "rubrica": "propuesta: Elipsoide · avanzado · deducciones por simetría: en el polo todos los rumbos son meridianos y $M = N = a^2/b$",
+            "rubrica": "Elipsoide · avanzado · deducciones por simetría: en el polo todos los rumbos son meridianos y $M = N = a^2/b$",
         },
         {
             "id": "13_a2",
@@ -298,7 +296,7 @@ BANCO = {
                 {"id": "d", "texto": r"$Z = M\sin\varphi$, porque la coordenada vertical sigue al meridiano.", "correcta": False,
                  "explicacion": r"$M$ es el radio de curvatura del meridiano, un radio osculador, no una distancia desde ningún eje; la conversión usa $N$ y el factor $(1 - e^2)$."},
             ],
-            "rubrica": "propuesta: Elipsoide · avanzado · conversión $(\\varphi, \\lambda, h) \\to (X, Y, Z)$; hecho geométrico: la normal corta el eje polar debajo del centro",
+            "rubrica": "Elipsoide · avanzado · conversión $(\\varphi, \\lambda, h) \\to (X, Y, Z)$; hecho geométrico: la normal corta el eje polar debajo del centro",
         },
     ],
     "14_trigonometria_esferica": [
@@ -332,7 +330,7 @@ BANCO = {
                 {"id": "d", "texto": r"Suman siempre $270°$, como el triángulo con tres ángulos rectos.", "correcta": False,
                  "explicacion": r"$270°$ es sólo el octante; el exceso crece con el área, y un triángulo de pocos km suma $180°$ más una fracción de segundo."},
             ],
-            "rubrica": "propuesta: Trigonometría esférica · elemental · exceso esférico = área$/R^2$ (Girard); hecho geométrico: el triángulo abomba y los ángulos se abren",
+            "rubrica": "Trigonometría esférica · elemental · exceso esférico = área$/R^2$ (Girard); hecho geométrico: el triángulo abomba y los ángulos se abren",
         },
         {
             "id": "14_m1",
@@ -348,7 +346,7 @@ BANCO = {
                 {"id": "d", "texto": r"$\tfrac{\pi}{2} R^2$.", "correcta": False,
                  "explicacion": r"Ese es el octante, de exceso $90°$; acá el exceso es $30°$, un tercio."},
             ],
-            "rubrica": "propuesta: Trigonometría esférica · medio · cuenta del exceso y del área con el control del octante",
+            "rubrica": "Trigonometría esférica · medio · cuenta del exceso y del área con el control del octante",
         },
         {
             "id": "14_m2",
@@ -380,7 +378,7 @@ BANCO = {
                 {"id": "d", "texto": r"$180° + \text{área}/R^2$, porque el exceso no depende del número de lados.", "correcta": False,
                  "explicacion": r"El exceso no depende del número de lados, pero la parte plana sí: $(n - 2)\cdot 180°$, que para cinco lados es $540°$."},
             ],
-            "rubrica": "propuesta: Trigonometría esférica · avanzado · polígono geodésico, $\\sum\\text{ángulos} - (n-2)\\pi = $ área$/R^2$; hecho geométrico: no hay cuadrilátero de cuatro rectos",
+            "rubrica": "Trigonometría esférica · avanzado · polígono geodésico, $\\sum\\text{ángulos} - (n-2)\\pi = $ área$/R^2$; hecho geométrico: no hay cuadrilátero de cuatro rectos",
         },
         {
             "id": "14_a2",
@@ -462,7 +460,7 @@ BANCO = {
                 {"id": "d", "texto": r"$q(0) = -e/2$.", "correcta": False,
                  "explicacion": r"La corrección del elipsoide se anula en el ecuador porque $\sin 0 = 0$ deja $\ln 1$; el $-e/2$ sólo multiplica ese logaritmo."},
             ],
-            "rubrica": "propuesta: Conformes · medio · Mercator es $y = a\\,q(\\varphi)$ con $h = k$; hecho geométrico: el ecuador queda en $y = 0$ y el mapa es simétrico",
+            "rubrica": "Conformes · medio · Mercator es $y = a\\,q(\\varphi)$ con $h = k$; hecho geométrico: el ecuador queda en $y = 0$ y el mapa es simétrico",
         },
         {
             "id": "15_a1",
@@ -478,7 +476,7 @@ BANCO = {
                 {"id": "d", "texto": r"Porque conserva áreas: lo que el paralelo se estira el meridiano se aplasta, $hk = 1$, y cerca del polo ya no cabe nada.", "correcta": False,
                  "explicacion": r"$hk = 1$ es la cilíndrica equivalente, que aplasta los polos contra $y = \pm R$ en la esfera; Mercator hace lo contrario, $hk = k^2 \to \infty$."},
             ],
-            "rubrica": "propuesta: Conformes · avanzado · $h = k$ con $k = a/(N\\cos\\varphi)$: por qué Mercator estira hacia los polos; hecho geométrico: círculos de Tissot que crecen pero siguen círculos",
+            "rubrica": "Conformes · avanzado · $h = k$ con $k = a/(N\\cos\\varphi)$: por qué Mercator estira hacia los polos; hecho geométrico: círculos de Tissot que crecen pero siguen círculos",
         },
         {
             "id": "15_a2",

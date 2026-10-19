@@ -1989,7 +1989,7 @@
   <question type="multichoice">
     <name><text>05_a1 · Unidad 07 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>El pentágono regular del profesor, con \(D = (0, 1)\) arriba y \(A\), \(B\) abajo. La proyectiva \(H = \begin{pmatrix} -\sqrt5 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 1 \\ 0 &amp; 4 &amp; 1 \end{pmatrix}\) deja fijos \(A\) y \(B\) e intercambia \(C\) con \(E\). ¿Dónde cae \(D\) y cómo queda la imagen?</p>]]></text>
+      <text><![CDATA[<p>El pentágono regular, con \(D = (0, 1)\) arriba y \(A\), \(B\) abajo. La proyectiva \(H = \begin{pmatrix} -\sqrt5 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 1 \\ 0 &amp; 4 &amp; 1 \end{pmatrix}\) deja fijos \(A\) y \(B\) e intercambia \(C\) con \(E\). ¿Dónde cae \(D\) y cómo queda la imagen?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -2075,7 +2075,7 @@
   <question type="multichoice">
     <name><text>06_e1 · Unidad 08 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>El profesor dijo que no existe el vector fila. ¿Qué es, entonces, una forma lineal \(\ell = (a, b)\)?</p>]]></text>
+      <text><![CDATA[<p>En esta materia no existe el vector fila. ¿Qué es, entonces, una forma lineal \(\ell = (a, b)\)?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3256,7 +3256,7 @@
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(B^{-1} A\,B\): la de la derecha actúa primero, lleva a la base propia; \(A\) estira; \(B^{-1}\) vuelve a leer en la base propia.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(B\) a canónica, \(A\) lo transforma, y \(B^{-1}\) lo lee de vuelta en la base propia, donde cada eje sólo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A\) del profesor, con su \(A\) en el lugar de nuestra \(B\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(B\) a canónica, \(A\) lo transforma, y \(B^{-1}\) lo lee de vuelta en la base propia, donde cada eje sólo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A\) de otra notación habitual, con su \(A\) en el lugar de nuestra \(B\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(A\,B\): aplicar \(A\) a cada autovector ya da \(\lambda_k v_k\), que es diagonal.</p>]]></text>
@@ -4225,7 +4225,7 @@
   <question type="multichoice">
     <name><text>12_m1 · Unidad 16 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>En un punto los radios de curvatura principales valen \(R_1 = 4\) m y \(R_2 = 9\) m. El apunte del profesor promedia el radio \(1/\chi(\alpha)\) sobre un cuadrante. ¿Qué radio medio obtiene?</p>]]></text>
+      <text><![CDATA[<p>En un punto los radios de curvatura principales valen \(R_1 = 4\) m y \(R_2 = 9\) m. El apunte promedia el radio \(1/\chi(\alpha)\) sobre un cuadrante. ¿Qué radio medio obtiene?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>

@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Cambio de base y diagonalización (unidad 08, molde v2 sobre cb104). Clase 8 (2026-09-30).
-
+"""Cambio de base y diagonalización (unidad 08, molde v2 sobre cb104).
 Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambiamos la grilla con que la
 medimos y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
 grilla de los autovectores una transformación es sólo estirar por λ en cada eje (A = B Λ B⁻¹) y Aⁿ sale sola.
@@ -43,9 +42,9 @@ def _(mo):
     mo.md(r"""
     # Cambio de base y diagonalización
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 8 (30/9). La pregunta: **Si la flecha no se movió pero cambiamos la grilla, ¿cómo cambian los números, y
+    La pregunta: **Si la flecha no se movió pero cambiamos la grilla, ¿cómo cambian los números, y
     en qué grilla una transformación es sólo estirar?** El gancho: *el mismo mojón con coordenadas en tres marcos:
     cambia la grilla con que se mide, no el punto.*
 
@@ -128,8 +127,8 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **¿Qué se conserva?** El punto, y con él toda la geometría: distancias, ángulos, qué punto está en qué recta, a
-    dónde lleva cada transformación a cada punto. Lo que cambia son los **números**. "Convertimos todo para que nada
-    cambie" (el profesor, 30/9). No hay base privilegiada: la canónica sólo es especial porque en ella el producto
+    dónde lleva cada transformación a cada punto. Lo que cambia son los **números**. Convertimos todo para que nada
+    cambie. No hay base privilegiada: la canónica sólo es especial porque en ella el producto
     interno es $x_1x_2 + y_1y_2$.
 
     **La matriz de cambio de base.** Si los ejes nuevos $b_1, b_2$ (escritos en la grilla vieja) son las columnas de
@@ -163,7 +162,7 @@ def _(mo):
     independientes: una rotación no tiene ninguno y una cizalla tiene uno solo, y ninguna se diagonaliza (la SVD,
     unidad 09, la esquiva con dos bases distintas). El argumento general cabe en una línea, columna por columna:
     $A\,b_k = \lambda_k b_k$ para cada $k$ es lo mismo que $AB = B\Lambda$, y si las columnas son independientes
-    $B$ se invierte y queda $B^{-1}AB = \Lambda$. El profesor escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
+    $B$ se invierte y queda $B^{-1}AB = \Lambda$. Otra notación habitual escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
     esa matriz es $B$, para no confundirla con la transformación.
     """)
     return
@@ -174,7 +173,7 @@ def _(mo):
     mo.callout(mo.md(r"""
     **La matriz de cambio de base y el despeje de la diagonalización.**
 
-    En este recuadro seguimos la notación del pizarrón del profesor: $A = [\,v_1 \mid v_2\,]$ es la matriz de cambio de base (la $B$ del resto de la unidad) y la transformación se llama $T$. Fuera del recuadro, $A$ es la transformación y $B$ el cambio de base.
+    En este recuadro seguimos esa otra notación: $A = [\,v_1 \mid v_2\,]$ es la matriz de cambio de base (la $B$ del resto de la unidad) y la transformación se llama $T$. Fuera del recuadro, $A$ es la transformación y $B$ el cambio de base.
 
     **(1) Quién se transforma con qué.** El diagrama de conmutatividad, escrito en orden de aplicación:
 
@@ -221,7 +220,7 @@ def _(lib, mo):
 @app.cell
 def _(mo):
     mo.callout(mo.md(r"""
-    **Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo.** En la clase 6 quedaron
+    **Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo.** Quedan
     abiertas dos preguntas: ¿qué pasa si hay algo en el núcleo?, ¿y si un autovalor repetido no alcanza para armar una
     base? Las respondemos con cuatro matrices $2\times2$. Una cosa es **invertir** (no aplastar nada: $\det \ne 0$) y
     otra **diagonalizar** (tener dos rectas propias independientes que armen una grilla).
@@ -562,7 +561,7 @@ def _(mo):
 @app.cell
 def _(editor_c, lib, mo, np):
     _B = np.array([[2.0, 1.0], [0.0, 1.0]])  # la base del ejercicio (a): no es simétrica, así B.T se distingue de B
-    _puntos = np.random.default_rng(56798).uniform(-5, 5, size=(20, 2))
+    _puntos = np.random.default_rng(0xDDDE).uniform(-5, 5, size=(20, 2))
     _esperado = np.linalg.solve(_B, _puntos.T).T
     _ns = {"np": np}
     try:
@@ -676,7 +675,7 @@ def _(mo):
       · [apunte, «Álgebra de las transformaciones» (autovectores, formas lineales, cambio de base)](../../apunte.pdf#nameddest=cap:cambio-base)
     - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
-    **Lo que viene:** la SVD (unidad 09, cuando se dicte): dos bases perpendiculares, una a la entrada y otra a la
+    **Lo que viene:** la SVD (unidad 09): dos bases perpendiculares, una a la entrada y otra a la
     salida, para que toda matriz sea "sólo estirar" de una grilla a otra, también las que no tienen ejes propios. Y las superficies
     (unidad 10): la grilla $(u, v)$ dibujada sobre el terreno.
     """)

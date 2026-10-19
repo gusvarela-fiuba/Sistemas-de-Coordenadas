@@ -6,12 +6,11 @@
 #     "plotly",
 # ]
 # ///
-"""Núcleo y autovectores: las direcciones que no giran (unidad 07b, molde v2 sobre cb104). Clases 5 y 6.
-
+"""Núcleo y autovectores: las direcciones que no giran (unidad 07b, molde v2 sobre cb104).
 Una sola idea: el núcleo son los vectores que van al cero (ahí la transformación aplasta: det = 0); un autovector es
 una dirección que la transformación no gira, sólo estira por λ; encontrarlos es buscar el núcleo de A − λI, y el
 detector det(A − λI) = 0 dice para qué λ ese núcleo existe. El autovector sale como la perpendicular a una fila
-(en 3D, la cruz de dos filas): el método del profesor.
+(en 3D, la cruz de dos filas): el método de «la cruz de dos filas».
 
 Chequear:  uv run marimo check --select MW unidades/07b_nucleo_autovectores.py
 Exportar:  uv run python tools/build.py --only 07b_nucleo_autovectores
@@ -43,9 +42,9 @@ def _(mo):
     mo.md(r"""
     # Núcleo y autovectores: las direcciones que no giran
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos las clases 5 y 6. La pregunta: **¿qué direcciones caen sobre sí mismas al transformar, y cómo las encontramos
+    La pregunta: **¿qué direcciones caen sobre sí mismas al transformar, y cómo las encontramos
     con una cuenta?** El gancho: *un plano deformado por el escáner: casi todos los rumbos giran, pero hay dos que
     salen con el mismo rumbo que entraron; el eje de una rotación es la dirección que no gira.*
 
@@ -128,7 +127,7 @@ def _(mo):
     $\det A = 0$. Y la dirección que se aplasta es la que **todas las filas ven como cero**: la perpendicular a una fila.
 
     **Después, las direcciones que no giran.** $Av = \lambda v$: la recta de $v$ cae sobre sí misma, sólo estirada por
-    el **autovalor** $\lambda$ ($1$ queda quieta, $-1$ se invierte, $0$ es el núcleo). El pase de magia del profesor:
+    el **autovalor** $\lambda$ ($1$ queda quieta, $-1$ se invierte, $0$ es el núcleo). El pase de magia:
     $Av = \lambda v$ es lo mismo que $(A - \lambda I)\,v = 0$: **$v$ está en el núcleo de $A - \lambda I$**, una versión
     modificada de la transformación. Y ya sabemos cuándo un núcleo no es trivial: cuando el detector da cero,
     $\det(A - \lambda I) = 0$. Esa ecuación en $\lambda$ es el **polinomio característico**; sus raíces reales son los
@@ -322,8 +321,8 @@ def _(A_esc, lib, mo, np):
 
         Una sola idea: **`np.linalg.eig(A)` devuelve dos cosas**, el array de autovalores `w` y una matriz `V` cuyas
         **columnas** son los autovectores (unitarios), en el mismo orden: `A @ V[:, k]` es `w[k] * V[:, k]`. Los
-        autovalores salen complejos si hay giro, y `eig` no los ordena. `lib.autovectores_cuna(A)` hace la cuenta del
-        profesor y devuelve, además, qué fila usó y si el núcleo era un plano entero.
+        autovalores salen complejos si hay giro, y `eig` no los ordena. `lib.autovectores_cuna(A)` hace esa cuenta
+        y devuelve, además, qué fila usó y si el núcleo era un plano entero.
         """),
         mo.md("```python\nw, V = np.linalg.eig(A)       # w: autovalores; V: autovectores por columnas\nnp.allclose(A @ V[:, 0], w[0] * V[:, 0])\nnp.linalg.eigvals(lib.rot2(0.5))   # un giro: complejos\n```"),
         mo.md(f"`w` = `{np.round(_w, 6).tolist()}` · `V` =\n```\n{np.round(_V, 4)}\n```\n`A @ V[:, 0] == w[0] V[:, 0]`: `{bool(np.allclose(A_esc @ _V[:, 0], _w[0] * _V[:, 0]))}` · "
@@ -412,7 +411,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: la máquina del profesor** *("construir una versión modificada de la
+        **(d) Código con hueco — avanzado: la máquina del núcleo** *("construir una versión modificada de la
         transformación que tenga al autovector en el núcleo").* Completá `autovectores(A)`: para una $2\times2$ con
         autovalores reales distintos devuelve una lista de pares `(λ, v)`. Tenés `np` y `perp2`. Se verifica que cada
         par cumpla `np.allclose(A @ v, λ v)` en tres matrices, y que los $\lambda$ coincidan con `np.linalg.eigvals`.

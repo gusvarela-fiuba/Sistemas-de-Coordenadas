@@ -8,13 +8,10 @@
 # ///
 """Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia).
 
-Repaso fundacional de desarrollo complementario (procedencia: clases 1, 4 y 9 + bibliografía del campus); no es contenido
-dictado por la cátedra. Cinco ladrillos en orden deductivo, al estilo de Apostol pero con el vocabulario del profesor
-y con el terreno como ejemplo: (1) conjuntos, operaciones y grupos; (2) los cuerpos R y C, con C como matrices 2×2;
+Repaso fundacional de desarrollo complementario, no una lección del recorrido principal. Cinco ladrillos en orden
+deductivo, al estilo de Apostol, con el vocabulario de la materia y con el terreno como ejemplo: (1) conjuntos, operaciones y grupos; (2) los cuerpos R y C, con C como matrices 2×2;
 (3) espacio afín (mojones) vs. espacio vectorial (nace al plantar un origen); (4) el dual V*: una fila es una forma
-lineal y el gradiente también; (5) producto interno y métrica G: la cinta métrica que V y V* solos no tienen. Las
-frases entre comillas atribuidas al profesor están en `fuentes/` (resúmenes 2025 o transcripciones 2026); lo demás es
-desarrollo del apunte.
+lineal y el gradiente también; (5) producto interno y métrica G: la cinta métrica que V y V* solos no tienen.
 
 Chequear:  uv run marimo check --select MW unidades/00_fundamentos.py
 Exportar:  uv run python tools/build.py --only 00_fundamentos
@@ -46,13 +43,12 @@ def _(mo):
     mo.md(r"""
     # Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Esto es un repaso de desarrollo complementario, no contenido dictado: lo armamos a partir de las clases 1, 4 y 9 y de la
-    bibliografía del campus, para que el resto de las lecciones se lea con una sola cabeza. En el CBC el álgebra lineal
+    Esto es un repaso de desarrollo complementario: lo armamos para que el resto de las lecciones se lea con una sola cabeza. En el CBC el álgebra lineal
     y el análisis fueron dos materias con dos cuadernos; acá son **una sola herramienta geométrica sobre el terreno**.
     Para que eso cierre hacen falta cinco ladrillos, cada uno con su definición (precisa, sin aparato), su traducción al
-    vocabulario del profesor, un ejemplo de campo y su línea de NumPy.
+    vocabulario de la materia, un ejemplo de campo y su línea de NumPy.
 
     Colores, iguales en figura y álgebra: lo de **antes** en gris, lo de **después** en
     <span style="color:#1b6f6a">**teal**</span> (segunda columna en <span style="color:#b5451b">**rust**</span>,
@@ -200,11 +196,8 @@ def _(candidatos, lib, mo, prediccion):
     mo.vstack([
         mo.callout(mo.md(_texto), kind=_kind),
         mo.md(r"""
-        El profesor lo dijo en vivo el 14/10 (clase 9), corrigiéndose a sí mismo: "el gradiente de una función es un
-        vector… no, mentí, lo dije mal. **El gradiente es una forma lineal, no un vector**; lo es porque me permite hacer
-        una aproximación lineal de la función" (transcripción auto-traducida del inglés, `fuentes/transcripciones/2026-10-14.md`).
-        Y el resumen 2025 de la misma clase lo llama "dato clave: el gradiente es una forma lineal no un vector". Los cinco
-        ladrillos que siguen son lo que hace falta para que esa frase sea obvia.
+        **El gradiente es una forma lineal, no un vector**: lo es porque permite hacer una aproximación lineal de la
+        función. Los cinco ladrillos que siguen son lo que hace falta para que esa frase sea obvia.
         """),
     ])
     return
@@ -225,19 +218,18 @@ def _(mo):
     conjunto) que es asociativa, tiene un *neutro* (no cambia nada) y da a cada elemento una *inversa* (lo deshace). Si
     además el orden no importa, el grupo *conmuta*.
 
-    **En el vocabulario del profesor.** "Transformaciones y Operaciones (por ahora definidas coloquialmente) son dos
-    conceptos que van atravesando la materia" (resumen 2025, clase 1). Y la inversa, dicha para todos los casos a la
-    vez: "la inversa es un elemento de un conjunto que, al operar con otro resulta en el elemento neutro respecto de
-    esa operación" (resumen 2025, clase 10): el $-3$ respecto de la suma, el $\tfrac13$ respecto del producto, $A^{-1}$
+    **En el vocabulario de la materia.** Transformaciones y operaciones son dos conceptos que atraviesan todo el curso.
+    La inversa, dicha para todos los casos a la vez: es un elemento del conjunto que, al operar con otro, da el
+    elemento neutro respecto de esa operación: el $-3$ respecto de la suma, el $\tfrac13$ respecto del producto, $A^{-1}$
     respecto de la composición.
 
     **En el campo.** Los giros de la estación total alrededor de su eje vertical forman un grupo: girar $30°$ y después
     $50°$ es girar $80°$ (operación interna), no girar es el neutro, girar $-30°$ deshace el $30°$. Las traslaciones
     (mover la estación total de un mojón a otro) también, y conmutan en cualquier dimensión. Los giros conmutan en el
     plano; en 3D no: un giro horizontal y un cabeceo
-    en distinto orden dejan el anteojo apuntando a lugares distintos; "la composición de transformaciones lineales no
-    es conmutativa" (resumen 2025, clase 1) y "otro ejemplo de operaciones que no conmutan son las rotaciones y las
-    traslaciones" (19/8). Lo mide [Rotaciones III](../01c_rotaciones_3d/index.html).
+    en distinto orden dejan el anteojo apuntando a lugares distintos; la composición de transformaciones lineales no
+    es conmutativa, y otro ejemplo de operaciones que no conmutan son las rotaciones y las
+    traslaciones. Lo mide [Rotaciones III](../01c_rotaciones_3d/index.html).
 
     **En NumPy.** La operación es `A @ B` (primero $B$, después $A$); el neutro, `np.eye(n)`; la inversa aplicada a un
     dato, `np.linalg.solve(A, y)` (el $x$ tal que $Ax = y$); la pregunta "¿conmutan?", `np.allclose(A @ B, B @ A)`.
@@ -259,11 +251,10 @@ def _(mo):
     Las matrices $2\times2$ de esa forma, con suma y producto de matrices, son el mismo cuerpo $\mathbb C$ con otro
     ropaje (ejercicio E1).
 
-    **En el vocabulario del profesor.** "La matriz de rotación de 2x2 que vimos en algebra del CBC hace exactamente la
-    misma operación que hacíamos con los complejos" (resumen 2025, clase 1); la "interesantísima equivalencia en la
-    estructura de los numeros complejos y algunas matrices de 2x2" la deja para leer en Gentile, *Complejos y
-    Generalización* (bibliografía del campus, clase 1), y "multiplicar por $i$ es rotar $\pi/2$" es un ítem de la
-    rúbrica elemental. Lo desarrolla [Rotaciones II](../01b_rotacion_plano/index.html).
+    **En el vocabulario de la materia.** La matriz de rotación de 2×2 del álgebra del CBC hace exactamente la misma
+    operación que hacíamos con los complejos; la equivalencia entre la estructura de los números complejos y ciertas
+    matrices de 2×2 se lee en Gentile, *Complejos y Generalización*, y "multiplicar por $i$ es rotar $\pi/2$" es la
+    versión más corta de esa equivalencia. Lo desarrolla [Rotaciones II](../01b_rotacion_plano/index.html).
 
     **En NumPy.** `z = 2 + 1j`, `abs(z)`, `np.degrees(np.angle(z))`, y la matriz `np.array([[z.real, -z.imag], [z.imag, z.real]])`.
 
@@ -282,12 +273,10 @@ def _(mo):
     lineales porque "las transformaciones lineales conservan el cero" (19/8), pasan a ser matrices $3\times3$
     ([Afines](../04_afines_homogeneas/index.html)).
 
-    **En el vocabulario del profesor.** "Un espacio vectorial es básicamente un conjunto al que se asocian dos
-    operaciones (suma y producto por escalar) que cumplen con algunas propiedades básicas a las que llamamos
-    'linealidad'" (resumen 2025, clase 4). Sobre los campos vectoriales, el 14/10: "no tiene sentido pensarlos como
-    vectores, tiene sentido pensarlos como puntos" (transcripción auto-traducida). Y el 19/8: "la geometría no me exige
-    coordenadas, las coordenadas es algo que yo le pongo por comodidad para trabajar". En el espíritu de todo eso: en
-    esta materia **todo vector es un punto** (un mojón visto desde $O$) o un desplazamiento entre dos.
+    **En el vocabulario de la materia.** Un espacio vectorial es básicamente un conjunto con dos operaciones (suma y
+    producto por escalar) que cumplen unas propiedades básicas a las que llamamos *linealidad*. Los campos vectoriales
+    no conviene pensarlos como vectores sino como puntos; y la geometría no exige coordenadas: las coordenadas son algo
+    que le ponemos por comodidad para trabajar. En ese espíritu, en esta materia **todo vector es un punto** (un mojón visto desde $O$) o un desplazamiento entre dos.
 
     **En NumPy.** Un punto y un desplazamiento son el mismo `np.array([x, y])`; la diferencia la ponemos nosotros. Independencia:
     `np.linalg.matrix_rank(np.column_stack([u, v])) == 2`. Homogeneizar: `np.append(p, 1.0)` (`lib.hom`).
@@ -312,11 +301,10 @@ def _(mo):
     La derivada de una función escalar es de este tipo: $df = \nabla f\,dx$ toma un pasito $dx \in V$ y devuelve cuánto
     sube $f$; $\nabla f$ **vive en $V^*$**.
 
-    **En el vocabulario del profesor.** "No existe el vector fila. Lo que comúnmente llamamos vector fila se llama
-    forma lineal" (30/9, transcripción auto-traducida); "las más básicas de esas funciones son las funciones
-    selectoras de coordenadas" (resumen 2025, clase 4); "una forma lineal se transforma con una transformación lineal
-    del lado 'contrario' que un vector" (resumen 2025, clase 4); "dato clave: el gradiente es una forma lineal no un
-    vector" (resumen 2025, clase 9). Lo desarrollan [Formas lineales](../06_formas_lineales/index.html) y
+    **En el vocabulario de la materia.** No existe el vector fila: lo que comúnmente llamamos vector fila es una
+    forma lineal. Las más básicas son las funciones selectoras de coordenadas; una forma lineal se transforma con la
+    transformación lineal del lado «contrario» que un vector; y el gradiente es una forma lineal, no un vector. Lo
+    desarrollan [Formas lineales](../06_formas_lineales/index.html) y
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html).
 
     **En NumPy.** La forma es un array fila y va **a la izquierda**: `w @ x` lee; `w @ np.linalg.inv(A)` o, sin invertir,
@@ -331,10 +319,9 @@ def _(mo):
     $w = Gv$, y *sube* una forma a vector, $v = G^{-1} w$. "El gradiente es perpendicular a la curva de nivel" es la
     frase sobre $G^{-1}\nabla f$, no sobre $\nabla f$.
 
-    **En el vocabulario del profesor.** "Lo único que define a la base que llamamos canónica es que sobre ella tenemos
-    definida la noción de distancia a través del producto interno" (resumen 2025, clase 6), y "¿qué tiene de especial
-    la base canónica? que es la que nos define el producto interno del espacio vectorial" (resumen 2025, clase 8). O
-    sea: en la base canónica $G = I$ y la cinta métrica coincide con la grilla; en cualquier otra, no.
+    **En el vocabulario de la materia.** Lo único que define a la base que llamamos canónica es que sobre ella tenemos
+    definida la noción de distancia a través del producto interno: es la que define el producto interno del espacio
+    vectorial. O sea: en la base canónica $G = I$ y la cinta métrica coincide con la grilla; en cualquier otra, no.
 
     **En el campo.** La grilla del dibujo estirado tiene $G' = A^{-T} A^{-1}$ (sección 3.2). La grilla $(\varphi,
     \lambda)$ del elipsoide, o la $(u, v)$ de un parche curvo, tiene por métrica la **primera forma fundamental**
@@ -355,7 +342,7 @@ def _(mo):
 
     La escalera: en $\mathbb R$ la regla es $wx$ y la métrica un número (la escala); en $\mathbb R^2$ las marcas son
     rectas y $G$ es $2\times2$; en $\mathbb R^3$ las marcas son planos y $G$ es $3\times3$. **El puente al cálculo**, que
-    es lo que hace de las clases 9 a 14 la misma materia: derivar una parametrización es usar una matriz lineal, la
+    es lo que hace de las unidades 10 a 14 la misma materia: derivar una parametrización es usar una matriz lineal, la
     jacobiana $J$, en el parche tangente (ladrillos 1 y 3); el gradiente es una forma (ladrillo 4); $J^T J$ es la
     métrica del tangente (ladrillo 5); y curvarse (hessiana, segunda forma) es una forma cuadrática, un número por cada
     dirección. Esto es una **muestra**; las demostraciones viven en el apunte (anexo).
@@ -694,7 +681,7 @@ def _(mo):
 
 @app.cell
 def _(editor_e1, matriz_complejo, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _zs = [1j, 1.0 + 1j] + [complex(*_rng.uniform(-3, 3, 2)) for _ in range(10)]
     _pares = list(zip(_zs[:-1], _zs[1:]))
     _ns = {"np": np}
@@ -744,7 +731,7 @@ def _(mo):
 
 @app.cell
 def _(editor_e2, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _casos = [(np.diag([2.0, 1.0]), np.array([1.0, 2.0]), np.array([1.0, 1.0]))]
     while len(_casos) < 11:
         _M = _rng.uniform(-3, 3, (2, 2))
@@ -802,7 +789,7 @@ def _(mo):
 
 @app.cell
 def _(angulo_g, editor_e3, mo, np, subida_metrica):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _casos = [(np.array([2.0, 1.0]), np.array([2.0, -1.0]), np.diag([0.25, 1.0]), np.array([0.5, 1.0]))]
     while len(_casos) < 11:
         _B = _rng.uniform(-2, 2, (2, 2))
