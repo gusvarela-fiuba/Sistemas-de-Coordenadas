@@ -14,8 +14,10 @@ Actualizado en cada commit de fase. Formato de commit: `[FASE-X] [OK|PARADA|BLOQ
 | B | Capítulo 0 fusionado, apéndices ap1–ap6, capítulo 3 partido en 3 y 4 con renumeración, capítulo 2 reescrito | OK, PARADA para revisión | (dos commits de esta fase) | entregas/2026-10-19_fase-B.pdf |
 | B1 | Limpieza fuera del PDF: respaldo, fichas, unidades, mapa, banco, herramientas, README, documentos internos, datos personales, enlaces del PDF, historial reescrito | OK, mergeada a main (entrega-2) | d592233, 7752ecb, 9ea5124 | entregas/2026-10-19_fase-B1.pdf |
 | D | Capítulos 1 (aplicación), 3, 5, 6, 7, 9, 10 y 11 al molde | OK, PARADA para revisión | 3bf947a (cap. 1), fe14333 (3), 774b234 (5), df62300 (6), de47fcc (7), 195708d (9), a29053d (10), a69ec45 (11), a3293ab (cierre lote 1) | apunte/Apunte_Sistemas_de_Coordenadas.pdf (200 págs.) |
-| E | Complementos C1–C4 y apéndices | pendiente | — | — |
-| F | Pasada editorial final e INFORME_FINAL.md | pendiente | — | — |
+| D1 | Correcciones de D, mapa de transformaciones, significado geométrico de las operaciones, conjugación y congruencia | OK | 7f68a8b, bff959d, d8fe53f, 0d187df | — |
+| D2 | Demostraciones con código: apunte/demostraciones, extracción de fragmentos, \comprobacion, CI | OK | 2b5f98a | — |
+| E | E1 capítulos 12 a 15 — OK; E2 complementos C1–C4 y apéndices — pendiente | E1 OK, E2 pendiente | E1: 4f1194d, 71bb912, 93a7570, 5baeac2, 7beb529 | — |
+| F | Hoja de estilo, estructura F1–F7 y pasada editorial de los capítulos 0 a 15 | OK, PARADA para revisión | 85004ed (F0, cero menciones prohibidas), 4a07400 (bitácoras al privado, cap. 11), 596a0d3 (hoja de estilo), f936a08 (estructura), 442485c (0–4), b8154c8 (5–8, con V1 y V2), 9591d53 (solicitud #1, cap. 5), 5419cd1 (9–15) y el commit de parada (este commit) | apunte/Apunte_Sistemas_de_Coordenadas.pdf (251 págs.) |
 
 ## Historial reescrito el 2026-10-19 (git filter-repo, rutas de material de terceros, datos personales y registros de proceso)
 
@@ -63,3 +65,45 @@ Cerrada el 2026-10-19 04:59 -03.
 - Archivos que cumplen el mínimo: 10 de 26 (los capítulos 1, 2, 3, 5, 6, 7, 8, 9, 10 y 11); el capítulo 4 sigue sin aplicación topográfica.
 - Enlaces y recuadros: 130 enlaces a unidades, 6 a animaciones, 25 recuadros, 0 rotos, 0 menciones prohibidas.
 - Build del sitio con WASM: OK; búsqueda de términos sobre el sitio: `revisados: 39 html, 20 json, 1 xml, 1 pdf`, TOTAL 0.
+
+## Fase F cerrada
+
+- Páginas del PDF: 268 antes de F, 251 al cierre (252 antes de los recortes aprobados).
+- `estilo.py` en 0 en todo el apunte y bloqueante en CI (`--estricto`, sin `continue-on-error`).
+- El informe editorial vive en el repositorio privado (carpeta `revision/`), no en este.
+
+### Decisiones pendientes para el editor
+
+- Capítulos 2 y 4 quedan debajo de la meta de reducción (6,1 % y 9,0 %); bajar más exige tocar enunciados, demostraciones, ejemplos con cuentas o la aplicación.
+- Capítulo 12: la remisión «caja~\ref{caja:convencion-en}» imprime el número de la sección y no el de la caja; unificar con «la caja de la sección~\ref{…}».
+- Capítulos 8 y 12: la matriz de covarianza o de dispersión usa la letra \(C\) del cambio de base; unificar (por ejemplo \(S\) o \(\Sigma\)), incluida la consigna de la unidad 11.
+- Capítulo 7, `def:06-direccion-propia`: es el autovector con otro nombre; candidata a reducirse a una frase conservando la etiqueta.
+- Capítulo 8: las definiciones «Forma cuadrática» y «Descomposición en valores singulares» no tienen `\label`.
+- Capítulo 5, caja de SVM: cita el helper de `cb104.py`, cuyo nombre remite al código de la materia.
+- Capítulos 5 a 8 quedan debajo de la meta del 15 % (6,3 % a 9,7 %); bajar más exige tocar ese material.
+- Capítulo 15: \(\psi\) es la ordenada de Mercator en la loxodromia y la latitud geocéntrica en el 14; candidata a otra letra.
+- Capítulo 15, «El triángulo polo--punto--punto»: el polo norte es \(N\), que en la aplicación del mismo capítulo es el radio del primer vertical.
+- Capítulo 13: \(C\) y \(C_n\) nombran centros de osculadoras, además de la matriz \(C\) del cambio de base.
+- Consignas de las unidades 9 y 11: notación \(B^{-1}AB\) y \(P^{+}=P/25\), distinta de la del texto (\(C^{-1}AC\), \(M^{+}=M/25\)); no se tocaron.
+- Duplicados: los de los capítulos 9, 11 y 13 quedaron resueltos (ver «Decisión sobre la meta de páginas»); el capítulo 15 conserva sus dos demostraciones del teorema del coseno.
+- Capítulo 15: la bibliografía es una lista con negritas; en 8 y 14 es un párrafo.
+- Metas de 9 a 15: 5,0 % de líneas antes de los recortes aprobados; la meta de páginas quedó resuelta (ver «Decisión sobre la meta de páginas»).
+
+### Decisión sobre la meta de páginas
+
+F cierra en torno a 250 páginas (251 en el PDF actual); la meta de 240 queda descartada. Recortes aprobados y lo que se aplicó:
+
+- Procedimiento duplicado entre los capítulos 9 y 11: queda completo donde se introduce y el otro lugar remite.
+  - Capítulo 9: el ejemplo `ej:cb-diagonalizar` es la versión completa. El párrafo «Diagonalizar es elegir la grilla de los autovectores» pasa de 13 a 5 líneas: conserva \(A\), los autovalores, los autovectores y \(D\) (los usa el párrafo siguiente) y remite al ejemplo. El párrafo «Potencias y la trayectoria de un punto» pierde la cuenta de \(A^5\) con \(D^5\) y su lectura (11 líneas a 4): queda \(A^n=CD^nC^{-1}\) con remisión al ejemplo y el resultado de \(A^5\); la trayectoria con exponente real se conserva.
+  - Capítulo 11: el párrafo «Sistema sobredeterminado» (recta por tres puntos) pasa de 20 a 5 líneas y remite a `ej:recta-cuatro-puntos`, del mismo capítulo, que tiene la cuenta completa; la figura `fig:inv-proyeccion` se conserva.
+- Deducción por simetría del capítulo 13: la subsección «Hacia el elipsoide» tenía el argumento completo de las direcciones principales (reflexión en el plano meridiano, término cruzado nulo), el mismo de la demostración de `prop:elip-principales` del 14. Queda reducida a la afirmación de las direcciones y curvaturas principales con remisión a `prop:elip-principales` y a `sec:radios-MN` (8 líneas a 5); los valores numéricos de GRS80 se conservan porque los usa la aplicación del DEM. El capítulo 14 no se tocó.
+- No se recorta: las dos demostraciones del teorema del coseno del capítulo 15, por ser enfoques distintos.
+
+### Overfull restantes
+
+Todos los avisos de más de 2 pt quedaron corregidos (8 antes, 2 después). Quedan:
+
+| Archivo | Líneas | Tamaño |
+|---|---|---:|
+| `contenido/05-formas-lineales.tex` | 609–614 | 0,34 pt |
+| `contenido/14-elipsoide.tex` | 97–101 | 0,20 pt |
