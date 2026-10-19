@@ -2,7 +2,7 @@
 """Menú por capítulo: entradas, platos y postres para cada ficha del programa (A4 apaisado, imprimible).
 
 Genera `site/menu-por-capitulo.html`. Lo llama tools/build.py después del laboratorio CAD y del menú
-(tools/menu.py), antes de las menciones prohibidas. Los textos de cada capítulo están escritos a mano acá;
+(tools/menu.py), antes de las menciones prohibidas. Los textos de cada capítulo están escritos a mano acá, salvo el título (el del PDF, menu.titulo_capitulo_pdf);
 el rótulo de cada capítulo sale de build.rotulo_ficha (numeración del PDF) y los platos de CAD pasan a
 «listo» con enlace a cad/#capN cuando el sitio publica site/cad/index.html con esa sección y
 cad/ejercicios.yaml tiene ejercicios de ese capítulo. Al final verifica que todo enlace al sitio
@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from build import CAPITULO_DE_FICHA, MAPA, RAIZ, cargar_mapa, rotulo_ficha  # noqa: E402
-from menu import cargar_cad, existe, url_sitio  # noqa: E402
+from menu import cargar_cad, existe, titulo_capitulo_pdf, url_sitio  # noqa: E402
 
 S = (url_sitio() or "https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/").rstrip("/")
 SALIDA = "menu-por-capitulo.html"
@@ -223,7 +223,7 @@ def generar_html() -> str:
     pages=[]
     for k in ORDEN:
         t,en,pl,po=C[k]
-        pages.append(f'<section id="cap-{k}"><h1><span>{rotulo(k)}</span> {H.escape(t.replace("Complemento: ",""))}</h1><div class=g>'
+        pages.append(f'<section id="cap-{k}"><h1><span>{rotulo(k)}</span> {H.escape(titulo_capitulo_pdf(k))}</h1><div class=g>'
           +"".join(f'<div class=col><h2>{h}</h2><p class=hs>{s}</p>{"".join(item(i) for i in xs)}</div>' for h,s,xs in [("Entradas","para abrir: una imagen o una pregunta",en),("Platos","el centro del capítulo: televisor y puestos",pl),("Postres","para cerrar y llevarse",po)])
           +'</div><p class=pie>Se elige uno o varios de cada columna. Lo marcado <b>a pedido</b> se prepara para la fecha en que se da el capítulo.</p></section>')
     cover=f'''<section class=cov><h1 class=t>Sistemas de Coordenadas</h1><p class=st>Un menú para cada capítulo</p>
@@ -231,7 +231,7 @@ def generar_html() -> str:
 <p>Cada plato dice cuánto lleva y dónde se sirve: <b>para explicar</b> (una imagen o una pregunta), en el <b>televisor</b> (una unidad interactiva o una animación) o en los <b>puestos</b> (cada alumno con la unidad en su computadora).</p>
 <p><span class="e ok2">listo</span> ya está en el sitio y se usa hoy. <span class=e>a pedido</span> se prepara para el capítulo que se elija: escenas guiadas, planillas, GeoGebra y los ejercicios de CAD que todavía no están en el laboratorio.</p>
 <p>También a pedido, para cualquier capítulo: un guion de una página (qué mostrar, qué preguntar, cuándo pasar a los puestos) y una versión de la unidad preparada para proyectar, con letra grande y casos fijos.</p>
-<p class=ix>{" · ".join(f'<a href="#cap-{k}">{rotulo(k)}</a>: '+H.escape(C[k][0].replace("Complemento: ","")) for k in ORDEN)}</p>
+<p class=ix>{" · ".join(f'<a href="#cap-{k}">{rotulo(k)}</a>: '+H.escape(titulo_capitulo_pdf(k)) for k in ORDEN)}</p>
 <p>Todo el material: <a href="{S}/">{S[8:]}</a> · <a href="{S}/mapa.html">mapa de conceptos</a> · <a href="{S}/menu.html">qué hay para cada tema</a> · <a href="{S}/cad/">laboratorio CAD</a></p></section>'''
     css='''@page{size:A4 landscape;margin:10mm 11mm}
 body{font-family:'DejaVu Sans',sans-serif;font-size:8.3pt;color:#1d2327;line-height:1.32;margin:0}

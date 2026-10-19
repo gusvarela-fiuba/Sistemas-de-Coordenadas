@@ -175,6 +175,16 @@ def existe(site: Path, href: str) -> bool:
     return p.is_file()
 
 
+def titulo_capitulo_pdf(cid: str) -> str:
+    """Título del PDF (el `\\chapter{...}`, vía apunte/numeracion.json) del capítulo de la ficha `cid`.
+
+    Si la ficha cubre dos capítulos (la 03: 3 y 4) devuelve los dos títulos separados por «; »."""
+    por_numero = {e["numero"]: e["titulo"] for e in numeracion_apunte().values()
+                  if e["rotulo"] in ("Capítulo", "Complemento")}
+    nums = CAPITULO_DE_FICHA.get(cid, cid).split(" y ")
+    return "; ".join(por_numero.get(n, n) for n in nums)
+
+
 def armar_filas(site: Path) -> list[dict]:
     datos = cargar_mapa(MAPA)
     numeracion = numeracion_apunte()
@@ -196,7 +206,7 @@ def armar_filas(site: Path) -> list[dict]:
         numeros = CAPITULO_DE_FICHA.get(cid, cid).split(" y ")
         uids = [u for u in fm.get("unidades") or [] if u in unidades]
 
-        tema = {"rotulo": rotulo_ficha(cid), "titulo": f.get("titulo", ""),
+        tema = {"rotulo": rotulo_ficha(cid), "titulo": titulo_capitulo_pdf(cid),
                 "ficha": pieza("ficha del capítulo", f"capitulos/{cid}.html", site)}
 
         explicar = [texto_suelto(t) for t in secs.get(SECCION_IMAGENES, [])] or [texto_suelto("", PREP)]
