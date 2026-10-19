@@ -50,6 +50,16 @@ GeoGebra es una de las herramientas habituales del aula, y ya hay apuntes de ál
 
 - [ ] Una tabla de clasificación por bloque (movimientos, semejanzas, afinidades: qué conservan, matriz, determinante, puntos fijos), al estilo de los resúmenes de las escuelas de topografía, como hoja de repaso.
 
+## Tomo 2
+
+Temas que enseñan otras escuelas de geodesia y agrimensura y que este apunte no trata. Quedan para un segundo tomo; no entran en las entregas del tomo 1.
+
+- [ ] Cónicas y cuádricas como formas cuadráticas (se apoyan en el capítulo 12, «Curvatura como forma cuadrática», y en los autovalores del 7). Referencia: módulo «Geometrische Modelle der Geodäsie» del KIT (3.er semestre).
+- [ ] Gravedad, vertical del lugar, línea de la plomada y geoide; coordenadas astronómicas frente a geodésicas. Referencia: «Fundamentos em Geodésia» (GA112) de la UFPR.
+- [ ] Geometría del elipsoide ampliada: secciones normales, línea geodésica y teorema de Clairaut, áreas sobre el elipsoide. Referencia: GA112 (UFPR).
+- [ ] Interpolación espacial (más allá del remuestreo del tomo 1): de puntos dispersos a grilla. Referencia: cursos abiertos de la ENSG.
+- [ ] Ajuste de observaciones con estadística (pesos, covarianzas, datum, deformaciones), como continuación de los capítulos 11 y 12. Referencia: Niemeier, «Ausgleichungsrechnung».
+
 ## Más adelante
 
 - [ ] Favicon del sitio.
