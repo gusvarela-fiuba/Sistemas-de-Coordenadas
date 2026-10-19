@@ -3,16 +3,39 @@
 
 \section{La idea}
 
+Imaginá dos planos del mismo barrio, dibujados con varios años de diferencia por dos equipos
+distintos. Los superponés sobre una mesa de luz.
+¿Coinciden las esquinas, o hay que correr, girar o estirar un poco una hoja para que calcen?
+¿Y si en un rincón del barrio el desajuste es distinto que en el otro?
+
+Pensá ahora en una foto que tenés que reencuadrar: la girás un poco y la querés guardar en una
+cuadrícula de píxeles derecha.
+¿Qué color le ponés a cada píxel nuevo, si su centro cae entre cuatro píxeles viejos?
+
+Tomá una mesa con un mantel cuadriculado, medí las cuatro esquinas con una cinta, movela un
+metro y volvé a medirlas con otra cinta, que estira un poco.
+¿Qué cambió: la mesa, el mantel o los números?
+¿Cuántos números hacen falta para describir el cambio, si la mesa no se deformó?
+
+Esas tres situaciones son el complemento entero. Un mismo terreno se describe con números que
+dependen de cómo se fijaron los ejes; pasar de unos números a otros es una similaridad
+(capítulo~\ref{cap:reflexiones}) cuando el cambio es parejo, y una tabla de correcciones
+cuando no lo es. Con imágenes aparece un problema más: las celdas nuevas no caen sobre las
+viejas y hay que decidir qué valor les toca.
+
 \subsection{Sistemas, marcos y grillas}\label{sec:sistemas-marcos}
 
 Un sistema de coordenadas define reglas matemáticas para expresar posiciones. Un marco de
 referencia materializa esas reglas en una época concreta mediante puntos, estaciones y
-observaciones.
+observaciones: es el conjunto de hitos clavados en el terreno con sus coordenadas publicadas,
+la \enquote{foto} del sistema tomada en un momento dado.
 
 Cuando se cambia de marco pueden bastar traslaciones, rotaciones y escala. Si existen
 deformaciones regionales, se utilizan grillas de corrección que asignan desplazamientos
-variables según la ubicación. En datos ráster, el cambio de coordenadas obliga además a
-remuestrear porque los centros de píxel no coinciden exactamente.
+variables según la ubicación: una cuadrícula de nodos con un corrimiento anotado en cada uno.
+En datos ráster (imágenes y modelos del terreno guardados como una tabla de celdas), el cambio
+de coordenadas obliga además a remuestrear porque los centros de píxel no coinciden
+exactamente.
 
 \begin{resultado}[Mapa mental de la materia]
 Las primeras transformaciones enseñan a reconocer invariantes. Las afinidades amplían la
@@ -28,11 +51,98 @@ movimientos por coordenadas.
 
 \section{Construcciones, cuentas y ejemplos}
 
+\subsection{Las fajas: el primer dígito del Este dice cuál se usó}\label{sec:fajas-digito}
+
+¿Cómo se dibuja un país largo y angosto en un plano sin que las distancias se deformen
+demasiado? Ningún plano sirve para todo el país a la vez (complemento~\ref{cap:conformes}),
+pero un plano sí sirve bien para una franja angosta que corre de norte a sur, cerca de un
+meridiano elegido. Por eso las coordenadas planas oficiales de la Argentina, las de
+Gauss-Krüger, cortan el país en \emph{fajas}: franjas de norte a sur, numeradas de oeste a este,
+cada una con su meridiano central y sus propios ejes. En cada franja se usan dos coordenadas en
+metros, el Este \(E\), que crece hacia el este, y el Norte \(N\), que crece hacia el norte
+(sección~\ref{sec:notacion}).
+
+Para no adivinar los parámetros, se los pedimos a \texttt{pyproj} (versión \texttt{3.8.0}, con PROJ
+\texttt{9.8.1}). Las siete fajas del marco POSGAR 2007, el marco oficial vigente, tienen los códigos
+\texttt{EPSG:5343} a \texttt{EPSG:5349}, y \texttt{pyproj} informa, para la franja \(k\):
+\begin{itemize}
+  \item meridiano central en la longitud \(-72^\circ+3^\circ(k-1)\): las franjas~4, 5 y 6 tienen
+  sus meridianos centrales en \(-63^\circ\), \(-60^\circ\) y \(-57^\circ\);
+  \item factor de escala \(1\) sobre ese meridiano: ahí el plano no estira nada;
+  \item origen de latitud en \(-90^\circ\), el polo sur, con Norte \(0\) allí: \(N\) es la
+  distancia (deformada por la proyección) desde el polo sur;
+  \item \emph{falso este} igual a \(k\cdot1\,000\,000+500\,000\) m: es el valor que tiene \(E\)
+  sobre el meridiano central.
+\end{itemize}
+El último dato es el que importa acá. Sobre el meridiano central de la franja~5, \(E=5\,500\,000\);
+un punto que esté \(146\) km al este tiene \(E=5\,646\,\ldots\), y uno que esté \(200\) km al
+oeste tiene \(E=5\,300\,\ldots\). Mientras el punto no se aleje más de \(500\) km del meridiano
+central, el Este tiene siete cifras y \textbf{la primera cifra es el número de la faja}. Los
+\(500\,000\) m agregados sirven para que \(E\) nunca sea negativo dentro de la franja; el millón
+por número de franja sirve para que, mirando solo el número, se sepa en qué faja está escrito.
+
+\begin{ejemplo}[El mismo punto en tres fajas]\label{ej:fajas-digito}
+Tomamos un punto de ejemplo de latitud \(\varphi=-34{,}6^\circ\) y longitud
+\(\lambda=-58{,}4^\circ\) en geográficas POSGAR 2007 (\texttt{EPSG:5340}). A \texttt{pyproj}
+le pedimos, para la franja~5,
+\[
+\texttt{Transformer.from\_crs(\textquotedbl{}EPSG:5340\textquotedbl{}, \textquotedbl{}EPSG:5347\textquotedbl{}, always\_xy=True)},
+\]
+y lo mismo con \texttt{EPSG:5346} para la franja~4 y \texttt{EPSG:5348} para la franja~6;
+\texttt{always\_xy=True} hace que el orden sea longitud, latitud a la entrada y \(E\), \(N\) a la
+salida. Resulta, en metros:
+\begin{center}
+\begin{tabular}{@{}lrrrc@{}}
+\toprule
+Franja & \(E\) & \(N\) & \(E-\text{falso este}\) & Primera cifra de \(E\)\\
+\midrule
+4 (\texttt{EPSG:5346}) & \(4\,922\,120{,}965\) & \(6\,162\,113{,}168\) & \(422\,120{,}965\) & 4\\
+5 (\texttt{EPSG:5347}) & \(5\,646\,775{,}117\) & \(6\,170\,583{,}695\) & \(146\,775{,}117\) & 5\\
+6 (\texttt{EPSG:5348}) & \(6\,371\,573{,}173\) & \(6\,170\,856{,}526\) & \(-128\,426{,}827\) & 6\\
+\bottomrule
+\end{tabular}
+\end{center}
+El punto es el mismo; lo que cambia es la franja en la que elegimos escribirlo, y la primera
+cifra del Este lo dice sin ambigüedad. La columna \(E-\text{falso este}\) es la distancia (en la
+proyección) al meridiano central: \(146\) km al este del de la franja~5, \(422\) km al este del
+de la franja~4 y \(128\) km al oeste del de la franja~6. El Norte también cambia un poco de una
+franja a otra, porque cada franja dibuja el país con su propio meridiano.
+
+¿Por qué no da lo mismo cualquier franja? Porque el plano estira más cuanto más lejos queda el
+meridiano central. \texttt{pyproj} da el factor de escala en el punto (\texttt{get\_factors},
+escala a lo largo del meridiano): \(1{,}00027\) en la franja~5, \(1{,}00220\) en la franja~4 y
+\(1{,}00020\) en la franja~6. En la franja~4, cada kilómetro del terreno se dibuja como
+\(1{,}0022\) km: más de dos metros de diferencia por kilómetro. La longitud \(-58{,}4^\circ\)
+queda a \(1{,}6^\circ\) del meridiano central de la franja~5 y a \(1{,}4^\circ\) del de la
+franja~6, casi en el límite entre las dos; por eso sus factores de escala son parecidos.
+\end{ejemplo}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.86\linewidth]{figuras/marcos-grillas/fajas_este.png}
+\caption{Este del punto de latitud \(-34{,}6^\circ\) según la longitud, calculado con
+\texttt{pyproj} en cada una de las siete fajas del marco de 2007. El trazo grueso cubre
+\(1{,}5^\circ\) a cada lado del meridiano central; el punteado muestra que la fórmula sigue
+valiendo afuera. La vertical marca la longitud \(-58{,}4^\circ\) del ejemplo~\ref{ej:fajas-digito}:
+el mismo punto tiene Este \(4\,9\ldots\), \(5\,6\ldots\) o \(6\,3\ldots\) según la faja. Generada
+con \texttt{apunte/scripts/c4\_marcos\_grillas.py}.}
+\label{fig:fajas-este}
+\end{figure}
+
+\begin{atencion}[Importan las diferencias]
+Los Este y Norte oficiales tienen siete cifras porque el origen está lejos: el falso este y el
+polo sur. Para medir un terreno importan las diferencias entre puntos, que son de metros o de
+cientos de metros. Dos puntos solo se pueden restar si están escritos en la misma franja: la
+primera cifra del Este es el control rápido.
+\end{atencion}
+
 \subsection{Marcos de referencia y transformaciones geodésicas}
 
-Un sistema de coordenadas indica cómo expresar posiciones; un marco de referencia materializa
-ese sistema mediante convenciones, época y puntos o estaciones observadas. Cambiar de marco
-puede exigir traslaciones, rotaciones, escala y correcciones espaciales.
+Volvé a la mesa con el mantel. Si la mesa no se deformó, para pasar de las medidas viejas a
+las nuevas alcanzan un corrimiento, un giro y, si la segunda cinta estira, un factor de
+escala. Un sistema de coordenadas indica cómo expresar posiciones; un marco de referencia
+materializa ese sistema mediante convenciones, época y puntos o estaciones observadas. Cambiar
+de marco puede exigir traslaciones, rotaciones, escala y correcciones espaciales.
 
 \subsubsection{Transformaciones paramétricas}
 
@@ -40,15 +150,52 @@ Las transformaciones tridimensionales de similaridad suelen organizarse como
 \[
   X_2=t+(1+\mu)RX_1,
 \]
-donde \(t\) es una traslación, \(\mu\) una pequeña variación de escala y \(R\) una rotación.
-Las fórmulas de Molodensky permiten transformar coordenadas geodésicas considerando cambios
-de datum y de elipsoide sin pasar necesariamente por una proyección plana.
+donde \(X_1\) y \(X_2\) son las coordenadas cartesianas de un mismo punto (en metros, con el
+origen en el centro de la Tierra) en el marco viejo y en el nuevo, \(t\) es una traslación,
+\(\mu\) una pequeña variación de escala y \(R\) una rotación. Son siete números: tres de
+\(t\), tres ángulos de \(R\) y \(\mu\); por eso se la llama transformación de siete
+parámetros, y es la versión en el espacio de la similaridad del plano
+(sección~\ref{sec:similaridad}). Las fórmulas de Molodensky permiten transformar coordenadas
+geodésicas considerando cambios de datum y de elipsoide sin pasar necesariamente por una
+proyección plana.
 
-\subsubsection{Transformaciones mediante grillas}
+\begin{proposicion}[Qué le hace la transformación de siete parámetros a las distancias]\label{prop:siete-distancias}
+Si \(X_2=t+(1+\mu)RX_1\) e \(Y_2=t+(1+\mu)RY_1\), con \(R\) una rotación y \(1+\mu>0\), entonces
+\[
+  Y_2-X_2=(1+\mu)\,R\,(Y_1-X_1)
+  \qquad\text{y}\qquad
+  \lVert Y_2-X_2\rVert=(1+\mu)\,\lVert Y_1-X_1\rVert .
+\]
+La traslación \(t\) no interviene en las diferencias; si \(\mu=0\), las distancias no cambian.
+\end{proposicion}
 
-Una grilla NTv2 almacena correcciones \(\Delta\varphi,\Delta\lambda\) en nodos regulares. Para
-un punto interior se interpolan las correcciones de los cuatro nodos vecinos, típicamente por
-interpolación bilineal:
+\begin{demostracion}
+Restando las dos igualdades, \(t\) se cancela:
+\(Y_2-X_2=(1+\mu)RY_1-(1+\mu)RX_1=(1+\mu)R(Y_1-X_1)\), por la linealidad de \(R\). Una rotación
+conserva la norma (\(\lVert Rv\rVert^2=v^TR^TRv=v^Tv\)), y \(\lVert cv\rVert=c\lVert v\rVert\)
+para \(c>0\). Con \(c=1+\mu\) queda la segunda igualdad.
+\end{demostracion}
+
+Hecho geométrico: entre dos marcos que difieren en una similaridad, un plano local medido con
+cinta no cambia de forma; cambian los números absolutos. Con \(\mu=2\cdot10^{-6}\) (dos partes
+por millón), un lado de \(5\) km cambia \(1\) cm.
+
+\unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Explorá: en la predicción sobre el plano viejo y el relevamiento, decidí qué similaridad superpone una figura sobre la otra y con cuántos puntos conocidos alcanza; es la versión en el plano de la transformación de siete parámetros.}
+
+\subsubsection{Transformaciones mediante grillas}\label{sec:grillas-bilineal}
+
+¿Y si los dos planos del barrio no calzan con un solo corrimiento, porque en un rincón el
+desajuste es de \(10\) cm y en el otro de \(25\)? Ninguna similaridad lo arregla: hace falta
+anotar el corrimiento en muchos lugares y estimarlo entre ellos.
+
+Una grilla NTv2 (un formato de archivo muy usado para estas tablas) almacena correcciones
+\(\Delta\varphi,\Delta\lambda\) en nodos regulares: cuánto hay que sumar a la latitud y a la
+longitud en cada nodo. Para un punto interior se interpolan las correcciones de los cuatro
+nodos vecinos, típicamente por interpolación bilineal. Llamamos \(\Delta_{00}\),
+\(\Delta_{10}\), \(\Delta_{01}\) y \(\Delta_{11}\) a la corrección en los cuatro vértices de la
+celda (el primer subíndice dice si estamos en el lado oeste o este; el segundo, en el lado sur
+o norte), y \((u,v)\in[0,1]^2\) a la posición del punto dentro de la celda, medida como
+fracción del lado:
 \[
 \Delta(u,v)=
 (1-u)(1-v)\Delta_{00}
@@ -57,13 +204,40 @@ interpolación bilineal:
 +uv\Delta_{11}.
 \]
 Este enfoque representa deformaciones regionales que una transformación global de pocos
-parámetros no puede modelar.
+parámetros no puede modelar. Cada peso es el área del rectángulo opuesto al vértice: el
+vértice más cercano pesa más. Los cuatro pesos suman \((1-u+u)(1-v+v)=1\).
+
+\begin{ejemplo}[Interpolar en una celda de juguete]\label{ej:bilineal}
+Una celda de una cuadrícula de correcciones de ejemplo (datos sintéticos) tiene, en
+centímetros de corrimiento hacia el norte, \(\Delta_{00}=12\), \(\Delta_{10}=18\),
+\(\Delta_{01}=10\) y \(\Delta_{11}=25\). El punto está en \(u=0{,}3\), \(v=0{,}6\). Los pesos son
+\[
+(1-u)(1-v)=0{,}28,\quad u(1-v)=0{,}12,\quad (1-u)v=0{,}42,\quad uv=0{,}18,
+\]
+que suman \(1\), y la corrección interpolada es
+\(0{,}28\cdot12+0{,}12\cdot18+0{,}42\cdot10+0{,}18\cdot25=14{,}22\) cm. La misma cuenta en dos
+etapas: sobre el lado sur, \(0{,}7\cdot12+0{,}3\cdot18=13{,}8\); sobre el lado norte,
+\(0{,}7\cdot10+0{,}3\cdot25=14{,}5\); y entre los dos, \(0{,}4\cdot13{,}8+0{,}6\cdot14{,}5=14{,}22\).
+Desarrollando, la función es \(\Delta(u,v)=12+6u-2v+9uv\) (figura~\ref{fig:bilineal}).
+\end{ejemplo}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.55\linewidth]{figuras/marcos-grillas/bilineal_celda.png}
+\caption{Interpolación bilineal en la celda del ejemplo~\ref{ej:bilineal}. Las curvas de igual
+corrección no son rectas (por el término \(9uv\)), pero sobre cada recta \(u=\) constante o
+\(v=\) constante la función es lineal. Generada con
+\texttt{apunte/scripts/c4\_marcos\_grillas.py}.}
+\label{fig:bilineal}
+\end{figure}
 
 \subsection{Discretización, grillas y remuestreo}
 
-Al pasar de coordenadas continuas a una grilla aparecen decisiones sobre resolución,
-origen, orientación y regla de muestreo. Una transformación geométrica rara vez lleva los
-centros de píxel exactamente a centros de otra grilla; por eso se requiere remuestreo.
+Volvé a la foto girada. Al pasar de coordenadas continuas a una cuadrícula aparecen decisiones
+sobre resolución, origen, orientación y regla de muestreo. Una transformación geométrica rara
+vez lleva los centros de píxel exactamente a centros de otra cuadrícula; por eso se requiere
+remuestreo: para cada píxel nuevo, buscamos dónde cae su centro en la imagen vieja y elegimos
+un valor con alguna regla.
 
 \begin{center}
 \begin{tabularx}{.9\textwidth}{>{\bfseries}l X}
@@ -77,10 +251,229 @@ Bicúbico & usa un vecindario mayor; mayor suavidad y costo\\
 \end{tabularx}
 \end{center}
 
-El jacobiano de la transformación permite estudiar deformaciones locales y convertir áreas
-y densidades entre sistemas de coordenadas.
+El vecino más próximo toma el valor del píxel viejo cuyo centro está más cerca: nunca inventa
+valores, y por eso es el que corresponde a un mapa de categorías (tipo de suelo, uso del
+terreno), donde un valor intermedio no significa nada. La bilineal es la fórmula de la sección
+anterior aplicada a los cuatro píxeles que rodean el punto: da valores intermedios y suaviza los
+bordes, que es lo que se quiere con una altura o una temperatura.
+
+\begin{ejemplo}[Un píxel remuestreado a mano]\label{ej:remuestreo}
+Una imagen sintética de \(8\times8\) píxeles tiene un borde vertical: las columnas \(0\) a
+\(3\) valen \(0\) y las columnas \(4\) a \(7\) valen \(1\). Ubicamos el centro del píxel de la
+fila \(r\) y la columna \(c\) en el punto \((x,y)=(c,r)\), con las filas contadas hacia abajo.
+La cuadrícula nueva es la vieja girada \(20^\circ\) alrededor del centro \((3{,}5;\ 3{,}5)\):
+el píxel nuevo \((r,c)\) tiene su centro en
+\[
+\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}3{,}5\\3{,}5\end{pmatrix}
++R(20^\circ)\begin{pmatrix}c-3{,}5\\r-3{,}5\end{pmatrix}.
+\]
+Para el píxel nuevo de la fila \(2\) y la columna \(3\) da \((x,y)=(3{,}5432;\ 1{,}9195)\).
+\begin{itemize}
+  \item Vecino más próximo: el centro viejo más cercano es el de la columna \(4\) y la fila \(2\),
+  que vale \(1\). El píxel nuevo vale \(1\).
+  \item Bilineal: el punto cae en la celda entre las columnas \(3\) y \(4\) y las filas \(1\) y
+  \(2\), con \(u=0{,}5432\) y \(v=0{,}9195\). Los dos nodos de la columna \(3\) valen \(0\) y los
+  dos de la columna \(4\) valen \(1\), así que \(\Delta=u(1-v)+uv=u=0{,}5432\approx0{,}54\).
+\end{itemize}
+En toda la imagen, el vecino más próximo solo produce ceros y unos, con un borde en escalera;
+la bilineal produce \(6\) píxeles con valores intermedios a lo largo del borde
+(figura~\ref{fig:remuestreo}). Los píxeles nuevos cuyo centro cae fuera de la imagen vieja
+quedan sin dato: \(8\) con el vecino más próximo y \(16\) con la bilineal, que necesita los
+cuatro vecinos adentro.
+\end{ejemplo}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/marcos-grillas/remuestreo.png}
+\caption{Remuestreo de la imagen sintética del ejemplo~\ref{ej:remuestreo}. Izquierda: la
+imagen original y la cuadrícula nueva, girada \(20^\circ\), con los centros de sus píxeles; el
+punto dorado es el centro del píxel nuevo \((2,3)\). Centro: vecino más próximo. Derecha:
+bilineal, con el valor de cada píxel. En color crema, los píxeles sin dato. Generada con
+\texttt{apunte/scripts/c4\_marcos\_grillas.py}.}
+\label{fig:remuestreo}
+\end{figure}
+
+El jacobiano de la transformación (sección~\ref{sec:jacobiano}) permite estudiar deformaciones
+locales y convertir áreas y densidades entre sistemas de coordenadas. En el ejemplo, la
+transformación es una rotación y su jacobiano tiene determinante \(1\): cada píxel nuevo tiene
+la misma área que uno viejo. Si además hubiera una escala, el determinante diría cuántos
+píxeles viejos caben en uno nuevo.
+
+\unidadInteractiva{10_jacobiano_primera_forma}{Jacobiano y primera forma}{Explorá: mirá cómo un cuadradito \(du\times dv\) se transforma en un paralelogramo; su área, comparada con la del cuadradito, es lo que dice cuántas celdas viejas caben en una nueva al remuestrear.}
+
+\subsection{Aplicación geodésica: cambiar de marco, de POSGAR 94 a POSGAR 2007}\label{sec:aplicacion-marcos}
+
+El país tiene dos \enquote{fotos} oficiales de sus coordenadas, tomadas en épocas distintas,
+con receptores distintos de las posiciones que dan los satélites y con cuentas distintas:
+POSGAR 94 y POSGAR 2007. POSGAR es el nombre del marco oficial argentino, y el número distingue
+las dos versiones. Un mismo hito clavado en el suelo tiene coordenadas que difieren un poco
+de una foto a la otra. Si un plano viejo está en la primera y uno nuevo en la segunda, ¿cuánto
+hay que corregir? Un cambio de marco es una similaridad de siete parámetros como la de la
+proposición~\ref{prop:siete-distancias} o, si hay deformaciones regionales, una cuadrícula de
+correcciones como la del ejemplo~\ref{ej:bilineal}.
+
+\paragraph{Qué le pedimos a \texttt{pyproj}.} Con \texttt{pyproj 3.8.0} (\texttt{PROJ 9.8.1}) pedimos
+\[
+\texttt{Transformer.from\_crs(\textquotedbl{}EPSG:4694\textquotedbl{}, \textquotedbl{}EPSG:5340\textquotedbl{}, always\_xy=True)},
+\]
+de geográficas POSGAR 94 (\texttt{EPSG:4694}) a geográficas POSGAR 2007 (\texttt{EPSG:5340}),
+para tres puntos sintéticos: \(P=(-58{,}4^\circ;\ -34{,}6^\circ)\),
+\(Q=(-65{,}0^\circ;\ -27{,}0^\circ)\) y \(S=(-68{,}5^\circ;\ -45{,}0^\circ)\), en el orden
+longitud, latitud. Para ver qué cuenta hace, le pedimos además la lista de operaciones
+candidatas (\texttt{TransformerGroup} con los mismos argumentos). Hay tres:
+\begin{itemize}
+  \item la primera, con incertidumbre declarada de \(1{,}5\) m, pasa por un marco intermedio
+  mundial (WGS~84) y, en coordenadas cartesianas con origen en el centro de la Tierra, suma la
+  traslación \(t=(0{,}41;\ -0{,}46;\ 0{,}35)\) m, sin rotación ni escala;
+  \item las otras dos, con incertidumbres de \(2\) m y \(10\) m, no hacen nada: dejan las
+  coordenadas iguales.
+\end{itemize}
+El transformador que devuelve \texttt{from\_crs} da los mismos números que la primera
+candidata, la de menor incertidumbre.
+
+\paragraph{Resultado.} Pasamos las diferencias angulares a metros con el radio medio de la
+Tierra, \(R_1=(2a+b)/3=6\,371\,008{,}771\) m en GRS80 (capítulo~\ref{cap:elipsoide}): hacia el
+norte, \(\Delta N=R_1\,\Delta\varphi\); hacia el este, \(\Delta E=R_1\cos\varphi\,\Delta\lambda\),
+con los ángulos en radianes.
+\begin{center}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Punto & \(\Delta\lambda\) (\(^{\prime\prime}\)) & \(\Delta\varphi\) (\(^{\prime\prime}\)) & \(\Delta E\) (m) & \(\Delta N\) (m) & \(\sqrt{\Delta E^2+\Delta N^2}\) (m)\\
+\midrule
+\(P\) & \(0{,}0042\) & \(0{,}0205\) & \(0{,}108\) & \(0{,}634\) & \(0{,}643\)\\
+\(Q\) & \(0{,}0064\) & \(0{,}0188\) & \(0{,}177\) & \(0{,}582\) & \(0{,}608\)\\
+\(S\) & \(0{,}0097\) & \(0{,}0213\) & \(0{,}212\) & \(0{,}657\) & \(0{,}690\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Con la versión instalada, entonces, los tres puntos se corren unos \(60\) a \(70\) cm, casi
+hacia el norte y un poco hacia el este. El corrimiento no es igual en todos lados
+(figura~\ref{fig:cambio-marco}) aunque la operación sea una sola traslación: la misma flecha
+\(t\) del espacio, vista desde puntos distintos de la superficie, tiene componentes distintas
+hacia el este y hacia el norte de cada lugar.
+
+\paragraph{Verificación.} Rehicimos la cuenta sin \texttt{pyproj}: geográficas a cartesianas,
+sumar \(t\), cartesianas a geográficas; coincide con \texttt{pyproj} en menos de
+\(10^{-10}\) grados. Además, a primer orden el corrimiento hacia el este es el producto interno
+de \(t\) con el versor que apunta al este del lugar, y el corrimiento hacia el norte, el
+producto con el versor que apunta al norte (sección~\ref{sec:enu}). Para \(P\) dan \(0{,}108\) m
+y \(0{,}633\) m. La diferencia de un milímetro con la tabla en \(\Delta N\) viene del radio: la
+tabla usa la esfera de radio medio, y el radio de curvatura del meridiano en \(P\) es
+\(M=6\,356\,008{,}1\) m, un \(0{,}24\) por ciento menor
+(caja \enquote{Dos esferas, dos usos} del capítulo~\ref{cap:elipsoide}). Por último, la
+distancia en el espacio entre \(P\) y \(Q\) da la misma antes y después, como anticipa la
+proposición~\ref{prop:siete-distancias} con \(R=I\) y \(\mu=0\).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.5\linewidth]{figuras/marcos-grillas/cambio_marco.png}
+\caption{Corrimiento de POSGAR 94 a POSGAR 2007 que da \texttt{pyproj 3.8.0} (\texttt{PROJ 9.8.1}) en una
+malla de puntos cada \(3^\circ\) de longitud y \(4^\circ\) de latitud, con los puntos \(P\),
+\(Q\) y \(S\) de la tabla. Las flechas están exageradas: la de referencia mide \(0{,}5\) m.
+Generada con \texttt{apunte/scripts/c4\_marcos\_grillas.py}.}
+\label{fig:cambio-marco}
+\end{figure}
+
+\begin{atencion}[Lo que dice y lo que no dice esta cuenta]
+Los números de la tabla son los que da PROJ con los parámetros que trae la versión instalada,
+con una incertidumbre declarada de \(1{,}5\) m: mayor que el propio corrimiento. No son una
+corrección oficial para un trabajo concreto. Lo que la cuenta sí muestra es la estructura: un
+cambio de marco es una similaridad (acá, solo su traslación), y una traslación del espacio no
+cambia las distancias entre hitos, pero sí sus coordenadas.
+\end{atencion}
+
+\unidadInteractiva{13_elipsoide}{Geometría del elipsoide}{Explorá: con «φ geodésica (°)» en \(-35\) y «λ (°)» en \(-60\), cerca del punto \(P\), mirá la normal al elipsoide; es el versor \(\hat\nu\) de la sección~\ref{sec:enu}, y las direcciones este y norte del lugar son perpendiculares a ella. Cambiá la latitud y comprobá que la normal no pasa por el centro.}
 
 \section{En profundidad}
+
+\subsection{La bilineal es la única de su forma}\label{sec:bilineal-unica}
+
+\begin{proposicion}[Interpolación bilineal]\label{prop:bilineal}
+Dados cuatro valores \(\Delta_{00},\Delta_{10},\Delta_{01},\Delta_{11}\), existe una única
+función de la forma \(f(u,v)=\alpha+\beta u+\gamma v+\delta uv\) que toma esos valores en
+\((0,0)\), \((1,0)\), \((0,1)\) y \((1,1)\), y es la \(\Delta(u,v)\) de la
+sección~\ref{sec:grillas-bilineal}. Además, sobre cada recta \(u=\) constante y sobre cada recta
+\(v=\) constante, \(\Delta\) es lineal, y su valor está entre el mínimo y el máximo de los
+cuatro valores.
+\end{proposicion}
+
+\begin{demostracion}
+Las cuatro condiciones son \(f(0,0)=\alpha=\Delta_{00}\), \(f(1,0)=\alpha+\beta=\Delta_{10}\),
+\(f(0,1)=\alpha+\gamma=\Delta_{01}\) y \(f(1,1)=\alpha+\beta+\gamma+\delta=\Delta_{11}\). El
+sistema es triangular y se despeja de arriba hacia abajo:
+\[
+\alpha=\Delta_{00},\quad \beta=\Delta_{10}-\Delta_{00},\quad \gamma=\Delta_{01}-\Delta_{00},\quad
+\delta=\Delta_{11}-\Delta_{10}-\Delta_{01}+\Delta_{00}.
+\]
+Hay una sola solución: la existencia y la unicidad quedan probadas. Desarrollando la fórmula de
+\(\Delta(u,v)\),
+\[
+\begin{aligned}
+&(1-u)(1-v)\Delta_{00}+u(1-v)\Delta_{10}+(1-u)v\Delta_{01}+uv\Delta_{11}\\
+&\quad=\Delta_{00}+u(\Delta_{10}-\Delta_{00})+v(\Delta_{01}-\Delta_{00})+uv(\Delta_{11}-\Delta_{10}-\Delta_{01}+\Delta_{00}),
+\end{aligned}
+\]
+que tiene la forma pedida y los mismos coeficientes; por la unicidad, es la misma función. Con
+\(v=v_0\) fijo, \(\Delta(u,v_0)=(\alpha+\gamma v_0)+(\beta+\delta v_0)u\) es lineal en \(u\); lo
+mismo con \(u\) fijo. Por último, \(\Delta\) es un promedio de los cuatro valores con pesos
+\((1-u)(1-v)\), \(u(1-v)\), \((1-u)v\), \(uv\), que son mayores o iguales que cero en
+\([0,1]^2\) y suman \(1\); un promedio con pesos así no puede salir del intervalo entre el
+menor y el mayor de los valores promediados.
+\end{demostracion}
+
+En el ejemplo~\ref{ej:bilineal}, \(\alpha=12\), \(\beta=6\), \(\gamma=-2\) y \(\delta=9\). El
+término \(\delta uv\) es el que hace que la bilineal no sea una función lineal del plano: si
+\(\delta\neq0\), las curvas de igual valor son hipérbolas (figura~\ref{fig:bilineal}). La última
+afirmación explica la tabla de métodos: la bilineal nunca da valores fuera del rango de los
+vecinos, pero sí da valores intermedios, que en un mapa de categorías no existen.
+
+\subsection{De un corrimiento en el espacio a metros hacia el este y el norte}\label{sec:enu}
+
+Sea \(r(\varphi,\lambda)\) el punto del elipsoide de latitud \(\varphi\) y longitud
+\(\lambda\), en cartesianas con origen en el centro, con la notación de la
+sección~\ref{sec:radios-MN}. Llamamos \(\hat e\) y \(\hat n\) a los
+versores que apuntan al este y al norte del lugar, y \(\hat\nu\) a la normal:
+\[
+\hat e=\begin{pmatrix}-\sin\lambda\\ \cos\lambda\\ 0\end{pmatrix},\qquad
+\hat n=\begin{pmatrix}-\sin\varphi\cos\lambda\\ -\sin\varphi\sin\lambda\\ \cos\varphi\end{pmatrix},\qquad
+\hat\nu=\begin{pmatrix}\cos\varphi\cos\lambda\\ \cos\varphi\sin\lambda\\ \sin\varphi\end{pmatrix}.
+\]
+Los tres tienen norma \(1\) (por \(\sin^2+\cos^2=1\)), son perpendiculares entre sí (los
+productos internos se anulan término a término) y cumplen \(\hat e\times\hat n=\hat\nu\): son
+las columnas de una matriz de rotación. Las derivadas de \(r\) son
+\(r_\varphi=M\hat n\) y \(r_\lambda=N\cos\varphi\,\hat e\), con los radios de curvatura \(M\) y
+\(N\) de la sección~\ref{sec:radios-MN}.
+
+\begin{proposicion}[Componentes de un corrimiento pequeño]\label{prop:enu}
+Si a un punto \(r(\varphi,\lambda)\) del elipsoide se le suma un vector \(t\) pequeño y el
+resultado se escribe como \(r(\varphi+\Delta\varphi,\lambda+\Delta\lambda)+\Delta h\,\hat\nu\),
+entonces, a primer orden en \(t\),
+\[
+M\,\Delta\varphi=\hat n\cdot t,\qquad N\cos\varphi\,\Delta\lambda=\hat e\cdot t,\qquad
+\Delta h=\hat\nu\cdot t .
+\]
+\end{proposicion}
+
+\begin{demostracion}
+Por la aproximación lineal (sección~\ref{sec:jacobiano}),
+\(r(\varphi+\Delta\varphi,\lambda+\Delta\lambda)=r+r_\varphi\Delta\varphi+r_\lambda\Delta\lambda\)
+más términos de segundo orden. La igualdad \(r+t=r(\varphi+\Delta\varphi,\lambda+\Delta\lambda)+\Delta h\,\hat\nu\)
+queda, a primer orden,
+\[
+t=M\Delta\varphi\,\hat n+N\cos\varphi\,\Delta\lambda\,\hat e+\Delta h\,\hat\nu .
+\]
+Como \(\hat e,\hat n,\hat\nu\) son ortonormales, el producto interno con cada uno aísla su
+coeficiente: con \(\hat n\) queda \(\hat n\cdot t=M\Delta\varphi\), con \(\hat e\) queda
+\(\hat e\cdot t=N\cos\varphi\,\Delta\lambda\) y con \(\hat\nu\) queda \(\hat\nu\cdot t=\Delta h\).
+\end{demostracion}
+
+Es un cambio de base (capítulo~\ref{cap:cambio-base}): las componentes de \(t\) en la base
+\(\hat e,\hat n,\hat\nu\) del lugar son los corrimientos hacia el este, hacia el norte y hacia
+arriba. Para el punto \(P\) de la aplicación, con \(t=(0{,}41;\ -0{,}46;\ 0{,}35)\) m, el
+script da \(\hat e\cdot t=0{,}108\) m y \(\hat n\cdot t=0{,}633\) m, y comprueba que coinciden
+con \(N\cos\varphi\,\Delta\lambda\) y \(M\Delta\varphi\) calculados con lo que devolvió
+\texttt{pyproj} hasta la centésima de milímetro. Con \(R_1\) en lugar de \(M\) y \(N\) el
+error relativo es el cociente de los radios: \(R_1/M=1{,}0024\) en \(P\).
 
 \subsection{Conexión con la práctica de Agrimensura}
 
@@ -89,7 +482,7 @@ y densidades entre sistemas de coordenadas.
 \toprule
 Concepto & Aplicación\\
 \midrule
-Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de observaciones GNSS\\
+Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de las posiciones que da un receptor por satélites\\
 Base tangente y métrica & distancias y ángulos locales sobre el elipsoide\\
 Radios \(M,N\) & variación geométrica con la latitud\\
 Proyección conforme & coordenadas planas para cartografía y mensura\\
@@ -113,3 +506,49 @@ Cada nuevo tema debería incorporarse con la secuencia
 Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
 GeographicLib y QGIS según el capítulo.
 \end{idea}
+
+\section{Ejercicios con solución}
+
+\begin{ejercicio}\label{ex:bilineal-centro}
+En la celda del ejemplo~\ref{ej:bilineal}, calculá la corrección interpolada en el centro,
+\(u=v=0{,}5\), y mostrá que en el centro de cualquier celda la bilineal da el promedio de los
+cuatro valores.
+\solucion{Los cuatro pesos valen \(0{,}5\cdot0{,}5=0{,}25\), así que
+\(\Delta(0{,}5;0{,}5)=(\Delta_{00}+\Delta_{10}+\Delta_{01}+\Delta_{11})/4\). Con los datos,
+\((12+18+10+25)/4=16{,}25\) cm.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:faja-este}
+Una planilla da para un punto el Este \(E=3\,412\,500\) m. ¿En qué faja está escrito? ¿A qué
+distancia, en la proyección, y de qué lado de su meridiano central está el punto?
+\solucion{La primera cifra es \(3\): franja~3, de meridiano central \(-66^\circ\) y falso este
+\(3\,500\,000\) m. \(E-3\,500\,000=-87\,500\) m: el punto está \(87{,}5\) km al oeste del
+meridiano central.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:escala-ppm}
+Entre dos marcos, la transformación de siete parámetros tiene \(\mu=2\cdot10^{-6}\). ¿Cuánto
+cambia la distancia entre dos hitos que están a \(5\) km? ¿Influye la traslación \(t\)?
+\solucion{Por la proposición~\ref{prop:siete-distancias}, la distancia se multiplica por
+\(1+\mu\): cambia \(\mu\cdot5000=0{,}01\) m, un centímetro. La traslación no influye, porque se
+cancela al restar.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:norma-t}
+La operación que usa PROJ en la aplicación suma \(t=(0{,}41;\ -0{,}46;\ 0{,}35)\) m. Calculá
+\(\lVert t\rVert\) y explicá por qué el corrimiento horizontal de \(P\) (\(0{,}643\) m) es menor.
+\solucion{\(\lVert t\rVert=\sqrt{0{,}1681+0{,}2116+0{,}1225}=\sqrt{0{,}5022}\approx0{,}709\) m.
+Por la proposición~\ref{prop:enu}, \(t\) se reparte en una parte horizontal (este y norte) y una
+vertical, \(\Delta h=\hat\nu\cdot t\); como los tres versores son ortonormales,
+\(\lVert t\rVert^2=(\hat e\cdot t)^2+(\hat n\cdot t)^2+(\hat\nu\cdot t)^2\), y la parte
+horizontal no puede superar a \(\lVert t\rVert\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:categorias}
+Un mapa de suelos codifica \(1=\) arcilla y \(2=\) arena. Al remuestrearlo con la bilineal, un
+píxel cae a mitad de camino entre un píxel de arcilla y uno de arena, con \(u=0{,}5\) y los dos
+nodos de cada columna iguales. ¿Qué valor da? ¿Qué método corresponde?
+\solucion{Da \(0{,}5\cdot1+0{,}5\cdot2=1{,}5\), un código que no es ningún suelo. Para un mapa de
+categorías corresponde el vecino más próximo, que solo devuelve valores que ya estaban en la
+imagen (proposición~\ref{prop:bilineal}: la bilineal da promedios).}
+\end{ejercicio}
