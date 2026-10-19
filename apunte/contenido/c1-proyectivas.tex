@@ -403,14 +403,14 @@ Dados cuatro puntos \(p_1,p_2,p_3,p_4\) sin tres alineados, se busca una matriz 
   \(Me_i\) es la \(i\)-ésima columna, ya se cumple \(Me_i=p_i\) para \(i\le3\). Pero
   \(Me_4=p_1+p_2+p_3\), que en general no es \(p_4\).
   \item Como cada columna representa su punto \emph{a menos de escala}, se la puede
-  multiplicar por un número sin cambiar a dónde va \(e_i\). Se eligen \(\lambda_1,\lambda_2,
-  \lambda_3\) tales que
+  multiplicar por un número sin cambiar a dónde va \(e_i\). Se eligen \(\mu_1,\mu_2,
+  \mu_3\) tales que
   \[
-    \lambda_1p_1+\lambda_2p_2+\lambda_3p_3=p_4
+    \mu_1p_1+\mu_2p_2+\mu_3p_3=p_4
     \qquad\Longleftrightarrow\qquad
-    \lambda=M^{-1}p_4 .
+    \mu=M^{-1}p_4 .
   \]
-  \item La matriz buscada es \(K=[\,\lambda_1p_1\ \ \lambda_2p_2\ \ \lambda_3p_3\,]\):
+  \item La matriz buscada es \(K=[\,\mu_1p_1\ \ \mu_2p_2\ \ \mu_3p_3\,]\):
   las tres primeras columnas siguen representando \(p_1,p_2,p_3\) y su suma es \(p_4\).
 \end{enumerate}
 
@@ -427,7 +427,7 @@ Se lee de derecha a izquierda: \(K_1^{-1}\) lleva el cuadrilátero de partida al
 
 Es el mismo esquema de la afinidad determinada por tres puntos de control
 (proposición~\ref{prop:06-tres-puntos}, \(A=P'P^{-1}\)), con un punto más para absorber la
-perspectiva. Los \(\lambda_i\), invisibles punto a punto, son precisamente los
+perspectiva. Los \(\mu_i\), invisibles punto a punto, son precisamente los
 grados de libertad que faltaban.
 
 \subsection{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
