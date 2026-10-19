@@ -627,9 +627,8 @@ def _(mo):
     Acá verificamos que una forma lineal es una regla, que sus marcas son rectas paralelas y que se transforma con $A^{-1}$
     para que la lectura no cambie. Las demostraciones:
 
-    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» ("Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
-      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras"))](../../apunte.pdf#nameddest=cap:11)
-    - [apunte, «Coordenadas homogéneas: puntos como rayos» (tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Álgebra de las transformaciones» ("Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
+      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras"; tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$))](../../apunte.pdf#nameddest=cap:08)
     - [ficha de la clase 4](../../clases/04.html) · [el hilo conductor](../../index.html) ·
       [Producto interno](../02_producto_interno/index.html) · [Cambio de base](../08_cambio_de_base/index.html)
 

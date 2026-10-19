@@ -2,8 +2,10 @@
 %% Archivo principal: metadatos, portada, índice y lista de secciones.
 %% El formato vive en apunte-formato.sty; el contenido en contenido/NN-nombre.tex.
 %% Compilar: lualatex ×3 desde esta carpeta (NO xelatex).
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{report}
 \usepackage{apunte-formato}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
 
 %% --- Metadatos del documento ---
 \renewcommand{\apunteEncabezadoIzq}{Sistemas de Coordenadas}
@@ -33,25 +35,27 @@ está preparado para crecer con cada nueva clase y cada nuevo documento.
 
 \vspace{8mm}
 {\large\bfseries Sobre esta versión\par}
-{\color{muted}Versión 3 (2026-10-17). Cubre las 14 clases del esqueleto de la
-materia: rotaciones, transformaciones euclídeas, similaridades, afinidades, coordenadas
-homogéneas, proyectivas, formas lineales, productos y determinante, autovectores, cambio
-de base y diagonalización, SVD, inversas y pseudoinversa, los cuatro problemas,
-curvatura, geometría del elipsoide, arco de meridiano y trigonometría esférica. Enlaza
-las 20 unidades interactivas (lecciones marimo, de la Unidad 0 ``fundamentos y lenguaje de la cátedra''
-a la Unidad 19) del sitio de la materia y recoge el
-material que mandó el profesor por el chat (planilla de las proyectivas del pentágono y
-\texttt{LaSVD.wxmx}).\par}
+{\color{muted}Versión 4 (2026-10-18). El apunte se reorganizó por tema: cada capítulo trata una
+transformación o herramienta y se lee en tres niveles, ``La idea'', ``Construcciones, cuentas
+y ejemplos'' y ``En profundidad''. La SVD y las transformaciones conformes pasan a capítulos
+propios, y se agrega un capítulo de repaso de Álgebra del CBC con la mirada del profesor.
+El contenido de la v3 se conserva entero; sólo cambió el lugar donde está. Cubre las 14
+clases del esqueleto de la materia, enlaza las 20 unidades interactivas (lecciones marimo, de
+la Unidad 0 ``fundamentos y lenguaje de la cátedra'' a la Unidad 19) del sitio de la materia
+y recoge el material que mandó el profesor por el chat (planilla de las proyectivas del
+pentágono y \texttt{LaSVD.wxmx}).\par}
 
-{\color{muted}Las secciones de SVD, inversas, cuatro problemas, curvatura, elipsoide y
-trigonometría esférica están marcadas ``Anticipado'': se desarrollaron antes de que la
-cátedra las dictara, a partir del resumen 2025 del profesor, su apunte del elipsoide y
-bibliografía, y quedan pendientes de validar. Incluyen una fe de erratas verificada del
-apunte del elipsoide.\par}
+{\color{muted}Los capítulos de SVD, inversas y cuatro problemas (cap.~\ref{cap:09}), y las
+partes de curvatura, elipsoide y trigonometría esférica (cap.~\ref{cap:11}) están marcados
+``Anticipado'': se desarrollaron antes de que la cátedra los dictara, a partir del resumen 2025
+del profesor, su apunte del elipsoide y bibliografía, y quedan pendientes de validar. Incluyen
+una fe de erratas verificada del apunte del elipsoide.\par}
 
 {\color{muted}Versiones anteriores: v1 (rotaciones y guía de transformaciones), v2
 (2026-09-21: afinidades, homogéneas, proyectivas, productos y autovectores, hilo del
-profesor, rúbricas, bibliografía comentada).\par}
+profesor, rúbricas, bibliografía comentada), v3 (2026-10-17: las 14 clases del esqueleto, SVD,
+cuatro problemas, curvatura, elipsoide, trigonometría esférica y fe de erratas, organizado en
+tres lecturas).\par}
 
 \vspace{8mm}
 {\color{muted}\small Carátula: el monolito que gira alrededor de cada eje (rotaciones y el orden de composición), el cubo unitario que $A$ lleva a un paralelepípedo (determinante como volumen, autovector como dirección que cae sobre sí misma) y el elipsoide con su plano tangente (coordenadas locales y métrica). Es el recorrido de la materia en una página.\par}
@@ -63,32 +67,23 @@ profesor, rúbricas, bibliografía comentada).\par}
 
 
 %% --- Cuerpo: una línea \input por archivo de contenido/, en orden ---
+\setcounter{chapter}{-1}
 \input{contenido/00-como-leer}
 \input{contenido/01-organizacion}
 \input{contenido/02-hilo-de-la-materia}
-\input{contenido/03-mirada-geometrica}
-
-\part{Primera lectura: ideas y significado}
-
-\input{contenido/04-primera-lectura-transformaciones}
-\input{contenido/05-primera-lectura-homogeneas-proyectivas}
-\input{contenido/06-primera-lectura-superficies}
-
-\part{Segunda lectura: construcciones, figuras y ejemplos}
-
-\input{contenido/07-bloque-rotaciones}
-\input{contenido/08-bloque-euclideas-enunciados}
-\input{contenido/09-bloque-euclideas-guia-resuelta}
-\input{contenido/10-bloque-afines}
-\input{contenido/11-bloque-algebraico}
-\input{contenido/12-bloque-proyectivas}
-
-\part{Tercera lectura: conexiones con el resto del programa}
-
-\input{contenido/13-tercera-lectura}
+\input{contenido/03-algebra-cbc-mirada-clavijo}
+\input{contenido/04-rotaciones}
+\input{contenido/05-euclideas-similaridades}
+\input{contenido/06-afines-homogeneas}
+\input{contenido/07-proyectivas}
+\input{contenido/08-algebra-transformaciones}
+\input{contenido/09-svd}
+\input{contenido/10-transformaciones-conformes}
+\input{contenido/11-superficies-geodesia}
 
 \clearpage
 \appendix
+\chapter{Apéndices}\label{cap:apendices}
 \input{contenido/14-apendice-rotaciones-3d}
 \input{contenido/15-apendice-infinitesimales}
 \input{contenido/16-apendice-composicion-afin}

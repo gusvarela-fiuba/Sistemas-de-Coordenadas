@@ -11,7 +11,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-16.md
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [subespacio-invariante, autovector, autovalor, polinomio-caracteristico]
-apunte: ["11", "18", "12"]
+apunte: ["08", "18", "07"]
 unidad: 07b_nucleo_autovectores   # y 07c_autovalores_3d_puntos_fijos (3D, puntos fijos)
 ---
 
@@ -182,13 +182,13 @@ filas, `R @ eje == eje`, $R^TR=I$, $\det R=1$. En Excel, como en clase: `MMULT` 
 restar la identidad, producto cruz a mano con tres `=`, y `MMULT(R; eje)`.
 
 ## Dónde está desarrollado
-- Apunte: `11-bloque-algebraico.tex` sección "Autovalores y autovectores" (el pase de magia, cuántos
+- Apunte: `08-algebra-transformaciones.tex` sección "Autovalores y autovectores" (el pase de magia, cuántos
   autovalores reales, método del producto cruz, Ejemplo 1 reflexión, Ejemplo 2
   $R_z(90^\circ)R_y(90^\circ)$ con eje $(-1,1,1)$ y el caso genérico $R_z(30^\circ)R_y(50^\circ)$
-  con eje $(-0.2263,0.8446,0.4853)$, caja "Sobre los números lindos"). `12-bloque-proyectivas.tex`
+  con eje $(-0.2263,0.8446,0.4853)$, caja "Sobre los números lindos"). `07-proyectivas.tex`
   "Puntos fijos y rectas fijas de una homografía" (autovectores de $H$ y de $H^T$, clasificación por
   autovalores, homología). `18-apendice-pentagono.tex` (autovector por cruz en el caso (c) del
-  regular, raíz doble → recta fija). `05-primera-lectura-homogeneas-proyectivas.tex`: fila
+  regular, raíz doble → recta fija). `06-afines-homogeneas.tex`: fila
   "Autovector" de la tabla por dimensiones y caja "En palabras del profesor" (clase 6).
 - Unidades marimo (molde v2 sobre `cb104`, 2026-10-17): `unidades/07b_nucleo_autovectores.py`
   (autovectores: las direcciones que no giran; $A-\lambda I$ y el detector con la elipse que se

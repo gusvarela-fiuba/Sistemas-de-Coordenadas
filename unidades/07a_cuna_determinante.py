@@ -516,7 +516,7 @@ def _(mo):
     Acá verificamos; las demostraciones (el determinante como la única operación lineal en cada vector y nula con dos
     iguales, el producto exterior en cualquier dimensión, incidencia y alineación en homogéneas):
 
-    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Coordenadas homogéneas: puntos como rayos» (la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores; la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:08)
     - [ficha de la clase 5](../../clases/05.html) · [el hilo conductor](../../index.html) · [unidad 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
 
     **Lo que viene:** [Núcleo y autovectores: las direcciones que no giran](../07b_nucleo_autovectores/index.html):

@@ -9,7 +9,7 @@ fuentes:
   - "Bibliografia/Clavijo - Apunte Teoría Elipsoide (guía para clase).pdf (La forma de la tierra)"
   - fuentes/transcripciones/2026-10-14.md
 conceptos: [trigonometria-esferica, poligono-geodesico]
-apunte: ["11", "13"]
+apunte: ["08", "11"]
 unidad: 14_trigonometria_esferica
 ---
 
@@ -48,7 +48,7 @@ Es la ley de cosenos, y salió de un solo producto interno. Versión sin coorden
 **Triángulo chico.** Lados de 1 km sobre $R=6371$ km: área $\approx0{,}433$ km², exceso $\approx0{,}433/6371^2\approx1{,}07\cdot10^{-8}$ rad $\approx0{,}002''$. Lados de 100 km: exceso $\approx0{,}0001$ rad $\approx22''$. Verificación en marimo: `numpy` con los tres vectores y `arccos` de los productos internos; en GeoGebra 3D, tres puntos sobre `Esfera((0,0,0),1)` y los arcos de círculo máximo.
 
 ## Dónde está desarrollado
-- Apunte v3: `11-bloque-algebraico.tex` §"Producto interno: incidencia" y §"Producto vectorial: unir dos puntos, cortar dos rectas" (las dos herramientas); `13-tercera-lectura.tex` §"Métrica y primera forma fundamental" (esfera: $ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2d\varphi^2$) y §"Esfera, elipsoide y curvatura". No hay trigonometría esférica ni polígonos geodésicos en el apunte: hueco entero.
+- Apunte v3: `08-algebra-transformaciones.tex` §"Producto interno: incidencia" y §"Producto vectorial: unir dos puntos, cortar dos rectas" (las dos herramientas); `11-superficies-geodesia.tex` §"Métrica y primera forma fundamental" (esfera: $ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2d\varphi^2$) y §"Esfera, elipsoide y curvatura". No hay trigonometría esférica ni polígonos geodésicos en el apunte: hueco entero.
 - Apunte del profesor (Clavijo, elipsoide): la introducción (poligonal cerrada), la definición de azimut vía geodésica y el arco de meridiano en serie; no trata el problema directo/inverso.
 - Unidad marimo (**anticipada**, 2026-10-17, pendiente de validar por la cátedra): `unidades/14_trigonometria_esferica.py`, tres vértices sobre la esfera (octante, triángulo chico, tres ciudades argentinas, o $C$ con deslizadores), lados y ángulos por producto interno y cuña, exceso vs área, con las cuentas chicas de esta ficha (octante, ley del coseno) verificadas en `cb104.py`. No está en la serie propuesta de `21-apendice-notebooks.tex`.
 - Material de clase del profesor: existen notebooks wxMaxima en `Bibliografia/material de clase 2C2025/` (`Algun_ejemplo_de_rotacion.wxmx`, `Formas_Lineales.wxmx`); son de rotaciones y formas lineales, no del elipsoide. Un notebook "Máxima para el elipsoide" no está en el repo.

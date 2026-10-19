@@ -543,7 +543,7 @@ def _(mo):
     Acá verificamos; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
-    - [apunte, «Bloque geométrico: transformaciones euclídeas y similaridades» (la guía de seis teoremas)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Guía resuelta: reflexión respecto de un punto» (guía resuelta)](../../apunte.pdf#nameddest=cap:09)
+    - [apunte, «Euclídeas y similaridades» (la guía de seis teoremas y la guía resuelta)](../../apunte.pdf#nameddest=cap:05)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 

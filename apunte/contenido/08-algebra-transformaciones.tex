@@ -1,0 +1,697 @@
+% Capítulo 8 — El álgebra de las transformaciones: productos, determinante, autovectores y formas lineales
+\chapter{El álgebra de las transformaciones: productos, determinante, autovectores y formas lineales}\label{cap:08}\label{sec:bloque-algebraico}
+
+\section{La idea}
+
+Primero el mapa: cada operación del álgebra se lee como una pregunta geométrica. Lo armamos con los resúmenes del profesor y dejamos las cuentas para la sección siguiente.
+
+\subsection{Del álgebra a la geometría: qué pregunta cada operación}\label{sec:algebra-geometria}
+
+\textbf{Desarrollo.} El hilo de la materia es siempre el mismo: una operación algebraica,
+en apariencia abstracta, resulta ser exactamente la pregunta geométrica que necesitábamos.
+Conviene tener el mapa antes de las cuentas.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X X}
+\toprule
+Operación & Qué calcula & Qué pregunta geométrica responde\\
+\midrule
+Producto interno \(u\cdot v\) & un número & ¿son ortogonales? ¿cuánto se proyecta uno
+sobre otro? En homogéneas: ¿el punto está en la recta?\\
+Producto vectorial \(u\times v\) & un vector normal a ambos & ¿cuál es la recta que une dos
+puntos? ¿cuál es el punto donde se cortan dos rectas? ¿qué área orientada forman?\\
+Determinante \(\det[u\ v\ w]\) & un número & ¿están alineados tres puntos? ¿son
+linealmente dependientes tres vectores? ¿qué volumen orientado forman?\\
+Producto exterior \(u\wedge v\) & un bivector (área orientada) & lo mismo que el
+vectorial, pero en cualquier dimensión\\
+Núcleo de \(A\) & un subespacio & ¿qué vectores aplasta \(A\) a cero? Si hay alguno,
+\(\det A=0\)\\
+Autovectores de \(A\) & vectores con \(Av=\lambda v\) & ¿qué direcciones deja quietas
+\(A\)? En homogéneas: ¿qué puntos deja fijos la transformación?\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[La cadena]
+incidencia \(\to\) unión de puntos \(\to\) alineación \(\to\) determinante \(\to\)
+núcleo \(\to\) autovectores \(\to\) puntos fijos. Cada eslabón se deduce del anterior;
+es lo que desarrollan las secciones siguientes de este capítulo.
+\end{idea}
+
+\begin{idea}[En palabras del profesor]
+``Traemos a la mesa a nuestro `detector de colinealidad': el producto cuña, y lo usamos
+primero para construir un polinomio cuyas raíces son los autovalores, y luego para hallar
+los autovectores como el subespacio nulo de unas matrices que armamos'' (resumen de clase 7, cursada 2025).
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+Hacemos la cuenta de cada operación con su figura: producto interno, producto vectorial, determinante, núcleo, autovalores y formas lineales. Lo dictado fija el orden; los resúmenes del profesor y nuestro desarrollo completan los pasos.
+
+\textbf{Dictado} (clase del 18 de septiembre). El objetivo declarado por el docente: que la
+parte geométrica y la parte algebraica ``se conecten'', y entender por qué el determinante
+tiene las propiedades ``mágicas'' que tiene. Lo que sigue reconstruye ese razonamiento en el
+orden en que se dio.
+
+\subsection{Producto interno: incidencia}\label{sec:interno}
+
+{\small\vspace{1mm}\linkUnidad{02_producto_interno}{Simulación interactiva: Unidad 4 — Producto interno: proyección, longitud, ángulo}\par}
+
+
+\textbf{Desarrollo.} El producto interno sirve para dos cosas: proyectar, y decidir si dos
+vectores son ortogonales (\(u\cdot v=0\)). En coordenadas homogéneas aparece un tercer uso.
+Un punto se representa por una terna \(p=(x,y,w)^T\) y una recta \(ax+by+c=0\) por otra
+terna \(\ell=(a,b,c)^T\). Son objetos distintos (el docente los dibuja con símbolos
+distintos), pero ambos son vectores de \(\R^3\), y
+\[
+  \boxed{\ \ell\cdot p=ax+by+cw=0\quad\Longleftrightarrow\quad p\ \text{está en}\ \ell\ }.
+\]
+La ecuación cartesiana de la recta es literalmente ``el producto interno con la normal es
+cero''. Ni \(\ell\) ni \(p\) cambian de significado si se los multiplica por un número, y la
+condición tampoco.
+
+\subsection{Producto vectorial: unir dos puntos, cortar dos rectas}\label{sec:vectorial}
+
+\textbf{Desarrollo.} Queremos una operación que, dados dos puntos \(p,q\), devuelva la recta
+\(\ell=p\times q\) que los une. ¿Qué tiene que cumplir? Que \(p\) esté en esa recta y \(q\)
+también:
+\[
+  (p\times q)\cdot p=0,\qquad (p\times q)\cdot q=0 .
+\]
+Por lo tanto la operación debe producir un vector \emph{ortogonal a sus dos argumentos}. Y
+más: si ponemos dos veces el mismo punto no hay recta que determinar, así que \(p\times p=0\).
+Estas exigencias, junto con la linealidad en cada argumento, \emph{obligan} a que la
+operación sea, a menos de una constante, el producto vectorial de \(\R^3\) (en homogéneas
+la constante no importa):
+\[
+  p\times q=\begin{pmatrix}p_2q_3-p_3q_2\\ p_3q_1-p_1q_3\\ p_1q_2-p_2q_1\end{pmatrix}.
+\]
+
+\begin{resultado}[Las dos propiedades que lo definen]
+\begin{itemize}
+  \item \textbf{Linealidad} en cada argumento: \((2p)\times q=2\,(p\times q)\),
+  \((p+p')\times q=p\times q+p'\times q\).
+  \item \textbf{Antisimetría}: \(p\times q=-\,q\times p\). Es equivalente a \(p\times p=0\):
+  el único vector igual a su opuesto es el nulo.
+\end{itemize}
+Son exactamente las propiedades del \emph{área orientada} de un paralelogramo (duplicar un
+lado duplica el área; cambiar el orden de los lados cambia la orientación; dos lados
+paralelos no encierran área). Por eso \(\lVert p\times q\rVert\) es el área del paralelogramo
+de lados \(p,q\).
+\end{resultado}
+
+Por simetría de la ecuación de incidencia, la misma operación resuelve el problema dual:
+\emph{el punto donde se cortan dos rectas es} \(\ell\times m\). Dos rectas paralelas
+\((a,b,c)\) y \((a,b,c')\) dan \(\ell\times m=(c'-c)\,(b,-a,0)^T\): un punto ideal, su
+dirección común.
+
+\subsection{Tres puntos alineados: el determinante}\label{sec:determinante}
+
+{\small\vspace{1mm}\linkUnidad{07a_cuna_determinante}{Simulación interactiva: Unidad 9 — Cuña y determinante: el detector de colinealidad}\par}
+
+
+\textbf{Desarrollo.} ¿Está el punto \(r\) en la recta que une \(p\) y \(q\)? Se forma la
+recta y se pregunta por la incidencia:
+\[
+  (p\times q)\cdot r=0 .
+\]
+Su anulación es simétrica en los tres puntos (si \(r\) está en \(pq\), entonces \(p\) está
+en \(qr\) y \(q\) en \(rp\)); el valor, en cambio, es antisimétrico: se anula si dos de
+ellos coinciden, es lineal en cada uno y cambia de signo al intercambiar dos. Es, término a término, el determinante:
+\[
+  (p\times q)\cdot r=\det\begin{pmatrix}p_1&p_2&p_3\\q_1&q_2&q_3\\r_1&r_2&r_3\end{pmatrix}.
+\]
+
+\begin{resultado}[El determinante es la única operación posible]
+Una operación de tres vectores de \(\R^3\) que sea lineal en cada argumento y que se anule
+cuando dos argumentos coinciden es, a menos de una constante, el determinante. Vale cero
+exactamente cuando los tres vectores son linealmente dependientes (coplanares como vectores;
+alineados como puntos homogéneos) y su valor absoluto es el volumen del paralelepípedo que
+forman. Intercambiar dos filas cambia el signo: es la antisimetría otra vez.
+\end{resultado}
+
+\paragraph{Verificación numérica hecha en clase.} Con \(p=(1,2,3)\), \(q=(4,5,-1)\),
+\(r=(0,0,1)\):
+\[
+  p\times q=\begin{pmatrix}2\cdot(-1)-3\cdot5\\ 3\cdot4-1\cdot(-1)\\ 1\cdot5-2\cdot4\end{pmatrix}
+  =\begin{pmatrix}-17\\13\\-3\end{pmatrix},\qquad
+  (p\times q)\cdot r=-3,
+\]
+y el determinante de la matriz de filas \(p,q,r\), desarrollado por la tercera fila, es
+\(1\cdot(1\cdot5-2\cdot4)=-3\). Coinciden, como debía ser: desarrollar por una fila
+\emph{es} hacer un producto vectorial con las otras dos y luego un producto interno.
+
+\subsection{Núcleo de una matriz y determinante nulo}\label{sec:nucleo}
+
+{\small\vspace{1mm}\linkUnidad{07b_nucleo_autovectores}{Simulación interactiva: Unidad 10 — Núcleo y autovectores: las direcciones que no giran}\par}
+
+
+\textbf{Desarrollo.} El \emph{núcleo} de \(A\) es el conjunto de vectores \(v\) con
+\(Av=0\). Si se piensa \(Av\) fila por fila, cada coordenada del resultado es el producto
+interno de una fila de \(A\) con \(v\). Que las tres den cero significa que \(v\) es
+ortogonal a las tres filas: las tres filas están en el plano de normal \(v\), son linealmente
+dependientes, y por lo tanto
+\[
+  \boxed{\ \text{núcleo}(A)\neq\{0\}\quad\Longleftrightarrow\quad\det A=0\ }.
+\]
+Es la propiedad del determinante que se usa para encontrar autovalores.
+
+\subsection{Autovalores y autovectores}\label{sec:autovalores}
+
+{\small\vspace{1mm}\linkUnidad{07c_autovalores_3d_puntos_fijos}{Simulación interactiva: Unidad 11 — Autovalores en 3D y puntos fijos proyectivos}\par}
+
+
+\textbf{Dictado.} \(v\neq0\) es \emph{autovector} de \(A\) con \emph{autovalor}
+\(\lambda\) si \(Av=\lambda v\): la transformación lo deja sobre su propia recta. En
+coordenadas homogéneas eso es exactamente ``la transformación deja fijo el punto que \(v\)
+representa''.
+
+\paragraph{El pase de magia.} \(Av=\lambda v\) equivale a \(Av-\lambda Iv=0\), es decir
+\[
+  (A-\lambda I)\,v=0 :
+\]
+\(v\) está en el núcleo de \(A-\lambda I\). Para que ese núcleo no sea trivial,
+\[
+  \boxed{\ \det(A-\lambda I)=0\ }\qquad\text{(polinomio característico)} .
+\]
+Para \(A\) de \(3\times3\) es un polinomio de grado \(3\) en \(\lambda\).
+
+\begin{resultado}[Cuántos autovalores reales]
+\begin{itemize}
+  \item Un polinomio real de grado \(3\) tiene tres raíces, todas reales, o una real y dos
+  complejas conjugadas. Nunca tres complejas: las raíces complejas de un polinomio real
+  vienen de a pares conjugados.
+  \item A cada autovalor real le corresponde un autovector real. A un autovalor complejo no
+  le corresponde ningún vector de \(\R^3\).
+  \item Una matriz de rotación de \(\R^3\) tiene siempre el autovalor \(1\): su autovector es
+  el eje. Los otros dos son \(e^{\pm i\theta}\), con \(\theta\) el ángulo de giro; son reales
+  sólo para \(\theta=0^\circ\) (identidad: \(1,1,1\)) y \(\theta=180^\circ\) (\(1,-1,-1\)),
+  y complejos conjugados en cualquier otro caso.
+\end{itemize}
+\end{resultado}
+
+\begin{idea}[Método del producto cruz para el autovector]
+Encontrado \(\lambda\), las filas de \(A-\lambda I\) son todas ortogonales al autovector.
+Entonces el autovector es el producto vectorial de dos de esas filas:
+\[
+  v=(\text{fila}_i)\times(\text{fila}_j) .
+\]
+Si esas dos filas son paralelas y el producto da cero, se toma otro par. Si \emph{todos} los
+pares dan cero, \(\operatorname{rango}(A-\lambda I)\le1\): el autoespacio tiene dimensión
+\(\ge2\) (multiplicidad \emph{geométrica} \(\ge2\)) y hay al menos todo un plano de
+autovectores (en homogéneas: toda una recta de puntos fijos). La vuelta no vale: una raíz
+doble del polinomio (multiplicidad \emph{algebraica} \(2\)) no garantiza que los pares se
+anulen; ver la matriz 3a de la tabla de testigos más abajo. No hace falta resolver el sistema: es la
+misma operación de ``unir dos rectas en su punto común'' de la sección~\ref{sec:vectorial}.
+\end{idea}
+
+\subsubsection{Ejemplo 1: reflexión respecto del plano \texorpdfstring{$xy$}{xy}}
+
+\(A=\operatorname{diag}(1,1,-1)\) conserva \(x,y\) e invierte \(z\).
+\[
+  \det(A-\lambda I)=(1-\lambda)^2(-1-\lambda)=0
+  \quad\Longrightarrow\quad\lambda=1\ (\text{doble}),\ \lambda=-1 .
+\]
+Para \(\lambda=-1\): \(A+I=\operatorname{diag}(2,2,0)\), y el producto cruz de las dos
+primeras filas es \((2,0,0)\times(0,2,0)=(0,0,4)\): el eje \(z\), como se esperaba, con
+\(A(0,0,4)^T=(0,0,-4)^T\). Para \(\lambda=1\): \(A-I=\operatorname{diag}(0,0,-2)\), y
+cualquier par de filas da producto cruz nulo. Es la raíz doble: todo el plano \(xy\) es de
+autovectores, porque la reflexión lo deja quieto punto a punto.
+
+\subsubsection{Ejemplo 2: eje de una rotación compuesta}
+
+Se compone una rotación de \(90^\circ\) alrededor de \(y\) seguida de una de \(90^\circ\)
+alrededor de \(z\):
+\[
+  R=R_z(90^\circ)\,R_y(90^\circ)=
+  \begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix}
+  \begin{pmatrix}0&0&1\\0&1&0\\-1&0&0\end{pmatrix}
+  =\begin{pmatrix}0&-1&0\\0&0&1\\-1&0&0\end{pmatrix}.
+\]
+Es una rotación, así que \emph{sin calcular el polinomio} se sabe que \(\lambda=1\) es
+autovalor y que su autovector es el eje. Filas de \(R-I\): \((-1,-1,0)\), \((0,-1,1)\),
+\((-1,0,-1)\). Producto cruz de las dos primeras:
+\[
+  (-1,-1,0)\times(0,-1,1)=(-1,\,1,\,1),
+  \qquad
+  R\begin{pmatrix}-1\\1\\1\end{pmatrix}=\begin{pmatrix}-1\\1\\1\end{pmatrix}\ \checkmark
+\]
+El eje es la dirección \((-1,1,1)\). Los otros autovalores son \(-\frac12\pm\frac{\sqrt3}2 i\):
+un giro de \(120^\circ\) alrededor de ese eje. Con ángulos genéricos (por ejemplo
+\(R_z(30^\circ)R_y(50^\circ)\)) la receta es idéntica y se hace en planilla o en NumPy: el
+eje resulta \((-0.2263,\,0.8446,\,0.4853)\), y \(Rv=v\) se verifica multiplicando.
+
+\begin{atencion}[Sobre los ``números lindos'']
+Los ejercicios de álgebra están diseñados para que den enteros. Una matriz genérica, como
+la de una rotación de \(37^\circ\) o la homografía de un pentágono regular, da raíces
+irracionales y autovalores con muchos decimales. Eso no es un error: es lo normal. Por eso
+el método debe funcionar en planilla o en código, no sólo a mano.
+\end{atencion}
+
+\subsection{Formas lineales: la recta como máquina de medir}\label{sec:formas-lineales}
+
+{\small\vspace{1mm}\linkUnidad{06_formas_lineales}{Simulación interactiva: Unidad 8 — Formas lineales y dualidad}\par}
+{\small\vspace{1mm}\linkAnimacion{01_dualidad_gradiente}{Animación: dualidad punto–gradiente}\par}
+
+
+\textbf{Desarrollo} (a partir de los resúmenes de clase 4 y 9 del profesor). Hasta acá los
+vectores fueron flechas: cosas que se suman y se estiran. Hay otro objeto, igual de simple,
+que en los libros aparece tarde y que el profesor prefiere presentar apenas definido el
+espacio: la \emph{forma lineal}, una función que toma un vector y devuelve un número,
+respetando sumas y escalas.
+
+\paragraph{Primero en \(\R\).} Una forma lineal en la recta es multiplicar por un número:
+\(\varphi(x)=2x\). Es una regla graduada: los puntos donde \(\varphi\) vale
+\(0,1,2,3,\ldots\) están equiespaciados sobre la recta, a distancia \(\tfrac12\). No hay
+nada más que saber. Al pasar al plano la regla sigue siendo la misma, pero ahora hay
+direcciones que la regla no mide.
+
+\paragraph{Un ejemplo con números chicos.} Sea
+\[
+  \varphi(x,y)=2x+3y .
+\]
+Con \(v=(1,0)\) da \(2\); con \((0,1)\) da \(3\); con \((1,1)\) da \(5\); con \((3,-2)\)
+da \(0\). Es lineal: \(\varphi(v+w)=\varphi(v)+\varphi(w)\) y
+\(\varphi(\lambda v)=\lambda\,\varphi(v)\). Y basta conocer \(\varphi\) en los dos vectores
+de la base para conocerla en todos: \(\varphi(x,y)=x\,\varphi(1,0)+y\,\varphi(0,1)\).
+
+\paragraph{Hecho geométrico: una regla graduada tirada en el plano.} Los puntos donde
+\(\varphi\) vale lo mismo forman una recta, \(2x+3y=c\), y al variar \(c\) se obtiene una
+familia de rectas paralelas equiespaciadas. La forma lineal \emph{es} esa familia: para
+medir un punto, se mira qué recta de la familia pasa por él. La recta \(c=0\) pasa por el
+origen y contiene la dirección \((3,-2)\), que es lo que la forma ``no ve'' (su núcleo).
+El vector \((2,3)\) es perpendicular a todas las rectas de nivel y apunta hacia donde
+\(\varphi\) crece.
+
+\begin{center}
+\begin{tikzpicture}[scale=.78]
+  \begin{scope}
+    \clip (-3.2,-3.2) rectangle (4.2,3.2);
+    \foreach \c in {-6,-4,-2,0,2,4,6,8}
+      \draw[teal,line width=.7pt] (-3.2,{(\c+6.4)/3})--(4.2,{(\c-8.4)/3});
+    \draw[teal,line width=1.2pt] (-3.2,{6.4/3})--(4.2,{-8.4/3});
+    \draw[axisline] (-3.2,0)--(4.2,0);
+    \draw[axisline] (0,-3.2)--(0,3.2);
+    \draw[rust,line width=1pt,-{Latex[length=2.4mm]}] (0,0)--(1,1.5)
+      node[right,font=\small,labelback] {\((2,3)\)};
+    \draw[tealdark,line width=1pt,-{Latex[length=2.4mm]}] (0,0)--(1.5,-1)
+      node[below right,font=\small,labelback] {\((3,-2)\): \(\varphi=0\)};
+    \fill[ink] (1,1) circle (2pt) node[above left,font=\small,labelback] {\((1,1)\): \(\varphi=5\)};
+  \end{scope}
+  \foreach \c/\y in {8/-0.13,6/-0.8,4/-1.47,2/-2.13}
+    \node[right,font=\scriptsize,text=teal] at (4.2,\y) {\(c=\c\)};
+  \foreach \c/\y in {0/2.13,-2/1.47,-4/0.8,-6/0.13}
+    \node[left,font=\scriptsize,text=teal] at (-3.2,\y) {\(c=\c\)};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Las selectoras y el espacio de las formas.} Las formas más básicas son las que
+seleccionan una coordenada: \(\mathsf{x}(x,y)=x\) y \(\mathsf{y}(x,y)=y\). Cualquier otra
+es combinación de ellas: \(\varphi=2\,\mathsf{x}+3\,\mathsf{y}\). Las formas lineales se
+suman y se multiplican por escalares, y el resultado sigue siendo una forma lineal: forman
+un espacio vectorial, el \emph{dual} del plano. En la base canónica una forma se describe
+con dos números, igual que un vector, pero conviene escribirla como \emph{fila}:
+\[
+  \varphi(v)=\begin{pmatrix}2&3\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}
+  =(2,3)\cdot v .
+\]
+La fila por la columna es el producto interno con el vector \((2,3)\): la forma se
+``disfraza'' de vector gracias al producto interno. En coordenadas homogéneas esto ya se
+usó: una recta \(\ell=(a,b,c)\) es una forma lineal, un punto \(p\) es un vector, y
+\(\ell\cdot p=0\) es la incidencia de la sección~\ref{sec:interno}.
+
+\paragraph{La matriz como pila de formas.} Una transformación lineal del plano al plano
+devuelve dos números por cada vector; cada uno de ellos es una forma lineal. Con
+\[
+  A=\begin{pmatrix}2&3\\1&-1\end{pmatrix},\qquad
+  A\begin{pmatrix}1\\2\end{pmatrix}=\begin{pmatrix}2\cdot1+3\cdot2\\1\cdot1-1\cdot2\end{pmatrix}
+  =\begin{pmatrix}8\\-1\end{pmatrix},
+\]
+la primera fila mide con la regla \(2x+3y\) y la segunda con la regla \(x-y\).
+Geométricamente, aplicar \(A\) es leer dos reglas graduadas a la vez. El núcleo de \(A\)
+es el conjunto de puntos donde las dos reglas marcan cero: la intersección de las rectas
+\(2x+3y=0\) y \(x-y=0\), que es sólo el origen porque las rectas se cortan
+(\(\det A=-5\neq0\)). Si en cambio \(B=\begin{pmatrix}2&3\\4&6\end{pmatrix}\), las dos
+filas son la misma regla escalada, sus rectas de nivel cero coinciden, el núcleo es toda
+la recta \(2x+3y=0\) y \(\det B=0\): es la sección~\ref{sec:nucleo} vista desde las
+filas. Y el método del producto cruz para autovectores (sección~\ref{sec:autovalores})
+busca justamente el vector que todas las reglas de \(A-\lambda I\) marcan en cero.
+
+\paragraph{Cómo se transforma una forma cuando se transforma el vector.} Sea
+\(A=\begin{pmatrix}1&1\\0&2\end{pmatrix}\) y \(v=(1,1)\). Entonces \(Av=(2,2)\) y
+\(\varphi(Av)=2\cdot2+3\cdot2=10\). ¿Qué regla, aplicada al \(v\) original, da ese mismo
+\(10\)? Se calcula la fila por la matriz:
+\[
+  (2,3)\,A=\bigl(2\cdot1+3\cdot0,\ 2\cdot1+3\cdot2\bigr)=(2,8),
+  \qquad (2,8)\cdot(1,1)=10\ \checkmark
+\]
+El vector se multiplica por \(A\) a la izquierda (columna); la forma se multiplica por
+\(A\) a la derecha (fila). Es lo que el profesor resume como \(\varphi(A\vec v)=(\varphi A)(\vec v)\):
+``una forma lineal se transforma del lado contrario que un vector''.
+
+Si lo que se quiere es \emph{arrastrar la regla junto con la figura}, es decir, encontrar
+la forma \(\psi\) cuyas rectas de nivel son las imágenes por \(A\) de las rectas de nivel
+de \(\varphi\), hay que deshacer \(A\): \(\psi=\varphi A^{-1}\). Con
+\(A^{-1}=\begin{pmatrix}1&-\tfrac12\\0&\tfrac12\end{pmatrix}\),
+\[
+  \psi=(2,3)\,A^{-1}=\bigl(2,\ -1+\tfrac32\bigr)=\bigl(2,\tfrac12\bigr).
+\]
+Verificación: el punto \((3,-2)\) está en la recta \(\varphi=0\); su imagen es
+\(A(3,-2)=(1,-4)\), y \(\psi(1,-4)=2-2=0\): sigue en la recta de nivel cero de la regla
+arrastrada. El punto \((3,0)\), con \(\varphi=6\), va a \((3,0)\) y \(\psi(3,0)=6\).
+Hecho geométrico: al deformar el plano las rectas de nivel se deforman con él, siguen
+siendo rectas paralelas equiespaciadas (es una afinidad), pero la separación y la
+inclinación cambian, y por eso los coeficientes de la forma cambian ``al revés'' que los
+de los vectores.
+
+\paragraph{El gradiente es una forma lineal.} Sea \(f(x,y)=x^2+y\) en el punto \((1,1)\),
+donde \(f=2\). Para un desplazamiento chico \((h,k)\),
+\[
+  f(1+h,1+k)=2+2h+k+h^2\approx 2+\underbrace{(2h+k)}_{\text{forma lineal}} .
+\]
+La derivada en \((1,1)\) es la regla \(2h+k\): la mejor aproximación lineal de \(f\) cerca
+del punto. Su recta de nivel cero, \(2(x-1)+(y-1)=0\), es la tangente a la curva de nivel
+\(x^2+y=2\) en \((1,1)\). Que ``el gradiente es perpendicular a la curva de nivel'' es la
+misma figura de arriba: el vector \((2,1)\) es perpendicular a la familia de rectas de la
+forma. Ir a lo chico (la forma lineal en un punto) para volver a lo grande (la superficie
+completa) es lo que hace el capítulo~\ref{cap:11} con el plano tangente y la métrica.
+
+\begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
+Desarrollo complementario, desde la especialización en IA (CEIA); no es de la cátedra. Un
+\emph{clasificador lineal} separa dos lotes de puntos del plano (dos clases, \(y_i=\pm1\))
+con una regla \(\omega(x)=w_1x+w_2y+b\): la clase es el signo de \(\omega\). Es exactamente
+una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
+clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
+entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
+sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
+que separan, la que deja más \emph{margen}: pide \(\omega(x_i)\ge+1\) para una clase y
+\(\le-1\) para la otra, y entre las que cumplen toma la de \(\|w\|\) mínima. Las tres
+rectas de nivel \(-1\), \(0\), \(+1\) son el borde de un lado, la frontera y el borde del
+otro; los puntos que tocan los bordes son los \emph{vectores soporte}. El ancho de la
+franja entre las rectas \(-1\) y \(+1\) es \(2/\|w\|\), porque la separación entre
+curvas de nivel consecutivas de una forma es \(1/\|w\|\) (clase del 30/9: ``cuanto más
+largo el vector de la forma, más apretadas las curvas''), y esa cuenta necesita el
+producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros: clase
+\(+1\) en \((1,1)\) y \((2,0)\), clase \(-1\) en \((-1,-1)\) y \((-2,0)\). La frontera
+de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
+dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
+\(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
+verificamos resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
+\texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
+\texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
+\end{idea}
+
+\begin{resultado}[Dualidad en pocas palabras]
+\begin{itemize}
+  \item Un vector es una columna; una forma lineal es una fila. Fila por columna es un
+  número: la medición.
+  \item Hecho geométrico: vector = flecha; forma = familia de rectas paralelas
+  equiespaciadas (una regla). En \(\R^3\), planos paralelos.
+  \item Una matriz es una pila de formas (sus filas) o una hilera de vectores (sus
+  columnas). Ambas lecturas son útiles: las filas dan el núcleo, las columnas dan la imagen.
+  \item Al transformar el plano con \(A\), los vectores van con \(A\) y las formas con
+  \(A^{-1}\) (o con \(A\) del otro lado, si se pregunta ``qué regla mide lo mismo'').
+  \item En homogéneas, los puntos son vectores y las rectas son formas; cambiarlos de rol
+  es la dualidad de la geometría proyectiva.
+\end{itemize}
+\end{resultado}
+
+\section{En profundidad}
+
+Extendemos lo anterior con el producto exterior en cualquier dimensión y con el cambio de base y la diagonalización, que se dictaron el 30 de septiembre. Lo que excede lo dictado queda marcado como anticipado.
+
+\subsection{Producto exterior: la misma idea en cualquier dimensión}\label{sec:exterior}
+
+\textbf{Desarrollo.} El producto vectorial existe sólo en \(\R^3\). La operación que
+generaliza la idea a cualquier dimensión es el \emph{producto exterior} de Grassmann,
+\(u\wedge v\), definido únicamente por linealidad y antisimetría (\(u\wedge u=0\)). Su
+resultado no es un vector sino un \emph{bivector}: un elemento de área orientada.
+
+Escribiendo \(u=ae_1+be_2+ce_3\) y \(v=de_1+ee_2+fe_3\) y distribuyendo, los términos
+\(e_i\wedge e_i\) se anulan y \(e_2\wedge e_1=-e_1\wedge e_2\), de modo que
+\[
+  u\wedge v=(ae-bd)\,e_1\wedge e_2+(af-cd)\,e_1\wedge e_3+(bf-ce)\,e_2\wedge e_3 .
+\]
+Son los mismos tres números del producto vectorial; sólo cambia el signo del término del
+medio, porque la regla de la mano derecha asigna \(e_1\times e_3=-e_2\). Los ``planos
+elementales'' \(e_1\wedge e_2\), \(e_1\wedge e_3\), \(e_2\wedge e_3\) son la base de las
+áreas orientadas de \(\R^3\).
+
+Operando con un tercer vector \(w=ge_1+he_2+ie_3\) sólo sobreviven los términos que completan
+las tres direcciones, y reordenando (cada intercambio de vecinos cambia el signo) todo cae
+sobre un único elemento de volumen:
+\[
+  (u\wedge v)\wedge w=\det[u\ v\ w]\;e_1\wedge e_2\wedge e_3 .
+\]
+De ahí la regla de los signos \(+,-,+\) del desarrollo por menores.
+
+\begin{idea}[Contar subespacios]
+En \(\R^3\) hay \(3\) direcciones de vectores, \(3\) planos elementales y \(1\) volumen; por
+eso el resultado final es un número. En \(\R^4\) hay \(4\) direcciones, \(6\) planos, \(4\)
+volúmenes tridimensionales y \(1\) hipervolumen. La operación es mecánica en cualquier
+dimensión: da una fórmula cerrada para un vector ortogonal a un hiperplano de \(\R^n\), útil
+para autovectores en dimensión baja cuando \(\operatorname{rango}(A-\lambda I)=n-1\). Para
+matrices grandes los autovectores se calculan con otros algoritmos (QR, Lanczos).
+\end{idea}
+
+\paragraph{Ortogonal es lo que maximiza el volumen.} Entre todos los vectores de norma
+\(1\), el que forma mayor volumen con un plano dado es el perpendicular al plano; los otros
+producen un prisma ``inclinado'' de menor altura. El docente adelantó que de esta idea sale
+la regla para encontrar el vector ortogonal a un subespacio en cualquier dimensión.
+
+\subsection{Cambio de base y diagonalización}\label{sec:cambio-base}
+
+{\small\vspace{1mm}\linkUnidad{08_cambio_de_base}{Simulación interactiva: Unidad 12 — Cambio de base y diagonalización}\par}
+{\small\vspace{1mm}\linkAnimacion{03_cambio_de_base_viaje}{Animación: el viaje \(A\,T_{\mathrm{diag}}\,A^{-1}\)}\par}
+
+
+\begin{atencion}[Anticipado]
+El cambio de base y la diagonalización se dictaron el 30 de septiembre de 2026 (clase 8 del
+esqueleto) y se desarrollan en el párrafo ``La matriz de cambio de base y el despeje de la
+diagonalización''. Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: se
+desarrolla antes de que la cátedra lo dicte, a partir del resumen 2025 del profesor y de las
+fichas de clase. Pendiente de validar con lo que efectivamente se dicte.
+\end{atencion}
+
+\paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
+coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos usamos
+las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
+\[
+  \begin{pmatrix}3\\4\end{pmatrix}
+  =\tfrac72\begin{pmatrix}1\\1\end{pmatrix}-\tfrac12\begin{pmatrix}1\\-1\end{pmatrix},
+  \qquad\text{coordenadas nuevas }(\tfrac72,-\tfrac12).
+\]
+El mojón está donde estaba; cambió la regla con que lo medimos. Escalera: en \(\R\) cambiar
+de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
+longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
+\(\R^n\) es una matriz \(n\times n\) invertible. El profesor observó en 2025 que ``no parece
+haber un conjunto de vectores privilegiado a priori'': lo único que distingue a la base
+canónica es que con ella el producto interno es la cuenta de siempre.
+
+\begin{resultado}[La matriz de cambio de base]
+Si \(P\) tiene en sus columnas los vectores de la base nueva escritos en la canónica,
+\[
+  [v]_{\text{can}}=P\,[v]_{\text{nueva}},\qquad [v]_{\text{nueva}}=P^{-1}[v]_{\text{can}} .
+\]
+Con \(P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\), \(P^{-1}=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
+y \(P^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. Los tres tipos de objeto cambian
+de base distinto, y conviene escribir siempre el sentido (acá, de la canónica a la nueva):
+los vectores como \([v]_{\text{nueva}}=P^{-1}[v]_{\text{can}}\); las formas lineales, que
+son filas, multiplicando por \(P\) del lado derecho, \([\varphi]_{\text{nueva}}=[\varphi]_{\text{can}}\,P\)
+(sección~\ref{sec:formas-lineales}), para que \(\varphi(v)\) dé lo mismo en las dos bases;
+y las transformaciones con
+\[
+  A_{\text{nueva}}=P^{-1}\,A\,P ,
+\]
+que se lee de derecha a izquierda: pasamos las coordenadas nuevas a canónicas, aplicamos \(A\)
+como siempre, volvemos a las nuevas. Todo se convierte a la vez para que ninguna relación
+cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
+\end{resultado}
+
+\paragraph{El ejercicio del 30 de septiembre, resuelto.} Consigna del profesor (en hoja
+grande, dibujado): formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
+\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida ``no muy distinta de
+la identidad''. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
+paralelas que juntos arman una grilla), ubicar el vector en la grilla, transformar el
+vector con \(T\) y las formas con \(T^{-1}\), redibujar y verificar que el vector
+transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
+\((-1,2)\cdot(3,4)=5\): el vector está en la séptima curva de una y la quinta de la otra.
+Inversa por adjunta sobre determinante, \(\det T=1{,}56+0{,}05=1{,}61\):
+\[
+  T^{-1}=\frac1{1{,}61}\begin{pmatrix}1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix},\qquad
+  T\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
+\]
+\[
+  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4,\ 0{,}7)=(0{,}870,\ 0{,}435),\qquad
+  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1,\ 2{,}9)=(-0{,}683,\ 1{,}801).
+\]
+Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
+\(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
+curva de la primera forma y en la quinta de la segunda. En clase la forma \((1,1)\)
+quedó ``\((0{,}86,\ 0{,}43)\), se acostó un poco'' (redondeo) y la \((-1,2)\) ``un poco más
+vertical''. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
+plano; medido con la grilla deformada, el punto está donde estaba. ``No hacemos nada,
+convertimos todo para que nada cambie'' (profesor, 30/9/2026). En planilla: dos columnas
+para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
+
+\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
+\(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\). Polinomio característico
+\((2-\lambda)^2-1=0\), autovalores \(3\) y \(1\), autovectores \((1,1)\) y \((1,-1)\)
+(perpendiculares porque \(A\) es simétrica). Con esos autovectores como columnas de \(P\),
+\[
+  P^{-1}AP=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}
+  \begin{pmatrix}3&1\\3&-1\end{pmatrix}
+  =\begin{pmatrix}3&0\\0&1\end{pmatrix}=D .
+\]
+Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
+independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
+``se estira o se comprime pero no se rompe''. En la grilla común la misma transformación
+no tiene lectura fácil. Es lo que el resumen 2025 describe como ``aplicar dos afinidades
+axiales sucesivas''.
+
+\paragraph{La matriz de cambio de base y el despeje de la diagonalización.} En este
+párrafo usamos los nombres de la clase: \(A\) es la matriz que tiene los autovectores en
+columnas (la \(P\) del recuadro de arriba, con otro nombre) y \(T\) es la transformación
+(la \(A\) del párrafo anterior).
+
+\emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola
+cadena, escrita en orden de aplicación (de izquierda a derecha):
+\[
+  (p)\;\to\;(A)\;\to\;[\,A^{-1}\to T_{\mathrm{diag}}\to A\,]\;\to\;(A^{-1})\;\to\;(\ell) .
+\]
+En un extremo entra un punto \(p\) y en el otro una recta \(\ell\), los dos escritos en la
+base de autovectores; lo que se mide es la incidencia. Con la convención de abajo (\(A\)
+lleva de la base de autovectores a la canónica), el punto pasa a la canónica como \(A\,p\)
+y la forma como \(\ell\,A^{-1}\) (multiplicando del lado derecho). El recuadro del medio
+recibe y devuelve coordenadas canónicas: adentro actúa \(T_{\mathrm{diag}}\), en la base
+de autovectores, y el recuadro entero, leído como producto (lo que se aplica último va a la
+izquierda), es \(A\,T_{\mathrm{diag}}\,A^{-1}=T_{\mathrm{can}}\), la misma transformación
+escrita en la base canónica. La cadena completa es
+\(\ell A^{-1}\,(A\,T_{\mathrm{diag}}\,A^{-1})\,A\,p=\ell\,T_{\mathrm{diag}}\,p\): las
+conversiones se absorben de a pares (\(A^{-1}A=I\)) y la incidencia no cambia; el punto
+transformado sigue cayendo en la recta transformada. Despejar
+\(T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A\) es sacar la diagonal del recuadro, como
+hacemos más abajo. Todo se convierte a la vez para que nada cambie.
+
+\emph{La matriz con los autovectores en columnas.} Definimos \(A=[\,v_1\mid v_2\,]\), los
+autovectores escritos en la base canónica, uno por columna, y la probamos con el vector
+\((1,0)^T\):
+\[
+  A\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}\\A_{21}\end{pmatrix}=v_1 .
+\]
+Entra una unidad del primer autovector escrita en la base de autovectores y sale ese mismo
+autovector escrito en la canónica: \(A\) traduce de la base de autovectores a la canónica
+y \(A^{-1}\) hace el camino inverso, de la canónica a la de autovectores. El recorrido
+completo para un punto cualquiera: el punto \((1,1)=e_x+e_y\), dado en la canónica, pasa
+con \(A^{-1}\) a coordenadas \((c_1,c_2)\) en la base de autovectores, es decir
+\((1,1)=c_1v_1+c_2v_2\); ahí la transformación es diagonal y devuelve
+\((\lambda_1c_1,\ \lambda_2c_2)\); y \(A\) traduce ese resultado de vuelta a la canónica,
+\(\lambda_1c_1v_1+\lambda_2c_2v_2\), que es \(T(1,1)\). Con la matriz del párrafo
+anterior, \(v_1=(1,1)\) y \(v_2=(1,-1)\), el punto \((1,1)\) es el propio \(v_1\):
+\((c_1,c_2)=(1,0)\), la diagonal da \((3,0)\) y \(A\) devuelve \(3v_1=(3,3)\), que
+coincide con \(\begin{pmatrix}2&1\\1&2\end{pmatrix}(1,1)^T=(3,3)^T\).
+
+\emph{El despeje.} El mismo recorrido, escrito como producto de matrices, dice que la
+transformación en la base canónica es la diagonal conjugada por el cambio de base:
+\[
+  T_{\mathrm{can}}=A\,T_{\mathrm{diag}}\,A^{-1}
+  \quad\Longrightarrow\quad
+  T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A ,
+\]
+leída de derecha a izquierda: \(A^{-1}\) lleva a la base de autovectores,
+\(T_{\mathrm{diag}}\) estira cada eje propio, \(A\) vuelve a la canónica. El despeje se
+hace multiplicando por \(A^{-1}\) a la izquierda y por \(A\) a la derecha; los dos
+productos \(A^{-1}A=I\) y \(A\,A^{-1}=I\) que aparecen se cancelan y queda
+\(T_{\mathrm{diag}}\) sola. Con los nombres de este apunte (\(P\) para la matriz de
+autovectores, \(A\) para la transformación) es exactamente el \(D=P^{-1}AP\) del párrafo
+anterior: misma matriz, otro nombre.
+
+\paragraph{Potencias y la trayectoria de un punto.} Volvemos a los nombres del apunte:
+\(P\) es la matriz de autovectores y \(A\) la transformación. Como \(A=PDP^{-1}\),
+\(A^n=PD^nP^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
+propio. Para \(n=5\),
+\[
+  A^5=P\begin{pmatrix}243&0\\0&1\end{pmatrix}P^{-1}
+  =\tfrac12\begin{pmatrix}244&242\\242&244\end{pmatrix}
+  =\begin{pmatrix}122&121\\121&122\end{pmatrix}.
+\]
+Lectura: \((1,0)=\tfrac12(1,1)+\tfrac12(1,-1)\); la parte en \((1,1)\) se multiplica por
+\(243\) y la parte en \((1,-1)\) queda igual: \(\tfrac12(243,243)+\tfrac12(1,-1)=(122,121)\),
+la primera columna. Si los autovalores son positivos el exponente puede ser real:
+\(A^t=PD^tP^{-1}\) con \(D^t=\operatorname{diag}(3^t,1)\), y el punto \((1,0)\) recorre
+\[
+  A^t\begin{pmatrix}1\\0\end{pmatrix}=\tfrac12\begin{pmatrix}3^t+1\\3^t-1\end{pmatrix}:
+  \quad(1,0)\ \text{en } t=0,\quad(1{,}37,\,0{,}37)\ \text{en } t=\tfrac12,\quad(2,1)\ \text{en } t=1 .
+\]
+Es la tercera idea del hilo (sección~\ref{sec:hilo}): la transformación se identifica con
+la trayectoria que genera, y la potencia real la convierte en película. La misma jugada que
+la exponencial de una rotación, ahora con estiramientos en vez de giros. La unidad
+\texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
+
+\begin{atencion}[Una convención, tres escrituras en el resumen 2025]
+Verificado en el resumen del profesor: la clase 7 escribe
+\(A=B_{av\mapsto e}\,D\,B_{e\mapsto av}\) y la clase 10 escribe
+\(A=C^{-1}_{e\mapsto av}\,\Lambda\,C_{e\mapsto av}\); en ambas el factor de la derecha,
+el que actúa primero sobre un vector en canónica, es el que \emph{convierte de \(e\) a
+\(av\)}. La clase 8 escribe \(M_{av}=C_{av\mapsto e}\,M\,C_{e\mapsto av}\), donde con la
+misma lectura el factor de la derecha debería ser el que convierte de \(av\) a \(e\)
+(un vector en base \(av\) entra primero). Los subíndices de la clase 8 están al revés de
+los de las clases 7 y 10. En la clase del 30 de septiembre de 2026 quedó con subíndices
+descriptivos, no direccionales:
+\(A\,T_{\mathrm{diag}\langle Av\rangle}A^{-1}=T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}\)
+con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base
+nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
+\end{atencion}
+
+\begin{resultado}[Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo]
+Las dos preguntas de la clase 6, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
+un autovalor repetido no alcanza para armar una base?'', son independientes. Invertir
+pide que el núcleo sea \(\{0\}\), es decir, que ningún autovalor sea \(0\). Diagonalizar
+pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones aparecen:
+\medskip
+
+\renewcommand{\arraystretch}{1.35}
+\noindent\begin{tabular}{@{}p{2.6cm}p{1.1cm}p{2.2cm}p{2.1cm}p{5.6cm}@{}}
+\textbf{Matriz} & \(\det\) & \textbf{Autovalores} & \textbf{¿Base de autovectores?} & \textbf{Hecho geométrico}\\
+\hline
+\textbf{1.}~\(\bigl(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\bigr)\) & \(2\ne0\) & \(2,\ 1\) & sí, \(e_1,e_2\) &
+diagonalizable e invertible: estira el eje \(x\) al doble y deja fijo el \(y\); dos direcciones propias independientes.\\
+\textbf{2.}~\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
+proyección sobre el eje \(x\): aplasta el eje \(y\) al origen, sin inversa, pero con base completa de autovectores.\\
+\textbf{3a.}~\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
+corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); sólo el eje \(x\) queda fijo.\\
+\textbf{3b.}~\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
+giro de \(90^\circ\): invertible, ninguna recta real queda fija.\\
+\textbf{4.}~\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
+ni diagonalizable ni invertible: manda \(e_2\mapsto e_1\) y \(e_1\mapsto0\).\\
+\end{tabular}
+\renewcommand{\arraystretch}{1.18}
+\medskip
+
+\textbf{Matriz 2.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
+\(\det=0\)) y no impide diagonalizar: \(e_1\) y \(e_2\) son autovectores con
+\(\lambda_1=1\), \(\lambda_2=0\), y en esa base la matriz ya es diagonal.
+
+\textbf{Matriz 3a.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
+\(\lambda=1\) tiene multiplicidad algebraica \(2\). Pero \((A-I)v=0\) da \(v_2=0\), de modo
+que el autoespacio es sólo el eje \(x\): multiplicidad geométrica \(1\). Falta un segundo
+autovector, y sin él no hay base.
+
+\textbf{Matriz 3b.} En el giro el motivo es otro: no hay rectas reales fijas, los
+autovalores \(\pm i\) no son reales.
+
+\textbf{Matriz 4.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
+autovector \(e_1\).
+
+El defecto de las matrices 3a, 3b y 4 es exactamente por lo que la sección~\ref{sec:svd}
+pasa a la SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
+\emph{distinta} a la salida (\(U\)), toda matriz, incluso un corte o una rectangular, se
+lee como diagonal. Es diagonal entre dos grillas distintas, no una semejanza: \(\Sigma\) no
+es ``\(A\) en otra base'', los \(\sigma\) no son autovalores (en el corte,
+\(\sigma=(\sqrt5\pm1)/2\) y \(\lambda=1\) doble) y no sirve para potencias,
+\(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden sólo si \(A\) es simétrica
+semidefinida positiva.
+\linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: cambio de base y SVD}
+\end{resultado}

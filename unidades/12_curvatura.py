@@ -498,8 +498,8 @@ def _(mo):
       ($R = \sqrt{R_1 R_2}$), la Prueba 2 (Meusnier, $x' = N\cos\varphi$) y por qué meridiano y primer vertical son las
       direcciones principales del elipsoide · [sección "Polígonos geodésicos y trigonometría
       esférica"](../../apunte.pdf#nameddest=sec:trigonometria-esferica): las geodésicas como las "rectas" de la superficie
-    - [apunte, «Coordenadas curvilíneas y bases locales» (métrica y primera forma; esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:13)
-      ($M$, $N$ y $K = 1/(MN)$) · [apunte, «Pasar del plano a una superficie»](../../apunte.pdf#nameddest=cap:06)
+    - [apunte, «Superficies, elipsoide, curvatura…» (métrica y primera forma; esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:11)
+      ($M$, $N$ y $K = 1/(MN)$)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12): "Radios de curvatura",
       prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
     - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)

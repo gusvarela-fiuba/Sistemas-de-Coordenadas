@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
 conceptos: [elipsoide, simetria]
-apunte: ["06", "13"]
+apunte: ["11"]
 unidad: 13_elipsoide
 ---
 
@@ -53,7 +53,7 @@ Radios de curvatura, lo que se ve: $M$ (meridiano) es el radio del círculo oscu
 **Tierra (GRS80)** $a=6378{,}137$ km, $f=1/298{,}257$: $M_{\text{ec}}\approx6335{,}4$ km, $N_{\text{ec}}=a$, $M_{\text{polo}}=N_{\text{polo}}\approx6399{,}6$ km. La diferencia geodésica–geocéntrica a $45^\circ$ es $\approx11'$. Verificación: planilla con las dos fórmulas y un slider en $\varphi$, o `pyproj`/`GeographicLib` en marimo.
 
 ## Dónde está desarrollado
-- Apunte v3: `13-tercera-lectura.tex` §"Esfera, elipsoide y curvatura" ($e^2=2f-f^2$, $M$, $N$, $K=1/(MN)$, figura de la normal que no pasa por el centro) y §"Conexión con la práctica de Agrimensura" (fila "Radios $M,N$: variación geométrica con la latitud"); `06-primera-lectura-superficies.tex` §"Esfera, elipsoide y representación plana" (panorama). Falta en el apunte: la deducción de $M$ y $N$, la conversión $\varphi,\lambda\to X,Y,Z$, la latitud geocéntrica, el arco de meridiano.
+- Apunte v3: `11-superficies-geodesia.tex` §"Esfera, elipsoide y curvatura" ($e^2=2f-f^2$, $M$, $N$, $K=1/(MN)$, figura de la normal que no pasa por el centro) y §"Conexión con la práctica de Agrimensura" (fila "Radios $M,N$: variación geométrica con la latitud"); `11-superficies-geodesia.tex` §"Esfera, elipsoide y representación plana" (panorama). Falta en el apunte: la deducción de $M$ y $N$, la conversión $\varphi,\lambda\to X,Y,Z$, la latitud geocéntrica, el arco de meridiano.
 - Apunte del profesor (Clavijo, elipsoide): fuente completa, resumida arriba.
 - Unidad marimo: `unidades/13_elipsoide.py` (**anticipada**: la clase no se dictó; lectura del alumno sobre el esqueleto 2025, el apunte del profesor y el v3, pendiente de validar por la cátedra): elipsoide 3D con meridiano, paralelo, normal y recta al centro; elipse meridiana con las tres latitudes; $M$, $N$, $(\varphi,\lambda,h)\to(X,Y,Z)$ y $E = M^2$, $G = N^2\cos^2\varphi$ con GRS80 en $45°$.
 - Página Notion de Gustavo: §5 esfera (tabla de 1° de longitud por latitud), útil como contraste.

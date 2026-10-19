@@ -487,7 +487,7 @@ def _(mo):
     Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
     puntos y rectas fijas de una homografía, la homología del pentágono):
 
-    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Bloque geométrico: transformaciones proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:12)
+    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:07)
     - [apunte, «Pentágono regular: cuentas y script» (pentágono regular, autovector por producto cruz)](../../apunte.pdf#nameddest=cap:18) · [apunte, «Construcción geométrica de las matrices de rotación 3D» (rotaciones 3D)](../../apunte.pdf#nameddest=cap:14)
     - [ficha de la clase 6](../../clases/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 

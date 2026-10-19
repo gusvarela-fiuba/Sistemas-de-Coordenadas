@@ -613,7 +613,7 @@ def _(mo):
       Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^T$,
       con la caja sobre la convención de $H$) · Problema 4, regresión total (la dirección de la recta es $v_1$, la
       normal es $v_2$, el menor valor singular); cierra con el resultado "Los cuatro con la misma maquinaria"
-    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno y núcleo)](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (cuatro problemas; producto interno y núcleo)](../../apunte.pdf#nameddest=cap:09)
     - [ficha de la clase 11](../../clases/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^T X_0$ de la

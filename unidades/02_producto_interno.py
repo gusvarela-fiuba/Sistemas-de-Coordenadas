@@ -126,7 +126,7 @@ def _(mo):
     aritmética: coordenada por coordenada, y sumamos. Que den lo mismo se **muestra** así: con $u = (|u|, 0)$ sobre el eje
     $x$ y $v = (|v|\cos\theta, |v|\sin\theta)$, la suma de productos da $|u|\,|v|\cos\theta$ directo; para un par
     cualquiera giramos los dos hasta que $u$ caiga sobre el eje $x$, y girar no cambia la cuenta (Rotaciones II, 3.2). La
-    demostración está en el apunte, «Bloque geométrico: fundamentos y rotaciones».
+    demostración está en el apunte, «Rotaciones».
 
     | | la cuenta | lo que se ve |
     |---|---|---|
@@ -438,8 +438,8 @@ def _(mo):
 
     En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
-    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:07)
-    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:08)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva

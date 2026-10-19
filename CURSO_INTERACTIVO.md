@@ -389,7 +389,7 @@ Clases del esqueleto: 13 y 14 (desarrollo complementario del alumno que cierra e
 
 - Notebook: [unidades/15_transformaciones_conformes.py](unidades/15_transformaciones_conformes.py)
 - Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Transformaciones conformes" del capítulo de la tercera lectura.
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), capítulo 10 (Transformaciones conformes) del apunte.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html)
 
 ## Autoevaluación

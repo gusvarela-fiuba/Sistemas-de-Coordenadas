@@ -488,7 +488,7 @@ def _(mo):
     exceso esférico con el control del octante y el problema resuelto entre tres ciudades. Las herramientas y la esfera
     como superficie:
 
-    - [apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:11) · [apunte, «Coordenadas curvilíneas y bases locales» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:13)
+    - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:11)
     - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
 
     **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),

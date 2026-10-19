@@ -46,7 +46,7 @@ conceptos:
     unidad: 11_cuatro_problemas
     hecho_geometrico: "La recta y = ax + b que deja a y lo más cerca posible del plano generado por las columnas de A: proyección ortogonal de y sobre la imagen; se minimiza la distancia vertical en cada x_i."
     que_se_conserva: "El residuo queda ortogonal a la imagen de A (ecuaciones normales)."
-    apunte: ["13"]
+    apunte: ["09"]
     requiere: [pseudoinversa, sistema-sobredeterminado, cuatro-subespacios, producto-interno]
   - id: interseccion-de-circulos
     nombre: Intersección de círculos
@@ -54,7 +54,7 @@ conceptos:
     unidad: 11_cuatro_problemas
     hecho_geometrico: "Restar dos ecuaciones de círculos cancela los cuadráticos y deja la recta por sus puntos de corte (eje radical); con tres o más círculos queda un sistema lineal sobredeterminado."
     que_se_conserva: "El punto buscado está en todos los ejes radicales; la linealización no cambia la solución, cambia la forma de las ecuaciones."
-    apunte: ["13"]
+    apunte: ["09"]
     requiere: [pseudoinversa, sistema-sobredeterminado, nucleo]
   - id: procrustes
     nombre: Procrustes
@@ -62,7 +62,7 @@ conceptos:
     unidad: 11_cuatro_problemas
     hecho_geometrico: "Superponer dos nubes de puntos con la rotación (y escala) que mejor las ajusta: la SVD de la matriz de correlación H = PᵀQ separa el giro (U, V) del estiramiento (Σ). Helmert 2D en Topografía."
     que_se_conserva: "Distancias y ángulos dentro de cada nube: sólo se permite rotar, trasladar y escalar."
-    apunte: ["13"]
+    apunte: ["09"]
     requiere: [svd, valores-singulares, producto-interno, matriz-ortogonal]
   - id: regresion-total
     nombre: Regresión total
@@ -70,7 +70,7 @@ conceptos:
     unidad: 11_cuatro_problemas
     hecho_geometrico: "La recta que minimiza las distancias perpendiculares es el eje mayor de la elipse de dispersión de la nube; la normal es la dirección de menor varianza, el vector singular del menor valor singular."
     que_se_conserva: "La dirección que menos cambia bajo XᵀX; el residuo total es σ_min²."
-    apunte: ["13"]
+    apunte: ["09"]
     requiere: [svd, valores-singulares, diagonalizacion, forma-cuadratica]
   - id: curvatura
     nombre: Curvatura
@@ -78,7 +78,7 @@ conceptos:
     unidad: 12_curvatura
     hecho_geometrico: "Tasa de cambio del ángulo de la tangente por unidad de avance; 1/R del círculo osculador; en un gráfico con tangente horizontal es la segunda derivada."
     que_se_conserva: "La curvatura de una curva no depende de cómo se la recorra (parametrización); la de Gauss no cambia al doblar la superficie sin estirarla."
-    apunte: ["13", "06"]
+    apunte: ["11"]
     requiere: [derivada-aproximacion-lineal, hessiana]
   - id: forma-cuadratica
     nombre: Forma cuadrática
@@ -86,7 +86,7 @@ conceptos:
     unidad: 12_curvatura
     hecho_geometrico: "Un número que sale de un vector pasando por una matriz simétrica, vᵀHv; la curvatura normal en dirección α es la hessiana evaluada en (cos α, sin α); diagonalizar es rotar los ejes hasta que desaparece el término cruzado y aparecen las direcciones principales, ortogonales."
     que_se_conserva: "Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, sólo de escritura."
-    apunte: ["13"]
+    apunte: ["11"]
     requiere: [hessiana, autovector, diagonalizacion, svd, producto-interno]
   - id: geodesica
     nombre: Geodésica
@@ -94,7 +94,7 @@ conceptos:
     unidad: 12_curvatura
     hecho_geometrico: "La curva más recta posible sobre una superficie: no se tuerce dentro de ella (aceleración normal a la superficie); la más corta entre puntos cercanos. Círculos máximos en la esfera; meridianos sí y paralelos no en el elipsoide."
     que_se_conserva: "La dirección tangente se transporta sin girar dentro del plano tangente (curvatura geodésica cero)."
-    apunte: ["13"]
+    apunte: ["11"]
     requiere: [curvatura, primera-forma-fundamental, superficie-parametrica]
   - id: elipsoide
     nombre: Elipsoide de revolución
@@ -102,7 +102,7 @@ conceptos:
     unidad: 13_elipsoide
     hecho_geometrico: "La elipse meridiana girada alrededor de su eje menor; la normal no pasa por el centro (latitud geodésica ≠ geocéntrica); radios de curvatura M (meridiano) y N (primer vertical), ambos crecen del ecuador al polo y coinciden en el polo."
     que_se_conserva: "La forma de la elipse meridiana en todo meridiano; nada métrico depende de λ."
-    apunte: ["06", "13"]
+    apunte: ["11"]
     requiere: [superficie-parametrica, primera-forma-fundamental, curvatura, forma-cuadratica, rotacion-3d]
   - id: simetria
     nombre: Simetría (deducciones a partir de)
@@ -110,7 +110,7 @@ conceptos:
     unidad: 13_elipsoide
     hecho_geometrico: "El plano meridiano es plano de simetría: la forma cuadrática de la curvatura es simétrica respecto del meridiano, así que las direcciones principales tienen que ser meridiano y primer vertical sin calcular; la revolución hace que M, N y K sean funciones de φ sola."
     que_se_conserva: "El elipsoide cae sobre sí mismo al rotar alrededor del eje polar y al reflejar en cualquier plano meridiano."
-    apunte: ["13"]
+    apunte: ["11"]
     requiere: [reflexion, rotacion-3d, curvatura, forma-cuadratica]
   - id: trigonometria-esferica
     nombre: Trigonometría esférica
@@ -118,7 +118,7 @@ conceptos:
     unidad: 14_trigonometria_esferica
     hecho_geometrico: "Un triángulo esférico son tres planos por el centro: los lados son ángulos entre radios (producto interno), los ángulos son diedros entre planos (producto vectorial); ley de cosenos cos a = cos b cos c + sin b sin c cos A; exceso esférico = área/R²."
     que_se_conserva: "Lados, ángulos y área bajo rotaciones de la esfera; para lados chicos se recupera la trigonometría plana."
-    apunte: ["11", "13"]
+    apunte: ["08", "11"]
     requiere: [producto-interno, producto-vectorial, geodesica, rotacion-3d]
   - id: poligono-geodesico
     nombre: Polígono geodésico
@@ -126,7 +126,7 @@ conceptos:
     unidad: 14_trigonometria_esferica
     hecho_geometrico: "Poligonal cerrada de lados geodésicos: la suma de ángulos excede (n−2)π en área/R²; el error de cierre de una poligonal sobre la Tierra delata que no es plana. Sobre el elipsoide no hay fórmula cerrada: series o CAS (Maxima)."
     que_se_conserva: "El exceso esférico es área, no error: se separa antes de compensar la poligonal."
-    apunte: ["13"]
+    apunte: ["11"]
     requiere: [trigonometria-esferica, geodesica, elipsoide]
   - id: transformacion-conforme
     nombre: Transformación conforme
@@ -134,7 +134,7 @@ conceptos:
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "Con lupa infinitesimal es una similaridad directa: el Jacobiano es k(P)·R(θ), de la forma [[a, −b], [b, a]] del número complejo; σ₁ = σ₂, F = 0 y E = G = k², Cauchy-Riemann. Sobre el elipsoide (K > 0) no hay isometría al plano: lo que se negocia es la escala, nunca el ángulo."
     que_se_conserva: "Los ángulos entre curvas (y la forma de las figuras chicas); la escala k(P) cambia de punto a punto."
-    apunte: ["06", "13"]
+    apunte: ["10"]
     requiere: [jacobiano, similaridad, svd, primera-forma-fundamental, numeros-complejos, elipsoide]
   - id: indicatriz-de-tissot
     nombre: Indicatriz de Tissot
@@ -142,7 +142,7 @@ conceptos:
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y sólo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J."
     que_se_conserva: "Lo que dice la elipse: forma (conforme) si σ₁ = σ₂, área (equivalente) si σ₁σ₂ = 1, el meridiano (equidistante) si h = 1."
-    apunte: ["06", "13"]
+    apunte: ["10"]
     requiere: [jacobiano, svd, valores-singulares, primera-forma-fundamental]
   - id: latitud-isometrica
     nombre: Latitud isométrica
@@ -150,7 +150,7 @@ conceptos:
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "q(φ) = ln tan(π/4 + φ/2) − (e/2) ln[(1 + e sin φ)/(1 − e sin φ)]: la coordenada norte que estira el meridiano hasta que dq = M dφ/(N cos φ) mide lo mismo que dλ; con ella ds² = N² cos²φ (dq² + dλ²) y la grilla (λ, q) tiene cuadraditos de verdad."
     que_se_conserva: "La igualdad de escalas en las dos direcciones de la grilla: E = G, F = 0; q → ∞ en los polos."
-    apunte: ["13"]
+    apunte: ["10"]
     requiere: [elipsoide, primera-forma-fundamental, transformacion-conforme]
   - id: mercator
     nombre: Proyección de Mercator
@@ -158,7 +158,7 @@ conceptos:
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "x = a λ, y = a q(φ): la cilíndrica conforme; h = k = a/(N cos φ) crece hacia los polos, los círculos de Tissot siguen círculos y las loxodromias son rectas. La cilíndrica equidistante (y = S(φ), h = 1) y la equivalente (h·k = 1) son las otras dos respuestas a las preguntas del apunte del elipsoide."
     que_se_conserva: "Los ángulos (rumbos); ni las distancias ni las áreas, que se inflan como 1/(N² cos²φ)."
-    apunte: ["06", "13"]
+    apunte: ["10"]
     requiere: [latitud-isometrica, transformacion-conforme, indicatriz-de-tissot]
   - id: gauss-kruger
     nombre: Gauss-Krüger (Mercator transversa)
@@ -166,5 +166,5 @@ conceptos:
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "La conforme que usa la Argentina (POSGAR, fajas): w = f(q + i Δλ) con f analítica (Cauchy-Riemann ⇒ conforme) y elegida para que sobre el meridiano central (Δλ = 0) la ordenada sea el arco de meridiano S(φ); el cilindro es tangente a un meridiano en vez del ecuador y la escala k crece con Δλ²."
     que_se_conserva: "Los ángulos; la escala 1 sólo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino)."
-    apunte: ["13"]
+    apunte: ["10"]
     requiere: [transformacion-conforme, latitud-isometrica, mercator, numeros-complejos]

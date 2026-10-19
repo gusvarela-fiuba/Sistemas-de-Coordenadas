@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - "Bibliografia/Clavijo - Apunte Teoría Elipsoide (guía para clase).pdf (sección Radios de curvatura)"
 conceptos: [curvatura, forma-cuadratica, geodesica]
-apunte: ["13", "06"]
+apunte: ["11"]
 unidad: 12_curvatura
 ---
 
@@ -47,7 +47,7 @@ Escalera: $\mathbb R$ (segunda derivada), $\mathbb R^2$ (curvatura de una curva,
 **Esfera.** $z=\sqrt{R^2-x^2-y^2}$ en el polo: hessiana $-\tfrac1R I$, $\kappa_1=\kappa_2=1/R$ en toda dirección: no hay direcciones principales, todas lo son. Es el caso que el apunte del profesor llama "intuitivo, y no requería un análisis más detallado, por el hecho de ser constante".
 
 ## Dónde está desarrollado
-- Apunte v3: `13-tercera-lectura.tex` §"Métrica y primera forma fundamental" (métrica $E,F,G$, $ds^2$ matricial, esfera) y §"Esfera, elipsoide y curvatura" (sólo las fórmulas de $M$, $N$ y $K=1/(MN)$, sin deducción); `06-primera-lectura-superficies.tex` (panorama, "de lo global a lo local"). Falta en el apunte: la definición de curvatura de una curva, la segunda forma fundamental, la fórmula de Euler, Meusnier y cualquier definición de geodésica.
+- Apunte v3: `11-superficies-geodesia.tex` §"Métrica y primera forma fundamental" (métrica $E,F,G$, $ds^2$ matricial, esfera) y §"Esfera, elipsoide y curvatura" (sólo las fórmulas de $M$, $N$ y $K=1/(MN)$, sin deducción); `11-superficies-geodesia.tex` (panorama, "de lo global a lo local"). Falta en el apunte: la definición de curvatura de una curva, la segunda forma fundamental, la fórmula de Euler, Meusnier y cualquier definición de geodésica.
 - Apunte del profesor (Clavijo, elipsoide): secciones "Radios de curvatura", "Prueba 1" (curvatura normal como forma cuadrática y máximos a $\pi/2$), "Prueba 2: Teorema de Meusnier" (remite a un apunte de Cristóbal de Lozada y Puga y a una construcción en GeoGebra, ninguno en el repo).
 - Unidad marimo: `unidades/12_curvatura.py` (**anticipada**: la clase no se dictó; lectura del alumno sobre el esqueleto 2025, el apunte del profesor y el v3, pendiente de validar por la cátedra): segunda forma $L, M, N$, direcciones principales por `solve(I, II)`, $K = \det II/\det I$, sección normal y círculo osculador sobre esfera, cilindro, silla y loma.
 - Página Notion de Gustavo: §3 primera forma fundamental, §4 tensor métrico, §5 esfera (tabla de "1° de longitud vale").

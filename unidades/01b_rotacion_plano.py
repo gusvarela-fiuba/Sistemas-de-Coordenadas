@@ -147,7 +147,7 @@ def _(mo):
     **El mismo giro como número.** Si $(x, y)$ es el complejo $z = x + iy$, multiplicar por $e^{i\theta} = \cos\theta +
     i\sin\theta$ es girarlo $\theta$: el módulo no cambia y el argumento se suma; multiplicar por $i$ es un cuarto de
     vuelta. Es la **misma operación** que $R(\theta)$ con dos números en vez de cuatro (sección 3). La demostración de
-    que conservar el producto interno obliga a $R^TR = I$ está en el apunte, «Bloque geométrico: fundamentos y rotaciones».
+    que conservar el producto interno obliga a $R^TR = I$ está en el apunte, «Rotaciones».
     """)
     return
 
@@ -468,7 +468,7 @@ def _(mo):
     En esta unidad demostramos qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
-    - [apunte, «Bloque geométrico: fundamentos y rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:07)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones III — tres ejes y el orden importa](../01c_rotaciones_3d/index.html): en 3D hay un

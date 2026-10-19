@@ -1,7 +1,203 @@
-% Segunda lectura — Guía resuelta: reflexiones, traslación y rotación, homotecia, similaridades
-\section{Guía resuelta: reflexión respecto de un punto}\label{cap:09}
+% Capítulo 5 — Transformaciones euclídeas y similaridades
+\chapter{Transformaciones euclídeas y similaridades}\label{cap:05}\label{sec:bloque-euclideas}
 
-\subsection{Definición 1}
+\section{La idea}
+
+Reflejamos y escalamos. Con reflexiones se construyen rotaciones, y con una escala común se pasa a las similaridades. Seguimos el hilo de las clases dictadas, con los resúmenes del profesor como guía.
+
+\subsection{Reflejar y componer}\label{sec:reflejar}
+
+{\small\vspace{1mm}\linkUnidad{03_reflexiones_similaridades}{Simulación interactiva: Unidad 5 — Reflexiones y similaridades}\par}
+
+
+Una reflexión invierte una figura respecto de un centro o de una recta. Aplicada dos veces
+respecto del mismo elemento devuelve la figura original. Esta propiedad se llama involución.
+
+La riqueza geométrica aparece al combinar reflexiones distintas:
+\begin{itemize}
+  \item dos reflexiones puntuales producen una traslación;
+  \item dos reflexiones en rectas paralelas producen una traslación perpendicular a ellas;
+  \item dos reflexiones en rectas secantes producen una rotación alrededor de su intersección;
+  \item tres reflexiones puntuales vuelven a producir una reflexión puntual y construyen un
+  paralelogramo.
+\end{itemize}
+
+\paragraph{Primera traducción algebraica.}
+\[
+  \rho_b(x)=2b-x.
+\]
+La diferencia \(\rho_b(x)-b=-(x-b)\) indica que la imagen conserva la distancia a \(b\),
+pero queda en la dirección opuesta. Al componer dos reflexiones, los términos que dependen de
+\(x\) recuperan su signo y queda un desplazamiento constante.
+
+\begin{idea}[Qué debe observarse]
+Cada reflexión individual cambia la orientación. Dos reflexiones vuelven a preservarla. La
+posición relativa de los centros o de los ejes decide si el resultado se interpreta como
+traslación o como rotación.
+\end{idea}
+
+\begin{idea}[En palabras del profesor]
+``Vimos que con reflexiones podíamos construir rotaciones (con un argumento coloquial
+sobre que un par de reflexiones sucesivas no altera las distancias, pero tiene un punto
+fijo, así que tiene que ser una rotación)'' (resumen de clase 3, cursada 2025).
+\end{idea}
+
+\subsection{Escalar: homotecias y similaridades}\label{sec:escalar}
+
+Una homotecia cambia el tamaño respecto de un centro. Cada punto permanece sobre la recta que
+lo une con ese centro. Si la razón es positiva conserva el semirayo; si es negativa pasa al
+semirayo opuesto.
+
+Una similaridad combina escala uniforme, giro y, eventualmente, reflexión o traslación. La
+figura puede cambiar de tamaño y posición, pero conserva sus ángulos y sus proporciones. Dos
+triángulos relacionados por una similaridad tienen la misma forma.
+
+\paragraph{Primera traducción algebraica.}
+\[
+  x'=o+k(x-o).
+\]
+El término \(x-o\) mira el punto desde el centro. Multiplicarlo por \(k\) cambia su distancia
+y, si \(k<0\), también invierte el semirayo.
+
+\begin{idea}[En palabras del profesor]
+``Así como la rotación se expresa en complejos también se expresa la escala, que en
+matrices se representa con una matriz múltiplo de la identidad'' (resumen de clase 1, cursada 2025).
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+Este nivel es la guía de transformaciones. Reproducimos los enunciados de \texttt{Ejercicios.pdf}, material docente enviado por la cátedra, y resolvemos cada definición y cada teorema de dos maneras, con una construcción y con un ejemplo con vectores. La resolución es desarrollo nuestro.
+
+{\small\vspace{1mm}\linkUnidad{03_reflexiones_similaridades}{Simulación interactiva: Unidad 5 — Reflexiones y similaridades}\par}
+
+\subsection{Enunciados originales de la guía}
+
+Los textos siguientes reproducen los enunciados de \texttt{Ejercicios.pdf}. Se normalizaron
+únicamente los cortes de línea, la notación matemática y errores tipográficos evidentes; las
+dos páginas originales se incluyen completas como anexo facsimilar al final del documento.
+
+\begin{enunciado}[Definición 1]
+La reflexión del punto \(a\) por un punto \(b\) es la operación que lleva el punto \(a\) al
+punto que está sobre la recta \(\overline{ab}\), a la misma distancia de \(b\) que \(a\),
+pero al otro lado de \(b\). Se llama \(\rho_b(a)\).
+\end{enunciado}
+
+\begin{enunciado}[Teorema 1]
+\(\rho_a\rho_b\), la composición de dos reflexiones, es una traslación. Puede ser expresada
+algebraicamente con la suma de un vector constante o geométricamente como el desplazamiento
+según un segmento fijo.
+\end{enunciado}
+
+\begin{enunciado}[Teorema 2]
+Si \(\rho_d=\rho_a\rho_b\rho_c\), entonces el polígono \(abcda\) es un paralelogramo.
+\end{enunciado}
+
+\begin{enunciado}[Observación]
+Con esta operación puede definirse la suma y resta de vectores. ¿De qué modo? ¿Cómo se
+relaciona esto con la propiedad de que sea inversiva la transformación, es decir, que al
+aplicarla dos veces se anula?
+\end{enunciado}
+
+\begin{enunciado}[Definición 2]
+La reflexión del punto \(a\) por la recta \(B\), \(\varphi_B(a)\), es la operación que lleva
+el punto \(a\) al punto que está sobre la perpendicular a \(B\) que pasa por \(a\), a la misma
+distancia que \(a\) de \(B\), pero al otro lado de la recta \(B\).
+\end{enunciado}
+
+\begin{enunciado}[Teorema 3]
+Si \(\Theta_{AB}=\varphi_A\varphi_B\) y \(A\) es paralela a \(B\), entonces
+\(\Theta_{AB}\) es una traslación. Puede ser expresada algebraicamente con la suma de un
+vector constante o geométricamente como el desplazamiento según un segmento fijo.
+\end{enunciado}
+
+\begin{enunciado}[Teorema 4]
+Si \(\Theta_{AB}=\varphi_A\varphi_B\) y \(A\) no es paralela a \(B\), entonces
+\(\Theta_{AB}\) es una rotación.
+\end{enunciado}
+
+\begin{enunciado}[Teorema 5]
+Si \(\Theta_{ABCD}=\Theta_{AB}\Theta_{CD}\), con \(\Theta_{AB}\) una traslación y
+\(\Theta_{CD}\) una rotación, entonces \(\Theta_{ABCD}\) es una rotación. Además,
+\(\Theta_{CDAB}=\Theta_{CD}\Theta_{AB}\) es también una rotación, pero es distinta.
+\end{enunciado}
+
+\begin{enunciado}[Definición 3]
+Una homotecia con centro en el punto \(o\) y razón \(k\), nombrada \(\eta_o^k\), lleva un
+punto \(a\) a otro sobre la recta \(\overline{oa}\), de forma que
+\[
+  \frac{d\bigl(o,\eta_o^k(a)\bigr)}{d(o,a)}=k,
+\]
+donde \(d(a,b)\) es la distancia entre el punto \(a\) y el punto \(b\). Los puntos \(a\) y
+\(\eta_o^k(a)\) están al mismo lado del punto \(o\) en la recta \(\overline{oa}\).
+\end{enunciado}
+
+\begin{atencion}[Precisión sobre el texto original]
+La razón entre distancias es siempre no negativa. Por eso, la redacción original corresponde
+al caso \(k>0\). Para una razón firmada debe escribirse
+\[
+\eta_o^k(a)=o+k(a-o),
+\qquad
+\frac{d\bigl(o,\eta_o^k(a)\bigr)}{d(o,a)}=|k|.
+\]
+Punto e imagen están del mismo lado de \(o\) si \(k>0\), y en lados opuestos si \(k<0\).
+\end{atencion}
+
+\begin{enunciado}[Teorema 6]
+Cualquier transformación de similaridad del plano puede expresarse como la composición
+\(\varphi_A\varphi_B\eta_o^k\), donde el punto \(o\) es la intersección de las rectas
+\(A\) y \(B\), y es el punto fijo de la transformación. Dado un triángulo y su imagen bajo
+esta transformación puede hallarse el punto \(o\) con la construcción de Euler indicada en
+la guía original.
+\end{enunciado}
+
+\begin{atencion}[Alcance del Teorema 6 original]
+Tal como está escrito, el enunciado es demasiado general. La composición de dos reflexiones
+y una homotecia describe una similaridad directa con punto fijo. Una similaridad inversa
+requiere una cantidad impar de reflexiones, y una traslación no posee punto fijo finito.
+\end{atencion}
+
+\begin{enunciado}[Ejercicios]
+Para cada una de las definiciones y teoremas expuestos, verificar la conclusión con un ejemplo
+gráfico y construyendo un ejemplo algebraico con vectores. Pista para las reflexiones: para
+hallar la proyección perpendicular de un punto sobre una recta puede usarse el producto
+interno o construir la ecuación vectorial de la perpendicular usando el vector normal que
+surge de la ecuación canónica de la recta.
+\end{enunciado}
+
+\subsection{Resolución completa de la guía}
+
+La consigna de la guía no contiene una lista de problemas independientes. Solicita verificar
+\textbf{cada definición y cada teorema} de dos maneras: mediante una construcción geométrica
+y mediante un ejemplo algebraico con vectores. Las secciones siguientes constituyen esa
+resolución punto por punto.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X X}
+\toprule
+Ítem de la guía & Verificación geométrica & Verificación algebraica\\
+\midrule
+Definición 1 & punto medio y segmentos iguales & \(\rho_b(x)=2b-x\)\\
+Teorema 1 & desplazamiento constante & composición de dos reflexiones puntuales\\
+Teorema 2 & diagonales que se bisecan & \(d=a-b+c\)\\
+Definición 2 & perpendicular y distancias iguales & proyección mediante el vector normal\\
+Teorema 3 & avance perpendicular de longitud \(2h\) & composición con normales paralelos\\
+Teorema 4 & ángulo final igual a \(2\theta\) & producto de matrices de reflexión\\
+Teorema 5 & mismo giro, distinto centro & resolución del punto fijo\\
+Definición 3 & rayos desde el centro & \(\eta_o^k(x)=o+k(x-o)\)\\
+Teorema 6 & escala y giro con centro común & \(S(x)=o+\lambda R(x-o)\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[Cómo reconocer que un ítem está resuelto]
+Cada apartado presenta el dibujo o construcción, la propiedad geométrica que debe observarse,
+la demostración vectorial y un ejemplo numérico. Los ejercicios del final son práctica
+adicional y no sustituyen estas soluciones.
+\end{idea}
+
+\subsection{Guía resuelta: reflexión respecto de un punto}
+
+\subsubsection{Definición 1}
 
 La reflexión de \(x\) respecto del punto \(b\) deja a \(b\) como punto medio del segmento
 que une \(x\) con su imagen. Por lo tanto,
@@ -45,9 +241,9 @@ Si \(b=(2,1)\) y \(x=(5,3)\), entonces
 \]
 El punto medio entre \((5,3)\) y \((-1,-1)\) es efectivamente \((2,1)\).
 
-\section{Guía resuelta: dos reflexiones puntuales}
+\subsection{Guía resuelta: dos reflexiones puntuales}
 
-\subsection{Teorema 1: la composición es una traslación}
+\subsubsection{Teorema 1: la composición es una traslación}
 
 Sean \(a,b\in\R^2\). Aplicando primero \(\rhoP{b}\) y luego \(\rhoP{a}\):
 \[
@@ -94,9 +290,9 @@ Con \(a=(3,2)\) y \(b=(1,1)\), la traslación resultante tiene vector
 Para \(x=(2,-1)\): \(\rhoP{b}(x)=(0,3)\) y
 \(\rhoP{a}(0,3)=(6,1)=x+(4,2)\).
 
-\section{Guía resuelta: tres reflexiones puntuales}
+\subsection{Guía resuelta: tres reflexiones puntuales}
 
-\subsection{Teorema 2: aparece un paralelogramo}
+\subsubsection{Teorema 2: aparece un paralelogramo}
 
 La composición de tres reflexiones puntuales vuelve a ser una reflexión puntual:
 \[
@@ -158,9 +354,9 @@ el extremo de \(v\) respecto de su origen. Esto se relaciona con la involución 
 reflejar dos veces no ``anula'' el punto, sino que devuelve exactamente la posición inicial.
 \end{idea}
 
-\section{Guía resuelta: reflexión respecto de una recta}
+\subsection{Guía resuelta: reflexión respecto de una recta}
 
-\subsection{Definición 2 y fórmula con proyección}
+\subsubsection{Definición 2 y fórmula con proyección}
 
 Sea la recta
 \[
@@ -217,9 +413,9 @@ Además,
 lo que verifica simultáneamente que ambos segmentos tienen la misma longitud y que son
 perpendiculares a la recta, pues son paralelos al normal \(n=(1,2)\).
 
-\section{Guía resuelta: reflexiones en rectas paralelas}
+\subsection{Guía resuelta: reflexiones en rectas paralelas}
 
-\subsection{Teorema 3: la composición es una traslación}
+\subsubsection{Teorema 3: la composición es una traslación}
 
 Tomemos rectas paralelas con un normal unitario \(n\):
 \[
@@ -274,9 +470,9 @@ Por tanto,
 La distancia entre los ejes es \(3\), la traslación tiene módulo \(6\) y el punto intermedio
 \((2,2)\) muestra las dos reflexiones separadamente.
 
-\section{Guía resuelta: reflexiones en rectas secantes}
+\subsection{Guía resuelta: reflexiones en rectas secantes}
 
-\subsection{Teorema 4: la composición es una rotación}
+\subsubsection{Teorema 4: la composición es una rotación}
 
 Sean \(A\) y \(B\) dos rectas que se cortan en \(o\), formando un ángulo orientado
 \(\theta\) desde \(B\) hasta \(A\). Como ambas reflexiones fijan \(o\), su composición
@@ -364,16 +560,16 @@ una construcción geométrica: una rotación plana puede generarse con dos refle
 rectas que se cortan en su centro.
 \end{idea}
 
-\section{Guía resuelta: traslación y rotación}
+\subsection{Guía resuelta: traslación y rotación}
 
-\subsection{Teorema 5: el orden cambia el centro}
+\subsubsection{Teorema 5: el orden cambia el centro}
 
 Sea \(T_v(x)=x+v\) y sea una rotación de parte lineal \(R\) y centro \(c\):
 \[
   Q_c(x)=c+R(x-c)=Rx+(I-R)c.
 \]
 
-\subsubsection*{Primero rotar, después trasladar}
+\paragraph*{Primero rotar, después trasladar}
 \[
   T_vQ_c(x)=Rx+(I-R)c+v.
 \]
@@ -383,7 +579,7 @@ centro \(c_1\):
   \boxed{c_1=c+(I-R)^{-1}v}.
 \]
 
-\subsubsection*{Primero trasladar, después rotar}
+\paragraph*{Primero trasladar, después rotar}
 \[
   Q_cT_v(x)=Rx+(I-R)c+Rv,
 \]
@@ -441,9 +637,9 @@ p\xmapsto{\ T_v\ }(3,0)
 La separación entre \((2,1)\) y \((0,3)\) permite ver directamente que el orden cambió la
 transformación.
 
-\section{Guía resuelta: homotecia}
+\subsection{Guía resuelta: homotecia}
 
-\subsection{Definición 3}
+\subsubsection{Definición 3}
 
 La homotecia de centro \(o\) y razón \(k\) se escribe
 \[
@@ -488,9 +684,9 @@ Con \(o=(1,1)\), \(k=2\) y \(a=(3,2)\):
 \]
 La distancia al centro se duplica y la dirección desde \(o\) se conserva.
 
-\section{Guía resuelta: similaridades}
+\subsection{Guía resuelta: similaridades}
 
-\subsection{Teorema 6}
+\subsubsection{Teorema 6}
 
 Una similaridad conserva ángulos y multiplica todas las distancias por un mismo factor
 \(\lambda>0\). Una similaridad directa con punto fijo \(o\) tiene la forma
@@ -538,6 +734,10 @@ reflexiones, por ejemplo una reflexión y una homotecia. Si la similaridad no ti
 finito, aparece el caso especial de una traslación o una transformación con componente de
 traslación.
 \end{atencion}
+
+\section{En profundidad}
+
+Cerramos el tema con dos complementos de la guía: un ejemplo numérico completo de la descomposición de una similaridad y el método para recuperar el centro a partir de un triángulo y su imagen. Ambos son desarrollo nuestro.
 
 \subsection{Ejemplo numérico de la descomposición}
 
@@ -616,4 +816,3 @@ Una vez hallado, todos los segmentos que parten de \(o\) se escalan por \(\lambd
 el mismo ángulo \(\theta\). Esto completa la parte constructiva y la parte algebraica pedidas
 por la guía.
 \end{resultado}
-
