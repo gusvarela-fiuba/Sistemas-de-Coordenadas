@@ -4,24 +4,22 @@
 
 \section{La idea}
 
-Una poligonal corta se calcula en el plano: los ángulos de un triángulo suman \(180^\circ\) y
-el error de cierre angular es error de medición. Cuando los vértices se separan decenas o
+El capítulo~\ref{cap:elipsoide} dejó la esfera de radio \(\sqrt{MN}\) como reemplazo local del
+elipsoide; ahora resolvemos triángulos sobre ella. Una poligonal corta se calcula en el plano:
+los ángulos de un triángulo suman \(180^\circ\) y el error de cierre angular es error de
+medición. Cuando los vértices se separan decenas o
 cientos de kilómetros, esa cuenta deja de cerrar aunque las mediciones sean perfectas: la
 superficie sobre la que se trazan los lados es curva. El modelo curvo más simple es la
 esfera, y sobre ella hay fórmulas cerradas para todo lo que en el plano resuelve la
-trigonometría elemental. Este capítulo las deduce con las mismas herramientas de los
-capítulos anteriores: producto interno, producto vectorial, determinante y rotaciones.
+trigonometría elemental. Las deducimos con producto interno, producto vectorial,
+determinante y rotaciones.
 
-\paragraph{Convenciones del capítulo.} La esfera tiene centro \(o\) en el origen y radio
-\(R\); casi todas las cuentas se hacen en la esfera unitaria y al final se multiplica por
-\(R\). Un punto de la esfera se identifica con su vector unitario desde el centro; los
-vértices de un triángulo son los puntos \(A,B,C\), con vectores unitarios \(u,v,w\). Los
-lados opuestos se llaman \(a,b,c\) y son \emph{ángulos} (en radianes, o en grados si llevan
-el símbolo); los ángulos del triángulo en cada vértice se llaman también \(A,B,C\): el
-contexto decide si la letra nombra el vértice o su ángulo. La latitud es \(\varphi\) (positiva
-al norte), la longitud \(\lambda\) (positiva al este) y el acimut \(\alpha\) se mide desde el
-norte en sentido horario, como en la sección~\ref{sec:acimut-campo}. El producto vectorial y
-el producto mixto son los del capítulo~\ref{cap:subespacios}.
+\paragraph{Convenciones del capítulo.} Esfera de centro \(o\) y radio \(R\) (casi todo en la
+unitaria; al final se multiplica por \(R\)); cada punto se identifica con su vector unitario;
+vértices \(A,B,C\) con vectores \(u,v,w\), lados opuestos \(a,b,c\), que son \emph{ángulos}, y
+ángulos del triángulo también \(A,B,C\) (el contexto decide); latitud \(\varphi\) positiva al
+norte, longitud \(\lambda\) positiva al este y acimut \(\alpha\) desde el norte en sentido
+horario (sección~\ref{sec:acimut-campo}).
 
 \subsection{Coordenadas sobre la esfera}
 
@@ -43,14 +41,17 @@ Los tres vectores \(\hat e,\hat n,\hat r\) son unitarios y perpendiculares entre
 orden forman una base de orientación positiva: \(\hat e\times\hat n=\hat r\). Es la base
 local \emph{este, norte, vertical} de cada punto. El factor \(\cos\varphi\) de la primera
 derivada dice que un grado de longitud mide menos cuanto más cerca del polo: los meridianos
-convergen. Esa convergencia es la que, más adelante, hace cambiar el acimut a lo largo de
-un camino recto sobre la esfera.
+convergen. Esa convergencia es la que hace cambiar el acimut a lo largo de un camino recto
+sobre la esfera.
+
+\paragraph{El orden de los giros.} Sobre una esfera, los giros alrededor de ejes distintos
+juegan el papel de los centros distintos del plano (sección~\ref{sec:componer-centros}): un
+vaso girado un cuarto de vuelta alrededor de un eje vertical y después de uno horizontal no
+queda como en el orden inverso. Lo mismo pasa al ubicar un punto con longitud y latitud.
 
 \begin{idea}[Sobre la esfera, todo se mide con ángulos]
-La distancia entre dos puntos de la esfera unitaria es el ángulo entre sus vectores, y la
-dirección de partida es un vector del plano tangente. Con producto interno se miden los
-lados; con producto vectorial, los ángulos. El radio \(R\) aparece una sola vez, al pasar
-de radianes a metros.
+Con producto interno se miden los lados; con producto vectorial, los ángulos. El radio \(R\)
+aparece una sola vez, al pasar de radianes a metros.
 \end{idea}
 
 \subsection{Círculos máximos y triángulos esféricos}
@@ -64,10 +65,8 @@ plano de normal \(k=u\times v/\|u\times v\|\).
 
 El ecuador y los meridianos son círculos máximos; los paralelos distintos del ecuador no lo
 son, porque su plano no pasa por el centro. El arco menor de círculo máximo entre dos puntos
-es el camino más corto entre ellos sobre la esfera, es decir, la geodésica de la esfera.
-Aquí ese hecho se acepta sin demostración; la noción de geodésica y su relación con la
-curvatura de la superficie se tratan en el capítulo~\ref{cap:curvatura}. Lo que sí se usa es
-la medida del arco: entre \(u\) y \(v\) el arco mide el ángulo \(\theta\) con
+es el camino más corto entre ellos sobre la esfera, la geodésica de la esfera; ese hecho lo
+aceptamos sin demostración. Lo que sí se usa es la medida del arco: entre \(u\) y \(v\) el arco mide el ángulo \(\theta\) con
 \(\cos\theta=u\cdot v\), en radianes sobre la esfera unitaria y \(R\theta\) sobre la de radio
 \(R\).
 
@@ -107,9 +106,8 @@ coinciden:
 \unidadInteractiva{14_trigonometria_esferica}{Trigonometría esférica}{Explorá: con el caso «a mano» mové la latitud y la longitud de \(C\) y mirá cómo crecen a la vez la suma de los ángulos y el área del triángulo.}
 
 \begin{idea}[Un triángulo esférico son tres planos por el centro]
-Cada lado es el corte de la esfera con un plano por el centro; cada ángulo es el ángulo entre
-dos de esos planos. Toda la trigonometría esférica es geometría de tres vectores unitarios
-y de los planos que generan de a dos.
+Toda la trigonometría esférica es geometría de tres vectores unitarios y de los planos que
+generan de a dos.
 \end{idea}
 
 \subsection{Los ángulos suman más de \texorpdfstring{\(180^\circ\)}{180°}}
@@ -127,9 +125,6 @@ teorema~\ref{teo:girard} dice que no es casualidad.
 \end{ejemplo}
 
 \section{Construcciones, cuentas y ejemplos}
-
-Pasamos a las cuentas: los teoremas del coseno y del seno, el triángulo polar, el recorrido
-de un triángulo como composición de rotaciones y el área por el exceso esférico.
 
 \subsection{Teorema del coseno}
 
@@ -211,7 +206,7 @@ son los suplementos de los lados:
 \end{proposicion}
 
 \begin{demostracion}
-El lado \(a'\) es el ángulo entre \(v'\) y \(w'\), es decir entre \(w\times u\) y
+El lado \(a'\) es el ángulo entre \(v'\) y \(w'\), o sea entre \(w\times u\) y
 \(u\times v\). Como \(w\times u=-(u\times w)\), ese ángulo es el suplemento del ángulo entre
 \(u\times v\) y \(u\times w\), que es \(A\). Lo mismo para \(b'\) y \(c'\). Para los ángulos,
 la identidad de la demostración del teorema~\ref{teo:seno-esferico} da
@@ -238,13 +233,13 @@ triángulos semejantes tienen los mismos ángulos). En la esfera sí, y la razó
 esfera tiene una escala propia, su radio.
 
 \begin{ejemplo}[Tres ciudades]\label{ej:esfera-tres-ciudades}
-Sobre la esfera de radio \(R=6371\) km se toman, con coordenadas geográficas aproximadas,
+Sobre la esfera de radio \(R=6371\) km tomamos, con coordenadas geográficas aproximadas,
 Buenos Aires \((-34{,}6^\circ;\ -58{,}4^\circ)\), Córdoba \((-31{,}4^\circ;\ -64{,}2^\circ)\) y
 Mendoza \((-32{,}9^\circ;\ -68{,}8^\circ)\), vértices \(A\), \(B\) y \(C\). Con
 \(\hat r(\varphi,\lambda)\), \(u\approx(0{,}4313;\ -0{,}7011;\ -0{,}5678)\),
 \(v\approx(0{,}3715;\ -0{,}7685;\ -0{,}5210)\) y \(w\approx(0{,}3036;\ -0{,}7828;\ -0{,}5432)\).
 
-\emph{Lados}, por producto interno: \(a\) (Córdoba--Mendoza) \(=4{,}1730^\circ\), es decir
+\emph{Lados}, por producto interno: \(a\) (Córdoba--Mendoza) \(=4{,}1730^\circ\), o sea
 \(464{,}02\) km; \(b\) (Buenos Aires--Mendoza) \(=8{,}8085^\circ=979{,}46\) km; \(c\) (Buenos
 Aires--Córdoba) \(=5{,}8208^\circ=647{,}24\) km.
 
@@ -264,10 +259,8 @@ la sección~\ref{sec:exceso-esferico}.
 Ir de \(A\) a \(B\) por el lado \(c\) es rotar: la rotación de eje
 \(k_{AB}=u\times v/\|u\times v\|\), perpendicular al plano del círculo máximo, y ángulo \(c\)
 lleva \(u\) a \(v\) y mueve cada punto del lado sobre el propio lado
-(capítulo~\ref{cap:rotaciones}; la matriz de una rotación de eje y ángulo dados es la de
-Rodrigues, apéndice~\ref{ap:rot3d}; la composición de rotaciones aplicada a la orientación de
-mediciones de campo está en la sección~\ref{sec:rotaciones-aplicacion}). Se llaman \(R_{AB}\), \(R_{BC}\) y \(R_{CA}\) las tres
-rotaciones a lo largo de los lados. La composición \(R_{CA}R_{BC}R_{AB}\) lleva \(u\) a \(v\),
+(capítulo~\ref{cap:rotaciones}; su matriz es la de Rodrigues, apéndice~\ref{ap:rot3d}).
+Llamamos \(R_{AB}\), \(R_{BC}\) y \(R_{CA}\) a las tres rotaciones a lo largo de los lados. La composición \(R_{CA}R_{BC}R_{AB}\) lleva \(u\) a \(v\),
 \(v\) a \(w\) y \(w\) de vuelta a \(u\): deja fijo \(A\), así que es una rotación de eje \(u\)
 (teorema~\ref{teo:euler-eje}). La pregunta es cuánto gira.
 
@@ -346,7 +339,7 @@ Despejando, \(S=R^2(A+B+C-\pi)\).
 \centering
 \includegraphics[width=.58\linewidth]{figuras/esfera/esfera_lunulas.png}
 \caption{Los husos de Girard: de ángulo \(A\) (teal), \(B\) (rust) y \(C\) (gold). Los tres se
-superponen sólo en el triángulo \(ABC\) (oscuro); en la cara oculta están los tres husos
+superponen solo en el triángulo \(ABC\) (oscuro); en la cara oculta están los tres husos
 opuestos, que se superponen en el triángulo antípoda. Generada con
 \texttt{apunte/scripts/cap15\_trigonometria\_esferica.py}.}
 \label{fig:esfera-lunulas}
@@ -387,11 +380,7 @@ En geodesia los triángulos tienen lados de decenas de kilómetros sobre un radi
 
 \paragraph{El exceso por el área plana.} Si \(S\) es el área del triángulo plano con los
 mismos lados (por Herón, o \(\frac12 bc\sin A\)), el teorema de Girard con \(S\) en lugar del
-área esférica da
-\[
-  \varepsilon\approx\frac{S}{R^2}.
-\]
-La diferencia entre el área plana y la esférica es relativa al cuadrado de los lados medidos
+área esférica da \(\varepsilon\approx S/R^2\). La diferencia entre el área plana y la esférica es relativa al cuadrado de los lados medidos
 en radianes, de modo que el error de la aproximación es mucho menor que \(\varepsilon\) mismo.
 Un triángulo equilátero de \(40\) km de lado tiene \(\varepsilon\approx3{,}5''\) sobre la
 Tierra (ejercicio~\ref{ex:esfera-legendre}); uno de \(1\) km, de área \(0{,}433\) km\(^2\), apenas \(0{,}0022''\).
@@ -406,9 +395,9 @@ La corrección \(\varepsilon/3\) es de segundo orden en los lados medidos en rad
 \(\varepsilon\approx S/R^2\)), y el error que queda después de aplicarla es de cuarto orden.
 \end{teorema}
 
-Aquí se enuncia sin demostración: la prueba desarrolla el teorema del coseno esférico en serie
-de potencias de los lados hasta cuarto orden y compara con el plano, y su extensión no agrega
-nada a las ideas del capítulo. Lo que se usa es la consecuencia práctica: \emph{se resuelve el
+Lo enunciamos sin demostración (la prueba desarrolla el teorema del coseno esférico en serie
+de potencias de los lados hasta cuarto orden y compara con el plano). Lo que se usa es la
+consecuencia práctica: \emph{se resuelve el
 triángulo como plano después de restar a cada ángulo un tercio del exceso}. Para el
 triángulo grande del ejemplo~\ref{ej:esfera-tres-ciudades} el ángulo plano en Buenos Aires,
 con los mismos lados, es \(23{,}475527^\circ\), y el esférico menos un tercio del exceso es
@@ -416,15 +405,11 @@ con los mismos lados, es \(23{,}475527^\circ\), y el esférico menos un tercio d
 
 \subsection{Problema directo e inverso sobre la esfera}\label{sec:problema-directo-inverso}
 
-Los dos problemas básicos de la geodesia son:
-\begin{itemize}
-  \item \emph{directo}: desde un punto \(P_1=(\varphi_1,\lambda_1)\), con acimut de partida
-  \(\alpha_1\) y distancia angular \(\sigma\), hallar el punto de llegada
-  \(P_2=(\varphi_2,\lambda_2)\) y el acimut de llegada \(\alpha_2\);
-  \item \emph{inverso}: dados \(P_1\) y \(P_2\), hallar la distancia \(\sigma\) y los acimutes
-  \(\alpha_1\) y \(\alpha_2\).
-\end{itemize}
-El acimut de llegada \(\alpha_2\) es la dirección en que se sigue avanzando al llegar a
+Los dos problemas básicos de la geodesia son el \emph{directo}, que desde un punto
+\(P_1=(\varphi_1,\lambda_1)\), con acimut de partida \(\alpha_1\) y distancia angular
+\(\sigma\), busca el punto de llegada \(P_2=(\varphi_2,\lambda_2)\) y el acimut de llegada
+\(\alpha_2\), y el \emph{inverso}, que dados \(P_1\) y \(P_2\) busca la distancia \(\sigma\) y
+los acimutes \(\alpha_1\) y \(\alpha_2\). El acimut de llegada \(\alpha_2\) es la dirección en que se sigue avanzando al llegar a
 \(P_2\); el contraacimut, la dirección en que se ve \(P_1\) desde \(P_2\), es
 \(\alpha_2\pm180^\circ\).
 
@@ -558,8 +543,8 @@ radios de curvatura del meridiano y del primer vertical en la latitud media
 (sección~\ref{sec:radios-MN}), y la \emph{esfera de radio medio} \(R_1=(2a+b)/3\). Para GRS80
 (\(a=6\,378\,137\) m, \(f=1/298{,}257222101\)), \(R_1=6\,371\,008{,}8\) m.
 
-Como coordenadas aproximadas, declaradas como tales, se toman Buenos Aires
-\((-34{,}6^\circ;\ -58{,}4^\circ)\) y Mendoza \((-32{,}9^\circ;\ -68{,}8^\circ)\), y se usan
+Como coordenadas aproximadas, declaradas como tales, tomamos Buenos Aires
+\((-34{,}6^\circ;\ -58{,}4^\circ)\) y Mendoza \((-32{,}9^\circ;\ -68{,}8^\circ)\), y usamos
 sus latitudes geodésicas como latitudes sobre la esfera. La latitud media es
 \(-33{,}75^\circ\), donde \(M=6\,355\,126{,}3\) m, \(N=6\,384\,736{,}7\) m y
 \(\sqrt{MN}=6\,369\,914{,}3\) m. El control es la geodésica sobre el elipsoide GRS80 que
@@ -611,11 +596,11 @@ constante \(281{,}1229^\circ\) y mide \(979\,706{,}6\) m sobre la esfera de radi
 \(416{,}1\) m más que el círculo máximo. Con rumbos cercanos al oeste y latitudes medias la
 diferencia es chica en proporción (unos \(4\cdot10^{-4}\)), pero no nula.
 
-\paragraph{El exceso en una red de control.} Se considera un triángulo de una red de control
+\paragraph{El exceso en una red de control.} Consideramos un triángulo de una red de control
 con vértices de coordenadas aproximadas, declaradas como tales: \(1=(-34{,}60^\circ;\
 -58{,}40^\circ)\), \(2=(-34{,}90^\circ;\ -58{,}75^\circ)\) y \(3=(-34{,}42^\circ;\
 -58{,}90^\circ)\). Las geodésicas de GRS80 miden \(46{,}202\) km (1--2), \(54{,}995\) km
-(2--3) y \(50{,}068\) km (1--3). Se usa la esfera de Gauss en la latitud media
+(2--3) y \(50{,}068\) km (1--3). Usamos la esfera de Gauss en la latitud media
 \(-34{,}64^\circ\), de radio \(\sqrt{MN}=6\,370\,531{,}5\) m; sobre ella los lados difieren de
 los de GRS80 en \(+3{,}6\), \(+109{,}5\) y \(-77{,}0\) m, por el mismo efecto de dirección que
 en Buenos Aires--Mendoza, lo que no afecta al exceso más allá de la milésima de segundo.
@@ -639,25 +624,23 @@ mediciones: más que la precisión angular de una estación total de un segundo,
 algo que hay que separar antes de compensar.
 
 \begin{resultado}[Receta para una red de control]
-Calcular \(\varepsilon\approx S/R^2\) con el área plana del triángulo y \(R=\sqrt{MN}\) en la
-latitud media; comparar la suma de los ángulos medidos con \(180^\circ+\varepsilon\) (el
-error de cierre es la diferencia); y resolver el triángulo como plano con los ángulos
+Calculá \(\varepsilon\approx S/R^2\) con el área plana del triángulo y \(R=\sqrt{MN}\) en la
+latitud media; compará la suma de los ángulos medidos con \(180^\circ+\varepsilon\) (el
+error de cierre es la diferencia); y resolvé el triángulo como plano con los ángulos
 compensados menos \(\varepsilon/3\) cada uno.
 \end{resultado}
 
 \begin{idea}[Qué se conserva y qué no]
-Al rotar la esfera no cambian lados, ángulos ni área del triángulo: todo se definió con
-productos internos y determinantes, invariantes por rotaciones. Al pasar de la esfera al
-elipsoide se pierde esa simetría total, y con ella las fórmulas cerradas; la esfera local
-sigue sirviendo para el exceso y para las correcciones de Legendre, pero no para distancias
-y acimutes de precisión a cientos de kilómetros.
+Al pasar de la esfera al elipsoide se pierde la invariancia por rotaciones, y con ella las
+fórmulas cerradas; la esfera local sigue sirviendo para el exceso y para Legendre, pero no
+para distancias y acimutes de precisión a cientos de kilómetros.
 \end{idea}
 
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:esfera-lal}
 En un triángulo esférico se conocen \(b=50^\circ\), \(c=70^\circ\) y el ángulo comprendido
-\(A=80^\circ\). Hallar \(a\), \(B\), \(C\) y el exceso, y verificar el teorema del seno.
+\(A=80^\circ\). Hallá \(a\), \(B\), \(C\) y el exceso, y verificá el teorema del seno.
 \end{ejercicio}
 \solucion{Por el teorema del coseno,
 \(\cos a=\cos50^\circ\cos70^\circ+\sin50^\circ\sin70^\circ\cos80^\circ=0{,}344846\), de modo
@@ -668,7 +651,7 @@ que \(a=69{,}8276^\circ\). Despejando del mismo teorema escrito en cada vértice
 \(80^\circ+53{,}4855^\circ+80{,}3643^\circ-180^\circ=33{,}8499^\circ\).}
 
 \begin{ejercicio}\label{ex:esfera-polar}
-Un triángulo esférico equilátero tiene sus tres ángulos de \(100^\circ\). Hallar el lado con
+Un triángulo esférico equilátero tiene sus tres ángulos de \(100^\circ\). Hallá el lado con
 el teorema del coseno para los ángulos, el exceso y qué fracción de la esfera cubre. ¿Cuánto
 miden lado y área sobre una esfera de \(6371\) km? ¿Por qué en el plano el problema no tiene
 solución única?
@@ -683,8 +666,8 @@ no fijan el lado (todos los equiláteros son semejantes); en la esfera el radio 
 
 \begin{ejercicio}\label{ex:esfera-directo}
 Desde el punto \((0^\circ;\ 0^\circ)\) del ecuador se parte con acimut \(45^\circ\) y se recorre
-un cuarto de círculo máximo, \(\sigma=90^\circ\). Hallar el punto y el acimut de llegada con
-las fórmulas del problema directo, comprobar el resultado con el inverso y verificar la
+un cuarto de círculo máximo, \(\sigma=90^\circ\). Hallá el punto y el acimut de llegada con
+las fórmulas del problema directo, comprobá el resultado con el inverso y verificá la
 constante de Clairaut.
 \end{ejercicio}
 \solucion{\(\sin\varphi_2=\cos0^\circ\sin90^\circ\cos45^\circ=\tfrac{\sqrt2}2\), así que
@@ -697,20 +680,20 @@ devuelve \(\sigma=90^\circ\), \(\alpha_1=45^\circ\) y \(\alpha_2=90^\circ\). Cla
 
 \begin{ejercicio}\label{ex:esfera-legendre}
 Un triángulo de una red de control es equilátero, de \(40\) km de lado, sobre una esfera de
-\(6371\) km. Estimar el exceso con \(S/R^2\), compararlo con el exacto de L'Huilier y dar el
+\(6371\) km. Estimá el exceso con \(S/R^2\), comparalo con el exacto de L'Huilier e indicá el
 ángulo esférico y la corrección de Legendre.
 \end{ejercicio}
 \solucion{\(S=\tfrac{\sqrt3}4\cdot40^2=692{,}82\) km\(^2\) y
 \(\varepsilon\approx S/R^2=1{,}7069\cdot10^{-5}\) rad \(=3{,}521''\). L'Huilier con
 \(a=b=c=40/6371\) rad da también \(3{,}521''\). Cada ángulo esférico mide
-\(60^\circ+\varepsilon/3=60{,}0003260^\circ\), es decir \(60^\circ\,00'\,01{,}174''\) (el
+\(60^\circ+\varepsilon/3=60{,}0003260^\circ\), o sea \(60^\circ\,00'\,01{,}174''\) (el
 teorema del coseno para los lados, despejando \(\cos A\), da el mismo valor). La corrección de
 Legendre resta \(1{,}174''\) a cada ángulo y devuelve los \(60^\circ\) del equilátero plano.}
 
 \begin{ejercicio}\label{ex:esfera-paralelo}
 Dos puntos están sobre el paralelo de \(-34{,}6^\circ\), separados \(10^\circ\) de longitud
-(de \(-58{,}4^\circ\) a \(-68{,}4^\circ\)), en una esfera de \(6371\) km. Comparar el largo del
-arco de paralelo con el del círculo máximo, dar los acimutes de partida y llegada del círculo
+(de \(-58{,}4^\circ\) a \(-68{,}4^\circ\)), en una esfera de \(6371\) km. Compará el largo del
+arco de paralelo con el del círculo máximo e indicá los acimutes de partida y llegada del círculo
 máximo y su latitud extrema. ¿Cuál de las dos curvas es una loxodromia?
 \end{ejercicio}
 \solucion{El arco de paralelo mide \(R\cos34{,}6^\circ\cdot10^\circ=915{,}29\) km; el círculo

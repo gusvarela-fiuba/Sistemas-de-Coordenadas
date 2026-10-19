@@ -4,10 +4,11 @@
 
 \section{La idea}
 
-La derivada es la mejor manera de reemplazar, cerca de un punto, una función curva por una
-función lineal. Conviene subir la escalera de a un peldaño: primero la recta, después el plano,
-después cualquier dimensión. En los tres peldaños la frase es la misma: \emph{la derivada es
-lo que multiplica al pasito}; lo único que cambia es qué tipo de objeto multiplica.
+El capítulo~\ref{cap:cambio-base} cerró anotando que la métrica \(J^TJ\) de una
+parametrización cambia por congruencia; ahora construimos ese \(J\). La derivada es la mejor
+manera de reemplazar, cerca de un punto, una función curva por una función lineal. Subimos la
+escalera de a un peldaño: la recta, el plano, cualquier dimensión. En los tres la frase es la
+misma: \emph{la derivada es lo que multiplica al pasito}; cambia qué tipo de objeto multiplica.
 
 \paragraph{En \(\R\): un número.} Si \(f\) es derivable en \(x\),
 \[
@@ -26,9 +27,8 @@ fila, el gradiente:
 \]
 Con \(f(x,y)=x^2y\) en \(p=(1,2)\) la fila es \((2xy,\ x^2)=(4,1)\), y el pasito
 \(v=(0{,}1;\ -0{,}1)\) da \(4\cdot0{,}1-1\cdot0{,}1=0{,}3\) contra un cambio real de
-\(0{,}299\). Que esa fila sea una forma lineal y no una flecha, y qué consecuencias tiene sobre
-el terreno, ya lo vimos en el capítulo~\ref{cap:formas-lineales}
-(sección~\ref{sec:gradiente-forma}); acá la usamos como el segundo peldaño.
+\(0{,}299\). Que esa fila sea una forma lineal y no una flecha se vio en la
+sección~\ref{sec:gradiente-forma}.
 
 \paragraph{En \(\R^n\to\R^m\): una matriz.} Si la función devuelve varios números (un punto del
 plano, un par distancia--acimut), cada componente tiene su fila, y apiladas forman una matriz,
@@ -51,51 +51,31 @@ base.
 \end{definicion}
 
 \begin{idea}[La derivada es la matriz que mejor imita a la función cerca del punto]
-Mirada con una lupa cada vez más potente, una función diferenciable se vuelve
-indistinguible de una transformación lineal: los pasitos que entran salen multiplicados por
-\(J\), con un error que se achica más rápido que el pasito. En \(\R\) la matriz es un número;
-para una función a valores reales es una fila; en general, una matriz. Todo lo que sabemos de
-matrices (determinante, inversa, autovalores) se puede usar entonces, localmente, sobre
-funciones que no son lineales.
+Con una lupa cada vez más potente, una función diferenciable se vuelve indistinguible de
+\(v\mapsto Jv\). Todo lo que sabemos de matrices (determinante, inversa, autovalores) se usa
+entonces, localmente, sobre funciones que no son lineales.
 \end{idea}
 
 \unidadInteractiva{10_jacobiano_primera_forma}{Jacobiano y primera forma fundamental}{Explorá: con la superficie «la loma», poné el punto en la ladera \((2,1)\) y agrandá de a poco el pasito \((du,dv)\). Mirá cuándo el segmento punteado \(J\,(du,dv)\) se separa del pasito curvo sobre la superficie y cuándo la longitud por fórmula deja de coincidir con la de la cinta.}
 
-Pasamos del plano a la superficie curva: plano tangente, base local y métrica. Tenemos como horizonte el elipsoide.
-
 \subsection{Pasar del plano a una superficie}\label{sec:plano-superficie}
 
-{\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
-
-
 Sobre una superficie curva no existe una única base cartesiana válida en todas partes. En
-cada punto aparece un plano tangente y una base local que cambia al desplazarse. La métrica
-indica cómo convertir pequeños cambios de coordenadas en distancias y ángulos reales sobre
-la superficie.
-
-\paragraph{Primera traducción algebraica.}
-\[
-  ds^2=E\,du^2+2F\,du\,dv+G\,dv^2.
-\]
-Los coeficientes \(E,F,G\) describen cuánto miden y qué ángulo forman los dos vectores de la
-base local. La expresión transforma pequeños cambios \((du,dv)\) en una distancia geométrica.
+cada punto aparece un plano tangente y una base local que cambia al desplazarse, y la métrica
+\(ds^2=E\,du^2+2F\,du\,dv+G\,dv^2\) (sección~\ref{sec:metrica}) convierte pequeños cambios
+\((du,dv)\) de coordenadas en distancias sobre la superficie.
 
 \begin{idea}[De lo global a lo local]
-Una superficie curva se estudia mediante pequeños parches que se parecen a un plano. En cada
-parche se usan coordenadas locales; al conectar los parches se recupera la geometría global.
-Esta es la intuición básica de una variedad.
+Una superficie curva se estudia con pequeños parches que se parecen a un plano, cada uno con
+sus coordenadas locales: es la intuición de una variedad (sección~\ref{sec:variedades}).
 \end{idea}
 
 \begin{idea}[La derivada como mejor aproximación lineal]
-La derivada es la mejor aproximación lineal a una función en un punto dado; el
-gradiente es perpendicular a una superficie o curva de nivel porque es
-una forma lineal, y la curva de nivel 0 de esa forma lineal es el plano tangente.
+El gradiente es perpendicular a una curva o superficie de nivel porque es una forma lineal: la
+curva de nivel \(0\) de esa forma es la recta (o el plano) tangente.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
-
-
-Ponemos el aparato en cuentas: parametrizaciones, espacio tangente, primera forma fundamental, esfera y elipsoide, marcos de referencia y remuestreo. Cada cuenta se hace paso a paso, con ejemplos numéricos que se pueden rehacer a mano.
 
 
 \subsection{El jacobiano: la matriz de la aproximación}\label{sec:jacobiano}
@@ -103,8 +83,8 @@ Ponemos el aparato en cuentas: parametrizaciones, espacio tangente, primera form
 Para armar \(J\) hay dos lecturas, las mismas que en cualquier matriz. Por filas: cada
 componente de \(F\) es una función a valores reales y su fila es su gradiente, una forma lineal
 que mide cuánto cambia esa componente. Por columnas: la columna \(j\) es la velocidad con que
-se mueve \(F(p)\) cuando sólo cambia la coordenada \(x_j\), es decir, el vector tangente a la
-imagen de la línea coordenada \(j\). En una grilla, las columnas de \(J\) son los lados del
+se mueve \(F(p)\) cuando solo cambia la coordenada \(x_j\): el vector tangente a la imagen de
+la línea coordenada \(j\). En una grilla, las columnas de \(J\) son los lados del
 paralelogramo en que se transforma una celda chiquita; por eso su determinante es el factor
 local de área (proposición~\ref{prop:det-factor} del capítulo~\ref{cap:subespacios}).
 
@@ -162,8 +142,7 @@ paralelogramo tangente \(J\,(dr,d\theta)\) (óxido, punteado), cuyos lados son l
 \subsection{Regla de la cadena: componer es multiplicar}\label{sec:regla-cadena}
 
 Si primero aplicamos \(F\) y después \(G\), los pasitos se multiplican primero por \(J_F\) y
-después por \(J_G\). La aproximación lineal de la composición es la composición de las
-aproximaciones lineales, y componer transformaciones lineales es multiplicar sus matrices.
+después por \(J_G\): la aproximación lineal de la composición es el producto de las matrices.
 
 \begin{proposicion}[Regla de la cadena]\label{prop:regla-cadena}
 Si \(F\colon\R^n\to\R^m\) es diferenciable en \(p\) y \(G\colon\R^m\to\R^k\) es diferenciable
@@ -182,8 +161,9 @@ dos últimos términos son \(\operatorname{o}(\lVert v\rVert)\).
 \end{demostracion}
 
 En \(\R\) es la regla conocida, \((g\circ f)'=g'(f(x))\,f'(x)\): un producto de dos números.
-Con una función a valores reales al final, es una fila por una matriz, exactamente la regla
-«la forma se transforma del lado contrario que el vector» del capítulo~\ref{cap:formas-lineales}:
+Con una función a valores reales al final, es una fila por una matriz, la regla
+\enquote{la forma se transforma del lado contrario que el vector} del
+capítulo~\ref{cap:formas-lineales}:
 si \(h\) es una cota escrita en \((x,y)\) y \((x,y)=P(r,\theta)\), la fila de \(h\circ P\) es
 \(dh\,J_P\) (ejercicio~\ref{ex:der-cadena}).
 
@@ -222,7 +202,7 @@ radianes. Derivando,
   \dfrac{\cos\mathrm{Az}}{d}&-\dfrac{\sin\mathrm{Az}}{d}\end{pmatrix},
   \qquad \det J_G=-\frac1d .
 \]
-La primera fila es el versor que va de la estación al punto: la distancia sólo cambia si nos
+La primera fila es el versor que va de la estación al punto: la distancia solo cambia si nos
 movemos en esa dirección. La segunda fila es perpendicular y está dividida por \(d\): el mismo
 desplazamiento lateral cambia menos el acimut cuanto más lejos está el punto.
 
@@ -237,13 +217,13 @@ Con \(\Delta E=300\) m, \(\Delta N=400\) m resulta \(d=500\) m, \(\mathrm{Az}=36
   J_F=\begin{pmatrix}0{,}6&400\\0{,}8&-300\end{pmatrix},\qquad
   J_GJ_F=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
 \]
-(Se verifica a mano: \(0{,}6\cdot0{,}6+0{,}8\cdot0{,}8=1\) y
-\(0{,}6\cdot400-0{,}8\cdot300=0\).) Las unidades acompañan: la segunda fila de \(J_G\) está en
+(A mano: \(0{,}6\cdot0{,}6+0{,}8\cdot0{,}8=1\) y \(0{,}6\cdot400-0{,}8\cdot300=0\).) Las
+unidades acompañan: la segunda fila de \(J_G\) está en
 radianes por metro y la segunda columna de \(J_F\) en metros por radián.
 
 Si el punto se corre \((0{,}10;\ -0{,}05)\) m, la aproximación lineal da
 \(\Delta d=0{,}6\cdot0{,}10-0{,}8\cdot0{,}05=0{,}02\) m y
-\(\Delta\mathrm{Az}=0{,}0016\cdot0{,}10+0{,}0012\cdot0{,}05=0{,}00022\) rad, es decir
+\(\Delta\mathrm{Az}=0{,}0016\cdot0{,}10+0{,}0012\cdot0{,}05=0{,}00022\) rad, o sea
 \(45{,}38''\). Recalculando con las fórmulas exactas se obtiene \(\Delta d=0{,}02001\) m y
 \(45{,}38''\): a esta escala la aproximación lineal es, en la práctica, exacta.
 \end{ejemplo}
@@ -251,19 +231,10 @@ Si el punto se corre \((0{,}10;\ -0{,}05)\) m, la aproximación lineal da
 
 \subsection{Coordenadas curvilíneas y bases locales}\label{sec:curvilineas}
 
-Una parametrización
-\[
-  r:U\subset\R^2\longrightarrow\R^3,
-  \qquad
-  (u,v)\longmapsto r(u,v)
-\]
-describe una superficie mediante dos coordenadas. Los vectores
-\[
-  r_u=\frac{\partial r}{\partial u},
-  \qquad
-  r_v=\frac{\partial r}{\partial v}
-\]
-forman una base tangente local cuando son linealmente independientes.
+Una parametrización \(r\colon U\subset\R^2\to\R^3\), \((u,v)\mapsto r(u,v)\), describe una
+superficie mediante dos coordenadas. Los vectores \(r_u=\partial r/\partial u\) y
+\(r_v=\partial r/\partial v\) forman una base tangente local cuando son linealmente
+independientes.
 
 \begin{center}
 \begin{tikzpicture}[scale=.9]
@@ -283,31 +254,21 @@ forman una base tangente local cuando son linealmente independientes.
 \end{tikzpicture}
 \end{center}
 
-En coordenadas cartesianas la base es fija. En una superficie curva, la base cambia de
-orientación y de longitud al cambiar el punto. Esta dependencia espacial es la razón por la
-cual los productos internos y las derivadas adquieren coeficientes adicionales.
+En una superficie curva, a diferencia del plano cartesiano, la base cambia de orientación y de
+longitud con el punto; por eso los productos internos y las derivadas adquieren coeficientes.
 
 \subsection{Variedades y espacio tangente}\label{sec:variedades}
 
 Una variedad es un objeto que localmente se parece a un espacio euclídeo. Una superficie
 regular \(S\subset\R^3\) tiene en cada punto \(p\) un espacio tangente
-\[
-  T_pS=\operatorname{span}\{r_u(p),r_v(p)\}.
-\]
-El plano tangente es la mejor aproximación lineal local a la superficie. No es una proyección
-cartográfica: pertenece al punto \(p\) y cambia al desplazarse sobre \(S\).
-
-Si \(\Phi:S\to\mathcal N\) es una aplicación entre superficies (variedades), su derivada
-\[
-  d\Phi_p:T_pS\longrightarrow T_{\Phi(p)}\mathcal N
-\]
-es una transformación lineal entre espacios tangentes. Esa transformación contiene la
-información local sobre escala, orientación, deformación angular y deformación de áreas.
+\(T_pS=\operatorname{span}\{r_u(p),r_v(p)\}\), la mejor aproximación lineal local a la
+superficie. No es una proyección cartográfica: pertenece al punto \(p\) y cambia al
+desplazarse sobre \(S\). Si \(\Phi\colon S\to\mathcal N\) es una aplicación entre superficies
+(variedades), su derivada \(d\Phi_p\colon T_pS\to T_{\Phi(p)}\mathcal N\) es una
+transformación lineal entre espacios tangentes, que contiene la información local sobre
+escala, orientación, deformación angular y deformación de áreas.
 
 \subsection{Métrica y primera forma fundamental}\label{sec:metrica}
-
-{\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
-
 
 La métrica inducida por la parametrización queda determinada por
 \[
@@ -317,30 +278,19 @@ La métrica inducida por la parametrización queda determinada por
 \]
 El elemento de longitud es
 \[
-  \boxed{ds^2=E\,du^2+2F\,du\,dv+G\,dv^2}.
-\]
-En forma matricial:
-\[
-  ds^2=
-  \begin{pmatrix}du&dv\end{pmatrix}
+  \boxed{ds^2=E\,du^2+2F\,du\,dv+G\,dv^2}
+  =\begin{pmatrix}du&dv\end{pmatrix}
   \begin{pmatrix}E&F\\F&G\end{pmatrix}
   \begin{pmatrix}du\\dv\end{pmatrix}.
 \]
 
-\paragraph{Esfera.}
-Para una esfera de radio \(R\), usando longitud \(\lambda\) y latitud \(\varphi\),
-\[
-  ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2\,d\varphi^2.
-\]
-El factor \(\cos\varphi\) explica por qué un incremento fijo de longitud representa una
+\paragraph{Esfera.} Para una esfera de radio \(R\), con longitud \(\lambda\) y latitud
+\(\varphi\), \(ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2\,d\varphi^2\). El factor \(\cos\varphi\) explica por qué un incremento fijo de longitud representa una
 distancia cada vez menor al acercarse a los polos.
 
 \paragraph{La métrica es \(J^TJ\).} Las columnas de la matriz \(3\times2\)
 \(J=(r_u\ \ r_v)\) son los vectores de la base local, de modo que
-\[
-  \begin{pmatrix}E&F\\F&G\end{pmatrix}=J^TJ ,
-\]
-y el factor local de área sobre la superficie es \(\sqrt{EG-F^2}=\sqrt{\det(J^TJ)}\). Para un
+\(\left(\begin{smallmatrix}E&F\\F&G\end{smallmatrix}\right)=J^TJ\), y el factor local de área sobre la superficie es \(\sqrt{EG-F^2}=\sqrt{\det(J^TJ)}\). Para un
 cambio de coordenadas del plano en el plano, \(J\) es cuadrada y esa raíz es
 \(\lvert\det J\rvert\): para las polares, \(J^TJ=\operatorname{diag}(1,r^2)\), que da
 \(ds^2=dr^2+r^2d\theta^2\) y el factor de área \(r\) del ejemplo~\ref{ej:der-polares}.
@@ -352,8 +302,8 @@ cambio de coordenadas del plano en el plano, \(J\) es cuadrada y esa raíz es
 \subsection{Segundo orden: la hessiana como forma cuadrática}\label{sec:hessiana}
 
 En un punto donde el gradiente se anula (un punto \emph{crítico}: una cima, el fondo de una
-cuenca, un portezuelo) la aproximación lineal no dice nada: el plano tangente es horizontal.
-Para saber qué forma tiene el terreno hay que mirar el término siguiente. Para
+cuenca, un portezuelo) el plano tangente es horizontal y la forma del terreno está en el
+término siguiente. Para
 \(h\colon\R^n\to\R\) con derivadas segundas continuas,
 \[
   h(p+v)=h(p)+dh_p(v)+\tfrac12\,v^THv+\operatorname{o}(\lVert v\rVert^2),
@@ -396,7 +346,7 @@ elipses alrededor de una cuenca o de una cima, y pares de hipérbolas alrededor 
 misma clasificación de cónicas del capítulo~\ref{cap:autovectores}.
 
 \begin{ejemplo}[Una cuenca y una silla en \(h(x,y)=x^3-3xy+y^3\)]\label{ej:der-hessiana}
-El gradiente es \((3x^2-3y,\ 3y^2-3x)\). Se anula si \(y=x^2\) y \(x=y^2\), es decir
+El gradiente es \((3x^2-3y,\ 3y^2-3x)\). Se anula si \(y=x^2\) y \(x=y^2\), de donde
 \(x=x^4\): los puntos críticos son \((0,0)\) y \((1,1)\). La hessiana es
 \[
   H(x,y)=\begin{pmatrix}6x&-3\\-3&6y\end{pmatrix},\qquad
@@ -436,9 +386,8 @@ Cerca del punto las dos familias de curvas se confunden.}
 
 \subsection{Linealizar para resolver: el método de Newton}\label{sec:newton}
 
-Muchos problemas de campo son sistemas de ecuaciones no lineales: cortar dos distancias,
-cortar dos visuales, calcular un punto por intersección inversa. La idea del método de Newton
-es la del capítulo entero: cerca de una aproximación \(x_k\), reemplazar \(F\) por su
+Cortar dos distancias, cortar dos visuales o calcular un punto por intersección inversa son
+sistemas de ecuaciones no lineales. La idea del método de Newton es la del capítulo entero: cerca de una aproximación \(x_k\), reemplazar \(F\) por su
 aproximación lineal y resolver el sistema \emph{lineal}
 \[
   F(x_k)+J_F(x_k)\,\delta=0,\qquad x_{k+1}=x_k+\delta .
@@ -482,8 +431,7 @@ los residuos pasaron de metros a decímetros.
 \end{tabular}
 \end{center}
 La solución es \((64,48)\): \(64^2+48^2=80^2\) y \(36^2+48^2=60^2\). El error pasa de
-\(0{,}651\) a \(0{,}0025\) y a \(5\cdot10^{-8}\): la convergencia cuadrática
-en acción. El determinante de \(J_F\) es el seno del ángulo entre las dos visuales; si el punto
+\(0{,}651\) a \(0{,}0025\) y a \(5\cdot10^{-8}\): convergencia cuadrática. El determinante de \(J_F\) es el seno del ángulo entre las dos visuales; si el punto
 estuviera casi alineado con \(A\) y \(B\), \(J_F\) sería casi singular, las rectas tangentes
 casi paralelas y la intersección mal condicionada.
 \end{ejemplo}
@@ -520,10 +468,8 @@ sección~\ref{sec:aplicacion-deformacion}, la parte simétrica de \(J\) es el te
 deformación y la antisimétrica, un giro sin efecto sobre el área.
 
 \begin{idea}[La divergencia mide cuánto se expande el terreno alrededor de un punto]
-Cerca de un punto, el campo de desplazamientos actúa como \(I+\varepsilon J\), y el área de
-una parcela chica cambia en la proporción \(\varepsilon\operatorname{tr}J\): divergencia
-positiva, el terreno se expande; negativa, se contrae; nula, sólo se deforma o gira sin
-cambiar de área.
+Divergencia positiva, el terreno se expande; negativa, se contrae; nula, solo se deforma o
+gira sin cambiar de área.
 \end{idea}
 
 \subsection{Aplicación topográfica: propagación de errores de una radiación}\label{sec:aplicacion-radiacion}
@@ -562,10 +508,8 @@ de \(d\) y \(\mathrm{Az}\) sí lo sean.
 \paragraph{Semiejes y orientación.} Los autovalores de \(\Sigma_{EN}\) son \(1322{,}124\) y
 \(36{,}000\) mm\(^2\); sus raíces, \(36{,}36\) mm y \(6{,}00\) mm, son los semiejes de la elipse
 de error de un desvío, y los autovectores, de acimutes \(142{,}50^\circ\) y \(52{,}50^\circ\),
-sus direcciones (los autovalores y autovectores de una matriz simétrica son los del
-capítulo~\ref{cap:autovectores}; cómo se lee una covarianza como elipse está en el
-ejemplo~\ref{ej:svd-elipse-error} del capítulo~\ref{cap:svd}). El resultado tiene una lectura
-directa: las dos columnas de \(J\) son perpendiculares, una en la dirección de la visual y de
+sus direcciones (la lectura de una covarianza como elipse es la del
+ejemplo~\ref{ej:svd-elipse-error}). El resultado tiene una lectura directa: las dos columnas de \(J\) son perpendiculares, una en la dirección de la visual y de
 largo \(1\), la otra transversal y de largo \(d\). El semieje chico es \(\sigma_d\), sobre la
 visual; el grande es \(d\,\sigma_{\mathrm{Az}}=1500\cdot2{,}424\cdot10^{-5}\) m \(=36{,}36\) mm,
 perpendicular a ella.
@@ -614,8 +558,8 @@ conviene mejorar el ángulo antes que la distancia.
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:der-jacobiano}
-Sea \(F(x,y)=(x^2-y,\ xy)\). Escribir su jacobiano en \((2,1)\), usarlo para aproximar
-\(F(2{,}1;\ 0{,}9)\) y comparar con el valor exacto. ¿Cuánto vale el factor local de área en
+Sea \(F(x,y)=(x^2-y,\ xy)\). Escribí su jacobiano en \((2,1)\), usalo para aproximar
+\(F(2{,}1;\ 0{,}9)\) y compará con el valor exacto. ¿Cuánto vale el factor local de área en
 ese punto?
 \end{ejercicio}
 \solucion{\(J=\left(\begin{smallmatrix}2x&-1\\y&x\end{smallmatrix}\right)
@@ -626,9 +570,9 @@ el valor exacto es \((2{,}1^2-0{,}9;\ 2{,}1\cdot0{,}9)=(3{,}51;\ 1{,}89)\). Las 
 \(\det J=9\): cerca de \((2,1)\) las áreas se multiplican por \(9\), sin cambio de orientación.}
 
 \begin{ejercicio}\label{ex:der-cadena}
-Sea \(h(x,y)=xy\) y \((x,y)=P(r,\theta)=(r\cos\theta,r\sin\theta)\). Calcular la fila de
+Sea \(h(x,y)=xy\) y \((x,y)=P(r,\theta)=(r\cos\theta,r\sin\theta)\). Calculá la fila de
 \(h\circ P\) en \(r=2\), \(\theta=30^\circ\) con la regla de la cadena, usando el jacobiano del
-ejemplo~\ref{ej:der-polares}, y comprobarla derivando directamente
+ejemplo~\ref{ej:der-polares}, y comprobala derivando directamente
 \(h(P(r,\theta))=\tfrac12r^2\sin2\theta\).
 \end{ejercicio}
 \solucion{En \(P(2,30^\circ)=(1{,}732;\ 1)\) la fila de \(h\) es \((y,x)=(1;\ 1{,}732)\). Por
@@ -640,12 +584,12 @@ La fila se multiplica por \(J\) a la derecha, como toda forma lineal.}
 
 \begin{ejercicio}\label{ex:der-hessiana}
 Un relieve se modela cerca del origen como \(h(x,y)=100-x^2+xy-2y^2\) (en metros, con \(x,y\)
-en unidades de \(10\) m). Verificar que el origen es punto crítico, clasificarlo por los
-autovalores de la hessiana y dar las direcciones de curvatura máxima y mínima.
+en unidades de \(10\) m). Verificá que el origen es punto crítico, clasificalo por los
+autovalores de la hessiana e indicá las direcciones de curvatura máxima y mínima.
 \end{ejercicio}
 \solucion{El gradiente, \((-2x+y,\ x-4y)\), se anula en \((0,0)\). La hessiana es
 \(H=\left(\begin{smallmatrix}-2&1\\1&-4\end{smallmatrix}\right)\), con traza \(-6\) y
-determinante \(7\); sus autovalores son \(-3\pm\sqrt2\), es decir \(-4{,}414\) y \(-1{,}586\).
+determinante \(7\); sus autovalores son \(-3\pm\sqrt2\): \(-4{,}414\) y \(-1{,}586\).
 Los dos negativos: el origen es una cima, con \(h=100\). La bajada más brusca va según el
 autovector de \(-4{,}414\), \((0{,}383;\ -0{,}924)\) (casi en la dirección \(y\)), y la más
 suave según el de \(-1{,}586\), \((0{,}924;\ 0{,}383)\). Como \(h\) es cuadrática, la fórmula de
@@ -653,8 +597,8 @@ segundo orden es exacta: con \(v=(1,1)\), \(\tfrac12v^THv=-2\) y \(h(1,1)=98\).}
 
 \begin{ejercicio}\label{ex:der-newton}
 Desde \(A=(0,0)\) se midió \(30\) m y desde \(B=(50,0)\), \(40\) m al mismo punto, ubicado al
-norte de la base. Partiendo de \(x_0=(20,20)\), hacer una iteración de Newton a mano con la
-\(F\) del ejemplo~\ref{ej:der-newton} y comparar con la solución exacta.
+norte de la base. Partiendo de \(x_0=(20,20)\), hacé una iteración de Newton a mano con la
+\(F\) del ejemplo~\ref{ej:der-newton} y compará con la solución exacta.
 \end{ejercicio}
 \solucion{Desde \(x_0\) las distancias son \(28{,}2843\) y \(36{,}0555\), y
 \(F(x_0)=(-1{,}7157;\ -3{,}9445)\). Las filas de \(J_F\) son los versores desde cada estación:
@@ -666,7 +610,7 @@ con \(\det J_F=0{,}98058\). Resolviendo \(J_F\delta=-F\): \(\delta=(-1{,}8738;\ 
 
 \begin{ejercicio}\label{ex:der-radiacion}
 Se radia un punto con \(d=800\) m y \(\mathrm{Az}=300^\circ\), con \(\sigma_d=3\) mm \(+\ 2\) ppm y
-\(\sigma_{\mathrm{Az}}=10''\). Calcular \(\Sigma_{EN}=J\,\mathrm{diag}(\sigma_d^2,\sigma_{\mathrm{Az}}^2)\,J^T\),
+\(\sigma_{\mathrm{Az}}=10''\). Calculá \(\Sigma_{EN}=J\,\mathrm{diag}(\sigma_d^2,\sigma_{\mathrm{Az}}^2)\,J^T\),
 los semiejes de la elipse de un desvío y sus acimutes.
 \end{ejercicio}
 \solucion{\(\sigma_d=3+1{,}6=4{,}6\) mm y \(\sigma_{\mathrm{Az}}=10''=4{,}848\cdot10^{-5}\) rad,

@@ -4,24 +4,20 @@
 
 \section{La idea}
 
-Un nivel apoyado sobre el terreno define un plano: el plano tangente. Al dar un paso en
-cualquier rumbo, el terreno se aparta de ese plano, hacia arriba o hacia abajo, y el
-apartamiento crece como el cuadrado del paso. Medir la curvatura de una superficie es medir
-ese apartamiento rumbo por rumbo. La tesis del capítulo es que esa medida es una
-\emph{forma cuadrática} en el paso: una matriz simétrica de \(2\times2\) la contiene entera,
+El capítulo~\ref{cap:cuatro-problemas} terminó comparando dos levantamientos de un predio en el
+plano; ahora dejamos el plano y medimos cuánto se curva una superficie. Un nivel apoyado sobre
+el terreno define el plano tangente. Al dar un paso en cualquier rumbo, el terreno se aparta de
+ese plano, y el apartamiento crece como el cuadrado del paso. Medir la curvatura es medir ese
+apartamiento rumbo por rumbo, y esa medida es una \emph{forma cuadrática} en el paso: una matriz simétrica de \(2\times2\) la contiene entera,
 y sus autovalores y autovectores (capítulo~\ref{cap:autovectores}) dicen en qué rumbos la
 superficie se curva más y menos.
 
-\paragraph{Convenciones del capítulo.} Una superficie es \(r(u,v)\in\R^3\), con derivadas
-parciales \(r_u\), \(r_v\), \(r_{uu}\), \(r_{uv}\), \(r_{vv}\); un paso en los parámetros es
-\(d=(du,dv)\), escrito como columna en las cuentas. \(I\) y \(II\) son la primera y la
-segunda forma fundamental, como formas cuadráticas o como sus matrices simétricas; los
-coeficientes de \(I\) son \(E,F,G\) y los de \(II\), \(L,M,N\). Las curvaturas principales
-se escriben \(\kappa_1\ge\kappa_2\), la curvatura de Gauss \(K\) y la media \(H\). Las
-curvaturas llevan signo respecto de la normal elegida \(n\): positivas si la superficie se
-dobla hacia el lado de \(n\). En un terreno \(z=h(x,y)\), con \(x\) hacia el este, \(y\)
-hacia el norte y la normal hacia arriba, una loma tiene curvaturas negativas y una vaguada,
-positivas.
+\paragraph{Convenciones del capítulo.} Superficie \(r(u,v)\in\R^3\) y paso \(d=(du,dv)\);
+\(I\), \(II\) son la primera y la segunda forma fundamental (forma o matriz), de coeficientes
+\(E,F,G\) y \(L,M,N\); curvaturas principales \(\kappa_1\ge\kappa_2\), de Gauss \(K\) y media
+\(H\), con signo respecto de la normal \(n\) (positivas si la superficie se dobla hacia \(n\)):
+en un terreno \(z=h(x,y)\) con la normal hacia arriba, una loma tiene curvaturas negativas y
+una vaguada, positivas.
 
 \paragraph{En \(\R\): la segunda derivada.} Si el gráfico de \(f\) tiene tangente horizontal
 en \(0\), \(f(x)\approx f(0)+\tfrac12f''(0)\,x^2\): el apartamiento de la recta tangente es
@@ -36,41 +32,29 @@ con signo (positiva si la curva se dobla hacia arriba), y con tangente horizonta
 \(\kappa=f''\): la segunda derivada \emph{es} la curvatura. La parábola \(y=x^2/2\) tiene en el
 origen \(\kappa=1\) y su osculadora es la circunferencia de radio \(1\) centrada en \((0,1)\).
 
-\paragraph{En \(\R^3\): una forma cuadrática.} Sobre una superficie hay un rumbo por cada
-dirección del plano tangente, y en cada rumbo la superficie tiene su propia curvatura. Lo que
-se probará es que el apartamiento del plano tangente al dar el paso \(d\) es
-\[
-  \tfrac12\,II(d)=\tfrac12\bigl(L\,du^2+2M\,du\,dv+N\,dv^2\bigr)
-\]
-más términos de orden superior, y que la curvatura en el rumbo de \(d\) es el cociente
-\(II(d)/I(d)\) entre ese apartamiento y el cuadrado del largo del paso. Como en el
+\paragraph{En \(\R^3\): una forma cuadrática.} Sobre una superficie, cada rumbo del plano
+tangente tiene su propia curvatura. El apartamiento del plano tangente al dar el paso \(d\) es
+\(\tfrac12\,II(d)=\tfrac12\bigl(L\,du^2+2M\,du\,dv+N\,dv^2\bigr)\) más términos de orden
+superior, y la curvatura en el rumbo de \(d\) es el cociente \(II(d)/I(d)\) entre ese
+apartamiento y el cuadrado del largo del paso. Como en el
 capítulo~\ref{cap:svd}, una forma cuadrática se lee por sus ejes principales: hay dos rumbos
 perpendiculares en los que la curvatura es máxima y mínima, y en los demás rumbos es un
 promedio de esas dos con pesos \(\cos^2\theta\) y \(\sin^2\theta\) (Euler).
 
 \begin{idea}[La curvatura de una superficie es una forma cuadrática]
-En \(\R\) la curvatura es un número, la segunda derivada. Sobre una superficie es una
-matriz simétrica de \(2\times2\) que se come un rumbo y devuelve cuánto se aparta la
-superficie de su plano tangente. Por eso alcanza con dos números (los autovalores) y dos
-direcciones perpendiculares (los autovectores) para conocer la curvatura en \emph{todos} los
-rumbos.
+Dos números (los autovalores) y dos direcciones perpendiculares (los autovectores) dan la
+curvatura en \emph{todos} los rumbos.
 \end{idea}
 
 \unidadInteractiva{12_curvatura}{Curvatura como forma cuadrática}{Explorá: elegí «silla z = (x² − y²)/4», llevá el punto a \((0,0)\) y girá el rumbo de \(0^\circ\) a \(90^\circ\). Mirá cómo \(\kappa_n\) pasa de \(0{,}5\) a \(-0{,}5\) y cómo, en \(45^\circ\), la sección normal deja de curvarse y el círculo osculador desaparece de la figura.}
 
 {\small\vspace{1mm}\linkAnimacion{05_elipsoide_euler_meusnier}{Animación: Euler y Meusnier sobre el elipsoide}\par}
 
-La animación muestra los dos teoremas del capítulo sobre el elipsoide: primero gira el plano
-normal en acimut y el radio del círculo osculador recorre los valores entre los dos radios
-principales (Euler); después inclina el plano hasta el del paralelo y el radio se achica con
-el coseno de la inclinación (Meusnier).
+En la animación, el radio osculador recorre los valores entre los dos radios principales al
+girar el plano normal (Euler) y se achica con el coseno de la inclinación al inclinarlo hasta
+el del paralelo (Meusnier).
 
 \section{Construcciones, cuentas y ejemplos}
-
-Armamos la segunda forma fundamental a partir de un desarrollo de Taylor, la calculamos en un
-gráfico, definimos la curvatura normal y llegamos a las curvaturas principales, a la fórmula
-de Euler y al teorema de Meusnier. Los ejemplos son el paraboloide, la silla, la esfera y el
-cilindro.
 
 \subsection{Superficie, plano tangente y normal}
 
@@ -82,9 +66,7 @@ capítulo~\ref{cap:derivada} (sección~\ref{sec:metrica}):
   I=\begin{pmatrix}E&F\\F&G\end{pmatrix}=J^TJ,\qquad I(d)=d^TI\,d=\lVert J\,d\rVert^2 ,
 \]
 el cuadrado del largo del vector tangente \(J\,d=r_u\,du+r_v\,dv\). La normal unitaria es
-\[
-  n=\frac{r_u\times r_v}{\lVert r_u\times r_v\rVert},\qquad n\cdot r_u=n\cdot r_v=0 .
-\]
+\(n=r_u\times r_v/\lVert r_u\times r_v\rVert\), con \(n\cdot r_u=n\cdot r_v=0\).
 Cambiar el orden de los parámetros cambia \(n\) por \(-n\); todas las curvaturas con signo
 cambian de signo con ella, y las que no dependen de esa elección son \(K\) y los valores
 absolutos.
@@ -124,8 +106,7 @@ Al multiplicar escalarmente por \(n\) los términos de primer orden se anulan, p
 \end{demostracion}
 
 La primera forma mide el largo del paso; la segunda, cuánto se separa la superficie del plano
-tangente al darlo. Las dos son formas cuadráticas en el mismo paso, y la curvatura saldrá de
-compararlas.
+tangente al darlo: la curvatura sale de compararlas.
 
 \paragraph{Un terreno \(z=h(x,y)\).} Con \(r(x,y)=(x,\ y,\ h(x,y))\) queda
 \(r_x=(1,0,h_x)\), \(r_y=(0,1,h_y)\), \(r_x\times r_y=(-h_x,-h_y,1)\) (la normal apunta hacia
@@ -185,8 +166,8 @@ el plano que contiene a \(n\) y al vector tangente \(J\,d\).
 
 La sección normal es una curva plana cuya normal principal está en su plano y es
 perpendicular a la tangente: es \(\pm n\). Por la proposición~\ref{prop:curva-sobre-superficie},
-su curvatura con signo respecto de \(n\) es exactamente \(\kappa_n(d)\). Además
-\(\kappa_n(t\,d)=\kappa_n(d)\) para todo \(t\neq0\): depende sólo del rumbo, no del largo
+su curvatura con signo respecto de \(n\) es \(\kappa_n(d)\). Además
+\(\kappa_n(t\,d)=\kappa_n(d)\) para todo \(t\neq0\): depende solo del rumbo, no del largo
 del paso. A distancia \(s\) sobre el plano tangente la sección se aparta
 \(\tfrac12\kappa_n\,s^2\) de él, igual que la parábola en \(\R\).
 
@@ -251,16 +232,16 @@ En cada punto de la superficie:
 \end{teorema}
 
 \begin{demostracion}
-Sea \(q_1,q_2\) una base ortonormal del plano tangente y \(P\) la matriz de \(2\times2\) que
-escribe las columnas de \(J\) en esa base: \(J=Q\,P\) con \(Q=(q_1\ \ q_2)\), \(Q^TQ=I_2\) (la
-identidad de \(2\times2\)). Para un paso \(d\), el vector \(w=P\,d\) da las coordenadas
+Sea \(q_1,q_2\) una base ortonormal del plano tangente y \(C\) la matriz de \(2\times2\) que
+escribe las columnas de \(J\) en esa base: \(J=Q\,C\) con \(Q=(q_1\ \ q_2)\), \(Q^TQ=I_2\) (la
+identidad de \(2\times2\)). Para un paso \(d\), el vector \(w=C\,d\) da las coordenadas
 cartesianas del vector tangente \(J\,d=Q\,w\), y
 \[
-  I(d)=d^TJ^TJ\,d=d^TP^TP\,d=w^Tw .
+  I(d)=d^TJ^TJ\,d=d^TC^TC\,d=w^Tw .
 \]
-\(P\) es invertible porque \(r_u\), \(r_v\) son independientes. Con \(d=P^{-1}w\),
+\(C\) es invertible porque \(r_u\), \(r_v\) son independientes. Con \(d=C^{-1}w\),
 \[
-  II(d)=w^T\,A\,w,\qquad A=P^{-T}\,II\,P^{-1},
+  II(d)=w^T\,A\,w,\qquad A=C^{-T}\,II\,C^{-1},
 \]
 y \(A\) es simétrica, congruente con la matriz de \(II\). Por la
 proposición~\ref{prop:simetrica} y la sección~\ref{sec:simetricas}, \(A\) tiene autovalores
@@ -272,14 +253,14 @@ rumbo unitario en el plano tangente se escribe \(w=\cos\theta\,e_1+\sin\theta\,e
 \]
 que es (b). Como es un promedio ponderado de \(\kappa_1\) y \(\kappa_2\), está entre los dos y
 vale \(\kappa_1\) en \(\theta=0\) y \(\kappa_2\) en \(\theta=90^\circ\): son el máximo y el
-mínimo. Falta traducir a la matriz \(S\). Como \(I=P^TP\),
+mínimo. Falta traducir a la matriz \(S\). Como \(I=C^TC\),
 \[
-  P^{-1}AP=P^{-1}P^{-T}\,II=(P^TP)^{-1}II=I^{-1}II=S,
+  C^{-1}AC=C^{-1}C^{-T}\,II=(C^TC)^{-1}II=I^{-1}II=S,
 \]
 así que \(S\) y \(A\) son conjugadas y tienen los mismos autovalores; si \(Ae_i=\kappa_ie_i\),
-entonces \(d_i=P^{-1}e_i\) cumple \(Sd_i=\kappa_id_i\), es decir \((II-\kappa_iI)d_i=0\), y
+entonces \(d_i=C^{-1}e_i\) cumple \(Sd_i=\kappa_id_i\), o sea \((II-\kappa_iI)d_i=0\), y
 \(\det(II-\kappa I)=\det I\,\det(S-\kappa I_2)\) se anula en los mismos \(\kappa\). Por último,
-\(d_1^TI\,d_2=(Pd_1)^T(Pd_2)=e_1\cdot e_2=0\).
+\(d_1^TI\,d_2=(Cd_1)^T(Cd_2)=e_1\cdot e_2=0\).
 \end{demostracion}
 
 Desarrollando el determinante, las curvaturas principales son las raíces de
@@ -296,11 +277,8 @@ y de los coeficientes salen su producto y su promedio.
 \end{definicion}
 
 \begin{idea}[Euler es la forma cuadrática en sus ejes principales]
-La fórmula de Euler es la misma cuenta que la de la sección~\ref{sec:simetricas}: en los
-ejes de los autovectores el término cruzado desaparece. Lo único nuevo es que la grilla de
-parámetros no es ortonormal, y por eso hay que medir el ángulo \(\theta\) con la regla \(I\)
-(sobre la superficie), no en el plano de los parámetros. Cuando la grilla es ortonormal en el
-punto, \(I\) es la identidad y las curvaturas principales son los autovalores de \(II\).
+Es la cuenta de la sección~\ref{sec:simetricas}; lo nuevo es que el ángulo \(\theta\) se mide
+con la regla \(I\), sobre la superficie, y no en el plano de los parámetros.
 \end{idea}
 
 \paragraph{Consecuencias directas.} Como \(\cos^2(\theta+90^\circ)=\sin^2\theta\), dos rumbos
@@ -420,10 +398,9 @@ la generatriz \(\kappa_n=-\sin^2\theta/R\).
 
 \subsection{El teorema de Meusnier: curvas oblicuas}
 
-Las secciones normales son un caso particular. Una curva cualquiera sobre la superficie,
-por ejemplo un paralelo de la esfera, pasa por el punto con un rumbo dado pero su plano
-osculador no tiene por qué contener a la normal. Meusnier dice que su curvatura queda
-determinada por la del rumbo y por la inclinación de su plano.
+Una curva cualquiera sobre la superficie, por ejemplo un paralelo de la esfera, pasa por el
+punto con un rumbo dado, pero su plano osculador no tiene por qué contener a la normal; su
+curvatura queda determinada por la del rumbo y por la inclinación de su plano.
 
 \begin{teorema}[Meusnier]\label{teo:meusnier}
 Sea \(\gamma\) una curva sobre la superficie que pasa por \(p\) con vector tangente en el
@@ -474,7 +451,7 @@ y derivando dos veces numéricamente en \(s=0\), la curvatura de esa curva plana
 \emph{Paralelo de la esfera.} El paralelo de latitud \(\varphi\) es una circunferencia de
 radio \(R\cos\varphi\), y su normal principal apunta al eje, horizontal, formando el ángulo
 \(\varphi\) con la normal interior de la esfera. Meusnier da
-\(\kappa\cos\varphi=1/R\), es decir \(\kappa=1/(R\cos\varphi)\): el radio del paralelo es la
+\(\kappa\cos\varphi=1/R\), o sea \(\kappa=1/(R\cos\varphi)\): el radio del paralelo es la
 proyección del radio de la sección normal. En el elipsoide, la misma cuenta con la sección
 normal perpendicular al meridiano (el primer vertical) da el radio del paralelo como
 \(N\cos\varphi\), con \(N\) el radio del primer vertical
@@ -485,8 +462,7 @@ normal perpendicular al meridiano (el primer vertical) da el radio del paralelo 
 
 \subsection{Cambio de parámetros: II se transforma por congruencia}
 
-Una misma superficie admite muchas parametrizaciones, y la curvatura no puede depender de la
-elegida. Sea \((u,v)=\phi(s,t)\) un cambio de parámetros con jacobiano
+La curvatura no puede depender de la parametrización elegida. Sea \((u,v)=\phi(s,t)\) un cambio de parámetros con jacobiano
 \(C=\partial(u,v)/\partial(s,t)\) invertible, y \(\tilde r(s,t)=r(\phi(s,t))\).
 
 \begin{proposicion}[Las dos formas fundamentales cambian por congruencia]\label{prop:II-congruencia}
@@ -504,7 +480,7 @@ Por la regla de la cadena (proposición~\ref{prop:regla-cadena}),
 términos son tangentes. Al multiplicar por \(n\) queda
 \(\tilde r_{ss}\cdot n=(u_s,v_s)\,II\,(u_s,v_s)^T\); lo mismo con \(\tilde r_{st}\) y
 \(\tilde r_{tt}\). En forma matricial, \(\tilde{II}=C^T\,II\,C\). Como
-\(\tilde r_s\times\tilde r_t=\det C\,(r_u\times r_v)\), la normal sólo se invierte si
+\(\tilde r_s\times\tilde r_t=\det C\,(r_u\times r_v)\), la normal solo se invierte si
 \(\det C<0\).
 \end{demostracion}
 
@@ -630,7 +606,7 @@ perfil del DEM interpolado (1/km) & \(-4{,}064\) & \(1{,}259\) & \(-7{,}883\)
 \end{center}
 La última fila es un control con el dato crudo: interpolamos el DEM (bilineal) a lo largo de
 la línea de máxima pendiente, \(\pm3\) celdas, y le ajustamos una parábola. Tiene el mismo
-signo y el mismo orden de magnitud, con diferencias de \(1\) a \(2\) 1/km: el perfil usa sólo
+signo y el mismo orden de magnitud, con diferencias de \(1\) a \(2\) 1/km: el perfil usa solo
 los datos de una línea, mientras que la cuadrática promedia la ventana entera. Diferencias de
 ese tamaño son la resolución real de una curvatura calculada con un DEM de \(30\) m, como
 muestra el cambio de ventana: con ventanas de \(5\times5\), \(7\times7\) y \(9\times9\)
@@ -660,7 +636,7 @@ líneas rojas (\(H<0\)). En el recorte, el \(38{,}8\)\,\% de las celdas tiene \(
 Mendoza, en km desde la esquina suroeste. Izquierda: relieve sombreado con curvas de nivel cada
 \(100\) m y los tres puntos del cuadro~\ref{tab:curv-dem}. Derecha: curvatura media \(H\) de
 la cuadrática ajustada en ventanas de \(7\times7\) celdas, recortada a \(\pm5\) 1/km; en
-azul las zonas cóncavas (vaguadas), en rojo las convexas (filos y lomas). Datos: Copernicus DEM GLO-30, ``\textcopyright{} DLR e.V. 2010-2014 and \textcopyright{} Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA''.}
+azul las zonas cóncavas (vaguadas), en rojo las convexas (filos y lomas). Datos: Copernicus DEM GLO-30, \enquote{\textcopyright{} DLR e.V. 2010-2014 and \textcopyright{} Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA}.}
 \label{fig:curv-dem}
 \end{figure}
 
@@ -669,8 +645,8 @@ azul las zonas cóncavas (vaguadas), en rojo las convexas (filos y lomas). Datos
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:curv-cuadratica}
-Para \(z=x^2+xy+y^2\) en el origen, hallar \(I\), \(II\), las curvaturas y direcciones
-principales, \(K\) y \(H\), y verificar la fórmula de Euler en el rumbo del eje \(x\).
+Para \(z=x^2+xy+y^2\) en el origen, hallá \(I\), \(II\), las curvaturas y direcciones
+principales, \(K\) y \(H\), y verificá la fórmula de Euler en el rumbo del eje \(x\).
 \end{ejercicio}
 \solucion{El gradiente se anula, \(I\) es la identidad e \(II\) es la hessiana
 \(\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)\). Sus autovalores son
@@ -679,7 +655,7 @@ principales, \(K\) y \(H\), y verificar la fórmula de Euler en el rumbo del eje
 \(3\cos^245^\circ+1\cdot\sin^245^\circ=2\), que es \(h_{xx}=L\).}
 
 \begin{ejercicio}\label{ex:curv-xy}
-Clasificar el origen de \(z=xy\): curvaturas y direcciones principales, \(K\), \(H\) y rumbos
+Clasificá el origen de \(z=xy\): curvaturas y direcciones principales, \(K\), \(H\) y rumbos
 asintóticos. ¿Qué curvas de la superficie pasan por el origen en esos rumbos?
 \end{ejercicio}
 \solucion{\(II=\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\) con \(I\) la
@@ -691,8 +667,8 @@ ejemplo~\ref{ej:curv-silla} girada \(45^\circ\) y escalada.}
 
 \begin{ejercicio}\label{ex:curv-helice}
 La hélice \(\gamma(t)=(3\cos t,\ 3\sin t,\ 4t)\) está sobre el cilindro de radio \(3\).
-Calcular su curvatura con la fórmula de Euler y el teorema de Meusnier, sin derivar la
-hélice, y comprobarla con \(\kappa=\lVert\gamma'\times\gamma''\rVert/\lVert\gamma'\rVert^3\).
+Calculá su curvatura con la fórmula de Euler y el teorema de Meusnier, sin derivar la
+hélice, y comprobala con \(\kappa=\lVert\gamma'\times\gamma''\rVert/\lVert\gamma'\rVert^3\).
 \end{ejercicio}
 \solucion{\(\gamma'=(-3\sin t,\ 3\cos t,\ 4)\) forma con la generatriz \((0,0,1)\) un ángulo
 fijo; con la circunferencia horizontal, el ángulo \(\theta\) cumple
@@ -708,8 +684,8 @@ fórmula, \(\gamma'\times\gamma''=(12\sin t,\ -12\cos t,\ 9)\), de norma \(15\),
 \begin{ejercicio}\label{ex:curv-generalizado}
 En un punto de una superficie, con cierta parametrización,
 \(I=\left(\begin{smallmatrix}2&1\\1&1\end{smallmatrix}\right)\) e
-\(II=\left(\begin{smallmatrix}3&1\\1&1\end{smallmatrix}\right)\). Hallar las curvaturas y
-direcciones principales, \(K\) y \(H\). Comprobar que las direcciones son perpendiculares con
+\(II=\left(\begin{smallmatrix}3&1\\1&1\end{smallmatrix}\right)\). Hallá las curvaturas y
+direcciones principales, \(K\) y \(H\). Comprobá que las direcciones son perpendiculares con
 la regla \(I\) pero no en el plano de los parámetros, y que los autovalores de \(II\) sola dan
 otra cosa.
 \end{ejercicio}
@@ -725,7 +701,7 @@ superficie.}
 \begin{ejercicio}\label{ex:curv-terreno}
 En un punto de un terreno donde la pendiente es nula, la cuadrática ajustada a un DEM da
 \(d=-4\), \(e=3\) y \(f=1\), en \(10^{-3}\) 1/m (\(x\) hacia el este, \(y\) hacia el norte).
-Clasificar el punto y dar las curvaturas principales en 1/km, sus radios y los acimutes de las
+Clasificá el punto e indicá las curvaturas principales en 1/km, sus radios y los acimutes de las
 direcciones principales.
 \end{ejercicio}
 \solucion{Con pendiente nula \(I\) es la identidad e \(II\) es la hessiana
@@ -733,7 +709,7 @@ direcciones principales.
 =\left(\begin{smallmatrix}-8&3\\3&2\end{smallmatrix}\right)\) 1/km. Su traza es \(-6\) y su
 determinante \(-25\), así que \(\kappa=-3\pm\sqrt{34}\): \(\kappa_1=2{,}831\) y
 \(\kappa_2=-8{,}831\) 1/km, con radios de \(353\) m y \(113\) m. \(K=-25\) 1/km\(^2\): es una
-silla (un portezuelo). El autovector de \(\kappa_1\) cumple \(3y=(8+\kappa_1)x\), es decir
+silla (un portezuelo). El autovector de \(\kappa_1\) cumple \(3y=(8+\kappa_1)x\), o sea
 \(y=3{,}610\,x\), con acimut \(\arctan(1/3{,}610)=15{,}5^\circ\): en ese rumbo el terreno
 sube hacia los dos lados. En el perpendicular, acimut \(105{,}5^\circ\), baja hacia los dos
 lados, más fuerte.}

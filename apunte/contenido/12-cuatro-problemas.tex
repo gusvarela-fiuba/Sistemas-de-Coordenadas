@@ -4,7 +4,8 @@
 
 \section{La idea}
 
-En el trabajo de campo casi nunca se mide lo justo. Para trazar el eje de una medianera se
+El capítulo~\ref{cap:inversas} ajustó modelos que son subespacios, como la red de nivelación;
+ahora el modelo puede ser curvo. En el trabajo de campo casi nunca se mide lo justo. Para trazar el eje de una medianera se
 toman diez puntos, aunque dos alcanzan; para ubicar el centro de una rotonda se relevan nueve
 puntos del cordón, aunque tres determinan un círculo; para comparar dos levantamientos del
 mismo predio se usan todos los vértices, aunque dos puntos homólogos fijan una similaridad.
@@ -12,46 +13,29 @@ La redundancia protege contra errores groseros y permite estimar la precisión, 
 precio: las mediciones, por pequeños errores, no son compatibles entre sí, y ninguna recta,
 ningún círculo y ningún movimiento las satisface a todas a la vez.
 
-Este capítulo reúne cuatro problemas de ajuste que aparecen una y otra vez: la recta por
-mínimos cuadrados (regresión simple), la recta con error en las dos coordenadas (regresión
-total), el círculo por puntos y el calce de dos nubes homólogas (Procrustes). Parecen cuatro
-técnicas distintas, y en los libros suelen aparecer en capítulos separados. La tesis del
-capítulo es que son una sola geometría:
-
-\begin{itemize}
-  \item hay un \emph{dato}: un vector \(b\) que junta todas las mediciones;
-  \item hay un \emph{modelo}: el conjunto de todos los vectores de mediciones que el modelo
-  puede producir exactamente, al variar sus parámetros. A veces es un subespacio (la recta
-  simple, el círculo algebraico), a veces un conjunto curvo dentro del espacio de las
-  mediciones (la recta total, el círculo geométrico, las rotaciones de Procrustes);
-  \item la \emph{mejor aproximación} es el punto del modelo más cercano al dato, y el residuo
-  queda perpendicular al modelo en ese punto.
-\end{itemize}
-
-Cuando el modelo es un subespacio, esa perpendicularidad son las ecuaciones normales de la
+La recta por mínimos cuadrados (regresión simple), la recta con error en las dos coordenadas
+(regresión total), el círculo por puntos y el calce de dos nubes homólogas (Procrustes)
+parecen cuatro técnicas distintas, pero son una sola geometría. Hay un \emph{dato}, un vector
+\(b\) que junta todas las mediciones; hay un \emph{modelo}, el conjunto de los vectores de
+mediciones que el modelo puede producir exactamente al variar sus parámetros, a veces un
+subespacio (la recta simple, el círculo algebraico) y a veces un conjunto curvo (la recta
+total, el círculo geométrico, las rotaciones de Procrustes); y la \emph{mejor aproximación}
+es el punto del modelo más cercano al dato, con el residuo perpendicular al modelo en ese
+punto. Cuando el modelo es un subespacio, esa perpendicularidad son las ecuaciones normales de la
 sección~\ref{sec:ecuaciones-normales}. Cuando es curvo, la perpendicularidad se pide al plano
 tangente, y la cuenta se resuelve con la SVD (capítulo~\ref{cap:svd}) o linealizando, como en
 el método de Newton (sección~\ref{sec:newton}).
 
-\paragraph{Convenciones del capítulo.} Los puntos del plano se escriben \(p_i=(x_i,y_i)\),
-\(i=1,\dots,n\), y en las cuentas como columnas; \(\bar p=(\bar x,\bar y)\) es el baricentro
-(promedio) de una nube. Las sumas centradas son
-\[
-  S_{xx}=\sum_i(x_i-\bar x)^2,\qquad S_{yy}=\sum_i(y_i-\bar y)^2,\qquad
-  S_{xy}=\sum_i(x_i-\bar x)(y_i-\bar y),
-\]
-y la \emph{matriz de dispersión} de la nube es
-\(C=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\),
-donde \(X_0\) es la matriz de \(n\times2\) cuyas filas son los \(p_i-\bar p\). Una matriz
-de nube tiene un punto por fila. \(R(\theta)\) es la rotación de ángulo \(\theta\) en sentido
-antihorario y \(\lVert\cdot\rVert\) la norma euclídea. En las aplicaciones, las coordenadas
-Gauss-Krüger se escriben \((E,N)\), este y norte (caja~\ref{caja:convencion-en}).
+\paragraph{Convenciones del capítulo.} Puntos \(p_i=(x_i,y_i)\), \(i=1,\dots,n\), con
+baricentro \(\bar p=(\bar x,\bar y)\); sumas centradas \(S_{xx}=\sum_i(x_i-\bar x)^2\),
+\(S_{yy}=\sum_i(y_i-\bar y)^2\), \(S_{xy}=\sum_i(x_i-\bar x)(y_i-\bar y)\); \emph{matriz de
+dispersión} \(C=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\),
+con \(X_0\) de \(n\times2\) de filas \(p_i-\bar p\) (una matriz de nube tiene un punto por
+fila); coordenadas \((E,N)\) como en la caja de la sección~\ref{caja:convencion-en}.
 
 \begin{idea}[Ajustar es proyectar el dato sobre lo que el modelo puede producir]
-Los cuatro problemas tienen la misma estructura: un vector de mediciones, un conjunto de
-vectores ``explicables'' por el modelo y la búsqueda del explicable más cercano. Cambia la
-forma de ese conjunto (plano, superficie curva, órbita de rotaciones), no la idea: el
-residuo es lo que queda perpendicular a lo que el modelo puede producir.
+Cambia la forma del conjunto de lo \enquote{explicable} (plano, superficie curva, órbita de
+rotaciones), no la idea: el residuo queda perpendicular a lo que el modelo puede producir.
 \end{idea}
 
 \unidadInteractiva{11_cuatro_problemas}{Cuatro problemas: regresión, círculos, Procrustes, regresión total}{Explorá: elegí el problema «(d) regresión total: error en x y en y» y mové el deslizador del ruido en \(x\) y en \(y\). Mirá cómo la recta total (llena) y la simple (de trazos) se separan al crecer el ruido, y comprobá en los números vivos que, con la nube en subida, la pendiente de la simple nunca supera la de la total.}
@@ -84,7 +68,7 @@ Pasa por el baricentro \((\bar x,\bar y)\), y sus residuos cumplen \(\sum_ir_i=0
 \begin{demostracion}
 Las ecuaciones normales \(A^Tr=0\) dicen que \(r\) es perpendicular a las dos columnas de
 \(A\): \(\sum_ir_i=0\) (columna de unos) y \(\sum_ix_ir_i=0\) (columna de las \(x\)). La
-primera es \(\sum_i y_i-m\sum_ix_i-nc=0\), es decir, \(\bar y=m\bar x+c\): la recta pasa por
+primera es \(\sum_i y_i-m\sum_ix_i-nc=0\), o sea, \(\bar y=m\bar x+c\): la recta pasa por
 el baricentro. Restando, \(r_i=(y_i-\bar y)-m(x_i-\bar x)\), y la segunda condición, escrita
 con \(x_i-\bar x\) en lugar de \(x_i\) (la diferencia es \(\bar x\sum_ir_i=0\)), da
 \(S_{xy}-mS_{xx}=0\). Por último,
@@ -102,7 +86,7 @@ Sea \(\rho=S_{xy}/\sqrt{S_{xx}S_{yy}}\) el coeficiente de correlación. Entonces
 \[
   m\cdot m'=\frac{S_{xy}^2}{S_{xx}S_{yy}}=\rho^2\le1,
 \]
-con igualdad si y sólo si los puntos están alineados. En consecuencia, salvo puntos
+con igualdad si y solo si los puntos están alineados. En consecuencia, salvo puntos
 alineados, la recta de \(x\) sobre \(y\) es más empinada que la de \(y\) sobre \(x\) (en
 valor absoluto).
 \end{proposicion}
@@ -110,8 +94,8 @@ valor absoluto).
 \begin{demostracion}
 \(S_{xy}\) es el producto interno de los vectores centrados \(x-\bar x\mathbf 1\) e
 \(y-\bar y\mathbf 1\), y \(S_{xx}\), \(S_{yy}\) son sus normas al cuadrado. Por
-Cauchy--Schwarz, \(S_{xy}^2\le S_{xx}S_{yy}\), con igualdad si y sólo si los dos vectores
-son paralelos, es decir, si \(y_i-\bar y=k(x_i-\bar x)\) para todo \(i\): los puntos están
+Cauchy--Schwarz, \(S_{xy}^2\le S_{xx}S_{yy}\), con igualdad si y solo si los dos vectores
+son paralelos: si \(y_i-\bar y=k(x_i-\bar x)\) para todo \(i\): los puntos están
 sobre una recta. Si \(\rho^2<1\), \(\lvert m\rvert<\lvert 1/m'\rvert\).
 \end{demostracion}
 
@@ -203,7 +187,7 @@ El baricentro es \((3{,}5;\ 3{,}5)\), y las sumas centradas valen \(S_{xx}=17{,}
 \]
 con residuos verticales
 \((-0{,}2857;\ 0{,}8286;\ -1{,}0571;\ 1{,}0571;\ -0{,}8286;\ 0{,}2857)\). Suman cero y su
-producto interno con las \(x\) también es cero (el script da \(A^Tr=(0,0)\)); la suma de
+producto interno con las \(x\) también es cero, \(A^Tr=(0,0)\); la suma de
 sus cuadrados es \(17{,}5-15{,}5^2/17{,}5=3{,}7714\). La recta de \(x\) sobre \(y\) tiene
 \(m'=31/35\) y, escrita como \(y\) en función de \(x\), pendiente \(35/31\approx1{,}1290\).
 El producto \(m\,m'=0{,}7845=\rho^2\), con \(\rho=0{,}8857\).
@@ -235,9 +219,8 @@ cada panel la otra recta aparece de trazos. Generada con
 
 \subsection{Ajuste de un círculo}\label{sec:cuatro-problemas-circulo}
 
-Un círculo de centro \((a,b)\) y radio \(r\) tiene ecuación \((x-a)^2+(y-b)^2=r^2\). El
-problema de ajustar un círculo a \(n\ge4\) puntos no es lineal en \((a,b,r)\), pero un cambio
-de parámetros lo vuelve lineal.
+Ajustar el círculo \((x-a)^2+(y-b)^2=r^2\) a \(n\ge4\) puntos no es un problema lineal en
+\((a,b,r)\), pero un cambio de parámetros lo vuelve lineal.
 
 \paragraph{Ajuste algebraico.} Desarrollando,
 \[
@@ -245,10 +228,8 @@ de parámetros lo vuelve lineal.
 \]
 Las incógnitas \(D\), \(E\), \(F\) aparecen en forma lineal: cada punto da una ecuación
 \(Dx_i+Ey_i+F=-(x_i^2+y_i^2)\), y con más de tres puntos se resuelve por mínimos cuadrados,
-con matriz de columnas \((x_i)\), \((y_i)\), \((1)\). De la solución salen
-\[
-  a=-\tfrac D2,\qquad b=-\tfrac E2,\qquad r=\sqrt{a^2+b^2-F}.
-\]
+con matriz de columnas \((x_i)\), \((y_i)\), \((1)\). De la solución salen \(a=-\tfrac D2\),
+\(b=-\tfrac E2\) y \(r=\sqrt{a^2+b^2-F}\).
 Es la misma idea de los parámetros \(a=\lambda\cos\theta\), \(b=\lambda\sin\theta\) de la
 transformación de Helmert (sección~\ref{sec:aplicacion-helmert}): elegir parámetros en los
 que el modelo es lineal y recuperar los geométricos al final.
@@ -271,18 +252,18 @@ Reemplazando \(D\), \(E\), \(F\):
 El ajuste algebraico minimiza entonces, aproximadamente, \(4r^2\sum_i(d_i-r)^2\): la suma de
 cuadrados de las distancias radiales, salvo un factor. La aproximación es buena cuando los
 residuos son chicos; cuando no lo son, el ajuste algebraico pesa más los puntos que quedan
-afuera del círculo (\(d_i+r\) mayor) y tiende a subestimar el radio si los puntos cubren sólo
+afuera del círculo (\(d_i+r\) mayor) y tiende a subestimar el radio si los puntos cubren solo
 un arco corto.
 
 \paragraph{Ajuste geométrico.} El criterio geométrico minimiza
 \(\sum_if_i^2\) con \(f_i=d_i-r\), el residuo radial: la distancia de cada punto al
 círculo, medida sobre el radio. El modelo ya no es un subespacio: al variar \((a,b,r)\), el
-vector \((f_1,\dots,f_n)\) recorre un conjunto curvo. Se resuelve linealizando: en una
+vector \((f_1,\dots,f_n)\) recorre un conjunto curvo. Lo resolvemos linealizando: en una
 estimación \((a,b,r)\), la derivada de \(f_i\) respecto de los tres parámetros es la fila
 \[
   J_i=\Big(-\frac{x_i-a}{d_i},\ -\frac{y_i-b}{d_i},\ -1\Big),
 \]
-es decir, menos el versor radial del punto y un \(-1\) para el radio. El paso de
+o sea, menos el versor radial del punto y un \(-1\) para el radio. El paso de
 Gauss--Newton es la solución por mínimos cuadrados de \(J\delta=-f\), con ecuaciones normales
 \(J^TJ\,\delta=-J^Tf\): el método de Newton de la sección~\ref{sec:newton}, con más
 ecuaciones que incógnitas. El ajuste algebraico es un buen punto de partida, y una o dos
@@ -317,7 +298,7 @@ El ajuste algebraico da \(D=-5{,}8097\), \(E=-3{,}9233\), \(F=-12{,}3116\), de d
 \]
 Los residuos algebraicos \(d_i^2-r^2\) valen
 \((0{,}490;\ -0{,}015;\ 0{,}008;\ -1{,}305;\ 1{,}056;\ 0{,}670;\ -0{,}904)\) y son
-perpendiculares a las tres columnas (el script da \(A^T\)\,residuo\(\,=0\)). Los residuos
+perpendiculares a las tres columnas. Los residuos
 radiales correspondientes, \(d_i-r\), suman \(-0{,}0045\): no cero, porque el ajuste
 algebraico no minimiza esas distancias.
 
@@ -349,21 +330,18 @@ y en el radio, y a esta escala queda tapado. Generada con
 \subsection{Procrustes ortogonal}\label{sec:cuatro-problemas-procrustes}
 
 Dos nubes homólogas \(a_1,\dots,a_n\) y \(b_1,\dots,b_n\) son el mismo conjunto de puntos
-medido en dos sistemas: el punto \(a_i\) de una corresponde al \(b_i\) de la otra. Se busca
+medido en dos sistemas: el punto \(a_i\) de una corresponde al \(b_i\) de la otra. Buscamos
 la rotación \(R\) (ortogonal, con \(\det R=+1\)), la traslación \(t\) y, si corresponde, la
 escala \(s>0\) que mejor llevan una nube sobre la otra:
 \[
   \min\ \sum_i\lVert b_i-(sRa_i+t)\rVert^2 .
 \]
 El nombre viene del posadero de la mitología griega que estiraba o recortaba a sus huéspedes
-para que cupieran en la cama; aquí sólo se permite mover y, a lo sumo, escalar.
+para que cupieran en la cama; acá solo se permite mover y, a lo sumo, escalar.
 
 \paragraph{Primero, centrar.} Para \(s\) y \(R\) fijos, la derivada respecto de \(t\) da
-\(\sum_i\big(b_i-sRa_i-t\big)=0\): los residuos suman cero y
-\[
-  t=\bar b-sR\,\bar a .
-\]
-El baricentro de una nube va al baricentro de la otra. Con las nubes centradas,
+\(\sum_i\big(b_i-sRa_i-t\big)=0\): los residuos suman cero y \(t=\bar b-sR\,\bar a\), el
+baricentro de una nube va al baricentro de la otra. Con las nubes centradas,
 \(a_i'=a_i-\bar a\), \(b_i'=b_i-\bar b\), el problema queda sin traslación:
 \(\min\sum_i\lVert b_i'-sRa_i'\rVert^2\). Desarrollando el cuadrado y usando que \(R\)
 conserva las normas,
@@ -372,10 +350,7 @@ conserva las normas,
   -2s\sum_i b_i'^{\,T}Ra_i',
 \]
 y minimizar es maximizar \(\sum_ib_i'^{\,T}Ra_i'=\operatorname{tr}(RM^T)\), con
-\[
-  M=B_0^TA_0=\sum_i b_i'\,a_i'^{\,T},
-\]
-donde \(A_0\) y \(B_0\) son las matrices de \(n\times2\) de las nubes centradas, un punto por
+\(M=B_0^TA_0=\sum_i b_i'\,a_i'^{\,T}\), donde \(A_0\) y \(B_0\) son las matrices de \(n\times2\) de las nubes centradas, un punto por
 fila. (La igualdad sale de \(b^TRa=\operatorname{tr}(Rab^T)\).)
 
 \begin{proposicion}[Rotación óptima de Procrustes]\label{prop:cp-procrustes}
@@ -404,7 +379,7 @@ y \(\sigma_1z_{11}+\sigma_2z_{22}=(\sigma_1-\sigma_2)\cos\varphi\), máximo en \
 \end{demostracion}
 
 La corrección del determinante no es un detalle: sin ella, la SVD puede devolver una
-reflexión, que lleva una nube sobre la otra ``dada vuelta''. Si los datos fueron relevados
+reflexión, que lleva una nube sobre la otra \enquote{dada vuelta}. Si los datos fueron relevados
 con un sistema de mano izquierda (por ejemplo, con un eje invertido por error al cargar una
 planilla), la reflexión ajusta mejor, y el valor \(\det(UV^T)=-1\) es la alarma
 (ejercicio~\ref{ex:cp-reflexion}).
@@ -456,9 +431,6 @@ centímetros, son los segmentos que todavía separan cada par. Generada con
 
 \subsection{Una sola geometría}
 
-El cuadro resume los cuatro problemas con el mismo esquema: qué es el dato, qué puede
-producir el modelo y cómo se encuentra el punto más cercano.
-
 {\small
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} Y Y Y}
@@ -485,15 +457,14 @@ en el punto más cercano: \(J^Tf=0\) en el círculo geométrico; en la regresió
 \(\sum_i(d\cdot(p_i-\bar p))(n\cdot(p_i-\bar p))=d^TCn=0\), que dice que los residuos no
 tienen correlación con el avance sobre la recta (girar la recta un poco no los achica); en
 Procrustes, \(\sum_ir_i=0\) (trasladar no mejora) y
-\(\sum_ir_i\times Ra_i'=0\) (girar un poco no mejora). El script comprueba estas
-condiciones en los ejemplos y en las tres partes de la aplicación.
+\(\sum_ir_i\times Ra_i'=0\) (girar un poco no mejora).
 
 La diferencia práctica entre modelos lineales y curvos es que los primeros se resuelven en
 un paso y los segundos necesitan una idea más: la SVD, cuando la curvatura es la de las
 rotaciones o la de las direcciones (regresión total, Procrustes), o la linealización
 iterada, en los demás casos. El mismo Gauss--Newton resuelve la intersección de
 circunferencias del capítulo~\ref{cap:derivada}: allí los centros son mojones conocidos y
-sólo el punto es incógnita, con la fila \(J_i=-u_i^T\) de la sección anterior sin la
+solo el punto es incógnita, con la fila \(J_i=-u_i^T\) de la sección anterior sin la
 columna del radio.
 
 \subsection{Procrustes y Helmert}
@@ -527,7 +498,7 @@ ajuste de Helmert con coordenadas centradas dan \(a\) y \(b\)
 \end{demostracion}
 
 En el plano, entonces, la rotación de Procrustes sale con un \(\operatorname{atan2}\) y es
-siempre una rotación: el problema del determinante sólo aparece al usar la SVD, y en el
+siempre una rotación: el problema del determinante solo aparece al usar la SVD, y en el
 espacio, donde la rotación no se puede escribir con parámetros lineales. Allí Procrustes es
 la manera directa de resolver por mínimos cuadrados el mismo modelo de la similaridad.
 
@@ -551,9 +522,8 @@ se reparte entre los tres.
 
 \subsection{Aplicación topográfica: eje de una medianera, una rotonda y dos levantamientos}
 
-Las tres partes usan coordenadas Gauss-Krüger de la faja~5. En el sistema oficial argentino
-la coordenada \(X\) es el norte y la \(Y\) el este, con el número de faja como prefijo; en el
-apunte se escribe \((E,N)\). Las coordenadas completas tienen siete cifras enteras, y elevarlas
+Las tres partes usan coordenadas Gauss-Krüger de la faja~5, escritas \((E,N)\) como en la caja
+de la sección~\ref{caja:convencion-en}. Las coordenadas completas tienen siete cifras enteras, y elevarlas
 al cuadrado (como pide el círculo algebraico) o multiplicarlas entre sí pierde cifras
 significativas en doble precisión; por eso todas las cuentas se hacen con coordenadas
 reducidas al baricentro de cada nube, y los resultados se vuelven a expresar en coordenadas
@@ -597,11 +567,10 @@ recta total suman cero, tienen un valor cuadrático medio de \(2{,}77\) cm y cum
 la regresión simple cambia \(18{,}2''\) respecto de la medianera, y la de la total no cambia
 (diferencia del orden de \(10^{-11}\) segundos).
 
-Por qué la total es la correcta aquí: el error está en las dos coordenadas y con la misma
+Por qué la total es la correcta acá: el error está en las dos coordenadas y con la misma
 precisión, de modo que no hay un eje privilegiado. La regresión simple supone que una
 coordenada es exacta, y la respuesta depende de cuál se elija y de cómo estén orientados los
-ejes: la misma medianera tendría otro acimut en otro sistema de coordenadas. La regresión
-total minimiza distancias, que no dependen de los ejes. Conviene leer las magnitudes con
+ejes; la total minimiza distancias, que no dependen de los ejes. Conviene leer las magnitudes con
 cuidado: con una base de \(18\) m y \(3\) cm de error, el desvío del acimut es de unos
 \(\sigma_0/\sigma_1\approx351''\), con \(\sigma_0=\sigma_2/\sqrt{n-2}=3{,}09\) cm, de modo que
 la diferencia entre métodos (segundos) es chica frente a la incertidumbre del eje (minutos).
@@ -627,7 +596,7 @@ punto & \(E\) (m) & \(N\) (m) & punto & \(E\) (m) & \(N\) (m)\\
 \end{tabular}
 \end{center}
 Con coordenadas reducidas al baricentro \((5\,434\,653{,}606;\ 6\,152\,923{,}356)\), el ajuste
-algebraico da \(D=-2{,}7640\), \(E=-15{,}2909\), \(F=-135{,}1478\), es decir, centro reducido
+algebraico da \(D=-2{,}7640\), \(E=-15{,}2909\), \(F=-135{,}1478\): centro reducido
 \((1{,}3820;\ 7{,}6455)\) y radio \(13{,}9825\) m. Una iteración de Gauss--Newton lo corrige en
 décimas de milímetro, y las siguientes (cuatro en total) ya no lo mueven. El resultado es
 \[
@@ -676,7 +645,7 @@ vértice & \(E\) (m) & \(N\) (m) & \(x\) (m) & \(y\) (m)\\
 \bottomrule
 \end{tabular}
 \end{center}
-Se busca la similaridad que lleva el levantamiento 2 sobre el 1, \((E,N)=sR(x,y)+t\). Los
+Buscamos la similaridad que lleva el levantamiento 2 sobre el 1, \((E,N)=sR(x,y)+t\). Los
 baricentros son \((5\,434\,744{,}103;\ 6\,153\,002{,}658)\) y \((1031{,}198;\ 995{,}289)\).
 Con las nubes centradas, \(M\) tiene valores singulares \(3499{,}68\) y \(2456{,}33\) y
 \(\det(UV^T)=+1\), y Procrustes da
@@ -713,9 +682,9 @@ mayor que el resto. Los datos se generaron con un giro de \(-63{,}25^\circ\) y u
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:cp-dos-rectas}
-Para los puntos \((0,0)\), \((1,1)\), \((2,1)\), \((3,4)\), calcular la recta de \(y\) sobre
+Para los puntos \((0,0)\), \((1,1)\), \((2,1)\), \((3,4)\), calculá la recta de \(y\) sobre
 \(x\), sus residuos y la suma de sus cuadrados; la recta de \(x\) sobre \(y\), escrita como
-\(y\) en función de \(x\); y verificar que el producto de las pendientes \(m\,m'\) es
+\(y\) en función de \(x\); y verificá que el producto de las pendientes \(m\,m'\) es
 \(\rho^2\).
 \end{ejercicio}
 \solucion{Baricentro \((1{,}5;\ 1{,}5)\); \(S_{xx}=5\), \(S_{yy}=9\), \(S_{xy}=6\). Recta de
@@ -726,8 +695,8 @@ pendiente \(3/2=1{,}5\), más empinada que \(1{,}2\). \(m\,m'=1{,}2\cdot\tfrac23
 \(\rho^2=36/(5\cdot9)=0{,}8\).}
 
 \begin{ejercicio}\label{ex:cp-total}
-Para los mismos cuatro puntos del ejercicio~\ref{ex:cp-dos-rectas}, hallar la recta de
-regresión total y la suma de los cuadrados de las distancias perpendiculares. Comprobar que
+Para los mismos cuatro puntos del ejercicio~\ref{ex:cp-dos-rectas}, hallá la recta de
+regresión total y la suma de los cuadrados de las distancias perpendiculares. Comprobá que
 su pendiente queda entre las de las dos regresiones simples.
 \end{ejercicio}
 \solucion{\(C=\left(\begin{smallmatrix}5&6\\6&9\end{smallmatrix}\right)\), con traza \(14\)
@@ -738,9 +707,9 @@ por \((1{,}5;\ 1{,}5)\): \(y-1{,}5=1{,}3874\,(x-1{,}5)\). La suma de cuadrados d
 distancias perpendiculares es \(\lambda_2=0{,}6754\).}
 
 \begin{ejercicio}\label{ex:cp-circulo-tres}
-(a) Hallar \(D\), \(E\), \(F\), el centro y el radio del círculo por \((0,0)\), \((4,0)\) y
-\((0,2)\). (b) Para el punto \((4;\ 2{,}2)\), calcular el residuo algebraico y la distancia
-radial al círculo, y comprobar la proposición~\ref{prop:cp-residuo-algebraico}.
+(a) Hallá \(D\), \(E\), \(F\), el centro y el radio del círculo por \((0,0)\), \((4,0)\) y
+\((0,2)\). (b) Para el punto \((4;\ 2{,}2)\), calculá el residuo algebraico y la distancia
+radial al círculo, y comprobá la proposición~\ref{prop:cp-residuo-algebraico}.
 \end{ejercicio}
 \solucion{(a) \((0,0)\) da \(F=0\); \((4,0)\), \(16+4D=0\), \(D=-4\); \((0,2)\), \(4+2E=0\),
 \(E=-2\). Centro \((2,1)\), radio \(\sqrt{4+1-0}=\sqrt5=2{,}2361\). (El punto \((4,2)\) también
@@ -752,8 +721,8 @@ un \(2\) por ciento.}
 
 \begin{ejercicio}\label{ex:cp-reflexion}
 Las nubes \(A=\{(0,0),(2,0),(0,1)\}\) y \(B=\{(0,0),(-2,0),(0,1)\}\) se corresponden en ese
-orden. Calcular \(M=B_0^TA_0\) y su determinante, explicar por qué \(UV^T\) no es una
-rotación, y hallar la mejor rotación y la suma de cuadrados de los residuos.
+orden. Calculá \(M=B_0^TA_0\) y su determinante, explicá por qué \(UV^T\) no es una
+rotación, y hallá la mejor rotación y la suma de cuadrados de los residuos.
 \end{ejercicio}
 \solucion{\(\bar a=(\tfrac23,\tfrac13)\), \(\bar b=(-\tfrac23,\tfrac13)\). Con las nubes
 centradas, \(M=\tfrac19\left(\begin{smallmatrix}-24&6\\-6&6\end{smallmatrix}\right)\) y
@@ -769,8 +738,8 @@ b_i'\rVert^2=\tfrac{10}3\), la suma de cuadrados es
 residuo grande delata la reflexión.}
 
 \begin{ejercicio}\label{ex:cp-helmert}
-Plantear el ajuste de Helmert \(E=ax-by+t_E\), \(N=bx+ay+t_N\) por mínimos cuadrados con
-coordenadas centradas en las dos nubes, y mostrar que las ecuaciones normales se desacoplan
+Planteá el ajuste de Helmert \(E=ax-by+t_E\), \(N=bx+ay+t_N\) por mínimos cuadrados con
+coordenadas centradas en las dos nubes, y mostrá que las ecuaciones normales se desacoplan
 en \(t_E=t_N=0\), \(a\sum\lVert p_i\rVert^2=\sum p_i\cdot q_i\) y
 \(b\sum\lVert p_i\rVert^2=\sum p_i\times q_i\).
 \end{ejercicio}

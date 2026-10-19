@@ -5,17 +5,17 @@
 
 \section{La idea}
 
-Un mojón está donde está. Sus coordenadas, en cambio, aparecen recién cuando elegimos con qué
-medirlo: un par de números en la cuadrícula este--norte, otro en el sistema de la obra, otro en
-el sistema local con que se orientó el instrumento. Este capítulo ordena qué cambia y qué no al
-cambiar de base. Las coordenadas de un vector cambian con la \emph{inversa} de la matriz de
+El capítulo~\ref{cap:svd} terminó advirtiendo que \(\Sigma\) no es \(A\) en otra base, porque la
+SVD usa una base a la entrada y otra a la salida; ahora usamos una sola base y precisamos qué
+significa escribir algo en ella. Un mojón está donde está, pero sus coordenadas aparecen recién
+cuando elegimos con qué medirlo: la cuadrícula este--norte, el sistema de la obra o el sistema
+local del instrumento. Las coordenadas de un vector cambian con la \emph{inversa} de la matriz de
 cambio; las filas (las formas lineales del capítulo~\ref{cap:formas-lineales}) cambian con la
 matriz misma; la matriz de una transformación cambia por \emph{conjugación} y la de una forma
 cuadrática, por \emph{congruencia} (sección~\ref{sec:congruencia}). Lo que no cambia
 ---el valor de una forma sobre un vector, el determinante, la traza, los autovalores y, en bases
-ortonormales, las longitudes--- es lo que tiene significado geométrico. Y la recompensa de
-entenderlo es práctica: una transformación que en la grilla canónica no tiene lectura fácil, en
-la grilla de sus autovectores es sólo estirar.
+ortonormales, las longitudes--- es lo que tiene significado geométrico. Y una transformación
+que en la grilla canónica no tiene lectura fácil, en la grilla de sus autovectores solo estira.
 
 \paragraph{Convenciones del capítulo.} Vectores en columna; base vieja \(e=(e_1,e_2)\) (en el campo, este y norte), base nueva \(b=(b_1,\dots,b_n)\), coordenadas \([v]_e\) y \([v]_b\), y \(C=C_{b\to e}\) la matriz de cambio de base, con la base nueva en columnas (definición~\ref{def:matriz-cambio-base}).
 
@@ -25,8 +25,8 @@ En la figura~\ref{fig:cb-dos-grillas} la flecha violeta es una sola. En la grill
 llegamos a su punta avanzando \(7\) pasos de \(e_1\) y \(4\) de \(e_2\): sus coordenadas son
 \((7,4)\). En la grilla oblicua que generan \(b_1=(3,1)\) y \(b_2=(1,2)\) llegamos a la misma
 punta con \(2\) pasos de \(b_1\) y \(1\) de \(b_2\), porque \(2(3,1)+1(1,2)=(7,4)\): sus
-coordenadas son \((2,1)\). Ninguno de los dos pares es ``el verdadero''; cada uno es la
-respuesta a la pregunta ``¿cuántos pasos de cada vector de la base?''.
+coordenadas son \((2,1)\). Ninguno de los dos pares es \enquote{el verdadero}; cada uno
+responde a la pregunta \enquote{¿cuántos pasos de cada vector de la base?}.
 
 \begin{figure}[htbp]
 \centering
@@ -44,22 +44,16 @@ cambiar de base es cambiar de unidad: si la unidad se hace cien veces más corta
 centímetros), el número se hace cien veces más grande. En \(\R^2\) la grilla puede, además,
 inclinarse y tener pasos distintos en cada dirección. En \(\R^n\) la información del cambio
 cabe en una matriz \(n\times n\) invertible. Lo que se repite en todos los escalones es el
-sentido del cambio: si la base ``crece'', los números ``achican'', y viceversa.
+sentido del cambio: si la base \enquote{crece}, los números \enquote{achican}, y viceversa.
 
 \begin{idea}[El vector no se mueve: cambia la regla con que lo medimos]
-Coordenadas y vector no son lo mismo. El vector es la flecha; las coordenadas son etiquetas
-que dependen de la base elegida. Toda la técnica del capítulo consiste en traducir etiquetas
-de una base a otra sin tocar la flecha, y en reconocer qué números no dependen de la
-traducción.
+El vector es la flecha; las coordenadas son etiquetas que dependen de la base. Traducimos
+etiquetas sin tocar la flecha y buscamos los números que no dependen de la traducción.
 \end{idea}
 
 \unidadInteractiva{08_cambio_de_base}{Cambio de base y diagonalización}{Explorá: en el caso «base oblicua de la parcela» el mojón \(P=(4,3)\) tiene coordenadas \((1,1)\) en la base \(b_1=(3,1)\), \(b_2=(1,2)\); mové el giro y el largo de \(b_2\) y mirá cómo cambian los números mientras el mojón queda quieto.}
 
 \section{Construcciones, cuentas y ejemplos}
-
-Armamos la matriz de cambio de base, vemos cómo se transforman con ella las coordenadas, las
-filas y las matrices, y la usamos para elegir la base en la que una transformación es más
-simple.
 
 \subsection{La matriz de cambio de base}\label{sec:matriz-cambio}
 
@@ -83,17 +77,16 @@ Para todo vector \(v\), con \(C=C_{b\to e}\),
 \begin{demostracion}
 Si \([v]_b=(c_1,\dots,c_n)\), entonces \(v=c_1b_1+\cdots+c_nb_n\). Tomando coordenadas en
 \(e\), que es una operación lineal, \([v]_e=c_1[b_1]_e+\cdots+c_n[b_n]_e\), y una combinación
-lineal de las columnas de \(C\) con coeficientes \(c_j\) es exactamente \(C\,(c_1,\dots,c_n)^T\).
+lineal de las columnas de \(C\) con coeficientes \(c_j\) es \(C\,(c_1,\dots,c_n)^T\).
 Como \(C\) es invertible, se despeja \([v]_b=C^{-1}[v]_e\).
 \end{demostracion}
 
 El nombre \(C_{b\to e}\) dice qué hace la matriz: \emph{entran} coordenadas en \(b\) y
-\emph{salen} coordenadas en \(e\). Para ir en el sentido que más se usa, de la base conocida a
-la nueva, hay que invertir. Por eso se dice que las coordenadas son \emph{contravariantes}: la
-base nueva se arma con \(C\) (sus vectores son las columnas) y las coordenadas pasan con
-\(C^{-1}\), al revés. Las formas lineales, que son filas, pasan con \(C\) multiplicando a la
-derecha, \([\varphi]_b=[\varphi]_e\,C\) (\emph{covariantes}; proposición~\ref{prop:co-contra}
-del capítulo~\ref{cap:formas-lineales}), y así el número \(\varphi(v)\) no depende de la base.
+\emph{salen} coordenadas en \(e\). Para ir de la base conocida a la nueva hay que invertir: las
+coordenadas son \emph{contravariantes}, porque la base nueva se arma con \(C\) y ellas pasan con
+\(C^{-1}\). Las formas lineales, que son filas, pasan con \(C\) a la derecha,
+\([\omega]_b=[\omega]_e\,C\) (\emph{covariantes}; proposición~\ref{prop:co-contra}), y así el
+número \(\omega(v)\) no depende de la base.
 
 \begin{ejemplo}[El mismo vector en dos bases, ida y vuelta]\label{ej:cb-oblicua}
 Con \(b_1=(3,1)\) y \(b_2=(1,2)\), los de la figura~\ref{fig:cb-dos-grillas},
@@ -106,20 +99,20 @@ Con \(b_1=(3,1)\) y \(b_2=(1,2)\), los de la figura~\ref{fig:cb-dos-grillas},
   [v]_b=C^{-1}\begin{pmatrix}7\\4\end{pmatrix}=\frac15\begin{pmatrix}14-4\\-7+12\end{pmatrix}
   =\begin{pmatrix}2\\1\end{pmatrix}.
 \]
-\emph{Vuelta.} \(C\,(2,1)^T=(6+1,\ 2+2)^T=(7,4)^T\): volvimos al punto de partida. La vuelta
-es la cuenta fácil (multiplicar); la ida exige invertir o resolver un sistema.
+\emph{Vuelta.} \(C\,(2,1)^T=(6+1,\ 2+2)^T=(7,4)^T\). La vuelta es la cuenta fácil
+(multiplicar); la ida exige invertir o resolver un sistema.
 
-\emph{Una forma lineal.} La forma \(\varphi=(1,1)\), que mide \(x+y\), vale
-\(\varphi(v)=7+4=11\). En la base nueva su fila es \([\varphi]_b=(1,1)\,C=(3+1,\ 1+2)=(4,3)\):
-sus componentes son \(\varphi(b_1)=4\) y \(\varphi(b_2)=3\). Con las coordenadas nuevas,
-\((4,3)\cdot(2,1)=8+3=11\), el mismo número. Si por error se tratara a \(\varphi\) como un
-vector y se la pasara con \(C^{-1}\), se obtendría \((0{,}2;\ 0{,}4)\), y el ``producto'' con
-\((2,1)\) daría \(0{,}8\) en lugar de \(11\).
+\emph{Una forma lineal.} La forma \(\omega=(1,1)\), que mide \(x+y\), vale
+\(\omega(v)=7+4=11\). En la base nueva su fila es \([\omega]_b=(1,1)\,C=(3+1,\ 1+2)=(4,3)\):
+sus componentes son \(\omega(b_1)=4\) y \(\omega(b_2)=3\). Con las coordenadas nuevas,
+\((4,3)\cdot(2,1)=8+3=11\), el mismo número. Si por error tratáramos a \(\omega\) como un
+vector y la pasáramos con \(C^{-1}\), obtendríamos \((0{,}2;\ 0{,}4)\), y el
+\enquote{producto} con \((2,1)\) daría \(0{,}8\) en lugar de \(11\).
 \end{ejemplo}
 
 \subsection{La matriz de una transformación en otra base: conjugación}\label{sec:semejanza}\label{sec:conjugacion}
 
-Una transformación lineal \(T\) tampoco ``es'' una matriz: es una regla que lleva vectores en
+Una transformación lineal \(T\) tampoco \enquote{es} una matriz: es una regla que lleva vectores en
 vectores. Su matriz depende de la base en que se escriban los vectores que entran y los que
 salen. Si en la base \(e\) la matriz es \(M_e\), ¿cuál es en la base \(b\)?
 
@@ -159,8 +152,7 @@ el conjugado armónico (sección~\ref{sec:conjugado-armonico}); el glosario
 
 Se lee de derecha a izquierda, como un viaje: \(C\) traduce la entrada de \(b\) a \(e\),
 \(M_e\) aplica la transformación donde sabemos escribirla, \(C^{-1}\) traduce la salida de
-vuelta a \(b\). Lo que la matriz cambia es la descripción; la transformación es la misma, y
-por eso hay números que no cambian.
+vuelta a \(b\). Cambia la descripción, no la transformación; por eso hay números que no cambian.
 
 \begin{proposicion}[Invariantes de conjugación]\label{prop:cb-invariantes}
 Si \(M_b=C^{-1}M_eC\), entonces \(M_b\) y \(M_e\) tienen el mismo determinante, la misma traza
@@ -207,26 +199,19 @@ largos. Con la base normalizada, \(U=C/\sqrt5\), vale \(U^{-1}=U^T\) y
 \(U\operatorname{diag}(1,-1)U^T\) da la misma matriz (sección~\ref{sec:bases-ortonormales}).
 \end{ejemplo}
 
-\paragraph{Conjugar es transportar.} El ejemplo anterior admite una lectura que no habla de
-bases. La matriz \(U=C/\sqrt5\) es la rotación \(R_\alpha\) de ángulo
-\(\alpha=\arctan\tfrac12\), y \(S=\operatorname{diag}(1,-1)\) es la reflexión en el eje \(x\).
-Entonces
-\[
-  M_e=R_\alpha\,S\,R_\alpha^{-1}
-\]
-se lee de derecha a izquierda como un traslado: \(R_\alpha^{-1}\) lleva la recta inclinada
-al eje \(x\), \(S\) refleja donde la reflexión es fácil y \(R_\alpha\) devuelve todo a su
-lugar. La reflexión en la recta inclinada es la reflexión en el eje \(x\) llevada a otra
-dirección. En la definición~\ref{def:conjugacion}, es la conjugada de \(S\) por
-\(R_\alpha^{-1}\): las escrituras \(CAC^{-1}\) y \(C^{-1}AC\) son la misma operación con \(C\)
-cambiada por \(C^{-1}\), y en la lectura activa conviene dejar a la izquierda la matriz que
-lleva de la posición estándar a la nueva.
+\paragraph{Conjugar es transportar.} El ejemplo anterior se lee también sin hablar de bases.
+La matriz \(U=C/\sqrt5\) es la rotación \(R_\alpha\) de ángulo \(\alpha=\arctan\tfrac12\), y
+\(S=\operatorname{diag}(1,-1)\) es la reflexión en el eje \(x\). Entonces
+\(M_e=R_\alpha\,S\,R_\alpha^{-1}\) se lee de derecha a izquierda como un traslado:
+\(R_\alpha^{-1}\) lleva la recta inclinada al eje \(x\), \(S\) refleja donde es fácil y
+\(R_\alpha\) devuelve todo a su lugar. En la definición~\ref{def:conjugacion}, \(M_e\) es la
+conjugada de \(S\) por \(R_\alpha^{-1}\): \(CAC^{-1}\) y \(C^{-1}AC\) son la misma operación
+con \(C\) cambiada por \(C^{-1}\), y en la lectura activa conviene dejar a la izquierda la
+matriz que lleva de la posición estándar a la nueva.
 
-Con un movimiento que no fija el origen pasa lo mismo, si se escribe en coordenadas
-homogéneas (capítulo~\ref{cap:traslaciones}). Girar un ángulo \(\theta\) alrededor de un punto
-\(c\) es transportar la rotación \(R\) alrededor del origen con la traslación \(T_c\) de vector
-\(c\) (en la escritura de la definición~\ref{def:conjugacion}, la conjugada de \(R\) por
-\(T_c^{-1}\)):
+Con un movimiento que no fija el origen pasa lo mismo en coordenadas homogéneas
+(capítulo~\ref{cap:traslaciones}): girar un ángulo \(\theta\) alrededor de un punto \(c\) es
+transportar la rotación \(R\) alrededor del origen con la traslación \(T_c\) de vector \(c\),
 \[
   T_c\,R\,T_c^{-1}
   =\begin{pmatrix}1&0&c_x\\0&1&c_y\\0&0&1\end{pmatrix}
@@ -251,7 +236,7 @@ sombreado; la cruz marca \(c\) y el signo \(+\), el origen. Generada con
 \label{fig:cb-conjugacion}
 \end{figure}
 
-\subsection{Diagonalizar: elegir la base en la que la transformación sólo estira}\label{sec:diagonalizar-base}
+\subsection{Diagonalizar: elegir la base en la que la transformación solo estira}\label{sec:diagonalizar-base}
 
 El ejemplo anterior sugiere la estrategia general. Si \(M\) tiene una base de autovectores
 \(v_1,\dots,v_n\) con autovalores \(\lambda_1,\dots,\lambda_n\) (capítulo~\ref{cap:autovectores}),
@@ -279,7 +264,7 @@ da una raíz cuadrada de la matriz (sección~\ref{sec:raiz-matriz}).
 aplicada a dos grillas (gris, antes; teal, después). Izquierda: la grilla canónica; el cuadrado
 unidad se convierte en un paralelogramo torcido de lados \(Me_1=(5,2)\) y \(Me_2=(2,2)\).
 Derecha: la grilla de los autovectores unitarios \(u_1=(2,1)/\sqrt5\), \(u_2=(-1,2)/\sqrt5\);
-cada celda sólo se estira, \(\times6\) a lo largo de \(u_1\) y \(\times1\) a lo largo de
+cada celda solo se estira, \(\times6\) a lo largo de \(u_1\) y \(\times1\) a lo largo de
 \(u_2\), y los ángulos rectos siguen rectos. Generada con
 \texttt{apunte/scripts/cap09\_cambio\_de\_base.py}.}
 \label{fig:cb-autovectores}
@@ -288,8 +273,8 @@ cada celda sólo se estira, \(\times6\) a lo largo de \(u_1\) y \(\times1\) a lo
 \begin{ejemplo}[Diagonalizar una simétrica: \(M^{10}\) y \(M^{1/2}\)]\label{ej:cb-diagonalizar}
 Sea \(M=\begin{pmatrix}5&2\\2&2\end{pmatrix}\). Su polinomio característico es
 \(\lambda^2-7\lambda+6=(\lambda-6)(\lambda-1)\): autovalores \(6\) y \(1\) (control: suma
-\(7=\operatorname{tr}M\), producto \(6=\det M\)). De \((M-6I)v=0\), es decir
-\(-v_1+2v_2=0\), sale \(v_1=(2,1)\); de \((M-I)v=0\), es decir \(4v_1+2v_2=0\), sale
+\(7=\operatorname{tr}M\), producto \(6=\det M\)). De \((M-6I)v=0\), que se reduce a
+\(-v_1+2v_2=0\), sale \(v_1=(2,1)\); de \((M-I)v=0\), que se reduce a \(4v_1+2v_2=0\), sale
 \(v_2=(-1,2)\). Son perpendiculares, como corresponde a una matriz simétrica. Con
 \[
   C=\begin{pmatrix}2&-1\\1&2\end{pmatrix},\qquad
@@ -305,8 +290,7 @@ Sea \(M=\begin{pmatrix}5&2\\2&2\end{pmatrix}\). Su polinomio característico es
   =\frac15\begin{pmatrix}4\cdot6^{10}+1&2\cdot6^{10}-2\\2\cdot6^{10}-2&6^{10}+4\end{pmatrix}
   =\begin{pmatrix}48\,372\,941&24\,186\,470\\24\,186\,470&12\,093\,236\end{pmatrix}.
 \]
-Multiplicar \(M\) por sí misma diez veces daría lo mismo con mucho más trabajo. Control por
-invariantes: la traza es \(60\,466\,177=6^{10}+1^{10}\).
+Control por invariantes: la traza es \(60\,466\,177=6^{10}+1^{10}\).
 
 \emph{Raíz cuadrada.} Los autovalores son positivos; con \(\sqrt6\approx2{,}44949\),
 \[
@@ -314,8 +298,8 @@ invariantes: la traza es \(60\,466\,177=6^{10}+1^{10}\).
   =\frac15\begin{pmatrix}4\sqrt6+1&2\sqrt6-2\\2\sqrt6-2&\sqrt6+4\end{pmatrix}
   \approx\begin{pmatrix}2{,}1596&0{,}5798\\0{,}5798&1{,}2899\end{pmatrix},
 \]
-y elevada al cuadrado devuelve \(M\) (el script lo verifica hasta el redondeo de máquina).
-Hecho geométrico: \(M^{1/2}\) es ``la mitad del camino'': estira \(\sqrt6\approx2{,}449\) a lo
+y elevada al cuadrado devuelve \(M\).
+Hecho geométrico: \(M^{1/2}\) es \enquote{la mitad del camino}: estira \(\sqrt6\approx2{,}449\) a lo
 largo de \(v_1\) y deja quieto \(v_2\); aplicada dos veces, estira \(6\).
 \end{ejemplo}
 
@@ -327,54 +311,36 @@ largo de \(v_1\) y deja quieto \(v_2\); aplicada dos veces, estira \(6\).
 
 \subsection{Cambio de base y diagonalización}\label{sec:cambio-base}
 
-{\small\vspace{1mm}\linkUnidad{08_cambio_de_base}{Simulación interactiva: Unidad 12 — Cambio de base y diagonalización}\par}
 {\small\vspace{1mm}\linkAnimacion{03_cambio_de_base_viaje}{Animación: el viaje de ida y vuelta a la base de autovectores}\par}
 
-
-El cambio de base y la diagonalización se desarrollan en el párrafo ``La matriz de cambio de
-base y el despeje de la diagonalización''; después se extienden a potencias \(A^t\) y trayectorias.
-
 \paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
-coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos usamos
-las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
-\[
-  \begin{pmatrix}3\\4\end{pmatrix}
-  =\tfrac72\begin{pmatrix}1\\1\end{pmatrix}-\tfrac12\begin{pmatrix}1\\-1\end{pmatrix},
-  \qquad\text{coordenadas nuevas }(\tfrac72,-\tfrac12).
-\]
-El mojón está donde estaba; cambió la regla con que lo medimos. Escalera: en \(\R\) cambiar
-de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
-longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
-\(\R^n\) es una matriz \(n\times n\) invertible. No parece
-haber un conjunto de vectores privilegiado a priori: lo único que distingue a la base
-canónica es que con ella el producto interno es la cuenta de siempre.
+coordenadas \((3,4)\) en la grilla cuadrada; con las direcciones \(b_1=(1,1)\) y
+\(b_2=(1,-1)\), el \emph{mismo} punto es \(\tfrac72b_1-\tfrac12b_2\), de coordenadas nuevas
+\((\tfrac72,-\tfrac12)\). Ninguna base es privilegiada a priori: lo único que distingue a la
+canónica es que con ella el producto interno es la cuenta de siempre
+(sección~\ref{sec:bases-ortonormales}).
 
 \begin{resultado}[La matriz de cambio de base]
-Si \(C\) tiene en sus columnas los vectores de la base nueva escritos en la canónica,
+Si \(C\) tiene en sus columnas los vectores de la base nueva escritos en la canónica, cada
+objeto pasa de la canónica a la nueva con su regla (tabla~\ref{tab:regla-de-cada-objeto}):
 \[
-  [v]_{\text{can}}=C\,[v]_{\text{nueva}},\qquad [v]_{\text{nueva}}=C^{-1}[v]_{\text{can}} .
+  [v]_{\text{nueva}}=C^{-1}[v]_{\text{can}},\qquad
+  [\omega]_{\text{nueva}}=[\omega]_{\text{can}}\,C,\qquad
+  A_{\text{nueva}}=C^{-1}\,A\,C .
 \]
 Con \(C=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\), \(C^{-1}=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
-y \(C^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. Los tres tipos de objeto cambian
-de base distinto, y conviene escribir siempre el sentido (acá, de la canónica a la nueva):
-los vectores como \([v]_{\text{nueva}}=C^{-1}[v]_{\text{can}}\); las formas lineales, que
-son filas, multiplicando por \(C\) del lado derecho, \([\varphi]_{\text{nueva}}=[\varphi]_{\text{can}}\,C\)
-(sección~\ref{sec:formas-lineales}), para que \(\varphi(v)\) dé lo mismo en las dos bases;
-y las transformaciones con
-\[
-  A_{\text{nueva}}=C^{-1}\,A\,C ,
-\]
-que se lee de derecha a izquierda: pasamos las coordenadas nuevas a canónicas, aplicamos \(A\)
-como siempre, volvemos a las nuevas. Todo se convierte a la vez para que ninguna relación
-cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
+y \(C^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. La conjugación se lee de derecha a
+izquierda: pasamos las coordenadas nuevas a canónicas, aplicamos \(A\) y volvemos a las nuevas.
+Todo se convierte a la vez para que ninguna relación cambie: cada punto sigue en su recta y
+\(A\) sigue llevando cada punto adonde lo llevaba.
 \end{resultado}
 
-\paragraph{Ejercicio resuelto: grilla de formas y vector.} Consigna: formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
-\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida no muy distinta de
-la identidad. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
-paralelas que juntos arman una grilla), ubicar el vector en la grilla, transformar el
-vector con \(T\) y las formas con \(T^{-1}\), redibujar y verificar que el vector
-transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
+\paragraph{Ejercicio resuelto: grilla de formas y vector.} Consigna: con las formas lineales
+\((1,1)\) y \((-1,2)\), el vector \((3,4)\) y la transformación
+\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), no muy distinta de la identidad,
+dibujá las curvas de nivel de las dos formas (dos mazos de rectas paralelas que arman una
+grilla), ubicá el vector, transformá el vector con \(T\) y las formas con \(T^{-1}\), redibujá
+y verificá que el vector transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
 \((-1,2)\cdot(3,4)=5\): el vector está en la séptima curva de una y la quinta de la otra.
 Inversa por adjugada sobre determinante (proposición~\ref{prop:adjugada-inversa}; en \(3\times3\), por
 cuña de filas, sección~\ref{sec:pseudoinversa}), \(\det T=1{,}56+0{,}05=1{,}61\):
@@ -383,17 +349,15 @@ cuña de filas, sección~\ref{sec:pseudoinversa}), \(\det T=1{,}56+0{,}05=1{,}61
   T\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
 \]
 \[
-  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4,\ 0{,}7)=(0{,}870,\ 0{,}435),\qquad
-  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1,\ 2{,}9)=(-0{,}683,\ 1{,}801).
+  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4;\ 0{,}7)=(0{,}870;\ 0{,}435),\qquad
+  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1;\ 2{,}9)=(-0{,}683;\ 1{,}801).
 \]
 Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
 \(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
-curva de la primera forma y en la quinta de la segunda. La forma \((1,1)\)
-queda \((0{,}870,\ 0{,}435)\), se acuesta un poco, y la \((-1,2)\) queda un poco más
-vertical. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
-plano; medido con la grilla deformada, el punto está donde estaba. No hacemos nada: convertimos
-todo para que nada cambie. En planilla: dos columnas
-para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
+curva de la primera forma y en la quinta de la segunda. La forma \((1,1)\) se acuesta un poco
+y la \((-1,2)\) queda un poco más vertical. Hecho geométrico: la grilla se deformó con el plano
+y el punto se movió con él; medido con la grilla deformada, el punto está donde estaba. En
+planilla: dos columnas para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 
 \paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
 \(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\). Polinomio característico
@@ -406,69 +370,45 @@ para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 \]
 Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
 independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
-``se estira o se comprime pero no se rompe''. En la grilla común la misma transformación
-no tiene lectura fácil. Equivale a aplicar dos afinidades
-axiales sucesivas.
+\enquote{se estira o se comprime pero no se rompe}. Equivale a aplicar dos afinidades axiales
+sucesivas.
 
 \paragraph{La matriz de cambio de base y el despeje de la diagonalización.} Seguimos con
-\(C\), la matriz que tiene los autovectores en columnas, \(A\), la transformación, y \(D\), su
-matriz diagonal en la base de autovectores.
-
-\emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola
-cadena, escrita en orden de aplicación (de izquierda a derecha):
-\[
-  (p)\;\to\;(C)\;\to\;[\,C^{-1}\to D\to C\,]\;\to\;(C^{-1})\;\to\;(\ell) .
-\]
-En un extremo entra un punto \(p\) y en el otro una recta \(\ell\), los dos escritos en la
-base de autovectores; lo que se mide es la incidencia. Con la convención de abajo (\(C\)
-lleva de la base de autovectores a la canónica), el punto pasa a la canónica como \(C\,p\)
-y la forma como \(\ell\,C^{-1}\) (multiplicando del lado derecho). El recuadro del medio
-recibe y devuelve coordenadas canónicas: adentro actúa \(D\), en la base
-de autovectores, y el recuadro entero, leído como producto (lo que se aplica último va a la
-izquierda), es \(C\,D\,C^{-1}=A\), la misma transformación
-escrita en la base canónica. La cadena completa es
-\(\ell C^{-1}\,(C\,D\,C^{-1})\,C\,p=\ell\,D\,p\): las
-conversiones se absorben de a pares (\(C^{-1}C=I\)) y la incidencia no cambia; el punto
-transformado sigue cayendo en la recta transformada. Despejar
-\(D=C^{-1}\,A\,C\) es sacar la diagonal del recuadro, como
-hacemos más abajo. Todo se convierte a la vez para que nada cambie.
-
-\emph{La matriz con los autovectores en columnas.} Definimos \(C=[\,v_1\mid v_2\,]\), los
-autovectores escritos en la base canónica, uno por columna, y la probamos con el vector
-\((1,0)^T\):
-\[
-  C\begin{pmatrix}1\\0\end{pmatrix}
-  =\begin{pmatrix}C_{11}&C_{12}\\C_{21}&C_{22}\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
-  =\begin{pmatrix}C_{11}\\C_{21}\end{pmatrix}=v_1 .
-\]
-Entra una unidad del primer autovector escrita en la base de autovectores y sale ese mismo
-autovector escrito en la canónica: \(C\) traduce de la base de autovectores a la canónica
-y \(C^{-1}\) hace el camino inverso, de la canónica a la de autovectores. El recorrido
-completo para un punto cualquiera: el punto \((1,1)=e_x+e_y\), dado en la canónica, pasa
-con \(C^{-1}\) a coordenadas \((c_1,c_2)\) en la base de autovectores, es decir
-\((1,1)=c_1v_1+c_2v_2\); ahí la transformación es diagonal y devuelve
-\((\lambda_1c_1,\ \lambda_2c_2)\); y \(C\) traduce ese resultado de vuelta a la canónica,
-\(\lambda_1c_1v_1+\lambda_2c_2v_2\), que es \(A(1,1)\). Con la matriz del párrafo
-anterior, \(v_1=(1,1)\) y \(v_2=(1,-1)\), el punto \((1,1)\) es el propio \(v_1\):
-\((c_1,c_2)=(1,0)\), la diagonal da \((3,0)\) y \(C\) devuelve \(3v_1=(3,3)\), que
-coincide con \(\begin{pmatrix}2&1\\1&2\end{pmatrix}(1,1)^T=(3,3)^T\).
-
-\emph{El despeje.} El mismo recorrido, escrito como producto de matrices, dice que la
-transformación en la base canónica es conjugada de la diagonal
-(definición~\ref{def:conjugacion}), con el cambio de base como matriz de la conjugación:
+\(C\), los autovectores en columnas, \(A\), la transformación, y \(D\), su matriz diagonal en
+la base de autovectores. Probada con \((1,0)^T\), \(C\) devuelve su primera columna, \(v_1\):
+entra una unidad del primer autovector escrita en la base de autovectores y sale ese mismo
+autovector escrito en la canónica. Así \(C\) traduce de la base de autovectores a la canónica
+y \(C^{-1}\) hace el camino inverso. Para un punto dado en la canónica, \(C^{-1}\) da sus
+coordenadas \((c_1,c_2)\) en la base de autovectores, la diagonal devuelve
+\((\lambda_1c_1,\ \lambda_2c_2)\) y \(C\) traduce ese resultado de vuelta,
+\(\lambda_1c_1v_1+\lambda_2c_2v_2\), que es \(A\) aplicada al punto. Con \(v_1=(1,1)\) y
+\(v_2=(1,-1)\), el punto \((1,1)\) es el propio \(v_1\): \((c_1,c_2)=(1,0)\), la diagonal da
+\((3,0)\) y \(C\) devuelve \(3v_1=(3,3)\), que coincide con
+\(\begin{pmatrix}2&1\\1&2\end{pmatrix}(1,1)^T=(3,3)^T\). Escrito como producto de matrices, el
+recorrido dice que \(A\) es conjugada de la diagonal (definición~\ref{def:conjugacion}):
 \[
   A=C\,D\,C^{-1}
   \quad\Longrightarrow\quad
   D=C^{-1}\,A\,C ,
 \]
-leída de derecha a izquierda: \(C^{-1}\) lleva a la base de autovectores,
-\(D\) estira cada eje propio, \(C\) vuelve a la canónica. El despeje se
-hace multiplicando por \(C^{-1}\) a la izquierda y por \(C\) a la derecha; los dos
-productos \(C^{-1}C=I\) y \(C\,C^{-1}=I\) que aparecen se cancelan y queda
-\(D\) sola. Es el \(D=C^{-1}AC\) del párrafo anterior.
+donde el despeje multiplica por \(C^{-1}\) a la izquierda y por \(C\) a la derecha. En la
+factorización, el factor de la derecha, el que actúa primero sobre un vector en canónica, es
+el que \emph{convierte de la canónica a la base de autovectores}.
 
-\paragraph{Potencias y la trayectoria de un punto.} Con \(C\), la matriz de autovectores, y
-\(A\), la transformación, \(A=CDC^{-1}\) y \(A^n=CD^nC^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
+\emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola cadena,
+escrita en orden de aplicación (de izquierda a derecha):
+\[
+  (p)\;\to\;(C)\;\to\;[\,C^{-1}\to D\to C\,]\;\to\;(C^{-1})\;\to\;(\ell) .
+\]
+En un extremo entra un punto \(p\) y en el otro una recta \(\ell\), los dos escritos en la
+base de autovectores; lo que se mide es la incidencia. El punto pasa a la canónica como
+\(C\,p\) y la forma como \(\ell\,C^{-1}\); el recuadro del medio recibe y devuelve
+coordenadas canónicas y, leído como producto, es \(C\,D\,C^{-1}=A\). La cadena completa es
+\(\ell C^{-1}\,(C\,D\,C^{-1})\,C\,p=\ell\,D\,p\): las conversiones se absorben de a pares y
+el punto transformado sigue cayendo en la recta transformada.
+
+\paragraph{Potencias y la trayectoria de un punto.} De \(A=CDC^{-1}\) sale
+\(A^n=CD^nC^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
 propio. Para \(n=5\),
 \[
   A^5=C\begin{pmatrix}243&0\\0&1\end{pmatrix}C^{-1}
@@ -484,16 +424,14 @@ la primera columna. Si los autovalores son positivos el exponente puede ser real
   \quad(1,0)\ \text{en } t=0,\quad(1{,}37,\,0{,}37)\ \text{en } t=\tfrac12,\quad(2,1)\ \text{en } t=1 .
 \]
 Es la tercera idea del hilo (sección~\ref{sec:hilo}): la transformación se identifica con
-la trayectoria que genera, y la potencia real la convierte en película. La misma jugada que
-la exponencial de una rotación, ahora con estiramientos en vez de giros. La unidad
+la trayectoria que genera, y la potencia real la convierte en película: la misma jugada que
+la exponencial de una rotación, con estiramientos en vez de giros. La unidad
 \texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
 
-\paragraph{Dirección de cada cambio de base.} En la factorización \(A=C\,D\,C^{-1}\), el factor de la derecha, el que actúa primero sobre un vector en canónica, es el que \emph{convierte de la canónica a la base de autovectores}: \(C\) tiene la base nueva en columnas y lleva de la nueva a la canónica, y \(C^{-1}\) hace el camino inverso.
-
 \begin{resultado}[Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo]
-Las dos preguntas, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
-un autovalor repetido no alcanza para armar una base?'', son independientes. Invertir
-pide que el núcleo sea \(\{0\}\), es decir, que ningún autovalor sea \(0\). Diagonalizar
+Las dos preguntas, \enquote{¿qué pasa si hay algo en el núcleo?} y \enquote{¿qué pasa si
+un autovalor repetido no alcanza para armar una base?}, son independientes. Invertir
+pide que el núcleo sea \(\{0\}\): que ningún autovalor sea \(0\). Diagonalizar
 pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones aparecen:
 \medskip
 
@@ -505,69 +443,58 @@ pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones apa
 diagonalizable e invertible: estira el eje \(x\) al doble y deja fijo el \(y\); dos direcciones propias independientes.\\
 \textbf{2.}~\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
 proyección sobre el eje \(x\): aplasta el eje \(y\) al origen, sin inversa, pero con base completa de autovectores.\\
-\textbf{3a.}~\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
-corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); sólo el eje \(x\) queda fijo.\\
+\textbf{3a.}~\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: solo \(e_1\) &
+corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); solo el eje \(x\) queda fijo.\\
 \textbf{3b.}~\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
 giro de \(90^\circ\): invertible, ninguna recta real queda fija.\\
-\textbf{4.}~\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
+\textbf{4.}~\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: solo \(e_1\) &
 ni diagonalizable ni invertible: manda \(e_2\mapsto e_1\) y \(e_1\mapsto0\).\\
 \end{tabular}
 \renewcommand{\arraystretch}{1.18}
 \medskip
 
-\textbf{Matriz 2.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
-\(\det=0\)) y no impide diagonalizar: \(e_1\) y \(e_2\) son autovectores con
-\(\lambda_1=1\), \(\lambda_2=0\), y en esa base la matriz ya es diagonal.
+En la matriz 2, el autovalor \(0\) impide invertir (el núcleo es el eje \(y\)) y no impide
+diagonalizar. En la 3a, la raíz \(\lambda=1\) de \((\lambda-1)^2=0\) tiene multiplicidad
+algebraica \(2\), pero \((A-I)v=0\) da \(v_2=0\): el autoespacio es solo el eje \(x\),
+multiplicidad geométrica \(1\), y falta un segundo autovector. En la 3b los autovalores
+\(\pm i\) no son reales. En la 4, \(\lambda=0\) es doble pero el núcleo es solo el eje \(x\).
 
-\textbf{Matriz 3a.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
-\(\lambda=1\) tiene multiplicidad algebraica \(2\). Pero \((A-I)v=0\) da \(v_2=0\), de modo
-que el autoespacio es sólo el eje \(x\): multiplicidad geométrica \(1\). Falta un segundo
-autovector, y sin él no hay base.
-
-\textbf{Matriz 3b.} En el giro el motivo es otro: no hay rectas reales fijas, los
-autovalores \(\pm i\) no son reales.
-
-\textbf{Matriz 4.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
-autovector \(e_1\).
-
-El defecto de las matrices 3a, 3b y 4 es exactamente por lo que la sección~\ref{sec:svd}
-pasa a la SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
+El defecto de las matrices 3a, 3b y 4 es lo que lleva a la SVD (sección~\ref{sec:svd}), \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
 \emph{distinta} a la salida (\(U\)), toda matriz, incluso un corte o una rectangular, se
 lee como diagonal. Es diagonal entre dos grillas distintas, no una conjugación: \(\Sigma\) no
-es ``\(A\) en otra base'', los \(\sigma\) no son autovalores (en el corte,
+es \enquote{\(A\) en otra base}, los \(\sigma\) no son autovalores (en el corte,
 \(\sigma=(\sqrt5\pm1)/2\) y \(\lambda=1\) doble) y no sirve para potencias,
-\(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden sólo si \(A\) es simétrica
+\(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden solo si \(A\) es simétrica
 semidefinida positiva.
 \linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: cambio de base y SVD}
 \end{resultado}
 
 \subsection{Potencias reales y raíz cuadrada de una matriz}\label{sec:raiz-matriz}
 
-La cuenta \(M^t=AD^tA^{-1}\) del ejemplo~\ref{ej:cb-diagonalizar} merece una afirmación
-precisa, porque ``la raíz de una matriz'' no es ``la raíz de cada entrada''.
+La cuenta \(M^t=CD^tC^{-1}\) del ejemplo~\ref{ej:cb-diagonalizar} merece una afirmación
+precisa, porque \enquote{la raíz de una matriz} no es \enquote{la raíz de cada entrada}.
 
 \begin{proposicion}[Raíz cuadrada de una matriz diagonalizable con autovalores positivos]\label{prop:cb-raiz}
-Sea \(M=ADA^{-1}\) con \(D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)\) y todos los
-\(\lambda_j>0\). La matriz \(R=A\,D^{1/2}A^{-1}\), con
+Sea \(M=CDC^{-1}\) con \(D=\operatorname{diag}(\lambda_1,\dots,\lambda_n)\) y todos los
+\(\lambda_j>0\). La matriz \(R=C\,D^{1/2}C^{-1}\), con
 \(D^{1/2}=\operatorname{diag}(\sqrt{\lambda_1},\dots,\sqrt{\lambda_n})\), cumple \(R^2=M\),
-tiene los mismos autovectores que \(M\) y autovalores \(\sqrt{\lambda_j}>0\). Si además \(A\)
+tiene los mismos autovectores que \(M\) y autovalores \(\sqrt{\lambda_j}>0\). Si además \(C\)
 tiene columnas ortonormales (como ocurre para \(M\) simétrica), \(R\) es simétrica.
 \end{proposicion}
 
 \begin{demostracion}
-\(R^2=AD^{1/2}A^{-1}AD^{1/2}A^{-1}=A\,(D^{1/2})^2A^{-1}=ADA^{-1}=M\). Como \(v_j\) es la
-columna \(j\) de \(A\), \(A^{-1}v_j=e_j\), y entonces
-\(Rv_j=AD^{1/2}e_j=A\sqrt{\lambda_j}\,e_j=\sqrt{\lambda_j}\,v_j\). Si \(A^{-1}=A^T\),
-\(R^T=(A^{-1})^TD^{1/2}A^T=AD^{1/2}A^{-1}=R\).
+\(R^2=CD^{1/2}C^{-1}CD^{1/2}C^{-1}=C\,(D^{1/2})^2C^{-1}=CDC^{-1}=M\). Como \(v_j\) es la
+columna \(j\) de \(C\), \(C^{-1}v_j=e_j\), y entonces
+\(Rv_j=CD^{1/2}e_j=C\sqrt{\lambda_j}\,e_j=\sqrt{\lambda_j}\,v_j\). Si \(C^{-1}=C^T\),
+\(R^T=(C^{-1})^TD^{1/2}C^T=CD^{1/2}C^{-1}=R\).
 \end{demostracion}
 
 No es la única matriz cuyo cuadrado es \(M\): cambiando el signo de alguna \(\sqrt{\lambda_j}\)
 se obtienen otras (el ejercicio~\ref{ex:cb-raiz} muestra una). La de la proposición es la que
 tiene todos los autovalores positivos, y es la que se usa cuando se habla de \emph{la} raíz.
-Lo mismo vale para cualquier exponente real: \(M^t=AD^tA^{-1}\) cumple \(M^sM^t=M^{s+t}\), y
+Lo mismo vale para cualquier exponente real: \(M^t=CD^tC^{-1}\) cumple \(M^sM^t=M^{s+t}\), y
 \(t\mapsto M^t\) interpola entre la identidad (\(t=0\)) y \(M\) (\(t=1\)), estirando cada eje
-propio por \(\lambda_j^t\). Es la película del párrafo ``Potencias y la trayectoria de un
-punto'', ahora con su justificación. Con un autovalor negativo la cuenta se rompe ya en
+propio por \(\lambda_j^t\): es la justificación de la película de \(A^t\). Con un autovalor negativo la cuenta se rompe ya en
 \(t=\tfrac12\): una reflexión no tiene raíz cuadrada real que estire cada eje propio, porque
 \(\sqrt{-1}\) no es real.
 
@@ -576,7 +503,7 @@ punto'', ahora con su justificación. Con un autovalor negativo la cuenta se rom
 Hasta acá todas las bases fueron igualmente buenas. El producto interno rompe esa igualdad.
 
 \begin{proposicion}[Cambio entre bases ortonormales]\label{prop:cb-ortonormal}
-Las columnas de \(C\) forman una base ortonormal si y sólo si \(C^TC=I\), es decir,
+Las columnas de \(C\) forman una base ortonormal si y solo si \(C^TC=I\), es decir,
 \(C^{-1}=C^T\). En ese caso:
 \begin{enumerate}
   \item las coordenadas nuevas son productos internos, \([v]_b=C^T[v]_e\), o sea
@@ -594,7 +521,7 @@ ortonormal. Entonces \([v]_b=C^{-1}[v]_e=C^T[v]_e\), cuya entrada \(j\) es \(b_j
 \end{demostracion}
 
 \paragraph{Por qué estas bases son privilegiadas.} En una base cualquiera el producto interno
-también se puede calcular, pero no con la cuenta de siempre: la misma demostración da
+no se calcula con la cuenta de siempre: la misma demostración da
 \(u\cdot v=[u]_b^T\,G\,[v]_b\) con \(G=C^TC\), la matriz de los productos \(b_i\cdot b_j\)
 (matriz de Gram). En la base oblicua del ejemplo~\ref{ej:cb-oblicua},
 \(G=\left(\begin{smallmatrix}10&5\\5&5\end{smallmatrix}\right)\), y para \(v=(7,4)\), con
@@ -605,20 +532,17 @@ también se puede calcular, pero no con la cuenta de siempre: la misma demostrac
 mientras que la cuenta ingenua \(2^2+1^2=5\) no mide nada. El producto interno no elige
 \emph{una} base: elige la familia de las bases con \(G=I\), y dos bases de esa familia difieren
 en una matriz ortogonal (un giro o una reflexión, capítulo~\ref{cap:reflexiones}). En esas
-bases desaparece, en la cuenta, la diferencia entre vectores y filas: las coordenadas pasan
-con \(C^{-1}=C^T\) y la fila traspuesta pasa con \(C^T\), la misma matriz. Por eso, en una base
-ortonormal, el gradiente se puede dibujar como una flecha sin cometer error
-(sección~\ref{sec:formas-metrica}); en una base oblicua, no. Y por eso conviene diagonalizar
-las matrices simétricas con autovectores \emph{normalizados}: son perpendiculares (lo
-afirma el teorema espectral, que usamos sin demostración; en el
-ejemplo~\ref{ej:cb-diagonalizar} se ve directamente), y con \(U=A/\sqrt5\) queda
-\(M=U\,D\,U^T\), sin inversas que calcular.
+bases desaparece la diferencia entre vectores y filas: las coordenadas pasan con
+\(C^{-1}=C^T\) y la fila traspuesta, con la misma \(C^T\). Por eso, en una base ortonormal, el
+gradiente se puede dibujar como una flecha (sección~\ref{sec:formas-metrica}); en una oblicua,
+no. Y por eso conviene diagonalizar las simétricas con autovectores \emph{normalizados}, que son
+perpendiculares (teorema espectral, que usamos sin demostración): en el
+ejemplo~\ref{ej:cb-diagonalizar}, con \(U=C/\sqrt5\) queda \(M=U\,D\,U^T\), sin inversas.
 
 \subsection{Lectura activa y lectura pasiva}\label{sec:activa-pasiva-cb}
 
-La misma matriz admite dos lecturas, como ya vimos con las rotaciones
-(definición de transformación activa y pasiva en la sección~\ref{sec:punto-coordenadas}).
-Leída \emph{activamente}, \(C\) mueve vectores: manda \(e_j\) a \(b_j\). Leída
+La misma matriz admite dos lecturas, como las rotaciones
+(sección~\ref{sec:punto-coordenadas}). Leída \emph{activamente}, \(C\) mueve vectores: manda \(e_j\) a \(b_j\). Leída
 \emph{pasivamente}, \(C\) no mueve nada: traduce las etiquetas de un vector fijo de la base
 \(b\) a la base \(e\). Girar el objeto un ángulo y girar los ejes el mismo ángulo producen
 números que se relacionan por la matriz inversa (figura~\ref{fig:cb-activa-pasiva}).
@@ -642,16 +566,12 @@ los ejes de siempre. \emph{Pasiva}: los ejes nuevos son las columnas de \(R\), a
 -3\sin30^\circ+\cos30^\circ)\approx(3{,}098;\ -0{,}634)\). Las dos cuentas usan matrices
 inversas entre sí, \(R(30^\circ)\) y \(R(-30^\circ)\); el módulo es \(\sqrt{10}\approx3{,}162\)
 en los tres casos. Girar los ejes \(30^\circ\) produce las mismas etiquetas que girar el vector
-\(-30^\circ\): por eso, ante una fórmula de cambio de coordenadas, la primera pregunta es
-siempre qué se movió.
+\(-30^\circ\): ante una fórmula de cambio de coordenadas, la primera pregunta es qué se movió.
 \end{ejemplo}
 
-La conjugación \(M_b=C^{-1}M_eC\) (definición~\ref{def:conjugacion}) también tiene sus dos lecturas. Pasiva: es la misma
-transformación descripta en otra base. Activa: si \(C\) se piensa como un movimiento que lleva
-la figura canónica a la figura \(b\), entonces \(CM_bC^{-1}=M_e\) es ``transportar la
-transformación'': llevar el objeto a la posición estándar, transformar ahí y volver. Es
-exactamente lo que se hizo en el ejemplo~\ref{ej:cb-reflexion}: la reflexión respecto de una
-recta inclinada es la reflexión respecto del eje \(x\), transportada.
+La conjugación \(M_b=C^{-1}M_eC\) tiene las mismas dos lecturas: pasiva, la misma
+transformación descripta en otra base; activa, \(CM_bC^{-1}=M_e\) transporta la transformación,
+como en el ejemplo~\ref{ej:cb-reflexion}.
 
 \subsection{Aplicación topográfica: coordenadas de obra}\label{sec:aplicacion-obra}
 
@@ -671,7 +591,7 @@ como primera y segunda coordenada, la dirección de acimut \(\mathrm{Az}\) es
 \]
 \(C^TC=I\): la base es ortonormal y \(C^{-1}=C^T\). Además \(\det C=-1\): el par
 (longitudinal, transversal a la derecha) gira en sentido horario, como los acimutes, al revés
-que el par (este, norte). No es un problema: la proposición~\ref{prop:cb-ortonormal} sólo pide
+que el par (este, norte). No es un problema: la proposición~\ref{prop:cb-ortonormal} solo pide
 columnas ortonormales. (En este caso \(C\) resulta además simétrica, de modo que
 \(C^{-1}=C^T=C\): es una reflexión.)
 
@@ -714,12 +634,11 @@ punto & \((\Delta E,\Delta N)\) & \((d_L,d_T)\) & \(\lvert d\rvert\) en \(E,N\) 
 \end{tabular}
 \end{center}
 
-Los módulos coinciden en las dos bases, como asegura la proposición~\ref{prop:cb-ortonormal}:
-cambiar a una base ortonormal reparte el mismo desplazamiento entre otras dos componentes, sin
-agrandarlo ni achicarlo.
+Los módulos coinciden en las dos bases (proposición~\ref{prop:cb-ortonormal}): la base
+ortonormal reparte el mismo desplazamiento entre otras dos componentes.
 
 \paragraph{Una tolerancia que depende de la dirección.} Supongamos que el pliego admite
-\(20\) mm de corrimiento longitudinal pero sólo \(5\) mm transversal. La región admisible es la
+\(20\) mm de corrimiento longitudinal pero solo \(5\) mm transversal. La región admisible es la
 elipse de semiejes \(20\) mm según \(u_L\) y \(5\) mm según \(u_T\)
 (figura~\ref{fig:cb-obra}), que en la base de obra es la curva de nivel \(1\) de la forma
 cuadrática (capítulo~\ref{cap:svd})
@@ -733,12 +652,11 @@ Un punto está dentro de tolerancia si \(q(d)\le1\). Para usarla directamente co
 \[
   Q=C\,D\,C^T\approx10^{-3}\begin{pmatrix}16{,}397&18{,}111\\18{,}111&26{,}103\end{pmatrix}\ \text{mm}^{-2}.
 \]
-Una forma cuadrática no cambia de base por conjugación sino por congruencia:
-\(Q=(C^{-1})^T D\,C^{-1}\) (sale de reemplazar \([d]_{LT}=C^{-1}[d]_{EN}\)), la regla de la
-última fila de la tabla~\ref{tab:regla-de-cada-objeto}. Como esta base es ortonormal, las dos
-reglas coinciden (proposición~\ref{prop:congruencia-ortogonal}): \(Q=C\,D\,C^{-1}\) es también
-la conjugación de la proposición~\ref{prop:cb-semejanza}, y valen sus invariantes. En una base
-no ortonormal no sería así (sección~\ref{sec:congruencia}). Controles:
+Es la regla de congruencia de la tabla~\ref{tab:regla-de-cada-objeto},
+\(Q=(C^{-1})^T D\,C^{-1}\), no la de conjugación; como esta base es ortonormal, las dos
+coinciden (proposición~\ref{prop:congruencia-ortogonal}) y valen los invariantes de la
+proposición~\ref{prop:cb-invariantes}, cosa que en una base oblicua no ocurre
+(sección~\ref{sec:congruencia}). Controles:
 \(\operatorname{tr}Q=0{,}0425=\tfrac1{400}+\tfrac1{25}\) y \(\det Q=10^{-4}=\tfrac1{400\cdot25}\).
 El término cruzado \(18{,}111\cdot10^{-3}\) aparece porque los ejes de la elipse no son los
 ejes \(E,N\).
@@ -786,8 +704,8 @@ evidente; en la base \(E,N\) es la misma cuenta, con un término cruzado que la 
 
 \subsection{Cada objeto cambia con su regla}\label{sec:congruencia}
 
-A lo largo del capítulo aparecieron cuatro tipos de objetos, y cada uno cambió de base con su
-propia regla. Las tres primeras ya están demostradas: las coordenadas de un vector pasan con
+En el capítulo aparecieron cuatro tipos de objetos, cada uno con su regla de cambio de base.
+Tres ya están demostradas: las coordenadas de un vector pasan con
 \(C^{-1}\) (proposición~\ref{prop:cb-coordenadas}), una forma lineal, que es una fila, pasa
 multiplicando por \(C\) a la derecha (sección~\ref{sec:matriz-cambio}), y una transformación
 pasa por conjugación (proposición~\ref{prop:cb-semejanza}). Falta la cuarta. Una forma
@@ -821,8 +739,7 @@ Forma bilineal o cuadrática & elipse de tolerancia o de error & \(Q_b=C^TQ_e\,C
 }
 \end{table}
 
-La columna de la derecha dice qué número tiene significado geométrico en cada fila. Para la
-forma cuadrática, la traza y los autovalores \emph{no} se conservan, y el determinante
+Para la forma cuadrática, la traza y los autovalores \emph{no} se conservan, y el determinante
 cambia por el factor \((\det C)^2\). Lo que no cambia es la \emph{signatura}: cuántos
 autovalores son positivos y cuántos negativos (ley de inercia de Sylvester, que usamos sin
 demostración). Que \(q\) sea positiva para todo \(x\neq0\) es un hecho sobre la función, no
@@ -841,9 +758,8 @@ Como \(\det(C^T)\det C=\det(C^TC)=1\), \(C\) es inversible, y
 \(C^{-1}AC\) se obtiene \(C^TAC\).
 \end{demostracion}
 
-La consecuencia es la que se usó, sin decirlo, en la aplicación de obra. En bases
-ortonormales una matriz simétrica \(S\) se puede leer como transformación, \(x\mapsto Sx\), o
-como forma cuadrática, \(x\mapsto x^TSx\), indistintamente: las dos lecturas cambian de base
+En bases ortonormales, entonces, una matriz simétrica \(S\) se puede leer como transformación,
+\(x\mapsto Sx\), o como forma cuadrática, \(x\mapsto x^TSx\): las dos lecturas cambian de base
 con la misma matriz \(U^TSU\). El teorema espectral (capítulo~\ref{cap:autovectores},
 sección~\ref{sec:simetricas}) asegura que hay una \(U\) ortogonal con \(U^TSU\) diagonal; esa
 diagonal tiene a la vez los autovalores de la transformación y los coeficientes de la forma
@@ -867,24 +783,22 @@ Si por error se aplicara la regla de las transformaciones,
   C'^{-1}Q\,C'\approx\begin{pmatrix}0{,}01083&0{,}00698\\0{,}03480&0{,}03167\end{pmatrix}\ \text{mm}^{-2}
 \]
 conservaría la traza \(0{,}0425\) y los autovalores \(0{,}0025\) y \(0{,}04\) de \(Q\), y ya
-no sería simétrica: no es la matriz de ninguna forma cuadrática en la base nueva. La prueba
-está en evaluar un punto. El desplazamiento de \(P_2\), \(d=(7,2)\) mm, tiene en la base
+no sería simétrica: no es la matriz de ninguna forma cuadrática en la base nueva. Evaluemos un
+punto: el desplazamiento de \(P_2\), \(d=(7,2)\) mm, tiene en la base
 oblicua coordenadas \([d]_{b}=C'^{-1}d=(2{,}4;\ -0{,}2)\). Con la congruencia,
 \([d]_b^T\,(C'^TQ\,C')\,[d]_b\approx1{,}4150\), el mismo valor que en la base \(E,N\): \(P_2\)
 sigue fuera de tolerancia. Con la conjugación da \(\approx0{,}0436\), y el punto aparecería
-holgadamente dentro. Sólo la regla de congruencia da el mismo \(x^TQx\) para el mismo punto en
-las dos bases. Los números salen de \texttt{apunte/scripts/cap09\_congruencia.py}, que además
-verifica cada fila de la tabla~\ref{tab:regla-de-cada-objeto} con un ejemplo numérico.
+holgadamente dentro. Solo la regla de congruencia da el mismo \(x^TQx\) para el mismo punto en
+las dos bases.
 
 \begin{idea}[Primero, qué tipo de objeto es]
-Ante una matriz que hay que llevar a otra base, la pregunta previa es qué representa: si come
-un vector y devuelve un vector, es una transformación y cambia por conjugación; si come un
-vector y devuelve un número cuadrático en él, es una forma y cambia por congruencia. Sólo en
-bases ortonormales la pregunta puede omitirse sin consecuencias.
+Si come un vector y devuelve un vector, es una transformación y cambia por conjugación; si
+devuelve un número cuadrático en el vector, es una forma y cambia por congruencia. Solo en
+bases ortonormales la pregunta puede omitirse.
 \end{idea}
 
-La misma distinción reaparece más adelante. La métrica \(J^TJ\) de una parametrización
-(capítulo~\ref{cap:derivada}) es una forma cuadrática: mide longitudes de pequeños
+La métrica \(J^TJ\) de una parametrización (capítulo~\ref{cap:derivada}) también es una
+forma cuadrática: mide longitudes de pequeños
 desplazamientos, y al cambiar los parámetros con jacobiana \(K\) pasa a \(K^T(J^TJ)K\), por
 congruencia. Lo mismo ocurre con la segunda forma fundamental de una superficie
 (sección~\ref{sec:segunda-forma}).
@@ -892,21 +806,21 @@ congruencia. Lo mismo ocurre con la segunda forma fundamental de una superficie
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:cb-coordenadas}
-Sea la base \(b_1=(1,1)\), \(b_2=(-1,2)\). (a) Escribir \(C=C_{b\to e}\) y \(C^{-1}\).
-(b) Hallar las coordenadas de \(v=(1,7)\) en la base \(b\) y verificar volviendo a la canónica.
-(c) Escribir en la base \(b\) la forma lineal \(\varphi=(2,-1)\) y comprobar que \(\varphi(v)\)
+Sea la base \(b_1=(1,1)\), \(b_2=(-1,2)\). (a) Escribí \(C=C_{b\to e}\) y \(C^{-1}\).
+(b) Hallá las coordenadas de \(v=(1,7)\) en la base \(b\) y verificá volviendo a la canónica.
+(c) Escribí en la base \(b\) la forma lineal \(\omega=(2,-1)\) y comprobá que \(\omega(v)\)
 da lo mismo en las dos bases.
 \end{ejercicio}
 \solucion{(a) \(C=\left(\begin{smallmatrix}1&-1\\1&2\end{smallmatrix}\right)\), \(\det C=3\),
 \(C^{-1}=\tfrac13\left(\begin{smallmatrix}2&1\\-1&1\end{smallmatrix}\right)\).
 (b) \([v]_b=C^{-1}(1,7)^T=\tfrac13(2+7,\ -1+7)^T=(3,2)^T\); control
-\(3(1,1)+2(-1,2)=(1,7)\). (c) \([\varphi]_b=(2,-1)\,C=(2-1,\ -2-2)=(1,-4)\). En la canónica,
-\(\varphi(v)=2-7=-5\); en la base \(b\), \((1,-4)\cdot(3,2)=3-8=-5\).}
+\(3(1,1)+2(-1,2)=(1,7)\). (c) \([\omega]_b=(2,-1)\,C=(2-1,\ -2-2)=(1,-4)\). En la canónica,
+\(\omega(v)=2-7=-5\); en la base \(b\), \((1,-4)\cdot(3,2)=3-8=-5\).}
 
 \begin{ejercicio}\label{ex:cb-proyeccion}
-Obtener por conjugación, a partir de \(\operatorname{diag}(1,0)\), la matriz de la proyección
-ortogonal sobre la recta de dirección \((3,4)\). Verificar que \(P^2=P\), calcular la imagen de
-\((5,0)\) y de \((-4,3)\), y comparar determinante y traza con los de \(\operatorname{diag}(1,0)\).
+Obtené por conjugación, a partir de \(\operatorname{diag}(1,0)\), la matriz de la proyección
+ortogonal sobre la recta de dirección \((3,4)\). Verificá que \(P^2=P\), calculá la imagen de
+\((5,0)\) y de \((-4,3)\), y compará determinante y traza con los de \(\operatorname{diag}(1,0)\).
 \end{ejercicio}
 \solucion{Base ortonormal adaptada: \(u=(3,4)/5\) sobre la recta, \(n=(-4,3)/5\) perpendicular;
 en ella la proyección deja \(u\) y anula \(n\), matriz \(\operatorname{diag}(1,0)\). Con
@@ -918,29 +832,29 @@ recta; \(P(-4,3)^T=(0,0)^T\), porque \((-4,3)\) es perpendicular. \(\det P=0\) y
 \(0\).}
 
 \begin{ejercicio}\label{ex:cb-potencia}
-Sea \(M=\begin{pmatrix}4&1\\2&3\end{pmatrix}\). (a) Hallar sus autovalores y autovectores.
-(b) Calcular \(M^3\) como \(AD^3A^{-1}\). (c) ¿Es \(A^{-1}=A^T\)? ¿Por qué?
+Sea \(M=\begin{pmatrix}4&1\\2&3\end{pmatrix}\). (a) Hallá sus autovalores y autovectores.
+(b) Calculá \(M^3\) como \(CD^3C^{-1}\). (c) ¿Es \(C^{-1}=C^T\)? ¿Por qué?
 \end{ejercicio}
 \solucion{(a) \(\lambda^2-7\lambda+10=(\lambda-5)(\lambda-2)\): autovalores \(5\) y \(2\)
 (suma \(7=\operatorname{tr}M\), producto \(10=\det M\)). \(M(1,1)^T=(5,5)^T\) y
 \(M(1,-2)^T=(2,-4)^T\): autovectores \((1,1)\) y \((1,-2)\).
-(b) \(A=\left(\begin{smallmatrix}1&1\\1&-2\end{smallmatrix}\right)\), \(\det A=-3\),
-\(A^{-1}=\tfrac13\left(\begin{smallmatrix}2&1\\1&-1\end{smallmatrix}\right)\),
-\(M^3=A\operatorname{diag}(125,8)\,A^{-1}=\left(\begin{smallmatrix}86&39\\78&47\end{smallmatrix}\right)\),
+(b) \(C=\left(\begin{smallmatrix}1&1\\1&-2\end{smallmatrix}\right)\), \(\det C=-3\),
+\(C^{-1}=\tfrac13\left(\begin{smallmatrix}2&1\\1&-1\end{smallmatrix}\right)\),
+\(M^3=C\operatorname{diag}(125,8)\,C^{-1}=\left(\begin{smallmatrix}86&39\\78&47\end{smallmatrix}\right)\),
 lo mismo que multiplicando directamente; traza \(133=125+8\).
-(c) No: \(A^TA=\left(\begin{smallmatrix}2&-1\\-1&5\end{smallmatrix}\right)\neq I\). Los
+(c) No: \(C^TC=\left(\begin{smallmatrix}2&-1\\-1&5\end{smallmatrix}\right)\neq I\). Los
 autovectores no son perpendiculares (\((1,1)\cdot(1,-2)=-1\)) porque \(M\) no es simétrica, y
 ni normalizándolos se obtiene una base ortonormal.}
 
 \begin{ejercicio}\label{ex:cb-raiz}
-Hallar la raíz cuadrada con autovalores positivos de \(M=\begin{pmatrix}10&6\\6&10\end{pmatrix}\)
-y verificarla. Encontrar otra matriz cuyo cuadrado también sea \(M\).
+Hallá la raíz cuadrada con autovalores positivos de \(M=\begin{pmatrix}10&6\\6&10\end{pmatrix}\)
+y verificala. Encontrá otra matriz cuyo cuadrado también sea \(M\).
 \end{ejercicio}
 \solucion{Autovalores \(16\) y \(4\), con autovectores \((1,1)\) y \((1,-1)\). Con
-\(A=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\),
-\(R=A\operatorname{diag}(4,2)\,A^{-1}=\left(\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right)\),
+\(C=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\),
+\(R=C\operatorname{diag}(4,2)\,C^{-1}=\left(\begin{smallmatrix}3&1\\1&3\end{smallmatrix}\right)\),
 y \(R^2=\left(\begin{smallmatrix}9+1&3+3\\3+3&1+9\end{smallmatrix}\right)=M\). Cambiando el signo
-de la primera raíz, \(A\operatorname{diag}(-4,2)\,A^{-1}=\left(\begin{smallmatrix}-1&-3\\-3&-1\end{smallmatrix}\right)\),
+de la primera raíz, \(C\operatorname{diag}(-4,2)\,C^{-1}=\left(\begin{smallmatrix}-1&-3\\-3&-1\end{smallmatrix}\right)\),
 que también eleva al cuadrado a \(M\) pero tiene un autovalor negativo; la raíz de la
 proposición~\ref{prop:cb-raiz} es \(R\).}
 
@@ -958,7 +872,7 @@ cuadrática \(x\mapsto x^TQx\) en la base \(b\)? (c) ¿Cuál es la matriz de la 
 \(3\), autovalores \(4\pm\sqrt{13}\approx7{,}606\) y \(0{,}394\).
 \(C^{-1}QC=\left(\begin{smallmatrix}1&0\\1&3\end{smallmatrix}\right)\): traza \(4\),
 autovalores \(1\) y \(3\), los de \(Q\). Las tres tienen los dos autovalores positivos: misma
-signatura. El determinante de la congruente coincide con el de \(Q\) sólo porque
+signatura. El determinante de la congruente coincide con el de \(Q\) solo porque
 \((\det C)^2=1\). (b) \(x^TQx=8+4+2=14\). En la base \(b\), \([x]_b=C^{-1}x=(1,1)\); con
 \(C^TQC\) da \(2+3+3+6=14\), con \(C^{-1}QC\) da \(1+0+1+3=5\). La matriz de la forma es la
 congruente, \(C^TQC\) (tabla~\ref{tab:regla-de-cada-objeto}). (c) La de la transformación es
