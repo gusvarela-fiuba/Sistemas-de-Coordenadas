@@ -16,7 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 
-PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|(?:la|las) gu[ií]as?|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA", re.I)
+PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|(?:la|las) gu[ií]as?|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA|\bclases?\b(?!/)", re.I)
 
 # Regla (no por archivo): «guía resuelta» / «la guía» sólo se admiten en archivos .md de documentación del repo
 # que NO van al PDF ni al sitio: los .md de la raíz y los de mapa/ y docs/. NUNCA en apunte/, unidades/, tools/,
@@ -38,7 +38,32 @@ EXCEPCIONES = [
     ("apunte/scripts/prohibidas.py", None),
 ]
 
+# Bitácoras internas de revisión: nombran los problemas que buscan (sólo árbol, no van al PDF ni al sitio).
+DIRS_BITACORA_OK = ("apunte/revision/",)
+
 EXT_SITE = {".html", ".md", ".xml", ".js", ".py", ".txt", ".yaml", ".yml", ".json", ".css"}
+
+
+# «clase» (palabra suelta) está prohibida como texto visible: el sitio y el PDF hablan de capítulos. `clases/…` (ruta de las
+# fichas fuente) no cuenta. Excepción: los identificadores del esquema del mapa, que no se renombran, en los archivos que
+# los definen o documentan (el texto que ve el lector sale de build.py y se revisa igual con --dir site).
+CLASE = re.compile(r"\bclases?\b(?!/)", re.I)
+CLASE_ESQUEMA_TODO = {"tools/build.py", "tools/merge_mapa.py", "tools/README.md", "mapa/ESQUEMA.md", "mapa/README.md",
+                      "mapa/CONCEPTOS.md", "clases/README.md"}
+CLASE_ESQUEMA_COMENT = re.compile(r"\bclases?\[|,clase,")   # comentarios que citan el esquema: clases[id,…] / nombre,clase,unidad
+CLASE_CLAVE_YAML = re.compile(r"^\s*(?:- )?clases?:")   # claves `clase:` / `clases:` de mapa/ y del frontmatter de las fichas
+
+
+def _clase_esquema_ok(ruta_rel, linea):
+    """True si TODAS las coincidencias de la línea son la palabra «clase» como identificador del esquema."""
+    if ruta_rel in CLASE_ESQUEMA_TODO:
+        resto = CLASE.sub("", linea)
+    elif (ruta_rel.startswith("mapa/") and ruta_rel.endswith(".yaml")) or (ruta_rel.startswith("clases/") and ruta_rel.endswith(".md")):
+        clave = CLASE_CLAVE_YAML.match(linea) or (linea.lstrip().startswith("#") and CLASE_ESQUEMA_COMENT.search(linea))
+        resto = CLASE.sub("", linea) if clave else linea
+    else:
+        return False
+    return not PATRON.search(resto)
 
 
 def coincidencias_en_texto(texto):
@@ -56,6 +81,10 @@ def _guia_ok(ruta_rel, linea):
 def permitida(ruta_rel, linea, arbol=True):
     ruta_rel = str(ruta_rel)
     if arbol and _guia_ok(ruta_rel, linea):
+        return True
+    if arbol and _clase_esquema_ok(ruta_rel, linea):
+        return True
+    if arbol and ruta_rel.startswith(DIRS_BITACORA_OK):
         return True
     for r, frag in EXCEPCIONES:
         if r == ruta_rel and (frag is None or frag in linea):

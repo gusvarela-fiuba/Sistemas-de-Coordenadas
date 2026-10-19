@@ -3,7 +3,7 @@
 
 Entradas (relativas a la raíz del repo):
   mapa/mapa.yaml                        mapa de conceptos (esquema en mapa/ESQUEMA.md)
-  clases/*.md                           fichas por clase
+  clases/*.md                           fichas por capítulo (el id de la ficha es interno; el rótulo usa la numeración del PDF)
   unidades/*.py                         notebooks marimo
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
   apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
@@ -11,11 +11,11 @@ Entradas (relativas a la raíz del repo):
 
 Salida:
   site/index.html                       portada = el hilo conductor: entradas (Empezar / Seguir el programa / Repasar / Autoevaluación)
-                                        y una entrada por unidad (pregunta, gancho, estado, clases, enlaces),
-                                        más la última unidad "Lo que viene" con las clases sin unidad
-  site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta la clase N",
-                                        y la lista de clases
-  site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN; apunte, unidades y animaciones desde el frontmatter)
+                                        y una entrada por unidad (pregunta, gancho, estado, capítulos, enlaces),
+                                        más la última unidad "Lo que viene" con los capítulos sin unidad
+  site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta el capítulo N",
+                                        y la lista de capítulos
+  site/capitulos/<id>.html              fichas (markdown → html, KaTeX desde CDN; apunte, unidades y animaciones desde el frontmatter)
   site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm) desde la copia
   site/_build/<archivo>.py              generada con unidades/cb104.py embebido en la celda `# cb104:inline`
   site/apunte.pdf                       copia del apunte
@@ -55,8 +55,28 @@ TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 # paleta del apunte
 TEAL, RUST, GOLD = "#1b6f6a", "#b5532a", "#c9a227"
 FONDO_NODO = "#e3f1f0"
-# avance interno del programa (no se publica): clases con capítulo desarrollado; "Seguir el programa" salta a la unidad siguiente
+# avance interno del programa (no se publica): fichas con capítulo desarrollado; "Seguir el programa" salta a la unidad siguiente
 PROGRAMA_AVANCE = ["01", "02", "03", "03p", "04", "05", "06", "07", "08", "09"]
+# Capítulo del PDF que corresponde a cada ficha (id de ficha -> rótulo): la ficha 03 cubre los capítulos 3 y 4,
+# la 03p es el complemento C1 y de la 04 a la 14 el capítulo es el id más uno.
+CAPITULO_DE_FICHA = {"01": "1", "02": "2", "03": "3 y 4", "03p": "C1", "04": "5", "05": "6", "06": "7", "07": "8",
+                     "08": "9", "09": "10", "10": "11", "11": "12", "12": "13", "13": "14", "14": "15"}
+
+
+def rotulo_ficha(cid: str) -> str:
+    """«Capítulo 1», «Capítulos 3 y 4» o «Complemento C1» según la numeración del PDF."""
+    n = CAPITULO_DE_FICHA.get(cid, cid)
+    if n.startswith("C"):
+        return f"Complemento {n}"
+    return f"Capítulos {n}" if " y " in n else f"Capítulo {n}"
+
+
+def rotulo_hasta(cid: str) -> str:
+    """«hasta el capítulo 1», «hasta los capítulos 3 y 4», «hasta el complemento C1»."""
+    r = rotulo_ficha(cid)
+    return f"hasta {'los' if r.startswith('Capítulos') else 'el'} {r[0].lower()}{r[1:]}"
+
+
 NIVELES = ("troncal", "complementario", "avanzado")
 KATEX_VERSION = "0.16.11"
 KATEX_CDN = f"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/{KATEX_VERSION}"
@@ -78,12 +98,12 @@ a:hover {{ color: var(--rust); }}
 .leyenda {{ display: flex; flex-wrap: wrap; gap: 14px; font-size: .9rem; color: var(--gris); margin: .5em 0 0; }}
 .leyenda span::before {{ content: ""; display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px;
                           vertical-align: -2px; border: 2px solid var(--c); background: var(--f); }}
-.clases {{ list-style: none; padding: 0; margin: 0; }}
-.clase {{ border: 1px solid var(--linea); border-left: 5px solid var(--c); border-radius: 6px; background: #fff;
+.capitulos {{ list-style: none; padding: 0; margin: 0; }}
+.capitulo {{ border: 1px solid var(--linea); border-left: 5px solid var(--c); border-radius: 6px; background: #fff;
           padding: 10px 14px; margin: 0 0 10px; }}
-.clase .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
-.clase .id {{ font-weight: 700; color: var(--c); }}
-.clase .tit {{ font-weight: 600; font-size: 1.05rem; }}
+.capitulo .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
+.capitulo .id {{ font-weight: 700; color: var(--c); }}
+.capitulo .tit {{ font-weight: 600; font-size: 1.05rem; }}
 .links {{ display: flex; flex-wrap: wrap; gap: 6px; font-size: .92rem; margin: 6px 0 0; }}
 .links span {{ display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; border: 1px solid var(--linea);
                border-radius: 10px; padding: 1px 9px; background: #f7f5ef; }}
@@ -124,10 +144,10 @@ a:hover {{ color: var(--rust); }}
 .unidad .tit {{ font-weight: 600; font-size: 1.1rem; }}
 .unidad .pregunta {{ margin: 6px 0 2px; font-size: 1.02rem; }}
 .unidad .gancho {{ margin: 0 0 6px; color: var(--gris); font-style: italic; font-size: .95rem; }}
-.unidad .sus-clases {{ list-style: none; padding: 0; margin: 6px 0 0; }}
-.unidad .sus-clases li {{ display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: .93rem;
+.unidad .sus-capitulos {{ list-style: none; padding: 0; margin: 6px 0 0; }}
+.unidad .sus-capitulos li {{ display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; font-size: .93rem;
                              padding: 3px 0; border-top: 1px dashed var(--linea); }}
-.unidad .sus-clases .cid {{ font-weight: 600; white-space: nowrap; }}
+.unidad .sus-capitulos .cid {{ font-weight: 600; white-space: nowrap; }}
 /* mapa: controles */
 .controles {{ display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; margin: .6em 0; font-size: .95rem; }}
 .controles label {{ display: inline-flex; align-items: center; gap: 6px; }}
@@ -609,8 +629,8 @@ def ficha_html(texto: str, datos: dict, exportadas: set[str], hay_pdf: bool) -> 
 
 
 def generar_fichas(datos: dict, out: Path, exportadas: set[str] = frozenset(), hay_pdf: bool = True) -> dict[str, str]:
-    """Convierte las fichas. Devuelve {id_clase: 'clases/<id>.html'} para las que existen."""
-    destino = out / "clases"
+    """Convierte las fichas. Devuelve {id_ficha: 'capitulos/<id>.html'} para las que existen."""
+    destino = out / "capitulos"
     destino.mkdir(parents=True, exist_ok=True)
     generadas: dict[str, str] = {}
     for c in datos["clases"]:
@@ -621,10 +641,10 @@ def generar_fichas(datos: dict, out: Path, exportadas: set[str] = frozenset(), h
         if not src.exists():
             continue
         texto = src.read_text(encoding="utf-8")
-        titulo = titulo_de_md(sin_front_matter(texto), f"Clase {c['id']}: {c.get('titulo', '')}")
+        titulo = titulo_de_md(sin_front_matter(texto), f"{rotulo_ficha(c['id'])}: {c.get('titulo', '')}")
         cuerpo = f'{VOLVER}\n<div class="ficha">\n{ficha_html(texto, datos, exportadas, hay_pdf)}\n</div>'
         (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
-        generadas[c["id"]] = f"clases/{c['id']}.html"
+        generadas[c["id"]] = f"capitulos/{c['id']}.html"
     return generadas
 
 
@@ -632,7 +652,7 @@ def generar_fichas(datos: dict, out: Path, exportadas: set[str] = frozenset(), h
 # mapa de conceptos → SVG
 # ----------------------------------------------------------------------------
 
-ANCHO_COL = 210          # ancho de cada columna (clase)
+ANCHO_COL = 210          # ancho de cada columna (capítulo)
 ANCHO_NODO_MIN = 120     # la caja se ajusta al texto entre estos límites
 ANCHO_NODO_MAX = ANCHO_COL - 22
 PX_POR_CARACTER = 6.4    # estimación para 12 px de fuente sans
@@ -716,7 +736,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
     clase_de = {k["id"]: k["clase"] for k in conceptos}
 
     def attrs(cid: str) -> str:
-        return f'data-clase="{html.escape(cid)}" data-orden="{orden_clase.get(cid, 0)}" data-nivel="{html.escape(nivel_clase.get(cid, "troncal"))}"'
+        return f'data-capitulo="{html.escape(cid)}" data-orden="{orden_clase.get(cid, 0)}" data-nivel="{html.escape(nivel_clase.get(cid, "troncal"))}"'
 
     partes: list[str] = []
     partes.append(
@@ -735,7 +755,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
             partes.append(f'<line x1="{x0}" y1="8" x2="{x0}" y2="{alto - 8}" stroke="#eee" stroke-width="1"/>')
         cx = x0 + ANCHO_COL / 2
         partes.append(f'<g class="cabecera" {attrs(c["id"])}>')
-        partes.append(f'<text x="{cx}" y="{MARGEN_SUP + 12}" text-anchor="middle" font-size="13" font-weight="700" fill="{color}">Clase {html.escape(c["id"])}</text>')
+        partes.append(f'<text x="{cx}" y="{MARGEN_SUP + 12}" text-anchor="middle" font-size="13" font-weight="700" fill="{color}">{html.escape(rotulo_ficha(c["id"]))}</text>')
         for i, ln in enumerate(cab_lineas[c["id"]]):
             partes.append(f'<text x="{cx}" y="{MARGEN_SUP + 30 + i * ALTO_LINEA}" text-anchor="middle" font-size="12" fill="#444">{html.escape(ln)}</text>')
         partes.append("</g>")
@@ -854,13 +874,13 @@ JS_MAPA = r"""
   var ruta = document.getElementById('ruta');
   var hasta = document.getElementById('hasta');
   var rotulo = document.getElementById('hasta-rotulo');
-  var ids = JSON.parse(document.getElementById('clases-orden').textContent);
+  var ids = JSON.parse(document.getElementById('capitulos-orden').textContent);
   var nodos = svg.querySelectorAll('.nodo, .cabecera');
   var aristas = svg.querySelectorAll('.arista');
   function aplicar() {
     var soloTroncal = ruta.value === 'troncal';
     var n = parseInt(hasta.value, 10);
-    rotulo.textContent = 'hasta la clase ' + ids[n - 1];
+    rotulo.textContent = ids[n - 1];
     nodos.forEach(function (el) {
       var oculto = soloTroncal && el.getAttribute('data-nivel') !== 'troncal';
       var aten = parseInt(el.getAttribute('data-orden'), 10) > n;
@@ -883,7 +903,7 @@ JS_MAPA = r"""
 
 
 def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
-    """site/mapa.html: el SVG de conceptos con filtro de ruta y deslizador "hasta la clase N", y la lista de clases."""
+    """site/mapa.html: el SVG de conceptos con filtro de ruta y deslizador "hasta el capítulo N", y la lista de capítulos."""
     unidades = {u["id"]: u for u in datos["unidades"]}
     titulos_apunte = titulos_secciones_apunte()
     conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in datos["clases"]}
@@ -905,19 +925,19 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
     partes.append(
         '<div class="controles">'
         f'<label>Ruta: <select id="ruta">{opciones}</select></label>'
-        f'<label><span id="hasta-rotulo">hasta la clase {html.escape(clases[n_default - 1]["id"])}</span> '
+        f'<label><span id="hasta-rotulo">{html.escape(rotulo_hasta(clases[n_default - 1]["id"]))}</span> '
         f'<input type="range" id="hasta" min="1" max="{len(clases)}" value="{n_default}" step="1"></label>'
         "</div>"
     )
-    partes.append(f'<script id="clases-orden" type="application/json">{json.dumps([c["id"] for c in clases])}</script>')
+    partes.append(f'<script id="capitulos-orden" type="application/json">{json.dumps([rotulo_hasta(c["id"]) for c in clases], ensure_ascii=False)}</script>')
     partes.append('<div class="mapa">' + svg_mapa(datos, fichas, exportadas) + "</div>")
     partes.append('<p class="leyenda"><span style="--c:#777;--f:#fff">flecha: lo que un concepto requiere → el concepto</span></p>')
-    partes.append('<p class="guia">Cada nodo lleva a la unidad interactiva si existe, si no a la ficha de la clase. Pasando el mouse se ve el hecho geométrico. '
-                  "El filtro de ruta esconde las clases complementarias y avanzadas; el deslizador atenúa lo que viene después de la clase elegida.</p>")
+    partes.append('<p class="guia">Cada nodo lleva a la unidad interactiva si existe, si no a la ficha del capítulo. Pasando el mouse se ve el hecho geométrico. '
+                  "El filtro de ruta esconde los capítulos complementarios y avanzados; el deslizador atenúa lo que viene después del capítulo elegido.</p>")
     partes.append(f"<script>{JS_MAPA}</script>")
 
-    partes.append(f"<h2>Clases ({len(clases)})</h2>")
-    partes.append('<ul class="clases">')
+    partes.append(f"<h2>Capítulos ({len(clases)})</h2>")
+    partes.append('<ul class="capitulos">')
     for c in clases:
         color = TEAL
         links: list[str] = []
@@ -938,8 +958,8 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
         for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
             links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         partes.append(
-            f'<li class="clase" style="--c:{color}">'
-            f'<div class="cab"><span class="id">Clase {html.escape(c["id"])}</span>'
+            f'<li class="capitulo" style="--c:{color}">'
+            f'<div class="cab"><span class="id">{html.escape(rotulo_ficha(c["id"]))}</span>'
             f'<span class="tit">{html.escape(c.get("titulo", ""))}</span>'
             f'{etiqueta(c.get("nivel", ""), "#777")}</div>'
             f'<div class="links">{"".join(links)}</div>'
@@ -983,7 +1003,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     if sin_unidad:
         unidades_portada.append({
             "unidad": None, "titulo": "Lo que viene", "clases": sin_unidad,
-            "pregunta": "", "gancho": "Clases del programa que todavía no tienen unidad interactiva.",
+            "pregunta": "", "gancho": "Capítulos del programa que todavía no tienen unidad interactiva.",
             "nivel": "",
         })
 
@@ -1024,9 +1044,9 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         filas = []
         for c in e["clases"]:
             ficha = f'<a href="{fichas[c["id"]]}">ficha</a>' if c["id"] in fichas else '<span class="pend">ficha pendiente</span>'
-            filas.append(f'<li><span class="cid">Clase {html.escape(c["id"])}</span><span>{html.escape(c.get("titulo", ""))}</span>'
+            filas.append(f'<li><span class="cid">{html.escape(rotulo_ficha(c["id"]))}</span><span>{html.escape(c.get("titulo", ""))}</span>'
                          f'<span>{ficha}</span></li>')
-        cuerpo.append(f'<ul class="sus-clases">{"".join(filas)}</ul>')
+        cuerpo.append(f'<ul class="sus-capitulos">{"".join(filas)}</ul>')
         # enlaces: unidad, apunte
         links: list[str] = []
         u = e["unidad"]
@@ -1623,19 +1643,23 @@ def generar_autoevaluacion(datos_mapa: dict, out: Path) -> None:
 
 
 REDIRECCIONES = {"unidades/00_desaprender_el_cbc/index.html": "../00_fundamentos/"}
+# las fichas vivían en site/clases/<id>.html y pasaron a site/capitulos/<id>.html
+for _id in ("01", "02", "03", "03p", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"):
+    REDIRECCIONES[f"clases/{_id}.html"] = f"../capitulos/{_id}.html"
 
 
 def generar_redirecciones(out: Path) -> None:
-    """Páginas mínimas de redirección para enlaces viejos (unidad renombrada)."""
+    """Páginas mínimas de redirección para enlaces viejos (unidad renombrada, fichas movidas a capitulos/)."""
     for ruta, destino in REDIRECCIONES.items():
         d = html.escape(destino)
         nombre = html.escape(destino.strip("/").split("/")[-1])
+        ficha = ruta.startswith("clases/")
         pagina = (
             '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
             f'<meta http-equiv="refresh" content="0; url={d}">\n'
             f'<link rel="canonical" href="{d}">\n'
             "<title>Redirección</title>\n</head>\n<body>\n"
-            f'<p><a href="{d}">Esta unidad se movió: unidades/{nombre}/</a></p>\n</body>\n</html>\n'
+            f'<p><a href="{d}">Esta página se movió: {nombre if ficha else "unidades/" + nombre + "/"}</a></p>\n</body>\n</html>\n'
         )
         dest = out / ruta
         dest.parent.mkdir(parents=True, exist_ok=True)
@@ -1671,7 +1695,7 @@ def main() -> int:
         return 1
     for a in avisos:
         print(f"  aviso: {a}")
-    print(f"  {len(datos['clases'])} clases, {len(datos['conceptos'])} conceptos, {len(datos['unidades'])} unidades")
+    print(f"  {len(datos['clases'])} fichas, {len(datos['conceptos'])} conceptos, {len(datos['unidades'])} unidades")
 
     # unidades
     exportables = [u for u in datos["unidades"] if u.get("estado") in ESTADOS_EXPORTABLES]

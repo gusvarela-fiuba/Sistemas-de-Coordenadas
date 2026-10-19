@@ -1,4 +1,4 @@
-# Fragmento del mapa: clases 1, 2 y 3.
+# Fragmento del mapa: fichas 01, 02 y 03.
 # Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
@@ -20,7 +20,7 @@ clases:
     nivel: troncal
 
 conceptos:
-  # ---- clase 01 ----
+  # ---- ficha 01 ----
   - id: rotacion
     nombre: "Rotación"
     clase: "01"
@@ -86,7 +86,7 @@ conceptos:
     apunte: ["rotaciones", "15"]
     requiere: [rotacion-infinitesimal, trayectoria]
 
-  # ---- clase 02 ----
+  # ---- ficha 02 ----
   - id: composicion
     nombre: "Composición de transformaciones"
     clase: "02"
@@ -128,7 +128,7 @@ conceptos:
     apunte: ["reflexiones", "traslaciones"]
     requiere: [numeros-complejos, composicion]
 
-  # ---- clase 03 ----
+  # ---- ficha 03 ----
   - id: reflexion
     nombre: "Reflexión (por un punto, por una recta)"
     clase: "03"

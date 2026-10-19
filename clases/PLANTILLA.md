@@ -1,6 +1,6 @@
 ---
 clase: N              # orden del programa, 1 a 14; el complemento de proyectivas lleva "3p"
-titulo: "Clase N: <idea en pocas palabras>"
+titulo: "Capítulo N: <idea en pocas palabras>"
 idea: "<una frase que enuncia la idea central>"
 que_se_estudia: []        # 3 a 6 ítems
 conceptos_previos: []     # ítems o claves de fichas anteriores
@@ -10,7 +10,7 @@ animaciones: []           # nombres de animaciones/*.mp4 sin extensión, si apli
 ejercicios_sugeridos: []  # 2 a 4 ítems cortos
 ---
 
-# Clase N: <idea en pocas palabras>
+# Capítulo N: <idea en pocas palabras>
 
 <La idea, en una frase.>
 
@@ -24,7 +24,7 @@ Qué hay que tener a mano de las fichas anteriores.
 Una línea por clave del frontmatter, con rótulo, número y título como en el PDF (p. ej. `- Capítulo 1. Rotaciones: girar es multiplicar`); sin la clave. Los números salen de `apunte/numeracion.json`.
 
 ## Unidades interactivas
-Lecciones de `unidades/` que acompañan la clase.
+Lecciones de `unidades/` que acompañan el capítulo.
 
 ## Animaciones
 Sólo si hay (`animaciones/*.mp4`).

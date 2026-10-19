@@ -484,12 +484,12 @@ def _(mo):
     como superficie:
 
     - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:formas-lineales) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:esfera)
-    - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
+    - [ficha del capítulo 15](../../capitulos/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
 
     **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),
     la unidad que cierra el hilo conductor. De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
     cierra en $180°$, todo fue producto interno, cuña y cambio de coordenadas. Para repasar: volvé a
-    [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro "hasta la clase N".
+    [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro "hasta el capítulo N".
     Lo que sigue después es de Topografía y Geodesia: compensar poligonales con el exceso separado, y los problemas directo e
     inverso sobre el elipsoide.
     """)

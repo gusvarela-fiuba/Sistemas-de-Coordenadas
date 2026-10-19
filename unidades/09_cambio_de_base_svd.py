@@ -615,8 +615,8 @@ def _(mo):
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
     aplicaciones*, y en Calvetti–Somersalo.
 
-    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:svd) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
-    - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
+    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:svd) · [apunte, «El hilo conductor» (el hilo)](../../apunte.pdf#nameddest=cap:02)
+    - [ficha del capítulo 8](../../capitulos/07.html) · [ficha del capítulo 11](../../capitulos/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·
       [producto interno](../02_producto_interno/index.html) (el residuo perpendicular)
@@ -648,7 +648,7 @@ def _(A, A3, A_pred, U, V, Vt, candidatos, camino, det_A, lam_pred, lib, mo, np,
          lib.exacto(x_pinv, x_mc, tol=1e-9) and lib.exacto(x_mc, np.linalg.lstsq(A3, A3 @ x_mc + r_mc, rcond=None)[0], tol=1e-9)
          and lib.exacto(A3.T @ r_mc, [0, 0], tol=1e-9) and lib.exacto(float(r_mc @ u3) * u3, r_mc, tol=1e-9)
          and lib.exacto(sub["imagen"].T @ sub["contra_imagen"], [[0], [0]]) and sub["nucleo"].shape == (2, 0)),
-        ("sección 2, y₃ = 3: x = (1.5, −1/6), r = (1/6, −1/3, 1/6) como en la ficha 10",
+        ("sección 2, y₃ = 3: x = (1.5, −1/6), r = (1/6, −1/3, 1/6) como en el capítulo 11",
          lib.exacto(lib.pseudoinversa(A3) @ [0, 1, 3], [1.5, -1 / 6]) and lib.exacto([0, 1, 3] - A3 @ lib.minimos_cuadrados(A3, [0, 1, 3])[0], [1 / 6, -1 / 3, 1 / 6])),
     ]
     assert all(ok for _, ok in _checks), lib.verificar(_checks)

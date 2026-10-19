@@ -1,10 +1,10 @@
-# Fragmento del mapa: clases 3p, 4, 5 y 6.
+# Fragmento del mapa: fichas 03p, 04, 05 y 06.
 # Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
 clases:
   - id: "03p"
-    titulo: "Complemento: transformaciones proyectivas"
+    titulo: "Transformaciones proyectivas"
     ficha: clases/03p-proyectivas.md
     pregunta: "¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?"
     nivel: complementario

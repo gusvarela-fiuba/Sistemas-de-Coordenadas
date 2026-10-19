@@ -497,7 +497,7 @@ def _(mo):
     - [apunte, capítulo «Geometría del elipsoide», «En profundidad»](../../apunte.pdf#nameddest=cap:elipsoide):
       la longitud del arco de meridiano (serie binomial, potencias del seno como cosenos de ángulos múltiples,
       coeficientes $A \ldots E$) con sus controles numéricos
-    - [ficha 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
+    - [ficha del capítulo 14](../../capitulos/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
 
     **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (unidad 14): triángulos de lados
     geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.

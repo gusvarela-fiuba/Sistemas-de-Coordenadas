@@ -1,16 +1,16 @@
 ---
 clase: 3
-titulo: "Clase 3: reflexiones, similaridades y afinidades"
+titulo: "Capítulos 3 y 4: reflexiones, similaridades y afinidades"
 idea: "Las reflexiones generan las isometrías; con homotecias dan las similaridades, y las afinidades $x\\mapsto Ax+t$ caben en una matriz $3\\times3$ con coordenadas homogéneas."
 que_se_estudia: ["Reflexión por un punto y por una recta; composición de dos reflexiones", "Afinidad axial y similaridad; punto fijo de una similaridad", "Transformación afín $F(x)=Ax+t$ y su determinación por tres puntos", "Coordenadas homogéneas: la traslación entra en la matriz", "Punto fijo y traslación como límite con centro en el infinito"]
-conceptos_previos: ["Rotaciones y matrices ortogonales (clase 1)", "Composición y conmutatividad (clase 2)", "Homotecia (clase 2)"]
+conceptos_previos: ["Rotaciones y matrices ortogonales (capítulo 1)", "Composición y conmutatividad (capítulo 2)", "Homotecia (capítulo 2)"]
 apunte: ["reflexiones", "afines", "16", "17", "traslaciones"]
 unidades: ["03_reflexiones_similaridades", "04_afines_homogeneas"]
 animaciones: ["02_homogeneas_pentagono_3d"]
 ejercicios_sugeridos: ["Componer tres reflexiones puntuales y reconocer el resultado", "Mostrar que dos reflexiones en rectas secantes son una rotación del doble del ángulo entre ellas", "Hallar la afinidad que lleva un triángulo en otro y su punto fijo si lo tiene", "Escribir en homogéneas la composición de una rotación y una traslación"]
 ---
 
-# Clase 3: reflexiones, similaridades y afinidades
+# Capítulos 3 y 4: reflexiones, similaridades y afinidades
 
 Las reflexiones generan las isometrías; con homotecias dan las similaridades, y las afinidades $x\mapsto Ax+t$ caben en una matriz $3\times3$ con coordenadas homogéneas.
 
@@ -28,7 +28,7 @@ Las reflexiones generan las isometrías; con homotecias dan las similaridades, y
 
 ### Afinidad axial (eje, dirección y factor)
 
-Álgebra: eje $e$, dirección $\vec d$ no paralela al eje, factor $f$: $X\mapsto X_0 + f(X - X_0)$ con $X_0$ el corte de la paralela a $\vec d$ por $X$ con el eje; en matrices $B\,\mathrm{diag}(1,f)\,B^{-1}$ con $B = (\vec u\ \vec d)$, $\det = f$. Se ve: una faja que se estira (o se da vuelta, $f<0$) desde una recta fija, cada punto deslizando por su paralela a $\vec d$. $f=-1$ con $\vec d\perp e$ es la reflexión de la clase; $f=-1$ oblicua es la reflexión oblicua. Tres de estas, con el eje por los dos vértices que quedan quietos, llevan cualquier triángulo sobre cualquier otro; el producto de los factores es el cociente de áreas.
+Álgebra: eje $e$, dirección $\vec d$ no paralela al eje, factor $f$: $X\mapsto X_0 + f(X - X_0)$ con $X_0$ el corte de la paralela a $\vec d$ por $X$ con el eje; en matrices $B\,\mathrm{diag}(1,f)\,B^{-1}$ con $B = (\vec u\ \vec d)$, $\det = f$. Se ve: una faja que se estira (o se da vuelta, $f<0$) desde una recta fija, cada punto deslizando por su paralela a $\vec d$. $f=-1$ con $\vec d\perp e$ es la reflexión ortogonal; $f=-1$ oblicua es la reflexión oblicua. Tres de estas, con el eje por los dos vértices que quedan quietos, llevan cualquier triángulo sobre cualquier otro; el producto de los factores es el cociente de áreas.
 
 ### Similaridad
 
@@ -52,9 +52,9 @@ Las reflexiones generan las isometrías; con homotecias dan las similaridades, y
 
 ## Conceptos previos
 
-- Rotaciones y matrices ortogonales (clase 1)
-- Composición y conmutatividad (clase 2)
-- Homotecia (clase 2)
+- Rotaciones y matrices ortogonales (capítulo 1)
+- Composición y conmutatividad (capítulo 2)
+- Homotecia (capítulo 2)
 
 ## En el apunte
 

@@ -1,16 +1,16 @@
 ---
 clase: 4
-titulo: "Clase 4: formas lineales y dualidad"
+titulo: "Capítulo 5: formas lineales y dualidad"
 idea: "Una forma lineal es una regla graduada: sus marcas son rectas paralelas, y al deformar el plano la regla se transforma al revés que los vectores."
 que_se_estudia: ["Espacio vectorial y transformación lineal como grilla que se deforma", "Forma lineal como regla graduada y curvas de nivel", "Dualidad: los vectores van con $A$ y las formas con $A^{-1}$", "El gradiente como forma lineal"]
-conceptos_previos: ["Producto interno (clase 1)", "Coordenadas homogéneas (clase 3)", "Homografías: puntos con $H$, rectas con $H^{-T}$ (clase 3p)"]
+conceptos_previos: ["Producto interno (capítulo 1)", "Coordenadas homogéneas (capítulo 4)", "Homografías: puntos con $H$, rectas con $H^{-T}$ (complemento C1)"]
 apunte: ["formas-lineales"]
 unidades: ["00_fundamentos", "06_formas_lineales"]
 animaciones: ["01_dualidad_gradiente"]
 ejercicios_sugeridos: ["Transformar un vector y dos formas con $T$ y $T^{-1}$ y comprobar que las lecturas de marcas se conservan", "Dibujar las curvas de nivel de $2x+3y$ y hallar su núcleo", "Ver que $\\begin{pmatrix}2&3\\\\4&6\\end{pmatrix}$ tiene núcleo y $\\begin{pmatrix}2&3\\\\1&-1\\end{pmatrix}$ no"]
 ---
 
-# Clase 4: formas lineales y dualidad
+# Capítulo 5: formas lineales y dualidad
 
 Una forma lineal es una regla graduada: sus marcas son rectas paralelas, y al deformar el plano la regla se transforma al revés que los vectores.
 
@@ -70,9 +70,9 @@ tangente a la curva de nivel (ir a lo chico para volver a lo grande).
 
 ## Conceptos previos
 
-- Producto interno (clase 1)
-- Coordenadas homogéneas (clase 3)
-- Homografías: puntos con $H$, rectas con $H^{-T}$ (clase 3p)
+- Producto interno (capítulo 1)
+- Coordenadas homogéneas (capítulo 4)
+- Homografías: puntos con $H$, rectas con $H^{-T}$ (complemento C1)
 
 ## En el apunte
 

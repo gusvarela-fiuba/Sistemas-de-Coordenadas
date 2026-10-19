@@ -5,7 +5,7 @@ Resumen: sin errores graves; la losa coincide con `cap06_producto_mixto.py` y la
 Alcance: `apunte/contenido/06-subespacios-cuna-determinante.tex` líneas 265-387 (subsección `sec:producto-mixto` y aplicación de la losa) y el ejercicio `ex:cuna-mixto-losa` (líneas ~763-776).
 
 ## Verificado sin hallazgos
-- Procedencia/voz: sin menciones a personas, clases ni fechas. Los `\textbf{Desarrollo.}` de las líneas 25, 395, 469 y 533 son estructurales (existentes) y no remiten a documentos de origen.
+- Procedencia/voz: sin menciones a personas, cursos ni fechas. Los `\textbf{Desarrollo.}` de las líneas 25, 395, 469 y 533 son estructurales (existentes) y no remiten a documentos de origen.
 - Números: corrí el script. Coinciden `v×w=(2,1,-1)`, `u·(v×w)=4`, `|v×w|=√6`, altura 1,632993; losa: `a=(8,527;0,432;0,044)`, `b=(8,092;8,796;0,125)`, `c=(-0,441;8,349;0,084)`, `a×b=(-0,333024;-0,709827;71,507748)`, `|a×b|=71,5120`, mixto `0,146864-5,926346+6,006651=0,227169`, `d=3,177` mm, `z4-z_plano=+3,177` mm (el signo «P4 por encima» es correcto). Ejercicio: `c_z=0,089`, mixto `0,584708`, `d=8,176` mm.
 - Verifiqué a mano `u×v=(2,-1,1)`, `det M=4`, el desarrollo por la primera columna de la parte (a), la paridad de las permutaciones de la parte (c) y la implicación `u·(v×w)=0 ⇒ coplanares` cuando `v×w≠0`.
 - Magnitudes: losa de 8,5 × 8,4 m, cotas del orden de 12 m con diferencias de centímetros, tolerancia de 5 mm: realistas para una losa relevada con estación total. Coordenadas locales (no oficiales), de modo que no corresponde la convención GK.

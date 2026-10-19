@@ -1,6 +1,6 @@
 # Ejercicio del 14/10/2026 — intersección de superficies y tangente paralela a un plano
 
-Material de la clase 09 (14/10/2026; ficha `clases/09-analisis-derivada-jacobiano.md`).
+Material del capítulo 10 (14/10/2026; ficha `clases/09-analisis-derivada-jacobiano.md`).
 
 Enunciado: sea C la curva intersección del paraboloide x² + y² + z = 1 con el plano x + y = 1. Hallar el punto de C donde la recta tangente es paralela al plano x − z = 0.
 Resultado: C se parametriza r(t) = (t, 1 − t, 2t − 2t²), la tangente r'(t) = (1, −1, 2 − 4t) debe ser ortogonal a la normal (1, 0, −1), lo que da t = 1/4 y P = (1/4, 3/4, 3/8), con T = (1, −1, 1).

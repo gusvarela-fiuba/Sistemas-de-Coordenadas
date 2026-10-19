@@ -375,7 +375,7 @@ BANCO = {
                  "explicacion": r"$R e_z = R_z(R_y e_z) = R_z e_x = e_y \neq e_z$: el eje $z$ se mueve. El eje de la composición no es el de ninguno de los dos giros."},
                 {"id": "c", "texto": r"Es el eje $y$, porque el primer giro fue alrededor de $y$ y lo dejó quieto.", "correcta": False,
                  "explicacion": r"$R_y$ deja quieto $e_y$, pero después $R_z$ lo manda a $-e_x$; lo que queda quieto tras el primer giro no sobrevive al segundo."},
-                {"id": "d", "texto": r"No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otra clase de movimiento.", "correcta": False,
+                {"id": "d", "texto": r"No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otro tipo de movimiento.", "correcta": False,
                  "explicacion": r"El producto de ortogonales con $\det = 1$ es ortogonal con $\det = 1$, y toda matriz así es un giro alrededor de alguna recta: la composición de rotaciones es una rotación."},
             ],
             "rubrica": "Rotaciones/medio: combinacion de rotaciones son rotaciones (el eje fijo, que más adelante será autovector de autovalor 1)",

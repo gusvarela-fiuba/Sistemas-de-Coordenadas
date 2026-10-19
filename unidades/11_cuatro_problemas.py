@@ -611,7 +611,7 @@ def _(mo):
       $R = UV^T$ con la corrección de determinante); en «En profundidad», «Una sola geometría» resume los cuatro con
       el mismo esquema
     - [apunte, sección «Sistemas de ecuaciones y aplicaciones»](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones)
-    - [ficha 11](../../clases/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
+    - [ficha del capítulo 12](../../capitulos/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^T X_0$ de la
     regresión total es una forma cuadrática, y sus direcciones propias vuelven como direcciones principales de una

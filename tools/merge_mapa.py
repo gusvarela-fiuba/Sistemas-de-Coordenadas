@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mezcla los fragmentos `mapa/_fragmentos/bloque-*.yaml` en `mapa/mapa.yaml`.
 
-Los fragmentos son la fuente editable (uno por bloque de clases); `mapa.yaml` es
+Los fragmentos son la fuente editable (uno por bloque de fichas); `mapa.yaml` es
 generado y lo lee `tools/build.py`. Esquema: mapa/ESQUEMA.md; ids: mapa/CONCEPTOS.md.
 
 Qué hace:

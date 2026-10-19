@@ -1,4 +1,4 @@
-# Fragmento del mapa: clases 11 a 14.
+# Fragmento del mapa: fichas 11 a 14.
 # Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 

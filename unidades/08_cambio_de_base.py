@@ -670,10 +670,9 @@ def _(mo):
     - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
       "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (el ejemplo
       numérico de $P^{-1}AP = D$; el argumento general, $AB = B\Lambda$ columna por columna, está en la sección 1 de
-      esta unidad) y el párrafo sobre la clase del 30 de
-      septiembre, con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
+      esta unidad) y el párrafo con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
       · [apunte, «Álgebra de las transformaciones» (autovectores, formas lineales, cambio de base)](../../apunte.pdf#nameddest=cap:cambio-base)
-    - [ficha de la clase 8](../../clases/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
+    - [ficha del capítulo 9](../../capitulos/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
     **Lo que viene:** la SVD (unidad 09): dos bases perpendiculares, una a la entrada y otra a la
     salida, para que toda matriz sea "sólo estirar" de una grilla a otra, también las que no tienen ejes propios. Y las superficies

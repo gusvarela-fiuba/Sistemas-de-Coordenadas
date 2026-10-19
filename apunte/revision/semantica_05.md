@@ -5,7 +5,7 @@ Resumen: sin errores graves; las demostraciones, las cuentas y los números coin
 Alcance: `apunte/contenido/05-formas-lineales.tex` líneas 380-539 (subsección nueva), ejercicio `ex:fl-normales` (líneas ~822-835) y comentario de cabecera (líneas 3-4).
 
 ## Verificado sin hallazgos
-- Procedencia/voz (rúbrica 1): sin menciones a personas, clases, fechas ni archivos de origen; la voz es impersonal o plural inclusivo.
+- Procedencia/voz (rúbrica 1): sin menciones a personas, cursos, fechas ni archivos de origen; la voz es impersonal o plural inclusivo.
 - Demostraciones (rúbrica 2): la unicidad y existencia de la adjunta, `(AB)^T=B^TA^T`, `(A^{-1})^T=(A^T)^{-1}`, `R^TR=I` y la proposición de normales (ambas inclusiones de la imagen de la recta, más el diferencial) son correctas y sin saltos. Verificadas a mano.
 - Números (rúbrica 3): corrí el script. Coinciden todos: `Au=(4,2)`, `<Au,v>=10`, `A^{-T}`, `q'=(3,5;2)`, `d'=(5,1)`, ángulo 78,69°, recta imagen `-0,5x'+2,5y'=3,25`, `(8,5;3)`, `dh'=(0,005059;0,019261)`, `W'=(100;0)`, cota 32,9559, factor 4 (2,023 m), acimut 37,48°, pendiente 2,041 % frente a 2,176 %, `G'=diag(0,25;1)`. Ejercicio: `A^{-T}n=(1,-1)`, ángulo 26,57°. Las coordenadas Gauss-Krüger reutilizadas de la sección de pendiente son de la faja 5 y están en orden (E,N).
 - Recuadros `\unidadInteractiva` (rúbrica 5): ninguno cae en la parte nueva. Los dos del capítulo (líneas 49 y 733) los verifiqué igual contra `unidades/06_formas_lineales.py` y `unidades/00_fundamentos.py`: existen el caso «escala anisótropa diag(2, 1)» con deslizador `k` (`np.diag([k,1])`, fila `(2/k,1)`), el objeto «(b) regla graduada wᵀ (el gradiente)» y el caso «estirar Este ×2: diag(2, 1)» con la fila `(1,1)→(1/2,1)`. Todo coincide.

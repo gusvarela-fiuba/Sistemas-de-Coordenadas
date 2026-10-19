@@ -1,4 +1,4 @@
-# Fragmento del mapa: clases 7 a 10.
+# Fragmento del mapa: fichas 07 a 10.
 # Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
@@ -25,7 +25,7 @@ clases:
     nivel: avanzado
 
 conceptos:
-  # --- clase 07 ---
+  # --- ficha 07 ---
   - id: svd
     nombre: "Descomposición en valores singulares"
     clase: "07"
@@ -51,7 +51,7 @@ conceptos:
     apunte: ["svd"]
     requiere: [producto-interno, cambio-de-base]
 
-  # --- clase 08 ---
+  # --- ficha 08 ---
   - id: cambio-de-base
     nombre: "Cambio de base"
     clase: "08"
@@ -77,7 +77,7 @@ conceptos:
     apunte: ["02", "cambio-base"]
     requiere: [diagonalizacion, trayectoria, exponencial-de-matrices]
 
-  # --- clase 09 ---
+  # --- ficha 09 ---
   - id: derivada-aproximacion-lineal
     nombre: "Derivada como aproximación lineal"
     clase: "09"
@@ -135,7 +135,7 @@ conceptos:
     apunte: ["derivada"]
     requiere: [jacobiano, producto-interno, superficie-parametrica, cambio-de-base]
 
-  # --- clase 10 ---
+  # --- ficha 10 ---
   - id: inversa
     nombre: "Inversa (respecto de una operación)"
     clase: "10"

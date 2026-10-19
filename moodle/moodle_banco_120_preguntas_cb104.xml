@@ -984,7 +984,7 @@
       <feedback format="html"><text><![CDATA[<p>\(R_y\) deja quieto \(e_y\), pero después \(R_z\) lo manda a \(-e_x\); lo que queda quieto tras el primer giro no sobrevive al segundo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otra clase de movimiento.</p>]]></text>
+      <text><![CDATA[<p>No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otro tipo de movimiento.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El producto de ortogonales con \(\det = 1\) es ortogonal con \(\det = 1\), y toda matriz así es un giro alrededor de alguna recta: la composición de rotaciones es una rotación.</p>]]></text></feedback>
     </answer>
     <tags>

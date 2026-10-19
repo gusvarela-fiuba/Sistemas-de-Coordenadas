@@ -20,7 +20,7 @@ clases:
   pregunta: ¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?
   nivel: troncal
 - id: "03p"
-  titulo: 'Complemento: transformaciones proyectivas'
+  titulo: Transformaciones proyectivas
   ficha: clases/03p-proyectivas.md
   pregunta: ¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?
   nivel: complementario

@@ -416,7 +416,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *Idea central: un tema insistente de la clase fue la composición como una operación entre
+        **(c) Código con hueco — medio** *Idea central: un tema insistente del capítulo es la composición como una operación entre
         transformaciones.* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
         (radianes) alrededor del origen y **después** la mueve `t`, con una sola matriz homogénea. Tenés `np`, `rot2`,
         `hom`, `dehom` y `matriz_afin(A, t)`. Se verifica con `np.allclose` sobre 20 puntos al azar.
@@ -545,7 +545,7 @@ def _(mo):
     - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:afines)
     - [apunte, «Reflexiones, isometrías y similaridades» (los teoremas de reflexiones y similaridades, y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
-    - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
+    - [ficha de los capítulos 3 y 4](../../capitulos/03.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Proyectivas](../05_proyectivas/index.html): sin la restricción de la última fila $(0\ 0\ 1)$ las
     paralelas **sí** se cruzan, como los alambrados en una foto, y hacen falta cuatro puntos en vez de tres.

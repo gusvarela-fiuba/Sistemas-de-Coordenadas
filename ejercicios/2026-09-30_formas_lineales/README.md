@@ -1,6 +1,6 @@
 # Ejercicio del 30/9/2026 — formas lineales y cambio de base
 
-Resolución propia (Gustavo, 2026-09-30) del ejercicio de la clase del 30/9: formas lineales (1,1) y (−1,2), matriz `A = [1.2 0.5; −0.1 1.3]`, u = (1,1), v = (−1,2).
+Resolución propia (Gustavo, 2026-09-30) del ejercicio del 30/9: formas lineales (1,1) y (−1,2), matriz `A = [1.2 0.5; −0.1 1.3]`, u = (1,1), v = (−1,2).
 
 Versión viva: los `.py` de esta carpeta (numpy + matplotlib). Los `.jl` originales (Julia 1.12 con Plots, antes en `~/julia/`) quedan en `julia/` como referencia; los `.py` son ports fieles, con la misma salida de texto y la misma figura.
 

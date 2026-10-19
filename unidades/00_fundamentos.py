@@ -868,8 +868,8 @@ def _(mo):
     - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
       [apunte, «Repaso de álgebra lineal desde la geometría»](../../apunte.pdf#nameddest=cap:03) ·
       [apunte, «Rotaciones» (el punto y sus coordenadas no son lo mismo)](../../apunte.pdf#nameddest=cap:rotaciones)
-    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 4](../../clases/04.html) ·
-      [ficha de la clase 9](../../clases/09.html) · [el hilo conductor](../../index.html)
+    - [ficha del capítulo 1](../../capitulos/01.html) · [ficha del capítulo 5](../../capitulos/04.html) ·
+      [ficha del capítulo 10](../../capitulos/09.html) · [el hilo conductor](../../index.html)
 
     Dónde vuelve cada ladrillo: el 1 en [Rotaciones I](../01a_punto_quieto/index.html) y
     [Rotaciones III](../01c_rotaciones_3d/index.html); el 2 en [Rotaciones II](../01b_rotacion_plano/index.html); el 3

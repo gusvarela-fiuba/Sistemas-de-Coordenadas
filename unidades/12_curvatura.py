@@ -499,7 +499,7 @@ def _(mo):
       direcciones principales del elipsoide
     - [apunte, capítulo «Coordenadas sobre la esfera y trigonometría esférica»](../../apunte.pdf#nameddest=cap:esfera):
       los círculos máximos como las "rectas" de la esfera
-    - [ficha 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
+    - [ficha del capítulo 13](../../capitulos/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
 
     **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (unidad 13): una superficie donde $\kappa_1 = 1/M$
     y $\kappa_2 = 1/N$ se deducen de una sola simetría, y la normal no pasa por el centro.

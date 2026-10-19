@@ -11,7 +11,7 @@ Verificado sin hallazgos: `def:adjugada` (110-120) y su uso «adjugada»/«adjun
 
 ## Menores
 
-1. **Voz de clase** — `11:213` («podríamos llamar») y `11:227` («``mover la longitud no me mueve''», primera persona entre comillas). Propuesta: reformular en impersonal: «la longitud no mueve el punto».
+1. **Voz oral** — `11:213` («podríamos llamar») y `11:227` («``mover la longitud no me mueve''», primera persona entre comillas). Propuesta: reformular en impersonal: «la longitud no mueve el punto».
 2. **Cofactores afirmados, no mostrados** — `11:166-168`: «cada cuña \(f_j\times f_k\) tiene por componentes los cofactores de la fila restante». Propuesta: una línea con el caso: \((f_2\times f_3)_1=a_{22}a_{33}-a_{23}a_{32}\), que es el cofactor de \(a_{11}\).
 3. **Causa insuficiente** — `11:185-187`: «Que el determinante valga \(1\) explica que la inversa tenga entradas enteras». Hace falta además que \(A\) tenga entradas enteras. Propuesta: «Como \(A\) tiene entradas enteras y \(\det A=1\), la inversa también las tiene».
 4. **Letra distinta en la unidad** — `11:476` (caja) dice «\(P^{+}=P/25\)» y el capítulo llama \(C\) a esa matriz (`11:314`); \(P\) además se usa en 192-200 para los autovectores. Propuesta: «\(C^{+}=C/25\)» en la consigna.

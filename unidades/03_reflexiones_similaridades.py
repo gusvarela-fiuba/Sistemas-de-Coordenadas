@@ -544,7 +544,7 @@ def _(mo):
 
     - [apunte, «Reflexiones, isometrías y similaridades» (los seis teoremas y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
-    - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
+    - [ficha de los capítulos 3 y 4](../../capitulos/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 
     **Lo que viene:** [Afinidades y coordenadas homogéneas](../04_afines_homogeneas/index.html): cuando los ángulos ya
     no se conservan, cada eje se estira distinto, hacen falta tres puntos y la traslación entra en una $3\times3$.

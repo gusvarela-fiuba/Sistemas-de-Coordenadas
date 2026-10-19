@@ -1,16 +1,16 @@
 ---
 clase: 2
-titulo: "Clase 2: composición, conmutatividad y líneas coordenadas"
+titulo: "Capítulo 2: composición, conmutatividad y líneas coordenadas"
 idea: "Para nombrar un punto con dos coordenadas hacen falta dos familias de transformaciones que conmuten; la composición y su orden son el hilo entre transformaciones, operaciones y coordenadas."
 que_se_estudia: ["Composición de transformaciones: neutro, inversa, asociatividad, y no conmutatividad en general", "Conmutatividad y coordenadas: cuándo un par $(u,v)$ nombra un único punto", "Trayectorias y líneas coordenadas: cartesianas, polares y sobre la esfera", "Homotecia: la escala $kI$ conmuta con las rotaciones del mismo centro", "Traslaciones y movimientos rígidos $x\\mapsto R(\\theta)x+v$"]
-conceptos_previos: ["Rotaciones (clase 1)", "Matrices y composición de transformaciones lineales"]
+conceptos_previos: ["Rotaciones (capítulo 1)", "Matrices y composición de transformaciones lineales"]
 apunte: ["traslaciones", "15", "16", "esfera"]
 unidades: ["01c_rotaciones_3d", "03_reflexiones_similaridades"]
 animaciones: []
 ejercicios_sugeridos: ["Verificar con $R(90°)$ y $H=2I$ que rotación y homotecia conmutan, y con $R_x$, $R_y$ que las rotaciones 3D no", "Armar el cubo de estados de tres vasos y comprobar que las tres transformaciones conmutan", "Iterar $F(x)=R(90°)x+(2,0)^T$ desde el origen y hallar el centro de la circunferencia que recorre", "Mostrar con dos rotaciones que el orden latitud–longitud no es intercambiable"]
 ---
 
-# Clase 2: composición, conmutatividad y líneas coordenadas
+# Capítulo 2: composición, conmutatividad y líneas coordenadas
 
 Para nombrar un punto con dos coordenadas hacen falta dos familias de transformaciones que conmuten; la composición y su orden son el hilo entre transformaciones, operaciones y coordenadas.
 
@@ -32,7 +32,7 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 
 ### Trayectoria de una transformación
 
-Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (clase 1).
+Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (capítulo 1).
 
 ### Líneas coordenadas
 
@@ -44,7 +44,7 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 
 ## Conceptos previos
 
-- Rotaciones (clase 1)
+- Rotaciones (capítulo 1)
 - Matrices y composición de transformaciones lineales
 
 ## En el apunte

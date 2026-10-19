@@ -1,6 +1,6 @@
 # Curso interactivo — las 20 simulaciones, ladrillo a ladrillo
 
-Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan el tema del programa que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Es parte del trabajo final de Sistemas de Coordenadas (CB104, FIUBA) de Gustavo Varela.
+Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan el tema del programa que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de capítulo y al apunte. Es parte del trabajo final de Sistemas de Coordenadas (CB104, FIUBA) de Gustavo Varela.
 Cada simulación corre adentro del navegador con WebAssembly: no hay que instalar nada ni tener cuenta en ningún lado (la primera carga tarda unos segundos). En una pantalla 16:9 cada sección interactiva muestra la figura a la izquierda y, a la derecha, el panel de controles con el selector de caso, los deslizadores y los números vivos que se recalculan con cada movimiento.
 Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 1 hecho geométrico, 2 manipulación, 3 cuenta a mano y código lado a lado, 4 Python de hoy, 5 ejercicios (lápiz y código con hueco, verificado en la página).
 
@@ -112,7 +112,7 @@ Temas del programa: 02 y 03. Pregunta guía: un plano viejo a otra escala y con 
 **Qué se manipula:**
 - Dropdown `caso precargado`: espejo del eje x, espejo de la diagonal y = x, espejo de la recta de ángulo α, dos espejos seguidos (eje x y después recta de ángulo β), similaridad k·R(θ) con centro en el origen, similaridad con centro k·R(θ)x + (3, −2) (la del plano viejo).
 - Deslizadores que dependen del caso: `α (°)`, `β (°)`, o el par `k` y `θ (°)`.
-- Segundo bloque, trayectorias y líneas coordenadas (clase 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0.85·I y 0.85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
+- Segundo bloque, trayectorias y líneas coordenadas (capítulo 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0.85·I y 0.85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después con las columnas como flechas; violeta, la parcela con estelas. En los espejos se dibuja la recta espejo a rayas; en la similaridad con centro, el centro fijo en gold. El número vivo clave es el área con signo.
 
 **Ejercicios en Python:** `reflexion(alpha)` (c) y `similaridad_por_dos_puntos(P1, P2, Q1, Q2)` (d). Lápiz (a): por qué diag(1, −1) conserva distancias y no es rotación, con un número y con un dibujo; (b): escala, giro y centro de la similaridad z ↦ 2i·z + 1.
@@ -313,7 +313,7 @@ Tema del programa: 11. Pregunta guía: ubicar un poste midiendo con cinta sus di
 
 - Notebook: [unidades/11_cuatro_problemas.py](unidades/11_cuatro_problemas.py)
 - Ficha: [clases/11-cuatro-problemas.md](clases/11-cuatro-problemas.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Guía resuelta de los cuatro problemas (Clase 11)".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Guía resuelta de los cuatro problemas (Capítulo 12)".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/11_cuatro_problemas/index.html)
 
 ## Unidad 16 — Curvatura como forma cuadrática

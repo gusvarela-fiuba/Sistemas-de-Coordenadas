@@ -2,7 +2,7 @@
 
 Cubre, en este orden:
   R1  Conteo de correspondencias de cuatro vértices del pentágono: 5*4*3*2 = 120,
-      y clases a menos de las 10 simetrías del pentágono.
+      y familias a menos de las 10 simetrías del pentágono.
   R2  Ejemplo «Razón doble de cuatro puntos»: (0,1;3,7) y su imagen por
       x -> (2x+1)/(x+3).
   R3  Figura de la proyección central: coordenadas de los puntos sobre las dos
@@ -33,11 +33,11 @@ sim = [tuple((k + i) % 5 for i in range(5)) for k in range(5)]
 sim += [tuple((k - i) % 5 for i in range(5)) for k in range(5)]
 assert len(set(sim)) == 10
 corr = list(permutations(range(5), 4))
-clases = set()
+familias = set()
 for t in corr:
     orbita = frozenset(tuple(g[i] for i in t) for g in sim)
-    clases.add(orbita)
-print("R1  simetrías del pentágono:", len(sim), "| clases a menos de simetría:", len(clases))
+    familias.add(orbita)
+print("R1  simetrías del pentágono:", len(sim), "| familias a menos de simetría:", len(familias))
 
 # ---------------------------------------------------------------- R2
 pts = [Fraction(0), Fraction(1), Fraction(3), Fraction(7)]
@@ -135,12 +135,12 @@ w = Hc @ E
 print("R4  E'_c =", w[:2] / w[2])
 print("R4  W en A..E:", (Hc @ V.T)[2])
 
-# clases de los casos (a), (b), (c) en R1 (índices: A=0, ..., E=4)
-def clase(t):
+# familias de los casos (a), (b), (c) en R1 (índices: A=0, ..., E=4)
+def familia(t):
     return frozenset(tuple(g[i] for i in t) for g in sim)
 
 
-ca, cb, cc = clase((1, 2, 3, 4)), clase((1, 0, 2, 3)), clase((2, 1, 0, 3))
-print("R1  (a) en la clase de la identidad:", ca == clase((0, 1, 2, 3)),
-      "| (a),(b),(c) pertenecen a tres clases de equivalencia distintas:", len({ca, cb, cc}) == 3)
+ca, cb, cc = familia((1, 2, 3, 4)), familia((1, 0, 2, 3)), familia((2, 1, 0, 3))
+print("R1  (a) en la familia de la identidad:", ca == familia((0, 1, 2, 3)),
+      "| (a),(b),(c) pertenecen a tres familias distintas:", len({ca, cb, cc}) == 3)
 print("R3  escala por tramo (s/r):", np.round(np.diff(s_par) / np.diff(xr), 2))

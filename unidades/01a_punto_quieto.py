@@ -404,7 +404,7 @@ def _(mo):
     una rotación es su transpuesta (y por qué) está en el apunte:
 
     - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones)
-    - [ficha de la clase 1](../../clases/01.html) · [el hilo conductor](../../index.html)
+    - [ficha del capítulo 1](../../capitulos/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva
     $R(\theta)$, por qué sus columnas son "a dónde van $e_1$ y $e_2$", y el mismo giro escrito como número complejo.

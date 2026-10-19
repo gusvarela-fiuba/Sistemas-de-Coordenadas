@@ -2,7 +2,7 @@
 
 Cada ficha y cada fragmento de mapa usa exactamente estos ids (kebab-case, sin acentos). Si hace falta uno nuevo, agregarlo acá primero.
 
-| clase | ids |
+| ficha | ids |
 |---|---|
 | 01 Rotaciones | rotacion, numeros-complejos, formula-de-euler, producto-interno, matriz-ortogonal, rotacion-3d, rotacion-infinitesimal, exponencial-de-matrices |
 | 02 Más rotaciones | composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia |

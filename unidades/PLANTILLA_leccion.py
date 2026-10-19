@@ -66,8 +66,8 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué clase sigue esta
-    unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos la clase N (…). La pregunta: ¿qué le pasa a …
+    [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué capítulo sigue esta
+    unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos el capítulo N (…). La pregunta: ¿qué le pasa a …
     cuando …?"]
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
@@ -447,7 +447,7 @@ def _(mo):
     Acá verificamos; la demostración está en el apunte:
 
     - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:<clave>)
-    - [ficha de la clase N](../../clases/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)
+    - [ficha del capítulo N](../../capitulos/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)
 
     [PLANTILLA: los enlaces son relativos a `site/unidades/<id>/index.html`.]
     """)

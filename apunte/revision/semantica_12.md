@@ -32,7 +32,7 @@ Verificaciones hechas: salida completa del script; fórmula R = U diag(1, det UV
 
 10. **menor — consigna de recuadro vs. unidad (todos factibles).** Verificados: `:57` (d) la pendiente simple nunca supera la total (confirmado con ruido 0,05, 0,3 y 1: 0,5951/0,5952; 0,5696/0,5745; 0,5041/0,5460), `:413` (c) con ruido 0 devuelve 25°, 1,2 y (1,5; 0,5) y \(\sum\langle r_i,Rp_{0i}\rangle\) da \(\sim10^{-15}\) para ruido 0,3 y 1; `:415` (a)→(d) muestra \(A^Tr\) y \(\lambda_{\min}\). Únicos reparos: la unidad usa \(H=P_0^TQ_0\), \(R=VU^T\) y \(p_{0i}\), mientras el capítulo usa \(M=B_0^TA_0\), \(R=UV^T\) y \(a_i'\). Propuesta: una línea en el recuadro de l.413: «(en la unidad, \(P_0\) es la nube \(A\) centrada y \(Q_0\) la \(B\); \(H=M^T\))».
 
-11. **menor — procedencia en la unidad asociada.** `unidades/11_cuatro_problemas.py:44` firma «Gustavo Varela» y `:605-611` remite a secciones del apunte que no existen con esos nombres («Resolución de los cuatro problemas», «Sistemas de ecuaciones y aplicaciones») y a la «ficha de la clase 11». Propuesta: enlazar al capítulo por su etiqueta y sin mencionar clases ni autoría en el cuerpo de la unidad.
+11. **menor — procedencia en la unidad asociada.** `unidades/11_cuatro_problemas.py:44` firma «Gustavo Varela» y `:605-611` remite a secciones del apunte que no existen con esos nombres («Resolución de los cuatro problemas», «Sistemas de ecuaciones y aplicaciones») y a la «ficha del capítulo 12». Propuesta: enlazar al capítulo por su etiqueta y sin mencionar cursos ni autoría en el cuerpo de la unidad.
 
 ## Graves del capítulo 12
 

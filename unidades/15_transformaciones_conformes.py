@@ -750,7 +750,7 @@ def _(mo):
       impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
     - [apunte, capítulo «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
-    - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·
+    - [ficha del capítulo 14](../../capitulos/13.html) · [ficha del capítulo 15](../../capitulos/14.html) ·
       [el hilo conductor](../../index.html) · [unidad anterior: trigonometría esférica](../14_trigonometria_esferica/index.html)
 
     **Lo que viene:** nada; es la última unidad. El arco se cierra donde empezó: en las rotaciones un número complejo giraba

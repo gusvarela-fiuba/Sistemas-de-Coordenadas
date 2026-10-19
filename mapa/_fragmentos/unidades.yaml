@@ -1,6 +1,6 @@
 # Unidades marimo: la lista que lee tools/merge_mapa.py para armar `unidades` en mapa/mapa.yaml.
 # Esquema (mapa/ESQUEMA.md): id, archivo, titulo, estado (piloto|migrada|legacy|pendiente),
-#   clases[] (ids de clase que cubre), pregunta (una línea), gancho_agrimensura (una línea),
+#   clases[] (ids de ficha que cubre), pregunta (una línea), gancho_agrimensura (una línea),
 #   nivel (troncal|complementario|avanzado).
 # El orden de esta lista es el orden de las unidades en la portada (site/index.html).
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).

@@ -821,7 +821,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'sobrevive al segundo.'},
                                      {'id': 'd',
                                       'texto': 'No tiene eje: dos giros alrededor de ejes distintos no son '
-                                               'un giro, sino otra clase de movimiento.',
+                                               'un giro, sino otro tipo de movimiento.',
                                       'correcta': False,
                                       'explicacion': 'El producto de ortogonales con $\\det = 1$ es '
                                                      'ortogonal con $\\det = 1$, y toda matriz así es un '
