@@ -16,3 +16,18 @@ Actualizado en cada commit de fase. Formato de commit: `[FASE-X] [OK|PARADA|BLOQ
 | D | Capítulos 3, 5, 6, 7, 9, 10 y 11 al molde | pendiente | — | — |
 | E | Complementos C1–C4 y apéndices | pendiente | — | — |
 | F | Pasada editorial final e INFORME_FINAL.md | pendiente | — | — |
+
+## Historial reescrito el 2026-10-19 (git filter-repo, rutas de material de terceros, datos personales y registros de proceso)
+
+Espejo completo previo al filtro: Forgejo privado `gv/sistemas-de-coordenadas-respaldo-pre-filtro`. Material retirado: Forgejo privado `gv/sistemas-de-coordenadas-fuentes`.
+
+| Referencia | Hash viejo | Hash nuevo |
+|---|---|---|
+| main (apunte v4 mergeado) | 897ce16 | fb4218f |
+| refactor/apunte-por-tema (borrada, mergeada) | d71ee99 | c8266c7 |
+| Fase 0 | 6c4f9b6 | 8203315 |
+| Paso 1 (partición por clase) | a54da0a | 4798aa4 |
+| Fase C (capítulo de SVD) | dec4296 | 7eb68bc |
+| Fase A | 2bb7c4e | 2911915 |
+| tag entrega-1 (B0) | ef6b397 | e3ef9f9 |
+| Fase B | 60755ce | e1a1b6c |
