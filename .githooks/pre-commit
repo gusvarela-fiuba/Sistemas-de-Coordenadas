@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Hook pre-commit: si el commit incluye apunte/Apunte_Sistemas_de_Coordenadas.pdf, verifica el
+# contenido STAGED (no el del árbol de trabajo) con scripts/verificar_pdf.sh, comparando contra la
+# versión staged de apunte/paginas_esperadas.txt. Si falla, bloquea el commit.
+# Activación (una vez por clon o worktree): git config core.hooksPath .githooks
+set -u
+
+PDF_REPO="apunte/Apunte_Sistemas_de_Coordenadas.pdf"
+ESP_REPO="apunte/paginas_esperadas.txt"
+RAIZ="$(git rev-parse --show-toplevel)" || exit 1
+
+# Nada que hacer si el PDF no está en el commit (agregado o modificado; borrarlo no se verifica).
+git diff --cached --name-only --diff-filter=ACMR -- "$PDF_REPO" | grep -q . || exit 0
+
+bloquear() { echo "pre-commit: commit BLOQUEADO: $*" >&2; exit 1; }
+
+if ! git cat-file -e ":$ESP_REPO" 2>/dev/null; then
+  bloquear "el PDF está staged pero $ESP_REPO no está en el índice; generarlo con scripts/compilar_pdf.sh y stagearlo (git add $ESP_REPO)"
+fi
+if [ -f "$RAIZ/$ESP_REPO" ] && ! git diff --quiet -- "$ESP_REPO"; then
+  bloquear "$ESP_REPO tiene cambios sin stagear (lo reescribió compilar_pdf.sh); falta stagearlo: git add $ESP_REPO"
+fi
+
+TMP="$(mktemp -d "${TMPDIR:-/tmp}/precommit_pdf.XXXXXX")" || exit 1
+trap 'rm -rf "$TMP"' EXIT
+git show ":$PDF_REPO" > "$TMP/apunte.pdf" || bloquear "no pude extraer el PDF staged"
+git show ":$ESP_REPO" > "$TMP/paginas_esperadas.txt" || bloquear "no pude extraer $ESP_REPO staged"
+
+if ! SALIDA="$(VERIFICAR_PDF_SIN_AVISO=1 "$RAIZ/scripts/verificar_pdf.sh" "$TMP/apunte.pdf" --esperadas "$TMP/paginas_esperadas.txt" 2>&1)"; then
+  # Mostrar los nombres del repo en lugar de las rutas temporales.
+  printf '%s\n' "$SALIDA" | sed -e "s|$TMP/apunte.pdf|$PDF_REPO (staged)|g" -e "s|$TMP/paginas_esperadas.txt|$ESP_REPO (staged)|g" >&2
+  bloquear "el PDF staged no pasó scripts/verificar_pdf.sh (regenerarlo con scripts/compilar_pdf.sh)"
+fi
+echo "pre-commit: $SALIDA"

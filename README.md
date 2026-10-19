@@ -152,6 +152,8 @@ git checkout -- unidades/08_cambio_de_base.py                            # botó
 
 El apunte se compila aparte con TeX Live (LuaLaTeX, tres pasadas desde `apunte/`, ver `apunte/README.md`); el PDF compilado está commiteado y el build lo copia a `site/apunte.pdf`, así que ni el runner de GitHub ni quien clona necesitan TeX.
 
+Para regenerar el PDF sin riesgo de commitear una copia truncada: `scripts/compilar_pdf.sh` desde la raíz, y activar una vez por clon el hook que lo verifica con `git config core.hooksPath .githooks` (ver `scripts/README.md`).
+
 ### Estructura
 
 ```

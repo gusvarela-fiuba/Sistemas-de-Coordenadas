@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Hook commit-msg: si el commit incluye apunte/Apunte_Sistemas_de_Coordenadas.pdf, rechaza que tenga
+# menos páginas que las de apunte/paginas_esperadas.txt en HEAD, salvo que el mensaje diga
+# «PAGINAS-BAJAN: motivo». Va acá y no en pre-commit porque pre-commit no ve el mensaje.
+# (La integridad del PDF y su coherencia con paginas_esperadas.txt las controla pre-commit.)
+# Activación (una vez por clon o worktree): git config core.hooksPath .githooks
+set -u
+
+MSG="$1"
+PDF_REPO="apunte/Apunte_Sistemas_de_Coordenadas.pdf"
+ESP_REPO="apunte/paginas_esperadas.txt"
+RAIZ="$(git rev-parse --show-toplevel)" || exit 1
+
+git diff --cached --name-only --diff-filter=ACMR -- "$PDF_REPO" | grep -q . || exit 0
+
+TMP="$(mktemp -d "${TMPDIR:-/tmp}/commitmsg_pdf.XXXXXX")" || exit 1
+trap 'rm -rf "$TMP"' EXIT
+git show ":$PDF_REPO" > "$TMP/apunte.pdf" || { echo "commit-msg: no pude extraer el PDF staged" >&2; exit 1; }
+# El staged lo exige pre-commit; acá solo se informa si no coincide con el PDF.
+git show ":$ESP_REPO" > "$TMP/staged.txt" 2>/dev/null || : > "$TMP/staged.txt"
+# En el primer commit o si HEAD no tiene el archivo, queda vacío y el control no aplica.
+git show "HEAD:$ESP_REPO" > "$TMP/head.txt" 2>/dev/null || : > "$TMP/head.txt"
+
+if ! "$RAIZ/scripts/paginas_no_bajan.sh" "$TMP/apunte.pdf" "$TMP/head.txt" "$MSG"; then
+  echo "commit-msg: commit BLOQUEADO (páginas staged: $(tr -d '\n' < "$TMP/staged.txt"), en HEAD: $(tr -d '\n' < "$TMP/head.txt"))" >&2
+  exit 1
+fi

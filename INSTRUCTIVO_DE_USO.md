@@ -198,6 +198,18 @@ lualatex Apunte_Sistemas_de_Coordenadas.tex
 
 tres pasadas (índice, número total de páginas y referencias cruzadas). Sólo `lualatex`; `xelatex` falla por fuentes. El detalle está en `apunte/README.md`.
 
+Para dejar el PDF regenerado listo para commitear conviene `scripts/compilar_pdf.sh` desde la raíz: compila en un directorio temporal y reemplaza el PDF (y `apunte/paginas_esperadas.txt`) solo si la compilación salió entera.
+
+### Hook de verificación del PDF
+
+Una vez en cada clon o worktree:
+
+```
+git config core.hooksPath .githooks
+```
+
+Con eso, cada commit que incluye `apunte/Apunte_Sistemas_de_Coordenadas.pdf` pasa por `scripts/verificar_pdf.sh` sobre la versión staged. Bloquea el commit si el PDF está truncado o no termina en `%%EOF`, si `pdfinfo` no lo puede leer, si la última página no tiene el pie «k de M», si su número de páginas no coincide con el de `apunte/paginas_esperadas.txt` staged, o si ese archivo falta en el índice o tiene cambios sin stagear. Además, el hook `commit-msg` bloquea un PDF con menos páginas que en el commit anterior, salvo que el mensaje incluya una línea «PAGINAS-BAJAN: motivo». El detalle está en `scripts/README.md`.
+
 ## Parte 4 — Cómo adoptar y publicar este curso bajo otra cuenta
 
 El repositorio está pensado para que otra persona o equipo lo tome, lo publique bajo su propia cuenta y reemplace o quite el nombre del autor de la firma. Son cuatro pasos.
