@@ -15,10 +15,21 @@ archivo, con línea y texto:
   7 label-num  \\label{cap:NN} numérica
   8 def-dup   \\begin{definicion}[Título] con el mismo título en dos archivos
 Salida: tabla por archivo con el conteo por chequeo y el total, y la lista detallada.
+
+Además, tres contadores de advertencia (ESTILO.md §8, «Voz para el aula»); no entran en el total ni
+en --estricto y se muestran en una segunda tabla por archivo:
+  9 términos de campo  apariciones de TERMINOS_CAMPO (acimut, cota, faja, ajuste, mínimos cuadrados…)
+    fuera de comentarios y de código, y su densidad cada 100 líneas
+  10 instrumentos  estación total, nivel óptico, GNSS, limbo, teodolito, distanciómetro (se listan
+    con archivo y línea al final del detalle)
+  11 preguntas en «La idea»  líneas con «?» o que empiezan con Imaginá, Pensá, Probá, Suponé, Tomá o
+    Mirá, dentro de la primera \\section{La idea} (— si el archivo no la tiene)
+Objetivo (solo capítulos 00 a 11; en el resto «—»): menos de 4 términos cada 100 líneas, cero
+instrumentos y al menos una pregunta o experimento mental en «La idea».
 Con --md escribe la misma salida en RUTA (markdown). Con --estricto, exit 1 si hay hallazgos.
 Solo biblioteca estándar.
 """
-import argparse, math, re, sys
+import argparse, math, re, sys, unicodedata
 from collections import defaultdict
 from pathlib import Path
 
@@ -42,6 +53,27 @@ RE_DESARROLLO = re.compile(r"\\(textbf|emph|textit)\{Desarrollo\.\}")
 RE_LABEL_NUM = re.compile(r"\\label\{cap:\d+\}")
 RE_DEF = re.compile(r"\\begin\{definicion\}\[")
 
+# Chequeo 9 (advertencia): términos de campo y de ajuste. Es la lista de la hoja de estilo §8 y se
+# amplía a mano. Se escribe sin tildes y en minúscula; el texto se normaliza igual antes de buscar.
+TERMINOS_CAMPO = [
+    r"acimut(?:al(?:es)?|es)?", r"cotas?", r"gauss-kruger", r"fajas?", r"posgar",
+    r"minimos cuadrados", r"residuos?", r"tolerancias?", r"redundancias?", r"covarianzas?",
+    r"radiad[oa]s?", r"radiacion(?:es)?", r"nivelacion(?:es)?", r"desniveles?", r"poligonales?",
+    r"ajust(?:e|es|ar|ada|adas|ado|ados)", r"red(?:es)? libres?", r"propagacion de errores",
+    r"helmert", r"elipses? de error(?:es)?", r"grs80", r"wgs84", r"mercator",
+    r"latitud(?:es)? geodesicas?", r"dem", r"marcos? de referencia", r"grillas?",
+    r"puntos? fijos?", r"mojon(?:es)?", r"estacion(?:es)?",
+]
+RE_CAMPO = re.compile(r"(?<![a-z0-9])(?:" + "|".join(TERMINOS_CAMPO) + r")(?![a-z0-9])")
+# Chequeo 10 (advertencia): instrumentos.
+INSTRUMENTOS = [r"estacion(?:es)? totales?", r"niveles? opticos?", r"gnss", r"limbos?", r"teodolitos?",
+                r"distanciometros?"]
+RE_INSTR = re.compile(r"(?<![a-z0-9])(?:" + "|".join(INSTRUMENTOS) + r")(?![a-z0-9])")
+# Chequeo 11 (advertencia): preguntas o experimentos mentales en «La idea».
+RE_IDEA = re.compile(r"\\section\{La idea\}")
+RE_SECCION = re.compile(r"\\section\*?\{")
+RE_IMPERATIVO = re.compile(r"^\s*(?:\\item\s*)?(?:Imaginá|Pensá|Probá|Suponé|Tomá|Mirá)")
+
 # Entornos cuyo contenido no se revisa (código) y entornos donde sólo se revisa el texto de los nodos.
 CODIGO = ("lstlisting", "verbatim", "Verbatim", "minted")
 DIBUJO = ("tikzpicture", "axis")
@@ -57,6 +89,11 @@ ARG_TECNICO = ("texttt", "url", "href", "file", "nolinkurl", "input", "include",
 
 def sin_comentario(linea):
     return re.sub(r"(?<!\\)%.*", "", linea)
+
+
+def normalizar(txt):
+    """Minúsculas y sin tildes, carácter por carácter (conserva longitudes y saltos de línea)."""
+    return "".join(unicodedata.normalize("NFD", c.lower())[0] for c in txt)
 
 
 def llave(txt, i):
@@ -218,7 +255,21 @@ def analizar(path):
     for m in RE_LABEL_NUM.finditer(texto):
         n = linea_de(texto, m.start())
         hall["7"].append((n, linea(n)))
-    return dict(archivo=str(path.relative_to(APUNTE)), hallazgos=hall, definiciones=titulos_definicion(texto))
+    # advertencias 9, 10 y 11 (no entran en el total)
+    norm = normalizar(texto)
+    campo = len(RE_CAMPO.findall(norm))
+    instr = []
+    for n, l in enumerate(norm.split("\n"), 1):
+        for _ in RE_INSTR.finditer(l):
+            instr.append((n, linea(n)))
+    ideas = None
+    mi = RE_IDEA.search(texto)
+    if mi:
+        ms_ = RE_SECCION.search(texto, mi.end())
+        bloque = texto[mi.end(): ms_.start() if ms_ else len(texto)]
+        ideas = sum(1 for l in bloque.split("\n") if "?" in l or RE_IMPERATIVO.search(l))
+    voz = dict(lineas=len(lineas_raw), campo=campo, instr=instr, ideas=ideas)
+    return dict(archivo=str(path.relative_to(APUNTE)), hallazgos=hall, definiciones=titulos_definicion(texto), voz=voz)
 
 
 def analizar_todo():
@@ -244,9 +295,39 @@ def totales_por_archivo():
     return {r["archivo"]: r["total"] for r in analizar_todo()}
 
 
+def es_capitulo_exigido(archivo):
+    m = re.match(r"(\d\d)-", Path(archivo).name)
+    return bool(m) and int(m.group(1)) <= 11
+
+
+def fila_voz(r):
+    v = r["voz"]
+    dens = v["campo"] * 100 / max(1, v["lineas"])
+    ideas = v["ideas"]
+    if es_capitulo_exigido(r["archivo"]):
+        ok = dens < 4 and not v["instr"] and (ideas is None or ideas >= 1)
+        obj = "sí" if ok else "no"
+    else:
+        obj = "—"
+    return [r["archivo"], str(v["lineas"]), str(v["campo"]), f"{dens:.1f}".replace(".", ","),
+            str(len(v["instr"])), "—" if ideas is None else str(ideas), obj]
+
+
+def tabla_voz(rows):
+    out = ["## Voz para el aula (advertencia)", "",
+           "Chequeos 9, 10 y 11 (ESTILO.md §8); no entran en el total ni en `--estricto`.", "",
+           "| Archivo | Líneas | Términos de campo | Términos cada 100 líneas | Instrumentos "
+           "| Preguntas en «La idea» | Objetivo |",
+           "|---|---:|---:|---:|---:|---:|:---:|"]
+    for r in rows:
+        out.append("| " + " | ".join(fila_voz(r)) + " |")
+    return out
+
+
 def informe(rows):
     out = ["# Estilo del apunte", "", "Generado por `apunte/scripts/estilo.py` (reglas en `apunte/ESTILO.md`).", "",
-           "Chequeos: " + "; ".join(f"{k} = {n}" for k, n in CHEQUEOS) + ".", "",
+           "Chequeos: " + "; ".join(f"{k} = {n}" for k, n in CHEQUEOS)
+           + "; 9 = términos de campo, 10 = instrumentos, 11 = preguntas en «La idea» (9–11 son advertencias).", "",
            "| Archivo | " + " | ".join(k for k, _ in CHEQUEOS) + " | Total |",
            "|---|" + "---:|" * (len(CHEQUEOS) + 1)]
     for r in rows:
@@ -263,6 +344,14 @@ def informe(rows):
             for n, l in sorted(r["hallazgos"].get(k, [])):
                 out.append(f"- `{k} {nombre}` L{n}: {l.replace('|', '/')}")
         out.append("")
+    out += tabla_voz(rows)
+    listados = [r for r in rows if r["voz"]["instr"]]
+    if listados:
+        out += ["", "### Instrumentos nombrados (chequeo 10)", ""]
+        for r in listados:
+            for n, l in r["voz"]["instr"]:
+                out.append(f"- `10 instrumento` {r['archivo']} L{n}: {l.replace('|', '/')}")
+    out.append("")
     return "\n".join(out)
 
 

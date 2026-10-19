@@ -78,7 +78,67 @@ lleva el comentario `% ambigüedad`.
 - Sin «Desarrollo.» al comienzo de los párrafos (ni `\textbf{Desarrollo.}`): el párrafo empieza
   directamente por su contenido.
 
-## 8. Etiquetas y definiciones [chequeos 7 y 8]
+## 8. Voz para el aula [chequeos 9, 10 y 11]
+
+Los chequeos 9, 10 y 11 son advertencias: se informan en una segunda tabla («Voz para el aula») y
+no bloquean ni entran en el total ni en `--estricto`. El objetivo: menos de 4 términos de campo cada
+100 líneas en los capítulos 0 a 11, cero nombres de instrumentos, y al menos una pregunta o un
+experimento mental en «La idea» de cada capítulo. La lista de términos de campo es la constante
+`TERMINOS_CAMPO` de `estilo.py` y se amplía a mano.
+
+1. **Lector.** Un adulto de 18 a 20 años que acaba de terminar el ciclo básico. Nada de analogías
+   infantiles (calesitas, tortas, recetas). Sí experimentos mentales en primera persona del lector
+   y situaciones físicas que se puedan probar (un libro en el aire, una hoja sobre la mesa).
+   - Bien: `Imaginá que estás parado sobre una plataforma que gira. ¿Qué cambia y qué no?`
+   - Mal: `Pensá en la calesita: cada caballito da vueltas como en una receta de torta.`
+
+2. **Primero la imagen, después el nombre.** Cada concepto nuevo arranca con una pregunta o un
+   experimento mental, dice para qué sirve y recién después lo nombra y lo define. La imagen se
+   retoma una vez, cuando el concepto se desarrolla.
+   - Bien: `Apoyá un libro sobre la mesa y giralo sin levantarlo: ¿qué punto no se mueve? Para
+     describir ese giro con números hace falta una matriz, que llamamos matriz de rotación.`
+   - Mal: `Se llama matriz de rotación a toda matriz ortogonal con determinante 1.` (sin nada antes)
+
+3. **Símbolos con presentación.** Ningún símbolo nuevo (\(V\), \(V^*\), \(G\), \(\Sigma\), \(J\),
+   \(A^+\), \(\kappa\), etc.) aparece sin una frase que diga qué es y para qué sirve, la primera vez
+   en cada capítulo.
+   - Bien: `Llamamos \(J\) a la matriz que dice cuánto se estira cada dirección cerca de un punto.`
+   - Mal: `Calculamos \(J\) y la invertimos.` (sin decir qué es \(J\))
+
+4. **Instrumentos y procedimientos por lo que hacen.** No se nombran instrumentos que el lector no
+   conoce (estación total, nivel, GNSS, limbo): se describe lo que hacen. Lo mismo con los
+   procedimientos (radiado, nivelación, poligonal, ajuste): se explican por lo que hacen antes de
+   nombrarlos. [chequeo 10]
+   - Bien: `Hay instrumentos que miden ángulos horizontales con precisión de hasta un segundo de arco y distancias al milímetro.`
+   - Mal: `Se observa con la estación total desde el mojón.`
+
+5. **Términos de campo y de ajuste.** Acimut, cota, Gauss-Krüger, faja, POSGAR, mínimos cuadrados,
+   residuo, tolerancia, redundancia, covarianza: una frase llana la primera vez en cada capítulo.
+   Los números largos de coordenadas oficiales llevan la aclaración de que importan las diferencias,
+   no el valor completo. [chequeo 9]
+   - Bien: `El acimut es el ángulo que forma una dirección con el norte, contado en sentido horario.`
+   - Mal: `Con el acimut y la cota ajustamos por mínimos cuadrados.` (sin una sola frase llana)
+
+6. **Aplicaciones topográficas.** Empiezan con la situación contada en lenguaje llano antes de los
+   datos. Si una aplicación necesita más de dos conceptos de campo que el lector no tiene (Helmert,
+   red libre, propagación de errores), se conserva, pero en «En profundidad» o con la caja «Esto lo
+   vas a usar en Topografía».
+   - Bien: `Hay que ubicar dos puntos nuevos midiendo desde uno conocido. Medimos ángulos y distancias…`
+   - Mal: `Sea una red libre con vector de observaciones \(l\) y matriz de covarianza \(\Sigma_l\)…`
+
+7. **Formalidad en su lugar.** Las definiciones y los teoremas se enuncian con precisión y las
+   demostraciones largas van en «En profundidad». En «La idea» y en «Construcciones» manda la
+   intuición.
+
+8. **Lo que no se recorta.** Las cajas de idea que resumen la tesis de una sección y las preguntas
+   al lector no se recortan. [chequeo 11]
+
+9. **NumPy fuera del texto corriente.** Los comandos de NumPy no van en el texto corriente: van en
+   las unidades, donde se exploran.
+   - Bien: `Probá en la unidad con la matriz que quieras y mirá qué pasa con los autovalores.`
+   - Mal: `Se calcula con np.linalg.eig(A) y se toma la segunda columna.`
+
+## 9. Etiquetas y definiciones [chequeos 7 y 8]
 
 - Etiquetas con nombre, nunca numéricas: `\label{cap:repaso-algebra}`, no `\label{cap:03}`. Las
   claves `apunte:` de las fichas (`clases/*.md`) y del mapa (`mapa/_fragmentos/*.yaml`) son el
