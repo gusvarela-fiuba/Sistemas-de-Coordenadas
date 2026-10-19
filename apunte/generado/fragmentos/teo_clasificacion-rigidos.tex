@@ -1,0 +1,10 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap02_traslaciones.py (test_teo_clasificacion_rigidos). No editar.
+\comprobacionDatos{SIMBOLICA}{}{cap02_traslaciones}{69}%
+\begin{lstlisting}
+A = sp.eye(2) - R(t)
+assert sp.simplify(A.det() - (2 - 2 * sp.cos(t))) == 0   # invertible si t no es 0
+c = A.inv() * v                                          # el punto fijo
+F = R(t) * x + v
+assert es_cero(F - (c + R(t) * (x - c)))   # rotación de centro c
+\end{lstlisting}
+\comprobacionPie

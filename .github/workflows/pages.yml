@@ -51,6 +51,15 @@ jobs:
       - name: marimo check de las lecciones
         run: uv run marimo check --select MW unidades/[01]*.py
 
+      - name: Demostraciones (comprobaciones con código de apunte/demostraciones; si fallan, no se publica)
+        run: uv run pytest apunte/demostraciones -q
+
+      - name: Los fragmentos commiteados (apunte/generado) tienen que coincidir con las pruebas
+        run: |
+          uv run python apunte/scripts/extraer_fragmentos.py
+          git status --porcelain apunte/generado
+          test -z "$(git status --porcelain apunte/generado)"
+
       - name: Sitio (portada, mapa, fichas, apunte.pdf y export WASM de las lecciones)
         run: uv run python tools/build.py
 

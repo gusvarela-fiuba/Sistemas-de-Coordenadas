@@ -180,6 +180,7 @@ que se anula sólo si \(\cos\theta=1\), es decir \(\theta\equiv0\). Si \(\theta\
 matriz \(I-R\) es invertible y hay una única solución. (1) es el caso
 \(w=(I-R)c\): la solución única es \(c\). (2) es el caso \(R=I\): \(x=x+v\) obliga a \(v=0\).
 \end{demostracion}
+\comprobacion{prop:puntos-fijos}{NUMERICA}
 
 \begin{ejemplo}[Punto fijo de una composición]\label{ej:punto-fijo-composicion}
 Sea \(v=(1,2)\) y \(\theta=90^\circ\). La composición \(\rhoP{0,90^\circ}\circ\tau_v\) es
@@ -283,6 +284,7 @@ Si ambas rectas pasan por \(q\), podemos usar \(q\) como punto de las dos fórmu
 Si son paralelas, \(\delta_2=\delta_1\) (módulo \(\pi\)), la parte lineal de la composición es
 \(R(0)=I\), y una afinidad con parte lineal \(I\) es una traslación.
 \end{demostracion}
+\comprobacion{prop:dos-reflexiones}{SIMBOLICA}
 
 \begin{proposicion}[Composición de dos rotaciones]\label{prop:composicion-rotaciones}
 Sean \(c_1\neq c_2\) y \(\alpha,\beta\) ángulos. Entonces:
@@ -487,6 +489,7 @@ Si \(\theta\equiv0\), \(F(x)=x+v=\tau_v(x)\). Si \(\theta\not\equiv0\), por la
 proposición~\ref{prop:puntos-fijos} existe un único punto fijo \(c\), con \(c=Rc+v\), es decir
 \(v=(I-R)c\). Entonces \(F(x)=Rx+(I-R)c=c+R(x-c)=\rhoP{c,\theta}(x)\).
 \end{demostracion}
+\comprobacion{teo:clasificacion-rigidos}{SIMBOLICA}
 
 \paragraph{Puente.} Los movimientos rígidos conservan la orientación: \(\det R=1\). Al agregar
 las reflexiones aparecen las isometrías con \(\det=-1\), que invierten la orientación. Son el

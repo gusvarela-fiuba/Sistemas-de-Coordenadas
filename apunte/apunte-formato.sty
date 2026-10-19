@@ -230,4 +230,81 @@
 \newcommand{\capituloPreliminar}[1]{\apunteNumeracionEspecial{#1}\let\chapter\apunteChapterOriginal}
 \newcommand{\finCapituloPreliminar}{\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}\apunteRestaurarNumeracion}
 
+%% --- Comprobaciones con código (apunte/demostraciones/) ---
+%% \repoURL: raíz de los archivos del repositorio (con barra final). ÚNICO lugar donde se escribe.
+%% \comprobacion{<etiqueta>}{<tipo>}: recuadro con el fragmento clave de la prueba
+%% test_<etiqueta> y el enlace a su archivo y línea. Va después de la demostración (o del
+%% enunciado). Lee generado/fragmentos/<etiqueta con «:» → «_»>.tex, que escribe
+%% scripts/extraer_fragmentos.py (lo corre latexmk al arrancar, ver .latexmkrc).
+%% <tipo>: SIMBOLICA, NUMERICA o CONTRAEJEMPLO (mayúsculas o minúsculas). Manda el tipo del
+%% fragmento; si difiere del pedido, aviso en el log. Sin fragmento: aviso gris en el texto.
+%% Ejemplo: \comprobacion{prop:det-factor}{NUMERICA}
+%% En escala de grises se lee por el rótulo en negrita y la banda izquierda, no por el color.
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,columns=fullflexible,keepspaces=true,
+  breaklines=true,breakatwhitespace=false,postbreak=\mbox{\(\hookrightarrow\)\space},
+  commentstyle=\color{muted}\itshape,keywordstyle=\bfseries,stringstyle=\color{ink},
+  showstringspaces=false,upquote=true,tabsize=4,aboveskip=1pt,belowskip=1pt,
+  xleftmargin=0pt,frame=none,extendedchars=true
+}
+\lstset{language=Python}
+\newcommand{\repoURL}{https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas/blob/main/}
+\newtcolorbox{recuadroComprobacion}{
+  enhanced,breakable=false,width=\linewidth,colback=white,colframe=linegray,
+  borderline west={2.5pt}{0pt}{muted},boxrule=0.5pt,arc=1mm,
+  left=3.5mm,right=3mm,top=1.4mm,bottom=1.4mm,before skip=4pt,after skip=6pt
+}
+\ExplSyntaxOn
+\str_new:N \l__apunte_comp_etiqueta_str
+\str_new:N \l__apunte_comp_archivo_str
+\str_new:N \l__apunte_comp_tipo_str
+\str_new:N \l__apunte_comp_modulo_str
+\str_new:N \l__apunte_comp_linea_str
+\tl_new:N \l__apunte_comp_casos_tl
+\NewDocumentCommand{\comprobacion}{mm}{
+  \str_set:Nn \l__apunte_comp_etiqueta_str {#1}
+  \str_set:Nn \l__apunte_comp_archivo_str {#1}
+  \str_replace_all:Nnn \l__apunte_comp_archivo_str {:} {_}
+  \str_set:Ne \l__apunte_comp_tipo_str { \str_uppercase:n {#2} }
+  \IfFileExists{generado/fragmentos/\l__apunte_comp_archivo_str.tex}
+    {
+      \par\nopagebreak
+      \begin{recuadroComprobacion}\raggedright
+      \input{generado/fragmentos/\l__apunte_comp_archivo_str.tex}
+      \end{recuadroComprobacion}
+    }
+    {
+      \PackageWarning{apunte-formato}{Comprobación~sin~fragmento:~\l__apunte_comp_etiqueta_str}
+      \par\nopagebreak
+      {\small\color{muted}[comprobación~pendiente:~\texttt{\l__apunte_comp_etiqueta_str}]\par}
+    }
+}
+%% \comprobacionDatos{<TIPO>}{<casos>}{<módulo>}{<línea>}: primera línea del fragmento generado.
+\NewDocumentCommand{\comprobacionDatos}{mmmm}{
+  \str_if_eq:eeF { #1 } { \l__apunte_comp_tipo_str }
+    {
+      \PackageWarning{apunte-formato}{\l__apunte_comp_etiqueta_str \c_colon_str \c_space_tl se~pidió~tipo~
+        \l__apunte_comp_tipo_str,~el~fragmento~es~#1;~se~usa~#1}
+    }
+  \str_set:Nn \l__apunte_comp_modulo_str {#3}
+  \str_set:Nn \l__apunte_comp_linea_str {#4}
+  \noindent{\sffamily\small\bfseries
+  \str_case:nnF {#1}
+    {
+      {SIMBOLICA}{⚙~Verificación~simbólica}
+      {NUMERICA}{⚙~Comprobación~numérica~(#2~casos)}
+      {CONTRAEJEMPLO}{⚙~Contraejemplo}
+    }
+    {⚙~#1}
+  }\par\nopagebreak
+}
+%% \comprobacionPie: última línea del fragmento generado, con el enlace al archivo y la línea.
+\NewDocumentCommand{\comprobacionPie}{}{
+  \par\nopagebreak\vspace{1pt}
+  {\footnotesize\color{muted}\href{\repoURL apunte/demostraciones/\l__apunte_comp_modulo_str.py\#L\l__apunte_comp_linea_str}
+    {\ttfamily demostraciones/\l__apunte_comp_modulo_str.py,~línea~\l__apunte_comp_linea_str}}\par
+}
+\ExplSyntaxOff
+
 \endinput

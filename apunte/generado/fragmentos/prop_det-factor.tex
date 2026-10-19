@@ -1,0 +1,13 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap06_cuna_determinante.py (test_prop_det_factor). No editar.
+\comprobacionDatos{NUMERICA}{200}{cap06_cuna_determinante}{43}%
+\begin{lstlisting}
+for _ in range(CASOS):
+    M = rng.normal(size=(2, 2))
+    P = poligono_estrellado(rng, rng.integers(3, 12))   # región: polígono simple
+    assert np.isclose(area_con_signo(P @ M.T), np.linalg.det(M) * area_con_signo(P), atol=TOL)
+    M3, B = rng.normal(size=(3, 3)), rng.normal(size=(3, 3))   # columnas de B: u, v, w
+    V, VM = volumen_paralelepipedo(B), volumen_paralelepipedo(M3 @ B)   # cápsula convexa
+    assert np.isclose(V, abs(np.linalg.det(B)), rtol=1e-7)
+    assert np.isclose(VM, abs(np.linalg.det(M3)) * V, rtol=1e-7)
+\end{lstlisting}
+\comprobacionPie

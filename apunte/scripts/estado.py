@@ -9,12 +9,25 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import enlaces
+import verificar_comprobaciones as vc
 from prohibidas import PATRON, permitida
 
 ROOT = Path(__file__).resolve().parents[2]
 APUNTE = ROOT / "apunte"
 MAESTRO = APUNTE / "Apunte_Sistemas_de_Coordenadas.tex"
 MOLDE = ["La idea", "Construcciones, cuentas y ejemplos", "En profundidad"]
+_TIPOS = None  # {etiqueta: SIMBOLICA|NUMERICA|CONTRAEJEMPLO}, de los docstrings de apunte/demostraciones/
+
+
+def comprobaciones(path):
+    """(resultados, con \\comprobacion, tipo dominante S/N/C o «—») de un .tex."""
+    global _TIPOS
+    if _TIPOS is None:
+        _TIPOS = vc.tipos_por_etiqueta()
+    rs = vc.resultados(path)
+    tipos = [_TIPOS[r["etiqueta"]] for r in rs if r["etiqueta"] in _TIPOS]
+    dom = max(("SIMBOLICA", "NUMERICA", "CONTRAEJEMPLO"), key=tipos.count)[0] if tipos else "—"
+    return len(rs), sum(r["comprobacion"] for r in rs), dom
 
 
 def norm(s):
@@ -73,6 +86,7 @@ def analizar(path):
         aplic="sí" if any("aplicacion" in norm(s) for s in secs) else "no",
         recuadros=c(r"\\unidadInteractiva\{"),
         rotos=len(enlaces.analizar(path)["rotos"]),
+        **dict(zip(("res", "conc", "tcomp"), comprobaciones(path))),
         prohib=sum(1 for l in raw.split("\n") if PATRON.search(l) and not permitida(str(path.relative_to(ROOT)), l)),
     )
     n = sum(1 for m in MOLDE if m in secs_n)
@@ -112,11 +126,12 @@ def analizar(path):
 
 
 COLS = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Ej", "ej"),
-        ("Def+Prop+Teo", "dpt"), ("Dem", "dem"), ("Ejerc", "ejer"), ("Con sol", "sol"), ("Sim", "sim"), ("Recuadros", "recuadros"), ("Enlaces rotos", "rotos"),
+        ("Def+Prop+Teo", "dpt"), ("Dem", "dem"), ("Resultados", "res"), ("Con comprobación", "conc"), ("Tipo", "tcomp"), ("Ejerc", "ejer"), ("Con sol", "sol"), ("Sim", "sim"), ("Recuadros", "recuadros"), ("Enlaces rotos", "rotos"),
         ("Aplic", "aplic"), ("Molde", "molde"), ("Prohib", "prohib"), ("Cumple", "cumple"), ("Falta", "falta")]
 
 
 COLS_AP = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Sim", "sim"),
+           ("Resultados", "res"), ("Con comprobación", "conc"), ("Tipo", "tcomp"),
            ("Enlaces rotos", "rotos"), ("Prohib", "prohib")]
 
 
@@ -176,6 +191,8 @@ def main():
           f"- Fecha: {datetime.date.today().isoformat()}", f"- HEAD: {head}", f"- Páginas del último PDF: {pags}",
           f"- Capítulos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in caps if r['tipo']=='cap')} de {sum(r['tipo']=='cap' for r in caps)}",
           f"- Complementos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in comps)} de {len(comps)}",
+          f"- Resultados (proposición, teorema, lema, corolario) con comprobación: {sum(r['conc'] for r in cont)} de {sum(r['res'] for r in cont)}",
+          "  (Tipo: dominante entre S = simbólica, N = numérica, C = contraejemplo; ver apunte/demostraciones/README.md)",
           f"- Capítulo 0 (criterio propio): {'cumple' if all(r['cumple']=='sí' for r in caps if r['tipo']=='cap0') else 'no cumple'}", ""]
     Path(a.md).write_text("\n".join(md), encoding="utf-8")
     print(f"escrito {a.md}")
