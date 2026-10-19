@@ -22,6 +22,9 @@ con assert contra el valor escrito en el .tex):
       la proyección de la traslación sobre los versores este y norte del lugar; otras
       operaciones candidatas (TransformerGroup); distancia espacial entre dos puntos antes y
       después (no cambia).
+  G   Caja «Por qué las coordenadas forman una grilla»: desde el punto de ejemplo, 100 km al
+      norte y después 100 km al este frente a 100 km al este y después 100 km al norte, con
+      pyproj.Geod sobre GRS80; los dos puntos finales y la distancia geodésica entre ellos.
   X   Ejercicios: centro de la celda; escala de 2 ppm sobre 5 km; norma de la traslación;
       faja y distancia al meridiano central a partir de un Este.
 
@@ -47,7 +50,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pyproj
-from pyproj import CRS, Proj, Transformer
+from pyproj import CRS, Geod, Proj, Transformer
 from pyproj.transformer import TransformerGroup
 
 warnings.filterwarnings("ignore")
@@ -347,6 +350,28 @@ ax.set_xlabel("longitud (grados)"); ax.set_ylabel("latitud (grados)")
 ax.set_xlim(-75, -50); ax.set_ylim(-57, -19); ax.set_aspect(1 / np.cos(np.deg2rad(38)))
 ax.set_title("Corrimiento POSGAR 94 → POSGAR 2007\n(pyproj; flechas muy exageradas)", fontsize=9)
 guardar(fig, "cambio_marco.png")
+
+# ---------------------------------------------------------------- G: 100 km norte/este
+# Caja «Por qué las coordenadas forman una grilla»: desde el punto de ejemplo (LON, LAT),
+# 100 km al norte y después 100 km al este no lleva al mismo lugar que 100 km al este y después
+# 100 km al norte. Elipsoide GRS80 (el de A_GRS80, F_GRS80 de la sección M).
+print("== G 100 km al norte y al este, en los dos órdenes (GRS80)")
+geod = Geod(a=A_GRS80, f=F_GRS80)
+assert geod.a == 6_378_137.0 and abs(geod.f - 1 / 298.257222101) < 1e-15
+D100 = 100_000.0
+lo_n, la_n, _ = geod.fwd(LON, LAT, 0.0, D100)            # (a) primero al norte
+lo_a, la_a, _ = geod.fwd(lo_n, la_n, 90.0, D100)        #     después al este
+lo_e, la_e, _ = geod.fwd(LON, LAT, 90.0, D100)          # (b) primero al este
+lo_b, la_b, _ = geod.fwd(lo_e, la_e, 0.0, D100)         #     después al norte
+_, _, d_ab = geod.inv(lo_a, la_a, lo_b, la_b)
+print(f"(a) norte y este: lat {la_a:.4f} lon {lo_a:.4f}")
+print(f"(b) este y norte: lat {la_b:.4f} lon {lo_b:.4f}")
+print(f"distancia entre los dos puntos finales: {d_ab:.3f} m")
+assert f"{la_a:.4f}" == "-33.6938" and f"{lo_a:.4f}" == "-57.3214"
+assert f"{la_b:.4f}" == "-33.6936" and f"{lo_b:.4f}" == "-57.3099"
+assert round(d_ab) == 1068
+# ida y vuelta: el problema inverso devuelve los 100 km
+cerca(geod.inv(LON, LAT, lo_n, la_n)[2], D100, 1e-6); cerca(geod.inv(lo_e, la_e, lo_b, la_b)[2], D100, 1e-6)
 
 # ---------------------------------------------------------------- X: ejercicios
 print("== X ejercicios")

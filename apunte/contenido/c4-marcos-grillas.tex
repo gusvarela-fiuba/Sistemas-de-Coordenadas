@@ -43,10 +43,17 @@ familia permitiendo deformaciones. La geometría diferencial lleva esas ideas a 
 curvas, y la geodesia las aplica al elipsoide, las proyecciones y los marcos de referencia.
 \end{resultado}
 
-\begin{idea}[La composición como operación central]
-Una operación muy importante es la composición: en general, para
-construir un sistema de coordenadas es necesario que haya conmutatividad a la hora de componer
-movimientos por coordenadas.
+\begin{idea}[Por qué las coordenadas forman una grilla]
+Avanzar \(\Delta\varphi\) en latitud y después \(\Delta\lambda\) en longitud lleva al mismo punto
+que hacerlo al revés: avanzar por una coordenada y después por la otra conmuta, y por eso las
+líneas coordenadas arman una grilla. Caminar \(100\) km al norte y después \(100\) km al este, en
+cambio, no conmuta: \(100\) km al este son más grados de longitud cuanto más al sur se está.
+Desde el punto de latitud \(-34{,}6^\circ\) y longitud \(-58{,}4^\circ\), ir primero al norte y
+después al este termina en latitud \(-33{,}6938^\circ\) y longitud \(-57{,}3214^\circ\); ir
+primero al este y después al norte termina en latitud \(-33{,}6936^\circ\) y longitud
+\(-57{,}3099^\circ\). Los dos puntos finales quedan a \(1068\) m uno del otro: lo calcula
+\texttt{apunte/scripts/c4\_marcos\_grillas.py} sobre el elipsoide GRS80. Los giros tampoco
+conmutan, y eso no impide tener coordenadas.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
