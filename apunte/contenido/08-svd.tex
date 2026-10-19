@@ -304,7 +304,7 @@ opuesto generan la misma recta. La función de SVD de NumPy elige
 \end{align*}
 Chequeo de ortogonalidad: \(u_1\cdot u_2=(3-3)/10=0\). El signo de \(u_i\) queda atado al de
 \(v_i\): si cambiamos \(v_i\) por \(-v_i\), también \(u_i\) cambia de signo y el producto
-\(\sigma_iu_iv_i^T\) no se altera. Con la elección de numpy, \(\det U=\det V=-1\) (ambas son
+\(\sigma_iu_iv_i^T\) no se altera. Con la elección de NumPy, \(\det U=\det V=-1\) (ambas son
 reflexiones); cambiando a la vez el signo de \(v_2\) y de \(u_2\) las dos pasan a ser
 rotaciones, sin que cambie \(A\).
 
@@ -372,7 +372,7 @@ a \(\sigma_iu_i\), sobre un semieje de la elipse imagen.
   \end{scope}
 \end{tikzpicture}
 \caption{La circunferencia unidad y su imagen por
-\(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\), con los signos de numpy:
+\(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\), con los signos de NumPy:
 \(v_1\mapsto\sigma_1u_1=-(3,9)/\sqrt2\) y \(v_2\mapsto\sigma_2u_2=(-3,1)/\sqrt2\).}
 \label{fig:svd-circulo-elipse}
 \end{figure}
@@ -477,21 +477,22 @@ respecto del promedio. La forma de la nube se resume en una matriz de \(2\times2
 este y en norte, y fuera de la diagonal el promedio de los productos este por norte, que es
 positivo cuando los desvíos hacia el este suelen venir junto con desvíos hacia el norte (los
 promedios se toman dividiendo por \(N-1\) en lugar de \(N\), como es costumbre en estadística).
-En fórmulas, la matriz de covarianza es
+En fórmulas, la matriz de covarianza, que escribimos \(\Sigma_{EN}\) (sigma mayúscula, con el subíndice
+que dice de qué coordenadas es; sin subíndice, \(\Sigma\) sigue siendo la matriz de la SVD), es
 \[
-  C=\frac1{N-1}X^TX .
+  \Sigma_{EN}=\frac1{N-1}X^TX .
 \]
 Es de la forma \(A^TA\) con \(A=X/\sqrt{N-1}\), así que todo lo anterior se aplica: si
-\(X=U\Sigma V^T\), entonces \(C=V\,\frac{\Sigma^T\Sigma}{N-1}\,V^T\), de modo que los
-autovectores de \(C\) son los vectores singulares derechos \(v_i\) de \(X\) y sus autovalores
+\(X=U\Sigma V^T\), entonces \(\Sigma_{EN}=V\,\frac{\Sigma^T\Sigma}{N-1}\,V^T\), de modo que los
+autovectores de \(\Sigma_{EN}\) son los vectores singulares derechos \(v_i\) de \(X\) y sus autovalores
 son \(\lambda_i=\sigma_i^2/(N-1)\). La \emph{elipse de error} de un desvío es la curva de
-nivel \(x^TC^{-1}x=1\); en la base de los \(v_i\) se escribe
+nivel \(x^T\Sigma_{EN}^{-1}x=1\); en la base de los \(v_i\) se escribe
 \(y_1^2/\lambda_1+y_2^2/\lambda_2=1\), de modo que sus semiejes miden
-\(\sqrt{\lambda_i}=\sigma_i/\sqrt{N-1}\) en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(C\).
+\(\sqrt{\lambda_i}=\sigma_i/\sqrt{N-1}\) en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(\Sigma_{EN}\).
 
 \paragraph{La elipse del \texorpdfstring{\(95\)\,\%}{95 \%}.} Las curvas de nivel
-\(x^TC^{-1}x=k^2\) son la misma elipse escalada por \(k\). Si los errores siguen una
-distribución normal bivariada, \(x^TC^{-1}x=y_1^2/\lambda_1+y_2^2/\lambda_2\) es la suma de
+\(x^T\Sigma_{EN}^{-1}x=k^2\) son la misma elipse escalada por \(k\). Si los errores siguen una
+distribución normal bivariada, \(x^T\Sigma_{EN}^{-1}x=y_1^2/\lambda_1+y_2^2/\lambda_2\) es la suma de
 los cuadrados de dos variables normales estándar independientes, es decir, tiene
 distribución \(\chi^2\) con dos grados de libertad, cuya función de distribución es
 \(P(\chi^2_2\le t)=1-e^{-t/2}\). Pedir probabilidad \(0{,}95\) da
@@ -505,7 +506,7 @@ Para las \(N=200\) posiciones de la figura~\ref{fig:svd-nube}, la SVD de la matr
 \(v_1\approx(0{,}859;\ 0{,}512)\) y \(v_2\approx(0{,}512;\ -0{,}859)\). Dividiendo por
 \(\sqrt{199}\approx14{,}107\) se obtienen los semiejes de un desvío,
 \(1{,}520\) m y \(0{,}644\) m. Por el otro camino,
-\(C\approx\left(\begin{smallmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{smallmatrix}\right)\)
+\(\Sigma_{EN}\approx\left(\begin{smallmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{smallmatrix}\right)\)
 m\(^2\), con \(\lambda_1\approx2{,}309\) y \(\lambda_2\approx0{,}415\), y \(\sqrt{\lambda_1}\approx1{,}520\), \(\sqrt{\lambda_2}\approx0{,}644\): los mismos números.
 El eje mayor \(v_1\) forma \(30{,}8^\circ\) con el este en sentido antihorario, o sea, está
 orientado \(90^\circ-30{,}8^\circ=59{,}2^\circ\) respecto del norte, medido en sentido
@@ -623,7 +624,7 @@ Hallá la SVD de \(B=\begin{pmatrix}1&2\\0&1\end{pmatrix}\) y describí la curva
 \solucion{\(B^TB=\left(\begin{smallmatrix}1&2\\2&5\end{smallmatrix}\right)\), con
 \(\lambda^2-6\lambda+1=0\), \(\lambda=3\pm2\sqrt2\approx5{,}828;\ 0{,}172\). Valores
 singulares \(\sigma_1=1+\sqrt2\approx2{,}414\) y \(\sigma_2=\sqrt2-1\approx0{,}414\), con
-\(\sigma_1\sigma_2=1=\det B\). Numpy da \(v_1\approx(0{,}383;\ 0{,}924)\) (a \(67{,}5^\circ\)
+\(\sigma_1\sigma_2=1=\det B\). NumPy da \(v_1\approx(0{,}383;\ 0{,}924)\) (a \(67{,}5^\circ\)
 del eje \(x_1\)), \(v_2\approx(-0{,}924;\ 0{,}383)\), \(u_1\approx(0{,}924;\ 0{,}383)\),
 \(u_2\approx(-0{,}383;\ 0{,}924)\). La curva \(\|Bx\|=1\) es una elipse de semieje corto
 \(1/\sigma_1\approx0{,}414\) sobre \(v_1\) y semieje largo \(1/\sigma_2\approx2{,}414\)
@@ -634,7 +635,7 @@ Sea \(D=\begin{pmatrix}1&2\\2&4\end{pmatrix}\). Mostrá que \(\sigma_2=0\) y des
 curvas de nivel de \(\|Dx\|\) y la imagen de la circunferencia unidad.
 \end{ejercicio}
 \solucion{\(D\) tiene rango \(1\): \(\sigma_1=5\), \(\sigma_2=0\), con
-\(v_1=-(1,2)/\sqrt5\), \(v_2=(-2,1)/\sqrt5\) (signos de numpy) y \(u_1=-(1,2)/\sqrt5\).
+\(v_1=-(1,2)/\sqrt5\), \(v_2=(-2,1)/\sqrt5\) (signos de NumPy) y \(u_1=-(1,2)/\sqrt5\).
 Como \(\|Dx\|=5\,|v_1\cdot x|\), la curva \(\|Dx\|=1\) es el par de rectas paralelas
 \(v_1\cdot x=\pm\tfrac15\), perpendiculares a \(v_1\) y a distancia \(1/\sigma_1=0{,}2\) del
 origen: la elipse degeneró en una banda de semieje infinito sobre \(v_2\), el núcleo. La
@@ -644,14 +645,14 @@ recorrido dos veces.}
 \begin{ejercicio}\label{ex:svd-estacion}
 Un instrumento que mide ángulos y distancias entrega para un punto la matriz de covarianza (coordenadas este, norte)
 \[
-  C=\begin{pmatrix}13{,}6&4{,}8\\4{,}8&6{,}4\end{pmatrix}\ \text{mm}^2 .
+  \Sigma_{EN}=\begin{pmatrix}13{,}6&4{,}8\\4{,}8&6{,}4\end{pmatrix}\ \text{mm}^2 .
 \]
 Hallá los semiejes de la elipse de error y la orientación del eje mayor (ángulo desde el
 este y acimut). ¿En qué dirección está mejor determinada la posición?
 \end{ejercicio}
-\solucion{\(\det(C-\lambda I)=\lambda^2-20\lambda+64=0\) da \(\lambda_1=16\) y
+\solucion{\(\det(\Sigma_{EN}-\lambda I)=\lambda^2-20\lambda+64=0\) da \(\lambda_1=16\) y
 \(\lambda_2=4\); semiejes \(4\) mm y \(2\) mm. El eje mayor tiene dirección \((2,1)/\sqrt5\)
-(numpy la da con el signo opuesto, la misma recta), a \(26{,}57^\circ\) del este, acimut
+(NumPy la da con el signo opuesto, la misma recta), a \(26{,}57^\circ\) del este, acimut
 \(63{,}43^\circ\). La posición está determinada el doble de bien en la dirección
 perpendicular, \((-1,2)/\sqrt5\), de acimut \(333{,}43^\circ\). La correlación entre los
 errores en este y norte es \(4{,}8/\sqrt{13{,}6\cdot6{,}4}\approx0{,}51\).}
