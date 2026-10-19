@@ -83,13 +83,13 @@ unitarios son \(e_{x'}=(0,1)\) y \(e_{y'}=(-1,0)\), y las nuevas coordenadas son
 que se construyen en la sección~\ref{sec:rot-plano}.
 \end{ejemplo}
 
-\begin{idea}[Idea]
+\begin{idea}[Mover el objeto o cambiar las coordenadas: lectura activa o pasiva]
 La materia estudia a la vez dos problemas distintos: mover o deformar objetos geométricos y
 cambiar la manera de asignarles coordenadas. Las fórmulas se parecen; la lectura activa o
 pasiva decide qué está cambiando realmente.
 \end{idea}
 
-\begin{idea}[Idea]
+\begin{idea}[La rotación sugiere las coordenadas polares]
 Al girar alrededor de un centro, cada punto recorre una circunferencia. La familia de esas
 circunferencias, junto con las semirrectas que salen del centro, forma las líneas coordenadas
 de un sistema polar: la rotación misma sugiere una manera de poner coordenadas.
@@ -142,7 +142,7 @@ transforma direcciones y formas, mientras que el vector \(t\) desplaza toda la f
 deformarla. En la sección~\ref{sec:transf-plano} las definimos con precisión y comprobamos que
 las columnas de \(A\) son las imágenes de \(e_x\) y \(e_y\).
 
-\begin{idea}[Idea]
+\begin{idea}[Una transformación se reconoce por lo que conserva]
 Muchas transformaciones se definen por lo que conservan: las rotaciones conservan distancias
 y dejan fijo un punto, las similaridades conservan ángulos, las afinidades conservan el
 paralelismo. Saber qué se conserva es saber de qué transformación se trata.
@@ -190,7 +190,7 @@ la del eje. En la sección~\ref{sec:eje-exp} esa propiedad se escribe como \(Rv=
 capítulo~\ref{cap:autovectores} se la reconoce como un caso de autovector.
 \end{resultado}
 
-\begin{idea}[Idea]
+\begin{idea}[El centro y un punto imagen determinan la rotación]
 Una rotación deja fijo un punto, el centro, y conserva las distancias y los ángulos. Todo lo
 demás se deduce de esa propiedad: fijado el centro y la imagen de un segundo punto, la imagen
 de cualquier otro queda determinada.
@@ -572,6 +572,168 @@ R_y\left(\frac{\pi}{2}\right)e_z
 Como \(-e_y\neq e_x\), \(R_yR_x\neq R_xR_y\). La diferencia no es un error numérico: es una
 propiedad geométrica de las rotaciones espaciales.
 \end{ejemplo}
+
+\subsection{Aplicación topográfica: acimut y estación total}\label{sec:rotaciones-aplicacion}
+
+La sección~\ref{sec:acimut-campo} mostró que orientar las lecturas de una estación total es
+girar el haz de direcciones. Ahora seguimos la cuenta completa de un \emph{radiado}: desde una
+estación de coordenadas conocidas se miden, para cada punto nuevo, una distancia horizontal
+\(d\) y un ángulo horizontal \(\beta\), contado en sentido horario desde la visual a un punto
+de referencia; con eso se calculan las coordenadas del punto. Vamos a ver que cada paso es una
+rotación de las de este capítulo y que, por eso, las distancias no se alteran.
+
+\paragraph{Los datos.} La estación es el punto \(A\) y la referencia es el punto \(B\), ambos
+con coordenadas Gauss-Krüger de la faja~5, en metros:
+\[
+A=(E_A,N_A)=(5\,412\,837{,}425;\ 6\,171\,254{,}318),\qquad
+B=(5\,413\,096{,}512;\ 6\,171\,618{,}903).
+\]
+Con el cero de la medición en la visual a \(B\), se observan dos puntos \(P\) y \(Q\):
+\[
+\beta_P=47^\circ\,23'\,15'',\quad d_P=86{,}452\text{ m};\qquad
+\beta_Q=128^\circ\,41'\,38'',\quad d_Q=143{,}217\text{ m}.
+\]
+Los ángulos sexagesimales se pasan a grados decimales dividiendo los minutos por \(60\) y los
+segundos por \(3600\), y a radianes multiplicando por \(\pi/180\):
+\[
+\beta_P=47+\tfrac{23}{60}+\tfrac{15}{3600}=47{,}387500^\circ=0{,}827068\text{ rad},\qquad
+\beta_Q=128+\tfrac{41}{60}+\tfrac{38}{3600}=128{,}693889^\circ=2{,}246132\text{ rad}.
+\]
+
+\paragraph{El acimut de referencia sale de las coordenadas.} El acimut de \(A\) hacia \(B\) es
+el ángulo, medido desde el norte en sentido horario, de la dirección
+\((\Delta E,\Delta N)=B-A=(259{,}087;\ 364{,}585)\) m. Por la
+proposición~\ref{prop:acimut-theta}, \(\Delta E=d\sin\mathrm{Az}\) y
+\(\Delta N=d\cos\mathrm{Az}\), de modo que \(\tan\mathrm{Az}=\Delta E/\Delta N\). Pero la
+tangente tiene período \(180^\circ\): el cociente no distingue una dirección de su opuesta. Hay
+que mirar los signos de \(\Delta E\) y \(\Delta N\) por separado, que es lo que hace la función
+de dos argumentos
+\[
+\mathrm{Az}_{AB}=\operatorname{atan2}(\Delta E,\Delta N)\pmod{360^\circ},
+\]
+con el \emph{este en el primer lugar}: es el orden inverso al de la convención matemática
+\(\operatorname{atan2}(y,x)\), justamente porque el acimut parte del norte. Aquí ambos
+incrementos son positivos (primer cuadrante) y
+\[
+\mathrm{Az}_{AB}=35{,}398948^\circ=35^\circ\,23'\,56{,}2'',\qquad
+\overline{AB}=447{,}268\text{ m}.
+\]
+El \emph{acimut inverso}, de \(B\) hacia \(A\), corresponde al vector opuesto
+\(A-B=-(B-A)\); invertir un vector es girarlo media vuelta, así que
+\[
+\mathrm{Az}_{BA}=\mathrm{Az}_{AB}\pm180^\circ=215{,}398948^\circ=215^\circ\,23'\,56{,}2'',
+\]
+eligiendo el signo que deja el resultado entre \(0^\circ\) y \(360^\circ\).
+
+\paragraph{Orientar es componer rotaciones.} Como \(\beta\) se cuenta desde la visual a \(B\)
+en el mismo sentido que el acimut,
+\[
+\mathrm{Az}_P=\mathrm{Az}_{AB}+\beta_P=82{,}786448^\circ=82^\circ\,47'\,11{,}2'',\qquad
+\mathrm{Az}_Q=\mathrm{Az}_{AB}+\beta_Q=164{,}092837^\circ=164^\circ\,05'\,34{,}2'',
+\]
+siempre módulo \(360^\circ\) (si la suma pasa de \(360^\circ\), se resta una vuelta).
+
+\begin{proposicion}[El radiado es una rotación]\label{prop:radiado-rotacion}
+Sea \(A=(E_A,N_A)\) la estación, con el eje \(x\) hacia el este y el eje \(y\) hacia el norte.
+El punto observado a distancia horizontal \(d\) con acimut \(\mathrm{Az}\) tiene coordenadas
+\[
+\begin{pmatrix}E\\N\end{pmatrix}
+=\begin{pmatrix}E_A\\N_A\end{pmatrix}
++\begin{pmatrix}\cos\mathrm{Az}&\sin\mathrm{Az}\\-\sin\mathrm{Az}&\cos\mathrm{Az}\end{pmatrix}
+\begin{pmatrix}0\\d\end{pmatrix}
+=\begin{pmatrix}E_A+d\sin\mathrm{Az}\\N_A+d\cos\mathrm{Az}\end{pmatrix},
+\]
+y la matriz es \(R(-\mathrm{Az})\). Si \(\mathrm{Az}=\mathrm{Az}_{\text{ref}}+\beta\), entonces
+\(R(-\mathrm{Az})=R(-\beta)\,R(-\mathrm{Az}_{\text{ref}})\).
+\end{proposicion}
+
+\begin{demostracion}
+El vector \((0,d)\) apunta al norte. El acimut se mide en sentido horario y \(R(\theta)\) gira
+en sentido antihorario, así que girar el norte un acimut \(\mathrm{Az}\) es aplicar
+\(R(-\mathrm{Az})\); como \(\cos(-\mathrm{Az})=\cos\mathrm{Az}\) y
+\(\sin(-\mathrm{Az})=-\sin\mathrm{Az}\), la matriz es la del enunciado, y su producto por
+\((0,d)\) es su segunda columna multiplicada por \(d\). La factorización es la regla
+\(R(\beta')R(\theta)=R(\theta+\beta')\) de la proposición~\ref{prop:propiedades-R} con
+\(\theta=-\mathrm{Az}_{\text{ref}}\) y \(\beta'=-\beta\).
+\end{demostracion}
+
+La matriz \(R(-\mathrm{Az})\) es también la de la proposición~\ref{prop:acimut-theta} leída de
+otro modo: \(R(-\mathrm{Az})(0,d)=R(90^\circ-\mathrm{Az})(d,0)=R(\theta)(d,0)\), porque
+\((0,d)=R(90^\circ)(d,0)\). Partir del norte con giro horario o partir del este con giro
+antihorario es lo mismo que intercambiar los papeles de los ejes: por eso en topografía el
+seno va con el este y el coseno con el norte.
+
+\begin{idea}[El radiado gira el norte un acimut y lo traslada a la estación]
+Las coordenadas de un punto radiado son la estación más el vector \((0,d)\) girado por
+\(R(-\mathrm{Az})\). Orientar suma ángulos, y sumar ángulos es multiplicar matrices de
+rotación.
+\end{idea}
+
+\begin{ejemplo}[Radiado de \(P\) y \(Q\)]\label{ej:radiado-PQ}
+Para \(P\), con \(\mathrm{Az}_P=82{,}786448^\circ\),
+\[
+R(-\mathrm{Az}_P)=\begin{pmatrix}0{,}125568&0{,}992085\\-0{,}992085&0{,}125568\end{pmatrix},
+\qquad
+R(-\mathrm{Az}_P)\begin{pmatrix}0\\86{,}452\end{pmatrix}=\begin{pmatrix}85{,}768\\10{,}856\end{pmatrix}\text{ m},
+\]
+y \(P=(5\,412\,923{,}193;\ 6\,171\,265{,}174)\). Para \(Q\), con \(\mathrm{Az}_Q=164{,}092837^\circ\),
+\[
+R(-\mathrm{Az}_Q)=\begin{pmatrix}-0{,}961707&0{,}274079\\-0{,}274079&-0{,}961707\end{pmatrix},
+\qquad
+R(-\mathrm{Az}_Q)\begin{pmatrix}0\\143{,}217\end{pmatrix}=\begin{pmatrix}39{,}253\\-137{,}733\end{pmatrix}\text{ m},
+\]
+y \(Q=(5\,412\,876{,}678;\ 6\,171\,116{,}585)\). El acimut de \(Q\) está en el segundo
+cuadrante (entre \(90^\circ\) y \(180^\circ\)): el punto queda al este y al sur de la estación,
+como indican los signos de los incrementos. La figura~\ref{fig:acimut-radiado} muestra el
+croquis. Calculando las matrices con el producto \(R(-\beta)R(-\mathrm{Az}_{AB})\) se obtienen
+las mismas, con diferencias del orden de \(10^{-16}\).
+\end{ejemplo}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.62\linewidth]{figuras/rotaciones/acimut_radiado.png}
+\caption{Radiado desde la estación \(A\), en metros relativos a \(A\). La visual a la
+referencia \(B\) tiene acimut \(\mathrm{Az}_{AB}\approx35^\circ\,24'\); los ángulos
+\(\beta_P\) y \(\beta_Q\) se cuentan desde esa visual en sentido horario y llevan a \(P\) y
+\(Q\). El segmento punteado \(PQ\) se usa en la verificación. Generada con
+\texttt{apunte/scripts/cap01\_acimut\_estacion\_total.py}.}
+\label{fig:acimut-radiado}
+\end{figure}
+
+\paragraph{Verificación: la rotación conserva distancias.} La distancia entre los dos puntos
+radiados puede calcularse de tres maneras independientes.
+\begin{itemize}
+  \item Desde las coordenadas finales: \(\overline{PQ}=\sqrt{(E_Q-E_P)^2+(N_Q-N_P)^2}=155{,}699\) m.
+  \item En el sistema propio del instrumento, con el eje \(y'\) hacia \(B\) y el \(x'\)
+  perpendicular hacia la derecha: allí \(P'=R(-\beta_P)(0,d_P)=(63{,}624;\ 58{,}531)\) y
+  \(Q'=R(-\beta_Q)(0,d_Q)=(111{,}780;\ -89{,}533)\), y \(\overline{P'Q'}=155{,}699\) m. Las
+  coordenadas finales son \(A+R(-\mathrm{Az}_{AB})\,P'\) y \(A+R(-\mathrm{Az}_{AB})\,Q'\): un
+  movimiento rígido, que por la proposición~\ref{prop:propiedades-R} no cambia la distancia.
+  \item Sólo con las medidas, por la ley del coseno en el triángulo \(APQ\), cuyo ángulo en
+  \(A\) es \(\gamma=\beta_Q-\beta_P=81^\circ\,18'\,23{,}0''\):
+  \(\overline{PQ}=\sqrt{d_P^2+d_Q^2-2\,d_Pd_Q\cos\gamma}=155{,}699\) m.
+\end{itemize}
+Los tres valores coinciden (la diferencia es menor que \(10^{-9}\) m), y también se recuperan
+\(\overline{AP}=86{,}452\) m y \(\overline{AQ}=143{,}217\) m desde las coordenadas. La ley del
+coseno es el producto interno de la sección~\ref{sec:interno} escrito con normas y ángulo; que
+dé lo mismo es la conservación del producto interno por \(R\).
+
+\paragraph{El cuadrante importa.} Para el acimut de \(P\) hacia \(Q\) los incrementos son
+\(\Delta E=-46{,}515\) m y \(\Delta N=-148{,}588\) m. El cociente \(\Delta E/\Delta N\) es
+positivo y \(\arctan(\Delta E/\Delta N)=17{,}382484^\circ\), que es la dirección opuesta: con
+los dos incrementos negativos el punto \(Q\) está al sur y al oeste de \(P\), en el tercer
+cuadrante. La función de dos argumentos da
+\[
+\mathrm{Az}_{PQ}=\operatorname{atan2}(-46{,}515;\ -148{,}588)=197{,}382484^\circ=197^\circ\,22'\,56{,}9'',
+\]
+y el acimut inverso es \(\mathrm{Az}_{QP}=17^\circ\,22'\,56{,}9''\). El valor ingenuo coincidía
+con \(\mathrm{Az}_{QP}\): el error es exactamente media vuelta.
+
+Las dos unidades del comienzo del capítulo permiten repetir la cuenta con otros ángulos.
+
+\unidadInteractiva{01a_punto_quieto}{Rotaciones I: el punto no se movió}{Explorá: girá los ejes un ángulo como el de orientación \(\mathrm{Az}_{AB}\) y comprobá que el punto queda quieto aunque cambien sus coordenadas, como pasa al llevar \(P'\) del sistema del instrumento al de la faja.}
+
+\unidadInteractiva{02_producto_interno}{Producto interno: proyección, longitud, ángulo}{Verificá: con dos vectores de longitudes \(d_P\) y \(d_Q\) que formen el ángulo \(\gamma\), comprobá que la distancia entre sus extremos es la que da la ley del coseno.}
 
 \section{En profundidad}
 
