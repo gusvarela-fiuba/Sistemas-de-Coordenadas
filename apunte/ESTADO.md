@@ -49,7 +49,29 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/ap3-composicion-afin.tex | section: Composición afín práctica: rotación y escala | 213 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 |
 | contenido/ap4-bibliografia.tex | section: Bibliografía comentada | 86 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 |
 | contenido/ap5-notebooks.tex | section: Material de práctica y notebooks | 112 | 0 | 42 | 0 | 0 | — | 0 | 0 | 0 |
-| **Total** | | 847 | 2 | 42 | 0 | 0 |  | 0 | 0 | 0 |
+| contenido/ap6-respuestas.tex | section: Respuestas de los problemas | 123 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 |
+| **Total** | | 970 | 2 | 42 | 0 | 0 |  | 0 | 0 | 0 |
+
+## Otros archivos
+
+| Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| contenido/problemas/p01.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p02.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p03.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p04.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p05.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p06.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p07.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p08.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p09.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p10.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p11.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p12.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p13.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p14.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/problemas/p15.tex | section: Problemas | 18 | 0 | 0 | 0 | 0 | 0 | 0 | — | 0 | 0 | 0 | 0 | 0 | no | no | 0 | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| **Total** | | 270 | 0 | 0 | 0 | 0 | 0 | 0 |  | 0 | 0 | 0 | 0 | 0 |  |  | 0 | 0 |  |  |
 
 ## Enlaces
 
@@ -57,8 +79,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: fcaf85f
-- Páginas del último PDF: 280 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: a20ab6a
+- Páginas del último PDF: 290 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91

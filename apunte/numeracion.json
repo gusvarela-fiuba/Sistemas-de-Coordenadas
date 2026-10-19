@@ -153,5 +153,10 @@
     "numero": "A.5",
     "rotulo": "Apéndice",
     "titulo": "Material de práctica y notebooks"
+  },
+  "cap:respuestas": {
+    "numero": "A.6",
+    "rotulo": "Apéndice",
+    "titulo": "Respuestas de los problemas"
   }
 }
