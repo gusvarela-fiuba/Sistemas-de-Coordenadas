@@ -79,7 +79,7 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 152ee49
+- HEAD: 91b8219
 - Páginas del último PDF: 328 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 4 de 4
