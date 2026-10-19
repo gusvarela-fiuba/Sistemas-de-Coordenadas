@@ -29,6 +29,7 @@
 % columna Y: tabularx con texto alineado a la izquierda y sin justificar
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \usepackage{enumitem}
+\usepackage{amsthm}% antes de hyperref
 
 %% --- TikZ y cajas ---
 \usepackage{tikz}
@@ -68,7 +69,9 @@
 %% simulación interactiva de una unidad (negrita, color teal = urlcolor, triángulo final).
 %% \linkFicha{<slug>}{<texto>}: enlace a la ficha de una clase (color teal, sin negrita).
 %% \linkUnidadId{<id>}: el id de la unidad como texto monoespaciado del enlace (tablas).
-\newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}
+%% \urlsitio: única fuente de la URL del sitio en el apunte (con barra final).
+\newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}% raíz sin barra final (los links añaden /ruta). ÚNICO lugar donde se escribe la URL.
+\newcommand{\urlsitio}{\sitioURL/}% misma URL con barra final, para \url y texto
 \newcommand{\linkUnidad}[2]{\href{\sitioURL/unidades/#1/index.html}{\textcolor{teal}{\textbf{#2 \(\triangleright\)}}}}
 \newcommand{\linkAnimacion}[2]{\href{\sitioURL/animaciones/#1.mp4}{\textcolor{rust}{\textbf{#2}\,\(\circlearrowright\)}}}
 \newcommand{\linkFicha}[2]{\href{\sitioURL/clases/#1.html}{\textcolor{teal}{#2}}}
@@ -135,5 +138,20 @@
   auxline/.style={line width=.7pt,draw=muted,dashed},
   labelback/.style={fill=white,fill opacity=.94,text opacity=1,inner sep=1.4pt}
 }
+
+%% --- Entornos numerados: definicion, proposicion, teorema, ejemplo, ejercicio, demostracion ---
+%% Uso: \begin{ejemplo}[Título opcional] ... \end{ejemplo}; \begin{demostracion} ... \end{demostracion};
+%% \solucion{texto breve} tras un ejercicio. definicion/ejemplo/proposicion/teorema comparten
+%% contador por capítulo (Definición 6.1, Ejemplo 6.2, ...); ejercicio tiene contador propio.
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{ejemplo}[definicion]{Ejemplo}
+\theoremstyle{plain}
+\newtheorem{proposicion}[definicion]{Proposición}
+\newtheorem{teorema}[definicion]{Teorema}
+\theoremstyle{definition}
+\newtheorem{ejercicio}{Ejercicio}[chapter]
+\newenvironment{demostracion}{\begin{proof}}{\end{proof}}
+\newcommand{\solucion}[1]{\par\smallskip\noindent{\small\textit{Solución.} #1}}
 
 \endinput
