@@ -66,7 +66,7 @@ def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
 
-    Para nivelar la estación total la inclinamos alrededor de un eje horizontal y después la giramos alrededor del eje
+    Para nivelar el instrumento lo inclinamos alrededor de un eje horizontal y después la giramos alrededor del eje
     vertical para apuntar al mojón. Un compañero hace lo mismo al revés: primero gira, después inclina. Con
     correcciones chiquitas los dos terminan casi igual. Con giros grandes, no.
 

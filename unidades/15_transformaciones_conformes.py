@@ -51,7 +51,7 @@ def _(mo):
 
     Cerramos el arco que abrieron las rotaciones. La pregunta: **¿qué tiene que cumplir una transformación para conservar los
     ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?** El gancho: *dos visuales a $90°$
-    medidas con la estación total siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
+    medidas con el instrumento siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
     POSGAR.*
 
     Colores, iguales en la figura y en el álgebra: el **terreno** y su grilla métrica en **gris**; las imágenes por la
@@ -95,7 +95,7 @@ def _(lib, mo, np):
         mo.md(rf"""
         ## 0. Situación de campo y predicción
 
-        Plantamos la estación total en Tierra del Fuego, $\varphi = -54°$, sobre GRS80. Medimos dos visuales que
+        Plantamos el instrumento en Tierra del Fuego, $\varphi = -54°$, sobre GRS80. Medimos dos visuales que
         forman **$90°$ exactos**: una al rumbo $45°$ (NE) y otra al rumbo $135°$ (SE). Volcamos los puntos visados en
         una hoja cuadriculada usando directamente $(x, y) = (\lambda, \varphi)$, grados por grados, sin corregir la
         escala del meridiano: un cuadradito de la hoja es $1°$ de longitud por $1°$ de latitud.

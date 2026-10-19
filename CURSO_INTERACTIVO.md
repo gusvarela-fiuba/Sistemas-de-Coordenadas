@@ -42,7 +42,7 @@ Temas del programa: 01, 04 y 09 (desarrollo complementario que las cruza). Pregu
 
 ## Unidad 1 — Rotaciones I: el punto no se movió
 
-Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero la estación total mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee la estación?
+Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero el instrumento mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee el instrumento?
 
 **Qué se manipula:**
 - Deslizadores `θ (°): giro de los ejes`, `x del mojón (ejes de la obra)`, `y del mojón (ejes de la obra)`.

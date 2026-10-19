@@ -699,7 +699,7 @@ unidades:
   clases:
   - "01"
   pregunta: Si giro los ejes 30°, ¿se mueve el mojón o se mueven sus coordenadas?
-  gancho_agrimensura: La estación total mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación.
+  gancho_agrimensura: El instrumento mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación.
   nivel: troncal
 - id: 01b_rotacion_plano
   archivo: unidades/01b_rotacion_plano.py
@@ -866,5 +866,5 @@ unidades:
   - "13"
   - "14"
   pregunta: ¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?
-  gancho_agrimensura: 'Dos visuales a 90° medidas con la estación total siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
+  gancho_agrimensura: 'Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
   nivel: complementario

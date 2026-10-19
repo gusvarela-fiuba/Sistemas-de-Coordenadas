@@ -32,7 +32,7 @@ unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su or
     estado: piloto               # piloto | migrada | legacy | pendiente
     clases: ["01", "02"]         # ids de ficha que cubre (según CONCEPTOS.md y el `unidad` de los conceptos); cada uno tiene que existir
     pregunta: "¿Qué le pasa a cada punto de la parcela cuando giro los ejes…?"   # una línea; la pregunta de campo de la unidad
-    gancho_agrimensura: "La estación total mide en sus propios ejes; …"           # una línea; situación de campo (sin fajas ni EPSG)
+    gancho_agrimensura: "El instrumento mide en sus propios ejes; …"           # una línea; situación de campo (sin fajas ni EPSG)
     nivel: troncal               # troncal | complementario | avanzado
 ```
 

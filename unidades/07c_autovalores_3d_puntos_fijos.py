@@ -82,7 +82,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Nivelamos la estación total girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
+        Nivelamos el instrumento girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
         $z$ (unidad 01c). El resultado es **un solo giro** alrededor de un eje nuevo: la única dirección del espacio que
         la rotación compuesta deja quieta. Es la dirección $v$ con $Rv = v$: un autovector de autovalor $1$.
 

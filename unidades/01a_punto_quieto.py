@@ -68,9 +68,9 @@ def _(mo):
     ## 0. Situación de campo y predicción
 
     Una parcela y, adentro, un **mojón** clavado en el terreno. En el sistema de la obra (origen en un vértice, eje $x$
-    a lo largo del frente) el mojón es $P = (4, 3)$, en metros. Ahora plantamos la estación total en el mismo origen, pero
-    el instrumento mide **en sus propios ejes**: su eje $x$ apunta $30°$ a la izquierda del frente. El mojón no se
-    tocó; es el mismo pedazo de hierro.
+    a lo largo del frente) el mojón es $P = (4, 3)$, en metros. Ahora plantamos un instrumento que mide ángulos y distancias
+    en el mismo origen, pero mide **en sus propios ejes**: su eje $x$ apunta $30°$ a la izquierda del frente. El mojón
+    no se tocó; es el mismo pedazo de hierro.
 
     La pregunta de campo es la de siempre en este oficio: las lecturas de la estación hay que pasarlas al sistema de
     la parcela, y al revés. Antes de ver cómo, una predicción.
@@ -142,7 +142,7 @@ def _(mo):
 
     Hay dos maneras de girar, y conviene tenerlas separadas desde el principio:
 
-    - **Pasiva:** giran los ejes $\theta$, el punto queda. Cambian los números. Es lo que hace la estación total.
+    - **Pasiva:** giran los ejes $\theta$, el punto queda. Cambian los números. Es lo que hace el instrumento.
     - **Activa:** giran los puntos $\theta$, los ejes quedan. Cambia el lugar. Es lo que hace un plano al rotarlo.
 
     Lo que se ve en la figura de abajo: girar los ejes $+\theta$ y leer, da los mismos números que girar el punto
