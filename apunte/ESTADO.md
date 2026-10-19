@@ -14,7 +14,7 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 796 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
 | contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 915 | 7 | 12 | 18 | 6 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/02-traslaciones-movimientos-rigidos.tex | chapter: Traslaciones y movimientos rígidos | 544 | 10 | 5 | 9 | 4 | 6 | 3 | S | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/02-traslaciones-movimientos-rigidos.tex | chapter: Traslaciones y movimientos rígidos | 704 | 10 | 5 | 9 | 4 | 6 | 3 | S | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1183 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/04-afinidades-homogeneas.tex | chapter: Afinidades y coordenadas homogéneas | 1129 | 10 | 5 | 8 | 3 | 3 | 0 | — | 9 | 9 | 4 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 670 | 6 | 4 | 8 | 5 | 5 | 0 | — | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
@@ -28,7 +28,7 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 855 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 538 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 763 | 3 | 4 | 13 | 7 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 12365 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 12525 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
@@ -57,8 +57,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 8834c54
-- Páginas del último PDF: 270 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: a5d30cf
+- Páginas del último PDF: 273 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91
@@ -73,3 +73,7 @@ Criterio vigente desde la fase G: no hay límite de páginas. Un capítulo ya ce
 - Capítulo 12 (cerrado en 607073e con el criterio anterior de ~265 págs.): quedan 10,5 términos de campo cada 100 líneas, casi todos «residuo» y «Helmert» en enunciados y títulos; las dos demostraciones movidas a «En profundidad» están completas. Candidato a reabrir si el editor quiere más ejemplos resueltos.
 - Capítulo 15 (cerrado en 2be3810 con el criterio anterior): dos demostraciones movidas a «En profundidad» completas; tres figuras en el capítulo. Candidato a reabrir si el editor quiere figuras del triángulo polar o de la loxodromia.
 - Capítulo 11 (cerrado en fb92d8c con el criterio anterior): demostración de la adjugada en «En profundidad» completa; 4,1 términos de campo cada 100 líneas, lo que queda está en enunciados, ejemplos y consignas de unidades.
+
+## Para después de la fase G
+
+- Complementos C1 a C4: «Complementos que cumplen el mínimo: 0 de 4» en ESTADO.md. Se completan en E2 (homografía de fachada en C1, factor de escala GK faja 5 en C2, DEM/volumen en C3, POSGAR 94→07 con pyproj en C4), con la voz para el aula desde el inicio.
