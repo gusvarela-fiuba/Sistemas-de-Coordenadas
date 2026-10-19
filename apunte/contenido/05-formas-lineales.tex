@@ -5,22 +5,49 @@
 
 \section{La idea}
 
+Imaginá que caminás por un terreno en pendiente con un aparato en la mano que, para cada paso
+que das, te dice cuánto subiste. No te dice dónde estás ni hacia dónde vas: toma el paso y
+devuelve un número. ¿Qué tiene que cumplir ese aparato para ser confiable en un tramo chico,
+donde el terreno es casi un plano inclinado? Si das dos veces el mismo paso, tenés que subir el
+doble; si das un paso y después otro, lo que subís en total es la suma de lo que subiste en
+cada uno; si das el paso al revés, bajás lo mismo que antes habías subido.
+
+Pensá ahora en una cuenta de almacén: llevás \(v_1\) kilos de un producto y \(v_2\) kilos de
+otro, y el precio total es \(\omega_1v_1+\omega_2v_2\), con \(\omega_1\) y \(\omega_2\) los
+precios por kilo. Duplicar la compra duplica el precio, y juntar dos compras suma los precios.
+¿Cuántos números hace falta conocer para saber el precio de cualquier compra? Dos: los precios
+por kilo. Con el terreno pasa lo mismo: ¿cuánto subís con un paso de un metro al este?, ¿y con
+uno al norte? Con esos dos números el aparato queda determinado para todos los pasos.
+
 El capítulo~\ref{cap:afines} dejó las afinidades como las transformaciones que llevan rectas
 paralelas en rectas paralelas; ahora tomamos una familia de rectas paralelas equiespaciadas
-como objeto propio. Un vector es una flecha: algo que se suma y se estira. Una \emph{forma
-lineal} es una regla que a cada vector le asigna un número, respetando sumas y escalas. En
-coordenadas, el vector es una columna, la forma una fila, y la medición es fila contra columna:
+como objeto propio, porque es la manera de dibujar al aparato. Un vector es una flecha: algo
+que se suma y se estira, como el paso. Una \emph{forma lineal} es una regla que a cada vector
+le asigna un número, respetando sumas y escalas, como el aparato o el precio. La llamamos
+\(\omega\) (omega), y \(\omega(v)\) es el número que le asigna al vector \(v\). En
+coordenadas, el vector es una columna con sus componentes \(v_1,v_2\), la forma es una fila
+con sus dos números \(\omega_1,\omega_2\), y la medición es fila contra columna:
 \[
   \omega(v)=\begin{pmatrix}\omega_1&\omega_2\end{pmatrix}
   \begin{pmatrix}v_1\\v_2\end{pmatrix}=\omega_1v_1+\omega_2v_2 .
 \]
-La cota del terreno es el caso que más nos importa. Si en un punto la cota sube \(4\) cm por
-cada metro hacia el este y \(3\) cm por cada metro hacia el norte, el cambio de cota para un
-desplazamiento \((v_x,v_y)\) es \(0{,}04\,v_x+0{,}03\,v_y\): una forma lineal que \emph{mide}
-desplazamientos. Ese diferencial de la cota, \(dh\), es lo que en cálculo suele identificarse
-con el gradiente, y vamos a ver que se comporta como fila y no como flecha: cuando cambian los
-ejes, sus componentes cambian al revés que las de un vector. La flecha que se dibuja como
-gradiente aparece recién al elegir un producto interno (sección~\ref{sec:formas-metrica}).
+
+La altura del terreno, que en Topografía se llama \emph{cota}, es el caso que más nos importa.
+Si en un punto la altura sube \(4\) cm por cada metro hacia el este y \(3\) cm por cada metro
+hacia el norte, el cambio de altura para un desplazamiento \((v_x,v_y)\), con \(v_x\) metros
+al este y \(v_y\) metros al norte, es \(0{,}04\,v_x+0{,}03\,v_y\): una forma lineal que
+\emph{mide} desplazamientos. ¿Hacia dónde podés caminar sin subir ni bajar? Hacia donde la
+forma da cero, a lo largo de la curva de nivel, la línea que une los puntos de igual altura. Ese diferencial de la altura \(h\), que
+escribimos \(dh\), es lo que en cálculo suele identificarse con el gradiente.
+
+Probá ahora cambiar la unidad: medí los pasos en centímetros en lugar de metros. El mismo paso
+tiene números cien veces más grandes, pero la subida por centímetro es cien veces más chica:
+la fila cambia al revés que la columna, y el producto, lo que subiste, no cambia. Vamos a ver
+que el gradiente se comporta así, como fila y no como flecha: cuando cambian los ejes, sus
+componentes cambian al revés que las de un vector. ¿Y la flecha que se dibuja como gradiente,
+la que apunta hacia donde más sube? Para saber cuál es la dirección de mayor subida hay que
+saber medir largos y ángulos, y esa flecha aparece recién al elegir un producto interno
+(sección~\ref{sec:formas-metrica}).
 
 \begin{definicion}[Forma lineal]\label{def:forma-lineal}
 Una \emph{forma lineal} sobre \(\R^n\) es una función \(\omega\colon\R^n\to\R\) que cumple
@@ -56,6 +83,16 @@ producto escalar \((4,3)\cdot w\).}
 
 \subsection{Producto vectorial: unir dos puntos, cortar dos rectas}\label{sec:vectorial}
 
+Marcá dos puntos en una hoja y unilos con una regla: trazar la recta es un gesto. ¿Cómo se
+hace lo mismo con una cuenta, que devuelva directamente los tres números de la recta? Para qué
+nos sirve: en un plano con muchos puntos medidos, unir puntos y cortar rectas es lo que más se
+hace, y conviene que sea una sola operación que la computadora repita sin pensar.
+
+Recordemos la escritura en coordenadas homogéneas del capítulo~\ref{cap:afines}: el punto
+\((x,y)\) es el vector \((x,y,1)\) y la recta \(ax+by+c=0\) es el vector \((a,b,c)\); el
+punto está en la recta cuando el producto interno de los dos vectores da cero
+(sección~\ref{sec:interno}). Llamamos \(p\) y \(q\) a dos puntos escritos así y \(\ell\) a
+una recta.
 Queremos una operación que, dados dos puntos \(p,q\), devuelva la recta \(\ell=p\times q\)
 que los une. Tiene que cumplir que \(p\) y \(q\) estén en esa recta,
 \((p\times q)\cdot p=0\) y \((p\times q)\cdot q=0\), o sea, producir un vector
@@ -76,7 +113,8 @@ cambiar el orden de los lados cambia la orientación y dos lados paralelos no en
 Por eso \(\lVert p\times q\rVert\) es el área del paralelogramo de lados \(p,q\).
 \end{resultado}
 
-Por simetría de la ecuación de incidencia, la misma operación resuelve el problema dual:
+¿Y si en lugar de dos puntos tenemos dos rectas y buscamos dónde se cortan? Por simetría de la
+ecuación de incidencia, la misma operación resuelve el problema dual:
 \emph{el punto donde se cortan dos rectas es} \(\ell\times m\). Dos rectas paralelas
 \((a,b,c)\) y \((a,b,c')\) dan \(\ell\times m=(c'-c)\,(b,-a,0)^T\): un punto ideal, su
 dirección común.
@@ -84,6 +122,11 @@ dirección común.
 \subsection{Formas lineales: la recta como máquina de medir}\label{sec:formas-lineales}
 
 {\small\vspace{1mm}\linkAnimacion{01_dualidad_gradiente}{Animación: dualidad punto–gradiente}\par}
+
+Volvamos al aparato que mide cuánto subiste con cada paso. ¿Cómo se dibuja una regla así,
+que no es una flecha sino una manera de asignar números? Para qué nos sirve dibujarla: es la
+figura que vamos a reconocer en las curvas de nivel de un plano, en las filas de una matriz y
+en las normales de una recta.
 
 \paragraph{Primero en \(\R\).} Una forma lineal en la recta es multiplicar por un número,
 \(\omega(x)=2x\): una regla graduada cuyas marcas \(0,1,2,3,\ldots\) están equiespaciadas a
@@ -124,8 +167,11 @@ El vector \((2,3)\) es perpendicular a todas las rectas de nivel y apunta hacia 
 \end{tikzpicture}
 \end{center}
 
-\paragraph{Las selectoras y el espacio de las formas.} Las formas más básicas seleccionan una
-coordenada: \(\mathsf{x}(x,y)=x\) y \(\mathsf{y}(x,y)=y\). Cualquier otra es combinación de
+\paragraph{Las selectoras y el espacio de las formas.} ¿Cuál es la regla más simple que se
+te ocurre? La que, de un paso cualquiera, lee solo cuánto avanzaste hacia el este e ignora el
+resto. Las formas más básicas seleccionan una
+coordenada: \(\mathsf{x}(x,y)=x\) y \(\mathsf{y}(x,y)=y\); las escribimos con letra recta
+para distinguir la regla, que es una función, del número \(x\) que devuelve. Cualquier otra es combinación de
 ellas: \(\omega=2\,\mathsf{x}+3\,\mathsf{y}\). Las formas lineales forman un espacio
 vectorial, el \emph{dual} del plano (definición~\ref{def:base-dual}). En la base canónica una
 forma se describe con dos números, igual que un vector, pero la escribimos como \emph{fila}:
@@ -138,7 +184,9 @@ La fila por la columna es el producto interno con el vector \((2,3)\): la forma 
 usó: una recta \(\ell=(a,b,c)\) es una forma lineal, un punto \(p\) es un vector, y
 \(\ell\cdot p=0\) es la incidencia de la sección~\ref{sec:interno}.
 
-\paragraph{La matriz como pila de formas.} Una transformación lineal del plano devuelve dos
+\paragraph{La matriz como pila de formas.} Tapá con la mano la segunda fila de una matriz de
+\(2\times2\) y multiplicá solo la primera por un vector: ¿qué obtenés? Un número, el que
+marca una regla. Una transformación lineal del plano devuelve dos
 números por cada vector, y cada uno es una forma lineal. Con
 \(A=\left(\begin{smallmatrix}2&3\\1&-1\end{smallmatrix}\right)\),
 \(A(1,2)^T=(2\cdot1+3\cdot2,\ 1\cdot1-1\cdot2)^T=(8,-1)^T\): la primera fila mide con la regla \(2x+3y\) y la segunda con la regla \(x-y\): aplicar \(A\)
@@ -151,7 +199,13 @@ sección~\ref{sec:nucleo} vista desde las filas. Y el método del producto cruz 
 autovectores (sección~\ref{sec:autovalores}) busca el vector que todas las reglas de
 \(A-\lambda I\) marcan en cero.
 
-\paragraph{Cómo se transforma una forma cuando se transforma el vector.} Sea
+\paragraph{Cómo se transforma una forma cuando se transforma el vector.} Imaginá la banda
+elástica cuadriculada del capítulo~\ref{cap:afines}, con las rectas de nivel de una regla
+dibujadas encima. Estirás la banda: los puntos se mueven y las rectas dibujadas se mueven con
+ellos. Hay dos preguntas distintas. Una: ¿qué regla, aplicada al punto antes de estirar, da lo
+mismo que la regla original aplicada al punto ya estirado? Otra: ¿qué regla tiene por rectas
+de nivel a las rectas dibujadas, ya deformadas? Las dos tienen respuesta con una sola
+multiplicación, y ninguna es la de los vectores. Sea
 \(A=\begin{pmatrix}1&1\\0&2\end{pmatrix}\) y \(v=(1,1)\). Entonces \(Av=(2,2)\) y
 \(\omega(Av)=2\cdot2+3\cdot2=10\). ¿Qué regla, aplicada al \(v\) original, da ese mismo
 \(10\)? La fila por la matriz:
@@ -162,8 +216,8 @@ autovectores (sección~\ref{sec:autovalores}) busca el vector que todas las regl
 El vector se multiplica por \(A\) a la izquierda (columna); la forma, a la derecha (fila):
 \(\omega(Av)=(\omega A)(v)\). Una forma lineal se transforma del lado contrario que un vector.
 
-Para \emph{arrastrar la regla junto con la figura}, o sea, encontrar la forma \(\psi\) cuyas
-rectas de nivel son las imágenes por \(A\) de las rectas de nivel de \(\omega\), hay que
+La segunda pregunta de la banda es \emph{arrastrar la regla junto con la figura}: encontrar la forma \(\psi\) (psi, el nombre de la regla nueva) cuyas
+rectas de nivel son las imágenes por \(A\) de las rectas de nivel de \(\omega\). Para eso hay que
 deshacer \(A\): \(\psi=\omega A^{-1}\). Con
 \(A^{-1}=\left(\begin{smallmatrix}1&-1/2\\0&1/2\end{smallmatrix}\right)\),
 \(\psi=(2,3)\,A^{-1}=\bigl(2,\ -1+\tfrac32\bigr)=\bigl(2,\tfrac12\bigr)\). Verificación: el punto \((3,-2)\) está en la recta \(\omega=0\); su imagen es
@@ -188,6 +242,20 @@ puntos y rectas intercambian roles: la dualidad proyectiva.
 
 \subsection{Espacio dual y base dual}\label{sec:base-dual}
 
+Suponé que en lugar de caminar con pasos al este y al norte te obligan a moverte con dos pasos
+fijos que no forman ángulo recto, por ejemplo uno de dos metros hacia el este y otro en
+diagonal. Para llegar a un punto das tantos pasos del primero y tantos del segundo. ¿Qué regla
+te dice, mirando solo el punto de llegada, cuántos pasos del primer tipo diste? No es la que
+lee cuánto avanzaste al este: parte de ese avance lo pusieron los pasos en diagonal. Para qué
+nos sirve: leer coordenadas en una base cualquiera es hacer mediciones con reglas, una por cada
+vector de la base, y esas reglas forman la base dual.
+
+Antes de definirla, dos nombres. A las formas lineales las juntamos en un solo conjunto, el
+\emph{espacio dual}, que escribimos con un asterisco: \((\R^n)^{*}\). Las formas de la base
+dual llevan el índice arriba, \(e^1,\ldots,e^n\), para distinguirlas de los vectores
+\(b_1,\ldots,b_n\), que lo llevan abajo; y \(\delta_{ij}\) (delta) es el número que vale
+\(1\) cuando los dos índices coinciden y \(0\) cuando no.
+
 \begin{definicion}[Espacio dual y base dual]\label{def:base-dual}
 El \emph{espacio dual} \((\R^n)^{*}\) es el conjunto de las formas lineales sobre \(\R^n\).
 Dada una base \(b_1,\ldots,b_n\) de \(\R^n\), su \emph{base dual} es la familia de formas
@@ -197,7 +265,7 @@ Dada una base \(b_1,\ldots,b_n\) de \(\R^n\), su \emph{base dual} es la familia 
 \]
 \end{definicion}
 
-La forma \(e^i\) es la que \emph{lee la coordenada \(i\)-ésima} en la base \(b\): si
+La forma \(e^i\) es la que \emph{lee la coordenada \(i\)-ésima} en la base \(b\), la que cuenta cuántos pasos del tipo \(i\) se dieron: si
 \(v=c_1b_1+\cdots+c_nb_n\), entonces \(e^i(v)=c_i\). Con la base canónica se recuperan las
 selectoras \(\mathsf{x}\) e \(\mathsf{y}\) de la sección~\ref{sec:formas-lineales}. Para
 una base cualquiera hay una receta matricial: si \(C\) es la matriz con los \(b_j\) en
@@ -209,6 +277,9 @@ Toda forma \(\omega\) se escribe en la base dual con los coeficientes
 vector se obtienen \emph{resolviendo} un sistema (\(c=C^{-1}v\)); los de una forma, en
 cambio, \emph{evaluando} (\(\omega_j=\omega(b_j)\): la fila \(\omega C\)). La medición se
 conserva: \(\omega(v)=\sum_j\omega_jc_j\), porque \((\omega C)(C^{-1}v)=\omega v\).
+
+El ejemplo que sigue es el de los dos pasos del comienzo: uno de dos unidades hacia el este
+y otro en diagonal, de una unidad al este y una al norte.
 
 \begin{ejemplo}[Base dual de una base oblicua]\label{ej:fl-base-dual}
 Sea la base \(b_1=(2,0)\), \(b_2=(1,1)\), que no es ortogonal. Con
@@ -246,8 +317,18 @@ contando marcas: \(v\) llega a la marca \(0{,}5\) de \(e^1\) y a la marca \(2\) 
 
 \subsection{El gradiente como forma lineal}\label{sec:gradiente-forma}
 
-Sea \(h(x,y)\) una función con derivadas parciales continuas, por ejemplo la cota de un
-terreno. Para un desplazamiento chico \(v=(v_x,v_y)\) desde un punto \(p_0\),
+Pará en un punto de una ladera y mirá a tu alrededor: el terreno es curvo, pero si das un paso
+chico, ¿en qué se distingue de un plano inclinado? En casi nada. Por eso el aparato del
+comienzo del capítulo funciona: para pasos chicos, lo que subís es una forma lineal del paso.
+Para qué nos sirve: reemplaza una función complicada por una regla que se calcula con dos
+números, y de ella salen la pendiente en cualquier dirección y la dirección de la curva de
+nivel.
+
+Sea \(h(x,y)\) una función con derivadas parciales continuas, por ejemplo la altura de un
+terreno en cada punto \((x,y)\). Llamamos \(p_0\) al punto donde estamos parados y
+\(\partial_xh(p_0)\), \(\partial_yh(p_0)\) a sus derivadas parciales allí: cuánto sube \(h\)
+por unidad de avance en \(x\) y en \(y\). Para un desplazamiento chico \(v=(v_x,v_y)\)
+desde \(p_0\),
 \[
   h(p_0+v)\approx h(p_0)+\partial_xh(p_0)\,v_x+\partial_yh(p_0)\,v_y .
 \]
@@ -256,7 +337,8 @@ El término lineal es una forma lineal en \(v\), el \emph{diferencial} de \(h\) 
   dh_{p_0}(v)=\partial_xh\,v_x+\partial_yh\,v_y
   =\begin{pmatrix}\partial_xh&\partial_yh\end{pmatrix}\begin{pmatrix}v_x\\v_y\end{pmatrix}.
 \]
-Lo que suele llamarse \enquote{el gradiente} son las componentes de esta fila. Que sea la
+Lo escribimos \(dh_{p_0}\), o solo \(dh\) cuando el punto se sobreentiende: es el aparato del
+comienzo, ya con sus dos números. Lo que suele llamarse \enquote{el gradiente} son las componentes de esta fila. Que sea la
 mejor aproximación lineal, y cómo se lleva a superficies curvas, es el tema del
 capítulo~\ref{cap:derivada}; acá nos interesa como ejemplo de forma.
 
@@ -286,6 +368,15 @@ marcas, \(4(x-1)+3(y-2)=c\), son paralelas a ella y están separadas \(1/5=0{,}2
 
 \subsection{Cambio de base: la columna y la fila cambian al revés}\label{sec:co-contravariante}
 
+Volvamos al experimento de cambiar la unidad. Una pendiente se mide \enquote{por metro}: tantos
+centímetros de subida por cada metro de avance. Si decidís medir el avance con una unidad el
+doble de larga, ¿qué le pasa al número que describe un mismo paso? Se reduce a la mitad,
+porque entran la mitad de unidades. ¿Y al número que describe la pendiente? Se duplica, porque
+en una unidad el doble de larga se sube el doble. Los dos números cambian en sentidos
+opuestos, y su producto, lo que efectivamente subiste, queda igual. Para qué nos sirve:
+saber de qué lado va cada cosa evita el error más común al cambiar de ejes, que es tratar a la
+pendiente como si fuera un desplazamiento.
+
 Pasamos de la base canónica a una base nueva \(b_1,\ldots,b_n\), con matriz de cambio de base
 \(C\) (los \(b_j\) en columnas). Un mismo desplazamiento tiene coordenadas viejas \(v\) y
 nuevas \(v'\); una misma forma, fila vieja \(\omega\) y fila nueva \(\omega'\).
@@ -308,6 +399,8 @@ los \(b\) es \(\omega(b_j)\), que es la entrada \(j\) de la fila \(\omega C\). F
 \(\omega'v'=\omega CC^{-1}v=\omega v\).
 \end{demostracion}
 
+El ejemplo que sigue hace con números el experimento de la unidad el doble de larga.
+
 \begin{ejemplo}[Cambiar la unidad del eje \(x\)]\label{ej:fl-cambio-unidad}
 Volvemos a \(dh=(4,3)\) del ejemplo~\ref{ej:fl-gradiente} y medimos \(x\) con una unidad el
 doble de larga: \(b_1=(2,0)\), \(b_2=(0,1)\), \(C=\operatorname{diag}(2,1)\). El
@@ -324,7 +417,7 @@ solo por haber cambiado la unidad.
 \end{ejemplo}
 
 \begin{idea}[El gradiente no es un vector porque sus componentes cambian al revés]
-Lo invariante es el número \(dh(w)\), el cambio de cota, que no depende de los ejes
+Lo invariante es el número \(dh(w)\), el cambio de altura, que no depende de los ejes
 (proposición~\ref{prop:co-contra}): el gradiente es una fila, un elemento del dual.
 \end{idea}
 
@@ -333,6 +426,17 @@ Lo invariante es el número \(dh(w)\), el cambio de cota, que no depende de los 
 La proposición~\ref{prop:co-contra} dice cómo cambian las componentes cuando se cambia la
 base. Falta la otra mitad: si una transformación \(A\) mueve los puntos, ¿qué les pasa a las
 reglas que los miden? La respuesta es la transpuesta, definida sin escribir la matriz.
+
+Imaginá que alguien deforma una hoja con la banda elástica y, después, mide un punto ya movido
+con una regla. Vos tenés la hoja original, sin deformar. ¿Con qué regla tenés que medir el
+punto original para obtener el mismo número que obtuvo esa persona? Esa regla de tu lado es la
+que da la transpuesta. Para qué nos sirve: permite pasar las mediciones de un lado al otro de
+una transformación sin mover ningún punto, y es la herramienta con que después se plantean los
+problemas de mejor aproximación (capítulo~\ref{cap:inversas}).
+
+Para escribirlo usamos el producto interno usual, \(\langle u,v\rangle\), que es el producto
+escalar \(u_1v_1+\cdots+u_nv_n\) de toda la vida; \(\langle\cdot,v\rangle\) es la regla que a
+cada \(u\) le asigna \(\langle u,v\rangle\).
 
 \begin{definicion}[Transpuesta como adjunta]\label{def:transpuesta-adjunta}
 Sea \(A\) una matriz \(n\times n\) y \(\langle\cdot,\cdot\rangle\) el producto interno usual
@@ -358,15 +462,9 @@ la que sigue marcando lo mismo sobre los puntos movidos, es \(A^{-T}v\)
 \end{enumerate}
 \end{proposicion}
 
-\begin{demostracion}
-(a) Unicidad: si \(B\) y \(C\) cumplen la propiedad, \(\langle u,(B-C)v\rangle=0\) para todo
-\(u\); con \(u=(B-C)v\) queda \(\lVert(B-C)v\rVert^2=0\), así que \(Bv=Cv\) para todo \(v\)
-y \(B=C\). Entradas: si \(B\) cumple la propiedad, \(B_{ij}=\langle e_i,Be_j\rangle=
-\langle Ae_i,e_j\rangle=A_{ji}\). Existencia: con \(B_{ij}=A_{ji}\),
-\(\langle Au,v\rangle=\sum_{i,j}A_{ji}u_iv_j=\sum_{i,j}u_iB_{ij}v_j=\langle u,Bv\rangle\).
-(b) \(\langle ABu,v\rangle=\langle Bu,A^Tv\rangle=\langle u,B^TA^Tv\rangle\), y por la
-unicidad \((AB)^T=B^TA^T\). Con \(B=A^{-1}\): \((A^{-1})^TA^T=(AA^{-1})^T=I^T=I\).
-\end{demostracion}
+La demostración, completa, está en «En profundidad», al final del capítulo
+(subsección~\ref{sec:demos-transpuesta}); la idea de la unicidad es que un vector
+que, usado como regla, marca cero sobre todos los vectores es el vector nulo.
 
 Por ejemplo, con \(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\),
 \(u=(1,2)\) y \(v=(3,-1)\): \(Au=(4,2)\) y \(\langle Au,v\rangle=10\);
@@ -376,6 +474,10 @@ Por ejemplo, con \(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\)
 la definición~\ref{def:transpuesta-adjunta}. La transpuesta de la matriz de cofactores, que
 aparece en la fórmula de la inversa, es otro objeto y se llama \emph{adjugada}
 (definición~\ref{def:adjugada}).
+
+Si en lugar de estirar la hoja solo la girás sobre la mesa, ¿cambia algo medir del lado de
+antes o del lado de después? Un giro no deforma ni ángulos ni largos, así que la regla que
+mide igual se obtiene girando para atrás: la transpuesta deshace el giro.
 
 \begin{proposicion}[En una rotación, la transpuesta es la inversa]\label{prop:rotacion-transpuesta}
 Si \(R\) conserva el producto interno, \(\langle Ru,Rv\rangle=\langle u,v\rangle\) para
@@ -393,6 +495,16 @@ proposición~\ref{prop:propiedades-R} dice que \(R(\theta)\) conserva el product
 
 
 
+Dibujá en la banda elástica una recta inclinada y, desde uno de sus puntos, una flecha
+perpendicular a ella. Ahora estirá la banda al doble en una sola dirección. La recta sigue
+siendo recta, y la flecha sigue siendo una flecha, pero ¿sigue siendo perpendicular a la
+recta? En general, no: se inclinan las dos, cada una a su manera. Para qué nos importa: la
+perpendicular a una recta o a un plano, su \emph{normal}, es lo que se usa para escribir su
+ecuación, y si se la transforma mal la ecuación de la figura transformada sale mal. La
+respuesta es que la normal no viaja como una flecha sino como una regla: es la fila que marca
+cero sobre la recta. Abajo la llamamos \(n\); \(q\) es un punto de la recta y \(c\) es el
+vector que traslada en la afinidad \(x'=Ax+c\).
+
 \begin{proposicion}[Las normales se transforman con la inversa transpuesta]\label{prop:normales-inversa-transpuesta}
 Sea \(x'=Ax+c\) una transformación afín con \(A\) invertible y sea \(\ell\) la recta
 (hiperplano) \(n\cdot(x-q)=0\). La imagen de \(\ell\) es la recta
@@ -401,18 +513,10 @@ modo, si \(h'(x')=h(x)\), el diferencial cambia como \(dh'=dh\,A^{-1}\), es deci
 columna, \(dh'^T=A^{-T}dh^T\).
 \end{proposicion}
 
-\begin{demostracion}
-Si \(p,q\in\ell\), entonces \(n\cdot(p-q)=0\) y la diferencia de las imágenes es
-\(Ap+c-(Aq+c)=A(p-q)\). Por la definición~\ref{def:transpuesta-adjunta} aplicada a
-\(A^{-1}\) y por la proposición~\ref{prop:transpuesta-propiedades}(b),
-\[
-  (A^{-T}n)\cdot A(p-q)=n\cdot A^{-1}A(p-q)=n\cdot(p-q)=0 .
-\]
-Recíprocamente, todo \(x'\) con \((A^{-T}n)\cdot(x'-q')=0\) es imagen de
-\(x=A^{-1}(x'-c)\), que cumple \(n\cdot(x-q)=n\cdot A^{-1}(x'-q')=0\). Para el diferencial:
-\(h'(x_0'+w')=h(x_0+A^{-1}w')\approx h(x_0)+dh\,A^{-1}w'\), y el término lineal en \(w'\) es
-\(dh\,A^{-1}\).
-\end{demostracion}
+La demostración, completa, está en la subsección~\ref{sec:demos-transpuesta} de «En profundidad». La idea: si \(n\)
+marca cero sobre la diferencia de dos puntos de la recta, \(A^{-T}n\) marca cero sobre la
+diferencia de sus imágenes, porque la transpuesta pasa el \(A^{-1}\) del lado del punto al
+de la regla y ese \(A^{-1}\) deshace el \(A\) que movió los puntos.
 
 \paragraph{Contraejemplo numérico.} Tomamos la recta por \(q=(1,1)\) con dirección
 \(d=(2,1)\) y normal \(n=(-1,2)\) (ecuación \(-x+2y=1\)), y la afinidad
@@ -451,46 +555,27 @@ del lado del punto al de la regla. Solo cuando \(A\) es ortogonal (o ortogonal p
 de escala común) \(A^{-T}\) apunta igual que \(A\) y la distinción no se ve.
 \end{idea}
 
-\paragraph{Aplicación: la pendiente después de un cambio de coordenadas afín.} Volvemos al
-plano del terreno de la sección~\ref{sec:aplicacion-pendiente}, con
-\(dh=(a,b)=(0{,}018392;\ 0{,}011622)\) en \((\Delta E,\Delta N)\) en metros. Pasamos a unas
-coordenadas locales \(x'=Ax+c\) que giran los ejes \(30^\circ\) y miden el primer eje en
-medios metros:
-\[
-  A=\operatorname{diag}(2,1)\,R(30^\circ)\approx\begin{pmatrix}1{,}732051&-1\\0{,}5&0{,}866025\end{pmatrix},
-  \quad c=(100,200),\quad
-  A^{-1}\approx\begin{pmatrix}0{,}433013&0{,}5\\-0{,}25&0{,}866025\end{pmatrix},
-\]
-con \(\det A=2\). Por la proposición~\ref{prop:normales-inversa-transpuesta} la forma en las
-coordenadas nuevas es
-\[
-  dh'=dh\,A^{-1}\approx(0{,}005059;\ 0{,}019261).
-\]
-El desplazamiento de \(50\) m hacia el acimut \(120^\circ\) de la verificación numérica,
-\(W=(43{,}301;\ -25{,}000)\), pasa a \(W'=AW=(100{,}000;\ 0{,}000)\), de \(P_1'=c=(100,200)\)
-a \((200,200)\). La cota predicha es la misma en los dos sistemas:
-\(dh(W)=dh'(W')\approx0{,}505852\) m, y la cota de llegada es \(32{,}9559\) m en ambos. Si
-hubiéramos transformado \(dh\) con \(A\), como un punto, obtendríamos
-\((0{,}020234;\ 0{,}019261)\), que aplicado a \(W'\) da \(2{,}023\) m: cuatro veces más.
-
-La dirección de máxima pendiente, en cambio, es una dirección y viaja con \(A\): el versor
-\(u\) de acimut \(57{,}71^\circ\) pasa a \(Au\approx(0{,}930045;\ 0{,}885299)\), paralelo a
-\(A\,dh^T=(0{,}020234;\ 0{,}019261)\). Es lo que da la
-proposición~\ref{prop:vector-asociado} con la métrica de las coordenadas nuevas: el largo
-en metros de \(w'\) es \(\lVert A^{-1}w'\rVert\), así que
-\(G'=A^{-T}A^{-1}=\operatorname{diag}(0{,}25;\ 1)\) y
-\(G'^{-1}dh'^T=AA^TA^{-T}dh^T=A\,dh^T\). La columna \(A^{-T}dh^T=(0{,}005059;\ 0{,}019261)\)
-forma \(31{,}70^\circ\) con esa dirección; tomada por error como dirección y llevada de vuelta
-al terreno con \(A^{-1}\), apunta al acimut \(37{,}48^\circ\), donde la pendiente es
-\(2{,}041\)\,\% y no la máxima, \(2{,}176\)\,\%. La forma se transforma con \(A^{-T}\) y la
-dirección de máxima pendiente con \(A\); solo con \(G'=I\) (ejes ortogonales de igual
-unidad) coinciden. Los números salen de \texttt{cap05\_transpuesta\_normales.py}.
+La misma regla, aplicada a un terreno de verdad cuyos ejes se giran y cambian de unidad, se
+desarrolla al final de la sección~\ref{sec:aplicacion-pendiente}: la altura que se predice no
+cambia, y la dirección de máxima pendiente viaja con \(A\) mientras la fila viaja con
+\(A^{-T}\).
 
 \section{En profundidad}
 
 \subsection{El producto interno identifica formas con vectores}\label{sec:formas-metrica}
 
-Para convertir una fila en una flecha hace falta un producto interno. Si \(G\) es una matriz
+Tomá un mapa con curvas de nivel dibujadas y sacale una foto de costado, bien en ángulo: en la
+foto impresa, los ejes que eran perpendiculares forman un ángulo agudo. Las curvas de la foto
+siguen diciendo lo mismo, qué puntos están a igual altura. Pero si sobre la foto trazás con la
+escuadra la perpendicular a una curva, ¿marca la bajada real del terreno? No: la escuadra mide
+ángulos en el papel, y la foto ya no respeta los ángulos del terreno.
+Para qué nos sirve darse cuenta: la flecha \enquote{gradiente} depende de cómo se miden largos
+y ángulos, y la regla no.
+
+Para convertir una fila en una flecha hace falta un producto interno. Llamamos \(G\) a la
+tabla de productos internos entre los vectores de la base: en el lugar \((i,j)\) está el
+producto interno del vector \(i\) con el vector \(j\), así que la diagonal da los largos al
+cuadrado y el resto, los ángulos. Si \(G\) es una matriz
 simétrica definida positiva, \(\langle u,v\rangle_G=u^TGv\) es un producto interno (con
 \(G=I\), el producto escalar usual), y cada vector \(g\) define la forma
 \(\langle g,\cdot\rangle_G\colon v\mapsto g^TGv\).
@@ -528,6 +613,9 @@ afirmación sobre \(g\), y \(g\) depende de con qué se miden largos y ángulos:
 único puente entre una regla y una dirección perpendicular (tabla de la
 sección~\ref{sec:puntos-formas-grillas}).
 
+El ejemplo que sigue es la foto de costado hecha cuenta: los mismos números de la fila, leídos
+sobre unos ejes que forman \(60^\circ\) en lugar de \(90^\circ\).
+
 \begin{ejemplo}[El mismo gradiente con ejes a \(60^\circ\)]\label{ej:fl-metrica}
 Supongamos que las coordenadas \((x,y)\) se miden sobre dos ejes de igual unidad que forman
 \(60^\circ\). Los vectores de la base miden \(1\) y su producto interno es
@@ -559,6 +647,11 @@ dibujada en los ejes oblicuos, que llega al mismo nivel pero en diagonal.}
 
 \subsection{Curvas de nivel como núcleos de una forma afín}\label{sec:niveles-nucleo}
 
+Parado en la ladera, ¿hacia dónde tenés que caminar para no subir ni bajar? Hacia donde el
+aparato marca cero. Y esa respuesta no necesita escuadra: no pregunta por ningún ángulo, solo
+por qué pasos dan subida nula. Por eso sirve igual sobre el mapa original y sobre la foto de
+costado.
+
 Cerca de un punto \(p_0\), la función \(h\) se parece a la función afín
 \(p\mapsto h(p_0)+dh_{p_0}(p-p_0)\). Sus curvas de nivel, \(h(p_0)+dh_{p_0}(p-p_0)=c\), son
 las traslaciones del núcleo de \(dh_{p_0}\) que pasan por los puntos donde la aproximación
@@ -576,7 +669,19 @@ de esa pendiente, porque \enquote{por metro} presupone saber cuánto mide un des
 
 \subsection{Aplicación topográfica: la pendiente del terreno como forma lineal}\label{sec:aplicacion-pendiente}
 
-En una parcela se nivelaron tres puntos con coordenadas Gauss--Krüger de la faja~5 (el \(5\)
+En un terreno de unos cien metros de lado se midió la posición y la altura de tres puntos. ¿Cuánto
+sube el terreno, hacia dónde sube más rápido y por dónde habría que trazar un camino que no
+suba ni baje? Las tres preguntas se contestan con una sola forma lineal.
+
+\begin{idea}[Esto lo vas a usar en Topografía]
+La \emph{cota} de un punto es su altura sobre un nivel de referencia, en metros. Las
+coordenadas planas oficiales dan cada punto con dos números en metros: \(E\), hacia el este,
+y \(N\), hacia el norte; el país se divide en franjas norte-sur llamadas \emph{fajas}, y la
+primera cifra de \(E\) dice en cuál está el punto. El \emph{acimut} de una dirección es el
+ángulo que forma con el norte, contado en sentido horario.
+\end{idea}
+
+Los tres puntos tienen coordenadas Gauss--Krüger de la faja~5 (el \(5\)
 inicial de la coordenada \(E\) indica la faja), en metros:
 \begin{center}
 \begin{tabular}{lccc}
@@ -588,7 +693,10 @@ punto & \(E\) & \(N\) & cota \(h\)\\\hline
 \end{center}
 En un entorno de unos \(100\) m el terreno se aproxima por un plano. Trabajamos con
 diferencias respecto de \(P_1\), porque las siete cifras enteras de las coordenadas absolutas
-no aportan nada a la pendiente: \(h=h_0+a\,\Delta E+b\,\Delta N\), con \(h_0=32{,}45\).
+no aportan nada a la pendiente: \(h=h_0+a\,\Delta E+b\,\Delta N\), con \(h_0=32{,}45\). Acá
+\(\Delta E\) y \(\Delta N\) son los metros que nos alejamos de \(P_1\) hacia el este y hacia el
+norte, y \(a\), \(b\) son las incógnitas: cuánto sube el plano por cada metro en cada una de
+esas dos direcciones.
 
 \paragraph{El plano.} \(P_2\) y \(P_3\) dan dos ecuaciones:
 \[
@@ -596,9 +704,10 @@ no aportan nada a la pendiente: \(h=h_0+a\,\Delta E+b\,\Delta N\), con \(h_0=32{
   =\begin{pmatrix}1{,}82\\1{,}53\end{pmatrix},
   \qquad a\approx0{,}018392,\quad b\approx0{,}011622 .
 \]
-Con esos valores el plano reproduce las tres cotas. La forma lineal es
-\(dh=(a,b)=(0{,}018392;\ 0{,}011622)\), en metros de cota por metro de desplazamiento:
-toma un desplazamiento \((\Delta E,\Delta N)\) y devuelve el cambio de cota.
+Con esos valores el plano reproduce las tres alturas. La forma lineal es
+\(dh=(a,b)=(0{,}018392;\ 0{,}011622)\), en metros de subida por metro de desplazamiento:
+toma un desplazamiento \((\Delta E,\Delta N)\) y devuelve el cambio de altura: es el aparato
+del comienzo del capítulo, ya calibrado para este terreno.
 
 \paragraph{Pendiente máxima y su acimut.} Con \(E\) y \(N\) en metros los ejes son
 ortogonales y de igual unidad, \(G=I\), y por la proposición~\ref{prop:vector-asociado} la
@@ -606,16 +715,20 @@ pendiente máxima es \(\sqrt{a^2+b^2}\approx0{,}021756\), o sea \(2{,}176\)\,\% 
 \(1{,}246^\circ\) con la horizontal). La dirección es la del vector \((a,b)\); su acimut,
 medido desde el norte en sentido horario, es \(\operatorname{atan2}(a,b)\approx57{,}71^\circ\).
 
-\paragraph{Pendiente en una dirección dada.} Para el acimut \(120^\circ\) el versor es
+\paragraph{Pendiente en una dirección dada.} Queremos la pendiente en la dirección que forma
+\(120^\circ\) con el norte. Su versor, el vector de largo uno que apunta hacia allá, es
 \(u=(\sin120^\circ,\cos120^\circ)\approx(0{,}866;\ -0{,}5)\), y la pendiente en esa
 dirección es la acción de la forma sobre el versor,
-\(dh(u)=a\cdot0{,}866-b\cdot0{,}5\approx0{,}010117\) (un \(1{,}012\)\,\%), sin necesidad
+\[
+  dh(u)=a\cdot0{,}866-b\cdot0{,}5\approx0{,}010117
+\]
+(un \(1{,}012\)\,\%), sin necesidad
 de conocer el ángulo entre \(u\) y la dirección de máxima pendiente.
 
 \paragraph{Dirección de la curva de nivel.} Es el núcleo de la forma, \(a\,\Delta E+
 b\,\Delta N=0\), generado por \((-b,a)\); normalizado,
-\((-0{,}534;\ 0{,}845)\), de acimut \(327{,}71^\circ\) (o el opuesto, \(147{,}71^\circ\)).
-Difiere en \(90^\circ\) del acimut de máxima pendiente, como corresponde con \(G=I\).
+\((-0{,}534;\ 0{,}845)\), a \(327{,}71^\circ\) del norte (o el opuesto, \(147{,}71^\circ\)).
+Difiere en \(90^\circ\) de la dirección de máxima pendiente, como corresponde con \(G=I\).
 
 \begin{figure}[htbp]
 \centering
@@ -636,35 +749,74 @@ curva de nivel (\(327{,}71^\circ\)) & \(-26{,}709\) & \(42{,}269\) & \(0{,}000\)
 acimut \(120^\circ\) & \(43{,}301\) & \(-25{,}000\) & \(0{,}506\) & \(32{,}956\)
 \end{tabular}
 \end{center}
-Los tres cambios de cota coinciden con \(50\) m por la pendiente correspondiente:
+Los tres cambios de altura coinciden con \(50\) m por la pendiente correspondiente:
 \(50\cdot0{,}021756\approx1{,}088\) m, \(0\) m y \(50\cdot0{,}010117\approx0{,}506\) m.
 
 \paragraph{Si \(N\) estuviera en kilómetros.} Con \(E\) en metros y \(N\) en kilómetros, un
 desplazamiento \((\Delta E,\Delta N)\) en metros pasa a tener coordenadas
 \((\Delta E,\ \Delta N/1000)\). La forma, por la proposición~\ref{prop:co-contra}, se
 multiplica del otro lado: \(dh=(a,\ 1000\,b)\approx(0{,}018392;\ 11{,}6216)\) (\(11{,}62\) m
-de cota por kilómetro hacia el norte). Aplicada al desplazamiento de máxima pendiente, ahora
+de subida por kilómetro hacia el norte). Aplicada al desplazamiento de máxima pendiente, ahora
 escrito \((42{,}269;\ 0{,}026709)\), da
 \(0{,}018392\cdot42{,}269+11{,}6216\cdot0{,}026709\approx1{,}088\) m: el mismo cambio de
-cota. La forma no se enteró del cambio de unidades.
+altura. La forma no se enteró del cambio de unidades.
 
 La \enquote{flecha gradiente} sí se entera. Si tomamos las componentes
 \((0{,}018392;\ 11{,}6216)\) como un desplazamiento en esas coordenadas, sobre el terreno
-equivale a \(0{,}018392\) m al este y \(11\,621{,}6\) m al norte: acimut \(0{,}0001^\circ\),
-prácticamente el norte, en lugar de \(57{,}71^\circ\). Caminar \(50\) m en esa dirección
-cambia la cota en \(50\,b\approx0{,}581\) m, no en \(1{,}088\) m: no es la dirección de
+equivale a \(0{,}018392\) m al este y \(11\,621{,}6\) m al norte: \(0{,}0001^\circ\) desde el norte,
+prácticamente el norte mismo, en lugar de \(57{,}71^\circ\). Caminar \(50\) m en esa dirección
+cambia la altura en \(50\,b\approx0{,}581\) m, no en \(1{,}088\) m: no es la dirección de
 máxima pendiente. El error no está en la forma sino en haberla levantado a vector con
 \(G=I\), cuando en las coordenadas \((\text{m},\text{km})\) la métrica es
 \(G=\operatorname{diag}(1,10^6)\). Con esa \(G\), \(G^{-1}dh^T=(0{,}018392;\
 0{,}0000116)\) en \((\text{m},\text{km})\), que en metros es otra vez \((a,b)\) y apunta a
 \(57{,}71^\circ\).
 
+\paragraph{La pendiente después de un cambio de coordenadas afín.} Supongamos que, para
+trabajar cómodos en el lugar, armamos unos ejes propios: girados respecto del este y el norte,
+con otra unidad en uno de ellos y corridos de modo que el primer punto quede en \((100,200)\). ¿Qué fila describe la
+misma pendiente en esos ejes nuevos, y hacia dónde apunta ahí la máxima pendiente?
+Volvemos al plano de esta sección, con
+\(dh=(a,b)=(0{,}018392;\ 0{,}011622)\) en \((\Delta E,\Delta N)\) en metros. Pasamos a unas
+coordenadas locales \(x'=Ax+c\) que giran los ejes \(30^\circ\) y miden el primer eje en
+medios metros:
+\[
+  A=\operatorname{diag}(2,1)\,R(30^\circ)\approx\begin{pmatrix}1{,}732051&-1\\0{,}5&0{,}866025\end{pmatrix},
+  \quad c=(100,200),\quad
+  A^{-1}\approx\begin{pmatrix}0{,}433013&0{,}5\\-0{,}25&0{,}866025\end{pmatrix},
+\]
+con \(\det A=2\). Por la proposición~\ref{prop:normales-inversa-transpuesta} la forma en las
+coordenadas nuevas es
+\[
+  dh'=dh\,A^{-1}\approx(0{,}005059;\ 0{,}019261).
+\]
+El desplazamiento de \(50\) m en la dirección que forma \(120^\circ\) con el norte, el de la verificación numérica,
+\(W=(43{,}301;\ -25{,}000)\), pasa a \(W'=AW=(100{,}000;\ 0{,}000)\), de \(P_1'=c=(100,200)\)
+a \((200,200)\). La subida predicha es la misma en los dos sistemas:
+\(dh(W)=dh'(W')\approx0{,}505852\) m, y la altura de llegada es \(32{,}9559\) m en ambos. Si
+hubiéramos transformado \(dh\) con \(A\), como un punto, obtendríamos
+\((0{,}020234;\ 0{,}019261)\), que aplicado a \(W'\) da \(2{,}023\) m: cuatro veces más.
+
+La dirección de máxima pendiente, en cambio, es una dirección y viaja con \(A\): el versor
+\(u\) de máxima pendiente (\(57{,}71^\circ\) desde el norte) pasa a \(Au\approx(0{,}930045;\ 0{,}885299)\), paralelo a
+\(A\,dh^T=(0{,}020234;\ 0{,}019261)\). Es lo que da la
+proposición~\ref{prop:vector-asociado} con la métrica de las coordenadas nuevas: el largo
+en metros de \(w'\) es \(\lVert A^{-1}w'\rVert\), así que
+\(G'=A^{-T}A^{-1}=\operatorname{diag}(0{,}25;\ 1)\) y
+\(G'^{-1}dh'^T=AA^TA^{-T}dh^T=A\,dh^T\). La columna \(A^{-T}dh^T=(0{,}005059;\ 0{,}019261)\)
+forma \(31{,}70^\circ\) con esa dirección; tomada por error como dirección y llevada de vuelta
+al terreno con \(A^{-1}\), apunta a \(37{,}48^\circ\) del norte, donde la pendiente es
+\(2{,}041\)\,\% y no la máxima, \(2{,}176\)\,\%. La forma se transforma con \(A^{-T}\) y la
+dirección de máxima pendiente con \(A\); solo con \(G'=I\) (ejes ortogonales de igual
+unidad) coinciden. Los números salen de \texttt{cap05\_transpuesta\_normales.py}.
+
 \unidadInteractiva{00_fundamentos}{Fundamentos: puntos, formas lineales y métrica}{Verificá: con el objeto «(b) regla graduada \(w^T\) (el gradiente)» y el caso «estirar Este ×2: diag(2, 1)», comprobá que la fila pasa de \((1,1)\) a \((\tfrac12,1)\), que el mojón conserva su cota y que la perpendicular dibujada en el papel deja de ser la bajada real del terreno.}
 
 \begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
 Un \emph{clasificador lineal} separa dos lotes de puntos del plano (dos categorías,
 \(y_i=\pm1\)) con una regla \(\omega(x)=w_1x+w_2y+b\): la categoría es el signo de \(\omega\).
-Es una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
+Es una forma lineal, una regla graduada tirada sobre la nube. Si llamamos \(V\) al plano donde
+viven los puntos y \(V^{*}\) a su dual, el espacio de las reglas, los puntos viven en \(V\) y el
 clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
 entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
 sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
@@ -684,6 +836,38 @@ separa, pero con ancho \(2\) (verificado con \texttt{scipy.optimize}). La unidad
 (apéndice~\ref{ap:notebooks}) lo dibuja con el helper \texttt{svm\_margen\_duro\_2d} de
 \file{cb104.py}: mové un punto y mirá cómo gira la regla.
 \end{idea}
+
+\subsection{Demostraciones de la transpuesta y de las normales}\label{sec:demos-transpuesta}
+
+Reunimos acá, completas, las demostraciones que en las construcciones del capítulo quedaron
+resumidas en una frase. Cada una lleva el nombre y el número del enunciado que demuestra.
+
+\paragraph{La adjunta existe, es única y es la transpuesta de siempre
+(proposición~\ref{prop:transpuesta-propiedades}).}
+\begin{demostracion}
+(a) Unicidad: si \(B\) y \(C\) cumplen la propiedad, \(\langle u,(B-C)v\rangle=0\) para todo
+\(u\); con \(u=(B-C)v\) queda \(\lVert(B-C)v\rVert^2=0\), así que \(Bv=Cv\) para todo \(v\)
+y \(B=C\). Entradas: si \(B\) cumple la propiedad, \(B_{ij}=\langle e_i,Be_j\rangle=
+\langle Ae_i,e_j\rangle=A_{ji}\). Existencia: con \(B_{ij}=A_{ji}\),
+\(\langle Au,v\rangle=\sum_{i,j}A_{ji}u_iv_j=\sum_{i,j}u_iB_{ij}v_j=\langle u,Bv\rangle\).
+(b) \(\langle ABu,v\rangle=\langle Bu,A^Tv\rangle=\langle u,B^TA^Tv\rangle\), y por la
+unicidad \((AB)^T=B^TA^T\). Con \(B=A^{-1}\): \((A^{-1})^TA^T=(AA^{-1})^T=I^T=I\).
+\end{demostracion}
+
+\paragraph{Las normales se transforman con la inversa transpuesta
+(proposición~\ref{prop:normales-inversa-transpuesta}).}
+\begin{demostracion}
+Si \(p,q\in\ell\), entonces \(n\cdot(p-q)=0\) y la diferencia de las imágenes es
+\(Ap+c-(Aq+c)=A(p-q)\). Por la definición~\ref{def:transpuesta-adjunta} aplicada a
+\(A^{-1}\) y por la proposición~\ref{prop:transpuesta-propiedades}(b),
+\[
+  (A^{-T}n)\cdot A(p-q)=n\cdot A^{-1}A(p-q)=n\cdot(p-q)=0 .
+\]
+Recíprocamente, todo \(x'\) con \((A^{-T}n)\cdot(x'-q')=0\) es imagen de
+\(x=A^{-1}(x'-c)\), que cumple \(n\cdot(x-q)=n\cdot A^{-1}(x'-q')=0\). Para el diferencial:
+\(h'(x_0'+w')=h(x_0+A^{-1}w')\approx h(x_0)+dh\,A^{-1}w'\), y el término lineal en \(w'\) es
+\(dh\,A^{-1}\).
+\end{demostracion}
 
 \section{Ejercicios con solución}
 
