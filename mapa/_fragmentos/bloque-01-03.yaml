@@ -185,3 +185,11 @@ conceptos:
     que_se_conserva: "distancias, ángulos, orientación y todas las direcciones"
     apunte: ["afines", "17"]
     requiere: [reflexion, punto-fijo, punto-impropio]
+  - id: mapa-transformaciones
+    nombre: "Mapa de las transformaciones"
+    clase: "03"
+    unidades: [01b_rotacion_plano, 03_reflexiones_similaridades, 04_afines_homogeneas, 05_proyectivas, 15_transformaciones_conformes]
+    hecho_geometrico: "Cada familia contiene a la anterior y conserva menos: movimientos rígidos (distancias; 2 puntos homólogos), similaridades (ángulos; 2), afinidades (paralelismo; 3 no alineados) y homografías (rectas y razón doble; 4 sin tres alineados)."
+    que_se_conserva: "depende de la familia: ver la tabla"
+    apunte: ["afines"]
+    requiere: [traslacion, rotacion, reflexion, similaridad, transformacion-afin, homografia]

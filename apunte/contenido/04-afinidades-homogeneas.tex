@@ -3,6 +3,7 @@
 
 % Números de los ejemplos y soluciones: apunte/scripts/cap06_afines.py
 % Números y figura de la aplicación (ortofoto): apunte/scripts/cap04_afinidad_ortofoto.py
+% Números, tabla y figura del mapa de las transformaciones: apunte/scripts/cap04_mapa_transformaciones.py
 
 \section{La idea}
 
@@ -1164,6 +1165,232 @@ Los seis ejercicios quedan resueltos de forma algebraica y geométrica. Los ejer
 y 5 incluyen además las salvedades necesarias para interpretar correctamente sus enunciados.
 \end{resultado}
 
+\section{Mapa de las transformaciones}\label{sec:mapa-transformaciones}
+
+% Números, tabla «Qué se conserva» (verificada celda por celda) y figura:
+% apunte/scripts/cap04_mapa_transformaciones.py
+
+Los capítulos~\ref{cap:rotaciones} a~\ref{cap:afines} y los complementos~\ref{cap:proyectivas}
+y~\ref{cap:conformes} estudian familias de transformaciones del plano que forman una cadena:
+cada familia contiene a la anterior y conserva menos. Una isometría conserva las distancias;
+si se permite que todas se multipliquen por un mismo factor, aparece la similaridad; si la
+escala puede depender de la dirección, la afinidad; si se suelta el paralelismo, la
+proyectiva. Quitar una condición agrega parámetros, y cada parámetro nuevo exige más puntos
+homólogos para fijarlo: dos para una similaridad, tres para una afinidad, cuatro para una
+proyectiva. Las tres primeras familias de la figura son piezas sueltas: traslaciones y
+rotaciones son movimientos rígidos, y la reflexión agrega la inversión del sentido de giro;
+desde la similaridad, cada familia contiene a todas las anteriores. La conforme es otra rama:
+parte de la similaridad directa y deja que la escala y el giro cambien de un punto a otro; no
+contiene a las afinidades ni a las proyectivas.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/afines/cap04_mapa_transformaciones.pdf}
+\caption{El mismo predio (gris, trazo punteado) y su imagen (teal, trazo continuo) por una
+transformación de cada familia, con el mismo encuadre en los ocho paneles. El lado \(AB\)
+(el cuadrado marca \(A\)) es paralelo al lado \(DE\); la diagonal \(AC\) lleva marcado su
+punto medio \(M\) (círculo). La flecha recorre \(AB\) de \(A\) hacia \(B\): si el interior
+queda a su izquierda, como en el original, el sentido de giro se conservó. Generada con
+\texttt{apunte/scripts/cap04\_mapa\_transformaciones.py}.}
+\label{fig:mapa-transformaciones}
+\end{figure}
+
+\paragraph{El predio y las ocho transformaciones.} El predio es el pentágono convexo de
+vértices \(A=(0,0)\), \(B=(4,0)\), \(C=(5;\ 1{,}8)\), \(D=(3,3)\) y \(E=(0{,}5;\ 3)\), con
+\(AB\parallel DE\) y área \(12{,}150\). Sobre la diagonal \(AC\) se marcan el punto medio
+\(M\) y el punto \(Q\) a un cuarto de \(A\): los cuatro puntos alineados \(A,Q,M,C\) tienen
+razón doble \((0,\tfrac14;\tfrac12,1)=1{,}5\) (definición~\ref{def:c1-razon-doble}). Las
+transformaciones de la figura~\ref{fig:mapa-transformaciones} son:
+\begin{itemize}
+\item traslación \(\tau_v\) con \(v=(4{,}5;\ 3)\);
+\item rotación \(\rhoP{c,50^\circ}\) con centro \(c=A=(0,0)\);
+\item reflexión \(\sigma_L\) en la recta \(L\colon x+y=7\), es decir
+\(A=\left(\begin{smallmatrix}0&-1\\-1&0\end{smallmatrix}\right)\), \(b=(7,7)\), \(\det A=-1\);
+\item movimiento rígido \(R(-30^\circ)\,x+(4,5)\);
+\item similaridad directa \(0{,}6\,R(110^\circ)\,x+(8;\ 2{,}5)\);
+\item afinidad \(Ax+b\) con \(A=\left(\begin{smallmatrix}1{,}25&0{,}55\\0{,}15&0{,}75\end{smallmatrix}\right)\),
+\(b=(3{,}8;\ 2{,}6)\), \(\det A=0{,}855\);
+\item proyectiva de matriz
+\(H=\left(\begin{smallmatrix}1&0{,}15&4\\0{,}05&0{,}95&3\\0{,}07&0{,}05&1\end{smallmatrix}\right)\),
+\(\det H=0{,}568\); en los vértices \(W\) vale entre \(1\) y \(1{,}44\), así que la recta que va
+al infinito no corta al predio;
+\item conforme \(f(z)=z_0+\bigl(e^{\varepsilon z}-1\bigr)/\varepsilon\), con \(z=x+iy\),
+\(\varepsilon=0{,}12\) y \(z_0=3+2{,}6\,i\). Es analítica, con \(f'(z)=e^{\varepsilon z}\neq0\):
+en cada punto es la similaridad de escala \(k(p)=\lvert f'(z)\rvert=e^{\varepsilon x}\) y giro
+\(\varepsilon y\) (complemento~\ref{cap:conformes}). En los vértices del predio, \(k\) va de
+\(1\) a \(1{,}822\).
+\end{itemize}
+
+\paragraph{Qué se conserva.} El script mide, antes y después de cada transformación, los
+diez cocientes de distancias entre vértices, el ángulo entre los lados en cada vértice (el
+ángulo entre las curvas imagen, con la jacobiana), el signo del área, el cociente de áreas,
+el paralelismo de \(AB\) y \(DE\), si los lados siguen siendo rectos, si \(M\) sigue siendo
+el punto medio y la razón doble de \(A,Q,M,C\). El cuadro~\ref{tab:conserva} es el resultado;
+el script falla si alguna celda escrita no coincide con lo medido. Tres lecturas de la
+figura: la afinidad multiplica el área por \(\det A\) (de \(12{,}150\) a \(10{,}388\)) y deja
+\(AB\) paralelo a \(DE\); la proyectiva hace que las imágenes de \(AB\) y de \(DE\) formen
+\(10{,}2^\circ\), corre la imagen de \(M\) del punto medio y conserva la razón doble
+\(1{,}5\); la conforme curva los lados y conserva los ángulos en los vértices.
+
+\begin{table}[tbp]
+\centering
+\caption{Qué se conserva en cada familia.}\label{tab:conserva}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{22mm}*{8}{>{\centering\arraybackslash}X}}
+\toprule
+& Traslación & Rotación & Reflexión & Movimiento rígido & Similaridad & Afín & Proyectiva & Conforme\\
+\midrule
+% tabla-conserva:inicio
+Distancias & sí & sí & sí & sí & \(\times k\) & no & no & local\(^{b}\) \(\times k(p)\)\\
+Ángulos & sí & sí & sí & sí & sí & no & no & sí\\
+Sentido de giro & sí & sí & no & sí & si \(\det>0\)\(^{a}\) & si \(\det>0\)\(^{a}\) & si \(\det>0\)\(^{a}\) & sí\\
+Áreas & sí & sí & sí & sí & \(\times k^2\) & \(\times\lvert\det A\rvert\) & no & local\(^{b}\) \(\times k(p)^2\)\\
+Paralelismo & sí & sí & sí & sí & sí & sí & no & local\(^{b}\)\\
+Rectas & sí & sí & sí & sí & sí & sí & sí & local\(^{b}\)\\
+Punto medio (razón simple) & sí & sí & sí & sí & sí & sí & no & local\(^{b}\)\\
+Razón doble & sí & sí & sí & sí & sí & sí & sí & local\(^{b}\)\\
+% tabla-conserva:fin
+\bottomrule
+\end{tabularx}\par\smallskip
+\begin{minipage}{\textwidth}\raggedright
+\(^{a}\)\,Con el determinante de la parte lineal (similaridad, afín) o de \(H\) normalizada
+para que \(W>0\) en toda la figura (proyectiva, con la figura sin cortar la recta que va al
+infinito). \(^{b}\)\,Falla en una figura grande y vale cada vez mejor a medida que la figura se
+achica alrededor de un punto \(p\); \(k(p)=\lvert f'(z)\rvert\) es la escala local.
+\end{minipage}}
+\end{table}
+
+\paragraph{El sentido de giro de una proyectiva.} La orientación de tres puntos
+\(p_1,p_2,p_3\) es el signo del determinante de la matriz que tiene por columnas
+\(\tilde p_i=(x_i,y_i,1)^T\): ese determinante es el doble del área con signo del triángulo,
+como en el ejemplo~\ref{ej:06-tres-puntos}. La homografía lo multiplica por \(\det H\), porque
+\(\det[H\tilde p_1\ H\tilde p_2\ H\tilde p_3]=\det H\,\det[\tilde p_1\ \tilde p_2\ \tilde p_3]\),
+y normalizar cada imagen divide su columna por su \(W_i\). Si los tres \(W_i\) son positivos,
+el signo final es el de \(\det H\). Para una afinidad, \(W=1\) y \(\det H=\det A\). En el
+predio, la proyectiva de la figura (\(\det H>0\)) conserva el sentido y la que se obtiene
+cambiando el signo de la segunda columna de \(H\) lo invierte.
+
+\paragraph{Qué quiere decir «local».} Cerca de un punto \(p\), la conforme coincide con la
+similaridad \(x\mapsto f(p)+J(p)(x-p)\), con \(J(p)=k(p)\,R(\theta(p))\): en un predio chico
+conserva lo que conserva esa similaridad, con un error que tiende a cero cuando el predio se
+achica. El script lo mide achicando el predio alrededor de su centroide \(G\) por \(0{,}1\) y
+por \(0{,}01\): el desvío de los cocientes de distancias respecto de \(k(G)=1{,}318\) pasa de
+\(0{,}30\) a \(0{,}027\) y a \(0{,}0026\); el seno del ángulo entre las imágenes de \(AB\) y
+\(DE\), de \(0{,}35\) a \(0{,}036\) y a \(0{,}0036\); el desvío de la imagen de \(M\) respecto del
+punto medio (en unidades de la diagonal), de \(0{,}079\) a \(0{,}0080\) y a \(0{,}0008\). Toda
+transformación derivable se parece de cerca a una afinidad, su aproximación lineal
+(capítulo~\ref{cap:derivada}); por eso en la columna de la proyectiva se registra sólo lo que
+vale en grande. Lo propio de la conforme es que esa afinidad es una similaridad.
+
+\paragraph{Ficha técnica.} El cuadro~\ref{tab:ficha} reúne, para cada familia, la forma
+algebraica, los grados de libertad (g.d.l.), cuántos pares de puntos homólogos la fijan, sus
+puntos fijos y el signo de su determinante. Para el movimiento rígido, los dos pares tienen
+que estar a la misma distancia: dos pares fijan una similaridad directa
+(ejemplo~\ref{ej:similaridad-segmento}), y si las distancias coinciden, su razón es \(1\).
+
+\begin{table}[tbp]
+\centering
+\caption{Ficha técnica por familia.}\label{tab:ficha}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{19mm}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{8mm}>{\raggedright\arraybackslash}p{30mm}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{17mm}>{\centering\arraybackslash}p{7mm}}
+\toprule
+Familia & Forma algebraica & g.d.l. & Puntos homólogos mínimos & Puntos fijos típicos & \(\det\) & Cap.\\
+\midrule
+Traslación & \(x+v\);\quad \(\left(\begin{smallmatrix}I&v\\0\ 0&1\end{smallmatrix}\right)\) & 2 &
+1 par & ninguno (\(v\neq0\)) & \(+1\) & \ref{cap:traslaciones}\\
+\addlinespace
+Rotación & \(c+R(\theta)(x-c)\);\quad \(\left(\begin{smallmatrix}R(\theta)&(I-R(\theta))c\\0\ 0&1\end{smallmatrix}\right)\) & 3 &
+2 pares a la misma distancia (o el centro y 1 par) & el centro \(c\) (\(\theta\not\equiv0\)) & \(+1\) & \ref{cap:rotaciones}\\
+\addlinespace
+Reflexión & \(\sigma_L(x)=Ax+b\), \(A=I-\frac{2nn^T}{\lVert n\rVert^2}\), \(b=\frac{2h}{\lVert n\rVert^2}n\), para \(L\colon n^Tx=h\) & 2 &
+1 par \(p\neq q\): \(L\) es la mediatriz de \(pq\) & los puntos de \(L\) & \(-1\) & \ref{cap:reflexiones}\\
+\addlinespace
+Movimiento rígido & \(R(\theta)x+v\);\quad \(\left(\begin{smallmatrix}R(\theta)&v\\0\ 0&1\end{smallmatrix}\right)\) & 3 &
+2 pares distintos a la misma distancia & un centro (\(\theta\not\equiv0\)) o ninguno (traslación) & \(+1\) & \ref{cap:traslaciones}\\
+\addlinespace
+Similaridad & \(\lambda Qx+t\), \(Q\) ortogonal;\quad \(\left(\begin{smallmatrix}\lambda Q&t\\0\ 0&1\end{smallmatrix}\right)\) & 4 &
+2 pares distintos & uno solo (\(\lambda\neq1\)) & \(+\lambda^2\) directa, \(-\lambda^2\) inversa & \ref{cap:reflexiones}\\
+\addlinespace
+Afín & \(Ax+b\), \(\det A\neq0\);\quad \(\left(\begin{smallmatrix}A&b\\0\ 0&1\end{smallmatrix}\right)\) & 6 &
+3 pares, no colineales & \((I-A)p=b\): uno, ninguno o una recta & \(\det A\neq0\), de cualquier signo & \ref{cap:afines}\\
+\addlinespace
+Proyectiva & \(p\mapsto Hp\), \(H\) de \(3\times3\) invertible, a menos de escala & 8 &
+4 pares, sin tres colineales en la partida ni en la llegada & al menos uno, propio o impropio (autovector de \(H\)) & \(\det H\neq0\); el signo depende de la escala elegida & \ref{cap:proyectivas}\\
+\addlinespace
+Conforme & \(w=f(z)\) analítica, \(f'(z)\neq0\); jacobiana \(J(p)=k(p)\,R(\theta(p))\) & no finito &
+ninguna cantidad finita: se elige la proyección (Gauss-Krüger: el meridiano central sin deformación) & dependen de \(f\) & \(\det J=k(p)^2>0\) & \ref{cap:conformes}\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+\paragraph{Elegir la familia en el campo.} El cuadro~\ref{tab:campo} ordena los problemas
+topográficos resueltos en el apunte según la familia que les corresponde. La regla es usar la
+familia más chica cuyos residuos bajen al nivel del error de medición: una familia más grande
+siempre ajusta igual o mejor, pero gasta puntos en parámetros que no hacen falta y deja menos
+ecuaciones de control.
+
+\begin{table}[tbp]
+\centering
+\caption{Qué familia usar en cada problema de campo.}\label{tab:campo}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{31mm}>{\raggedright\arraybackslash}p{19mm}YY}
+\toprule
+Problema & Familia & Por qué esa y no otra & Señal de que hace falta la siguiente\\
+\midrule
+Radiado desde una estación orientada (sección~\ref{sec:rotaciones-aplicacion}) y poligonal
+a un origen de obra (sección~\ref{sec:aplicacion-poligonal}) & movimiento rígido &
+la estación total mide distancias y ángulos reales; orientar es girar con \(R(-\mathrm{Az})\)
+y trasladar a la estación, sin escala que estimar &
+al cerrar sobre puntos de coordenadas conocidas, las diferencias crecen con la longitud del
+lado: falta un factor de escala (similaridad)\\
+\addlinespace
+Levantamiento local al sistema oficial con dos puntos de control, Helmert
+(sección~\ref{sec:aplicacion-helmert}) & similaridad directa &
+entre las distancias del terreno y las del plano de la proyección hay un factor casi
+constante (\(147{,}9\) partes por millón); dos controles fijan los cuatro parámetros &
+con más controles, los cocientes de distancias dependen de la dirección y los residuos no
+bajan al nivel de la medición: hay una deformación direccional (afín)\\
+\addlinespace
+Georreferenciar una ortofoto por cuatro puntos de apoyo
+(sección~\ref{sec:aplicacion-ortofoto}) & afín &
+las escalas de columnas y filas difieren en un \(0{,}31\) por ciento; la similaridad no lo
+absorbe (\(\mathrm{RMS}=9{,}9\) cm contra \(1{,}4\) cm) &
+las paralelas del terreno (alambrados, bordes de lote) convergen en la imagen: la toma no es
+vertical y hace falta la proyectiva\\
+\addlinespace
+Rectificar una foto oblicua de un lote plano (secciones~\ref{sec:proyectivas-primera}
+y~\ref{sec:cuatro-puntos}) & proyectiva &
+la cámara inclinada lleva el rectángulo a un trapecio con un punto de fuga, y ninguna afín
+hace converger paralelas; cuatro puntos sin tres alineados la fijan &
+los residuos no bajan con más apoyos: el lote no es plano y ninguna transformación del plano
+alcanza\\
+\addlinespace
+Pasar distancias medidas al plano Gauss-Krüger (complemento~\ref{cap:conformes}) &
+conforme; en un predio chico, la similaridad de escala \(k(p)\) &
+conserva los ángulos medidos; la escala depende del punto, no de la dirección: hasta
+\(23\) cm/km en el borde de la faja a la latitud de Buenos Aires &
+en un trabajo extenso, una sola similaridad deja residuos que crecen con la extensión
+porque \(k\) cambia de un punto a otro: hay que aplicar la proyección misma\\
+\bottomrule
+\end{tabularx}}
+\end{table}
+
+\begin{idea}[Pasar de los ejes matemáticos a Gauss-Krüger es una reflexión, no una rotación]
+En los ejes matemáticos \((x,y)\), con \(x\) hacia el este e \(y\) hacia el norte, los ángulos
+se miden desde \(x\) en sentido antihorario. En Gauss-Krüger argentino la coordenada \(X\) es
+el norte y la \(Y\) el este, y los acimutes se miden desde \(X\) en sentido horario. El pasaje
+\((x,y)\mapsto(X,Y)=(y,x)\) tiene matriz
+\(\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\), de determinante \(-1\): es la
+reflexión en la bisectriz \(x=y\), que lleva el ángulo \(\theta\) a \(90^\circ-\theta\), la
+relación \(\mathrm{Az}=90^\circ-\theta\) de la proposición~\ref{prop:acimut-theta}. Por eso se
+invierte el sentido de giro, como dice la columna Reflexión del cuadro~\ref{tab:conserva}, y
+ninguna rotación lleva una convención a la otra. La caja «Coordenadas (E, N) y planillas
+oficiales» de la sección~\ref{caja:convencion-en} explica cómo se leen esas columnas en una
+planilla oficial.
+\end{idea}
+
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Explorá: aplicá a la misma parcela, uno por vez, los casos precargados «reflexión diag(1, −1)», «rotación + escala 0.8·R(θ)», «corte [[1, s], [0, 1]]» y «escala anisótropa diag(1.5, s)», y anotá en cada uno si se conservaron las longitudes, los ángulos, el sentido de giro y el área; comprobá en el cuadro~\ref{tab:conserva} lo que dicen las columnas Reflexión, Similaridad y Afín.}
+
 \section{Ejercicios con solución}
 
 En cada ejercicio conviene dibujar los puntos iniciales y finales, indicar el orden de
@@ -1210,4 +1437,55 @@ Hallar la afinidad que lleva el triángulo \((0,0),(2,0),(0,1)\) al triángulo
 \((1,1),(5,2),(2,4)\), usando \(A=P'P^{-1}\).
 \solucion{\(P=\begin{pmatrix}2&0\\0&1\end{pmatrix}\), \(P'=\begin{pmatrix}4&1\\1&3\end{pmatrix}\),
 \(A=\begin{pmatrix}2&1\\0{,}5&3\end{pmatrix}\), \(b=(1,1)\); \(\det A=5{,}5\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:mapa-familia-minima}
+Tres puntos de un levantamiento, en metros, y sus homólogos en otro sistema son
+\(p_1=(0,0)\mapsto q_1=(100,200)\), \(p_2=(40,0)\mapsto q_2=(140,230)\) y
+\(p_3=(0,30)\mapsto q_3=(77{,}5;\ 230)\). Ajustar por mínimos cuadrados un movimiento rígido,
+una similaridad y una afinidad, comparar los residuos y decidir cuál es la familia mínima que
+explica los datos (sección~\ref{sec:mapa-transformaciones}).
+\solucion{Los lados miden \(40\), \(30\) y \(50\) antes y \(50\), \(37{,}5\) y \(62{,}5\)
+después: los tres cocientes valen \(1{,}25\). El movimiento rígido no puede cambiar
+distancias; su mejor ajuste (giro \(36{,}870^\circ\), traslación \((101{,}167;\ 204)\)) deja
+residuos de \(4{,}17\), \(7{,}12\) y \(6{,}01\) m, con \(\mathrm{RMS}=5{,}89\) m. La similaridad
+ajusta exacto: \(\lambda=1{,}25\), \(\theta=36{,}870^\circ\), \(t=(100,200)\), es decir
+\(\lambda R(\theta)=\left(\begin{smallmatrix}1&-0{,}75\\0{,}75&1\end{smallmatrix}\right)\),
+con residuos nulos y redundancia \(2\). La afinidad también da residuos nulos, pero con tres
+pares su redundancia es \(0\): ajusta exacto cualquier terna no colineal
+(proposición~\ref{prop:06-tres-puntos}), así que su residuo nulo no prueba nada. La familia
+mínima es la similaridad directa.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:mapa-plano-escaneado}
+Un plano a escala \(1:1000\) se escaneó y se lo quiere llevar a coordenadas de terreno con
+cinco puntos de apoyo, \((u;v)\) en milímetros sobre el plano y \((E;N)\) en metros:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & plano \((u;\,v)\) (mm) & terreno \((E;\,N)\) (m)\\
+\midrule
+\(P_1\) & \(20;\ 30\) & \(1018{,}97;\ 5030{,}53\)\\
+\(P_2\) & \(280;\ 25\) & \(1278{,}93;\ 5034{,}67\)\\
+\(P_3\) & \(290;\ 190\) & \(1283{,}23;\ 5199{,}28\)\\
+\(P_4\) & \(30;\ 200\) & \(1023{,}05;\ 5200{,}12\)\\
+\(P_5\) & \(150;\ 110\) & \(1146{,}07;\ 5114{,}73\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Los ajustes por mínimos cuadrados dan \(\mathrm{RMS}\) de \(29{,}2\) cm (movimiento rígido),
+\(23{,}8\) cm (similaridad), \(1{,}4\) cm (afín) y \(0{,}8\) cm (proyectiva). Elegir la familia y
+justificarla con el cuadro~\ref{tab:ficha}.
+\solucion{Afín. Con cinco pares hay diez ecuaciones: la redundancia es \(7\), \(6\), \(4\) y
+\(2\) para las familias de \(3\), \(4\), \(6\) y \(8\) parámetros. El movimiento rígido y la
+similaridad dejan residuos de \(25\) a \(35\) cm en las cuatro esquinas y de unos \(2\) cm en
+el centro: un patrón sistemático, no ruido. La afín los baja a entre \(0{,}7\) y \(1{,}8\) cm,
+del orden de la precisión de los datos (dados al centímetro), y dice por qué: sus columnas
+miden \(0{,}9999\) y \(0{,}9961\) m por milímetro y forman \(89{,}98^\circ\), una deformación
+direccional del \(0{,}4\) por ciento (el papel se encogió en un sentido) que una sola escala no
+puede absorber. La proyectiva baja el RMS a \(0{,}8\) cm con dos parámetros más y redundancia
+\(2\); sus términos de perspectiva valen \(h_{31}=-4{,}1\times10^{-7}\) y
+\(h_{32}=-9{,}6\times10^{-7}\) por milímetro, y en un plano escaneado no hay cámara inclinada
+que produzca perspectiva: la mejora es ajuste del ruido. La afín necesita tres puntos no
+colineales y deja cuatro ecuaciones de control.}
 \end{ejercicio}

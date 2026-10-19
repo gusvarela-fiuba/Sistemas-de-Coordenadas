@@ -6,7 +6,7 @@ Cada ficha y cada fragmento de mapa usa exactamente estos ids (kebab-case, sin a
 |---|---|
 | 01 Rotaciones | rotacion, numeros-complejos, formula-de-euler, producto-interno, matriz-ortogonal, rotacion-3d, rotacion-infinitesimal, exponencial-de-matrices |
 | 02 Más rotaciones | composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia |
-| 03 Afines | reflexion, afinidad-axial, similaridad, transformacion-afin, coordenadas-homogeneas, punto-fijo, traslacion |
+| 03 Afines | reflexion, afinidad-axial, similaridad, transformacion-afin, coordenadas-homogeneas, punto-fijo, traslacion, mapa-transformaciones |
 | 03p Proyectivas (complemento) | plano-proyectivo, punto-impropio, homografia, recta-fija, razon-doble |
 | 04 Espacios lineales | espacio-vectorial, transformacion-lineal, forma-lineal, dualidad, curvas-de-nivel |
 | 05 Subespacios | subespacio-lineal, subespacio-afin, producto-vectorial, producto-cuna, determinante, nucleo, colinealidad |

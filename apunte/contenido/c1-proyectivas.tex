@@ -61,24 +61,42 @@ y un plano invariante es una recta fija.
 
 \subsection{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} p{44mm} c c X}
-\toprule
-Familia & Forma de \(H\) & g.d.l. & Puntos & Conserva\\
-\midrule
-Isometrías & \(\begin{pmatrix}R&t\\0&1\end{pmatrix}\), \(R^TR=I\) & 3 & 2 &
-distancias, ángulos, áreas\\
-Similaridades & \(\begin{pmatrix}kR&t\\0&1\end{pmatrix}\) & 4 & 2 &
-ángulos, razones de longitudes\\
-Afinidades & \(\begin{pmatrix}A&t\\0&1\end{pmatrix}\), \(\det A\neq0\) & 6 & 3 &
-paralelismo, razón simple, razón de áreas\\
-Proyectivas & \(H\) invertible cualquiera & 8 & 4 &
-rectas, incidencia, razón doble\\
-\bottomrule
-\end{tabularx}
-\end{center}
-``Puntos'' es la cantidad de correspondencias \(p_i\mapsto p_i'\) que determinan la
-transformación. Cada familia contiene a la anterior y conserva menos.
+El cuadro completo de qué conserva cada familia, con sus grados de libertad y los puntos
+homólogos que la fijan, está en la sección~\ref{sec:mapa-transformaciones}
+(cuadros~\ref{tab:conserva} y~\ref{tab:ficha}): cada familia contiene a la anterior y conserva
+menos, y la proyectiva es la última de la cadena. Acá interesa lo que le pasa a ella.
+
+\emph{Por qué se pierde el paralelismo.} Dos rectas paralelas de dirección \(d\) comparten su
+punto impropio \((d_1,d_2,0)^T\) (definición~\ref{def:06-impropio}). Una afinidad, con última
+fila \((0,0,1)\), lo manda a \((Ad,0)^T\), otro punto impropio: las imágenes siguen paralelas.
+Una homografía lo manda a \(H(d_1,d_2,0)^T\), cuya tercera coordenada es
+\(h_{31}d_1+h_{32}d_2\), en general distinta de cero. Entonces las dos rectas imagen comparten
+un punto \emph{ordinario}, el punto de fuga, y se cortan ahí. Sólo la dirección con
+\(h_{31}d_1+h_{32}d_2=0\) conserva sus paralelas.
+
+\emph{La recta del infinito.} Los puntos impropios forman una recta, la recta ideal
+\(W=0\), de coordenadas \(\ell_\infty=(0,0,1)\). Como las rectas se transforman con
+\(H^{-T}\), la homografía la lleva a la recta \(H^{-T}\ell_\infty\), que es ordinaria salvo que
+\(h_{31}=h_{32}=0\): en la foto, el horizonte. Al revés, la recta
+\(h_{31}x+h_{32}y+h_{33}=0\) del plano va a parar a la recta ideal. Una afinidad deja fija la
+recta ideal, y por eso no tiene puntos de fuga.
+
+\emph{La razón doble, único invariante numérico.} Restringida a una recta, una homografía es
+\(x\mapsto(\alpha x+\beta)/(\gamma x+\delta)\), y toda función de esa forma con
+\(\alpha\delta-\beta\gamma\neq0\) se obtiene así: sobre la recta \(y=0\), la matriz
+\(\left(\begin{smallmatrix}\alpha&0&\beta\\0&1&0\\\gamma&0&\delta\end{smallmatrix}\right)\)
+lleva \((x,0,1)^T\) a \((\alpha x+\beta,\ 0,\ \gamma x+\delta)^T\). En particular, para tres
+puntos distintos \(a,b,c\) de la recta,
+\[
+  g(x)=\frac{(x-a)(b-c)}{(x-c)(b-a)}
+\]
+es una homografía que los lleva a \(0\), \(1\) y \(\infty\). Si un número \(I(a,b,c,d)\)
+calculado con cuatro puntos alineados no cambia por homografías, entonces
+\(I(a,b,c,d)=I\bigl(0,1,\infty,g(d)\bigr)\): depende sólo de \(g(d)\), y
+\(g(d)=1/\bigl(1-(a,b;c,d)\bigr)\), como se comprueba restando
+\(1-(a,b;c,d)=\frac{(a-b)(d-c)}{(c-b)(d-a)}\). Todo invariante numérico de cuatro puntos
+alineados es, entonces, una función de la razón doble (proposición~\ref{prop:c1-razon-doble}).
+Las distancias, los ángulos, las áreas y las razones simples no lo son, y se pierden.
 
 \section{Construcciones, cuentas y ejemplos}
 

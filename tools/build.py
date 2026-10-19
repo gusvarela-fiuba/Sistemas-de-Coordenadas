@@ -258,6 +258,14 @@ def validar(datos: dict) -> list[str]:
         k["clase"] = str(k.get("clase", ""))
         if k["clase"] not in ids_clases:
             errores.append(f"{donde}: clase '{k['clase']}' no existe")
+        if k.get("unidades"):
+            # campo opcional: varias unidades para un nodo transversal; el nodo linkea a la primera
+            k["unidades"] = [str(x) for x in k["unidades"]]
+            for extra in k["unidades"]:
+                if extra not in ids_unidades:
+                    errores.append(f"{donde}: unidades '{extra}' no existe")
+            if k.get("unidad") is None:
+                k["unidad"] = k["unidades"][0]
         if k.get("unidad") is not None:
             k["unidad"] = str(k["unidad"])
             if k["unidad"] not in ids_unidades:
@@ -676,6 +684,7 @@ def _ancho_nodo(lineas: list[str]) -> float:
 def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
     clases = datos["clases"]
     conceptos = datos["conceptos"]
+    unidades_por_id = {u["id"]: u for u in datos["unidades"]}
     por_clase: dict[str, list[dict]] = {c["id"]: [] for c in clases}
     for k in conceptos:
         por_clase[k["clase"]].append(k)
@@ -778,6 +787,8 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
         hover = k.get("hecho_geometrico") or k.get("nombre", "")
         if k.get("que_se_conserva"):
             hover += f" — se conserva: {k['que_se_conserva']}"
+        if len(k.get("unidades") or []) > 1:
+            hover += " — unidades: " + ", ".join(unidades_por_id.get(u, {}).get("titulo", u) for u in k["unidades"])
         # texto centrado verticalmente: la primera línea arranca según la cantidad de líneas
         y_texto0 = y + h / 2 - (len(lineas) - 1) * ALTO_LINEA / 2 + 4
         tam = "12.5" if len(lineas) == 1 else "12"

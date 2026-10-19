@@ -193,6 +193,9 @@ def mezclar(fragmentos: list[tuple[Path, dict]], unidades: list[dict], informes:
         u = k.get("unidad")
         if u is not None and str(u) not in ids_unidades:
             errores.append(f"concepto '{k['id']}' refiere a la unidad '{u}' que no está en {UNIDADES_YAML.name}")
+        for extra in k.get("unidades") or []:
+            if str(extra) not in ids_unidades:
+                errores.append(f"concepto '{k['id']}' refiere en `unidades` a '{extra}' que no está en {UNIDADES_YAML.name}")
     # coherencia blanda: la unidad de un concepto debería cubrir la clase del concepto
     por_id = {u["id"]: u for u in unidades}
     for k in lista_conceptos:

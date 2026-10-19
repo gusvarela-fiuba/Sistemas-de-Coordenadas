@@ -19,6 +19,7 @@ conceptos:
     nombre: Rotación             # texto del nodo
     clase: "01"                  # id de una clase existente (columna donde se dibuja)
     unidad: 01_rotaciones        # OPCIONAL: id de una unidad existente; el nodo linkea ahí (si no, a la ficha de la clase)
+    unidades: [01_rotaciones, 02_producto_interno]   # OPCIONAL: ids de unidades existentes para un nodo transversal; si falta `unidad`, se toma la primera (el nodo linkea ahí) y la lista completa va al tooltip
     hecho_geometrico: "dejar quieto un punto, mover otro, acomodar el resto conservando distancias y ángulos"
     que_se_conserva: "distancias y ángulos"
     apunte: ["proyectivas", "14", "15"]   # claves \label{cap:<clave>}: capítulos por nombre ("rotaciones", …), apéndices por número ("14" … "22"); cada una tiene que existir
