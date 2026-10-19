@@ -254,7 +254,7 @@ C[12] = ("Cuatro problemas de ajuste", [
   f"En vertical, la pendiente es \\({n(bv,2)}\\). En perpendicular (la dirección principal de los puntos centrados), \\(\\approx{n(bt,3)}\\). Distinta forma de medir el error, distinta recta."),
  (2, "Dos puntos tienen coordenadas locales \\((0,0)\\) y \\((100,0)\\), y coordenadas generales \\((500,200)\\) y \\((560,280)\\). Encontrá la escala, el giro y la traslación, y pasá a coordenadas generales el punto local \\((50,50)\\).",
   f"Escala \\({n(s12,0)}\\) (los dos tramos miden \\(100\\)), giro \\({ang(th12)}\\) y traslación \\((500,200)\\). El punto \\((50,50)\\) va a \\({vec(*g3, d=0)}\\)."),
- (3, "Se midieron cuatro puntos del borde de una rotonda: \\((10,0)\\), \\((0,10)\\), \\((-10,0)\\) y \\((0;\\ -9{,}8)\\) m. Ajustá una circunferencia escribiéndola como \\(x^2+y^2+Dx+Ey+F=0\\), que es lineal en \\(D\\), \\(E\\) y \\(F\\), y resolviendo por cuadrados mínimos. Calculá el centro y el radio.",
+ (3, "Se midieron cuatro puntos del borde de una rotonda, en metros: \\[(10,0),\\quad(0,10),\\quad(-10,0),\\quad(0;\\ -9{,}8).\\] Ajustá una circunferencia escribiéndola como \\(x^2+y^2+Dx+Ey+F=0\\), que es lineal en \\(D\\), \\(E\\) y \\(F\\), y resolviendo por cuadrados mínimos. Calculá el centro y el radio.",
   f"Centro \\(\\approx{vec(xc,yc,d=3)}\\) m y radio \\(\\approx{n(rc,3)}\\) m, con centro \\((-D/2,\\,-E/2)\\) y \\(r=\\sqrt{{D^2/4+E^2/4-F}}\\)."),
 ])
 
@@ -370,7 +370,7 @@ def html_out(ruta):
         for i, (nv, en, rs) in enumerate(pbs, 1):
             a.append(f'<div class="pb"><b>{cap}.{i}</b> <span class="nv">{NIVH[nv]}</span> {en}'
                      f'<details><summary>Respuesta</summary>{rs}</details></div>')
-    a.append('<script>renderMathInElement(document.body,{delimiters:[{left:"\\\\(",right:"\\\\)",display:false}],'
+    a.append('<script>renderMathInElement(document.body,{delimiters:[{left:"\\\\(",right:"\\\\)",display:false},{left:"\\\\[",right:"\\\\]",display:true}],'
              'macros:{"\\\\R":"\\\\mathbb{R}"}});</script></html>')
     pathlib.Path(ruta).write_text("\n".join(a), encoding="utf-8")
 
