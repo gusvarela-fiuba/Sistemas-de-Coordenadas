@@ -205,6 +205,10 @@ def main():
           f"- Resultados (proposición, teorema, lema, corolario) con comprobación: {sum(r['conc'] for r in cont)} de {sum(r['res'] for r in cont)}",
           "  (Tipo: dominante entre S = simbólica, N = numérica, C = contraejemplo; ver apunte/demostraciones/README.md)",
           f"- Capítulo 0 (criterio propio): {'cumple' if all(r['cumple']=='sí' for r in caps if r['tipo']=='cap0') else 'no cumple'}", ""]
+    notas = APUNTE / "ESTADO_NOTAS.md"
+    if notas.exists():
+        # Notas manuales (capítulos cerrados que ganarían con más espacio, etc.); se copian tal cual al final.
+        md += ["", notas.read_text(encoding="utf-8").rstrip(), ""]
     Path(a.md).write_text("\n".join(md), encoding="utf-8")
     print(f"escrito {a.md}")
 

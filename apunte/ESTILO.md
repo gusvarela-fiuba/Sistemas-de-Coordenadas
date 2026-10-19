@@ -138,6 +138,20 @@ experimento mental en «La idea» de cada capítulo. La lista de términos de ca
    - Bien: `Probá en la unidad con la matriz que quieras y mirá qué pasa con los autovalores.`
    - Mal: `Se calcula con np.linalg.eig(A) y se toma la segunda columna.`
 
+### Sin límite de páginas (criterio vigente desde la fase G)
+
+El apunte no tiene tope de páginas: puede llegar a 300 o 400 si el contenido lo pide. No se comprime
+ni se recorta texto para ahorrar espacio. Si para que algo se entienda hace falta un experimento
+mental, una figura, un ejemplo resuelto o un paso intermedio más, se agrega (las figuras y los
+números salen siempre de un script en `apunte/scripts/`). Las demostraciones y los desarrollos
+largos van completos a «En profundidad», sin resumirlos. Las subsecciones «En el CAD» pueden llevar
+capturas y una consigna paso a paso. Lo que no cambia: «La idea» sigue siendo breve (abre el
+capítulo, no lo reemplaza); nada de relleno (cada página nueva aporta una imagen, un caso o una
+cuenta que el lector no tenía); siguen vigentes las reglas de voz, el contador de términos de campo
+y la compilación sin errores. Un capítulo ya cerrado que ganaría con más espacio se anota en
+`apunte/ESTADO_NOTAS.md` (sale al final de `ESTADO.md`) y no se reabre sin aprobación. En cada
+cierre de capítulo se anotan las páginas antes y después y qué se agregó con el espacio nuevo.
+
 ## 9. Etiquetas y definiciones [chequeos 7 y 8]
 
 - Etiquetas con nombre, nunca numéricas: `\label{cap:repaso-algebra}`, no `\label{cap:03}`. Las
