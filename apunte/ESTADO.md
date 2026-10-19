@@ -31,10 +31,10 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 | contenido/ap1-rotaciones-3d.tex | section: Construcción geométrica de las matrices de rotación | 218 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
 | contenido/ap2-infinitesimales.tex | section: Rotaciones infinitesimales y orden de composición | 218 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
 | contenido/ap3-composicion-afin.tex | section: Composición afín práctica: rotación y escala | 213 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
-| contenido/ap4-bibliografia.tex | section: Bibliografía comentada | 102 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
-| contenido/ap5-notebooks.tex | section: Material de práctica y notebooks | 152 | 0 | 0 | 0 | 0 | 0 | 0 | 42 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación |
+| contenido/ap4-bibliografia.tex | section: Bibliografía comentada | 78 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
+| contenido/ap5-notebooks.tex | section: Material de práctica y notebooks | 112 | 0 | 0 | 0 | 0 | 0 | 0 | 42 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación |
 | contenido/ap6-material-y-fuentes.tex | section*: Material de partida | 48 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | no | no | 0 | no | ejemplos<2, figuras<3, soluciones<4, aplicación, simulaciones<2 |
-| **Total** | | 7529 | 47 | 26 | 44 | 16 | 20 | 20 | 119 | 8 | 0 |  |  | 0 |  |  |
+| **Total** | | 7465 | 47 | 26 | 44 | 16 | 20 | 20 | 119 | 8 | 0 |  |  | 0 |  |  |
 
 ## Enlaces
 
@@ -42,6 +42,6 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 4d588e1
+- HEAD: bb17c41
 - Páginas del último PDF: 144 (/tmp/build_A/Apunte_Sistemas_de_Coordenadas.pdf)
 - Archivos que cumplen el mínimo: 2 de 26
