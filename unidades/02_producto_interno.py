@@ -439,7 +439,7 @@ def _(mo):
 
     - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:rotaciones)
-    - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
+    - [ficha del capítulo 1](../../capitulos/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva
     ángulos pero no largos. Más adelante, en las superficies, los ejes locales ya no son perpendiculares ni de largo $1$,

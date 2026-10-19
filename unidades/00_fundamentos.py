@@ -223,9 +223,9 @@ def _(mo):
     elemento neutro respecto de esa operación: el $-3$ respecto de la suma, el $\tfrac13$ respecto del producto, $A^{-1}$
     respecto de la composición.
 
-    **En el campo.** Los giros de la estación total alrededor de su eje vertical forman un grupo: girar $30°$ y después
+    **En el campo.** Los giros del instrumento alrededor de su eje vertical forman un grupo: girar $30°$ y después
     $50°$ es girar $80°$ (operación interna), no girar es el neutro, girar $-30°$ deshace el $30°$. Las traslaciones
-    (mover la estación total de un mojón a otro) también, y conmutan en cualquier dimensión. Los giros conmutan en el
+    (mover el instrumento de un mojón a otro) también, y conmutan en cualquier dimensión. Los giros conmutan en el
     plano; en 3D no: un giro horizontal y un cabeceo
     en distinto orden dejan el anteojo apuntando a lugares distintos; la composición de transformaciones lineales no
     es conmutativa, y otro ejemplo de operaciones que no conmutan son las rotaciones y las
@@ -267,7 +267,7 @@ def _(mo):
     sin origen: la diferencia de dos puntos es un vector de $V$, y a un punto se le puede sumar un vector.
 
     **En el campo.** En el terreno hay mojones $P$, $Q$, no flechas: el terreno es afín. Un desplazamiento $Q - P$ sí es
-    un vector. Cuando plantamos la estación total en un mojón $O$ y lo declaramos origen, cada mojón se vuelve el vector
+    un vector. Cuando plantamos el instrumento en un mojón $O$ y lo declaramos origen, cada mojón se vuelve el vector
     $P - O$ y **nace $V$**: recién ahí hay combinaciones, bases y coordenadas. La otra manera de que nazca es
     homogeneizar: el punto $(x, y)$ pasa a ser el vector $(x, y, 1)$ de $\mathbb R^3$, y las traslaciones, que no son
     lineales porque "las transformaciones lineales conservan el cero" (19/8), pasan a ser matrices $3\times3$
@@ -865,11 +865,11 @@ def _(mo):
 
     En esta unidad presentamos los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
 
-    - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
-      [apunte, «Repaso de álgebra lineal desde la geometría»](../../apunte.pdf#nameddest=cap:03) ·
+    - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:como-usar) ·
+      [apunte, «Repaso de álgebra lineal desde la geometría»](../../apunte.pdf#nameddest=cap:repaso-algebra) ·
       [apunte, «Rotaciones» (el punto y sus coordenadas no son lo mismo)](../../apunte.pdf#nameddest=cap:rotaciones)
-    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 4](../../clases/04.html) ·
-      [ficha de la clase 9](../../clases/09.html) · [el hilo conductor](../../index.html)
+    - [ficha del capítulo 1](../../capitulos/01.html) · [ficha del capítulo 5](../../capitulos/04.html) ·
+      [ficha del capítulo 10](../../capitulos/09.html) · [el hilo conductor](../../index.html)
 
     Dónde vuelve cada ladrillo: el 1 en [Rotaciones I](../01a_punto_quieto/index.html) y
     [Rotaciones III](../01c_rotaciones_3d/index.html); el 2 en [Rotaciones II](../01b_rotacion_plano/index.html); el 3

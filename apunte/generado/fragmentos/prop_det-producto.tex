@@ -1,0 +1,9 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap06_cuna_determinante.py (test_prop_det_producto). No editar.
+\comprobacionDatos{SIMBOLICA}{}{cap06_cuna_determinante}{60}%
+\begin{lstlisting}
+for n in (2, 3):
+    A = sp.Matrix(n, n, sp.symbols(f"a:{n * n}"))
+    B = sp.Matrix(n, n, sp.symbols(f"b:{n * n}"))
+    assert sp.expand((A * B).det() - A.det() * B.det()) == 0
+\end{lstlisting}
+\comprobacionPie

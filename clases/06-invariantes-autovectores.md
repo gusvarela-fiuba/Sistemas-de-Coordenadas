@@ -1,16 +1,16 @@
 ---
 clase: 6
-titulo: "Clase 6: subespacios invariantes, autovalores y autovectores"
+titulo: "Capítulo 7: subespacios invariantes, autovalores y autovectores"
 idea: "Un autovector es una dirección que la transformación no hace girar: es el núcleo de $A-\\lambda I$ y se calcula con un producto cruz de filas."
 que_se_estudia: ["Subespacio invariante y dirección que cae sobre sí misma", "Autovector y autovalor; autovector por producto cruz de dos filas de $A-\\lambda I$", "Polinomio característico como detector de colinealidad", "El eje de una rotación 3D y los puntos fijos de una proyectiva"]
-conceptos_previos: ["Núcleo, determinante y producto cuña (clase 5)", "Formas lineales (clase 4)", "Punto fijo (clase 3)", "Rotaciones 3D (clase 1)"]
-apunte: ["autovectores", "18", "proyectivas"]
+conceptos_previos: ["Núcleo, determinante y producto cuña (capítulo 6)", "Formas lineales (capítulo 5)", "Punto fijo (capítulos 3 y 4)", "Rotaciones 3D (capítulo 1)"]
+apunte: ["autovectores", "pentagono", "proyectivas"]
 unidades: ["07b_nucleo_autovectores", "07c_autovalores_3d_puntos_fijos"]
 animaciones: []
 ejercicios_sugeridos: ["Hallar autovalores y autovectores de $\\mathrm{diag}(1,1,-1)$ con la cruz de filas", "Hallar el eje de $R_z(90°)R_y(90°)$ y comprobar que es $(-1,1,1)$", "Diagonalizar $\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ con la perpendicular a una fila"]
 ---
 
-# Clase 6: subespacios invariantes, autovalores y autovectores
+# Capítulo 7: subespacios invariantes, autovalores y autovectores
 
 Un autovector es una dirección que la transformación no hace girar: es el núcleo de $A-\lambda I$ y se calcula con un producto cruz de filas.
 
@@ -60,10 +60,10 @@ que funcionar en planilla o en código, no sólo a mano.
 
 ## Conceptos previos
 
-- Núcleo, determinante y producto cuña (clase 5)
-- Formas lineales (clase 4)
-- Punto fijo (clase 3)
-- Rotaciones 3D (clase 1)
+- Núcleo, determinante y producto cuña (capítulo 6)
+- Formas lineales (capítulo 5)
+- Punto fijo (capítulos 3 y 4)
+- Rotaciones 3D (capítulo 1)
 
 ## En el apunte
 

@@ -15,8 +15,8 @@ Correr desde cualquier directorio: el script ubica la raíz del repo por su prop
 
 Qué lee:
 
-- `mapa/mapa.yaml` — el mapa de conceptos (esquema documentado en `mapa/ESQUEMA.md`; se genera con `uv run tools/merge_mapa.py` a partir de `mapa/_fragmentos/`). Se valida antes de generar nada: ids únicos, referencias cruzadas (concepto → clase, concepto → unidad, unidad → `clases`, `requiere` → conceptos), vocabularios de `estado`, `validacion` y `nivel`, prefijos de `apunte` contra los archivos de `apunte/contenido/` (`00-antes-de-empezar`, los capítulos `01` a `15`, los complementarios `c1` a `c4` y los apéndices `ap1` a `ap6`), archivos de las unidades exportables. Referencia rota = error y salida 1; ficha de clase inexistente = aviso y sigue.
-- `clases/*.md` — fichas por clase. Se convierten con el paquete `markdown` (extensiones `tables`, `fenced_code`, `toc`); las fórmulas `$…$` / `$$…$$` se protegen del parser y las renderiza KaTeX desde cdnjs en el navegador. `README.md`, `PLANTILLA.md` (cualquier nombre en mayúsculas) y `_*.md` se ignoran.
+- `mapa/mapa.yaml` — el mapa de conceptos (esquema documentado en `mapa/ESQUEMA.md`; se genera con `uv run tools/merge_mapa.py` a partir de `mapa/_fragmentos/`). Se valida antes de generar nada: ids únicos, referencias cruzadas (concepto → ficha, concepto → unidad, unidad → `clases`, `requiere` → conceptos), vocabularios de `estado`, `validacion` y `nivel`, prefijos de `apunte` contra los archivos de `apunte/contenido/` (`00-antes-de-empezar`, los capítulos `01` a `15`, los complementarios `c1` a `c4` y los apéndices `ap1` a `ap6`), archivos de las unidades exportables. Referencia rota = error y salida 1; ficha inexistente = aviso y sigue.
+- `clases/*.md` — fichas por capítulo. Se convierten con el paquete `markdown` (extensiones `tables`, `fenced_code`, `toc`); las fórmulas `$…$` / `$$…$$` se protegen del parser y las renderiza KaTeX desde cdnjs en el navegador. `README.md`, `PLANTILLA.md` (cualquier nombre en mayúsculas) y `_*.md` se ignoran.
 - `unidades/*.py` — notebooks marimo con estado `piloto` o `migrada` en el yaml. Cada uno se exporta con `marimo export html-wasm --mode run --no-show-code` (se invoca `python -m marimo` del mismo venv; equivale a `uv run marimo export …`) sobre una copia en `site/_build/` con el módulo común embebido (ver "Módulo común y export WASM"). `legacy` y `pendiente` no se exportan.
 - `apunte/Apunte_Sistemas_de_Coordenadas.pdf` — se copia si existe; si no, el índice lo marca como no compilado.
 
@@ -26,13 +26,13 @@ Qué genera en `site/` (ignorado por git):
 site/index.html                  portada = el hilo conductor (docs/camino.md): tres entradas (Empezar → unidad 0; Seguir
                                  el recorrido → la primera unidad; Repasar → mapa.html) y una entrada por unidad de
                                  mapa/_fragmentos/unidades.yaml, en ese orden, con número, título, pregunta, gancho de
-                                 agrimensura, estado calculado (lista / todavía no), las clases que cubre, y enlaces a la
+                                 agrimensura, estado calculado (lista / todavía no), las fichas que cubre, y enlaces a la
                                  unidad, las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:<clave>).
 site/mapa.html                   mapa de conceptos (SVG inline generado en Python) con dos controles en JS inline: filtro
-                                 de ruta (troncal / todo, por el `nivel` de la clase de cada nodo) y deslizador "hasta la
-                                 clase N" (atenúa a opacity 0.25 los nodos y aristas de clases posteriores). Debajo, la
-                                 lista de clases con etiquetas y links, y el apunte.
-site/clases/<id_clase>.html      fichas de contenido por tema
+                                 de ruta (troncal / todo, por el `nivel` de la ficha de cada nodo) y deslizador "hasta el
+                                 capítulo N" (atenúa a opacity 0.25 los nodos y aristas de capítulos posteriores). Debajo, la
+                                 lista de capítulos con etiquetas y links, y el apunte.
+site/capitulos/<id_ficha>.html    fichas de contenido por tema (rótulo con la numeración del PDF)
 site/unidades/<id_unidad>/       export WASM de cada unidad (index.html + assets/ de marimo, ~27 MB por unidad)
 site/apunte.pdf
 site/.nojekyll                   para que GitHub Pages no pase el sitio por Jekyll
@@ -130,7 +130,7 @@ la interfaz y radianes adentro, rotación/transformación activa por default, f�
    con su nivel (elemental / medio / avanzado) y la frase corta del criterio al que apunta.
 
 Cierre: una celda "Enlaces del mapa" con links relativos desde `site/unidades/<id>/index.html`
-(`../../clases/NN.html`, `../../apunte.pdf`, `../../index.html`, `../<otra_unidad>/index.html`) y una celda final de
+(`../../capitulos/NN.html`, `../../apunte.pdf`, `../../index.html`, `../<otra_unidad>/index.html`) y una celda final de
 `assert np.allclose(…)` silenciosos que valida todas las cuentas del notebook (corre en el navegador al cargar; si
 falla, marimo muestra el error en esa celda). Las funciones de la unidad (`rot2`, `rot_x`, … , `transformar`) van en
 una sola celda al principio, con docstring; los objetos fijos de cada figura (parcela, cubo, terreno) en otra.
@@ -201,13 +201,13 @@ Cada unidad exportada copia los assets completos de marimo (~27 MB, 710 archivos
        archivo: unidades/NN_nombre.py      # tiene que existir si el estado es piloto o migrada
        titulo: "Título de la lección"
        estado: piloto                      # piloto | migrada se exportan; legacy | pendiente no
-       clases: ["NN"]                      # ids de clase que cubre, como strings ("03", "03p")
+       clases: ["NN"]                      # ids de ficha que cubre, como strings ("03", "03p")
        pregunta: "¿Qué le pasa a … cuando …?"            # una sola línea: la pregunta de campo
        gancho_agrimensura: "Situación concreta de campo." # una sola línea, sin fajas ni EPSG
        nivel: troncal                      # troncal | complementario | avanzado
    ```
 
-3. Apuntar los conceptos a la lección: en el `mapa/_fragmentos/bloque-*.yaml` que corresponda a su clase, poner `unidad: NN_nombre` en cada concepto que la lección desarrolla (el nodo del mapa pasa a linkear a la lección en vez de a la ficha). Si el concepto es nuevo, antes agregarlo a `mapa/CONCEPTOS.md`.
+3. Apuntar los conceptos a la lección: en el `mapa/_fragmentos/bloque-*.yaml` que corresponda a su ficha, poner `unidad: NN_nombre` en cada concepto que la lección desarrolla (el nodo del mapa pasa a linkear a la lección en vez de a la ficha). Si el concepto es nuevo, antes agregarlo a `mapa/CONCEPTOS.md`.
 4. Verificar: `uv run tools/merge_mapa.py && uv run marimo check --select MW unidades/NN_nombre.py && uv run python unidades/NN_nombre.py` (el último corre el notebook headless: todas las celdas y los `assert`; si algo falla, lo imprime).
 5. Exportar y mirar: `uv run python tools/build.py --only NN_nombre`, servir con `uv run python -m http.server -d site 8765` y abrir `http://localhost:8765/unidades/NN_nombre/index.html` (el WASM no anda desde `file://`). Commit de `unidades/NN_nombre.py`, los fragmentos y `mapa/mapa.yaml` regenerado; push a `main`: el workflow publica.
 

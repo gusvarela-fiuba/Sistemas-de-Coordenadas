@@ -1,16 +1,16 @@
 ---
 clase: 14
-titulo: "Clase 14: trigonometría esférica y polígonos geodésicos"
+titulo: "Capítulo 15: trigonometría esférica y polígonos geodésicos"
 idea: "Sobre la esfera todo se mide en ángulos: un producto interno da la ley de cosenos, y el exceso de los ángulos de un polígono es su área."
 que_se_estudia: ["Triángulo esférico: tres planos por el centro", "Ley de cosenos esférica y límite plano", "Exceso esférico: $A+B+C-\\pi=\\text{Área}/R^2$", "Polígono geodésico y error angular de una poligonal", "Problemas directo e inverso sobre el elipsoide"]
-conceptos_previos: ["Producto interno y vectorial (clases 1 y 5)", "Geodésicas y curvatura (clase 12)", "Elipsoide (clase 13)"]
+conceptos_previos: ["Producto interno y vectorial (capítulos 1 y 6)", "Geodésicas y curvatura (capítulo 13)", "Elipsoide (capítulo 14)"]
 apunte: ["formas-lineales", "esfera"]
 unidades: ["14_trigonometria_esferica", "15_transformaciones_conformes"]
 animaciones: ["06_conforme_tissot_mercator"]
 ejercicios_sugeridos: ["Deducir la ley de cosenos con vértices $A=(0,0,1)$, $B$, $C$", "Verificar el octante: tres ángulos rectos y área un octavo de la esfera", "Calcular el exceso esférico de triángulos de 1 km y 100 km de lado"]
 ---
 
-# Clase 14: trigonometría esférica y polígonos geodésicos
+# Capítulo 15: trigonometría esférica y polígonos geodésicos
 
 Sobre la esfera todo se mide en ángulos: un producto interno da la ley de cosenos, y el exceso de los ángulos de un polígono es su área.
 
@@ -22,7 +22,7 @@ Sobre la esfera todo se mide en ángulos: un producto interno da la ley de cosen
 - Polígono geodésico y error angular de una poligonal
 - Problemas directo e inverso sobre el elipsoide
 
-**Trigonometría esférica** (requiere producto-interno, producto-vectorial, geodesica). Pregunta: tres puntos sobre la esfera unidad, unidos por círculos máximos; ¿qué relación hay entre los tres lados y los tres ángulos? Lo que se ve: un triángulo esférico son tres planos por el centro; cada lado es el ángulo entre dos radios, cada ángulo es el diedro entre dos de esos planos. Nada mide en metros: todo son ángulos, y la esfera de radio $R$ sólo multiplica los lados por $R$. Álgebra: si $A,B,C$ son los vectores unitarios de los vértices, el lado $a$ (opuesto a $A$) cumple $\cos a=B\cdot C$ (clase 1: el producto interno mide ángulos); el ángulo en $A$ es el ángulo entre las normales de los planos $OAB$ y $OAC$, es decir entre $A\times B$ y $A\times C$ (clase 5: el producto vectorial da la normal del plano por dos puntos). Juntando las dos:
+**Trigonometría esférica** (requiere producto-interno, producto-vectorial, geodesica). Pregunta: tres puntos sobre la esfera unidad, unidos por círculos máximos; ¿qué relación hay entre los tres lados y los tres ángulos? Lo que se ve: un triángulo esférico son tres planos por el centro; cada lado es el ángulo entre dos radios, cada ángulo es el diedro entre dos de esos planos. Nada mide en metros: todo son ángulos, y la esfera de radio $R$ sólo multiplica los lados por $R$. Álgebra: si $A,B,C$ son los vectores unitarios de los vértices, el lado $a$ (opuesto a $A$) cumple $\cos a=B\cdot C$ (capítulo 1: el producto interno mide ángulos); el ángulo en $A$ es el ángulo entre las normales de los planos $OAB$ y $OAC$, es decir entre $A\times B$ y $A\times C$ (capítulo 6: el producto vectorial da la normal del plano por dos puntos). Juntando las dos:
 $$\cos a=\cos b\cos c+\sin b\sin c\cos A,$$
 la ley de cosenos esférica. Escalera: en el plano, $a^2=b^2+c^2-2bc\cos A$; sobre la esfera los lados chicos ($\sin b\approx b$, $\cos b\approx1-b^2/2$) devuelven la fórmula plana. Es ir a lo chico para volver a lo grande: una Tierra lo bastante chica es plana.
 
@@ -32,9 +32,9 @@ Exceso esférico: en el plano los ángulos suman $\pi$; en la esfera suman más,
 
 ## Conceptos previos
 
-- Producto interno y vectorial (clases 1 y 5)
-- Geodésicas y curvatura (clase 12)
-- Elipsoide (clase 13)
+- Producto interno y vectorial (capítulos 1 y 6)
+- Geodésicas y curvatura (capítulo 13)
+- Elipsoide (capítulo 14)
 
 ## En el apunte
 

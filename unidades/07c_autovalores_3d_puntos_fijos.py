@@ -82,7 +82,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Nivelamos la estación total girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
+        Nivelamos el instrumento girando $90°$ alrededor del eje $y$ y después la orientamos girando $90°$ alrededor del eje
         $z$ (unidad 01c). El resultado es **un solo giro** alrededor de un eje nuevo: la única dirección del espacio que
         la rotación compuesta deja quieta. Es la dirección $v$ con $Rv = v$: un autovector de autovalor $1$.
 
@@ -483,12 +483,12 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
+    Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos resueltos,
     puntos y rectas fijas de una homografía, la homología del pentágono):
 
     - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:autovectores) · [apunte, «Proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:proyectivas)
-    - [apunte, «Pentágono regular: cuentas y script» (pentágono regular, autovector por producto cruz)](../../apunte.pdf#nameddest=cap:18) · [apunte, «Construcción geométrica de las matrices de rotación 3D» (rotaciones 3D)](../../apunte.pdf#nameddest=cap:14)
-    - [ficha de la clase 6](../../clases/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Pentágono regular: cuentas y script» (pentágono regular, autovector por producto cruz)](../../apunte.pdf#nameddest=cap:pentagono) · [apunte, «Construcción geométrica de las matrices de rotación 3D» (rotaciones 3D)](../../apunte.pdf#nameddest=cap:rot3d)
+    - [ficha del capítulo 7](../../capitulos/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armamos una base con los
     autovectores, en esa grilla la transformación es sólo estirar cada eje por su $\lambda$.

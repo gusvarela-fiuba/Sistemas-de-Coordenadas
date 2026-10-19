@@ -1,10 +1,10 @@
-# matriz2x2.py — adjunta, determinante e inversa de una matriz 2x2
+# matriz2x2.py — adjugada, determinante e inversa de una matriz 2x2
 # (port fiel de julia/matriz2x2.jl; misma salida de texto, misma figura)
 #
 # Para A = [a b; c d]:
 #   det(A)  = a*d - b*c
 #   cof(A)  = [ d -c; -b a ]        (matriz de cofactores)
-#   adj(A)  = cof(A)'  = [ d -b; -c a ]   (adjunta = traspuesta de los cofactores)
+#   adj(A)  = cof(A)'  = [ d -b; -c a ]   (adjugada = traspuesta de los cofactores)
 #   inv(A)  = adj(A) / det(A)       (solo si det(A) != 0)
 #
 # Correr desde esta carpeta:  uv run python matriz2x2.py
@@ -25,8 +25,8 @@ def cofactores2x2(A):
                      [-b,  a]])
 
 
-def adjunta2x2(A):
-    """Adjunta (adjugada) de una 2x2: traspuesta de la matriz de cofactores."""
+def adjugada2x2(A):
+    """Adjugada de una 2x2: traspuesta de la matriz de cofactores."""
     return cofactores2x2(A).T
 
 
@@ -40,7 +40,7 @@ def inversa2x2(A):
     Δ = determinante2x2(A)
     if Δ == 0:
         return None
-    return adjunta2x2(A) / Δ
+    return adjugada2x2(A) / Δ
 
 
 # --- Impresión al estilo `display` de Julia (6 cifras significativas, columnas
@@ -73,7 +73,7 @@ def mostrar(A):
     print("\nCofactores de A =")
     mostrar_matriz(cofactores2x2(A))
     print("\nadj(A) = cofactores' =")
-    mostrar_matriz(adjunta2x2(A), tipo="transpose(::Matrix{Float64}) with eltype Float64")
+    mostrar_matriz(adjugada2x2(A), tipo="transpose(::Matrix{Float64}) with eltype Float64")
     Ainv = inversa2x2(A)
     if Ainv is None:
         print("\nA es singular (det = 0): no tiene inversa.")

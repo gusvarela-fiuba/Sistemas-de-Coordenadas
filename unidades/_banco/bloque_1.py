@@ -25,7 +25,7 @@ BANCO = {
         {
             "id": "00_e2",
             "nivel": "elemental",
-            "enunciado": r"Los giros de la estación total alrededor de su eje vertical, con la operación hacer uno y después el otro, forman un grupo. ¿Cuál es la inversa de girar $30°$ y respecto de qué operación lo es?",
+            "enunciado": r"Los giros del instrumento alrededor de su eje vertical, con la operación hacer uno y después el otro, forman un grupo. ¿Cuál es la inversa de girar $30°$ y respecto de qué operación lo es?",
             "opciones": [
                 {"id": "a", "texto": r"Girar $-30°$, respecto de la composición: hecho después del primero da el neutro, que es no girar.", "correcta": True,
                  "explicacion": r"La inversa es siempre respecto de una operación: compuesto con el giro de $30°$ devuelve el elemento neutro, y el neutro de componer giros es el giro nulo."},
@@ -57,7 +57,7 @@ BANCO = {
         {
             "id": "00_m2",
             "nivel": "medio",
-            "enunciado": r"Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa a leerse $(x - 5, y)$. ¿Por qué esa traslación no es una transformación lineal del plano?",
+            "enunciado": r"Movemos el instrumento $5$ m al Este: cada mojón $(x, y)$ pasa a leerse $(x - 5, y)$. ¿Por qué esa traslación no es una transformación lineal del plano?",
             "opciones": [
                 {"id": "a", "texto": r"Porque no manda el origen al origen: el $(0, 0)$ pasa a $(-5, 0)$, y toda lineal conserva el cero.", "correcta": True,
                  "explicacion": r"$T(0) = T(0 \cdot v) = 0 \cdot T(v) = 0$ para cualquier lineal; la traslación lo viola, y por eso hace falta homogeneizar para escribirla como matriz."},
@@ -107,7 +107,7 @@ BANCO = {
         {
             "id": "01a_e1",
             "nivel": "elemental",
-            "enunciado": r"Plantamos la estación total en el origen de la obra, pero con su eje $x$ girado $30°$ antihorario respecto del frente. El mojón no se tocó. ¿Qué cambia?",
+            "enunciado": r"Plantamos el instrumento en el origen de la obra, pero con su eje $x$ girado $30°$ antihorario respecto del frente. El mojón no se tocó. ¿Qué cambia?",
             "opciones": [
                 {"id": "a", "texto": r"Sus coordenadas, no su lugar: el mismo mojón tiene otra etiqueta en los ejes nuevos.", "correcta": True,
                  "explicacion": r"Una coordenada es un número respecto de unos ejes; si giran los ejes y el punto queda, cambia la lectura y no el pedazo de hierro (rotación pasiva)."},
@@ -375,7 +375,7 @@ BANCO = {
                  "explicacion": r"$R e_z = R_z(R_y e_z) = R_z e_x = e_y \neq e_z$: el eje $z$ se mueve. El eje de la composición no es el de ninguno de los dos giros."},
                 {"id": "c", "texto": r"Es el eje $y$, porque el primer giro fue alrededor de $y$ y lo dejó quieto.", "correcta": False,
                  "explicacion": r"$R_y$ deja quieto $e_y$, pero después $R_z$ lo manda a $-e_x$; lo que queda quieto tras el primer giro no sobrevive al segundo."},
-                {"id": "d", "texto": r"No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otra clase de movimiento.", "correcta": False,
+                {"id": "d", "texto": r"No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otro tipo de movimiento.", "correcta": False,
                  "explicacion": r"El producto de ortogonales con $\det = 1$ es ortogonal con $\det = 1$, y toda matriz así es un giro alrededor de alguna recta: la composición de rotaciones es una rotación."},
             ],
             "rubrica": "Rotaciones/medio: combinacion de rotaciones son rotaciones (el eje fijo, que más adelante será autovector de autovalor 1)",

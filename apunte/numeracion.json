@@ -4,22 +4,22 @@
     "rotulo": "Capítulo",
     "titulo": "Antes de empezar"
   },
-  "cap:00": {
+  "cap:como-usar": {
     "numero": "0.1",
     "rotulo": "Sección",
     "titulo": "Cómo usar este apunte"
   },
-  "cap:01": {
+  "cap:programa": {
     "numero": "0.2",
     "rotulo": "Sección",
     "titulo": "Programa"
   },
-  "cap:02": {
+  "cap:hilo": {
     "numero": "0.3",
     "rotulo": "Sección",
     "titulo": "El hilo conductor"
   },
-  "cap:03": {
+  "cap:repaso-algebra": {
     "numero": "0.4",
     "rotulo": "Sección",
     "titulo": "Repaso de álgebra lineal desde la geometría"
@@ -44,17 +44,12 @@
     "rotulo": "Capítulo",
     "titulo": "Afinidades y coordenadas homogéneas"
   },
-  "cap:17": {
-    "numero": "4.4",
-    "rotulo": "Sección",
-    "titulo": "Resolución de los ejercicios de afinidades"
-  },
   "cap:proyectivas": {
     "numero": "C1",
     "rotulo": "Complemento",
     "titulo": "Transformaciones proyectivas"
   },
-  "cap:18": {
+  "cap:pentagono": {
     "numero": "C1.3.2",
     "rotulo": "Sección",
     "titulo": "El pentágono"
@@ -107,7 +102,7 @@
   "cap:curvatura": {
     "numero": "13",
     "rotulo": "Capítulo",
-    "titulo": "Curvatura"
+    "titulo": "Curvatura como forma cuadrática"
   },
   "cap:elipsoide": {
     "numero": "14",
@@ -134,34 +129,34 @@
     "rotulo": "Apéndice",
     "titulo": "Apéndices"
   },
-  "cap:14": {
+  "cap:rot3d": {
     "numero": "A.1",
     "rotulo": "Apéndice",
     "titulo": "Construcción geométrica de las matrices de rotación 3D"
   },
-  "cap:15": {
+  "cap:infinitesimales": {
     "numero": "A.2",
     "rotulo": "Apéndice",
     "titulo": "Rotaciones infinitesimales y orden de composición"
   },
-  "cap:16": {
+  "cap:composicion-afin": {
     "numero": "A.3",
     "rotulo": "Apéndice",
     "titulo": "Composición afín práctica: rotación y escala"
   },
-  "cap:20": {
+  "cap:bibliografia": {
     "numero": "A.4",
     "rotulo": "Apéndice",
     "titulo": "Bibliografía comentada"
   },
-  "cap:21": {
+  "cap:notebooks": {
     "numero": "A.5",
     "rotulo": "Apéndice",
     "titulo": "Material de práctica y notebooks"
   },
-  "cap:22": {
-    "numero": "A.5.2",
-    "rotulo": "Sección",
-    "titulo": "Material de partida"
+  "cap:respuestas": {
+    "numero": "A.6",
+    "rotulo": "Apéndice",
+    "titulo": "Respuestas de los problemas"
   }
 }

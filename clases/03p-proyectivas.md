@@ -1,16 +1,16 @@
 ---
 clase: "3p"
-titulo: "Complemento: transformaciones proyectivas"
+titulo: "Complemento C1: transformaciones proyectivas"
 idea: "Una homografía es lo que hace una cámara inclinada con un terreno plano: conserva rectas y nada más, y cuatro puntos la determinan."
 que_se_estudia: ["Plano proyectivo: puntos como rayos por el origen", "Puntos impropios: el punto de fuga común a las paralelas", "Homografía $p'\\sim Hp$, ocho grados de libertad y cuadrilátero patrón", "Puntos y rectas fijos, clasificación por autovalores, homologías", "Razón doble: lo único métrico que se conserva"]
-conceptos_previos: ["Coordenadas homogéneas y afinidades (clase 3)", "Determinante y colinealidad (clase 5)", "Autovectores (clase 6)"]
-apunte: ["proyectivas", "18"]
+conceptos_previos: ["Coordenadas homogéneas y afinidades (capítulo 4)", "Determinante y colinealidad (capítulo 6)", "Autovectores (capítulo 7)"]
+apunte: ["proyectivas", "pentagono"]
 unidades: ["05_proyectivas"]
 animaciones: ["02_homogeneas_pentagono_3d"]
 ejercicios_sugeridos: ["Hallar la homografía que lleva $ABCD\\mapsto BCDA$ en el pentágono de enteros y su punto fijo", "Clasificar por autovalores las homografías $A\\leftrightarrow C$ y $A\\leftrightarrow B$", "Verificar que la razón doble sobre la recta $AC$ da $-1$ en la homología armónica"]
 ---
 
-# Complemento: transformaciones proyectivas
+# Complemento C1: transformaciones proyectivas
 
 Una homografía es lo que hace una cámara inclinada con un terreno plano: conserva rectas y nada más, y cuatro puntos la determinan.
 
@@ -57,7 +57,7 @@ ve: el polinomio característico es de grado 3, así que siempre hay una raíz r
 del plano deja algo fijo**, un punto propio o una dirección. Clasificación por autovalores: tres reales distintos → triángulo invariante; uno real y dos complejos → "rotación
 proyectiva", un solo punto fijo; raíz doble con cruz de filas nula → una recta entera de puntos
 fijos (el eje) más un centro: *homología*; si además los autovalores son opuestos, $H^2\sim I$ y es
-*armónica*, un espejo proyectivo. Es la misma cadena de la clase 6: incidencia → determinante →
+*armónica*, un espejo proyectivo. Es la misma cadena del capítulo 7: incidencia → determinante →
 núcleo → autovector → punto fijo.
 
 ### Razón doble
@@ -73,9 +73,9 @@ $\varphi$ del pentágono regular.
 
 ## Conceptos previos
 
-- Coordenadas homogéneas y afinidades (clase 3)
-- Determinante y colinealidad (clase 5)
-- Autovectores (clase 6)
+- Coordenadas homogéneas y afinidades (capítulo 4)
+- Determinante y colinealidad (capítulo 6)
+- Autovectores (capítulo 7)
 
 ## En el apunte
 

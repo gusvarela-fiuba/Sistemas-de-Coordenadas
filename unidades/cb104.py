@@ -2060,8 +2060,8 @@ def svm_margen_duro_2d(C1, C2):
 
     Método: pares y tríos de soporte. En el plano, la franja más ancha entre dos envolventes convexas disjuntas es
     la mediatriz del segmento más corto entre ellas, y ese segmento va de vértice a vértice o de vértice a lado.
-    Pruebo todos los candidatos geométricos: (i) un punto de cada clase, con la divisoria perpendicular al segmento
-    que los une y por su punto medio; (ii) dos puntos de una clase y uno de la otra, con la divisoria paralela al
+    Pruebo todos los candidatos geométricos: (i) un punto de cada grupo, con la divisoria perpendicular al segmento
+    que los une y por su punto medio; (ii) dos puntos de un grupo y uno del otro, con la divisoria paralela al
     lado y a mitad de camino del tercero. Cada candidato se normaliza para que sus puntos definitorios lean ∓1,
     se descarta si algún punto queda del lado equivocado o dentro de la franja, y entre los factibles gana el de
     ancho 2/|w| máximo (el óptimo es factible y está en la lista; ningún factible lo supera). Es O(n³) en la
@@ -2069,16 +2069,16 @@ def svm_margen_duro_2d(C1, C2):
     que resolver el problema cuadrático dual, que es lo que hace una SVM de verdad.
 
     Devuelve un dict: `w` (2,), `b` (float), `margen` = 2/|w|, `u` = w/|w| (la normal unitaria, de C1 hacia C2),
-    `soporte_1` y `soporte_2` (los puntos de cada clase que leen exactamente ∓1, arrays k×2). ValueError si las
+    `soporte_1` y `soporte_2` (los puntos de cada grupo que leen exactamente ∓1, arrays k×2). ValueError si las
     nubes no son linealmente separables (las envolventes se tocan)."""
     C1 = np.asarray(C1, dtype=float).reshape(-1, 2)
     C2 = np.asarray(C2, dtype=float).reshape(-1, 2)
     if len(C1) == 0 or len(C2) == 0:
-        raise ValueError("hacen falta puntos de las dos clases")
+        raise ValueError("hacen falta puntos de los dos grupos")
     eps = 1e-9 * max(1.0, float(np.abs(np.vstack([C1, C2])).max()))
 
     def candidato(u, d1, d2):
-        """u unitario de C1 hacia C2; d1, d2 = niveles u·x de los soportes de cada clase. Devuelve (w, b) o None."""
+        """u unitario de C1 hacia C2; d1, d2 = niveles u·x de los soportes de cada grupo. Devuelve (w, b) o None."""
         gap = d2 - d1
         if gap <= eps:
             return None
@@ -2094,7 +2094,7 @@ def svm_margen_duro_2d(C1, C2):
             if n > eps:
                 u = (q - p) / n
                 candidatos.append(candidato(u, u @ p, u @ q))
-    for X, Y, hacia_C2 in ((C1, C2, True), (C2, C1, False)):  # (ii) lado de una clase, vértice de la otra
+    for X, Y, hacia_C2 in ((C1, C2, True), (C2, C1, False)):  # (ii) lado de un grupo, vértice del otro
         for i in range(len(X)):
             for j in range(i + 1, len(X)):
                 e = X[j] - X[i]
@@ -2500,7 +2500,7 @@ def mesa_interactiva(mo_mod, figura_o_widget, *controles_y_bloques, proporcion=(
     return mo_mod.hstack([figura_o_widget, panel], widths=list(proporcion), align="start", gap=1.25)
 
 def video_loop(nombre_base, pie=""):
-    """HTML de una animación en bucle (`animaciones/<nombre_base>.mp4`) para `mo.Html(...)`: se reproduce sola,
+    """HTML de una animación en bucle (`animaciones/<nombre_base>.mp4`) para `mo.Html(...)`: se muestra sola,
     en bucle continuo, muda y sin controles, como un GIF en HD. La ruta es relativa al export en
     `site/unidades/<id>/` (tools/build.py copia `animaciones/` a `site/animaciones/`). `pie`: una frase al pie."""
     return (
@@ -2729,13 +2729,13 @@ if __name__ == "__main__":
     # lección 11: mínimos cuadrados
     A11 = np.column_stack([[0.0, 1.0, 2.0], np.ones(3)])
     x11, r11 = minimos_cuadrados(A11, [0.0, 1.0, 3.0])
-    assert exacto(x11, [1.5, -1 / 6]) and exacto(r11, [1 / 6, -1 / 3, 1 / 6]), "ficha 10: y = 1.5x − 1/6, residuos (1/6, −1/3, 1/6)"
+    assert exacto(x11, [1.5, -1 / 6]) and exacto(r11, [1 / 6, -1 / 3, 1 / 6]), "capítulo 11: y = 1.5x − 1/6, residuos (1/6, −1/3, 1/6)"
     assert exacto(A11.T @ r11, [0, 0]), "el residuo es perpendicular a las columnas de A"
     assert exacto(x11, np.linalg.lstsq(A11, np.array([0.0, 1.0, 3.0]), rcond=None)[0]) and exacto(recta_ajuste([0, 1, 2], [0, 1, 3]), [1.5, -1 / 6])
-    assert exacto(recta_ajuste([-1, 0, 1], [1, 1, 4]), [1.5, 2.0]), "ficha 11, problema 1: y = 1.5x + 2"
+    assert exacto(recta_ajuste([-1, 0, 1], [1, 1, 4]), [1.5, 2.0]), "capítulo 12, problema 1: y = 1.5x + 2"
     assert exacto(minimos_cuadrados(np.ones((3, 1)), [12.1, 11.9, 12.3])[0], [12.1]), "en R, mínimos cuadrados es el promedio"
     p11, rr = punto_por_distancias([[0, 0], [6, 0], [3, 7]], [5, 5, 3])
-    assert exacto(p11, [3, 4]) and exacto(rr, [0, 0]), "ficha 11, problema 2: tres círculos → (3, 4)"
+    assert exacto(p11, [3, 4]) and exacto(rr, [0, 0]), "capítulo 12, problema 2: tres círculos → (3, 4)"
     try:
         punto_por_distancias([[0, 0], [6, 0]], [5, 5])
         raise AssertionError("dos mojones no alcanzan")
@@ -2743,13 +2743,13 @@ if __name__ == "__main__":
         pass
     Pc = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0], [0.0, -1.0]])
     Rc, sc, tc, rmsc = procrustes(Pc, transformar(Pc, rot2(np.pi / 2)))
-    assert exacto(Rc, rot2(np.pi / 2)) and exacto(sc, 1.0) and exacto(tc, [0, 0]) and exacto(rmsc, 0.0), "ficha 11, problema 3: el cuadrado girado 90°"
+    assert exacto(Rc, rot2(np.pi / 2)) and exacto(sc, 1.0) and exacto(tc, [0, 0]) and exacto(rmsc, 0.0), "capítulo 12, problema 3: el cuadrado girado 90°"
     Pc2 = np.array([[1.0, 1.0], [4.0, 1.0], [5.0, 3.0], [3.0, 5.0], [1.0, 4.0]])
     Rc, sc, tc, rmsc = procrustes(Pc2, 1.5 * transformar(Pc2, rot2(0.4)) + [2.0, -1.0])
     assert exacto(Rc, rot2(0.4)) and exacto(sc, 1.5) and exacto(tc, [2, -1]) and exacto(rmsc, 0.0, tol=1e-9), "procrustes recupera giro, escala y traslación"
     assert exacto(np.linalg.det(Rc), 1.0), "sin espejo"
     cT, dT, nT, r2T = regresion_total([[1.0, 0.0], [-1.0, 0.0], [0.0, 2.0], [0.0, -2.0]])
-    assert exacto(cT, [0, 0]) and exacto(np.abs(dT), [0, 1]) and exacto(r2T, 2.0) and exacto(dT @ nT, 0.0), "ficha 11, problema 4: recta x = 0, residuo 2"
+    assert exacto(cT, [0, 0]) and exacto(np.abs(dT), [0, 1]) and exacto(r2T, 2.0) and exacto(dT @ nT, 0.0), "capítulo 12, problema 4: recta x = 0, residuo 2"
     assert exacto(recta_ajuste([1, -1, 0, 0], [0, 0, 2, -2]), [0, 0]), "misma nube, regresión simple: y = 0"
     # lección 14: trigonometría esférica
     pol, ex_, ey_ = punto_esfera(np.pi / 2, 0.0), punto_esfera(0.0, 0.0), punto_esfera(0.0, np.pi / 2)
@@ -2847,7 +2847,7 @@ if __name__ == "__main__":
     assert exacto(forma_transformada([2, 1], np.diag([2.0, 1.0])), [1, 1]), "lección 06: (2,1) diag(2,1)⁻¹ = (1,1)"
     A06 = np.array([[1.2, 0.5], [-0.1, 1.3]])
     assert exacto(forma_transformada([1, 1], A06) @ (A06 @ [3, 4]), 7.0) and exacto(forma_transformada([-1, 2], A06) @ (A06 @ [3, 4]), 5.0), "la séptima con la quinta"
-    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "(1,1) T⁻¹ por adjunta sobre determinante"
+    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "(1,1) T⁻¹ por adjugada sobre determinante"
     assert exacto(forma_transformada([2, 3], [[1, 1], [0, 2]]), [2, 0.5]), "apunte 11: ψ = φ A⁻¹ = (2, 1/2)"
     assert exacto(forma_transformada([2, 1], rot2(th)), rot2(th) @ [2, 1]), "con una rotación la fila gira como un punto"
     try:
@@ -2885,7 +2885,7 @@ if __name__ == "__main__":
     assert exacto(pseudoinversa(_P9), _P9 / 25) and exacto(_P9 @ pseudoinversa(_P9) @ _P9, _P9), "P⁺ = P/25, P P⁺ P = P"
     assert exacto(pseudoinversa(np.diag([3.0, -2.0])), np.diag([1 / 3, -1 / 2])), "sin σ = 0, A⁺ = A⁻¹"
     _A3 = np.column_stack([[0.0, 1.0, 2.0], np.ones(3)])
-    assert exacto(pseudoinversa(_A3), np.linalg.pinv(_A3)) and exacto(pseudoinversa(_A3) @ [0, 1, 3], [1.5, -1 / 6]), "ficha 10: A⁺y = (1.5, −1/6)"
+    assert exacto(pseudoinversa(_A3), np.linalg.pinv(_A3)) and exacto(pseudoinversa(_A3) @ [0, 1, 3], [1.5, -1 / 6]), "capítulo 11: A⁺y = (1.5, −1/6)"
     assert exacto(pseudoinversa([[1.0, 1.0], [2.0, 2.0]]), np.linalg.pinv([[1.0, 1.0], [2.0, 2.0]])), "no simétrica singular: coincide con pinv"
     _c4 = cuatro_subespacios(_A3)
     assert _c4["rango"] == 2 and _c4["imagen"].shape == (3, 2) and _c4["contra_imagen"].shape == (3, 1) and _c4["coimagen"].shape == (2, 2) and _c4["nucleo"].shape == (2, 0)
@@ -2952,7 +2952,7 @@ if __name__ == "__main__":
     _s = svm_margen_duro_2d(_nA, _nB)
     assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.8) and exacto(_s["soporte_1"], [[2, 0], [0, 2]]) and exacto(_s["soporte_2"], [[4, 3]]), "las dos parcelas de 06: x + y = 4.5, soportes (2,0), (0,2), (4,3)"
     _t = svm_margen_duro_2d(_nB, _nA)
-    assert exacto(_t["w"], -_s["w"]) and exacto(_t["b"], -_s["b"]), "intercambiar las clases cambia el signo de la forma"
+    assert exacto(_t["w"], -_s["w"]) and exacto(_t["b"], -_s["b"]), "intercambiar los grupos cambia el signo de la forma"
     _D2 = np.diag([2.0, 1.0])
     assert exacto(transformar(_nA, _D2) @ forma_transformada(_s["w"], _D2) + _s["b"], _nA @ _s["w"] + _s["b"]), "la regla arrastrada (w A⁻¹, b) lee lo mismo sobre A x"
     assert exacto(2 / np.linalg.norm(forma_transformada(_s["w"], _D2)), np.sqrt(20)), "pero el ancho físico cambia: 5/√2 → √20"

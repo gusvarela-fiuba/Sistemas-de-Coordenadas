@@ -51,7 +51,7 @@ def _(mo):
 
     Cerramos el arco que abrieron las rotaciones. La pregunta: **¿qué tiene que cumplir una transformación para conservar los
     ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?** El gancho: *dos visuales a $90°$
-    medidas con la estación total siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
+    medidas con el instrumento siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
     POSGAR.*
 
     Colores, iguales en la figura y en el álgebra: el **terreno** y su grilla métrica en **gris**; las imágenes por la
@@ -95,7 +95,7 @@ def _(lib, mo, np):
         mo.md(rf"""
         ## 0. Situación de campo y predicción
 
-        Plantamos la estación total en Tierra del Fuego, $\varphi = -54°$, sobre GRS80. Medimos dos visuales que
+        Plantamos el instrumento en Tierra del Fuego, $\varphi = -54°$, sobre GRS80. Medimos dos visuales que
         forman **$90°$ exactos**: una al rumbo $45°$ (NE) y otra al rumbo $135°$ (SE). Volcamos los puntos visados en
         una hoja cuadriculada usando directamente $(x, y) = (\lambda, \varphi)$, grados por grados, sin corregir la
         escala del meridiano: un cuadradito de la hoja es $1°$ de longitud por $1°$ de latitud.
@@ -748,9 +748,9 @@ def _(mo):
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
     - [apunte, «Transformaciones conformes» (esfera, elipsoide y representación plana; $K = 1/(MN)$, lo que
       impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
-    - apunte *Geometría del Elipsoide y cálculos Geodésicos*, última página: las cinco
+    - [apunte, capítulo «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
-    - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·
+    - [ficha del capítulo 14](../../capitulos/13.html) · [ficha del capítulo 15](../../capitulos/14.html) ·
       [el hilo conductor](../../index.html) · [unidad anterior: trigonometría esférica](../14_trigonometria_esferica/index.html)
 
     **Lo que viene:** nada; es la última unidad. El arco se cierra donde empezó: en las rotaciones un número complejo giraba

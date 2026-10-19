@@ -516,7 +516,7 @@ def _(mo):
     iguales, el producto exterior en cualquier dimensión, incidencia y alineación en homogéneas):
 
     - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores; la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:subespacios)
-    - [ficha de la clase 5](../../clases/05.html) · [el hilo conductor](../../index.html) · [unidad 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
+    - [ficha del capítulo 6](../../capitulos/05.html) · [el hilo conductor](../../index.html) · [unidad 04: afinidades](../04_afines_homogeneas/index.html) (el área $\times \det A$)
 
     **Lo que viene:** [Núcleo y autovectores: las direcciones que no giran](../07b_nucleo_autovectores/index.html):
     cuando el detector da cero hay una dirección entera que va al cero (el núcleo), y restando $\lambda I$ se usa

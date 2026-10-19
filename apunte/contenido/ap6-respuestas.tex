@@ -1,0 +1,139 @@
+% Apéndice: respuestas de los problemas. Generado por tools/problemas/gen.py; no editar a mano.
+\section{Respuestas de los problemas}\label{cap:respuestas}\label{ap:respuestas}
+
+Los problemas de cada capítulo están graduados: \(\star\) directo, \(\star\star\) para pensar, \(\star\star\star\) desafío. Todos los valores de estas respuestas se calcularon con \file{tools/problemas/gen.py}.
+
+\paragraph{Capítulo 1: Rotaciones: girar es multiplicar.}
+\begin{itemize}
+  \item[\ref{pb:01-1}] \(p'=(2{,}964;\ 2{,}866)\); \(\lVert p'\rVert=\lVert p\rVert=\sqrt{17}\approx4{,}123\).
+  \item[\ref{pb:01-2}] \(iz=-4+3i\): giró \(90^\circ\) en sentido antihorario y el módulo sigue siendo \(5\).
+  \item[\ref{pb:01-3}] \(E=1\,084{,}85\)~m, \(N=1\,915{,}15\)~m. \(\theta=90^\circ-\mathrm{Az}=-45^\circ\) (o \(315^\circ\)).
+  \item[\ref{pb:01-4}] \(p-c=(3,0)\), girado da \((0,3)\), y al volver queda \(p'=(2,4)\).
+  \item[\ref{pb:01-5}] Se corre unos 9{,}7 mm (\(2000\cdot 1''\) en radianes). En el espacio no da lo mismo: primero \(z\) y después \(x\) lleva \(e_1\to e_2\to e_3\); en el otro orden, \(e_1\to e_1\to e_2\).
+\end{itemize}
+
+\paragraph{Capítulo 2: Traslaciones y movimientos rígidos.}
+\begin{itemize}
+  \item[\ref{pb:02-1}] Trasladar y después girar: \(C\to(-2,2)\). Girar y después trasladar: \(C\to(-1,-1)\). El orden importa.
+  \item[\ref{pb:02-2}] Los ángulos suman \(0^\circ\), así que queda una traslación, de vector \((4,4)\). Comprobación: el origen va a \((0,0)\) y después a \((4,4)\).
+  \item[\ref{pb:02-3}] \(\begin{pmatrix}0{,}8660&-0{,}5000&6{,}3397\\0{,}5000&0{,}8660&-3{,}6603\\0&0&1\end{pmatrix}\); la última columna es \(c-Rc\).
+  \item[\ref{pb:02-4}] Terminás en \((20,20)\)~m, mirando al noreste: acimut \(45^\circ\).
+  \item[\ref{pb:02-5}] \(r=5\), \(\theta\approx53{,}13^\circ\). Son la circunferencia de radio \(5\) y la semirrecta que sale del origen; se cortan en ángulo recto porque la tangente a una circunferencia es perpendicular al radio.
+\end{itemize}
+
+\paragraph{Capítulo 3: Reflexiones, isometrías y similaridades.}
+\begin{itemize}
+  \item[\ref{pb:03-1}] Respecto de \(y=x\): \((1,5)\). Respecto de \(x+y=2\), con normal \(n=(1,1)\): \(p-\frac{2(5+1-2)}{2}(1,1)=(1,-3)\).
+  \item[\ref{pb:03-2}] Es el giro de \(50^\circ\), el doble del ángulo entre los espejos: \((1,0)\to(0{,}643;\ 0{,}766)=(\cos50^\circ,\sin50^\circ)\).
+  \item[\ref{pb:03-3}] \(b=1+i\), \(a=2i\): gira \(90^\circ\) y agranda \(2\) veces. La imagen de \(1+i\) es \(-1+3i\).
+  \item[\ref{pb:03-4}] Escala \(1:354{,}6\): cerca de \(1:355\). Las áreas se multiplican por \(1{,}41^2\approx1{,}988\).
+  \item[\ref{pb:03-5}] No tiene puntos fijos: cambia el signo de \(y\) y siempre suma \(3\) a \(x\). Aplicada dos veces da la traslación \((6,0)\). La imagen de \((0,2)\) es \((3,-2)\).
+\end{itemize}
+
+\paragraph{Capítulo 4: Afinidades y coordenadas homogéneas.}
+\begin{itemize}
+  \item[\ref{pb:04-1}] \(b=(2,1)\) y \(A=\begin{pmatrix}3&1\\1&3\end{pmatrix}\), con las columnas \((5,2)-b\) y \((3,4)-b\). \((1,1)\mapsto(6,5)\). Las áreas se multiplican por \(\det A=8\).
+  \item[\ref{pb:04-2}] Las imágenes son \((2,1)\) y \((10,9)\), con punto medio \((6,5)\), que es la imagen de \((1,1)\). Los ángulos, en cambio, no se conservan: \((1,0)\) y \((0,1)\) van a \((3,1)\) y \((1,3)\), que ya no son perpendiculares.
+  \item[\ref{pb:04-3}] \(x'=x/0{,}996\approx1{,}004016\,x\), \(y'=y\). La superficie real es \(600\cdot1{,}004016\approx602{,}41\)~m\(^2\).
+  \item[\ref{pb:04-4}] Trasladar y después escalar: \((1,1)\to(3,4)\to(6,8)\). Escalar y después trasladar: \((1,1)\to(2,2)\to(4,5)\).
+  \item[\ref{pb:04-5}] \(p=(2,2)\). Comprobación: \(Ap+b=p\).
+\end{itemize}
+
+\paragraph{Capítulo 5: Formas lineales: el gradiente no es un vector.}
+\begin{itemize}
+  \item[\ref{pb:05-1}] \(\omega(4,1)=10\). Son rectas paralelas \(3x-2y=k\), separadas \(1/\sqrt{13}\approx0{,}277\).
+  \item[\ref{pb:05-2}] Subís \(0{,}02\cdot50-0{,}01\cdot30=0{,}70\)~m. La forma es \(dh=(0{,}02;\ -0{,}01)\): a cada paso \((\Delta E,\Delta N)\) le asigna cuánto subiste.
+  \item[\ref{pb:05-3}] El paso pasa a ser \((300,400)\)~cm, y la forma, \((0{,}0002;\ -0{,}0001)\)~m por cm: uno se multiplica por \(100\) y la otra se divide por \(100\). La subida no cambia: \(0{,}02\)~m.
+  \item[\ref{pb:05-4}] \(e^1=(\tfrac12,\tfrac12)\) y \(e^2=(\tfrac12,-\tfrac12)\). Comprobación: \(e^1(b_1)=1\), \(e^1(b_2)=0\), y lo mismo con \(e^2\).
+  \item[\ref{pb:05-5}] Hacia la dirección del gradiente \((0{,}02;\ -0{,}01)\), con acimut \(\mathrm{Az}\approx116{,}57^\circ\). La pendiente máxima es \(\lVert g\rVert\approx2{,}24\)\,\%.
+\end{itemize}
+
+\paragraph{Capítulo 6: Subespacios, producto cuña y determinante.}
+\begin{itemize}
+  \item[\ref{pb:06-1}] \(\tfrac12\,|(6,1)\wedge(2,5)|=\tfrac12|6\cdot5-1\cdot2|=14\).
+  \item[\ref{pb:06-2}] Sí: \((2,3)\wedge(6,9)=18-18=0\). El triángulo que forman no tiene área.
+  \item[\ref{pb:06-3}] \(\tfrac12\sum p_i\wedge p_{i+1}=\tfrac12(0+1200+1700+0)=1\,450\)~m\(^2\). El signo positivo indica que los vértices van en sentido antihorario.
+  \item[\ref{pb:06-4}] \(\det A=5\): la superficie pasa a \(7\,250\)~m\(^2\). Como el determinante es positivo, el sentido se conserva.
+  \item[\ref{pb:06-5}] \(\det A=0\). El núcleo es la recta generada por \((2,-1)\) y la imagen, la generada por \((1,2)\). El cuadrado se aplasta sobre esa recta: queda un segmento, de área \(0\).
+\end{itemize}
+
+\paragraph{Capítulo 7: Subespacios invariantes: autovalores y autovectores.}
+\begin{itemize}
+  \item[\ref{pb:07-1}] \(\lambda=3\) con \((1,0)\) y \(\lambda=2\) con \((1,-1)\).
+  \item[\ref{pb:07-2}] \(\lambda=6\) con \((2,1)\) y \(\lambda=1\) con \((1,-2)\). El producto interno da \(2-2=0\).
+  \item[\ref{pb:07-3}] El polinomio es \(\lambda^2-2\cos30^\circ\,\lambda+1\), con discriminante \(4\cos^2 30^\circ-4=-1<0\). Ninguna dirección queda sin girar.
+  \item[\ref{pb:07-4}] El eje es \((1,1,1)\) y el ángulo, \(120^\circ\): tres aplicaciones devuelven cada eje a su lugar.
+  \item[\ref{pb:07-5}] \(e_1\approx435{,}4\ \mu\varepsilon\) (estiramiento) y \(e_2\approx-235{,}4\ \mu\varepsilon\) (acortamiento). La dirección de \(e_1\) forma \(76{,}72^\circ\) con el eje \(x\): está cerca del eje \(y\), que es donde la placa más se estira.
+\end{itemize}
+
+\paragraph{Capítulo 8: La SVD: leer la forma de las curvas de nivel.}
+\begin{itemize}
+  \item[\ref{pb:08-1}] En la elipse de semiejes \(3\) (sobre \(x\)) y \(1\) (sobre \(y\)). Los valores singulares son \(3\) y \(1\).
+  \item[\ref{pb:08-2}] Semiejes \(3\) en la dirección \((1,1)\) y \(1\) en la dirección \((1,-1)\). Como \(A\) es simétrica con autovalores positivos, los valores singulares son sus autovalores.
+  \item[\ref{pb:08-3}] \(\sigma_1\approx1{,}618\) y \(\sigma_2\approx0{,}618\), que son \(\sqrt{(3\pm\sqrt5)/2}\). El producto es \(1=\det A\): la cizalla no cambia áreas.
+  \item[\ref{pb:08-4}] Semiejes \(\approx2{,}15\)~cm y \(\approx0{,}62\)~cm. El eje mayor forma \(22{,}5^\circ\) con el este: acimut \(67{,}5^\circ\).
+  \item[\ref{pb:08-5}] \(\sigma_1\approx2{,}005\) y \(\sigma_2\approx0{,}0050\), con cociente \(\approx402\). La elipse es casi un segmento: el plano casi se aplasta. Un error relativo chico en \(b\) puede convertirse en un error relativo hasta unas 402 veces mayor en \(x\).
+\end{itemize}
+
+\paragraph{Capítulo 9: Cambio de base: las coordenadas son etiquetas.}
+\begin{itemize}
+  \item[\ref{pb:09-1}] \(v=1\,b_1+2\,b_2\): las coordenadas son \((1,2)\).
+  \item[\ref{pb:09-2}] \(E=1\,012{,}32\)~m y \(N=518{,}66\)~m: se gira \((20,10)\) un ángulo de \(30^\circ\) y se le suma el origen.
+  \item[\ref{pb:09-3}] \(\lambda=5\) con \((1,1)\) y \(\lambda=2\) con \((1,-2)\). \(A^5=C\,\mathrm{diag}(3125,32)\,C^{-1}=\begin{pmatrix}2094&1031\\2062&1063\end{pmatrix}\).
+  \item[\ref{pb:09-4}] \(\begin{pmatrix}\cos60^\circ&\sin60^\circ\\\sin60^\circ&-\cos60^\circ\end{pmatrix}=\begin{pmatrix}0{,}500&0{,}866\\0{,}866&-0{,}500\end{pmatrix}\).
+  \item[\ref{pb:09-5}] \([\omega]_b=(7,4)\). En la base canónica, \(\omega(5,5)=15\). En la base \(b\), \((7,4)\cdot(1,2)=15\). El valor no depende de la base.
+\end{itemize}
+
+\paragraph{Capítulo 10: La derivada como aproximación lineal: jacobiano, gradiente y hessiana.}
+\begin{itemize}
+  \item[\ref{pb:10-1}] \(J=\begin{pmatrix}\cos\theta&-r\sin\theta\\\sin\theta&r\cos\theta\end{pmatrix}=\begin{pmatrix}0{,}866&-5\\0{,}5&8{,}66\end{pmatrix}\), con \(\det J=r=10\): un rectangulito \(dr\,d\theta\) se convierte en un área \(10\) veces mayor.
+  \item[\ref{pb:10-2}] \(d=130\)~m y \(\mathrm{Az}\approx292{,}62^\circ\). La distancia cambia \(\Delta E/d\cdot1\)~cm \(\approx-0{,}923\)~cm. El acimut cambia \(\Delta N/d^2\cdot0{,}01\)~m \(\approx2{,}96\cdot10^{-5}\) rad, unos \(6{,}1''\).
+  \item[\ref{pb:10-3}] Con el gradiente \((0{,}6;\ 0{,}8)\) en \((3,4)\): \(5+0{,}6\cdot0{,}02+0{,}8\cdot(-0{,}03)=4{,}988\). El valor exacto es \(4{,}98812\).
+  \item[\ref{pb:10-4}] \(\nabla z=(-0{,}4;\ -0{,}1)\). El agua corre hacia \(-\nabla z=(0{,}4;\ 0{,}1)\), con pendiente \(\lVert\nabla z\rVert\approx0{,}412\), un 41{,}2\,\%.
+  \item[\ref{pb:10-5}] \(H=\begin{pmatrix}2&3\\3&2\end{pmatrix}\), con \(\mu_1=5\) y \(\mu_2=-1\). Como tienen signos distintos, el origen es una silla: sube en la dirección \((1,1)\) y baja en la \((1,-1)\).
+\end{itemize}
+
+\paragraph{Capítulo 11: Inversas y pseudoinversa: los cuatro subespacios.}
+\begin{itemize}
+  \item[\ref{pb:11-1}] \(\det A=1\) y \(A^{-1}=\begin{pmatrix}3&-1\\-5&2\end{pmatrix}\).
+  \item[\ref{pb:11-2}] \((RS)^{-1}=S^{-1}R^{-1}\): primero se deshace el giro y después el estiramiento. \(RS(1,1)=R(2,1)=(-1,2)\), y \(S^{-1}R^{-1}(-1,2)=S^{-1}(2,1)=(1,1)\).
+  \item[\ref{pb:11-3}] \(a\approx1{,}1667\) y \(b=0{,}5\). Los residuos son \(-0{,}1667\), \(0{,}3333\) y \(-0{,}1667\), y suman \(0\).
+  \item[\ref{pb:11-4}] Suman \(+0{,}006\)~m. Se corrige \(-0{,}002\) en cada tramo: \(H_B=11{,}248\)~m y \(H_C=12{,}076\)~m. Son tres ecuaciones para dos incógnitas, y este reparto es justamente la solución de cuadrados mínimos (con las tres medidas igual de confiables).
+  \item[\ref{pb:11-5}] \(A^+=\tfrac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\) y \(x^+=(1{,}5;\ 1{,}5)\). Entonces \(Ax^+=(3,3)\), que es la proyección de \(b\) sobre la imagen (la recta \(y=x\)): la respuesta más cercana posible.
+\end{itemize}
+
+\paragraph{Capítulo 12: Cuatro problemas de ajuste.}
+\begin{itemize}
+  \item[\ref{pb:12-1}] El giro de \(90^\circ\) en sentido antihorario: lleva \((1,0)\to(0,1)\) y \((0,1)\to(-1,0)\). Es el caso más simple de Procrustes: los datos coinciden exactamente y el residuo es cero.
+  \item[\ref{pb:12-2}] \(F=0\), \(D=-4\) y \(E=-2\): centro \((2,1)\) y radio \(\sqrt5\approx2{,}236\). Con tres puntos no hay nada que ajustar; con más de tres, sí.
+  \item[\ref{pb:12-3}] En vertical, la pendiente es \(0{,}90\). En perpendicular (la dirección principal de los puntos centrados), \(\approx0{,}973\). Distinta forma de medir el error, distinta recta.
+  \item[\ref{pb:12-4}] Escala \(1\) (los dos tramos miden \(100\)), giro \(53{,}13^\circ\) y traslación \((500,200)\). El punto \((50,50)\) va a \((490,270)\).
+  \item[\ref{pb:12-5}] Centro \(\approx(0{,}000;\ 0{,}099)\)~m y radio \(\approx9{,}950\)~m, con centro \((-D/2,\,-E/2)\) y \(r=\sqrt{D^2/4+E^2/4-F}\).
+\end{itemize}
+
+\paragraph{Capítulo 13: Curvatura como forma cuadrática.}
+\begin{itemize}
+  \item[\ref{pb:13-1}] Cero, y \(1/20=0{,}05\)~m\(^{-1}\).
+  \item[\ref{pb:13-2}] En \(x=0\): \(\kappa=0{,}01\)~m\(^{-1}\) y \(R=100\)~m. En \(x=50\): \(\kappa=y''/(1+y'^2)^{3/2}\approx0{,}00716\)~m\(^{-1}\) y \(R\approx139{,}8\)~m.
+  \item[\ref{pb:13-3}] \(\kappa_1=0{,}02\) y \(\kappa_2=0{,}005\)~m\(^{-1}\). \(K=\kappa_1\kappa_2=10^{-4}\)~m\(^{-2}\). A \(30^\circ\): \(\kappa_1\cos^2+\kappa_2\sin^2=0{,}01625\)~m\(^{-1}\).
+  \item[\ref{pb:13-4}] La hessiana es \(\begin{pmatrix}0&0{,}01\\0{,}01&0\end{pmatrix}\). Las curvaturas son \(\pm0{,}01\)~m\(^{-1}\), en las direcciones \((1,1)\) (sube) y \((1,-1)\) (baja). \(K=-10^{-4}<0\): es una silla.
+  \item[\ref{pb:13-5}] \(r=R\cos60^\circ=3\,185{,}5\)~km: la curvatura del corte es la normal dividida por \(\cos60^\circ\).
+\end{itemize}
+
+\paragraph{Capítulo 14: Geometría del elipsoide.}
+\begin{itemize}
+  \item[\ref{pb:14-1}] \(b=6\,356\,752{,}314\)~m y \(e^2\approx0{,}00669438\).
+  \item[\ref{pb:14-2}] \(M\approx6\,354\,245\)~m y \(N\approx6\,384\,442\)~m. Como \(M<N\), es más curva en dirección norte-sur.
+  \item[\ref{pb:14-3}] En el ecuador, \(\approx110\,574\)~m. A \(60^\circ\), \(\approx111\,412\)~m. Hacia el polo la Tierra es más chata, y el grado se alarga.
+  \item[\ref{pb:14-4}] Radio del paralelo \(\approx3\,684\,809\)~m. Un grado de longitud mide \(\approx64\,312\)~m, un 57{,}8\,\% de lo que mide en el ecuador (\(111\,319\)~m).
+  \item[\ref{pb:14-5}] \(X\approx2\,753\,951\)~m, \(Y\approx-4\,476\,483\)~m y \(Z\approx-3\,601\,443\)~m.
+\end{itemize}
+
+\paragraph{Capítulo 15: Coordenadas sobre la esfera y trigonometría esférica.}
+\begin{itemize}
+  \item[\ref{pb:15-1}] Un cuarto de circunferencia: \(\pi R/2\approx10\,007{,}5\)~km.
+  \item[\ref{pb:15-2}] Dos ángulos rectos en el ecuador y \(60^\circ\) en el polo: suman \(240^\circ\). El exceso es \(60^\circ=\pi/3\) rad y el área, \(\varepsilon R^2=\tfrac{\pi}{3}R^2\): un doceavo de la esfera (\(4\pi R^2\)).
+  \item[\ref{pb:15-3}] \(\approx10\,045\)~km, saliendo con acimut \(\approx38{,}4^\circ\). Ese acimut cambia a lo largo del camino.
+  \item[\ref{pb:15-4}] \(\varepsilon=\text{área}/R^2\approx8{,}6\cdot10^{-11}\) rad, unos \(1{,}8\cdot10^{-5}\,''\). Es despreciable: en la cancha, los ángulos suman \(180^\circ\) a todos los efectos.
+  \item[\ref{pb:15-5}] Las distancias se agrandan \(\approx3{,}24\) veces y las áreas \(\approx10{,}5\) veces. Por eso Groenlandia parece casi tan grande como África.
+\end{itemize}

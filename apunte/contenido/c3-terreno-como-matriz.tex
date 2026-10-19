@@ -1,4 +1,4 @@
-% Complemento C3: El terreno como matriz (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+% Complemento C3: El terreno como matriz
 \capituloComplemento[3]{El terreno como matriz}\label{cap:dem}
 
 \section{La idea}
@@ -32,11 +32,11 @@ error RMS (m) & 103 & 66 & 31 & 17 & 9{,}8 & 4{,}4 & 2{,}0\\
 }
 
 Hecho geométrico: una matriz constante es de rango \(1\), y la altura media del recorte
-(unos \(1600\) m) es la ``meseta'' sobre la que está apoyado el relieve. Por eso
+(unos \(1600\) m) es la \enquote{meseta} sobre la que está apoyado el relieve. Por eso
 \(\sigma_1\) domina y la energía acumulada \(\sum_{i\le k}\sigma_i^2/\sum\sigma_i^2\) ya
 da \(99{,}6\)\,\% con \(k=1\): esa cifra engaña, mide la meseta y no el relieve. El RMS
 del error, o restar la media antes de descomponer (lo mismo que centrar la nube de puntos
-en el problema 4), muestra lo que importa: el relieve ``aparece'' alrededor de \(k=20\)
+en el problema 4), muestra lo que importa: el relieve \enquote{aparece} alrededor de \(k=20\)
 (error de \(9{,}8\) m sobre un terreno de casi \(2000\) m de desnivel) y con \(100\)
 términos de \(512\) el error es de \(2\) m. La unidad \texttt{09\_cambio\_de\_base\_svd}
 (apéndice~\ref{ap:notebooks}) carga ese mismo recorte y deja mover \(k\) en vivo.
@@ -52,7 +52,7 @@ regular. En el recorte de la Precordillera, la fila \(i\) corresponde a una lati
 a sur, desde \(-32{,}142^\circ\) hasta \(-32{,}284^\circ\)), la columna \(j\) a una longitud
 (de oeste a este, desde \(-69{,}000^\circ\) hasta \(-68{,}858^\circ\)) y la entrada
 \(z_{ij}\) es la altura en metros. El paso de la grilla es de un segundo de arco en las dos
-direcciones; sobre el elipsoide WGS84, a la latitud media del recorte, un segundo de latitud
+direcciones; sobre el elipsoide GRS80, a la latitud media del recorte, un segundo de latitud
 mide \(30{,}80\) m y un segundo de longitud \(26{,}19\) m. El recorte cubre
 \(15{,}8\) km de norte a sur por \(13{,}4\) km de este a oeste, con alturas entre
 \(1014\) y \(2989\) m, media \(1626\) m y desvío \(406\) m.
@@ -65,7 +65,7 @@ La misma tabla admite dos lecturas, y las dos nos sirven.
   Sumar matrices es sumar relieves; multiplicar por un número es exagerar o aplanar el
   relieve.
   \item \textbf{Como muestra de una función} \(z=f(x,y)\) definida en todo el rectángulo,
-  de la que sólo conocemos los valores en los nodos: \(z_{ij}=f(x_j,y_i)\). La grilla es
+  de la que solo conocemos los valores en los nodos: \(z_{ij}=f(x_j,y_i)\). La grilla es
   la regla con que leemos el terreno, en el sentido de la
   sección~\ref{sec:puntos-formas-grillas}: los números \((i,j)\) no son metros sino marcas
   de dos mazos de rectas, uno de meridianos y otro de paralelos.
@@ -83,17 +83,17 @@ Como cualquier matriz, \(Z\) se escribe
 \]
 Cada término \(\sigma_iu_iv_i^T\) es una matriz de rango uno, y una matriz de rango uno
 tiene una forma muy particular: su entrada \((r,c)\) es \(\sigma_i\,(u_i)_r\,(v_i)_c\), el
-producto de un número que depende sólo de la fila por otro que depende sólo de la columna.
+producto de un número que depende solo de la fila por otro que depende solo de la columna.
 
 \paragraph{Hecho geométrico: el relieve separable.} Un término de rango uno es un relieve
 que se obtiene tomando un perfil norte--sur \(u_i\) y un perfil oeste--este \(v_i\) y
 multiplicándolos punto a punto. Todos sus perfiles oeste--este tienen la misma forma
 \(v_i\), escalada por el valor de \(u_i\) en esa latitud; todos sus perfiles norte--sur tienen
 la forma \(u_i\). Escalera: en \(\R\), un número es un relieve de una sola celda; en
-\(\R^2\), una matriz de rango uno es un terreno ``tejido'' con un solo hilo en cada
+\(\R^2\), una matriz de rango uno es un terreno \enquote{tejido} con un solo hilo en cada
 dirección; la SVD dice que cualquier terreno es una suma de esos tejidos, ordenados por
 importancia. Los vectores \(u_i\) y \(v_i\) son unitarios y adimensionales, de modo que
-\(\sigma_i\) lleva las unidades de la altura: es la ``amplitud'' del tejido \(i\).
+\(\sigma_i\) lleva las unidades de la altura: es la \enquote{amplitud} del tejido \(i\).
 
 Los cinco primeros valores singulares del recorte son
 \[
@@ -176,15 +176,15 @@ paralelas equiespaciadas, una regla graduada tirada sobre el plano
 (sección~\ref{sec:puntos-formas-grillas}). Moverse a lo largo de la curva de nivel es moverse
 sin subir ni bajar, es decir, en una dirección \(h\) con \(df_p(h)=0\): la tangente a la curva
 de nivel es la recta de nivel cero de la forma \(df_p\), el núcleo de esa forma. Esta
-afirmación no usa ninguna métrica. La que sí la usa es la otra, ``el gradiente es perpendicular
-a la curva de nivel'': para hablar de la dirección de máxima pendiente hay que convertir la
+afirmación no usa ninguna métrica. La que sí la usa es la otra, \enquote{el gradiente es perpendicular
+a la curva de nivel}: para hablar de la dirección de máxima pendiente hay que convertir la
 forma en un vector con el producto interno, y en la grilla del DEM ese producto interno no es
 el de los índices (secciones~\ref{sec:puntos-formas-grillas} y~\ref{cap:curvatura}). La
-escalera: en \(\R\), la ``curva'' de nivel de \(z=f(x)\) es un punto aislado donde
+escalera: en \(\R\), la \enquote{curva} de nivel de \(z=f(x)\) es un punto aislado donde
 \(f(x)=c\); en \(\R^2\), una curva; en \(\R^3\), las superficies de nivel de una función de
 tres variables, como las superficies de igual temperatura o de igual potencial.
 
-\paragraph{Una celda a mano.} En la grilla sólo tenemos alturas en los nodos. Dentro de cada
+\paragraph{Una celda a mano.} En la grilla solo tenemos alturas en los nodos. Dentro de cada
 celda, entre cuatro nodos vecinos, completamos \(f\) de la manera más simple que respete los
 cuatro valores: lineal a lo largo de cada lado de la celda. Una curva de nivel cruza un lado
 exactamente cuando sus dos extremos quedan uno por encima y otro por debajo de \(c\), y el
@@ -248,7 +248,7 @@ unidades (metros de subida por metro de avance), y la tangente a la curva de niv
 la misma dirección física, se escribe \((-26{,}19;\ 92{,}40)\) m; el producto da \(-9+9=0\), como
 debe ser, porque el núcleo de una forma no depende de cómo graduemos los ejes. La dirección de
 máxima pendiente, en cambio, es \((0{,}344;\ 0{,}097)\) en metros, que forma con el este un
-ángulo de \(15{,}8^\circ\); el ``perpendicular'' calculado con los índices, \((9,3)\) en celdas,
+ángulo de \(15{,}8^\circ\); el \enquote{perpendicular} calculado con los índices, \((9,3)\) en celdas,
 corresponde en metros a \((235{,}7;\ 92{,}4)\), a \(21{,}4^\circ\) del este. Los
 \(5{,}6^\circ\) de diferencia son la métrica de la grilla geográfica que se olvida.
 
@@ -266,7 +266,7 @@ de \(50\) m y maestras cada \(250\) m en los cuatro paneles.
 \(512\times512\) celdas de \(1''\)), equidistancia \(50\) m, maestras cada \(250\) m, trazadas
 sobre el DEM original y sobre sus aproximaciones de rango \(2\), \(5\) y \(20\). El fondo gris
 es la altura (más oscuro, más alto). Generada con
-\texttt{apunte/figuras/svd/gen\_dem\_curvas\_nivel.py}.}
+\texttt{apunte/figuras/svd/gen\_dem\_curvas\_nivel.py}. Datos: Copernicus DEM GLO-30, \enquote{\textcopyright{} DLR e.V. 2010-2014 and \textcopyright{} Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA}.}
 \label{fig:svd-dem-curvas}
 \end{figure}
 
@@ -295,7 +295,7 @@ elimina con un criterio uniforme en toda la hoja. Falsea cuando lo que se busca 
 el detalle local: el talud de un camino, una cárcava, el borde de una terraza, el pie de un
 cerro que define un límite. Un error RMS bajo es un promedio sobre \(262\,144\) celdas y no
 garantiza nada en una celda en particular: con \(k=20\) el RMS es \(9{,}8\) m pero el error
-llega a \(75\) m en la peor celda, aunque sólo en el \(0{,}04\)\,\% de las celdas supera los
+llega a \(75\) m en la peor celda, aunque solo en el \(0{,}04\)\,\% de las celdas supera los
 \(50\) m. Para un relevamiento de detalle, la matriz que manda es \(Z\), y conviene mirar
 \(Z-Z_k\) como mapa para saber qué se está tirando.
 
@@ -305,7 +305,7 @@ curva puede confundirse con su vecina. Una regla práctica razonable es pedir
 \[
   \mathrm{RMS}_k\le\frac{e}{5},
 \]
-y como \(\mathrm{RMS}_k\) se calcula sólo con los \(\sigma_i\), el menor \(k\) que la cumple
+y como \(\mathrm{RMS}_k\) se calcula solo con los \(\sigma_i\), el menor \(k\) que la cumple
 se busca recorriendo la lista de valores singulares. En el recorte de la Precordillera:
 
 {\small
@@ -345,14 +345,14 @@ resuelve con la pseudoinversa de la sección~\ref{sec:pseudoinversa}: \((a,b,c)=
 (pendiente de \(5{,}5^\circ\)), con un RMS de \(153{,}7\) m.
 
 La comparación con la SVD es instructiva. El plano, escrito como matriz, es
-\((b\,y_i+c)\cdot1+a\cdot x_j\): la suma de una matriz que sólo depende de la fila y otra que
-sólo depende de la columna, de rango dos. Por lo tanto su error no puede ser menor que el de la
+\((b\,y_i+c)\cdot1+a\cdot x_j\): la suma de una matriz que solo depende de la fila y otra que
+solo depende de la columna, de rango dos. Por lo tanto su error no puede ser menor que el de la
 mejor aproximación de rango dos, y efectivamente \(153{,}7\ \text{m}>66{,}0\ \text{m}\). Lo
 llamativo es que también pierde contra \(Z_1\), de rango uno, que da \(102{,}9\) m. La razón
 es que el plano obliga a los perfiles a ser rectas, mientras que la SVD elige los perfiles que
 mejor describen el terreno, y el perfil oeste--este real, que cae más de \(1400\) m en
 \(13\) km de manera nada uniforme, no es una recta. Los dos ajustes son mínimos cuadrados con
-el mismo dibujo de la proyección ortogonal (caja ``El dibujo único detrás de \(Ax\approx b\)''
+el mismo dibujo de la proyección ortogonal (caja \enquote{El dibujo único detrás de \(Ax\approx b\)}
 de la sección~\ref{cap:cuatro-problemas}); lo que cambia es el subespacio sobre el que
 proyectamos: planos en un caso, matrices de rango \(k\) en el otro.
 
@@ -376,7 +376,7 @@ filas y columnas: otra vez, la base privilegiada la elige la regla de medir.
 
 \begin{resultado}[Lo que sabemos hacer con un modelo digital de elevación]
 Leerlo como matriz \(Z\) y como muestra de una función \(z=f(x,y)\) en una grilla geográfica.
-Descomponerlo en tejidos separables \(\sigma_iu_iv_i^T\) y saber, sólo con los \(\sigma_i\)
+Descomponerlo en tejidos separables \(\sigma_iu_iv_i^T\) y saber, solo con los \(\sigma_i\)
 descartados, el error RMS en metros de la aproximación \(Z_k\). Trazar sus curvas de nivel
 celda por celda por interpolación lineal, sabiendo que cada tramo aproxima la recta de nivel
 cero del plano tangente. Y elegir \(k\) para que el error quede por debajo de una fracción de

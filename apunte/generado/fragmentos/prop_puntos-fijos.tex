@@ -1,0 +1,12 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap02_traslaciones.py (test_prop_puntos_fijos). No editar.
+\comprobacionDatos{NUMERICA}{200}{cap02_traslaciones}{37}%
+\begin{lstlisting}
+for _ in range(CASOS):
+    t = rng.uniform(0.1, 2 * np.pi - 0.1)        # t lejos de 0 (mod 2 pi)
+    w = rng.normal(size=2)
+    A = np.eye(2) - rot(t)
+    assert np.isclose(np.linalg.det(A), 2 - 2 * np.cos(t), atol=TOL)
+    c = np.linalg.solve(A, w)                    # único, porque det(A) > 0
+    assert np.allclose(rot(t) @ c + w, c, atol=TOL)
+\end{lstlisting}
+\comprobacionPie

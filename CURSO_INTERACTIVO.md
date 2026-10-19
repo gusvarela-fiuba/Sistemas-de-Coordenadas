@@ -1,6 +1,6 @@
 # Curso interactivo — las 20 simulaciones, ladrillo a ladrillo
 
-Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan el tema del programa que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Es parte del trabajo final de Sistemas de Coordenadas (CB104, FIUBA) de Gustavo Varela.
+Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan el tema del programa que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de capítulo y al apunte. Es parte del trabajo final de Sistemas de Coordenadas (CB104, FIUBA) de Gustavo Varela.
 Cada simulación corre adentro del navegador con WebAssembly: no hay que instalar nada ni tener cuenta en ningún lado (la primera carga tarda unos segundos). En una pantalla 16:9 cada sección interactiva muestra la figura a la izquierda y, a la derecha, el panel de controles con el selector de caso, los deslizadores y los números vivos que se recalculan con cada movimiento.
 Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 1 hecho geométrico, 2 manipulación, 3 cuenta a mano y código lado a lado, 4 Python de hoy, 5 ejercicios (lápiz y código con hueco, verificado en la página).
 
@@ -23,7 +23,7 @@ El primero proyecta la lección sin tocar el archivo; el segundo hace una copia 
 
 *Bucle ida y vuelta: al estirar el Este por 2, los mojones van con A, las marcas de la regla wᵀ van con A⁻¹, el mojón conserva su cota y la flecha ingenua Aw pierde la perpendicularidad.*
 
-Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujamos?
+Temas del programa: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujamos?
 
 **Qué se manipula:**
 - Dropdown `objeto`: (a) punto x, (b) regla graduada wᵀ (el gradiente), (c) parche curvo r(u, v), (d) complejo z como matriz.
@@ -42,7 +42,7 @@ Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pre
 
 ## Unidad 1 — Rotaciones I: el punto no se movió
 
-Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero la estación total mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee la estación?
+Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero el instrumento mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee el instrumento?
 
 **Qué se manipula:**
 - Deslizadores `θ (°): giro de los ejes`, `x del mojón (ejes de la obra)`, `y del mojón (ejes de la obra)`.
@@ -75,7 +75,7 @@ Tema del programa: 01. Pregunta guía: para dibujar la parcela con el norte arri
 
 ## Unidad 3 — Rotaciones III: tres ejes y el orden importa
 
-Clases del esqueleto: 01 y 02. Pregunta guía: nivelar la estación es inclinar y después girar, y un compañero lo hace al revés; con el punto de prueba e_x = (1, 0, 0), girado 90° alrededor de y y después 90° alrededor de z, ¿dónde termina?
+Temas del programa: 01 y 02. Pregunta guía: nivelar la estación es inclinar y después girar, y un compañero lo hace al revés; con el punto de prueba e_x = (1, 0, 0), girado 90° alrededor de y y después 90° alrededor de z, ¿dónde termina?
 
 **Qué se manipula:**
 - Deslizadores `α (°), alrededor de x`, `β (°), alrededor de y`, `γ (°), alrededor de z`.
@@ -107,12 +107,12 @@ Tema del programa: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y
 
 ## Unidad 5 — Reflexiones y similaridades
 
-Clases del esqueleto: 02 y 03. Pregunta guía: un plano viejo a otra escala y con el norte para otro lado hay que superponerlo sobre el relevamiento nuevo; ¿qué transformación lo hace y con cuántos mojones conocidos alcanza?
+Temas del programa: 02 y 03. Pregunta guía: un plano viejo a otra escala y con el norte para otro lado hay que superponerlo sobre el relevamiento nuevo; ¿qué transformación lo hace y con cuántos mojones conocidos alcanza?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: espejo del eje x, espejo de la diagonal y = x, espejo de la recta de ángulo α, dos espejos seguidos (eje x y después recta de ángulo β), similaridad k·R(θ) con centro en el origen, similaridad con centro k·R(θ)x + (3, −2) (la del plano viejo).
 - Deslizadores que dependen del caso: `α (°)`, `β (°)`, o el par `k` y `θ (°)`.
-- Segundo bloque, trayectorias y líneas coordenadas (clase 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0.85·I y 0.85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
+- Segundo bloque, trayectorias y líneas coordenadas (capítulo 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0.85·I y 0.85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después con las columnas como flechas; violeta, la parcela con estelas. En los espejos se dibuja la recta espejo a rayas; en la similaridad con centro, el centro fijo en gold. El número vivo clave es el área con signo.
 
 **Ejercicios en Python:** `reflexion(alpha)` (c) y `similaridad_por_dos_puntos(P1, P2, Q1, Q2)` (d). Lápiz (a): por qué diag(1, −1) conserva distancias y no es rotación, con un número y con un dibujo; (b): escala, giro y centro de la similaridad z ↦ 2i·z + 1.
@@ -207,7 +207,7 @@ Tema del programa: 05. Pregunta guía: tres mojones de un alambrado que según e
 
 ## Unidad 10 — Núcleo y autovectores: las direcciones que no giran
 
-Clases del esqueleto: 05 y 06. Pregunta guía: un escáner deforma el plano con A = [[2, 1], [1, 2]] y casi todos los rumbos de la parcela giran; ¿cuántos rumbos salen con el mismo rumbo que entraron, estirados o no?
+Temas del programa: 05 y 06. Pregunta guía: un escáner deforma el plano con A = [[2, 1], [1, 2]] y casi todos los rumbos de la parcela giran; ¿cuántos rumbos salen con el mismo rumbo que entraron, estirados o no?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: A = [[2, 1], [1, 2]] (dos direcciones perpendiculares); B = [[3, 1], [0, 2]] (dos direcciones, no perpendiculares); corte [[1, 1], [0, 1]] (una sola dirección); giro de 30° (ninguna dirección real); proyección [[1, 2], [2, 4]] (det 0, el núcleo); homotecia 2I (todas las direcciones).
@@ -267,7 +267,7 @@ Tema del programa: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, me
 
 *Bucle ida y vuelta: el círculo unidad con v₁, v₂ pasa por Vᵀ (giro de entrada), Σ (estiramientos) y U (giro de salida); la vuelta deshace las tres etapas.*
 
-Clases del esqueleto: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre alrededor de un mojón pasa por A = [[2, 1], [0, 1]] y se vuelve la elipse de error; ¿qué le pasa a dos direcciones perpendiculares del disco, si las direcciones propias de A no son perpendiculares entre sí?
+Temas del programa: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre alrededor de un mojón pasa por A = [[2, 1], [0, 1]] y se vuelve la elipse de error; ¿qué le pasa a dos direcciones perpendiculares del disco, si las direcciones propias de A no son perpendiculares entre sí?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: simétrica [[3, 1], [1, 2]]; no simétrica [[2, 1], [0, 1]]; aplastante [[1, 2], [2, 4]] (σ₂ = 0); rotación pura 40° (σ = 1, 1); general (deslizadores).
@@ -313,7 +313,7 @@ Tema del programa: 11. Pregunta guía: ubicar un poste midiendo con cinta sus di
 
 - Notebook: [unidades/11_cuatro_problemas.py](unidades/11_cuatro_problemas.py)
 - Ficha: [clases/11-cuatro-problemas.md](clases/11-cuatro-problemas.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Guía resuelta de los cuatro problemas (Clase 11)".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Guía resuelta de los cuatro problemas (Capítulo 12)".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/11_cuatro_problemas/index.html)
 
 ## Unidad 16 — Curvatura como forma cuadrática

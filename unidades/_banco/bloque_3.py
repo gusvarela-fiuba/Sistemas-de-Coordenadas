@@ -131,7 +131,7 @@ BANCO = {
         {
             "id": "07c_e1",
             "nivel": "elemental",
-            "enunciado": r"Componemos dos giros de la estación total y obtenemos una rotación $R$ de $\mathbb R^3$. ¿Cómo reconocemos su eje en el lenguaje de los autovectores?",
+            "enunciado": r"Componemos dos giros del instrumento y obtenemos una rotación $R$ de $\mathbb R^3$. ¿Cómo reconocemos su eje en el lenguaje de los autovectores?",
             "opciones": [
                 {"id": "a", "texto": r"Es el autovector de autovalor $1$: la única recta que $R$ deja quieta, $Rv = v$.",
                  "correcta": True,

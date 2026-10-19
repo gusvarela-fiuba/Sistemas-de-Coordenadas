@@ -50,7 +50,7 @@
   <question type="multichoice">
     <name><text>00_e2 · Unidad 00 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Los giros de la estación total alrededor de su eje vertical, con la operación hacer uno y después el otro, forman un grupo. ¿Cuál es la inversa de girar \(30°\) y respecto de qué operación lo es?</p>]]></text>
+      <text><![CDATA[<p>Los giros del instrumento alrededor de su eje vertical, con la operación hacer uno y después el otro, forman un grupo. ¿Cuál es la inversa de girar \(30°\) y respecto de qué operación lo es?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -136,7 +136,7 @@
   <question type="multichoice">
     <name><text>00_m2 · Unidad 00 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Movemos la estación total \(5\) m al Este: cada mojón \((x, y)\) pasa a leerse \((x - 5, y)\). ¿Por qué esa traslación no es una transformación lineal del plano?</p>]]></text>
+      <text><![CDATA[<p>Movemos el instrumento \(5\) m al Este: cada mojón \((x, y)\) pasa a leerse \((x - 5, y)\). ¿Por qué esa traslación no es una transformación lineal del plano?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -269,7 +269,7 @@
   <question type="multichoice">
     <name><text>01a_e1 · Unidad 01 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Plantamos la estación total en el origen de la obra, pero con su eje \(x\) girado \(30°\) antihorario respecto del frente. El mojón no se tocó. ¿Qué cambia?</p>]]></text>
+      <text><![CDATA[<p>Plantamos el instrumento en el origen de la obra, pero con su eje \(x\) girado \(30°\) antihorario respecto del frente. El mojón no se tocó. ¿Qué cambia?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -984,7 +984,7 @@
       <feedback format="html"><text><![CDATA[<p>\(R_y\) deja quieto \(e_y\), pero después \(R_z\) lo manda a \(-e_x\); lo que queda quieto tras el primer giro no sobrevive al segundo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otra clase de movimiento.</p>]]></text>
+      <text><![CDATA[<p>No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otro tipo de movimiento.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El producto de ortogonales con \(\det = 1\) es ortogonal con \(\det = 1\), y toda matriz así es un giro alrededor de alguna recta: la composición de rotaciones es una rotación.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -2849,7 +2849,7 @@
   <question type="multichoice">
     <name><text>07c_e1 · Unidad 11 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Componemos dos giros de la estación total y obtenemos una rotación \(R\) de \(\mathbb R^3\). ¿Cómo reconocemos su eje en el lenguaje de los autovectores?</p>]]></text>
+      <text><![CDATA[<p>Componemos dos giros del instrumento y obtenemos una rotación \(R\) de \(\mathbb R^3\). ¿Cómo reconocemos su eje en el lenguaje de los autovectores?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>

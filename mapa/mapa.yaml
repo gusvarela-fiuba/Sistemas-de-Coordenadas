@@ -20,7 +20,7 @@ clases:
   pregunta: ¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?
   nivel: troncal
 - id: "03p"
-  titulo: 'Complemento: transformaciones proyectivas'
+  titulo: Transformaciones proyectivas
   ficha: clases/03p-proyectivas.md
   pregunta: ¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?
   nivel: complementario
@@ -86,9 +86,7 @@ conceptos:
   unidad: 01a_punto_quieto
   hecho_geometrico: Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal sólo si el centro es el origen.
   que_se_conserva: distancias, ángulos y orientación
-  apunte:
-  - rotaciones
-  - "03"
+  apunte: [rotaciones, repaso-algebra]
   requiere: [transformacion-lineal, producto-interno]
 - id: numeros-complejos
   nombre: Números complejos como transformaciones del plano
@@ -120,9 +118,7 @@ conceptos:
   unidad: 01b_rotacion_plano
   hecho_geometrico: AᵀA = Id; columnas perpendiculares de longitud 1; la grilla cuadrada sigue cuadrada pero puede estar espejada. det = +1 rotación, det = −1 reflexión.
   que_se_conserva: producto interno; con det 1, además la orientación
-  apunte:
-  - rotaciones
-  - "17"
+  apunte: [rotaciones, autovectores]
   requiere: [producto-interno, rotacion]
 - id: rotacion-3d
   nombre: Rotaciones en tres dimensiones
@@ -130,9 +126,7 @@ conceptos:
   unidad: 01c_rotaciones_3d
   hecho_geometrico: Rx, Ry, Rz son la rotación 2D empotrada con un 1 en la diagonal para el eje quieto; toda rotación de R³ deja fija una recta (el eje) y gira el plano perpendicular; componer en distinto orden deja el cuerpo en lugares distintos.
   que_se_conserva: distancias, ángulos, orientación y el eje
-  apunte:
-  - rotaciones
-  - "14"
+  apunte: [rotaciones, rot3d]
   requiere: [rotacion, matriz-ortogonal, composicion]
 - id: rotacion-infinitesimal
   nombre: Rotación infinitesimal
@@ -140,9 +134,7 @@ conceptos:
   unidad: 01c_rotaciones_3d
   hecho_geometrico: R(ε) ≈ Id + εA con A antisimétrica; εAv es el pasito tangente a la circunferencia (A_x v = e_x × v). A primer orden las rotaciones chicas se suman y conmutan; el orden aparece en ε².
   que_se_conserva: distancias a primer orden
-  apunte:
-  - "15"
-  - rotaciones
+  apunte: [infinitesimales, rotaciones]
   requiere: [rotacion-3d, derivada-aproximacion-lineal]
 - id: exponencial-de-matrices
   nombre: Exponencial de matrices
@@ -150,9 +142,7 @@ conceptos:
   unidad: null
   hecho_geometrico: e^A = Σ Aⁿ/n!; una rotación grande es muchísimas chiquitas iguales, R = lim (Id + A/n)ⁿ; e^{t log R} es la trayectoria suave de la identidad a R. log R es antisimétrica y sus tres entradas son el eje, con norma igual al ángulo.
   que_se_conserva: el eje (es el autovector de autovalor 1 de R y el vector de log R)
-  apunte:
-  - rotaciones
-  - "15"
+  apunte: [rotaciones, infinitesimales]
   requiere: [rotacion-infinitesimal, trayectoria]
 - id: composicion
   nombre: Composición de transformaciones
@@ -160,9 +150,7 @@ conceptos:
   unidad: 01c_rotaciones_3d
   hecho_geometrico: Hacer F y después G es G∘F, el producto de matrices GF; la de la derecha actúa primero. Es una operación entre transformaciones, con neutro e inversa, que no siempre conmuta.
   que_se_conserva: lo que conservan las dos transformaciones compuestas
-  apunte:
-  - traslaciones
-  - "16"
+  apunte: [traslaciones, composicion-afin]
   requiere: [rotacion, transformacion-lineal]
 - id: conmutatividad
   nombre: Conmutatividad
@@ -170,9 +158,7 @@ conceptos:
   unidad: 01c_rotaciones_3d
   hecho_geometrico: AB = BA es llegar al mismo lugar por los dos caminos del paralelogramo. Rotación y homotecia del mismo centro conmutan; rotaciones 3D no, salvo a primer orden. Sin conmutatividad el par (u,v) no nombra un único punto, así que no hay coordenadas.
   que_se_conserva: el resultado al cambiar el orden
-  apunte:
-  - traslaciones
-  - "15"
+  apunte: [traslaciones, infinitesimales]
   requiere: [composicion, rotacion-3d, rotacion-infinitesimal]
 - id: trayectoria
   nombre: Trayectoria de una transformación
@@ -180,9 +166,7 @@ conceptos:
   unidad: 03_reflexiones_similaridades
   hecho_geometrico: La órbita v, Av, A²v, … (o e^{tM}v en continuo). La transformación se identifica con la trayectoria que genera; rotación → circunferencias, homotecia → rayos, det 1 → se queda dando vueltas.
   que_se_conserva: la curva sobre la que cae el punto
-  apunte:
-  - traslaciones
-  - "16"
+  apunte: [traslaciones, composicion-afin]
   requiere: [composicion, exponencial-de-matrices]
 - id: lineas-coordenadas
   nombre: Líneas coordenadas
@@ -206,10 +190,7 @@ conceptos:
   unidad: 03_reflexiones_similaridades
   hecho_geometrico: 'El espejo; ρ_b(x) = 2b − x, φ_B(x) = x − 2((n·x − c)/‖n‖²) n, ortogonal con det −1, involución. Dos espejos devuelven la orientación: puntuales o ejes paralelos dan traslación, ejes secantes dan rotación de ángulo doble.'
   que_se_conserva: distancias y ángulos; se invierte la orientación
-  apunte:
-  - reflexiones
-  - traslaciones
-  - "17"
+  apunte: [reflexiones, traslaciones]
   requiere: [matriz-ortogonal, composicion]
 - id: afinidad-axial
   nombre: Afinidad axial (eje, dirección y factor)
@@ -225,9 +206,7 @@ conceptos:
   unidad: 03_reflexiones_similaridades
   hecho_geometrico: S(x) = o + λR(x − o) = φ_A φ_B η_o^λ; misma forma, otro tamaño y orientación, con un único punto fijo o (dos círculos de Apolonio). Rotar alrededor de c y escalar alrededor de d da una similaridad cuyo punto fijo no es ni c ni d.
   que_se_conserva: ángulos y razones entre distancias
-  apunte:
-  - reflexiones
-  - "16"
+  apunte: [reflexiones, composicion-afin]
   requiere: [reflexion, homotecia, rotacion, punto-fijo]
 - id: transformacion-afin
   nombre: Transformación afín
@@ -235,10 +214,7 @@ conceptos:
   unidad: 04_afines_homogeneas
   hecho_geometrico: F(x) = Ax + t; paralelogramo va a paralelogramo, círculo a elipse, se conservan proporciones sobre cada recta. La imagen de un triángulo la determina del todo (seis números, seis ecuaciones).
   que_se_conserva: rectas, paralelismo y proporciones sobre una recta
-  apunte:
-  - afines
-  - rotaciones
-  - "17"
+  apunte: [afines, rotaciones]
   requiere: [afinidad-axial, traslacion, transformacion-lineal]
 - id: coordenadas-homogeneas
   nombre: Coordenadas homogéneas
@@ -246,9 +222,7 @@ conceptos:
   unidad: 04_afines_homogeneas
   hecho_geometrico: El plano es el plano z = 1 de R³ y cada punto es la recta por el origen que lo atraviesa; (x,y,1) ~ λ(x,y,1). La afinidad es la 3×3 con fila (0 0 1) y la traslación entra en la matriz; tercera coordenada 0 es una dirección, un punto impropio.
   que_se_conserva: la recta por el origen (el rayo), no el representante
-  apunte:
-  - afines
-  - "16"
+  apunte: [afines, composicion-afin]
   requiere: [transformacion-afin, composicion]
 - id: punto-fijo
   nombre: Punto fijo
@@ -256,10 +230,7 @@ conceptos:
   unidad: 03_reflexiones_similaridades
   hecho_geometrico: 'F(x*) = x*, es decir (I − A)x* = t; en homogéneas, autovector de autovalor 1 con w ≠ 0. Es el centro alrededor del cual rotar y trasladar repetidamente dibuja círculos; si existe, poniendo el origen ahí la afinidad queda lineal. Una rotación de R³ tiene autovalor 1: su eje.'
   que_se_conserva: el punto mismo
-  apunte:
-  - afines
-  - "16"
-  - "17"
+  apunte: [afines, composicion-afin]
   requiere: [transformacion-afin, coordenadas-homogeneas, autovector]
 - id: traslacion
   nombre: Traslación
@@ -267,10 +238,16 @@ conceptos:
   unidad: 04_afines_homogeneas
   hecho_geometrico: x' = x + v, A = I; todo se desplaza igual y no hay punto fijo propio (el autovector de autovalor 1 tiene w = 0, el punto fijo se fue al infinito). Nace de dos reflexiones y es el límite de rotaciones cuyo centro se aleja. T_v Q_c ≠ Q_c T_v.
   que_se_conserva: distancias, ángulos, orientación y todas las direcciones
-  apunte:
-  - afines
-  - "17"
+  apunte: [afines]
   requiere: [reflexion, punto-fijo, punto-impropio]
+- id: mapa-transformaciones
+  nombre: Mapa de las transformaciones
+  clase: "03"
+  unidades: [01b_rotacion_plano, 03_reflexiones_similaridades, 04_afines_homogeneas, 05_proyectivas, 15_transformaciones_conformes]
+  hecho_geometrico: 'Cada familia contiene a la anterior y conserva menos: movimientos rígidos (distancias; 2 puntos homólogos), similaridades (ángulos; 2), afinidades (paralelismo; 3 no alineados) y homografías (rectas y razón doble; 4 sin tres alineados).'
+  que_se_conserva: 'depende de la familia: ver la tabla'
+  apunte: [afines]
+  requiere: [traslacion, rotacion, reflexion, similaridad, transformacion-afin, homografia]
 - id: plano-proyectivo
   nombre: Plano proyectivo
   clase: "03p"
@@ -293,9 +270,7 @@ conceptos:
   unidad: 05_proyectivas
   hecho_geometrico: 'p'' ~ H p con H 3x3 invertible y división por W; es la foto de una cámara inclinada: rectas siguen rectas, paralelas convergen. 8 grados de libertad, cuatro puntos sin tres alineados la fijan; H = K2 K1^-1 por el cuadrilátero patrón.'
   que_se_conserva: Rectas, incidencia y razón doble; no paralelismo, ni razones simples, ni ángulos.
-  apunte:
-  - proyectivas
-  - "18"
+  apunte: [proyectivas, pentagono]
   requiere: [transformacion-afin, coordenadas-homogeneas, colinealidad, determinante]
 - id: recta-fija
   nombre: Puntos y rectas fijas de una homografía
@@ -303,9 +278,7 @@ conceptos:
   unidad: 05_proyectivas
   hecho_geometrico: 'Punto fijo = autovector real de H (siempre hay uno, grado 3); recta fija = autovector de H^T. Raíz doble con cruz de filas nula = recta entera de puntos fijos (eje) más centro: homología; autovalores opuestos = homología armónica (espejo proyectivo, H^2 ~ I).'
   que_se_conserva: El eje punto a punto y el centro; sobre cada recta por el centro, una reflexión vista en perspectiva.
-  apunte:
-  - proyectivas
-  - "18"
+  apunte: [proyectivas, pentagono]
   requiere: [autovector, autovalor, punto-fijo, forma-lineal]
 - id: razon-doble
   nombre: Razón doble
@@ -425,10 +398,7 @@ conceptos:
   unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble).'
   que_se_conserva: La dirección; sólo cambia la escala.
-  apunte:
-  - autovectores
-  - "18"
-  - proyectivas
+  apunte: [autovectores, pentagono, proyectivas]
   requiere: [nucleo, subespacio-invariante, producto-vectorial]
 - id: autovalor
   nombre: Autovalor
@@ -452,9 +422,7 @@ conceptos:
   unidad: 09_cambio_de_base_svd
   hecho_geometrico: 'La circunferencia unidad se vuelve elipse; los ejes de la elipse (salida) y sus preimágenes (entrada) son dos bases ortonormales distintas: A = U Σ Vᵀ es girar, estirar en ejes perpendiculares, girar.'
   que_se_conserva: 'La ortogonalidad de una base bien elegida de la entrada: va a parar a una base ortogonal de la salida. Siempre existe, sin números complejos.'
-  apunte:
-  - "02"
-  - svd
+  apunte: [hilo, svd]
   requiere: [autovector, autovalor, polinomio-caracteristico, matriz-ortogonal, producto-interno, nucleo]
 - id: valores-singulares
   nombre: Valores singulares
@@ -478,9 +446,7 @@ conceptos:
   unidad: 08_cambio_de_base
   hecho_geometrico: La misma flecha medida con otra grilla; la matriz tiene en sus columnas la base nueva escrita en la vieja. Vectores van con A, formas lineales con A⁻¹ del otro lado, transformaciones con A T A⁻¹.
   que_se_conserva: 'Todas las relaciones entre los elementos (incidencias L·P = 0, valores de las formas sobre los vectores): ''convertimos todo para que nada cambie''.'
-  apunte:
-  - "02"
-  - cambio-base
+  apunte: [hilo, cambio-base]
   requiere: [transformacion-lineal, forma-lineal, dualidad, coordenadas-homogeneas, inversa]
 - id: diagonalizacion
   nombre: Diagonalización
@@ -496,9 +462,7 @@ conceptos:
   unidad: 08_cambio_de_base
   hecho_geometrico: 'Aᵗ = P Dᵗ P⁻¹: aplicar n veces es estirar n veces cada eje propio; con t real la transformación es un proceso continuo y el punto recorre una trayectoria.'
   que_se_conserva: 'La base de autovectores: todas las potencias comparten las mismas direcciones propias.'
-  apunte:
-  - "02"
-  - cambio-base
+  apunte: [hilo, cambio-base]
   requiere: [diagonalizacion, trayectoria, exponencial-de-matrices]
 - id: derivada-aproximacion-lineal
   nombre: Derivada como aproximación lineal
@@ -562,9 +526,7 @@ conceptos:
   unidad: 09_cambio_de_base_svd
   hecho_geometrico: 'Deshacer el movimiento: 1/a en R, A⁻¹ en Rⁿ; en base de autovectores es tomar recíprocos en la diagonal, en SVD es V (1/Σ) Uᵀ. No existe si alguna dirección se aplastó (a = 0, det A = 0, algún σ = 0).'
   que_se_conserva: 'El neutro de la operación: componer con la inversa da la identidad (0 para la suma, 1 para el producto, Id para las matrices).'
-  apunte:
-  - "02"
-  - inversas
+  apunte: [hilo, inversas]
   requiere: [composicion, determinante, nucleo, diagonalizacion, svd, matriz-ortogonal]
 - id: cuatro-subespacios
   nombre: Los cuatro subespacios (núcleo, co-imagen, imagen, contra-imagen)
@@ -580,9 +542,7 @@ conceptos:
   unidad: 09_cambio_de_base_svd
   hecho_geometrico: 'Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer sólo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0.'
   que_se_conserva: La solución exacta cuando existe; si no, la más cercana, con el residuo perpendicular a la imagen.
-  apunte:
-  - "02"
-  - inversas
+  apunte: [hilo, inversas]
   requiere: [inversa, cuatro-subespacios, svd, producto-interno]
 - id: sistema-sobredeterminado
   nombre: Sistema sobredeterminado y mínimos cuadrados
@@ -739,7 +699,7 @@ unidades:
   clases:
   - "01"
   pregunta: Si giro los ejes 30°, ¿se mueve el mojón o se mueven sus coordenadas?
-  gancho_agrimensura: La estación total mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación.
+  gancho_agrimensura: El instrumento mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación.
   nivel: troncal
 - id: 01b_rotacion_plano
   archivo: unidades/01b_rotacion_plano.py
@@ -906,5 +866,5 @@ unidades:
   - "13"
   - "14"
   pregunta: ¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?
-  gancho_agrimensura: 'Dos visuales a 90° medidas con la estación total siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
+  gancho_agrimensura: 'Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
   nivel: complementario

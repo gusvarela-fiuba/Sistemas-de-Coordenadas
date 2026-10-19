@@ -1,0 +1,12 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap06_cuna_determinante.py (test_prop_area_poligono). No editar.
+\comprobacionDatos{NUMERICA}{200}{cap06_cuna_determinante}{74}%
+\begin{lstlisting}
+for _ in range(CASOS):
+    P = poligono_estrellado(rng, rng.integers(3, 12))   # recorrido antihorario
+    S, c, t = area_con_signo(P), rng.normal(size=2), rng.uniform(0, 2 * np.pi)
+    Rt = np.array([[np.cos(t), -np.sin(t)], [np.sin(t), np.cos(t)]])
+    assert S > 0 and np.isclose(area_con_signo(P[::-1]), -S, atol=TOL)
+    assert np.isclose(area_con_signo(P - c), S, atol=TOL)
+    assert np.isclose(area_con_signo(P @ Rt.T), S, atol=TOL)
+\end{lstlisting}
+\comprobacionPie

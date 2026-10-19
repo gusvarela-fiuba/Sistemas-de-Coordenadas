@@ -26,11 +26,11 @@ La dirección va con mayúsculas en `Sistemas-de-Coordenadas`; escrita en minús
 
 ### Los tres botones de arriba de la portada
 
-La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de clase y a las secciones del apunte. Arriba de todo hay tres entradas:
+La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de capítulo y a las secciones del apunte. Arriba de todo hay tres entradas:
 
 - **Empezar.** Lleva a la Unidad 0 (Fundamentos), el punto de partida del recorrido. Es la entrada para quien arranca la materia o quiere ponerse el idioma antes de empezar.
 - **Seguir el recorrido.** Lleva a la unidad correspondiente al avance del curso, con la indicación de a qué unidad apunta.
-- **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), con el selector **Ruta** (`todo` / `sólo troncal`) y el deslizador **hasta la clase N**, que atenúa los conceptos y las flechas posteriores a la clase elegida. Debajo del mapa está la lista de clases con etiquetas y enlaces.
+- **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), con el selector **Ruta** (`todo` / `sólo troncal`) y el deslizador **hasta el capítulo N**, que atenúa los conceptos y las flechas posteriores al capítulo elegido. Debajo del mapa está la lista de capítulos con etiquetas y enlaces.
 
 Más abajo en la portada está el "Recorrido paso a paso" con las 20 unidades; cada una se abre desde ahí.
 
@@ -47,7 +47,7 @@ Todas las unidades siguen el mismo molde de seis secciones, siempre de lo concep
 4. **Python de hoy.** Una sola idea nueva de Python por unidad, aplicada al problema de campo, con el `shape` de los arrays y un ejemplo chico.
 5. **Ejercicios.** Dos de lápiz, con la respuesta escondida en un desplegable "Ver respuesta", y dos de código con hueco: se completan los `...` en un editor en vivo y una celda de abajo verifica el resultado contra la referencia con `np.allclose`, mostrando si coincide, si la forma del array está mal o si todavía no corre. Cada ejercicio lleva un nivel (elemental / medio / avanzado).
 
-Al cierre, el anexo **"Dónde está la demostración"** enlaza las secciones del apunte PDF que respaldan la unidad, más la ficha de la clase, el hilo conductor y las unidades anterior y siguiente. Lo interactivo muestra; las demostraciones son las del apunte.
+Al cierre, el anexo **"Dónde está la demostración"** enlaza las secciones del apunte PDF que respaldan la unidad, más la ficha del capítulo, el hilo conductor y las unidades anterior y siguiente. Lo interactivo muestra; las demostraciones son las del apunte.
 
 En las lecciones publicadas no se pueden editar las celdas del notebook (corren en modo aplicación); lo editable son los controles y los editores de los ejercicios. Para editar la lección entera hay que clonar el repositorio (Parte 3).
 
@@ -83,9 +83,9 @@ Cada unidad declara de qué ladrillo viene y hacia cuál va (es el diccionario `
 - **Cuatro problemas → Curvatura (unidad 16).** La regresión total termina en una forma cuadrática cuyas direcciones propias son extremos; sobre una superficie esa misma estructura mide cuánto se aparta del plano tangente: la segunda forma fundamental, las curvaturas principales como autovalores y la curvatura de Gauss.
 - **Curvatura → Elipsoide GRS80 (unidad 17).** Una superficie concreta donde todo sale de una sola simetría: los radios de curvatura M y N, las tres latitudes y el paso de (latitud, longitud, altura) a cartesianas.
 - **Elipsoide → Trigonometría esférica (unidad 18).** Entre tres vértices lejanos sobre la superficie los lados son arcos y los ángulos no suman 180°; sobre la esfera hay fórmula cerrada: el triángulo esférico como tres vectores desde el centro, ley del seno y exceso esférico igual al área. Queda abierto para Topografía y Geodesia lo que ya no tiene fórmula cerrada.
-- **Trigonometría esférica → Transformaciones conformes (unidad 19).** Medida la superficie, falta volcarla al papel sin torcer los ángulos: la condición conforme es que el jacobiano estire lo mismo en todas las direcciones (h = k, σ₁ = σ₂, el círculo de Tissot sigue siendo círculo), y sobre el elipsoide eso se consigue con la latitud isométrica, que es lo que hacen Mercator y Gauss-Krüger. El arco se cierra en los números complejos de la Clase 1: multiplicar por un complejo era rotar y escalar a la vez, y una matriz [[a, −b], [b, a]] es exactamente un jacobiano conforme.
+- **Trigonometría esférica → Transformaciones conformes (unidad 19).** Medida la superficie, falta volcarla al papel sin torcer los ángulos: la condición conforme es que el jacobiano estire lo mismo en todas las direcciones (h = k, σ₁ = σ₂, el círculo de Tissot sigue siendo círculo), y sobre el elipsoide eso se consigue con la latitud isométrica, que es lo que hacen Mercator y Gauss-Krüger. El arco se cierra en los números complejos del Capítulo 1: multiplicar por un complejo era rotar y escalar a la vez, y una matriz [[a, −b], [b, a]] es exactamente un jacobiano conforme.
 
-Los enlaces a cada lección, la clase del curso que cubre y qué construye están en la [tabla de las 20 unidades del README](README.md#recorrido-de-las-20-unidades).
+Los enlaces a cada lección, el capítulo del apunte que cubre y qué construye están en la [tabla de las 20 unidades del README](README.md#recorrido-de-las-20-unidades).
 
 ## Parte 3 — Cómo clonar el repositorio para usarlo o editarlo en una computadora
 
@@ -181,7 +181,7 @@ uv run python tools/build.py
 uv run python -m http.server -d site 8765
 ```
 
-y abrir http://localhost:8765/ en el navegador. El primer comando genera la portada, el mapa, las fichas de clase, copia el apunte y exporta las 20 lecciones a WebAssembly en `site/` (1 a 2 segundos por lección; la primera exportación después de `uv sync` puede tardar unos 40 segundos). El segundo sirve esa carpeta por HTTP, que es necesario: las lecciones exportadas no andan abriendo el archivo directamente con `file://`.
+y abrir http://localhost:8765/ en el navegador. El primer comando genera la portada, el mapa, las fichas de capítulo, copia el apunte y exporta las 20 lecciones a WebAssembly en `site/` (1 a 2 segundos por lección; la primera exportación después de `uv sync` puede tardar unos 40 segundos). El segundo sirve esa carpeta por HTTP, que es necesario: las lecciones exportadas no andan abriendo el archivo directamente con `file://`.
 
 Dos atajos de `tools/build.py` (detalle en `tools/README.md`):
 
@@ -197,6 +197,18 @@ lualatex Apunte_Sistemas_de_Coordenadas.tex
 ```
 
 tres pasadas (índice, número total de páginas y referencias cruzadas). Sólo `lualatex`; `xelatex` falla por fuentes. El detalle está en `apunte/README.md`.
+
+Para dejar el PDF regenerado listo para commitear conviene `scripts/compilar_pdf.sh` desde la raíz: compila en un directorio temporal y reemplaza el PDF (y `apunte/paginas_esperadas.txt`) solo si la compilación salió entera.
+
+### Hook de verificación del PDF
+
+Una vez en cada clon o worktree:
+
+```
+git config core.hooksPath .githooks
+```
+
+Con eso, cada commit que incluye `apunte/Apunte_Sistemas_de_Coordenadas.pdf` pasa por `scripts/verificar_pdf.sh` sobre la versión staged. Bloquea el commit si el PDF está truncado o no termina en `%%EOF`, si `pdfinfo` no lo puede leer, si la última página no tiene el pie «k de M», si su número de páginas no coincide con el de `apunte/paginas_esperadas.txt` staged, o si ese archivo falta en el índice o tiene cambios sin stagear. Además, el hook `commit-msg` bloquea un PDF con menos páginas que en el commit anterior, salvo que el mensaje incluya una línea «PAGINAS-BAJAN: motivo». El detalle está en `scripts/README.md`.
 
 ## Parte 4 — Cómo adoptar y publicar este curso bajo otra cuenta
 

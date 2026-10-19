@@ -51,8 +51,8 @@ def _(mo):
     **meridiano** del punto en <span style="color:#1b6f6a">**teal**</span> y su **paralelo** en
     <span style="color:#c9a227">**gold**</span>; la **normal** (la vertical elipsoidal) en
     <span style="color:#b5451b">**rust**</span>; la recta al centro en gris; el mojón en
-    <span style="color:#7a4e9e">**violeta**</span>. Notación del apunte *Geometría del
-    Elipsoide y cálculos Geodésicos*: $a, b, f, e^2, e'^2$, $M$, $N$, $x'$ el radio del paralelo.
+    <span style="color:#7a4e9e">**violeta**</span>. Notación (la del capítulo «Geometría del elipsoide» del
+    apunte): $a, b, f, e^2, e'^2$, $M$, $N$, $x'$ el radio del paralelo.
     """)
     return
 
@@ -146,7 +146,7 @@ def _(mo):
 
     $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad |\psi| \le |\beta| \le |\varphi|.$$
 
-    **Dos radios de curvatura** (apunte v3, «Coordenadas curvilíneas y bases locales»; deducción en el apunte *Geometría del Elipsoide*):
+    **Dos radios de curvatura** (deducción en el apunte, [«Radios de curvatura M y N»](../../apunte.pdf#nameddest=sec:radios-MN)):
 
     $$N = \frac{a}{\sqrt{1 - e^2\sin^2\varphi}}\ \text{(primer vertical)}, \qquad
       M = \frac{a(1 - e^2)}{(1 - e^2\sin^2\varphi)^{3/2}}\ \text{(meridiano)}, \qquad K = \frac{1}{MN}.$$
@@ -157,8 +157,7 @@ def _(mo):
 
     **De $(\varphi, \lambda, h)$ a cartesianas geocéntricas**, con $h$ sobre la normal:
     $X = (N + h)\cos\varphi\cos\lambda$, $Y = (N + h)\cos\varphi\sin\lambda$, $Z = \big(N(1 - e^2) + h\big)\sin\varphi$
-    ($X$ hacia el meridiano origen; otro apunte escribe $x = x'\sin\lambda$, $y = x'\cos\lambda$, otra
-    convención de ejes). La **primera forma** (unidad 10) sale de $\|r_\varphi\| = M$ y $\|r_\lambda\| = x'$:
+    ($X$ hacia el meridiano origen, $Y$ hacia $\lambda = 90^\circ$). La **primera forma** (unidad 10) sale de $\|r_\varphi\| = M$ y $\|r_\lambda\| = x'$:
     $E = M^2$, $F = 0$, $G = N^2\cos^2\varphi$ (la esfera de la unidad 10 es $M = N = R$). Es una **muestra**; el
     enlace con la unidad 12 es que $1/M$ y $1/N$ son $\kappa_1$ y $\kappa_2$ de la segunda forma.
     """)
@@ -488,20 +487,17 @@ def _(mo):
     Acá verificamos que de la elipse girada salen las tres latitudes, $M \ne N$, la conversión a cartesianas y la primera
     forma. Las demostraciones:
 
-    - [apunte, sección "Geometría del elipsoide: latitudes, radios y conversión"](../../apunte.pdf#nameddest=cap:elipsoide):
-      la elipse meridiana y la latitud, la deducción de $M$ (curvatura de la elipse meridiana) y de $N$ (Meusnier),
-      las tres latitudes (geodésica, geocéntrica $\tan\psi = (1 - e^2)\tan\varphi$, reducida), la primera forma
-      $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y los valores de control en GRS80
-      · [sección "Arco de meridiano"](../../apunte.pdf#nameddest=cap:elipsoide): serie binomial, potencias del seno
-      como cosenos de ángulos múltiples, la tabla de coeficientes $A \ldots E$ y el resultado "Longitud del arco de
-      meridiano" con sus controles numéricos
-    - fe de erratas del apunte del elipsoide, verificada numéricamente en GRS80: las cajas "Errata confirmada" de esas
-      secciones y el cierre [Material y fuentes: fe de erratas y precisiones](../../apunte.pdf#nameddest=cap:22)
-    - [apunte, «Superficies, elipsoide, curvatura…» (esfera, elipsoide, curvatura y representación plana)](../../apunte.pdf#nameddest=cap:elipsoide) ($e^2 = 2f - f^2$, $M$, $N$,
-      $K = 1/(MN)$)
-    - apunte *Geometría del Elipsoide y cálculos Geodésicos*: latitud elipsoidal,
-      conversión $\varphi, \lambda \to X, Y, Z$, radios $M$ (meridiano) y $N$ (primer vertical, Meusnier), arco de meridiano
-    - [ficha de la clase 13](../../clases/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
+    - [apunte, capítulo «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): la elipse meridiana,
+      el punto de latitud geodésica y la conversión $\varphi, \lambda \to X, Y, Z$, el gran normal $N$
+      · [sección «Latitudes geodésica, geocéntrica y reducida»](../../apunte.pdf#nameddest=sec:latitudes): las tres
+      latitudes, $\tan\psi = (1 - e^2)\tan\varphi$
+      · [sección «Radios de curvatura M y N»](../../apunte.pdf#nameddest=sec:radios-MN): la deducción de $M$
+      (curvatura de la elipse meridiana) y de $N$ (Meusnier), la primera forma
+      $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$, $K = 1/(MN)$ y los valores de control en GRS80
+    - [apunte, capítulo «Geometría del elipsoide», «En profundidad»](../../apunte.pdf#nameddest=cap:elipsoide):
+      la longitud del arco de meridiano (serie binomial, potencias del seno como cosenos de ángulos múltiples,
+      coeficientes $A \ldots E$) con sus controles numéricos
+    - [ficha del capítulo 14](../../capitulos/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
 
     **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (unidad 14): triángulos de lados
     geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.

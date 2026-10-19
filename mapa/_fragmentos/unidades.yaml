@@ -1,6 +1,6 @@
 # Unidades marimo: la lista que lee tools/merge_mapa.py para armar `unidades` en mapa/mapa.yaml.
 # Esquema (mapa/ESQUEMA.md): id, archivo, titulo, estado (piloto|migrada|legacy|pendiente),
-#   clases[] (ids de clase que cubre), pregunta (una línea), gancho_agrimensura (una línea),
+#   clases[] (ids de ficha que cubre), pregunta (una línea), gancho_agrimensura (una línea),
 #   nivel (troncal|complementario|avanzado).
 # El orden de esta lista es el orden de las unidades en la portada (site/index.html).
 # `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
@@ -21,7 +21,7 @@ unidades:
     estado: piloto
     clases: ["01"]
     pregunta: "Si giro los ejes 30°, ¿se mueve el mojón o se mueven sus coordenadas?"
-    gancho_agrimensura: "La estación total mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación."
+    gancho_agrimensura: "El instrumento mide en sus propios ejes; pasar las lecturas al norte de la parcela es una rotación."
     nivel: troncal
 
   - id: 01b_rotacion_plano
@@ -183,5 +183,5 @@ unidades:
     estado: piloto
     clases: ["13", "14"]
     pregunta: "¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?"
-    gancho_agrimensura: "Dos visuales a 90° medidas con la estación total siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
+    gancho_agrimensura: "Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
     nivel: complementario

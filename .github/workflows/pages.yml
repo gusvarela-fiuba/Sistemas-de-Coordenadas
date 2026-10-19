@@ -32,6 +32,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2              # el padre, para comparar apunte/paginas_esperadas.txt
 
       - name: uv
         uses: astral-sh/setup-uv@v5
@@ -51,14 +53,39 @@ jobs:
       - name: marimo check de las lecciones
         run: uv run marimo check --select MW unidades/[01]*.py
 
-      - name: Sitio (portada, mapa, fichas, apunte.pdf y export WASM de las lecciones)
+      # Hoja de estilo (apunte/ESTILO.md): la fase F cerró y el control es bloqueante;
+      # un hallazgo de estilo frena la publicación.
+      - name: Estilo (hoja de estilo apunte/ESTILO.md; si hay hallazgos, no se publica)
+        run: uv run python apunte/scripts/estilo.py --estricto
+
+      - name: Demostraciones (comprobaciones con código de apunte/demostraciones; si fallan, no se publica)
+        run: uv run pytest apunte/demostraciones tools/cad -q
+
+      - name: Los fragmentos commiteados (apunte/generado) tienen que coincidir con las pruebas
+        run: |
+          uv run python apunte/scripts/extraer_fragmentos.py
+          git status --porcelain apunte/generado
+          test -z "$(git status --porcelain apunte/generado)"
+
+      - name: poppler-utils (pdftotext, pdfinfo para el menú) y fuente DejaVu para menu.pdf
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils fonts-dejavu-core
+
+      # El PDF no se compila en el runner: se publica el commiteado. Tiene que estar entero y
+      # coincidir con apunte/paginas_esperadas.txt (mismo commit); ver scripts/README.md.
+      - name: Verificar el PDF commiteado
+        run: |
+          scripts/verificar_pdf.sh apunte/Apunte_Sistemas_de_Coordenadas.pdf
+          # Menos páginas que en el commit padre: solo con «PAGINAS-BAJAN: motivo» en el mensaje.
+          # Si el padre no existe o no tiene el archivo (primera vez), el control no aplica.
+          git show HEAD~1:apunte/paginas_esperadas.txt > "$RUNNER_TEMP/paginas_padre.txt" 2>/dev/null || : > "$RUNNER_TEMP/paginas_padre.txt"
+          git log -1 --format=%B > "$RUNNER_TEMP/mensaje.txt"
+          scripts/paginas_no_bajan.sh apunte/Apunte_Sistemas_de_Coordenadas.pdf "$RUNNER_TEMP/paginas_padre.txt" "$RUNNER_TEMP/mensaje.txt"
+
+      - name: Sitio (portada, mapa, fichas, menú, apunte.pdf y export WASM de las lecciones)
         run: uv run python tools/build.py
 
       - name: Limpiar intermedios del build
         run: rm -rf site/_build
-
-      - name: poppler-utils para pdftotext
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
 
       - name: Búsqueda de términos sobre el artefacto
         run: uv run python apunte/scripts/prohibidas.py --dir site

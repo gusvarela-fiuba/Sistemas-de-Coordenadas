@@ -40,9 +40,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 'rectas paralelas equiespaciadas'},
                     {'id': '00_e2',
                      'nivel': 'elemental',
-                     'enunciado': 'Los giros de la estación total alrededor de su eje vertical, con la '
-                                  'operación hacer uno y después el otro, forman un grupo. ¿Cuál es la '
-                                  'inversa de girar $30°$ y respecto de qué operación lo es?',
+                     'enunciado': 'Los giros del instrumento alrededor de su eje vertical, con la operación '
+                                  'hacer uno y después el otro, forman un grupo. ¿Cuál es la inversa de '
+                                  'girar $30°$ y respecto de qué operación lo es?',
                      'opciones': [{'id': 'a',
                                    'texto': 'Girar $-30°$, respecto de la composición: hecho después del '
                                             'primero da el neutro, que es no girar.',
@@ -111,9 +111,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 'los vectores (las rectas de nivel se arrastran con la figura)'},
                     {'id': '00_m2',
                      'nivel': 'medio',
-                     'enunciado': 'Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa a '
-                                  'leerse $(x - 5, y)$. ¿Por qué esa traslación no es una transformación '
-                                  'lineal del plano?',
+                     'enunciado': 'Movemos el instrumento $5$ m al Este: cada mojón $(x, y)$ pasa a leerse '
+                                  '$(x - 5, y)$. ¿Por qué esa traslación no es una transformación lineal del '
+                                  'plano?',
                      'opciones': [{'id': 'a',
                                    'texto': 'Porque no manda el origen al origen: el $(0, 0)$ pasa a $(-5, '
                                             '0)$, y toda lineal conserva el cero.',
@@ -224,9 +224,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 "curva de nivel' es una frase sobre G^{-1} grad f"}],
  '01a_punto_quieto': [{'id': '01a_e1',
                        'nivel': 'elemental',
-                       'enunciado': 'Plantamos la estación total en el origen de la obra, pero con su eje '
-                                    '$x$ girado $30°$ antihorario respecto del frente. El mojón no se tocó. '
-                                    '¿Qué cambia?',
+                       'enunciado': 'Plantamos el instrumento en el origen de la obra, pero con su eje $x$ '
+                                    'girado $30°$ antihorario respecto del frente. El mojón no se tocó. ¿Qué '
+                                    'cambia?',
                        'opciones': [{'id': 'a',
                                      'texto': 'Sus coordenadas, no su lugar: el mismo mojón tiene otra '
                                               'etiqueta en los ejes nuevos.',
@@ -821,7 +821,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'sobrevive al segundo.'},
                                      {'id': 'd',
                                       'texto': 'No tiene eje: dos giros alrededor de ejes distintos no son '
-                                               'un giro, sino otra clase de movimiento.',
+                                               'un giro, sino otro tipo de movimiento.',
                                       'correcta': False,
                                       'explicacion': 'El producto de ortogonales con $\\det = 1$ es '
                                                      'ortogonal con $\\det = 1$, y toda matriz así es un '
@@ -2487,9 +2487,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                          'complejos: qué figura corresponde a cada caso'}],
  '07c_autovalores_3d_puntos_fijos': [{'id': '07c_e1',
                                       'nivel': 'elemental',
-                                      'enunciado': 'Componemos dos giros de la estación total y obtenemos '
-                                                   'una rotación $R$ de $\\mathbb R^3$. ¿Cómo reconocemos su '
-                                                   'eje en el lenguaje de los autovectores?',
+                                      'enunciado': 'Componemos dos giros del instrumento y obtenemos una '
+                                                   'rotación $R$ de $\\mathbb R^3$. ¿Cómo reconocemos su eje '
+                                                   'en el lenguaje de los autovectores?',
                                       'opciones': [{'id': 'a',
                                                     'texto': 'Es el autovector de autovalor $1$: la única '
                                                              'recta que $R$ deja quieta, $Rv = v$.',

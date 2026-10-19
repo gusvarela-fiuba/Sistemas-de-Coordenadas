@@ -174,8 +174,8 @@ def _(mo):
     hace falta la tabla de arriba: la flecha es $g^{-1} (h_u, h_v)^T$ con $g = J^T J$, el único puente entre formas y
     vectores. Si $E \ne G$ o $F \ne 0$, la perpendicular dibujada en la grilla **no** es la perpendicular en el terreno: en
     la esfera un paso en $\lambda$ mide $\cos\varphi$ veces lo que uno en $\varphi$, y en el elipsoide $M\,d\varphi$ contra
-    $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha 9](../../clases/09.html); como cambio
-    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_fundamentos/index.html).
+    $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha del capítulo 10](../../capitulos/09.html); como cambio
+    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
     """), kind="neutral")])
     return
 
@@ -304,7 +304,7 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 3. Cuenta a mano y código lado a lado
 
-        La esfera de radio $R$ con latitud $\varphi$ y longitud $\lambda$ (las notas de clase en Notion usan colatitud; acá, latitud,
+        La esfera de radio $R$ con latitud $\varphi$ y longitud $\lambda$ (otras notas usan colatitud; acá, latitud,
         como el apunte). Izquierda, el cuaderno; derecha, numpy: diferencias finitas contra la derivada exacta.
         """),
         mo.hstack([
@@ -524,7 +524,7 @@ def _(mo):
     grilla. Las demostraciones:
 
     - [apunte, «Superficies, elipsoide, curvatura…» (pasar del plano a una superficie; coordenadas curvilíneas, espacio tangente, métrica)](../../apunte.pdf#nameddest=cap:derivada)
-    - [ficha de la clase 9](../../clases/09.html) (gradiente como forma lineal, función implícita) ·
+    - [ficha del capítulo 10](../../capitulos/09.html) (gradiente como forma lineal, función implícita) ·
       [unidad 02](../02_producto_interno/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Cuatro problemas: regresión, círculos, Procrustes, regresión total](../11_cuatro_problemas/index.html):

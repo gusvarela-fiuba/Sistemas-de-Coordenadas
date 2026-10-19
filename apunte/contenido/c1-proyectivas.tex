@@ -1,4 +1,4 @@
-% Complemento C1: Transformaciones proyectivas (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+% Complemento C1: Transformaciones proyectivas
 \capituloComplemento[1]{Transformaciones proyectivas}\label{cap:proyectivas}\label{sec:bloque-proyectivas}
 
 
@@ -34,15 +34,15 @@ proyectiva tiene una matriz \(3\times3\) invertible \emph{cualquiera}:
 (x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
 \]
 Ahora \(W=h_{31}x+h_{32}y+h_{33}\) depende del punto, y la división por \(W\) es
-exactamente la perspectiva: lo que ``está lejos'' se achica. Los puntos con \(W=0\) forman
+exactamente la perspectiva: lo que \enquote{está lejos} se achica. Los puntos con \(W=0\) forman
 una recta que se va al infinito, el horizonte de la foto.
 
 \paragraph{Por qué un cuadrilátero.}
 La matriz tiene nueve entradas, pero \(H\) y \(\lambda H\) representan la misma
 transformación (el factor se cancela al dividir por \(W\)). Quedan ocho números
-independientes. Cada correspondencia ``el punto \(p\) va al punto \(p'\)'' aporta dos
+independientes. Cada correspondencia \enquote{el punto \(p\) va al punto \(p'\)} aporta dos
 ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
-transformación queda determinada. Con tres puntos falta decidir ``cuánta perspectiva hay'';
+transformación queda determinada. Con tres puntos falta decidir \enquote{cuánta perspectiva hay};
 un quinto punto ya no se puede prescribir: va a donde la transformación determinada por los
 otros cuatro lo mande.
 
@@ -61,24 +61,42 @@ y un plano invariante es una recta fija.
 
 \subsection{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
 
-\begin{center}
-\begin{tabularx}{\textwidth}{>{\bfseries}p{24mm} p{44mm} c c X}
-\toprule
-Familia & Forma de \(H\) & g.d.l. & Puntos & Conserva\\
-\midrule
-Isometrías & \(\begin{pmatrix}R&t\\0&1\end{pmatrix}\), \(R^TR=I\) & 3 & 2 &
-distancias, ángulos, áreas\\
-Similaridades & \(\begin{pmatrix}kR&t\\0&1\end{pmatrix}\) & 4 & 2 &
-ángulos, razones de longitudes\\
-Afinidades & \(\begin{pmatrix}A&t\\0&1\end{pmatrix}\), \(\det A\neq0\) & 6 & 3 &
-paralelismo, razón simple, razón de áreas\\
-Proyectivas & \(H\) invertible cualquiera & 8 & 4 &
-rectas, incidencia, razón doble\\
-\bottomrule
-\end{tabularx}
-\end{center}
-``Puntos'' es la cantidad de correspondencias \(p_i\mapsto p_i'\) que determinan la
-transformación. Cada familia contiene a la anterior y conserva menos.
+El cuadro completo de qué conserva cada familia, con sus grados de libertad y los puntos
+homólogos que la fijan, está en la sección~\ref{sec:mapa-transformaciones}
+(cuadros~\ref{tab:conserva} y~\ref{tab:ficha}): cada familia contiene a la anterior y conserva
+menos, y la proyectiva es la última de la cadena. Acá interesa lo que le pasa a ella.
+
+\emph{Por qué se pierde el paralelismo.} Dos rectas paralelas de dirección \(d\) comparten su
+punto impropio \((d_1,d_2,0)^T\) (definición~\ref{def:06-impropio}). Una afinidad, con última
+fila \((0,0,1)\), lo manda a \((Ad,0)^T\), otro punto impropio: las imágenes siguen paralelas.
+Una homografía lo manda a \(H(d_1,d_2,0)^T\), cuya tercera coordenada es
+\(h_{31}d_1+h_{32}d_2\), en general distinta de cero. Entonces las dos rectas imagen comparten
+un punto \emph{ordinario}, el punto de fuga, y se cortan ahí. Solo la dirección con
+\(h_{31}d_1+h_{32}d_2=0\) conserva sus paralelas.
+
+\emph{La recta del infinito.} Los puntos impropios forman una recta, la recta ideal
+\(W=0\), de coordenadas \(\ell_\infty=(0,0,1)\). Como las rectas se transforman con
+\(H^{-T}\), la homografía la lleva a la recta \(H^{-T}\ell_\infty\), que es ordinaria salvo que
+\(h_{31}=h_{32}=0\): en la foto, el horizonte. Al revés, la recta
+\(h_{31}x+h_{32}y+h_{33}=0\) del plano va a parar a la recta ideal. Una afinidad deja fija la
+recta ideal, y por eso no tiene puntos de fuga.
+
+\emph{La razón doble, único invariante numérico.} Restringida a una recta, una homografía es
+\(x\mapsto(\alpha x+\beta)/(\gamma x+\delta)\), y toda función de esa forma con
+\(\alpha\delta-\beta\gamma\neq0\) se obtiene así: sobre la recta \(y=0\), la matriz
+\(\left(\begin{smallmatrix}\alpha&0&\beta\\0&1&0\\\gamma&0&\delta\end{smallmatrix}\right)\)
+lleva \((x,0,1)^T\) a \((\alpha x+\beta,\ 0,\ \gamma x+\delta)^T\). En particular, para tres
+puntos distintos \(a,b,c\) de la recta,
+\[
+  g(x)=\frac{(x-a)(b-c)}{(x-c)(b-a)}
+\]
+es una homografía que los lleva a \(0\), \(1\) y \(\infty\). Si un número \(I(a,b,c,d)\)
+calculado con cuatro puntos alineados no cambia por homografías, entonces
+\(I(a,b,c,d)=I\bigl(0,1,\infty,g(d)\bigr)\): depende solo de \(g(d)\), y
+\(g(d)=1/\bigl(1-(a,b;c,d)\bigr)\), como se comprueba restando
+\(1-(a,b;c,d)=\frac{(a-b)(d-c)}{(c-b)(d-a)}\). Todo invariante numérico de cuatro puntos
+alineados es, entonces, una función de la razón doble (proposición~\ref{prop:c1-razon-doble}).
+Las distancias, los ángulos, las áreas y las razones simples no lo son, y se pierden.
 
 \section{Construcciones, cuentas y ejemplos}
 
@@ -200,16 +218,16 @@ La razón doble coincide. La razón simple, en cambio, no se conserva:
     \fill[teal] (\x,\y) circle (1.3pt) node[below,font=\small,text=tealdark] {$\n$};
     \fill[rust] (\X,\Y) circle (1.3pt) node[\pos,inner sep=1pt,font=\small,text=rust,labelback] {$\n'$};
   }
-  \node[font=\scriptsize,anchor=north] at (2.1,-0.35) {$ab:bc:cd=0.6:1.2:2.4=1:2:4$};
-  \node[font=\scriptsize,anchor=west,text=rust] at (0.9,2.2) {$a'b':b'c':c'd'=0.33:0.78:2.28$};
+  \node[font=\scriptsize,anchor=north] at (2.1,-0.35) {$ab:bc:cd=0{,}6:1{,}2:2{,}4=1:2:4$};
+  \node[font=\scriptsize,anchor=west,text=rust] at (0.9,2.2) {$a'b':b'c':c'd'=0{,}33:0{,}78:2{,}28$};
   \node[font=\scriptsize,anchor=north] at (2.1,-0.75) {$(a,b;c,d)=(a',b';c',d')=9/7\approx1.2857$};
 \end{tikzpicture}
 \end{center}
 Proyección central de la recta \(r\) sobre la recta \(s\) desde el centro \(O\): cada punto
 \(x\) de \(r\) va al punto \(x'\) donde el rayo \(Ox\) corta a \(s\). Los puntos
-\(a,b,c,d\) están en las abscisas \(0,\ 0.6,\ 1.8,\ 4.2\) (proporcionales a \(0,1,3,7\)). Las
-distancias consecutivas pasan de estar en proporción \(1:2:4\) a \(0.33:0.78:2.28\): la escala cambia de un tramo a otro
-(\(0.55\), \(0.65\) y \(0.95\)), así que ni las distancias ni sus cocientes se conservan. La razón doble, en cambio, es \(9/7\) en
+\(a,b,c,d\) están en las abscisas \(0;\ 0{,}6;\ 1{,}8;\ 4{,}2\) (proporcionales a \(0,1,3,7\)). Las
+distancias consecutivas pasan de estar en proporción \(1:2:4\) a \(0{,}33:0{,}78:2{,}28\): la escala cambia de un tramo a otro
+(\(0{,}55\), \(0{,}65\) y \(0{,}95\)), así que ni las distancias ni sus cocientes se conservan. La razón doble, en cambio, es \(9/7\) en
 las dos rectas, porque la proyección central es una homografía de \(r\) en \(s\).
 
 \paragraph{La recta que se va al infinito.}
@@ -218,13 +236,109 @@ imagen es \(W=h_3\cdot p\). Los puntos de la recta \(h_{31}x+h_{32}y+h_{33}=0\) 
 \(W=0\): se van al infinito. Si esa recta \emph{no toca} una figura acotada, la imagen es una
 figura acotada con las mismas incidencias. Si la \emph{atraviesa}, los puntos de un lado
 tienen \(W>0\) y los del otro \(W<0\), y la imagen se parte: un segmento que cruza la recta se
-transforma en dos semirrectas unidas ``por el infinito'', como un objeto que está en parte
+transforma en dos semirrectas unidas \enquote{por el infinito}, como un objeto que está en parte
 delante y en parte detrás de la cámara.
 
 \begin{atencion}[Las afinidades vistas desde acá]
 Una afinidad tiene \(h_3=(0,0,1)\): la recta que se va al infinito es la propia recta ideal.
 Ningún punto ordinario se pierde, las paralelas siguen paralelas y las figuras nunca se
 parten. Recíprocamente, toda homografía que deja fija la recta ideal es una afinidad.
+\end{atencion}
+
+\subsection{El conjugado armónico}\label{sec:conjugado-armonico}
+
+El valor \(-1\) de la razón doble es el más importante de todos: aparece cada vez que una
+homografía actúa como un espejo y es el reemplazo proyectivo del punto medio, que las
+homografías no conservan.
+
+\begin{definicion}[Conjugado armónico]\label{def:conjugado-armonico}
+Sean \(A,B,C\) tres puntos distintos de una recta. Un cuarto punto \(D\) de la recta es el
+\emph{conjugado armónico} de \(C\) respecto de \(A\) y \(B\) si
+\[
+  (A,B;C,D)=-1 .
+\]
+Se dice también que \(A,B,C,D\) forman una \emph{cuaterna armónica}.
+\end{definicion}
+
+Con coordenadas afines \(a,b,c,d\) sobre la recta, la condición es
+\((c-a)(d-b)=-(c-b)(d-a)\), una ecuación de primer grado en \(d\): el conjugado armónico
+existe y es único. Con \(a=0\) queda \(d=\dfrac{bc}{2c-b}\).
+
+\begin{resultado}[Propiedades del conjugado armónico]
+\begin{itemize}
+  \item \textbf{Es simétrico.} Si \((A,B;C,D)=-1\), también \((A,B;D,C)=-1\) (es la inversa,
+  \(1/(-1)\)): \(C\) es el conjugado armónico de \(D\). Lo mismo al intercambiar \(A\) y \(B\).
+  \item \textbf{Separa.} Si \(C\) está dentro del segmento \(AB\), \(\frac{c-a}{c-b}<0\) y la
+  condición pide \(\frac{d-b}{d-a}>0\): \(D\) está fuera del segmento, del lado de aquel de
+  \(A\), \(B\) al que \(C\) está más cerca.
+  \item \textbf{El punto medio y el punto impropio son conjugados armónicos.} Si \(C\) es el
+  punto medio, \(2c-b=0\) y la fórmula de \(d\) no da ningún punto ordinario: \(D\) se va al
+  infinito. En efecto, \((A,B;C,D)\to-1\) cuando \(D\) se aleja: con \(a=0\), \(b=6\),
+  \(c=3\) vale \(-0{,}994\) para \(d=1000\) y \(-0{,}999994\) para \(d=10^6\).
+  \item \textbf{Es invariante proyectivo.} Por la proposición~\ref{prop:c1-razon-doble}, una
+  homografía lleva cuaternas armónicas en cuaternas armónicas. Combinado con lo anterior:
+  en una foto en perspectiva, la imagen del punto medio de un segmento es el conjugado
+  armónico, respecto de las imágenes de los extremos, del punto de fuga de la recta.
+\end{itemize}
+\end{resultado}
+
+\paragraph{Construcción con el cuadrilátero completo.} El conjugado armónico se construye
+con regla sola, sin medir (figura~\ref{fig:c1-conjugado-armonico}). Dados \(A,B,C\) en una
+recta, se elige un punto \(L\) fuera de ella y un punto \(K\) en el segmento \(LC\). Se
+trazan \(M=BK\cap LA\) y \(N=AK\cap LB\). La recta \(MN\) corta a \(AB\) en el conjugado
+armónico \(D\). Los cuatro puntos \(L,M,N,K\), sin tres alineados, y las seis rectas que los
+unen forman el \emph{cuadrilátero completo} (más precisamente, cuadrángulo completo): los
+lados opuestos \(LM\) y \(NK\) se cortan en \(A\), los lados \(LN\) y \(MK\) en \(B\), y la
+recta \(AB\) corta a los dos lados restantes, \(LK\) y \(MN\), en \(C\) y en \(D\). El
+resultado no depende de las elecciones de \(L\) y \(K\): una homografía lleva \(L,M,K,N\) a
+los vértices de un cuadrado (sección~\ref{sec:cuatro-puntos}); allí \(A\) y \(B\) son las
+direcciones de los lados y \(C\), \(D\) las de las diagonales, de pendientes \(0\),
+\(\infty\), \(1\) y \(-1\), y medida con la pendiente la razón doble es
+\(\frac{(1-0)}{(-1-0)}\cdot\lim_{b\to\infty}\frac{-1-b}{1-b}=-1\). Por la invariancia, vale
+\(-1\) para cualquier elección.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{figuras/proyectivas/c1_conjugado_armonico.png}
+\caption{Construcción del conjugado armónico con el cuadrilátero completo \(L,M,N,K\):
+\(A=(0,0)\), \(B=(6,0)\), \(C=(4,0)\), \(L=(2,4)\), \(K=(3,2)\), \(M=BK\cap LA=(1{,}5;\ 3)\),
+\(N=AK\cap LB=(3{,}6;\ 2{,}4)\) y \(D=MN\cap AB=(12,0)\). Generada con
+\texttt{apunte/scripts/capc1\_conjugado\_armonico.py}.}
+\label{fig:c1-conjugado-armonico}
+\end{figure}
+
+\begin{ejemplo}[Conjugado armónico con coordenadas]\label{ej:c1-conjugado-armonico}
+Sean \(A=(0,0)\), \(B=(6,0)\) y \(C=(4,0)\) sobre el eje \(x\), con la abscisa como coordenada
+afín. La fórmula da \(d=\dfrac{6\cdot4}{2\cdot4-6}=12\), y en efecto
+\[
+  (0,6;4,12)=\frac{(4-0)(12-6)}{(4-6)(12-0)}=\frac{24}{-24}=-1 .
+\]
+\(C\) está dentro de \(AB\), más cerca de \(B\), y \(D\) quedó afuera, del lado de \(B\). La
+construcción de la figura~\ref{fig:c1-conjugado-armonico} da lo mismo con productos cruz
+en homogéneas: con \(L=(2,4)\) y \(K=(3,2)\), el punto medio de \(LC\), resultan
+\(M=(1{,}5;\ 3)\), \(N=(3{,}6;\ 2{,}4)\), y la recta \(MN\), de pendiente \(-2/7\), corta al eje en
+\(x=1{,}5+3\cdot\tfrac72=12\). Por último, la homografía \(f(x)=\dfrac{2x+1}{x+3}\) del
+ejemplo~\ref{ej:c1-razon-doble} lleva \(0,6,4,12\) a \(\tfrac13,\tfrac{13}9,\tfrac97,\tfrac53\), y
+\[
+  \Bigl(\tfrac13,\tfrac{13}9;\tfrac97,\tfrac53\Bigr)
+  =\frac{\bigl(\tfrac97-\tfrac13\bigr)\bigl(\tfrac53-\tfrac{13}9\bigr)}
+        {\bigl(\tfrac97-\tfrac{13}9\bigr)\bigl(\tfrac53-\tfrac13\bigr)}
+  =\frac{\tfrac{20}{21}\cdot\tfrac29}{-\tfrac{10}{63}\cdot\tfrac43}
+  =\frac{40/189}{-40/189}=-1 :
+\]
+la cuaterna sigue siendo armónica, aunque \(C\) ya no divide al segmento en la misma razón.
+\end{ejemplo}
+
+En una homología armónica (sección~\ref{sec:homografia-fijos}), cada punto y su imagen son
+conjugados armónicos respecto del centro y del corte de su recta con el eje; es lo que
+comprueba la razón doble \((D,D';O,X)=-1\) en el ejercicio del pentágono de la unidad
+interactiva.
+
+\begin{atencion}[Tres \enquote{conjugados} distintos]
+El conjugado armónico no tiene relación con la conjugación de matrices
+(sección~\ref{sec:conjugacion}) ni con el conjugado complejo
+(sección~\ref{sec:conjugado-complejo}): es la misma palabra para tres ideas distintas. El
+glosario de la sección~\ref{sec:glosario} las separa.
 \end{atencion}
 
 \subsection{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
@@ -298,13 +412,13 @@ filas nulo significa toda una recta de puntos fijos.
 \paragraph{Rectas fijas.} Como las rectas se transforman con \(H^{-T}\), una recta es fija
 si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
 \(H^{T}-\lambda I\) (o sea, de dos columnas de \(H-\lambda I\)). Una recta fija de autovalor
-\(\mu\) pasa por todos los puntos fijos de autovalor \(\lambda\neq\mu\).
+\(\lambda'\) pasa por todos los puntos fijos de autovalor \(\lambda\neq\lambda'\).
 
 \paragraph{Clasificación por autovalores.}
 \begin{itemize}
   \item \textbf{Tres autovalores reales distintos:} tres puntos fijos no alineados y tres
   rectas fijas, los lados de ese triángulo.
-  \item \textbf{Un real y dos complejos conjugados:} un único punto fijo real y una única
+  \item \textbf{Un real y dos complejos conjugados} (\(\lambda\) y \(\bar\lambda\), en el sentido de la sección~\ref{sec:conjugado-complejo})\textbf{:} un único punto fijo real y una única
   recta fija real que no pasa por él. En coordenadas adecuadas es una rotación alrededor del
   punto fijo, con la recta fija en el papel de recta ideal.
   \item \textbf{Un autovalor doble con producto cruz de filas nulo:} una recta entera de
@@ -319,7 +433,7 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
   \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
   y que \(A,O,C\) tampoco (\(O\) el centro).
   \item Calcule la recta \(BD\) como producto vectorial de las ternas de \(B\) y \(D\).
-  Compruebe que el centro \(O_c=(-1.5388,-3.7361)\) \emph{no} está en ella.
+  Compruebe que el centro \(O_c=(-1{,}5388;\ -3{,}7361)\) \emph{no} está en ella.
   \item Con \(H_c\), calcule la imagen del centro \(O\) y compruebe que no es \(O\): en
   (c) el centro del pentágono no queda fijo.
   \item Calcule \(H_c^2\) y normalice: debe dar la identidad. Interprete.
@@ -329,11 +443,11 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
 
 \subsubsection{Respuestas para autocorrección}
 \begin{enumerate}
-  \item \(\det[A\ B\ C]=1.3143\neq0\); \(\det[A\ O\ C]=-0.5878\neq0\).
-  \item \(B\times D=(0.3090+0.8090,\ 0.5878+0.9511,\ 0.7694-0.1816)\cdot\) (a menos de
-  escala) \(\sim(0.7265,\,1,\,0.3820)\); en \(O_c\): \(-1.118-3.736+0.382=-4.47\neq0\).
-  \item \(H_c(0,0,1)^T=(-0.2245,-0.5451,1)^T\): \(O\mapsto(-0.22,-0.55)\).
-  \item \(H_c^2=0.7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
+  \item \(\det[A\ B\ C]=1{,}3143\neq0\); \(\det[A\ O\ C]=-0{,}5878\neq0\).
+  \item \(B\times D=(0{,}3090+0{,}8090;\ 0{,}5878+0{,}9511;\ 0{,}7694-0{,}1816)\cdot\) (a menos de
+  escala) \(\sim(0{,}7265;\ 1;\ 0{,}3820)\); en \(O_c\): \(-1{,}118-3{,}736+0{,}382=-4{,}47\neq0\).
+  \item \(H_c(0,0,1)^T=(-0{,}2245;\ -0{,}5451;\ 1)^T\): \(O\mapsto(-0{,}22;\ -0{,}55)\).
+  \item \(H_c^2=0{,}7295\,I\): a menos de escala, la identidad; \(H_c\) es una involución.
   \item \(M=\begin{pmatrix}0&1&1\\0&0&1\\1&1&1\end{pmatrix}\), \(\lambda=(1,-1,1)\),
   \(K=\begin{pmatrix}0&-1&1\\0&0&1\\1&-1&1\end{pmatrix}\). No es afín (última fila
   \((1,-1,1)\)): el patrón contiene los puntos ideales \(e_1,e_2\) y los manda a puntos
@@ -352,7 +466,7 @@ por cuatro puntos, así que se prescriben cuatro vértices y sus imágenes (otro
 vértices) y se pregunta \emph{a dónde cae el quinto}. Hay tres casos, y sus combinaciones
 con las rotaciones del pentágono:
 \begin{enumerate}[label=(\alph*)]
-  \item no intercambiar ningún vértice: sólo ``correr'' el pentágono;
+  \item no intercambiar ningún vértice: solo \enquote{correr} el pentágono;
   \item intercambiar dos vértices adyacentes;
   \item intercambiar dos vértices no adyacentes.
 \end{enumerate}
@@ -363,8 +477,8 @@ Se toma el pentágono regular inscripto en la circunferencia unidad,
 centrado en el origen y con un vértice arriba. Conviene centrarlo en el origen:
 en el caso más simple el punto fijo es el centro, cuyo autovector es \((0,0,1)^T\).
 \begin{gather*}
-  A=(0,\,1),\qquad B=(-0.9511,\,0.3090),\qquad C=(-0.5878,\,-0.8090),\\
-  D=(0.5878,\,-0.8090),\qquad E=(0.9511,\,0.3090).
+  A=(0,\,1),\qquad B=(-0{,}9511;\ 0{,}3090),\qquad C=(-0{,}5878;\ -0{,}8090),\\
+  D=(0{,}5878;\ -0{,}8090),\qquad E=(0{,}9511;\ 0{,}3090).
 \end{gather*}
 Las coordenadas son irracionales (\(\cos72^\circ=\frac{\sqrt5-1}{4}\)), así que las
 matrices se calculan con cuatro decimales y se verifican en NumPy (apéndice~\ref{ap:pentagono}).
@@ -383,12 +497,12 @@ normaliza \(h_{33}=1\).
   \fill[ink] (0,0) circle (1.2pt) node[below right,font=\scriptsize] {$O$};
   % caso (c): imagen C B A D E'
   \draw[rust,line width=1pt] (-0.5878,-0.8090)--(-0.9511,0.3090)--(0,1)--(0.5878,-0.8090)--(0,-1.2361)--cycle;
-  \fill[rust] (0,-1.2361) circle (1.4pt) node[right=2pt,font=\small,text=rust,labelback] {$E'_c=(0,-1.2361)$};
+  \fill[rust] (0,-1.2361) circle (1.4pt) node[right=2pt,font=\small,text=rust,labelback] {$E'_c=(0;\ -1{,}2361)$};
   % eje BD
   \draw[dashed,tealdark,line width=.8pt] ($(-0.9511,0.3090)!-0.35!(0.5878,-0.8090)$)--($(-0.9511,0.3090)!1.35!(0.5878,-0.8090)$) node[right,font=\scriptsize,text=tealdark] {eje $BD$};
   % recta AC (contiene al centro)
   \draw[dotted,gold!70!black,line width=.8pt] ($(0,1)!-0.3!(-0.5878,-0.8090)$)--($(0,1)!1.3!(-0.5878,-0.8090)$);
-  \node[gold!60!black,font=\scriptsize,labelback,anchor=east] at (-0.55,-1.3) {hacia $O_c=(-1.54,-3.74)$};
+  \node[gold!60!black,font=\scriptsize,labelback,anchor=east] at (-0.55,-1.3) {hacia $O_c=(-1{,}54;\ -3{,}74)$};
 \end{tikzpicture}
 \end{center}
 
@@ -397,45 +511,45 @@ Los cuatro pares son compatibles con la rotación de \(72^\circ\) alrededor de \
 una isometría y por lo tanto una homografía. Como la homografía es única, \emph{es} esa
 rotación:
 \[
-  H_a=\begin{pmatrix}0.3090&-0.9511&0\\0.9511&0.3090&0\\0&0&1\end{pmatrix},
+  H_a=\begin{pmatrix}0{,}3090&-0{,}9511&0\\0{,}9511&0{,}3090&0\\0&0&1\end{pmatrix},
   \qquad H_aE=A .
 \]
-El quinto vértice cae en \(A\): el pentágono regular sí ``cierra''. Autovalores \(1\) y
+El quinto vértice cae en \(A\): el pentágono regular sí \enquote{cierra}. Autovalores \(1\) y
 \(e^{\pm i\,72^\circ}\); único punto fijo real \(O=(0,0)\), obtenido como producto cruz de
 las dos primeras filas de \(H_a-I\):
 \[
-  (-0.691,\,-0.951,\,0)\times(0.951,\,-0.691,\,0)=(0,\,0,\,1.382)\sim(0,0,1)^T .
+  (-0{,}691;\ -0{,}951;\ 0)\times(0{,}951;\ -0{,}691;\ 0)=(0;\ 0;\ 1{,}382)\sim(0,0,1)^T .
 \]
 La recta ideal es fija (es afín) y ninguna otra.
 
 \paragraph{(b) Intercambio de adyacentes: \(A\leftrightarrow B\), \(C\) y \(D\) quietos.}
 \[
-  H_b=\begin{pmatrix}-5.8541&-4.9798&-4.0287\\0&-1&3.9271\\0&8.4721&1\end{pmatrix},
-  \qquad E\mapsto E'_b=(-3.0777,\ 1.0000).
+  H_b=\begin{pmatrix}-5{,}8541&-4{,}9798&-4{,}0287\\0&-1&3{,}9271\\0&8{,}4721&1\end{pmatrix},
+  \qquad E\mapsto E'_b=(-3{,}0777;\ 1{,}0000).
 \]
-Autovalores \(5.8541\) (simple) y \(-5.8541\) (doble). Para el doble, el producto cruz de
-cualquier par de filas de \(H_b+5.8541I\) es nulo: hay toda una recta de puntos fijos, que es
-la recta \(CD\) (\(y=-0.8090\)), lógico porque \(C\) y \(D\) quedan quietos. El autovalor
-simple da el centro, \(O_b=(-0.5878,\,0.5729)\), que está sobre la recta \(AB\) (la recta
+Autovalores \(5{,}8541\) (simple) y \(-5{,}8541\) (doble). Para el doble, el producto cruz de
+cualquier par de filas de \(H_b+5{,}8541I\) es nulo: hay toda una recta de puntos fijos, que es
+la recta \(CD\) (\(y=-0{,}8090\)), lógico porque \(C\) y \(D\) quedan quietos. El autovalor
+simple da el centro, \(O_b=(-0{,}5878;\ 0{,}5729)\), que está sobre la recta \(AB\) (la recta
 \(AB\) va a sí misma porque sus extremos se intercambian). Como los autovalores son
-opuestos, \(H_b^2\sim I\): es una \emph{homología armónica}, un ``espejo proyectivo'' de eje
-\(CD\) y centro \(O_b\). La recta que se va al infinito es \(y=-0.1180\), que
-\emph{atraviesa} el pentágono (\(W\) vale \(9.47,\ 3.62,\ -5.85,\ -5.85,\ 3.62\) en
+opuestos, \(H_b^2\sim I\): es una \emph{homología armónica}, un \enquote{espejo proyectivo} de eje
+\(CD\) y centro \(O_b\). La recta que se va al infinito es \(y=-0{,}1180\), que
+\emph{atraviesa} el pentágono (\(W\) vale \(9{,}47;\ 3{,}62;\ -5{,}85;\ -5{,}85;\ 3{,}62\) en
 \(A,\dots,E\)): los lados \(BC\) y \(DE\) la cruzan y la imagen del pentágono se parte en
 dos semirrectas por lado.
 
 \paragraph{(c) Intercambio de no adyacentes: \(A\leftrightarrow C\), \(B\) y \(D\) quietos.}
 \[
-  H_c=\begin{pmatrix}0.4271&-0.5878&-0.2245\\-1.0368&-0.5729&-0.5451\\0.2775&0.3820&1\end{pmatrix},
-  \qquad E\mapsto E'_c=(0,\ -1.2361).
+  H_c=\begin{pmatrix}0{,}4271&-0{,}5878&-0{,}2245\\-1{,}0368&-0{,}5729&-0{,}5451\\0{,}2775&0{,}3820&1\end{pmatrix},
+  \qquad E\mapsto E'_c=(0;\ -1{,}2361).
 \]
-Autovalores \(0.8541\) (doble) y \(-0.8541\). Eje de puntos fijos: la recta \(BD\)
-(\(0.7265x+y+0.3820=0\)); centro \(O_c=(-1.5388,\,-3.7361)\), sobre la prolongación de
-\(AC\), obtenido como producto cruz de las dos primeras filas de \(H_c+0.8541I\):
-\((1.2812,-0.5878,-0.2245)\times(-1.0368,0.2812,-0.5451)=(0.3835,\,0.9311,\,-0.2492)\sim
-(-1.5388,-3.7361,1)\). Otra vez \(H_c^2\sim I\): homología armónica de eje \(BD\). El
-quinto vértice cae en \(E'_c=(0,-1.2361)\), sobre el eje de simetría, y como la recta que se
-va al infinito (\(0.2775x+0.3820y+1=0\)) no toca el pentágono (\(W>0\) en los cinco
+Autovalores \(0{,}8541\) (doble) y \(-0{,}8541\). Eje de puntos fijos: la recta \(BD\)
+(\(0{,}7265x+y+0{,}3820=0\)); centro \(O_c=(-1{,}5388;\ -3{,}7361)\), sobre la prolongación de
+\(AC\), obtenido como producto cruz de las dos primeras filas de \(H_c+0{,}8541I\):
+\((1{,}2812;\ -0{,}5878;\ -0{,}2245)\times(-1{,}0368;\ 0{,}2812;\ -0{,}5451)=(0{,}3835;\ 0{,}9311;\ -0{,}2492)\sim
+(-1{,}5388;\ -3{,}7361;\ 1)\). Otra vez \(H_c^2\sim I\): homología armónica de eje \(BD\). El
+quinto vértice cae en \(E'_c=(0;\ -1{,}2361)\), sobre el eje de simetría, y como la recta que se
+va al infinito (\(0{,}2775x+0{,}3820y+1=0\)) no toca el pentágono (\(W>0\) en los cinco
 vértices), la imagen es el pentágono \(CBADE'_c\) de la figura, no convexo pero entero.
 
 \paragraph{Combinaciones con rotaciones.} Cualquier otra correspondencia de cuatro vértices
@@ -453,29 +567,29 @@ permite verificarlo.
   distintos elegidos en orden entre cinco: hay \(5\cdot4\cdot3\cdot2=120\) correspondencias,
   todas bien definidas (el pentágono es convexo, nunca hay tres vértices alineados). Componer
   con las \(10\) simetrías del pentágono (\(5\) rotaciones y \(5\) reflexiones) agrupa esas
-  \(120\) correspondencias en \(120/10=12\) clases. Dentro de una clase las homografías
-  difieren en una simetría, así que basta estudiar un representante por clase: (a) está en
-  la clase de la identidad, y (b) y (c) son representantes de otras dos.
+  \(120\) correspondencias en \(120/10=12\) familias. Dentro de una familia las homografías
+  difieren en una simetría, así que basta estudiar un representante por familia: (a) está en
+  la familia de la identidad, y (b) y (c) son representantes de otras dos.
   \item (a) es la rotación; el quinto vértice cae en un vértice y el punto fijo es el centro.
   \item (b) y (c) son homologías armónicas: una recta entera de puntos fijos, la que une los
   dos vértices que quedan quietos (el lado \(CD\) en (b), la diagonal \(BD\) en (c)), más un
   centro; el quinto vértice cae fuera del pentágono, en
-  \((-3.08,1)\) y \((0,-1.24)\) respectivamente. En (b) la imagen se parte; en (c) no.
+  \((-3{,}08;\ 1)\) y \((0;\ -1{,}24)\) respectivamente. En (b) la imagen se parte; en (c) no.
   \item Siempre hay punto fijo: es el autovector real de \(H\), y se calcula con el producto
   cruz de dos filas de \(H-\lambda I\).
 \end{itemize}
 \end{resultado}
 
 % Apéndice: pentágono regular: cuentas y script
-\subsection{El pentágono}\label{cap:18}\label{ap:pentagono}
+\subsection{El pentágono}\label{cap:pentagono}\label{ap:pentagono}
 
 Ternas homogéneas (cuatro decimales):
 \[
 A=\begin{pmatrix}0\\1\\1\end{pmatrix},\
-B=\begin{pmatrix}-0.9511\\0.3090\\1\end{pmatrix},\
-C=\begin{pmatrix}-0.5878\\-0.8090\\1\end{pmatrix},\
-D=\begin{pmatrix}0.5878\\-0.8090\\1\end{pmatrix},\
-E=\begin{pmatrix}0.9511\\0.3090\\1\end{pmatrix}.
+B=\begin{pmatrix}-0{,}9511\\0{,}3090\\1\end{pmatrix},\
+C=\begin{pmatrix}-0{,}5878\\-0{,}8090\\1\end{pmatrix},\
+D=\begin{pmatrix}0{,}5878\\-0{,}8090\\1\end{pmatrix},\
+E=\begin{pmatrix}0{,}9511\\0{,}3090\\1\end{pmatrix}.
 \]
 
 \subsubsection{Verificación de los tres casos}
@@ -484,38 +598,38 @@ E=\begin{pmatrix}0.9511\\0.3090\\1\end{pmatrix}.
 \toprule
 & (a) \(ABCD\to BCDE\) & (b) \(ABCD\to BACD\) & (c) \(ABCD\to CBAD\)\\
 \midrule
-\(HA\) & \(B\), \(W=1\) & \(B\), \(W=9.4721\) & \(C\), \(W=1.3820\)\\
-\(HB\) & \(C\), \(W=1\) & \(A\), \(W=3.6180\) & \(B\), \(W=0.8541\)\\
-\(HC\) & \(D\), \(W=1\) & \(C\), \(W=-5.8541\) & \(A\), \(W=0.5279\)\\
-\(HD\) & \(E\), \(W=1\) & \(D\), \(W=-5.8541\) & \(D\), \(W=0.8541\)\\
-\(HE\) & \(A\), \(W=1\) & \((-3.0777,1)\), \(W=3.6180\) & \((0,-1.2361)\), \(W=1.3820\)\\
-recta al infinito & ideal & \(y=-0.1180\) & \(0.2775x+0.3820y+1=0\)\\
-autovalores & \(1,\ e^{\pm i72^\circ}\) & \(5.8541,\ -5.8541\ (\times2)\) &
-\(-0.8541,\ 0.8541\ (\times2)\)\\
-puntos fijos & \(O=(0,0)\) & eje \(CD\); centro \((-0.5878,0.5729)\) &
-eje \(BD\); centro \((-1.5388,-3.7361)\)\\
+\(HA\) & \(B\), \(W=1\) & \(B\), \(W=9{,}4721\) & \(C\), \(W=1{,}3820\)\\
+\(HB\) & \(C\), \(W=1\) & \(A\), \(W=3{,}6180\) & \(B\), \(W=0{,}8541\)\\
+\(HC\) & \(D\), \(W=1\) & \(C\), \(W=-5{,}8541\) & \(A\), \(W=0{,}5279\)\\
+\(HD\) & \(E\), \(W=1\) & \(D\), \(W=-5{,}8541\) & \(D\), \(W=0{,}8541\)\\
+\(HE\) & \(A\), \(W=1\) & \((-3{,}0777;\ 1)\), \(W=3{,}6180\) & \((0;\ -1{,}2361)\), \(W=1{,}3820\)\\
+recta al infinito & ideal & \(y=-0{,}1180\) & \(0{,}2775x+0{,}3820y+1=0\)\\
+autovalores & \(1,\ e^{\pm i72^\circ}\) & \(5{,}8541;\ -5{,}8541\ (\times2)\) &
+\(-0{,}8541;\ 0{,}8541\ (\times2)\)\\
+puntos fijos & \(O=(0,0)\) & eje \(CD\); centro \((-0{,}5878;\ 0{,}5729)\) &
+eje \(BD\); centro \((-1{,}5388;\ -3{,}7361)\)\\
 tipo & rotación (afín) & homología armónica, imagen partida & homología armónica\\
 \bottomrule
 \end{tabularx}
 \end{center}
 
 \subsubsection{Autovector por producto cruz, caso (c)}
-Polinomio característico de \(H_c\): \(\lambda^3-0.8541\lambda^2-0.7295\lambda+0.6231\),
-raíces \(0.8541\) (doble) y \(-0.8541\). Para \(\lambda=-0.8541\),
+Polinomio característico de \(H_c\): \(\lambda^3-0{,}8541\lambda^2-0{,}7295\lambda+0{,}6231\),
+raíces \(0{,}8541\) (doble) y \(-0{,}8541\). Para \(\lambda=-0{,}8541\),
 \[
-H_c+0.8541\,I=\begin{pmatrix}1.2812&-0.5878&-0.2245\\-1.0368&0.2812&-0.5451\\0.2775&0.3820&1.8541\end{pmatrix},
+H_c+0{,}8541\,I=\begin{pmatrix}1{,}2812&-0{,}5878&-0{,}2245\\-1{,}0368&0{,}2812&-0{,}5451\\0{,}2775&0{,}3820&1{,}8541\end{pmatrix},
 \]
 \[
 \text{fila}_1\times\text{fila}_2=
-\begin{pmatrix}(-0.5878)(-0.5451)-(-0.2245)(0.2812)\\(-0.2245)(-1.0368)-(1.2812)(-0.5451)\\(1.2812)(0.2812)-(-0.5878)(-1.0368)\end{pmatrix}
-=\begin{pmatrix}0.3835\\0.9311\\-0.2492\end{pmatrix}\sim\begin{pmatrix}-1.5388\\-3.7361\\1\end{pmatrix}.
+\begin{pmatrix}(-0{,}5878)(-0{,}5451)-(-0{,}2245)(0{,}2812)\\(-0{,}2245)(-1{,}0368)-(1{,}2812)(-0{,}5451)\\(1{,}2812)(0{,}2812)-(-0{,}5878)(-1{,}0368)\end{pmatrix}
+=\begin{pmatrix}0{,}3835\\0{,}9311\\-0{,}2492\end{pmatrix}\sim\begin{pmatrix}-1{,}5388\\-3{,}7361\\1\end{pmatrix}.
 \]
 Comprobación:
 \[
-  H_c\begin{pmatrix}-1.5388\\-3.7361\\1\end{pmatrix}=\begin{pmatrix}1.3143\\3.1909\\-0.8541\end{pmatrix}
-  =-0.8541\begin{pmatrix}-1.5388\\-3.7361\\1\end{pmatrix}.
+  H_c\begin{pmatrix}-1{,}5388\\-3{,}7361\\1\end{pmatrix}=\begin{pmatrix}1{,}3143\\3{,}1909\\-0{,}8541\end{pmatrix}
+  =-0{,}8541\begin{pmatrix}-1{,}5388\\-3{,}7361\\1\end{pmatrix}.
 \]
-Para \(\lambda=0.8541\) el producto cruz de cualquier par de filas de \(H_c-0.8541I\) da
+Para \(\lambda=0{,}8541\) el producto cruz de cualquier par de filas de \(H_c-0{,}8541I\) da
 \((0,0,0)\): raíz doble, toda la recta \(BD\) es de puntos fijos.
 
 \subsubsection{Imagen partida, caso (b)}
@@ -528,7 +642,7 @@ Para \(\lambda=0.8541\) el producto cruz de cualquier par de filas de \(H_c-0.85
   \draw[teal,line width=1pt,fill=teallight!45] (0,1)--(-0.9511,0.3090)--(-0.5878,-0.8090)--(0.5878,-0.8090)--(0.9511,0.3090)--cycle;
   \foreach \p/\n/\pos in {(0,1)/A/{above right},(-0.9511,0.3090)/B/{above left},(-0.5878,-0.8090)/C/{below left},(0.5878,-0.8090)/D/{below right},(0.9511,0.3090)/E/right}
     \fill[teal] \p circle (1.2pt) node[\pos,font=\small,text=tealdark] {$\n$};
-  \draw[gold!80!black,dotted,line width=.9pt] (-3.6,-0.118)--(2.4,-0.118) node[pos=.08,above,font=\scriptsize,text=gold!60!black] {$y=-0.118$ (se va al infinito)};
+  \draw[gold!80!black,dotted,line width=.9pt] (-3.6,-0.118)--(2.4,-0.118) node[pos=.08,above,font=\scriptsize,text=gold!60!black] {$y=-0{,}118$ (se va al infinito)};
   % imagen: segmentos AB, CD, E'B
   \draw[rust,line width=1pt] (0,1)--(-0.9511,0.3090);
   \draw[rust,line width=1pt] (-0.5878,-0.8090)--(0.5878,-0.8090);
@@ -539,13 +653,13 @@ Para \(\lambda=0.8541\) el producto cruz de cualquier par de filas de \(H_c-0.85
   % imagen de DE: recta D E' exterior al segmento
   \draw[rust,line width=1pt,-{Latex[length=1.8mm]}] (0.5878,-0.8090)--(2.4,-1.703);
   \draw[rust,line width=1pt,-{Latex[length=1.8mm]}] (-3.0777,1)--(-3.6,1.258);
-  \fill[rust] (-3.0777,1) circle (1.4pt) node[above,font=\small,text=rust,labelback] {$E'_b=(-3.08,\,1)$};
+  \fill[rust] (-3.0777,1) circle (1.4pt) node[above,font=\small,text=rust,labelback] {$E'_b=(-3{,}08;\ 1)$};
   \draw[dashed,tealdark,line width=.8pt] (-3.6,-0.809)--(2.4,-0.809) node[pos=.12,below,font=\scriptsize,text=tealdark] {eje $CD$ (puntos fijos)};
   \fill[ink] (-0.5878,0.5729) circle (1.4pt) node[left,font=\scriptsize,labelback] {$O_b$};
 \end{tikzpicture}
 \end{center}
 Los lados \(AB\), \(CD\) y \(EA\) van a los segmentos \(BA\), \(CD\) y \(E'_bB\). Los lados
-\(BC\) y \(DE\) cruzan la recta \(y=-0.118\) y sus imágenes son las semirrectas exteriores de
+\(BC\) y \(DE\) cruzan la recta \(y=-0{,}118\) y sus imágenes son las semirrectas exteriores de
 las rectas \(AC\) y \(DE'_b\).
 
 \subsubsection{Script}

@@ -1,0 +1,55 @@
+# Laboratorio CAD: un ejercicio por entrada, en el orden del apunte (subsecciones «En el CAD»,
+# sec:cad-cap01 a sec:cad-cap04) y de cad/index.md. Lo lee tools/menu.py (claves capitulo,
+# archivo, titulo, comando); el enlace del menú es cad/#cap<capitulo>.
+# archivo: DXF original en cad/dxf/. respuesta: respuesta principal en cad/dxf/esperado/;
+# otras_respuestas: las demás respuestas del mismo ejercicio, si las hay.
+- capitulo: 1
+  archivo: cap01_rotate.dxf
+  titulo: "Rotar 30° alrededor de A"
+  comando: ROTATE
+  respuesta: esperado/cap01_rotate_30.dxf
+- capitulo: 1
+  archivo: cap01_ucs.dxf
+  titulo: "Lectura activa y pasiva: rotar el objeto o el sistema"
+  comando: UCS
+  respuesta: esperado/cap01_ucs_activa_30.dxf
+  otras_respuestas: [esperado/cap01_ucs_pasiva_30.dxf]
+- capitulo: 1
+  archivo: cap01_units.dxf
+  titulo: "Del ángulo matemático al acimut"
+  comando: UNITS
+  respuesta: esperado/cap01_units_bisectriz.dxf
+- capitulo: 1
+  archivo: cap01_arraypolar.dxf
+  titulo: "Seis copias a 60°: componer giros"
+  comando: ARRAYPOLAR
+  respuesta: esperado/cap01_arraypolar_60.dxf
+- capitulo: 2
+  archivo: cap02_move_rotate.dxf
+  titulo: "Trasladar y rotar: el orden importa"
+  comando: MOVE + ROTATE
+  respuesta: esperado/cap02_move_rotate.dxf
+  otras_respuestas: [esperado/cap02_rotate_move.dxf]
+- capitulo: 3
+  archivo: cap03_mirror.dxf
+  titulo: "Dos espejos: paralelos y que se cortan"
+  comando: MIRROR
+  respuesta: esperado/cap03_mirror_paralelos.dxf
+  otras_respuestas: [esperado/cap03_mirror_x50.dxf, esperado/cap03_mirror_cortan.dxf]
+- capitulo: 3
+  archivo: cap03_align.dxf
+  titulo: "Movimiento rígido frente a similaridad"
+  comando: ALIGN + SCALE
+  respuesta: esperado/cap03_align_rigido.dxf
+  otras_respuestas: [esperado/cap03_align_similaridad.dxf]
+- capitulo: 4
+  archivo: cap04_bloque.dxf
+  titulo: "Bloque con escala X = 2, Y = 1 y con X = −1"
+  comando: INSERT
+  respuesta: esperado/cap04_bloque_x2_y1.dxf
+  otras_respuestas: [esperado/cap04_bloque_xm1.dxf]
+- capitulo: 4
+  archivo: cap04_stretch.dxf
+  titulo: "Un comando que no es una transformación afín"
+  comando: STRETCH
+  respuesta: esperado/cap04_stretch_10.dxf

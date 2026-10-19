@@ -599,16 +599,19 @@ def _(mo):
 
     Acá verificamos que los cuatro problemas se resuelven dejando el residuo perpendicular a lo que la matriz puede producir.
     Que la proyección minimiza $|r|^2$ quedó demostrado en la sección 1 (Pitágoras). Por qué $R = VU^T$ y por qué
-    la dirección propia mayor es la recta total están enunciados y verificados numéricamente en la guía resuelta del
+    la dirección propia mayor es la recta total están enunciados y verificados numéricamente en el capítulo de los cuatro problemas del
     apunte; las demostraciones completas (traza máxima, cociente de Rayleigh) están en Strang y Calvetti–Somersalo.
 
-    - [apunte, sección "Guía resuelta de los cuatro problemas (Clase 11)"](../../apunte.pdf#nameddest=cap:cuatro-problemas):
-      Problema 1, regresión simple (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas) ·
-      Problema 2, intersección de círculos (trilateración) · Problema 3, Procrustes ortogonal (SVD de $H$, $R = UV^T$,
-      con la caja sobre la convención de $H$) · Problema 4, regresión total (la dirección de la recta es $v_1$, la
-      normal es $v_2$, el menor valor singular); cierra con el resultado "Los cuatro con la misma maquinaria"
-    - [apunte, sección "Sistemas de ecuaciones y aplicaciones"](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones) · [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (cuatro problemas; producto interno y núcleo)](../../apunte.pdf#nameddest=cap:cuatro-problemas)
-    - [ficha de la clase 11](../../clases/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
+    - [apunte, capítulo «Cuatro problemas de ajuste»](../../apunte.pdf#nameddest=cap:cuatro-problemas):
+      [sección «Recta por mínimos cuadrados y regresión total»](../../apunte.pdf#nameddest=sec:cuatro-problemas-regresion)
+      (la mejor recta como proyección ortogonal, residuo perpendicular a las columnas; la regresión total, cuya
+      dirección es el autovector mayor de la matriz de dispersión y cuya normal es el menor) ·
+      [sección «Ajuste de un círculo»](../../apunte.pdf#nameddest=sec:cuatro-problemas-circulo) ·
+      [sección «Procrustes ortogonal»](../../apunte.pdf#nameddest=sec:cuatro-problemas-procrustes) (SVD de $H$,
+      $R = UV^T$ con la corrección de determinante); en «En profundidad», «Una sola geometría» resume los cuatro con
+      el mismo esquema
+    - [apunte, sección «Sistemas de ecuaciones y aplicaciones»](../../apunte.pdf#nameddest=sec:sistemas-ecuaciones)
+    - [ficha del capítulo 12](../../capitulos/11.html) · [unidad anterior: Jacobiano y primera forma fundamental](../10_jacobiano_primera_forma/index.html) · [cambio de base](../08_cambio_de_base/index.html) (referencia) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [curvatura como forma cuadrática](../12_curvatura/index.html): la matriz $C = X_0^T X_0$ de la
     regresión total es una forma cuadrática, y sus direcciones propias vuelven como direcciones principales de una

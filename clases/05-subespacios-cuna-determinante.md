@@ -1,16 +1,16 @@
 ---
 clase: 5
-titulo: "Clase 5: subespacios, producto cuña y determinante"
+titulo: "Capítulo 6: subespacios, producto cuña y determinante"
 idea: "Unir, cortar y detectar colinealidad son una misma operación: el producto cuña, cuyo caso de tamaño $n$ es el determinante."
 que_se_estudia: ["Subespacios lineales y afines, y las tres escrituras de una recta", "Producto vectorial: la recta por dos puntos y el punto de corte de dos rectas", "Producto cuña y determinante como volumen orientado", "Colinealidad: $\\det[p\\,q\\,r]=0$", "Núcleo visto desde las filas"]
-conceptos_previos: ["Producto interno (clase 1)", "Coordenadas homogéneas (clase 3)", "Formas lineales (clase 4)"]
+conceptos_previos: ["Producto interno (capítulo 1)", "Coordenadas homogéneas (capítulo 4)", "Formas lineales (capítulo 5)"]
 apunte: ["subespacios"]
 unidades: ["07a_cuna_determinante", "07b_nucleo_autovectores"]
 animaciones: []
 ejercicios_sugeridos: ["Calcular $p\\times q$ y $\\det[p\\,q\\,r]$ para $p=(1,2,3)$, $q=(4,5,-1)$, $r=(0,0,1)$ y comparar", "Unir $A$ y $C$ y cortar con $BD$ en el pentágono entero usando productos cruz", "Hallar el núcleo de una $3\\times3$ de filas coplanares con la cruz de dos filas"]
 ---
 
-# Clase 5: subespacios, producto cuña y determinante
+# Capítulo 6: subespacios, producto cuña y determinante
 
 Unir, cortar y detectar colinealidad son una misma operación: el producto cuña, cuyo caso de tamaño $n$ es el determinante.
 
@@ -77,13 +77,13 @@ detecta el producto cuña en cualquier dimensión.
 transformación aplasta a un punto; visto desde las filas, el vector donde todas las reglas (formas
 lineales) marcan cero: ortogonal a todas las filas, que entonces caben en un plano. Escalera: en
 $\mathbb{R}$, $ax=0$ tiene núcleo sólo si $a=0$; en $\mathbb{R}^2$ dos reglas con marcas cero
-paralelas; en $\mathbb{R}^3$ tres filas coplanares. Construir una transformación con un vector dado en el núcleo es lo que hace $A-\lambda I$ en la clase 6.
+paralelas; en $\mathbb{R}^3$ tres filas coplanares. Construir una transformación con un vector dado en el núcleo es lo que hace $A-\lambda I$ en el capítulo 7.
 
 ## Conceptos previos
 
-- Producto interno (clase 1)
-- Coordenadas homogéneas (clase 3)
-- Formas lineales (clase 4)
+- Producto interno (capítulo 1)
+- Coordenadas homogéneas (capítulo 4)
+- Formas lineales (capítulo 5)
 
 ## En el apunte
 

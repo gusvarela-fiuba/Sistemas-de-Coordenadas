@@ -16,6 +16,12 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 \usepackage[spanish,es-nodecimaldot]{babel}
+% Comillas con \enquote{...} (csquotes), estilo propio para español rioplatense: primer nivel “ ”,
+% segundo nivel « » (\enquote anidado). Ver apunte/ESTILO.md. No se usa \MakeOuterQuote{"}: con
+% babel-spanish la comilla " es un atajo activo. listings no se ve afectado (no usa \enquote).
+\usepackage[autostyle=false]{csquotes}
+\DeclareQuoteStyle{apunte}{“}{”}{«}{»}
+\setquotestyle{apunte}
 \usepackage{microtype}
 
 %% --- Geometría de página ---
@@ -64,21 +70,26 @@
 \hypersetup{
   colorlinks=true,
   linkcolor=tealdark,
-  urlcolor=teal
+  urlcolor=teal,
+  pdfpagelabels=true,
+  plainpages=false
 }
 
 %% --- Enlaces a las simulaciones del sitio ---
 %% \sitioURL: raíz del sitio (sin barra final). \linkUnidad{<id>}{<texto>}: enlace a la
 %% simulación interactiva de una unidad (negrita, color teal = urlcolor, triángulo final).
-%% \linkFicha{<slug>}{<texto>}: enlace a la ficha de una clase (color teal, sin negrita).
+%% \linkFicha{<slug>}{<texto>}: enlace a la ficha de una unidad (color teal, sin negrita).
 %% \linkUnidadId{<id>}: el id de la unidad como texto monoespaciado del enlace (tablas).
 %% \urlsitio: única fuente de la URL del sitio en el apunte (con barra final).
 \newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}% raíz sin barra final (los links añaden /ruta). ÚNICO lugar donde se escribe la URL.
 \newcommand{\urlsitio}{\sitioURL/}% misma URL con barra final, para \url y texto
 \newcommand{\linkUnidad}[2]{\href{\sitioURL/unidades/#1/index.html}{\textcolor{teal}{\textbf{#2 \(\triangleright\)}}}}
 \newcommand{\linkAnimacion}[2]{\href{\sitioURL/animaciones/#1.mp4}{\textcolor{rust}{\textbf{#2}\,\(\circlearrowright\)}}}
-\newcommand{\linkFicha}[2]{\href{\sitioURL/clases/#1.html}{\textcolor{teal}{#2}}}
+\newcommand{\linkFicha}[2]{\href{\sitioURL/capitulos/#1.html}{\textcolor{teal}{#2}}}
 \newcommand{\linkUnidadId}[1]{\href{\sitioURL/unidades/#1/index.html}{\texttt{\detokenize{#1}}}}
+%% \dxfEnlace{<archivo>}: enlace al DXF del laboratorio CAD publicado en el sitio
+%% (\sitioURL/cad/dxf/<archivo>), con el nombre en monoespaciado. Ej.: \dxfEnlace{esperado/cap01_rotate_30.dxf}.
+\newcommand{\dxfEnlace}[1]{\href{\sitioURL/cad/dxf/#1}{\nolinkurl{#1}}}
 
 %% \unidadInteractiva{<id>}{<título>}{<qué hacer>}: recuadro compacto para una actividad concreta
 %% en una unidad interactiva. Línea 1: ▷ y título en negrita (hipervínculo a la unidad); línea 2:
@@ -107,16 +118,20 @@
   \end{recuadroEnlace}}
 
 %% --- Encabezado y pie de página (fancyhdr) ---
+%% Portada e índice llevan numeración romana (sólo el número); desde el capítulo 0 la
+%% numeración es arábiga y el pie dice «N de M», con M = última página arábiga.
+\newif\ifapunteCuerpo
+\newcommand{\apunteNumeroPie}{\ifapunteCuerpo\thepage\ de \pageref{LastPage}\else\thepage\fi}
 \pagestyle{fancy}
 \setlength{\headheight}{22pt}
 \fancyhf{}
 \fancyhead[L]{\small\color{muted}\apunteEncabezadoIzq}
 \fancyhead[R]{\small\color{muted}\apunteEncabezadoDer}
-\fancyfoot[C]{\small\color{muted}\thepage\ de \pageref{LastPage}}
+\fancyfoot[C]{\small\color{muted}\apunteNumeroPie}
 \fancypagestyle{plain}{%
   \fancyhf{}%
   \renewcommand{\headrulewidth}{0pt}%
-  \fancyfoot[C]{\small\color{muted}\thepage\ de \pageref{LastPage}}%
+  \fancyfoot[C]{\small\color{muted}\apunteNumeroPie}%
 }
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{linegray}\leaders\hrule height \headrulewidth\hfill}}
@@ -180,16 +195,17 @@
 \newtheorem{teorema}[definicion]{Teorema}
 \theoremstyle{definition}
 \newtheorem{ejercicio}{Ejercicio}[chapter]
+\newtheorem{problema}{Problema}[chapter]% problemas graduados al final de cada capítulo; respuestas en el apéndice (tools/problemas/gen.py)
 \newenvironment{demostracion}{\begin{proof}}{\end{proof}}
 \newcommand{\solucion}[1]{\par\smallskip\noindent{\small\textit{Solución.} #1}}
 
 %% --- Numeración de capítulos: complementos y capítulo preliminar ---
 %% \capituloComplemento[N]{Título}: capítulo rotulado «Complemento CN» (encabezado, índice y
 %% \ref dan «C1», «C2», …; definiciones y ejemplos «C1.1», «C1.2», …). Sin [N] toma el
-%% siguiente número de complemento. El capítulo de clase que sigue conserva su número: al
+%% siguiente número de complemento. El capítulo que sigue conserva su número: al
 %% llamar a \chapter (o \appendix) se restaura la numeración arábiga y el contador guardado.
 %% \capituloPreliminar{R} … \finCapituloPreliminar: el \chapter que queda entre ambos se
-%% numera con la letra dada y no consume número de capítulo de clase.
+%% numera con la letra dada y no consume número de capítulo.
 \newcounter{complemento}
 \newcounter{apunteCapGuardado}
 \newif\ifapunteNumEspecial
@@ -223,5 +239,82 @@
   \addcontentsline{toc}{chapter}{Complemento \thechapter: #2}}% …la escribimos con el rótulo
 \newcommand{\capituloPreliminar}[1]{\apunteNumeracionEspecial{#1}\let\chapter\apunteChapterOriginal}
 \newcommand{\finCapituloPreliminar}{\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}\apunteRestaurarNumeracion}
+
+%% --- Comprobaciones con código (apunte/demostraciones/) ---
+%% \repoURL: raíz de los archivos del repositorio (con barra final). ÚNICO lugar donde se escribe.
+%% \comprobacion{<etiqueta>}{<tipo>}: recuadro con el fragmento clave de la prueba
+%% test_<etiqueta> y el enlace a su archivo y línea. Va después de la demostración (o del
+%% enunciado). Lee generado/fragmentos/<etiqueta con «:» → «_»>.tex, que escribe
+%% scripts/extraer_fragmentos.py (lo corre latexmk al arrancar, ver .latexmkrc).
+%% <tipo>: SIMBOLICA, NUMERICA o CONTRAEJEMPLO (mayúsculas o minúsculas). Manda el tipo del
+%% fragmento; si difiere del pedido, aviso en el log. Sin fragmento: aviso gris en el texto.
+%% Ejemplo: \comprobacion{prop:det-factor}{NUMERICA}
+%% En escala de grises se lee por el rótulo en negrita y la banda izquierda, no por el color.
+\usepackage{listings}
+\lstset{
+  basicstyle=\footnotesize\ttfamily,columns=fullflexible,keepspaces=true,
+  breaklines=true,breakatwhitespace=false,postbreak=\mbox{\(\hookrightarrow\)\space},
+  commentstyle=\color{muted}\itshape,keywordstyle=\bfseries,stringstyle=\color{ink},
+  showstringspaces=false,upquote=true,tabsize=4,aboveskip=1pt,belowskip=1pt,
+  xleftmargin=0pt,frame=none,extendedchars=true
+}
+\lstset{language=Python}
+\newcommand{\repoURL}{https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas/blob/main/}
+\newtcolorbox{recuadroComprobacion}{
+  enhanced,breakable=false,width=\linewidth,colback=white,colframe=linegray,
+  borderline west={2.5pt}{0pt}{muted},boxrule=0.5pt,arc=1mm,
+  left=3.5mm,right=3mm,top=1.4mm,bottom=1.4mm,before skip=4pt,after skip=6pt
+}
+\ExplSyntaxOn
+\str_new:N \l__apunte_comp_etiqueta_str
+\str_new:N \l__apunte_comp_archivo_str
+\str_new:N \l__apunte_comp_tipo_str
+\str_new:N \l__apunte_comp_modulo_str
+\str_new:N \l__apunte_comp_linea_str
+\tl_new:N \l__apunte_comp_casos_tl
+\NewDocumentCommand{\comprobacion}{mm}{
+  \str_set:Nn \l__apunte_comp_etiqueta_str {#1}
+  \str_set:Nn \l__apunte_comp_archivo_str {#1}
+  \str_replace_all:Nnn \l__apunte_comp_archivo_str {:} {_}
+  \str_set:Ne \l__apunte_comp_tipo_str { \str_uppercase:n {#2} }
+  \IfFileExists{generado/fragmentos/\l__apunte_comp_archivo_str.tex}
+    {
+      \par\nopagebreak
+      \begin{recuadroComprobacion}\raggedright
+      \input{generado/fragmentos/\l__apunte_comp_archivo_str.tex}
+      \end{recuadroComprobacion}
+    }
+    {
+      \PackageWarning{apunte-formato}{Comprobación~sin~fragmento:~\l__apunte_comp_etiqueta_str}
+      \par\nopagebreak
+      {\small\color{muted}[comprobación~pendiente:~\texttt{\l__apunte_comp_etiqueta_str}]\par}
+    }
+}
+%% \comprobacionDatos{<TIPO>}{<casos>}{<módulo>}{<línea>}: primera línea del fragmento generado.
+\NewDocumentCommand{\comprobacionDatos}{mmmm}{
+  \str_if_eq:eeF { #1 } { \l__apunte_comp_tipo_str }
+    {
+      \PackageWarning{apunte-formato}{\l__apunte_comp_etiqueta_str \c_colon_str \c_space_tl se~pidió~tipo~
+        \l__apunte_comp_tipo_str,~el~fragmento~es~#1;~se~usa~#1}
+    }
+  \str_set:Nn \l__apunte_comp_modulo_str {#3}
+  \str_set:Nn \l__apunte_comp_linea_str {#4}
+  \noindent{\sffamily\small\bfseries
+  \str_case:nnF {#1}
+    {
+      {SIMBOLICA}{⚙~Verificación~simbólica}
+      {NUMERICA}{⚙~Comprobación~numérica~(#2~casos)}
+      {CONTRAEJEMPLO}{⚙~Contraejemplo}
+    }
+    {⚙~#1}
+  }\par\nopagebreak
+}
+%% \comprobacionPie: última línea del fragmento generado, con el enlace al archivo y la línea.
+\NewDocumentCommand{\comprobacionPie}{}{
+  \par\nopagebreak\vspace{1pt}
+  {\footnotesize\color{muted}\href{\repoURL apunte/demostraciones/\l__apunte_comp_modulo_str.py\#L\l__apunte_comp_linea_str}
+    {\ttfamily demostraciones/\l__apunte_comp_modulo_str.py,~línea~\l__apunte_comp_linea_str}}\par
+}
+\ExplSyntaxOff
 
 \endinput

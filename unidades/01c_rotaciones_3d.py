@@ -66,7 +66,7 @@ def _(mo):
     mo.md(r"""
     ## 0. Situación de campo y predicción
 
-    Para nivelar la estación total la inclinamos alrededor de un eje horizontal y después la giramos alrededor del eje
+    Para nivelar el instrumento lo inclinamos alrededor de un eje horizontal y después la giramos alrededor del eje
     vertical para apuntar al mojón. Un compañero hace lo mismo al revés: primero gira, después inclina. Con
     correcciones chiquitas los dos terminan casi igual. Con giros grandes, no.
 
@@ -423,9 +423,9 @@ def _(mo):
     En esta unidad demostramos que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
 
     - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones) (el orden importa, el ejemplo de $90°$)
-    - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:14)
-    - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:15)
-    - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [unidad anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:rot3d)
+    - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:infinitesimales)
+    - [ficha del capítulo 1](../../capitulos/01.html) · [ficha del capítulo 2](../../capitulos/02.html) · [unidad anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [producto interno: proyección, longitud, ángulo](../02_producto_interno/index.html), la herramienta
     que mide largos y ángulos y que las reflexiones y similaridades (las ortogonales con $\det = -1$ y la escala) usan después.

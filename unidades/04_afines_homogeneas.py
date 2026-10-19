@@ -340,7 +340,7 @@ def _(A_esc, lib, mo, np, t_esc):
         mo.hstack([
             mo.md(r"""
             **3.3 Tres puntos determinan la afinidad.** $a = (1,1)$, $b = (3,1)$, $c = (1,2)$ van a $a' = (2,2)$,
-            $b' = (4,2)$, $c' = (3,3)$ (apunte, «Resolución de los ejercicios de afinidades»). Seis incógnitas, seis ecuaciones: cada par da
+            $b' = (4,2)$, $c' = (3,3)$ (apunte, capítulo 4, «Ejercicios con solución»). Seis incógnitas, seis ecuaciones: cada par da
             $x' = ax + by + e$, $y' = cx + dy + f$. A mano, restando, $A(b - a) = b' - a'$ y $A(c - a) = c' - a'$:
             $A\binom{2}{0} = \binom{2}{0}$, $A\binom{0}{1} = \binom{1}{1}$, luego
 
@@ -416,7 +416,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *Idea central: un tema insistente de la clase fue la composición como una operación entre
+        **(c) Código con hueco — medio** *Idea central: un tema insistente del capítulo es la composición como una operación entre
         transformaciones.* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
         (radianes) alrededor del origen y **después** la mueve `t`, con una sola matriz homogénea. Tenés `np`, `rot2`,
         `hom`, `dehom` y `matriz_afin(A, t)`. Se verifica con `np.allclose` sobre 20 puntos al azar.
@@ -543,9 +543,9 @@ def _(mo):
     Acá verificamos; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
 
     - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:afines)
-    - [apunte, «Reflexiones, isometrías y similaridades» (la guía de reflexiones y similaridades, y la guía resuelta)](../../apunte.pdf#nameddest=cap:reflexiones)
-    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
-    - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
+    - [apunte, «Reflexiones, isometrías y similaridades» (los teoremas de reflexiones y similaridades, y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
+    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:composicion-afin) · [apunte, «Afinidades y coordenadas homogéneas» (ejercicios con solución)](../../apunte.pdf#nameddest=cap:afines)
+    - [ficha de los capítulos 3 y 4](../../capitulos/03.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Proyectivas](../05_proyectivas/index.html): sin la restricción de la última fila $(0\ 0\ 1)$ las
     paralelas **sí** se cruzan, como los alambrados en una foto, y hacen falta cuatro puntos en vez de tres.

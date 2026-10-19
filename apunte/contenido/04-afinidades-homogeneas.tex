@@ -2,25 +2,38 @@
 \chapter{Afinidades y coordenadas homogéneas}\label{cap:afines}
 
 % Números de los ejemplos y soluciones: apunte/scripts/cap06_afines.py
+% Números y figura de la aplicación (ortofoto): apunte/scripts/cap04_afinidad_ortofoto.py
+% Números, tabla y figura del mapa de las transformaciones: apunte/scripts/cap04_mapa_transformaciones.py
 
 \section{La idea}
 
-Las isometrías del capítulo~\ref{cap:reflexiones} conservan distancias; las similaridades conservan
-ángulos y multiplican todas las distancias por un mismo factor. En este capítulo aflojamos
-la rigidez un paso más: permitimos que una figura se estire distinto en cada dirección o se
-incline, siempre que las rectas sigan siendo rectas y las paralelas sigan siendo paralelas.
-Ese grupo de transformaciones es el de las \emph{afinidades}. Usamos «afinidad» y
-«transformación afín» como sinónimos. Para escribirlas con una sola matriz introducimos las
-\emph{coordenadas homogéneas}, que transforman la traslación en una multiplicación más.
+Imaginá que dibujás una cuadrícula con un marcador sobre una banda elástica ancha y la estirás
+tirando de los dos bordes cortos. ¿Qué le pasa a la cuadrícula? Los cuadrados se vuelven
+rectángulos, un círculo dibujado adentro se vuelve un óvalo, pero las líneas siguen siendo
+rectas, las que eran paralelas siguen paralelas y la marca que estaba en el medio de un lado
+sigue en el medio. Ahora sostené quieto uno de los bordes largos y corré el opuesto de
+costado, paralelo a sí mismo: los cuadrados se inclinan y quedan paralelogramos, todos iguales
+entre sí. ¿Y si además corrés la banda entera sobre la mesa?
+Nada nuevo: la figura cambia de lugar, no de forma.
+
+El capítulo~\ref{cap:reflexiones} terminó en la similaridad, la fotocopia ampliada que cambia
+el tamaño y conserva los ángulos. Ahora aflojamos un paso más, como con la banda: dejamos que
+una figura se estire distinto en cada dirección o se incline, siempre que las rectas sigan
+siendo rectas y las paralelas, paralelas. Esas son las \emph{afinidades} (o
+\emph{transformaciones afines}). Para qué nos sirven: describen lo que le pasa a una foto
+tomada desde arriba cuando se la lleva al terreno, o a un plano de papel que se encogió más en
+un sentido que en el otro. Para escribirlas con una sola matriz reunimos la teoría de las
+\emph{coordenadas homogéneas}.
 
 \subsection{Afinidades: conservar rectas y paralelismo}\label{sec:afinidades-primera}
 
 {\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
 
-Una afinidad permite deformaciones más generales que un giro o una homotecia. Un cuadrado
-puede convertirse en un paralelogramo y el círculo inscripto en una elipse inscripta; las
-rectas que dividen al cuadrado en cuatro siguen dividiendo al paralelogramo en cuatro, y los
-puntos medios siguen siendo puntos medios.
+Volvamos a la banda elástica inclinada. Una afinidad permite deformaciones más
+generales que un giro o una homotecia (el agrandamiento desde un centro del
+capítulo~\ref{cap:reflexiones}). Un cuadrado puede convertirse en un paralelogramo y el
+círculo inscripto en una elipse inscripta; las rectas que dividen al cuadrado en cuatro siguen
+dividiendo al paralelogramo en cuatro, y los puntos medios siguen siendo puntos medios.
 
 \begin{center}
 \begin{tikzpicture}[scale=.86]
@@ -44,54 +57,46 @@ puntos medios siguen siendo puntos medios.
 \end{tikzpicture}
 \end{center}
 
-\begin{idea}[Idea]
-Una afinidad es una transformación lineal seguida de una traslación: conserva rectas,
-paralelismo y razones sobre una recta, pero no distancias ni ángulos.
-\end{idea}
+En la unidad interactiva la deformación se elige con cuatro números, los de una matriz \(A\) de
+\(2\times2\), y el programa muestra \(\det A\), el determinante de esa matriz: el número por el
+que se multiplica el área de cualquier figura (lo desarrollamos en la
+sección~\ref{sec:afinidades-geom}).
 
-En fórmulas, una afinidad del plano se escribe
-\[
-  f(x)=Ax+b,
-\]
-con \(A\) una matriz \(2\times2\) y \(b\) un vector. La parte \(A\) deforma la cuadrícula
-(lleva el cuadrado unidad a un paralelogramo) y \(b\) desplaza el origen. Si \(\det A\neq0\),
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Explorá: en «caso precargado» elegí «escala anisótropa diag(1.5, s)» y mové el deslizador \(s\): la grilla sigue formada por paralelogramos iguales y el área de la parcela se multiplica por \(\det A=1{,}5\,s\). Pasá a «corte [[1, s], [0, 1]]» y mirá cómo los ángulos rectos dejan de serlo mientras el área no cambia.}
+
+En fórmulas, una afinidad del plano es \(f(x)=Ax+b\), con \(A\) una matriz \(2\times2\) que
+deforma la cuadrícula (lleva el cuadrado unidad a un paralelogramo: es el estirón de la banda)
+y \(b\) un vector que desplaza el origen (es correr la banda sobre la mesa). Si \(\det A\neq0\),
 ninguna dirección colapsa en un punto y la transformación se puede deshacer.
 
 \subsection{Coordenadas homogéneas: puntos como rayos}\label{sec:homogeneas-primera}
 
-{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+Las coordenadas homogéneas ya aparecieron para la rotación con centro
+(sección~\ref{sec:homogeneas-rotacion}) y para la traslación
+(sección~\ref{sec:homogeneas-traslacion}); acá reunimos la teoría completa.
 
-\paragraph{Una motivación de campo.}
-Un relevamiento con estación total se registra en un sistema local \((x,y)\): origen en la
-estación, eje \(x\) hacia una referencia arbitraria. Para llevarlo al marco oficial
-\((E,N)\) hay que girar un ángulo \(\theta\) (medido en sentido antihorario desde el eje
-\(E\)) y trasladar al origen \((E_0,N_0)\):
-\[
-  \begin{pmatrix}E\\N\end{pmatrix}
-  =
-  \begin{pmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{pmatrix}
-  \begin{pmatrix}x\\y\end{pmatrix}
-  +\begin{pmatrix}E_0\\N_0\end{pmatrix}.
-\]
-Son dos operaciones de naturaleza distinta: un producto y una suma. Si después hay que pasar
-a otro marco (otra rotación y otra traslación), las cuentas se encadenan con sumas y
-productos intercalados. Las coordenadas homogéneas agregan una tercera coordenada igual
-a~\(1\) y escriben todo como un único producto por una matriz \(3\times3\):
-\[
-  \begin{pmatrix}E\\N\\1\end{pmatrix}
-  =
-  \begin{pmatrix}\cos\theta&-\sin\theta&E_0\\ \sin\theta&\cos\theta&N_0\\ 0&0&1\end{pmatrix}
-  \begin{pmatrix}x\\y\\1\end{pmatrix}.
-\]
-Encadenar cambios de sistema es, entonces, multiplicar matrices \(3\times3\). La
-georreferenciación de una imagen (ejemplo~\ref{ej:06-dron}) funciona igual.
+\paragraph{Por qué una coordenada más.}
+¿Puede una matriz de \(2\times2\) correr la banda sobre la mesa? No: multiplicada por el vector
+nulo da el vector nulo, así que el origen no se mueve (capítulo~\ref{cap:traslaciones}). Pasar
+un dibujo de unos ejes a otros es girar y trasladar, un producto y una suma, como en la
+aplicación de ese capítulo. Si al punto \((x,y)\) le agregamos una tercera
+coordenada igual a \(1\), la traslación cabe en la última columna de una matriz \(3\times3\) y
+todo se vuelve un solo producto. Lo mismo vale para cualquier afinidad: encadenar cambios de
+sistema es multiplicar matrices.
 
 \paragraph{El plano \(w=1\).}
-Geométricamente, el plano afín se ve como el plano \(w=1\) dentro de un espacio
-tridimensional de coordenadas \((x,y,w)\). El punto \((x,y)\) se representa por el vector
-\((x,y,1)^T\). Cualquier múltiplo no nulo \(\mu\,(x,y,1)^T\) está sobre el mismo rayo que
-parte del origen y corta al plano \(w=1\) en el mismo punto; por eso se dice que un punto es
-un rayo.
+¿Qué quiere decir, geométricamente, esa tercera coordenada? Imaginá que mirás con un solo ojo
+hacia arriba, a través de un vidrio horizontal, como un tragaluz, que está a un metro por
+encima de tu ojo. Cada punto del vidrio lo ves en una dirección: la de la visual que va del ojo
+a ese punto. Una mosca posada en cualquier lugar de esa visual, más cerca o más lejos, tapa el
+mismo punto del vidrio. Para el ojo, el punto del vidrio y la visual entera son lo mismo.
+
+Esa es la imagen. El plano afín se ve como el plano \(w=1\) (el vidrio) dentro de un espacio
+tridimensional de coordenadas \((x,y,w)\), con el ojo en el origen; \(w\) es la altura sobre
+el ojo. El punto \((x,y)\) se representa por el vector \((x,y,1)^T\). Llamamos \(\mu\) (mu) a un
+número cualquiera distinto de cero: el múltiplo \(\mu\,(x,y,1)^T\) es otro punto de la misma
+visual, el rayo que parte del origen y corta al plano \(w=1\) en el mismo punto. Por eso se
+dice que un punto es un rayo.
 
 \begin{center}
 \begin{tikzpicture}[scale=.92]
@@ -112,11 +117,17 @@ un rayo.
 \end{center}
 
 \paragraph{Puntos en el infinito.}
-Si un punto recorre una recta \(p+s\,d\) del plano \(w=1\), su rayo se va inclinando y, cuando
-\(s\) crece, tiende a quedar horizontal, en la dirección \((d,0)\). Ese rayo horizontal no
-corta al plano \(w=1\): no es un punto ordinario, sino el \emph{punto en el infinito} de la
-recta. Todas las rectas paralelas a \(d\) tienden al mismo rayo; en ese sentido, las paralelas
-se cortan en el infinito.
+Seguí con la vista una recta dibujada en el vidrio, cada vez más lejos. ¿Qué le pasa a la
+visual? Se va acostando, hasta quedar casi horizontal, paralela al vidrio. Es lo que vemos
+en una ruta recta: los dos bordes, paralelos, parecen juntarse en el horizonte. Para qué nos
+sirve: le da un lugar a las direcciones, que una matriz va a poder transformar igual que a los
+puntos.
+
+En símbolos, un punto recorre la recta \(p+s\,d\) del plano \(w=1\): \(p\) es un punto de
+partida, \(d\) la dirección de la recta y \(s\) cuántos pasos de \(d\) se dan. Al crecer \(s\)
+su rayo tiende a quedar horizontal, en la dirección \((d,0)\). Ese rayo no corta al plano
+\(w=1\): es el \emph{punto en el infinito} de la recta, común a todas las paralelas a \(d\), que
+en ese sentido se cortan en el infinito, como los bordes de la ruta.
 
 \begin{center}
 \begin{tikzpicture}[scale=.9]
@@ -135,21 +146,17 @@ se cortan en el infinito.
 \end{tikzpicture}
 \end{center}
 
-\begin{idea}[Idea]
-Las coordenadas homogéneas agregan una coordenada igual a \(1\). Con ella, la traslación pasa
-a ser una columna más de la matriz, componer afinidades es multiplicar matrices \(3\times3\),
-y las direcciones aparecen como puntos con última coordenada \(0\).
-\end{idea}
-
 \section{Construcciones, cuentas y ejemplos}
 
-Ahora formalizamos las afinidades, demostramos qué conservan, buscamos sus puntos fijos, las
-escribimos en coordenadas homogéneas y las construimos a partir de datos geométricos: un eje
-y una dirección, o tres puntos de control.
-
-{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
-
 \subsection{Afinidades: idea geométrica y forma algebraica}\label{sec:afinidades-geom}
+
+Tomá la banda elástica con la cuadrícula y hacé dos cosas por separado: primero estirala o
+inclinala dejando quieto el punto que está en el origen; después correla sobre la mesa, sin estirarla más. ¿Qué punto te dice
+cuánto se corrió? El que estaba en el origen. Separar las dos cosas sirve para hacer cuentas:
+el estirón se escribe con una matriz y el corrimiento con un vector, y cada parte se lee por su
+lado. A la matriz la llamamos \(A\): dice adónde van los dos lados del cuadrado unidad, y con
+eso, cómo se deforma toda la cuadrícula. Al vector lo llamamos \(b\): es adónde fue a parar el
+origen.
 
 \begin{definicion}[Transformación afín]\label{def:06-afinidad}
 Una \emph{transformación afín} o \emph{afinidad} del plano es una función
@@ -161,9 +168,10 @@ donde \(A\) es una matriz \(2\times2\) con \(\det A\neq0\) y \(b\in\R^2\). La ma
 la \emph{parte lineal} y \(b\) la \emph{traslación}.
 \end{definicion}
 
-Las isometrías (\(A\) ortogonal) y las similaridades (\(A\) múltiplo de una ortogonal) del
-capítulo~\ref{cap:reflexiones} son casos particulares. La figura muestra el efecto típico: un
-paralelogramo va a otro paralelogramo.
+Con la banda: \(A\) es el estirón y \(b\) el corrimiento; \(f(0)=b\), porque el origen solo
+siente el corrimiento. Las isometrías (\(A\) ortogonal) y las similaridades (\(A\) múltiplo de
+una ortogonal) del capítulo~\ref{cap:reflexiones} son casos particulares. Un paralelogramo va
+a otro paralelogramo:
 
 \begin{center}
 \begin{tikzpicture}[scale=.86]
@@ -184,36 +192,46 @@ paralelogramo va a otro paralelogramo.
 \end{tikzpicture}
 \end{center}
 
+¿Por qué el paralelismo sobrevive y los ángulos no? Mirá la sombra de una reja sobre el piso
+un día de sol. Las barras de la reja son paralelas, y sus sombras también, aunque salgan más
+largas o más inclinadas que las barras; el travesaño que cruza las barras por la mitad sigue
+cortando sus sombras por la mitad. Pero el ángulo recto entre una barra y el travesaño, en la
+sombra, puede dejar de ser recto. Los rayos del sol llegan todos paralelos, y pasar de la reja
+a su sombra es una afinidad. Para qué nos sirve saberlo: lo que se conserva es lo que podemos
+medir en una imagen deformada y confiar en que vale en el terreno.
+
 \begin{proposicion}[Qué conserva una afinidad]\label{prop:06-conserva}
 Una afinidad \(f(x)=Ax+b\) lleva rectas en rectas, rectas paralelas en rectas paralelas, y
 conserva la razón entre segmentos de una misma recta: si \(r=p+s_1d\) y \(q=p+s_2d\), entonces
 \(f(r)-f(p)\) y \(f(q)-f(p)\) guardan la misma razón \(s_1:s_2\).
 \end{proposicion}
 
-\begin{demostracion}
-La recta \(L=\{p+s\,d : s\in\R\}\), con \(d\neq0\), se transforma en
-\[
-  f(p+s\,d)=Ap+b+s\,Ad=f(p)+s\,Ad .
-\]
-Como \(\det A\neq0\), \(Ad\neq0\), y la imagen es la recta que pasa por \(f(p)\) con dirección
-\(Ad\). Dos rectas paralelas tienen la misma dirección \(d\); sus imágenes tienen la misma
-dirección \(Ad\) y siguen siendo paralelas. Finalmente, \(f(p+s_id)-f(p)=s_i\,Ad\) para
-\(i=1,2\): los dos vectores son múltiplos de \(Ad\) con coeficientes \(s_1\) y \(s_2\), así que
-la razón se conserva. En particular, el punto medio de un segmento va al punto medio de su
-imagen.
-\end{demostracion}
+La demostración escribe la recta como un punto más múltiplos de una dirección \(d\) y aplica
+\(f\): la imagen es otro punto más los mismos múltiplos de \(Ad\), así que es una recta, las
+paralelas siguen con una misma dirección y los coeficientes, que dan la razón, no cambian. Está
+completa en la sección~\ref{sec:demos-afinidades}. Es la reja: barras con una misma dirección dan sombras con
+una misma dirección.
 
-Las distancias y los ángulos, en cambio, no se conservan: el ejemplo siguiente los rompe a
-propósito.
+Las distancias y los ángulos, en cambio, no se conservan.
+
+\paragraph{Estirar en una sola dirección y empujar de costado.}
+Hay dos maneras básicas de deformar que no existían en los capítulos anteriores. La primera:
+imaginá una fotocopiadora que amplía al doble a lo ancho y deja igual el alto. ¿Qué le pasa a
+un círculo? Se vuelve una elipse, el doble de ancha que de alta. Es una escala que depende de
+la dirección, y por eso se la llama \emph{escala anisótropa} (anisótropa quiere decir
+\enquote{distinta según la dirección}) o escalado no uniforme; sirve para describir un papel
+que se encogió más a lo largo que a lo ancho. La segunda: apoyá un mazo de cartas sobre la
+mesa y empujá la carta de arriba de costado, sin mover la de abajo. Cada carta se corre en
+proporción a su altura, y el costado del mazo, que era un rectángulo, queda un paralelogramo
+con la misma base y la misma altura. ¿Cambió el área del costado? No. Esa deformación se
+llama \emph{corte} o \emph{cizalla}; sirve para describir ejes que llegan al terreno apenas
+oblicuos, como en la ortofoto de la sección~\ref{sec:aplicacion-ortofoto}. El ejemplo que
+sigue hace las cuentas de las dos.
 
 \begin{ejemplo}[Escalado no uniforme y corte]\label{ej:06-escalado}
 El \emph{escalado no uniforme} \(S=\begin{pmatrix}2&0\\0&1\end{pmatrix}\) duplica las
 abscisas y deja las ordenadas. El círculo unidad \(x^2+y^2=1\) va a la curva formada por los
-puntos \((2x,y)\), es decir, a la elipse
-\[
-  \frac{X^2}{4}+Y^2=1 .
-\]
-Los puntos \((1,0)\), \((0,1)\) y \((0{,}707,\ 0{,}707)\) del círculo van a \((2,0)\), \((0,1)\) y
+puntos \((2x,y)\), la elipse \(\frac{X^2}{4}+Y^2=1\). Los puntos \((1,0)\), \((0,1)\) y \((0{,}707,\ 0{,}707)\) del círculo van a \((2,0)\), \((0,1)\) y
 \((1{,}414,\ 0{,}707)\). Las distancias al origen dejan de ser iguales: la afinidad no es una
 similaridad. El área pasa de \(\pi\approx3{,}142\) a \(2\pi\approx6{,}283\), porque
 \(\det S=2\).
@@ -248,7 +266,26 @@ paralelogramo \((0,0),(1,0),(2,1),(1,1)\): los ángulos rectos dejan de serlo, p
 \end{tikzpicture}
 \end{center}
 
-\subsection{Puntos fijos y forma afín}\label{sec:puntos-fijos-afin}
+\paragraph{El determinante como factor de área.}
+Dibujá en la banda elástica un cuadradito de un centímetro de lado y, al lado, un círculo.
+Estirá la banda al doble a lo ancho. ¿Cuánto mide ahora el área del cuadradito? Dos
+centímetros cuadrados. ¿Y la del círculo? También el doble que antes. Toda figura se agranda
+por el mismo factor, porque la cuadrícula deformada sigue formada por paralelogramos iguales y
+cualquier figura se puede llenar con cuadraditos cada vez más chicos. Ese factor es el
+determinante de la parte lineal, \(\det A\): el área del paralelogramo al que va el cuadrado
+unidad. Para qué sirve: dice cuánto terreno cubre una figura de la imagen, como el píxel del
+ejemplo~\ref{ej:06-dron}. Su signo dice además si la figura se dio vuelta, como el guante del
+capítulo~\ref{cap:reflexiones}: \(\det A<0\) invierte el sentido de giro. Con la escala
+anisótropa \(S\) del ejemplo el área se duplica (\(\det S=2\)); con el corte \(C\), como el
+costado del mazo, no cambia (\(\det C=1\)).
+
+\subsection{Puntos que no se mueven y forma afín}\label{sec:puntos-fijos-afin}
+
+Sujetá con alfileres un borde de la banda elástica a la mesa y estirá el resto. ¿Qué puntos no
+se mueven? Los del borde clavado. Si en cambio la estirás parejo tirando de los cuatro
+bordes a la vez, queda quieto un solo punto, el centro. Para qué sirve encontrarlos: alrededor de un punto que no se
+mueve, la afinidad se ve como una transformación lineal, sin corrimiento, y es más fácil de
+entender. A ese punto lo llamamos \(p_\ast\) (p asterisco).
 
 \begin{definicion}[Punto fijo]\label{def:06-punto-fijo}
 Un punto \(p_\ast\) es \emph{fijo} para la afinidad \(f\) si \(f(p_\ast)=p_\ast\). Para
@@ -260,10 +297,14 @@ Un punto \(p_\ast\) es \emph{fijo} para la afinidad \(f\) si \(f(p_\ast)=p_\ast\
 \]
 \end{definicion}
 
-Si \(\det(I-A)\neq0\) hay un único punto fijo; si \(\det(I-A)=0\) puede no haber ninguno
-(una traslación) o haber una recta entera de puntos fijos (una reflexión). La tabla reúne las
-transformaciones del capítulo~\ref{cap:reflexiones} escritas como afinidades; la fórmula de la
-reflexión \(\sigma_L\) respecto de la recta \(L\colon n^Tx=h\) se deduce en ese capítulo.
+Si \(\det(I-A)\neq0\) hay uno solo, como con la banda estirada de los cuatro bordes; si
+\(\det(I-A)=0\) puede no haber ninguno (una traslación, que corre todo) o haber una recta
+entera de puntos que no se mueven (una reflexión, como el borde clavado). La tabla reúne las
+transformaciones de los capítulos~\ref{cap:rotaciones} a~\ref{cap:reflexiones} escritas como
+afinidades, con la notación de esos capítulos: \(\rhoP{c,\theta}\) es el giro de ángulo
+\(\theta\) alrededor de \(c\), \(\homot{o}{k}\) la homotecia de centro \(o\) y razón \(k\), y
+\(\sigma_L\) la reflexión en la recta \(L\), que se da con un vector \(n\) perpendicular a ella
+y un número \(h\).
 
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}l l X}
@@ -281,18 +322,23 @@ todos los puntos de \(L\); \(b\) es normal a \(L\)\\
 \end{tabularx}
 \end{center}
 
-Si \(p_\ast\) existe, al tomarlo como nuevo origen mediante \(z=x-p_\ast\) la afinidad queda
-puramente lineal:
+Si \(p_\ast\) existe, lo tomamos como nuevo origen: llamamos \(z=x-p_\ast\) a la posición de
+cada punto vista desde \(p_\ast\). La afinidad queda puramente lineal:
 \[
   f(x)-p_\ast=Ax+b-(Ap_\ast+b)=A(x-p_\ast)
   \qquad\Longrightarrow\qquad
   z\mapsto Az .
 \]
-Elegir bien el origen simplifica la transformación: alrededor de su punto fijo, toda afinidad
-se ve como una transformación lineal. El ejemplo~\ref{ej:06-rot-escala} calcula un punto
-fijo concreto.
+Alrededor del punto que no se mueve, toda afinidad se ve como una transformación lineal: es
+mirar la banda desde el alfiler.
 
 \subsection{Coordenadas homogéneas}\label{sec:homogeneas}
+
+Volvamos al vidrio del tragaluz. Si te dicen un punto del espacio, \((X,Y,W)\), ¿qué punto del
+vidrio tapa? El que está sobre la misma visual: hay que achicar o agrandar el vector hasta que
+su altura \(W\) valga \(1\), dividiendo todo por \(W\). Las dos definiciones que siguen dicen
+eso y lo que pasa con las visuales horizontales; sirven para que puntos y direcciones se
+escriban con tres números y se transformen con la misma matriz.
 
 \begin{definicion}[Coordenadas homogéneas]\label{def:06-homogeneas}
 Las \emph{coordenadas homogéneas} del punto \((x,y)\) son cualquier terna
@@ -305,31 +351,32 @@ Una terna \((d_1,d_2,0)^T\neq0\) se llama \emph{punto impropio} o \emph{punto en
 de dirección \(d=(d_1,d_2)\). Todas las rectas paralelas a \(d\) comparten ese punto impropio.
 \end{definicion}
 
-Con esta escritura, la afinidad \(f(x)=Ax+b\), con \(A=\begin{pmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{pmatrix}\)
-y \(b=(b_1,b_2)\), se vuelve un único producto:
+Con esta escritura, la afinidad \(f(x)=Ax+b\) se vuelve un único producto. Llamamos \(M_f\) a
+la \emph{matriz homogénea} de \(f\), la de \(3\times3\) que hace el estirón y el corrimiento de
+una vez:
 \[
 \begin{pmatrix}x'\\y'\\1\end{pmatrix}
-=
-\begin{pmatrix}
-a_{11}&a_{12}&b_1\\
-a_{21}&a_{22}&b_2\\
-0&0&1
-\end{pmatrix}
-\begin{pmatrix}x\\y\\1\end{pmatrix},
+=M_f\begin{pmatrix}x\\y\\1\end{pmatrix},
 \qquad
-M_f=\begin{pmatrix}A&b\\0\ \ 0&1\end{pmatrix}.
+M_f=\begin{pmatrix}A&b\\0\ \ 0&1\end{pmatrix},
 \]
-El bloque superior izquierdo es \(A\), la última columna es \(b\) y la última fila es
-\((0\ 0\ 1)\). Visto en \(\R^3\), \(M_f\) es una transformación \emph{lineal} que deja
+con \(A\) en el bloque superior izquierdo, \(b\) en la última columna y \((0\ 0\ 1)\) en la
+última fila. Visto en \(\R^3\), \(M_f\) es una transformación \emph{lineal} que deja
 invariante el plano \(w=1\): las afinidades del plano son exactamente las transformaciones
-lineales invertibles de \(\R^3\) con última fila \((0\ 0\ 1)\). Sobre un punto impropio, la
-traslación no actúa:
+lineales invertibles de \(\R^3\) con última fila \((0\ 0\ 1)\). ¿Qué le pasa a una dirección
+cuando corremos la banda? Nada: una flecha corrida sigue apuntando para el mismo lado. Sobre un
+punto impropio, la traslación no actúa:
 \[
   M_f\begin{pmatrix}d\\0\end{pmatrix}=\begin{pmatrix}Ad\\0\end{pmatrix}.
 \]
-Las direcciones sólo sienten la parte lineal, y un punto impropio va a otro punto impropio.
+Las direcciones solo sienten la parte lineal, y un punto impropio va a otro punto impropio.
 En el capítulo~\ref{cap:proyectivas} se permite que la última fila sea cualquiera; entonces los
 puntos impropios pueden volverse ordinarios, y aparecen las transformaciones proyectivas.
+
+Si estirás la banda, la corrés, y después la estirás de nuevo de otra manera y la volvés a
+correr, ¿el resultado es otra vez un estirón y un corrimiento? ¿Cuáles? La respuesta es lo que
+hace útiles a las coordenadas homogéneas: para encadenar transformaciones alcanza con
+multiplicar sus matrices.
 
 \begin{proposicion}[Componer es multiplicar]\label{prop:06-composicion}
 Si \(f(x)=A_1x+b_1\) y \(g(x)=A_2x+b_2\), la composición \(g\circ f\) (primero \(f\), después
@@ -340,47 +387,29 @@ Si \(f(x)=A_1x+b_1\) y \(g(x)=A_2x+b_2\), la composición \(g\circ f\) (primero 
 y su matriz homogénea es el producto \(M_{g\circ f}=M_gM_f\).
 \end{proposicion}
 
-\begin{demostracion}
-Sustituyendo, \(g(f(x))=A_2(A_1x+b_1)+b_2=A_2A_1x+A_2b_1+b_2\). El producto por bloques da lo
-mismo:
-\[
-\begin{pmatrix}A_2&b_2\\0\ \ 0&1\end{pmatrix}
-\begin{pmatrix}A_1&b_1\\0\ \ 0&1\end{pmatrix}
-=
-\begin{pmatrix}A_2A_1&A_2b_1+b_2\\0\ \ 0&1\end{pmatrix}.
-\]
-La matriz de la derecha actúa primero, como corresponde a vectores columna.
-\end{demostracion}
+La demostración reemplaza \(f(x)\) dentro de \(g\) y compara con el producto de las dos matrices
+por bloques; está en la sección~\ref{sec:demos-afinidades}. La matriz de la derecha actúa
+primero: \(M_gM_f\) se lee de derecha a izquierda, como \(g\circ f\).
+
+Imaginá ahora que sacás una foto del terreno desde un dron, mirando derecho hacia abajo. ¿En
+qué lugar del terreno está el poste que ves en el píxel de la columna \(200\) y la fila
+\(100\)? La foto, corregida para que tenga la misma escala en toda la imagen, como un plano, se
+llama \emph{ortofoto}. Encontrar la transformación que lleva cada píxel a sus coordenadas en el
+terreno se llama \emph{georreferenciar} la imagen. En el terreno usamos \(E\) (este) y \(N\)
+(norte), en metros; de números como \(5000\) y \(8000\) importan las diferencias entre ellos,
+no el valor completo.
 
 \begin{ejemplo}[Georreferenciar una imagen de dron]\label{ej:06-dron}
 Una ortofoto de \(400\times300\) píxeles tiene coordenadas de imagen \((u,v)\): origen en el
 vértice superior izquierdo, \(u\) hacia la derecha y \(v\) hacia abajo. Cada píxel cubre
 \(0{,}5\ \mathrm{m}\), y el vértice superior izquierdo cae en \(E=5000\), \(N=8000\). Entonces
-\[
-  x_E=5000+0{,}5\,u,\qquad y_N=8000-0{,}5\,v .
-\]
-El signo menos aparece porque \(v\) crece hacia abajo y \(N\) hacia arriba. En forma afín,
-\[
-  A=\begin{pmatrix}0{,}5&0\\0&-0{,}5\end{pmatrix},
-  \qquad b=\begin{pmatrix}5000\\8000\end{pmatrix},
-  \qquad \det A=-0{,}25 .
-\]
-El determinante es negativo: la transformación invierte la orientación. En la imagen, el
+\(x_E=5000+0{,}5\,u\) e \(y_N=8000-0{,}5\,v\). El signo menos aparece porque \(v\) crece hacia abajo y \(N\) hacia arriba. En forma afín,
+\(A=\mathrm{diag}(0{,}5;\ -0{,}5)\), \(b=(5000,\ 8000)\) y \(\det A=-0{,}25\). El determinante es negativo: la transformación invierte la orientación. En la imagen, el
 giro corto de \(u\) a \(v\) es horario; en el terreno, el de \(E\) a \(N\) es antihorario.
 El módulo \(0{,}25\) dice que cada píxel (de área \(1\)) cubre \(0{,}25\ \mathrm{m}^2\).
-En homogéneas,
-\[
-  \begin{pmatrix}x_E\\y_N\\1\end{pmatrix}
-  =
-  \begin{pmatrix}0{,}5&0&5000\\0&-0{,}5&8000\\0&0&1\end{pmatrix}
-  \begin{pmatrix}u\\v\\1\end{pmatrix}.
-\]
-Para el píxel \((0,0)\) se obtiene \((5000,\ 8000)\); para el píxel \((200,100)\),
-\[
-  \begin{pmatrix}0{,}5\cdot200+5000\\-0{,}5\cdot100+8000\\1\end{pmatrix}
-  =\begin{pmatrix}5100\\7950\\1\end{pmatrix}.
-\]
-Los otros vértices van a \((400,0)\mapsto(5200,\ 8000)\), \((0,300)\mapsto(5000,\ 7850)\) y
+En homogéneas, la matriz es
+\(\left(\begin{smallmatrix}0{,}5&0&5000\\0&-0{,}5&8000\\0&0&1\end{smallmatrix}\right)\). Para el píxel \((0,0)\) se obtiene \((5000,\ 8000)\); para el píxel \((200,100)\),
+\((0{,}5\cdot200+5000,\ -0{,}5\cdot100+8000,\ 1)^T=(5100,\ 7950,\ 1)^T\). Los otros vértices van a \((400,0)\mapsto(5200,\ 8000)\), \((0,300)\mapsto(5000,\ 7850)\) y
 \((400,300)\mapsto(5200,\ 7850)\): la imagen cubre un rectángulo de
 \(200\ \mathrm{m}\times150\ \mathrm{m}\). El punto impropio \((1,0,0)^T\) (dirección de las
 filas de la imagen) va a \((0{,}5,\ 0,\ 0)^T\), dirección Este; la traslación no lo afecta.
@@ -422,9 +451,16 @@ filas de la imagen) va a \((0{,}5,\ 0,\ 0)^T\), dirección Este; la traslación 
 
 \subsection{Afinidades construidas geométricamente}\label{sec:afinidades-construidas}
 
-Una afinidad también puede definirse con regla y escuadra: se fija un eje, una dirección de
-desplazamiento y un factor. Los puntos del eje no se mueven; los demás se deslizan en la
-dirección elegida.
+Clavá con alfileres un borde de la banda elástica a la mesa, en línea recta, y tirá del borde
+opuesto en una dirección oblicua, al doble de largo. ¿Qué le pasa a cada punto? Los del borde
+clavado no se mueven; los demás se deslizan en la dirección del tirón, y cada uno queda el doble
+de lejos del borde, medido en esa dirección. Para qué sirve: es una afinidad que se puede
+dibujar con regla y escuadra, sin hacer cuentas, y muestra de dónde salen las deformaciones del
+plano más simples.
+
+Una afinidad también puede definirse así: se fija un eje (el borde clavado), una dirección de
+desplazamiento (la del tirón) y un factor (cuánto se estira). Los puntos del eje no se mueven;
+los demás se deslizan en la dirección elegida.
 
 \begin{definicion}[Afinidad axial]\label{def:06-axial}
 Sean \(L\) una recta (el \emph{eje}), \(d\) una dirección no paralela a \(L\) y \(k\neq0\) un
@@ -477,18 +513,27 @@ puntos \((0,0)\) y \((3,0)\) del eje quedan fijos, y \(\det A=2\): las áreas se
 
 La recta por \((0,0)\) y \(x\) va a la recta por \((0,0)\) y \(f(x)\); la recta por \((3,0)\) y
 \(x\) va a la recta por \((3,0)\) y \(f(x)\). Esta es la construcción gráfica: cada recta corta
-al eje en un punto fijo, y su imagen pasa por ese mismo punto.
+al eje en un punto que no se mueve, y su imagen pasa por ese mismo punto.
+
+Con la banda: si sabés adónde fue un punto que no está en el borde clavado, sabés adónde fue
+cualquier otro, porque las rectas que lo unen con el borde se trazan con regla.
 
 ¿Cuántos datos hacen falta para fijar una afinidad cualquiera? La matriz \(A\) tiene cuatro
 números y \(b\) dos: seis incógnitas. Cada punto con su imagen aporta dos ecuaciones, así que
 alcanzan tres puntos, siempre que no estén alineados.
 
-\begin{idea}[Idea]
+\begin{idea}[Un triángulo es un sistema de referencia afín]
 Tres puntos no alineados forman un triángulo, y un triángulo es un sistema de referencia
 afín: un vértice hace de origen y los dos lados que salen de él hacen de ejes. Decir adónde
 van los tres vértices es decir adónde van el origen y los ejes, y eso fija toda la
 afinidad.
 \end{idea}
+
+Pensá en un triángulo dibujado en la banda elástica. Si te dicen adónde fueron a parar sus tres
+vértices después de estirarla y correrla, ¿podés decir adónde fue cualquier otro punto? Sí: el
+punto se escribe como el vértice de origen más tantos pasos de un lado y tantos del otro, y esos
+pasos no cambian. Las matrices \(P\) y \(P'\) del enunciado guardan por columnas los dos lados
+que salen del primer vértice, antes y después.
 
 \begin{proposicion}[Una afinidad del plano queda determinada por la imagen de tres puntos no alineados]\label{prop:06-tres-puntos}
 Sean \(p_1,p_2,p_3\) no alineados y \(q_1,q_2,q_3\) puntos cualesquiera. Existe una única
@@ -499,26 +544,20 @@ transformación \(f(x)=Ax+b\) (con \(A\) una matriz \(2\times2\) cualquiera) tal
   \qquad
   P'=\bigl[\,q_2-q_1\ \big|\ q_3-q_1\,\bigr],
 \]
-es \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). La afinidad es invertible si y sólo si \(q_1,q_2,q_3\)
+es \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). La afinidad es invertible si y solo si \(q_1,q_2,q_3\)
 tampoco están alineados.
 \end{proposicion}
 
-\begin{demostracion}
-Como \(p_1,p_2,p_3\) no están alineados, los vectores \(p_2-p_1\) y \(p_3-p_1\) son linealmente
-independientes, y la matriz \(P\) que los tiene por columnas es invertible.
+La demostración resta la ecuación del primer punto a las de los otros dos, con lo que la
+traslación desaparece y queda \(AP=P'\); de ahí salen \(A\) y \(b\), y no hay otra opción. Está
+completa en la sección~\ref{sec:demos-afinidades}.
 
-\emph{Unicidad.} Si \(f(x)=Ax+b\) cumple \(f(p_i)=q_i\), restando
-\(f(p_i)-f(p_1)=A(p_i-p_1)\) se obtiene \(A(p_i-p_1)=q_i-q_1\) para \(i=2,3\); en forma matricial,
-\(AP=P'\). Por lo tanto \(A=P'P^{-1}\), y de \(Ap_1+b=q_1\) sale \(b=q_1-Ap_1\). No hay otra
-opción.
-
-\emph{Existencia.} Definimos \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). Entonces \(f(p_1)=q_1\), y para
-\(i=2,3\), \(f(p_i)=f(p_1)+A(p_i-p_1)=q_1+(q_i-q_1)=q_i\), porque \(AP=P'\) dice exactamente que
-\(A\) lleva cada columna de \(P\) a la correspondiente de \(P'\).
-
-\emph{Invertibilidad.} \(\det A=\det P'/\det P\), que es distinto de cero si y sólo si las
-columnas de \(P'\) son independientes, es decir, si \(q_1,q_2,q_3\) no están alineados.
-\end{demostracion}
+Un uso inmediato: tenemos una foto escaneada y reconocemos en ella tres puntos cuyas
+coordenadas en el terreno conocemos (una esquina de alambrado, un poste, una marca pintada en el piso). A
+esos puntos, que se ven en la imagen y tienen coordenadas en los dos sistemas, los llamamos
+\emph{puntos de control}. ¿Cómo sabemos si la afinidad que fijan es buena? Con tres puntos no
+hay forma: siempre cierra. Se mira un cuarto punto y se compara lo medido con lo que predice la
+afinidad.
 
 \begin{ejemplo}[Afinidad a partir de tres puntos de control]\label{ej:06-tres-puntos}
 Una fotografía escaneada se georreferencia con tres puntos de control, cuyas coordenadas de
@@ -573,18 +612,15 @@ punto es el que permite juzgar la calidad de la georreferenciación.
 
 \subsection{Rotación alrededor de un centro y escala alrededor de otro}\label{sec:06-rot-escala}
 
-Este caso reúne todo lo anterior: dos afinidades con centros distintos, su composición como
-producto de matrices homogéneas y el punto fijo del resultado.
+Con la hoja y el alfiler del capítulo~\ref{cap:traslaciones}: girá una figura alrededor de un
+alfiler y después achicala a la mitad desde otro punto, como en una fotocopia reducida. ¿Queda
+algún punto en su lugar? Ninguno de los dos centros, porque cada uno se mueve en la otra etapa.
+Pero las matrices homogéneas encuentran uno: el ejemplo multiplica las dos matrices y busca el
+punto que no se mueve de la composición.
 
 \begin{ejemplo}[Rotación alrededor de un centro y escala alrededor de otro]\label{ej:06-rot-escala}
-Se toma una figura en forma de T con vértices
-\[
-\begin{aligned}
-&(-2,2),\ (2,2),\ (2,1),\ (0{,}5,\ 1),\\
-&(0{,}5,\ -2),\ (-0{,}5,\ -2),\ (-0{,}5,\ 1),\ (-2,1).
-\end{aligned}
-\]
-Primero se aplica la rotación \(\rhoP{c,45^\circ}\) alrededor de \(c=(3,1)\); después, la
+Tomamos una figura en forma de T con vértices \((-2,2)\), \((2,2)\), \((2,1)\),
+\((0{,}5,\ 1)\), \((0{,}5,\ -2)\), \((-0{,}5,\ -2)\), \((-0{,}5,\ 1)\) y \((-2,1)\). Primero se aplica la rotación \(\rhoP{c,45^\circ}\) alrededor de \(c=(3,1)\); después, la
 homotecia \(\homot{o}{1/2}\) de centro \(o=(-1,2)\) y razón \(k=\tfrac12\). Con la tabla de la
 sección~\ref{sec:puntos-fijos-afin}, sus matrices homogéneas son
 \[
@@ -674,33 +710,87 @@ composición es una similaridad: gira \(45^\circ\) y reduce a la mitad alrededor
 \end{tikzpicture}
 \end{center}
 
-\section{En profundidad}
+\subsection{En el CAD}\label{sec:cad-cap04}
 
-Leemos ahora la afinidad por sus autovalores, conectamos los puntos fijos con la matriz
-homogénea y ubicamos el capítulo en la escalera \(\R\to\R^2\to\R^n\). Esto prepara el cambio
-de base del capítulo~\ref{cap:cambio-base}.
+Un bloque, en un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD), es una figura guardada
+una vez que se inserta donde haga falta, con una escala en \(x\) y otra en \(y\). Insertarlo es
+aplicar la afinidad \(f(x)=Ax+b\) de la definición~\ref{def:06-afinidad} con
+\(A=\left(\begin{smallmatrix}s_x&0\\0&s_y\end{smallmatrix}\right)\). Para qué sirve: ver una
+afinidad que no es similaridad y, con \texttt{STRETCH}, un comando que parece una
+transformación y no lo es. La parcela es la de siempre: \(A=(10,10)\), \(B=(34,17)\),
+\(C=(40,36)\), \(D=(24,38)\) y \(E=(6,32)\).
+
+\paragraph{Insertar un bloque con escala \(x=2\), \(y=1\) y con \(x=-1\): afinidad no conforme
+y reflexión.} Antes de abrir el archivo, anticipá: si insertás la parcela al doble de ancho y
+con el mismo alto, ¿los ángulos de sus vértices siguen iguales? ¿Y si la insertás con escala
+\(-1\) en \(x\), queda dada vuelta? El archivo trae el bloque \texttt{PARCELA\_BLOQUE}, definido
+con punto base en el origen.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap04_bloque.dxf}.
+  \item Insertá el bloque con \texttt{INSERT} en \((0,0)\), con escala \(2\) en \(x\), \(1\) en
+  \(y\) y rotación \(0\). Guardá con otro nombre.
+  \item Insertalo de nuevo, ahora con escala \(-1\) en \(x\) y \(1\) en \(y\). Guardá.
+  \item Corré \texttt{que\_matriz.py} sobre cada archivo y mirá el determinante.
+\end{enumerate}
+En LibreCAD, el equivalente está en el menú de bloques; si tu versión no deja escalas distintas
+en \(x\) y en \(y\), hacé este ejercicio en QCAD o AutoCAD. Con \(x=2\), \(y=1\) sale
+\(M=\left(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\right)\), \(\det M=2\): el área se
+duplica y los ángulos cambian, una afinidad que no es conforme (no conserva ángulos), la misma
+matriz \(S\) del ejemplo~\ref{ej:06-escalado}. Con \(x=-1\) sale
+\(M=\left(\begin{smallmatrix}-1&0\\0&1\end{smallmatrix}\right)\), \(\det M=-1\): la reflexión
+en el eje norte, que conserva distancias e invierte el sentido de giro. Las columnas \enquote{Afín} y \enquote{Reflexión}
+del cuadro~\ref{tab:conserva} dicen qué se conserva en cada caso. Si en el archivo queda también la
+parcela original, \texttt{que\_matriz.py} usa los vértices del bloque insertado. Respuestas:
+\dxfEnlace{esperado/cap04_bloque_x2_y1.dxf} y \dxfEnlace{esperado/cap04_bloque_xm1.dxf}.
+
+\paragraph{\texttt{STRETCH}: un contraejemplo.} La capa \texttt{VENTANA} marca un rectángulo
+que encierra \(C\) y \(D\), y deja afuera \(A\), \(B\) y \(E\).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap04_stretch.dxf}.
+  \item Aplicá \texttt{STRETCH} con una ventana de captura que coincida con la de la capa
+  \texttt{VENTANA} y un desplazamiento de \((10,0)\).
+  \item Comprobá con \texttt{ID} que \(C\) pasó a \((50,36)\), \(D\) a \((34,38)\) y que \(A\),
+  \(B\) y \(E\) no se movieron. Guardá con otro nombre.
+  \item Corré \texttt{que\_matriz.py} y leé el residuo.
+\end{enumerate}
+En LibreCAD, el equivalente está en el menú \texttt{Modify}. El residuo es la distancia que
+queda, en media cuadrática, entre la mejor afinidad posible y los puntos del dibujo: acá da
+\(2{,}527\) m, con \(3{,}094\) m en \(E\), cuando el umbral por defecto es de
+\(0{,}005\) m. No es una sola transformación afín, y la razón es la
+proposición~\ref{prop:06-tres-puntos}: \(A\), \(B\) y \(E\) no están alineados y quedaron
+fijos, así que la única afinidad posible es la identidad, que no mueve \(C\) ni \(D\). El
+comando mueve unos vértices y deja otros: en el mapa de la sección~\ref{sec:mapa-transformaciones}
+no entra en ninguna familia. Es como estirar la banda elástica tirando solo de una esquina con
+un dedo mientras el resto queda pegado a la mesa: la cuadrícula deja de estar formada por
+paralelogramos iguales. Respuesta: \dxfEnlace{esperado/cap04_stretch_10.dxf}.
+
+Para comprobar, guardá cada resultado como DXF y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\) (la parte lineal), \(t\) (la traslación), \(\det M\), el residuo y la familia (\enquote{no afín} cuando esa
+distancia supera el umbral).
+
+\section{En profundidad}
 
 \subsection{La recíproca y el apéndice de composición}\label{sec:06-reciproca}
 
 La proposición~\ref{prop:06-conserva} muestra que toda afinidad conserva rectas y
-paralelismo. Vale también la recíproca: una biyección del plano que lleva rectas en rectas
+paralelismo. ¿Vale al revés? Si una transformación lleva rectas en rectas, ¿es una afinidad?
+Vale la recíproca: una biyección del plano que lleva rectas en rectas
 es de la forma \(Ax+b\). Es el teorema fundamental de la geometría afín; su demostración usa
 que la única función de \(\R\) en \(\R\) que respeta sumas, productos y orden es la
-identidad, y excede el alcance de este apunte. En la práctica, se toma
-\(f(x)=Ax+b\) como definición (definición~\ref{def:06-afinidad}) y se verifican las
-propiedades geométricas.
+identidad, y excede el alcance de este apunte; por eso se toma \(f(x)=Ax+b\) como definición
+(definición~\ref{def:06-afinidad}).
 
-El apéndice~\ref{ap:composicion-afin} desarrolla con todo detalle el
-ejemplo~\ref{ej:06-rot-escala}: deduce la matriz homogénea de la rotación con centro y la de
-la escala con centro, demuestra por bloques que la composición es \(A=kR\),
-\(b=k(I-R)c+(1-k)o\), obtiene el punto fijo como \(p_\ast=(I-A)^{-1}b\) y lo identifica con el
-autovector de autovalor \(1\) de la matriz homogénea, con los valores de cada paso y su
-implementación en planilla de cálculo.
+El apéndice~\ref{ap:composicion-afin} desarrolla el ejemplo~\ref{ej:06-rot-escala} por
+bloques (\(A=kR\), \(b=k(I-R)c+(1-k)o\), el punto que no se mueve como autovector de autovalor \(1\) de la
+matriz homogénea), con su implementación en planilla de cálculo.
 
 \subsection{La misma idea en cada dimensión}\label{sec:misma-idea}
 
 Casi todo lo que hacemos con matrices en \(\R^2\) y \(\R^3\) ya existe en \(\R\), donde es tan
-simple que pasa inadvertido. Si una fórmula se entiende con un solo número, la matriz sólo
+simple que pasa inadvertido. Si una fórmula se entiende con un solo número, la matriz solo
 agrega direcciones que pueden mezclarse.
 
 {\small
@@ -725,199 +815,639 @@ figura y si cambia la orientación\\
 Punto fijo & \(x_\ast=b/(1-a)\), si \(a\neq1\) & \((I-A)p_\ast=b\) & igual & el lugar donde se
 ancla la transformación\\
 \addlinespace
-Autovector & trivial: toda dirección, con \(\lambda=a\) & sólo algunas direcciones, o
+Autovector & trivial: toda dirección, con \(\lambda=a\) & solo algunas direcciones, o
 ninguna real si hay giro & una rotación de \(\R^3\) tiene una: el eje & dirección que cae
 sobre sí misma\\
 \bottomrule
 \end{tabularx}
 }
 
-% Apéndice: resolución de los ejercicios de afinidades
-\section{Resolución de los ejercicios de afinidades}\label{cap:17}\label{ap:ejercicios-afinidades}
+\subsection{Aplicación topográfica: georreferenciar una ortofoto de dron por puntos de apoyo}\label{sec:aplicacion-ortofoto}
 
-\subsection{Ejercicio 1: tres reflexiones puntuales}
+Tenemos una foto aérea de un campo y cuatro puntos del terreno que reconocemos en la foto y de
+los que sabemos las coordenadas. ¿Cómo ubicamos en el terreno cualquier otro punto de la foto,
+por ejemplo un poste que no medimos? ¿Y cómo nos damos cuenta de si esa ubicación es buena? Es
+el ejemplo~\ref{ej:06-dron} en un caso real: ahora la foto no llega derecha, y en lugar de los
+tres puntos justos del ejemplo~\ref{ej:06-tres-puntos} tenemos uno de más.
 
-\textbf{Enunciado.} Dados tres puntos no alineados \(a,b,c\), hallar el punto fijo de
-\(\sigma_a\circ\sigma_b\circ\sigma_c\) y verificar que forma un paralelogramo con ellos.
+\begin{idea}[Esto lo vas a usar en Topografía]
+Una ortofoto es una foto aérea corregida para que tenga la misma escala en toda la imagen, como
+un plano. Los puntos de apoyo son señales en el suelo, visibles en la foto, cuyas coordenadas se
+midieron en el terreno. Las coordenadas planas oficiales del país se obtienen con el método de
+Gauss-Krüger, que lo divide en franjas angostas de norte a sur, las fajas, cada una con sus
+propios ejes.
+\end{idea}
 
-\textbf{Solución algebraica.} La reflexión puntual de centro \(p\) es
-\[
-  \sigma_p(x)=2p-x.
-\]
-Entonces:
-\[
-\begin{aligned}
-\sigma_a\sigma_b\sigma_c(x)
-&=\sigma_a\!\left(\sigma_b(2c-x)\right)\\
-&=\sigma_a(2b-2c+x)\\
-&=2a-2b+2c-x\\
-&=2(a-b+c)-x.
-\end{aligned}
-\]
-La composición es una reflexión puntual de centro
-\[
-  \boxed{d=a-b+c}.
-\]
-Su punto fijo es \(d\), porque \(\sigma_d(d)=d\). Además:
-\[
-  b+d=a+c.
-\]
-Las diagonales \(ac\) y \(bd\) tienen el mismo punto medio, de modo que \(a,b,c,d\) forman
-un paralelogramo.
+Un vuelo de dron procesado da una ortofoto: una imagen de \(4000\times3000\) píxeles en la que
+cada píxel cubre unos \(3\ \mathrm{cm}\) de terreno (el \emph{GSD}, tamaño del píxel en el
+suelo). Mientras no está georreferenciada, sus únicas coordenadas son las de imagen: la
+columna \(c\) y la fila \(f\), en píxeles, con origen en el vértice superior izquierdo y
+\emph{la fila creciendo hacia abajo}. Para usarla junto con los planos del lugar hay que pasarla
+a las coordenadas planas oficiales de la caja, las de la franja número~5, en \((E,N)\) (sobre el
+orden de \(E\) y \(N\), véase la caja de la sección~\ref{caja:convencion-en}).
 
-\textbf{Interpretación geométrica.} Tomando \(b\) como origen provisional:
+A diferencia del ejemplo~\ref{ej:06-dron}, en un caso real la imagen está girada unos grados,
+y la corrección que convierte la foto en ortofoto (la ortorrectificación) deja la escala de las
+columnas apenas distinta de la de las filas: la escala anisótropa, como la fotocopiadora que
+amplía un poco más a lo alto que a lo ancho. Una afinidad absorbe las dos cosas:
 \[
-  \overrightarrow{bd}
-  =\overrightarrow{ba}+\overrightarrow{bc}.
+  \boxed{E=a_0+a_1\,c+a_2\,f,\qquad N=b_0+b_1\,c+b_2\,f,}
+  \qquad
+  \begin{pmatrix}E\\N\\1\end{pmatrix}
+  =\begin{pmatrix}a_1&a_2&a_0\\ b_1&b_2&b_0\\ 0&0&1\end{pmatrix}
+   \begin{pmatrix}c\\f\\1\end{pmatrix}.
 \]
-El punto \(d\) se obtiene mediante la regla del paralelogramo para sumar los vectores que van
-desde \(b\) hacia \(a\) y hacia \(c\).
+Son seis parámetros: \(a_0\) y \(b_0\) son las coordenadas en el terreno del píxel \((0,0)\), y
+los otros cuatro forman la parte lineal. Para fijarlos se marcan en el terreno \emph{puntos de
+apoyo}: señales visibles en la imagen cuyas coordenadas oficiales se miden con instrumentos que
+reciben las señales de los satélites de posicionamiento.
 
-\subsection{Ejercicio 2: dos reflexiones puntuales}
+\paragraph{Datos.} Cuatro puntos de apoyo, cerca de las esquinas, y un quinto punto
+\(P_5\) que se reserva para control y no entra en el cálculo: es el poste que no medimos para
+la cuenta y que nos va a decir si la ubicación es buena. Las coordenadas del terreno son largas
+porque cuentan metros desde un origen lejano; para la cuenta importan las diferencias entre
+ellas, no el valor completo.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & imagen \((c;\,f)\) (px) & terreno \((E;\,N)\) (m)\\
+\midrule
+\(P_1\) & \(412;\ 287\) & \(5\,432\,192{,}864;\ 6\,154\,752{,}126\)\\
+\(P_2\) & \(3611;\ 352\) & \(5\,432\,288{,}751;\ 6\,154\,756{,}055\)\\
+\(P_3\) & \(3548;\ 2716\) & \(5\,432\,291{,}123;\ 6\,154\,684{,}908\)\\
+\(P_4\) & \(377;\ 2659\) & \(5\,432\,196{,}052;\ 6\,154\,680{,}831\)\\
+\midrule
+\(P_5\) (control) & \(1980;\ 2905\) & \(5\,432\,244{,}512;\ 6\,154\,676{,}380\)\\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\textbf{Enunciado.} Dados \(a\neq b\), demostrar que
-\(\sigma_a\circ\sigma_b\) no tiene puntos fijos.
+\paragraph{Ocho ecuaciones, seis incógnitas.} Cada punto de apoyo aporta una ecuación para
+\(E\) y otra para \(N\): hay ocho ecuaciones y seis incógnitas, y con datos medidos ninguna
+afinidad las cumple todas a la vez. ¿Cuál elegimos? La que deja, en conjunto, las menores
+diferencias entre lo medido y lo predicho: la que hace mínima la suma de sus cuadrados. Es el
+problema de mínimos cuadrados, cuya teoría (ecuaciones normales,
+proyección, pseudoinversa) está en la sección~\ref{sec:ecuaciones-normales} del
+capítulo~\ref{cap:inversas}. Como en el ejemplo~\ref{ej:06-tres-puntos}, el sistema se separa
+en dos con la misma matriz
+\[
+  U=\begin{pmatrix}1&c_1&f_1\\1&c_2&f_2\\1&c_3&f_3\\1&c_4&f_4\end{pmatrix}
+   =\begin{pmatrix}1&412&287\\1&3611&352\\1&3548&2716\\1&377&2659\end{pmatrix},
+\]
+ahora de \(4\times3\): \(U(a_0,a_1,a_2)^T\approx(E_i)\) y \(U(b_0,b_1,b_2)^T\approx(N_i)\). Para
+no arrastrar siete cifras se reducen las coordenadas: \(E'=E-5\,432\,000\) y
+\(N'=N-6\,154\,000\). Las ecuaciones normales \(U^TU\,x=U^TE'\) y \(U^TU\,y=U^TN'\) son
+\[
+  U^TU=\begin{pmatrix}
+  4&7948&6014\\ 7948&25\,939\,498&12\,028\,127\\ 6014&12\,028\,127&14\,653\,210
+  \end{pmatrix},
+\]
+\[
+  U^TE'=\begin{pmatrix}968{,}790\\2\,228\,955{,}837\\1\,468\,984{,}656\end{pmatrix},
+  \qquad
+  U^TN'=\begin{pmatrix}2873{,}920\\5\,726\,717{,}388\\4\,152\,531{,}279\end{pmatrix}.
+\]
+Las entradas de \(U^TU\) son las sumas \(\sum1\), \(\sum c_i\), \(\sum f_i\), \(\sum c_i^2\),
+\(\sum c_if_i\), \(\sum f_i^2\); las de la derecha, \(\sum E'_i\), \(\sum c_iE'_i\), \(\sum
+f_iE'_i\) (y lo mismo con \(N'\)). Los dos sistemas de \(3\times3\) dan los términos independientes reducidos
+\(a_0'=180{,}003\) y \(b_0'=760{,}002\); deshaciendo la reducción,
+\[
+  a_0=5\,432\,180{,}003,\quad a_1=0{,}0299433,\quad a_2=0{,}0017936,
+\]
+\[
+  b_0=6\,154\,760{,}002,\quad b_1=0{,}0018322,\quad b_2=-0{,}0300385 .
+\]
+La matriz homogénea de la georreferenciación es
+\[
+  M=\begin{pmatrix}0{,}0299433&0{,}0017936&5\,432\,180{,}003\\
+  0{,}0018322&-0{,}0300385&6\,154\,760{,}002\\ 0&0&1\end{pmatrix}.
+\]
+Su última columna es la imagen del píxel \((0,0)\): el vértice superior izquierdo de la
+ortofoto cae en \(E=5\,432\,180{,}003\), \(N=6\,154\,760{,}002\).
 
-\textbf{Solución.}
-\[
-\sigma_a\sigma_b(x)=x+2(a-b).
-\]
-Si existiera un punto fijo:
-\[
-x+2(a-b)=x
-\quad\Longrightarrow\quad
-a=b.
-\]
-Esto contradice \(a\neq b\). Por lo tanto:
-\[
-  \boxed{\operatorname{Fix}(\sigma_a\sigma_b)=\varnothing
-  \quad\text{si }a\neq b.}
-\]
+\paragraph{Lo que sobra en cada punto.} Restando a cada dato la predicción \(M(c_i,f_i,1)^T\):
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+punto & \(r_E\) (cm) & \(r_N\) (cm) & \(\lVert r\rVert\) (cm)\\
+\midrule
+\(P_1\) & \(+0{,}9\) & \(-1{,}0\) & \(1{,}4\)\\
+\(P_2\) & \(-0{,}9\) & \(+1{,}0\) & \(1{,}4\)\\
+\(P_3\) & \(+0{,}9\) & \(-1{,}0\) & \(1{,}4\)\\
+\(P_4\) & \(-0{,}9\) & \(+1{,}0\) & \(1{,}4\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+El error medio cuadrático por punto es
+\(\mathrm{RMS}=\sqrt{\tfrac14\sum_i\lVert r_i\rVert^2}=1{,}4\ \mathrm{cm}\), menos de medio
+píxel. Que las cuatro diferencias tengan el mismo tamaño y signos alternados no es casualidad:
+con cuatro puntos y tres incógnitas por coordenada sobra una sola ecuación, y el vector de
+diferencias de \(E\) (igual que el de \(N\)) es ortogonal a las tres columnas de \(U\). Eso lo
+obliga a ser múltiplo del único vector \(w\) con \(U^Tw=0\), que para esta geometría es
+\(w\approx(-0{,}988;\ 0{,}991;\ -1;\ 0{,}997)\). Con más puntos de apoyo las diferencias ya no
+quedan atadas a un patrón fijo y dicen más sobre cada punto.
 
-\textbf{Interpretación geométrica.} La composición es una traslación no nula. Todos los puntos
-se desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer en su lugar.
-Si \(a=b\), las dos reflexiones se anulan y la composición es la identidad.
-
-\subsection{Ejercicio 3: cuatro reflexiones en rectas}
-
-\begin{atencion}[Ambigüedad del enunciado]
-El texto comienza diciendo ``dadas cuatro rectas \(a,b,c,d\)'', pero termina llamando a
-\(\varphi_i\) ``reflexión alrededor del punto \(i\)''. Por el contexto y la notación
-\(\varphi\), se interpreta que son reflexiones respecto de las cuatro rectas.
-\end{atencion}
-
-Cada reflexión en una recta es una afinidad
-\[
-  \varphi_i(x)=H_ix+q_i,
-\]
-donde \(H_i\) es una matriz ortogonal de determinante \(-1\). La composición
-\[
-  F=\varphi_a\varphi_b\varphi_c\varphi_d
-\]
-tiene la forma
-\[
-  F(x)=Ax+t,
-\]
-con
-\[
-  A=H_aH_bH_cH_d,
-\]
-\[
-  t=H_aH_bH_cq_d+H_aH_bq_c+H_aq_b+q_a.
-\]
-Como intervienen cuatro reflexiones,
-\[
-  \det A=(-1)^4=1.
-\]
-La transformación resultante preserva orientación y es una rotación o una traslación.
-
-\textbf{Método analítico.} Los puntos fijos satisfacen
-\[
-  (I-A)x=t.
-\]
+\paragraph{Qué dicen los seis números.} ¿Qué le pasó a la foto en el camino al terreno? Cambió
+de unidad (de píxeles a centímetros), giró, se estiró un poco más en un sentido que en el otro,
+se inclinó apenas y se dio vuelta, porque la fila crece hacia abajo. La parte lineal
+\(A=\left(\begin{smallmatrix}a_1&a_2\\b_1&b_2\end{smallmatrix}\right)\) tiene por columnas las
+imágenes de un paso de una columna y de un paso de una fila.
 \begin{itemize}
-  \item Si \(I-A\) es invertible, existe un único punto fijo:
-  \[
-    \boxed{x_\ast=(I-A)^{-1}t}.
-  \]
-  La composición es una rotación con centro \(x_\ast\).
-  \item Si \(A=I\) y \(t\neq0\), la composición es una traslación y no tiene punto fijo.
-  \item Si \(A=I\) y \(t=0\), es la identidad y todos los puntos son fijos.
+\item \emph{Escalas.} \(\lVert(a_1,b_1)\rVert=2{,}9999\ \mathrm{cm}\) por píxel a lo largo de
+las filas de la imagen y \(\lVert(a_2,b_2)\rVert=3{,}0092\ \mathrm{cm}\) por píxel a lo largo de
+las columnas: difieren en un \(0{,}31\) por ciento.
+\item \emph{Rotación.} La dirección de \(c\) creciente forma \(3{,}501^\circ\) con el eje \(E\);
+la de \enquote{fila hacia arriba}, \(-(a_2,b_2)\), forma \(3{,}417^\circ\) con el eje \(N\), los dos en
+sentido antihorario. La imagen está girada unos \(3{,}5^\circ\).
+\item \emph{Cizalla.} Las dos columnas de \(A\) forman \(90{,}084^\circ\): los ejes de la imagen
+llegan al terreno apenas oblicuos, \(0{,}084^\circ\) fuera de la perpendicular, como un mazo de
+cartas apenas empujado de costado.
+\item \emph{Signo de \(b_2\).} \(b_2<0\) porque la fila crece hacia abajo y \(N\) hacia arriba:
+bajar una fila es ir unos \(3\ \mathrm{cm}\) al sur. Por eso
+\(\det A=-0{,}00090274\ \mathrm{m}^2\): la georreferenciación invierte la orientación, como en el
+ejemplo~\ref{ej:06-dron}, y cada píxel cubre \(9{,}0274\ \mathrm{cm}^2\).
+\end{itemize}
+Para separar estos efectos se quita primero la inversión de la fila,
+\(A=A'\operatorname{diag}(1,-1)\), y \(A'\) (de determinante positivo) se descompone como una
+rotación por una matriz simétrica definida positiva, \(A'=R(\theta)\,S\): un giro por un
+estiramiento sin giro. Se hace con la SVD del capítulo~\ref{cap:svd}, que escribe toda matriz
+como un giro, un estiramiento en dos direcciones perpendiculares y otro giro: si \(A'=U\Sigma V^T\), es \(R(\theta)=UV^T\) y \(S=V\Sigma V^T\). Resulta
+\[
+  A=R(3{,}459^\circ)\,S\,\begin{pmatrix}1&0\\0&-1\end{pmatrix},
+  \qquad
+  S=\begin{pmatrix}2{,}9999&0{,}0022\\0{,}0022&3{,}0092\end{pmatrix}\ \mathrm{cm/px}.
+\]
+El factor \(R\) es el giro de la imagen; \(\operatorname{diag}(1,-1)\), la fila hacia abajo;
+\(S\) estira sin girar. Sus autovalores, \(2{,}9994\) y \(3{,}0097\ \mathrm{cm/px}\), son las
+escalas extremas, y la dirección de la mayor forma \(77{,}2^\circ\) con el eje \(c\): está
+cerca del eje \(f\). El término fuera de la diagonal es la cizalla. Una similaridad
+tendría \(S\) múltiplo de la identidad.
+
+\paragraph{Comparación con la similaridad.} ¿Hacía falta la afinidad, o alcanzaba con la
+fotocopia ampliada? La similaridad de cuatro parámetros de la
+aplicación del capítulo~\ref{cap:reflexiones} supone una sola escala. Como aquí la orientación se
+invierte, la que corresponde es la similaridad inversa
+\[
+  E=t_E+a\,c+b\,f,\qquad N=t_N+b\,c-a\,f,
+  \qquad
+  \begin{pmatrix}a&b\\b&-a\end{pmatrix}=\lambda\,R(\theta)\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\]
+Elegida de la misma manera, con los mismos cuatro puntos, da
+\(\lambda=3{,}0032\ \mathrm{cm/px}\) (un promedio de las dos escalas) y \(\theta=3{,}470^\circ\),
+con diferencias
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+punto & \(r_E\) (cm) & \(r_N\) (cm) & \(\lVert r\rVert\) (cm)\\
+\midrule
+\(P_1\) & \(+9{,}2\) & \(+4{,}2\) & \(10{,}1\)\\
+\(P_2\) & \(-3{,}6\) & \(+10{,}4\) & \(11{,}0\)\\
+\(P_3\) & \(-7{,}3\) & \(-6{,}3\) & \(9{,}6\)\\
+\(P_4\) & \(+1{,}7\) & \(-8{,}4\) & \(8{,}5\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+y \(\mathrm{RMS}=9{,}9\ \mathrm{cm}\), \(7{,}2\) veces el de la afinidad. Entre los puntos de apoyo
+de arriba y los de abajo hay, en promedio, \(2368\) filas, \(71{,}3\ \mathrm{m}\); la diferencia
+de escala del \(0{,}31\) por ciento acumula sobre esa distancia \(21{,}9\ \mathrm{cm}\). La
+similaridad no puede absorberla y la reparte como diferencias de unos \(10\ \mathrm{cm}\). Con
+cuatro parámetros sobran cuatro ecuaciones, pero esas diferencias no miden solo ruido: miden un
+modelo que se queda corto.
+
+\paragraph{Verificación con el punto de control.} Volvamos al poste que no medimos para la
+cuenta. \(P_5\) no intervino en ninguno de los dos cálculos. La afinidad predice
+\[
+  M\begin{pmatrix}1980\\2905\\1\end{pmatrix}
+  =\begin{pmatrix}5\,432\,244{,}502\\6\,154\,676{,}368\\1\end{pmatrix},
+\]
+y lo medido es \((5\,432\,244{,}512;\ 6\,154\,676{,}380)\): la diferencia (medido menos
+predicho) es \((+1{,}0;\ +1{,}2)\ \mathrm{cm}\), de módulo \(1{,}6\ \mathrm{cm}\), del orden del
+RMS de la afinidad. La similaridad predice \((5\,432\,244{,}536;\ 6\,154\,676{,}454)\) y falla por
+\((-2{,}4;\ -7{,}4)\ \mathrm{cm}\), de módulo \(7{,}8\ \mathrm{cm}\). El punto de control
+confirma lo que sugerían las diferencias en los cuatro apoyos: la afinidad es el modelo
+adecuado para esta ortofoto.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.98\linewidth]{figuras/afines/afinidad_ortofoto.png}
+\caption{Izquierda: la ortofoto en coordenadas de imagen, con la fila creciendo hacia abajo;
+triángulos, los puntos de apoyo; cuadrado, el punto de control \(P_5\). Derecha: los mismos
+puntos en el terreno (coordenadas reducidas) y el contorno de la imagen georreferenciada,
+girado unos \(3{,}5^\circ\). Las flechas son los residuos (medido menos predicho) multiplicados
+por \(300\): rojizas las de la afinidad, de \(1\)--\(2\ \mathrm{cm}\); doradas las de la
+similaridad, de \(7{,}8\) a \(11{,}0\ \mathrm{cm}\). Generada con
+\texttt{apunte/scripts/cap04\_afinidad\_ortofoto.py}.}
+\end{figure}
+
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Verificá: en «caso precargado» elegí «general (a, b, c, d)» y poné \(a=1\), \(b=0\), \(c=0\), \(d=-1\), la inversión de la fila hacia abajo: comprobá que \(\det A=-1\) y que el área con signo de la parcela cambia de signo sin cambiar de tamaño. Después llevá \(a\) a \(1{,}1\): la grilla se estira distinto en cada eje, sigue formada por paralelogramos iguales y \(\det A=-1{,}1\), como la parte lineal de la ortofoto a otra escala.}
+
+\subsection{Demostraciones de las afinidades}\label{sec:demos-afinidades}
+
+Reunimos acá, completas, las demostraciones que en las construcciones del capítulo quedaron
+resumidas en una frase. Cada una lleva el nombre y el número del enunciado que demuestra.
+
+\paragraph{Qué conserva una afinidad (proposición~\ref{prop:06-conserva}).}
+\begin{demostracion}
+La recta \(L=\{p+s\,d : s\in\R\}\), con \(d\neq0\), se transforma en
+\[
+  f(p+s\,d)=Ap+b+s\,Ad=f(p)+s\,Ad .
+\]
+Como \(\det A\neq0\), \(Ad\neq0\), y la imagen es la recta que pasa por \(f(p)\) con dirección
+\(Ad\). Dos rectas paralelas tienen la misma dirección \(d\); sus imágenes tienen la misma
+dirección \(Ad\) y siguen siendo paralelas. Finalmente, \(f(p+s_id)-f(p)=s_i\,Ad\) para
+\(i=1,2\): los dos vectores son múltiplos de \(Ad\) con coeficientes \(s_1\) y \(s_2\), así que
+la razón se conserva. En particular, el punto medio de un segmento va al punto medio de su
+imagen.
+\end{demostracion}
+
+\paragraph{Componer es multiplicar (proposición~\ref{prop:06-composicion}).}
+\begin{demostracion}
+Sustituyendo, \(g(f(x))=A_2(A_1x+b_1)+b_2=A_2A_1x+A_2b_1+b_2\). El producto por bloques da lo
+mismo:
+\[
+\begin{pmatrix}A_2&b_2\\0\ \ 0&1\end{pmatrix}
+\begin{pmatrix}A_1&b_1\\0\ \ 0&1\end{pmatrix}
+=
+\begin{pmatrix}A_2A_1&A_2b_1+b_2\\0\ \ 0&1\end{pmatrix}.
+\]
+La matriz de la derecha actúa primero, como corresponde a vectores columna.
+\end{demostracion}
+
+\paragraph{Una afinidad del plano queda determinada por la imagen de tres puntos no alineados
+(proposición~\ref{prop:06-tres-puntos}).}
+\begin{demostracion}
+Como \(p_1,p_2,p_3\) no están alineados, los vectores \(p_2-p_1\) y \(p_3-p_1\) son linealmente
+independientes, y la matriz \(P\) que los tiene por columnas es invertible.
+
+\emph{Unicidad.} Si \(f(x)=Ax+b\) cumple \(f(p_i)=q_i\), restando
+\(f(p_i)-f(p_1)=A(p_i-p_1)\) se obtiene \(A(p_i-p_1)=q_i-q_1\) para \(i=2,3\); en forma matricial,
+\(AP=P'\). Por lo tanto \(A=P'P^{-1}\), y de \(Ap_1+b=q_1\) sale \(b=q_1-Ap_1\). No hay otra
+opción.
+
+\emph{Existencia.} Definimos \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). Entonces \(f(p_1)=q_1\), y para
+\(i=2,3\), \(f(p_i)=f(p_1)+A(p_i-p_1)=q_1+(q_i-q_1)=q_i\), porque \(AP=P'\) dice que
+\(A\) lleva cada columna de \(P\) a la correspondiente de \(P'\).
+
+\emph{Invertibilidad.} \(\det A=\det P'/\det P\), que es distinto de cero si y solo si las
+columnas de \(P'\) son independientes, o sea si \(q_1,q_2,q_3\) no están alineados.
+\end{demostracion}
+
+\section{Mapa de las transformaciones}\label{sec:mapa-transformaciones}
+
+% Números, tabla «Qué se conserva» (verificada celda por celda) y figura:
+% apunte/scripts/cap04_mapa_transformaciones.py
+
+Imaginá el mismo terreno dibujado en ocho hojas, y en cada una le hacés algo distinto: lo
+corrés, lo girás, lo reflejás en un espejo, lo apoyás en otro lugar, lo fotocopiás ampliado, lo
+estirás como la banda elástica, le sacás una foto de costado y lo pasás por la proyección de un
+mapa. ¿Qué sigue igual en cada hoja? ¿Las distancias, los ángulos, el área, las paralelas? Para
+qué sirve hacerse esa pregunta: cuando tenemos dos dibujos del mismo lugar y queremos pasar de
+uno al otro, hay que elegir la transformación, y la mejor elección es la más sencilla que
+explica los datos. Este mapa ordena las familias de la más rígida a la más flexible.
+
+Las familias de transformaciones del plano de los capítulos~\ref{cap:rotaciones}
+a~\ref{cap:afines} y de los complementos~\ref{cap:proyectivas} y~\ref{cap:conformes} forman
+una cadena. Una isometría conserva las distancias; si todas se multiplican por un mismo
+factor, aparece la similaridad; si la escala depende de la dirección, la afinidad; si se suelta
+el paralelismo, la proyectiva, la de la foto de costado. Cada condición que se quita agrega
+parámetros, y cada parámetro exige más puntos homólogos (un mismo punto, conocido en el dibujo
+de partida y en el de llegada): dos para una similaridad, tres para una afinidad, cuatro para una
+proyectiva. Traslaciones, rotaciones y reflexiones son piezas sueltas; desde la similaridad,
+cada familia contiene a todas las anteriores. La conforme es otra rama: parte de la
+similaridad directa y deja que la escala y el giro cambien de un punto a otro.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/afines/cap04_mapa_transformaciones.pdf}
+\caption{El mismo predio (gris, trazo punteado) y su imagen (teal, trazo continuo) por una
+transformación de cada familia, con el mismo encuadre en los ocho paneles. El lado \(AB\)
+(el cuadrado marca \(A\)) es paralelo al lado \(DE\); la diagonal \(AC\) lleva marcado su
+punto medio \(M\) (círculo). La flecha recorre \(AB\) de \(A\) hacia \(B\): si el interior
+queda a su izquierda, como en el original, el sentido de giro se conservó. Generada con
+\texttt{apunte/scripts/cap04\_mapa\_transformaciones.py}.}
+\label{fig:mapa-transformaciones}
+\end{figure}
+
+\paragraph{El predio y las ocho transformaciones.} El predio es el pentágono convexo de
+vértices \(A=(0,0)\), \(B=(4,0)\), \(C=(5;\ 1{,}8)\), \(D=(3,3)\) y \(E=(0{,}5;\ 3)\), con
+\(AB\parallel DE\) y área \(12{,}150\). Sobre la diagonal \(AC\) se marcan el punto medio
+\(M\) y el punto \(Q\) a un cuarto de \(A\): los cuatro puntos alineados \(A,Q,M,C\) tienen
+razón doble \((0,\tfrac14;\tfrac12,1)=1{,}5\) (definición~\ref{def:c1-razon-doble}): un número
+que se arma con las posiciones de cuatro puntos alineados y que ni siquiera la foto de costado
+cambia. Las
+transformaciones de la figura~\ref{fig:mapa-transformaciones} son:
+\begin{itemize}
+\item traslación \(\tau_v\) con \(v=(4{,}5;\ 3)\);
+\item rotación \(\rhoP{c,50^\circ}\) con centro \(c=A=(0,0)\);
+\item reflexión \(\sigma_L\) en la recta \(L\colon x+y=7\), es decir
+\(A=\left(\begin{smallmatrix}0&-1\\-1&0\end{smallmatrix}\right)\), \(b=(7,7)\), \(\det A=-1\);
+\item movimiento rígido \(R(-30^\circ)\,x+(4,5)\);
+\item similaridad directa \(0{,}6\,R(110^\circ)\,x+(8;\ 2{,}5)\);
+\item afinidad \(Ax+b\) con \(A=\left(\begin{smallmatrix}1{,}25&0{,}55\\0{,}15&0{,}75\end{smallmatrix}\right)\),
+\(b=(3{,}8;\ 2{,}6)\), \(\det A=0{,}855\);
+\item proyectiva de matriz
+\(H=\left(\begin{smallmatrix}1&0{,}15&4\\0{,}05&0{,}95&3\\0{,}07&0{,}05&1\end{smallmatrix}\right)\),
+\(\det H=0{,}568\); \(W\) es la tercera coordenada homogénea de la imagen, la que la proyectiva
+ya no deja en \(1\), y en los vértices vale entre \(1\) y \(1{,}44\), así que la recta que va
+al infinito no corta al predio;
+\item conforme \(f(z)=z_0+\bigl(e^{\varepsilon z}-1\bigr)/\varepsilon\), con \(z=x+iy\) (el
+punto escrito como número complejo), \(\varepsilon=0{,}12\) (el número que regula cuánto cambian
+la escala y el giro de un punto a otro) y \(z_0=3+2{,}6\,i\) (la imagen del origen). Es analítica, con \(f'(z)=e^{\varepsilon z}\neq0\):
+en cada punto es la similaridad de escala \(k(p)=\lvert f'(z)\rvert=e^{\varepsilon x}\) y giro
+\(\varepsilon y\) (complemento~\ref{cap:conformes}). En los vértices del predio, \(k\) va de
+\(1\) a \(1{,}822\).
 \end{itemize}
 
-\textbf{Método gráfico.} Elegir dos puntos \(p,q\), construir sucesivamente sus cuatro
-reflejos hasta obtener \(F(p)\) y \(F(q)\), y trazar las mediatrices de
-\(\overline{pF(p)}\) y \(\overline{qF(q)}\). Si se cortan, la intersección es el centro de
-rotación. Si son paralelas, el resultado es una traslación y no existe centro finito.
+\paragraph{Qué se conserva.} Antes de mirar el cuadro, probá anticipar cada fila con las
+imágenes del capítulo: la banda elástica no conserva los ángulos pero sí las paralelas; la foto
+de costado ni siquiera conserva las paralelas. El cuadro~\ref{tab:conserva} resume lo medido antes y después de
+cada transformación: los diez cocientes de distancias entre vértices, el ángulo entre los
+lados en cada vértice (entre las curvas imagen, con la jacobiana), el signo y el cociente de
+áreas, el paralelismo de \(AB\) y \(DE\), la rectitud de los lados, el punto medio \(M\) y la
+razón doble de \(A,Q,M,C\); el script falla si alguna celda no coincide con lo medido. Tres
+lecturas de la figura: la afinidad multiplica el área por \(\det A\) (de \(12{,}150\) a \(10{,}388\)) y deja
+\(AB\) paralelo a \(DE\); la proyectiva hace que las imágenes de \(AB\) y de \(DE\) formen
+\(10{,}2^\circ\), corre la imagen de \(M\) del punto medio y conserva la razón doble
+\(1{,}5\); la conforme curva los lados y conserva los ángulos en los vértices.
 
-\subsection{Ejercicio 4: autovalor de una rotación en \(\R^3\)}
+\begin{table}[tbp]
+\centering
+\caption{Qué se conserva en cada familia.}\label{tab:conserva}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{22mm}*{8}{>{\centering\arraybackslash}X}}
+\toprule
+& Traslación & Rotación & Reflexión & Movimiento rígido & Similaridad & Afín & Proyectiva & Conforme\\
+\midrule
+% tabla-conserva:inicio
+Distancias & sí & sí & sí & sí & \(\times k\) & no & no & local\(^{b}\) \(\times k(p)\)\\
+Ángulos & sí & sí & sí & sí & sí & no & no & sí\\
+Sentido de giro & sí & sí & no & sí & si \(\det>0\)\(^{a}\) & si \(\det>0\)\(^{a}\) & si \(\det>0\)\(^{a}\) & sí\\
+Áreas & sí & sí & sí & sí & \(\times k^2\) & \(\times\lvert\det A\rvert\) & no & local\(^{b}\) \(\times k(p)^2\)\\
+Paralelismo & sí & sí & sí & sí & sí & sí & no & local\(^{b}\)\\
+Rectas & sí & sí & sí & sí & sí & sí & sí & local\(^{b}\)\\
+Punto medio (razón simple) & sí & sí & sí & sí & sí & sí & no & local\(^{b}\)\\
+Razón doble & sí & sí & sí & sí & sí & sí & sí & local\(^{b}\)\\
+% tabla-conserva:fin
+\bottomrule
+\end{tabularx}\par\smallskip
+\begin{minipage}{\textwidth}\raggedright
+\(^{a}\)\,Con el determinante de la parte lineal (similaridad, afín) o de \(H\) normalizada
+para que \(W>0\) en toda la figura (proyectiva, con la figura sin cortar la recta que va al
+infinito). \(^{b}\)\,Falla en una figura grande y vale cada vez mejor a medida que la figura se
+achica alrededor de un punto \(p\); \(k(p)=\lvert f'(z)\rvert\) es la escala local.
+\end{minipage}}
+\end{table}
 
-Sea \(R\in SO(3)\). Al ser una matriz real de dimensión impar, su polinomio característico
-tiene al menos una raíz real. Como \(R\) es ortogonal, todo autovalor tiene módulo \(1\), por
-lo que el autovalor real debe ser \(1\) o \(-1\).
+\paragraph{El sentido de giro de una proyectiva.} La orientación de tres puntos
+\(p_1,p_2,p_3\) es el signo del determinante de la matriz que tiene por columnas
+\(\tilde p_i=(x_i,y_i,1)^T\): ese determinante es el doble del área con signo del triángulo,
+como en el ejemplo~\ref{ej:06-tres-puntos}. La homografía lo multiplica por \(\det H\), porque
+\(\det[H\tilde p_1\ H\tilde p_2\ H\tilde p_3]=\det H\,\det[\tilde p_1\ \tilde p_2\ \tilde p_3]\),
+y normalizar cada imagen divide su columna por su \(W_i\). Si los tres \(W_i\) son positivos,
+el signo final es el de \(\det H\). Para una afinidad, \(W=1\) y \(\det H=\det A\). En el
+predio, la proyectiva de la figura (\(\det H>0\)) conserva el sentido y la que se obtiene
+cambiando el signo de la segunda columna de \(H\) lo invierte.
 
-Los otros dos autovalores, si no son reales, forman un par conjugado
-\(e^{i\theta},e^{-i\theta}\), cuyo producto es \(1\). Como
-\[
-  \det R=1,
-\]
-el autovalor real restante debe ser
-\[
-  \boxed{\lambda=1}.
-\]
-Su autovector es la dirección del eje de rotación.
+\paragraph{Qué quiere decir \enquote{local}.} Pensá en un mapa de todo el país hecho con una
+transformación conforme, de las que conservan los ángulos: en una manzana, las formas se ven
+bien; en una provincia entera, se notan las deformaciones. ¿Qué
+conserva la conforme si miramos solo un pedacito? Cerca de un punto \(p\), la conforme coincide
+con la similaridad \(x\mapsto f(p)+J(p)(x-p)\), donde \(J(p)\), la jacobiana del
+capítulo~\ref{cap:derivada}, es la matriz que dice cómo se deforma un cuadradito muy chico
+alrededor de \(p\); acá \(J(p)=k(p)\,R(\theta(p))\), un giro de ángulo \(\theta(p)\) y una escala
+\(k(p)\): en un predio chico
+conserva lo que conserva esa similaridad, con un error que tiende a cero cuando el predio se
+achica. El script lo mide achicando el predio alrededor de su centroide \(G\) por \(0{,}1\) y
+por \(0{,}01\): el desvío de los cocientes de distancias respecto de \(k(G)=1{,}318\) pasa de
+\(0{,}30\) a \(0{,}027\) y a \(0{,}0026\); el seno del ángulo entre las imágenes de \(AB\) y
+\(DE\), de \(0{,}35\) a \(0{,}036\) y a \(0{,}0036\); el desvío de la imagen de \(M\) respecto del
+punto medio (en unidades de la diagonal), de \(0{,}079\) a \(0{,}0080\) y a \(0{,}0008\). Toda
+transformación derivable se parece de cerca a una afinidad, su aproximación lineal
+(capítulo~\ref{cap:derivada}); por eso en la columna de la proyectiva se registra solo lo que
+vale en grande. Lo propio de la conforme es que esa afinidad es una similaridad.
 
-\begin{atencion}[Sobre la palabra ``único'']
-Para una rotación no trivial de ángulo distinto de \(0\), \(1\) es el único autovalor real
-asociado al eje, salvo casos degenerados. Para \(R=I\), todos los vectores son propios con
-autovalor \(1\); por eso el enunciado necesita excluir la identidad si pretende unicidad del
-eje.
-\end{atencion}
+\paragraph{Ficha técnica.} El cuadro~\ref{tab:ficha} resume cada familia (g.d.l.: grados de
+libertad, cuántos números libres hay que elegir para fijar una transformación de la familia). Para el movimiento rígido, los dos pares tienen
+que estar a la misma distancia: dos pares fijan una similaridad directa
+(ejemplo~\ref{ej:similaridad-segmento}), y si las distancias coinciden, su razón es \(1\).
 
-\subsection{Ejercicio 5: matriz ortogonal que invierte orientación}
+\begin{table}[tbp]
+\centering
+\caption{Ficha técnica por familia.}\label{tab:ficha}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{19mm}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{8mm}>{\raggedright\arraybackslash}p{30mm}>{\raggedright\arraybackslash}p{27mm}>{\raggedright\arraybackslash}p{17mm}>{\centering\arraybackslash}p{7mm}}
+\toprule
+Familia & Forma algebraica & g.d.l. & Puntos homólogos mínimos & Puntos fijos típicos & \(\det\) & Cap.\\
+\midrule
+Traslación & \(x+v\);\quad \(\left(\begin{smallmatrix}I&v\\0\ 0&1\end{smallmatrix}\right)\) & 2 &
+1 par & ninguno (\(v\neq0\)) & \(+1\) & \ref{cap:traslaciones}\\
+\addlinespace
+Rotación & \(c+R(\theta)(x-c)\);\quad \(\left(\begin{smallmatrix}R(\theta)&(I-R(\theta))c\\0\ 0&1\end{smallmatrix}\right)\) & 3 &
+2 pares a la misma distancia (o el centro y 1 par) & el centro \(c\) (\(\theta\not\equiv0\)) & \(+1\) & \ref{cap:rotaciones}\\
+\addlinespace
+Reflexión & \(\sigma_L(x)=Ax+b\), \(A=I-\frac{2nn^T}{\lVert n\rVert^2}\), \(b=\frac{2h}{\lVert n\rVert^2}n\), para \(L\colon n^Tx=h\) & 2 &
+1 par \(p\neq q\): \(L\) es la mediatriz de \(pq\) & los puntos de \(L\) & \(-1\) & \ref{cap:reflexiones}\\
+\addlinespace
+Movimiento rígido & \(R(\theta)x+v\);\quad \(\left(\begin{smallmatrix}R(\theta)&v\\0\ 0&1\end{smallmatrix}\right)\) & 3 &
+2 pares distintos a la misma distancia & un centro (\(\theta\not\equiv0\)) o ninguno (traslación) & \(+1\) & \ref{cap:traslaciones}\\
+\addlinespace
+Similaridad & \(\lambda Qx+t\), \(Q\) ortogonal;\quad \(\left(\begin{smallmatrix}\lambda Q&t\\0\ 0&1\end{smallmatrix}\right)\) & 4 &
+2 pares distintos & uno solo (\(\lambda\neq1\)) & \(+\lambda^2\) directa, \(-\lambda^2\) inversa & \ref{cap:reflexiones}\\
+\addlinespace
+Afín & \(Ax+b\), \(\det A\neq0\);\quad \(\left(\begin{smallmatrix}A&b\\0\ 0&1\end{smallmatrix}\right)\) & 6 &
+3 pares, no colineales & \((I-A)p=b\): uno, ninguno o una recta & \(\det A\neq0\), de cualquier signo & \ref{cap:afines}\\
+\addlinespace
+Proyectiva & \(p\mapsto Hp\), \(H\) de \(3\times3\) invertible, a menos de escala & 8 &
+4 pares, sin tres colineales en la partida ni en la llegada & al menos uno, propio o impropio (autovector de \(H\)) & \(\det H\neq0\); el signo depende de la escala elegida & \ref{cap:proyectivas}\\
+\addlinespace
+Conforme & \(w=f(z)\) analítica, \(f'(z)\neq0\); jacobiana \(J(p)=k(p)\,R(\theta(p))\) & no finito &
+ninguna cantidad finita: se elige la proyección (Gauss-Krüger: el meridiano central sin deformación) & dependen de \(f\) & \(\det J=k(p)^2>0\) & \ref{cap:conformes}\\
+\bottomrule
+\end{tabularx}}
+\end{table}
 
-El enunciado afirma que una matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
-autovalores reales iguales a \(1\) o \(-1\). Esa afirmación no es cierta en general.
+\paragraph{Elegir la familia en el campo.} Si tenés que pasar un dibujo de un sistema a otro y
+dudás entre la fotocopia ampliada y la banda elástica, ¿por qué no usar siempre la más
+flexible, si cierra mejor? El cuadro~\ref{tab:campo} ordena los problemas topográficos
+resueltos en el apunte según la familia que les corresponde. La regla es usar la familia más
+chica cuyas diferencias con los datos bajen al nivel del error de medición: una familia más
+grande siempre se acomoda a los datos igual o mejor, pero gasta puntos en parámetros que no
+hacen falta y deja menos ecuaciones de control (las que sobran respecto de las incógnitas, que
+los ejercicios llaman redundancia).
 
-Por ser real y de dimensión impar, la matriz posee al menos un autovalor real. Por ser
-ortogonal, sus autovalores tienen módulo \(1\), y por tener determinante \(-1\), siempre
-existe al menos un autovalor
-\[
-  \boxed{\lambda=-1}.
-\]
-Los otros dos pueden ser
-\[
-  e^{i\theta},\qquad e^{-i\theta},
-\]
-que no son reales cuando \(\theta\notin\{0,\pi\}\). Geométricamente, esto describe una
-\textbf{rotorreflexión}: una rotación en un plano combinada con una inversión en la dirección
-perpendicular.
+En la primera fila, \enquote{radiado} es ubicar puntos midiendo un ángulo y una distancia
+desde un punto conocido, y la cadena de tramos rectos medidos uno tras otro es la que el
+capítulo~\ref{cap:traslaciones} llama poligonal; \enquote{estación} es el punto donde se
+instala el instrumento que mide esos ángulos y distancias. Las demás filas usan la similaridad de cuatro
+parámetros del capítulo~\ref{cap:reflexiones}, la ortofoto de este capítulo, la foto de costado
+del complemento~\ref{cap:proyectivas} y las coordenadas planas oficiales de la caja de la
+sección~\ref{sec:aplicacion-ortofoto}.
 
-\textbf{Contraejemplo.}
-\[
-Q=
-\begin{pmatrix}
-\cos\theta&-\sin\theta&0\\
-\sin\theta& \cos\theta&0\\
-0&0&-1
-\end{pmatrix}
-\]
-es ortogonal y \(\det Q=-1\), pero sus autovalores son
-\[
-  e^{i\theta},\quad e^{-i\theta},\quad -1.
-\]
-Solo para casos especiales, como una reflexión en un plano, los tres son reales:
-\[
-  1,\ 1,\ -1.
-\]
+\begin{table}[tbp]
+\centering
+\caption{Qué familia usar en cada problema de campo.}\label{tab:campo}
+{\footnotesize\setlength{\tabcolsep}{2.6pt}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{31mm}>{\raggedright\arraybackslash}p{19mm}YY}
+\toprule
+Problema & Familia & Por qué esa y no otra & Señal de que hace falta la siguiente\\
+\midrule
+Radiado desde una estación orientada (sección~\ref{sec:rotaciones-aplicacion}) y poligonal
+a un origen de obra (sección~\ref{sec:aplicacion-poligonal}) & movimiento rígido &
+el instrumento mide distancias y ángulos reales; orientar es girar con \(R(-\mathrm{Az})\)
+y trasladar a la estación, sin escala que estimar &
+al cerrar sobre puntos de coordenadas conocidas, las diferencias crecen con la longitud del
+lado: falta un factor de escala (similaridad)\\
+\addlinespace
+Levantamiento local al sistema oficial con dos puntos de control, Helmert
+(sección~\ref{sec:aplicacion-helmert}) & similaridad directa &
+entre las distancias del terreno y las del plano de la proyección hay un factor casi
+constante (\(147{,}9\) partes por millón); dos controles fijan los cuatro parámetros &
+con más controles, los cocientes de distancias dependen de la dirección y los residuos no
+bajan al nivel de la medición: hay una deformación direccional (afín)\\
+\addlinespace
+Georreferenciar una ortofoto por cuatro puntos de apoyo
+(sección~\ref{sec:aplicacion-ortofoto}) & afín &
+las escalas de columnas y filas difieren en un \(0{,}31\) por ciento; la similaridad no lo
+absorbe (\(\mathrm{RMS}=9{,}9\) cm contra \(1{,}4\) cm) &
+las paralelas del terreno (alambrados, bordes de lote) convergen en la imagen: la toma no es
+vertical y hace falta la proyectiva\\
+\addlinespace
+Rectificar una foto oblicua de un lote plano (secciones~\ref{sec:proyectivas-primera}
+y~\ref{sec:cuatro-puntos}) & proyectiva &
+la cámara inclinada lleva el rectángulo a un trapecio con un punto de fuga, y ninguna afín
+hace converger paralelas; cuatro puntos sin tres alineados la fijan &
+los residuos no bajan con más apoyos: el lote no es plano y ninguna transformación del plano
+alcanza\\
+\addlinespace
+Pasar distancias medidas al plano Gauss-Krüger (complemento~\ref{cap:conformes}) &
+conforme; en un predio chico, la similaridad de escala \(k(p)\) &
+conserva los ángulos medidos; la escala depende del punto, no de la dirección: hasta
+\(23\) cm/km en el borde de la faja a la latitud de Buenos Aires &
+en un trabajo extenso, una sola similaridad deja residuos que crecen con la extensión
+porque \(k\) cambia de un punto a otro: hay que aplicar la proyección misma\\
+\bottomrule
+\end{tabularx}}
+\end{table}
 
-\subsection{Ejercicio 6: recuperar una afinidad desde tres puntos}
+\begin{idea}[Pasar de los ejes matemáticos a Gauss-Krüger es una reflexión, no una rotación]
+En los ejes matemáticos \((x,y)\), con \(x\) hacia el este e \(y\) hacia el norte, los ángulos
+se miden desde \(x\) en sentido antihorario. En la cartografía oficial argentina la coordenada
+\(X\) es el norte y la \(Y\) el este, y los acimutes, los ángulos de las direcciones, se miden
+desde \(X\) (el norte) en sentido horario. El pasaje
+\((x,y)\mapsto(X,Y)=(y,x)\) tiene matriz
+\(\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\), de determinante \(-1\): es la
+reflexión en la bisectriz \(x=y\), que lleva el ángulo \(\theta\) a \(90^\circ-\theta\), la
+relación \(\mathrm{Az}=90^\circ-\theta\) de la proposición~\ref{prop:acimut-theta}. Por eso se
+invierte el sentido de giro, como dice la columna Reflexión del cuadro~\ref{tab:conserva}, y
+ninguna rotación lleva una convención a la otra (caja de la sección~\ref{caja:convencion-en}).
+\end{idea}
 
-Sean \(a,b,c\) tres puntos no alineados y sean \(a',b',c'\) sus imágenes. Se busca
-\[
-  \gamma(x)=Ax+t.
-\]
-Restando la ecuación de \(a\) a las de \(b\) y \(c\):
+\unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Explorá: aplicá a la misma parcela, uno por vez, los casos precargados «reflexión diag(1, −1)», «rotación + escala 0.8·R(θ)», «corte [[1, s], [0, 1]]» y «escala anisótropa diag(1.5, s)», y anotá en cada uno si se conservaron las longitudes, los ángulos, el sentido de giro y el área; comprobá en el cuadro~\ref{tab:conserva} lo que dicen las columnas Reflexión, Similaridad y Afín.}
+
+\section{Ejercicios con solución}
+
+En cada ejercicio, dibujá los puntos iniciales y finales, indicá el orden de composición y
+comprobá el resultado numérico con la matriz homogénea.
+
+\begin{ejercicio}
+Escribí en coordenadas homogéneas la rotación de \(90^\circ\) alrededor de \(c=(1,2)\)
+seguida de la traslación de vector \((3,0)\). Calculá la imagen de \((0,0)\) y de \(c\), y el
+punto fijo de la composición.
+\solucion{\(M=\begin{pmatrix}0&-1&6\\1&0&1\\0&0&1\end{pmatrix}\) (la rotación sola tiene
+última columna \((3,1)\)); \((0,0)\mapsto(6,1)\), \(c\mapsto(4,2)\); punto fijo
+\((2{,}5,\ 3{,}5)\): la composición es una rotación de \(90^\circ\) con otro centro.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallá la afinidad que lleva \((0,0)\mapsto(1,1)\), \((1,0)\mapsto(3,2)\) y
+\((0,1)\mapsto(0,3)\).
+\solucion{\(A=\begin{pmatrix}2&-1\\1&2\end{pmatrix}\), \(b=(1,1)\). Es una similaridad: gira
+y escala por \(\sqrt5\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallá el punto fijo de \(f(x)=\begin{pmatrix}2&1\\0&3\end{pmatrix}x+\begin{pmatrix}1\\-4\end{pmatrix}\)
+y verificalo.
+\solucion{\((I-A)p=b\) da \(p_\ast=(-3,2)\); en efecto, \(Ap_\ast+b=(-4,6)+(1,-4)=(-3,2)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Para \(A=\begin{pmatrix}1&2\\3&4\end{pmatrix}\), calculá \(\det A\), transformá el triángulo
+\((0,0),(1,0),(0,1)\) y compará áreas y orientación.
+\solucion{\(\det A=-2\). La imagen es \((0,0),(1,3),(2,4)\); el área pasa de \(0{,}5\) a \(1\)
+y la orientación se invierte (área orientada \(-1\)).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallá la inversa de \(f(x)=\begin{pmatrix}2&0\\1&1\end{pmatrix}x+\begin{pmatrix}4\\-1\end{pmatrix}\),
+en forma afín y en forma homogénea.
+\solucion{\(f^{-1}(y)=A^{-1}(y-b)\) con \(A^{-1}=\begin{pmatrix}0{,}5&0\\-0{,}5&1\end{pmatrix}\)
+y traslación \(-A^{-1}b=(-2,3)\); \(M^{-1}=\begin{pmatrix}0{,}5&0&-2\\-0{,}5&1&3\\0&0&1\end{pmatrix}\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallá la afinidad que lleva el triángulo \((0,0),(2,0),(0,1)\) al triángulo
+\((1,1),(5,2),(2,4)\), usando \(A=P'P^{-1}\).
+\solucion{\(P=\begin{pmatrix}2&0\\0&1\end{pmatrix}\), \(P'=\begin{pmatrix}4&1\\1&3\end{pmatrix}\),
+\(A=\begin{pmatrix}2&1\\0{,}5&3\end{pmatrix}\), \(b=(1,1)\); \(\det A=5{,}5\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:mapa-familia-minima}
+Tres puntos de un levantamiento, en metros, y sus homólogos en otro sistema son
+\(p_1=(0,0)\mapsto q_1=(100,200)\), \(p_2=(40,0)\mapsto q_2=(140,230)\) y
+\(p_3=(0,30)\mapsto q_3=(77{,}5;\ 230)\). Ajustá por mínimos cuadrados un movimiento rígido,
+una similaridad y una afinidad, compará los residuos y decidí cuál es la familia mínima que
+explica los datos (sección~\ref{sec:mapa-transformaciones}).
+\solucion{Los lados miden \(40\), \(30\) y \(50\) antes y \(50\), \(37{,}5\) y \(62{,}5\)
+después: los tres cocientes valen \(1{,}25\). El movimiento rígido no puede cambiar
+distancias; su mejor ajuste (giro \(36{,}870^\circ\), traslación \((101{,}167;\ 204)\)) deja
+residuos de \(4{,}17\), \(7{,}12\) y \(6{,}01\) m, con \(\mathrm{RMS}=5{,}89\) m. La similaridad
+ajusta exacto: \(\lambda=1{,}25\), \(\theta=36{,}870^\circ\), \(t=(100,200)\), es decir
+\(\lambda R(\theta)=\left(\begin{smallmatrix}1&-0{,}75\\0{,}75&1\end{smallmatrix}\right)\),
+con residuos nulos y redundancia \(2\). La afinidad también da residuos nulos, pero con tres
+pares su redundancia es \(0\): ajusta exacto cualquier terna no colineal
+(proposición~\ref{prop:06-tres-puntos}), así que su residuo nulo no prueba nada. La familia
+mínima es la similaridad directa.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:mapa-plano-escaneado}
+Un plano a escala \(1:1000\) se escaneó y se lo quiere llevar a coordenadas de terreno con
+cinco puntos de apoyo, \((u;v)\) en milímetros sobre el plano y \((E;N)\) en metros:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+punto & plano \((u;\,v)\) (mm) & terreno \((E;\,N)\) (m)\\
+\midrule
+\(P_1\) & \(20;\ 30\) & \(1018{,}97;\ 5030{,}53\)\\
+\(P_2\) & \(280;\ 25\) & \(1278{,}93;\ 5034{,}67\)\\
+\(P_3\) & \(290;\ 190\) & \(1283{,}23;\ 5199{,}28\)\\
+\(P_4\) & \(30;\ 200\) & \(1023{,}05;\ 5200{,}12\)\\
+\(P_5\) & \(150;\ 110\) & \(1146{,}07;\ 5114{,}73\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+Los ajustes por mínimos cuadrados dan \(\mathrm{RMS}\) de \(29{,}2\) cm (movimiento rígido),
+\(23{,}8\) cm (similaridad), \(1{,}4\) cm (afín) y \(0{,}8\) cm (proyectiva). Elegí la familia y
+justificala con el cuadro~\ref{tab:ficha}.
+\solucion{Afín. Con cinco pares hay diez ecuaciones: la redundancia es \(7\), \(6\), \(4\) y
+\(2\) para las familias de \(3\), \(4\), \(6\) y \(8\) parámetros. El movimiento rígido y la
+similaridad dejan residuos de \(25\) a \(35\) cm en las cuatro esquinas y de unos \(2\) cm en
+el centro: un patrón sistemático, no ruido. La afín los baja a entre \(0{,}7\) y \(1{,}8\) cm,
+del orden de la precisión de los datos (dados al centímetro), y dice por qué: sus columnas
+miden \(0{,}9999\) y \(0{,}9961\) m por milímetro y forman \(89{,}98^\circ\), una deformación
+direccional del \(0{,}4\) por ciento (el papel se encogió en un sentido) que una sola escala no
+puede absorber. La proyectiva baja el RMS a \(0{,}8\) cm con dos parámetros más y redundancia
+\(2\); sus términos de perspectiva valen \(h_{31}=-4{,}1\times10^{-7}\) y
+\(h_{32}=-9{,}6\times10^{-7}\) por milímetro, y en un plano escaneado no hay cámara inclinada
+que produzca perspectiva: la mejora es ajuste del ruido. La afín necesita tres puntos no
+colineales y deja cuatro ecuaciones de control.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:afin-tres-puntos-general}
+Sean \(a,b,c\) tres puntos no alineados y sean \(a',b',c'\) sus imágenes. Recuperá la afinidad
+\(\gamma(x)=Ax+t\) que lleva cada punto a su imagen y escribí la condición para que no tenga
+puntos fijos.
+\solucion{Restando la ecuación de \(a\) a las de \(b\) y \(c\):
 \[
   b'-a'=A(b-a),
   \qquad
@@ -931,85 +1461,13 @@ Construimos las matrices cuyas columnas son los lados de ambos triángulos:
   P'=
   \begin{pmatrix}\vert&\vert\\b'-a'&c'-a'\\\vert&\vert\end{pmatrix}.
 \]
-Como \(a,b,c\) no están alineados, \(P\) es invertible. Entonces:
-\[
-  \boxed{A=P'P^{-1}},
-\]
-y usando la correspondencia \(a\mapsto a'\):
-\[
-  \boxed{t=a'-Aa}.
-\]
-La transformación queda completamente determinada:
+Como \(a,b,c\) no están alineados, \(P\) es invertible. Entonces \(A=P'P^{-1}\) y, usando la
+correspondencia \(a\mapsto a'\), \(t=a'-Aa\). La transformación queda completamente
+determinada:
 \[
   \boxed{\gamma(x)=P'P^{-1}x+a'-P'P^{-1}a}.
 \]
-
-\textbf{Comprobación de ausencia de puntos fijos.} Se intenta resolver
-\[
-  (I-A)x=t.
-\]
-Que la afinidad no tenga puntos fijos significa que este sistema es incompatible. En
-coordenadas homogéneas:
-\[
-\begin{pmatrix}x'\\y'\\1\end{pmatrix}
-=
-\begin{pmatrix}
-A_{11}&A_{12}&t_x\\
-A_{21}&A_{22}&t_y\\
-0&0&1
-\end{pmatrix}
-\begin{pmatrix}x\\y\\1\end{pmatrix}.
-\]
-
-\begin{resultado}[Estado de la guía de afinidades]
-Los seis ejercicios quedan resueltos de forma algebraica y geométrica. Los ejercicios 3, 4
-y 5 incluyen además las salvedades necesarias para interpretar correctamente sus enunciados.
-\end{resultado}
-
-\section{Ejercicios propuestos}
-
-En cada ejercicio conviene dibujar los puntos iniciales y finales, indicar el orden de
-composición y comprobar el resultado numérico con la matriz homogénea.
-
-\begin{ejercicio}
-Escribir en coordenadas homogéneas la rotación de \(90^\circ\) alrededor de \(c=(1,2)\)
-seguida de la traslación de vector \((3,0)\). Calcular la imagen de \((0,0)\) y de \(c\), y el
-punto fijo de la composición.
-\solucion{\(M=\begin{pmatrix}0&-1&6\\1&0&1\\0&0&1\end{pmatrix}\) (la rotación sola tiene
-última columna \((3,1)\)); \((0,0)\mapsto(6,1)\), \(c\mapsto(4,2)\); punto fijo
-\((2{,}5,\ 3{,}5)\): la composición es una rotación de \(90^\circ\) con otro centro.}
-\end{ejercicio}
-
-\begin{ejercicio}
-Hallar la afinidad que lleva \((0,0)\mapsto(1,1)\), \((1,0)\mapsto(3,2)\) y
-\((0,1)\mapsto(0,3)\).
-\solucion{\(A=\begin{pmatrix}2&-1\\1&2\end{pmatrix}\), \(b=(1,1)\). Es una similaridad: gira
-y escala por \(\sqrt5\).}
-\end{ejercicio}
-
-\begin{ejercicio}
-Hallar el punto fijo de \(f(x)=\begin{pmatrix}2&1\\0&3\end{pmatrix}x+\begin{pmatrix}1\\-4\end{pmatrix}\)
-y verificarlo.
-\solucion{\((I-A)p=b\) da \(p_\ast=(-3,2)\); en efecto, \(Ap_\ast+b=(-4,6)+(1,-4)=(-3,2)\).}
-\end{ejercicio}
-
-\begin{ejercicio}
-Para \(A=\begin{pmatrix}1&2\\3&4\end{pmatrix}\), calcular \(\det A\), transformar el triángulo
-\((0,0),(1,0),(0,1)\) y comparar áreas y orientación.
-\solucion{\(\det A=-2\). La imagen es \((0,0),(1,3),(2,4)\); el área pasa de \(0{,}5\) a \(1\)
-y la orientación se invierte (área orientada \(-1\)).}
-\end{ejercicio}
-
-\begin{ejercicio}
-Hallar la inversa de \(f(x)=\begin{pmatrix}2&0\\1&1\end{pmatrix}x+\begin{pmatrix}4\\-1\end{pmatrix}\),
-en forma afín y en forma homogénea.
-\solucion{\(f^{-1}(y)=A^{-1}(y-b)\) con \(A^{-1}=\begin{pmatrix}0{,}5&0\\-0{,}5&1\end{pmatrix}\)
-y traslación \(-A^{-1}b=(-2,3)\); \(M^{-1}=\begin{pmatrix}0{,}5&0&-2\\-0{,}5&1&3\\0&0&1\end{pmatrix}\).}
-\end{ejercicio}
-
-\begin{ejercicio}
-Hallar la afinidad que lleva el triángulo \((0,0),(2,0),(0,1)\) al triángulo
-\((1,1),(5,2),(2,4)\), usando \(A=P'P^{-1}\).
-\solucion{\(P=\begin{pmatrix}2&0\\0&1\end{pmatrix}\), \(P'=\begin{pmatrix}4&1\\1&3\end{pmatrix}\),
-\(A=\begin{pmatrix}2&1\\0{,}5&3\end{pmatrix}\), \(b=(1,1)\); \(\det A=5{,}5\).}
+Los puntos fijos resuelven \((I-A)x=t\); que la afinidad no tenga puntos fijos significa que
+este sistema es incompatible. En coordenadas homogéneas, la matriz es
+\(\left(\begin{smallmatrix}A&t\\0\ \ 0&1\end{smallmatrix}\right)\).}
 \end{ejercicio}

@@ -486,17 +486,20 @@ def _(mo):
     Acá verificamos que el apartamiento del plano tangente es una forma cuadrática en el rumbo, que sus rumbos propios
     son perpendiculares y que $K$ sobrevive al doblado. Las demostraciones:
 
-    - [apunte, sección "Curvatura: de la curva plana a la forma cuadrática"](../../apunte.pdf#nameddest=cap:curvatura):
-      la curvatura de una curva plana, la Prueba 1 (la curvatura normal es la hessiana evaluada en el
-      rumbo, los extremos a $\pi/2$, con su errata confirmada), el resultado "Fórmula de Euler y radio medio"
-      ($R = \sqrt{R_1 R_2}$), la Prueba 2 (Meusnier, $x' = N\cos\varphi$) y por qué meridiano y primer vertical son las
-      direcciones principales del elipsoide · [sección "Polígonos geodésicos y trigonometría
-      esférica"](../../apunte.pdf#nameddest=cap:esfera): las geodésicas como las "rectas" de la superficie
-    - [apunte, «Superficies, elipsoide, curvatura…» (métrica y primera forma; esfera, elipsoide y curvatura)](../../apunte.pdf#nameddest=cap:curvatura)
-      ($M$, $N$ y $K = 1/(MN)$)
-    - apunte *Geometría del Elipsoide y cálculos Geodésicos*: "Radios de curvatura",
-      prueba 1 (la forma cuadrática y los extremos a $\pi/2$) y prueba 2 (Meusnier)
-    - [ficha de la clase 12](../../clases/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
+    - [apunte, capítulo «Curvatura como forma cuadrática»](../../apunte.pdf#nameddest=cap:curvatura):
+      [sección «La segunda forma fundamental»](../../apunte.pdf#nameddest=sec:segunda-forma) (la curvatura normal es
+      la segunda forma evaluada en el rumbo; en un punto crítico, la hessiana) ·
+      [sección «Curvaturas principales, direcciones principales y fórmula de Euler»](../../apunte.pdf#nameddest=sec:curvaturas-principales)
+      ([teorema de Euler](../../apunte.pdf#nameddest=teo:euler): los extremos a $\pi/2$, con la precisión de que la
+      perpendicularidad es sobre la superficie, $d_1^T I\, d_2 = 0$; la curvatura de Gauss) ·
+      [teorema de Meusnier](../../apunte.pdf#nameddest=teo:meusnier) ($x' = N\cos\varphi$ en el paralelo) ·
+      [las dos formas cambian por congruencia](../../apunte.pdf#nameddest=prop:II-congruencia)
+    - [apunte, capítulo «Geometría del elipsoide», sección «Radios de curvatura M y N»](../../apunte.pdf#nameddest=sec:radios-MN):
+      $M$, $N$, $K = 1/(MN)$, el radio medio $R = \sqrt{MN}$ y por qué meridiano y primer vertical son las
+      direcciones principales del elipsoide
+    - [apunte, capítulo «Coordenadas sobre la esfera y trigonometría esférica»](../../apunte.pdf#nameddest=cap:esfera):
+      los círculos máximos como las "rectas" de la esfera
+    - [ficha del capítulo 13](../../capitulos/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
 
     **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (unidad 13): una superficie donde $\kappa_1 = 1/M$
     y $\kappa_2 = 1/N$ se deducen de una sola simetría, y la normal no pasa por el centro.

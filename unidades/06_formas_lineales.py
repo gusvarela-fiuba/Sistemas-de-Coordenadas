@@ -183,7 +183,7 @@ def _(mo):
     $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
     es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
-    la [Unidad 0: Fundamentos y lenguaje de la cátedra](../00_fundamentos/index.html).
+    la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
     """), kind="neutral")])
     return
 
@@ -327,7 +327,7 @@ def _(lib, mo, np):
             **3.2 Un ejercicio con dos formas.** Formas $(1, 1)$ y $(-1, 2)$, vector $v = (3, 4)$,
             $T = \begin{pmatrix} \textcolor{#1b6f6a}{1.2} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{-0.1} & \textcolor{#b5451b}{1.3} \end{pmatrix}$.
             Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en "la séptima con la quinta".
-            $\det T = 1.61$ y, por adjunta sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
+            $\det T = 1.61$ y, por adjugada sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
 
             $$Tv = \binom{5.6}{4.9}, \qquad (1, 1)\,T^{-1} = \tfrac{(1.4,\ 0.7)}{1.61} = (0.870,\ 0.435), \qquad (-1, 2)\,T^{-1} = \tfrac{(-1.1,\ 2.9)}{1.61} = (-0.683,\ 1.801).$$
 
@@ -627,7 +627,7 @@ def _(mo):
 
     - [apunte, «Álgebra de las transformaciones» ("Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
       $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras"; tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$))](../../apunte.pdf#nameddest=cap:formas-lineales)
-    - [ficha de la clase 4](../../clases/04.html) · [el hilo conductor](../../index.html) ·
+    - [ficha del capítulo 5](../../capitulos/04.html) · [el hilo conductor](../../index.html) ·
       [Producto interno](../02_producto_interno/index.html) · [Cambio de base](../08_cambio_de_base/index.html)
 
     **Lo que viene:** [la cuña y el determinante](../07a_cuna_determinante/index.html), el detector de colinealidad,

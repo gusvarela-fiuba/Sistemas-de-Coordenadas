@@ -4,21 +4,17 @@
 
 \section{La idea}
 
-Este capítulo parte de una observación de campo: muchas magnitudes que medimos no se reparten
-igual en todas las direcciones. Una nube de lecturas repetidas se estira más en un sentido que
-en otro, y una matriz estira más unas direcciones que otras. La herramienta que mide esos
-estiramientos, dirección por dirección, es la descomposición en valores singulares (SVD, por
-sus siglas en inglés). La presentamos como lo que es geométricamente: una manera de
-\emph{leer} la forma de ciertas curvas de nivel.
+El capítulo~\ref{cap:autovectores} leyó los ejes de la elipse \(x^TSx=1\) en los autovectores
+de una matriz simétrica; ahora la matriz es cualquiera y la elipse sale de \(A^TA\). Muchas
+magnitudes que medimos no se reparten igual en todas las direcciones: una nube de lecturas
+repetidas se estira más en un sentido que en otro, y una matriz estira más unas direcciones
+que otras. La herramienta que mide esos estiramientos, dirección por dirección, es la
+descomposición en valores singulares (SVD, por sus siglas en inglés), que presentamos como una
+manera de \emph{leer} la forma de ciertas curvas de nivel.
 
-\paragraph{Convenciones del capítulo.} Puntos y vectores en minúscula cursiva (\(x\), \(v\),
-\(u\)), escritos en el texto como \((x_1,x_2)\) y en las cuentas como columnas; matrices en
-mayúscula itálica (\(A\), \(U\), \(V\), \(\Sigma\), \(C\)); \(A^T\) es la transpuesta,
-\(\det A\) el determinante, \(I\) la identidad y \(\|x\|\) la norma euclídea. Los valores
-singulares se escriben \(\sigma_1\ge\sigma_2\ge\dots\ge0\); los autovalores, \(\lambda\); los
-vectores singulares derechos (de la entrada), \(v_i\), y los izquierdos (de la salida),
-\(u_i\). La letra \(Q\) queda reservada para la forma cuadrática \(Q(x)=x^TA^TAx=\|Ax\|^2\) y
-\(N\) para la cantidad de puntos de una nube.
+\paragraph{Convenciones del capítulo.} Vectores singulares derechos (de la entrada) \(v_i\) e
+izquierdos (de la salida) \(u_i\); \(Q(x)=x^TA^TAx=\|Ax\|^2\) y \(N\) es la cantidad de
+puntos de una nube.
 
 \subsection{Una pregunta de campo: el error que tiene dirección}
 
@@ -27,8 +23,8 @@ anotamos, en metros, cuánto se aparta cada posición (este, norte) del promedio
 la figura~\ref{fig:svd-nube} son \emph{sintéticos}: los generó el script del capítulo con
 semilla fija, imponiendo una dispersión mayor en una dirección que en la perpendicular, como
 ocurre cuando la geometría de los satélites visibles determina mejor la posición en un
-sentido que en otro. La nube no es redonda: se alarga en una dirección y se adelgaza en la
-perpendicular. Las dos preguntas naturales son \emph{hacia dónde} se alarga y \emph{cuánto}.
+sentido que en otro. La nube no es redonda, y las dos preguntas naturales son \emph{hacia
+dónde} se alarga y \emph{cuánto}.
 
 \begin{figure}[htbp]
 \centering
@@ -40,16 +36,14 @@ la de trazos es la elipse del \(95\)\,\% (ejemplo~\ref{ej:svd-elipse-error}). Ge
 \label{fig:svd-nube}
 \end{figure}
 
-La respuesta es una elipse: la \emph{elipse de error}. En el
-ejemplo~\ref{ej:svd-elipse-error} la calculamos: su eje mayor está orientado
-\(59{,}2^\circ\) respecto del norte y el \(95\)\,\% de las posiciones cae dentro de una
-elipse de semiejes \(3{,}72\) m y \(1{,}58\) m. Para llegar ahí necesitamos dos piezas: qué funciones tienen
-elipses como curvas de nivel y cómo se leen los ejes de esas elipses.
+La respuesta es una elipse, la \emph{elipse de error}, que calculamos en el
+ejemplo~\ref{ej:svd-elipse-error}. Para llegar ahí necesitamos saber qué funciones tienen
+elipses como curvas de nivel y cómo se leen sus ejes.
 
 \subsection{Formas cuadráticas y sus curvas de nivel}
 
 En el capítulo~\ref{cap:formas-lineales} vimos que una forma lineal, por ejemplo
-\(\varphi(x)=2x_1+3x_2\), tiene como curvas de nivel una familia de \emph{rectas paralelas}
+\(\omega(x)=2x_1+3x_2\), tiene como curvas de nivel una familia de \emph{rectas paralelas}
 equiespaciadas: \(2x_1+3x_2=c\). El paso siguiente en complejidad es una función de grado
 dos.
 
@@ -70,7 +64,7 @@ ejemplo en todo el capítulo,
   Q(x)=(3x_1)^2+(4x_1+5x_2)^2=25x_1^2+40x_1x_2+25x_2^2 .
 \]
 El término cruzado \(40x_1x_2\) impide leer la forma de las curvas \(Q=c\) a simple vista.
-Pero si \(A\) es invertible, \(Q(x)=0\) sólo en el origen, \(Q\) crece como el cuadrado de la
+Pero si \(A\) es invertible, \(Q(x)=0\) solo en el origen, \(Q\) crece como el cuadrado de la
 distancia y es la misma en \(x\) y en \(-x\): sus curvas de nivel son curvas cerradas y
 simétricas alrededor del origen, y vamos a ver que son \emph{elipses} concéntricas, todas de
 la misma forma, con los mismos ejes (figura~\ref{fig:svd-curvas-nivel}).
@@ -86,7 +80,7 @@ la misma forma, con los mismos ejes (figura~\ref{fig:svd-curvas-nivel}).
   \end{scope}
   \draw[axisline] (-1.5,0)--(1.5,0); \draw[axisline] (0,-1.5)--(0,1.5);
   \draw[rust,line width=1pt,-{Latex[length=2mm]}] (0,0)--(.4,.6) node[above right,font=\small,labelback] {\((2,3)\)};
-  \node[text=muted,font=\small,align=center] at (0,-1.9) {forma lineal \(\varphi(x)=2x_1+3x_2\):\\ rectas paralelas};
+  \node[text=muted,font=\small,align=center] at (0,-1.9) {forma lineal \(\omega(x)=2x_1+3x_2\):\\ rectas paralelas};
   % panel derecho: forma cuadrática, elipses
   \begin{scope}[xshift=4cm]
     \draw[axisline] (-1.5,0)--(1.5,0); \draw[axisline] (0,-1.5)--(0,1.5);
@@ -112,7 +106,7 @@ la misma forma, con los mismos ejes (figura~\ref{fig:svd-curvas-nivel}).
 Las curvas de nivel de una forma lineal son rectas paralelas: la función crece igual en toda
 una dirección y no distingue ningún punto. Las de una forma cuadrática \(\|Ax\|^2\) con \(A\)
 invertible son elipses concéntricas: la función tiene un mínimo en el origen y crece más
-rápido en unas direcciones que en otras. La pregunta del capítulo es cómo leer esas elipses.
+rápido en unas direcciones que en otras.
 \end{idea}
 
 \subsection{La SVD como lectura de esas elipses}\label{sec:svd-idea}
@@ -125,42 +119,31 @@ Una elipse queda determinada por dos datos: las direcciones de sus ejes, que son
 perpendiculares, y los largos de sus semiejes. La sección siguiente demuestra que para
 cualquier matriz \(A\) existe una base ortonormal \(v_1,v_2\) de la entrada que hace
 desaparecer el término cruzado: si escribimos \(x=y_1v_1+y_2v_2\), entonces
-\[
-  Q(x)=\|Ax\|^2=\sigma_1^2\,y_1^2+\sigma_2^2\,y_2^2,\qquad \sigma_1\ge\sigma_2\ge0 .
-\]
-Con esa base la curva \(\|Ax\|=1\) se lee sin cuentas:
+\(Q(x)=\|Ax\|^2=\sigma_1^2\,y_1^2+\sigma_2^2\,y_2^2\), con \(\sigma_1\ge\sigma_2\ge0\). Con
+esa base la curva \(\|Ax\|=1\) se lee sin cuentas:
 \[
   \frac{y_1^2}{(1/\sigma_1)^2}+\frac{y_2^2}{(1/\sigma_2)^2}=1 ,
 \]
 la ecuación de una elipse con ejes sobre \(v_1\) y \(v_2\) y semiejes \(1/\sigma_1\) y
 \(1/\sigma_2\). Los números \(\sigma_i\) se llaman \emph{valores singulares} de \(A\) y los
-\(v_i\), \emph{vectores singulares derechos}. La lectura es inmediata:
+\(v_i\), \emph{vectores singulares derechos}. La lectura es inmediata. \(v_1\) es la dirección
+que \(A\) \emph{más estira}: un vector unitario en esa dirección sale con largo \(\sigma_1\);
+por eso \(Q\) crece más rápido sobre \(v_1\) y la curva \(\|Ax\|=1\) corta ese eje más cerca
+del origen, en el semieje \emph{corto} \(1/\sigma_1\). \(v_2\) es la dirección que \(A\)
+\emph{menos estira}: sale con largo \(\sigma_2\) y el semieje es \emph{largo}, \(1/\sigma_2\).
+Las curvas \(\|Ax\|=k\) son la misma elipse escalada por \(k\): las elipses de la
+figura~\ref{fig:svd-curvas-nivel} son homotéticas. Si \(\sigma_2=0\), hay una dirección que
+\(A\) aplasta: \(Q\) no crece sobre \(v_2\) y la elipse degenera en un par de rectas
+paralelas (ejercicio~\ref{ex:svd-sigma-cero}).
 
-\begin{itemize}
-  \item \(v_1\) es la dirección que \(A\) \emph{más estira}: un vector unitario en esa
-  dirección sale con largo \(\sigma_1\). Por eso \(Q\) crece más rápido sobre \(v_1\) y la
-  curva \(\|Ax\|=1\) corta ese eje más cerca del origen: semieje \emph{corto}
-  \(1/\sigma_1\).
-  \item \(v_2\) es la dirección que \(A\) \emph{menos estira}: sale con largo \(\sigma_2\), la
-  curva tarda más en alcanzar el nivel \(1\) y el semieje es \emph{largo}, \(1/\sigma_2\).
-  \item Las curvas \(\|Ax\|=k\) son la misma elipse escalada por \(k\): las elipses de la
-  figura~\ref{fig:svd-curvas-nivel} son homotéticas.
-  \item Si \(\sigma_2=0\), hay una dirección que \(A\) aplasta: \(Q\) no crece sobre \(v_2\) y
-  la elipse degenera en un par de rectas paralelas (ejercicio~\ref{ex:svd-sigma-cero}).
-\end{itemize}
-
-Vista desde la salida, la misma base se lee al revés: la circunferencia unidad de la entrada
-va a parar a una elipse de semiejes \(\sigma_1\) y \(\sigma_2\), con ejes en las direcciones
-\(u_1\), \(u_2\) (sección~\ref{sec:svd-circulo-elipse}). Curva de nivel de la entrada e
-imagen de la circunferencia son dos caras de la misma descomposición: los semiejes de una son
-los inversos de los de la otra.
+Vista desde la salida, la circunferencia unidad va a parar a una elipse de semiejes
+\(\sigma_1\) y \(\sigma_2\), con ejes en las direcciones \(u_1\), \(u_2\)
+(sección~\ref{sec:svd-circulo-elipse}): los semiejes de una elipse son los inversos de los de
+la otra.
 
 \begin{idea}[La SVD no genera las curvas de nivel: revela su forma]
-Las elipses \(\|Ax\|=c\) existen antes de cualquier cuenta; son una propiedad de la función
-\(Q\). Lo que hace la SVD es elegir la base en la que esas elipses se escriben sin término
-cruzado: los vectores singulares derechos dan las direcciones de los ejes y los valores
-singulares dan sus largos, \(1/\sigma_i\) en la curva \(\|Ax\|=1\). Es una lectura, no una
-construcción.
+Las elipses \(\|Ax\|=c\) existen antes de cualquier cuenta. La SVD elige la base en la que se
+escriben sin término cruzado: es una lectura, no una construcción.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
@@ -221,18 +204,16 @@ unidad es \(\pi\sigma_1\sigma_2\), y el factor de área de \(A\) es \(|\det A|\)
 \subsection{La SVD a mano}
 
 Los valores singulares y los \(v_i\) se obtienen de la matriz simétrica \(A^TA\): de
-\(A=U\Sigma V^T\) sale \(A^TA=V\Sigma^T\Sigma V^T\), es decir, los \(v_i\) son autovectores
+\(A=U\Sigma V^T\) sale \(A^TA=V\Sigma^T\Sigma V^T\): los \(v_i\) son autovectores
 de \(A^TA\) con autovalores \(\lambda_i=\sigma_i^2\). Los \(u_i\) se obtienen después
 transformando: \(u_i=Av_i/\sigma_i\) para cada \(\sigma_i>0\). La justificación completa es
 el teorema~\ref{teo:svd-existencia}.
 
 \begin{ejemplo}[SVD a mano de \(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\)]\label{ej:svd-mano}
 \textbf{Paso 1: la matriz \(A^TA\).}
-\[
-  A^TA=\begin{pmatrix}3&4\\0&5\end{pmatrix}\begin{pmatrix}3&0\\4&5\end{pmatrix}
-  =\begin{pmatrix}25&20\\20&25\end{pmatrix}.
-\]
-Es simétrica, y sus entradas son los coeficientes de \(Q(x)=25x_1^2+40x_1x_2+25x_2^2\) (el
+\(A^TA=\left(\begin{smallmatrix}3&4\\0&5\end{smallmatrix}\right)
+\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)
+=\left(\begin{smallmatrix}25&20\\20&25\end{smallmatrix}\right)\). Es simétrica, y sus entradas son los coeficientes de \(Q(x)=25x_1^2+40x_1x_2+25x_2^2\) (el
 \(40\) se reparte en dos entradas de \(20\)).
 
 \textbf{Paso 2: autovalores.} \(\det(A^TA-\lambda I)=(25-\lambda)^2-400=0\) da
@@ -246,11 +227,8 @@ Es simétrica, y sus entradas son los coeficientes de \(Q(x)=25x_1^2+40x_1x_2+25
 la fila \((20,\ 20)\) se anula en \((1,-1)\). Normalizando, las direcciones son
 \(\pm(1,1)/\sqrt2\) y \(\pm(1,-1)/\sqrt2\). El signo es libre: un vector unitario y su
 opuesto generan la misma recta. \texttt{np.linalg.svd} elige
-\[
-  v_1=-\tfrac1{\sqrt2}(1,1)\approx(-0{,}707;\ -0{,}707),\qquad
-  v_2=\tfrac1{\sqrt2}(-1,1)\approx(-0{,}707;\ 0{,}707),
-\]
-y adoptamos esa elección para que las cuentas coincidan con las de la computadora.
+\(v_1=-\tfrac1{\sqrt2}(1,1)\approx(-0{,}707;\ -0{,}707)\) y
+\(v_2=\tfrac1{\sqrt2}(-1,1)\approx(-0{,}707;\ 0{,}707)\), y adoptamos esa elección para que las cuentas coincidan con las de la computadora.
 
 \textbf{Paso 5: vectores singulares izquierdos.} \(u_i=Av_i/\sigma_i\):
 \begin{align*}
@@ -299,10 +277,9 @@ Cuando \(A\) es simétrica, las dos búsquedas coinciden salvo signos: \(\sigma_
 \subsection{Del círculo a la elipse: la misma base vista desde la transformación}\label{sec:svd-circulo-elipse}
 
 La curva de nivel \(\|Ax\|=1\) es un objeto de la \emph{entrada}: los puntos que \(A\) lleva a
-largo \(1\). La imagen de la circunferencia unidad es un objeto de la \emph{salida}: adonde
-van a parar los puntos de largo \(1\). Las dos son elipses y las dos se leen con la misma
-SVD. La figura~\ref{fig:svd-circulo-elipse} muestra la segunda: cada \(v_i\) de la
-circunferencia va a parar a \(\sigma_iu_i\), sobre un semieje de la elipse imagen.
+largo \(1\). La imagen de la circunferencia unidad es un objeto de la \emph{salida}, y la
+figura~\ref{fig:svd-circulo-elipse} la muestra: cada \(v_i\) de la circunferencia va a parar
+a \(\sigma_iu_i\), sobre un semieje de la elipse imagen.
 
 \begin{figure}[htbp]
 \centering
@@ -359,9 +336,8 @@ paneles. Generada con \texttt{apunte/scripts/cap07\_svd.py}.}
 
 En la sección «Manipulación» de la unidad, cuatro deslizadores fijan las entradas de una
 matriz de \(2\times2\) y la figura muestra la grilla deformada, la circunferencia unidad con
-\(v_1\), \(v_2\) y la elipse imagen con \(\sigma_1u_1\), \(\sigma_2u_2\); la animación recorre
-las tres etapas \(V^T\), \(\Sigma\), \(U\). Conviene probar los casos precargados (simétrica,
-corte, aplastante con \(\sigma_2=0\), rotación pura) y observar cuándo la elipse se vuelve
+\(v_1\), \(v_2\) y la elipse imagen con \(\sigma_1u_1\), \(\sigma_2u_2\). Probá los casos precargados (simétrica,
+corte, aplastante con \(\sigma_2=0\), rotación pura) y observá cuándo la elipse se vuelve
 circunferencia o segmento. Las cuentas del ejemplo~\ref{ej:svd-mano} se comprueban con el
 script del capítulo o con tres líneas de NumPy:
 \texttt{U, s, Vt = np.linalg.svd(A)}, \texttt{s**2} frente a
@@ -371,13 +347,12 @@ script del capítulo o con tres líneas de NumPy:
 
 \subsection{Plano ajustado a una nube de puntos}
 
-Cuando las tres coordenadas de un punto
-relevado tienen error, ajustar un plano \(z=ax+by+c\) por mínimos cuadrados ordinarios
+Cuando las tres coordenadas de un punto relevado tienen error, ajustar un plano \(z=ax+by+c\) por mínimos cuadrados ordinarios
 privilegia indebidamente la \(z\). Lo natural es minimizar la suma de los cuadrados de las
 distancias \emph{perpendiculares} al plano (mínimos cuadrados ortogonales). Si el plano tiene
-normal unitaria \(w\) y pasa por el centroide \(\bar p\) de los puntos (para \(w\) fijo, la
-mejor posición es la que pasa por el centroide, porque el promedio minimiza la suma de
-cuadrados de los desvíos), la suma de distancias al cuadrado es
+normal unitaria \(w\) y pasa por el centroide \(\bar p\) de los puntos (para \(w\) fijo es la
+mejor posición, porque el promedio minimiza la suma de cuadrados de los desvíos), la suma de
+distancias al cuadrado es
 \[
   \sum_k\big((p_k-\bar p)\cdot w\big)^2=\|Xw\|^2 ,
 \]
@@ -410,11 +385,8 @@ inclinado, con un error de unos centímetros en la altura; en metros:
 El centroide es \(\bar p\approx(8{,}251;\ 9{,}732;\ 100{,}216)\). La SVD de la matriz
 centrada \(X\) (\(8\times3\)) da \(\sigma_1\approx15{,}233\), \(\sigma_2\approx13{,}992\) y
 \(\sigma_3\approx0{,}0607\): dos direcciones en las que la nube se extiende decenas de metros
-y una en la que casi no tiene espesor. La normal es
-\[
-  v_3\approx(-0{,}0497;\ 0{,}0173;\ 0{,}9986),
-\]
-casi vertical: el plano está inclinado unos \(3{,}01^\circ\). El plano ajustado es
+y una en la que casi no tiene espesor. La normal es \(v_3\approx(-0{,}0497;\ 0{,}0173;\
+0{,}9986)\), casi vertical: el plano está inclinado unos \(3{,}01^\circ\). El plano ajustado es
 \((p-\bar p)\cdot v_3=0\). Las distancias con signo de los puntos al plano van de
 \(-0{,}033\) m a \(0{,}027\) m, y la distancia cuadrática media es
 \[
@@ -436,10 +408,7 @@ autovectores de \(C\) son los vectores singulares derechos \(v_i\) de \(X\) y su
 son \(\lambda_i=\sigma_i^2/(N-1)\). La \emph{elipse de error} de un desvío es la curva de
 nivel \(x^TC^{-1}x=1\); en la base de los \(v_i\) se escribe
 \(y_1^2/\lambda_1+y_2^2/\lambda_2=1\), de modo que sus semiejes miden
-\[
-  \sqrt{\lambda_i}=\frac{\sigma_i}{\sqrt{N-1}}
-\]
-en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(C\).
+\(\sqrt{\lambda_i}=\sigma_i/\sqrt{N-1}\) en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(C\).
 
 \paragraph{La elipse del \texorpdfstring{\(95\)\,\%}{95 \%}.} Las curvas de nivel
 \(x^TC^{-1}x=k^2\) son la misma elipse escalada por \(k\). Si los errores siguen una
@@ -449,7 +418,7 @@ distribución \(\chi^2\) con dos grados de libertad, cuya función de distribuci
 \(P(\chi^2_2\le t)=1-e^{-t/2}\). Pedir probabilidad \(0{,}95\) da
 \(t=-2\ln0{,}05\approx5{,}991\), el percentil \(\chi^2_{2;\,0{,}95}\), y el factor de escala
 es \(k=\sqrt{5{,}991}\approx2{,}448\). (Con \(k=1\), la elipse de un desvío, la probabilidad
-es sólo \(1-e^{-1/2}\approx39\)\,\%.)
+es solo \(1-e^{-1/2}\approx39\)\,\%.)
 
 \begin{ejemplo}[Elipse de error de una nube GNSS sintética]\label{ej:svd-elipse-error}
 Para las \(N=200\) posiciones de la figura~\ref{fig:svd-nube}, la SVD de la matriz centrada
@@ -457,13 +426,10 @@ Para las \(N=200\) posiciones de la figura~\ref{fig:svd-nube}, la SVD de la matr
 \(v_1\approx(0{,}859;\ 0{,}512)\) y \(v_2\approx(0{,}512;\ -0{,}859)\). Dividiendo por
 \(\sqrt{199}\approx14{,}107\) se obtienen los semiejes de un desvío,
 \(1{,}520\) m y \(0{,}644\) m. Por el otro camino,
-\[
-  C\approx\begin{pmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{pmatrix}\ \text{m}^2,
-  \qquad \lambda_1\approx2{,}309,\quad \lambda_2\approx0{,}415,
-\]
-y \(\sqrt{\lambda_1}\approx1{,}520\), \(\sqrt{\lambda_2}\approx0{,}644\): los mismos números.
-El eje mayor \(v_1\) forma \(30{,}8^\circ\) con el este en sentido antihorario, es decir,
-está orientado \(90^\circ-30{,}8^\circ=59{,}2^\circ\) respecto del norte, medido en sentido
+\(C\approx\left(\begin{smallmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{smallmatrix}\right)\)
+m\(^2\), con \(\lambda_1\approx2{,}309\) y \(\lambda_2\approx0{,}415\), y \(\sqrt{\lambda_1}\approx1{,}520\), \(\sqrt{\lambda_2}\approx0{,}644\): los mismos números.
+El eje mayor \(v_1\) forma \(30{,}8^\circ\) con el este en sentido antihorario, o sea, está
+orientado \(90^\circ-30{,}8^\circ=59{,}2^\circ\) respecto del norte, medido en sentido
 horario como un acimut (sección~\ref{sec:acimut-campo}). Multiplicando por \(2{,}448\):
 \emph{el \(95\)\,\% de las posiciones cae dentro de una elipse de semiejes \(3{,}72\) m y
 \(1{,}58\) m, con el eje mayor orientado \(59{,}2^\circ\) respecto del norte}. En la nube
@@ -488,16 +454,13 @@ de nivel más o menos detalladas: ese desarrollo es el complemento~\ref{cap:dem}
 
 \subsection{Existencia de la SVD}
 
-La demostración usa un resultado de álgebra lineal que no probamos en este apunte.
+La demostración usa un resultado de álgebra lineal que no probamos en este apunte; extiende a
+cualquier dimensión la proposición~\ref{prop:simetrica}.
 
 \begin{resultado}[Teorema espectral (resultado usado)]
 Si \(M\) es una matriz real simétrica de \(n\times n\), sus autovalores son reales y existe
 una base ortonormal de \(\R^n\) formada por autovectores de \(M\).
 \end{resultado}
-
-En el capítulo~\ref{cap:autovectores} los autovalores aparecen como factores de estiramiento
-de las direcciones invariantes; el teorema espectral agrega que, para matrices simétricas,
-esas direcciones existen siempre y pueden elegirse perpendiculares.
 
 \begin{teorema}[Existencia de la SVD]\label{teo:svd-existencia}
 Toda matriz real \(A\) de \(m\times n\) admite una descomposición en valores singulares
@@ -536,19 +499,17 @@ maneras: \(A\) puede no tener suficientes autovectores (un corte) o tener autova
 complejos. La SVD no pregunta por los autovalores de \(A\) sino por los de \(A^TA\), que es
 simétrica: sus autovalores son reales y no negativos, y sus autovectores pueden elegirse
 perpendiculares. El ejemplo mínimo es la rotación de \(90^\circ\),
-\[
-  R=\begin{pmatrix}0&-1\\1&0\end{pmatrix},\qquad \det(R-\lambda I)=\lambda^2+1 ,
-\]
-cuyos autovalores son \(\pm i\): ninguna recta real queda fija. Pero \(R^TR=I\), los dos
+\(R=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\), con
+\(\det(R-\lambda I)=\lambda^2+1\), cuyos autovalores son \(\pm i\): ninguna recta real queda fija. Pero \(R^TR=I\), los dos
 valores singulares valen \(1\) y una SVD es simplemente \(R=R\cdot I\cdot I^T\) (\(U=R\),
 \(\Sigma=I\), \(V=I\)). La circunferencia va a parar a sí misma; la curva \(\|Rx\|=1\) es la
-circunferencia unidad. La rotación no estira nada, sólo gira, y la SVD lo dice sin salir de
+circunferencia unidad. La rotación no estira nada, solo gira, y la SVD lo dice sin salir de
 los reales.
 
 \subsection{Alcance de la lectura}
 
-\begin{atencion}[Sólo para formas cuadráticas]
-La SVD describe la forma \emph{exacta} de las curvas de nivel sólo cuando la función es
+\begin{atencion}[Solo para formas cuadráticas]
+La SVD describe la forma \emph{exacta} de las curvas de nivel solo cuando la función es
 cuadrática, \(Q(x)=\|Ax\|^2\) (o una forma cuadrática con matriz semidefinida positiva).
 Para una función general \(f\) describe únicamente la \emph{aproximación de segundo orden}
 alrededor de un punto: si en \(x_0\) el gradiente se anula, cerca de \(x_0\) vale
@@ -559,19 +520,18 @@ cualquier forma, y donde el gradiente no se anula la aproximación dominante es 
 las curvas se parecen localmente a rectas paralelas, como las de una forma lineal.
 \end{atencion}
 
-\paragraph{Lo que viene.} La SVD es un cambio de base, pero con una particularidad: usa
-\emph{bases distintas} en la entrada (\(V\)) y en la salida (\(U\)), de modo que \(\Sigma\) no
-es «\(A\) en otra base» en el sentido de la diagonalización y no sirve para calcular
-potencias. Esa comparación es parte del capítulo~\ref{cap:cambio-base}. Y como cada etapa de
-\(U\Sigma V^T\) se deshace por separado, una matriz cuadrada con todos los \(\sigma_i>0\)
-tiene inversa \(A^{-1}=V\Sigma^{-1}U^T\); qué hacer cuando algún \(\sigma_i\) es cero o la
-matriz es rectangular es el tema del capítulo~\ref{cap:inversas}.
+\paragraph{SVD, cambio de base e inversa.} La SVD usa \emph{bases distintas} en la entrada
+(\(V\)) y en la salida (\(U\)), de modo que \(\Sigma\) no es \enquote{\(A\) en otra base} en
+el sentido de la diagonalización y no sirve para calcular potencias
+(capítulo~\ref{cap:cambio-base}). Como cada etapa de \(U\Sigma V^T\) se deshace por separado,
+una matriz cuadrada con todos los \(\sigma_i>0\) tiene inversa \(A^{-1}=V\Sigma^{-1}U^T\); el
+caso con algún \(\sigma_i\) nulo o rectangular es el del capítulo~\ref{cap:inversas}.
 
-\section{Ejercicios propuestos}
+\section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:svd-corte}
-Hallar la SVD de \(B=\begin{pmatrix}1&2\\0&1\end{pmatrix}\) y describir la curva de nivel
-\(\|Bx\|=1\): direcciones de los ejes y largos de los semiejes. Verificar que
+Hallá la SVD de \(B=\begin{pmatrix}1&2\\0&1\end{pmatrix}\) y describí la curva de nivel
+\(\|Bx\|=1\): direcciones de los ejes y largos de los semiejes. Verificá que
 \(\sigma_1\sigma_2=|\det B|\).
 \end{ejercicio}
 \solucion{\(B^TB=\left(\begin{smallmatrix}1&2\\2&5\end{smallmatrix}\right)\), con
@@ -584,7 +544,7 @@ del eje \(x_1\)), \(v_2\approx(-0{,}924;\ 0{,}383)\), \(u_1\approx(0{,}924;\ 0{,
 sobre \(v_2\): muy alargada, aunque \(B\) conserva el área.}
 
 \begin{ejercicio}\label{ex:svd-sigma-cero}
-Sea \(D=\begin{pmatrix}1&2\\2&4\end{pmatrix}\). Mostrar que \(\sigma_2=0\), describir las
+Sea \(D=\begin{pmatrix}1&2\\2&4\end{pmatrix}\). Mostrá que \(\sigma_2=0\) y describí las
 curvas de nivel de \(\|Dx\|\) y la imagen de la circunferencia unidad.
 \end{ejercicio}
 \solucion{\(D\) tiene rango \(1\): \(\sigma_1=5\), \(\sigma_2=0\), con
@@ -596,11 +556,11 @@ circunferencia unidad va a parar al segmento de extremos \(\pm5u_1=\pm(\sqrt5,\,
 recorrido dos veces.}
 
 \begin{ejercicio}\label{ex:svd-estacion}
-Una estación total entrega para un punto la matriz de covarianza (coordenadas este, norte)
+Un instrumento que mide ángulos y distancias entrega para un punto la matriz de covarianza (coordenadas este, norte)
 \[
   C=\begin{pmatrix}13{,}6&4{,}8\\4{,}8&6{,}4\end{pmatrix}\ \text{mm}^2 .
 \]
-Hallar los semiejes de la elipse de error y la orientación del eje mayor (ángulo desde el
+Hallá los semiejes de la elipse de error y la orientación del eje mayor (ángulo desde el
 este y acimut). ¿En qué dirección está mejor determinada la posición?
 \end{ejercicio}
 \solucion{\(\det(C-\lambda I)=\lambda^2-20\lambda+64=0\) da \(\lambda_1=16\) y
@@ -615,8 +575,8 @@ Para \(A=\begin{pmatrix}3&0\\4&5\end{pmatrix}\) se conoce la SVD del
 ejemplo~\ref{ej:svd-mano}: \(U=\frac1{\sqrt{10}}\left(\begin{smallmatrix}-1&-3\\-3&1\end{smallmatrix}\right)\),
 \(\Sigma=\operatorname{diag}(3\sqrt5,\sqrt5)\),
 \(V=\frac1{\sqrt2}\left(\begin{smallmatrix}-1&-1\\-1&1\end{smallmatrix}\right)\).
-(a) Hallar una matriz que lleve la elipse imagen de la circunferencia unidad de vuelta a la
-circunferencia unidad. (b) Hallar la que, además, devuelve cada punto de la elipse al punto
+(a) Hallá una matriz que lleve la elipse imagen de la circunferencia unidad de vuelta a la
+circunferencia unidad. (b) Hallá la que, además, devuelve cada punto de la elipse al punto
 de la circunferencia del que salió. ¿Son la misma?
 \end{ejercicio}
 \solucion{(a) Basta deshacer los dos últimos movimientos: \(U^T\) lleva los ejes de la

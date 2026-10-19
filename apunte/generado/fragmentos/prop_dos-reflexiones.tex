@@ -1,0 +1,9 @@
+% Generado por apunte/scripts/extraer_fragmentos.py a partir de apunte/demostraciones/cap02_traslaciones.py (test_prop_dos_reflexiones). No editar.
+\comprobacionDatos{SIMBOLICA}{}{cap02_traslaciones}{53}%
+\begin{lstlisting}
+d1, d2 = sp.symbols("delta1 delta2", real=True)
+producto = S(d2) * S(d1)
+assert es_cero(producto - R(2 * (d2 - d1)))
+assert es_cero(producto.subs(d2, d1) - sp.eye(2))   # rectas paralelas
+\end{lstlisting}
+\comprobacionPie
