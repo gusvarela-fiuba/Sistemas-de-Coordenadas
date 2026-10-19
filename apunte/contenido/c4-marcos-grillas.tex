@@ -387,6 +387,10 @@ con una incertidumbre declarada de \(1{,}5\) m: mayor que el propio corrimiento.
 corrección oficial para un trabajo concreto. Lo que la cuenta sí muestra es la estructura: un
 cambio de marco es una similaridad (acá, solo su traslación), y una traslación del espacio no
 cambia las distancias entre hitos, pero sí sus coordenadas.
+La traslación que usa PROJ, \((0{,}41;\,-0{,}46;\,0{,}35)\) m, es la publicada para pasar de
+POSGAR 94 a POSGAR 07 (Rodríguez, 2007). Para un trabajo real, el IGN transforma con siete
+parámetros por provincia, con su calculadora web o con GeoCalc o ArcGIS, y esos parámetros tienen
+desvíos de milímetros.
 \end{atencion}
 
 \unidadInteractiva{13_elipsoide}{Geometría del elipsoide}{Explorá: con «φ geodésica (°)» en \(-35\) y «λ (°)» en \(-60\), cerca del punto \(P\), mirá la normal al elipsoide; es el versor \(\hat\nu\) de la sección~\ref{sec:enu}, y las direcciones este y norte del lugar son perpendiculares a ella. Cambiá la latitud y comprobá que la normal no pasa por el centro.}
@@ -513,6 +517,16 @@ Cada nuevo tema debería incorporarse con la secuencia
 Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
 GeographicLib y QGIS según el capítulo.
 \end{idea}
+
+\subsection{Bibliografía}
+
+\begin{itemize}
+  \item \textbf{Rodríguez} (2007), parámetros de transformación POSGAR 94 \(\to\) POSGAR 07.
+  Instituto Geográfico Nacional
+  (\url{https://www.ign.gob.ar/descargas/geodesia/POSGAR07/Parametros_POSGAR07.pdf}).
+  \item \textbf{Instituto Geográfico Nacional}, preguntas frecuentes sobre POSGAR
+  (\url{https://www.ign.gob.ar/NuestrasActividades/Geodesia/Posgar/faq}).
+\end{itemize}
 
 \section{Ejercicios con solución}
 
