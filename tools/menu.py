@@ -298,7 +298,8 @@ def generar_html(filas: list[dict], site: Path) -> str:
     partes = [CSS_MENU, f"<h1>{html.escape(TITULO)}</h1>", f'<p class="bajada">{html.escape(BAJADA)}</p>',
               f'<p class="leyenda-menu">{marca(LISTA)} publicada en este sitio; {marca(PREP)} todavía no está. '
               "Los minutos son de referencia.</p>",
-              '<p class="imprimir"><a href="menu.pdf">Versión para imprimir (PDF, A4 apaisada)</a></p>',
+              '<p class="imprimir"><a href="menu.pdf">Versión para imprimir (PDF, A4 apaisada)</a> · '
+              '<a href="menu-por-capitulo.html">Entradas, platos y postres por capítulo</a></p>',
               '<div style="overflow-x:auto"><table class="menu"><thead><tr>'
               + "".join(f"<th>{html.escape(c)}</th>" for c in COLUMNAS) + "</tr></thead><tbody>"]
     for f in filas:
@@ -438,8 +439,12 @@ def generar_pdf(filas: list[dict], destino: Path, base: str) -> list[str]:
 # ----------------------------------------------------------------------------
 
 
+# páginas que build.py genera después del menú (tools/menu_por_capitulo/gen.py verifica la suya al generarla)
+GENERADAS_DESPUES = {"menu-por-capitulo.html"}
+
+
 def enlaces_rotos(site: Path, hrefs: list[str]) -> list[str]:
-    rel = [h for h in hrefs if not re.match(r"^[a-z]+:|^#", h)]
+    rel = [h for h in hrefs if not re.match(r"^[a-z]+:|^#", h) and h not in GENERADAS_DESPUES]
     return sorted({h for h in rel if not existe(site, h)})
 
 
