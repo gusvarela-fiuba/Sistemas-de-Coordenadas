@@ -748,7 +748,7 @@ def _(mo):
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
     - [apunte, «Transformaciones conformes» (esfera, elipsoide y representación plana; $K = 1/(MN)$, lo que
       impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
-    - apunte *Geometría del Elipsoide y cálculos Geodésicos*, última página: las cinco
+    - [apunte, capítulo «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
     - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·
       [el hilo conductor](../../index.html) · [unidad anterior: trigonometría esférica](../14_trigonometria_esferica/index.html)
