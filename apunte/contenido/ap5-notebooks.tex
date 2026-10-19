@@ -1,31 +1,10 @@
 % Apéndice: material de práctica y notebooks
 \section{Material de práctica y notebooks}\label{cap:21}\label{ap:notebooks}
 
-\subsection{Planillas y cuadernos de práctica}
+\subsection{Unidades interactivas}
 
-Copia local en \file{Proyectos / Agrimensura / Sistemas de Coordenadas / Bibliografia / material de
-práctica} de Dropbox.
-
-\begin{itemize}
-  \item \file{Rotaciones_No_Conmutan.xlsx}: planilla
-  para experimentar con la conmutatividad de las matrices de rotación y con la
-  construcción de una rotación según eje-ángulo (por repetición de rotaciones pequeñas y por
-  exponenciación). \texttt{MMULT} es la función de Excel para multiplicar matrices.
-  \item \file{Ejercicio Tl_Afin_Homogenea.xlsx}: planilla para experimentar
-  transformaciones; afinidades en \(\R^2\) y en homogéneas, composición y orden.
-  \item \file{Algun_ejemplo_de_rotacion.wxmx}: notebook de
-  wxMaxima que vuelve sobre la conmutatividad e incluye un agregado
-  relativo a autovectores.
-  \item \file{Formas_Lineales.wxmx}: el ejemplo \(\varphi(A\vec v)=(\varphi A)(\vec v)\)
-  trabajado en Maxima; es el de la sección~\ref{sec:formas-lineales}.
-  \item \file{Ejemplo_para_pensar.py} (+ \texttt{.jpeg}): ejemplo
-  en Python de transformación afín para trabajar en papel y predecir qué hace.
-\end{itemize}
-
-\subsection{Unidades interactivas (lecciones marimo)}
-
-Las 20 unidades (00 a 15) son el hilo conductor del sitio de la materia: lecciones marimo +
-Python, unidades interactivas del curso, construidas ladrillo a ladrillo y publicadas como
+Las 20 unidades (00 a 15) son el hilo conductor del sitio de la materia: unidades interactivas
+con Python, construidas ladrillo a ladrillo y publicadas como
 páginas WASM (corren en el navegador, sin instalar nada):
 
 \begin{center}\url{\urlsitio}\end{center}
@@ -91,77 +70,52 @@ no existe en el navegador: \file{tools/build.py} reemplaza la celda marcada
 \texttt{\# cb104:inline} por una que embebe el archivo. Se prueba con
 \texttt{uv run python unidades/cb104.py}.
 
-\subsection{Planilla y cuaderno adicionales}
-
-Copias fieles en la carpeta \file{fuentes/} del repositorio.
-
-\begin{itemize}
-  \item \file{Proyectivas\_del\_pentagono.xlsx}: planilla de la proyectiva del pentágono (una hoja,
-  \texttt{B2:U59}). Pentágono regular centrado en el origen con \(D=(0,1)\) y los demás
-  vértices por rotaciones de \(72^\circ\); arma el sistema \(13\times13\) de la proyectiva
-  \(3\times3\) (nueve coeficientes más un factor \(\lambda\) por punto, con el último
-  coeficiente fijado en \(1\)) que deja fijos \(A\) y \(B\) e intercambia \(C\) con \(E\),
-  lo resuelve con la matriz inversa y verifica dónde cae cada vértice al dividir por la
-  tercera coordenada. La lectura de la planilla es nuestra, a partir de sus fórmulas.
-  \item \file{LaSVD.wxmx}: cuaderno de wxMaxima con la SVD analítica de
-  \(A=\begin{pmatrix}1&2&4\\-3&-2&3\end{pmatrix}\): \(AA^T\) y \(A^TA\), polinomio
-  característico, autovectores, ortogonalidad de a pares, \(U\) y \(V^T\) normalizados,
-  \(\Sigma\) con las raíces de los autovalores y la verificación \(U\Sigma V^T=A\). Es la
-  SVD con Maxima, analíticamente, rehecha en
-  la sección~\ref{sec:svd}. Se abre con wxMaxima (es un zip con \texttt{content.xml}).
-\end{itemize}
-
 \subsection{Índice general de problemas y guías resueltas}
 
-Dónde está resuelto cada tipo de problema: en este apunte, en las entregas
-(\file{entregas/}) y en los ejercicios con hueco de
+Dónde está resuelto cada tipo de problema: en este apunte y en los ejercicios con hueco de
 las unidades.
 
 {\small
-\begin{longtable}{>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{46mm}>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{22mm}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{64mm}>{\raggedright\arraybackslash}p{30mm}}
 \toprule
-\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Unidades}\\
+\textbf{Tema} & \textbf{En este apunte} & \textbf{Unidades}\\
 \midrule
 \endfirsthead
 \toprule
-\textbf{Tema} & \textbf{En este apunte} & \textbf{En \file{entregas/}} & \textbf{Unidades}\\
+\textbf{Tema} & \textbf{En este apunte} & \textbf{Unidades}\\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
 Desaprender el CBC: los cuatro cambios de chip &
-\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & --- & \linkUnidad{00_fundamentos}{00}\\
+\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & \linkUnidad{00_fundamentos}{00}\\
 Rotaciones 2D y 3D, eje y ángulo, exponencial &
-\S\ref{cap:rotaciones}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & --- & \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}\\
+\S\ref{cap:rotaciones}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}\\
 Guía de reflexiones, traslaciones, rotaciones, homotecias y similaridades (teoremas 1 a 6) &
-enunciados en \S\ref{cap:reflexiones}, guía resuelta completa en \S\ref{cap:reflexiones} & --- & \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}\\
+enunciados en \S\ref{cap:reflexiones}, guía resuelta completa en \S\ref{cap:reflexiones} & \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}\\
 Afinidades: los seis ejercicios &
 resolución en ap.~\ref{cap:17}; composición en ap.~\ref{ap:composicion-afin} &
-resolución de los seis ejercicios (fuente y verificación NumPy en
-\file{afinidades/}); extra: llevar un triángulo sobre otro con afinidades axiales & \linkUnidad{04_afines_homogeneas}{04}\\
+\linkUnidad{04_afines_homogeneas}{04}\\
 Proyectivas del pentágono &
 cuentas y script en ap.~\ref{ap:pentagono}; teoría en \S\ref{cap:proyectivas} &
-entrega de 20 páginas (pentágono regular, tres
-casos y composiciones, más el mismo problema sobre un pentágono irregular con enteros y
-la parte conceptual; fuente, notebook marimo y verificación en \file{pentagono/}) &
 \linkUnidad{05_proyectivas}{05}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Productos, determinante, núcleo, autovectores por producto cruz &
-ejemplos resueltos en \S\ref{cap:autovectores} (reflexión, rotación compuesta) & --- & \linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
+ejemplos resueltos en \S\ref{cap:autovectores} (reflexión, rotación compuesta) & \linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Formas lineales, cambio de base, diagonalización &
-\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio, \(A^5\), \(A^t\)) & --- & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
+\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio, \(A^5\), \(A^t\)) & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
 SVD, inversas, pseudoinversa &
 \S\ref{sec:svd} (dos SVD a mano, DEM), \S\ref{sec:pseudoinversa} (recta por tres puntos)
-& --- & \linkUnidad{09_cambio_de_base_svd}{09}\\
+& \linkUnidad{09_cambio_de_base_svd}{09}\\
 Los cuatro problemas: regresión, círculos, Procrustes, regresión total &
-guía resuelta en \S\ref{cap:cuatro-problemas} & --- & \linkUnidad{11_cuatro_problemas}{11}\\
+guía resuelta en \S\ref{cap:cuatro-problemas} & \linkUnidad{11_cuatro_problemas}{11}\\
 Jacobiano, primera forma, curvatura &
-\S\ref{sec:metrica}, \S\ref{cap:curvatura} (silla, esfera) & --- & \linkUnidad{10_jacobiano_primera_forma}{10}, \linkUnidad{12_curvatura}{12}\\
+\S\ref{sec:metrica}, \S\ref{cap:curvatura} (silla, esfera) & \linkUnidad{10_jacobiano_primera_forma}{10}, \linkUnidad{12_curvatura}{12}\\
 Elipsoide, arco de meridiano, proyecciones &
 \S\ref{cap:elipsoide} (GRS80 en \(45^\circ\) y \(-34{,}6^\circ\)),
-\S\ref{cap:elipsoide} (serie y cinco proyecciones) & --- & \linkUnidad{13_elipsoide}{13}\\
+\S\ref{cap:elipsoide} (serie y cinco proyecciones) & \linkUnidad{13_elipsoide}{13}\\
 Trigonometría esférica, exceso &
-\S\ref{cap:esfera} (octante, tres ciudades) & --- & \linkUnidad{14_trigonometria_esferica}{14}\\
+\S\ref{cap:esfera} (octante, tres ciudades) & \linkUnidad{14_trigonometria_esferica}{14}\\
 Transformaciones conformes, Tissot, latitud isométrica, Gauss--Krüger &
-\S\ref{sec:transformaciones-conformes} (cuatro caras, Buenos Aires y Ushuaia) & --- & \linkUnidad{15_transformaciones_conformes}{15}\\
+\S\ref{sec:transformaciones-conformes} (cuatro caras, Buenos Aires y Ushuaia) & \linkUnidad{15_transformaciones_conformes}{15}\\
 \end{longtable}
 }
