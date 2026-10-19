@@ -1645,6 +1645,7 @@ def main() -> int:
     if not out.is_absolute():
         out = RAIZ / out
     out.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(out / "_build", ignore_errors=True)   # intermedios: nunca quedan en el sitio
 
     t_total = time.perf_counter()
     print(f"== mapa: {Path(args.mapa).relative_to(RAIZ) if Path(args.mapa).is_relative_to(RAIZ) else args.mapa}")
@@ -1736,6 +1737,7 @@ def main() -> int:
             print(f"  {k}: {v:.1f}s")
     for _p in out.rglob("CLAUDE.md"):   # por si quedó alguno de un export anterior
         _p.unlink()
+    shutil.rmtree(out / "_build", ignore_errors=True)
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
     import prohibidas
