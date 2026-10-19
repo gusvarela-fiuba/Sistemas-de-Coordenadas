@@ -80,6 +80,32 @@
 \newcommand{\linkFicha}[2]{\href{\sitioURL/clases/#1.html}{\textcolor{teal}{#2}}}
 \newcommand{\linkUnidadId}[1]{\href{\sitioURL/unidades/#1/index.html}{\texttt{\detokenize{#1}}}}
 
+%% \unidadInteractiva{<id>}{<título>}{<qué hacer>}: recuadro compacto para una actividad concreta
+%% en una unidad interactiva. Línea 1: ▷ y título en negrita (hipervínculo a la unidad); línea 2:
+%% la tarea en una frase; línea 3: ruta corta unidades/<id> en monoespaciado.
+%% \animacion{<nombre>}{<título>}{<qué mirar>}: igual, con ↻ y la ruta animaciones/<nombre>.mp4.
+%% Ejemplo: \unidadInteractiva{01b_rotacion_plano}{Rotaciones II}{Mové el deslizador \(\theta\) y comprobá que \(|p'-c|\) no cambia.}
+%% Se puede usar en el texto corriente o dentro de otras cajas (resultado, atencion, enunciado);
+%% no se usa dentro de idea. No se corta entre páginas. En escala de grises se lee por la
+%% negrita, el ícono y la banda izquierda, no por el color.
+\newtcolorbox{recuadroEnlace}{
+  enhanced,breakable=false,width=\linewidth,colback=paper,colframe=linegray,
+  borderline west={2.5pt}{0pt}{teal},boxrule=0.5pt,arc=1mm,
+  left=3.5mm,right=3mm,top=1.6mm,bottom=1.6mm,before skip=5pt,after skip=5pt
+}
+\newcommand{\unidadInteractiva}[3]{%
+  \begin{recuadroEnlace}\raggedright
+  \(\triangleright\)\ \href{\sitioURL/unidades/#1/index.html}{\textbf{#2}}\par
+  #3\par
+  {\footnotesize\ttfamily\detokenize{unidades/#1}}%
+  \end{recuadroEnlace}}
+\newcommand{\animacion}[3]{%
+  \begin{recuadroEnlace}\raggedright
+  \(\circlearrowright\)\ \href{\sitioURL/animaciones/#1.mp4}{\textbf{#2}}\par
+  #3\par
+  {\footnotesize\ttfamily\detokenize{animaciones/#1.mp4}}%
+  \end{recuadroEnlace}}
+
 %% --- Encabezado y pie de página (fancyhdr) ---
 \pagestyle{fancy}
 \setlength{\headheight}{22pt}

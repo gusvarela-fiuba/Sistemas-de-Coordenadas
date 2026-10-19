@@ -4,8 +4,11 @@
 Uso (desde la raíz del repo): uv run python apunte/scripts/estado.py [--md RUTA]
 Solo biblioteca estándar.
 """
-import argparse, datetime, glob, re, subprocess, unicodedata
+import argparse, datetime, glob, re, subprocess, sys, unicodedata
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import enlaces
 
 ROOT = Path(__file__).resolve().parents[2]
 APUNTE = ROOT / "apunte"
@@ -66,8 +69,10 @@ def analizar(path):
         dem=c(r"\\begin\{demostracion\}"),
         ejer=c(r"\\begin\{ejercicio\}"),
         sol=c(r"\\solucion\{"),
-        sim=c(r"\\linkUnidadId") + len(re.findall(r"\\linkUnidad(?!Id)", txt)) + c(r"\\href\{\\sitioURL") + c(r"\\urlsitio"),
+        sim=c(r"\\unidadInteractiva\{") + c(r"\\linkUnidadId") + len(re.findall(r"\\linkUnidad(?!Id)", txt)) + c(r"\\href\{\\sitioURL") + c(r"\\urlsitio"),
         aplic="sí" if any("aplicacion" in norm(s) for s in secs) else "no",
+        recuadros=c(r"\\unidadInteractiva\{"),
+        rotos=len(enlaces.analizar(path)["rotos"]),
         prohib=sum(1 for l in raw.split("\n") if PROHIB.search(l)),
     )
     n = sum(1 for m in MOLDE if m in secs_n)
@@ -85,7 +90,7 @@ def analizar(path):
 
 
 COLS = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Ej", "ej"),
-        ("Def+Prop+Teo", "dpt"), ("Dem", "dem"), ("Ejerc", "ejer"), ("Con sol", "sol"), ("Sim", "sim"),
+        ("Def+Prop+Teo", "dpt"), ("Dem", "dem"), ("Ejerc", "ejer"), ("Con sol", "sol"), ("Sim", "sim"), ("Recuadros", "recuadros"), ("Enlaces rotos", "rotos"),
         ("Aplic", "aplic"), ("Molde", "molde"), ("Prohib", "prohib"), ("Cumple", "cumple"), ("Falta", "falta")]
 
 
@@ -111,6 +116,8 @@ def main():
         if p.exists():
             cont.append(analizar(p))
     prep = [analizar(Path(p)) for p in sorted(glob.glob(str(APUNTE / "preparacion" / "*.tex")))]
+    enl = enlaces.analizar_todo()
+    rotos = [b for r in enl for b in r['rotos']]
     head = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     pags = "n/d"
     pdfs = sorted(glob.glob("/tmp/build_A/*.pdf")) or glob.glob(str(ROOT / "site" / "apunte.pdf"))
@@ -123,7 +130,10 @@ def main():
     md = ["# Estado del apunte", "", "Generado por `apunte/scripts/estado.py`. No editar a mano.", "",
           "Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicación topográfica, Simulaciones ≥ 2, Prohibidas = 0.", "",
           "## Archivos incluidos por el maestro (en orden)", "", tabla(cont), "",
-          "## Preparación (no incluidos en el maestro)", "", tabla(prep) if prep else "(ninguno)", "",
+          *(["## Preparación (no incluidos en el maestro)", "", tabla(prep), ""] if prep else []),
+          "## Enlaces", "",
+          f"- Total de enlaces a unidades: {sum(r['unidades'] for r in enl)}; a animaciones: {sum(r['animaciones'] for r in enl)}; recuadros: {sum(r['recuadros'] for r in enl)}",
+          f"- Enlaces rotos: {len(rotos)}", *[f"  - {b}" for b in rotos], "",
           f"- Fecha: {datetime.date.today().isoformat()}", f"- HEAD: {head}", f"- Páginas del último PDF: {pags}",
           f"- Archivos que cumplen el mínimo: {sum(r['cumple']=='sí' for r in cont)} de {len(cont)}", ""]
     Path(a.md).write_text("\n".join(md), encoding="utf-8")
