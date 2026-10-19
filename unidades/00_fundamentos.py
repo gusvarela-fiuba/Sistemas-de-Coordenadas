@@ -623,7 +623,7 @@ def _(lib, loma3d, mo, np):
         mo.md(r"""
         ## 4. Python de hoy
 
-        Cuatro reflejos. **`eye`, `inv`, `solve` son el neutro y la inversa del ladrillo 1**: `np.eye(2)` es el
+        Cuatro relecturas. **`eye`, `inv`, `solve` son el neutro y la inversa del ladrillo 1**: `np.eye(2)` es el
         neutro; `np.linalg.inv(A)` arma la inversa entera; `np.linalg.solve(A, y)` aplica la inversa a un solo dato sin
         armarla (más rápido y más estable). **numpy no distingue fila de columna**: `np.array([1., 1.])` es un punto si
         va a la derecha (`A @ x`) y una forma si va a la izquierda (`w @ A`); la diferencia la ponemos nosotros con el lado.
