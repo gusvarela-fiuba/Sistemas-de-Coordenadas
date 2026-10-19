@@ -106,3 +106,14 @@ Todos los avisos de más de 2 pt quedaron corregidos (8 antes, 2 después). Qued
 |---|---|---:|
 | `contenido/05-formas-lineales.tex` | 609–614 | 0,34 pt |
 | `contenido/14-elipsoide.tex` | 97–101 | 0,20 pt |
+
+## Entrega 3 publicada
+
+Verificado el 2026-10-19 (hora local).
+
+- Merge a main: commit 460a574 (`--no-ff` de revision-editorial 45bcb6b), tag anotado `entrega-3`; candidata previa `entrega-3-rc` = 73b4f81.
+- Contenido: fase F completa; fase G en los capítulos 0 a 4, 10 a 13 y 15; laboratorio CAD en los capítulos 1 a 4; menús por capítulo (`menu.html`, `menu.pdf`, `menu-por-capitulo.html`); problemas por capítulo con respuestas (apéndice A.6, `tools/problemas/gen.py`); barrido de «estación total»; compilación protegida (`scripts/compilar_pdf.sh`, hooks `.githooks`).
+- Workflow pages.yml: run 31, success (build y deploy), con el paso «Verificar el PDF commiteado» y la búsqueda de términos sobre el artefacto en 0.
+- En vivo: 200 en portada, menús, `cad/` y DXF, mapa, autoevaluación, fichas y unidades; las 15 redirecciones `clases/NN.html` llevan a `capitulos/NN.html`; `apunte.pdf` publicado con 290 páginas, igual a `apunte/paginas_esperadas.txt`, y SHA-256 idéntico al PDF del tag `entrega-3`.
+- Pendiente después de la entrega: fase G en 5 a 9 y 14, laboratorio CAD de 6 y 9, complementos C1 a C4, pasada de notación (incluye NumPy en el texto de 1, 4, 6 y 7).
+
