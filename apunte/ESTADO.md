@@ -49,6 +49,6 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 | **Total** | | 752 | 3 | 0 | 0 | 0 | 0 | 0 | 7 |  |  | 17 |  |  |
 
 - Fecha: 2026-10-19
-- HEAD: 78fa328
+- HEAD: 2bb7c4e
 - Páginas del último PDF: 144 (/tmp/build_A/Apunte_Sistemas_de_Coordenadas.pdf)
 - Archivos que cumplen el mínimo: 1 de 28
