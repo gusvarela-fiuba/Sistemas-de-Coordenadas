@@ -1,7 +1,32 @@
 % Inversas y pseudoinversa: los cuatro subespacios (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+% Números y figuras PNG: apunte/scripts/cap11_inversas_pseudoinversa.py (uv run python apunte/scripts/cap11_inversas_pseudoinversa.py)
 \chapter{Inversas y pseudoinversa: los cuatro subespacios}\label{cap:inversas}
 
 \section{La idea}
+
+Invertir es deshacer. Si una transformación llevó cada punto a otro lugar, la inversa lo
+devuelve a donde estaba. Pero en el trabajo de campo la pregunta casi nunca aparece así de
+limpia: medimos más de lo estrictamente necesario (seis desniveles para tres cotas, ocho
+puntos para un plano) y las mediciones, por pequeños errores, no son compatibles entre sí;
+o medimos menos de lo necesario y quedan infinitas respuestas. En el primer caso no hay
+inversa porque no hay solución exacta; en el segundo, porque hay demasiadas. La
+\emph{pseudoinversa} da en los dos casos una respuesta única y razonable, y la geometría que
+la explica son los \emph{cuatro subespacios} de una matriz: dos en la entrada y dos en la
+salida, perpendiculares de a pares.
+
+\paragraph{Convenciones del capítulo.} Vectores en minúscula, escritos en el texto como
+\((x_1,x_2,x_3)\) y en las cuentas como columnas; \(A\) es una matriz de \(m\times n\), que
+lleva la entrada \(\R^n\) a la salida \(\R^m\); \(\lVert x\rVert\) es la norma euclídea.
+Núcleo, imagen y rango se definieron en la sección~\ref{sec:nucleo}; la SVD
+\(A=U\Sigma V^T\), en el capítulo~\ref{cap:svd}. Escribimos \(\operatorname{Im}A\) para la
+imagen (en el capítulo~\ref{cap:subespacios}, \(\operatorname{im}A\)).
+
+\begin{idea}[Sólo se deshace lo que no se aplastó]
+Una matriz cuadrada se invierte si no aplasta ninguna dirección: \(\det A\neq0\), núcleo
+trivial. Cuando aplasta (o cuando no es cuadrada), la pseudoinversa hace lo único sensato:
+lleva el dato al punto más cercano que la matriz puede producir, deshace lo que se puede
+deshacer y no inventa nada en las direcciones aplastadas.
+\end{idea}
 
 \subsection{Sistemas de ecuaciones y aplicaciones}\label{sec:sistemas-ecuaciones}
 
@@ -14,7 +39,14 @@ coordenadas pueden aparecer al:
   \item formular ecuaciones diferenciales sobre superficies.
 \end{itemize}
 
-Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra. Mientras tanto, los cuatro problemas del esqueleto 2025 (regresión, intersección de círculos, Procrustes, regresión total) están desarrollados, como anticipo, en la sección~\ref{cap:cuatro-problemas}.
+Los tres casos que interesan en esta lista se distinguen por la cantidad de
+ecuaciones independientes frente a la de incógnitas: tantas como incógnitas (sistema
+cuadrado, inversa), más (sistema sobredeterminado, ajuste por mínimos cuadrados) o menos
+(sistema subdeterminado, solución de norma mínima). Este capítulo da la herramienta común a
+los tres. Los problemas de ajuste más elaborados (regresión, intersección de círculos,
+Procrustes, regresión total) se reúnen en el capítulo~\ref{cap:cuatro-problemas}.
+
+\unidadInteractiva{09_cambio_de_base_svd}{Cambio de base, SVD e inversas}{Explorá: en el bloque «Más mediciones que incógnitas» mové el deslizador de la tercera medición \(y_3\) y mirá cómo el residuo queda siempre sobre \(u_3\), perpendicular al plano imagen; con \(y_3=2\) los tres puntos se alinean y el residuo se anula.}
 
 \section{Construcciones, cuentas y ejemplos}
 
@@ -42,6 +74,13 @@ matrices & producto & \(I\) & \(A^{-1}\): no existe si \(\det A=0\)\\
 \end{center}
 }
 
+Las rotaciones son el caso más cómodo: girar \(\theta\) se
+deshace girando \(-\theta\), y como \(R(\theta)\) tiene columnas ortonormales,
+\[
+  R(\theta)^{-1}=R(-\theta)=R(\theta)^T .
+\]
+Invertir una rotación no exige ninguna cuenta: basta transponer.
+
 Escalera. En \(\R\), \(x\mapsto ax\) se deshace con \(x\mapsto x/a\), y no hay forma de
 deshacer \(a=0\): todo se aplastó al cero y no se sabe de dónde vino cada punto. En
 \(\R^2\), \(\det A=0\) significa que el cuadrado unidad se aplastó a un segmento, una
@@ -50,6 +89,58 @@ desplegar lo aplastado. En \(\R^n\): \(\det A=0\) equivale a que algún valor si
 cero, la elipse perdió un semieje. Rotar \(30^\circ\) se deshace rotando \(-30^\circ\)
 (\(R^{-1}=R^T\)); reflejar se deshace reflejando de nuevo; escalar por \(2\), escalando
 por \(\tfrac12\).
+
+\paragraph{Cuándo una matriz cuadrada tiene inversa.} La escalera anterior se
+resume en un enunciado que reúne lo visto en el capítulo~\ref{cap:subespacios}.
+
+\begin{proposicion}[Inversa de una matriz cuadrada]\label{prop:inversa-existe}
+Para una matriz \(A\) de \(n\times n\) son equivalentes: (a) existe \(A^{-1}\) con
+\(AA^{-1}=A^{-1}A=I\); (b) \(\det A\neq0\); (c) \(\ker A=\{0\}\); (d)
+\(\operatorname{rango}A=n\).
+\end{proposicion}
+
+\begin{demostracion}
+(b), (c) y (d) son equivalentes por la sección~\ref{sec:nucleo}. Si \(A^{-1}\) existe y
+\(Av=0\), entonces \(v=A^{-1}Av=0\): de (a) sale (c). Recíprocamente, la construcción que
+sigue fabrica \(A^{-1}\) cuando \(\det A\neq0\).
+\end{demostracion}
+
+En \(2\times2\), la inversa es la adjunta sobre el determinante:
+\[
+  \begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.
+\]
+En \(3\times3\) la adjunta se arma con productos cuña de filas, el mismo recurso que dio el
+núcleo en el ejemplo~\ref{ej:nucleo-cuna}. Si \(f_1,f_2,f_3\) son las filas de \(A\), el
+vector \(f_2\times f_3\) es perpendicular a \(f_2\) y a \(f_3\), y su producto interno con
+\(f_1\) es el determinante (volumen con signo de la caja de las tres filas). Lo mismo con
+las permutaciones cíclicas. Entonces la matriz cuyas \emph{columnas} son esos tres cuñas
+cumple
+\[
+  A\,\bigl(f_2\times f_3\ \big|\ f_3\times f_1\ \big|\ f_1\times f_2\bigr)
+  =\begin{pmatrix}\det A&0&0\\0&\det A&0\\0&0&\det A\end{pmatrix},
+  \qquad
+  A^{-1}=\frac1{\det A}\bigl(f_2\times f_3\ \big|\ f_3\times f_1\ \big|\ f_1\times f_2\bigr).
+\]
+Hecho geométrico: la columna \(j\) de la inversa es perpendicular a todas las filas de
+\(A\) salvo la \(j\)-ésima, que es exactamente lo que hace falta para que \(AA^{-1}\) tenga
+ceros fuera de la diagonal.
+
+\begin{ejemplo}[Inversa de una \(3\times3\) por cuña de filas]\label{ej:inversa-cuna}
+Sea \(A=\begin{pmatrix}2&1&0\\1&1&1\\0&1&3\end{pmatrix}\), con filas \(f_1=(2,1,0)\),
+\(f_2=(1,1,1)\), \(f_3=(0,1,3)\). Los tres cuñas son
+\[
+  f_2\times f_3=(2,-3,1),\qquad f_3\times f_1=(-3,6,-2),\qquad f_1\times f_2=(1,-2,1),
+\]
+y \(\det A=f_1\cdot(f_2\times f_3)=4-3+0=1\). Por lo tanto
+\[
+  A^{-1}=\begin{pmatrix}2&-3&1\\-3&6&-2\\1&-2&1\end{pmatrix}.
+\]
+Control: la primera fila de \(A\) por la primera columna de \(A^{-1}\) da \(4-3+0=1\); por
+la segunda, \(-6+6+0=0\); por la tercera, \(2-2+0=0\); y así con las demás: \(AA^{-1}=I\).
+Como \(A\) es simétrica, \(A^{-1}\) también lo es. Que el determinante valga \(1\) explica
+que la inversa tenga entradas enteras: la transformación conserva los volúmenes, y deshacerla
+no obliga a dividir.
+\end{ejemplo}
 
 \begin{resultado}[Invertir con las descomposiciones]
 \[
@@ -89,6 +180,71 @@ transformación sí se invierte: ahí no se aplastó nada. Situación de campo: 
 co-imagen todo el plano \((u,v)\), imagen el plano tangente, espacio inaccesible la normal
 y núcleo \(\{0\}\), salvo en el polo del elipsoide, donde \(r_\lambda=0\) y aparece núcleo:
 ``mover la longitud no me mueve''.
+
+\begin{definicion}[Los cuatro subespacios fundamentales]\label{def:cuatro-subespacios}
+Para una matriz \(A\) de \(m\times n\) y rango \(r\):
+\begin{itemize}
+  \item en la entrada \(\R^n\): la \emph{co-imagen} \(\operatorname{Im}A^T\), generada por
+  las filas de \(A\), y el \emph{núcleo} \(\ker A=\{x:\ Ax=0\}\);
+  \item en la salida \(\R^m\): la \emph{imagen} \(\operatorname{Im}A\), generada por las
+  columnas, y el \emph{núcleo a izquierda} \(\ker A^T=\{y:\ A^Ty=0\}\), el espacio
+  inaccesible.
+\end{itemize}
+\end{definicion}
+
+\begin{proposicion}[Ortogonalidad y dimensiones de los cuatro subespacios]\label{prop:cuatro-subespacios}
+\(\ker A\) es el complemento ortogonal de \(\operatorname{Im}A^T\) en \(\R^n\), y
+\(\ker A^T\) es el complemento ortogonal de \(\operatorname{Im}A\) en \(\R^m\). Sus
+dimensiones son
+\[
+  \dim\operatorname{Im}A^T=\dim\operatorname{Im}A=r,\qquad
+  \dim\ker A=n-r,\qquad \dim\ker A^T=m-r .
+\]
+\end{proposicion}
+
+\begin{demostracion}
+La coordenada \(i\) de \(Ax\) es el producto interno de la fila \(i\) con \(x\). Entonces
+\(Ax=0\) si y sólo si \(x\) es perpendicular a todas las filas, es decir, a todo
+\(\operatorname{Im}A^T\). Aplicado a \(A^T\), cuyas filas son las columnas de \(A\):
+\(A^Ty=0\) si y sólo si \(y\perp\operatorname{Im}A\). Las filas y las columnas de \(A\)
+tienen la misma cantidad máxima de vectores independientes (definición~\ref{def:nucleo-imagen}),
+así que las dos imágenes tienen dimensión \(r\); los complementos ortogonales tienen la
+dimensión que falta para completar \(n\) y \(m\).
+\end{demostracion}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.95\linewidth]{figuras/inversas/inv_cuatro_subespacios.png}
+\caption{Los cuatro subespacios de una matriz \(A\) de \(m\times n\) y rango \(r\). En la
+entrada, la co-imagen y el núcleo se cortan sólo en el \(0\) y son perpendiculares; en la
+salida, lo mismo la imagen y el espacio inaccesible. \(A\) manda el núcleo al \(0\) y lleva
+la co-imagen sobre la imagen sin perder nada; \(A^{+}\) recorre ese camino al revés y manda
+el espacio inaccesible al \(0\). Generada con
+\texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
+\label{fig:inv-cuatro-subespacios}
+\end{figure}
+
+\begin{ejemplo}[Los cuatro subespacios de una \(3\times2\) de rango \(2\)]\label{ej:cuatro-subespacios}
+Sea \(A=\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix}\), la matriz de una recta \(y=b+ax\)
+evaluada en \(x=0,1,2\) (incógnitas \((b,a)\)). Sus columnas \(a_1=(1,1,1)\) y
+\(a_2=(0,1,2)\) no son paralelas: rango \(r=2\), con \(m=3\), \(n=2\).
+\begin{itemize}
+  \item \textbf{Imagen} (dimensión \(2\)): el plano de \(\R^3\) generado por \(a_1\) y
+  \(a_2\). Su normal es el cuña
+  \(a_1\times a_2=(1\cdot2-1\cdot1,\ 1\cdot0-1\cdot2,\ 1\cdot1-1\cdot0)=(1,-2,1)\), y su
+  ecuación es \(y_1-2y_2+y_3=0\).
+  \item \textbf{Espacio inaccesible} (dimensión \(3-2=1\)): la recta de \((1,-2,1)\).
+  Control: \(A^T(1,-2,1)^T=(1-2+1,\ 0-2+2)^T=(0,0)^T\).
+  \item \textbf{Co-imagen} (dimensión \(2\)): las filas \((1,0)\), \((1,1)\), \((1,2)\)
+  generan todo \(\R^2\).
+  \item \textbf{Núcleo} (dimensión \(2-2=0\)): sólo el \(0\); \(A^TA=\begin{pmatrix}3&3\\3&5\end{pmatrix}\)
+  tiene determinante \(6\neq0\).
+\end{itemize}
+Lectura: tres mediciones \(y=(y_1,y_2,y_3)\) son compatibles con una recta exactamente
+cuando \(y_1-2y_2+y_3=0\), es decir, cuando la segunda diferencia es nula (los tres puntos
+equiespaciados están alineados). Cualquier otro \(y\) tiene una componente en la dirección
+\((1,-2,1)\) que ninguna recta puede explicar.
+\end{ejemplo}
 
 \begin{resultado}[Pseudoinversa de Moore--Penrose]
 \[
@@ -141,4 +297,389 @@ con más mediciones que incógnitas no cierra exactamente; compensarla es elegir
 coordenadas cuya salida queda más cerca de lo medido, con el residuo repartido
 perpendicularmente a lo que el modelo puede explicar.
 
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.78\linewidth]{figuras/inversas/inv_proyeccion.png}
+\caption{Esquema de la recta por tres puntos: \(y=(0,1,3)\) no está en el plano
+\(\operatorname{Im}A\) generado por las columnas \(a_1=(0,1,2)\) y \(a_2=(1,1,1)\). La
+solución de mínimos cuadrados es la que da como salida la proyección ortogonal
+\(A\hat x\); el residuo \(r\) es perpendicular al plano, es decir, está en \(\ker A^T\).
+Generada con \texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
+\label{fig:inv-proyeccion}
+\end{figure}
+
+\subsection{Sistemas sobredeterminados: las ecuaciones normales}\label{sec:ecuaciones-normales}
+
+Cuando hay más ecuaciones que incógnitas, \(Ax=b\) en general no tiene solución: \(b\) no
+está en la imagen. La figura~\ref{fig:inv-proyeccion} muestra qué conviene hacer: elegir el
+\(\hat x\) cuya salida \(A\hat x\) sea el punto de la imagen más cercano a \(b\), que es la
+proyección ortogonal de \(b\) sobre \(\operatorname{Im}A\).
+
+\begin{proposicion}[Mínimos cuadrados y ecuaciones normales]\label{prop:ecuaciones-normales}
+Sea \(A\) de \(m\times n\) y \(b\in\R^m\). Un vector \(\hat x\) minimiza
+\(\lVert Ax-b\rVert\) si y sólo si el residuo \(r=b-A\hat x\) es perpendicular a
+\(\operatorname{Im}A\), es decir, si y sólo si
+\[
+  \boxed{\ A^TA\,\hat x=A^Tb\ } .
+\]
+Si las columnas de \(A\) son independientes (rango \(n\)), \(A^TA\) es invertible, la
+solución es única y \(\hat x=A^{+}b\) con \(A^{+}=(A^TA)^{-1}A^T\).
+\end{proposicion}
+
+\begin{demostracion}
+\(A^Tr=0\) dice que \(r\) es perpendicular a cada columna, o sea que \(r\in\ker A^T\). En
+ese caso, para cualquier \(x\),
+\(Ax-b=A(x-\hat x)-r\) es suma de un vector de la imagen y otro perpendicular a ella, y por
+Pitágoras \(\lVert Ax-b\rVert^2=\lVert A(x-\hat x)\rVert^2+\lVert r\rVert^2\ge\lVert r\rVert^2\).
+Recíprocamente, si \(A^Tr\neq0\), moverse un poco en la dirección \(A^Tr\) achica la
+distancia. Si \(A^TAz=0\), entonces \(\lVert Az\rVert^2=z^TA^TAz=0\) y \(z\in\ker A\); con
+columnas independientes \(z=0\) y \(A^TA\) es invertible.
+\end{demostracion}
+
+\begin{ejemplo}[Recta por cuatro puntos: ecuaciones normales, residuo y proyector]\label{ej:recta-cuatro-puntos}
+Puntos \((0,1)\), \((1,2)\), \((2,2)\), \((3,4)\), recta \(y=ax+b\):
+\[
+  A=\begin{pmatrix}0&1\\1&1\\2&1\\3&1\end{pmatrix},\quad
+  y=\begin{pmatrix}1\\2\\2\\4\end{pmatrix},\quad
+  A^TA=\begin{pmatrix}14&6\\6&4\end{pmatrix},\quad
+  A^Ty=\begin{pmatrix}18\\9\end{pmatrix}.
+\]
+Con \(\det A^TA=56-36=20\): \(a=\tfrac{4\cdot18-6\cdot9}{20}=0{,}9\) y
+\(b=\tfrac{14\cdot9-6\cdot18}{20}=0{,}9\). La recta ajustada es \(y=0{,}9x+0{,}9\); sus
+valores en los cuatro puntos son \((0{,}9;\ 1{,}8;\ 2{,}7;\ 3{,}6)\) y el residuo es
+\[
+  r=y-A\hat x=(0{,}1;\ 0{,}2;\ -0{,}7;\ 0{,}4),\qquad \lVert r\rVert^2=0{,}7 .
+\]
+Ortogonalidad: con la columna de unos, \(0{,}1+0{,}2-0{,}7+0{,}4=0\) (los residuos suman
+cero); con la columna de las \(x\), \(0+0{,}2-1{,}4+1{,}2=0\). La pseudoinversa y el
+proyector sobre la imagen son
+\[
+  A^{+}=(A^TA)^{-1}A^T=\frac1{20}\begin{pmatrix}-6&-2&2&6\\14&8&2&-4\end{pmatrix},\qquad
+  P=AA^{+}=\frac1{10}\begin{pmatrix}7&4&1&-2\\4&3&2&1\\1&2&3&4\\-2&1&4&7\end{pmatrix}.
+\]
+\(P\) es simétrica, \(P^2=P\) y su traza vale \(2=\operatorname{rango}A\); \(Py\) da los
+valores ajustados y \((I-P)y=(0{,}1;\ 0{,}2;\ -0{,}7;\ 0{,}4)\) da el residuo. Verificado
+con \texttt{np.linalg.lstsq} y \texttt{np.linalg.pinv(A) @ y}: \((0{,}9;\ 0{,}9)\).
+\end{ejemplo}
+
+\subsection{Sistemas subdeterminados: la solución de norma mínima}\label{sec:norma-minima}
+
+Con menos ecuaciones independientes que incógnitas el problema es el opuesto: si \(A\) de
+\(m\times n\) tiene rango \(m<n\), toda \(b\) está en la imagen, pero el núcleo no es
+trivial y a cualquier solución se le puede sumar un vector del núcleo. El conjunto de
+soluciones es un subespacio afín, paralelo a \(\ker A\) (definición~\ref{def:subespacio}).
+De todas, una sola es perpendicular al núcleo: la que no tiene ninguna componente ``inventada''
+en las direcciones que \(A\) no ve.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.62\linewidth]{figuras/inversas/inv_norma_minima.png}
+\caption{Las soluciones de \(x+2y=5\) forman una recta paralela al núcleo \((2,-1)\). La de
+norma mínima, \(x^{+}=(1,2)\), es el pie de la perpendicular desde el origen y apunta en la
+dirección de la fila \((1,2)\), es decir, está en la co-imagen. Otras soluciones, como
+\((3,1)\) o \((5,0)\), son más largas. Generada con
+\texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
+\label{fig:inv-norma-minima}
+\end{figure}
+
+\begin{proposicion}[Solución de norma mínima]\label{prop:norma-minima}
+Si \(A\) de \(m\times n\) tiene filas independientes (rango \(m\)), \(AA^T\) es invertible y
+\[
+  \boxed{\ x^{+}=A^{+}b,\qquad A^{+}=A^T(AA^T)^{-1}\ }
+\]
+es la única solución de \(Ax=b\) que está en \(\operatorname{Im}A^T\), y la de menor norma.
+\end{proposicion}
+
+\begin{demostracion}
+\(Ax^{+}=AA^T(AA^T)^{-1}b=b\), y \(x^{+}=A^Tw\) con \(w=(AA^T)^{-1}b\) es combinación de
+las filas. Cualquier otra solución es \(x=x^{+}+k\) con \(k\in\ker A\), perpendicular a
+\(x^{+}\) por la proposición~\ref{prop:cuatro-subespacios}; por Pitágoras
+\(\lVert x\rVert^2=\lVert x^{+}\rVert^2+\lVert k\rVert^2\). \(AA^T\) es invertible por el
+mismo argumento de la proposición~\ref{prop:ecuaciones-normales}, aplicado a \(A^T\).
+\end{demostracion}
+
+\begin{ejemplo}[Norma mínima de un sistema \(2\times3\) y las condiciones de Moore--Penrose]\label{ej:norma-minima}
+Sean \(A=\begin{pmatrix}1&1&1\\1&-1&0\end{pmatrix}\) y \(b=(3,1)\). Las filas son
+perpendiculares, así que \(AA^T=\operatorname{diag}(3,2)\) y
+\[
+  A^{+}=A^T(AA^T)^{-1}=\frac16\begin{pmatrix}2&3\\2&-3\\2&0\end{pmatrix},\qquad
+  x^{+}=A^{+}b=(1{,}5;\ 0{,}5;\ 1),\qquad \lVert x^{+}\rVert^2=3{,}5 .
+\]
+Control: \(Ax^{+}=(1{,}5+0{,}5+1;\ 1{,}5-0{,}5)=(3,1)\). El núcleo es la recta del cuña de
+las filas, \((1,1,1)\times(1,-1,0)=(1,1,-2)\), y \(x^{+}\cdot(1,1,-2)=1{,}5+0{,}5-2=0\): la
+solución de norma mínima no tiene componente en el núcleo. Otra solución, por ejemplo
+\(x^{+}+\tfrac12(1,1,-2)=(2,1,0)\), cumple igual \(Ax=b\) pero tiene
+\(\lVert x\rVert^2=5=3{,}5+\tfrac14\cdot6\).
+
+Las cuatro condiciones de Moore--Penrose se verifican a mano:
+\[
+  AA^{+}=I_2,\qquad
+  A^{+}A=\frac16\begin{pmatrix}5&-1&2\\-1&5&2\\2&2&2\end{pmatrix}.
+\]
+Las dos son simétricas; \(AA^{+}A=I_2A=A\) y \(A^{+}AA^{+}=A^{+}I_2=A^{+}\). El script
+lo confirma con error máximo \(5{,}6\cdot10^{-17}\), y \(V\Sigma^{+}U^T\) (con
+\(\sigma_1=\sqrt3\), \(\sigma_2=\sqrt2\)) coincide con \texttt{np.linalg.pinv(A)}.
+\(A^{+}A\) es el proyector sobre la co-imagen: deja fijas las filas de \(A\) y manda
+\((1,1,-2)\) al cero.
+\end{ejemplo}
+
+\subsection{Simulaciones}
+
+\unidadInteractiva{11_cuatro_problemas}{Cuatro problemas: regresión, círculos, Procrustes, regresión total}{Verificá: en el problema «(a) recta de ajuste» mové el ruido y comprobá que \(A^Tr\) sigue dando \((0,0)\): el residuo es perpendicular a la columna de las \(x\) y a la de unos, como en el ejemplo~\ref{ej:recta-cuatro-puntos}.}
+
+\unidadInteractiva{09_cambio_de_base_svd}{Cambio de base, SVD e inversas}{Verificá: en el caso «aplastante [[1, 2], [2, 4]]» comprobá que \(\sigma_2=0\), que no hay inversa, y que en la sección de cuentas \(P^{+}=P/25\) cumple \(PP^{+}P=P\).}
+
 \section{En profundidad}
+
+\subsection{El caso general: pseudoinversa por SVD}\label{sec:pinv-svd}
+
+Las dos fórmulas anteriores piden rango completo: por columnas, \((A^TA)^{-1}A^T\); por
+filas, \(A^T(AA^T)^{-1}\). Cuando el rango es menor que \(m\) y que \(n\) (hay a la vez
+espacio inaccesible y núcleo) ninguna de las dos sirve, porque \(A^TA\) y \(AA^T\) son
+singulares. La SVD (capítulo~\ref{cap:svd}) resuelve el caso general con la fórmula
+\(A^{+}=V\Sigma^{+}U^T\) ya presentada: proyectar sobre la imagen (descartar las
+componentes sobre los \(u_i\) con \(\sigma_i=0\)), dividir por los \(\sigma_i\) no nulos y
+volver con los \(v_i\) de la co-imagen. Así \(A^{+}b\) combina las dos virtudes: su salida
+\(AA^{+}b\) es la proyección de \(b\) sobre la imagen (mínimos cuadrados) y, entre todos
+los \(x\) con esa salida, es el de norma mínima.
+
+\begin{definicion}[Condiciones de Moore--Penrose]\label{def:moore-penrose}
+Una matriz \(X\) de \(n\times m\) es \emph{pseudoinversa} de \(A\) (de \(m\times n\)) si
+\[
+  \text{(1) } AXA=A,\qquad \text{(2) } XAX=X,\qquad
+  \text{(3) } (AX)^T=AX,\qquad \text{(4) } (XA)^T=XA .
+\]
+\end{definicion}
+
+\begin{proposicion}[Existencia y unicidad de la pseudoinversa]\label{prop:moore-penrose}
+\(X=V\Sigma^{+}U^T\) cumple las cuatro condiciones, y es la única matriz que las cumple.
+\end{proposicion}
+
+\begin{demostracion}
+Con \(A=U\Sigma V^T\) y \(U,V\) ortogonales, \(AX=U\Sigma\Sigma^{+}U^T\) y
+\(XA=V\Sigma^{+}\Sigma V^T\); \(\Sigma\Sigma^{+}\) y \(\Sigma^{+}\Sigma\) son diagonales con
+unos donde \(\sigma_i\neq0\) y ceros en el resto, así que (3) y (4) se cumplen, y
+\(\Sigma\Sigma^{+}\Sigma=\Sigma\), \(\Sigma^{+}\Sigma\Sigma^{+}=\Sigma^{+}\) dan (1) y (2).
+Unicidad: si \(X\) e \(Y\) cumplen las cuatro, usando alternadamente (2), (3) o (4) y (1),
+\[
+  X=XAX=X(AX)^T=XX^TA^T=XX^T(AYA)^T=X(AX)^T(AY)^T=XAXAY=XAY,
+\]
+\[
+  Y=YAY=(YA)^TY=A^TY^TY=(AXA)^TY^TY=(XA)^T(YA)^TY=XAYAY=XAY,
+\]
+y entonces \(X=Y\).
+\end{demostracion}
+
+Las cuatro condiciones permiten verificar una pseudoinversa sin recalcularla, como en el
+ejemplo~\ref{ej:norma-minima} y en la red libre de la
+sección~\ref{sec:aplicacion-nivelacion}.
+
+\subsection{Proyectores: lo que se explica y lo que sobra}\label{sec:proyectores}
+
+Las condiciones (1) y (3) dicen que \(P=AA^{+}\) es simétrica y cumple
+\(P^2=AA^{+}AA^{+}=AA^{+}=P\): es la \emph{proyección ortogonal} sobre
+\(\operatorname{Im}A\). Su complemento \(I-P\) proyecta sobre \(\ker A^T\). En un ajuste,
+\[
+  b=\underbrace{Pb}_{\text{lo que el modelo explica}}+\underbrace{(I-P)b}_{\text{residuo}},
+\]
+dos vectores perpendiculares. Del lado de la entrada, \(A^{+}A\) proyecta sobre la co-imagen
+e \(I-A^{+}A\) sobre el núcleo; por eso todas las soluciones de mínimos cuadrados se escriben
+\[
+  x=A^{+}b+(I-A^{+}A)\,z,\qquad z\in\R^n\ \text{arbitrario},
+\]
+y \(A^{+}b\) es la que corresponde a no agregar nada en el núcleo. La traza de un proyector
+es la dimensión del subespacio sobre el que proyecta: \(\operatorname{tr}P=r\) y
+\(\operatorname{tr}(I-P)=m-r\), la cantidad de \emph{grados de libertad} del residuo. Ese
+número, \(m-r\), es el que divide a \(v^Tv\) en el desvío estándar de la sección siguiente.
+
+\begin{idea}[Ajustar es partir el dato en dos piezas perpendiculares]
+El ajuste por mínimos cuadrados no ``reparte el error'' de cualquier manera: descompone el
+vector de mediciones en su proyección sobre lo que el modelo puede producir y un resto
+perpendicular. Las incógnitas se leen de la primera pieza; la calidad de la medición, de la
+segunda.
+\end{idea}
+
+\subsection{Aplicación topográfica: ajuste de una red de nivelación}\label{sec:aplicacion-nivelacion}
+
+Una red de nivelación vincula cuatro puntos: \(A\), de cota conocida \(H_A=100{,}000\) m, y
+\(B\), \(C\), \(D\), cuyas cotas buscamos. Se nivelaron seis tramos; el desnivel medido
+\(\ell_k\) es la cota del punto de llegada menos la del punto de salida
+(figura~\ref{fig:inv-red-nivelacion}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.6\linewidth]{figuras/inversas/inv_red_nivelacion.png}
+\caption{Red de nivelación con un punto fijo \(A\) y tres incógnitas. Cada flecha es un
+tramo nivelado, de la salida a la llegada, con su número y su desnivel medido en metros.
+Generada con \texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
+\label{fig:inv-red-nivelacion}
+\end{figure}
+
+\begin{center}
+\small
+\begin{tabular}{clr}
+\toprule
+tramo & de \(\to\) a & \(\ell_k\) (m)\\
+\midrule
+1 & \(A\to B\) & \(1{,}238\)\\
+2 & \(B\to C\) & \(0{,}835\)\\
+3 & \(C\to D\) & \(-1{,}457\)\\
+4 & \(D\to A\) & \(-0{,}612\)\\
+5 & \(A\to C\) & \(2{,}070\)\\
+6 & \(B\to D\) & \(-0{,}621\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Los cierres no son nulos.} Recorriendo un circuito cerrado la suma de desniveles
+debería ser cero. Con los datos: \(A\to B\to C\to A\) da \(1{,}238+0{,}835-2{,}070=+3\) mm;
+\(A\to C\to D\to A\), \(+1\) mm; \(B\to C\to D\to B\), \(-1\) mm; \(A\to B\to D\to A\),
+\(+5\) mm. Seis ecuaciones, tres incógnitas: el sistema es incompatible y lo resolvemos por
+mínimos cuadrados.
+
+\paragraph{Matriz de diseño.} Con \(x=(H_B,H_C,H_D)\), cada tramo da una ecuación
+\(H_{\text{llegada}}-H_{\text{salida}}=\ell_k\); las cotas de \(A\) pasan al término
+independiente:
+\[
+  A=\begin{pmatrix}1&0&0\\-1&1&0\\0&-1&1\\0&0&-1\\0&1&0\\-1&0&1\end{pmatrix},\qquad
+  b=\begin{pmatrix}\ell_1+H_A\\ \ell_2\\ \ell_3\\ \ell_4-H_A\\ \ell_5+H_A\\ \ell_6\end{pmatrix}
+  =\begin{pmatrix}101{,}238\\0{,}835\\-1{,}457\\-100{,}612\\102{,}070\\-0{,}621\end{pmatrix}.
+\]
+Cada fila tiene un \(+1\) en el punto de llegada y un \(-1\) en el de salida (salvo cuando
+ese punto es \(A\)).
+
+\paragraph{Ecuaciones normales.}
+\[
+  A^TA=\begin{pmatrix}3&-1&-1\\-1&3&-1\\-1&-1&3\end{pmatrix},\qquad
+  A^Tb=\begin{pmatrix}101{,}024\\104{,}362\\98{,}534\end{pmatrix},\qquad
+  (A^TA)^{-1}=\frac18\begin{pmatrix}4&2&2\\2&4&2\\2&2&4\end{pmatrix}.
+\]
+La diagonal de \(A^TA\) cuenta los tramos que concurren a cada punto (tres en todos los casos)
+y los \(-1\) indican qué pares están vinculados por un tramo; \(\det A^TA=16\). Las cotas
+ajustadas son
+\[
+  \boxed{\ H_B=101{,}2360\ \text{m},\quad H_C=102{,}0705\ \text{m},\quad H_D=100{,}6135\ \text{m}\ } .
+\]
+
+\paragraph{Residuos y cierres.} Con \(v=A\hat x-b\) (desnivel ajustado menos desnivel
+medido), en milímetros:
+\[
+  v=(-2{,}0;\ -0{,}5;\ 0{,}0;\ -1{,}5;\ +0{,}5;\ -1{,}5),\qquad v^Tv=9\ \text{mm}^2,
+  \qquad A^Tv=0 .
+\]
+Los desniveles ajustados, \(\ell_k+v_k\), son \(1{,}2360\); \(0{,}8345\); \(-1{,}4570\);
+\(-0{,}6135\); \(2{,}0705\); \(-0{,}6225\) m, y \emph{cierran exactamente} en cada circuito:
+en \(A\to B\to C\to A\), \(1{,}2360+0{,}8345-2{,}0705=0\). Dicho con los residuos: en cada
+circuito los residuos suman lo mismo que el cierre medido, cambiado de signo
+(\(v_1+v_2-v_5=-2{,}0-0{,}5-0{,}5=-3\) mm; en los otros tres circuitos, \(-1\), \(+1\) y
+\(-5\) mm). Hecho geométrico: \(v\) es la componente de las mediciones que está fuera de la
+imagen, y la imagen está formada justamente por los vectores de desniveles que cierran. De
+los cuatro circuitos sólo tres son independientes (\(6-3=3\), la dimensión de
+\(\ker A^T\)): los vectores de circuito generan el espacio inaccesible.
+
+\paragraph{Precisión.} El desvío estándar de la unidad de peso usa los \(n-u=6-3=3\) grados
+de libertad del residuo:
+\[
+  \sigma_0=\sqrt{\frac{v^Tv}{n-u}}=\sqrt{\frac{9}{3}}\ \text{mm}=1{,}732\ \text{mm},
+\]
+y la precisión de cada cota es \(\sigma_0\sqrt{(A^TA)^{-1}_{ii}}\). Los tres elementos
+diagonales de \((A^TA)^{-1}\) valen \(\tfrac12\), así que
+\(\sigma_{H_B}=\sigma_{H_C}=\sigma_{H_D}=1{,}732\cdot0{,}7071=1{,}225\) mm. Que las tres
+coincidan refleja la simetría de la red: cada punto está unido a los otros tres.
+
+\paragraph{La red libre.} Si no se fija ninguna cota, las incógnitas son las cuatro,
+\(x=(H_A,H_B,H_C,H_D)\), y la matriz de diseño es de \(6\times4\), con una columna más para
+\(A\):
+\[
+  A_\ell=\begin{pmatrix}-1&1&0&0\\0&-1&1&0\\0&0&-1&1\\1&0&0&-1\\-1&0&1&0\\0&-1&0&1\end{pmatrix},
+  \qquad
+  A_\ell^TA_\ell=\begin{pmatrix}3&-1&-1&-1\\-1&3&-1&-1\\-1&-1&3&-1\\-1&-1&-1&3\end{pmatrix}.
+\]
+Cada fila suma cero, así que \(A_\ell(1,1,1,1)^T=0\): el núcleo es la recta de
+\((1,1,1,1)\). Subir todas las cotas lo mismo no cambia ningún desnivel; las mediciones no
+pueden decidir la altura absoluta de la red. El rango es \(3\) y \(A_\ell^TA_\ell\) es
+singular (\(\det=0\); sus valores singulares son \(2\), \(2\), \(2\) y \(0\)), de modo que
+las ecuaciones normales tienen infinitas soluciones. La pseudoinversa elige la de norma
+mínima:
+\[
+  x^{+}=A_\ell^{+}\,\ell=(-0{,}9800;\ 0{,}2560;\ 1{,}0905;\ -0{,}3665)\ \text{m},
+\]
+cuyas componentes suman cero: \(x^{+}\) es perpendicular al núcleo. Esas ``cotas'' no tienen
+sentido físico por sí solas (están referidas al promedio de los cuatro puntos), pero sus
+diferencias sí. Trasladándolas por \(t=100{,}9800\) m en la dirección del núcleo, para que
+\(H_A=100{,}000\), quedan \(101{,}2360\), \(102{,}0705\) y \(100{,}6135\) m: las mismas cotas
+del ajuste con punto fijo. Los residuos y los desniveles ajustados son idénticos en los dos
+enfoques, porque \(A\) y \(A_\ell\) tienen la misma imagen (la columna de \(A\) en
+\(A_\ell\) es menos la suma de las otras tres) y por lo tanto el mismo proyector
+\(P=AA^{+}=A_\ell A_\ell^{+}\).
+
+Hecho geométrico: el \emph{datum} vive en el núcleo. Elegir la cota de un punto, o fijar el
+promedio, es elegir un punto sobre la recta de soluciones \(x^{+}+t(1,1,1,1)\); los
+desniveles, la imagen y el residuo no dependen de esa elección. El script comprueba las
+cuatro condiciones de Moore--Penrose para \(A_\ell^{+}\) (error máximo
+\(4{,}4\cdot10^{-16}\)) y que \(A_\ell^{+}A_\ell=I-\tfrac14\,\mathbf 1\mathbf 1^T\), el
+proyector que quita a cada vector de cotas su promedio.
+
+\section{Ejercicios con solución}
+
+\begin{ejercicio}\label{ex:inv-2x2-rotacion}
+(a) Calcular la inversa de \(M=\begin{pmatrix}3&1\\5&2\end{pmatrix}\) y verificarla.
+(b) Escribir \(R(30^\circ)^{-1}\) sin calcular ningún determinante y explicar por qué.
+\end{ejercicio}
+\solucion{(a) \(\det M=6-5=1\), así que
+\(M^{-1}=\begin{pmatrix}2&-1\\-5&3\end{pmatrix}\). Control: primera fila de \(M\) por las
+columnas de \(M^{-1}\): \(6-5=1\), \(-3+3=0\); segunda fila: \(10-10=0\), \(-5+6=1\).
+(b) \(R(30^\circ)^{-1}=R(-30^\circ)=R(30^\circ)^T
+=\begin{pmatrix}\cos30^\circ&\sin30^\circ\\-\sin30^\circ&\cos30^\circ\end{pmatrix}
+\approx\begin{pmatrix}0{,}866&0{,}5\\-0{,}5&0{,}866\end{pmatrix}\): las columnas de una
+rotación son ortonormales, así que \(R^TR=I\).}
+
+\begin{ejercicio}\label{ex:inv-cuatro-subespacios}
+Dar una base de cada uno de los cuatro subespacios de
+\(B=\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}\), verificar las ortogonalidades y las
+dimensiones, y comprobar que \(B^{+}=\tfrac1{70}B^T\).
+\end{ejercicio}
+\solucion{La segunda fila es el doble de la primera: rango \(r=1\), con \(m=2\), \(n=3\).
+Imagen: \(\langle(1,2)\rangle\), dimensión \(1\); espacio inaccesible:
+\(\langle(2,-1)\rangle\), dimensión \(2-1=1\), y en efecto \(B^T(2,-1)^T=0\). Co-imagen:
+\(\langle(1,2,3)\rangle\), dimensión \(1\); núcleo: \(\langle(2,-1,0),\ (3,0,-1)\rangle\),
+dimensión \(3-1=2\); ambos vectores dan \(B v=0\) y son perpendiculares a \((1,2,3)\)
+(\(2-2+0=0\), \(3+0-3=0\)). Como \(B=uv^T\) con \(u=(1,2)\) y \(v=(1,2,3)\), la SVD tiene un
+solo valor singular, \(\sigma_1=\lVert u\rVert\lVert v\rVert=\sqrt{5\cdot14}=\sqrt{70}\), y
+\(B^{+}=\tfrac{v}{\lVert v\rVert}\tfrac1{\sqrt{70}}\tfrac{u^T}{\lVert u\rVert}=\tfrac{vu^T}{70}
+=\tfrac1{70}B^T\).}
+
+\begin{ejercicio}\label{ex:inv-media}
+Una distancia se midió tres veces: \(125{,}432\), \(125{,}438\) y \(125{,}429\) m.
+Plantear el ajuste como un sistema \(Ax=b\) de \(3\times1\), calcular \(A^{+}\), el valor
+ajustado, los residuos, \(\sigma_0\) y la precisión del valor ajustado.
+\end{ejercicio}
+\solucion{\(A=(1,1,1)^T\), \(A^TA=3\), \(A^{+}=\tfrac13(1,1,1)\): la pseudoinversa es el
+promedio. \(\hat d=\tfrac13(125{,}432+125{,}438+125{,}429)=125{,}433\) m. Residuos
+\(v=\hat d-b=(+1;\ -5;\ +4)\) mm, que suman cero (son perpendiculares a la columna de unos).
+\(v^Tv=42\) mm\(^2\), \(n-u=2\), \(\sigma_0=\sqrt{42/2}=4{,}583\) mm, y
+\(\sigma_{\hat d}=\sigma_0\sqrt{(A^TA)^{-1}}=4{,}583/\sqrt3=2{,}646\) mm.}
+
+\begin{ejercicio}\label{ex:inv-norma-minima}
+Hallar la solución de norma mínima de la ecuación \(x+2y+2z=9\) y compararla con la solución
+\((9,0,0)\). ¿Qué forma tiene el conjunto de todas las soluciones?
+\end{ejercicio}
+\solucion{\(A=(1\ 2\ 2)\), \(AA^T=9\), \(A^{+}=\tfrac19(1,2,2)^T\), \(x^{+}=A^{+}\cdot9=(1,2,2)\),
+con \(\lVert x^{+}\rVert=3\); control: \(1+4+4=9\). \((9,0,0)\) también es solución pero
+tiene norma \(9\). El conjunto de soluciones es el plano afín \(x+2y+2z=9\), paralelo al
+núcleo (el plano \(x+2y+2z=0\)); \(x^{+}\) es el pie de la perpendicular desde el origen y
+apunta en la dirección de la normal \((1,2,2)\), que genera la co-imagen. Su norma, \(3\), es
+la distancia del origen al plano: \(9/\lVert(1,2,2)\rVert=9/3\).}
+
+\begin{ejercicio}\label{ex:inv-proyector}
+Para la matriz \(A\) del ejemplo~\ref{ej:cuatro-subespacios}, calcular \(P=AA^{+}\) e
+\(I-P\), verificar que \(I-P=\tfrac16\,nn^T\) con \(n=(1,-2,1)\) y descomponer
+\(y=(1,0,2)\) en una parte explicada por una recta y un residuo.
+\end{ejercicio}
+\solucion{\(A^TA=\begin{pmatrix}3&3\\3&5\end{pmatrix}\), y
+\(P=A(A^TA)^{-1}A^T=\tfrac16\begin{pmatrix}5&2&-1\\2&2&2\\-1&2&5\end{pmatrix}\), de traza
+\(2\). \(I-P=\tfrac16\begin{pmatrix}1&-2&1\\-2&4&-2\\1&-2&1\end{pmatrix}=\tfrac16\,nn^T\): la
+proyección sobre la recta del espacio inaccesible, con \(\lVert n\rVert^2=6\). Para
+\(y=(1,0,2)\): \(Py=(0{,}5;\ 1;\ 1{,}5)\), alineados (la recta \(y=0{,}5+0{,}5x\)), y
+\((I-P)y=(0{,}5;\ -1;\ 0{,}5)\), un múltiplo de \(n\), perpendicular a las dos columnas.}
