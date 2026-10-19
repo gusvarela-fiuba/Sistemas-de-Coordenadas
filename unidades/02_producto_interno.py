@@ -285,7 +285,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("El producto interno puede servir como base para definir tipos de transformaciones").*
+        **(a) Lápiz — elemental** *Idea central: el producto interno puede servir como base para definir tipos de transformaciones.*
         $u = (3, 4)$. Calculá $|u|$ y el vector de largo $1$ en su dirección. Después decidí, sin dibujar, si
         $w = (4, -3)$ es perpendicular a $u$, y cuánto vale la sombra de $(6, 2)$ sobre $u$.
         """),
@@ -294,8 +294,8 @@ def _(mo):
         Sombra de $(6, 2)$: $\langle (6,2), u\rangle / |u| = (18 + 8)/5 = 5.2$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los objetos
-        transformados mantienen").* Mojones $A = (7, 6)$, $B = (10, 10)$, $C = (14, 7)$. Sin transportador: ¿cuánto vale
+        **(b) Lápiz — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los objetos
+        transformados mantienen.* Mojones $A = (7, 6)$, $B = (10, 10)$, $C = (14, 7)$. Sin transportador: ¿cuánto vale
         el ángulo en $B$? Calculá $|AC|$ de dos maneras: restando coordenadas y por la ley del coseno. Después girá los
         tres mojones $90°$ alrededor del origen y repetí la primera cuenta: ¿qué cambió?
         """),

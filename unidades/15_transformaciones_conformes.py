@@ -569,7 +569,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("toda función analítica es conforme").* Multiplicá dos matrices de la forma
+        **(a) Lápiz — elemental** *Idea central: toda función analítica es conforme.* Multiplicá dos matrices de la forma
         $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$ y $\begin{pmatrix} c & -d \\ d & c \end{pmatrix}$ y mostrá que el
         producto tiene la misma forma. ¿Qué dice eso de componer dos transformaciones conformes, y qué número complejo es?
         """),
@@ -584,7 +584,7 @@ def _(mo):
         girar la hoja) sigue siendo conforme.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("cilíndrica equivalente").* En una cilíndrica normal $x = a\lambda$, $y = y(\varphi)$ sobre el
+        **(b) Lápiz — medio** *Idea central: cilíndrica equivalente.* En una cilíndrica normal $x = a\lambda$, $y = y(\varphi)$ sobre el
         elipsoide, deducí la condición sobre $y(\varphi)$ para que conserve áreas, y resolvela en la esfera ($M = N = R$).
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -609,7 +609,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("Jacobiano = similaridad directa").* Completá `es_jacobiano_conforme(J, tol)`:
+        **(c) Código con hueco — medio** *Idea central: jacobiano = similaridad directa.* Completá `es_jacobiano_conforme(J, tol)`:
         `True` si $J^T J = k^2 I$ con $k > 0$ (conserva ángulos) **y** $\det J > 0$ (no refleja). Tenés `np`. Se verifica
         con `np.allclose` sobre una lista de ocho matrices: similaridades, una reflexión, una afinidad, un corte y la nula.
         """),
@@ -658,7 +658,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("Mercator sobre el elipsoide").* Completá `latitud_isometrica_elipsoide(phi_deg, e)`
+        **(d) Código con hueco — avanzado** *Idea central: mercator sobre el elipsoide.* Completá `latitud_isometrica_elipsoide(phi_deg, e)`
         con $q(\varphi) = \ln\tan\!\left(\frac{\pi}{4} + \frac{\varphi}{2}\right) - \frac{e}{2}\ln\frac{1 + e\sin\varphi}{1 - e\sin\varphi}$,
         grados adentro, vectorizada (acepta un array de latitudes). Tenés `np`. Se verifica con `np.allclose` contra
         `lib.latitud_isometrica` en 20 latitudes al azar entre $-80°$ y $80°$, con $e$ de GRS80 y con $e = 0$.

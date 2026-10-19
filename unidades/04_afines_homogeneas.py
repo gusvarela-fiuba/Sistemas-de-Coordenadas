@@ -384,7 +384,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("una afinidad conserva paralelas las paralelas").* $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
+        **(a) Lápiz — elemental** *Idea central: una afinidad conserva paralelas las paralelas.* $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
         $t = (1, 0)$. Calculá las imágenes de los cuatro vértices del cuadrado unitario y el área de la figura que forman.
         ¿Puede un escaneo afín convertir el rectángulo de la parcela en un **trapecio** (dos lados que, prolongados, se cruzan)?
         """),
@@ -395,7 +395,7 @@ def _(mo):
         transformación proyectiva (unidad 05).
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("definir la imagen de un triángulo ya nos define completamente la afinidad").*
+        **(b) Lápiz — medio** *Idea central: definir la imagen de un triángulo ya nos define completamente la afinidad.*
         $a = (0,0) \mapsto (1,2)$, $b = (1,0) \mapsto (3,3)$, $c = (0,1) \mapsto (2,4)$. Hallá $A$ y $t$, el factor de
         área y la imagen de $d = (1,1)$.
         """),
@@ -416,8 +416,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("un tema insistente de la clase fue la composición como una operación entre
-        transformaciones").* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
+        **(c) Código con hueco — medio** *Idea central: un tema insistente de la clase fue la composición como una operación entre
+        transformaciones.* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
         (radianes) alrededor del origen y **después** la mueve `t`, con una sola matriz homogénea. Tenés `np`, `rot2`,
         `hom`, `dehom` y `matriz_afin(A, t)`. Se verifica con `np.allclose` sobre 20 puntos al azar.
         """),
@@ -462,8 +462,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: corregir el plano escaneado** *("tres puntos conocidos alcanzan para
-        corregirlo").* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
+        **(d) Código con hueco — avanzado: corregir el plano escaneado** *Idea central: tres puntos conocidos alcanzan para
+        corregirlo.* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
         El cuarto sólo lo tenemos en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
         mojón. Tenés `np`, `hom`, `dehom` y los tres arrays cargados.
         """),

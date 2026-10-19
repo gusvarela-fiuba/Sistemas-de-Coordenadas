@@ -515,7 +515,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("la matriz tiene en sus columnas los vectores de una base expresada en la otra").*
+        **(a) Lápiz — elemental** *Idea central: la matriz tiene en sus columnas los vectores de una base expresada en la otra.*
         Ejes nuevos $b_1 = (2, 0)$ y $b_2 = (1, 1)$, mojón $p = (5, 3)$. Hallá sus coordenadas nuevas resolviendo
         $Bc = p$. Después calculá $\langle p, b_k\rangle / \langle b_k, b_k\rangle$: ¿por qué no da lo mismo?
         """),
@@ -526,7 +526,7 @@ def _(mo):
         coordenadas en bases ortogonales.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("en la base de autovectores la transformación es diagonal").*
+        **(b) Lápiz — medio** *Idea central: en la base de autovectores la transformación es diagonal.*
         $A = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$. Hallá autovalores y autovectores, armá $B$ y $B^{-1}$,
         verificá que $B^{-1}AB$ es diagonal y calculá $A^3$ por la diagonal. Controlá multiplicando.
         """),
@@ -549,7 +549,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("expresar vectores dados en una base como combinación lineal de otra").*
+        **(c) Código con hueco — medio** *Idea central: expresar vectores dados en una base como combinación lineal de otra.*
         Completá `coordenadas_en(B, p)`. Tenés `np`. Se verifica con `np.allclose` en 20 puntos al azar con la base del
         ejercicio (a).
         """),
@@ -593,7 +593,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("la base de autovectores permite aplicar $n$ veces la transformación").*
+        **(d) Código con hueco — avanzado** *Idea central: la base de autovectores permite aplicar $n$ veces la transformación.*
         Completá `potencia(A, n)` por diagonalización. Tenés `np`. Se verifica con `np.allclose` contra
         `np.linalg.matrix_power` en $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$ con $n = 5$ y en la $A$ de (b) con $n = 3$.
         """),

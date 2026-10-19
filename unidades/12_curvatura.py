@@ -329,7 +329,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("la curvatura tiene que ser una forma cuadrática").* Para la silla
+        **(a) Lápiz — elemental** *Idea central: la curvatura tiene que ser una forma cuadrática.* Para la silla
         $z = (x^2 - y^2)/4$ en el origen escribí $I$ y $II$, las curvaturas principales con sus rumbos, $K$ y los dos
         rumbos en los que $\kappa_n = 0$. ¿Qué signo tiene $K$ y qué dice eso de la superficie?
         """),
@@ -341,7 +341,7 @@ def _(mo):
         por ahí la sección normal es (a segundo orden) recta.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("nos ayuda a entender la curvatura del elipsoide").* Un mapa plano de la Tierra que
+        **(b) Lápiz — medio** *Idea central: nos ayuda a entender la curvatura del elipsoide.* Un mapa plano de la Tierra que
         conserve **todas** las distancias: ¿puede existir? Usá $K$ y lo que mostró el cilindro.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -369,7 +369,7 @@ def _(mo, np):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("los máximos y mínimos se dan a intervalos de $\pi/2$").* Completá
+        **(c) Código con hueco — medio** *Idea central: los máximos y mínimos se dan a intervalos de $\pi/2$.* Completá
         `curvaturas_principales(E, F, G, L, M, N)`: devuelve `(k1, k2)` con $\kappa_1 \ge \kappa_2$. Tenés `np`. Se verifica con
         `np.allclose` contra la referencia en 20 pares $(I, II)$ al azar, con $I$ una regla oblicua ($F \ne 0$).
         """),
@@ -412,7 +412,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("la curvatura de Gauss es el producto de las principales").* Completá
+        **(d) Código con hueco — avanzado** *Idea central: la curvatura de Gauss es el producto de las principales.* Completá
         `gauss(E, F, G, L, M, N)` $= \det II / \det I = \kappa_1 \kappa_2$. Se verifica con `np.allclose` contra
         $\kappa_1\kappa_2$ de la referencia en los mismos 20 casos.
         """),

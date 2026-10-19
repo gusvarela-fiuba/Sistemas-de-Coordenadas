@@ -448,8 +448,8 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("el punto de la entrada que corresponde en la salida a lo más cercano al término
-        independiente").* Medimos tres veces el mismo lado: $12.1$, $11.9$ y $12.3$ m. Escribí $Ax = y$ con $A$ la columna
+        **(a) Lápiz — elemental** *Idea central: el punto de la entrada que corresponde en la salida a lo más cercano al término
+        independiente.* Medimos tres veces el mismo lado: $12.1$, $11.9$ y $12.3$ m. Escribí $Ax = y$ con $A$ la columna
         de unos, las ecuaciones normales, la solución y el residuo. ¿Qué cuenta conocida es?
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -457,7 +457,7 @@ def _(mo):
         que suma cero: perpendicular a la columna de unos. Promediar es proyectar sobre la recta de $(1, 1, 1)$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("resolver un sistema de ecuaciones sobre-determinado").* Puntos $(-1, 1)$, $(0, 1)$,
+        **(b) Lápiz — medio** *Idea central: resolver un sistema de ecuaciones sobre-determinado.* Puntos $(-1, 1)$, $(0, 1)$,
         $(1, 4)$. Ajustá $y = ax + b$ con las ecuaciones normales (fijate que $A^T A$ sale diagonal porque las $x$
         están centradas), calculá el residuo y comprobá que es perpendicular a las dos columnas.
         """),

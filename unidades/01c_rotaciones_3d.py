@@ -317,7 +317,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("Las rotaciones son matrices ortogonales con determinante mayor a 0").* Escribí
+        **(a) Lápiz — elemental** *Idea central: las rotaciones son matrices ortogonales con determinante mayor a 0.* Escribí
         $R_z(90°)$ con números y aplicala a $(1, 2, 3)$. Verificá que la tercera coordenada no cambia, que el largo
         tampoco, y que $R_z(90°)$ aplicada dos veces es $R_z(180°) = \mathrm{diag}(-1, -1, 1)$.
         """),
@@ -340,8 +340,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — avanzado** *("Combinación de rotaciones son rotaciones"; el eje como dirección que queda
-        fija, que más adelante va a ser "autovector de autovalor 1").* Armá $R = R_z(90°)\,R_y(90°)$ (primero gira
+        **(b) Código con hueco — avanzado** *Idea central: la combinación de rotaciones es una rotación; el eje es la dirección que queda
+        fija, que más adelante va a ser el autovector de autovalor 1.* Armá $R = R_z(90°)\,R_y(90°)$ (primero gira
         alrededor de $y$, después alrededor de $z$), aplicala a $(1, 0, 0)$ y verificá que $u = (-1, 1, 1)/\sqrt3$ queda
         fijo: `np.allclose(R @ u, u)`. Tenés `np`, `rot_x`, `rot_y`, `rot_z`. Para el cuaderno: ¿por qué $R$ **tiene**
         que dejar quieta alguna dirección?

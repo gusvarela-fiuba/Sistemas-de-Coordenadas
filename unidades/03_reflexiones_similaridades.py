@@ -384,8 +384,8 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("un par de reflexiones sucesivas no altera las distancias, pero tiene un punto fijo,
-        así que tiene que ser una rotación").* $H(0°) = \mathrm{diag}(1, -1)$ conserva todas las distancias, igual que una
+        **(a) Lápiz — elemental** *Idea central: un par de reflexiones sucesivas no altera las distancias, pero tiene un punto fijo,
+        así que tiene que ser una rotación.* $H(0°) = \mathrm{diag}(1, -1)$ conserva todas las distancias, igual que una
         rotación. ¿Por qué **no** es una rotación? Dos razones: una con un número y otra con un dibujo.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -395,8 +395,8 @@ def _(mo):
         entera**; una rotación distinta de la identidad sólo deja quieto el centro. Para un giro hacen falta **dos** espejos.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("el punto $o$ es la intersección de las rectas $A$ y $B$, y es el punto fijo de la
-        transformación").* La similaridad $z \mapsto 2i\,z + 1$: ¿cuánto escala, cuánto gira, y cuál es su centro?
+        **(b) Lápiz — medio** *Idea central: el punto $o$ es la intersección de las rectas $A$ y $B$, y es el punto fijo de la
+        transformación.* La similaridad $z \mapsto 2i\,z + 1$: ¿cuánto escala, cuánto gira, y cuál es su centro?
         Verificá que el centro no se mueve.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -417,8 +417,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("la reflexión, considerando una línea de base y sus perpendiculares, sobre
-        las que todas las distancias se escalaban por −1").* Completá `reflexion(alpha)`: la matriz $2\times2$ del
+        **(c) Código con hueco — medio** *Idea central: la reflexión, considerando una línea de base y sus perpendiculares, sobre
+        las que todas las distancias se escalaban por −1.* Completá `reflexion(alpha)`: la matriz $2\times2$ del
         espejo respecto de la recta por el origen de ángulo `alpha` (radianes). Tenés `np`. Se verifica con
         `np.allclose` en dos ángulos.
         """),
@@ -462,8 +462,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: superponer el plano viejo** *("dado un triángulo y su imagen puede hallarse
-        el punto $o$").* Completá `similaridad_por_dos_puntos(P1, P2, Q1, Q2)`: dos puntos del plano viejo y sus
+        **(d) Código con hueco — avanzado: superponer el plano viejo** *Idea central: dado un triángulo y su imagen puede hallarse
+        el punto $o$.* Completá `similaridad_por_dos_puntos(P1, P2, Q1, Q2)`: dos puntos del plano viejo y sus
         imágenes en el terreno (arrays de dos números) → `(A, t)` con $A = \lvert a \rvert\,R(\arg a)$. Tenés `np` y
         `rot2`. Se verifica con `np.allclose` sobre otro par de mojones y un tercero de control.
         """),

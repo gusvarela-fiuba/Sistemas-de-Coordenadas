@@ -337,7 +337,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("hay vectores de entrada que van al cero").* $B = \begin{pmatrix} 2 & 3 \\ 4 & 6 \end{pmatrix}$.
+        **(a) Lápiz — elemental** *Idea central: hay vectores de entrada que van al cero.* $B = \begin{pmatrix} 2 & 3 \\ 4 & 6 \end{pmatrix}$.
         ¿Tiene núcleo no trivial? Encontrá un vector del núcleo y decí sobre qué recta cae el plano entero.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -346,7 +346,7 @@ def _(mo):
         $B(x, y) = (2x + 3y)(1, 2)$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("buscamos los valores de $\lambda$ que hagan que el núcleo no esté vacío").*
+        **(b) Lápiz — medio** *Idea central: buscamos los valores de $\lambda$ que hagan que el núcleo no esté vacío.*
         $B = \begin{pmatrix} 3 & 1 \\ 0 & 2 \end{pmatrix}$. Hallá los autovalores con el detector y un autovector por cada
         uno con la perpendicular a una fila. ¿Son perpendiculares entre sí? ¿Por qué un giro $R(\theta)$ con
         $0 < \theta < 180°$ no tiene ninguno?
@@ -370,7 +370,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("un vector ortogonal a todas sus filas").* Completá `nucleo(A)`: recibe una
+        **(c) Código con hueco — medio** *Idea central: un vector ortogonal a todas sus filas.* Completá `nucleo(A)`: recibe una
         $2\times2$ con $\det A = 0$ y devuelve un vector **no nulo** de su núcleo. Tenés `np` y `perp2`. Se verifica con
         `np.allclose(A @ v, 0)` en cinco matrices singulares, una de ellas con la primera fila nula.
         """),
@@ -411,8 +411,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: la máquina del núcleo** *("construir una versión modificada de la
-        transformación que tenga al autovector en el núcleo").* Completá `autovectores(A)`: para una $2\times2$ con
+        **(d) Código con hueco — avanzado: la máquina del núcleo** *Idea central: construir una versión modificada de la
+        transformación que tenga al autovector en el núcleo.* Completá `autovectores(A)`: para una $2\times2$ con
         autovalores reales distintos devuelve una lista de pares `(λ, v)`. Tenés `np` y `perp2`. Se verifica que cada
         par cumpla `np.allclose(A @ v, λ v)` en tres matrices, y que los $\lambda$ coincidan con `np.linalg.eigvals`.
         """),

@@ -304,7 +304,7 @@ def _(mo):
     mo.md(r"""
     ## 5. Ejercicios
 
-    **(a) Lápiz — elemental** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
+    **(a) Lápiz — elemental** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 
@@ -318,7 +318,7 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(b) Lápiz — medio** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
+    **(b) Lápiz — medio** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 
@@ -332,7 +332,7 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(c) Código con hueco — medio** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado. Qué tiene
+    **(c) Código con hueco — medio** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado. Qué tiene
     disponible: `np` y las funciones que se le pasan al `exec`.] Se verifica con `np.allclose`.
     """)
     return
@@ -374,7 +374,7 @@ def _(editor_c, lib, mo, np):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(d) Código con hueco — avanzado** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
+    **(d) Código con hueco — avanzado** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 

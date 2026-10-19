@@ -644,7 +644,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("las matrices y las transformaciones lineales tienen una correspondencia 1 a 1").*
+        **(a) Lápiz — elemental** *Idea central: las matrices y las transformaciones lineales tienen una correspondencia 1 a 1.*
         La cota es $h = 3x + y$ (regla $w^T = (3, 1)$) y el plano se dibuja con el **Norte** estirado por 2:
         $A = \mathrm{diag}(1, 2)$. El mojón está en $x = (2, 1)$. Calculá la cota, el mojón dibujado $Ax$, la regla
         arrastrada $w^T A^{-1}$ y comprobá que lee la misma cota. Después decidí: la flecha $(3, 1)$ dibujada en el
@@ -669,7 +669,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **E1. Código con hueco — elemental** *("hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$").*
+        **E1. Código con hueco — elemental** *Idea central: hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$.*
         Completá `matriz_complejo(z)`: la matriz $2\times2$ que hace sobre $(x, y)$ lo mismo que $z$ sobre $x + iy$.
         Tenés `np`. Se verifica que $M(z)\,e_1 = (a, b)$ y que $M$ respeta la suma, el producto y el inverso sobre diez
         pares de complejos al azar: $M(z_1 + z_2) = M(z_1) + M(z_2)$, $M(z_1 z_2) = M(z_1)M(z_2)$, $M(1/z) = M(z)^{-1}$.
@@ -718,8 +718,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **E2. Código con hueco — medio** *("una forma lineal se transforma con una transformación lineal del lado
-        'contrario' que un vector").* Completá `arrastrar_punto_y_forma(A, x, w)`: devuelve el par `(x2, w2)` con el
+        **E2. Código con hueco — medio** *Idea central: una forma lineal se transforma con una transformación lineal del lado
+        'contrario' que un vector.* Completá `arrastrar_punto_y_forma(A, x, w)`: devuelve el par `(x2, w2)` con el
         punto movido y la regla arrastrada, de modo que la lectura no cambie: `w2 @ x2 == w @ x`. Tenés `np`; usá
         `np.linalg.solve` en vez de `inv`. Se verifica sobre $A = \mathrm{diag}(2, 1)$ y diez matrices al azar con
         $\det \ne 0$, y se chequea la invariancia de la cota en cada caso.
@@ -774,8 +774,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **E3. Código con hueco — avanzado** *("lo único que define a la base que llamamos canónica es que sobre ella
-        tenemos definida la noción de distancia a través del producto interno").* Completá las dos funciones del
+        **E3. Código con hueco — avanzado** *Idea central: lo único que define a la base que llamamos canónica es que sobre ella
+        tenemos definida la noción de distancia a través del producto interno.* Completá las dos funciones del
         ladrillo 5: `angulo_g(a, b, g)`, el ángulo **en grados** entre `a` y `b` medido con la métrica `g`, y
         `subida_metrica(w, g)`, la forma `w` levantada a vector con `g` (el $v$ que cumple $g\,v = w$: el puente entre
         la forma gradiente y la dirección de máxima pendiente en el terreno). Tenés `np`. Se verifica sobre

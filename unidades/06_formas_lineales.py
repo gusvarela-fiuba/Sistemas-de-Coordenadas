@@ -466,7 +466,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("las más básicas de esas funciones son las selectoras de coordenadas").* La regla
+        **(a) Lápiz — elemental** *Idea central: las más básicas de esas funciones son las selectoras de coordenadas.* La regla
         $\ell = (3, 4)$. ¿Qué dirección no mide (su núcleo)? ¿A qué distancia están sus marcas enteras? ¿Qué marca pasa
         por $(2, 1)$, y cuál es su ecuación? Escribí $\ell$ como combinación de $\mathsf x$ y $\mathsf y$.
         """),
@@ -475,7 +475,7 @@ def _(mo):
         $1/5 = 0.2$. $\ell(2, 1) = 6 + 4 = 10$: la recta $3x + 4y = 10$. Y $\ell = 3\,\mathsf x + 4\,\mathsf y$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("una forma lineal se transforma del lado contrario que un vector").* El ejemplo del
+        **(b) Lápiz — medio** *Idea central: una forma lineal se transforma del lado contrario que un vector.* El ejemplo del
         apunte: $A = \begin{pmatrix} 1 & 1 \\ 0 & 2 \end{pmatrix}$, $\varphi = (2, 3)$, $v = (1, 1)$. Calculá $Av$,
         $\varphi(Av)$, $\varphi A$ y $\varphi A^{-1}$. ¿Cuál de las dos filas lee sobre $v$ lo que $\varphi$ lee sobre
         $Av$, y cuál es la regla arrastrada junto con la figura? Verificá cada una con una lectura.
@@ -497,8 +497,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("¿cómo transformo las rectas para que los puntos sigan estando en las mismas
-        rectas?").* Completá `forma_transformada(l, A)`. Tenés `np`. Se verifica con `np.allclose` sobre la $A$ de la
+        **(c) Código con hueco — medio** *Pregunta guía: ¿cómo transformo las rectas para que los puntos sigan estando en las mismas
+        rectas?* Completá `forma_transformada(l, A)`. Tenés `np`. Se verifica con `np.allclose` sobre la $A$ de la
         predicción y diez matrices al azar con $\det \ne 0$.
         """),
         editor_c,
@@ -545,8 +545,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("las rectas se representan por vectores fila y los puntos por vectores
-        columna").* Completá `recta_por_dos_puntos(p, q)`: la recta por $p$ y $q$ como **fila homogénea** $(a, b, c)$,
+        **(d) Código con hueco — avanzado** *Idea central: las rectas se representan por vectores fila y los puntos por vectores
+        columna.* Completá `recta_por_dos_puntos(p, q)`: la recta por $p$ y $q$ como **fila homogénea** $(a, b, c)$,
         con $ax + by + c = 0$. La cuña de las dos ternas homogéneas (`np.cross`) da una fila que marca cero sobre las
         dos. Tenés `np`. Se verifica que la fila lea $0$ en $p$ y en $q$ en diez pares al azar; signo y escala no
         importan: es la misma recta.

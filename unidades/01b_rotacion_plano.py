@@ -365,8 +365,8 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los objetos
-        transformados mantienen").* ¿Qué ángulo $\theta$ lleva $(1, 0)$ a $(0, -1)$? Escribí $R(\theta)$ con números y
+        **(a) Lápiz — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los objetos
+        transformados mantienen.* ¿Qué ángulo $\theta$ lleva $(1, 0)$ a $(0, -1)$? Escribí $R(\theta)$ con números y
         verificá que el largo de $(1,0)$ no cambia. ¿Hay otra matriz ortogonal, que **no** sea una rotación, que también
         lleve $(1,0)$ a $(0,-1)$? ¿Qué la distingue?
         """),
@@ -392,8 +392,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — medio** *("Hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$"; la
-        idea de la sección 4).* Completá `rotar(puntos, theta)`: recibe una nube $N\times2$ y un ángulo en **radianes** y
+        **(b) Código con hueco — medio** *Idea central: hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$ (sección 4).* Completá `rotar(puntos, theta)`: recibe una nube $N\times2$ y un ángulo en **radianes** y
         devuelve la nube girada. Tenés `np`. Se verifica con `np.allclose` sobre 20 puntos al azar.
         """),
         editor_b,

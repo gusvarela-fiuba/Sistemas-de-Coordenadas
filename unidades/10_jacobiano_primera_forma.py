@@ -362,7 +362,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("la matriz jacobiana describe esa transformación lineal local").* Cilindro de radio
+        **(a) Lápiz — elemental** *Idea central: la matriz jacobiana describe esa transformación lineal local.* Cilindro de radio
         $R = 10$ m, $r(u, v) = (R\cos u,\ R\sin u,\ v)$ con $u$ el ángulo y $v$ la altura. Calculá $r_u$, $r_v$ y la tabla
         $E, F, G$. ¿Cuánto mide sobre el cilindro un paso de $1°$ en $u$? ¿Y uno de $1$ m en $v$?
         """),
@@ -372,7 +372,7 @@ def _(mo):
         Es la regla del plano con el eje $u$ reescalado por $R$: el cilindro se desenrolla sin deformar.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("no hay base privilegiada salvo por el producto interno").* ¿Por qué $F = 0$ significa
+        **(b) Lápiz — medio** *Idea central: no hay base privilegiada salvo por el producto interno.* ¿Por qué $F = 0$ significa
         ejes locales perpendiculares? Después, para el plano inclinado $z = 1 + 0.4u + 0.3v$ de la sección 2, calculá a
         qué ángulo se cruzan sobre el plano las líneas de la grilla, perpendiculares en el papel.
         """),

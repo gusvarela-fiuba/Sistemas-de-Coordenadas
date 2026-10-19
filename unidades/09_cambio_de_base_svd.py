@@ -455,7 +455,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("existe una base ortogonal de la entrada que va a una base ortogonal de la salida").*
+        **(a) Lápiz — elemental** *Idea central: existe una base ortogonal de la entrada que va a una base ortogonal de la salida.*
         Si $A = U\Sigma V^T$, calculá $A^T A$ y explicá por qué los $\sigma_k^2$ son sus autovalores y los $v_k$ sus
         autovectores. ¿Por qué eso garantiza que los $\sigma$ nunca son complejos?
         """),
@@ -468,7 +468,7 @@ def _(mo):
         los $u_k = Av_k/\sigma_k$ son perpendiculares y de largo $1$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("invertir una matriz diagonal es tomar recíprocos").* ¿Cuándo $A^{+} = A^{-1}$? Calculá
+        **(b) Lápiz — medio** *Idea central: invertir una matriz diagonal es tomar recíprocos.* ¿Cuándo $A^{+} = A^{-1}$? Calculá
         las dos para $D = \begin{pmatrix} 3 & 0 \\ 0 & -2 \end{pmatrix}$ y para $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$, y decí qué hace $A^{+}A$ con un vector.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -489,7 +489,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("quedarse con los $k$ primeros es la mejor aproximación de rango $k$").*
+        **(c) Código con hueco — medio** *Idea central: quedarse con los $k$ primeros es la mejor aproximación de rango $k$.*
         Completá `reconstruir(U, s, Vt, k)`. Tenés `np`. Se verifica con `np.allclose` en una matriz $6\times6$ al azar
         con $k = 2$ y $k = 6$ (con $k = 6$ tiene que devolver la matriz entera).
         """),
@@ -533,7 +533,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("la pseudoinversa elige el punto de la imagen más cercano").* Completá
+        **(d) Código con hueco — avanzado** *Idea central: la pseudoinversa elige el punto de la imagen más cercano.* Completá
         `pseudoinversa(A)` desde la SVD. Tenés `np`. Se verifica con `np.allclose` contra `np.linalg.pinv` en
         $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$, en la no simétrica $\begin{pmatrix} 1 & 1 \\ 2 & 2 \end{pmatrix}$ y en la $3\times2$ de la sección 2.
         """),

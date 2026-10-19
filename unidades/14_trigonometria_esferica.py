@@ -316,7 +316,7 @@ def _(R_TIERRA, lib, mo, np):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("los problemas geodésicos sobre la superficie de la esfera").* Triángulo con $b = c = 60°$
+        **(a) Lápiz — elemental** *Idea central: los problemas geodésicos sobre la superficie de la esfera.* Triángulo con $b = c = 60°$
         y ángulo $A = 90°$. Calculá el lado $a$, los ángulos $B$ y $C$ (ley del coseno), la suma y el exceso. ¿Qué
         fracción de la esfera cubre?
         """),
@@ -327,8 +327,8 @@ def _(R_TIERRA, lib, mo, np):
         ${_ex60:.4f}\,R^2$, el ${100 * _ex60 / (4 * np.pi):.2f}\,\%$ de la esfera.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("verificando si el error obtenido al regresar al punto de origen es compatible con la
-        precisión de los instrumentos").* Una poligonal triangular de campo con lados de $10$ km sobre la Tierra
+        **(b) Lápiz — medio** *Idea central: verificando si el error obtenido al regresar al punto de origen es compatible con la
+        precisión de los instrumentos.* Una poligonal triangular de campo con lados de $10$ km sobre la Tierra
         ($R = 6371$ km). ¿Cuánto exceso esférico trae la suma de sus tres ángulos? ¿Y con lados de $100$ km? ¿Puede un
         cuadrilátero sobre la esfera tener los cuatro ángulos rectos?
         """),

@@ -335,7 +335,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("deducciones a partir de la simetría").* Explicá, sin fórmulas primero y con
+        **(a) Lápiz — elemental** *Idea central: deducciones a partir de la simetría.* Explicá, sin fórmulas primero y con
         $\tan\psi = (1 - e^2)\tan\varphi$ después, por qué en el ecuador y en los polos coinciden las tres latitudes.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -345,8 +345,8 @@ def _(mo):
         $\tan\psi \to \infty$, $\psi \to 90°$ (igual para $\beta$). En cualquier otro punto $0 < 1 - e^2 < 1$ achica la tangente.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("los radios mayor y menor tienen que ser el de la sección meridiana y el del primer
-        vertical").* Calculá $N - M$ en el ecuador en función de $a$ y $e^2$, y su valor en metros para GRS80
+        **(b) Lápiz — medio** *Idea central: los radios mayor y menor tienen que ser el de la sección meridiana y el del primer
+        vertical.* Calculá $N - M$ en el ecuador en función de $a$ y $e^2$, y su valor en metros para GRS80
         ($a = 6378137$ m, $e^2 = 0.00669438$). ¿Cuánto vale en los polos?
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -368,7 +368,7 @@ def _(mo, np):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("las ecuaciones de transformación entre cartesianas y elipsoidales").*
+        **(c) Código con hueco — medio** *Idea central: las ecuaciones de transformación entre cartesianas y elipsoidales.*
         Completá `geodesica_a_cartesiana(phi, lam, h)` con los ángulos en **grados**. Tenés `np`, `a` y `e2` de GRS80.
         Se verifica con `np.allclose` en 20 puntos al azar con $h$ entre $0$ y $3000$ m.
         """),
@@ -413,7 +413,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("la latitud es el ángulo entre la vertical elipsoidal y el plano XY").*
+        **(d) Código con hueco — avanzado** *Idea central: la latitud es el ángulo entre la vertical elipsoidal y el plano XY.*
         Completá `latitud_geocentrica(phi)`: $\tan\psi = (1 - e^2)\tan\varphi$, grados adentro y grados afuera. Tenés
         `np` y `e2`. Se verifica con `np.allclose` en los 20 puntos de (c), más el ecuador y los polos.
         """),

@@ -335,7 +335,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("conserva $x$ e $y$, da vuelta $z$").* $A = \mathrm{diag}(1, -1, 1)$, la reflexión
+        **(a) Lápiz — elemental** *Idea central: conserva $x$ e $y$, da vuelta $z$.* $A = \mathrm{diag}(1, -1, 1)$, la reflexión
         respecto del plano $xz$. Autovalores, autovectores por cruz de filas, y qué transformación del plano $z = 1$ es:
         ¿cuáles son sus puntos fijos propios e impropios?
         """),
@@ -347,7 +347,7 @@ def _(mo):
         ($A^2 = I$) con eje $y = 0$ y centro impropio.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("tres raíces: todas reales, o una real y dos complejas conjugadas").* ¿Por qué toda
+        **(b) Lápiz — medio** *Idea central: tres raíces: todas reales, o una real y dos complejas conjugadas.* ¿Por qué toda
         transformación proyectiva del plano tiene al menos un punto fijo real (propio o impropio)? ¿Y por qué una
         afinidad que es un giro de $72°$ alrededor de un centro tiene exactamente uno propio?
         """),
@@ -369,7 +369,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("hacemos el producto cruz de dos filas y nos tiene que dar el eje").* Completá
+        **(c) Código con hueco — medio** *Idea central: hacemos el producto cruz de dos filas y nos tiene que dar el eje.* Completá
         `eje(R)`: recibe una rotación $3\times3$ y devuelve su eje unitario, por la cruz de dos filas de $R - I$. Tenés `np`.
         Se verifica con `np.allclose(R @ v, v)` en cinco rotaciones al azar (`rodrigues`), y que `|v| = 1`.
         """),
@@ -409,8 +409,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: los puntos fijos de la tarea** *("los puntos fijos son los autovectores de la
-        transformación").* Completá `puntos_fijos(H)`: recibe una $3\times3$ homogénea y devuelve la lista de sus puntos
+        **(d) Código con hueco — avanzado: los puntos fijos de la tarea** *Idea central: los puntos fijos son los autovectores de la
+        transformación.* Completá `puntos_fijos(H)`: recibe una $3\times3$ homogénea y devuelve la lista de sus puntos
         fijos **propios** $(x, y)$ (autovalores reales, $v_3 \neq 0$). Tenés `np`. Se verifica que cada punto cumpla
         `H p ~ p` y que no falte ni sobre ninguno, en el giro de $72°$ alrededor de $(2, 1)$ y en una escala alrededor de $(1, 3)$.
         """),

@@ -403,7 +403,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("mantienen rectas las rectas").* Con la $H$ de la foto, calculá a dónde van los dos
+        **(a) Lápiz — elemental** *Idea central: mantienen rectas las rectas.* Con la $H$ de la foto, calculá a dónde van los dos
         puntos impropios $(1, 0, 0)$ y $(0, 1, 0)$. ¿Qué pasa en la foto con los alambrados paralelos al eje $x$? ¿Y con
         los paralelos al eje $y$? ¿Dónde se cruzan estos últimos?
         """),
@@ -414,7 +414,7 @@ def _(mo):
         punto de fuga. Está arriba del lote, por eso el trapecio se angosta hacia arriba.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("¿dónde cae el vértice restante? ¿tiene punto fijo?").* Con la $H$ del pentágono,
+        **(b) Lápiz — medio** *Pregunta guía: ¿dónde cae el vértice restante? ¿tiene punto fijo?* Con la $H$ del pentágono,
         verificá que $B$ queda fijo, calculá $H^2$ y decí qué significa. Sobre la recta $x = 0$ están $D = (0, 1)$,
         su imagen $D' = (0, 0)$, el centro $O = (0, 0.309)$ y el corte con el eje $AB$, $X = (0, -0.809)$: calculá la razón
         doble $(D, D'; O, X)$ con la coordenada $y$.
@@ -439,7 +439,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("se normaliza dividiendo por la tercera coordenada").* Completá
+        **(c) Código con hueco — medio** *Idea central: se normaliza dividiendo por la tercera coordenada.* Completá
         `aplicar(H, puntos)`: aplica la homografía `H` a una nube $N\times2$ y devuelve la nube $N\times2$ de las
         imágenes, ya divididas por $W$. Tenés `np` y `hom`. Se verifica con `np.allclose` sobre 20 puntos al azar con la
         $H$ de la foto.
@@ -483,8 +483,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: rectificar la foto** *("cuatro mojones de coordenadas conocidas la
-        rectifican").* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
+        **(d) Código con hueco — avanzado: rectificar la foto** *Idea central: cuatro mojones de coordenadas conocidas la
+        rectifican.* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
         Un pozo sólo lo tenemos en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
         `np`, `hom`, `dehom`, `homografia_4puntos(origen, destino)`, `aplicar_proyectiva(nube, H)` y los tres arrays.
         """),

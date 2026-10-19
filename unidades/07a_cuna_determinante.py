@@ -361,7 +361,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("hagan el producto cruz y después el producto interno: eso es el determinante").*
+        **(a) Lápiz — elemental** *Idea central: hagan el producto cruz y después el producto interno: eso es el determinante.*
         La apuesta: $p = (1, 2, 3)$, $q = (4, 5, -1)$, $r = (0, 0, 1)$. Calculá $p \times q$, después
         $(p \times q) \cdot r$, y controlá con el determinante desarrollado por la fila de $r$ (la que tiene ceros).
         ¿Están alineados, como puntos homogéneos del plano?
@@ -372,7 +372,7 @@ def _(mo):
         $p = (1/3, 2/3)$, $q = (-4, -5)$ y $r$ (el origen) **no** están alineados; el volumen de la caja es $3$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("cuánto agranda un cubo unidad y si invierte la orientación").* La parcela de la
+        **(b) Lápiz — medio** *Idea central: cuánto agranda un cubo unidad y si invierte la orientación.* La parcela de la
         sección 2 tiene área $12$. ¿Qué área tiene después de $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$? ¿Y qué
         área **con signo** después del espejo $\mathrm{diag}(1, -1)$? ¿Puede una matriz con $\det = 0$ dejarle algo de área?
         """),
@@ -393,7 +393,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("si da cero, $R$ está en la recta de $P$ y $Q$").* Completá `alineados(p, q, r)`:
+        **(c) Código con hueco — medio** *Idea central: si da cero, $R$ está en la recta de $P$ y $Q$.* Completá `alineados(p, q, r)`:
         recibe tres puntos del plano como arrays de dos coordenadas y devuelve `True` si están alineados. Tenés `np` y
         `hom`. Se verifica con `np.allclose` sobre seis ternas, tres alineadas (algunas con decimales) y tres no.
         """),
@@ -439,8 +439,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("los mismos números del producto cruz, con un signo cambiado en el del
-        medio").* Completá `volumen(u, v, w)`: el volumen orientado $\det[u\ v\ w]$ escrito **sólo con sumas y productos
+        **(d) Código con hueco — avanzado** *Idea central: los mismos números del producto cruz, con un signo cambiado en el del
+        medio.* Completá `volumen(u, v, w)`: el volumen orientado $\det[u\ v\ w]$ escrito **sólo con sumas y productos
         de coordenadas**, sin `np.cross` ni `np.linalg.det` (están bloqueados). Tenés `np`. Se verifica con `np.allclose`
         contra el determinante en 20 ternas al azar.
         """),

@@ -302,7 +302,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("Las matrices y las transformaciones lineales tienen una correspondencia 1 a 1").*
+        **(a) Lápiz — elemental** *Idea central: las matrices y las transformaciones lineales tienen una correspondencia 1 a 1.*
         El mojón está en $(2, 0)$ y la estación tiene sus ejes girados $90°$ antihorario. Sin matriz, con un dibujo:
         ¿qué lee la estación? Después hacé la cuenta $R(90°)^T\binom{2}{0}$ y comprobá que da lo mismo.
         """),
@@ -325,8 +325,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los
-        objetos transformados mantienen").* Completá `lectura(p, theta_grados)`: recibe un punto (array de 2) en los ejes
+        **(b) Código con hueco — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los
+        objetos transformados mantienen.* Completá `lectura(p, theta_grados)`: recibe un punto (array de 2) en los ejes
         de la obra y el giro de los ejes de la estación **en grados**, y devuelve lo que lee la estación. Tenés `np`.
         Se verifica con `np.allclose` contra la referencia en 20 puntos al azar.
         """),
