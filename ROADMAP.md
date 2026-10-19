@@ -60,6 +60,17 @@ Temas que enseñan otras escuelas de geodesia y agrimensura y que este apunte no
 - [ ] Interpolación espacial (más allá del remuestreo del tomo 1): de puntos dispersos a grilla. Referencia: cursos abiertos de la ENSG.
 - [ ] Ajuste de observaciones con estadística (pesos, covarianzas, datum, deformaciones), como continuación de los capítulos 11 y 12. Referencia: Niemeier, «Ausgleichungsrechnung».
 
+## Método para los próximos libros interactivos
+
+Cada materia nueva sigue estos pasos, en este orden, y se prepara **antes** de cursarla, no durante.
+
+1. **Relevamiento de bibliografía en varios idiomas** (castellano, inglés, alemán, francés, portugués e italiano): programas de otras universidades, apuntes de cátedra, libros de texto y materiales interactivos. El resultado es una tabla con nivel, temas, formato y qué tiene cada uno que el material propio debería tener o evitar.
+2. **Contraste con el programa oficial** (contenidos mínimos del plan 2023): qué temas pide y qué recorte hacen las escuelas que mejor lo enseñan.
+3. **Kit común**, extraído de este repositorio: estructura, hoja de estilo, compilación y controles, generador de problemas, menús, plantilla de unidad marimo, laboratorio CAD cuando corresponda y fases de trabajo.
+4. **Contenido, voz para el aula y problemas**, con notación única desde el primer día.
+5. **Prueba con dos o tres alumnos** antes de ofrecerlo a la cátedra.
+6. **Menú para la cátedra**, que elige qué usar.
+
 ## Más adelante
 
 - [ ] Favicon del sitio.
