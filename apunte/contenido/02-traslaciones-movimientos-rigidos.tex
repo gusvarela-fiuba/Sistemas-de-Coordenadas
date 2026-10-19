@@ -135,8 +135,8 @@ vectores es conmutativa. Dos rotaciones de centros distintos, en cambio, dan rot
   \fill[gold!80!ink] (2,2) circle (2.4pt);
   \draw[muted] (.2,2.45)--(2,2); \node[left,font=\small] at (.2,2.45) {$(2,2)$};
   \node[text=teal,font=\small] at (2.3,.45) {$T$};
-  \node[text=rust,font=\small] at (4.4,-5.4) {$\rho_{c_2}\!\circ\rho_{c_1}$};
-  \node[text=gold!80!ink,font=\small] at (4.9,3.4) {$\rho_{c_1}\!\circ\rho_{c_2}$};
+  \node[text=rust,font=\small] at (5.1,-5.4) {$\rho_{c_2,90^\circ}\!\circ\rho_{c_1,90^\circ}$};
+  \node[text=gold!80!ink,font=\small] at (5.3,3.4) {$\rho_{c_1,90^\circ}\!\circ\rho_{c_2,90^\circ}$};
 \end{tikzpicture}
 
 {\small centros finales distintos}
@@ -144,9 +144,8 @@ vectores es conmutativa. Dos rotaciones de centros distintos, en cambio, dan rot
 \end{center}
 
 La figura de la izquierda es la hoja que se desliza dos veces: por cualquiera de los dos
-caminos del paralelogramo se llega a \(p+a+b\). En la de la derecha, \(\rho_{c}\) es la
-rotación alrededor de \(c\) del capítulo~\ref{cap:rotaciones}, de ángulo \(90^\circ\) en los
-dos casos: el triángulo \(T\) gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y
+caminos del paralelogramo se llega a \(p+a+b\). En la de la derecha, \(\rhoP{c,90^\circ}\) es la
+rotación de \(90^\circ\) alrededor de \(c\) (capítulo~\ref{cap:rotaciones}): el triángulo \(T\) gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y
 luego \(90^\circ\) alrededor de \(c_2=(4,0)\) (abajo, centro \((2,-2)\)); en el orden contrario
 queda arriba, con centro \((2,2)\): \((1,1)\) va a \((3,-5)\) en un orden y a \((3,3)\) en el otro.
 Es la hoja con el alfiler cambiado de lugar: el orden de los dos giros decide dónde termina.
@@ -482,8 +481,24 @@ a distancia \(|v|/2\) de \(L_1\) en el sentido de \(v\), entonces
 \(\sigma_{L_2}\circ\sigma_{L_1}=\tau_v\).
 \end{teorema}
 
-La demostración está en el capítulo~\ref{cap:reflexiones} (\ref{teo:traslacion-dos-reflexiones});
-la parte de las paralelas ya figura en la proposición~\ref{prop:dos-reflexiones}.
+\begin{demostracion}
+Las dos rectas tienen el mismo ángulo de dirección \(\delta\). Sea \(q\) un punto de \(L_1\);
+como \(L_2\) es la paralela corrida \(|v|/2\) en el sentido de \(v\), y \(v\) es perpendicular
+a las dos, el punto \(q+\tfrac12v\) está en \(L_2\). Con la fórmula de la reflexión,
+\(\sigma_{L_1}(p)=q+S(\delta)(p-q)\) y \(\sigma_{L_2}(x)=q+\tfrac12v+S(\delta)\bigl(x-q-\tfrac12v\bigr)\).
+Componiendo y usando \(S(\delta)^2=I\),
+\[
+\sigma_{L_2}(\sigma_{L_1}(p))=q+\tfrac12v+S(\delta)^2(p-q)-\tfrac12S(\delta)v
+=p+\tfrac12v-\tfrac12S(\delta)v .
+\]
+La matriz \(S(\delta)\) cambia de signo la dirección perpendicular a las rectas, y \(v\) es
+perpendicular a ellas: \(S(\delta)v=-v\). Queda \(\sigma_{L_2}(\sigma_{L_1}(p))=p+v=\tau_v(p)\)
+para todo \(p\). En la peluquería: cada espejo da vuelta la distancia al espejo, y las dos
+vueltas juntas corren el punto el doble de la separación.
+\end{demostracion}
+
+El capítulo~\ref{cap:reflexiones} vuelve a probarlo con la ecuación de la recta
+(teorema~\ref{teo:traslacion-dos-reflexiones}).
 
 \begin{ejemplo}[\(v=(4,0)\) con las rectas \(x=0\) y \(x=2\)]\label{ej:t3}
 Las rectas \(L_1\colon x=0\) y \(L_2\colon x=2\) son perpendiculares a \(v\) y están a distancia
@@ -512,8 +527,18 @@ Sea \(\theta\not\equiv0\). Si \(L_1\) y \(L_2\) son rectas por el centro \(c\) y
 \(L_1\) a \(L_2\) es \(\theta/2\), entonces \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{c,\theta}\).
 \end{teorema}
 
-La demostración está en el capítulo~\ref{cap:reflexiones} (\ref{teo:rotacion-dos-reflexiones});
-es el caso (1) de la proposición~\ref{prop:dos-reflexiones}.
+\begin{demostracion}
+Sean \(\delta_1\) y \(\delta_2\) los ángulos de dirección de \(L_1\) y \(L_2\). Que el ángulo
+de \(L_1\) a \(L_2\) sea \(\theta/2\) quiere decir \(\delta_2-\delta_1=\theta/2\) salvo un
+múltiplo de \(\pi\), porque sumarle \(\pi\) al ángulo de dirección no cambia la recta. Las dos
+rectas se cortan en \(c\), y el caso (1) de la proposición~\ref{prop:dos-reflexiones} da
+\(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{c,\,2(\delta_2-\delta_1)}\). El ángulo
+\(2(\delta_2-\delta_1)\) es \(\theta\) salvo un múltiplo de \(2\pi\), que no cambia el giro, así
+que la composición es \(\rhoP{c,\theta}\).
+\end{demostracion}
+
+El capítulo~\ref{cap:reflexiones} vuelve a probarlo con la ecuación de la recta
+(teorema~\ref{teo:rotacion-dos-reflexiones}).
 
 \begin{ejemplo}[Rotación de \(90^\circ\) en el origen]\label{ej:t4}
 Con \(L_1\colon y=0\) (\(\delta_1=0\)) y \(L_2\colon y=x\) (\(\delta_2=45^\circ\)), el ángulo

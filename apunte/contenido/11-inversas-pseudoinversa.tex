@@ -38,7 +38,7 @@ la salida \(\R^m\); núcleo, imagen y rango, como en la sección~\ref{sec:nucleo
 En palabras: \(A\) es la tabla de coeficientes de un sistema de ecuaciones, con una fila por
 ecuación (\(m\) en total) y una columna por incógnita (\(n\)). La \emph{entrada} es el vector de
 las incógnitas, en \(\R^n\); la \emph{salida} es lo que el sistema produce con ellas, en
-\(\R^m\). Llamamos \(r\) al rango de \(A\): la cantidad de direcciones independientes de la
+\(\R^m\). El rango de \(A\), que escribimos \(\operatorname{rango}A\), es la cantidad de direcciones independientes de la
 entrada que \(A\) no aplasta.
 
 \begin{idea}[Solo se deshace lo que no se aplastó]
@@ -293,7 +293,7 @@ punto respecto de la longitud se anula) y aparece núcleo: mover la longitud no 
 punto.
 
 \begin{definicion}[Los cuatro subespacios fundamentales]\label{def:cuatro-subespacios}
-Para una matriz \(A\) de \(m\times n\) y rango \(r\):
+Para una matriz \(A\) de \(m\times n\):
 \begin{itemize}
   \item en la entrada \(\R^n\): la \emph{co-imagen} \(\operatorname{im}A^T\), generada por
   las filas de \(A\), y el \emph{núcleo} \(\ker A=\{x:\ Ax=0\}\);
@@ -308,8 +308,8 @@ Para una matriz \(A\) de \(m\times n\) y rango \(r\):
 \(\ker A^T\) es el complemento ortogonal de \(\operatorname{im}A\) en \(\R^m\). Sus
 dimensiones son
 \[
-  \dim\operatorname{im}A^T=\dim\operatorname{im}A=r,\qquad
-  \dim\ker A=n-r,\qquad \dim\ker A^T=m-r .
+  \dim\operatorname{im}A^T=\dim\operatorname{im}A=\operatorname{rango}A,\qquad
+  \dim\ker A=n-\operatorname{rango}A,\qquad \dim\ker A^T=m-\operatorname{rango}A .
 \]
 \end{proposicion}
 
@@ -319,14 +319,14 @@ La coordenada \(i\) de \(Ax\) es el producto interno de la fila \(i\) con \(x\).
 \(\operatorname{im}A^T\). Aplicado a \(A^T\), cuyas filas son las columnas de \(A\):
 \(A^Ty=0\) si y solo si \(y\perp\operatorname{im}A\). Las filas y las columnas de \(A\)
 tienen la misma cantidad máxima de vectores independientes (definición~\ref{def:nucleo-imagen}),
-así que las dos imágenes tienen dimensión \(r\); los complementos ortogonales tienen la
+así que las dos imágenes tienen dimensión \(\operatorname{rango}A\); los complementos ortogonales tienen la
 dimensión que falta para completar \(n\) y \(m\).
 \end{demostracion}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.95\linewidth]{figuras/inversas/inv_cuatro_subespacios.png}
-\caption{Los cuatro subespacios de una matriz \(A\) de \(m\times n\) y rango \(r\). En la
+\caption{Los cuatro subespacios de una matriz \(A\) de \(m\times n\). En la
 entrada, la co-imagen y el núcleo se cortan solo en el \(0\) y son perpendiculares; en la
 salida, lo mismo la imagen y el espacio inaccesible. \(A\) manda el núcleo al \(0\) y lleva
 la co-imagen sobre la imagen sin perder nada; \(A^{+}\) recorre ese camino al revés y manda
@@ -338,7 +338,7 @@ el espacio inaccesible al \(0\). Generada con
 \begin{ejemplo}[Los cuatro subespacios de una \(3\times2\) de rango \(2\)]\label{ej:cuatro-subespacios}
 Sea \(A=\begin{pmatrix}1&0\\1&1\\1&2\end{pmatrix}\), la matriz de una recta \(y=b+ax\)
 evaluada en \(x=0,1,2\) (incógnitas \((b,a)\)). Sus columnas \(a_1=(1,1,1)\) y
-\(a_2=(0,1,2)\) no son paralelas: rango \(r=2\), con \(m=3\), \(n=2\).
+\(a_2=(0,1,2)\) no son paralelas: \(\operatorname{rango}A=2\), con \(m=3\), \(n=2\).
 \begin{itemize}
   \item \textbf{Imagen} (dimensión \(2\)): el plano de \(\R^3\) generado por \(a_1\) y
   \(a_2\). Su normal es el cuña
@@ -650,10 +650,10 @@ e \(I-A^{+}A\) sobre el núcleo; por eso todas las mejores aproximaciones se esc
   x=A^{+}b+(I-A^{+}A)\,z,\qquad z\in\R^n\ \text{arbitrario},
 \]
 y \(A^{+}b\) es la que corresponde a no agregar nada en el núcleo. La traza de un proyector
-es la dimensión del subespacio sobre el que proyecta: \(\operatorname{tr}P=r\) y
-\(\operatorname{tr}(I-P)=m-r\), la cantidad de \emph{grados de libertad}: cuántas mediciones
+es la dimensión del subespacio sobre el que proyecta: \(\operatorname{tr}P=\operatorname{rango}A\) y
+\(\operatorname{tr}(I-P)=m-\operatorname{rango}A\), la cantidad de \emph{grados de libertad}: cuántas mediciones
 sobran respecto de las estrictamente necesarias. Ese
-número, \(m-r\), es el que divide a \(v^Tv\), la suma de los cuadrados de lo que sobra, en el
+número, \(m-\operatorname{rango}A\), es el que divide a \(v^Tv\), la suma de los cuadrados de lo que sobra, en el
 desvío estándar de la sección siguiente.
 
 \begin{idea}[Aproximar es partir el dato en dos piezas perpendiculares]
@@ -834,7 +834,7 @@ Encontrá una base de cada uno de los cuatro subespacios de
 \(B=\begin{pmatrix}1&2&3\\2&4&6\end{pmatrix}\), verificá las ortogonalidades y las
 dimensiones, y comprobá que \(B^{+}=\tfrac1{70}B^T\).
 \end{ejercicio}
-\solucion{La segunda fila es el doble de la primera: rango \(r=1\), con \(m=2\), \(n=3\).
+\solucion{La segunda fila es el doble de la primera: \(\operatorname{rango}B=1\), con \(m=2\), \(n=3\).
 Imagen: \(\langle(1,2)\rangle\), dimensión \(1\); espacio inaccesible:
 \(\langle(2,-1)\rangle\), dimensión \(2-1=1\), y en efecto \(B^T(2,-1)^T=0\). Co-imagen:
 \(\langle(1,2,3)\rangle\), dimensión \(1\); núcleo: \(\langle(2,-1,0),\ (3,0,-1)\rangle\),

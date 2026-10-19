@@ -5,25 +5,55 @@
 
 \section{La idea}
 
-El capítulo~\ref{cap:svd} terminó advirtiendo que \(\Sigma\) no es \(A\) en otra base, porque la
-SVD usa una base a la entrada y otra a la salida; ahora usamos una sola base y precisamos qué
-significa escribir algo en ella. Un mojón está donde está, pero sus coordenadas aparecen recién
-cuando elegimos con qué medirlo: la cuadrícula este--norte, el sistema de la obra o el sistema
-local del instrumento. Las coordenadas de un vector cambian con la \emph{inversa} de la matriz de
-cambio; las filas (las formas lineales del capítulo~\ref{cap:formas-lineales}) cambian con la
-matriz misma; la matriz de una transformación cambia por \emph{conjugación} y la de una forma
-cuadrática, por \emph{congruencia} (sección~\ref{sec:congruencia}). Lo que no cambia
----el valor de una forma sobre un vector, el determinante, la traza, los autovalores y, en bases
-ortonormales, las longitudes--- es lo que tiene significado geométrico. Y una transformación
-que en la grilla canónica no tiene lectura fácil, en la grilla de sus autovectores solo estira.
+Imaginá que tenés dos planos de la misma parcela, hechos por dos personas distintas. Uno está
+dibujado con el norte hacia arriba; el otro, girado para que el frente que da a la calle quede
+horizontal, porque así es más cómodo dibujar sobre él. Los dos parten de la misma esquina.
+¿Cuál de los dos tiene las coordenadas correctas de la esquina del fondo del lote?
+Los dos: esa esquina es una sola y está donde está; lo que cambia es la cuadrícula con que cada
+plano la mide, y con la cuadrícula cambian los números. Las coordenadas no son una propiedad
+del punto: son etiquetas que le pone una elección de direcciones y de unidad.
 
-\paragraph{Convenciones del capítulo.} Vectores en columna; base vieja \(e=(e_1,e_2)\) (en el campo, este y norte), base nueva \(b=(b_1,\dots,b_n)\), coordenadas \([v]_e\) y \([v]_b\), y \(C=C_{b\to e}\) la matriz de cambio de base, con la base nueva en columnas (definición~\ref{def:matriz-cambio-base}).
+Pensá ahora en algo más simple: la misma distancia medida en metros y en centímetros. ¿Por qué
+el número se hace cien veces más grande cuando la unidad se hace cien veces más corta? Si la
+regla con que medimos se achica, hacen falta más pasos para llegar al mismo lugar. Esa relación
+al revés, que en una dimensión parece obvia, es la que vamos a escribir con matrices.
 
-\subsection{El mismo vector con dos grillas}\label{sec:mismo-vector-dos-grillas}
+Para qué sirve todo esto: cada vez que dos personas, dos planos o dos programas describen el
+mismo terreno con ejes distintos, hay que traducir de unos a otros sin perder nada y saber qué
+números se pueden comparar directamente. ¿Qué números van a coincidir en los dos planos de la
+parcela, digan lo que digan las coordenadas? La distancia entre dos esquinas, el área del lote,
+el ángulo de cada esquina: lo que tiene significado geométrico no depende de la cuadrícula.
 
-En la figura~\ref{fig:cb-dos-grillas} la flecha violeta es una sola. En la grilla cuadrada
-llegamos a su punta avanzando \(7\) pasos de \(e_1\) y \(4\) de \(e_2\): sus coordenadas son
-\((7,4)\). En la grilla oblicua que generan \(b_1=(3,1)\) y \(b_2=(1,2)\) llegamos a la misma
+El capítulo~\ref{cap:svd} terminó advirtiendo que \(\Sigma\), la matriz diagonal de los valores
+singulares, no es la matriz \(A\) escrita en otra base, porque la SVD usa una base a la entrada
+y otra a la salida. Ahora usamos una sola base y precisamos qué significa escribir algo en ella.
+Suponé que sobre la parcela actúa una transformación lineal, una de las deformaciones del plano
+de los capítulos anteriores. ¿Su matriz también depende del plano en que se la escriba? Sí, y
+el capítulo cuenta con qué regla cambia cada objeto. Las coordenadas de un vector cambian con la
+\emph{inversa} de la matriz de cambio; las filas (las formas lineales del
+capítulo~\ref{cap:formas-lineales}) cambian con la matriz misma; la matriz de una
+transformación cambia por \emph{conjugación} y la de una forma cuadrática, por
+\emph{congruencia} (sección~\ref{sec:congruencia}). Lo que no cambia ---el valor de una forma
+sobre un vector, el determinante, la traza, los autovalores y, en bases ortonormales, las
+longitudes--- es lo que tiene significado geométrico.
+
+¿Habrá, para cada transformación, una cuadrícula en la que se vea simple? Una transformación
+que en la cuadrícula canónica no tiene lectura fácil, en la cuadrícula de sus autovectores solo
+estira. Elegir bien la base para que eso pase es lo que se llama \emph{diagonalizar}.
+
+\paragraph{Convenciones del capítulo.} Vectores en columna. Llamamos base vieja a la de
+partida, \(e=(e_1,e_2)\) (en el terreno, un paso al este y un paso al norte), y base nueva a la
+que queremos usar, \(b=(b_1,\dots,b_n)\). La lista de coordenadas de un vector \(v\) en cada
+base, cuántos pasos de cada vector de la base hay que dar para llegar a su punta, se escribe
+\([v]_e\) y \([v]_b\). La matriz que traduce una lista en la otra es \(C=C_{b\to e}\), la matriz
+de cambio de base, con la base nueva en columnas (definición~\ref{def:matriz-cambio-base}).
+
+\subsection{El mismo vector con dos cuadrículas}\label{sec:mismo-vector-dos-grillas}
+
+Mirá la figura~\ref{fig:cb-dos-grillas}: la flecha violeta es una sola. En la cuadrícula
+cuadrada llegamos a su punta avanzando \(7\) pasos de \(e_1\) y \(4\) de \(e_2\): sus
+coordenadas son \((7,4)\). En la cuadrícula oblicua que generan \(b_1=(3,1)\) y \(b_2=(1,2)\),
+hecha de paralelogramos como un enchapado colocado en diagonal, llegamos a la misma
 punta con \(2\) pasos de \(b_1\) y \(1\) de \(b_2\), porque \(2(3,1)+1(1,2)=(7,4)\): sus
 coordenadas son \((2,1)\). Ninguno de los dos pares es \enquote{el verdadero}; cada uno
 responde a la pregunta \enquote{¿cuántos pasos de cada vector de la base?}.
@@ -31,17 +61,18 @@ responde a la pregunta \enquote{¿cuántos pasos de cada vector de la base?}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.95\linewidth]{figuras/cambio-de-base/cb_dos_grillas.png}
-\caption{El vector \(v\) es el mismo en los dos paneles. Izquierda: en la grilla canónica,
-\(v=7e_1+4e_2\), coordenadas \((7,4)\). Derecha: en la grilla oblicua de \(b_1=(3,1)\) y
+\caption{El vector \(v\) es el mismo en los dos paneles. Izquierda: en la cuadrícula canónica,
+\(v=7e_1+4e_2\), coordenadas \((7,4)\). Derecha: en la cuadrícula oblicua de \(b_1=(3,1)\) y
 \(b_2=(1,2)\), \(v=2b_1+1b_2\), coordenadas \((2,1)\). Los tramos punteados son el camino de
 lectura: tantos pasos del primer vector de la base, después tantos del segundo. Generada con
 \texttt{apunte/scripts/cap09\_cambio\_de\_base.py}.}
 \label{fig:cb-dos-grillas}
 \end{figure}
 
-La escalera de siempre ayuda a no perderse. En \(\R\) una base es un único vector, la unidad, y
+La escalera de siempre ayuda a no perderse, y su primer peldaño es el de los metros y los
+centímetros. En \(\R\) una base es un único vector, la unidad, y
 cambiar de base es cambiar de unidad: si la unidad se hace cien veces más corta (de metros a
-centímetros), el número se hace cien veces más grande. En \(\R^2\) la grilla puede, además,
+centímetros), el número se hace cien veces más grande. En \(\R^2\) la cuadrícula puede, además,
 inclinarse y tener pasos distintos en cada dirección. En \(\R^n\) la información del cambio
 cabe en una matriz \(n\times n\) invertible. Lo que se repite en todos los escalones es el
 sentido del cambio: si la base \enquote{crece}, los números \enquote{achican}, y viceversa.
@@ -51,11 +82,20 @@ El vector es la flecha; las coordenadas son etiquetas que dependen de la base. T
 etiquetas sin tocar la flecha y buscamos los números que no dependen de la traducción.
 \end{idea}
 
+En la unidad interactiva el vector señala un mojón, la marca fija que se clava en el terreno
+para identificar un punto: el mojón no se mueve; lo que se mueve, con el deslizador, es la
+cuadrícula con que lo medimos.
+
 \unidadInteractiva{08_cambio_de_base}{Cambio de base y diagonalización}{Explorá: en el caso «base oblicua de la parcela» el mojón \(P=(4,3)\) tiene coordenadas \((1,1)\) en la base \(b_1=(3,1)\), \(b_2=(1,2)\); mové el giro y el largo de \(b_2\) y mirá cómo cambian los números mientras el mojón queda quieto.}
 
 \section{Construcciones, cuentas y ejemplos}
 
 \subsection{La matriz de cambio de base}\label{sec:matriz-cambio}
+
+¿Cómo se guarda en números toda la información de una cuadrícula nueva? Pensá en el plano
+girado de la parcela: para traducir cualquier punto alcanza con saber hacia dónde apuntan, en el
+plano con el norte arriba, los dos pasos del plano girado. Esos vectores, escritos en la base
+vieja y puestos como columnas, arman una matriz, y esa matriz es la herramienta del capítulo.
 
 \begin{definicion}[Matriz de cambio de base]\label{def:matriz-cambio-base}
 Sean \(e\) y \(b=(b_1,\dots,b_n)\) dos bases de \(\R^n\). La \emph{matriz de cambio de base}
@@ -82,9 +122,14 @@ Como \(C\) es invertible, se despeja \([v]_b=C^{-1}[v]_e\).
 \end{demostracion}
 
 El nombre \(C_{b\to e}\) dice qué hace la matriz: \emph{entran} coordenadas en \(b\) y
-\emph{salen} coordenadas en \(e\). Para ir de la base conocida a la nueva hay que invertir: las
-coordenadas son \emph{contravariantes}, porque la base nueva se arma con \(C\) y ellas pasan con
-\(C^{-1}\). Las formas lineales, que son filas, pasan con \(C\) a la derecha,
+\emph{salen} coordenadas en \(e\). En el plano de la parcela, \(C\) toma las coordenadas que
+se leen en el plano girado y devuelve las del plano con el norte arriba. Para ir de la base
+conocida a la nueva hay que invertir. ¿Por qué al revés? Por lo mismo que con los metros y los
+centímetros: si los pasos de la base nueva son más largos, hacen falta menos pasos para llegar
+al mismo punto. Por eso se dice que las
+coordenadas son \emph{contravariantes}: la base nueva se arma con \(C\) y ellas pasan con
+\(C^{-1}\). Las formas lineales \(\omega\), las reglas lineales que a cada vector le asignan un
+número y que se escriben como filas, pasan con \(C\) a la derecha,
 \([\omega]_b=[\omega]_e\,C\) (\emph{covariantes}; proposición~\ref{prop:co-contra}), y así el
 número \(\omega(v)\) no depende de la base.
 
@@ -112,9 +157,16 @@ vector y la pasáramos con \(C^{-1}\), obtendríamos \((0{,}2;\ 0{,}4)\), y el
 
 \subsection{La matriz de una transformación en otra base: conjugación}\label{sec:semejanza}\label{sec:conjugacion}
 
+Imaginá que el terreno de la parcela sufre una deformación lineal, como las del
+capítulo~\ref{cap:afines}, y que quien usa el plano con el norte arriba ya tiene su matriz.
+¿Tiene que volver a estudiarla desde cero quien usa el plano girado? No: alcanza con traducir
+cada punto al plano del norte, aplicar la matriz conocida y traducir el resultado de vuelta.
+
 Una transformación lineal \(T\) tampoco \enquote{es} una matriz: es una regla que lleva vectores en
 vectores. Su matriz depende de la base en que se escriban los vectores que entran y los que
-salen. Si en la base \(e\) la matriz es \(M_e\), ¿cuál es en la base \(b\)?
+salen. Llamamos \(M_e\) a la matriz de \(T\) cuando todo se escribe en la base \(e\), y \(M_b\)
+a la matriz de la misma \(T\) en la base \(b\).
+Si en la base \(e\) la matriz es \(M_e\), ¿cuál es en la base \(b\)?
 
 \begin{proposicion}[Matriz de una transformación en la base nueva]\label{prop:cb-semejanza}
 Si \([Tv]_e=M_e\,[v]_e\) para todo \(v\) y \(C=C_{b\to e}\), entonces
@@ -152,7 +204,11 @@ el conjugado armónico (sección~\ref{sec:conjugado-armonico}); el glosario
 
 Se lee de derecha a izquierda, como un viaje: \(C\) traduce la entrada de \(b\) a \(e\),
 \(M_e\) aplica la transformación donde sabemos escribirla, \(C^{-1}\) traduce la salida de
-vuelta a \(b\). Cambia la descripción, no la transformación; por eso hay números que no cambian.
+vuelta a \(b\). Es el recorrido de ida y vuelta que hacía quien usa el plano girado.
+Cambia la descripción, no la transformación; por eso hay números que no cambian. ¿Cuáles?
+Pensá en el área: si una transformación duplica el área de cualquier figura, la duplica midiendo
+con la cuadrícula que sea. Además del determinante aparece la \emph{traza} de una matriz,
+\(\operatorname{tr}M\), la suma de los elementos de su diagonal.
 
 \begin{proposicion}[Invariantes de conjugación]\label{prop:cb-invariantes}
 Si \(M_b=C^{-1}M_eC\), entonces \(M_b\) y \(M_e\) tienen el mismo determinante, la misma traza
@@ -168,10 +224,15 @@ polinomio característico, \(M_b-\lambda I=C^{-1}(M_e-\lambda I)\,C\), y se toma
 \end{demostracion}
 
 Cada invariante tiene su hecho geométrico: el determinante es el factor de área con su signo
-(capítulo~\ref{cap:subespacios}), que no puede depender de la grilla con que se midan las
+(capítulo~\ref{cap:subespacios}), que no puede depender de la cuadrícula con que se midan las
 áreas; los autovalores son los factores de estiramiento sobre las direcciones que no giran, y
 una dirección que no gira lo hace en cualquier base; la traza es la suma de los autovalores.
 Una entrada suelta de la matriz, en cambio, no significa nada por sí sola: cambia con la base.
+
+¿Para qué sirve, en la práctica, cambiar de base una transformación? Para escribir sin esfuerzo
+lo que en la base canónica cuesta. El ejemplo que sigue pide una reflexión respecto de una recta
+inclinada: en la base canónica hay que pensar, y en una base apoyada sobre la recta es
+inmediata.
 
 \begin{ejemplo}[Reflexión respecto de una recta inclinada, por conjugación]\label{ej:cb-reflexion}
 Queremos la matriz de la reflexión respecto de la recta \(y=x/2\), de dirección \((2,1)\).
@@ -199,7 +260,10 @@ largos. Con la base normalizada, \(U=C/\sqrt5\), vale \(U^{-1}=U^T\) y
 \(U\operatorname{diag}(1,-1)U^T\) da la misma matriz (sección~\ref{sec:bases-ortonormales}).
 \end{ejemplo}
 
-\paragraph{Conjugar es transportar.} El ejemplo anterior se lee también sin hablar de bases.
+\paragraph{Conjugar es transportar.} Pensá cómo reflejarías un dibujo respecto de una recta
+inclinada si solo supieras reflejarlo respecto de una horizontal: girás la hoja hasta que la
+recta quede horizontal, reflejás y volvés a girar la hoja. Es lo mismo que hizo el ejemplo
+anterior, que se lee también sin hablar de bases.
 La matriz \(U=C/\sqrt5\) es la rotación \(R_\alpha\) de ángulo \(\alpha=\arctan\tfrac12\), y
 \(S=\operatorname{diag}(1,-1)\) es la reflexión en el eje \(x\). Entonces
 \(M_e=R_\alpha\,S\,R_\alpha^{-1}\) se lee de derecha a izquierda como un traslado:
@@ -210,10 +274,12 @@ con \(C\) cambiada por \(C^{-1}\), y en la lectura activa conviene dejar a la iz
 matriz que lleva de la posición estándar a la nueva.
 
 Con un movimiento que no fija el origen pasa lo mismo en coordenadas homogéneas
-(capítulo~\ref{cap:traslaciones}): girar un ángulo \(\theta\) alrededor de un punto \(c\) es
-transportar la rotación \(R\) alrededor del origen con la traslación \(T_c\) de vector \(c\),
+(capítulo~\ref{cap:traslaciones}). Si una hoja está sujeta con una chinche en un punto \(c\) y
+la giramos, ¿cómo se escribe ese giro, si solo sabemos girar alrededor del origen? Girar un
+ángulo \(\theta\) alrededor de \(c\) es
+transportar la rotación \(R\) alrededor del origen con la traslación \(\tau_c\) de vector \(c\) (tau, como en el capítulo~\ref{cap:traslaciones}),
 \[
-  T_c\,R\,T_c^{-1}
+  \tau_c\,R\,\tau_c^{-1}
   =\begin{pmatrix}1&0&c_x\\0&1&c_y\\0&0&1\end{pmatrix}
    \begin{pmatrix}R&\begin{matrix}0\\0\end{matrix}\\0\quad0&1\end{pmatrix}
    \begin{pmatrix}1&0&-c_x\\0&1&-c_y\\0&0&1\end{pmatrix}
@@ -229,7 +295,7 @@ la parte de traslación es \((I-R)c\approx(1{,}5858;\ -1{,}8284)\) y el centro q
 \centering
 \includegraphics[width=\linewidth]{figuras/cambio-de-base/cap09_conjugacion.pdf}
 \caption{Rotación de \(45^\circ\) alrededor de \(c=(3,1)\) como conjugación
-\(T_c\,R\,T_c^{-1}\), leída de derecha a izquierda. En cada panel, la figura original en
+\(\tau_c\,R\,\tau_c^{-1}\), leída de derecha a izquierda. En cada panel, la figura original en
 punteado gris, la de partida de la etapa en trazo cortado y su imagen en trazo continuo
 sombreado; la cruz marca \(c\) y el signo \(+\), el origen. Generada con
 \texttt{apunte/scripts/cap09\_congruencia.py}.}
@@ -237,6 +303,12 @@ sombreado; la cruz marca \(c\) y el signo \(+\), el origen. Generada con
 \end{figure}
 
 \subsection{Diagonalizar: elegir la base en la que la transformación solo estira}\label{sec:diagonalizar-base}
+
+Imaginá una cuadrícula dibujada sobre una lámina de goma que alguien estira en una dirección
+inclinada: los cuadrados se vuelven paralelogramos torcidos. ¿Hay alguna cuadrícula que, dibujada
+antes de estirar, quede con sus celdas solo estiradas, sin torcerse? Si existe, en esa
+cuadrícula la transformación se describe con un número por dirección, y calcular con ella es
+tan fácil como multiplicar números.
 
 El ejemplo anterior sugiere la estrategia general. Si \(M\) tiene una base de autovectores
 \(v_1,\dots,v_n\) con autovalores \(\lambda_1,\dots,\lambda_n\) (capítulo~\ref{cap:autovectores}),
@@ -248,7 +320,8 @@ canónica, y con \(D\) la matriz diagonal de los autovalores
   D=C^{-1}\,M\,C .
 \]
 Es la proposición~\ref{prop:cb-semejanza} con \(M_e=M\) y \(M_b=D\). Diagonalizar es elegir la base en la que la transformación se ve
-como escalas independientes sobre cada eje (figura~\ref{fig:cb-autovectores}). Las potencias
+como escalas independientes sobre cada eje (figura~\ref{fig:cb-autovectores}): es la
+cuadrícula de la lámina de goma cuyas celdas solo se estiran. Las potencias
 salen solas, porque los factores interiores se cancelan de a pares:
 \[
   M^k=(CDC^{-1})(CDC^{-1})\cdots(CDC^{-1})=C\,D^k C^{-1},
@@ -261,9 +334,9 @@ da una raíz cuadrada de la matriz (sección~\ref{sec:raiz-matriz}).
 \centering
 \includegraphics[width=.95\linewidth]{figuras/cambio-de-base/cb_autovectores.png}
 \caption{La misma transformación \(M=\left(\begin{smallmatrix}5&2\\2&2\end{smallmatrix}\right)\)
-aplicada a dos grillas (gris, antes; teal, después). Izquierda: la grilla canónica; el cuadrado
+aplicada a dos cuadrículas (gris, antes; teal, después). Izquierda: la cuadrícula canónica; el cuadrado
 unidad se convierte en un paralelogramo torcido de lados \(Me_1=(5,2)\) y \(Me_2=(2,2)\).
-Derecha: la grilla de los autovectores unitarios \(u_1=(2,1)/\sqrt5\), \(u_2=(-1,2)/\sqrt5\);
+Derecha: la cuadrícula de los autovectores unitarios \(u_1=(2,1)/\sqrt5\), \(u_2=(-1,2)/\sqrt5\);
 cada celda solo se estira, \(\times6\) a lo largo de \(u_1\) y \(\times1\) a lo largo de
 \(u_2\), y los ángulos rectos siguen rectos. Generada con
 \texttt{apunte/scripts/cap09\_cambio\_de\_base.py}.}
@@ -307,14 +380,96 @@ largo de \(v_1\) y deja quieto \(v_2\); aplicada dos veces, estira \(6\).
 
 \unidadInteractiva{08_cambio_de_base}{Cambio de base y diagonalización}{Verificá: elegí el caso «base de autovectores de A = [[2, 1], [1, 2]]» y comprobá que \(B^{-1}AB=\operatorname{diag}(3,1)\); después girá \(b_2\) con el deslizador y verificá que \(B^{-1}AB\) deja de ser diagonal pero la suma de su diagonal sigue valiendo \(4\): la traza no depende de la base.}
 
+\subsection{En el CAD}\label{sec:cad-cap09}
+
+Un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD; en adelante, el CAD) tiene un comando,
+\texttt{UCS}, que cambia el sistema de coordenadas con que lee el dibujo sin mover nada. Es la
+lectura pasiva de la sección~\ref{sec:activa-pasiva-cb}: la parcela queda donde está y cambian
+sus etiquetas. Para qué nos sirve: comprobar con un dibujo de verdad que las coordenadas nuevas
+salen con la inversa de la matriz de cambio de base, y ver por qué el CAD solo acepta bases
+ortonormales. La parcela es la de siempre: \(A=(10,10)\), \(B=(34,17)\), \(C=(40,36)\),
+\(D=(24,38)\) y \(E=(6,32)\), en metros, con el frente \(AB\) de \(25\) m; cada archivo trae su
+respuesta en la carpeta \texttt{esperado} del sitio.
+
+\paragraph{\texttt{UCS} alineado con el frente: las coordenadas cambian con \(C^{-1}\).}
+Imaginá que hay que ubicar construcciones dentro de la parcela y que todas las medidas se toman
+desde el frente: \enquote{tantos metros a lo largo del frente, tantos hacia adentro}. ¿Qué
+números tiene cada vértice en ese sistema? El sistema nuevo tiene el origen en \(A\), el primer
+vector de la base a lo largo del frente y el segundo perpendicular, hacia adentro:
+\[
+  b_1=\frac{B-A}{25}=(0{,}96;\ 0{,}28),\qquad b_2=(-0{,}28;\ 0{,}96),\qquad
+  C=[\,b_1\mid b_2\,]=\begin{pmatrix}0{,}96&-0{,}28\\0{,}28&0{,}96\end{pmatrix},
+\]
+con \(\det C=1\). \(C\) es la matriz de cambio de base de la
+definición~\ref{def:matriz-cambio-base}, con la base nueva en columnas, y lo que cambia de base
+es el vector \(p-A\), que va del origen nuevo al punto: sus coordenadas nuevas son
+\([p-A]_b=C^{-1}[p-A]_e\) (proposición~\ref{prop:cb-coordenadas}). Como la letra \(C\)
+sola es la matriz, al vértice lo nombramos siempre \enquote{el vértice \(C\)}.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap09_ucs.dxf}.
+  \item Definí el sistema nuevo con \texttt{UCS}, dando tres puntos: el origen en \(A\), un punto
+  del eje \(x\) en \(B\) y un punto del lado positivo del eje \(y\) en \(D\). La parcela no se
+  mueve.
+  \item Listá con \texttt{ID} las coordenadas de los vértices \(B\), \(C\), \(D\) y \(E\): ahora salen en el
+  sistema del frente. Medí también el área con \texttt{AREA}.
+  \item Calculá \(C^{-1}(p-A)\) para el vértice \(C\) y compará.
+  \item Volvé al sistema del dibujo (\texttt{UCS}, opción \texttt{World}) y aplicá
+  \texttt{ALIGN} sin escalado, con \(A\to(0,0)\) y \(B\to(25,0)\). Guardá con otro nombre.
+  \item Volvé al original y rotá la parcela con \texttt{ROTATE}, punto base \(A\), opción
+  \texttt{Reference}: marcás \(A\) y \(B\) y das el ángulo nuevo \(0\). Guardá.
+\end{enumerate}
+LibreCAD no tiene \texttt{UCS}: ahí la lectura pasiva se hace a mano con \(C^{-1}(p-A)\), o con
+los pasos 5 y 6, moviendo y rotando por separado desde el menú \texttt{Modify}. Como la base es
+ortonormal, \(C^{-1}=C^T\) y cada coordenada nueva es un producto interno
+(proposición~\ref{prop:cb-ortonormal}): \(b_1\cdot(p-A)\) mide cuánto avanza el punto a lo
+largo del frente y \(b_2\cdot(p-A)\), cuánto se aparta hacia adentro. Para el vértice \(C\),
+\(p-A=(30,26)\), \(b_1\cdot(30,26)=28{,}8+7{,}28=36{,}08\) y
+\(b_2\cdot(30,26)=-8{,}4+24{,}96=16{,}56\). En el sistema del frente tienen que dar
+\(B=(25;\ 0)\), el vértice \(C=(36{,}080;\ 16{,}560)\), \(D=(21{,}280;\ 22{,}960)\) y
+\(E=(2{,}320;\ 22{,}240)\), y el área sigue siendo \(655\) m\(^2\): en una base ortonormal las
+longitudes no cambian, y con \(\det C=1\) las áreas tampoco. Respuesta (lectura pasiva):
+\dxfEnlace{esperado/cap09_ucs_frente.dxf}.
+
+El paso 5 da esas mismas coordenadas, ahora como coordenadas del dibujo: es
+\(p\mapsto C^T(p-A)\), con parte lineal
+\(M=C^T=\left(\begin{smallmatrix}0{,}960&0{,}280\\-0{,}280&0{,}960\end{smallmatrix}\right)\),
+traslación \(t=(-12{,}400;\ -6{,}800)\) y \(\det M=1\): una rotación de \(-16{,}260^\circ\),
+porque el frente forma \(16{,}260^\circ\) con el eje este. El paso 6 es la lectura activa con
+la misma \(M\): la parcela gira alrededor de \(A\), que queda en \((10,10)\), y
+\(t=(-2{,}400;\ 3{,}200)\). Girar los ejes \(16{,}260^\circ\) produce las mismas etiquetas que
+girar la parcela \(-16{,}260^\circ\), como en el ejemplo~\ref{ej:cb-activa-pasiva}. Respuesta
+(lectura activa): \dxfEnlace{esperado/cap09_ucs_activa.dxf}.
+
+\paragraph{Por qué el CAD no acepta una base oblicua.} El archivo DXF guarda siempre las
+coordenadas del sistema del dibujo: cambiar el \texttt{UCS} no cambia el archivo, porque no
+mueve nada, y por eso para comparar con \texttt{que\_matriz.py} la lectura pasiva se convierte
+en un movimiento (paso 5). Además, \texttt{UCS} solo arma sistemas con ejes perpendiculares y
+la misma unidad en los dos: con tres puntos toma el origen, la dirección del eje \(x\) y el lado
+del eje \(y\), y construye el resto. Las distancias y las áreas que informa el CAD salen de la
+cuenta de siempre, \(\sqrt{x^2+y^2}\) y la fórmula del agrimensor, que solo vale en una base
+ortonormal. En la base oblicua del ejemplo~\ref{ej:cb-oblicua}, con \(b_1=(3,1)\) y
+\(b_2=(1,2)\), el vector \(v=(7,4)\) tiene coordenadas \((2,1)\), y la cuenta ingenua
+\(2^2+1^2=5\) no es su largo al cuadrado, \(65\): hace falta la matriz de Gram
+\(G=C^TC\) de la sección~\ref{sec:bases-ortonormales}. Un CAD que aceptara esa base tendría
+que cambiar la fórmula de cada medición; prefiere no aceptarla.
+
+Para comprobar, guardá cada resultado como DXF y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\) (la parte lineal), \(t\) (la traslación), \(\det M\), el área de la parcela en
+los dos archivos con su cociente, y la familia. En los dos archivos sale una rotación con
+\(M=C^T\), \(\det M=1\) y cociente de áreas \(1\); en la lectura activa, el centro es el
+vértice \(A\).
+
 \section{En profundidad}
 
 \subsection{Cambio de base y diagonalización}\label{sec:cambio-base}
 
 {\small\vspace{1mm}\linkAnimacion{03_cambio_de_base_viaje}{Animación: el viaje de ida y vuelta a la base de autovectores}\par}
 
-\paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
-coordenadas \((3,4)\) en la grilla cuadrada; con las direcciones \(b_1=(1,1)\) y
+\paragraph{Hecho geométrico: la flecha no se movió, cambió la cuadrícula.} Un punto marcado en
+el terreno tiene coordenadas \((3,4)\) en la cuadrícula cuadrada; con las direcciones \(b_1=(1,1)\) y
 \(b_2=(1,-1)\), el \emph{mismo} punto es \(\tfrac72b_1-\tfrac12b_2\), de coordenadas nuevas
 \((\tfrac72,-\tfrac12)\). Ninguna base es privilegiada a priori: lo único que distingue a la
 canónica es que con ella el producto interno es la cuenta de siempre
@@ -335,34 +490,34 @@ Todo se convierte a la vez para que ninguna relación cambie: cada punto sigue e
 \(A\) sigue llevando cada punto adonde lo llevaba.
 \end{resultado}
 
-\paragraph{Ejercicio resuelto: grilla de formas y vector.} Consigna: con las formas lineales
+\paragraph{Ejercicio resuelto: cuadrícula de formas y vector.} Consigna: con las formas lineales
 \((1,1)\) y \((-1,2)\), el vector \((3,4)\) y la transformación
-\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), no muy distinta de la identidad,
+\(M=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), no muy distinta de la identidad,
 dibujá las curvas de nivel de las dos formas (dos mazos de rectas paralelas que arman una
-grilla), ubicá el vector, transformá el vector con \(T\) y las formas con \(T^{-1}\), redibujá
+cuadrícula), ubicá el vector, transformá el vector con \(M\) y las formas con \(M^{-1}\), redibujá
 y verificá que el vector transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
 \((-1,2)\cdot(3,4)=5\): el vector está en la séptima curva de una y la quinta de la otra.
 Inversa por adjugada sobre determinante (proposición~\ref{prop:adjugada-inversa}; en \(3\times3\), por
-cuña de filas, sección~\ref{sec:pseudoinversa}), \(\det T=1{,}56+0{,}05=1{,}61\):
+cuña de filas, sección~\ref{sec:pseudoinversa}), \(\det M=1{,}56+0{,}05=1{,}61\):
 \[
-  T^{-1}=\frac1{1{,}61}\begin{pmatrix}1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix},\qquad
-  T\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
+  M^{-1}=\frac1{1{,}61}\begin{pmatrix}1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix},\qquad
+  M\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
 \]
 \[
-  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4;\ 0{,}7)=(0{,}870;\ 0{,}435),\qquad
-  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1;\ 2{,}9)=(-0{,}683;\ 1{,}801).
+  (1,1)\,M^{-1}=\tfrac1{1{,}61}(1{,}4;\ 0{,}7)=(0{,}870;\ 0{,}435),\qquad
+  (-1,2)\,M^{-1}=\tfrac1{1{,}61}(-1{,}1;\ 2{,}9)=(-0{,}683;\ 1{,}801).
 \]
 Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
 \(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
 curva de la primera forma y en la quinta de la segunda. La forma \((1,1)\) se acuesta un poco
-y la \((-1,2)\) queda un poco más vertical. Hecho geométrico: la grilla se deformó con el plano
-y el punto se movió con él; medido con la grilla deformada, el punto está donde estaba. En
+y la \((-1,2)\) queda un poco más vertical. Hecho geométrico: la cuadrícula se deformó con el plano
+y el punto se movió con él; medido con la cuadrícula deformada, el punto está donde estaba. En
 planilla: dos columnas para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 
-\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Con
+\paragraph{Diagonalizar es elegir la cuadrícula de los autovectores.} Con
 \(A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)\), el procedimiento del
 ejemplo~\ref{ej:cb-diagonalizar} da los autovalores \(3\) y \(1\), los autovectores \((1,1)\)
-y \((1,-1)\) en las columnas de \(C\) y \(C^{-1}AC=\operatorname{diag}(3,1)=D\): en la grilla
+y \((1,-1)\) en las columnas de \(C\) y \(C^{-1}AC=\operatorname{diag}(3,1)=D\): en la cuadrícula
 de los autovectores la transformación es dos estiramientos independientes.
 
 \paragraph{La matriz de cambio de base y el despeje de la diagonalización.} Seguimos con
@@ -446,7 +601,7 @@ multiplicidad geométrica \(1\), y falta un segundo autovector. En la 3b los aut
 
 El defecto de las matrices 3a, 3b y 4 es lo que lleva a la SVD (sección~\ref{sec:svd}), \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
 \emph{distinta} a la salida (\(U\)), toda matriz, incluso un corte o una rectangular, se
-lee como diagonal. Es diagonal entre dos grillas distintas, no una conjugación: \(\Sigma\) no
+lee como diagonal. Es diagonal entre dos cuadrículas distintas, no una conjugación: \(\Sigma\) no
 es \enquote{\(A\) en otra base}, los \(\sigma\) no son autovalores (en el corte,
 \(\sigma=(\sqrt5\pm1)/2\) y \(\lambda=1\) doble) y no sirve para potencias,
 \(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden solo si \(A\) es simétrica
@@ -456,7 +611,10 @@ semidefinida positiva.
 
 \subsection{Potencias reales y raíz cuadrada de una matriz}\label{sec:raiz-matriz}
 
-La cuenta \(M^t=CD^tC^{-1}\) del ejemplo~\ref{ej:cb-diagonalizar} merece una afirmación
+¿Qué transformación, aplicada dos veces seguidas, da \(M\)? Si \(M\) estira seis veces una
+dirección y deja quieta la otra, una candidata natural estira \(\sqrt6\) veces la primera y
+deja quieta la segunda: aplicada dos veces, estira seis. La cuenta \(M^t=CD^tC^{-1}\) del
+ejemplo~\ref{ej:cb-diagonalizar} merece una afirmación
 precisa, porque \enquote{la raíz de una matriz} no es \enquote{la raíz de cada entrada}.
 
 \begin{proposicion}[Raíz cuadrada de una matriz diagonalizable con autovalores positivos]\label{prop:cb-raiz}
@@ -485,7 +643,10 @@ propio por \(\lambda_j^t\): es la justificación de la película de \(A^t\). Con
 
 \subsection{Bases ortonormales: \texorpdfstring{\(C^{-1}=C^T\)}{C inversa = C traspuesta}}\label{sec:bases-ortonormales}
 
-Hasta acá todas las bases fueron igualmente buenas. El producto interno rompe esa igualdad.
+Volvé a los dos planos de la parcela. ¿Por qué en el plano girado la distancia entre dos
+esquinas se calcula con la misma cuenta de Pitágoras que en el plano con el norte arriba, y en
+una cuadrícula de paralelogramos no? Hasta acá todas las bases fueron igualmente buenas. El
+producto interno, la cuenta que da longitudes y ángulos, rompe esa igualdad.
 
 \begin{proposicion}[Cambio entre bases ortonormales]\label{prop:cb-ortonormal}
 Las columnas de \(C\) forman una base ortonormal si y solo si \(C^TC=I\), es decir,
@@ -526,6 +687,11 @@ ejemplo~\ref{ej:cb-diagonalizar}, con \(U=C/\sqrt5\) queda \(M=U\,D\,U^T\), sin 
 
 \subsection{Lectura activa y lectura pasiva}\label{sec:activa-pasiva-cb}
 
+Pensá en una foto de un edificio tomada con la cámara inclinada hacia un costado: en la imagen,
+el edificio aparece inclinado hacia el otro. ¿Giró el edificio o giró la cámara? Las dos
+historias producen la misma foto, con el giro al revés. Con las matrices pasa lo mismo, y
+conviene saber siempre cuál de las dos historias se está contando.
+
 La misma matriz admite dos lecturas, como las rotaciones
 (sección~\ref{sec:punto-coordenadas}). Leída \emph{activamente}, \(C\) mueve vectores: manda \(e_j\) a \(b_j\). Leída
 \emph{pasivamente}, \(C\) no mueve nada: traduce las etiquetas de un vector fijo de la base
@@ -563,25 +729,36 @@ como en el ejemplo~\ref{ej:cb-reflexion}.
 En una obra lineal (una vía, un canal, un camino) lo que importa de un corrimiento no son sus
 componentes este y norte, sino cuánto se corrió \emph{a lo largo} del eje y cuánto \emph{hacia
 un costado}. Un riel que se desplaza unos milímetros en la dirección de la vía casi no importa;
-el mismo desplazamiento hacia el costado puede sacarlo de trocha. La herramienta es un cambio
-a una base ortonormal adaptada al eje.
+el mismo desplazamiento hacia el costado puede sacarlo de trocha (la separación fija entre los
+dos rieles). La herramienta es un cambio a una base ortonormal adaptada al eje.
+
+\begin{idea}[Esto lo vas a usar en Topografía]
+La dirección de una recta en el terreno se da con su acimut: el ángulo que forma con el norte,
+contado en sentido horario. Las coordenadas oficiales de un punto son números largos, en metros,
+de un sistema plano nacional (Gauss-Krüger), que divide el país en franjas norte--sur llamadas
+fajas; acá importan las diferencias entre dos mediciones, no el valor completo. La tolerancia es
+el margen que el contrato de la obra admite antes de exigir una corrección.
+\end{idea}
 
 \paragraph{La base de obra.} El eje tiene acimut \(\mathrm{Az}=127^\circ30'\). Con \(E\) y \(N\)
-como primera y segunda coordenada, la dirección de acimut \(\mathrm{Az}\) es
+(este y norte) como primera y segunda coordenada, la dirección que forma el ángulo \(\mathrm{Az}\)
+con el norte es
 \((\sin\mathrm{Az},\ \cos\mathrm{Az})\) (sección~\ref{sec:acimut-campo}). Definimos
-\(u_L\) según el eje y \(u_T\) a su derecha, es decir, con acimut \(\mathrm{Az}+90^\circ\):
+\(u_L\), el vector unitario según el eje, y \(u_T\), el unitario a su derecha, es decir, con
+ángulo \(\mathrm{Az}+90^\circ\):
 \[
   u_L\approx(0{,}7934;\ -0{,}6088),\qquad u_T\approx(-0{,}6088;\ -0{,}7934),\qquad
   C=[\,u_L\mid u_T\,]\approx\begin{pmatrix}0{,}7934&-0{,}6088\\-0{,}6088&-0{,}7934\end{pmatrix}.
 \]
 \(C^TC=I\): la base es ortonormal y \(C^{-1}=C^T\). Además \(\det C=-1\): el par
-(longitudinal, transversal a la derecha) gira en sentido horario, como los acimutes, al revés
+(longitudinal, transversal a la derecha) gira en sentido horario, como los ángulos medidos desde el norte, al revés
 que el par (este, norte). No es un problema: la proposición~\ref{prop:cb-ortonormal} solo pide
 columnas ortonormales. (En este caso \(C\) resulta además simétrica, de modo que
 \(C^{-1}=C^T=C\): es una reflexión.)
 
 \paragraph{Los datos.} Tres puntos de control materializados sobre el eje, en las progresivas
-\(0\), \(100\) y \(200\) m, se midieron en dos campañas. Coordenadas Gauss-Krüger, faja 5, en
+\(0\), \(100\) y \(200\) m (distancias medidas a lo largo del eje desde su comienzo), se
+midieron en dos campañas, dos salidas de medición separadas en el tiempo. Coordenadas Gauss-Krüger, faja 5, en
 metros:
 
 \begin{center}
@@ -622,23 +799,25 @@ punto & \((\Delta E,\Delta N)\) & \((d_L,d_T)\) & \(\lvert d\rvert\) en \(E,N\) 
 Los módulos coinciden en las dos bases (proposición~\ref{prop:cb-ortonormal}): la base
 ortonormal reparte el mismo desplazamiento entre otras dos componentes.
 
-\paragraph{Una tolerancia que depende de la dirección.} Supongamos que el pliego admite
+\paragraph{Una tolerancia que depende de la dirección.} Supongamos que el pliego, el contrato
+que fija las condiciones de la obra, admite
 \(20\) mm de corrimiento longitudinal pero solo \(5\) mm transversal. La región admisible es la
 elipse de semiejes \(20\) mm según \(u_L\) y \(5\) mm según \(u_T\)
 (figura~\ref{fig:cb-obra}), que en la base de obra es la curva de nivel \(1\) de la forma
-cuadrática (capítulo~\ref{cap:svd})
+cuadrática (capítulo~\ref{cap:svd}), de matriz \(Q_{LT}\) (la de la forma en la base de obra; el
+subíndice dice en qué base está escrita)
 \[
-  q(d)=\frac{d_L^2}{20^2}+\frac{d_T^2}{5^2}=[d]_{LT}^T\,D\,[d]_{LT},\qquad
-  D=\operatorname{diag}\Bigl(\frac1{400},\ \frac1{25}\Bigr)\ \text{mm}^{-2}.
+  q(d)=\frac{d_L^2}{20^2}+\frac{d_T^2}{5^2}=[d]_{LT}^T\,Q_{LT}\,[d]_{LT},\qquad
+  Q_{LT}=\operatorname{diag}\Bigl(\frac1{400},\ \frac1{25}\Bigr)\ \text{mm}^{-2}.
 \]
-Un punto está dentro de tolerancia si \(q(d)\le1\). Para usarla directamente con
+Un punto está dentro del margen admitido si \(q(d)\le1\). Para usarla directamente con
 \(\Delta E,\Delta N\) hay que reescribir la matriz en la base \(E,N\). Como
-\([d]_{LT}=C^T[d]_{EN}\), queda \(q=[d]_{EN}^T\,(C\,D\,C^T)\,[d]_{EN}\):
+\([d]_{LT}=C^T[d]_{EN}\), queda \(q=[d]_{EN}^T\,(C\,Q_{LT}\,C^T)\,[d]_{EN}\):
 \[
-  Q=C\,D\,C^T\approx10^{-3}\begin{pmatrix}16{,}397&18{,}111\\18{,}111&26{,}103\end{pmatrix}\ \text{mm}^{-2}.
+  Q=C\,Q_{LT}\,C^T\approx10^{-3}\begin{pmatrix}16{,}397&18{,}111\\18{,}111&26{,}103\end{pmatrix}\ \text{mm}^{-2}.
 \]
 Es la regla de congruencia de la tabla~\ref{tab:regla-de-cada-objeto},
-\(Q=(C^{-1})^T D\,C^{-1}\), no la de conjugación; como esta base es ortonormal, las dos
+\(Q=(C^{-1})^T Q_{LT}\,C^{-1}\), no la de conjugación; como esta base es ortonormal, las dos
 coinciden (proposición~\ref{prop:congruencia-ortogonal}) y valen los invariantes de la
 proposición~\ref{prop:cb-invariantes}, cosa que en una base oblicua no ocurre
 (sección~\ref{sec:congruencia}). Controles:
@@ -681,13 +860,18 @@ punto & \(d_L^2/400\) & \(d_T^2/25\) & \(q\) en \(L,T\) & \(q\) en \(E,N\) & ¿\
 \end{center}
 
 La lectura es la que motivó el cambio de base. \(P_2\) tiene el desplazamiento más chico
-(\(7{,}28\) mm) y es el único fuera de tolerancia, porque casi todo su corrimiento es
+(\(7{,}28\) mm) y es el único fuera del margen, porque casi todo su corrimiento es
 transversal; \(P_3\) se movió \(17{,}49\) mm y está dentro, porque se movió a lo largo del
-eje. Una tolerancia circular de \(20\) mm habría aprobado los tres
+eje. Un margen circular de \(20\) mm habría aprobado los tres
 (\(\lvert d\rvert/20=0{,}640\), \(0{,}364\) y \(0{,}875\)). En la base de obra la cuenta es
 evidente; en la base \(E,N\) es la misma cuenta, con un término cruzado que la esconde.
 
 \subsection{Cada objeto cambia con su regla}\label{sec:congruencia}
+
+Pensá en la elipse del margen de la obra. No mueve ningún punto: a cada desplazamiento le asigna
+un número, \(q\), y con ese número decide si el desplazamiento es aceptable. ¿Por qué tendría que
+cambiar de base con la misma regla que una transformación, que sí mueve puntos? No tiene por
+qué, y en general no lo hace.
 
 En el capítulo aparecieron cuatro tipos de objetos, cada uno con su regla de cambio de base.
 Tres ya están demostradas: las coordenadas de un vector pasan con
@@ -702,7 +886,8 @@ cuadrática \(q(x)=[x]_e^TQ_e[x]_e\) es un número que depende del vector; si se
 \]
 Dos matrices simétricas relacionadas así, con \(C\) inversible, se llaman \emph{congruentes}.
 Lo mismo vale para una forma bilineal \([u]^TQ[v]\), de la que la cuadrática es el caso
-\(u=v\). La tabla~\ref{tab:regla-de-cada-objeto} reúne las cuatro reglas.
+\(u=v\). La tabla~\ref{tab:regla-de-cada-objeto} reúne las cuatro reglas, con un ejemplo de
+cada una tomado del terreno; la cota que aparece en ella es la altura de cada punto.
 
 \begin{table}[tbp]
 \centering
@@ -755,6 +940,7 @@ una base que no es ortonormal las dos lecturas se separan.
 \paragraph{Contraejemplo: la elipse de tolerancia en una base oblicua.} Escribimos la \(Q\)
 de la sección~\ref{sec:aplicacion-obra} en la base oblicua \(b_1=(3,1)\), \(b_2=(1,2)\) del
 ejemplo~\ref{ej:cb-oblicua}, con \(C'=\left(\begin{smallmatrix}3&1\\1&2\end{smallmatrix}\right)\)
+(su matriz de cambio de base; la prima la distingue de la \(C\) de la base de obra)
 y \(\det C'=5\). Con la regla correcta, la de congruencia,
 \[
   C'^TQ\,C'\approx\begin{pmatrix}0{,}2823&0{,}2282\\0{,}2282&0{,}1933\end{pmatrix}\ \text{mm}^{-2},
@@ -772,7 +958,7 @@ no sería simétrica: no es la matriz de ninguna forma cuadrática en la base nu
 punto: el desplazamiento de \(P_2\), \(d=(7,2)\) mm, tiene en la base
 oblicua coordenadas \([d]_{b}=C'^{-1}d=(2{,}4;\ -0{,}2)\). Con la congruencia,
 \([d]_b^T\,(C'^TQ\,C')\,[d]_b\approx1{,}4150\), el mismo valor que en la base \(E,N\): \(P_2\)
-sigue fuera de tolerancia. Con la conjugación da \(\approx0{,}0436\), y el punto aparecería
+sigue fuera del margen. Con la conjugación da \(\approx0{,}0436\), y el punto aparecería
 holgadamente dentro. Solo la regla de congruencia da el mismo \(x^TQx\) para el mismo punto en
 las dos bases.
 
@@ -782,9 +968,11 @@ devuelve un número cuadrático en el vector, es una forma y cambia por congruen
 bases ortonormales la pregunta puede omitirse.
 \end{idea}
 
-La métrica \(J^TJ\) de una parametrización (capítulo~\ref{cap:derivada}) también es una
-forma cuadrática: mide longitudes de pequeños
-desplazamientos, y al cambiar los parámetros con jacobiana \(K\) pasa a \(K^T(J^TJ)K\), por
+La métrica \(J^TJ\) de una parametrización (capítulo~\ref{cap:derivada}), donde \(J\) es la
+matriz de derivadas que ese capítulo construye, también es una forma cuadrática: mide
+longitudes de pequeños
+desplazamientos, y al cambiar los parámetros con jacobiana \(K\) (la matriz de derivadas del
+cambio de parámetros) pasa a \(K^T(J^TJ)K\), por
 congruencia. Lo mismo ocurre con la segunda forma fundamental de una superficie
 (sección~\ref{sec:segunda-forma}).
 

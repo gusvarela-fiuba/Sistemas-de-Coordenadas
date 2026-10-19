@@ -514,8 +514,59 @@ La corrección \(\varepsilon/3\) es de segundo orden en los lados medidos en rad
 \(\varepsilon\approx S/R^2\)), y el error que queda después de aplicarla es de cuarto orden.
 \end{teorema}
 
-Lo enunciamos sin demostración (la prueba desarrolla el teorema del coseno esférico en serie
-de potencias de los lados hasta cuarto orden y compara con el plano). Lo que se usa es la
+\begin{demostracion}
+Los ángulos no cambian si se agranda el triángulo plano, así que trabajamos con la esfera de
+radio \(1\) y el triángulo plano de lados \(a\), \(b\), \(c\), de ángulos \(A'\), \(B'\), \(C'\)
+y área \(\Delta\) (delta mayúscula). Llamamos \(h\) al lado mayor y escribimos \(O(h^k)\) para
+una cantidad acotada por una constante por \(h^k\). Que los lados sean chicos frente a \(R\)
+quiere decir que \(h\) es chico; suponemos además que el triángulo no se aplasta: los lados son
+comparables entre sí (\(bc\) no es mucho menor que \(h^2\)) y los ángulos planos se mantienen
+lejos de \(0\) y de \(\pi\).
+
+\emph{El ángulo plano.} Por el teorema del coseno del plano, \(\cos A'=g/(2bc)\) con
+\(g=b^2+c^2-a^2\), y el área es \(\Delta=\tfrac12bc\sin A'\). De ahí
+\(16\Delta^2=4b^2c^2(1-\cos^2A')=4b^2c^2-g^2\).
+
+\emph{El ángulo esférico, hasta cuarto orden.} Del teorema~\ref{teo:coseno-lados},
+\(\cos A=(\cos a-\cos b\cos c)/(\sin b\sin c)\). Con
+\(\cos x=1-\frac{x^2}2+\frac{x^4}{24}+O(x^6)\) y \(\sin x=x-\frac{x^3}6+O(x^5)\),
+\[
+\cos a-\cos b\cos c=\frac g2+\frac{a^4-b^4-c^4-6b^2c^2}{24}+O(h^6),\qquad
+\frac1{\sin b\sin c}=\frac1{bc}\Bigl(1+\frac{b^2+c^2}6+O(h^4)\Bigr).
+\]
+Multiplicando, y como \(1/(bc)\) es del orden de \(1/h^2\),
+\[
+\cos A=\frac g{2bc}+\frac{2g(b^2+c^2)+a^4-b^4-c^4-6b^2c^2}{24\,bc}+O(h^4).
+\]
+Desarrollando, el numerador de la fracción es \(a^4+b^4+c^4-2a^2b^2-2a^2c^2-2b^2c^2=g^2-4b^2c^2=-16\Delta^2\),
+y con \(2\Delta/(bc)=\sin A'\) queda
+\[
+\cos A=\cos A'-\frac{2\Delta^2}{3bc}+O(h^4)=\cos A'-\frac\Delta3\sin A'+O(h^4).
+\]
+
+\emph{De los cosenos a los ángulos.} Sea \(\delta=A-A'\). La igualdad anterior dice que
+\(\cos A-\cos A'\) es \(O(h^2)\), porque \(\Delta\) es del orden de \(h^2\); como
+\(\cos A-\cos A'=-2\sin\frac{A+A'}2\sin\frac\delta2\) y \(A'\) está lejos de \(0\) y de
+\(\pi\), también \(\delta\) es \(O(h^2)\). Entonces
+\(\cos A=\cos A'\cos\delta-\sin A'\sin\delta=\cos A'-\delta\sin A'+O(h^4)\), y comparando con
+la igualdad anterior, \(\delta\sin A'=\frac\Delta3\sin A'+O(h^4)\). Dividiendo por
+\(\sin A'\), que no se acerca a \(0\),
+\[
+A=A'+\frac\Delta3+O(h^4),
+\]
+y lo mismo en los otros dos vértices: \(B=B'+\frac\Delta3+O(h^4)\), \(C=C'+\frac\Delta3+O(h^4)\).
+
+\emph{El exceso.} Sumando las tres y usando \(A'+B'+C'=\pi\),
+\(\varepsilon=A+B+C-\pi=\Delta+O(h^4)\): el exceso es el área plana, salvo cuarto orden
+(es la aproximación \(\varepsilon\approx S/R^2\) del párrafo anterior, ahora probada).
+Reemplazando \(\Delta=\varepsilon+O(h^4)\),
+\(A'=A-\frac\varepsilon3+O(h^4)\), y lo mismo para \(B'\) y \(C'\). La corrección
+\(\varepsilon/3\) es del orden de \(h^2\), y lo que queda después de restarla es
+\(O(h^4)\).
+\end{demostracion}
+
+En palabras: sobre la esfera cada ángulo crece, respecto del plano, un tercio del área del
+triángulo, y los tres crecimientos juntos son el exceso. Lo que se usa es la
 consecuencia práctica: \emph{se resuelve el
 triángulo como plano después de restar a cada ángulo un tercio del exceso}. Para el
 triángulo grande del ejemplo~\ref{ej:esfera-tres-ciudades} el ángulo plano en Buenos Aires,

@@ -5,14 +5,17 @@ Cada ejercicio es un DXF chico (R2000, AC1015) con:
   VERTICES   un POINT por vértice,
   ETIQUETAS  un TEXT por vértice (A, B, C, ...), centrado a distancia fija del vértice,
   EJES       dos LINE desde el origen con sus TEXT «E» y «N»,
-más capas propias de cada ejercicio (ACIMUT, ESPEJOS, DESTINO, VENTANA).
+más capas propias de cada ejercicio (ACIMUT, ESPEJOS, DESTINO, VENTANA y, sólo en los
+DXF de los capítulos 6 y 9, CUNAS y AREA: se agregan por documento para que los DXF de
+los capítulos 1 a 4 no cambien).
 Unidades: metros, coordenadas locales chicas (origen cerca de la parcela).
 
 Para cada ejercicio se escribe también la versión transformada esperada en
 cad/dxf/esperado/: la geometría transformada con la transformación conocida y las
 mismas etiquetas. En las respuestas la parcela se vuelve a dibujar con las
-coordenadas transformadas (texto derecho, legible); en cap04_bloque la respuesta es
-un INSERT del bloque PARCELA_BLOQUE con la escala pedida, como lo haría el CAD.
+coordenadas transformadas (texto derecho, legible); en cap04_bloque (y en la respuesta
+cap06_bloque_x2_y1_area) la respuesta es un INSERT del bloque PARCELA_BLOQUE con la
+escala pedida, como lo haría el CAD.
 
 Determinismo: ezdxf escribe fechas y GUID en el encabezado; con
 ezdxf.options.write_fixed_meta_data_for_testing = True los fija ($TDCREATE,
@@ -66,6 +69,29 @@ A_SIMIL = np.array([90.0, 10.0])        # ALIGN con escala: A -> A'', B -> B'' (
 B_SIMIL = np.array([76.0, 58.0])
 V_STRETCH = np.array([10.0, 0.0])       # STRETCH de C y D
 VENTANA_STRETCH = (18.0, 33.0, 46.0, 41.0)
+FACTOR_SCALE = 2.0                      # SCALE x2 con punto base A (capítulo 6)
+CAPAS_CAP06 = {"CUNAS": 30, "AREA": 4}  # sólo en los DXF de los capítulos 6 y 9
+
+
+def area_con_signo(P) -> float:
+    """Fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1} (positiva si es antihoraria)."""
+    P = np.asarray(P, float)
+    x, y = P[:, 0], P[:, 1]
+    return float(0.5 * np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
+
+
+def cunas(P):
+    """Los términos (1/2) p_i ∧ p_{i+1}: áreas con signo de los triángulos O p_i p_{i+1}."""
+    P = np.asarray(P, float)
+    Q = np.roll(P, -1, axis=0)
+    return [float(0.5 * (p[0] * q[1] - q[0] * p[1])) for p, q in zip(P, Q)]
+
+
+def base_frente(a, b):
+    """C = [b1 | b2]: b1 el versor de a->b y b2 su perpendicular a la izquierda (det C = 1)."""
+    u = (np.asarray(b, float) - np.asarray(a, float))
+    u = u / np.linalg.norm(u)
+    return np.array([[u[0], -u[1]], [u[1], u[0]]])
 
 
 def rot(grados: float) -> np.ndarray:
@@ -119,13 +145,13 @@ def etiquetas(n: int):
 
 
 # ---------------------------------------------------------------- dibujo
-def nuevo_doc():
+def nuevo_doc(capas_extra=None):
     doc = ezdxf.new(VERSION_DXF, setup=False)
     doc.header["$INSUNITS"] = 6      # metros
     doc.header["$MEASUREMENT"] = 1   # métrico
     doc.header["$LUNITS"] = 2        # decimal
     doc.header["$LUPREC"] = 3
-    for nombre, color in CAPAS.items():
+    for nombre, color in {**CAPAS, **(capas_extra or {})}.items():
         doc.layers.add(nombre, color=color)
     return doc
 
@@ -197,6 +223,20 @@ def _extra_stretch(msp):
                        dxfattribs={"layer": "VENTANA"})
 
 
+def _texto_area(msp, P, pos):
+    _texto(msp, f"S = {abs(area_con_signo(P)):.0f} m2", pos, 1.2, "AREA")
+
+
+def _extra_cunas(msp, P):
+    """Respuesta de cap06_area: los triángulos O p_i p_{i+1} con su área con signo."""
+    P = np.asarray(P, float)
+    for p, c, q in zip(P, cunas(P), np.roll(P, -1, axis=0)):
+        linea(msp, (0, 0), p, "CUNAS")
+        g = (p + q) / 3
+        _texto(msp, f"{c:+.0f}", g, 1.0, "CUNAS")
+    _texto_area(msp, P, (24.0, 26.0))
+
+
 def _bloque(doc):
     blk = doc.blocks.new("PARCELA_BLOQUE", base_point=(0, 0))
     dibujar_poligono(blk, PARCELA)
@@ -222,6 +262,12 @@ F_ALIGN_RIGIDO = align(PARCELA[0], PARCELA[1], A_RIGIDO, B_RIGIDO, escalar=False
 F_ALIGN_SIMIL = align(PARCELA[0], PARCELA[1], A_SIMIL, B_SIMIL, escalar=True)
 F_BLOQUE_X2 = (np.diag([2.0, 1.0]), np.zeros(2))
 F_BLOQUE_XM1 = (np.diag([-1.0, 1.0]), np.zeros(2))
+F_IDENTIDAD = (np.eye(2), np.zeros(2))
+F_SCALE_2 = (FACTOR_SCALE * np.eye(2), PARCELA[0] - FACTOR_SCALE * PARCELA[0])
+C_FRENTE = base_frente(PARCELA[0], PARCELA[1])        # columnas: versor de AB y su normal
+F_UCS_FRENTE = (C_FRENTE.T, -C_FRENTE.T @ PARCELA[0])  # lectura pasiva: C^{-1}(p - A)
+F_UCS_ACTIVA_FRENTE = rotacion_alrededor(              # ROTATE alrededor de A hasta AB horizontal
+    -math.degrees(math.atan2(*(PARCELA[1] - PARCELA[0])[::-1])), PARCELA[0])
 
 EJERCICIOS = {
     "cap01_rotate": dict(respuestas=[("cap01_rotate_30", F_ROTATE)]),
@@ -244,13 +290,24 @@ EJERCICIOS = {
                          respuestas=[("cap04_bloque_x2_y1", F_BLOQUE_X2),
                                      ("cap04_bloque_xm1", F_BLOQUE_XM1)]),
     "cap04_stretch": dict(extra=_extra_stretch, respuestas=[("cap04_stretch_10", None)]),
+    "cap06_area": dict(capas=CAPAS_CAP06,
+                       respuestas=[("cap06_area_cunas", F_IDENTIDAD)],
+                       extra_respuesta=lambda msp, resp, Q: _extra_cunas(msp, Q)),
+    "cap06_scale": dict(capas=CAPAS_CAP06, bloque=True, como_insert={"cap06_bloque_x2_y1_area"},
+                        respuestas=[("cap06_scale_2", F_SCALE_2),
+                                    ("cap06_bloque_x2_y1_area", F_BLOQUE_X2)],
+                        extra_respuesta=lambda msp, resp, Q: _texto_area(
+                            msp, Q, (Q[:, 0].mean(), Q[:, 1].min() - 4.0))),
+    "cap09_ucs": dict(capas=CAPAS_CAP06,
+                      respuestas=[("cap09_ucs_frente", F_UCS_FRENTE),
+                                  ("cap09_ucs_activa", F_UCS_ACTIVA_FRENTE)]),
 }
 
 
 def construir(nombre: str):
     """Documento ezdxf del ejercicio original."""
     e = EJERCICIOS[nombre]
-    doc = nuevo_doc()
+    doc = nuevo_doc(e.get("capas"))
     if e.get("bloque"):
         _bloque(doc)
     msp = doc.modelspace()
@@ -267,14 +324,16 @@ def construir_respuesta(nombre: str, respuesta: str):
     e = EJERCICIOS[nombre]
     f = dict(e["respuestas"])[respuesta]
     P = np.asarray(e.get("poligono", PARCELA), float)
-    doc = nuevo_doc()
+    doc = nuevo_doc(e.get("capas"))
     msp = doc.modelspace()
     dibujar_ejes(msp, e.get("ejes", 10.0), e.get("alto", 1.2))
-    if e.get("bloque"):
+    if e.get("bloque") and respuesta in e.get("como_insert", {respuesta}):
         _bloque(doc)
-        M, _ = f
-        msp.add_blockref("PARCELA_BLOQUE", (0, 0),
+        M, t = f
+        msp.add_blockref("PARCELA_BLOQUE", (float(t[0]), float(t[1])),
                          dxfattribs={"xscale": float(M[0, 0]), "yscale": float(M[1, 1])})
+        if "extra_respuesta" in e:
+            e["extra_respuesta"](msp, respuesta, np.round(aplicar(f, P), 9) + 0.0)
         return doc
     if f is None:  # STRETCH: C y D se corren, A, B y E quedan
         Q = P.copy()
@@ -282,6 +341,8 @@ def construir_respuesta(nombre: str, respuesta: str):
     else:
         Q = np.round(aplicar(f, P), 9) + 0.0  # sin ruido de punto flotante ni -0
     dibujar_poligono(msp, Q, alto=e.get("alto", 1.2), sep=e.get("sep", 1.5))
+    if "extra_respuesta" in e:
+        e["extra_respuesta"](msp, respuesta, Q)
     if nombre == "cap01_units":
         _extra_units(msp, f)
     elif "extra" in e:

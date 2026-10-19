@@ -147,16 +147,16 @@ Tomá un punto \(x\), reflejalo en \(b\) y después reflejá el resultado en otr
 mismo y hacia el mismo lado: el doble del segmento que va de \(b\) a \(a\). Dos reflexiones
 puntuales no dan vuelta nada: corren todo el plano. Para qué sirve: es la cuenta más corta para
 ver que dos reflexiones pueden dar una traslación, la versión con puntos de los espejos de la
-peluquería del capítulo~\ref{cap:traslaciones}. Escribimos \(T_v\) para la traslación que corre
+peluquería del capítulo~\ref{cap:traslaciones}. Escribimos \(\tau_v\) (tau, como en el capítulo~\ref{cap:traslaciones}) para la traslación que corre
 cada punto según el vector \(v\), y \(\rhoP{a}\rhoP{b}\) para la composición, que se lee de
 derecha a izquierda: primero \(\rhoP{b}\), después \(\rhoP{a}\).
 
 \begin{proposicion}[La composición de dos reflexiones puntuales es una traslación]\label{prop:dos-puntuales}
 Para todo par de puntos \(a\), \(b\),
 \[
-  \boxed{\rhoP{a}\rhoP{b}=T_{\,2(a-b)}},
+  \boxed{\rhoP{a}\rhoP{b}=\tau_{\,2(a-b)}},
 \]
-donde \(T_v(x)=x+v\). Recíprocamente, toda traslación \(T_v\) es de esa forma: basta elegir
+donde \(\tau_v(x)=x+v\). Recíprocamente, toda traslación \(\tau_v\) es de esa forma: basta elegir
 \(b\) cualquiera y \(a=b+\tfrac12v\).
 \end{proposicion}
 
@@ -171,7 +171,7 @@ recíproco, con \(a=b+\frac12v\) queda \(2(a-b)=v\).
 \end{demostracion}
 
 La traslación no tiene puntos fijos salvo en el caso \(a=b\), en el que es la identidad.
-Invertir el orden invierte el vector: \(\rhoP{b}\rhoP{a}=T_{2(b-a)}\).
+Invertir el orden invierte el vector: \(\rhoP{b}\rhoP{a}=\tau_{2(b-a)}\).
 
 \begin{center}
 \begin{tikzpicture}[scale=.92]
@@ -261,11 +261,11 @@ Volvamos a la hoja doblada con la tinta fresca. ¿Qué puntos no se mueven al ca
 pliegue. ¿Y los demás? Cada uno va a parar del otro lado del pliegue, sobre la perpendicular, a
 la misma distancia. Para qué sirve: es el comando de espejo de cualquier programa de dibujo (lo
 usamos en la sección~\ref{sec:cad-cap03}) y la pieza con la que se arman todas las isometrías.
-Escribimos \(\refl{B}\) (fi) para la reflexión cuyo eje, el pliegue, es la recta \(B\).
+Escribimos \(\sigma_{B}\) (sigma, como en el capítulo~\ref{cap:traslaciones}) para la reflexión cuyo eje, el pliegue, es la recta \(B\).
 
 \begin{definicion}[Reflexión respecto de una recta]\label{def:reflexion-recta}
 Sea \(B\) una recta del plano. La \emph{reflexión respecto de \(B\)} es la transformación
-\(\refl{B}\) que deja fijos los puntos de \(B\) y lleva cada punto \(x\notin B\) al punto de la
+\(\sigma_{B}\) que deja fijos los puntos de \(B\) y lleva cada punto \(x\notin B\) al punto de la
 perpendicular a \(B\) por \(x\) que está a la misma distancia de \(B\) que \(x\), pero del otro
 lado de la recta. La recta \(B\) se llama \emph{eje} de la reflexión.
 \end{definicion}
@@ -277,14 +277,14 @@ está la recta.
 \begin{proposicion}[Fórmula de la reflexión en una recta]\label{prop:reflexion-recta}
 Sea \(B=\{x\in\R^2:\ n\cdot x=c\}\), con \(n\neq0\). Entonces
 \[
-  \boxed{\refl{B}(x)=x-2\,\frac{n\cdot x-c}{\lVert n\rVert^2}\,n}
+  \boxed{\sigma_{B}(x)=x-2\,\frac{n\cdot x-c}{\lVert n\rVert^2}\,n}
   \qquad\text{y}\qquad
-  \refl{B}(x)=Hx+t,\quad
+  \sigma_{B}(x)=Hx+t,\quad
   H=I-\frac{2\,nn^T}{\lVert n\rVert^2},\quad
   t=\frac{2c}{\lVert n\rVert^2}\,n .
 \]
 La matriz \(H\) es simétrica y ortogonal, con \(H^2=I\) y \(\det H=-1\). En consecuencia,
-\(\refl{B}\) conserva las distancias, es una involución, invierte la orientación y sus puntos
+\(\sigma_{B}\) conserva las distancias, es una involución, invierte la orientación y sus puntos
 fijos son exactamente los de \(B\).
 \end{proposicion}
 
@@ -307,7 +307,7 @@ las propiedades de \(H\); está completa en la sección~\ref{sec:demos-reflexion
   \draw[mainline] ($(p)+(-.32,.15)$)--($(p)+(-.17,.47)$)--($(p)+(.15,.32)$);
   \fill[teal] (x) circle (2.5pt) node[above left] {$x$};
   \fill[ink] (p) circle (2.4pt) node[above right] {$p$};
-  \fill[rust] (xp) circle (2.5pt) node[below right] {$\varphi_B(x)$};
+  \fill[rust] (xp) circle (2.5pt) node[below right] {$\sigma_B(x)$};
   \draw[decorate,decoration={brace,amplitude=5pt},teal]
     (x)--node[left=5pt,font=\small] {$d$}(p);
   \draw[decorate,decoration={brace,amplitude=5pt},teal]
@@ -318,10 +318,10 @@ las propiedades de \(H\); está completa en la sección~\ref{sec:demos-reflexion
 \paragraph{Ejemplo.}
 Para \(B:\ x+2y=4\), \(n=(1,2)\) y \(x_0=(4,3)\): \(n\cdot x_0-c=6\), \(\lVert n\rVert^2=5\) y
 \[
-  \refl{B}(x_0)=(4,3)-\frac{12}{5}(1,2)=\left(\frac85,-\frac95\right),\qquad
+  \sigma_{B}(x_0)=(4,3)-\frac{12}{5}(1,2)=\left(\frac85,-\frac95\right),\qquad
   p=(4,3)-\frac65(1,2)=\left(\frac{14}{5},\frac35\right).
 \]
-Además \(x_0-p=p-\refl{B}(x_0)=\frac65(1,2)\): los dos segmentos tienen la misma longitud y son
+Además \(x_0-p=p-\sigma_{B}(x_0)=\frac65(1,2)\): los dos segmentos tienen la misma longitud y son
 perpendiculares a la recta, pues son paralelos al normal \(n=(1,2)\).
 
 \begin{ejemplo}[Reflexión respecto de la recta que pasa por dos puntos]\label{ej:reflexion-dos-puntos}
@@ -338,12 +338,12 @@ El mismo punto sale proyectando \(X-P=(4,6)\) sobre la dirección:
 \(p=P+t\,d=(1,2)+(5{,}6;\ 2{,}8)=(6{,}6;\ 4{,}8)\).
 
 \emph{Reflejo.} Como \(p\) es el punto medio entre \(X\) y su imagen,
-\(\refl{L}(X)=2p-X=(8{,}2;\ 1{,}6)\).
+\(\sigma_{L}(X)=2p-X=(8{,}2;\ 1{,}6)\).
 
-\emph{Forma matricial.} Desarrollando \(\refl{L}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\)
+\emph{Forma matricial.} Desarrollando \(\sigma_{L}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\)
 se separa una parte lineal y una traslación:
 \[
-  \refl{L}(x)=Hx+t,\qquad
+  \sigma_{L}(x)=Hx+t,\qquad
   H=I-\frac{2\,nn^T}{\lVert n\rVert^2}=\frac15\begin{pmatrix}3&4\\4&-3\end{pmatrix},\qquad
   t=\frac{2c}{\lVert n\rVert^2}\,n=(-1{,}2;\ 2{,}4).
 \]
@@ -352,9 +352,9 @@ Para \(X\): \(HX=\frac15(47,-4)=(9{,}4;\ -0{,}8)\) y \(HX+t=(8{,}2;\ 1{,}6)\). A
 
 \emph{Control.} \(P\) y \(Q\) están en el eje, de modo que quedan fijos y las distancias a ellos se
 conservan: \(\lVert X-P\rVert^2=4^2+6^2=52\) y
-\(\lVert \refl{L}(X)-P\rVert^2=7{,}2^2+0{,}4^2=52\);
+\(\lVert \sigma_{L}(X)-P\rVert^2=7{,}2^2+0{,}4^2=52\);
 \(\lVert X-Q\rVert^2=2^2+3^2=13\) y
-\(\lVert \refl{L}(X)-Q\rVert^2=1{,}2^2+3{,}4^2=13\).
+\(\lVert \sigma_{L}(X)-Q\rVert^2=1{,}2^2+3{,}4^2=13\).
 \end{ejemplo}
 
 \subsection{Dos espejos paralelos dan una traslación}\label{sec:espejos-paralelos}
@@ -370,10 +370,10 @@ ecuación: \(\alpha\) para \(A\) y \(\beta\) para \(B\). Con \(n\) de largo \(1\
 Sean \(A:\ n\cdot x=\alpha\) y \(B:\ n\cdot x=\beta\) dos rectas paralelas, con \(n\) un
 normal unitario común. Entonces
 \[
-  \boxed{\refl{A}\refl{B}(x)=x+2(\alpha-\beta)\,n},
+  \boxed{\sigma_{A}\sigma_{B}(x)=x+2(\alpha-\beta)\,n},
 \]
 una traslación perpendicular a ambas rectas cuyo módulo es el doble de la distancia entre
-ellas. Recíprocamente, toda traslación \(T_v\) con \(v\neq0\) es \(\refl{A}\refl{B}\) para
+ellas. Recíprocamente, toda traslación \(\tau_v\) con \(v\neq0\) es \(\sigma_{A}\sigma_{B}\) para
 cualquier recta \(B\) perpendicular a \(v\), tomando como \(A\) la paralela a \(B\) desplazada
 en \(\tfrac12v\).
 \end{teorema}
@@ -395,8 +395,8 @@ del capítulo~\ref{cap:traslaciones}. Si
   \draw[auxline] (x)--(z);
   \draw[mainline,-{Latex[length=2.8mm]}] (x)--(z);
   \fill[teal] (x) circle (2.5pt) node[below] {$x$};
-  \fill[rust] (y) circle (2.5pt) node[below] {$\varphi_B(x)$};
-  \fill[teal] (z) circle (2.5pt) node[below] {$\varphi_A\varphi_B(x)$};
+  \fill[rust] (y) circle (2.5pt) node[below] {$\sigma_B(x)$};
+  \fill[teal] (z) circle (2.5pt) node[below] {$\sigma_A\sigma_B(x)$};
   \draw[<->,muted] (1,4.1)--node[above,font=\small] {$h$}(4,4.1);
   \node[font=\small,text=tealdark] at (3,2.3) {desplazamiento \(2h\)};
 \end{tikzpicture}
@@ -404,8 +404,8 @@ del capítulo~\ref{cap:traslaciones}. Si
 
 \paragraph{Ejemplo gráfico y algebraico común.}
 Si \(B:x=1\), \(A:x=4\) y \(p=(0,2)\), entonces
-\(p=(0,2)\xmapsto{\ \refl{B}\ }(2,2)\xmapsto{\ \refl{A}\ }(6,2)\), y
-\(\refl{A}\refl{B}(x,y)=(x+6,y)\). La distancia entre los ejes es \(3\), la traslación tiene
+\(p=(0,2)\xmapsto{\ \sigma_{B}\ }(2,2)\xmapsto{\ \sigma_{A}\ }(6,2)\), y
+\(\sigma_{A}\sigma_{B}(x,y)=(x+6,y)\). La distancia entre los ejes es \(3\), la traslación tiene
 módulo \(6\) y el punto intermedio \((2,2)\) muestra las dos reflexiones separadamente.
 Son los espejos de la peluquería: separados \(3\), corren el punto \(6\).
 
@@ -416,24 +416,24 @@ pasa con la imagen de la imagen? Gira alrededor de la arista donde se tocan los 
 el doble de lo que los abriste: si forman \(30^\circ\), la imagen gira \(60^\circ\). Para qué
 sirve: así se escribe cualquier giro con dos reflexiones, y con eso el
 capítulo~\ref{cap:traslaciones} compuso giros de centros distintos. En el enunciado,
-\(R_{o,\phi}\) es la rotación de centro \(o\) y ángulo \(\phi\), y \(\theta\) es el ángulo que
+\(\rhoP{o,\phi}\) es la rotación de centro \(o\) y ángulo \(\phi\), y \(\theta\) es el ángulo que
 hay que girar \(B\) alrededor de \(o\) para llevarla sobre \(A\), con signo según el sentido.
 
 \begin{teorema}[Dos reflexiones en rectas secantes componen una rotación]\label{teo:rotacion-dos-reflexiones}
 Sean \(A\) y \(B\) dos rectas que se cortan en \(o\), y sea \(\theta\) el ángulo orientado
 desde \(B\) hasta \(A\). Entonces
 \[
-  \boxed{\refl{A}\refl{B}=R_{o,\,2\theta}},
-  \qquad R_{o,\phi}(x)=o+R(\phi)(x-o),
+  \boxed{\sigma_{A}\sigma_{B}=\rhoP{o,\,2\theta}},
+  \qquad \rhoP{o,\phi}(x)=o+R(\phi)(x-o),
 \]
 la rotación de centro \(o\) y ángulo \(2\theta\). Recíprocamente, toda rotación
-\(R_{o,\phi}\) es \(\refl{A}\refl{B}\) para cualquier recta \(B\) por \(o\), tomando como
+\(\rhoP{o,\phi}\) es \(\sigma_{A}\sigma_{B}\) para cualquier recta \(B\) por \(o\), tomando como
 \(A\) la recta por \(o\) que forma con \(B\) el ángulo orientado \(\phi/2\).
 \end{teorema}
 
 La demostración escribe la reflexión en una recta \(L\) que pasa por \(o\) con ángulo de
 dirección \(\gamma\) (el ángulo que forma \(L\) con el eje \(x\)) como
-\(\refl{L}(x)=o+H(\gamma)(x-o)\): pararse en \(o\), reflejar y volver. La matriz que refleja, en
+\(\sigma_{L}(x)=o+H(\gamma)(x-o)\): pararse en \(o\), reflejar y volver. La matriz que refleja, en
 la recta por el origen con ese ángulo, es
 \[
   H(\gamma)=
@@ -465,7 +465,7 @@ preserva:
   \fill[ink] (o) circle (2.6pt) node[below left] {$o$};
   \fill[teal] (x) circle (2.5pt) node[below right] {$x$};
   \fill[teal] (y) circle (2.5pt)
-    node[labelback,above right=2pt] {$\varphi_A\varphi_B(x)$};
+    node[labelback,above right=2pt] {$\sigma_A\sigma_B(x)$};
   \draw[teal,line width=.7pt] ($(o)+(.9,0)$)
     arc[start angle=0,end angle=30,radius=.9];
   \node[labelback,font=\small,text=teal] at ($(o)+(1.15,.32)$) {$\theta$};
@@ -475,7 +475,7 @@ preserva:
 
 \paragraph{Ejemplo numérico completo.}
 Sea \(B\) el eje \(x\), sea \(A\) una recta por el origen que forma \(30^\circ\) con \(B\),
-y sea \(p=(1,1)\). Primero, \(p_1=\varphi_B(p)=(1,-1)\). La reflexión respecto de \(A\) tiene
+y sea \(p=(1,1)\). Primero, \(p_1=\sigma_B(p)=(1,-1)\). La reflexión respecto de \(A\) tiene
 matriz \(H(30^\circ)\), y
 \[
 H(30^\circ)=
@@ -484,7 +484,7 @@ H(30^\circ)=
 \frac{\sqrt3}{2}&-\frac12
 \end{pmatrix},
 \qquad
-p_2=\varphi_A(p_1)
+p_2=\sigma_A(p_1)
 =
 \begin{pmatrix}
 \frac12-\frac{\sqrt3}{2}\\[1mm]
@@ -502,27 +502,27 @@ Sean \(B:\ y=1\) y \(A:\ x-y=1\). Se cortan en \(o=(2,1)\); \(B\) es horizontal 
 \(45^\circ\) con ella, así que el teorema~\ref{teo:rotacion-dos-reflexiones} predice un giro de \(90^\circ\) alrededor de \(o\).
 
 \emph{Las dos reflexiones.} Para \(B\) basta reflejar la ordenada respecto de \(1\):
-\(\refl{B}(x,y)=(x,\,2-y)\). Para \(A\), con \(n=(1,-1)\), \(\lVert n\rVert^2=2\) y \(c=1\),
-\(\refl{A}(x,y)=(x,y)-(x-y-1)(1,-1)=(y+1,\ x-1)\).
+\(\sigma_{B}(x,y)=(x,\,2-y)\). Para \(A\), con \(n=(1,-1)\), \(\lVert n\rVert^2=2\) y \(c=1\),
+\(\sigma_{A}(x,y)=(x,y)-(x-y-1)(1,-1)=(y+1,\ x-1)\).
 
-\emph{La composición.} \(\refl{A}\refl{B}(x,y)=\refl{A}(x,\,2-y)=(3-y,\ x-1)\). La rotación de \(90^\circ\) con centro \(o\) da lo mismo:
+\emph{La composición.} \(\sigma_{A}\sigma_{B}(x,y)=\sigma_{A}(x,\,2-y)=(3-y,\ x-1)\). La rotación de \(90^\circ\) con centro \(o\) da lo mismo:
 \(o+R(90^\circ)\bigl((x,y)-o\bigr)=(2,1)+\bigl(-(y-1),\,x-2\bigr)=(3-y,\ x-1)\).
-Con \(p=(4,0)\): \(\refl{B}(p)=(4,2)\) y \(\refl{A}(4,2)=(3,3)\). Desde \(o\), los vectores
+Con \(p=(4,0)\): \(\sigma_{B}(p)=(4,2)\) y \(\sigma_{A}(4,2)=(3,3)\). Desde \(o\), los vectores
 \(p-o=(2,-1)\) y \((3,3)-o=(1,2)\) miden ambos \(\sqrt5\) y son perpendiculares.
 
-\emph{El orden.} \(\refl{B}\refl{A}(p)=\refl{B}(1,3)=(1,-1)\), que es la rotación de
+\emph{El orden.} \(\sigma_{B}\sigma_{A}(p)=\sigma_{B}(1,3)=(1,-1)\), que es la rotación de
 \(-90^\circ\) alrededor de \(o\): \((2,1)+(-1,-2)=(1,-1)\). Invertir el orden invierte el giro.
 
 \emph{Ejes paralelos.} Si en lugar de \(B\) se toma \(B':\ x-y=-3\), paralela a \(A\),
 \[
-  \refl{B'}(x,y)=(x,y)-(x-y+3)(1,-1)=(y-3,\ x+3),
+  \sigma_{B'}(x,y)=(x,y)-(x-y+3)(1,-1)=(y-3,\ x+3),
   \qquad
-  \refl{A}\refl{B'}(x,y)=(x+4,\ y-4).
+  \sigma_{A}\sigma_{B'}(x,y)=(x+4,\ y-4).
 \]
 Es la traslación de vector \((4,-4)\), paralelo a \(n\) y por lo tanto perpendicular a las dos
 rectas, de módulo \(4\sqrt2\approx5{,}657\): el doble de la distancia
 \(\dfrac{|1-(-3)|}{\sqrt2}=2\sqrt2\approx2{,}828\) entre ellas, como afirma el teorema~\ref{teo:traslacion-dos-reflexiones}.
-Con \(p=(4,0)\): \(\refl{B'}(p)=(-3,7)\) y \(\refl{A}(-3,7)=(8,-4)=p+(4,-4)\).
+Con \(p=(4,0)\): \(\sigma_{B'}(p)=(-3,7)\) y \(\sigma_{A}(-3,7)=(8,-4)=p+(4,-4)\).
 \end{ejemplo}
 
 \unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Verificá: elegí «dos espejos seguidos», poné \(\beta=45^\circ\) y comprobá que el resultado es \(R(90^\circ)\), con \(\det=+1\).}
@@ -534,12 +534,12 @@ mesa y después la deslizás; o al revés: primero la deslizás y después la gi
 el mismo lugar. Es la pregunta con la que abrió el capítulo~\ref{cap:traslaciones}. ¿El
 resultado es un giro? ¿Alrededor de qué punto? Saberlo sirve para reemplazar dos pasos por uno
 solo y para no equivocarse con el orden, que en un cambio de coordenadas importa. En el
-enunciado, \(Q_c\) es la rotación de centro \(c\) y \(R=R(\theta)\) su parte lineal, el giro
+enunciado, \(\rhoP{c,\theta}\) es la rotación de centro \(c\) y ángulo \(\theta\), y \(R=R(\theta)\) su parte lineal, el giro
 alrededor del origen del capítulo~\ref{cap:rotaciones}.
 
 \begin{proposicion}[Una traslación compuesta con una rotación es una rotación]\label{prop:traslacion-rotacion}
-Sea \(T_v(x)=x+v\) y sea \(Q_c(x)=c+R(x-c)\) la rotación de centro \(c\) y parte lineal
-\(R=R(\theta)\), con \(\theta\not\equiv0\). Entonces \(T_vQ_c\) y \(Q_cT_v\) son rotaciones de
+Sea \(\tau_v(x)=x+v\) y sea \(\rhoP{c,\theta}(x)=c+R(x-c)\) la rotación de centro \(c\) y parte lineal
+\(R=R(\theta)\), con \(\theta\not\equiv0\). Entonces \(\tau_v\rhoP{c,\theta}\) y \(\rhoP{c,\theta}\tau_v\) son rotaciones de
 ángulo \(\theta\), con centros
 \[
   \boxed{c_1=c+(I-R)^{-1}v}
@@ -569,20 +569,20 @@ sección~\ref{sec:demos-reflexiones}.
   \fill[rust] (c2) circle (2.6pt) node[labelback,above right] {$c_2$};
   \draw[teal,dashed] (c1) circle (1.25);
   \draw[rust,dashed] (c2) circle (1.25);
-  \node[labelback,font=\small,text=teal] at (1.85,3.15) {\(T_vQ_c\)};
-  \node[labelback,font=\small,text=rust] at (7.05,3.0) {\(Q_cT_v\)};
+  \node[labelback,font=\small,text=teal] at (1.85,3.15) {\(\tau_v\rhoP{c,\theta}\)};
+  \node[labelback,font=\small,text=rust] at (7.05,3.0) {\(\rhoP{c,\theta}\tau_v\)};
 \end{tikzpicture}
 \end{center}
 
 \paragraph{Ejemplo de orden.}
 Sea \(R\) el giro de \(90^\circ\) alrededor del origen y \(v=(2,0)\). Entonces
-\(T_vR(x)=Rx+(2,0)\) y \(RT_v(x)=Rx+(0,2)\). El centro del primero es \((1,1)\); el del segundo,
+\(\tau_vR(x)=Rx+(2,0)\) y \(R\tau_v(x)=Rx+(0,2)\). El centro del primero es \((1,1)\); el del segundo,
 \((-1,1)\), y su diferencia es \((2,0)=v\): mismo ángulo, transformaciones distintas. Siguiendo
 el punto \(p=(1,0)\),
 \[
-p\xmapsto{\ R\ }(0,1)\xmapsto{\ T_v\ }(2,1),
+p\xmapsto{\ R\ }(0,1)\xmapsto{\ \tau_v\ }(2,1),
 \qquad\text{mientras que}\qquad
-p\xmapsto{\ T_v\ }(3,0)\xmapsto{\ R\ }(0,3).
+p\xmapsto{\ \tau_v\ }(3,0)\xmapsto{\ R\ }(0,3).
 \]
 Es la hoja con el alfiler: el mismo cuarto de vuelta en los dos órdenes, pero alrededor de
 centros distintos, separados por el vector \(v\).
@@ -650,12 +650,12 @@ lista de los movimientos que no deforman.
 
 \begin{definicion}[Antitraslación]\label{def:antitraslacion}
 Una \emph{antitraslación} (o reflexión con deslizamiento) es la composición
-\(\refl{L}T_v\) de una reflexión respecto de una recta \(L\) con una traslación de vector
+\(\sigma_{L}\tau_v\) de una reflexión respecto de una recta \(L\) con una traslación de vector
 \(v\neq0\) paralelo a \(L\).
 \end{definicion}
 
-Como \(v\) es paralelo a \(L\), \(Hv=v\) y \(\refl{L}(x+v)=\refl{L}(x)+v\): el orden de los dos
-factores no importa, y la inversa es \(\refl{L}T_{-v}\), otra antitraslación.
+Como \(v\) es paralelo a \(L\), \(Hv=v\) y \(\sigma_{L}(x+v)=\sigma_{L}(x)+v\): el orden de los dos
+factores no importa, y la inversa es \(\sigma_{L}\tau_{-v}\), otra antitraslación.
 En la arena: reflejar en la línea de la marcha y avanzar medio paso da lo mismo que avanzar y
 después reflejar.
 
@@ -798,11 +798,11 @@ Sea \(f(x)=\lambda Qx+t\) una similaridad de razón \(\lambda\neq1\). Entonces:
   \item \(f\) tiene un único punto fijo \(o\), y \(f(x)=o+\lambda Q(x-o)\);
   \item si \(f\) es directa, \(Q=R(\theta)\) y
   \[
-    \boxed{f=\refl{A}\refl{B}\homot{o}{\lambda}=\homot{o}{\lambda}\refl{A}\refl{B}}
+    \boxed{f=\sigma_{A}\sigma_{B}\homot{o}{\lambda}=\homot{o}{\lambda}\sigma_{A}\sigma_{B}}
   \]
   para cualquier par de rectas \(A\), \(B\) por \(o\) que formen el ángulo orientado
   \(\theta/2\) desde \(B\) hasta \(A\);
-  \item si \(f\) es inversa, \(f=\refl{A}\homot{o}{\lambda}\) para una recta \(A\) que pasa
+  \item si \(f\) es inversa, \(f=\sigma_{A}\homot{o}{\lambda}\) para una recta \(A\) que pasa
   por \(o\).
 \end{enumerate}
 Si \(\lambda=1\), \(f\) es una isometría y vale la clasificación del
@@ -863,7 +863,7 @@ el ángulo de \(\alpha\) y escalar por \(\lvert\alpha\rvert\). En matrices,
 y el ángulo de \(P-c\) a \(P'-c\) es \(63{,}43^\circ\).
 
 \emph{Descomposición.} Por el teorema~\ref{teo:similaridad-descomposicion},
-\(S=\refl{A}\refl{B}\homot{c}{\sqrt5}\), con dos rectas \(A\) y \(B\) por \(c=(2,-1)\) que
+\(S=\sigma_{A}\sigma_{B}\homot{c}{\sqrt5}\), con dos rectas \(A\) y \(B\) por \(c=(2,-1)\) que
 formen un ángulo de \(\theta/2\approx31{,}72^\circ\).
 \end{ejemplo}
 
@@ -941,10 +941,10 @@ Tomemos \(o=(0,0)\), una escala \(\lambda=2\) y una rotación de \(90^\circ\). P
 triángulo \(a=(1,0)\), \(b=(0,1)\), \(c=(1,1)\), la similaridad \(S(x)=2R(90^\circ)x\) produce
 \(a'=(0,2)\), \(b'=(-2,0)\), \(c'=(-2,2)\). Elegimos como primer eje de reflexión \(B\) el eje
 \(x\), y como segundo eje \(A\) la recta \(y=x\), que forma \(45^\circ\) con \(B\). Entonces
-\(\varphi_A\varphi_B=R(90^\circ)\), porque el giro resultante es el doble del ángulo entre los
+\(\sigma_A\sigma_B=R(90^\circ)\), porque el giro resultante es el doble del ángulo entre los
 ejes. Finalmente, la homotecia \(\eta_o^2\) duplica todas las distancias al origen:
 \[
-  \boxed{S=\varphi_A\varphi_B\eta_o^2}.
+  \boxed{S=\sigma_A\sigma_B\eta_o^2}.
 \]
 Geométricamente se ven tres etapas: reflexión en \(B\), reflexión en \(A\) y expansión radial
 desde \(o\).
@@ -1178,7 +1178,7 @@ La perpendicular a \(B\) por \(x\) tiene la dirección de \(n\); su intersecció
 punto \(p=x-s\,n\) con \(n\cdot p=c\), o sea \(n\cdot x-s\lVert n\rVert^2=c\), y
 \(p=x-\frac{n\cdot x-c}{\lVert n\rVert^2}\,n\).
 La definición pide que \(p\) sea el punto medio entre \(x\) y su imagen, así que
-\(\refl{B}(x)=2p-x\), que es la fórmula del recuadro (y vale también para \(x\in B\), donde
+\(\sigma_{B}(x)=2p-x\), que es la fórmula del recuadro (y vale también para \(x\in B\), donde
 \(p=x\)). Como \((n\cdot x)\,n=nn^Tx\), la fórmula se separa en \(Hx+t\).
 
 \(H\) es simétrica porque \(nn^T\) lo es. Además
@@ -1188,21 +1188,21 @@ La definición pide que \(p\) sea el punto medio entre \(x\) y su imagen, así q
 de modo que \(H^TH=H^2=I\): \(H\) es ortogonal. Sobre el normal, \(Hn=n-2n=-n\); sobre un
 vector \(u\perp n\), \(Hu=u\). Sus autovalores son \(-1\) y \(1\), y \(\det H=-1\).
 
-Las consecuencias: \(\refl{B}(x)-\refl{B}(y)=H(x-y)\) y \(H\) ortogonal conserva la norma; como
+Las consecuencias: \(\sigma_{B}(x)-\sigma_{B}(y)=H(x-y)\) y \(H\) ortogonal conserva la norma; como
 \(t\) es paralelo a \(n\), \(Ht=-t\) y
-\(\refl{B}(\refl{B}(x))=H^2x+Ht+t=x\); \(\det H<0\) es la inversión de orientación; y
-\(\refl{B}(x)=x\) equivale a \((n\cdot x-c)\,n=0\), es decir, a \(x\in B\).
+\(\sigma_{B}(\sigma_{B}(x))=H^2x+Ht+t=x\); \(\det H<0\) es la inversión de orientación; y
+\(\sigma_{B}(x)=x\) equivale a \((n\cdot x-c)\,n=0\), es decir, a \(x\in B\).
 \end{demostracion}
 
 \paragraph{Dos espejos paralelos (teorema~\ref{teo:traslacion-dos-reflexiones}).}
 \begin{demostracion}
 Por la proposición~\ref{prop:reflexion-recta}, con \(\lVert n\rVert=1\),
-\(\refl{B}(x)=x-2(n\cdot x-\beta)\,n\). Su producto con \(n\) vale
-\(n\cdot\refl{B}(x)=n\cdot x-2(n\cdot x-\beta)=2\beta-n\cdot x\). Entonces
+\(\sigma_{B}(x)=x-2(n\cdot x-\beta)\,n\). Su producto con \(n\) vale
+\(n\cdot\sigma_{B}(x)=n\cdot x-2(n\cdot x-\beta)=2\beta-n\cdot x\). Entonces
 \[
 \begin{aligned}
-  \refl{A}\refl{B}(x)
-  &=\refl{B}(x)-2\bigl(n\cdot\refl{B}(x)-\alpha\bigr)n\\
+  \sigma_{A}\sigma_{B}(x)
+  &=\sigma_{B}(x)-2\bigl(n\cdot\sigma_{B}(x)-\alpha\bigr)n\\
   &=x-2(n\cdot x-\beta)\,n-2(2\beta-n\cdot x-\alpha)\,n
    =x+2(\alpha-\beta)\,n .
 \end{aligned}
@@ -1219,9 +1219,9 @@ cualquiera y \(A:\ n\cdot x=\beta+\frac12\lVert v\rVert\), que es \(B\) desplaza
 Sea \(\gamma\) el ángulo de dirección de una recta \(L\) que pasa por \(o\): su dirección es
 \(u=(\cos\gamma,\sin\gamma)\), un normal unitario es \(n=(-\sin\gamma,\cos\gamma)\) y
 \(L:\ n\cdot x=n\cdot o\). Por la proposición~\ref{prop:reflexion-recta},
-\(\refl{L}(x)=Hx+2(n\cdot o)\,n\); como \(Ho=o-2(n\cdot o)\,n\), eso es lo mismo que
+\(\sigma_{L}(x)=Hx+2(n\cdot o)\,n\); como \(Ho=o-2(n\cdot o)\,n\), eso es lo mismo que
 \[
-  \refl{L}(x)=o+H(\gamma)(x-o),
+  \sigma_{L}(x)=o+H(\gamma)(x-o),
   \qquad
   H(\gamma)=I-2nn^T=
   \begin{pmatrix}
@@ -1237,7 +1237,7 @@ Sea \(\gamma\) el ángulo de dirección de una recta \(L\) que pasa por \(o\): s
 Si \(A\) y \(B\) tienen ángulos de dirección \(\alpha\) y \(\beta\), con
 \(\theta=\alpha-\beta\),
 \[
-  \refl{A}\refl{B}(x)=o+H(\alpha)\bigl(\refl{B}(x)-o\bigr)=o+H(\alpha)H(\beta)(x-o).
+  \sigma_{A}\sigma_{B}(x)=o+H(\alpha)\bigl(\sigma_{B}(x)-o\bigr)=o+H(\alpha)H(\beta)(x-o).
 \]
 Multiplicando y usando las fórmulas del coseno y del seno de una diferencia,
 \[
@@ -1248,7 +1248,7 @@ Multiplicando y usando las fórmulas del coseno y del seno de una diferencia,
   \end{pmatrix}
   =R\bigl(2(\alpha-\beta)\bigr),
 \]
-de modo que \(\refl{A}\refl{B}=R_{o,2\theta}\). El ángulo de dirección de una recta está
+de modo que \(\sigma_{A}\sigma_{B}=\rhoP{o,2\theta}\). El ángulo de dirección de una recta está
 definido salvo múltiplos de \(180^\circ\); el doble, salvo múltiplos de \(360^\circ\), así que
 la rotación no depende de esa elección. Para el recíproco, dado \(\phi\), se elige \(B\) por
 \(o\) con ángulo de dirección \(\beta\) cualquiera y \(A\) por \(o\) con ángulo
@@ -1261,11 +1261,11 @@ Primero, \(I-R\) es invertible:
 \(\det(I-R)=(1-\cos\theta)^2+\sin^2\theta=2(1-\cos\theta)\neq0\). Una transformación
 \(F(x)=Rx+w\) tiene entonces un único punto fijo \(p=(I-R)^{-1}w\), y como \(w=(I-R)p\),
 \(F(x)=Rx+(I-R)p=p+R(x-p)\) es la rotación de ángulo \(\theta\) y centro \(p\). Ahora bien,
-\(Q_c(x)=Rx+(I-R)c\), de modo que
+\(\rhoP{c,\theta}(x)=Rx+(I-R)c\), de modo que
 \[
-  T_vQ_c(x)=Rx+(I-R)c+v,
+  \tau_v\rhoP{c,\theta}(x)=Rx+(I-R)c+v,
   \qquad
-  Q_cT_v(x)=R(x+v)+(I-R)c=Rx+(I-R)c+Rv .
+  \rhoP{c,\theta}\tau_v(x)=R(x+v)+(I-R)c=Rx+(I-R)c+Rv .
 \]
 Con \(w=(I-R)c+v\) el centro es \(c+(I-R)^{-1}v=c_1\); con \(w=(I-R)c+Rv\), es \(c_2\).
 Finalmente, \(c_1-c_2=(I-R)^{-1}(v-Rv)=(I-R)^{-1}(I-R)v=v\).
@@ -1276,7 +1276,7 @@ Finalmente, \(c_1-c_2=(I-R)^{-1}(v-Rv)=(I-R)^{-1}(I-R)v=v\).
 Se usa un hecho previo: la reflexión respecto de la mediatriz \(M\) de un segmento \(pq\)
 intercambia sus extremos. En efecto, el punto medio \(m\) está en \(M\) y \(p-m\) es
 perpendicular a \(M\), así que \(m\) es la proyección de \(p\) sobre \(M\) y
-\(\refl{M}(p)=2m-p=q\).
+\(\sigma_{M}(p)=2m-p=q\).
 
 Sea \(f\) una isometría y sean \(a\), \(b\), \(c\) tres puntos no alineados, con imágenes
 \(a'=f(a)\), \(b'=f(b)\), \(c'=f(c)\). Se construye, en tres pasos, una composición \(h\) de a
@@ -1287,7 +1287,7 @@ la mediatriz de \(aa'\). En los dos casos, \(g_1(a)=a'\).
 
 \emph{Paso 2.} Sea \(b_1=g_1(b)\). Como \(g_1\) y \(f\) conservan distancias,
 \(\lVert b_1-a'\rVert=\lVert b-a\rVert=\lVert b'-a'\rVert\). Si \(b_1=b'\), sea \(g_2=g_1\); si
-no, sea \(M_2\) la mediatriz de \(b_1b'\) y \(g_2=\refl{M_2}g_1\). El punto \(a'\) equidista de
+no, sea \(M_2\) la mediatriz de \(b_1b'\) y \(g_2=\sigma_{M_2}g_1\). El punto \(a'\) equidista de
 \(b_1\) y de \(b'\), así que está en \(M_2\) y queda fijo. Entonces \(g_2(a)=a'\) y
 \(g_2(b)=b'\).
 
@@ -1295,7 +1295,7 @@ no, sea \(M_2\) la mediatriz de \(b_1b'\) y \(g_2=\refl{M_2}g_1\). El punto \(a'
 \(\lVert c_2-a'\rVert=\lVert c'-a'\rVert\) y \(\lVert c_2-b'\rVert=\lVert c'-b'\rVert\). Si
 \(c_2=c'\), sea \(h=g_2\). Si no, \(a'\) y \(b'\) están en la mediatriz \(M_3\) de \(c_2c'\);
 como \(a'\neq b'\) (porque \(\lVert a'-b'\rVert=\lVert a-b\rVert>0\)), \(M_3\) es la recta
-\(a'b'\), y \(h=\refl{M_3}g_2\) fija \(a'\) y \(b'\) y lleva \(c_2\) a \(c'\).
+\(a'b'\), y \(h=\sigma_{M_3}g_2\) fija \(a'\) y \(b'\) y lleva \(c_2\) a \(c'\).
 
 Así, \(h\) es la identidad o una composición de a lo sumo tres reflexiones, y \(h(a)=a'\),
 \(h(b)=b'\), \(h(c)=c'\). Cada reflexión es su propia inversa, de modo que \(h^{-1}\) es la
@@ -1310,38 +1310,38 @@ Por el teorema~\ref{teo:tres-reflexiones}, \(f\) es composición de \(k\le3\) re
 
 \(k=0\) y \(k=1\): \(f\) es la identidad o una reflexión.
 
-\(k=2\): \(f=\refl{A}\refl{B}\). Si \(A=B\), es la identidad; si son paralelas distintas, es
+\(k=2\): \(f=\sigma_{A}\sigma_{B}\). Si \(A=B\), es la identidad; si son paralelas distintas, es
 una traslación de vector no nulo (teorema~\ref{teo:traslacion-dos-reflexiones}); si se cortan,
 es una rotación (teorema~\ref{teo:rotacion-dos-reflexiones}), de ángulo no nulo porque las
 rectas son distintas.
 
-\(k=3\): \(f=\refl{A}\refl{B}\refl{C}\). Primer caso: las tres rectas son paralelas, con
+\(k=3\): \(f=\sigma_{A}\sigma_{B}\sigma_{C}\). Primer caso: las tres rectas son paralelas, con
 normal unitario común \(n\) y constantes \(\alpha\), \(\beta\), \(\gamma\). Sea \(D\) la
 paralela de constante \(\delta=\alpha-\beta+\gamma\). Por el
-teorema~\ref{teo:traslacion-dos-reflexiones}, \(\refl{B}\refl{C}\) y \(\refl{A}\refl{D}\) son
-la misma traslación \(T_{2(\beta-\gamma)n}\), y
-\(f=\refl{A}\refl{A}\refl{D}=\refl{D}\), una reflexión. Segundo caso: las tres rectas pasan por
+teorema~\ref{teo:traslacion-dos-reflexiones}, \(\sigma_{B}\sigma_{C}\) y \(\sigma_{A}\sigma_{D}\) son
+la misma traslación \(\tau_{2(\beta-\gamma)n}\), y
+\(f=\sigma_{A}\sigma_{A}\sigma_{D}=\sigma_{D}\), una reflexión. Segundo caso: las tres rectas pasan por
 un mismo punto \(o\); el mismo argumento con ángulos de dirección y el
-teorema~\ref{teo:rotacion-dos-reflexiones} da \(f=\refl{D}\), con \(D\) por \(o\) de ángulo
+teorema~\ref{teo:rotacion-dos-reflexiones} da \(f=\sigma_{D}\), con \(D\) por \(o\) de ángulo
 \(\alpha-\beta+\gamma\).
 
-Tercer caso: ninguno de los anteriores. Si \(B=C\), \(f=\refl{A}\). Si \(B\) y \(C\) son paralelas distintas, \(A\) corta a \(B\)
+Tercer caso: ninguno de los anteriores. Si \(B=C\), \(f=\sigma_{A}\). Si \(B\) y \(C\) son paralelas distintas, \(A\) corta a \(B\)
 (si no, las tres serían paralelas); entonces se aplica lo que sigue a
-\(f^{-1}=\refl{C}\refl{B}\refl{A}\), cuyas dos últimas rectas se cortan, y se usa que la
+\(f^{-1}=\sigma_{C}\sigma_{B}\sigma_{A}\), cuyas dos últimas rectas se cortan, y se usa que la
 inversa de una reflexión o de una antitraslación es del mismo tipo. Basta, entonces,
 suponer que \(B\) y \(C\) se cortan en un punto \(p\), por el que no pasa \(A\). Por el recíproco
-del teorema~\ref{teo:rotacion-dos-reflexiones}, la rotación \(\refl{B}\refl{C}\) puede
-escribirse como \(\refl{B'}\refl{C'}\) con \(B'\) la recta por \(p\) perpendicular a \(A\) y
+del teorema~\ref{teo:rotacion-dos-reflexiones}, la rotación \(\sigma_{B}\sigma_{C}\) puede
+escribirse como \(\sigma_{B'}\sigma_{C'}\) con \(B'\) la recta por \(p\) perpendicular a \(A\) y
 \(C'\) otra recta por \(p\). Sea \(q=A\cap B'\). Por el mismo teorema, con ángulo \(90^\circ\),
-\(\refl{A}\refl{B'}\) es la rotación de \(180^\circ\) alrededor de \(q\), es decir
-\(\rhoP{q}\). Queda \(f=\rhoP{q}\refl{C'}\). Sean ahora \(L\) la recta por \(q\) perpendicular
-a \(C'\) y \(M\) la recta por \(q\) paralela a \(C'\); también \(\rhoP{q}=\refl{L}\refl{M}\).
+\(\sigma_{A}\sigma_{B'}\) es la rotación de \(180^\circ\) alrededor de \(q\), es decir
+\(\rhoP{q}\). Queda \(f=\rhoP{q}\sigma_{C'}\). Sean ahora \(L\) la recta por \(q\) perpendicular
+a \(C'\) y \(M\) la recta por \(q\) paralela a \(C'\); también \(\rhoP{q}=\sigma_{L}\sigma_{M}\).
 Entonces
 \[
-  f=\refl{L}\,\bigl(\refl{M}\refl{C'}\bigr)=\refl{L}T_w ,
+  f=\sigma_{L}\,\bigl(\sigma_{M}\sigma_{C'}\bigr)=\sigma_{L}\tau_w ,
 \]
-donde \(T_w\) es la traslación del teorema~\ref{teo:traslacion-dos-reflexiones}: \(w\) es
-perpendicular a \(M\) y a \(C'\), luego paralelo a \(L\). Si \(w=0\), \(f=\refl{L}\); si no,
+donde \(\tau_w\) es la traslación del teorema~\ref{teo:traslacion-dos-reflexiones}: \(w\) es
+perpendicular a \(M\) y a \(C'\), luego paralelo a \(L\). Si \(w=0\), \(f=\sigma_{L}\); si no,
 \(f\) es una antitraslación.
 
 Los cinco tipos son distintos. Por la observación que sigue al teorema~\ref{teo:tres-reflexiones}, las tres primeras tienen
@@ -1349,9 +1349,9 @@ Los cinco tipos son distintos. Por la observación que sigue al teorema~\ref{teo
 grupo: la identidad fija todo, una traslación \(x+v=x\) no fija nada si \(v\neq0\), una
 rotación \(o+R(x-o)=x\) solo fija \(o\) porque \(I-R\) es invertible
 (proposición~\ref{prop:traslacion-rotacion}), y una reflexión fija su eje
-(proposición~\ref{prop:reflexion-recta}). Para la antitraslación, si \(\refl{L}(x+v)=x\), con
+(proposición~\ref{prop:reflexion-recta}). Para la antitraslación, si \(\sigma_{L}(x+v)=x\), con
 \(L:\ n\cdot x=c\) y \(n\cdot v=0\), el producto con \(n\) da \(2c-n\cdot x=n\cdot x\), o sea
-\(x\in L\); pero entonces \(x+v\in L\) queda fijo por \(\refl{L}\) y \(x+v=x\), contra
+\(x\in L\); pero entonces \(x+v\in L\) queda fijo por \(\sigma_{L}\) y \(x+v=x\), contra
 \(v\neq0\). No tiene puntos fijos.
 \end{demostracion}
 
@@ -1365,7 +1365,7 @@ al reemplazarlos por \(ku\) y \(kv\), numerador y denominador quedan multiplicad
 \(k^2\). (3) \(o+k(x-o)=x\) equivale a \((k-1)(x-o)=0\), es decir, a \(x=o\). (4)
 \(o+m\bigl(o+k(x-o)-o\bigr)=o+mk(x-o)\); con \(m=1/k\) se obtiene la identidad, y con
 \(k=-1\), \(2o-x\). (5) En la demostración del teorema~\ref{teo:rotacion-dos-reflexiones} se
-vio que una reflexión con eje por \(o\) es \(\refl{A}(x)=o+H(x-o)\); una rotación de centro
+vio que una reflexión con eje por \(o\) es \(\sigma_{A}(x)=o+H(x-o)\); una rotación de centro
 \(o\) es \(o+R(x-o)\). En ambos casos, aplicar la homotecia antes o después da
 \(o+kH(x-o)\) (o \(o+kR(x-o)\)), porque una matriz conmuta con el múltiplo \(kI\).
 \end{demostracion}
@@ -1392,20 +1392,20 @@ lo tanto, un único punto fijo \(o\), y \(f(x)-o=f(x)-f(o)=\lambda Q(x-o)\).
 (2) Si \(\det Q=1\), \(Q\) es la parte lineal de una isometría directa, que por el
 teorema~\ref{teo:clasificacion-isometrias} es la identidad, una traslación o una rotación; en
 todos los casos \(Q=R(\theta)\) para algún \(\theta\) (con \(\theta=0\) en los dos primeros). La
-transformación \(x\mapsto o+R(\theta)(x-o)\) es la rotación \(R_{o,\theta}\), que por el
-teorema~\ref{teo:rotacion-dos-reflexiones} es \(\refl{A}\refl{B}\) con \(A\) y \(B\) como en
+transformación \(x\mapsto o+R(\theta)(x-o)\) es la rotación \(\rhoP{o,\theta}\), que por el
+teorema~\ref{teo:rotacion-dos-reflexiones} es \(\sigma_{A}\sigma_{B}\) con \(A\) y \(B\) como en
 el enunciado (si \(\theta=0\), \(A=B\)). Entonces
 \[
-  f(x)=o+\lambda\bigl(R_{o,\theta}(x)-o\bigr)=\homot{o}{\lambda}\refl{A}\refl{B}(x),
+  f(x)=o+\lambda\bigl(\rhoP{o,\theta}(x)-o\bigr)=\homot{o}{\lambda}\sigma_{A}\sigma_{B}(x),
 \]
 y como la homotecia conmuta con las reflexiones de eje por \(o\)
-(proposición~\ref{prop:homotecia}), también \(f=\refl{A}\refl{B}\homot{o}{\lambda}\).
+(proposición~\ref{prop:homotecia}), también \(f=\sigma_{A}\sigma_{B}\homot{o}{\lambda}\).
 
 (3) Si \(\det Q=-1\), \(Q\) es la parte lineal de una reflexión o de una antitraslación; en
 ambos casos es una matriz \(H(\gamma)\) de reflexión. Por la demostración del
 teorema~\ref{teo:rotacion-dos-reflexiones}, \(x\mapsto o+H(\gamma)(x-o)\) es la reflexión
-\(\refl{A}\) en la recta \(A\) por \(o\) de ángulo de dirección \(\gamma\), y el mismo cálculo
-que en (2) da \(f=\homot{o}{\lambda}\refl{A}=\refl{A}\homot{o}{\lambda}\).
+\(\sigma_{A}\) en la recta \(A\) por \(o\) de ángulo de dirección \(\gamma\), y el mismo cálculo
+que en (2) da \(f=\homot{o}{\lambda}\sigma_{A}=\sigma_{A}\homot{o}{\lambda}\).
 \end{demostracion}
 
 \section{Resumen de resultados}
@@ -1419,17 +1419,17 @@ Resultado & Qué dice & Sección\\
 Proposición~\ref{prop:reflexion-puntual} &
 \(\rhoP{b}(x)=2b-x\): involución con único punto fijo \(b\) & \ref{sec:refl-punto}\\
 Proposición~\ref{prop:dos-puntuales} &
-\(\rhoP{a}\rhoP{b}=T_{\,2(a-b)}\): dos reflexiones puntuales dan una traslación & \ref{sec:dos-puntuales}\\
+\(\rhoP{a}\rhoP{b}=\tau_{\,2(a-b)}\): dos reflexiones puntuales dan una traslación & \ref{sec:dos-puntuales}\\
 Proposición~\ref{prop:tres-puntuales} &
 \(\rhoP{a}\rhoP{b}\rhoP{c}=\rhoP{d}\), \(d=a-b+c\): \(a,b,c,d\) forman un paralelogramo & \ref{sec:tres-puntuales}\\
 Proposición~\ref{prop:reflexion-recta} &
-\(\refl{B}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}n\): el eje queda fijo & \ref{sec:refl-recta}\\
+\(\sigma_{B}(x)=x-2\frac{n\cdot x-c}{\lVert n\rVert^2}n\): el eje queda fijo & \ref{sec:refl-recta}\\
 Teorema~\ref{teo:traslacion-dos-reflexiones} &
-ejes paralelos: \(\refl{A}\refl{B}(x)=x+2(\alpha-\beta)n\), traslación perpendicular & \ref{sec:espejos-paralelos}\\
+ejes paralelos: \(\sigma_{A}\sigma_{B}(x)=x+2(\alpha-\beta)n\), traslación perpendicular & \ref{sec:espejos-paralelos}\\
 Teorema~\ref{teo:rotacion-dos-reflexiones} &
-ejes secantes: \(\refl{A}\refl{B}=R_{o,2\theta}\), rotación alrededor de la intersección & \ref{sec:espejos-secantes}\\
+ejes secantes: \(\sigma_{A}\sigma_{B}=\rhoP{o,2\theta}\), rotación alrededor de la intersección & \ref{sec:espejos-secantes}\\
 Proposición~\ref{prop:traslacion-rotacion} &
-\(T_vQ_c\) y \(Q_cT_v\): rotaciones del mismo ángulo con centros distintos & \ref{sec:trasladar-girar}\\
+\(\tau_v\rhoP{c,\theta}\) y \(\rhoP{c,\theta}\tau_v\): rotaciones del mismo ángulo con centros distintos & \ref{sec:trasladar-girar}\\
 Proposición~\ref{prop:isometria-tres-fijos} &
 una isometría que fija tres puntos no alineados es la identidad & \ref{sec:tres-espejos}\\
 Teorema~\ref{teo:tres-reflexiones} &
@@ -1441,7 +1441,7 @@ Proposición~\ref{prop:homotecia} &
 Proposición~\ref{prop:similaridad-afin} &
 toda similaridad es una homotecia compuesta con una isometría & \ref{sec:similaridad}\\
 Teorema~\ref{teo:similaridad-descomposicion} &
-directa: \(\refl{A}\refl{B}\homot{o}{\lambda}\); inversa: \(\refl{A}\homot{o}{\lambda}\), con centro fijo \(o\) & \ref{sec:similaridad}\\
+directa: \(\sigma_{A}\sigma_{B}\homot{o}{\lambda}\); inversa: \(\sigma_{A}\homot{o}{\lambda}\), con centro fijo \(o\) & \ref{sec:similaridad}\\
 Transformación de Helmert &
 \(E=ax-by+t_E\), \(N=bx+ay+t_N\); \(\lambda=\sqrt{a^2+b^2}\), \(\theta=\operatorname{atan2}(b,a)\) & \ref{sec:aplicacion-helmert}\\
 \bottomrule
@@ -1470,7 +1470,7 @@ Reflejá \(x=(3,4)\) respecto de \(B:\ 2x-y=1\) usando (a) la fórmula con el ve
 (b) la proyección perpendicular; (c) una construcción gráfica.
 \end{ejercicio}
 \solucion{Con \(n=(2,-1)\), \(\lVert n\rVert^2=5\) y \(n\cdot(3,4)-1=1\): (a)
-\(\refl{B}(3,4)=(3,4)-\frac25(2,-1)=\left(\frac{11}{5},\frac{22}{5}\right)=(2{,}2;\ 4{,}4)\).
+\(\sigma_{B}(3,4)=(3,4)-\frac25(2,-1)=\left(\frac{11}{5},\frac{22}{5}\right)=(2{,}2;\ 4{,}4)\).
 (b) La proyección es \(p=(3,4)-\frac15(2,-1)=\left(\frac{13}{5},\frac{21}{5}\right)=(2{,}6;\ 4{,}2)\),
 y \(2p-x\) da el mismo reflejo. (c) Se traza por \(x\) la perpendicular a \(B\) (dirección
 \(n\)), se marca su pie \(p\) y se lleva del otro lado la misma distancia
@@ -1480,7 +1480,7 @@ y \(2p-x\) da el mismo reflejo. (c) Se traza por \(x\) la perpendicular a \(B\) 
 Componé las reflexiones respecto de \(B:\ y=0\) y \(A:\ y=3\). Repetí invirtiendo el orden y
 compará los vectores de traslación.
 \end{ejercicio}
-\solucion{\(\refl{A}\refl{B}(x,y)=(x,\,y+6)\) y \(\refl{B}\refl{A}(x,y)=(x,\,y-6)\). Ambas son
+\solucion{\(\sigma_{A}\sigma_{B}(x,y)=(x,\,y+6)\) y \(\sigma_{B}\sigma_{A}(x,y)=(x,\,y-6)\). Ambas son
 traslaciones perpendiculares a los ejes, de módulo \(6\), el doble de la distancia entre ellos;
 el orden invierte el sentido.}
 
@@ -1496,10 +1496,10 @@ comprobá que resulta una rotación de \(60^\circ\).
 =R(60^\circ)\), es decir \(\left(\begin{smallmatrix}0{,}5&-0{,}866\\0{,}866&0{,}5\end{smallmatrix}\right)\).}
 
 \begin{ejercicio}\label{ex:traslacion-rotacion}
-Para \(R=R(90^\circ)\) y \(v=(1,2)\), escribí \(T_vR\) y \(RT_v\). Hallá el punto fijo de cada
+Para \(R=R(90^\circ)\) y \(v=(1,2)\), escribí \(\tau_vR\) y \(R\tau_v\). Hallá el punto fijo de cada
 una resolviendo \((I-R)c=t\).
 \end{ejercicio}
-\solucion{\(T_vR(x)=Rx+(1,2)\) y \(RT_v(x)=Rx+Rv=Rx+(-2,1)\). Con
+\solucion{\(\tau_vR(x)=Rx+(1,2)\) y \(R\tau_v(x)=Rx+Rv=Rx+(-2,1)\). Con
 \(I-R=\left(\begin{smallmatrix}1&1\\-1&1\end{smallmatrix}\right)\), los centros son
 \(c_1=\left(-\frac12,\frac32\right)\) y \(c_2=\left(-\frac32,-\frac12\right)\): mismo giro,
 centros distintos.}
@@ -1520,8 +1520,8 @@ similaridad \(S(x)=o+2R(40^\circ)(x-o)\), calculá \(S(2,1)\) y proponé dos eje
 cuya composición produzca el giro.
 \end{ejercicio}
 \solucion{Dos ejes por \(o=(1,1)\): \(B\) con dirección \(0^\circ\) y \(A\) con dirección
-\(20^\circ\); \(\refl{A}\refl{B}\) gira \(40^\circ\) alrededor de \(o\) y, con la homotecia de
-razón \(2\), \(S=\refl{A}\refl{B}\homot{o}{2}\). Por ejemplo,
+\(20^\circ\); \(\sigma_{A}\sigma_{B}\) gira \(40^\circ\) alrededor de \(o\) y, con la homotecia de
+razón \(2\), \(S=\sigma_{A}\sigma_{B}\homot{o}{2}\). Por ejemplo,
 \(S(2,1)=(1,1)+2(\cos40^\circ,\sin40^\circ)\approx(2{,}532;\ 2{,}286)\).}
 
 \begin{ejercicio}\label{ex:helmert-inversa}
@@ -1540,12 +1540,12 @@ escala \(1/\lambda=0{,}9998521\) y giro \(-27{,}84993^\circ\). Para \(F\) se rec
 locales.}
 
 \begin{ejercicio}\label{ex:tres-reflexiones-antitraslacion}
-Sean \(A:\ x=0\), \(B:\ y=0\) y \(C:\ y=1\). Calculá \(f=\refl{A}\refl{B}\refl{C}\),
+Sean \(A:\ x=0\), \(B:\ y=0\) y \(C:\ y=1\). Calculá \(f=\sigma_{A}\sigma_{B}\sigma_{C}\),
 decidí de qué tipo es según el teorema~\ref{teo:clasificacion-isometrias} y calculá
 \(f\circ f\).
 \end{ejercicio}
-\solucion{\(\refl{C}(x,y)=(x,\,2-y)\), \(\refl{B}(x,2-y)=(x,\,y-2)\) y
-\(\refl{A}(x,y-2)=(-x,\,y-2)\). Es la reflexión en el eje \(x=0\) seguida de la traslación de
+\solucion{\(\sigma_{C}(x,y)=(x,\,2-y)\), \(\sigma_{B}(x,2-y)=(x,\,y-2)\) y
+\(\sigma_{A}(x,y-2)=(-x,\,y-2)\). Es la reflexión en el eje \(x=0\) seguida de la traslación de
 vector \((0,-2)\), paralelo al eje: una antitraslación. No tiene puntos fijos, porque \(y-2=y\)
 es imposible, y es inversa (tres reflexiones). Además \(f\circ f(x,y)=(x,\,y-4)\): dos veces la
 misma antitraslación dan una traslación.}
@@ -1561,9 +1561,9 @@ desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer e
 
 \begin{ejercicio}\label{ex:refl-cuatro-rectas}
 Dadas cuatro rectas \(a,b,c,d\), hallá, por un método analítico y por uno gráfico, el punto
-fijo de \(F=\refl{a}\refl{b}\refl{c}\refl{d}\), si existe.
+fijo de \(F=\sigma_{a}\sigma_{b}\sigma_{c}\sigma_{d}\), si existe.
 \end{ejercicio}
-\solucion{Cada reflexión en una recta es una afinidad \(\refl{i}(x)=H_ix+q_i\), con \(H_i\)
+\solucion{Cada reflexión en una recta es una afinidad \(\sigma_{i}(x)=H_ix+q_i\), con \(H_i\)
 ortogonal de determinante \(-1\). La composición es \(F(x)=Ax+t\), con
 \[
   A=H_aH_bH_cH_d,\qquad

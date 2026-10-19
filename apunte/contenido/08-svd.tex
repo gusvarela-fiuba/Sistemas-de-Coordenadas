@@ -4,48 +4,96 @@
 
 \section{La idea}
 
-El capítulo~\ref{cap:autovectores} leyó los ejes de la elipse \(x^TSx=1\) en los autovectores
-de una matriz simétrica; ahora la matriz es cualquiera y la elipse sale de \(A^TA\). Muchas
-magnitudes que medimos no se reparten igual en todas las direcciones: una nube de lecturas
-repetidas se estira más en un sentido que en otro, y una matriz estira más unas direcciones
-que otras. La herramienta que mide esos estiramientos, dirección por dirección, es la
-descomposición en valores singulares (SVD, por sus siglas en inglés), que presentamos como una
-manera de \emph{leer} la forma de ciertas curvas de nivel.
+Imaginá que dibujás con tiza un círculo en el piso y le sacás una foto de costado, desde la
+altura de tus ojos.
+¿Qué forma tiene el círculo en la foto?
+Una elipse: el diámetro que corre de izquierda a derecha sale casi entero y el que se aleja de
+vos sale achicado.
+¿Cuánto mide cada semieje de esa elipse y hacia dónde apunta?
+Esos dos largos y esas dos direcciones resumen todo lo que la foto le hizo al círculo, y van a
+ser los protagonistas del capítulo.
+
+Tomá ahora una banda elástica ancha con una cuadrícula dibujada, estirala más en un sentido que
+en el otro y después girala sobre la mesa.
+¿Queda alguna pareja de rayas de la cuadrícula que siga formando ángulo recto?
+Mirá las celdas: si la cuadrícula estaba dibujada al azar respecto del estirón, quedaron
+paralelogramos inclinados. Pero si antes de estirar la dibujás alineada con los dos sentidos
+del estirón, las celdas salen rectángulos, más largos o más cortos y girados. Toda matriz tiene
+una cuadrícula así, y encontrarla es el trabajo de este capítulo.
+
+El capítulo~\ref{cap:autovectores} leyó los ejes de la elipse \(x^TSx=1\) (con \(S\) una
+matriz simétrica) en los autovectores de \(S\), las direcciones que la matriz no hace girar.
+Pensá en una matriz que no es simétrica, como el corte que inclina la banda, o que ni siquiera
+es cuadrada, porque lleva puntos del plano a puntos del espacio.
+¿Qué direcciones privilegiadas le quedan, si puede no haber ninguna flecha que no gire?
+Las de la foto y la banda: un par de direcciones perpendiculares en la entrada que salen
+perpendiculares en la salida, cada una estirada por su propio factor. Ahora la matriz, que
+llamamos \(A\), es cualquiera y la elipse sale de \(A^TA\), el producto de la traspuesta de
+\(A\) por \(A\). La herramienta que encuentra esas direcciones y esos
+factores es la \emph{descomposición en valores singulares} (SVD, por sus siglas en inglés): lo
+que los autovalores son para las matrices simétricas, la SVD lo es para las matrices que no son
+cuadradas o no son simétricas.
+
+¿Para qué nos sirve? Muchas magnitudes que medimos no se reparten igual en todas las
+direcciones.
+Suponé que medís muchas veces la posición de un mismo punto: las lecturas forman una nube que se
+estira más en un sentido que en otro, y la pregunta práctica es hacia dónde y cuánto. La SVD
+mide esos estiramientos, dirección por dirección, y la presentamos como una manera de
+\emph{leer} la forma de ciertas curvas de nivel.
 
 \paragraph{Convenciones del capítulo.} Vectores singulares derechos (de la entrada) \(v_i\) e
-izquierdos (de la salida) \(u_i\); \(Q(x)=x^TA^TAx=\|Ax\|^2\) y \(N\) es la cantidad de
-puntos de una nube.
+izquierdos (de la salida) \(u_i\): son las direcciones perpendiculares de la cuadrícula
+privilegiada antes y después de transformar, y las definimos en la sección~\ref{sec:svd}.
+Además, \(Q(x)=x^TA^TAx=\|Ax\|^2\) es el cuadrado del largo con que sale el vector \(x\), y
+\(N\) es la cantidad de puntos de una nube.
 
 \subsection{Una pregunta de campo: el error que tiene dirección}
 
-Supongamos que un receptor GNSS registra \(N=200\) posiciones de un mismo punto fijo y que
-anotamos, en metros, cuánto se aparta cada posición (este, norte) del promedio. Los datos de
-la figura~\ref{fig:svd-nube} son \emph{sintéticos}: los generó el script del capítulo con
-semilla fija, imponiendo una dispersión mayor en una dirección que en la perpendicular, como
-ocurre cuando la geometría de los satélites visibles determina mejor la posición en un
-sentido que en otro. La nube no es redonda, y las dos preguntas naturales son \emph{hacia
-dónde} se alarga y \emph{cuánto}.
+Hay receptores que calculan su propia posición con las señales de los satélites. Si dejamos
+uno quieto sobre un punto, cada lectura da una posición un poco distinta.
+¿Se reparten esas posiciones por igual alrededor del punto verdadero, como gotas que caen
+alrededor de un blanco?
+Supongamos que un receptor así registra \(N=200\) posiciones de un mismo punto, que no se
+mueve, y que anotamos, en metros, cuánto se aparta cada posición (este, norte) del promedio.
+Los datos de la figura~\ref{fig:svd-nube} son \emph{sintéticos}: los generó el script del
+capítulo con semilla fija, imponiendo una dispersión mayor en una dirección que en la
+perpendicular. Así pasa en la realidad: según cómo estén repartidos en el cielo los satélites
+que el receptor ve en ese momento, la posición queda mejor determinada en un sentido que en
+otro. La nube no es redonda, y las dos preguntas naturales son \emph{hacia dónde} se alarga y
+\emph{cuánto}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.8\linewidth]{figuras/svd/svd_nube.png}
-\caption{Doscientas posiciones GNSS sintéticas de un mismo punto, como desvíos en metros
+\caption{Doscientas posiciones sintéticas de un mismo punto, medidas con satélites, como desvíos en metros
 respecto del promedio. La elipse de un desvío tiene sus ejes en las direcciones \(v_1\),
 \(v_2\) y semiejes \(\sqrt{\lambda_1}\approx1{,}52\) m y \(\sqrt{\lambda_2}\approx0{,}64\) m;
 la de trazos es la elipse del \(95\)\,\% (ejemplo~\ref{ej:svd-elipse-error}). Generada con \texttt{apunte/scripts/cap07\_svd.py}.}
 \label{fig:svd-nube}
 \end{figure}
 
-La respuesta es una elipse, la \emph{elipse de error}, que calculamos en el
-ejemplo~\ref{ej:svd-elipse-error}. Para llegar ahí necesitamos saber qué funciones tienen
+La respuesta es una elipse que abraza la nube: sus ejes dicen hacia dónde se alarga y sus
+semiejes, cuánto. En Topografía se la llama \emph{elipse de error}, y la calculamos en el
+ejemplo~\ref{ej:svd-elipse-error}. En la figura, \(v_1\) y \(v_2\) son las direcciones de los
+ejes y \(\lambda_1\), \(\lambda_2\) son dos números cuyas raíces cuadradas dan los semiejes. La
+\enquote{elipse de un desvío} del epígrafe usa como unidad el \emph{desvío estándar}: el tamaño
+típico de los apartamientos en una dirección (la raíz del promedio de sus cuadrados). Para llegar ahí necesitamos saber qué funciones tienen
 elipses como curvas de nivel y cómo se leen sus ejes.
 
 \subsection{Formas cuadráticas y sus curvas de nivel}
 
-En el capítulo~\ref{cap:formas-lineales} vimos que una forma lineal, por ejemplo
+Pensá en un mapa con curvas de nivel: cada curva une los puntos donde el terreno tiene la misma
+altura. Con cualquier función del plano pasa lo mismo: la curva de nivel \(c\) junta los puntos
+donde la función vale \(c\), y su forma cuenta cómo crece la función. En el
+capítulo~\ref{cap:formas-lineales} vimos que una forma lineal, por ejemplo
 \(\omega(x)=2x_1+3x_2\), tiene como curvas de nivel una familia de \emph{rectas paralelas}
 equiespaciadas: \(2x_1+3x_2=c\). El paso siguiente en complejidad es una función de grado
 dos.
+¿Qué forma tienen sus curvas de nivel?
+Pensá en el cuadrado de la distancia al origen: vale lo mismo en todos los puntos de una
+circunferencia centrada en el origen, así que sus curvas de nivel son circunferencias.
+¿Y si una dirección pesa más que la otra, porque la función crece más rápido hacia un lado?
+Las circunferencias se achatan y quedan elipses. Esas funciones de grado dos tienen nombre.
 
 \begin{definicion}[Forma cuadrática]
 Una \emph{forma cuadrática} en \(\R^n\) es una función \(x\mapsto x^TMx\), donde \(M\) es una
@@ -67,7 +115,9 @@ El término cruzado \(40x_1x_2\) impide leer la forma de las curvas \(Q=c\) a si
 Pero si \(A\) es invertible, \(Q(x)=0\) solo en el origen, \(Q\) crece como el cuadrado de la
 distancia y es la misma en \(x\) y en \(-x\): sus curvas de nivel son curvas cerradas y
 simétricas alrededor del origen, y vamos a ver que son \emph{elipses} concéntricas, todas de
-la misma forma, con los mismos ejes (figura~\ref{fig:svd-curvas-nivel}).
+la misma forma, con los mismos ejes (figura~\ref{fig:svd-curvas-nivel}). Los números
+\(\sigma_1\) y \(\sigma_2\) del epígrafe, los valores singulares de \(A\), son los factores de
+estiramiento que presentamos en la sección~\ref{sec:svd-idea}.
 
 \begin{figure}[htbp]
 \centering
@@ -115,6 +165,11 @@ rápido en unas direcciones que en otras.
 
 \animacion{04_svd_circulo_a_elipse}{SVD: del círculo a la elipse}{Mirá las tres etapas \(V^T\), \(\Sigma\), \(U\) y qué le pasa a la circunferencia en cada una.}
 
+En la animación, \(V^T\), \(\Sigma\) y \(U\) son las tres etapas de la factorización de la
+sección~\ref{sec:svd}: un giro, un estiramiento por ejes y otro giro.
+
+Volvé a la foto del círculo de tiza.
+¿Qué hace falta saber para dibujar la elipse que salió, sin mirar la foto?
 Una elipse queda determinada por dos datos: las direcciones de sus ejes, que son
 perpendiculares, y los largos de sus semiejes. La sección siguiente demuestra que para
 cualquier matriz \(A\) existe una base ortonormal \(v_1,v_2\) de la entrada que hace
@@ -150,6 +205,13 @@ escriben sin término cruzado: es una lectura, no una construcción.
 
 \subsection{Descomposición en valores singulares (SVD)}\label{sec:svd}
 
+Volvé a la banda elástica de \enquote{La idea}: la giramos sobre la mesa, la estiramos en dos sentidos
+perpendiculares y la volvemos a girar.
+¿Alcanzan esos tres movimientos para describir lo que hace cualquier matriz?
+La respuesta es sí, y para eso sirve la factorización que sigue: separa una matriz cualquiera en
+un giro (o una reflexión), un estiramiento por ejes y otro giro (o reflexión), y deja todo el estiramiento a la vista en una
+matriz diagonal.
+
 \begin{definicion}[Descomposición en valores singulares]
 Sea \(A\) una matriz real de \(m\times n\). Una \emph{descomposición en valores singulares}
 de \(A\) es una factorización
@@ -172,7 +234,8 @@ movimientos: \(V^T\) gira (o refleja) la entrada hasta llevar los \(v_i\) sobre 
 coordenados, \(\Sigma\) estira cada eje por separado y \(U\) gira (o refleja) el resultado
 hasta las direcciones \(u_i\). Los giros y las reflexiones no cambian largos; todo lo que
 \(A\) hace con las distancias está concentrado en los números de \(\Sigma\). Esto da la
-igualdad anunciada en la sección~\ref{sec:svd-idea}: con \(y=V^Tx\),
+igualdad anunciada en la sección~\ref{sec:svd-idea}: con \(y=V^Tx\), las coordenadas de \(x\)
+en la base de los \(v_i\),
 \[
   \|Ax\|^2=\|U\Sigma V^Tx\|^2=\|\Sigma y\|^2=\sigma_1^2y_1^2+\sigma_2^2y_2^2+\cdots .
 \]
@@ -203,7 +266,9 @@ unidad es \(\pi\sigma_1\sigma_2\), y el factor de área de \(A\) es \(|\det A|\)
 
 \subsection{La SVD a mano}
 
-Los valores singulares y los \(v_i\) se obtienen de la matriz simétrica \(A^TA\): de
+¿Cómo se encuentran, con lápiz y papel, las direcciones de la cuadrícula privilegiada? La
+clave es que \(A^TA\) es simétrica, y para las matrices simétricas el
+capítulo~\ref{cap:autovectores} ya nos dio direcciones perpendiculares. Los valores singulares y los \(v_i\) se obtienen de la matriz simétrica \(A^TA\): de
 \(A=U\Sigma V^T\) sale \(A^TA=V\Sigma^T\Sigma V^T\): los \(v_i\) son autovectores
 de \(A^TA\) con autovalores \(\lambda_i=\sigma_i^2\). Los \(u_i\) se obtienen después
 transformando: \(u_i=Av_i/\sigma_i\) para cada \(\sigma_i>0\). La justificación completa es
@@ -226,7 +291,7 @@ el teorema~\ref{teo:svd-existencia}.
 \(A^TA-45I\) es \((-20,\ 20)\), que se anula en la dirección \((1,1)\); para \(\lambda=5\),
 la fila \((20,\ 20)\) se anula en \((1,-1)\). Normalizando, las direcciones son
 \(\pm(1,1)/\sqrt2\) y \(\pm(1,-1)/\sqrt2\). El signo es libre: un vector unitario y su
-opuesto generan la misma recta. \texttt{np.linalg.svd} elige
+opuesto generan la misma recta. La función de SVD de NumPy elige
 \(v_1=-\tfrac1{\sqrt2}(1,1)\approx(-0{,}707;\ -0{,}707)\) y
 \(v_2=\tfrac1{\sqrt2}(-1,1)\approx(-0{,}707;\ 0{,}707)\), y adoptamos esa elección para que las cuentas coincidan con las de la computadora.
 
@@ -239,7 +304,7 @@ opuesto generan la misma recta. \texttt{np.linalg.svd} elige
 \end{align*}
 Chequeo de ortogonalidad: \(u_1\cdot u_2=(3-3)/10=0\). El signo de \(u_i\) queda atado al de
 \(v_i\): si cambiamos \(v_i\) por \(-v_i\), también \(u_i\) cambia de signo y el producto
-\(\sigma_iu_iv_i^T\) no se altera. Con la elección de numpy, \(\det U=\det V=-1\) (ambas son
+\(\sigma_iu_iv_i^T\) no se altera. Con la elección de NumPy, \(\det U=\det V=-1\) (ambas son
 reflexiones); cambiando a la vez el signo de \(v_2\) y de \(u_2\) las dos pasan a ser
 rotaciones, sin que cambie \(A\).
 
@@ -266,7 +331,8 @@ eje \(x_1\)) y \(\sigma_2\approx2{,}236\) en la dirección \(u_2\)
 \end{align*}
 \end{ejemplo}
 
-\paragraph{Comparación con los autovectores.} Los autovalores de \(A\) son \(3\) y \(5\)
+\paragraph{Comparación con los autovectores.} ¿Encuentran la SVD y los autovectores las
+mismas direcciones? Para esta matriz, no. Los autovalores de \(A\) son \(3\) y \(5\)
 (es triangular), con autovectores \((1,-2)\) y \((0,1)\): no son perpendiculares y no
 coinciden con \(v_1,v_2\). El producto \(3\cdot5=15\) es el mismo que \(\sigma_1\sigma_2\),
 pero los ejes son otros. La diagonalización busca direcciones que caen sobre sí mismas; la
@@ -276,7 +342,8 @@ Cuando \(A\) es simétrica, las dos búsquedas coinciden salvo signos: \(\sigma_
 
 \subsection{Del círculo a la elipse: la misma base vista desde la transformación}\label{sec:svd-circulo-elipse}
 
-La curva de nivel \(\|Ax\|=1\) es un objeto de la \emph{entrada}: los puntos que \(A\) lleva a
+Es la foto del círculo de tiza del comienzo, ahora con números: la circunferencia de la
+entrada sale elipse, y los semiejes de la elipse que se ve son los valores singulares. La curva de nivel \(\|Ax\|=1\) es un objeto de la \emph{entrada}: los puntos que \(A\) lleva a
 largo \(1\). La imagen de la circunferencia unidad es un objeto de la \emph{salida}, y la
 figura~\ref{fig:svd-circulo-elipse} la muestra: cada \(v_i\) de la circunferencia va a parar
 a \(\sigma_iu_i\), sobre un semieje de la elipse imagen.
@@ -305,17 +372,18 @@ a \(\sigma_iu_i\), sobre un semieje de la elipse imagen.
   \end{scope}
 \end{tikzpicture}
 \caption{La circunferencia unidad y su imagen por
-\(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\), con los signos de numpy:
+\(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\), con los signos de NumPy:
 \(v_1\mapsto\sigma_1u_1=-(3,9)/\sqrt2\) y \(v_2\mapsto\sigma_2u_2=(-3,1)/\sqrt2\).}
 \label{fig:svd-circulo-elipse}
 \end{figure}
 
-La misma idea se ve mejor con una grilla. En la base canónica, \(A\) lleva los cuadrados de
-la grilla a paralelogramos oblicuos: los lados de cada celda cambian de largo y de ángulo, y
-no se lee ningún estiramiento puro. Si en cambio trazamos la grilla con los ejes \(v_1\),
+La misma idea se ve mejor con la banda elástica cuadriculada de \enquote{La idea}. En la base
+canónica, \(A\) lleva los cuadrados de la cuadrícula a paralelogramos oblicuos: los lados de
+cada celda cambian de largo y de ángulo, y no se lee ningún estiramiento puro. Si en cambio
+trazamos la cuadrícula con los ejes \(v_1\),
 \(v_2\), las celdas cuadradas van a parar a \emph{rectángulos} alineados con \(u_1\), \(u_2\),
 de lados \(\sigma_1\) y \(\sigma_2\) veces los originales (figura~\ref{fig:svd-grilla}). Esa
-es la grilla privilegiada de la transformación: la única, salvo signos y orden, en la que los
+es la cuadrícula privilegiada de la transformación: la única, salvo signos y orden, en la que los
 ángulos rectos de la entrada siguen siendo rectos en la salida. Que la elegida sea
 \emph{ortonormal} depende de que en la entrada y en la salida haya un producto interno para
 medir largos y ángulos; sin él no habría circunferencia que comparar con la elipse.
@@ -324,7 +392,7 @@ medir largos y ángulos; sin él no habría circunferencia que comparar con la e
 \centering
 \includegraphics[width=.8\linewidth]{figuras/svd/svd_grilla.png}
 \caption{Imagen por \(A=\left(\begin{smallmatrix}3&0\\4&5\end{smallmatrix}\right)\) de una
-grilla cuadrada de lado \(2\), en la base canónica (izquierda) y en la base de los \(v_i\)
+cuadrícula de lado \(2\), en la base canónica (izquierda) y en la base de los \(v_i\)
 (derecha). En color óxido, la imagen de la circunferencia unidad, la misma en los dos
 paneles. Generada con \texttt{apunte/scripts/cap07\_svd.py}.}
 \label{fig:svd-grilla}
@@ -335,19 +403,23 @@ paneles. Generada con \texttt{apunte/scripts/cap07\_svd.py}.}
 \unidadInteractiva{09_cambio_de_base_svd}{Cambio de base, SVD e inversas}{Verificá: con el caso «aplastante» comprobá que \(\sigma_2=0\) y que la elipse se reduce a un segmento.}
 
 En la sección «Manipulación» de la unidad, cuatro deslizadores fijan las entradas de una
-matriz de \(2\times2\) y la figura muestra la grilla deformada, la circunferencia unidad con
+matriz de \(2\times2\) y la figura muestra la cuadrícula deformada, la circunferencia unidad con
 \(v_1\), \(v_2\) y la elipse imagen con \(\sigma_1u_1\), \(\sigma_2u_2\). Probá los casos precargados (simétrica,
 corte, aplastante con \(\sigma_2=0\), rotación pura) y observá cuándo la elipse se vuelve
 circunferencia o segmento. Las cuentas del ejemplo~\ref{ej:svd-mano} se comprueban con el
-script del capítulo o con tres líneas de NumPy:
-\texttt{U, s, Vt = np.linalg.svd(A)}, \texttt{s**2} frente a
-\texttt{np.linalg.eigvalsh(A.T @ A)} y \texttt{np.allclose(U @ np.diag(s) @ Vt, A)}.
+script del capítulo o con tres líneas de NumPy (las dejamos al final de
+\enquote{En profundidad}).
 
 \section{En profundidad}
 
 \subsection{Plano ajustado a una nube de puntos}
 
-Cuando las tres coordenadas de un punto relevado tienen error, ajustar un plano \(z=ax+by+c\) por mínimos cuadrados ordinarios
+Imaginá que medís en el terreno ocho puntos de una superficie que a simple vista es un plano
+apenas inclinado, como una playa de estacionamiento con pendiente para el desagüe.
+¿Cuál es el plano que mejor pasa cerca de los ocho, si ninguno cae exactamente sobre él?
+El método habitual, los \emph{mínimos cuadrados}, elige el plano que hace mínima la suma de los
+cuadrados de las diferencias entre lo medido y lo que da el plano. Cuando las tres coordenadas
+de cada punto tienen error, buscar un plano \(z=ax+by+c\) de esa manera (la versión ordinaria, que mide las diferencias en vertical)
 privilegia indebidamente la \(z\). Lo natural es minimizar la suma de los cuadrados de las
 distancias \emph{perpendiculares} al plano (mínimos cuadrados ortogonales). Si el plano tiene
 normal unitaria \(w\) y pasa por el centroide \(\bar p\) de los puntos (para \(w\) fijo es la
@@ -394,25 +466,33 @@ y una en la que casi no tiene espesor. La normal es \(v_3\approx(-0{,}0497;\ 0{,
 \]
 \end{ejemplo}
 
-\subsection{Aplicación topográfica: la elipse de error de un punto GNSS}
+\subsection{Aplicación topográfica: la elipse de error de un punto medido con satélites}
 
-Volvemos a la nube de la figura~\ref{fig:svd-nube}. Sea \(X\) la matriz de \(N\times2\) de
-las posiciones centradas: cada fila es un desvío (este, norte) respecto del promedio. La
-matriz de covarianza es
+Volvemos al receptor quieto sobre un punto y a su nube de doscientas posiciones
+(figura~\ref{fig:svd-nube}). Queremos dar, con pocos números, una zona que contenga casi todas
+las posiciones: por ejemplo, la elipse dentro de la cual cae el \(95\)\,\% de ellas. Sea \(X\)
+la matriz de \(N\times2\) de las posiciones centradas: cada fila es un desvío (este, norte)
+respecto del promedio. La forma de la nube se resume en una matriz de \(2\times2\), la
+\emph{matriz de covarianza}: en la diagonal lleva el promedio de los cuadrados de los desvíos en
+este y en norte, y fuera de la diagonal el promedio de los productos este por norte, que es
+positivo cuando los desvíos hacia el este suelen venir junto con desvíos hacia el norte (los
+promedios se toman dividiendo por \(N-1\) en lugar de \(N\), como es costumbre en estadística).
+En fórmulas, la matriz de covarianza, que escribimos \(\Sigma_{EN}\) (sigma mayúscula, con el subíndice
+que dice de qué coordenadas es; sin subíndice, \(\Sigma\) sigue siendo la matriz de la SVD), es
 \[
-  C=\frac1{N-1}X^TX .
+  \Sigma_{EN}=\frac1{N-1}X^TX .
 \]
 Es de la forma \(A^TA\) con \(A=X/\sqrt{N-1}\), así que todo lo anterior se aplica: si
-\(X=U\Sigma V^T\), entonces \(C=V\,\frac{\Sigma^T\Sigma}{N-1}\,V^T\), de modo que los
-autovectores de \(C\) son los vectores singulares derechos \(v_i\) de \(X\) y sus autovalores
+\(X=U\Sigma V^T\), entonces \(\Sigma_{EN}=V\,\frac{\Sigma^T\Sigma}{N-1}\,V^T\), de modo que los
+autovectores de \(\Sigma_{EN}\) son los vectores singulares derechos \(v_i\) de \(X\) y sus autovalores
 son \(\lambda_i=\sigma_i^2/(N-1)\). La \emph{elipse de error} de un desvío es la curva de
-nivel \(x^TC^{-1}x=1\); en la base de los \(v_i\) se escribe
+nivel \(x^T\Sigma_{EN}^{-1}x=1\); en la base de los \(v_i\) se escribe
 \(y_1^2/\lambda_1+y_2^2/\lambda_2=1\), de modo que sus semiejes miden
-\(\sqrt{\lambda_i}=\sigma_i/\sqrt{N-1}\) en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(C\).
+\(\sqrt{\lambda_i}=\sigma_i/\sqrt{N-1}\) en las direcciones \(v_i\). La SVD de la matriz de datos da la elipse sin formar \(\Sigma_{EN}\).
 
 \paragraph{La elipse del \texorpdfstring{\(95\)\,\%}{95 \%}.} Las curvas de nivel
-\(x^TC^{-1}x=k^2\) son la misma elipse escalada por \(k\). Si los errores siguen una
-distribución normal bivariada, \(x^TC^{-1}x=y_1^2/\lambda_1+y_2^2/\lambda_2\) es la suma de
+\(x^T\Sigma_{EN}^{-1}x=k^2\) son la misma elipse escalada por \(k\). Si los errores siguen una
+distribución normal bivariada, \(x^T\Sigma_{EN}^{-1}x=y_1^2/\lambda_1+y_2^2/\lambda_2\) es la suma de
 los cuadrados de dos variables normales estándar independientes, es decir, tiene
 distribución \(\chi^2\) con dos grados de libertad, cuya función de distribución es
 \(P(\chi^2_2\le t)=1-e^{-t/2}\). Pedir probabilidad \(0{,}95\) da
@@ -420,17 +500,17 @@ distribución \(\chi^2\) con dos grados de libertad, cuya función de distribuci
 es \(k=\sqrt{5{,}991}\approx2{,}448\). (Con \(k=1\), la elipse de un desvío, la probabilidad
 es solo \(1-e^{-1/2}\approx39\)\,\%.)
 
-\begin{ejemplo}[Elipse de error de una nube GNSS sintética]\label{ej:svd-elipse-error}
+\begin{ejemplo}[Elipse de error de una nube sintética medida con satélites]\label{ej:svd-elipse-error}
 Para las \(N=200\) posiciones de la figura~\ref{fig:svd-nube}, la SVD de la matriz centrada
 \(X\) (\(200\times2\)) da \(\sigma_1\approx21{,}437\) y \(\sigma_2\approx9{,}087\), con
 \(v_1\approx(0{,}859;\ 0{,}512)\) y \(v_2\approx(0{,}512;\ -0{,}859)\). Dividiendo por
 \(\sqrt{199}\approx14{,}107\) se obtienen los semiejes de un desvío,
 \(1{,}520\) m y \(0{,}644\) m. Por el otro camino,
-\(C\approx\left(\begin{smallmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{smallmatrix}\right)\)
+\(\Sigma_{EN}\approx\left(\begin{smallmatrix}1{,}813&0{,}833\\0{,}833&0{,}911\end{smallmatrix}\right)\)
 m\(^2\), con \(\lambda_1\approx2{,}309\) y \(\lambda_2\approx0{,}415\), y \(\sqrt{\lambda_1}\approx1{,}520\), \(\sqrt{\lambda_2}\approx0{,}644\): los mismos números.
 El eje mayor \(v_1\) forma \(30{,}8^\circ\) con el este en sentido antihorario, o sea, está
 orientado \(90^\circ-30{,}8^\circ=59{,}2^\circ\) respecto del norte, medido en sentido
-horario como un acimut (sección~\ref{sec:acimut-campo}). Multiplicando por \(2{,}448\):
+horario: ese ángulo desde el norte es el acimut de la sección~\ref{sec:acimut-campo}. Multiplicando por \(2{,}448\):
 \emph{el \(95\)\,\% de las posiciones cae dentro de una elipse de semiejes \(3{,}72\) m y
 \(1{,}58\) m, con el eje mayor orientado \(59{,}2^\circ\) respecto del norte}. En la nube
 sintética caen adentro \(190\) de las \(200\) posiciones (\(95\)\,\%). Lectura topográfica:
@@ -440,7 +520,8 @@ la posición está determinada unas dos veces y media mejor en la dirección \(v
 
 \subsection{Otras lecturas de la misma elipse}
 
-\paragraph{La elipse de distorsión de Tissot.} Una proyección cartográfica es, punto a punto,
+\paragraph{La elipse de distorsión de Tissot.} Una proyección cartográfica, la regla que lleva
+los puntos de la superficie curva de la Tierra a un mapa plano, es, punto a punto,
 aproximadamente lineal: su jacobiano lleva un desplazamiento infinitesimal del terreno a uno
 del mapa. La imagen de una circunferencia infinitesimal es entonces una elipse, la
 \emph{indicatriz de Tissot}, cuyos semiejes son los valores singulares del jacobiano (las
@@ -527,6 +608,12 @@ el sentido de la diagonalización y no sirve para calcular potencias
 una matriz cuadrada con todos los \(\sigma_i>0\) tiene inversa \(A^{-1}=V\Sigma^{-1}U^T\); el
 caso con algún \(\sigma_i\) nulo o rectangular es el del capítulo~\ref{cap:inversas}.
 
+\paragraph{Las cuentas en la computadora.}
+
+Las cuentas del ejemplo~\ref{ej:svd-mano} se comprueban con tres líneas de NumPy:
+\texttt{U, s, Vt = np.linalg.svd(A)}, \texttt{s**2} frente a
+\texttt{np.linalg.eigvalsh(A.T @ A)} y \texttt{np.allclose(U @ np.diag(s) @ Vt, A)}.
+
 \section{Ejercicios con solución}
 
 \begin{ejercicio}\label{ex:svd-corte}
@@ -537,7 +624,7 @@ Hallá la SVD de \(B=\begin{pmatrix}1&2\\0&1\end{pmatrix}\) y describí la curva
 \solucion{\(B^TB=\left(\begin{smallmatrix}1&2\\2&5\end{smallmatrix}\right)\), con
 \(\lambda^2-6\lambda+1=0\), \(\lambda=3\pm2\sqrt2\approx5{,}828;\ 0{,}172\). Valores
 singulares \(\sigma_1=1+\sqrt2\approx2{,}414\) y \(\sigma_2=\sqrt2-1\approx0{,}414\), con
-\(\sigma_1\sigma_2=1=\det B\). Numpy da \(v_1\approx(0{,}383;\ 0{,}924)\) (a \(67{,}5^\circ\)
+\(\sigma_1\sigma_2=1=\det B\). NumPy da \(v_1\approx(0{,}383;\ 0{,}924)\) (a \(67{,}5^\circ\)
 del eje \(x_1\)), \(v_2\approx(-0{,}924;\ 0{,}383)\), \(u_1\approx(0{,}924;\ 0{,}383)\),
 \(u_2\approx(-0{,}383;\ 0{,}924)\). La curva \(\|Bx\|=1\) es una elipse de semieje corto
 \(1/\sigma_1\approx0{,}414\) sobre \(v_1\) y semieje largo \(1/\sigma_2\approx2{,}414\)
@@ -548,7 +635,7 @@ Sea \(D=\begin{pmatrix}1&2\\2&4\end{pmatrix}\). Mostrá que \(\sigma_2=0\) y des
 curvas de nivel de \(\|Dx\|\) y la imagen de la circunferencia unidad.
 \end{ejercicio}
 \solucion{\(D\) tiene rango \(1\): \(\sigma_1=5\), \(\sigma_2=0\), con
-\(v_1=-(1,2)/\sqrt5\), \(v_2=(-2,1)/\sqrt5\) (signos de numpy) y \(u_1=-(1,2)/\sqrt5\).
+\(v_1=-(1,2)/\sqrt5\), \(v_2=(-2,1)/\sqrt5\) (signos de NumPy) y \(u_1=-(1,2)/\sqrt5\).
 Como \(\|Dx\|=5\,|v_1\cdot x|\), la curva \(\|Dx\|=1\) es el par de rectas paralelas
 \(v_1\cdot x=\pm\tfrac15\), perpendiculares a \(v_1\) y a distancia \(1/\sigma_1=0{,}2\) del
 origen: la elipse degeneró en una banda de semieje infinito sobre \(v_2\), el núcleo. La
@@ -558,14 +645,14 @@ recorrido dos veces.}
 \begin{ejercicio}\label{ex:svd-estacion}
 Un instrumento que mide ángulos y distancias entrega para un punto la matriz de covarianza (coordenadas este, norte)
 \[
-  C=\begin{pmatrix}13{,}6&4{,}8\\4{,}8&6{,}4\end{pmatrix}\ \text{mm}^2 .
+  \Sigma_{EN}=\begin{pmatrix}13{,}6&4{,}8\\4{,}8&6{,}4\end{pmatrix}\ \text{mm}^2 .
 \]
 Hallá los semiejes de la elipse de error y la orientación del eje mayor (ángulo desde el
 este y acimut). ¿En qué dirección está mejor determinada la posición?
 \end{ejercicio}
-\solucion{\(\det(C-\lambda I)=\lambda^2-20\lambda+64=0\) da \(\lambda_1=16\) y
+\solucion{\(\det(\Sigma_{EN}-\lambda I)=\lambda^2-20\lambda+64=0\) da \(\lambda_1=16\) y
 \(\lambda_2=4\); semiejes \(4\) mm y \(2\) mm. El eje mayor tiene dirección \((2,1)/\sqrt5\)
-(numpy la da con el signo opuesto, la misma recta), a \(26{,}57^\circ\) del este, acimut
+(NumPy la da con el signo opuesto, la misma recta), a \(26{,}57^\circ\) del este, acimut
 \(63{,}43^\circ\). La posición está determinada el doble de bien en la dirección
 perpendicular, \((-1,2)/\sqrt5\), de acimut \(333{,}43^\circ\). La correlación entre los
 errores en este y norte es \(4{,}8/\sqrt{13{,}6\cdot6{,}4}\approx0{,}51\).}

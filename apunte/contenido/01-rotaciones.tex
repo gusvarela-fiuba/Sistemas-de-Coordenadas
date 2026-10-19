@@ -941,9 +941,48 @@ y es el único logaritmo antisimétrico con \(|\omega|<\pi\) (el \emph{logaritmo
 El vector \(\omega\) indica el eje y su norma es el ángulo.
 \end{proposicion}
 
-La demostración combina la fórmula de Rodrigues del apéndice~\ref{ap:rot3d} con la relación
-entre generadores y exponencial del apéndice~\ref{ap:infinitesimales}. Numéricamente, el
-logaritmo se calcula con \texttt{scipy.linalg.logm}.
+\begin{demostracion}
+La rotación \(R\) es la de la fórmula de Rodrigues del apéndice~\ref{ap:rot3d},
+\(R=\cos\theta\,I+(1-\cos\theta)uu^T+\sin\theta\,K\), donde \(K=[u]_\times\) es la matriz
+antisimétrica que hace el producto vectorial con el eje: \(Kx=u\times x\). Como
+\(\omega=\theta u\), la matriz del enunciado es \(A=\theta K\).
+
+\emph{Las potencias de \(K\).} Para todo \(x\), \(K^2x=u\times(u\times x)=(u\cdot x)\,u-x\),
+porque \(\|u\|=1\); es decir, \(K^2=uu^T-I\). Como \(Ku=u\times u=0\),
+\(K^3=K\,uu^T-K=-K\). Entonces las potencias impares de \(K\) son \(\pm K\) y las pares
+(desde la segunda) son \(\pm K^2\), con los signos alternados, igual que las de \(J\) en el
+ejemplo de la rotación plana.
+
+\emph{La exponencial.} Agrupando la serie de \(e^{\theta K}\) en los términos con \(K\) y los
+términos con \(K^2\),
+\[
+e^{\theta K}=I+\Bigl(\theta-\frac{\theta^3}{3!}+\cdots\Bigr)K
++\Bigl(\frac{\theta^2}{2!}-\frac{\theta^4}{4!}+\cdots\Bigr)K^2
+=I+\sin\theta\,K+(1-\cos\theta)(uu^T-I),
+\]
+que es \(\cos\theta\,I+(1-\cos\theta)uu^T+\sin\theta\,K=R\). Así \(R=e^{A}\).
+
+\emph{Unicidad.} Una matriz \(B\) de \(3\times3\) antisimétrica (\(B^T=-B\)) tiene ceros en la
+diagonal y queda determinada por las tres entradas de arriba, así que es la matriz del
+enunciado para algún vector \(\omega'\). Supongamos \(e^B=R\) con \(|\omega'|<\pi\). Si
+\(\omega'=0\), \(e^B=I\). Si no, \(\omega'=\theta'u'\) con \(\theta'=|\omega'|\in(0,\pi)\) y
+\(u'\) unitario, y la cuenta anterior dice que \(e^B\) es la rotación de ángulo \(\theta'\)
+alrededor de \(u'\). La traza de la fórmula de Rodrigues es
+\(3\cos\theta+(1-\cos\theta)+0=1+2\cos\theta\) (la traza de \(uu^T\) es \(\|u\|^2=1\) y la de
+\(K\) es \(0\)); como el coseno es inyectivo en \([0,\pi)\), \(e^B=R\) obliga a
+\(\theta'=\theta\) (y a \(\omega'=0\) si \(\theta=0\), donde \(\omega=0\) también). Si
+\(\theta>0\), los vectores que \(R\) deja fijos son los paralelos a \(u\): si \(Rx=x\) y
+\(x_\perp=x-(u\cdot x)u\), la fórmula de Rodrigues da \((\cos\theta-1)\,x_\perp+\sin\theta\,(u\times x)=0\);
+los dos sumandos son perpendiculares entre sí (\(u\times x\) es perpendicular a \(x_\perp\)),
+de modo que los dos son cero, y como \(\cos\theta\neq1\), \(x_\perp=0\). Como \(e^B\) deja fijo
+a \(u'\), \(u'=\pm u\). Si fuera \(u'=-u\), restando las dos fórmulas de Rodrigues quedaría
+\(2\sin\theta\,K=0\), imposible para \(\theta\in(0,\pi)\). Luego \(u'=u\) y \(\omega'=\omega\).
+\end{demostracion}
+
+En palabras: el generador \(A\) es el giro infinitesimal alrededor del eje, y la exponencial
+lo repite hasta acumular el ángulo \(\theta\); con el ángulo menor que media vuelta, ese
+generador es uno solo. Numéricamente, el logaritmo se calcula con
+\texttt{scipy.linalg.logm}.
 
 \begin{ejemplo}[Generador de la permutación \(P\)]
 Para la matriz \(P\) del ejemplo~\ref{ej:permutacion}, \(\theta=2\pi/3\approx2{,}094\) y

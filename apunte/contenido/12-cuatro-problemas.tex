@@ -45,14 +45,15 @@ el método de Newton (sección~\ref{sec:newton}).
 \paragraph{Convenciones del capítulo.} Puntos \(p_i=(x_i,y_i)\), \(i=1,\dots,n\), con
 baricentro \(\bar p=(\bar x,\bar y)\); sumas centradas \(S_{xx}=\sum_i(x_i-\bar x)^2\),
 \(S_{yy}=\sum_i(y_i-\bar y)^2\), \(S_{xy}=\sum_i(x_i-\bar x)(y_i-\bar y)\); \emph{matriz de
-dispersión} \(C=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\),
+dispersión} \(\Sigma_0=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\),
 con \(X_0\) de \(n\times2\) de filas \(p_i-\bar p\) (una matriz de nube tiene un punto por
 fila); coordenadas \((E,N)\) como en la caja de la sección~\ref{caja:convencion-en}.
 
 En palabras: el baricentro es el promedio de los puntos, su centro de gravedad; \(S_{xx}\) y
 \(S_{yy}\) miden cuánto se desparraman las \(x\) y las \(y\) alrededor de su promedio, y
 \(S_{xy}\) dice si las dos coordenadas suben juntas (positiva) o si una baja cuando la otra
-sube (negativa). La matriz de dispersión \(C\) reúne las tres sumas y, como veremos en la
+sube (negativa). La matriz de dispersión \(\Sigma_0\) (sigma mayúscula, la letra de las covarianzas; el
+subíndice recuerda la nube centrada \(X_0\), y sin subíndice \(\Sigma\) es la matriz de la SVD) reúne las tres sumas y, como veremos en la
 regresión total, dice cuánto se estira la nube en cada dirección.
 
 \begin{idea}[Ajustar es proyectar el dato sobre lo que el modelo puede producir]
@@ -157,7 +158,7 @@ recta es \((p_i-p_0)\cdot n\). Es el mismo razonamiento del plano que mejor pasa
 capítulo~\ref{cap:svd} (ejemplo~\ref{ej:svd-plano}), una dimensión más abajo.
 
 En el enunciado que sigue aparecen dos herramientas de capítulos anteriores. Los autovalores
-\(\lambda_1\ge\lambda_2\) de la matriz de dispersión \(C\): \(\lambda_1\) mide cuánto se
+\(\lambda_1\ge\lambda_2\) de la matriz de dispersión \(\Sigma_0\): \(\lambda_1\) mide cuánto se
 desparrama la nube a lo largo de su dirección más larga, y \(\lambda_2\), a lo ancho. Y la
 descomposición en valores singulares \(X_0=U\Sigma V^T\) del capítulo~\ref{cap:svd}: las
 columnas \(v_1\), \(v_2\) de \(V\) son las dos direcciones principales de la nube, y la
@@ -167,7 +168,7 @@ y el ancho de la nube en esas direcciones.
 \begin{proposicion}[Recta de regresión total]\label{prop:cp-regresion-total}
 La recta que minimiza la suma de los cuadrados de las distancias perpendiculares
 \(\sum_i\big((p_i-p_0)\cdot n\big)^2\) pasa por el baricentro \(\bar p\), tiene por normal
-\(n\) el autovector de \(C=X_0^TX_0\) del autovalor menor \(\lambda_2\) y por dirección
+\(n\) el autovector de \(\Sigma_0=X_0^TX_0\) del autovalor menor \(\lambda_2\) y por dirección
 \(d\) el del autovalor mayor \(\lambda_1\). Equivalentemente, si \(X_0=U\Sigma V^T\),
 \(d=v_1\) y \(n=v_2\). El mínimo vale \(\lambda_2=\sigma_2^2\).
 \end{proposicion}
@@ -177,30 +178,30 @@ Para \(n\) fijo, \(\sum_i\big((p_i-p_0)\cdot n\big)^2=\sum_i(t_i-s)^2\) con
 \(t_i=p_i\cdot n\) y \(s=p_0\cdot n\), y una suma de cuadrados de desvíos es mínima cuando
 \(s\) es el promedio de los \(t_i\): \(p_0\cdot n=\bar p\cdot n\), la recta pasa por el
 baricentro. Con \(p_0=\bar p\), la suma es
-\(\sum_i\big((p_i-\bar p)\cdot n\big)^2=\lVert X_0n\rVert^2=n^TCn\), una forma cuadrática
+\(\sum_i\big((p_i-\bar p)\cdot n\big)^2=\lVert X_0n\rVert^2=n^T\Sigma_0n\), una forma cuadrática
 evaluada sobre la circunferencia unidad. Por la proposición~\ref{prop:svd-mide}, su mínimo
-es \(\sigma_2^2\) y se alcanza en \(n=v_2\); como \(C=V\Sigma^T\Sigma V^T\), \(v_2\) es el
-autovector de \(C\) con autovalor \(\lambda_2=\sigma_2^2\). La dirección es la perpendicular,
+es \(\sigma_2^2\) y se alcanza en \(n=v_2\); como \(\Sigma_0=V\Sigma^T\Sigma V^T\), \(v_2\) es el
+autovector de \(\Sigma_0\) con autovalor \(\lambda_2=\sigma_2^2\). La dirección es la perpendicular,
 \(v_1\).
 \end{demostracion}
 
 Volvamos a la hoja que giramos. La
 regresión total sí es geométrica: si se giran las coordenadas con una matriz ortogonal
-\(Q\), la nube centrada pasa a \(X_0Q^T\), la matriz de dispersión a \(QCQ^T\), y sus
+\(Q\), la nube centrada pasa a \(X_0Q^T\), la matriz de dispersión a \(Q\Sigma_0Q^T\), y sus
 autovectores giran con \(Q\) (sección~\ref{sec:congruencia}). La recta gira con los
 puntos. La pendiente de la dirección \(v_1=(d_1,d_2)\) sale de
-\((C-\lambda_1I)v_1=0\): \(d_2/d_1=(\lambda_1-S_{xx})/S_{xy}\).
+\((\Sigma_0-\lambda_1I)v_1=0\): \(d_2/d_1=(\lambda_1-S_{xx})/S_{xy}\).
 
 ¿Dónde queda la recta total respecto de las dos simples? Una supone exacta la \(x\); la otra,
 la \(y\); la total no privilegia ninguna, y queda en el medio.
 
 \begin{proposicion}[La recta total queda entre las dos simples]\label{prop:cp-total-entre}
-Si los puntos no están alineados y \(S_{xy}>0\), la pendiente \(t\) de la regresión total
+Si los puntos no están alineados y \(S_{xy}>0\), la pendiente \(m_{\mathrm{tot}}\) de la regresión total
 cumple
 \[
-  m=\frac{S_{xy}}{S_{xx}}<t<\frac{1}{m'}=\frac{S_{yy}}{S_{xy}} .
+  m=\frac{S_{xy}}{S_{xx}}<m_{\mathrm{tot}}<\frac{1}{m'}=\frac{S_{yy}}{S_{xy}} .
 \]
-Si \(S_{xy}<0\), las desigualdades se invierten: \(1/m'<t<m\).
+Si \(S_{xy}<0\), las desigualdades se invierten: \(1/m'<m_{\mathrm{tot}}<m\).
 \end{proposicion}
 
 La demostración, una cuenta con la parábola cuyas raíces son las pendientes de las dos
@@ -226,7 +227,7 @@ sus cuadrados es \(17{,}5-15{,}5^2/17{,}5=3{,}7714\). La recta de \(x\) sobre \(
 El producto \(m\,m'=0{,}7845=\rho^2\), con \(\rho=0{,}8857\).
 
 La matriz de dispersión
-\(C=\left(\begin{smallmatrix}17{,}5&15{,}5\\15{,}5&17{,}5\end{smallmatrix}\right)\) tiene
+\(\Sigma_0=\left(\begin{smallmatrix}17{,}5&15{,}5\\15{,}5&17{,}5\end{smallmatrix}\right)\) tiene
 autovalores \(33\) y \(2\), con autovectores \(\tfrac1{\sqrt2}(1,1)\) y
 \(\tfrac1{\sqrt2}(1,-1)\). La regresión total es la recta \(y=x\), por el baricentro y a
 \(45^\circ\), entre las dos regresiones simples (\(0{,}8857<1<1{,}1290\), como asegura la
@@ -507,7 +508,7 @@ Problema & Lo que el modelo puede producir & Residuo & Cómo se resuelve\\
 Recta simple & plano \(\operatorname{im}A\) de \(\R^n\) (columnas \(x\) y \(\mathbf 1\)) &
 vertical & ecuaciones normales\\
 Regresión total & nubes alineadas: conjunto curvo en \(\R^{2n}\) &
-perpendicular a la recta & autovector de \(C\) (SVD)\\
+perpendicular a la recta & autovector de \(\Sigma_0\) (SVD)\\
 Círculo & algebraico: subespacio en \((D,E,F)\); geométrico: conjunto curvo &
 radial & lineal, luego Gauss--Newton\\
 Procrustes & copias movidas de una nube: órbita de las rotaciones &
@@ -521,7 +522,7 @@ En los cuatro, la condición de óptimo es una perpendicularidad. En la recta si
 círculo algebraico, el residuo es perpendicular al subespacio del modelo (\(A^Tr=0\)). En
 los otros dos casos, el modelo es curvo y el residuo resulta perpendicular al plano tangente
 en el punto más cercano: \(J^Tf=0\) en el círculo geométrico; en la regresión total,
-\(\sum_i(d\cdot(p_i-\bar p))(n\cdot(p_i-\bar p))=d^TCn=0\), que dice que los residuos no
+\(\sum_i(d\cdot(p_i-\bar p))(n\cdot(p_i-\bar p))=d^T\Sigma_0n=0\), que dice que los residuos no
 tienen correlación con el avance sobre la recta (girar la recta un poco no los achica); en
 Procrustes, \(\sum_ir_i=0\) (trasladar no mejora) y
 \(\sum_ir_i\times Ra_i'=0\) (girar un poco no mejora).
@@ -646,7 +647,7 @@ Las dos regresiones simples se apartan de la total \(+5{,}4''\) y \(-4{,}2''\), 
 proposición~\ref{prop:cp-total-entre}. Verificaciones: los residuos de la recta \(N\) sobre \(E\) suman cero y son
 perpendiculares a la columna de las \(E\) reducidas; las distancias perpendiculares a la
 recta total suman cero, tienen un valor cuadrático medio de \(2{,}77\) cm y cumplen
-\(d^TCn=0\). El script gira además los ejes \(30^\circ\) y repite las cuentas: la dirección de
+\(d^T\Sigma_0n=0\). El script gira además los ejes \(30^\circ\) y repite las cuentas: la dirección de
 la regresión simple cambia \(18{,}2''\) respecto de la medianera, y la de la total no cambia
 (diferencia del orden de \(10^{-11}\) segundos).
 
@@ -776,30 +777,30 @@ condición de autovector como una ecuación de segundo grado en la pendiente y u
 \(1/m'\) respecto de sus raíces.
 
 \begin{demostracion}
-Sea \(v_1=(d_1,d_2)\). Si fuera \(d_1=0\), la primera fila de \(Cv_1=\lambda_1v_1\) daría
-\(S_{xy}d_2=0\), imposible; así que \(t=d_2/d_1\) existe. Las dos filas de
-\(Cv_1=\lambda_1v_1\) son \(S_{xx}d_1+S_{xy}d_2=\lambda_1d_1\) y
+Sea \(v_1=(d_1,d_2)\). Si fuera \(d_1=0\), la primera fila de \(\Sigma_0v_1=\lambda_1v_1\) daría
+\(S_{xy}d_2=0\), imposible; así que \(m_{\mathrm{tot}}=d_2/d_1\) existe. Las dos filas de
+\(\Sigma_0v_1=\lambda_1v_1\) son \(S_{xx}d_1+S_{xy}d_2=\lambda_1d_1\) y
 \(S_{xy}d_1+S_{yy}d_2=\lambda_1d_2\). Multiplicando la primera por \(d_2\), la segunda por
 \(d_1\) e igualando, y dividiendo por \(d_1^2\),
 \[
-  p(t)=S_{xy}t^2+(S_{xx}-S_{yy})\,t-S_{xy}=0 .
+  p(m_{\mathrm{tot}})=0,\qquad p(z)=S_{xy}z^2+(S_{xx}-S_{yy})\,z-S_{xy} .
 \]
 Con \(S_{xy}>0\), \(p\) es una parábola que abre hacia arriba y el producto de sus raíces es
-\(-1\): una raíz es negativa y la otra positiva. La pendiente \(t\) es la positiva, porque el
+\(-1\): una raíz es negativa y la otra positiva. La pendiente \(m_{\mathrm{tot}}\) es la positiva, porque el
 autovalor mayor supera a cada elemento de la diagonal cuando \(S_{xy}\neq0\):
 \[
   \lambda_1=\frac{S_{xx}+S_{yy}}2+\sqrt{\Big(\frac{S_{xx}-S_{yy}}2\Big)^2+S_{xy}^2}
   >\frac{S_{xx}+S_{yy}}2+\frac{\lvert S_{xx}-S_{yy}\rvert}2=\max(S_{xx},S_{yy}),
 \]
-así que \(t=(\lambda_1-S_{xx})/S_{xy}>0\). Evaluando,
+así que \(m_{\mathrm{tot}}=(\lambda_1-S_{xx})/S_{xy}>0\). Evaluando,
 \[
   p(m)=\frac{S_{xy}}{S_{xx}^2}\,\big(S_{xy}^2-S_{xx}S_{yy}\big)<0,\qquad
   p\Big(\frac1{m'}\Big)=\frac{S_{xx}S_{yy}-S_{xy}^2}{S_{xy}}>0,
 \]
 por Cauchy--Schwarz estricta (proposición~\ref{prop:cp-dos-regresiones}). Como \(p(m)<0\),
-\(m\) está entre las dos raíces, y por ser \(m>0\), \(m<t\). Como \(p(1/m')>0\) y
-\(1/m'>0\), \(1/m'\) está a la derecha de las dos raíces: \(t<1/m'\). Si \(S_{xy}<0\), el
-cambio \(y\mapsto-y\) cambia el signo de \(S_{xy}\), de \(m\), de \(1/m'\) y de \(t\), y da
+\(m\) está entre las dos raíces, y por ser \(m>0\), \(m<m_{\mathrm{tot}}\). Como \(p(1/m')>0\) y
+\(1/m'>0\), \(1/m'\) está a la derecha de las dos raíces: \(m_{\mathrm{tot}}<1/m'\). Si \(S_{xy}<0\), el
+cambio \(y\mapsto-y\) cambia el signo de \(S_{xy}\), de \(m\), de \(1/m'\) y de \(m_{\mathrm{tot}}\), y da
 las desigualdades invertidas.
 \end{demostracion}
 
@@ -840,7 +841,7 @@ Para los mismos cuatro puntos del ejercicio~\ref{ex:cp-dos-rectas}, hallá la re
 regresión total y la suma de los cuadrados de las distancias perpendiculares. Comprobá que
 su pendiente queda entre las de las dos regresiones simples.
 \end{ejercicio}
-\solucion{\(C=\left(\begin{smallmatrix}5&6\\6&9\end{smallmatrix}\right)\), con traza \(14\)
+\solucion{\(\Sigma_0=\left(\begin{smallmatrix}5&6\\6&9\end{smallmatrix}\right)\), con traza \(14\)
 y determinante \(9\): \(\lambda^2-14\lambda+9=0\), \(\lambda=7\pm\sqrt{40}\), es decir
 \(\lambda_1=13{,}3246\) y \(\lambda_2=0{,}6754\). La pendiente de la dirección es
 \((\lambda_1-S_{xx})/S_{xy}=8{,}3246/6=1{,}3874\), entre \(1{,}2\) y \(1{,}5\). La recta pasa

@@ -5,8 +5,15 @@ Uso (desde la raíz del repo):
 
 Lee los dos DXF, empareja los vértices por etiqueta y estima por mínimos cuadrados la
 transformación afín p' = M p + t (y la homografía, normalizada con h33 = 1, si hay
-cuatro o más vértices). Informa M, t, det M, el residuo RMS en metros, la familia
-mínima que la explica y su lectura geométrica (ángulo, centro, factor, eje).
+cuatro o más vértices). Informa M, t, det M, el área encerrada por los vértices
+emparejados en cada archivo y su cociente (que, para una afín, es |det M|), el residuo
+RMS en metros, la familia mínima que la explica y su lectura geométrica (ángulo,
+centro, factor, eje).
+
+Área: fórmula del agrimensor (la mitad de la suma de los cuñas p_i ∧ p_{i+1}) sobre los
+vértices emparejados recorridos en el orden alfabético de sus letras (A, B, C, ...), que
+en los DXF del laboratorio es el orden del contorno. Se informa en valor absoluto; el
+cociente es área transformada / área original.
 
 Emparejamiento de etiquetas, en cada archivo:
   * vértices: los POINT de la capa VERTICES y los vértices de la polilínea de la capa
@@ -236,6 +243,13 @@ def aplicar_h(H, p):
     return X[:, :2] / X[:, 2:]
 
 
+def area_poligono(P):
+    """Área con signo por la fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1}."""
+    P = np.asarray(P, float)
+    x, y = P[:, 0], P[:, 1]
+    return float(0.5 * np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
+
+
 def rms(r):
     return float(np.sqrt(np.mean(np.sum(r ** 2, axis=1))))
 
@@ -328,9 +342,12 @@ def analizar(original, transformado, tol=TOL_RESIDUO):
         avisos=[f"original: {x}" for x in a["avisos"]]
         + [f"transformado: {x}" for x in b["avisos"]],
         M=M.tolist(), t=t.tolist(), det=float(np.linalg.det(M)), rms=r, tol=tol,
+        area_original=abs(area_poligono(p)), area_transformado=abs(area_poligono(q)),
         residuos={s: float(np.linalg.norm(v)) for s, v in zip(comunes, res)},
         familia=familia, familia_texto=ROTULO[familia], lectura=lectura,
     )
+    salida["cociente_areas"] = (salida["area_transformado"] / salida["area_original"]
+                                if salida["area_original"] > 0 else None)
     if len(comunes) >= 4:
         H = ajuste_homografia(p, q)
         if H is not None:
@@ -364,7 +381,13 @@ def texto(r):
     lin += [f"Aviso: {x}" for x in r["avisos"]]
     lin += ["", "Transformación afín  p' = M p + t", "  M ="]
     lin.append(matriz(r["M"], "    "))
+    if r["cociente_areas"] is None:
+        area = "el área original es nula (vértices alineados o mal ordenados)"
+    else:
+        area = (f"{num(r['area_original'])} m² → {num(r['area_transformado'])} m² "
+                f"(cociente = {num(r['cociente_areas'])}; |det M| = {num(abs(r['det']))})")
     lin += [f"  t = {punto(r['t'])} m", f"  det M = {num(r['det'])}",
+            f"  Área ({', '.join(r['etiquetas'])}, en ese orden): {area}",
             f"  Residuo RMS = {num(r['rms'])} m (tolerancia {num(r['tol'])} m)",
             "", f"Familia mínima: {r['familia_texto']}"]
     le = r["lectura"]

@@ -106,3 +106,28 @@ Todos los avisos de más de 2 pt quedaron corregidos (8 antes, 2 después). Qued
 |---|---|---:|
 | `contenido/05-formas-lineales.tex` | 609–614 | 0,34 pt |
 | `contenido/14-elipsoide.tex` | 97–101 | 0,20 pt |
+
+## Entrega 3 publicada
+
+Verificado el 2026-10-19 (hora local).
+
+- Merge a main: commit 460a574 (`--no-ff` de revision-editorial 45bcb6b), tag anotado `entrega-3`; candidata previa `entrega-3-rc` = 73b4f81.
+- Contenido: fase F completa; fase G en los capítulos 0 a 4, 10 a 13 y 15; laboratorio CAD en los capítulos 1 a 4; menús por capítulo (`menu.html`, `menu.pdf`, `menu-por-capitulo.html`); problemas por capítulo con respuestas (apéndice A.6, `tools/problemas/gen.py`); barrido de «estación total»; compilación protegida (`scripts/compilar_pdf.sh`, hooks `.githooks`).
+- Workflow pages.yml: run 31, success (build y deploy), con el paso «Verificar el PDF commiteado» y la búsqueda de términos sobre el artefacto en 0.
+- En vivo: 200 en portada, menús, `cad/` y DXF, mapa, autoevaluación, fichas y unidades; las 15 redirecciones `clases/NN.html` llevan a `capitulos/NN.html`; `apunte.pdf` publicado con 290 páginas, igual a `apunte/paginas_esperadas.txt`, y SHA-256 idéntico al PDF del tag `entrega-3`.
+- Pendiente después de la entrega: fase G en 5 a 9 y 14, laboratorio CAD de 6 y 9, complementos C1 a C4, pasada de notación (incluye NumPy en el texto de 1, 4, 6 y 7).
+
+
+## Entrega 4 candidata (2026-10-19)
+
+Rama `revision-editorial`, sobre la entrega 3 (main 460a574). Olas del bloque «terminar hoy todo lo pendiente después del MVP»:
+
+- Ola 0: PR #6 del editor (problema 12.5 sin Overfull), merge `--no-ff` 9946a6d.
+- Ola 1, fase G en los capítulos que faltaban (un agente por capítulo, en worktrees; solo el `.tex` en cada commit): 5 (435e051), 6 (927b53d), 7 (c08ccbb), 8 (2172b28), 9 (3804bbd), 14 (9e4ac42). Con esto los 16 capítulos tienen la voz para el aula. Contador: 5: 5,2 → 2,3 términos cada 100 líneas; 6: 2,4 → 1,9; 7: 4,1 → 3,0; 8: 5,3 → 3,6 (instrumentos 4 → 0); 9: 5,5 → 2,6; 14: 5,2 → 3,8. «La idea» con 9 a 21 preguntas o experimentos en cada uno. Sin Overfull en el apunte.
+- Ola 1, laboratorio CAD tanda 2: 322563e (ejercicios `cap06_area`, `cap06_scale`, `cap09_ucs` con 5 respuestas; `que_matriz.py` informa el cociente de áreas; pruebas 37 → 56) y 379ebae (subsecciones `sec:cad-cap06` y `sec:cad-cap09`). Los platos CAD de 6 y 9 pasan a «listo» en los dos menús.
+- Ola 1, complementos al mínimo del molde con voz para el aula (E2): C1 3d3b79e, C2 0455b97, C3 779ef82, C4 083f01c; ESTADO_NOTAS 7490e7b. Complementos que cumplen el mínimo: 4 de 4.
+- Ola 2, pasada de notación y demostraciones (un solo agente): deef0d4. Tabla del capítulo 0 como única referencia; σ_B, τ_v, ρ_{c,θ} en 2 y 3; Σ con subíndice para la dispersión en 8 y 12; «rango A» en 11; m_tot en 12; capítulo 9 sin letras repetidas; problema 08-4 regenerado desde `gen.py`; demostraciones nuevas de `teo:traslacion-dos-reflexiones-enunciado`, `teo:rotacion-dos-reflexiones-enunciado`, `prop:generador` y `teo:legendre`.
+- Decisiones del editor aplicadas en commits separados: fb5bab4 (se retira `capc2_conformes.py`), 32144b1 (C2 sin el enlace «Unidad 19»), f403e4f (C1: μ_i en el patrón), def5d6e (`estilo.py`: «Copernicus DEM GLO-30» no cuenta), 2163ace (C4: caja «Por qué las coordenadas forman una grilla» con el ejemplo de los 100 km verificado), 152ee49 (C4: cita Rodríguez 2007 y bibliografía del IGN).
+- Ola 3: PDF 37a83a0 (328 páginas, 0 Overfull, 0 `!`, 0 referencias sin definir), ESTADO 30846c3 (15 de 15, 4 de 4, 97 resultados). Controles de la CI en 0: estilo estricto, prohibidas (árbol y sitio), enlaces, pytest 62.
+
+Decisiones pendientes del editor (en ESTADO_NOTAS.md y en la bitácora privada): matriz que refleja (S en el 2, H en el 3); puntos de control P_i en mayúscula en el 9; consignas de las unidades 9, 11 y 12 con su notación propia; figura `cap09_conjugacion.pdf` puede rotular T_c; `\refl` sigue definida en el `.sty` sin uso.
