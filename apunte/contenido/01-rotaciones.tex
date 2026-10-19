@@ -722,6 +722,95 @@ con \(\mathrm{Az}_{QP}\): el error es exactamente media vuelta.
 
 \unidadInteractiva{02_producto_interno}{Producto interno: proyección, longitud, ángulo}{Verificá: con dos vectores de longitudes \(d_P\) y \(d_Q\) que formen el ángulo \(\gamma\), comprobá que la distancia entre sus extremos es la que da la ley del coseno.}
 
+\subsection{En el CAD}\label{sec:cad-cap01}
+
+Un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD; en adelante, el CAD) guarda cada
+figura como una lista de coordenadas, y cada comando de edición es una transformación que
+recalcula esa lista. Para qué nos sirve: lo que hicimos con lápiz se puede probar sobre un dibujo
+de verdad y comparar número a número. Los ejercicios usan la parcela de vértices \(A=(10,10)\),
+\(B=(34,17)\), \(C=(40,36)\), \(D=(24,38)\) y \(E=(6,32)\), en metros, con el lado \(AB\) de
+\(25\) m; cada archivo trae su respuesta en la carpeta \texttt{esperado} del sitio. Describimos
+el flujo de AutoCAD y, cuando difiere, cómo se hace en LibreCAD.
+
+\paragraph{\texttt{ROTATE} con punto base: la rotación alrededor de un centro.} Girar con un
+punto base es la rotación \(\rhoP{c,\theta}(p)=c+R(\theta)(p-c)\) de la
+sección~\ref{sec:rot-plano}, con \(c=A\) y \(\theta=30^\circ\).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap01_rotate.dxf} y seleccioná la polilínea, los puntos y las letras.
+  \item Rotá con \texttt{ROTATE}, punto base \(A\) y ángulo \(30\) (en LibreCAD, \texttt{Modify}~\(\to\)~\texttt{Rotate}: elegís los objetos, el centro y el ángulo).
+  \item Listá las coordenadas de los vértices con \texttt{LIST} o con \texttt{ID} (en LibreCAD,
+  con el enganche a extremos activado, la barra de estado muestra las coordenadas del punto
+  bajo el cursor).
+  \item Calculá \(c+R(30^\circ)(p-c)\) para \(B\) y compará.
+\end{enumerate}
+Tiene que dar \(A\) quieto en \((10,10)\), \(B'=(27{,}285;\ 28{,}062)\) y
+\(C'=(22{,}981;\ 47{,}517)\). En coordenadas homogéneas
+(sección~\ref{sec:homogeneas-rotacion}) es una sola matriz,
+\[
+H_{A,30^\circ}=\begin{pmatrix}0{,}866&-0{,}500&6{,}340\\0{,}500&0{,}866&-3{,}660\\0&0&1\end{pmatrix},
+\qquad \det R(30^\circ)=1.
+\]
+Respuesta: \dxfEnlace{esperado/cap01_rotate_30.dxf}.
+
+\paragraph{\texttt{ROTATE} frente a \texttt{UCS}: lectura activa y pasiva.} Rotar el objeto es
+la lectura activa; rotar el sistema de coordenadas y dejar el objeto quieto es la pasiva
+(sección~\ref{sec:punto-coordenadas}).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap01_ucs.dxf}.
+  \item Rotá la parcela \(30^\circ\) alrededor del origen con \texttt{ROTATE} y listá sus
+  vértices con \texttt{ID}. Deshacé el giro.
+  \item Rotá el sistema: \texttt{UCS}, opción \texttt{Z}, ángulo \(30\). La parcela no se mueve.
+  \item Listá de nuevo los vértices con \texttt{ID}: ahora salen en el sistema rotado.
+\end{enumerate}
+En la lectura activa \(A\) pasa a \((3{,}660;\ 13{,}660)\) y la matriz es \(R(30^\circ)\); en
+la pasiva \(A\) se lee \((13{,}660;\ 3{,}660)\) y la matriz es
+\(R(-30^\circ)=R(30^\circ)^T\): el mismo giro con el signo cambiado. LibreCAD no tiene
+\texttt{UCS}: ahí la lectura pasiva se hace a mano, multiplicando las coordenadas por
+\(R(-30^\circ)\), o rotando solo la vista, que cambia el dibujo en pantalla pero no las
+coordenadas. Respuestas: \dxfEnlace{esperado/cap01_ucs_activa_30.dxf} y
+\dxfEnlace{esperado/cap01_ucs_pasiva_30.dxf}.
+
+\paragraph{\texttt{UNITS}: del ángulo matemático al acimut.} El archivo trae una línea desde
+\(A\) con acimut \(60^\circ\). La caja \enquote{Acimut no es \(\theta\)} del principio del
+capítulo dice que la misma dirección tiene \(\theta=90^\circ-\mathrm{Az}\)
+(proposición~\ref{prop:acimut-theta}).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap01_units.dxf} y listá la línea de la capa \texttt{ACIMUT} con
+  \texttt{LIST}: el ángulo sale \(30^\circ\), contado desde el este en sentido antihorario.
+  \item Con \texttt{UNITS}, poné el cero de los ángulos en el norte y marcá el sentido horario.
+  \item Listá la misma línea: ahora sale \(60^\circ\), el acimut.
+  \item Volvé \texttt{UNITS} a como estaba y reflejá todo el dibujo con \texttt{MIRROR} en la
+  recta que pasa por \((0,0)\) y \((10,10)\); listá la línea reflejada: sale \(60^\circ\).
+\end{enumerate}
+Cambiar el cero del este al norte y el sentido al mismo tiempo es reflejar en la recta \(y=x\):
+la matriz es \(\left(\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right)\), con determinante
+\(-1\). Por eso cambia el sentido: una reflexión invierte la orientación, y el signo menos de
+\(\theta=90^\circ-\mathrm{Az}\) es esa inversión. En LibreCAD, si no encontrás cómo cambiar el
+cero y el sentido de los ángulos, hacé la conversión a mano con esa fórmula. Respuesta:
+\dxfEnlace{esperado/cap01_units_bisectriz.dxf}.
+
+\paragraph{\texttt{ARRAYPOLAR}: componer giros.} Seis copias repartidas en la vuelta completa
+son seis rotaciones \(R(60^\circ)^k=R(60^\circ k)\), por la regla
+\(R(\beta)R(\theta)=R(\theta+\beta)\) de la proposición~\ref{prop:propiedades-R}.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap01_arraypolar.dxf}: un triángulo de vértices \((6,2)\), \((9,2)\) y
+  \((7;\ 4{,}5)\).
+  \item Aplicá \texttt{ARRAYPOLAR} con centro en el origen, seis elementos y \(360^\circ\) (en
+  LibreCAD, \texttt{Modify}~\(\to\)~\texttt{Rotate} con \texttt{Multiple copies}, cinco copias de \(60^\circ\)).
+  \item Listá el vértice \((6,2)\) en la primera copia y en la sexta.
+  \item Para comprobar, dejá solo la primera copia (las letras no pueden repetirse) y guardala.
+\end{enumerate}
+La primera copia es \(R(60^\circ)\), con determinante \(1\), y lleva \((6,2)\) a
+\((1{,}268;\ 6{,}196)\); la sexta es \(R(360^\circ)=I\) y cae sobre el original. Respuesta:
+\dxfEnlace{esperado/cap01_arraypolar_60.dxf}.
+
+Para comprobar cualquiera de estos ejercicios, guardá el resultado como DXF (moviendo también
+los puntos y las letras, no solo la polilínea) y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\), \(t\), \(\det M\) y la familia de la transformación.
+
 \section{En profundidad}
 
 El apéndice~\ref{ap:infinitesimales} desarrolla las rotaciones infinitesimales y su relación

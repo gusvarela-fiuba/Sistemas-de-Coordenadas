@@ -82,3 +82,10 @@ Las columnas son las imágenes de $e_x, e_y, e_z$. Se ve: toda rotación de $\ma
 - Rotar $3+i$ noventa grados con el complejo y con la matriz, y comprobar que $R^TR=Id$ y $\det R=1$
 - Comparar $R_xR_yR_z$ con $R_zR_yR_x$ para ángulos de 1, 0,1 y 0,01 rad
 - Aproximar la rotación de 120 grados alrededor de $(1,1,1)$ repitiendo pasos chicos, y verificar con `scipy.linalg.logm` que la norma del vector eje es el ángulo
+
+## En el CAD
+
+- [`ROTATE` con punto base: rotar la parcela 30° alrededor de A](../cad/#cap1)
+- [`ROTATE` frente a `UCS`: lectura activa y pasiva](../cad/#cap1)
+- [`UNITS`: del ángulo matemático al acimut](../cad/#cap1)
+- [`ARRAYPOLAR`: seis copias a 60° y la composición de giros](../cad/#cap1)

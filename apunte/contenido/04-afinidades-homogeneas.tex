@@ -596,6 +596,63 @@ composición es una similaridad: gira \(45^\circ\) y reduce a la mitad alrededor
 \end{tikzpicture}
 \end{center}
 
+\subsection{En el CAD}\label{sec:cad-cap04}
+
+Un bloque, en un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD), es una figura guardada
+una vez que se inserta donde haga falta, con una escala en \(x\) y otra en \(y\). Insertarlo es
+aplicar la afinidad \(f(x)=Ax+b\) de la definición~\ref{def:06-afinidad} con
+\(A=\left(\begin{smallmatrix}s_x&0\\0&s_y\end{smallmatrix}\right)\). Para qué sirve: ver una
+afinidad que no es similaridad y, con \texttt{STRETCH}, un comando que parece una
+transformación y no lo es. La parcela es la de siempre: \(A=(10,10)\), \(B=(34,17)\),
+\(C=(40,36)\), \(D=(24,38)\) y \(E=(6,32)\).
+
+\paragraph{Insertar un bloque con escala \(x=2\), \(y=1\) y con \(x=-1\): afinidad no conforme
+y reflexión.} El archivo trae el bloque \texttt{PARCELA\_BLOQUE}, definido con punto base en el
+origen.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap04_bloque.dxf}.
+  \item Insertá el bloque con \texttt{INSERT} en \((0,0)\), con escala \(2\) en \(x\), \(1\) en
+  \(y\) y rotación \(0\). Guardá con otro nombre.
+  \item Insertalo de nuevo, ahora con escala \(-1\) en \(x\) y \(1\) en \(y\). Guardá.
+  \item Corré \texttt{que\_matriz.py} sobre cada archivo y mirá el determinante.
+\end{enumerate}
+En LibreCAD, el equivalente está en el menú de bloques; si tu versión no deja escalas distintas
+en \(x\) y en \(y\), hacé este ejercicio en QCAD o AutoCAD. Con \(x=2\), \(y=1\) sale
+\(M=\left(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\right)\), \(\det M=2\): el área se
+duplica y los ángulos cambian, una afinidad que no es conforme (no conserva ángulos), la misma
+matriz \(S\) del ejemplo~\ref{ej:06-escalado}. Con \(x=-1\) sale
+\(M=\left(\begin{smallmatrix}-1&0\\0&1\end{smallmatrix}\right)\), \(\det M=-1\): la reflexión
+en el eje norte, que conserva distancias e invierte el sentido de giro. Las columnas \enquote{Afín} y \enquote{Reflexión}
+del cuadro~\ref{tab:conserva} dicen qué se conserva en cada caso. Si en el archivo queda también la
+parcela original, \texttt{que\_matriz.py} usa los vértices del bloque insertado. Respuestas:
+\dxfEnlace{esperado/cap04_bloque_x2_y1.dxf} y \dxfEnlace{esperado/cap04_bloque_xm1.dxf}.
+
+\paragraph{\texttt{STRETCH}: un contraejemplo.} La capa \texttt{VENTANA} marca un rectángulo
+que encierra \(C\) y \(D\), y deja afuera \(A\), \(B\) y \(E\).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap04_stretch.dxf}.
+  \item Aplicá \texttt{STRETCH} con una ventana de captura que coincida con la de la capa
+  \texttt{VENTANA} y un desplazamiento de \((10,0)\).
+  \item Comprobá con \texttt{ID} que \(C\) pasó a \((50,36)\), \(D\) a \((34,38)\) y que \(A\),
+  \(B\) y \(E\) no se movieron. Guardá con otro nombre.
+  \item Corré \texttt{que\_matriz.py} y leé el residuo.
+\end{enumerate}
+En LibreCAD, el equivalente está en el menú \texttt{Modify}. El residuo es la distancia que
+queda, en media cuadrática, entre la mejor afinidad posible y los puntos del dibujo: acá da
+\(2{,}527\) m, con \(3{,}094\) m en \(E\), cuando el umbral por defecto es de
+\(0{,}005\) m. No es una sola transformación afín, y la razón es la
+proposición~\ref{prop:06-tres-puntos}: \(A\), \(B\) y \(E\) no están alineados y quedaron
+fijos, así que la única afinidad posible es la identidad, que no mueve \(C\) ni \(D\). El
+comando mueve unos vértices y deja otros: en el mapa de la sección~\ref{sec:mapa-transformaciones}
+no entra en ninguna familia. Respuesta: \dxfEnlace{esperado/cap04_stretch_10.dxf}.
+
+Para comprobar, guardá cada resultado como DXF y corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\), \(t\), \(\det M\), el residuo y la familia (\enquote{no afín} cuando el
+residuo supera ese umbral).
+
 \section{En profundidad}
 
 \subsection{La recíproca y el apéndice de composición}\label{sec:06-reciproca}

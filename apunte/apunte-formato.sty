@@ -87,6 +87,9 @@
 \newcommand{\linkAnimacion}[2]{\href{\sitioURL/animaciones/#1.mp4}{\textcolor{rust}{\textbf{#2}\,\(\circlearrowright\)}}}
 \newcommand{\linkFicha}[2]{\href{\sitioURL/capitulos/#1.html}{\textcolor{teal}{#2}}}
 \newcommand{\linkUnidadId}[1]{\href{\sitioURL/unidades/#1/index.html}{\texttt{\detokenize{#1}}}}
+%% \dxfEnlace{<archivo>}: enlace al DXF del laboratorio CAD publicado en el sitio
+%% (\sitioURL/cad/dxf/<archivo>), con el nombre en monoespaciado. Ej.: \dxfEnlace{esperado/cap01_rotate_30.dxf}.
+\newcommand{\dxfEnlace}[1]{\href{\sitioURL/cad/dxf/#1}{\nolinkurl{#1}}}
 
 %% \unidadInteractiva{<id>}{<título>}{<qué hacer>}: recuadro compacto para una actividad concreta
 %% en una unidad interactiva. Línea 1: ▷ y título en negrita (hipervínculo a la unidad); línea 2:

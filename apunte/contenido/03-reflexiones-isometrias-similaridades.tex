@@ -915,6 +915,69 @@ y el ángulo de \(P-c\) a \(P'-c\) es \(63{,}43^\circ\).
 formen un ángulo de \(\theta/2\approx31{,}72^\circ\).
 \end{ejemplo}
 
+\subsection{En el CAD}\label{sec:cad-cap03}
+
+En un programa de dibujo técnico (LibreCAD, QCAD o AutoCAD), \texttt{MIRROR} es la reflexión en
+una recta (definición~\ref{def:reflexion-recta}), \texttt{SCALE} es la homotecia
+(definición~\ref{def:homotecia}) y \texttt{ALIGN} arma, a partir de dos pares de puntos, un
+movimiento rígido o una similaridad (definición~\ref{def:similaridad}). Para qué sirven estos
+ejercicios: comprobar sobre un dibujo los teoremas de composición de reflexiones y ver cuántos
+puntos hacen falta para fijar una similaridad. La parcela es la de siempre: \(A=(10,10)\),
+\(B=(34,17)\), \(C=(40,36)\), \(D=(24,38)\) y \(E=(6,32)\), con \(AB\) de \(25\) m.
+
+\paragraph{\texttt{MIRROR} dos veces: espejos paralelos y espejos que se cortan.} La capa
+\texttt{ESPEJOS} trae las rectas \(x=50\), \(x=60\), \(y=-10\) e \(y=x-30\).
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap03_mirror.dxf}, seleccioná la polilínea, los puntos y las letras, y
+  reflejá con \texttt{MIRROR} en \(x=50\), borrando el original. Listá \(A\) con \texttt{ID}.
+  \item Reflejá el resultado en \(x=60\) y listá \(A\) otra vez.
+  \item Volvé al original y reflejá primero en \(y=-10\) y después en \(y=x-30\).
+  \item Guardá cada resultado con otro nombre y compará.
+\end{enumerate}
+En LibreCAD, el equivalente está en el menú \texttt{Modify}. Una sola reflexión en \(x=50\) da
+\(M=\left(\begin{smallmatrix}-1&0\\0&1\end{smallmatrix}\right)\), \(\det M=-1\), y lleva \(A\)
+a \((90,10)\). Los espejos paralelos, a \(10\) m uno del otro, dan la traslación de vector
+\((20,0)\), el doble de la distancia entre ellos (teorema~\ref{teo:traslacion-dos-reflexiones}):
+\(A\) termina en \((30,10)\). Los espejos que se cortan en \((20,-10)\) forman \(45^\circ\) y
+dan la rotación de \(90^\circ\), el doble del ángulo, alrededor de ese punto
+(teorema~\ref{teo:rotacion-dos-reflexiones}): \(M=R(90^\circ)\), \(t=(10,-30)\) y \(A\)
+termina en \((0,-20)\). En los dos casos el determinante vuelve a ser \(1\): dos inversiones de
+la orientación se cancelan. Respuestas: \dxfEnlace{esperado/cap03_mirror_x50.dxf},
+\dxfEnlace{esperado/cap03_mirror_paralelos.dxf} y \dxfEnlace{esperado/cap03_mirror_cortan.dxf}.
+
+\paragraph{\texttt{ALIGN} y \texttt{SCALE}: movimiento rígido frente a similaridad.} La capa
+\texttt{DESTINO} trae \(A'=(70,10)\) y \(B'=(63,34)\), a \(25\) m entre sí como \(A\) y \(B\), y
+\(A''=(90,10)\) y \(B''=(76,58)\), a \(50\) m.
+\begin{enumerate}
+  \item Abrí \dxfEnlace{cap03_align.dxf} y seleccioná la polilínea, los puntos y las letras.
+  \item Aplicá \texttt{ALIGN} con los pares \(A\to A'\) y \(B\to B'\), y contestá que no al
+  escalado. Guardá con otro nombre.
+  \item Volvé al original y aplicá \texttt{ALIGN} con \(A\to A''\) y \(B\to B''\), esta vez
+  con escalado. Guardá.
+  \item Llegá al mismo resultado en dos pasos: \texttt{ALIGN} sin escalado con \(A\to A''\) y
+  \(B\) hacia \(B''\), y después \texttt{SCALE} con punto base \(A''\) y factor \(2\).
+\end{enumerate}
+En LibreCAD no hay un \texttt{ALIGN} directo: el equivalente está en el menú \texttt{Modify},
+moviendo, rotando y escalando por separado. Sin escala sale un movimiento rígido:
+\(M=R(90^\circ)\), \(t=(80,0)\), \(\det M=1\), una rotación de \(90^\circ\) alrededor de
+\((40,40)\). Con escala sale una similaridad de razón \(2\):
+\(M=2R(90^\circ)=\left(\begin{smallmatrix}0&-2\\2&0\end{smallmatrix}\right)\),
+\(t=(110,-10)\), \(\det M=4\) (las áreas se multiplican por \(4\)) y centro \((26,42)\); es la
+misma cuenta del ejemplo~\ref{ej:similaridad-segmento}, y el paso 4 es la descomposición
+\enquote{homotecia después de isometría} de la proposición~\ref{prop:similaridad-afin}. Con dos
+pares el \texttt{ALIGN} resuelve exacto, porque una similaridad tiene cuatro números libres y dos
+pares dan cuatro ecuaciones. Con más pares medidos, que nunca encajan perfecto, hace falta un
+ajuste: elegir la similaridad que deja las menores diferencias en todos los pares a la vez
+(capítulo~\ref{cap:cuatro-problemas}). Respuestas: \dxfEnlace{esperado/cap03_align_rigido.dxf} y
+\dxfEnlace{esperado/cap03_align_similaridad.dxf}.
+
+Para comprobar, guardá cada resultado como DXF (moviendo también los puntos y las letras) y
+corré, desde la raíz del repositorio,
+\begin{center}\small
+\texttt{uv run python tools/cad/que\_matriz.py original.dxf transformado.dxf}
+\end{center}
+que informa \(M\), \(t\), \(\det M\) y la familia: reflexión, traslación, rotación o similaridad.
+
 \section{En profundidad}
 
 \subsection{Ejemplo numérico de la descomposición}

@@ -78,3 +78,10 @@ Las reflexiones generan las isometrías; con homotecias dan las similaridades, y
 - Mostrar que dos reflexiones en rectas secantes son una rotación del doble del ángulo entre ellas
 - Hallar la afinidad que lleva un triángulo en otro y su punto fijo si lo tiene
 - Escribir en homogéneas la composición de una rotación y una traslación
+
+## En el CAD
+
+- [`MIRROR` dos veces: espejos paralelos (traslación) y espejos que se cortan (rotación)](../cad/#cap3)
+- [`ALIGN` y `SCALE`: movimiento rígido frente a similaridad](../cad/#cap3)
+- [Bloque insertado con escala X = 2, Y = 1 y con X = −1: afinidad y reflexión](../cad/#cap4)
+- [`STRETCH`: un comando que no es una transformación afín](../cad/#cap4)

@@ -65,3 +65,7 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 - Armar el cubo de estados de tres vasos y comprobar que las tres transformaciones conmutan
 - Iterar $F(x)=R(90°)x+(2,0)^T$ desde el origen y hallar el centro de la circunferencia que recorre
 - Mostrar con dos rotaciones que el orden latitud–longitud no es intercambiable
+
+## En el CAD
+
+- [`MOVE` y `ROTATE` frente a `ROTATE` y `MOVE`: el orden importa](../cad/#cap2)

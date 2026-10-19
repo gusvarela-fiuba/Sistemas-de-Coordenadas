@@ -19,6 +19,8 @@ Salida:
   site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm) desde la copia
   site/_build/<archivo>.py              generada con unidades/cb104.py embebido en la celda `# cb104:inline`
   site/apunte.pdf                       copia del apunte
+  site/cad/index.html, site/cad/dxf/    laboratorio CAD: página desde cad/index.md (las secciones «## Capítulo N»
+                                        llevan id="capN") y copia de cad/dxf/**/*.dxf (antes del menú, que la enlaza)
   site/menu.html, site/menu.pdf         piezas por tema para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
   site/.nojekyll                        para GitHub Pages
 
@@ -647,6 +649,42 @@ def generar_fichas(datos: dict, out: Path, exportadas: set[str] = frozenset(), h
         (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
         generadas[c["id"]] = f"capitulos/{c['id']}.html"
     return generadas
+
+
+# ----------------------------------------------------------------------------
+# laboratorio CAD (cad/index.md + cad/dxf → site/cad/)
+# ----------------------------------------------------------------------------
+
+DIR_CAD = RAIZ / "cad"
+_RE_H2_CAPITULO = re.compile(r'<h2(?: id="[^"]*")?>Capítulo (\d+)</h2>')
+
+
+def generar_cad(out: Path) -> list[Path]:
+    """Copia cad/dxf/**/*.dxf a site/cad/dxf/ (misma estructura) y genera site/cad/index.html desde cad/index.md.
+
+    Cada «## Capítulo N» queda con id="capN", el ancla que usan el menú (cad/#capN) y las fichas
+    (../cad/#capN). Devuelve los DXF copiados; si no hay cad/index.md no genera la página.
+    """
+    destino = out / "cad"
+    origen_dxf = DIR_CAD / "dxf"
+    copiados: list[Path] = []
+    if origen_dxf.is_dir():
+        shutil.rmtree(destino / "dxf", ignore_errors=True)
+        for f in sorted(origen_dxf.rglob("*.dxf")):
+            d = destino / "dxf" / f.relative_to(origen_dxf)
+            d.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, d)
+            copiados.append(d)
+    src = DIR_CAD / "index.md"
+    if src.exists():
+        texto = src.read_text(encoding="utf-8")
+        cuerpo = _RE_H2_CAPITULO.sub(lambda m: f'<h2 id="cap{m.group(1)}">Capítulo {m.group(1)}</h2>', md_a_html(texto))
+        titulo = titulo_de_md(texto, "Laboratorio CAD")
+        destino.mkdir(parents=True, exist_ok=True)
+        (destino / "index.html").write_text(
+            pagina(titulo, f'{VOLVER}\n<div class="ficha">\n{cuerpo}\n</div>', katex=True, raiz_rel="../"),
+            encoding="utf-8")
+    return copiados
 
 
 # ----------------------------------------------------------------------------
@@ -1767,6 +1805,12 @@ def main() -> int:
     (out / ".nojekyll").write_text("", encoding="utf-8")
     print(f"  {out / 'index.html'}")
     print(f"  {out / 'mapa.html'}")
+
+    print("== laboratorio CAD")
+    dxf_cad = generar_cad(out)
+    if (out / "cad" / "index.html").exists():
+        print(f"  {out / 'cad' / 'index.html'}")
+    print(f"  {len(dxf_cad)} DXF copiados a {out.name}/cad/dxf/")
 
     if tiempos:
         print("== tiempos de export WASM")
