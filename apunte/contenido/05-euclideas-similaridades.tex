@@ -816,3 +816,168 @@ Una vez hallado, todos los segmentos que parten de \(o\) se escalan por \(\lambd
 el mismo ángulo \(\theta\). Esto completa la parte constructiva y la parte algebraica pedidas
 por la guía.
 \end{resultado}
+
+% Bloque trasladado desde 06-afines-homogeneas el 2026-10-19; se reescribe en la fase del capítulo 05.
+\section{Ejercicios resueltos de reflexiones y homotecias}
+
+\subsection{Resumen de resultados}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{31mm} X X}
+\toprule
+Objeto & Fórmula & Resultado clave\\
+\midrule
+Reflexión puntual &
+\(\rho_b(x)=2b-x\) &
+involución con único punto fijo \(b\)\\
+Dos reflexiones puntuales &
+\(\rho_a\rho_b(x)=x+2(a-b)\) &
+traslación\\
+Tres reflexiones puntuales &
+\(\rho_a\rho_b\rho_c=\rho_d,\ d=a-b+c\) &
+\(a,b,c,d\) forman paralelogramo\\
+Reflexión en recta &
+\(\varphi_B(x)=x-2\frac{n\cdot x-c}{\|n\|^2}n\) &
+el eje queda fijo\\
+Ejes paralelos &
+\(\varphi_A\varphi_B(x)=x+2(\alpha-\beta)n\) &
+traslación perpendicular\\
+Ejes secantes &
+\(\varphi_A\varphi_B=R_{o,2\theta}\) &
+rotación alrededor de la intersección\\
+Traslación y rotación &
+\(T_vQ_c\neq Q_cT_v\) en general &
+mismo ángulo, centros distintos\\
+Homotecia &
+\(\eta_o^k(x)=o+k(x-o)\) &
+distancias multiplicadas por \(|k|\)\\
+Similaridad directa &
+\(S=\varphi_A\varphi_B\eta_o^\lambda\) &
+escala y rotación con centro fijo\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Ejercicios adicionales de consolidación}
+
+\begin{enumerate}
+  \item Sean \(a=(2,-1)\), \(b=(-1,2)\) y \(x=(4,3)\). Calcule
+  \(\rho_a\rho_b(x)\) paso a paso y verifique que coincide con
+  \(x+2(a-b)\). Dibuje los cinco puntos relevantes.
+
+  \item Dados \(a=(1,0)\), \(b=(3,1)\) y \(c=(5,4)\), construya
+  \(d=a-b+c\). Verifique con pendientes o vectores que \(abcd\) es un
+  paralelogramo.
+
+  \item Refleje \(x=(3,4)\) respecto de \(B:2x-y=1\) usando:
+  \begin{enumerate}[label=\alph*)]
+    \item la fórmula con el vector normal;
+    \item la proyección perpendicular;
+    \item una construcción gráfica.
+  \end{enumerate}
+
+  \item Componga las reflexiones respecto de \(B:y=0\) y \(A:y=3\).
+  Repita invirtiendo el orden. Compare los vectores de traslación.
+
+  \item Construya dos rectas por el origen que formen \(30^\circ\).
+  Multiplique sus matrices de reflexión y compruebe que resulta una rotación
+  de \(60^\circ\).
+
+  \item Para \(R=R(90^\circ)\) y \(v=(1,2)\), calcule las expresiones
+  \(T_vR\) y \(RT_v\). Halle el punto fijo de cada una resolviendo
+  \((I-R)c=t\).
+
+  \item Dibuje un triángulo y aplique una homotecia de centro exterior con
+  \(k=\frac32\). Compruebe que las longitudes se multiplican por
+  \(\frac32\) y que los lados correspondientes son paralelos.
+
+  \item Elija una escala \(\lambda=2\) y una rotación de \(40^\circ\) con
+  centro \(o=(1,1)\). Escriba la similaridad como
+  \(S(x)=o+2R(40^\circ)(x-o)\) y proponga dos ejes de reflexión cuya
+  composición produzca el giro.
+\end{enumerate}
+
+\subsubsection{Respuestas para autocorrección}
+
+\begin{enumerate}
+  \item
+  \[
+  \rho_b(4,3)=(-6,1),\qquad
+  \rho_a(-6,1)=(10,-3).
+  \]
+  Como \(2(a-b)=(6,-6)\), también
+  \[
+    (4,3)+(6,-6)=(10,-3).
+  \]
+
+  \item
+  \[
+    d=a-b+c=(3,3).
+  \]
+  Se verifica
+  \[
+  b-a=c-d=(2,1),
+  \qquad
+  c-b=d-a=(2,3).
+  \]
+
+  \item Con \(n=(2,-1)\), \(\lVert n\rVert^2=5\) y
+  \(n\cdot(3,4)-1=1\):
+  \[
+  p=\left(\frac{13}{5},\frac{21}{5}\right),
+  \qquad
+  \varphi_B(3,4)=
+  \left(\frac{11}{5},\frac{22}{5}\right).
+  \]
+
+  \item
+  \[
+  \varphi_A\varphi_B(x,y)=(x,y+6),
+  \qquad
+  \varphi_B\varphi_A(x,y)=(x,y-6).
+  \]
+  El orden invierte el sentido de la traslación.
+
+  \item Tomando \(B\) como el eje \(x\) y \(A\) a \(30^\circ\):
+  \[
+  H_AH_B=
+  \begin{pmatrix}
+  \frac12&-\frac{\sqrt3}{2}\\
+  \frac{\sqrt3}{2}&\frac12
+  \end{pmatrix}
+  =R(60^\circ).
+  \]
+
+  \item Para \(R=R(90^\circ)\):
+  \[
+  T_vR(x)=Rx+(1,2),
+  \qquad
+  RT_v(x)=Rx+(-2,1).
+  \]
+  Sus centros son, respectivamente,
+  \[
+    c_1=\left(-\frac12,\frac32\right),
+    \qquad
+    c_2=\left(-\frac32,-\frac12\right).
+  \]
+
+  \item Una elección concreta es
+  \[
+  o=(4,4),\quad
+  A=(0,0),\quad B=(2,0),\quad C=(0,2).
+  \]
+  Con \(k=\frac32\):
+  \[
+  A'=(-2,-2),\quad B'=(1,-2),\quad C'=(-2,1).
+  \]
+  Los lados pasan de longitud \(2\) a \(3\), y los lados correspondientes permanecen
+  paralelos.
+
+  \item Pueden elegirse dos ejes que pasen por \(o=(1,1)\): \(B\) con dirección
+  \(0^\circ\) y \(A\) con dirección \(20^\circ\). La composición
+  \(\varphi_A\varphi_B\) gira \(40^\circ\); al combinarla con la homotecia de razón \(2\)
+  se obtiene
+  \[
+    S(x)=o+2R(40^\circ)(x-o).
+  \]
+\end{enumerate}
