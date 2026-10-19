@@ -340,7 +340,7 @@ def _(A_esc, lib, mo, np, t_esc):
         mo.hstack([
             mo.md(r"""
             **3.3 Tres puntos determinan la afinidad.** $a = (1,1)$, $b = (3,1)$, $c = (1,2)$ van a $a' = (2,2)$,
-            $b' = (4,2)$, $c' = (3,3)$ (apunte, «Resolución de los ejercicios de afinidades»). Seis incógnitas, seis ecuaciones: cada par da
+            $b' = (4,2)$, $c' = (3,3)$ (apunte, capítulo 4, «Ejercicios con solución»). Seis incógnitas, seis ecuaciones: cada par da
             $x' = ax + by + e$, $y' = cx + dy + f$. A mano, restando, $A(b - a) = b' - a'$ y $A(c - a) = c' - a'$:
             $A\binom{2}{0} = \binom{2}{0}$, $A\binom{0}{1} = \binom{1}{1}$, luego
 
@@ -544,7 +544,7 @@ def _(mo):
 
     - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:afines)
     - [apunte, «Reflexiones, isometrías y similaridades» (los teoremas de reflexiones y similaridades, y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
-    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
+    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:composicion-afin) · [apunte, «Afinidades y coordenadas homogéneas» (ejercicios con solución)](../../apunte.pdf#nameddest=cap:afines)
     - [ficha de los capítulos 3 y 4](../../capitulos/03.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Proyectivas](../05_proyectivas/index.html): sin la restricción de la última fila $(0\ 0\ 1)$ las

@@ -4,7 +4,7 @@ titulo: "Complemento C1: transformaciones proyectivas"
 idea: "Una homografía es lo que hace una cámara inclinada con un terreno plano: conserva rectas y nada más, y cuatro puntos la determinan."
 que_se_estudia: ["Plano proyectivo: puntos como rayos por el origen", "Puntos impropios: el punto de fuga común a las paralelas", "Homografía $p'\\sim Hp$, ocho grados de libertad y cuadrilátero patrón", "Puntos y rectas fijos, clasificación por autovalores, homologías", "Razón doble: lo único métrico que se conserva"]
 conceptos_previos: ["Coordenadas homogéneas y afinidades (capítulo 4)", "Determinante y colinealidad (capítulo 6)", "Autovectores (capítulo 7)"]
-apunte: ["proyectivas", "18"]
+apunte: ["proyectivas", "pentagono"]
 unidades: ["05_proyectivas"]
 animaciones: ["02_homogeneas_pentagono_3d"]
 ejercicios_sugeridos: ["Hallar la homografía que lleva $ABCD\\mapsto BCDA$ en el pentágono de enteros y su punto fijo", "Clasificar por autovalores las homografías $A\\leftrightarrow C$ y $A\\leftrightarrow B$", "Verificar que la razón doble sobre la recta $AC$ da $-1$ en la homología armónica"]

@@ -1,5 +1,5 @@
 % Apéndice: composición afín práctica: rotación y escala
-\section{Composición afín práctica: rotación y escala}\label{cap:16}\label{ap:composicion-afin}
+\section{Composición afín práctica: rotación y escala}\label{cap:composicion-afin}\label{ap:composicion-afin}
 
 \subsection{Rotación alrededor de un centro}
 
@@ -59,7 +59,7 @@ k&0&(1-k)d_x\\
 \end{pmatrix}
 }.
 \]
-Con \(k=0.5\), cada distancia al centro \(d\) queda reducida a la mitad.
+Con \(k=0{,}5\), cada distancia al centro \(d\) queda reducida a la mitad.
 
 \subsection{Composición y orden}
 
@@ -87,14 +87,14 @@ t=k(I-R)c+(1-k)d.
 Se eligen
 \[
 c=(3,1),\qquad d=(-1,2),\qquad
-k=0.5,\qquad \theta=45^\circ.
+k=0{,}5,\qquad \theta=45^\circ.
 \]
 La rotación alrededor de \(c\) queda
 \[
 H_1=
 \begin{pmatrix}
-0.70710678&-0.70710678&1.58578644\\
-0.70710678& 0.70710678&-1.82842712\\
+0{,}70710678&-0{,}70710678&1{,}58578644\\
+0{,}70710678& 0{,}70710678&-1{,}82842712\\
 0&0&1
 \end{pmatrix}.
 \]
@@ -102,8 +102,8 @@ La escala respecto de \(d\) es
 \[
 H_2=
 \begin{pmatrix}
-0.5&0&-0.5\\
-0&0.5&1\\
+0{,}5&0&-0{,}5\\
+0&0{,}5&1\\
 0&0&1
 \end{pmatrix}.
 \]
@@ -112,8 +112,8 @@ El producto es
 \boxed{
 H=H_2H_1=
 \begin{pmatrix}
-0.35355339&-0.35355339&0.29289322\\
-0.35355339& 0.35355339&0.08578644\\
+0{,}35355339&-0{,}35355339&0{,}29289322\\
+0{,}35355339& 0{,}35355339&0{,}08578644\\
 0&0&1
 \end{pmatrix}
 }.
@@ -122,14 +122,14 @@ Por tanto:
 \[
 A=
 \begin{pmatrix}
-0.35355339&-0.35355339\\
-0.35355339& 0.35355339
+0{,}35355339&-0{,}35355339\\
+0{,}35355339& 0{,}35355339
 \end{pmatrix},
 \qquad
 t=
 \begin{pmatrix}
-0.29289322\\
-0.08578644
+0{,}29289322\\
+0{,}08578644
 \end{pmatrix}.
 \]
 
@@ -155,8 +155,8 @@ p_\ast=
 \end{pmatrix}
 \approx
 \begin{pmatrix}
-0.29289322\\
-0.29289322
+0{,}29289322\\
+0{,}29289322
 \end{pmatrix}
 }.
 \]
@@ -170,10 +170,10 @@ p_\ast^{\,h}=
 
 \subsection{Autovalores y coordenadas homogéneas}
 
-Como \(H\) es triangular por bloques, sus autovalores son los dos autovalores de \(A=0.5R\)
+Como \(H\) es triangular por bloques, sus autovalores son los dos autovalores de \(A=0{,}5R\)
 y el autovalor homogéneo \(1\):
 \[
-\lambda_{1,2}=0.5e^{\pm i\pi/4},
+\lambda_{1,2}=0{,}5e^{\pm i\pi/4},
 \qquad
 \lambda_3=1.
 \]

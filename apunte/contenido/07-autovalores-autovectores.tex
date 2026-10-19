@@ -165,7 +165,7 @@ autovalor y que su autovector es el eje. Filas de \(R-I\): \((-1,-1,0)\), \((0,-
 El eje es la dirección \((-1,1,1)\). Los otros autovalores son \(-\frac12\pm\frac{\sqrt3}2 i\):
 un giro de \(120^\circ\) alrededor de ese eje. Con ángulos genéricos (por ejemplo
 \(R_z(30^\circ)R_y(50^\circ)\)) la receta es idéntica y se hace en planilla o en NumPy: el
-eje resulta \((-0.2263,\,0.8446,\,0.4853)\), y \(Rv=v\) se verifica multiplicando.
+eje resulta \((-0{,}2263;\ 0{,}8446;\ 0{,}4853)\), y \(Rv=v\) se verifica multiplicando.
 
 \begin{atencion}[Sobre los ``números lindos'']
 Los ejercicios de álgebra están diseñados para que den enteros. Una matriz genérica, como
@@ -886,3 +886,30 @@ exactamente la imagen afín del de la época 1: es la huella de los residuos de
 \(0{,}45\) mm como máximo. Cien metros cuadrados parecen mucho, pero repartidos sobre un
 perímetro de \(8\,300\) m equivalen a que los lados se corran hacia afuera, en promedio,
 \(12\) mm.}
+
+\begin{ejercicio}\label{ex:autovec-rotacion-so3}
+Sea \(R\in SO(3)\) una rotación distinta de la identidad. Demostrar que \(\lambda=1\) es
+autovalor de \(R\) y que su autovector es la dirección del eje de rotación.
+\end{ejercicio}
+\solucion{Al ser \(R\) una matriz real de dimensión impar, su polinomio característico tiene
+al menos una raíz real. Como \(R\) es ortogonal, todo autovalor tiene módulo \(1\), así que el
+autovalor real es \(1\) o \(-1\). Los otros dos, si no son reales, forman un par conjugado
+\(e^{i\theta},e^{-i\theta}\) de producto \(1\); como \(\det R=1\), el autovalor real restante
+es \(\lambda=1\). Su autovector es la dirección del eje de rotación. Se excluye \(R=I\) porque
+en la identidad todos los vectores son propios con autovalor \(1\) y no hay un eje
+distinguido.}
+
+\begin{ejercicio}\label{ex:autovec-ortogonal-det-negativo}
+Decidir si es cierto que toda matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
+autovalores reales iguales a \(1\) o \(-1\).
+\end{ejercicio}
+\solucion{No es cierto en general. Por ser real y de dimensión impar, la matriz tiene al menos
+un autovalor real; por ser ortogonal, sus autovalores tienen módulo \(1\), y por tener
+determinante \(-1\) siempre existe el autovalor \(\lambda=-1\). Los otros dos pueden ser
+\(e^{\pm i\theta}\), que no son reales cuando \(\theta\notin\{0,\pi\}\). Geométricamente es una
+\emph{rotorreflexión}: una rotación en un plano combinada con una inversión en la dirección
+perpendicular. Contraejemplo:
+\(Q=\left(\begin{smallmatrix}\cos\theta&-\sin\theta&0\\\sin\theta&\cos\theta&0\\0&0&-1\end{smallmatrix}\right)\)
+es ortogonal y \(\det Q=-1\), pero sus autovalores son \(e^{i\theta}\), \(e^{-i\theta}\) y
+\(-1\). Solo en casos especiales, como una reflexión en un plano, los tres son reales:
+\(1,\ 1,\ -1\).}

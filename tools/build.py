@@ -7,7 +7,7 @@ Entradas (relativas a la raíz del repo):
   unidades/*.py                         notebooks marimo
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
   apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
-                                        `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "14", …) y leer su título
+                                        `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "rot3d", …) y leer su título
 
 Salida:
   site/index.html                       portada = el hilo conductor: entradas (Empezar / Seguir el programa / Repasar / Autoevaluación)
@@ -184,7 +184,7 @@ RE_ENCABEZADO = re.compile(r"\\(?:chapter|section|subsection|capituloComplemento
 
 
 def capitulos_apunte() -> dict[str, str]:
-    """{'rotaciones': 'Rotaciones: girar es multiplicar', '14': '…', …} en el orden del apunte.
+    """{'rotaciones': 'Rotaciones: girar es multiplicar', 'rot3d': '…', …} en el orden del apunte.
 
     Cada clave X es un \\label{cap:X} de los .tex que el maestro incluye con \\input (o del maestro
     mismo); el valor es el título del encabezado de esa línea. El enlace es `apunte.pdf#nameddest=cap:X`.
@@ -836,7 +836,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
 
 
 def titulos_secciones_apunte() -> dict[str, str]:
-    """{'rotaciones': 'Rotaciones: girar es multiplicar', '14': '…', …} (ver capitulos_apunte)."""
+    """{'rotaciones': 'Rotaciones: girar es multiplicar', 'rot3d': '…', …} (ver capitulos_apunte)."""
     return capitulos_apunte()
 
 

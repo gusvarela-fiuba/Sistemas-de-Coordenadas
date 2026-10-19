@@ -564,7 +564,7 @@ def _(mo):
     clasificación por autovalores, el pentágono regular con los tres casos y la tabla de verificación):
 
     - [apunte, «Proyectivas» (homogéneas y proyectivas)](../../apunte.pdf#nameddest=cap:proyectivas) ·
-      [apunte, «Pentágono regular: cuentas y script» (el pentágono)](../../apunte.pdf#nameddest=cap:18)
+      [apunte, «Pentágono regular: cuentas y script» (el pentágono)](../../apunte.pdf#nameddest=cap:pentagono)
     - [ficha del complemento C1](../../capitulos/03p.html) · [el hilo conductor](../../index.html) ·
       [unidad 04: afinidades y homogéneas](../04_afines_homogeneas/index.html) (el caso $W = 1$)
 

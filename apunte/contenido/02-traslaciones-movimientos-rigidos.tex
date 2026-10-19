@@ -12,12 +12,21 @@ relevamiento hecho desde un instrumento al sistema de una obra.
 \begin{definicion}[Traslación]\label{def:traslacion}
 La \emph{traslación de vector \(v\)} es la transformación \(\tau_v\colon\mathbb{R}^2\to\mathbb{R}^2\),
 \(\tau_v(x)=x+v\). Si \(v\neq0\) no deja fijo ningún punto; \(\tau_0\) es la identidad. En
-coordenadas homogéneas (capítulo~\ref{cap:rotaciones}, punto \((x,y,1)^T\))
+coordenadas homogéneas (sección~\ref{sec:homogeneas-rotacion}, punto \((x,y,1)^T\))
 \[
 \tau_v\;\leftrightarrow\;
 \begin{pmatrix}1&0&v_1\\0&1&v_2\\0&0&1\end{pmatrix}.
 \]
 \end{definicion}
+
+\paragraph{Por qué coordenadas homogéneas.}\label{sec:homogeneas-traslacion}
+La traslación no es lineal en \((x,y)\): si \(v\neq0\) mueve el origen, y toda transformación
+lineal lo deja fijo (proposición~\ref{prop:lineal-origen}), así que ninguna matriz \(2\times2\)
+la representa. En coordenadas homogéneas, en cambio, es la matriz \(3\times3\) de la
+definición, y por eso se compone multiplicando: el producto de las matrices de \(\tau_w\) y
+\(\tau_v\) es la de \(\tau_{v+w}\), y una rotación seguida de una traslación también es un
+producto de matrices \(3\times3\) (sección~\ref{sec:grupo-rigidos}). La teoría completa está en
+el capítulo~\ref{cap:afines}.
 
 \begin{definicion}[Movimiento rígido]\label{def:movimiento-rigido}
 Un \emph{movimiento rígido} del plano es una transformación que conserva las distancias y la
@@ -246,15 +255,14 @@ identificaría un punto: habría que decir en qué orden se aplicaron.
 La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
 dos reflexiones, y una reflexión aplicada dos veces se cancela.
 
-\begin{definicion}[Reflexión respecto de una recta]
-Sea \(L\) una recta que pasa por el punto \(q\) con ángulo de dirección \(\delta\). La
-\emph{reflexión respecto de \(L\)} es la transformación \(\sigma_L\) que deja fijos los puntos
-de \(L\) y lleva cada punto a su simétrico respecto de \(L\). En fórmulas,
+La reflexión \(\sigma_L\) respecto de una recta \(L\) deja fijos los puntos de \(L\) y lleva cada
+punto a su simétrico respecto de \(L\) (definición~\ref{def:reflexion-recta}, en el
+capítulo~\ref{cap:reflexiones}). Si \(L\) pasa por el punto \(q\) con ángulo de dirección
+\(\delta\), se escribe
 \[
 \sigma_L(p)=q+S(\delta)(p-q),\qquad
 S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
 \]
-\end{definicion}
 
 La matriz \(S(\delta)\) deja fija la dirección \((\cos\delta,\sin\delta)\) de \(L\) y cambia
 de signo la perpendicular; tiene \(\det S(\delta)=-1\), invierte la orientación y cumple

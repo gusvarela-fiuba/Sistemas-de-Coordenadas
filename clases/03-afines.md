@@ -4,7 +4,7 @@ titulo: "Capítulos 3 y 4: reflexiones, similaridades y afinidades"
 idea: "Las reflexiones generan las isometrías; con homotecias dan las similaridades, y las afinidades $x\\mapsto Ax+t$ caben en una matriz $3\\times3$ con coordenadas homogéneas."
 que_se_estudia: ["Reflexión por un punto y por una recta; composición de dos reflexiones", "Afinidad axial y similaridad; punto fijo de una similaridad", "Transformación afín $F(x)=Ax+t$ y su determinación por tres puntos", "Coordenadas homogéneas: la traslación entra en la matriz", "Punto fijo y traslación como límite con centro en el infinito"]
 conceptos_previos: ["Rotaciones y matrices ortogonales (capítulo 1)", "Composición y conmutatividad (capítulo 2)", "Homotecia (capítulo 2)"]
-apunte: ["reflexiones", "afines", "16", "17", "traslaciones"]
+apunte: ["reflexiones", "afines", "composicion-afin", "traslaciones"]
 unidades: ["03_reflexiones_similaridades", "04_afines_homogeneas"]
 animaciones: ["02_homogeneas_pentagono_3d"]
 ejercicios_sugeridos: ["Componer tres reflexiones puntuales y reconocer el resultado", "Mostrar que dos reflexiones en rectas secantes son una rotación del doble del ángulo entre ellas", "Hallar la afinidad que lleva un triángulo en otro y su punto fijo si lo tiene", "Escribir en homogéneas la composición de una rotación y una traslación"]
@@ -61,7 +61,6 @@ Las reflexiones generan las isometrías; con homotecias dan las similaridades, y
 - Capítulo 3. Reflexiones, isometrías y similaridades
 - Capítulo 4. Afinidades y coordenadas homogéneas
 - Apéndice A.3. Composición afín práctica: rotación y escala
-- Sección 4.4. Resolución de los ejercicios de afinidades
 - Capítulo 2. Traslaciones y movimientos rígidos
 
 ## Unidades interactivas

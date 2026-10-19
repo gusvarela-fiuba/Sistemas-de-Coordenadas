@@ -1416,3 +1416,32 @@ decidir de qué tipo es según el teorema~\ref{teo:clasificacion-isometrias} y c
 vector \((0,-2)\), paralelo al eje: una antitraslación. No tiene puntos fijos, porque \(y-2=y\)
 es imposible, y es inversa (tres reflexiones). Además \(f\circ f(x,y)=(x,\,y-4)\): dos veces la
 misma antitraslación dan una traslación.}
+
+\begin{ejercicio}\label{ex:refl-dos-puntuales-general}
+Dados \(a\neq b\), demostrar que \(\rho_a\circ\rho_b\) no tiene puntos fijos.
+\end{ejercicio}
+\solucion{\(\rho_a\rho_b(x)=x+2(a-b)\). Si existiera un punto fijo, \(x+2(a-b)=x\) daría
+\(a=b\), lo que contradice \(a\neq b\). Por lo tanto \(\operatorname{Fix}(\rho_a\rho_b)=\varnothing\)
+si \(a\neq b\). Geométricamente, la composición es una traslación no nula: todos los puntos se
+desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer en su lugar. Si
+\(a=b\), las dos reflexiones se anulan y la composición es la identidad.}
+
+\begin{ejercicio}\label{ex:refl-cuatro-rectas}
+Dadas cuatro rectas \(a,b,c,d\), hallar, por un método analítico y por uno gráfico, el punto
+fijo de \(F=\refl{a}\refl{b}\refl{c}\refl{d}\), si existe.
+\end{ejercicio}
+\solucion{Cada reflexión en una recta es una afinidad \(\refl{i}(x)=H_ix+q_i\), con \(H_i\)
+ortogonal de determinante \(-1\). La composición es \(F(x)=Ax+t\), con
+\[
+  A=H_aH_bH_cH_d,\qquad
+  t=H_aH_bH_cq_d+H_aH_bq_c+H_aq_b+q_a .
+\]
+Como intervienen cuatro reflexiones, \(\det A=(-1)^4=1\): \(F\) preserva la orientación y es
+una rotación o una traslación. \emph{Método analítico.} Los puntos fijos satisfacen
+\((I-A)x=t\). Si \(I-A\) es invertible, hay un único punto fijo, \(x_\ast=(I-A)^{-1}t\), y
+\(F\) es una rotación con centro \(x_\ast\). Si \(A=I\) y \(t\neq0\), \(F\) es una traslación
+y no tiene punto fijo; si \(A=I\) y \(t=0\), es la identidad y todos los puntos son fijos.
+\emph{Método gráfico.} Se eligen dos puntos \(p,q\), se construyen sucesivamente sus cuatro
+reflejos hasta obtener \(F(p)\) y \(F(q)\), y se trazan las mediatrices de
+\(\overline{pF(p)}\) y \(\overline{qF(q)}\). Si se cortan, la intersección es el centro de
+rotación; si son paralelas, el resultado es una traslación y no existe centro finito.}

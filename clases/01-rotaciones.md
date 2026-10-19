@@ -4,7 +4,7 @@ titulo: "Capítulo 1: rotaciones, de los complejos a la exponencial"
 idea: "Una rotación es la transformación que fija un punto y conserva distancias, ángulos y orientación; se escribe con complejos, con matrices ortogonales y, en lo pequeño, con la exponencial."
 que_se_estudia: ["Rotación con y sin centro en el origen, y su escritura con números complejos y con matrices 2x2", "Producto interno y matrices ortogonales: qué significa conservar distancias y ángulos", "Rotaciones en el espacio: R_x, R_y, R_z y el orden de composición", "Rotaciones infinitesimales: Id + P con P antisimétrica", "Exponencial de matrices y logaritmo: la rotación como repetición de pasos chicos"]
 conceptos_previos: ["Transformación lineal y matriz 2x2 (CBC)", "Producto interno y módulo de un vector", "Números complejos (secundario)"]
-apunte: ["rotaciones", "14", "15", "03"]
+apunte: ["rotaciones", "rot3d", "infinitesimales", "repaso-algebra"]
 unidades: ["00_fundamentos", "01a_punto_quieto", "01b_rotacion_plano", "01c_rotaciones_3d", "02_producto_interno"]
 animaciones: []
 ejercicios_sugeridos: ["Rotar $3+i$ noventa grados con el complejo y con la matriz, y comprobar que $R^TR=Id$ y $\\det R=1$", "Comparar $R_xR_yR_z$ con $R_zR_yR_x$ para ángulos de 1, 0,1 y 0,01 rad", "Aproximar la rotación de 120 grados alrededor de $(1,1,1)$ repitiendo pasos chicos, y verificar con `scipy.linalg.logm` que la norma del vector eje es el ángulo"]

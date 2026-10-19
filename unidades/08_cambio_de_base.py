@@ -162,8 +162,7 @@ def _(mo):
     independientes: una rotación no tiene ninguno y una cizalla tiene uno solo, y ninguna se diagonaliza (la SVD,
     unidad 09, la esquiva con dos bases distintas). El argumento general cabe en una línea, columna por columna:
     $A\,b_k = \lambda_k b_k$ para cada $k$ es lo mismo que $AB = B\Lambda$, y si las columnas son independientes
-    $B$ se invierte y queda $B^{-1}AB = \Lambda$. Otra notación habitual escribe $T = A\,D\,A^{-1}$ con $A$ = autovectores en columnas; acá
-    esa matriz es $B$, para no confundirla con la transformación.
+    $B$ se invierte y queda $B^{-1}AB = \Lambda$.
     """)
     return
 
@@ -173,47 +172,43 @@ def _(mo):
     mo.callout(mo.md(r"""
     **La matriz de cambio de base y el despeje de la diagonalización.**
 
-    En este recuadro seguimos esa otra notación: $A = [\,v_1 \mid v_2\,]$ es la matriz de cambio de base (la $B$ del resto de la unidad) y la transformación se llama $T$. Fuera del recuadro, $A$ es la transformación y $B$ el cambio de base.
-
     **(1) Quién se transforma con qué.** El diagrama de conmutatividad, escrito en orden de aplicación:
 
-    $$(P)\to(A)\to[\,A^{-1}\to T\to A\,]\to(A^{-1})\to(\ell).$$
+    $$(P)\to(B)\to[\,B^{-1}\to \Lambda\to B\,]\to(B^{-1})\to(\ell).$$
 
-    Los puntos se transforman con $A$ y las formas (las rectas) con $A^{-1}$, para que la incidencia $\ell\,P = 0$
-    siga dando cero. Con el sentido que fija la definición de (2), $A$ de la base de autovectores a la canónica, la
-    caja del medio recibe coordenadas canónicas y devuelve coordenadas canónicas: el $T$ de adentro es la diagonal
-    $T_{\text{diag}}$ (actúa en la base de autovectores) y la caja entera, leída como producto (lo que se aplica
-    último va a la izquierda), es $A\,T_{\text{diag}}\,A^{-1} = T_{\text{can}}$, la misma transformación escrita en
-    la base vieja. La diagonal $T_{\text{diag}} = A^{-1}\,T_{\text{can}}\,A$ es lo que queda adentro cuando la
-    despejamos en (3).
+    Los puntos se transforman con $B$ y las formas (las rectas) con $B^{-1}$, para que la incidencia $\ell\,P = 0$
+    siga dando cero. Con el sentido que fija (2), $B$ de la base de autovectores a la canónica, la caja del medio
+    recibe coordenadas canónicas y devuelve coordenadas canónicas: la $\Lambda$ de adentro es la diagonal (actúa en la
+    base de autovectores) y la caja entera, leída como producto (lo que se aplica último va a la izquierda), es
+    $B\,\Lambda\,B^{-1} = A$, la misma transformación escrita en la base vieja. La diagonal $\Lambda = B^{-1}AB$ es lo
+    que queda adentro cuando la despejamos en (3).
 
-    **(2) Los autovectores en columnas.** Definimos $A = [\,v_1 \mid v_2\,]$ con los autovectores como columnas y lo
-    probamos con el vector $(1, 0)^T$: $A\,(1, 0)^T$ devuelve la primera columna, $v_1$, escrita en canónica. Entra un
-    vector en **base de autovectores** (una unidad de $v_1$, nada de $v_2$) y sale el mismo vector en **base
-    canónica**: $A$ traduce de la base de autovectores a la canónica, y $A^{-1}$ de la canónica a la de autovectores.
-    Es la $B$ de esta lección. Ejemplo: el punto $(1, 1) = 1\,e_x + 1\,e_y$ pasa con $A^{-1}$ a coordenadas
-    $(c_1, c_2)$ en la base de autovectores, $(1, 1) = c_1 v_1 + c_2 v_2$. Ahí la transformación es diagonal: cada
-    coordenada se multiplica por su autovalor, $(c_1, c_2) \mapsto (\lambda_1 c_1,\ \lambda_2 c_2)$. Después $A$
-    devuelve el resultado a la canónica: $\lambda_1 c_1 v_1 + \lambda_2 c_2 v_2$, otra vez en $e_x, e_y$.
+    **(2) Los autovectores en columnas.** Con $B = [\,v_1 \mid v_2\,]$, los autovectores como columnas, probamos con
+    el vector $(1, 0)^T$: $B\,(1, 0)^T$ devuelve la primera columna, $v_1$, escrita en canónica. Entra un vector en
+    **base de autovectores** (una unidad de $v_1$, nada de $v_2$) y sale el mismo vector en **base canónica**: $B$
+    traduce de la base de autovectores a la canónica, y $B^{-1}$ de la canónica a la de autovectores. Ejemplo: el punto
+    $(1, 1) = 1\,e_x + 1\,e_y$ pasa con $B^{-1}$ a coordenadas $(c_1, c_2)$ en la base de autovectores,
+    $(1, 1) = c_1 v_1 + c_2 v_2$. Ahí la transformación es diagonal: cada coordenada se multiplica por su autovalor,
+    $(c_1, c_2) \mapsto (\lambda_1 c_1,\ \lambda_2 c_2)$. Después $B$ devuelve el resultado a la canónica:
+    $\lambda_1 c_1 v_1 + \lambda_2 c_2 v_2$, otra vez en $e_x, e_y$.
 
-    **(3) El camino en tres pasos y el despeje.** Lo de (2) dice que, con $A$ de autovectores a canónica,
+    **(3) El camino en tres pasos y el despeje.** Lo de (2) dice que, con $B$ de autovectores a canónica,
 
-    $$T_{\text{can}} = A\,T_{\text{diag}}\,A^{-1},$$
+    $$A = B\,\Lambda\,B^{-1},$$
 
-    leída de derecha a izquierda: entrar con $A^{-1}$, estirar con $T_{\text{diag}}$, salir con $A$. Para despejar la
-    diagonal multiplicamos por $A^{-1}$ a la izquierda y por $A$ a la derecha,
+    leída de derecha a izquierda: entrar con $B^{-1}$, estirar con $\Lambda$, salir con $B$. Para despejar la
+    diagonal multiplicamos por $B^{-1}$ a la izquierda y por $B$ a la derecha,
 
-    $$A^{-1}\,T_{\text{can}}\,A = A^{-1}A\;T_{\text{diag}}\;A\,A^{-1} = T_{\text{diag}},$$
+    $$B^{-1}\,A\,B = B^{-1}B\;\Lambda\;B\,B^{-1} = \Lambda,$$
 
-    porque los dos pares $A^{-1}A = I$ y $A\,A^{-1} = I$ se cancelan. Es la misma cuenta que $B^{-1}AB = \Lambda$ de
-    arriba, con el nombre $A$ en el lugar de $B$ y $T$ en el lugar de $A$.
+    porque los dos pares $B^{-1}B = I$ y $B\,B^{-1} = I$ se cancelan.
     """), kind="info")
     return
 
 
 @app.cell
 def _(lib, mo):
-    mo.Html(lib.video_loop("03_cambio_de_base_viaje", "Recorremos las tres etapas de T = A·T_diag·A⁻¹ y las deshacemos: leemos p en la base de autovectores, estiramos cada dirección propia (λ₁ = 3, λ₂ = 1) y volvemos a la grilla canónica."))
+    mo.Html(lib.video_loop("03_cambio_de_base_viaje", "Recorremos las tres etapas de A = B·Λ·B⁻¹ y las deshacemos: leemos p en la base de autovectores, estiramos cada dirección propia (λ₁ = 3, λ₂ = 1) y volvemos a la grilla canónica."))
     return
 
 
@@ -669,8 +664,8 @@ def _(mo):
 
     - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
       "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (el ejemplo
-      numérico de $P^{-1}AP = D$; el argumento general, $AB = B\Lambda$ columna por columna, está en la sección 1 de
-      esta unidad) y el párrafo con las grillas y el despeje $T_{\mathrm{diag}} = A^{-1}\,T_{\mathrm{can}}\,A$
+      numérico de la diagonalización; el argumento general, $AB = B\Lambda$ columna por columna, está en la sección 1
+      de esta unidad) y el párrafo con las grillas y el despeje de la diagonal
       · [apunte, «Álgebra de las transformaciones» (autovectores, formas lineales, cambio de base)](../../apunte.pdf#nameddest=cap:cambio-base)
     - [ficha del capítulo 9](../../capitulos/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 

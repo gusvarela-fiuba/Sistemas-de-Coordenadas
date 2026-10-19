@@ -543,7 +543,7 @@ def _(mo):
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
     - [apunte, «Reflexiones, isometrías y similaridades» (los seis teoremas y su resolución completa)](../../apunte.pdf#nameddest=cap:reflexiones)
-    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
+    - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:composicion-afin)
     - [ficha de los capítulos 3 y 4](../../capitulos/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 
     **Lo que viene:** [Afinidades y coordenadas homogéneas](../04_afines_homogeneas/index.html): cuando los ángulos ya

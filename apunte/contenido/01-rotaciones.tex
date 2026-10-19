@@ -345,8 +345,21 @@ finalmente se deshace la traslación:
 \]
 Distribuyendo, \(c+R(\theta)p-R(\theta)c=R(\theta)p+\bigl(I-R(\theta)\bigr)c\). Es una
 transformación afín con parte lineal \(R(\theta)\) y traslación \(t=(I-R(\theta))c\), que es
-distinta de cero si \(c\neq o\) y \(\theta\not\equiv0\). En coordenadas homogéneas
-\((x,y,1)^T\) se escribe con una sola matriz:
+distinta de cero si \(c\neq o\) y \(\theta\not\equiv0\).
+
+\paragraph{Coordenadas homogéneas: primera presentación.}\label{sec:homogeneas-rotacion}
+Para que la rotación alrededor de \(c\) sea, como la lineal, un solo producto por una matriz,
+agregamos una tercera coordenada igual a \(1\): el punto \((x,y)\) se escribe \((x,y,1)^T\).
+La rotación lineal pasa a ser la matriz \(3\times3\)
+\[
+\begin{pmatrix}
+\cos\theta&-\sin\theta&0\\
+\sin\theta&\cos\theta&0\\
+0&0&1
+\end{pmatrix},
+\]
+que hace con \((x,y)\) lo mismo que \(R(\theta)\) y deja el \(1\) en su lugar, y la rotación
+alrededor de \(c\) se escribe con una sola matriz:
 \[
 H_{c,\theta}=
 \begin{pmatrix}
@@ -354,6 +367,10 @@ R(\theta) & (I-R(\theta))c\\
 0\ \ 0 & 1
 \end{pmatrix}.
 \]
+La última columna guarda la traslación \((I-R(\theta))c\) y la última fila, \((0\ 0\ 1)\),
+conserva el \(1\). Componer rotaciones es multiplicar estas matrices. Son las coordenadas
+homogéneas; el capítulo~\ref{cap:traslaciones} las usa para la traslación y el
+capítulo~\ref{cap:afines} (sección~\ref{sec:homogeneas}) reúne la teoría completa.
 
 \begin{center}
 \begin{tikzpicture}[scale=.95]

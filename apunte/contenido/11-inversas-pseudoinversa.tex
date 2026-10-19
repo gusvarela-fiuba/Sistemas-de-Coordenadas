@@ -18,8 +18,7 @@ salida, perpendiculares de a pares.
 \((x_1,x_2,x_3)\) y en las cuentas como columnas; \(A\) es una matriz de \(m\times n\), que
 lleva la entrada \(\R^n\) a la salida \(\R^m\); \(\lVert x\rVert\) es la norma euclídea.
 Núcleo, imagen y rango se definieron en la sección~\ref{sec:nucleo}; la SVD
-\(A=U\Sigma V^T\), en el capítulo~\ref{cap:svd}. Escribimos \(\operatorname{Im}A\) para la
-imagen (en el capítulo~\ref{cap:subespacios}, \(\operatorname{im}A\)).
+\(A=U\Sigma V^T\), en el capítulo~\ref{cap:svd}.
 
 \begin{idea}[Sólo se deshace lo que no se aplastó]
 Una matriz cuadrada se invierte si no aplasta ninguna dirección: \(\det A\neq0\), núcleo
@@ -235,7 +234,7 @@ parte la entrada \(\R^n\) en dos pedazos perpendiculares y la salida \(\R^m\) en
 \begin{itemize}
   \item \textbf{núcleo}: ``vectores de la entrada que caen al \(0\)''; la dirección
   aplastada;
-  \item \textbf{co-imagen} (rango de entrada, \(\operatorname{Im}A^T\)):
+  \item \textbf{co-imagen} (rango de entrada, \(\operatorname{im}A^T\)):
   lo perpendicular al núcleo; las direcciones que sí se distinguen a la salida;
   \item \textbf{imagen}: lo alcanzable a la salida; el plano o la
   recta donde cae todo;
@@ -254,20 +253,20 @@ y núcleo \(\{0\}\), salvo en el polo del elipsoide, donde \(r_\lambda=0\) y apa
 \begin{definicion}[Los cuatro subespacios fundamentales]\label{def:cuatro-subespacios}
 Para una matriz \(A\) de \(m\times n\) y rango \(r\):
 \begin{itemize}
-  \item en la entrada \(\R^n\): la \emph{co-imagen} \(\operatorname{Im}A^T\), generada por
+  \item en la entrada \(\R^n\): la \emph{co-imagen} \(\operatorname{im}A^T\), generada por
   las filas de \(A\), y el \emph{núcleo} \(\ker A=\{x:\ Ax=0\}\);
-  \item en la salida \(\R^m\): la \emph{imagen} \(\operatorname{Im}A\), generada por las
+  \item en la salida \(\R^m\): la \emph{imagen} \(\operatorname{im}A\), generada por las
   columnas, y el \emph{núcleo a izquierda} \(\ker A^T=\{y:\ A^Ty=0\}\), el espacio
   inaccesible.
 \end{itemize}
 \end{definicion}
 
 \begin{proposicion}[Ortogonalidad y dimensiones de los cuatro subespacios]\label{prop:cuatro-subespacios}
-\(\ker A\) es el complemento ortogonal de \(\operatorname{Im}A^T\) en \(\R^n\), y
-\(\ker A^T\) es el complemento ortogonal de \(\operatorname{Im}A\) en \(\R^m\). Sus
+\(\ker A\) es el complemento ortogonal de \(\operatorname{im}A^T\) en \(\R^n\), y
+\(\ker A^T\) es el complemento ortogonal de \(\operatorname{im}A\) en \(\R^m\). Sus
 dimensiones son
 \[
-  \dim\operatorname{Im}A^T=\dim\operatorname{Im}A=r,\qquad
+  \dim\operatorname{im}A^T=\dim\operatorname{im}A=r,\qquad
   \dim\ker A=n-r,\qquad \dim\ker A^T=m-r .
 \]
 \end{proposicion}
@@ -275,8 +274,8 @@ dimensiones son
 \begin{demostracion}
 La coordenada \(i\) de \(Ax\) es el producto interno de la fila \(i\) con \(x\). Entonces
 \(Ax=0\) si y sólo si \(x\) es perpendicular a todas las filas, es decir, a todo
-\(\operatorname{Im}A^T\). Aplicado a \(A^T\), cuyas filas son las columnas de \(A\):
-\(A^Ty=0\) si y sólo si \(y\perp\operatorname{Im}A\). Las filas y las columnas de \(A\)
+\(\operatorname{im}A^T\). Aplicado a \(A^T\), cuyas filas son las columnas de \(A\):
+\(A^Ty=0\) si y sólo si \(y\perp\operatorname{im}A\). Las filas y las columnas de \(A\)
 tienen la misma cantidad máxima de vectores independientes (definición~\ref{def:nucleo-imagen}),
 así que las dos imágenes tienen dimensión \(r\); los complementos ortogonales tienen la
 dimensión que falta para completar \(n\) y \(m\).
@@ -372,7 +371,7 @@ perpendicularmente a lo que el modelo puede explicar.
 \centering
 \includegraphics[width=.78\linewidth]{figuras/inversas/inv_proyeccion.png}
 \caption{Esquema de la recta por tres puntos: \(y=(0,1,3)\) no está en el plano
-\(\operatorname{Im}A\) generado por las columnas \(a_1=(0,1,2)\) y \(a_2=(1,1,1)\). La
+\(\operatorname{im}A\) generado por las columnas \(a_1=(0,1,2)\) y \(a_2=(1,1,1)\). La
 solución de mínimos cuadrados es la que da como salida la proyección ortogonal
 \(A\hat x\); el residuo \(r\) es perpendicular al plano, es decir, está en \(\ker A^T\).
 Generada con \texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
@@ -384,12 +383,12 @@ Generada con \texttt{apunte/scripts/cap11\_inversas\_pseudoinversa.py}.}
 Cuando hay más ecuaciones que incógnitas, \(Ax=b\) en general no tiene solución: \(b\) no
 está en la imagen. La figura~\ref{fig:inv-proyeccion} muestra qué conviene hacer: elegir el
 \(\hat x\) cuya salida \(A\hat x\) sea el punto de la imagen más cercano a \(b\), que es la
-proyección ortogonal de \(b\) sobre \(\operatorname{Im}A\).
+proyección ortogonal de \(b\) sobre \(\operatorname{im}A\).
 
 \begin{proposicion}[Mínimos cuadrados y ecuaciones normales]\label{prop:ecuaciones-normales}
 Sea \(A\) de \(m\times n\) y \(b\in\R^m\). Un vector \(\hat x\) minimiza
 \(\lVert Ax-b\rVert\) si y sólo si el residuo \(r=b-A\hat x\) es perpendicular a
-\(\operatorname{Im}A\), es decir, si y sólo si
+\(\operatorname{im}A\), es decir, si y sólo si
 \[
   \boxed{\ A^TA\,\hat x=A^Tb\ } .
 \]
@@ -458,7 +457,7 @@ Si \(A\) de \(m\times n\) tiene filas independientes (rango \(m\)), \(AA^T\) es 
 \[
   \boxed{\ x^{+}=A^{+}b,\qquad A^{+}=A^T(AA^T)^{-1}\ }
 \]
-es la única solución de \(Ax=b\) que está en \(\operatorname{Im}A^T\), y la de menor norma.
+es la única solución de \(Ax=b\) que está en \(\operatorname{im}A^T\), y la de menor norma.
 \end{proposicion}
 
 \begin{demostracion}
@@ -549,7 +548,7 @@ sección~\ref{sec:aplicacion-nivelacion}.
 
 Las condiciones (1) y (3) dicen que \(P=AA^{+}\) es simétrica y cumple
 \(P^2=AA^{+}AA^{+}=AA^{+}=P\): es la \emph{proyección ortogonal} sobre
-\(\operatorname{Im}A\). Su complemento \(I-P\) proyecta sobre \(\ker A^T\). En un ajuste,
+\(\operatorname{im}A\). Su complemento \(I-P\) proyecta sobre \(\ker A^T\). En un ajuste,
 \[
   b=\underbrace{Pb}_{\text{lo que el modelo explica}}+\underbrace{(I-P)b}_{\text{residuo}},
 \]

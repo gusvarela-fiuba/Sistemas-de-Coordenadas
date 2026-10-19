@@ -423,8 +423,8 @@ def _(mo):
     En esta unidad demostramos que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
 
     - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones) (el orden importa, el ejemplo de $90°$)
-    - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:14)
-    - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:15)
+    - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:rot3d)
+    - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:infinitesimales)
     - [ficha del capítulo 1](../../capitulos/01.html) · [ficha del capítulo 2](../../capitulos/02.html) · [unidad anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [producto interno: proyección, longitud, ángulo](../02_producto_interno/index.html), la herramienta

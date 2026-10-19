@@ -276,7 +276,7 @@ mínimo. Falta traducir a la matriz \(S\). Como \(I=P^TP\),
 \[
   P^{-1}AP=P^{-1}P^{-T}\,II=(P^TP)^{-1}II=I^{-1}II=S,
 \]
-así que \(S\) y \(A\) son semejantes y tienen los mismos autovalores; si \(Ae_i=\kappa_ie_i\),
+así que \(S\) y \(A\) son conjugadas y tienen los mismos autovalores; si \(Ae_i=\kappa_ie_i\),
 entonces \(d_i=P^{-1}e_i\) cumple \(Sd_i=\kappa_id_i\), es decir \((II-\kappa_iI)d_i=0\), y
 \(\det(II-\kappa I)=\det I\,\det(S-\kappa I_2)\) se anula en los mismos \(\kappa\). Por último,
 \(d_1^TI\,d_2=(Pd_1)^T(Pd_2)=e_1\cdot e_2=0\).
@@ -514,7 +514,7 @@ Es la regla de las formas cuadráticas de la tabla~\ref{tab:regla-de-cada-objeto
 \[
   \tilde I^{-1}\tilde{II}=C^{-1}I^{-1}C^{-T}C^T\,II\,C=C^{-1}\,(I^{-1}II)\,C
 \]
-cambia por semejanza (sección~\ref{sec:conjugacion}): \(S=I^{-1}II\) es una transformación
+cambia por conjugación (sección~\ref{sec:conjugacion}): \(S=I^{-1}II\) es una transformación
 lineal del plano tangente, no una forma cuadrática. Por eso sus autovalores \(\kappa_1\),
 \(\kappa_2\), su determinante \(K\) y su traza \(2H\) no dependen de la parametrización, y sus
 autovectores se transforman como vectores, \(\tilde d_i=C^{-1}d_i\). Los coeficientes \(L,M,N\)

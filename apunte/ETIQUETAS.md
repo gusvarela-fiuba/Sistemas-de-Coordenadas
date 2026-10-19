@@ -34,8 +34,8 @@ Cuando varios capítulos se escriben a la vez, cada uno cita a los otros con `\r
 
 | Etiqueta | Qué marca |
 |---|---|
-| `sec:conjugacion` | Conjugación o semejanza: B = C⁻¹AC, lectura activa |
-| `def:conjugacion` | Definición de matrices conjugadas o semejantes |
+| `sec:conjugacion` | Conjugación: B = C⁻¹AC, lecturas pasiva y activa |
+| `def:conjugacion` | Definición de matrices conjugadas (único lugar donde aparece el sinónimo «semejantes») |
 | `sec:congruencia` | Subsección «Cada objeto cambia con su regla» |
 | `prop:congruencia-ortogonal` | Si C es ortogonal, C⁻¹AC = CᵀAC |
 | `tab:regla-de-cada-objeto` | Tabla vector / forma lineal / transformación / forma cuadrática |
@@ -52,7 +52,7 @@ Cuando varios capítulos se escriben a la vez, cada uno cita a los otros con `\r
 |---|---|
 | `caja:convencion-en` | Caja «Coordenadas (E, N) y planillas oficiales» (ya existe) |
 | `tab:operaciones` | Tabla de referencia «Qué mide cada operación» |
-| `sec:glosario` | Glosario (conjugación o semejanza, congruencia, conjugado complejo, conjugado armónico, adjugada, adjunta) |
+| `sec:glosario` | Glosario (conjugación, similaridad, congruencia, conjugado complejo, conjugado armónico, adjugada, adjunta) |
 | `caja:comprobaciones` | Caja «Tres tipos de comprobación con código» en «Cómo usar este apunte» |
 
 ## Complementos C1 y C2
@@ -89,3 +89,27 @@ Cuando varios capítulos se escriben a la vez, cada uno cita a los otros con `\r
 | `ap:infinitesimales` | Apéndice de rotaciones infinitesimales (ya existe) |
 | `ap:bibliografia` | Bibliografía (ya existe) |
 | `ap:notebooks` | Tabla de unidades generada (ya existe) |
+
+## Etiquetas con nombre en lugar de las numéricas heredadas (fase F)
+
+Las claves `apunte:` de las fichas y del mapa son estos nombres sin `cap:`. No se usan etiquetas `cap:NN`.
+
+| Etiqueta | Qué marca | Reemplaza a |
+|---|---|---|
+| `cap:como-usar` | Capítulo 0, «Cómo usar este apunte» | `cap:00` |
+| `cap:programa` | Capítulo 0, «Programa» | `cap:01` |
+| `cap:hilo` | Capítulo 0, «El hilo conductor» | `cap:02` |
+| `cap:repaso-algebra` | Capítulo 0, «Repaso de álgebra lineal desde la geometría» | `cap:03` |
+| `cap:rot3d` | Apéndice, matrices de rotación 3D (junto a `ap:rot3d`) | `cap:14` |
+| `cap:infinitesimales` | Apéndice, rotaciones infinitesimales (junto a `ap:infinitesimales`) | `cap:15` |
+| `cap:composicion-afin` | Apéndice, composición afín práctica (junto a `ap:composicion-afin`) | `cap:16` |
+| `cap:pentagono` | Complemento C1, «El pentágono» (junto a `ap:pentagono`) | `cap:18` |
+| `cap:bibliografia` | Apéndice, bibliografía comentada (junto a `ap:bibliografia`) | `cap:20` |
+| `cap:notebooks` | Apéndice, material de práctica y notebooks (junto a `ap:notebooks`) | `cap:21` |
+| `sec:homogeneas-rotacion` | Capítulo 1, primera presentación de las coordenadas homogéneas | — |
+| `sec:homogeneas-traslacion` | Capítulo 2, la traslación en coordenadas homogéneas | — |
+
+`cap:17` / `ap:ejercicios-afinidades` («Resolución de los ejercicios de afinidades») ya no existen: sus
+ejercicios pasaron a `ex:afin-tres-puntos-general` (cap. 4), `ex:refl-dos-puntuales-general` y
+`ex:refl-cuatro-rectas` (cap. 3), `ex:autovec-rotacion-so3` y `ex:autovec-ortogonal-det-negativo` (cap. 7).
+

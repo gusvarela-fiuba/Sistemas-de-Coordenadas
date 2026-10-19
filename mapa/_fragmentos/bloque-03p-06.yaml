@@ -48,7 +48,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "p' ~ H p con H 3x3 invertible y división por W; es la foto de una cámara inclinada: rectas siguen rectas, paralelas convergen. 8 grados de libertad, cuatro puntos sin tres alineados la fijan; H = K2 K1^-1 por el cuadrilátero patrón."
     que_se_conserva: "Rectas, incidencia y razón doble; no paralelismo, ni razones simples, ni ángulos."
-    apunte: ["proyectivas", "18"]
+    apunte: ["proyectivas", "pentagono"]
     requiere: [transformacion-afin, coordenadas-homogeneas, colinealidad, determinante]
   - id: recta-fija
     nombre: "Puntos y rectas fijas de una homografía"
@@ -56,7 +56,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "Punto fijo = autovector real de H (siempre hay uno, grado 3); recta fija = autovector de H^T. Raíz doble con cruz de filas nula = recta entera de puntos fijos (eje) más centro: homología; autovalores opuestos = homología armónica (espejo proyectivo, H^2 ~ I)."
     que_se_conserva: "El eje punto a punto y el centro; sobre cada recta por el centro, una reflexión vista en perspectiva."
-    apunte: ["proyectivas", "18"]
+    apunte: ["proyectivas", "pentagono"]
     requiere: [autovector, autovalor, punto-fijo, forma-lineal]
   - id: razon-doble
     nombre: "Razón doble"
@@ -179,7 +179,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble)."
     que_se_conserva: "La dirección; sólo cambia la escala."
-    apunte: ["autovectores", "18", "proyectivas"]
+    apunte: ["autovectores", "pentagono", "proyectivas"]
     requiere: [nucleo, subespacio-invariante, producto-vectorial]
   - id: autovalor
     nombre: "Autovalor"

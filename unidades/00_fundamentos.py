@@ -865,8 +865,8 @@ def _(mo):
 
     En esta unidad presentamos los cinco ladrillos con un ejemplo cada uno. Lo que los sostiene:
 
-    - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:00) ·
-      [apunte, «Repaso de álgebra lineal desde la geometría»](../../apunte.pdf#nameddest=cap:03) ·
+    - [apunte, «Antes de empezar…» (cómo leer, los cinco ladrillos)](../../apunte.pdf#nameddest=cap:como-usar) ·
+      [apunte, «Repaso de álgebra lineal desde la geometría»](../../apunte.pdf#nameddest=cap:repaso-algebra) ·
       [apunte, «Rotaciones» (el punto y sus coordenadas no son lo mismo)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha del capítulo 1](../../capitulos/01.html) · [ficha del capítulo 5](../../capitulos/04.html) ·
       [ficha del capítulo 10](../../capitulos/09.html) · [el hilo conductor](../../index.html)

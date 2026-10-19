@@ -22,7 +22,7 @@ conceptos:
     unidades: [01_rotaciones, 02_producto_interno]   # OPCIONAL: ids de unidades existentes para un nodo transversal; si falta `unidad`, se toma la primera (el nodo linkea ahí) y la lista completa va al tooltip
     hecho_geometrico: "dejar quieto un punto, mover otro, acomodar el resto conservando distancias y ángulos"
     que_se_conserva: "distancias y ángulos"
-    apunte: ["proyectivas", "14", "15"]   # claves \label{cap:<clave>}: capítulos por nombre ("rotaciones", …), apéndices por número ("14" … "22"); cada una tiene que existir
+    apunte: ["proyectivas", "rot3d", "infinitesimales"]   # claves \label{cap:<clave>}: capítulos, secciones y apéndices por nombre ("rotaciones", "rot3d", …); cada una tiene que existir
     requiere: [producto-interno] # ids de conceptos que lo motivan; se dibujan como flechas requerido → concepto
 
 unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su orden es el de las unidades en la portada
@@ -72,6 +72,6 @@ Avisos (el build sigue):
 
 ## Convenciones
 
-- Claves del apunte: el label sin `cap:` (`"rotaciones"`; los apéndices, dos dígitos como string: `"14"`).
+- Claves del apunte: el label sin `cap:` (`"rotaciones"`, `"rot3d"`); siempre con nombre, nunca numéricas (ver `apunte/ESTILO.md`).
 - Ids de ficha también como string (`"01"`): YAML convertiría `01` en el entero 1.
 - Sin acentos en ids; con acentos en `nombre`/`titulo` (es lo que se muestra).

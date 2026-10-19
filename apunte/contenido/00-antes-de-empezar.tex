@@ -1,7 +1,7 @@
 % Capítulo 0 — Antes de empezar (fusión de cómo usar, programa, hilo conductor, repaso y notación; fase B)
 \chapter{Antes de empezar}\label{cap:antes-de-empezar}
 
-\section{Cómo usar este apunte}\label{cap:00}
+\section{Cómo usar este apunte}\label{cap:como-usar}
 
 El apunte tiene un capítulo por tema. Dentro de cada capítulo, tres secciones del mismo
 nombre y del mismo orden permiten volver sobre las ideas con una profundidad creciente:
@@ -129,7 +129,7 @@ Las unidades interactivas son cuadernos de marimo (Python) exportados a páginas
 \end{tikzpicture}
 \end{center}
 
-\section{Programa}\label{cap:01}\label{sec:organizacion}
+\section{Programa}\label{cap:programa}\label{sec:organizacion}
 
 El programa oficial recorre una cadena conceptual que comienza con transformaciones lineales
 y termina en problemas geodésicos y cartográficos:
@@ -224,7 +224,7 @@ tratan temas sin lugar propio en la secuencia.
 \end{longtable}
 }
 
-\section{El hilo conductor}\label{cap:02}\label{sec:hilo}
+\section{El hilo conductor}\label{cap:hilo}\label{sec:hilo}
 
 La materia no es una lista de temas sueltos sino un
 recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando un bloque parece
@@ -361,7 +361,7 @@ son las mismas y el apunte sirve para ambos recorridos: la tabla anterior dice d
 cada tema.
 \end{atencion}
 
-\section{Repaso de álgebra lineal desde la geometría}\label{cap:03}
+\section{Repaso de álgebra lineal desde la geometría}\label{cap:repaso-algebra}
 
 % --- 03-cbc-nivel1 ---
 \subsection{Lo que trajimos del CBC y qué le cambia la mirada}\label{sec:cbc-mirada}
@@ -656,7 +656,7 @@ Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden
 preparación: \linkUnidad{07a_cuna_determinante}{07a}; \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}, \linkUnidad{08_cambio_de_base}{08}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{12_curvatura}{12}, \linkUnidad{13_elipsoide}{13}, \linkUnidad{15_transformaciones_conformes}{15} \\
 \hline
 \(Ax\approx b\) &
-\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\mathrm{Im}(A)\): regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con una descomposición de una matriz armada con los datos (véase el capítulo~\ref{cap:svd}). &
+\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\operatorname{im}(A)\): regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con una descomposición de una matriz armada con los datos (véase el capítulo~\ref{cap:svd}). &
 \linkUnidad{02_producto_interno}{02}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{11_cuatro_problemas}{11} \\
 \end{tabularx}
 \normalsize
@@ -857,6 +857,7 @@ Puntos y vectores & \(p,\ q,\ v\) (minúscula cursiva) & Un vector se identifica
 Rectas y figuras & \(L\), el triángulo \(ABC\) (mayúscula) & \\
 Matrices & \(A,\ R,\ M\) (mayúscula itálica) & Identidad \(I\); transpuesta \(A^T\); inversa \(A^{-1}\); determinante \(\det A\).\\
 Norma & \(\lVert\cdot\rVert\) & \\
+Núcleo, imagen y rango & \(\ker A\), \(\operatorname{im}A\), \(\operatorname{rango}A\) & \(\dim\ker A+\operatorname{rango}A=n\).\\
 Formas lineales y gradiente & \(\omega,\ \ell\) y \(\nabla f\) como fila & El covector se escribe como fila y actúa sobre el vector columna.\\
 Rotación & \(R(\theta)\) lineal; \(\rho_{c,\theta}\) con centro \(c\) & \\
 Reflexión & \(\sigma_L\) respecto de la recta \(L\) & \\
@@ -866,7 +867,8 @@ Afinidad & \(f(x)=Ax+b\) & En homogéneas, \((x,y,1)^T\) con última fila \((0\ 
 Composición & \(g\circ f\) aplica primero \(f\) & Las matrices van a la izquierda del vector columna.\\
 Ángulos & \(\theta\), antihorario positivo & Radianes por defecto; grados con \(^\circ\).\\
 Acimut & \(\mathrm{Az}\) desde el norte, sentido horario & \(\theta=90^\circ-\mathrm{Az}\).\\
-Cambio de base & \(C_{e\leftarrow b}\) & Lleva coordenadas en \(b\) a coordenadas en \(e\).\\
+Cambio de base & \(C=C_{b\to e}\) & Base nueva en columnas; lleva coordenadas en \(b\) a coordenadas en \(e\): \([v]_e=C\,[v]_b\).\\
+Conjugación y diagonalización & \(C^{-1}AC\); \(A=CDC^{-1}\) & \(D\) diagonal, con los autovectores en las columnas de \(C\).\\
 Autovalores & \(\lambda\) en los capítulos 3 a 9 y 11; \(\mu_1,\mu_2\) en los capítulos 10, 12 a 15 y los complementos C2 y C4 & En esos últimos, \(\lambda\) es la longitud geodésica.\\
 Valores singulares & \(\sigma_1\ge\sigma_2\ge\cdots\) & \\
 Latitud y longitud & \(\varphi\) (sólo latitud), \(\lambda\) (longitud) & \\
@@ -920,7 +922,7 @@ Valores singulares \(\sigma_i\) & Semiejes de la elipse imagen del círculo unid
 Pseudoinversa \(A^{+}\) & \(A^{+}=V\Sigma^{+}U^T\): solución de mínimos cuadrados de norma mínima; \(AA^{+}\) proyecta sobre la imagen & Coincide con \(A^{-1}\) cuando \(A\) es invertible; caracterizada por las cuatro condiciones de Moore--Penrose & \ref{sec:pinv-svd} & Red de nivelación libre: cotas de norma mínima\\
 Jacobiano \(J_F\) & Matriz de la aproximación lineal \(F(p+v)\approx F(p)+Jv\); \(\det J\) es el factor local de área & \(\det J_F(p)\neq0\): \(F\) es invertible cerca de \(p\), con \(J_{F^{-1}}=J_F^{-1}\) & \ref{sec:jacobiano} & Errores de una radiación: \(\Sigma_{EN}=J\Sigma J^T\)\\
 Hessiano \(H\) & Matriz de derivadas segundas; forma cuadrática \(\tfrac12v^THv\) que da la forma de la función en un punto crítico & Algún autovalor nulo y los demás del mismo signo: el segundo orden no decide & \ref{sec:hessiana} & Cima, cuenca o portezuelo del terreno\\
-Conjugación o semejanza \(C^{-1}AC\) & La misma transformación escrita en otra base; conserva determinante, traza y autovalores & Si \(C\) es ortogonal, coincide con la congruencia & \ref{sec:conjugacion} & Coordenadas de obra\\
+Conjugación \(C^{-1}AC\) & La misma transformación escrita en otra base; conserva determinante, traza y autovalores & Si \(C\) es ortogonal, coincide con la congruencia & \ref{sec:conjugacion} & Coordenadas de obra\\
 Congruencia \(C^TAC\) & Regla con que cambia la matriz de una forma cuadrática al cambiar de base & Con \(C\) ortogonal, \(C^TAC=C^{-1}AC\) & \ref{sec:congruencia} & Tolerancia en coordenadas de obra; covarianza propagada \(\Sigma'=J\Sigma J^T\) (congruencia con \(C=J^T\)), sección~\ref{sec:aplicacion-radiacion}\\
 \bottomrule
 \end{tabularx}
@@ -947,9 +949,10 @@ complemento~\ref{cap:conformes}).
 \item[Congruencia] Relación \(B=C^TAC\), la regla de cambio de base de una forma cuadrática;
 si \(C\) es ortogonal coincide con la conjugación (sección~\ref{sec:congruencia},
 proposición~\ref{prop:congruencia-ortogonal}).
-\item[Conjugación o semejanza] Relación \(B=C^{-1}AC\): \(A\) y \(B\) son la misma
-transformación escrita en dos bases (definición~\ref{def:conjugacion},
-sección~\ref{sec:conjugacion}).
+\item[Conjugación] Relación \(B=C^{-1}AC\) entre matrices: \(A\) y \(B\) son
+\emph{conjugadas}, la misma transformación escrita en dos bases (definición~\ref{def:conjugacion},
+sección~\ref{sec:conjugacion}). No confundir con la similaridad, que es una transformación
+geométrica y no una relación entre matrices.
 \item[Conjugado armónico] Punto \(D\) que cumple \((A,B;C,D)=-1\) respecto de \(A\), \(B\),
 \(C\) alineados; se construye con el cuadrilátero completo (definición~\ref{def:conjugado-armonico}).
 No tiene relación con la conjugación de matrices.
@@ -969,7 +972,8 @@ longitudes y ángulos; sobre una superficie, la primera forma fundamental
 \item[Producto mixto] \(u\cdot(v\times w)=\det[u\ v\ w]\), volumen con signo del
 paralelepípedo de \(u\), \(v\), \(w\) (definición~\ref{def:producto-mixto}).
 \item[Similaridad] Transformación que multiplica todas las distancias por una misma razón
-\(\lambda>0\) (definición~\ref{def:similaridad}).
+\(\lambda>0\) (definición~\ref{def:similaridad}). Es una transformación geométrica; para
+matrices, la relación \(B=C^{-1}AC\) se llama conjugación.
 \item[Traza] Suma de los elementos diagonales, igual a la suma de los autovalores; es la
 derivada del determinante en la identidad, \(\det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+O(\varepsilon^2)\)
 (proposición~\ref{prop:traza-derivada-det}).

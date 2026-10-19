@@ -27,7 +27,7 @@ conceptos:
     unidad: 01a_punto_quieto
     hecho_geometrico: "Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal sólo si el centro es el origen."
     que_se_conserva: "distancias, ángulos y orientación"
-    apunte: ["rotaciones", "03"]
+    apunte: ["rotaciones", "repaso-algebra"]
     requiere: [transformacion-lineal, producto-interno]
   - id: numeros-complejos
     nombre: "Números complejos como transformaciones del plano"
@@ -59,7 +59,7 @@ conceptos:
     unidad: 01b_rotacion_plano
     hecho_geometrico: "AᵀA = Id; columnas perpendiculares de longitud 1; la grilla cuadrada sigue cuadrada pero puede estar espejada. det = +1 rotación, det = −1 reflexión."
     que_se_conserva: "producto interno; con det 1, además la orientación"
-    apunte: ["rotaciones", "17"]
+    apunte: ["rotaciones", "autovectores"]
     requiere: [producto-interno, rotacion]
   - id: rotacion-3d
     nombre: "Rotaciones en tres dimensiones"
@@ -67,7 +67,7 @@ conceptos:
     unidad: 01c_rotaciones_3d
     hecho_geometrico: "Rx, Ry, Rz son la rotación 2D empotrada con un 1 en la diagonal para el eje quieto; toda rotación de R³ deja fija una recta (el eje) y gira el plano perpendicular; componer en distinto orden deja el cuerpo en lugares distintos."
     que_se_conserva: "distancias, ángulos, orientación y el eje"
-    apunte: ["rotaciones", "14"]
+    apunte: ["rotaciones", "rot3d"]
     requiere: [rotacion, matriz-ortogonal, composicion]
   - id: rotacion-infinitesimal
     nombre: "Rotación infinitesimal"
@@ -75,7 +75,7 @@ conceptos:
     unidad: 01c_rotaciones_3d
     hecho_geometrico: "R(ε) ≈ Id + εA con A antisimétrica; εAv es el pasito tangente a la circunferencia (A_x v = e_x × v). A primer orden las rotaciones chicas se suman y conmutan; el orden aparece en ε²."
     que_se_conserva: "distancias a primer orden"
-    apunte: ["15", "rotaciones"]
+    apunte: ["infinitesimales", "rotaciones"]
     requiere: [rotacion-3d, derivada-aproximacion-lineal]
   - id: exponencial-de-matrices
     nombre: "Exponencial de matrices"
@@ -83,7 +83,7 @@ conceptos:
     unidad: null
     hecho_geometrico: "e^A = Σ Aⁿ/n!; una rotación grande es muchísimas chiquitas iguales, R = lim (Id + A/n)ⁿ; e^{t log R} es la trayectoria suave de la identidad a R. log R es antisimétrica y sus tres entradas son el eje, con norma igual al ángulo."
     que_se_conserva: "el eje (es el autovector de autovalor 1 de R y el vector de log R)"
-    apunte: ["rotaciones", "15"]
+    apunte: ["rotaciones", "infinitesimales"]
     requiere: [rotacion-infinitesimal, trayectoria]
 
   # ---- ficha 02 ----
@@ -93,7 +93,7 @@ conceptos:
     unidad: 01c_rotaciones_3d
     hecho_geometrico: "Hacer F y después G es G∘F, el producto de matrices GF; la de la derecha actúa primero. Es una operación entre transformaciones, con neutro e inversa, que no siempre conmuta."
     que_se_conserva: "lo que conservan las dos transformaciones compuestas"
-    apunte: ["traslaciones", "16"]
+    apunte: ["traslaciones", "composicion-afin"]
     requiere: [rotacion, transformacion-lineal]
   - id: conmutatividad
     nombre: "Conmutatividad"
@@ -101,7 +101,7 @@ conceptos:
     unidad: 01c_rotaciones_3d
     hecho_geometrico: "AB = BA es llegar al mismo lugar por los dos caminos del paralelogramo. Rotación y homotecia del mismo centro conmutan; rotaciones 3D no, salvo a primer orden. Sin conmutatividad el par (u,v) no nombra un único punto, así que no hay coordenadas."
     que_se_conserva: "el resultado al cambiar el orden"
-    apunte: ["traslaciones", "15"]
+    apunte: ["traslaciones", "infinitesimales"]
     requiere: [composicion, rotacion-3d, rotacion-infinitesimal]
   - id: trayectoria
     nombre: "Trayectoria de una transformación"
@@ -109,7 +109,7 @@ conceptos:
     unidad: 03_reflexiones_similaridades
     hecho_geometrico: "La órbita v, Av, A²v, … (o e^{tM}v en continuo). La transformación se identifica con la trayectoria que genera; rotación → circunferencias, homotecia → rayos, det 1 → se queda dando vueltas."
     que_se_conserva: "la curva sobre la que cae el punto"
-    apunte: ["traslaciones", "16"]
+    apunte: ["traslaciones", "composicion-afin"]
     requiere: [composicion, exponencial-de-matrices]
   - id: lineas-coordenadas
     nombre: "Líneas coordenadas"
@@ -135,7 +135,7 @@ conceptos:
     unidad: 03_reflexiones_similaridades
     hecho_geometrico: "El espejo; ρ_b(x) = 2b − x, φ_B(x) = x − 2((n·x − c)/‖n‖²) n, ortogonal con det −1, involución. Dos espejos devuelven la orientación: puntuales o ejes paralelos dan traslación, ejes secantes dan rotación de ángulo doble."
     que_se_conserva: "distancias y ángulos; se invierte la orientación"
-    apunte: ["reflexiones", "traslaciones", "17"]
+    apunte: ["reflexiones", "traslaciones"]
     requiere: [matriz-ortogonal, composicion]
   - id: afinidad-axial
     nombre: "Afinidad axial (eje, dirección y factor)"
@@ -151,7 +151,7 @@ conceptos:
     unidad: 03_reflexiones_similaridades
     hecho_geometrico: "S(x) = o + λR(x − o) = φ_A φ_B η_o^λ; misma forma, otro tamaño y orientación, con un único punto fijo o (dos círculos de Apolonio). Rotar alrededor de c y escalar alrededor de d da una similaridad cuyo punto fijo no es ni c ni d."
     que_se_conserva: "ángulos y razones entre distancias"
-    apunte: ["reflexiones", "16"]
+    apunte: ["reflexiones", "composicion-afin"]
     requiere: [reflexion, homotecia, rotacion, punto-fijo]
   - id: transformacion-afin
     nombre: "Transformación afín"
@@ -159,7 +159,7 @@ conceptos:
     unidad: 04_afines_homogeneas
     hecho_geometrico: "F(x) = Ax + t; paralelogramo va a paralelogramo, círculo a elipse, se conservan proporciones sobre cada recta. La imagen de un triángulo la determina del todo (seis números, seis ecuaciones)."
     que_se_conserva: "rectas, paralelismo y proporciones sobre una recta"
-    apunte: ["afines", "rotaciones", "17"]
+    apunte: ["afines", "rotaciones"]
     requiere: [afinidad-axial, traslacion, transformacion-lineal]
   - id: coordenadas-homogeneas
     nombre: "Coordenadas homogéneas"
@@ -167,7 +167,7 @@ conceptos:
     unidad: 04_afines_homogeneas
     hecho_geometrico: "El plano es el plano z = 1 de R³ y cada punto es la recta por el origen que lo atraviesa; (x,y,1) ~ λ(x,y,1). La afinidad es la 3×3 con fila (0 0 1) y la traslación entra en la matriz; tercera coordenada 0 es una dirección, un punto impropio."
     que_se_conserva: "la recta por el origen (el rayo), no el representante"
-    apunte: ["afines", "16"]
+    apunte: ["afines", "composicion-afin"]
     requiere: [transformacion-afin, composicion]
   - id: punto-fijo
     nombre: "Punto fijo"
@@ -175,7 +175,7 @@ conceptos:
     unidad: 03_reflexiones_similaridades
     hecho_geometrico: "F(x*) = x*, es decir (I − A)x* = t; en homogéneas, autovector de autovalor 1 con w ≠ 0. Es el centro alrededor del cual rotar y trasladar repetidamente dibuja círculos; si existe, poniendo el origen ahí la afinidad queda lineal. Una rotación de R³ tiene autovalor 1: su eje."
     que_se_conserva: "el punto mismo"
-    apunte: ["afines", "16", "17"]
+    apunte: ["afines", "composicion-afin"]
     requiere: [transformacion-afin, coordenadas-homogeneas, autovector]
   - id: traslacion
     nombre: "Traslación"
@@ -183,7 +183,7 @@ conceptos:
     unidad: 04_afines_homogeneas
     hecho_geometrico: "x' = x + v, A = I; todo se desplaza igual y no hay punto fijo propio (el autovector de autovalor 1 tiene w = 0, el punto fijo se fue al infinito). Nace de dos reflexiones y es el límite de rotaciones cuyo centro se aleja. T_v Q_c ≠ Q_c T_v."
     que_se_conserva: "distancias, ángulos, orientación y todas las direcciones"
-    apunte: ["afines", "17"]
+    apunte: ["afines"]
     requiere: [reflexion, punto-fijo, punto-impropio]
   - id: mapa-transformaciones
     nombre: "Mapa de las transformaciones"

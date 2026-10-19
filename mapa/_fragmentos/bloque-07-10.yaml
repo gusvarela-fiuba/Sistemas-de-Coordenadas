@@ -32,7 +32,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "La circunferencia unidad se vuelve elipse; los ejes de la elipse (salida) y sus preimágenes (entrada) son dos bases ortonormales distintas: A = U Σ Vᵀ es girar, estirar en ejes perpendiculares, girar."
     que_se_conserva: "La ortogonalidad de una base bien elegida de la entrada: va a parar a una base ortogonal de la salida. Siempre existe, sin números complejos."
-    apunte: ["02", "svd"]
+    apunte: ["hilo", "svd"]
     requiere: [autovector, autovalor, polinomio-caracteristico, matriz-ortogonal, producto-interno, nucleo]
   - id: valores-singulares
     nombre: "Valores singulares"
@@ -58,7 +58,7 @@ conceptos:
     unidad: 08_cambio_de_base
     hecho_geometrico: "La misma flecha medida con otra grilla; la matriz tiene en sus columnas la base nueva escrita en la vieja. Vectores van con A, formas lineales con A⁻¹ del otro lado, transformaciones con A T A⁻¹."
     que_se_conserva: "Todas las relaciones entre los elementos (incidencias L·P = 0, valores de las formas sobre los vectores): 'convertimos todo para que nada cambie'."
-    apunte: ["02", "cambio-base"]
+    apunte: ["hilo", "cambio-base"]
     requiere: [transformacion-lineal, forma-lineal, dualidad, coordenadas-homogeneas, inversa]
   - id: diagonalizacion
     nombre: "Diagonalización"
@@ -74,7 +74,7 @@ conceptos:
     unidad: 08_cambio_de_base
     hecho_geometrico: "Aᵗ = P Dᵗ P⁻¹: aplicar n veces es estirar n veces cada eje propio; con t real la transformación es un proceso continuo y el punto recorre una trayectoria."
     que_se_conserva: "La base de autovectores: todas las potencias comparten las mismas direcciones propias."
-    apunte: ["02", "cambio-base"]
+    apunte: ["hilo", "cambio-base"]
     requiere: [diagonalizacion, trayectoria, exponencial-de-matrices]
 
   # --- ficha 09 ---
@@ -142,7 +142,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Deshacer el movimiento: 1/a en R, A⁻¹ en Rⁿ; en base de autovectores es tomar recíprocos en la diagonal, en SVD es V (1/Σ) Uᵀ. No existe si alguna dirección se aplastó (a = 0, det A = 0, algún σ = 0)."
     que_se_conserva: "El neutro de la operación: componer con la inversa da la identidad (0 para la suma, 1 para el producto, Id para las matrices)."
-    apunte: ["02", "inversas"]
+    apunte: ["hilo", "inversas"]
     requiere: [composicion, determinante, nucleo, diagonalizacion, svd, matriz-ortogonal]
   - id: cuatro-subespacios
     nombre: "Los cuatro subespacios (núcleo, co-imagen, imagen, contra-imagen)"
@@ -158,7 +158,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer sólo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0."
     que_se_conserva: "La solución exacta cuando existe; si no, la más cercana, con el residuo perpendicular a la imagen."
-    apunte: ["02", "inversas"]
+    apunte: ["hilo", "inversas"]
     requiere: [inversa, cuatro-subespacios, svd, producto-interno]
   - id: sistema-sobredeterminado
     nombre: "Sistema sobredeterminado y mínimos cuadrados"

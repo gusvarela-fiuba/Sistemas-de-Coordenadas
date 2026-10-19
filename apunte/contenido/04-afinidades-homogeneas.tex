@@ -65,6 +65,12 @@ ninguna dirección colapsa en un punto y la transformación se puede deshacer.
 
 {\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
 
+Las coordenadas homogéneas ya aparecieron dos veces: en el capítulo~\ref{cap:rotaciones}
+(sección~\ref{sec:homogeneas-rotacion}), donde una rotación alrededor de un centro se escribió
+como una sola matriz \(3\times3\), y en el capítulo~\ref{cap:traslaciones}
+(sección~\ref{sec:homogeneas-traslacion}), donde la traslación, que no es lineal en \((x,y)\),
+pasó a ser una matriz y a componerse multiplicando. Este capítulo reúne la teoría completa.
+
 \paragraph{Una motivación de campo.}
 Un relevamiento con estación total se registra en un sistema local \((x,y)\): origen en la
 estación, eje \(x\) hacia una referencia arbitraria. Para llevarlo al marco oficial
@@ -931,240 +937,6 @@ similaridad, de \(7{,}8\) a \(11{,}0\ \mathrm{cm}\). Generada con
 
 \unidadInteractiva{04_afines_homogeneas}{Afinidades y coordenadas homogéneas}{Verificá: en «caso precargado» elegí «general (a, b, c, d)» y poné \(a=1\), \(b=0\), \(c=0\), \(d=-1\), la inversión de la fila hacia abajo: comprobá que \(\det A=-1\) y que el área con signo de la parcela cambia de signo sin cambiar de tamaño. Después llevá \(a\) a \(1{,}1\): la grilla se estira distinto en cada eje, sigue formada por paralelogramos iguales y \(\det A=-1{,}1\), como la parte lineal de la ortofoto a otra escala.}
 
-% Apéndice: resolución de los ejercicios de afinidades
-\section{Resolución de los ejercicios de afinidades}\label{cap:17}\label{ap:ejercicios-afinidades}
-
-\subsection{Ejercicio 1: tres reflexiones puntuales}
-
-\textbf{Enunciado.} Dados tres puntos no alineados \(a,b,c\), hallar el punto fijo de
-\(\sigma_a\circ\sigma_b\circ\sigma_c\) y verificar que forma un paralelogramo con ellos.
-
-\textbf{Solución algebraica.} La reflexión puntual de centro \(p\) es
-\[
-  \sigma_p(x)=2p-x.
-\]
-Entonces:
-\[
-\begin{aligned}
-\sigma_a\sigma_b\sigma_c(x)
-&=\sigma_a\!\left(\sigma_b(2c-x)\right)\\
-&=\sigma_a(2b-2c+x)\\
-&=2a-2b+2c-x\\
-&=2(a-b+c)-x.
-\end{aligned}
-\]
-La composición es una reflexión puntual de centro
-\[
-  \boxed{d=a-b+c}.
-\]
-Su punto fijo es \(d\), porque \(\sigma_d(d)=d\). Además:
-\[
-  b+d=a+c.
-\]
-Las diagonales \(ac\) y \(bd\) tienen el mismo punto medio, de modo que \(a,b,c,d\) forman
-un paralelogramo.
-
-\textbf{Interpretación geométrica.} Tomando \(b\) como origen provisional:
-\[
-  \overrightarrow{bd}
-  =\overrightarrow{ba}+\overrightarrow{bc}.
-\]
-El punto \(d\) se obtiene mediante la regla del paralelogramo para sumar los vectores que van
-desde \(b\) hacia \(a\) y hacia \(c\).
-
-\subsection{Ejercicio 2: dos reflexiones puntuales}
-
-\textbf{Enunciado.} Dados \(a\neq b\), demostrar que
-\(\sigma_a\circ\sigma_b\) no tiene puntos fijos.
-
-\textbf{Solución.}
-\[
-\sigma_a\sigma_b(x)=x+2(a-b).
-\]
-Si existiera un punto fijo:
-\[
-x+2(a-b)=x
-\quad\Longrightarrow\quad
-a=b.
-\]
-Esto contradice \(a\neq b\). Por lo tanto:
-\[
-  \boxed{\operatorname{Fix}(\sigma_a\sigma_b)=\varnothing
-  \quad\text{si }a\neq b.}
-\]
-
-\textbf{Interpretación geométrica.} La composición es una traslación no nula. Todos los puntos
-se desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer en su lugar.
-Si \(a=b\), las dos reflexiones se anulan y la composición es la identidad.
-
-\subsection{Ejercicio 3: cuatro reflexiones en rectas}
-
-\begin{atencion}[Ambigüedad del enunciado]
-El texto comienza diciendo ``dadas cuatro rectas \(a,b,c,d\)'', pero termina llamando a
-\(\varphi_i\) ``reflexión alrededor del punto \(i\)''. Por el contexto y la notación
-\(\varphi\), se interpreta que son reflexiones respecto de las cuatro rectas.
-\end{atencion}
-
-Cada reflexión en una recta es una afinidad
-\[
-  \varphi_i(x)=H_ix+q_i,
-\]
-donde \(H_i\) es una matriz ortogonal de determinante \(-1\). La composición
-\[
-  F=\varphi_a\varphi_b\varphi_c\varphi_d
-\]
-tiene la forma
-\[
-  F(x)=Ax+t,
-\]
-con
-\[
-  A=H_aH_bH_cH_d,
-\]
-\[
-  t=H_aH_bH_cq_d+H_aH_bq_c+H_aq_b+q_a.
-\]
-Como intervienen cuatro reflexiones,
-\[
-  \det A=(-1)^4=1.
-\]
-La transformación resultante preserva orientación y es una rotación o una traslación.
-
-\textbf{Método analítico.} Los puntos fijos satisfacen
-\[
-  (I-A)x=t.
-\]
-\begin{itemize}
-  \item Si \(I-A\) es invertible, existe un único punto fijo:
-  \[
-    \boxed{x_\ast=(I-A)^{-1}t}.
-  \]
-  La composición es una rotación con centro \(x_\ast\).
-  \item Si \(A=I\) y \(t\neq0\), la composición es una traslación y no tiene punto fijo.
-  \item Si \(A=I\) y \(t=0\), es la identidad y todos los puntos son fijos.
-\end{itemize}
-
-\textbf{Método gráfico.} Elegir dos puntos \(p,q\), construir sucesivamente sus cuatro
-reflejos hasta obtener \(F(p)\) y \(F(q)\), y trazar las mediatrices de
-\(\overline{pF(p)}\) y \(\overline{qF(q)}\). Si se cortan, la intersección es el centro de
-rotación. Si son paralelas, el resultado es una traslación y no existe centro finito.
-
-\subsection{Ejercicio 4: autovalor de una rotación en \(\R^3\)}
-
-Sea \(R\in SO(3)\). Al ser una matriz real de dimensión impar, su polinomio característico
-tiene al menos una raíz real. Como \(R\) es ortogonal, todo autovalor tiene módulo \(1\), por
-lo que el autovalor real debe ser \(1\) o \(-1\).
-
-Los otros dos autovalores, si no son reales, forman un par conjugado
-\(e^{i\theta},e^{-i\theta}\), cuyo producto es \(1\). Como
-\[
-  \det R=1,
-\]
-el autovalor real restante debe ser
-\[
-  \boxed{\lambda=1}.
-\]
-Su autovector es la dirección del eje de rotación.
-
-\begin{atencion}[Sobre la palabra ``único'']
-Para una rotación no trivial de ángulo distinto de \(0\), \(1\) es el único autovalor real
-asociado al eje, salvo casos degenerados. Para \(R=I\), todos los vectores son propios con
-autovalor \(1\); por eso el enunciado necesita excluir la identidad si pretende unicidad del
-eje.
-\end{atencion}
-
-\subsection{Ejercicio 5: matriz ortogonal que invierte orientación}
-
-El enunciado afirma que una matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
-autovalores reales iguales a \(1\) o \(-1\). Esa afirmación no es cierta en general.
-
-Por ser real y de dimensión impar, la matriz posee al menos un autovalor real. Por ser
-ortogonal, sus autovalores tienen módulo \(1\), y por tener determinante \(-1\), siempre
-existe al menos un autovalor
-\[
-  \boxed{\lambda=-1}.
-\]
-Los otros dos pueden ser
-\[
-  e^{i\theta},\qquad e^{-i\theta},
-\]
-que no son reales cuando \(\theta\notin\{0,\pi\}\). Geométricamente, esto describe una
-\textbf{rotorreflexión}: una rotación en un plano combinada con una inversión en la dirección
-perpendicular.
-
-\textbf{Contraejemplo.}
-\[
-Q=
-\begin{pmatrix}
-\cos\theta&-\sin\theta&0\\
-\sin\theta& \cos\theta&0\\
-0&0&-1
-\end{pmatrix}
-\]
-es ortogonal y \(\det Q=-1\), pero sus autovalores son
-\[
-  e^{i\theta},\quad e^{-i\theta},\quad -1.
-\]
-Solo para casos especiales, como una reflexión en un plano, los tres son reales:
-\[
-  1,\ 1,\ -1.
-\]
-
-\subsection{Ejercicio 6: recuperar una afinidad desde tres puntos}
-
-Sean \(a,b,c\) tres puntos no alineados y sean \(a',b',c'\) sus imágenes. Se busca
-\[
-  \gamma(x)=Ax+t.
-\]
-Restando la ecuación de \(a\) a las de \(b\) y \(c\):
-\[
-  b'-a'=A(b-a),
-  \qquad
-  c'-a'=A(c-a).
-\]
-Construimos las matrices cuyas columnas son los lados de ambos triángulos:
-\[
-  P=
-  \begin{pmatrix}\vert&\vert\\b-a&c-a\\\vert&\vert\end{pmatrix},
-  \qquad
-  P'=
-  \begin{pmatrix}\vert&\vert\\b'-a'&c'-a'\\\vert&\vert\end{pmatrix}.
-\]
-Como \(a,b,c\) no están alineados, \(P\) es invertible. Entonces:
-\[
-  \boxed{A=P'P^{-1}},
-\]
-y usando la correspondencia \(a\mapsto a'\):
-\[
-  \boxed{t=a'-Aa}.
-\]
-La transformación queda completamente determinada:
-\[
-  \boxed{\gamma(x)=P'P^{-1}x+a'-P'P^{-1}a}.
-\]
-
-\textbf{Comprobación de ausencia de puntos fijos.} Se intenta resolver
-\[
-  (I-A)x=t.
-\]
-Que la afinidad no tenga puntos fijos significa que este sistema es incompatible. En
-coordenadas homogéneas:
-\[
-\begin{pmatrix}x'\\y'\\1\end{pmatrix}
-=
-\begin{pmatrix}
-A_{11}&A_{12}&t_x\\
-A_{21}&A_{22}&t_y\\
-0&0&1
-\end{pmatrix}
-\begin{pmatrix}x\\y\\1\end{pmatrix}.
-\]
-
-\begin{resultado}[Estado de los ejercicios de afinidades]
-Los seis ejercicios quedan resueltos de forma algebraica y geométrica. Los ejercicios 3, 4
-y 5 incluyen además las salvedades necesarias para interpretar correctamente sus enunciados.
-\end{resultado}
-
 \section{Mapa de las transformaciones}\label{sec:mapa-transformaciones}
 
 % Números, tabla «Qué se conserva» (verificada celda por celda) y figura:
@@ -1488,4 +1260,42 @@ puede absorber. La proyectiva baja el RMS a \(0{,}8\) cm con dos parámetros má
 \(h_{32}=-9{,}6\times10^{-7}\) por milímetro, y en un plano escaneado no hay cámara inclinada
 que produzca perspectiva: la mejora es ajuste del ruido. La afín necesita tres puntos no
 colineales y deja cuatro ecuaciones de control.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:afin-tres-puntos-general}
+Sean \(a,b,c\) tres puntos no alineados y sean \(a',b',c'\) sus imágenes. Recuperar la afinidad
+\(\gamma(x)=Ax+t\) que lleva cada punto a su imagen y escribir la condición para que no tenga
+puntos fijos.
+\solucion{Restando la ecuación de \(a\) a las de \(b\) y \(c\):
+\[
+  b'-a'=A(b-a),
+  \qquad
+  c'-a'=A(c-a).
+\]
+Construimos las matrices cuyas columnas son los lados de ambos triángulos:
+\[
+  P=
+  \begin{pmatrix}\vert&\vert\\b-a&c-a\\\vert&\vert\end{pmatrix},
+  \qquad
+  P'=
+  \begin{pmatrix}\vert&\vert\\b'-a'&c'-a'\\\vert&\vert\end{pmatrix}.
+\]
+Como \(a,b,c\) no están alineados, \(P\) es invertible. Entonces \(A=P'P^{-1}\) y, usando la
+correspondencia \(a\mapsto a'\), \(t=a'-Aa\). La transformación queda completamente
+determinada:
+\[
+  \boxed{\gamma(x)=P'P^{-1}x+a'-P'P^{-1}a}.
+\]
+Los puntos fijos resuelven \((I-A)x=t\); que la afinidad no tenga puntos fijos significa que
+este sistema es incompatible. En coordenadas homogéneas:
+\[
+\begin{pmatrix}x'\\y'\\1\end{pmatrix}
+=
+\begin{pmatrix}
+A_{11}&A_{12}&t_x\\
+A_{21}&A_{22}&t_y\\
+0&0&1
+\end{pmatrix}
+\begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]}
 \end{ejercicio}
