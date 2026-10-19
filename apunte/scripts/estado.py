@@ -9,6 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import enlaces
+import estilo
 import verificar_comprobaciones as vc
 from prohibidas import PATRON, permitida
 
@@ -16,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 APUNTE = ROOT / "apunte"
 MAESTRO = APUNTE / "Apunte_Sistemas_de_Coordenadas.tex"
 MOLDE = ["La idea", "Construcciones, cuentas y ejemplos", "En profundidad"]
+_ESTILO = None  # {archivo: total de hallazgos de estilo.py}
 _TIPOS = None  # {etiqueta: SIMBOLICA|NUMERICA|CONTRAEJEMPLO}, de los docstrings de apunte/demostraciones/
 
 
@@ -66,6 +68,13 @@ def cap_titulo(txt):
     return "-"
 
 
+def estilo_total(path):
+    global _ESTILO
+    if _ESTILO is None:
+        _ESTILO = estilo.totales_por_archivo()
+    return _ESTILO.get(str(path.relative_to(APUNTE)), 0)
+
+
 def analizar(path):
     raw = path.read_text(encoding="utf-8", errors="ignore")
     txt = sin_comentarios(raw)
@@ -88,6 +97,7 @@ def analizar(path):
         rotos=len(enlaces.analizar(path)["rotos"]),
         **dict(zip(("res", "conc", "tcomp"), comprobaciones(path))),
         prohib=sum(1 for l in raw.split("\n") if PATRON.search(l) and not permitida(str(path.relative_to(ROOT)), l)),
+        estilo=estilo_total(path),
     )
     n = sum(1 for m in MOLDE if m in secs_n)
     d["molde"] = "sí" if n == 3 else ("parcial" if n else "no")
@@ -127,12 +137,12 @@ def analizar(path):
 
 COLS = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Ej", "ej"),
         ("Def+Prop+Teo", "dpt"), ("Dem", "dem"), ("Resultados", "res"), ("Con comprobación", "conc"), ("Tipo", "tcomp"), ("Ejerc", "ejer"), ("Con sol", "sol"), ("Sim", "sim"), ("Recuadros", "recuadros"), ("Enlaces rotos", "rotos"),
-        ("Aplic", "aplic"), ("Molde", "molde"), ("Prohib", "prohib"), ("Cumple", "cumple"), ("Falta", "falta")]
+        ("Aplic", "aplic"), ("Molde", "molde"), ("Prohib", "prohib"), ("Estilo", "estilo"), ("Cumple", "cumple"), ("Falta", "falta")]
 
 
 COLS_AP = [("Archivo", "archivo"), ("Capítulo", "cap"), ("Líneas", "lineas"), ("Fig", "fig"), ("Sim", "sim"),
            ("Resultados", "res"), ("Con comprobación", "conc"), ("Tipo", "tcomp"),
-           ("Enlaces rotos", "rotos"), ("Prohib", "prohib")]
+           ("Enlaces rotos", "rotos"), ("Prohib", "prohib"), ("Estilo", "estilo")]
 
 
 def tabla(rows, COLS=COLS):
@@ -179,6 +189,7 @@ def main():
             pass
     md = ["# Estado del apunte", "", "Generado por `apunte/scripts/estado.py`. No editar a mano.", "",
           "Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicación topográfica, Simulaciones ≥ 2, Prohibidas = 0.", "",
+          "Estilo: hallazgos de `apunte/scripts/estilo.py` (reglas en `apunte/ESTILO.md`); informativo, no entra en «Cumple».", "",
           "Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso de las unidades, repaso con ≥ 2 ejemplos).", "",
           "## Capítulos (0 a 15)", "", tabla(caps), "",
           "## Complementos (C1 a C4)", "", tabla(comps), "",

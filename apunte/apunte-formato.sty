@@ -16,6 +16,12 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 \usepackage[spanish,es-nodecimaldot]{babel}
+% Comillas con \enquote{...} (csquotes), estilo propio para español rioplatense: primer nivel “ ”,
+% segundo nivel « » (\enquote anidado). Ver apunte/ESTILO.md. No se usa \MakeOuterQuote{"}: con
+% babel-spanish la comilla " es un atajo activo. listings no se ve afectado (no usa \enquote).
+\usepackage[autostyle=false]{csquotes}
+\DeclareQuoteStyle{apunte}{“}{”}{«}{»}
+\setquotestyle{apunte}
 \usepackage{microtype}
 
 %% --- Geometría de página ---
