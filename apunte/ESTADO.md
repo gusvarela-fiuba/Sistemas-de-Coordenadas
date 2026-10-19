@@ -12,8 +12,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 
 | Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 787 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
-| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 786 | 7 | 12 | 18 | 6 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 796 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
+| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 833 | 7 | 12 | 18 | 6 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/02-traslaciones-movimientos-rigidos.tex | chapter: Traslaciones y movimientos rígidos | 505 | 10 | 5 | 9 | 4 | 6 | 3 | S | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1125 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/04-afinidades-homogeneas.tex | chapter: Afinidades y coordenadas homogéneas | 1077 | 10 | 5 | 8 | 3 | 3 | 0 | — | 9 | 9 | 4 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
@@ -28,7 +28,7 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 633 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 538 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 618 | 3 | 4 | 13 | 7 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 11292 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 11348 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
@@ -57,8 +57,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 5419cd1
-- Páginas del último PDF: 251 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: ae00621
+- Páginas del último PDF: 253 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91
