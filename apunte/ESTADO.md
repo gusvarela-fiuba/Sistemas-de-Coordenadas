@@ -42,6 +42,6 @@ Mínimo: Ejemplos ≥ 2, Figuras ≥ 3, Ejercicios con solución ≥ 4, Aplicaci
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: bb17c41
-- Páginas del último PDF: 144 (/tmp/build_A/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: e67eec5
+- Páginas del último PDF: 141 (/Users/gv/proyectos/sistemas-de-coordenadas/site/apunte.pdf)
 - Archivos que cumplen el mínimo: 2 de 26
