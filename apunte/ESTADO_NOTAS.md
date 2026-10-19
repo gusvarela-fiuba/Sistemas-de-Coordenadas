@@ -9,3 +9,4 @@ Criterio vigente desde la fase G: no hay límite de páginas. Un capítulo ya ce
 ## Para después de la fase G
 
 - Complementos C1 a C4: «Complementos que cumplen el mínimo: 0 de 4» en ESTADO.md. Se completan en E2 (homografía de fachada en C1, factor de escala GK faja 5 en C2, DEM/volumen en C3, POSGAR 94→07 con pyproj en C4), con la voz para el aula desde el inicio.
+- Complemento C4 (marcos y grillas): explicar ahí que el primer dígito de la coordenada E de Gauss-Krüger es el número de la faja (quedó afuera del capítulo 3 por decisión del editor).
