@@ -1,45 +1,27 @@
-# Fragmento del mapa — bloque 03p, 04, 05, 06 (escrito 2026-10-17)
-# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado,pregunta,validacion,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]]
-# fecha_2025 de 04/05/06: no figuran en el campus → null; la inferida (clase 1 = jueves 2025-08-21, ritmo semanal) va en fecha_2025_estimada.
+# Fragmento del mapa: clases 3p, 4, 5 y 6.
+# Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
+# Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
+
 clases:
   - id: "03p"
-    titulo: "Transformaciones proyectivas (clase extra 2C2026, el pentágono)"
+    titulo: "Complemento: transformaciones proyectivas"
     ficha: clases/03p-proyectivas.md
-    fecha_2025: null
-    fechas_2026: ["2026-09-16", "2026-09-23"]
-    estado: con-transcripcion   # 09-16 con transcripción; 09-23 reconstruida
     pregunta: "¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?"
-    validacion: pendiente
     nivel: complementario
   - id: "04"
-    titulo: "Espacios lineales, transformaciones lineales y formas lineales (dualidad)"
+    titulo: "Formas lineales y dualidad"
     ficha: clases/04-espacios-lineales-formas.md
-    fecha_2025: null
-    fecha_2025_estimada: "2025-09-11"
-    fechas_2026: ["2026-09-30"]
-    estado: con-transcripcion   # sólo formas lineales; espacios vectoriales y TL sin clase propia en 2C2026
     pregunta: "¿Qué es un vector, qué es una regla que mide vectores, y por qué cada uno se transforma distinto?"
-    validacion: pendiente
     nivel: troncal
   - id: "05"
-    titulo: "Subespacios afines y lineales, producto cuña, determinante y núcleo"
+    titulo: "Subespacios, producto cuña y determinante"
     ficha: clases/05-subespacios-cuna-determinante.md
-    fecha_2025: null
-    fecha_2025_estimada: "2025-09-18"
-    fechas_2026: ["2026-09-16"]
-    estado: con-transcripcion
     pregunta: "¿Cómo detecto con una cuenta que unos vectores (o unos puntos) se aplastaron a algo de menor dimensión?"
-    validacion: pendiente
     nivel: troncal
   - id: "06"
-    titulo: "Subespacios invariantes, autovalores y autovectores"
+    titulo: "Autovalores y autovectores"
     ficha: clases/06-invariantes-autovectores.md
-    fecha_2025: null
-    fecha_2025_estimada: "2025-09-25"
-    fechas_2026: ["2026-09-16"]
-    estado: con-transcripcion
     pregunta: "¿Qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro?"
-    validacion: pendiente
     nivel: troncal
 
 conceptos:

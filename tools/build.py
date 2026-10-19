@@ -10,12 +10,12 @@ Entradas (relativas a la raíz del repo):
                                         `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "14", …) y leer su título
 
 Salida:
-  site/index.html                       portada = el hilo conductor: tres entradas (Empezar / Seguir la cursada / Repasar)
+  site/index.html                       portada = el hilo conductor: entradas (Empezar / Seguir el programa / Repasar / Autoevaluación)
                                         y una entrada por unidad (pregunta, gancho, estado, clases, enlaces),
                                         más la última unidad "Lo que viene" con las clases sin unidad
   site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta la clase N",
-                                        y la lista de clases con fechas y estado
-  site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN) con etiquetas de procedencia y validación
+                                        y la lista de clases
+  site/clases/<id>.html                 fichas (markdown → html, KaTeX desde CDN; apunte, unidades y animaciones desde el frontmatter)
   site/unidades/<id>/index.html         notebooks exportados a WASM (marimo export html-wasm) desde la copia
   site/_build/<archivo>.py              generada con unidades/cb104.py embebido en la celda `# cb104:inline`
   site/apunte.pdf                       copia del apunte
@@ -47,7 +47,6 @@ PDF_APUNTE = RAIZ / "apunte" / "Apunte_Sistemas_de_Coordenadas.pdf"
 MAESTRO_APUNTE = RAIZ / "apunte" / "Apunte_Sistemas_de_Coordenadas.tex"
 DIR_CLASES = RAIZ / "clases"
 
-ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 ESTADOS_EXPORTABLES = ("piloto", "migrada")
 TITULO_CAMINO = "Sistemas de Coordenadas — Hilo conductor y lecciones interactivas"
@@ -55,39 +54,10 @@ TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 
 # paleta del apunte
 TEAL, RUST, GOLD = "#1b6f6a", "#b5532a", "#c9a227"
-VIOLETA = "#7a4e9e"  # procedencia "anticipada" (armada antes de dictarse)
-COLOR_ESTADO = {
-    "con-transcripcion": (TEAL, "#e3f1f0"),
-    "reconstruida": (GOLD, "#faf3dc"),
-    "no-dictada": (RUST, "#f8e6dd"),
-    "anticipada": (VIOLETA, "#ece4f3"),
-}
-ETIQUETA_ESTADO = {
-    "con-transcripcion": "con transcripción",
-    "reconstruida": "reconstruida",
-    "no-dictada": "no dictada",
-    "anticipada": "anticipación, pendiente de validar",
-}
-ETIQUETA_ESTADO_UNIDAD = {
-    "piloto": "piloto",
-    "migrada": "migrada",
-    "legacy": "legacy (no publicada)",
-    "pendiente": "pendiente",
-}
+FONDO_NODO = "#e3f1f0"
+# avance interno del programa (no se publica): clases con capítulo desarrollado; "Seguir el programa" salta a la unidad siguiente
+PROGRAMA_AVANCE = ["01", "02", "03", "03p", "04", "05", "06", "07", "08", "09"]
 NIVELES = ("troncal", "complementario", "avanzado")
-VALIDACIONES = ("pendiente", "revisado", "validado-catedra")
-ETIQUETA_VALIDACION = {
-    "pendiente": "validación pendiente",
-    "revisado": "revisado",
-    "validado-catedra": "validado por la cátedra",
-}
-# estado de una unidad en la portada (calculado, no viene del yaml)
-ETIQUETA_UNIDAD = {
-    "lista": ("lista", TEAL),
-    "en-clase": ("en clase", GOLD),
-    "todavia-no": ("todavía no", RUST),
-}
-
 KATEX_VERSION = "0.16.11"
 KATEX_CDN = f"https://cdnjs.cloudflare.com/ajax/libs/KaTeX/{KATEX_VERSION}"
 
@@ -114,8 +84,6 @@ a:hover {{ color: var(--rust); }}
 .clase .cab {{ display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }}
 .clase .id {{ font-weight: 700; color: var(--c); }}
 .clase .tit {{ font-weight: 600; font-size: 1.05rem; }}
-.clase .estado {{ font-size: .8rem; color: #fff; background: var(--c); border-radius: 10px; padding: 1px 9px; }}
-.clase .fechas {{ color: var(--gris); font-size: .9rem; margin: 2px 0; }}
 .links {{ display: flex; flex-wrap: wrap; gap: 6px; font-size: .92rem; margin: 6px 0 0; }}
 .links span {{ display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; border: 1px solid var(--linea);
                border-radius: 10px; padding: 1px 9px; background: #f7f5ef; }}
@@ -134,12 +102,12 @@ a:hover {{ color: var(--rust); }}
 .volver {{ font-size: .9rem; margin: 1em 0 0; }}
 .volver a {{ margin-right: 14px; }}
 .katex-display {{ overflow-x: auto; overflow-y: hidden; }}
-/* etiquetas (procedencia, validación, nivel, estado de unidad) */
+/* etiquetas (nivel) */
 .etqs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }}
 .etq {{ display: inline-block; font-size: .78rem; line-height: 1.5; border-radius: 10px; padding: 1px 9px;
         border: 1.5px solid var(--c, var(--gris)); color: var(--c, var(--gris)); background: #fff; white-space: nowrap; }}
 .etq.solida {{ color: #fff; background: var(--c, var(--gris)); }}
-.ficha-etqs {{ margin: 1em 0 -.6em; }}
+.ficha .vinculos {{ padding-left: 1.2em; }}
 /* portada: entradas y unidades (el hilo conductor) */
 .entradas {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 1em 0 1.5em; }}
 .entrada {{ display: block; border: 1.5px solid var(--teal); border-radius: 8px; padding: 10px 14px; background: #fff;
@@ -258,24 +226,15 @@ def validar(datos: dict) -> list[str]:
         if "id" not in c:
             continue
         donde = f"clase {c['id']}"
-        if c.get("estado") not in ESTADOS_CLASE:
-            errores.append(f"{donde}: estado '{c.get('estado')}' no es uno de {ESTADOS_CLASE}")
         ficha = c.get("ficha")
         if ficha:
             if not (RAIZ / ficha).exists():
                 avisos.append(f"{donde}: la ficha {ficha} todavía no existe")
         else:
             avisos.append(f"{donde}: sin 'ficha'")
-        c["fechas_2026"] = [str(x) for x in (c.get("fechas_2026") or [])]
-        if c.get("fecha_2025") is not None:
-            c["fecha_2025"] = str(c["fecha_2025"])
-        if c.get("fecha_2025_estimada") is not None:
-            c["fecha_2025_estimada"] = str(c["fecha_2025_estimada"])
         if "apunte" in c:
             c["apunte"] = [str(x) for x in (c["apunte"] or [])]
             chequear_apunte(c["apunte"], donde)
-        if c.get("validacion") not in VALIDACIONES:
-            errores.append(f"{donde}: validacion '{c.get('validacion')}' no es uno de {VALIDACIONES}")
         if c.get("nivel") not in NIVELES:
             errores.append(f"{donde}: nivel '{c.get('nivel')}' no es uno de {NIVELES}")
         if not c.get("pregunta"):
@@ -535,24 +494,101 @@ def etiqueta(texto: str, color: str, *, solida: bool = False) -> str:
     return f'<span class="{clase}" style="--c:{color}">{html.escape(texto)}</span>'
 
 
-def etiquetas_clase(c: dict) -> str:
-    """Procedencia (`estado`) y validación de una clase, como dos etiquetas."""
-    color, _ = COLOR_ESTADO.get(c.get("estado"), (RUST, "#eee"))
-    proc = ETIQUETA_ESTADO.get(c.get("estado"), c.get("estado", ""))
-    val = ETIQUETA_VALIDACION.get(c.get("validacion"), c.get("validacion", ""))
-    color_val = TEAL if c.get("validacion") == "validado-catedra" else "#777"
-    return etiqueta(f"procedencia: {proc}", color, solida=True) + etiqueta(val, color_val)
-
-
 VOLVER = '<p class="volver"><a href="../index.html">← hilo conductor</a><a href="../mapa.html">mapa</a></p>'
 
 
-def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
+CAMPOS_FICHA = ("clase", "titulo", "idea", "que_se_estudia", "conceptos_previos", "apunte", "unidades", "animaciones", "ejercicios_sugeridos")
+SECCIONES_FICHA = ("Qué se estudia", "Conceptos previos", "En el apunte", "Unidades interactivas", "Animaciones", "Ejercicios sugeridos")
+
+
+def frontmatter(texto: str) -> dict:
+    """El frontmatter YAML de una ficha ({} si no tiene)."""
+    if not texto.startswith("---\n"):
+        return {}
+    fin = texto.find("\n---\n", 4)
+    return (yaml.safe_load(texto[4:fin]) or {}) if fin != -1 else {}
+
+
+def validar_fichas(datos: dict) -> list[str]:
+    """Chequea el frontmatter de cada ficha de clases/ contra el esquema (README de clases/). Devuelve los errores."""
+    errores: list[str] = []
+    caps = capitulos_apunte()
+    unidades = {u["id"] for u in datos["unidades"]}
+    animaciones = {p.stem for p in (RAIZ / "animaciones").glob("*.mp4")}
+    for src in sorted(DIR_CLASES.glob("[0-9]*.md")):
+        fm = frontmatter(src.read_text(encoding="utf-8"))
+        donde = src.name
+        for campo in CAMPOS_FICHA:
+            if campo not in fm:
+                errores.append(f"{donde}: falta '{campo}'")
+        if not 3 <= len(fm.get("que_se_estudia") or []) <= 6:
+            errores.append(f"{donde}: 'que_se_estudia' tiene que tener de 3 a 6 ítems")
+        if not 2 <= len(fm.get("ejercicios_sugeridos") or []) <= 4:
+            errores.append(f"{donde}: 'ejercicios_sugeridos' tiene que tener de 2 a 4 ítems")
+        for k in fm.get("apunte") or []:
+            if str(k) not in caps:
+                errores.append(f"{donde}: clave de apunte '{k}' sin \\label{{cap:{k}}}")
+        for u in fm.get("unidades") or []:
+            if u not in unidades:
+                errores.append(f"{donde}: unidad '{u}' no está en el mapa")
+        for a in fm.get("animaciones") or []:
+            if a not in animaciones:
+                errores.append(f"{donde}: animación '{a}' no existe en animaciones/")
+    return errores
+
+
+def _lista_html(items: list[str]) -> str:
+    return '<ul class="vinculos">' + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
+
+
+def secciones_vinculos(fm: dict, datos: dict, exportadas: set[str], hay_pdf: bool) -> dict[str, str]:
+    """HTML de las secciones «En el apunte», «Unidades interactivas» y «Animaciones», con enlaces (desde `../`)."""
+    caps = capitulos_apunte()
+    unidades = {u["id"]: u for u in datos["unidades"]}
+    res: dict[str, str] = {}
+    items = []
+    for k in fm.get("apunte") or []:
+        tit = html.escape(caps.get(str(k), str(k)))
+        items.append(f'<a href="../apunte.pdf#nameddest=cap:{html.escape(str(k))}">{tit}</a>' if hay_pdf else tit)
+    if items:
+        res["En el apunte"] = _lista_html(items)
+    items = []
+    for uid in fm.get("unidades") or []:
+        tit = html.escape(unidades.get(uid, {}).get("titulo", uid))
+        items.append(f'<a href="../unidades/{html.escape(uid)}/index.html">{tit}</a>' if uid in exportadas else f"{tit} (en preparación)")
+    if items:
+        res["Unidades interactivas"] = _lista_html(items)
+    items = []
+    for a in fm.get("animaciones") or []:
+        items.append(f'<a href="../animaciones/{html.escape(a)}.mp4">{html.escape(a.replace("_", " "))}</a> '
+                     f'(<a href="../animaciones/{html.escape(a)}.gif">gif</a>)')
+    if items:
+        res["Animaciones"] = _lista_html(items)
+    return res
+
+
+def ficha_html(texto: str, datos: dict, exportadas: set[str], hay_pdf: bool) -> str:
+    """Markdown de la ficha → html; las secciones de apunte, unidades y animaciones se arman desde el frontmatter."""
+    fm = frontmatter(texto)
+    cuerpo = sin_front_matter(texto)
+    trozos = re.split(r"^## ", cuerpo, flags=re.M)
+    vinc = secciones_vinculos(fm, datos, exportadas, hay_pdf)
+    partes = [md_a_html(trozos[0])]
+    for tr in trozos[1:]:
+        titulo, _, resto = tr.partition("\n")
+        titulo = titulo.strip()
+        if titulo in vinc:
+            partes.append(f"<h2>{html.escape(titulo)}</h2>\n{vinc[titulo]}")
+        else:
+            partes.append(md_a_html("## " + titulo + "\n" + resto))
+    return "\n".join(partes)
+
+
+def generar_fichas(datos: dict, out: Path, exportadas: set[str] = frozenset(), hay_pdf: bool = True) -> dict[str, str]:
     """Convierte las fichas. Devuelve {id_clase: 'clases/<id>.html'} para las que existen."""
     destino = out / "clases"
     destino.mkdir(parents=True, exist_ok=True)
     generadas: dict[str, str] = {}
-    usados: set[Path] = set()
     for c in datos["clases"]:
         ficha = c.get("ficha")
         if not ficha:
@@ -560,26 +596,11 @@ def generar_fichas(datos: dict, out: Path) -> dict[str, str]:
         src = RAIZ / ficha
         if not src.exists():
             continue
-        texto = sin_front_matter(src.read_text(encoding="utf-8"))
-        titulo = titulo_de_md(texto, f"Clase {c['id']} — {c.get('titulo', '')}")
-        cuerpo = (
-            f'{VOLVER}\n<p class="etqs ficha-etqs">{etiquetas_clase(c)}</p>\n'
-            f'<div class="ficha">\n{md_a_html(texto)}\n</div>'
-        )
+        texto = src.read_text(encoding="utf-8")
+        titulo = titulo_de_md(sin_front_matter(texto), f"Clase {c['id']}: {c.get('titulo', '')}")
+        cuerpo = f'{VOLVER}\n<div class="ficha">\n{ficha_html(texto, datos, exportadas, hay_pdf)}\n</div>'
         (destino / f"{c['id']}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
         generadas[c["id"]] = f"clases/{c['id']}.html"
-        usados.add(src.resolve())
-    # fichas sueltas no referidas por el yaml (sin README ni _borradores)
-    if DIR_CLASES.is_dir():
-        for src in sorted(DIR_CLASES.glob("*.md")):
-            if src.resolve() in usados or src.stem.isupper() or src.name.startswith("_"):
-                continue  # README, PLANTILLA y _borradores no son fichas
-            if False:
-                continue
-            texto = sin_front_matter(src.read_text(encoding="utf-8"))
-            titulo = titulo_de_md(texto, src.stem)
-            cuerpo = f'{VOLVER}\n<div class="ficha">\n{md_a_html(texto)}\n</div>'
-            (destino / f"{src.stem}.html").write_text(pagina(titulo, cuerpo, katex=True, raiz_rel="../"), encoding="utf-8")
     return generadas
 
 
@@ -664,7 +685,6 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
         alto_col_max = max(alto_col_max, y)
     ancho = MARGEN_X * 2 + ANCHO_COL * max(len(clases), 1)
     alto = int(alto_col_max - SEP_FILA + MARGEN_INF)
-    estado_clase = {c["id"]: c.get("estado", "no-dictada") for c in clases}
     # atributos para los controles de mapa.html: orden (1..n) y nivel de la clase de cada nodo
     orden_clase = {c["id"]: i + 1 for i, c in enumerate(clases)}
     nivel_clase = {c["id"]: c.get("nivel", "troncal") for c in clases}
@@ -685,7 +705,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
     # separadores y cabeceras de columna
     for col, c in enumerate(clases):
         x0 = MARGEN_X + col * ANCHO_COL
-        color, _ = COLOR_ESTADO.get(c.get("estado"), (RUST, "#eee"))
+        color = TEAL
         if col > 0:
             partes.append(f'<line x1="{x0}" y1="8" x2="{x0}" y2="{alto - 8}" stroke="#eee" stroke-width="1"/>')
         cx = x0 + ANCHO_COL / 2
@@ -732,7 +752,7 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
         if k["id"] not in pos:
             continue
         x, y, w, h, _, lineas = pos[k["id"]]
-        color, fondo = COLOR_ESTADO.get(estado_clase.get(k["clase"]), (RUST, "#eee"))
+        color, fondo = TEAL, FONDO_NODO
         if k.get("unidad") and k["unidad"] in exportadas:
             href = f"unidades/{k['unidad']}/index.html"
         elif k["clase"] in fichas:
@@ -773,34 +793,10 @@ def titulos_secciones_apunte() -> dict[str, str]:
     return capitulos_apunte()
 
 
-def hoy() -> _dt.date:
-    return _dt.date.today()
-
-
-def clase_dictada(c: dict, fecha: _dt.date) -> bool:
-    """True si alguna `fechas_2026` de la clase es ≤ `fecha`."""
-    for f in c.get("fechas_2026") or []:
-        try:
-            if _dt.date.fromisoformat(str(f)) <= fecha:
-                return True
-        except ValueError:
-            continue
-    return False
-
-
-def ultima_clase_dictada(clases: list[dict], fecha: _dt.date) -> dict | None:
-    """La clase con la fecha dictada más reciente (≤ fecha); empate → la de mayor orden en la cursada."""
-    mejor: tuple[_dt.date, int] | None = None
-    res = None
-    for i, c in enumerate(clases):
-        for f in c.get("fechas_2026") or []:
-            try:
-                d = _dt.date.fromisoformat(str(f))
-            except ValueError:
-                continue
-            if d <= fecha and (mejor is None or (d, i) > mejor):
-                mejor, res = (d, i), c
-    return res
+def indice_avance(clases: list[dict]) -> int:
+    """Posición (0-based) de la última clase de PROGRAMA_AVANCE en el orden del programa; -1 si no hay."""
+    ids = [c["id"] for c in clases]
+    return max((ids.index(i) for i in PROGRAMA_AVANCE if i in ids), default=-1)
 
 
 def enlace_apunte(pref: str, titulos: dict[str, str], hay_pdf: bool) -> str:
@@ -867,8 +863,7 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
     for k in datos["conceptos"]:
         conceptos_por_clase[k["clase"]].append(k)
     clases = datos["clases"]
-    ultima = ultima_clase_dictada(clases, hoy())
-    n_default = (clases.index(ultima) + 1) if ultima else len(clases)
+    n_default = indice_avance(clases) + 1 or len(clases)
 
     partes: list[str] = []
     partes.append('<p class="volver"><a href="index.html">← hilo conductor</a></p>')
@@ -883,33 +878,21 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
     partes.append(
         '<div class="controles">'
         f'<label>Ruta: <select id="ruta">{opciones}</select></label>'
-        f'<label><span id="hasta-rotulo">hasta la clase {html.escape(ultima["id"] if ultima else clases[-1]["id"])}</span> '
+        f'<label><span id="hasta-rotulo">hasta la clase {html.escape(clases[n_default - 1]["id"])}</span> '
         f'<input type="range" id="hasta" min="1" max="{len(clases)}" value="{n_default}" step="1"></label>'
         "</div>"
     )
     partes.append(f'<script id="clases-orden" type="application/json">{json.dumps([c["id"] for c in clases])}</script>')
     partes.append('<div class="mapa">' + svg_mapa(datos, fichas, exportadas) + "</div>")
-    leyenda = "".join(
-        f'<span style="--c:{COLOR_ESTADO[e][0]};--f:{COLOR_ESTADO[e][1]}">{ETIQUETA_ESTADO[e]}</span>' for e in ESTADOS_CLASE
-    )
-    partes.append(f'<p class="leyenda">{leyenda}<span style="--c:#777;--f:#fff">flecha: lo que un concepto requiere → el concepto</span></p>')
+    partes.append('<p class="leyenda"><span style="--c:#777;--f:#fff">flecha: lo que un concepto requiere → el concepto</span></p>')
     partes.append('<p class="guia">Cada nodo lleva a la unidad interactiva si existe, si no a la ficha de la clase. Pasando el mouse se ve el hecho geométrico. '
-                  "El filtro de ruta esconde las clases complementarias y avanzadas; el deslizador atenúa lo que viene después de la clase elegida (por default, la última dictada).</p>")
+                  "El filtro de ruta esconde las clases complementarias y avanzadas; el deslizador atenúa lo que viene después de la clase elegida.</p>")
     partes.append(f"<script>{JS_MAPA}</script>")
 
     partes.append(f"<h2>Clases ({len(clases)})</h2>")
     partes.append('<ul class="clases">')
     for c in clases:
-        color, _ = COLOR_ESTADO.get(c.get("estado"), (RUST, "#eee"))
-        fechas = []
-        if c.get("fecha_2025"):
-            fechas.append(f"2025: {html.escape(c['fecha_2025'])}")
-        elif c.get("fecha_2025_estimada"):
-            fechas.append(f"2025: {html.escape(c['fecha_2025_estimada'])} (est.)")
-        if c.get("fechas_2026"):
-            fechas.append("2026: " + ", ".join(html.escape(f) for f in c["fechas_2026"]))
-        else:
-            fechas.append("2026: sin fecha")
+        color = TEAL
         links: list[str] = []
         if c["id"] in fichas:
             links.append(f'<span><a href="{fichas[c["id"]]}">ficha</a></span>')
@@ -924,17 +907,14 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
             if uid in exportadas:
                 links.append(f'<span><a href="unidades/{html.escape(uid)}/index.html">unidad: {html.escape(u.get("titulo", uid))}</a></span>')
             else:
-                nota = f" — {html.escape(u['nota'])}" if u.get("nota") else ""
-                links.append(f'<span class="pend">unidad: {html.escape(u.get("titulo", uid))} ({ETIQUETA_ESTADO_UNIDAD.get(u.get("estado"), u.get("estado", ""))}{nota})</span>')
+                links.append(f'<span class="pend">unidad: {html.escape(u.get("titulo", uid))} (en preparación)</span>')
         for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
             links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         partes.append(
             f'<li class="clase" style="--c:{color}">'
             f'<div class="cab"><span class="id">Clase {html.escape(c["id"])}</span>'
             f'<span class="tit">{html.escape(c.get("titulo", ""))}</span>'
-            f'{etiquetas_clase(c)}'
             f'{etiqueta(c.get("nivel", ""), "#777")}</div>'
-            f'<div class="fechas">{" · ".join(fechas)}</div>'
             f'<div class="links">{"".join(links)}</div>'
             "</li>"
         )
@@ -953,14 +933,6 @@ PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agr
        "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
 
 
-def estado_unidad(clases_est: list[dict], exportada: bool, fecha: _dt.date) -> str:
-    if exportada:
-        return "lista"
-    if any(clase_dictada(c, fecha) for c in clases_est):
-        return "en-clase"
-    return "todavia-no"
-
-
 def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
     """site/index.html: el hilo conductor. Tres entradas y una entrada por unidad (más "Lo que viene")."""
     titulos_apunte = titulos_secciones_apunte()
@@ -969,7 +941,6 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in clases}
     for k in datos["conceptos"]:
         conceptos_por_clase[k["clase"]].append(k)
-    fecha = hoy()
 
     # unidades de la portada: una por unidad de unidades.yaml, en ese orden; al final, las clases sin unidad
     unidades_portada: list[dict] = []
@@ -980,34 +951,29 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
         unidades_portada.append({
             "unidad": u, "titulo": u.get("titulo", u["id"]), "clases": cl,
             "pregunta": u.get("pregunta", ""), "gancho": u.get("gancho_agrimensura", ""), "nivel": u.get("nivel", ""),
-            "estado": estado_unidad(cl, u["id"] in exportadas, fecha),
         })
     sin_unidad = [c for c in clases if c["id"] not in cubiertas]
     if sin_unidad:
         unidades_portada.append({
             "unidad": None, "titulo": "Lo que viene", "clases": sin_unidad,
-            "pregunta": "", "gancho": "Clases del esqueleto del profesor que todavía no se dictaron en 2026; no se anticipan como contenido de la cátedra.",
-            "nivel": "", "estado": estado_unidad(sin_unidad, False, fecha),
+            "pregunta": "", "gancho": "Clases del programa que todavía no tienen unidad interactiva.",
+            "nivel": "",
         })
 
-    # entrada "seguir la cursada": la unidad de la última clase dictada
-    ultima = ultima_clase_dictada(clases, fecha)
-    n_seguir = 0
-    if ultima:
-        for i, e in enumerate(unidades_portada, start=0):
-            if i > 0 and any(c["id"] == ultima["id"] for c in e["clases"]):
-                n_seguir = i   # la unidad 0 cubre 01, 04 y 09 como fundamentos: no es "seguir la cursada"
-                break
+    # entrada "seguir el programa": la unidad siguiente a la última que cubre una clase de PROGRAMA_AVANCE
+    marcadas = set(PROGRAMA_AVANCE)
+    ultima_u = max((i for i, e in enumerate(unidades_portada) if any(c["id"] in marcadas for c in e["clases"])), default=0)
+    n_seguir = min(ultima_u + 1, len(unidades_portada) - 1)
 
     partes: list[str] = []
     partes.append(f"<h1>{html.escape(TITULO_CAMINO)}</h1>")
     if datos.get("pregunta_guia"):
         partes.append(f'<p class="guia">Pregunta guía: {html.escape(datos["pregunta_guia"])}</p>')
-    seguir_sub = f"unidad {n_seguir}, clase {html.escape(ultima['id'])} ({html.escape(max(ultima['fechas_2026']))})" if ultima else "todavía no se dictó ninguna clase"
+    seguir_sub = f"unidad {n_seguir}: {html.escape(unidades_portada[n_seguir]['titulo'])}"
     partes.append(
         '<nav class="entradas">'
         f'<a class="entrada" href="#unidad-0"><b>Empezar</b><small>unidad 0: {html.escape(unidades_portada[0]["titulo"])}</small></a>'
-        f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir la cursada</b><small>{seguir_sub}</small></a>'
+        f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir el programa</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
         '<a class="entrada" href="autoevaluacion.html"><b>Autoevaluación (120 preguntas)</b><small>practicamos, hacemos un simulacro o rendimos la evaluación</small></a>'
         "</nav>"
@@ -1016,10 +982,10 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     partes.append(f"<h2>Recorrido paso a paso ({len(unidades_portada)} unidades interactivas)</h2>")
     partes.append('<ol class="hilo">')
     for i, e in enumerate(unidades_portada, start=0):
-        rot, color = ETIQUETA_UNIDAD[e["estado"]]
+        color = TEAL
         num = "Unidad 0 — Fundamentos" if i == 0 else f"Unidad {i}"
         cab = [f'<span class="num">{num}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
-               etiqueta(rot, color, solida=True)]
+               ]
         if e["nivel"]:
             cab.append(etiqueta(e["nivel"], "#777"))
         cuerpo = [f'<div class="cab">{"".join(cab)}</div>']
@@ -1027,12 +993,12 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
             cuerpo.append(f'<p class="pregunta">{html.escape(e["pregunta"])}</p>')
         if e["gancho"]:
             cuerpo.append(f'<p class="gancho">{html.escape(e["gancho"])}</p>')
-        # clases que cubre, con procedencia y validación
+        # clases que cubre
         filas = []
         for c in e["clases"]:
             ficha = f'<a href="{fichas[c["id"]]}">ficha</a>' if c["id"] in fichas else '<span class="pend">ficha pendiente</span>'
             filas.append(f'<li><span class="cid">Clase {html.escape(c["id"])}</span><span>{html.escape(c.get("titulo", ""))}</span>'
-                         f'{etiquetas_clase(c)}<span>{ficha}</span></li>')
+                         f'<span>{ficha}</span></li>')
         cuerpo.append(f'<ul class="sus-clases">{"".join(filas)}</ul>')
         # enlaces: unidad, apunte
         links: list[str] = []
@@ -1041,8 +1007,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
             if u["id"] in exportadas:
                 links.append(f'<span><a href="unidades/{html.escape(u["id"])}/index.html">abrir la unidad interactiva</a></span>')
             else:
-                nota = f" — {html.escape(u['nota'])}" if u.get("nota") else ""
-                links.append(f'<span class="pend">unidad {ETIQUETA_ESTADO_UNIDAD.get(u.get("estado"), u.get("estado", ""))}{nota}</span>')
+                links.append('<span class="pend">unidad en preparación</span>')
         prefs: list[str] = []
         for c in e["clases"]:
             for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
@@ -1649,6 +1614,9 @@ def main() -> int:
     try:
         datos = cargar_mapa(Path(args.mapa))
         avisos = validar(datos)
+        errores_fichas = validar_fichas(datos)
+        if errores_fichas:
+            raise ErrorMapa("\n".join(errores_fichas))
     except ErrorMapa as e:
         print(f"ERROR en mapa.yaml:\n{e}", file=sys.stderr)
         return 1
@@ -1684,7 +1652,7 @@ def main() -> int:
     print(f"  unidades disponibles en {out.name}/unidades: {sorted(exportadas) or 'ninguna'}")
 
     print("== fichas")
-    fichas = generar_fichas(datos, out)
+    fichas = generar_fichas(datos, out, exportadas, PDF_APUNTE.exists())
     print(f"  {len(fichas)} fichas generadas: {sorted(fichas) or 'ninguna'}")
 
     print("== apunte")

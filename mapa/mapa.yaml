@@ -5,156 +5,79 @@ titulo: Sistemas de Coordenadas — mapa de conceptos
 pregunta_guia: transformaciones ↔ operaciones ↔ coordenadas
 clases:
 - id: "01"
-  titulo: Rotaciones
+  titulo: Rotaciones, de los complejos a la exponencial
   ficha: clases/01-rotaciones.md
-  fecha_2025: "2025-08-21"
-  fechas_2026:
-  - "2026-08-19"
-  estado: con-transcripcion
   pregunta: ¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?
-  validacion: pendiente
   nivel: troncal
 - id: "02"
-  titulo: Traslaciones y movimientos rígidos
+  titulo: Composición, conmutatividad y líneas coordenadas
   ficha: clases/02-traslaciones-movimientos-rigidos.md
-  fecha_2025: null
-  fecha_2025_estimada: "2025-08-28"
-  fechas_2026: []
-  estado: no-dictada
   pregunta: ¿Qué pasa cuando encadeno dos movimientos, y por qué hace falta que conmuten para armar una grilla de coordenadas?
-  validacion: pendiente
   nivel: troncal
 - id: "03"
-  titulo: Transformaciones afines (reflexiones, similaridades, afinidades y coordenadas homogéneas)
+  titulo: Reflexiones, similaridades y afinidades
   ficha: clases/03-afines.md
-  fecha_2025: null
-  fecha_2025_estimada: "2025-09-04"
-  fechas_2026:
-  - "2026-09-02"
-  - "2026-09-09"
-  estado: reconstruida
   pregunta: ¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?
-  validacion: pendiente
   nivel: troncal
 - id: "03p"
-  titulo: Transformaciones proyectivas (clase extra 2C2026, el pentágono)
+  titulo: 'Complemento: transformaciones proyectivas'
   ficha: clases/03p-proyectivas.md
-  fecha_2025: null
-  fechas_2026:
-  - "2026-09-16"
-  - "2026-09-23"
-  estado: con-transcripcion
   pregunta: ¿Por qué en la foto las paralelas se cortan, y qué queda fijo cuando una cámara inclinada mira un lote plano?
-  validacion: pendiente
   nivel: complementario
 - id: "04"
-  titulo: Espacios lineales, transformaciones lineales y formas lineales (dualidad)
+  titulo: Formas lineales y dualidad
   ficha: clases/04-espacios-lineales-formas.md
-  fecha_2025: null
-  fecha_2025_estimada: "2025-09-11"
-  fechas_2026:
-  - "2026-09-30"
-  estado: con-transcripcion
   pregunta: ¿Qué es un vector, qué es una regla que mide vectores, y por qué cada uno se transforma distinto?
-  validacion: pendiente
   nivel: troncal
 - id: "05"
-  titulo: Subespacios afines y lineales, producto cuña, determinante y núcleo
+  titulo: Subespacios, producto cuña y determinante
   ficha: clases/05-subespacios-cuna-determinante.md
-  fecha_2025: null
-  fecha_2025_estimada: "2025-09-18"
-  fechas_2026:
-  - "2026-09-16"
-  estado: con-transcripcion
   pregunta: ¿Cómo detecto con una cuenta que unos vectores (o unos puntos) se aplastaron a algo de menor dimensión?
-  validacion: pendiente
   nivel: troncal
 - id: "06"
-  titulo: Subespacios invariantes, autovalores y autovectores
+  titulo: Autovalores y autovectores
   ficha: clases/06-invariantes-autovectores.md
-  fecha_2025: null
-  fecha_2025_estimada: "2025-09-25"
-  fechas_2026:
-  - "2026-09-16"
-  estado: con-transcripcion
   pregunta: ¿Qué direcciones caen sobre sí mismas al transformar, y cómo las encuentro?
-  validacion: pendiente
   nivel: troncal
 - id: "07"
-  titulo: Transformaciones lineales II — subespacios y la SVD
+  titulo: La SVD, de la circunferencia a la elipse
   ficha: clases/07-svd.md
-  fecha_2025: null
-  fechas_2026:
-  - "2026-10-07"
-  estado: reconstruida
   pregunta: Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?
-  validacion: pendiente
   nivel: avanzado
 - id: "08"
-  titulo: Cambios de base, más autovectores y experimentar con marimo
+  titulo: Cambio de base y diagonalización
   ficha: clases/08-cambio-de-base.md
-  fecha_2025: null
-  fechas_2026:
-  - "2026-09-30"
-  - "2026-10-07"
-  estado: con-transcripcion
   pregunta: Si cambio la grilla con que mido, ¿cómo cambian los números de un punto, de una recta y de una transformación?
-  validacion: pendiente
   nivel: troncal
 - id: "09"
-  titulo: Repaso de análisis (con álgebra de contrabando) — derivada, gradiente, jacobiano
+  titulo: Derivada, gradiente y jacobiano
   ficha: clases/09-analisis-derivada-jacobiano.md
-  fecha_2025: null
-  fechas_2026:
-  - "2026-10-14"
-  estado: con-transcripcion
   pregunta: ¿Qué transformación lineal aproxima una función cerca de un punto, y qué mide el gradiente?
-  validacion: pendiente
   nivel: troncal
 - id: "10"
-  titulo: Inversas — respecto de una operación, los cuatro subespacios y la pseudoinversa
+  titulo: Inversas, cuatro subespacios y pseudoinversa
   ficha: clases/10-inversas-pseudoinversa.md
-  fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
   pregunta: ¿Qué quiere decir deshacer una operación, y qué es lo más parecido a deshacer cuando la matriz no se invierte?
-  validacion: pendiente
   nivel: avanzado
 - id: "11"
-  titulo: Clase 11 - 4 problemas
+  titulo: Cuatro problemas de ajuste
   ficha: clases/11-cuatro-problemas.md
-  fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
   pregunta: ¿Cómo se resuelven con pseudoinversa y SVD una recta de ajuste, un punto por distancias y la superposición de dos nubes?
-  validacion: pendiente
   nivel: avanzado
 - id: "12"
-  titulo: 'Clase 12: Curvatura'
+  titulo: Curvatura y formas cuadráticas
   ficha: clases/12-curvatura.md
-  fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
   pregunta: ¿Cuánto se curva una superficie en cada dirección, y qué quiere decir ir derecho sobre ella?
-  validacion: pendiente
   nivel: troncal
 - id: "13"
-  titulo: 'Clase 13: Geometría del elipsoide (deducciones a partir de la simetría)'
+  titulo: Geometría del elipsoide
   ficha: clases/13-elipsoide.md
-  fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
   pregunta: ¿Qué se puede deducir del elipsoide sólo con que todos sus meridianos son la misma elipse?
-  validacion: pendiente
   nivel: troncal
 - id: "14"
-  titulo: 'Clase 14: Polígonos geodésicos sobre la esfera: Trigonometría esférica, y Máxima para el elipsoide'
+  titulo: Trigonometría esférica y polígonos geodésicos
   ficha: clases/14-trigonometria-esferica.md
-  fecha_2025: null
-  fechas_2026: []
-  estado: anticipada
   pregunta: ¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?
-  validacion: pendiente
   nivel: complementario
 conceptos:
 - id: rotacion
@@ -867,7 +790,7 @@ unidades:
   nivel: troncal
 - id: 05_proyectivas
   archivo: unidades/05_proyectivas.py
-  titulo: 'Proyectivas: la foto del dron y el pentágono del profesor'
+  titulo: 'Proyectivas: la foto del dron y el pentágono'
   estado: piloto
   clases:
   - "03p"
@@ -943,7 +866,6 @@ unidades:
   archivo: unidades/11_cuatro_problemas.py
   titulo: 'Cuatro problemas: regresión, círculos, Procrustes, regresión total'
   estado: piloto
-  nota: anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra
   clases:
   - "11"
   pregunta: ¿Qué tienen en común ajustar una recta, ubicar un punto por distancias, superponer dos relevamientos y ajustar una recta con error en las dos coordenadas?
@@ -953,7 +875,6 @@ unidades:
   archivo: unidades/12_curvatura.py
   titulo: Curvatura como forma cuadrática
   estado: piloto
-  nota: anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra
   clases:
   - "12"
   pregunta: ¿Cuánto se aparta la superficie de su plano tangente en cada rumbo, y qué quiere decir ir derecho sobre ella?
@@ -963,7 +884,6 @@ unidades:
   archivo: unidades/13_elipsoide.py
   titulo: Geometría del elipsoide
   estado: piloto
-  nota: anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra
   clases:
   - "13"
   pregunta: ¿Qué se deduce del elipsoide con sólo saber que todos sus meridianos son la misma elipse?
@@ -973,7 +893,6 @@ unidades:
   archivo: unidades/14_trigonometria_esferica.py
   titulo: Trigonometría esférica
   estado: piloto
-  nota: anticipación del alumno sobre el esqueleto 2025; la clase no se dictó, pendiente de validar por la cátedra
   clases:
   - "14"
   pregunta: ¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?
@@ -983,7 +902,6 @@ unidades:
   archivo: unidades/15_transformaciones_conformes.py
   titulo: 'Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico'
   estado: piloto
-  nota: desarrollo complementario del curso, cierre del arco; pendiente de validar por la cátedra
   clases:
   - "13"
   - "14"

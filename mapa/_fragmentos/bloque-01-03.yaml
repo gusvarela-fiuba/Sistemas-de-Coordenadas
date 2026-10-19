@@ -1,37 +1,22 @@
-# Fragmento del mapa: clases 01, 02 y 03 (rotaciones, composición/líneas coordenadas, afines).
-# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado,pregunta,validacion,nivel];
-#          conceptos[id,nombre,clase,unidad?,hecho_geometrico,que_se_conserva,apunte[],requiere[]].
+# Fragmento del mapa: clases 1, 2 y 3.
+# Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
 clases:
   - id: "01"
-    titulo: "Rotaciones"
+    titulo: "Rotaciones, de los complejos a la exponencial"
     ficha: clases/01-rotaciones.md
-    fecha_2025: "2025-08-21"
-    fechas_2026: ["2026-08-19"]
-    estado: con-transcripcion
     pregunta: "¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?"
-    validacion: pendiente
     nivel: troncal
   - id: "02"
-    titulo: "Traslaciones y movimientos rígidos"
+    titulo: "Composición, conmutatividad y líneas coordenadas"
     ficha: clases/02-traslaciones-movimientos-rigidos.md
-    fecha_2025: null
-    fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1; no figura en el campus
-    fechas_2026: []   # el 2026-08-26 no hubo clase; el contenido previsto (traslaciones) llegó por chat como la guía de seis teoremas (ficha 03)
-    estado: no-dictada
     pregunta: "¿Qué pasa cuando encadeno dos movimientos, y por qué hace falta que conmuten para armar una grilla de coordenadas?"
-    validacion: pendiente
     nivel: troncal
   - id: "03"
-    titulo: "Transformaciones afines (reflexiones, similaridades, afinidades y coordenadas homogéneas)"
+    titulo: "Reflexiones, similaridades y afinidades"
     ficha: clases/03-afines.md
-    fecha_2025: null
-    fecha_2025_estimada: "2025-09-04"   # jueves siguiente a la clase 2; no figura en el campus
-    fechas_2026: ["2026-09-02", "2026-09-09"]
-    estado: reconstruida
     pregunta: "¿Qué movimientos del plano conservan rectas las rectas y paralelas las paralelas, y cómo meto la traslación en la matriz?"
-    validacion: pendiente
     nivel: troncal
 
 conceptos:

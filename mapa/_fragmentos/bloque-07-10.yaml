@@ -1,44 +1,27 @@
-# Fragmento del mapa — bloque clases 07–10 (SVD, cambio de base, análisis, inversas)
-# Esquema: clases[id,titulo,ficha,fecha_2025,fechas_2026,estado,pregunta,validacion,nivel]
-#          conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]]
-# ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
+# Fragmento del mapa: clases 7 a 10.
+# Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
+# Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
 clases:
   - id: "07"
-    titulo: "Transformaciones lineales II — subespacios y la SVD"
+    titulo: "La SVD, de la circunferencia a la elipse"
     ficha: clases/07-svd.md
-    fecha_2025: null
-    fechas_2026: ["2026-10-07"]   # cronograma confirmado por el profesor en el chat (2026-10-17); sin transcripción
-    estado: reconstruida
     pregunta: "Cuando no hay direcciones fijas reales, ¿qué par de bases perpendiculares vuelve diagonal a la transformación?"
-    validacion: pendiente
     nivel: avanzado
   - id: "08"
-    titulo: "Cambios de base, más autovectores y experimentar con marimo"
+    titulo: "Cambio de base y diagonalización"
     ficha: clases/08-cambio-de-base.md
-    fecha_2025: null
-    fechas_2026: ["2026-09-30", "2026-10-07"]   # el 7/10 sin transcripción (cronograma del profesor)
-    estado: con-transcripcion
     pregunta: "Si cambio la grilla con que mido, ¿cómo cambian los números de un punto, de una recta y de una transformación?"
-    validacion: pendiente
     nivel: troncal
   - id: "09"
-    titulo: "Repaso de análisis (con álgebra de contrabando) — derivada, gradiente, jacobiano"
+    titulo: "Derivada, gradiente y jacobiano"
     ficha: clases/09-analisis-derivada-jacobiano.md
-    fecha_2025: null
-    fechas_2026: ["2026-10-14"]
-    estado: con-transcripcion
     pregunta: "¿Qué transformación lineal aproxima una función cerca de un punto, y qué mide el gradiente?"
-    validacion: pendiente
     nivel: troncal
   - id: "10"
-    titulo: "Inversas — respecto de una operación, los cuatro subespacios y la pseudoinversa"
+    titulo: "Inversas, cuatro subespacios y pseudoinversa"
     ficha: clases/10-inversas-pseudoinversa.md
-    fecha_2025: null
-    fechas_2026: []
-    estado: anticipada
     pregunta: "¿Qué quiere decir deshacer una operación, y qué es lo más parecido a deshacer cuando la matriz no se invierte?"
-    validacion: pendiente
     nivel: avanzado
 
 conceptos:
