@@ -523,65 +523,79 @@ regla se mide.
 
 \subsection{Los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
 
-El álgebra y el análisis del CBC dejan reflejos que funcionan en el papel y que esta materia
-pide cambiar, porque acá los objetos tienen un significado en el terreno. Para leer el resto
-con una sola cabeza alcanzan cinco ladrillos, en orden deductivo: cada uno usa solo los
-anteriores. La Unidad 0 del sitio (\texttt{00\_desaprender\_el\_cbc},
-apéndice~\ref{ap:notebooks}) los trabaja con figuras y ejercicios en Python.
-\begin{enumerate}
-  \item \textbf{Conjuntos, operaciones y grupos.} Un grupo es un conjunto con una operación
-  interna asociativa, un neutro y una inversa para cada elemento; si el orden no importa,
-  conmuta. Es el molde de todo lo que la materia llama \emph{transformación}. La inversa, dicha
-  para todos los casos a la vez, es un elemento de un conjunto que, al operar con otro, resulta
-  en el elemento neutro respecto de esa operación. Cuándo conmuta el grupo decide si se puede
-  armar un sistema de coordenadas: los giros de la estación total alrededor de su eje vertical
-  conmutan; los de \(\R^3\) no (sección~\ref{sec:orden-importa}). En NumPy: \texttt{A @ B},
-  \texttt{np.eye(n)}, \texttt{np.linalg.solve(A, y)}.
-  \item \textbf{Los cuerpos \(\R\) y \(\mathbb{C}\).} Un cuerpo tiene dos operaciones, suma
-  y producto, cada una un grupo conmutativo (el producto, sin el \(0\)), y el producto
-  distribuye. Un real \(a\) escala la recta, \(x\mapsto ax\), con inversa \(1/a\) y
-  determinante \(|a|\). Agregar \(i^2=-1\) equivale a pasar a las matrices
-  \[
-    M(z)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},\qquad
-    \begin{aligned}
-      &M(z_1+z_2)=M(z_1)+M(z_2),\\
-      &M(z_1z_2)=M(z_1)M(z_2),\quad M(1/z)=M(z)^{-1},
-    \end{aligned}
-  \]
-  que rotan \(\arg z\) mientras escalan \(|z|\), con \(\det M(z)=|z|^2\): son \(\mathbb{C}\)
-  con otro ropaje, y la matriz de rotación de \(2\times2\) del CBC hace la misma operación
-  que los complejos (sección~\ref{sec:rot-complejos}; sobre esta equivalencia de estructuras,
-  Gentile, \emph{Complejos y Generalización}, apéndice~\ref{ap:bibliografia}). En NumPy:
-  \texttt{np.array([[z.real, -z.imag], [z.imag, z.real]])}.
-  \item \textbf{Espacio afín y espacio vectorial: todo vector es un punto.} Un espacio
-  vectorial es un conjunto con suma y producto por escalar que cumplen las propiedades de
-  linealidad; de ahí salen combinación lineal, independencia, base y dimensión. Un espacio afín
-  es un conjunto de puntos sin origen: la diferencia de dos puntos es un vector. El terreno es
-  afín (hay mojones \(P\), \(Q\), no flechas); \(V\) nace cuando plantamos la estación total en
-  un mojón \(O\) y cada mojón pasa a ser \(P-O\), o cuando homogeneizamos
-  \((x,y)\mapsto(x,y,1)\). Toda transformación lineal conserva el cero, por eso las
-  traslaciones piden homogéneas. En NumPy, punto y desplazamiento son el mismo
-  \texttt{np.array([x, y])}; independencia: \texttt{np.linalg.matrix\_rank}.
-  \item \textbf{El dual \(V^{*}\): una fila es una forma lineal, y el gradiente también.} Una
-  forma lineal es una función lineal \(\omega:V\to\R\); las formas de \(V\) forman un espacio
-  vectorial de la misma dimensión, con base las selectoras de coordenadas. Se escribe como fila
-  y evalúa fila por columna, sin producto interno; se ve como una regla graduada, un mazo de
-  rectas de nivel equiespaciadas. Lo que suele llamarse vector fila es una forma lineal. Si los
-  puntos van con \(A\), la regla se arrastra con \(A^{-1}\), del lado contrario, para que la
-  lectura no cambie. Y \(df=\nabla f\,dx\) es una de ellas: el gradiente es una forma lineal,
-  no un vector. En NumPy: \texttt{w @ x} lee, \texttt{np.linalg.solve(A.T, w)} arrastra.
-  \item \textbf{Producto interno y métrica \(G\): la cinta métrica.} Un producto interno es
-  \(\langle u,v\rangle_G=u^TGv\) con \(G\) simétrica definida positiva; recién con él hay
-  largos y ángulos, y es el único puente entre \(V\) y \(V^{*}\): baja un vector a forma
-  (\(w=Gv\)) y sube una forma a vector (\(v=G^{-1}w\)). Lo único que distingue a la base
-  canónica es que en ella \(G=I\) y la cinta coincide con la grilla; en la grilla de un plano
-  estirado, \(G'=A^{-T}A^{-1}\); en \((\varphi,\lambda)\) sobre una superficie, \(G\) es la
-  primera forma fundamental, que cambia de punto a punto. En NumPy: \texttt{a @ g @ b},
-  \texttt{np.linalg.solve(g, w)}, \texttt{J.T @ J}.
-\end{enumerate}
+Del CBC traemos herramientas que funcionan bien en el papel. Acá los objetos tienen además un
+significado en el terreno, y eso obliga a mirar algunas de esas herramientas de otra manera.
+Alcanzan cinco ideas, que llamamos \emph{ladrillos} porque cada una se apoya en las anteriores.
+La Unidad~0 del sitio (\texttt{00\_fundamentos}, apéndice~\ref{ap:notebooks}) las trabaja con
+figuras y deja explorarlas con código.
+
+\paragraph{Ladrillo 1: operaciones que se pueden deshacer.}
+Pensá en todas las maneras de girar una hoja apoyada sobre la mesa, sin levantarla. Dos giros
+seguidos son otro giro; existe el giro que no hace nada; y todo giro se deshace girando lo mismo
+al revés. Un conjunto de operaciones con esas tres propiedades (más la asociatividad, que se
+cumple siempre que encadenamos operaciones) se llama \emph{grupo}, y la materia está llena de
+ellos: rotaciones, traslaciones, similaridades, afinidades. La pregunta que más importa sobre un
+grupo es si el orden da lo mismo. Con la hoja sobre la mesa, sí: girar \(30^\circ\) y después
+\(50^\circ\) es lo mismo que al revés. Con un libro en el aire, no: un cuarto de vuelta hacia
+adelante y después uno hacia el costado no lo dejan igual que en el orden contrario; vale la
+pena probarlo con un libro de verdad. Que el grupo \emph{conmute} o no es lo que separa el plano
+del espacio (sección~\ref{sec:orden-importa}).
+
+\paragraph{Ladrillo 2: números que giran.}
+Multiplicar por un número real estira o encoge la recta. Multiplicar por un número complejo
+hace algo más: en el plano estira y, además, gira. Si \(z=a+bi\), multiplicar por \(z\) es lo
+mismo que aplicar la matriz
+\[
+  M(z)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},
+\]
+que gira el ángulo de \(z\) y estira por su módulo; sumar o multiplicar complejos es sumar o
+multiplicar estas matrices, y \(\det M(z)=|z|^2\). La matriz de rotación del CBC y los números
+complejos son, entonces, la misma herramienta con distinta ropa
+(sección~\ref{sec:rot-complejos}). En álgebra, \(\R\) y \(\mathbb{C}\) se llaman
+\emph{cuerpos}: conjuntos donde se puede sumar, restar, multiplicar y dividir, salvo por cero.
+
+\paragraph{Ladrillo 3: lugares y flechas.}
+En el terreno hay mojones, no flechas. Un mojón es un lugar, y sumar dos lugares no tiene
+sentido: ¿cuánto da Buenos Aires más Mendoza? Lo que sí tiene sentido es la diferencia entre
+dos lugares, el desplazamiento que lleva de uno al otro, y eso es una flecha. Los lugares forman
+un \emph{espacio afín}; las flechas, un \emph{espacio vectorial}, que en el apunte llamamos
+\(V\). En \(V\) se puede sumar, que es encadenar desplazamientos, y multiplicar por un número,
+que es hacer el mismo desplazamiento más largo o más corto; de ahí salen la combinación
+lineal, la base y la dimensión del CBC. Para pasar de lugares a flechas hay que elegir un
+origen: fijado un mojón \(O\), cada mojón \(P\) queda representado por la flecha \(P-O\). Esa
+elección es nuestra, no del terreno. Por eso una transformación lineal deja fijo el origen, y
+las que lo mueven, como las traslaciones, necesitan el recurso de las coordenadas homogéneas
+(sección~\ref{sec:homogeneas-rotacion}).
+
+\paragraph{Ladrillo 4: reglas que miden flechas, el espacio dual \(V^{*}\).}
+Imaginá un terreno con una pendiente suave y pareja, y una regla que, para cada desplazamiento
+que hacés, te dice cuánto subiste. Si caminás el doble, subís el doble; si encadenás dos
+desplazamientos, subís la suma de las dos subidas. Esa regla no es una flecha: es una manera de
+\emph{medir} flechas que respeta sumas y escalas. Se llama \emph{forma lineal}, y el conjunto
+de todas las formas lineales sobre \(V\) es el \emph{espacio dual}, \(V^{*}\). Le damos nombre
+propio porque se comporta distinto que las flechas: cuando cambiamos los ejes, las coordenadas
+de una flecha cambian de una manera y las de una regla cambian de la manera inversa, para que la
+medición, cuánto subiste, siga dando lo mismo. En coordenadas, una flecha se escribe como
+columna y una regla como fila, y medir es multiplicar fila por columna. Se dibuja como un mazo
+de rectas paralelas equiespaciadas, como las curvas de nivel de una ladera pareja: medir una
+flecha es contar cuántas curvas cruza. La pendiente de un terreno, el diferencial \(dh\), es
+una regla de este tipo (capítulo~\ref{cap:formas-lineales}).
+
+\paragraph{Ladrillo 5: la cinta métrica.}
+Hasta acá no hablamos de largos ni de ángulos. Para eso hace falta algo más, un
+\emph{producto interno}, que funciona como la cinta métrica del espacio: con él se mide el largo
+de una flecha y el ángulo entre dos. El producto escalar del CBC, \(u\cdot v\), es uno en
+particular: el que corresponde a ejes perpendiculares con la misma unidad. Si la grilla está
+estirada o inclinada, la cinta se escribe con una matriz simétrica \(G\):
+\(\langle u,v\rangle_G=u^{\mathsf T}Gv\). El producto interno es, además, el puente entre los
+ladrillos 3 y 4: convierte una flecha en una regla (\(w=Gv\)) y una regla en una flecha
+(\(v=G^{-1}w\)). Es lo que permite dibujar la pendiente como una flecha, el \emph{gradiente},
+que apunta hacia donde el terreno sube más rápido (sección~\ref{sec:formas-metrica}). Sobre una
+superficie curva, como el elipsoide terrestre, la cinta cambia de un punto a otro; esa cinta
+variable es la primera forma fundamental (sección~\ref{sec:metrica}).
 
 \begin{resultado}[Las tres ecuaciones maestras de la materia (\(Ax=b\), \(Ax=\lambda x\), \(Ax\approx b\))]
-Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden a una de tres preguntas (las que quedan afuera son las de medir con la métrica, \(J\) y \(J^TJ\), en las unidades 02, 10, 13 y 14):
+Con los cinco ladrillos, casi todas las cuentas lineales del curso responden a una de tres preguntas (las que quedan afuera son las de medir con la métrica, \(J\) y \(J^TJ\), en las unidades 02, 10, 13 y 14):
 
 \smallskip
 \small
