@@ -6,31 +6,82 @@
 
 \subsection{Una pregunta de campo: cuánto mide un segundo}
 
-El capítulo~\ref{cap:curvatura} anticipó que las curvaturas principales del elipsoide son
-\(1/M\) y \(1/N\); ahora calculamos esos radios. En Buenos Aires, a la latitud
-\(\varphi\approx-34{,}6^\circ\), un segundo de arco de latitud
-mide sobre el terreno \(30{,}815\) m y un segundo de longitud, \(25{,}481\) m. Si la Tierra fuera
-una esfera, el cociente entre los dos sería \(\cos\varphi=0{,}823136\); sobre el elipsoide
+Imaginá que salís del ecuador caminando hacia el norte con una plomada en la mano (un hilo con
+un peso en la punta, que cuelga marcando la vertical del lugar) y que te detenés cada vez que el
+hilo giró un grado respecto de la dirección que tenía al salir. ¿Cuántos metros caminaste en cada tramo?
+Si la Tierra fuera una esfera, todos los tramos medirían lo mismo. No es así: junto al ecuador
+el tramo mide unos \(110{,}6\) km, y junto al polo, unos \(111{,}7\) km, más de un kilómetro más
+(ejercicio~\ref{ex:elip-ecuador-polo}). ¿Por qué un grado de latitud mide más metros cerca del
+polo que en el ecuador? Esa es la pregunta que el capítulo responde.
+
+Mirá de perfil una naranja levemente achatada, apoyada sobre la mesa: arriba la cáscara es
+casi chata, y en los costados se curva más. Donde la cáscara es chata hay que recorrer mucha
+para que la dirección perpendicular a ella gire un poco; donde se curva, alcanza con poca. La
+Tierra es así, apenas achatada en los polos, y la latitud se lee justamente con la
+perpendicular a la superficie: por eso el grado de latitud es más largo cerca del polo, donde la
+superficie es más chata.
+
+Pensá ahora en la vertical de Buenos Aires prolongada hacia abajo, la que marcaría la plomada
+si la Tierra fuera exactamente esa naranja achatada. ¿Pasa por el centro de la Tierra? En una
+esfera pasaría; en la Tierra achatada, no: cruza el eje de los polos unos \(24\) km al norte
+del centro. La recta que va
+del punto al centro y la vertical forman ángulos distintos con el ecuador, y por eso vamos a
+tener más de una latitud.
+
+Probá también caminar \enquote{derecho} sobre una pelota y sobre un huevo. Sobre la pelota, el
+suelo se curva igual hacia cualquier lado que vayas. Sobre el huevo, no: a lo largo se curva
+menos que alrededor. ¿Cuántos radios hacen falta, entonces, para describir cómo se curva la
+Tierra en un lugar? El capítulo~\ref{cap:curvatura} respondió en general (dos, uno por cada
+dirección principal) y anticipó que en el elipsoide las curvaturas principales son \(1/M\) y
+\(1/N\): \(M\) es el radio con que se curva la superficie hacia el norte, y \(N\), hacia el
+este. Ahora calculamos esos radios.
+
+Con números: en Buenos Aires, a la latitud \(\varphi\approx-34{,}6^\circ\) (el signo menos
+indica el hemisferio sur), un segundo de arco de latitud, la 3600-ava parte de un grado, mide
+sobre el terreno \(30{,}815\) m, y un segundo de longitud, \(25{,}481\) m. ¿Cuánto debería dar
+el cociente entre los dos? Si la Tierra fuera una esfera, sería \(\cos\varphi=0{,}823136\); sobre el elipsoide
 es \(0{,}826895\). La diferencia no es un error de redondeo: el elipsoide se curva distinto
 a lo largo del meridiano que a lo ancho, y cada dirección tiene su propio radio. Vemos por qué
 \(M\) y \(N\) son los que hacen falta y qué se gana y qué se pierde al reemplazar el elipsoide
 por una esfera.
 
-\paragraph{Convenciones del capítulo.} Semiejes \(a>b\); latitud geodésica \(\varphi\)
+\paragraph{Convenciones del capítulo.} Semiejes \(a>b\); latitud \(\varphi\), la geodésica
 (negativa al sur), longitud \(\lambda\), latitudes geocéntrica \(\psi\) y reducida \(\beta\);
 en el plano meridiano, \(x'\) es la distancia al eje polar y \(z\) la altura sobre el ecuador;
 \(M\) y \(N\), radios de curvatura del meridiano y del primer vertical (por eso las direcciones
 se nombran \enquote{hacia el norte} y \enquote{hacia el este}); \(W=\sqrt{1-e^2\sin^2\varphi}\);
 ángulos en radianes, \(1''=\pi/648\,000\) rad.
 
+En palabras: \(a\) es el radio del ecuador y \(b\), la distancia del centro a un polo, unos
+\(21\) km más corta. Un \emph{meridiano} es la línea que va de polo a polo pasando por el
+punto, y un \emph{paralelo}, la circunferencia horizontal que une los puntos de la misma
+latitud. La latitud \(\varphi\) dice cuánto al norte o al sur del ecuador está el punto, medida
+con la vertical, y la longitud \(\lambda\), cuánto al este o al oeste de un meridiano elegido
+(en este capítulo, como en los dos vecinos, \(\lambda\) es siempre la longitud y nunca un
+autovalor). Las otras dos latitudes, \(\psi\) y \(\beta\), miden lo mismo con otra recta en
+lugar de la vertical; las presentamos en la sección~\ref{sec:latitudes}. Para trabajar en un
+corte vertical que pasa por el eje, \(x'\) es la distancia horizontal del punto al eje que une
+los polos y \(z\), su altura sobre el plano del ecuador. \(M\) y \(N\) son los dos radios de
+curvatura de la superficie en el punto: \(M\), el del meridiano, y \(N\), el del \emph{primer
+vertical}, el corte de la superficie en dirección este--oeste. \(W\) es solo una abreviatura
+para no repetir una raíz que aparece en todas las fórmulas; adentro tiene la
+\emph{excentricidad} \(e\), un número chico que mide cuánto se aparta la elipse de una
+circunferencia (se define en la sección siguiente). La última igualdad escribe un segundo de
+arco en radianes.
+
 \subsection{Todos los meridianos son la misma elipse}
 
-El elipsoide de revolución se obtiene haciendo girar una elipse alrededor de su eje menor.
-Esa sola frase contiene dos simetrías: cualquier giro alrededor del eje polar lo deja igual,
+Imaginá una elipse recortada en cartón, pinchada en un alambre a lo largo de su eje corto, y
+hacela girar rápido: la superficie que se ve es un \emph{elipsoide de revolución}, la forma con
+que se describe la Tierra. ¿Qué cambia si te movés hacia el este sin cambiar de latitud? Nada:
+la superficie que encontrás es la misma que dejaste atrás.
+Esa construcción contiene dos simetrías: cualquier giro alrededor del eje polar lo deja igual,
 y también la reflexión en cualquier plano que contenga al eje. De ahí se deduce casi todo sin
 cuentas pesadas. Nada métrico depende de la longitud \(\lambda\): los radios, las latitudes y
-la curvatura son funciones de \(\varphi\) sola, y todo se calcula en un único plano meridiano.
-La normal en un punto está en el plano meridiano del punto, pero no pasa por el centro, y por
+la curvatura son funciones de \(\varphi\) sola, y todo se calcula en un único plano meridiano,
+el corte por el eje que contiene al meridiano del punto.
+La normal en un punto, la recta perpendicular a la superficie (la vertical de la plomada),
+está en el plano meridiano del punto, pero no pasa por el centro, y por
 eso hay más de una latitud. Y las direcciones de curvatura máxima y mínima son la del
 meridiano y la del paralelo, porque la reflexión en el plano meridiano no puede preferir
 ninguna otra.
@@ -45,6 +96,13 @@ y ambos salen de la misma elipse.
 \section{Construcciones, cuentas y ejemplos}
 
 \subsection{El elipsoide de revolución y sus parámetros}
+
+¿Cuántos números hacen falta para fijar la forma de la Tierra en este modelo? Dos: el radio del
+ecuador y la distancia del centro al polo. Todo lo demás se arma con ellos. Como la diferencia
+entre los dos es chica (unos \(21\) km sobre más de \(6000\) km), conviene medirla con números que
+digan directamente cuánto se aparta el elipsoide de una esfera: el \emph{achatamiento} \(f\),
+la fracción del radio del ecuador que le falta al radio polar, y las \emph{excentricidades}
+\(e\) y \(e'\), que valen cero en la esfera y crecen a medida que la elipse se aplana.
 
 \begin{definicion}[Elipsoide de revolución]
 Dados \(a>b>0\), el \emph{elipsoide de revolución} de semiejes \(a\) y \(b\) es la superficie
@@ -65,6 +123,10 @@ la \emph{elipse meridiana}. Esa elipse es a su vez la imagen de la circunferenci
 \(a\) por la afinidad que comprime la dirección \(z\) en el factor \(b/a\)
 (capítulo~\ref{cap:afines}); esa lectura reaparece en la latitud reducida.
 
+Para hacer cuentas hace falta elegir un elipsoide concreto. GRS80 es uno con medidas acordadas
+internacionalmente para representar la Tierra entera; el resultado que sigue da sus números y
+los compara con otro de uso común, casi idéntico.
+
 \begin{resultado}[Parámetros del elipsoide GRS80]
 \(a=6\,378\,137\) m y \(1/f=298{,}257222101\). De ahí \(f=0{,}003352810681\),
 \(b=6\,356\,752{,}3141\) m, \(a-b=21\,384{,}686\) m, \(e^2=0{,}0066943800\),
@@ -74,12 +136,18 @@ sus \(M\) y \(N\) difieren de los de GRS80 en \(0{,}11\) mm y \(0{,}03\) mm. Par
 sigue, los dos son el mismo elipsoide; los números del capítulo son de GRS80.
 \end{resultado}
 
-\subsection{La normal, la latitud geodésica y el gran normal}
+\subsection{La normal, la latitud y el gran normal}
+
+Colgá una plomada y mirá el hilo: marca la vertical del lugar. Si la Tierra fuera exactamente
+un elipsoide, sin montañas ni diferencias de densidad, ese hilo sería perpendicular a la
+superficie. ¿Qué ángulo forma con el plano del ecuador? Ese ángulo es el que se usa como
+latitud, porque es el que se puede observar en el lugar.
 
 La \emph{latitud geodésica} \(\varphi\) de un punto \(P\) del elipsoide es el ángulo entre la
 normal al elipsoide en \(P\) y el plano del ecuador. Es la latitud que materializa la
-vertical idealizada del lugar, y la que usan los marcos geodésicos. Para ubicar \(P\) a
-partir de \(\varphi\) alcanza con trabajar en el plano meridiano.
+vertical idealizada del lugar, y la que usan los sistemas oficiales de coordenadas. Para ubicar \(P\) a
+partir de \(\varphi\) alcanza con trabajar en el plano meridiano: el problema es encontrar
+el punto de la elipse donde la perpendicular tiene una inclinación dada.
 
 \begin{proposicion}[El punto de latitud geodésica \(\varphi\)]\label{prop:elip-punto}
 El punto de la elipse meridiana cuya normal forma el ángulo \(\varphi\) con el ecuador es
@@ -94,7 +162,7 @@ Con la longitud \(\lambda\), la parametrización del elipsoide es
 \end{proposicion}
 
 \begin{demostracion}
-La elipse es la curva de nivel \(1\) de \(F(x',z)=x'^2/a^2+z^2/b^2\), y el gradiente
+La elipse es la curva de nivel \(1\) de la función \(F(x',z)=x'^2/a^2+z^2/b^2\), y su gradiente
 \(\nabla F=(2x'/a^2,\ 2z/b^2)\) es perpendicular a ella (capítulo~\ref{cap:formas-lineales}).
 Pedir que la normal tenga la dirección \((\cos\varphi,\sin\varphi)\) es pedir
 \(\dfrac{x'/a^2}{\cos\varphi}=\dfrac{z/b^2}{\sin\varphi}\), es decir,
@@ -113,7 +181,8 @@ meridiano: \(x=x'\cos\lambda\), \(y=x'\sin\lambda\).
 \end{demostracion}
 
 La cantidad \(N\) tiene una lectura geométrica directa, que explica por qué la normal no
-pasa por el centro.
+pasa por el centro. Volvamos a la plomada y prolonguemos el hilo hacia abajo, a través de la
+Tierra: ¿dónde corta al eje que une los polos, y cuánto mide ese tramo?
 
 \begin{proposicion}[El gran normal]\label{prop:elip-gran-normal}
 La normal en \(P\) corta el eje polar en el punto \(z=-Ne^2\sin\varphi\), y el tramo de normal
@@ -131,7 +200,7 @@ contrario a la normal da \(P-t(\cos\varphi,\sin\varphi)\). Con \(t=N\) se llega 
 \end{demostracion}
 
 Por eso \(N\) se llama \emph{gran normal}: es la longitud de la normal desde el punto hasta
-el eje de rotación. En Buenos Aires la normal cruza el eje \(24\,271{,}817\) m al norte del
+el eje de rotación. En Buenos Aires el hilo de la plomada, prolongado, cruza el eje \(24\,271{,}817\) m al norte del
 centro (para una latitud austral, \(-Ne^2\sin\varphi>0\)) y corta el plano del ecuador a
 \(35\,184{,}002\) m del eje. La figura~\ref{fig:elip-meridiana} lo muestra con un elipsoide
 exagerado.
@@ -148,8 +217,11 @@ misma \(x'\) define la reducida \(\beta\approx35{,}57^\circ\). Generada con
 \label{fig:elip-meridiana}
 \end{figure}
 
-\subsection{Latitudes geodésica, geocéntrica y reducida}\label{sec:latitudes}
+\subsection{Tres latitudes: geodésica, geocéntrica y reducida}\label{sec:latitudes}
 
+Parado en Buenos Aires, ¿cuánto estás \enquote{al sur} del ecuador? Depende de qué recta mires:
+la vertical, la recta que va al centro de la Tierra o una tercera que facilita las cuentas.
+En una esfera las tres coinciden; en el elipsoide, no.
 Además de la geodésica hay otras dos maneras naturales de dar la \enquote{altura angular} de
 \(P\) sobre el ecuador: la \emph{latitud geocéntrica} \(\psi\), ángulo entre la recta del
 centro a \(P\) y el ecuador, y la \emph{latitud reducida} (o paramétrica) \(\beta\), ángulo del
@@ -179,7 +251,7 @@ Multiplicando, \(\tan\varphi\tan\psi=(1-e^2)\tan^2\varphi=\tan^2\beta\). Como
 \(\tan\psi=kt=\sqrt k=1/t\), de modo que \(\tan\psi=\cot\varphi\) y \(\varphi+\psi=90^\circ\).
 \end{demostracion}
 
-En GRS80 la máxima diferencia geodésica--geocéntrica es \(11{,}545'\) (unos \(692{,}7''\)) y
+En el elipsoide terrestre que usamos, la máxima diferencia geodésica--geocéntrica es \(11{,}545'\) (unos \(692{,}7''\)) y
 ocurre en \(\varphi=45{,}0962^\circ\); la geodésica--reducida llega a \(5{,}773'\) en
 \(45{,}0481^\circ\) (figura~\ref{fig:elip-latitudes}). En Buenos Aires,
 \(\psi=-34{,}420332^\circ\) y \(\beta=-34{,}510112^\circ\): la recta al centro está
@@ -213,7 +285,14 @@ normal difieren en más de \(12^\circ\).
 
 \subsection{Radios de curvatura \texorpdfstring{\(M\)}{M} y \texorpdfstring{\(N\)}{N}}\label{sec:radios-MN}
 
-\paragraph{El meridiano.} La curvatura de una curva plana es la rapidez con que gira su
+Volvé a la naranja achatada vista de perfil y a la caminata con la plomada. Para que la
+vertical gire un grado hay que recorrer más cáscara donde es chata y menos donde se curva: el
+largo de ese recorrido, por cada radián que gira la vertical, es justamente el radio de
+curvatura. Esta sección lo calcula en las dos direcciones que importan, hacia el norte y hacia
+el este.
+
+\paragraph{El meridiano.} La curvatura de una curva plana, \(\kappa\) (se lee
+\enquote{kappa}), es la rapidez con que gira su
 tangente por unidad de longitud recorrida, \(\kappa=d\theta/ds\), y el radio de curvatura es
 \(1/\kappa\). En la elipse meridiana el ángulo de la tangente está atado a la latitud: la
 tangente es perpendicular a la normal, de modo que \(\theta=\varphi+90^\circ\) y
@@ -229,6 +308,10 @@ Sobre la elipse meridiana parametrizada por la latitud geodésica,
 En consecuencia \(ds=M\,d\varphi\) y la curvatura del meridiano es \(1/M\): \(M\) es el radio
 de la circunferencia osculadora de la elipse meridiana en \(P\).
 \end{proposicion}
+
+En palabras: cuando la latitud aumenta en \(d\varphi\), el punto avanza sobre el meridiano una
+distancia \(ds=M\,d\varphi\), y \(M\) es el radio de la circunferencia que mejor se pega a la
+elipse en ese punto (la osculadora del capítulo~\ref{cap:curvatura}).
 
 \begin{demostracion}
 De \(N=aW^{-1}\) y \(dW/d\varphi=-e^2\sin\varphi\cos\varphi/W\) sale
@@ -257,13 +340,19 @@ La cuenta se puede controlar por otro camino: la fórmula de la curvatura de una
 implícita aplicada a \(x'^2/a^2+z^2/b^2=1\) en Buenos Aires da un radio de
 \(6\,356\,008{,}141\) m, el mismo \(M\).
 
-\paragraph{La primera forma fundamental.} En tres dimensiones, derivando
+\paragraph{La primera forma fundamental.} ¿Y si el paso no es hacia el norte sino en
+cualquier dirección? Hace falta una regla que convierta un cambio chico de latitud y de
+longitud en metros sobre la superficie: es la primera forma fundamental del
+capítulo~\ref{cap:curvatura}. En tres dimensiones, derivando
 \(r(\varphi,\lambda)\) de la proposición~\ref{prop:elip-punto} y usando la
 proposición~\ref{prop:elip-M},
 \[
   r_\varphi=M\,(-\sin\varphi\cos\lambda,\ -\sin\varphi\sin\lambda,\ \cos\varphi),\qquad
   r_\lambda=N\cos\varphi\,(-\sin\lambda,\ \cos\lambda,\ 0).
 \]
+Aquí \(r_\varphi\) y \(r_\lambda\) son las derivadas de \(r\) respecto de la latitud y de la
+longitud: las flechas que dicen hacia dónde y cuánto se mueve el punto al cambiar cada
+coordenada, la primera hacia el norte y la segunda hacia el este.
 Los dos son perpendiculares entre sí y a \(n=(\cos\varphi\cos\lambda,\ \cos\varphi\sin\lambda,\
 \sin\varphi)\), la normal de latitud \(\varphi\). Con la notación de la
 sección~\ref{sec:metrica} (capítulo~\ref{cap:derivada}), \(E=M^2\), \(F=0\),
@@ -276,9 +365,12 @@ coordenadas en metros: un \(d\varphi\) mide \(M\,d\varphi\) sobre el meridiano y
 \(d\lambda\) mide \(N\cos\varphi\,d\lambda\) sobre el paralelo, que es una circunferencia de
 radio \(x'=N\cos\varphi\).
 
-\paragraph{El primer vertical y las curvaturas principales.} En general las direcciones
+\paragraph{El primer vertical y las curvaturas principales.} Parado en el punto, cortá
+mentalmente la superficie con un plano vertical que contenga a la normal y apunte al este: la
+curva que queda es el \emph{primer vertical}. ¿Por qué el norte y el este, y no otras dos
+direcciones? En general las direcciones
 principales son autovectores del operador de forma (sección~\ref{sec:curvaturas-principales});
-en el elipsoide no hace falta diagonalizar nada.
+en el elipsoide no hace falta diagonalizar nada: la simetría las elige.
 
 \begin{proposicion}[Curvaturas principales del elipsoide]\label{prop:elip-principales}
 En todo punto del elipsoide que no sea un polo, las direcciones principales son la del
@@ -364,14 +456,19 @@ largo del meridiano que a lo ancho.
 
 \subsection{Radio medio de Gauss y curvatura media}
 
+Si hubiera que reemplazar el elipsoide, cerca de un punto, por una sola esfera, ¿qué radio
+habría que elegir: \(M\), \(N\) o algo intermedio? Para responder, resumimos las dos
+curvaturas en un solo número.
 Con las curvaturas principales se arman los dos invariantes del capítulo~\ref{cap:curvatura}:
 \[
   K=k_1k_2=\frac1{MN}\quad\text{(curvatura de Gauss)},\qquad
   H=\frac{k_1+k_2}2=\frac12\Bigl(\frac1M+\frac1N\Bigr)\quad\text{(curvatura media)} .
 \]
 El \emph{radio medio de Gauss} es \(R=1/\sqrt K=\sqrt{MN}\): el radio de la esfera que tiene,
-en ese punto, la misma curvatura de Gauss que el elipsoide. Entre las secciones normales, la
-fórmula de Euler da el radio en cada acimut \(\alpha\), medido desde el meridiano:
+en ese punto, la misma curvatura de Gauss que el elipsoide. Una dirección sobre el terreno se
+da con su \emph{acimut} \(\alpha\), el ángulo que forma con el norte, contado en sentido
+horario. Entre las secciones normales, los cortes por planos que contienen a la normal, la
+fórmula de Euler da el radio \(\rho(\alpha)\) de la sección en cada dirección:
 \[
   \frac1{\rho(\alpha)}=\frac{\cos^2\alpha}M+\frac{\sin^2\alpha}N .
 \]
@@ -478,10 +575,23 @@ agregar \(B\) deja \(11{,}186\) m; agregar \(C\), \(0{,}010\) m.
 
 \paragraph{Arco de paralelo.} El paralelo es una circunferencia de radio \(N\cos\varphi\), de
 modo que el arco entre dos longitudes es exactamente \(S_\lambda=N\cos\varphi\,\Delta\lambda\).
-Ese arco no es la línea más corta entre sus extremos: la geodésica que los une se desvía
+Clavá dos chinches sobre una pelota, a la misma altura pero lejos del ecuador, y tensá una
+cuerda entre ellas: ¿la cuerda sigue el paralelo? No: se va un poco hacia el polo, porque por
+ahí el camino es más corto. Esa línea más corta sobre la superficie, la que sigue la cuerda
+tensa, se llama \emph{geodésica}. En el elipsoide pasa lo mismo: el arco de paralelo no es la
+línea más corta entre sus extremos, la geodésica que los une se desvía
 levemente hacia el polo, y para \(10\) km en Buenos Aires es \(0{,}49\) mm más corta.
 
 \subsection{Aplicación topográfica: un segundo y una base de 10 km en Buenos Aires}
+
+La situación: se conocen la latitud y la longitud de un punto en Buenos Aires y hay que saber
+cuántos metros representa un segundo de cada coordenada, y qué coordenadas tiene un punto
+ubicado a \(10\) km hacia el norte o hacia el este. Ese segmento de \(10\) km, de largo
+conocido y usado como referencia, es lo que en el ejemplo llamamos \emph{base}. La tentación es
+hacer las cuentas sobre una esfera, que tiene fórmulas más simples; el ejemplo mide cuánto se
+pierde. Los errores aparecen en \emph{partes por millón}: un error de una parte por millón es un
+milímetro por kilómetro. Al final, las cuentas cerradas se comparan con un cálculo
+independiente, con un margen de error aceptado de un milímetro.
 
 \begin{ejemplo}[Radios, segundos y bases en Buenos Aires]\label{ej:elip-ba}
 En \(\varphi=-34{,}6^\circ\), GRS80:
@@ -555,8 +665,10 @@ Todo el capítulo se apoya en la simetría de revolución. Si el elipsoide tuvie
 distintos, los meridianos dejarían de ser la misma elipse, \(M\) y \(N\) dependerían también
 de la longitud y las direcciones principales ya no estarían fijadas de antemano: habría que
 hallarlas como autovectores, como en el capítulo~\ref{cap:curvatura}. Las proyecciones que
-llevan este elipsoide al plano se desarrollan en el complemento~\ref{cap:conformes}, y los
-marcos de referencia que lo materializan, en el complemento~\ref{cap:marcos}.
+llevan este elipsoide al plano se desarrollan en el complemento~\ref{cap:conformes}, y la
+manera de atarlo a puntos concretos de la Tierra, en el complemento~\ref{cap:marcos}.
+El capítulo~\ref{cap:esfera} toma la esfera local de radio \(\sqrt{MN}\) y resuelve triángulos
+sobre ella.
 
 \section{Ejercicios con solución}
 
