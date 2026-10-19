@@ -22,13 +22,13 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 754 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 524 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 769 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 546 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 688 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 787 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 801 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 633 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 538 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 763 | 3 | 4 | 13 | 7 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 12000 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 12142 | 87 | 70 | 139 | 85 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
@@ -57,10 +57,19 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 5379fb0
-- Páginas del último PDF: 265 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: 9f74d7b
+- Páginas del último PDF: 267 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 0 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 91
   (Tipo: dominante entre S = simbólica, N = numérica, C = contraejemplo; ver apunte/demostraciones/README.md)
 - Capítulo 0 (criterio propio): cumple
+
+
+## Capítulos cerrados que ganarían con más espacio
+
+Criterio vigente desde la fase G: no hay límite de páginas. Un capítulo ya cerrado que ganaría con más explicación, figuras o ejemplos se anota acá y no se reabre sin aprobación.
+
+- Capítulo 12 (cerrado en 607073e con el criterio anterior de ~265 págs.): quedan 10,5 términos de campo cada 100 líneas, casi todos «residuo» y «Helmert» en enunciados y títulos; las dos demostraciones movidas a «En profundidad» están completas. Candidato a reabrir si el editor quiere más ejemplos resueltos.
+- Capítulo 15 (cerrado en 2be3810 con el criterio anterior): dos demostraciones movidas a «En profundidad» completas; tres figuras en el capítulo. Candidato a reabrir si el editor quiere figuras del triángulo polar o de la loxodromia.
+- Capítulo 11 (cerrado en fb92d8c con el criterio anterior): demostración de la adjugada en «En profundidad» completa; 4,1 términos de campo cada 100 líneas, lo que queda está en enunciados, ejemplos y consignas de unidades.
