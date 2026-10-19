@@ -245,6 +245,102 @@ Ningún punto ordinario se pierde, las paralelas siguen paralelas y las figuras 
 parten. Recíprocamente, toda homografía que deja fija la recta ideal es una afinidad.
 \end{atencion}
 
+\subsection{El conjugado armónico}\label{sec:conjugado-armonico}
+
+El valor \(-1\) de la razón doble es el más importante de todos: aparece cada vez que una
+homografía actúa como un espejo y es el reemplazo proyectivo del punto medio, que las
+homografías no conservan.
+
+\begin{definicion}[Conjugado armónico]\label{def:conjugado-armonico}
+Sean \(A,B,C\) tres puntos distintos de una recta. Un cuarto punto \(D\) de la recta es el
+\emph{conjugado armónico} de \(C\) respecto de \(A\) y \(B\) si
+\[
+  (A,B;C,D)=-1 .
+\]
+Se dice también que \(A,B,C,D\) forman una \emph{cuaterna armónica}.
+\end{definicion}
+
+Con coordenadas afines \(a,b,c,d\) sobre la recta, la condición es
+\((c-a)(d-b)=-(c-b)(d-a)\), una ecuación de primer grado en \(d\): el conjugado armónico
+existe y es único. Con \(a=0\) queda \(d=\dfrac{bc}{2c-b}\).
+
+\begin{resultado}[Propiedades del conjugado armónico]
+\begin{itemize}
+  \item \textbf{Es simétrico.} Si \((A,B;C,D)=-1\), también \((A,B;D,C)=-1\) (es la inversa,
+  \(1/(-1)\)): \(C\) es el conjugado armónico de \(D\). Lo mismo al intercambiar \(A\) y \(B\).
+  \item \textbf{Separa.} Si \(C\) está dentro del segmento \(AB\), \(\frac{c-a}{c-b}<0\) y la
+  condición pide \(\frac{d-b}{d-a}>0\): \(D\) está fuera del segmento, del lado de aquel de
+  \(A\), \(B\) al que \(C\) está más cerca.
+  \item \textbf{El punto medio y el punto impropio son conjugados armónicos.} Si \(C\) es el
+  punto medio, \(2c-b=0\) y la fórmula de \(d\) no da ningún punto ordinario: \(D\) se va al
+  infinito. En efecto, \((A,B;C,D)\to-1\) cuando \(D\) se aleja: con \(a=0\), \(b=6\),
+  \(c=3\) vale \(-0.994\) para \(d=1000\) y \(-0.999994\) para \(d=10^6\).
+  \item \textbf{Es invariante proyectivo.} Por la proposición~\ref{prop:c1-razon-doble}, una
+  homografía lleva cuaternas armónicas en cuaternas armónicas. Combinado con lo anterior:
+  en una foto en perspectiva, la imagen del punto medio de un segmento es el conjugado
+  armónico, respecto de las imágenes de los extremos, del punto de fuga de la recta.
+\end{itemize}
+\end{resultado}
+
+\paragraph{Construcción con el cuadrilátero completo.} El conjugado armónico se construye
+con regla sola, sin medir (figura~\ref{fig:c1-conjugado-armonico}). Dados \(A,B,C\) en una
+recta, se elige un punto \(L\) fuera de ella y un punto \(K\) en el segmento \(LC\). Se
+trazan \(M=BK\cap LA\) y \(N=AK\cap LB\). La recta \(MN\) corta a \(AB\) en el conjugado
+armónico \(D\). Los cuatro puntos \(L,M,N,K\), sin tres alineados, y las seis rectas que los
+unen forman el \emph{cuadrilátero completo} (más precisamente, cuadrángulo completo): los
+lados opuestos \(LM\) y \(NK\) se cortan en \(A\), los lados \(LN\) y \(MK\) en \(B\), y la
+recta \(AB\) corta a los dos lados restantes, \(LK\) y \(MN\), en \(C\) y en \(D\). El
+resultado no depende de las elecciones de \(L\) y \(K\): una homografía lleva \(L,M,K,N\) a
+los vértices de un cuadrado (sección~\ref{sec:cuatro-puntos}); allí \(A\) y \(B\) son las
+direcciones de los lados y \(C\), \(D\) las de las diagonales, de pendientes \(0\),
+\(\infty\), \(1\) y \(-1\), y medida con la pendiente la razón doble es
+\(\frac{(1-0)}{(-1-0)}\cdot\lim_{b\to\infty}\frac{-1-b}{1-b}=-1\). Por la invariancia, vale
+\(-1\) para cualquier elección.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{figuras/proyectivas/c1_conjugado_armonico.png}
+\caption{Construcción del conjugado armónico con el cuadrilátero completo \(L,M,N,K\):
+\(A=(0,0)\), \(B=(6,0)\), \(C=(4,0)\), \(L=(2,4)\), \(K=(3,2)\), \(M=BK\cap LA=(1.5,3)\),
+\(N=AK\cap LB=(3.6,2.4)\) y \(D=MN\cap AB=(12,0)\). Generada con
+\texttt{apunte/scripts/capc1\_conjugado\_armonico.py}.}
+\label{fig:c1-conjugado-armonico}
+\end{figure}
+
+\begin{ejemplo}[Conjugado armónico con coordenadas]\label{ej:c1-conjugado-armonico}
+Sean \(A=(0,0)\), \(B=(6,0)\) y \(C=(4,0)\) sobre el eje \(x\), con la abscisa como coordenada
+afín. La fórmula da \(d=\dfrac{6\cdot4}{2\cdot4-6}=12\), y en efecto
+\[
+  (0,6;4,12)=\frac{(4-0)(12-6)}{(4-6)(12-0)}=\frac{24}{-24}=-1 .
+\]
+\(C\) está dentro de \(AB\), más cerca de \(B\), y \(D\) quedó afuera, del lado de \(B\). La
+construcción de la figura~\ref{fig:c1-conjugado-armonico} da lo mismo con productos cruz
+en homogéneas: con \(L=(2,4)\) y \(K=(3,2)\), el punto medio de \(LC\), resultan
+\(M=(1.5,3)\), \(N=(3.6,2.4)\), y la recta \(MN\), de pendiente \(-2/7\), corta al eje en
+\(x=1.5+3\cdot\tfrac72=12\). Por último, la homografía \(f(x)=\dfrac{2x+1}{x+3}\) del
+ejemplo~\ref{ej:c1-razon-doble} lleva \(0,6,4,12\) a \(\tfrac13,\tfrac{13}9,\tfrac97,\tfrac53\), y
+\[
+  \Bigl(\tfrac13,\tfrac{13}9;\tfrac97,\tfrac53\Bigr)
+  =\frac{\bigl(\tfrac97-\tfrac13\bigr)\bigl(\tfrac53-\tfrac{13}9\bigr)}
+        {\bigl(\tfrac97-\tfrac{13}9\bigr)\bigl(\tfrac53-\tfrac13\bigr)}
+  =\frac{\tfrac{20}{21}\cdot\tfrac29}{-\tfrac{10}{63}\cdot\tfrac43}
+  =\frac{40/189}{-40/189}=-1 :
+\]
+la cuaterna sigue siendo armónica, aunque \(C\) ya no divide al segmento en la misma razón.
+\end{ejemplo}
+
+En una homología armónica (sección~\ref{sec:homografia-fijos}), cada punto y su imagen son
+conjugados armónicos respecto del centro y del corte de su recta con el eje; es lo que
+comprueba la razón doble \((D,D';O,X)=-1\) en el ejercicio del pentágono de la unidad
+interactiva.
+
+\begin{atencion}[Tres ``conjugados'' distintos]
+El conjugado armónico no tiene relación con la conjugación de matrices
+(sección~\ref{sec:conjugacion}) ni con el conjugado complejo
+(sección~\ref{sec:conjugado-complejo}): es la misma palabra para tres ideas distintas. El
+glosario de la sección~\ref{sec:glosario} las separa.
+\end{atencion}
+
 \subsection{Cuatro puntos determinan la homografía}\label{sec:cuatro-puntos}
 
 \paragraph{Conteo.} Cada correspondencia \(p_i\mapsto p_i'\) aporta dos ecuaciones
@@ -322,7 +418,7 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
 \begin{itemize}
   \item \textbf{Tres autovalores reales distintos:} tres puntos fijos no alineados y tres
   rectas fijas, los lados de ese triángulo.
-  \item \textbf{Un real y dos complejos conjugados:} un único punto fijo real y una única
+  \item \textbf{Un real y dos complejos conjugados} (\(\lambda\) y \(\bar\lambda\), en el sentido de la sección~\ref{sec:conjugado-complejo})\textbf{:} un único punto fijo real y una única
   recta fija real que no pasa por él. En coordenadas adecuadas es una rotación alrededor del
   punto fijo, con la recta fija en el papel de recta ideal.
   \item \textbf{Un autovalor doble con producto cruz de filas nulo:} una recta entera de

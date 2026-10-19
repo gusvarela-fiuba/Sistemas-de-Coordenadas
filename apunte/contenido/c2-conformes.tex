@@ -172,6 +172,51 @@ invierte la orientación, una similaridad inversa; por eso la hipótesis va en e
 sin ella (ii) y (iii) no implican (i). Las proyecciones cartográficas se toman directas.)
 \(\square\)
 
+\paragraph{El conjugado complejo: transponer es reflejar.}\phantomsection\label{sec:conjugado-complejo}
+Para un número complejo \(z=a+ib\) se escribe
+\(J(z)=\left(\begin{smallmatrix}a&-b\\b&a\end{smallmatrix}\right)\), la matriz de (iv): la de
+multiplicar por \(z\), que es la jacobiana de \(\zeta\mapsto z\zeta\). El conjugado
+\(\bar z=a-ib\) tiene una lectura matricial directa.
+
+\begin{proposicion}[El conjugado complejo como transpuesta y como reflexión]\label{prop:conjugado-complejo}
+Sea \(z=a+ib\) y \(S=\operatorname{diag}(1,-1)\). Entonces
+\[
+  J(\bar z)=J(z)^T=S\,J(z)\,S
+  \qquad\text{y}\qquad
+  \lvert z\rvert^2=\det J(z).
+\]
+\end{proposicion}
+
+\begin{demostracion}
+Es una cuenta. Por definición, \(J(\bar z)=J(a+i(-b))=\left(\begin{smallmatrix}a&b\\-b&a\end{smallmatrix}\right)\),
+que es \(J(z)^T\). Multiplicar a izquierda por \(S\) cambia el signo de la segunda fila y
+multiplicar a derecha por \(S\) cambia el signo de la segunda columna:
+\[
+  S\,J(z)\,S=\begin{pmatrix}1&0\\0&-1\end{pmatrix}\begin{pmatrix}a&-b\\b&a\end{pmatrix}
+  \begin{pmatrix}1&0\\0&-1\end{pmatrix}
+  =\begin{pmatrix}a&-b\\-b&-a\end{pmatrix}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+  =\begin{pmatrix}a&b\\-b&a\end{pmatrix}=J(\bar z).
+\]
+Por último, \(\det J(z)=a\cdot a-(-b)\cdot b=a^2+b^2=z\bar z=\lvert z\rvert^2\). Por ejemplo,
+con \(z=3+4i\): \(J(z)^T=\left(\begin{smallmatrix}3&4\\-4&3\end{smallmatrix}\right)=J(3-4i)\)
+y \(\det J(z)=9+16=25=\lvert3+4i\rvert^2\).
+\end{demostracion}
+
+Tres lecturas. Primera: \emph{transponer la matriz de \(z\) es conjugar \(z\)}; de ahí que
+\(J(z)J(z)^T=J(z\bar z)=\lvert z\rvert^2I\), es decir, \(J(z)/\lvert z\rvert\) es ortogonal, la
+rotación \(R(\theta)\) de (i). Segunda: la aplicación \(z\mapsto\bar z\), \((a,b)\mapsto(a,-b)\),
+tiene matriz \(S\): es la \emph{reflexión en el eje real}. No es multiplicar por ningún
+complejo (\(S\) no tiene la forma \(J(w)\) y \(\det S=-1\)); como \(\arg\bar z=-\arg z\),
+invierte el sentido de giro. \(S\) es ortogonal, así que cumple (iii) con \(k=1\) y conserva
+el tamaño de los ángulos, pero con \(\det S<0\): es \emph{anticonforme}, el caso que la
+hipótesis \(\det J>0\) deja afuera en el resultado anterior. Es lo que registra la columna
+Reflexión del cuadro~\ref{tab:conserva}: distancias y ángulos, sí; sentido de giro, no.
+Tercera: como \(S^{-1}=S\), la igualdad \(J(\bar z)=S^{-1}J(z)\,S\) dice que \(J(\bar z)\) es
+\emph{conjugada} de \(J(z)\) por \(S\) en el sentido de la sección~\ref{sec:conjugacion}:
+multiplicar por \(\bar z\) es reflejar, multiplicar por \(z\) y volver a reflejar,
+\(\bar z\,w=\overline{z\,\bar w}\). La palabra ``conjugado'' aparece así con dos sentidos que
+acá coinciden; el glosario de la sección~\ref{sec:glosario} los separa.
+
 \begin{atencion}[¿Sobre qué Jacobiano pedimos \(J^TJ=k^2I\)? Coordenadas \((\varphi,\lambda)\) vs.\ metros en el plano tangente]
 \emph{En coordenadas.} Si derivamos la carta \(\Phi(\varphi,\lambda)=(x,y)\) respecto de las
 coordenadas geodésicas en radianes, obtenemos el Jacobiano de coordenadas
