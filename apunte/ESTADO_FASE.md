@@ -7,7 +7,7 @@ Actualizado en cada commit de fase. Formato de commit: `[FASE-X] [OK|PARADA|BLOQ
 | 0 | Informe de lectura e infraestructura LaTeX | OK | 6c4f9b6 | — |
 | Piloto | Capítulos de rotaciones y afines con el molde | OK | da54735, 0e56d71 | — |
 | Paso 1 | Partición en un capítulo por clase y remapeo de labels | OK (aprobado) | a54da0a | — |
-| Portada / renombre / donación | Trabajo final CB104; 03 renombrado; licencias fuera, CITATION y NOTA_DE_DONACION | OK | 93740dd, 1f9eeee, 78fa328 | — |
+| Portada / renombre / cita | Trabajo final CB104; 03 renombrado; condiciones de uso sólo en el repositorio, CITATION y nota | OK | 93740dd, 1f9eeee, 78fa328 | — |
 | A | Línea de base (ESTADO.md), Overfull, título interno | OK (aprobada) | 2bb7c4e | — |
 | C | Capítulo de SVD, la lectura de las curvas de nivel | OK (aprobado condicionado a lectura) | dec4296 | — |
 | B0 | Entrega-1: cero menciones prohibidas, proyectivas, conformes; limpieza del maestro | OK (aprobada) | ef6b397 (tag entrega-1), 622fd50 | entregas/2026-10-19_entrega-1.pdf |

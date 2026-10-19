@@ -237,7 +237,7 @@ fig_plotly.show()
 
 nb.cells = cells
 
-output_path = "/Users/gv/.gemini/antigravity-ide/scratch/sistemas_coordenadas/interseccion_3d.ipynb"
+output_path = "interseccion_superficies.ipynb"  # salida en el directorio actual
 with open(output_path, "w", encoding="utf-8") as f:
     nbf.write(nb, f)
 

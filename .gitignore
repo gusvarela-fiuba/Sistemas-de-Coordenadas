@@ -4,7 +4,7 @@ site/
 __pycache__/
 __marimo__/
 *.pyc
-# datos pesados (quedan en Dropbox)
+# datos pesados (fuera del repositorio)
 *.tif
 *.zip
 # LaTeX temporales
@@ -27,8 +27,5 @@ entregas/
 apunte/preparacion/
 apunte/_retirado/
 docs/auditoria.md
-fuentes/transcripciones/
-fuentes/campus/profesor/
-fuentes/campus/resumenes_clase_2025_profesor.md
 apunte/01_Ejercicios_original.pdf
 apunte/02_afinidad_original.pdf

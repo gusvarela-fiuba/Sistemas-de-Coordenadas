@@ -142,5 +142,5 @@ def clase(t):
 
 ca, cb, cc = clase((1, 2, 3, 4)), clase((1, 0, 2, 3)), clase((2, 1, 0, 3))
 print("R1  (a) en la clase de la identidad:", ca == clase((0, 1, 2, 3)),
-      "| (a),(b),(c) en clases distintas:", len({ca, cb, cc}) == 3)
+      "| (a),(b),(c) pertenecen a tres clases de equivalencia distintas:", len({ca, cb, cc}) == 3)
 print("R3  escala por tramo (s/r):", np.round(np.diff(s_par) / np.diff(xr), 2))
