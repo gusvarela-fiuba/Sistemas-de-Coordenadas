@@ -75,7 +75,6 @@ Cerrada el 2026-10-19 04:59 -03.
 ### Decisiones pendientes para el editor
 
 - Capítulos 2 y 4 quedan debajo de la meta de reducción (6,1 % y 9,0 %); bajar más exige tocar enunciados, demostraciones, ejemplos con cuentas o la aplicación.
-- Capítulo 12: la remisión «caja~\ref{caja:convencion-en}» imprime el número de la sección y no el de la caja; unificar con «la caja de la sección~\ref{…}».
 - Capítulos 8 y 12: la matriz de covarianza o de dispersión usa la letra \(C\) del cambio de base; unificar (por ejemplo \(S\) o \(\Sigma\)), incluida la consigna de la unidad 11.
 - Capítulo 7, `def:06-direccion-propia`: es el autovector con otro nombre; candidata a reducirse a una frase conservando la etiqueta.
 - Capítulo 8: las definiciones «Forma cuadrática» y «Descomposición en valores singulares» no tienen `\label`.
