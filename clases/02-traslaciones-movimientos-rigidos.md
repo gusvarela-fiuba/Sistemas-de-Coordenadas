@@ -42,7 +42,7 @@ Qué pasó con el contenido 2025 de esta clase:
 
 - Parte ya se había dado el 08-19: el ejercicio 2 de Excel (rotación por repetición de pasitos) y el logaritmo con `logm` son el contenido de la planilla 2025 de esta clase.
 - El resto (el problema de los vasos y el cubo de estados, latitud y longitud como líneas coordenadas generadas por rotaciones, el producto cruz como eje de giro, la "yapa" de autovectores del wxMaxima) no consta que se haya dado en ninguna clase posterior de 2C2026. El producto cruz y los autovectores reaparecen el 16/9 (ficha 05 y 06); la esfera, recién en la tercera lectura del apunte.
-- El orden efectivo de 2C2026 (apunte, `02-hilo-de-la-materia.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta clase. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
+- El orden efectivo de 2C2026 (apunte, `00-antes-de-empezar.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta clase. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
 
 La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c (el orden de los giros, la conmutatividad) y la pregunta guía de la grilla de coordenadas.
 

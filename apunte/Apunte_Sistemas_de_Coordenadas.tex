@@ -56,44 +56,39 @@ unidades interactivas. Todo número de un ejemplo proviene de un script del repo
 
 %% --- Cuerpo: una línea \input por archivo de contenido/, en orden ---
 \setcounter{chapter}{-1}
-\input{contenido/00-como-leer}
-\input{contenido/01-organizacion}
-\input{contenido/02-hilo-de-la-materia}
-%% «Repaso» (03) es parte de «Antes de empezar»: se rotula R y no consume número de capítulo.
-\capituloPreliminar{R}
-\input{contenido/03-algebra-lineal-repaso}
-\finCapituloPreliminar
+\input{contenido/00-antes-de-empezar}
 
-%% Capítulos de clase (1 a 14) y complementos (C1 a C4), en el orden del programa.
-%% Los capítulos 11 a 14 son páginas «en preparación»; su material está en apunte/preparacion/.
+%% Capítulos de clase (1 a 15) y complementos (C1 a C4), en el orden del programa.
+%% Los capítulos 12 a 15 son páginas «en preparación»; su material está en apunte/preparacion/.
 \input{contenido/01-rotaciones}
 \input{contenido/02-traslaciones-movimientos-rigidos}
-\input{contenido/03-reflexiones-afinidades-homogeneas}
+\input{contenido/03-reflexiones-isometrias-similaridades}
+\input{contenido/04-afinidades-homogeneas}
 \input{contenido/c1-proyectivas}
-\input{contenido/04-formas-lineales}
-\input{contenido/05-subespacios-cuna-determinante}
-\input{contenido/06-autovalores-autovectores}
-\input{contenido/07-svd}
+\input{contenido/05-formas-lineales}
+\input{contenido/06-subespacios-cuna-determinante}
+\input{contenido/07-autovalores-autovectores}
+\input{contenido/08-svd}
 \input{contenido/c3-terreno-como-matriz}
-\input{contenido/08-cambio-de-base}
-\input{contenido/09-derivada-aproximacion-lineal}
-\input{contenido/10-inversas-pseudoinversa}
-\input{contenido/11-cuatro-problemas}
-\input{contenido/12-curvatura}
-\input{contenido/13-elipsoide}
-\input{contenido/14-esfera-trigonometria-esferica}
+\input{contenido/09-cambio-de-base}
+\input{contenido/10-derivada-aproximacion-lineal}
+\input{contenido/11-inversas-pseudoinversa}
+\input{contenido/12-cuatro-problemas}
+\input{contenido/13-curvatura}
+\input{contenido/14-elipsoide}
+\input{contenido/15-esfera-trigonometria-esferica}
 \input{contenido/c2-conformes}
 \input{contenido/c4-marcos-grillas}
 
 \clearpage
 \appendix
 \chapter{Apéndices}\label{cap:apendices}
-\input{contenido/14-apendice-rotaciones-3d}
-\input{contenido/15-apendice-infinitesimales}
-\input{contenido/16-apendice-composicion-afin}
-\input{contenido/20-apendice-bibliografia}
-\input{contenido/21-apendice-notebooks}
-\input{contenido/22-material-y-fuentes}
+\input{contenido/ap1-rotaciones-3d}
+\input{contenido/ap2-infinitesimales}
+\input{contenido/ap3-composicion-afin}
+\input{contenido/ap4-bibliografia}
+\input{contenido/ap5-notebooks}
+\input{contenido/ap6-material-y-fuentes}
 
 %% --- Facsímiles de las guías de ejercicios (deben estar en esta carpeta) ---
 \includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]

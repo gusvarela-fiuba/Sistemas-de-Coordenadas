@@ -1,0 +1,1015 @@
+% Afinidades y coordenadas homogéneas (partición de 03-reflexiones-afinidades-homogeneas.tex, fase B)
+\chapter{Afinidades y coordenadas homogéneas}\label{cap:afines}
+
+% Números de los ejemplos y soluciones: apunte/scripts/cap06_afines.py
+
+\section{La idea}
+
+Las isometrías del capítulo~\ref{cap:reflexiones} conservan distancias; las similaridades conservan
+ángulos y multiplican todas las distancias por un mismo factor. En este capítulo aflojamos
+la rigidez un paso más: permitimos que una figura se estire distinto en cada dirección o se
+incline, siempre que las rectas sigan siendo rectas y las paralelas sigan siendo paralelas.
+Ese grupo de transformaciones es el de las \emph{afinidades}. Usamos «afinidad» y
+«transformación afín» como sinónimos. Para escribirlas con una sola matriz introducimos las
+\emph{coordenadas homogéneas}, que transforman la traslación en una multiplicación más.
+
+\subsection{Afinidades: conservar rectas y paralelismo}\label{sec:afinidades-primera}
+
+{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+
+Una afinidad permite deformaciones más generales que un giro o una homotecia. Un cuadrado
+puede convertirse en un paralelogramo y el círculo inscripto en una elipse inscripta; las
+rectas que dividen al cuadrado en cuatro siguen dividiendo al paralelogramo en cuatro, y los
+puntos medios siguen siendo puntos medios.
+
+\begin{center}
+\begin{tikzpicture}[scale=.86]
+  % cuadrado con su círculo inscripto y sus medianas
+  \begin{scope}[shift={(1,1)},scale=2.7]
+    \draw[teal,line width=1.1pt] (0,0) rectangle (1,1);
+    \draw[auxline] (.5,0)--(.5,1) (0,.5)--(1,.5);
+    \draw[teal,line width=.8pt] (.5,.5) circle (.5);
+  \end{scope}
+  % su imagen afín: (0,0)->(7,1), (1,0)->(10.2,1.5), (0,1)->(5.9,3.7)
+  \begin{scope}[cm={3.2,.5,-1.1,2.7,(7,1)}]
+    \draw[rust,line width=1.1pt] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
+    \draw[auxline] (.5,0)--(.5,1) (0,.5)--(1,.5);
+    \draw[rust,line width=.8pt] plot[domain=0:360,samples=72,smooth]
+      ({.5+.5*cos(\x)},{.5+.5*sin(\x)});
+  \end{scope}
+  \draw[-{Latex[length=2.8mm]},tealdark,line width=1pt]
+    (4.3,2.4)--(5.4,2.4) node[midway,above] {$f$};
+  \node[labelback,text=teal] at (2.35,.55) {cuadrado y círculo};
+  \node[labelback,text=rust] at (8.05,.55) {paralelogramo y elipse};
+\end{tikzpicture}
+\end{center}
+
+\begin{idea}[Idea]
+Una afinidad es una transformación lineal seguida de una traslación: conserva rectas,
+paralelismo y razones sobre una recta, pero no distancias ni ángulos.
+\end{idea}
+
+En fórmulas, una afinidad del plano se escribe
+\[
+  f(x)=Ax+b,
+\]
+con \(A\) una matriz \(2\times2\) y \(b\) un vector. La parte \(A\) deforma la cuadrícula
+(lleva el cuadrado unidad a un paralelogramo) y \(b\) desplaza el origen. Si \(\det A\neq0\),
+ninguna dirección colapsa en un punto y la transformación se puede deshacer.
+
+\subsection{Coordenadas homogéneas: puntos como rayos}\label{sec:homogeneas-primera}
+
+{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+
+\paragraph{Una motivación de campo.}
+Un relevamiento con estación total se registra en un sistema local \((x,y)\): origen en la
+estación, eje \(x\) hacia una referencia arbitraria. Para llevarlo al marco oficial
+\((E,N)\) hay que girar un ángulo \(\theta\) (medido en sentido antihorario desde el eje
+\(E\)) y trasladar al origen \((E_0,N_0)\):
+\[
+  \begin{pmatrix}E\\N\end{pmatrix}
+  =
+  \begin{pmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{pmatrix}
+  \begin{pmatrix}x\\y\end{pmatrix}
+  +\begin{pmatrix}E_0\\N_0\end{pmatrix}.
+\]
+Son dos operaciones de naturaleza distinta: un producto y una suma. Si después hay que pasar
+a otro marco (otra rotación y otra traslación), las cuentas se encadenan con sumas y
+productos intercalados. Las coordenadas homogéneas agregan una tercera coordenada igual
+a~\(1\) y escriben todo como un único producto por una matriz \(3\times3\):
+\[
+  \begin{pmatrix}E\\N\\1\end{pmatrix}
+  =
+  \begin{pmatrix}\cos\theta&-\sin\theta&E_0\\ \sin\theta&\cos\theta&N_0\\ 0&0&1\end{pmatrix}
+  \begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+Encadenar cambios de sistema es, entonces, multiplicar matrices \(3\times3\). La
+georreferenciación de una imagen (ejemplo~\ref{ej:06-dron}) funciona igual.
+
+\paragraph{El plano \(w=1\).}
+Geométricamente, el plano afín se ve como el plano \(w=1\) dentro de un espacio
+tridimensional de coordenadas \((x,y,w)\). El punto \((x,y)\) se representa por el vector
+\((x,y,1)^T\). Cualquier múltiplo no nulo \(\mu\,(x,y,1)^T\) está sobre el mismo rayo que
+parte del origen y corta al plano \(w=1\) en el mismo punto; por eso se dice que un punto es
+un rayo.
+
+\begin{center}
+\begin{tikzpicture}[scale=.92]
+  \coordinate (o) at (1,1);
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(8.2,1) node[right] {$y$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(-.2,-.1) node[below left] {$x$};
+  \draw[axisline,-{Latex[length=2.4mm]}] (o)--(1,6) node[above] {$w$};
+  \draw[teallight,fill=teallight!55,line width=.8pt]
+    (-.2,3.2)--(6.8,3.2)--(8.2,4.25)--(1.2,4.25)--cycle;
+  \node[labelback,text=tealdark] at (7.1,4.55) {plano \(w=1\)};
+  \coordinate (p) at (4.8,3.74);
+  \fill[rust] (p) circle (2.7pt) node[labelback,above] {\((x,y,1)\)};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.5mm]}] (o)--($(o)!1.38!(p)$);
+  \fill[ink] (o) circle (2.4pt) node[labelback,below] {origen};
+  \node[labelback,font=\small,text=rust] at (3.4,2.1)
+    {un rayo representa un punto};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Puntos en el infinito.}
+Si un punto recorre una recta \(p+s\,d\) del plano \(w=1\), su rayo se va inclinando y, cuando
+\(s\) crece, tiende a quedar horizontal, en la dirección \((d,0)\). Ese rayo horizontal no
+corta al plano \(w=1\): no es un punto ordinario, sino el \emph{punto en el infinito} de la
+recta. Todas las rectas paralelas a \(d\) tienden al mismo rayo; en ese sentido, las paralelas
+se cortan en el infinito.
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[axisline,-{Latex[length=2.2mm]}] (0,0)--(10.4,0) node[right] {\small dirección \(d\)};
+  \draw[axisline,-{Latex[length=2.2mm]}] (0,0)--(0,2.6) node[above] {$w$};
+  \draw[mainline] (-.3,1.6)--(10.2,1.6);
+  \node[text=teal,font=\small,left] at (-.3,1.6) {\(w=1\)};
+  \fill[ink] (0,0) circle (2.2pt) node[below] {\small origen};
+  \foreach \s/\lab in {.8/{s=0},2.4/{s=1},4.8/{s=2},9.6/{s=4}}{
+    \draw[rust,line width=.8pt] (0,0)--($(0,0)!1.1!(\s,1.6)$);
+    \fill[rust] (\s,1.6) circle (2.2pt);
+    \node[labelback,font=\scriptsize,below right] at (\s,1.55) {\(\lab\)};
+  }
+  \draw[gold,line width=1.1pt,-{Latex[length=2.5mm]}] (0,0)--(9.5,0.06);
+  \node[labelback,font=\small,text=ink] at (6.6,.42) {rayo límite \((d,0)\): punto en el infinito};
+\end{tikzpicture}
+\end{center}
+
+\begin{idea}[Idea]
+Las coordenadas homogéneas agregan una coordenada igual a \(1\). Con ella, la traslación pasa
+a ser una columna más de la matriz, componer afinidades es multiplicar matrices \(3\times3\),
+y las direcciones aparecen como puntos con última coordenada \(0\).
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+Ahora formalizamos las afinidades, demostramos qué conservan, buscamos sus puntos fijos, las
+escribimos en coordenadas homogéneas y las construimos a partir de datos geométricos: un eje
+y una dirección, o tres puntos de control.
+
+{\small\vspace{1mm}\linkUnidad{04_afines_homogeneas}{Simulación interactiva: Unidad 6 — Afinidades y coordenadas homogéneas}\par}
+
+\subsection{Afinidades: idea geométrica y forma algebraica}\label{sec:afinidades-geom}
+
+\begin{definicion}[Transformación afín]\label{def:06-afinidad}
+Una \emph{transformación afín} o \emph{afinidad} del plano es una función
+\(f\colon\R^2\to\R^2\) de la forma
+\[
+  \boxed{f(x)=Ax+b},
+\]
+donde \(A\) es una matriz \(2\times2\) con \(\det A\neq0\) y \(b\in\R^2\). La matriz \(A\) es
+la \emph{parte lineal} y \(b\) la \emph{traslación}.
+\end{definicion}
+
+Las isometrías (\(A\) ortogonal) y las similaridades (\(A\) múltiplo de una ortogonal) del
+capítulo~\ref{cap:reflexiones} son casos particulares. La figura muestra el efecto típico: un
+paralelogramo va a otro paralelogramo.
+
+\begin{center}
+\begin{tikzpicture}[scale=.86]
+  \coordinate (a) at (1,1);
+  \coordinate (b) at (4.1,1.2);
+  \coordinate (c) at (5.2,3.2);
+  \coordinate (d) at (2.1,3);
+  \coordinate (ap) at (7,1.2);
+  \coordinate (bp) at (10.4,.7);
+  \coordinate (cp) at (11.7,3.4);
+  \coordinate (dp) at (8.3,3.9);
+  \draw[teal,line width=1.05pt] (a)--(b)--(c)--(d)--cycle;
+  \draw[rust,line width=1.05pt] (ap)--(bp)--(cp)--(dp)--cycle;
+  \draw[-{Latex[length=2.8mm]},tealdark,line width=.9pt]
+    (5.7,2.2)--(6.6,2.2) node[midway,above] {$f$};
+  \node[font=\small,text=teal] at (3.1,.55) {paralelogramo};
+  \node[font=\small,text=rust] at (9.5,.25) {paralelogramo};
+\end{tikzpicture}
+\end{center}
+
+\begin{proposicion}[Qué conserva una afinidad]\label{prop:06-conserva}
+Una afinidad \(f(x)=Ax+b\) lleva rectas en rectas, rectas paralelas en rectas paralelas, y
+conserva la razón entre segmentos de una misma recta: si \(r=p+s_1d\) y \(q=p+s_2d\), entonces
+\(f(r)-f(p)\) y \(f(q)-f(p)\) guardan la misma razón \(s_1:s_2\).
+\end{proposicion}
+
+\begin{demostracion}
+La recta \(L=\{p+s\,d : s\in\R\}\), con \(d\neq0\), se transforma en
+\[
+  f(p+s\,d)=Ap+b+s\,Ad=f(p)+s\,Ad .
+\]
+Como \(\det A\neq0\), \(Ad\neq0\), y la imagen es la recta que pasa por \(f(p)\) con dirección
+\(Ad\). Dos rectas paralelas tienen la misma dirección \(d\); sus imágenes tienen la misma
+dirección \(Ad\) y siguen siendo paralelas. Finalmente, \(f(p+s_id)-f(p)=s_i\,Ad\) para
+\(i=1,2\): los dos vectores son múltiplos de \(Ad\) con coeficientes \(s_1\) y \(s_2\), así que
+la razón se conserva. En particular, el punto medio de un segmento va al punto medio de su
+imagen.
+\end{demostracion}
+
+Las distancias y los ángulos, en cambio, no se conservan: el ejemplo siguiente los rompe a
+propósito.
+
+\begin{ejemplo}[Escalado no uniforme y corte]\label{ej:06-escalado}
+El \emph{escalado no uniforme} \(S=\begin{pmatrix}2&0\\0&1\end{pmatrix}\) duplica las
+abscisas y deja las ordenadas. El círculo unidad \(x^2+y^2=1\) va a la curva formada por los
+puntos \((2x,y)\), es decir, a la elipse
+\[
+  \frac{X^2}{4}+Y^2=1 .
+\]
+Los puntos \((1,0)\), \((0,1)\) y \((0{,}707,\ 0{,}707)\) del círculo van a \((2,0)\), \((0,1)\) y
+\((1{,}414,\ 0{,}707)\). Las distancias al origen dejan de ser iguales: la afinidad no es una
+similaridad. El área pasa de \(\pi\approx3{,}142\) a \(2\pi\approx6{,}283\), porque
+\(\det S=2\).
+
+El \emph{corte} \(C=\begin{pmatrix}1&1\\0&1\end{pmatrix}\) desplaza cada punto horizontalmente
+en una cantidad igual a su ordenada. El cuadrado unidad \((0,0),(1,0),(1,1),(0,1)\) va al
+paralelogramo \((0,0),(1,0),(2,1),(1,1)\): los ángulos rectos dejan de serlo, pero
+\(\det C=1\) y el área se conserva.
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  \begin{scope}
+    \draw[axisline,-{Latex[length=2mm]}] (-2.4,0)--(2.6,0) node[right] {$x$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,-1.4)--(0,1.6) node[above] {$y$};
+    \draw[teal,line width=1pt] (0,0) circle (1);
+    \draw[rust,line width=1pt] (0,0) ellipse (2 and 1);
+    \fill[teal] (.707,.707) circle (2pt);
+    \fill[rust] (1.414,.707) circle (2pt);
+    \draw[auxline,-{Latex[length=1.8mm]}] (.75,.707)--(1.36,.707);
+    \node[labelback,font=\small,text=teal] at (-.55,1.25) {círculo};
+    \node[labelback,font=\small,text=rust] at (1.7,-1.15) {elipse \(S\)};
+  \end{scope}
+  \begin{scope}[xshift=6.2cm,yshift=-.6cm]
+    \draw[axisline,-{Latex[length=2mm]}] (-.4,0)--(2.6,0) node[right] {$x$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,-.4)--(0,1.7) node[above] {$y$};
+    \draw[teal,line width=1pt] (0,0) rectangle (1,1);
+    \draw[rust,line width=1pt] (0,0)--(1,0)--(2,1)--(1,1)--cycle;
+    \draw[auxline,-{Latex[length=1.8mm]}] (0,1.15)--(1,1.15);
+    \node[labelback,font=\small,text=rust] at (1.9,1.4) {corte \(C\)};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Puntos fijos y forma afín}\label{sec:puntos-fijos-afin}
+
+\begin{definicion}[Punto fijo]\label{def:06-punto-fijo}
+Un punto \(p_\ast\) es \emph{fijo} para la afinidad \(f\) si \(f(p_\ast)=p_\ast\). Para
+\(f(x)=Ax+b\) esto equivale al sistema lineal
+\[
+  Ap_\ast+b=p_\ast
+  \quad\Longleftrightarrow\quad
+  (I-A)\,p_\ast=b .
+\]
+\end{definicion}
+
+Si \(\det(I-A)\neq0\) hay un único punto fijo; si \(\det(I-A)=0\) puede no haber ninguno
+(una traslación) o haber una recta entera de puntos fijos (una reflexión). La tabla reúne las
+transformaciones del capítulo~\ref{cap:reflexiones} escritas como afinidades; la fórmula de la
+reflexión \(\sigma_L\) respecto de la recta \(L\colon n^Tx=h\) se deduce en ese capítulo.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}l l X}
+\toprule
+Transformación & \(A,\ b\) & Puntos fijos\\
+\midrule
+Traslación \(x\mapsto x+b\) & \(A=I\) & ninguno si \(b\neq0\)\\
+Rotación \(\rhoP{c,\theta}\) & \(A=R(\theta),\ b=(I-R(\theta))c\) & \(c\), si \(\theta\neq0\)\\
+Homotecia \(\homot{o}{k}\) & \(A=kI,\ b=(1-k)o\) & \(o\), si \(k\neq1\)\\
+Reflexión \(\sigma_L\), \(L\colon n^Tx=h\) &
+\(A=I-\dfrac{2nn^T}{\lVert n\rVert^2},\
+b=\dfrac{2h}{\lVert n\rVert^2}n\) &
+todos los puntos de \(L\); \(b\) es normal a \(L\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Si \(p_\ast\) existe, al tomarlo como nuevo origen mediante \(z=x-p_\ast\) la afinidad queda
+puramente lineal:
+\[
+  f(x)-p_\ast=Ax+b-(Ap_\ast+b)=A(x-p_\ast)
+  \qquad\Longrightarrow\qquad
+  z\mapsto Az .
+\]
+Elegir bien el origen simplifica la transformación: alrededor de su punto fijo, toda afinidad
+se ve como una transformación lineal. El ejemplo~\ref{ej:06-rot-escala} calcula un punto
+fijo concreto.
+
+\subsection{Coordenadas homogéneas}\label{sec:homogeneas}
+
+\begin{definicion}[Coordenadas homogéneas]\label{def:06-homogeneas}
+Las \emph{coordenadas homogéneas} del punto \((x,y)\) son cualquier terna
+\((\mu x,\mu y,\mu)^T\) con \(\mu\neq0\); el representante normalizado es \((x,y,1)^T\). A la
+inversa, una terna \((X,Y,W)^T\) con \(W\neq0\) representa el punto \((X/W,\ Y/W)\).
+\end{definicion}
+
+\begin{definicion}[Punto impropio]\label{def:06-impropio}
+Una terna \((d_1,d_2,0)^T\neq0\) se llama \emph{punto impropio} o \emph{punto en el infinito}
+de dirección \(d=(d_1,d_2)\). Todas las rectas paralelas a \(d\) comparten ese punto impropio.
+\end{definicion}
+
+Con esta escritura, la afinidad \(f(x)=Ax+b\), con \(A=\begin{pmatrix}a_{11}&a_{12}\\a_{21}&a_{22}\end{pmatrix}\)
+y \(b=(b_1,b_2)\), se vuelve un único producto:
+\[
+\begin{pmatrix}x'\\y'\\1\end{pmatrix}
+=
+\begin{pmatrix}
+a_{11}&a_{12}&b_1\\
+a_{21}&a_{22}&b_2\\
+0&0&1
+\end{pmatrix}
+\begin{pmatrix}x\\y\\1\end{pmatrix},
+\qquad
+M_f=\begin{pmatrix}A&b\\0\ \ 0&1\end{pmatrix}.
+\]
+El bloque superior izquierdo es \(A\), la última columna es \(b\) y la última fila es
+\((0\ 0\ 1)\). Visto en \(\R^3\), \(M_f\) es una transformación \emph{lineal} que deja
+invariante el plano \(w=1\): las afinidades del plano son exactamente las transformaciones
+lineales invertibles de \(\R^3\) con última fila \((0\ 0\ 1)\). Sobre un punto impropio, la
+traslación no actúa:
+\[
+  M_f\begin{pmatrix}d\\0\end{pmatrix}=\begin{pmatrix}Ad\\0\end{pmatrix}.
+\]
+Las direcciones sólo sienten la parte lineal, y un punto impropio va a otro punto impropio.
+En el capítulo~\ref{cap:proyectivas} se permite que la última fila sea cualquiera; entonces los
+puntos impropios pueden volverse ordinarios, y aparecen las transformaciones proyectivas.
+
+\begin{proposicion}[Componer es multiplicar]\label{prop:06-composicion}
+Si \(f(x)=A_1x+b_1\) y \(g(x)=A_2x+b_2\), la composición \(g\circ f\) (primero \(f\), después
+\(g\)) es la afinidad
+\[
+  (g\circ f)(x)=A_2A_1\,x+(A_2b_1+b_2),
+\]
+y su matriz homogénea es el producto \(M_{g\circ f}=M_gM_f\).
+\end{proposicion}
+
+\begin{demostracion}
+Sustituyendo, \(g(f(x))=A_2(A_1x+b_1)+b_2=A_2A_1x+A_2b_1+b_2\). El producto por bloques da lo
+mismo:
+\[
+\begin{pmatrix}A_2&b_2\\0\ \ 0&1\end{pmatrix}
+\begin{pmatrix}A_1&b_1\\0\ \ 0&1\end{pmatrix}
+=
+\begin{pmatrix}A_2A_1&A_2b_1+b_2\\0\ \ 0&1\end{pmatrix}.
+\]
+La matriz de la derecha actúa primero, como corresponde a vectores columna.
+\end{demostracion}
+
+\begin{ejemplo}[Georreferenciar una imagen de dron]\label{ej:06-dron}
+Una ortofoto de \(400\times300\) píxeles tiene coordenadas de imagen \((u,v)\): origen en el
+vértice superior izquierdo, \(u\) hacia la derecha y \(v\) hacia abajo. Cada píxel cubre
+\(0{,}5\ \mathrm{m}\), y el vértice superior izquierdo cae en \(E=5000\), \(N=8000\). Entonces
+\[
+  x_E=5000+0{,}5\,u,\qquad y_N=8000-0{,}5\,v .
+\]
+El signo menos aparece porque \(v\) crece hacia abajo y \(N\) hacia arriba. En forma afín,
+\[
+  A=\begin{pmatrix}0{,}5&0\\0&-0{,}5\end{pmatrix},
+  \qquad b=\begin{pmatrix}5000\\8000\end{pmatrix},
+  \qquad \det A=-0{,}25 .
+\]
+El determinante es negativo: la transformación invierte la orientación. En la imagen, el
+giro corto de \(u\) a \(v\) es horario; en el terreno, el de \(E\) a \(N\) es antihorario.
+El módulo \(0{,}25\) dice que cada píxel (de área \(1\)) cubre \(0{,}25\ \mathrm{m}^2\).
+En homogéneas,
+\[
+  \begin{pmatrix}x_E\\y_N\\1\end{pmatrix}
+  =
+  \begin{pmatrix}0{,}5&0&5000\\0&-0{,}5&8000\\0&0&1\end{pmatrix}
+  \begin{pmatrix}u\\v\\1\end{pmatrix}.
+\]
+Para el píxel \((0,0)\) se obtiene \((5000,\ 8000)\); para el píxel \((200,100)\),
+\[
+  \begin{pmatrix}0{,}5\cdot200+5000\\-0{,}5\cdot100+8000\\1\end{pmatrix}
+  =\begin{pmatrix}5100\\7950\\1\end{pmatrix}.
+\]
+Los otros vértices van a \((400,0)\mapsto(5200,\ 8000)\), \((0,300)\mapsto(5000,\ 7850)\) y
+\((400,300)\mapsto(5200,\ 7850)\): la imagen cubre un rectángulo de
+\(200\ \mathrm{m}\times150\ \mathrm{m}\). El punto impropio \((1,0,0)^T\) (dirección de las
+filas de la imagen) va a \((0{,}5,\ 0,\ 0)^T\), dirección Este; la traslación no lo afecta.
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  % imagen: 1 cm = 100 px, v hacia abajo
+  \begin{scope}
+    \draw[step=1,linegray,line width=.4pt] (0,-3) grid (4,0);
+    \draw[teal,line width=1.1pt] (0,-3) rectangle (4,0);
+    \draw[axisline,-{Latex[length=2mm]}] (0,0)--(4.6,0) node[right] {$u$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,0)--(0,-3.6) node[below] {$v$};
+    \fill[ink] (0,0) circle (2.2pt) node[labelback,above left] {\small\((0,0)\)};
+    \fill[rust] (2,-1) circle (2.4pt) node[labelback,above right] {\small\((200,100)\)};
+    \draw[gold,line width=.9pt,-{Latex[length=2mm]}] (.7,0) arc (0:-90:.7);
+    \node[labelback,font=\scriptsize] at (1.1,-.9) {horario};
+    \node[labelback,font=\small,text=teal] at (2,-4.05) {imagen (píxeles)};
+  \end{scope}
+  \draw[-{Latex[length=2.8mm]},tealdark,line width=1pt] (5.2,-1.5)--(6.4,-1.5)
+    node[midway,above] {$f$};
+  % terreno: 1 cm = 50 m, origen del dibujo en (5000, 7850)
+  \begin{scope}[xshift=7.6cm,yshift=-3cm]
+    \draw[step=1,linegray,line width=.4pt] (0,0) grid (4,3);
+    \draw[rust,line width=1.1pt] (0,0) rectangle (4,3);
+    \draw[axisline,-{Latex[length=2mm]}] (-.3,0)--(4.6,0) node[right] {$E$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,-.3)--(0,3.6) node[above] {$N$};
+    \fill[ink] (0,3) circle (2.2pt) node[labelback,left] {\small\((5000,8000)\)};
+    \fill[rust] (2,2) circle (2.4pt) node[labelback,above right] {\small\((5100,7950)\)};
+    \node[labelback,font=\scriptsize,below] at (0,-.3) {5000};
+    \node[labelback,font=\scriptsize,below] at (4,-.3) {5200};
+    \node[labelback,font=\scriptsize,left] at (-.3,0) {7850};
+    \draw[gold,line width=.9pt,-{Latex[length=2mm]}] (.7,0) arc (0:90:.7);
+    \node[labelback,font=\scriptsize] at (1.35,.75) {antihorario};
+    \node[labelback,font=\small,text=rust] at (2,-1.05) {terreno (m)};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Afinidades construidas geométricamente}\label{sec:afinidades-construidas}
+
+Una afinidad también puede definirse con regla y escuadra: se fija un eje, una dirección de
+desplazamiento y un factor. Los puntos del eje no se mueven; los demás se deslizan en la
+dirección elegida.
+
+\begin{definicion}[Afinidad axial]\label{def:06-axial}
+Sean \(L\) una recta (el \emph{eje}), \(d\) una dirección no paralela a \(L\) y \(k\neq0\) un
+número (la \emph{razón}). Todo punto se escribe de manera única como \(x=a+\beta d\) con
+\(a\in L\). La \emph{afinidad axial} de eje \(L\), dirección \(d\) y razón \(k\) es
+\[
+  f(a+\beta d)=a+k\beta d .
+\]
+Si \(d\) es perpendicular a \(L\), la afinidad axial es \emph{ortogonal}; si no, es
+\emph{oblicua}.
+\end{definicion}
+
+\begin{ejemplo}[Una afinidad axial]\label{ej:06-axial}
+Tomemos como eje \(L\) el eje \(x\), dirección \(d=(1,1)\) y razón \(k=2\). El punto
+\((x,y)\) se descompone como \((x-y,\,0)+y\,(1,1)\), con \(a=(x-y,0)\in L\) y \(\beta=y\). Su
+imagen es
+\[
+  f(x,y)=(x-y,\,0)+2y\,(1,1)=(x+y,\ 2y),
+  \qquad
+  A=\begin{pmatrix}1&1\\0&2\end{pmatrix},\quad b=0 .
+\]
+El punto \((1,2)\) tiene \(a=(-1,0)\) y \(\beta=2\); va a \((-1,0)+4(1,1)=(3,4)\). Se desplazó
+\((2,2)\), paralelo a \(d\), y su distancia al eje medida en la dirección \(d\) se duplicó. Los
+puntos \((0,0)\) y \((3,0)\) del eje quedan fijos, y \(\det A=2\): las áreas se duplican.
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[axisline,-{Latex[length=2mm]}] (0,-.5)--(0,4.6) node[above] {$y$};
+  \draw[rust,line width=1.1pt] (-2,0)--(5.4,0) node[right] {eje \(L\)};
+  \coordinate (a) at (-1,0);
+  \coordinate (p) at (0,0);
+  \coordinate (q) at (3,0);
+  \coordinate (x) at (1,2);
+  \coordinate (xp) at (3,4);
+  \draw[auxline] (a)--(3.5,4.5);
+  \draw[auxline] (p)--(3.3,4.4);
+  \draw[auxline] (p)--(1.4,2.8);
+  \draw[auxline] (q)--(.4,2.6);
+  \draw[auxline] (q)--(3,4.4);
+  \fill[ink] (a) circle (2.2pt) node[below] {$a$};
+  \fill[ink] (p) circle (2.2pt) node[below right] {$(0,0)$};
+  \fill[ink] (q) circle (2.2pt) node[below] {$(3,0)$};
+  \fill[teal] (x) circle (2.5pt) node[labelback,left=2pt] {$x=(1,2)$};
+  \fill[rust] (xp) circle (2.5pt) node[labelback,right=2pt] {$f(x)=(3,4)$};
+  \draw[mainline,-{Latex[length=2.5mm]}] (x)--(xp)
+    node[midway,below right,font=\small] {dirección \(d\)};
+\end{tikzpicture}
+\end{center}
+
+La recta por \((0,0)\) y \(x\) va a la recta por \((0,0)\) y \(f(x)\); la recta por \((3,0)\) y
+\(x\) va a la recta por \((3,0)\) y \(f(x)\). Esta es la construcción gráfica: cada recta corta
+al eje en un punto fijo, y su imagen pasa por ese mismo punto.
+
+¿Cuántos datos hacen falta para fijar una afinidad cualquiera? La matriz \(A\) tiene cuatro
+números y \(b\) dos: seis incógnitas. Cada punto con su imagen aporta dos ecuaciones, así que
+alcanzan tres puntos, siempre que no estén alineados.
+
+\begin{idea}[Idea]
+Tres puntos no alineados forman un triángulo, y un triángulo es un sistema de referencia
+afín: un vértice hace de origen y los dos lados que salen de él hacen de ejes. Decir adónde
+van los tres vértices es decir adónde van el origen y los ejes, y eso fija toda la
+afinidad.
+\end{idea}
+
+\begin{proposicion}[Una afinidad del plano queda determinada por la imagen de tres puntos no alineados]\label{prop:06-tres-puntos}
+Sean \(p_1,p_2,p_3\) no alineados y \(q_1,q_2,q_3\) puntos cualesquiera. Existe una única
+transformación \(f(x)=Ax+b\) (con \(A\) una matriz \(2\times2\) cualquiera) tal que
+\(f(p_i)=q_i\) para \(i=1,2,3\). Con
+\[
+  P=\bigl[\,p_2-p_1\ \big|\ p_3-p_1\,\bigr],
+  \qquad
+  P'=\bigl[\,q_2-q_1\ \big|\ q_3-q_1\,\bigr],
+\]
+es \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). La afinidad es invertible si y sólo si \(q_1,q_2,q_3\)
+tampoco están alineados.
+\end{proposicion}
+
+\begin{demostracion}
+Como \(p_1,p_2,p_3\) no están alineados, los vectores \(p_2-p_1\) y \(p_3-p_1\) son linealmente
+independientes, y la matriz \(P\) que los tiene por columnas es invertible.
+
+\emph{Unicidad.} Si \(f(x)=Ax+b\) cumple \(f(p_i)=q_i\), restando
+\(f(p_i)-f(p_1)=A(p_i-p_1)\) se obtiene \(A(p_i-p_1)=q_i-q_1\) para \(i=2,3\); en forma matricial,
+\(AP=P'\). Por lo tanto \(A=P'P^{-1}\), y de \(Ap_1+b=q_1\) sale \(b=q_1-Ap_1\). No hay otra
+opción.
+
+\emph{Existencia.} Definimos \(A=P'P^{-1}\) y \(b=q_1-Ap_1\). Entonces \(f(p_1)=q_1\), y para
+\(i=2,3\), \(f(p_i)=f(p_1)+A(p_i-p_1)=q_1+(q_i-q_1)=q_i\), porque \(AP=P'\) dice exactamente que
+\(A\) lleva cada columna de \(P\) a la correspondiente de \(P'\).
+
+\emph{Invertibilidad.} \(\det A=\det P'/\det P\), que es distinto de cero si y sólo si las
+columnas de \(P'\) son independientes, es decir, si \(q_1,q_2,q_3\) no están alineados.
+\end{demostracion}
+
+\begin{ejemplo}[Afinidad a partir de tres puntos de control]\label{ej:06-tres-puntos}
+Una fotografía escaneada se georreferencia con tres puntos de control, cuyas coordenadas de
+imagen \((u_i,v_i)\) y de terreno \((E_i,N_i)\) se conocen:
+\[
+\begin{array}{c|cc|cc}
+i & u_i & v_i & E_i & N_i\\ \hline
+1 & 10 & 20 & 1005{,}82 & 1990{,}47\\
+2 & 110 & 30 & 1056{,}04 & 1989{,}60\\
+3 & 40 & 120 & 1024{,}96 & 1942{,}00
+\end{array}
+\]
+Las incógnitas son los seis coeficientes de
+\(E=a_{11}u+a_{12}v+b_1\), \(N=a_{21}u+a_{22}v+b_2\). Cada punto aporta una ecuación para \(E\)
+y otra para \(N\). Ordenando las incógnitas como \((a_{11},a_{12},b_1,a_{21},a_{22},b_2)\), el
+sistema de \(6\times6\) es diagonal por bloques, con el mismo bloque \(U\) dos veces:
+\[
+  \begin{pmatrix}U&0\\0&U\end{pmatrix}
+  \begin{pmatrix}a_{11}\\a_{12}\\b_1\\a_{21}\\a_{22}\\b_2\end{pmatrix}
+  =\begin{pmatrix}E_1\\E_2\\E_3\\N_1\\N_2\\N_3\end{pmatrix},
+  \qquad
+  U=\begin{pmatrix}10&20&1\\110&30&1\\40&120&1\end{pmatrix},
+  \qquad \det U=9700 .
+\]
+El determinante de \(U\) es el doble del área del triángulo de control (en píxeles al
+cuadrado); no es nulo porque los puntos no están alineados. Resolviendo
+\(U(a_{11},a_{12},b_1)^T=(E_1,E_2,E_3)^T\) y \(U(a_{21},a_{22},b_2)^T=(N_1,N_2,N_3)^T\):
+\[
+  A=\begin{pmatrix}0{,}498&0{,}042\\0{,}041&-0{,}497\end{pmatrix},
+  \qquad
+  b=\begin{pmatrix}1000{,}000\\2000{,}000\end{pmatrix},
+  \qquad
+  \det A=-0{,}249 .
+\]
+La fórmula de la proposición~\ref{prop:06-tres-puntos} da lo mismo: con
+\(P=\begin{pmatrix}100&30\\10&100\end{pmatrix}\) y
+\(P'=\begin{pmatrix}50{,}22&19{,}14\\-0{,}87&-48{,}47\end{pmatrix}\), el producto \(P'P^{-1}\)
+es la misma \(A\). El píxel mide algo menos de \(0{,}5\ \mathrm{m}\), la imagen está girada
+unos grados respecto del Norte y, como en el ejemplo~\ref{ej:06-dron}, \(\det A<0\) por el
+eje \(v\) hacia abajo.
+
+\emph{Verificación con un cuarto punto.} El punto \((u,v)=(80,80)\) no se usó para calcular
+la afinidad; en el terreno se midió \((1043{,}23,\ 1963{,}49)\). La afinidad predice
+\[
+  A\begin{pmatrix}80\\80\end{pmatrix}+b
+  =\begin{pmatrix}1043{,}20\\1963{,}52\end{pmatrix},
+\]
+con un residuo (medido menos predicho) de \((0{,}03,\ -0{,}03)\ \mathrm{m}\), de módulo
+\(0{,}042\ \mathrm{m}\). Con tres puntos el ajuste es exacto y no deja control; el cuarto
+punto es el que permite juzgar la calidad de la georreferenciación.
+\end{ejemplo}
+
+\subsection{Rotación alrededor de un centro y escala alrededor de otro}\label{sec:06-rot-escala}
+
+Este caso reúne todo lo anterior: dos afinidades con centros distintos, su composición como
+producto de matrices homogéneas y el punto fijo del resultado.
+
+\begin{ejemplo}[Rotación alrededor de un centro y escala alrededor de otro]\label{ej:06-rot-escala}
+Se toma una figura en forma de T con vértices
+\[
+\begin{aligned}
+&(-2,2),\ (2,2),\ (2,1),\ (0{,}5,\ 1),\\
+&(0{,}5,\ -2),\ (-0{,}5,\ -2),\ (-0{,}5,\ 1),\ (-2,1).
+\end{aligned}
+\]
+Primero se aplica la rotación \(\rhoP{c,45^\circ}\) alrededor de \(c=(3,1)\); después, la
+homotecia \(\homot{o}{1/2}\) de centro \(o=(-1,2)\) y razón \(k=\tfrac12\). Con la tabla de la
+sección~\ref{sec:puntos-fijos-afin}, sus matrices homogéneas son
+\[
+M_1=
+\begin{pmatrix}
+0{,}707&-0{,}707&1{,}586\\
+0{,}707&0{,}707&-1{,}828\\
+0&0&1
+\end{pmatrix},
+\qquad
+M_2=
+\begin{pmatrix}
+0{,}5&0&-0{,}5\\
+0&0{,}5&1\\
+0&0&1
+\end{pmatrix}.
+\]
+Por la proposición~\ref{prop:06-composicion}, la composición \(\homot{o}{1/2}\circ\rhoP{c,45^\circ}\)
+tiene matriz
+\[
+M=M_2M_1=
+\begin{pmatrix}
+0{,}354&-0{,}354&0{,}293\\
+0{,}354&0{,}354&0{,}086\\
+0&0&1
+\end{pmatrix}.
+\]
+El orden importa: \(M_1M_2\) tiene la misma parte lineal pero traslación \((0{,}525,\ -1{,}475)\).
+El vértice \(q=(2,2)\) sigue
+\[
+  q=(2,2)\ \longmapsto\ q_1=(1{,}586,\ 1{,}000)\ \longmapsto\ q_2=(0{,}293,\ 1{,}500),
+\]
+y \(M\) aplicada a \((2,2,1)^T\) da directamente \((0{,}293,\ 1{,}500,\ 1)^T\). La primera
+etapa recorre un arco de \(45^\circ\) alrededor de \(c\); la segunda, el segmento de \(q_1\)
+a \(o\) hasta su punto medio.
+
+\emph{Punto fijo.} Con \(A=\begin{pmatrix}0{,}354&-0{,}354\\0{,}354&0{,}354\end{pmatrix}\) y
+\(b=(0{,}293,\ 0{,}086)\), el sistema \((I-A)p_\ast=b\) da
+\[
+  p_\ast=\Bigl(1-\tfrac{\sqrt2}{2},\ 1-\tfrac{\sqrt2}{2}\Bigr)\approx(0{,}293,\ 0{,}293).
+\]
+Ninguna de las dos transformaciones lo deja quieto por separado, pero la composición sí:
+\(M\,(0{,}293,\ 0{,}293,\ 1)^T=(0{,}293,\ 0{,}293,\ 1)^T\). Como \(A=\tfrac12R(45^\circ)\), la
+composición es una similaridad: gira \(45^\circ\) y reduce a la mitad alrededor de \(p_\ast\).
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.68]
+  \begin{scope}
+    \draw[axisline,-{Latex[length=1.8mm]}] (-2.5,0)--(3.6,0);
+    \draw[axisline,-{Latex[length=1.8mm]}] (0,-2.5)--(0,2.6);
+    \draw[teal,line width=1.3pt]
+      (-2,2)--(2,2)--(2,1)--(.5,1)--(.5,-2)--(-.5,-2)--(-.5,1)--(-2,1)--cycle;
+    \fill[teal] (2,2) circle (2.5pt) node[labelback,above] {$q$};
+    \fill[ink] (3,1) circle (2.5pt) node[labelback,right] {$c$};
+    \node[labelback,font=\small] at (.3,-3.0) {figura inicial};
+  \end{scope}
+
+  \draw[-{Latex[length=2.5mm]},tealdark,line width=.9pt] (4.0,0)--(5.1,0)
+    node[midway,above,font=\small] {\(\rhoP{c,45^\circ}\)};
+
+  \begin{scope}[xshift=6.2cm]
+    \draw[axisline,-{Latex[length=1.8mm]}] (-2.5,0)--(3.8,0);
+    \draw[axisline,-{Latex[length=1.8mm]}] (0,-4.0)--(0,2.0);
+    \draw[tealdark,line width=1.3pt]
+      (-1.243,-1.828)--(1.586,1.000)--(2.293,.293)--(1.232,-.768)--
+      (3.354,-2.889)--(2.646,-3.596)--(.525,-1.475)--(-.536,-2.536)--cycle;
+    \fill[tealdark] (1.586,1.000) circle (2.5pt) node[labelback,above] {$q_1$};
+    \fill[ink] (3,1) circle (2.5pt) node[labelback,right] {$c$};
+    \node[labelback,font=\small] at (.5,-4.5) {después de rotar};
+  \end{scope}
+
+  \draw[-{Latex[length=2.5mm]},tealdark,line width=.9pt] (10.2,0)--(11.3,0)
+    node[midway,above,font=\small] {\(\homot{o}{1/2}\)};
+
+  \begin{scope}[xshift=12.4cm]
+    \draw[axisline,-{Latex[length=1.8mm]}] (-2.5,0)--(2.0,0);
+    \draw[axisline,-{Latex[length=1.8mm]}] (0,-2.6)--(0,2.5);
+    \draw[rust,line width=1.3pt]
+      (-1.121,.086)--(.293,1.500)--(.646,1.146)--(.116,.616)--
+      (1.177,-.445)--(.823,-.798)--(-.237,.263)--(-.768,-.268)--cycle;
+    \fill[rust] (.293,1.500) circle (2.5pt) node[labelback,above] {$q_2$};
+    \fill[ink] (-1,2) circle (2.5pt) node[labelback,left] {$o$};
+    \fill[gold] (.293,.293) circle (2.8pt) node[labelback,right] {$p_\ast$};
+    \node[labelback,font=\small] at (-.2,-3.0) {resultado final};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\section{En profundidad}
+
+Leemos ahora la afinidad por sus autovalores, conectamos los puntos fijos con la matriz
+homogénea y ubicamos el capítulo en la escalera \(\R\to\R^2\to\R^n\). Esto prepara el cambio
+de base del capítulo~\ref{cap:cambio-base}.
+
+\subsection{La recíproca y el apéndice de composición}\label{sec:06-reciproca}
+
+La proposición~\ref{prop:06-conserva} muestra que toda afinidad conserva rectas y
+paralelismo. Vale también la recíproca: una biyección del plano que lleva rectas en rectas
+es de la forma \(Ax+b\). Es el teorema fundamental de la geometría afín; su demostración usa
+que la única función de \(\R\) en \(\R\) que respeta sumas, productos y orden es la
+identidad, y excede el alcance de este apunte. En la práctica, se toma
+\(f(x)=Ax+b\) como definición (definición~\ref{def:06-afinidad}) y se verifican las
+propiedades geométricas.
+
+El apéndice~\ref{ap:composicion-afin} desarrolla con todo detalle el
+ejemplo~\ref{ej:06-rot-escala}: deduce la matriz homogénea de la rotación con centro y la de
+la escala con centro, demuestra por bloques que la composición es \(A=kR\),
+\(b=k(I-R)c+(1-k)o\), obtiene el punto fijo como \(p_\ast=(I-A)^{-1}b\) y lo identifica con el
+autovector de autovalor \(1\) de la matriz homogénea, con los valores de cada paso y su
+implementación en planilla de cálculo.
+
+\subsection{La misma idea en cada dimensión}\label{sec:misma-idea}
+
+Casi todo lo que hacemos con matrices en \(\R^2\) y \(\R^3\) ya existe en \(\R\), donde es tan
+simple que pasa inadvertido. Si una fórmula se entiende con un solo número, la matriz sólo
+agrega direcciones que pueden mezclarse.
+
+{\small
+\begin{tabularx}{\textwidth}{>{\bfseries\raggedright\arraybackslash}p{17mm}>{\raggedright\arraybackslash}p{30mm}>{\raggedright\arraybackslash}p{33mm}>{\raggedright\arraybackslash}p{30mm}Y}
+\toprule
+& \(\R\) & \(\R^2\) & \(\R^3\) y \(\R^n\) & Hecho geométrico\\
+\midrule
+Afinidad & \(x\mapsto ax+b\): cambio de unidad y de origen en una recta graduada &
+\(Ax+b\), \(A\) de \(2\times2\); homogénea \(3\times3\) & \(A\) de \(n\times n\); homogénea
+\((n+1)\times(n+1)\) & conserva rectas, paralelas y razones sobre una recta\\
+\addlinespace
+Identidad & el número \(1\) & la matriz \(I\): \(Iv=v\) & \(I\) de \(n\times n\) & no mueve
+nada; neutro de la composición\\
+\addlinespace
+Inversa & \(1/a\); no existe si \(a=0\) & \(A^{-1}\); no existe si \(\det A=0\) & igual; si
+\(\det A=0\) hay una dirección aplastada & deshacer la transformación\\
+\addlinespace
+Tamaño con signo & \(|a|\) estira; el signo dice si da vuelta & \(\det A\): área orientada
+del paralelogramo imagen del cuadrado unidad & volumen orientado & cuánto se agranda una
+figura y si cambia la orientación\\
+\addlinespace
+Punto fijo & \(x_\ast=b/(1-a)\), si \(a\neq1\) & \((I-A)p_\ast=b\) & igual & el lugar donde se
+ancla la transformación\\
+\addlinespace
+Autovector & trivial: toda dirección, con \(\lambda=a\) & sólo algunas direcciones, o
+ninguna real si hay giro & una rotación de \(\R^3\) tiene una: el eje & dirección que cae
+sobre sí misma\\
+\bottomrule
+\end{tabularx}
+}
+
+% Apéndice: resolución de los ejercicios de afinidades
+\section{Resolución de los ejercicios de afinidades}\label{cap:17}\label{ap:ejercicios-afinidades}
+
+\subsection{Ejercicio 1: tres reflexiones puntuales}
+
+\textbf{Enunciado.} Dados tres puntos no alineados \(a,b,c\), hallar el punto fijo de
+\(\sigma_a\circ\sigma_b\circ\sigma_c\) y verificar que forma un paralelogramo con ellos.
+
+\textbf{Solución algebraica.} La reflexión puntual de centro \(p\) es
+\[
+  \sigma_p(x)=2p-x.
+\]
+Entonces:
+\[
+\begin{aligned}
+\sigma_a\sigma_b\sigma_c(x)
+&=\sigma_a\!\left(\sigma_b(2c-x)\right)\\
+&=\sigma_a(2b-2c+x)\\
+&=2a-2b+2c-x\\
+&=2(a-b+c)-x.
+\end{aligned}
+\]
+La composición es una reflexión puntual de centro
+\[
+  \boxed{d=a-b+c}.
+\]
+Su punto fijo es \(d\), porque \(\sigma_d(d)=d\). Además:
+\[
+  b+d=a+c.
+\]
+Las diagonales \(ac\) y \(bd\) tienen el mismo punto medio, de modo que \(a,b,c,d\) forman
+un paralelogramo.
+
+\textbf{Interpretación geométrica.} Tomando \(b\) como origen provisional:
+\[
+  \overrightarrow{bd}
+  =\overrightarrow{ba}+\overrightarrow{bc}.
+\]
+El punto \(d\) se obtiene mediante la regla del paralelogramo para sumar los vectores que van
+desde \(b\) hacia \(a\) y hacia \(c\).
+
+\subsection{Ejercicio 2: dos reflexiones puntuales}
+
+\textbf{Enunciado.} Dados \(a\neq b\), demostrar que
+\(\sigma_a\circ\sigma_b\) no tiene puntos fijos.
+
+\textbf{Solución.}
+\[
+\sigma_a\sigma_b(x)=x+2(a-b).
+\]
+Si existiera un punto fijo:
+\[
+x+2(a-b)=x
+\quad\Longrightarrow\quad
+a=b.
+\]
+Esto contradice \(a\neq b\). Por lo tanto:
+\[
+  \boxed{\operatorname{Fix}(\sigma_a\sigma_b)=\varnothing
+  \quad\text{si }a\neq b.}
+\]
+
+\textbf{Interpretación geométrica.} La composición es una traslación no nula. Todos los puntos
+se desplazan por el mismo segmento orientado, por lo que ninguno puede permanecer en su lugar.
+Si \(a=b\), las dos reflexiones se anulan y la composición es la identidad.
+
+\subsection{Ejercicio 3: cuatro reflexiones en rectas}
+
+\begin{atencion}[Ambigüedad del enunciado]
+El texto comienza diciendo ``dadas cuatro rectas \(a,b,c,d\)'', pero termina llamando a
+\(\varphi_i\) ``reflexión alrededor del punto \(i\)''. Por el contexto y la notación
+\(\varphi\), se interpreta que son reflexiones respecto de las cuatro rectas.
+\end{atencion}
+
+Cada reflexión en una recta es una afinidad
+\[
+  \varphi_i(x)=H_ix+q_i,
+\]
+donde \(H_i\) es una matriz ortogonal de determinante \(-1\). La composición
+\[
+  F=\varphi_a\varphi_b\varphi_c\varphi_d
+\]
+tiene la forma
+\[
+  F(x)=Ax+t,
+\]
+con
+\[
+  A=H_aH_bH_cH_d,
+\]
+\[
+  t=H_aH_bH_cq_d+H_aH_bq_c+H_aq_b+q_a.
+\]
+Como intervienen cuatro reflexiones,
+\[
+  \det A=(-1)^4=1.
+\]
+La transformación resultante preserva orientación y es una rotación o una traslación.
+
+\textbf{Método analítico.} Los puntos fijos satisfacen
+\[
+  (I-A)x=t.
+\]
+\begin{itemize}
+  \item Si \(I-A\) es invertible, existe un único punto fijo:
+  \[
+    \boxed{x_\ast=(I-A)^{-1}t}.
+  \]
+  La composición es una rotación con centro \(x_\ast\).
+  \item Si \(A=I\) y \(t\neq0\), la composición es una traslación y no tiene punto fijo.
+  \item Si \(A=I\) y \(t=0\), es la identidad y todos los puntos son fijos.
+\end{itemize}
+
+\textbf{Método gráfico.} Elegir dos puntos \(p,q\), construir sucesivamente sus cuatro
+reflejos hasta obtener \(F(p)\) y \(F(q)\), y trazar las mediatrices de
+\(\overline{pF(p)}\) y \(\overline{qF(q)}\). Si se cortan, la intersección es el centro de
+rotación. Si son paralelas, el resultado es una traslación y no existe centro finito.
+
+\subsection{Ejercicio 4: autovalor de una rotación en \(\R^3\)}
+
+Sea \(R\in SO(3)\). Al ser una matriz real de dimensión impar, su polinomio característico
+tiene al menos una raíz real. Como \(R\) es ortogonal, todo autovalor tiene módulo \(1\), por
+lo que el autovalor real debe ser \(1\) o \(-1\).
+
+Los otros dos autovalores, si no son reales, forman un par conjugado
+\(e^{i\theta},e^{-i\theta}\), cuyo producto es \(1\). Como
+\[
+  \det R=1,
+\]
+el autovalor real restante debe ser
+\[
+  \boxed{\lambda=1}.
+\]
+Su autovector es la dirección del eje de rotación.
+
+\begin{atencion}[Sobre la palabra ``único'']
+Para una rotación no trivial de ángulo distinto de \(0\), \(1\) es el único autovalor real
+asociado al eje, salvo casos degenerados. Para \(R=I\), todos los vectores son propios con
+autovalor \(1\); por eso el enunciado necesita excluir la identidad si pretende unicidad del
+eje.
+\end{atencion}
+
+\subsection{Ejercicio 5: matriz ortogonal que invierte orientación}
+
+El enunciado afirma que una matriz ortogonal de \(\R^3\) con determinante \(-1\) tiene tres
+autovalores reales iguales a \(1\) o \(-1\). Esa afirmación no es cierta en general.
+
+Por ser real y de dimensión impar, la matriz posee al menos un autovalor real. Por ser
+ortogonal, sus autovalores tienen módulo \(1\), y por tener determinante \(-1\), siempre
+existe al menos un autovalor
+\[
+  \boxed{\lambda=-1}.
+\]
+Los otros dos pueden ser
+\[
+  e^{i\theta},\qquad e^{-i\theta},
+\]
+que no son reales cuando \(\theta\notin\{0,\pi\}\). Geométricamente, esto describe una
+\textbf{rotorreflexión}: una rotación en un plano combinada con una inversión en la dirección
+perpendicular.
+
+\textbf{Contraejemplo.}
+\[
+Q=
+\begin{pmatrix}
+\cos\theta&-\sin\theta&0\\
+\sin\theta& \cos\theta&0\\
+0&0&-1
+\end{pmatrix}
+\]
+es ortogonal y \(\det Q=-1\), pero sus autovalores son
+\[
+  e^{i\theta},\quad e^{-i\theta},\quad -1.
+\]
+Solo para casos especiales, como una reflexión en un plano, los tres son reales:
+\[
+  1,\ 1,\ -1.
+\]
+
+\subsection{Ejercicio 6: recuperar una afinidad desde tres puntos}
+
+Sean \(a,b,c\) tres puntos no alineados y sean \(a',b',c'\) sus imágenes. Se busca
+\[
+  \gamma(x)=Ax+t.
+\]
+Restando la ecuación de \(a\) a las de \(b\) y \(c\):
+\[
+  b'-a'=A(b-a),
+  \qquad
+  c'-a'=A(c-a).
+\]
+Construimos las matrices cuyas columnas son los lados de ambos triángulos:
+\[
+  P=
+  \begin{pmatrix}\vert&\vert\\b-a&c-a\\\vert&\vert\end{pmatrix},
+  \qquad
+  P'=
+  \begin{pmatrix}\vert&\vert\\b'-a'&c'-a'\\\vert&\vert\end{pmatrix}.
+\]
+Como \(a,b,c\) no están alineados, \(P\) es invertible. Entonces:
+\[
+  \boxed{A=P'P^{-1}},
+\]
+y usando la correspondencia \(a\mapsto a'\):
+\[
+  \boxed{t=a'-Aa}.
+\]
+La transformación queda completamente determinada:
+\[
+  \boxed{\gamma(x)=P'P^{-1}x+a'-P'P^{-1}a}.
+\]
+
+\textbf{Comprobación de ausencia de puntos fijos.} Se intenta resolver
+\[
+  (I-A)x=t.
+\]
+Que la afinidad no tenga puntos fijos significa que este sistema es incompatible. En
+coordenadas homogéneas:
+\[
+\begin{pmatrix}x'\\y'\\1\end{pmatrix}
+=
+\begin{pmatrix}
+A_{11}&A_{12}&t_x\\
+A_{21}&A_{22}&t_y\\
+0&0&1
+\end{pmatrix}
+\begin{pmatrix}x\\y\\1\end{pmatrix}.
+\]
+
+\begin{resultado}[Estado de la guía de afinidades]
+Los seis ejercicios quedan resueltos de forma algebraica y geométrica. Los ejercicios 3, 4
+y 5 incluyen además las salvedades necesarias para interpretar correctamente sus enunciados.
+\end{resultado}
+
+\section{Ejercicios propuestos}
+
+En cada ejercicio conviene dibujar los puntos iniciales y finales, indicar el orden de
+composición y comprobar el resultado numérico con la matriz homogénea.
+
+\begin{ejercicio}
+Escribir en coordenadas homogéneas la rotación de \(90^\circ\) alrededor de \(c=(1,2)\)
+seguida de la traslación de vector \((3,0)\). Calcular la imagen de \((0,0)\) y de \(c\), y el
+punto fijo de la composición.
+\solucion{\(M=\begin{pmatrix}0&-1&6\\1&0&1\\0&0&1\end{pmatrix}\) (la rotación sola tiene
+última columna \((3,1)\)); \((0,0)\mapsto(6,1)\), \(c\mapsto(4,2)\); punto fijo
+\((2{,}5,\ 3{,}5)\): la composición es una rotación de \(90^\circ\) con otro centro.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallar la afinidad que lleva \((0,0)\mapsto(1,1)\), \((1,0)\mapsto(3,2)\) y
+\((0,1)\mapsto(0,3)\).
+\solucion{\(A=\begin{pmatrix}2&-1\\1&2\end{pmatrix}\), \(b=(1,1)\). Es una similaridad: gira
+y escala por \(\sqrt5\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallar el punto fijo de \(f(x)=\begin{pmatrix}2&1\\0&3\end{pmatrix}x+\begin{pmatrix}1\\-4\end{pmatrix}\)
+y verificarlo.
+\solucion{\((I-A)p=b\) da \(p_\ast=(-3,2)\); en efecto, \(Ap_\ast+b=(-4,6)+(1,-4)=(-3,2)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Para \(A=\begin{pmatrix}1&2\\3&4\end{pmatrix}\), calcular \(\det A\), transformar el triángulo
+\((0,0),(1,0),(0,1)\) y comparar áreas y orientación.
+\solucion{\(\det A=-2\). La imagen es \((0,0),(1,3),(2,4)\); el área pasa de \(0{,}5\) a \(1\)
+y la orientación se invierte (área orientada \(-1\)).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallar la inversa de \(f(x)=\begin{pmatrix}2&0\\1&1\end{pmatrix}x+\begin{pmatrix}4\\-1\end{pmatrix}\),
+en forma afín y en forma homogénea.
+\solucion{\(f^{-1}(y)=A^{-1}(y-b)\) con \(A^{-1}=\begin{pmatrix}0{,}5&0\\-0{,}5&1\end{pmatrix}\)
+y traslación \(-A^{-1}b=(-2,3)\); \(M^{-1}=\begin{pmatrix}0{,}5&0&-2\\-0{,}5&1&3\\0&0&1\end{pmatrix}\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallar la afinidad que lleva el triángulo \((0,0),(2,0),(0,1)\) al triángulo
+\((1,1),(5,2),(2,4)\), usando \(A=P'P^{-1}\).
+\solucion{\(P=\begin{pmatrix}2&0\\0&1\end{pmatrix}\), \(P'=\begin{pmatrix}4&1\\1&3\end{pmatrix}\),
+\(A=\begin{pmatrix}2&1\\0{,}5&3\end{pmatrix}\), \(b=(1,1)\); \(\det A=5{,}5\).}
+\end{ejercicio}

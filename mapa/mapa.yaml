@@ -275,7 +275,7 @@ conceptos:
   unidad: 03_reflexiones_similaridades
   hecho_geometrico: x' = o + k(x − o), matriz kI con centro en el origen; todo se agranda desde el centro sobre rayos. Conmuta con las rotaciones del mismo centro (es el ρ de ρe^{iθ}) y salta de una circunferencia a otra.
   que_se_conserva: ángulos, paralelismo y razones de distancias
-  apunte: [afines, traslaciones]
+  apunte: [reflexiones, traslaciones]
   requiere: [numeros-complejos, composicion]
 - id: reflexion
   nombre: Reflexión (por un punto, por una recta)
@@ -284,7 +284,7 @@ conceptos:
   hecho_geometrico: 'El espejo; ρ_b(x) = 2b − x, φ_B(x) = x − 2((n·x − c)/‖n‖²) n, ortogonal con det −1, involución. Dos espejos devuelven la orientación: puntuales o ejes paralelos dan traslación, ejes secantes dan rotación de ángulo doble.'
   que_se_conserva: distancias y ángulos; se invierte la orientación
   apunte:
-  - afines
+  - reflexiones
   - traslaciones
   - "17"
   requiere: [matriz-ortogonal, composicion]
@@ -303,7 +303,7 @@ conceptos:
   hecho_geometrico: S(x) = o + λR(x − o) = φ_A φ_B η_o^λ; misma forma, otro tamaño y orientación, con un único punto fijo o (dos círculos de Apolonio). Rotar alrededor de c y escalar alrededor de d da una similaridad cuyo punto fijo no es ni c ni d.
   que_se_conserva: ángulos y razones entre distancias
   apunte:
-  - afines
+  - reflexiones
   - "16"
   requiere: [reflexion, homotecia, rotacion, punto-fijo]
 - id: transformacion-afin

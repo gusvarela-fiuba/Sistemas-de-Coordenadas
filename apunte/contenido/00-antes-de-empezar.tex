@@ -1,7 +1,318 @@
-% Capítulo 3 — Repaso de álgebra lineal desde la geometría
-\chapter{Repaso de álgebra lineal desde la geometría}\label{cap:03}
+% Capítulo 0 — Antes de empezar (fusión de cómo usar, programa, hilo conductor, repaso y notación; fase B)
+\chapter{Antes de empezar}\label{cap:antes-de-empezar}
 
-\section{La idea}
+\section{Cómo usar este apunte}\label{cap:00}
+
+El apunte tiene un capítulo por tema. Dentro de cada capítulo, tres secciones del mismo
+nombre y del mismo orden permiten volver sobre las ideas con una profundidad creciente:
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X}
+\toprule
+Sección & Objetivo\\
+\midrule
+La idea & Comprender qué representa el concepto, qué se mueve y qué permanece.
+Incluye una primera expresión algebraica, explicada término por término.\\
+Construcciones, cuentas y ejemplos & Construir figuras, seguir puntos e imágenes, reconocer
+visualmente invariantes, centros, ejes y direcciones, resolver las guías paso a paso y
+verificar numéricamente.\\
+En profundidad & Reunir las demostraciones largas, las conexiones con el resto del programa
+y la relación con la práctica de Agrimensura.\\
+Apéndices & Reunir matrices, demostraciones, desarrollos de Taylor, casos excepcionales y
+soluciones completas de las guías.\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Esa estructura habilita dos modos de lectura. \emph{Por tema}: se toma un capítulo y se lo
+sigue de punta a punta, de la idea a las cuentas y de ahí a las conexiones. \emph{Por nivel}:
+se leen primero todas las secciones ``La idea'', en el orden de los capítulos, y recién
+después las de cuentas y las de profundidad; es la lectura en capas con la que se
+estudiaba antes.
+
+Los capítulos temáticos son diecinueve:
+
+\begin{enumerate}
+  \item Capítulo~\ref{cap:rotaciones}, \nameref{cap:rotaciones}.
+  \item Capítulo~\ref{cap:traslaciones}, \nameref{cap:traslaciones}.
+  \item Capítulo~\ref{cap:reflexiones}, \nameref{cap:reflexiones}.
+  \item Capítulo~\ref{cap:afines}, \nameref{cap:afines}.
+  \item Complemento~\ref{cap:proyectivas}, \nameref{cap:proyectivas}.
+  \item Capítulo~\ref{cap:formas-lineales}, \nameref{cap:formas-lineales}.
+  \item Capítulo~\ref{cap:subespacios}, \nameref{cap:subespacios}.
+  \item Capítulo~\ref{cap:autovectores}, \nameref{cap:autovectores}.
+  \item Capítulo~\ref{cap:svd}, \nameref{cap:svd}.
+  \item Complemento~\ref{cap:dem}, \nameref{cap:dem}.
+  \item Capítulo~\ref{cap:cambio-base}, \nameref{cap:cambio-base}.
+  \item Capítulo~\ref{cap:derivada}, \nameref{cap:derivada}.
+  \item Capítulo~\ref{cap:inversas}, \nameref{cap:inversas}.
+  \item Capítulo~\ref{cap:cuatro-problemas}, \nameref{cap:cuatro-problemas}.
+  \item Capítulo~\ref{cap:curvatura}, \nameref{cap:curvatura}.
+  \item Capítulo~\ref{cap:elipsoide}, \nameref{cap:elipsoide}.
+  \item Capítulo~\ref{cap:esfera}, \nameref{cap:esfera}.
+  \item Complemento~\ref{cap:conformes}, \nameref{cap:conformes}.
+  \item Complemento~\ref{cap:marcos}, \nameref{cap:marcos}.
+\end{enumerate}
+
+Dentro de cada sección, \textbf{material de partida} identifica los documentos
+recibidos como base y \textbf{desarrollo} reúne las explicaciones agregadas para hacer el
+material autónomo.
+
+La sección~\ref{sec:hilo} ordena los temas en un recorrido único, y los
+apéndices~\ref{ap:bibliografia} y~\ref{ap:notebooks} reúnen la bibliografía comentada y los notebooks.
+
+\begin{idea}[Método de estudio: construir, escribir y verificar]
+Para cada definición o teorema conviene producir:
+\begin{enumerate}
+  \item una construcción o dibujo que muestre qué puntos se mueven y cuáles quedan fijos;
+  \item una fórmula vectorial;
+  \item un ejemplo numérico que permita comprobar la conclusión;
+  \item una frase que identifique la propiedad esencial: distancia, ángulo, paralelismo,
+  orientación o punto fijo.
+\end{enumerate}
+\end{idea}
+
+\subsubsection{Mapa conceptual}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=7mm and 10mm,
+  every node/.style={font=\small,align=center},
+  box/.style={draw=teal,fill=teallight!40,rounded corners=2mm,
+              minimum width=31mm,minimum height=9mm},
+  arr/.style={-{Latex[length=2.4mm]},draw=tealdark,line width=.7pt}
+]
+  \node[box] (rp) {reflexión\\puntual};
+  \node[box,right=of rp] (rr) {reflexión\\en una recta};
+  \node[box,below=of rp] (tr) {traslación};
+  \node[box,below=of rr] (rot) {rotación};
+  \node[box,below=of tr] (hom) {homotecia};
+  \node[box,below right=7mm and -5mm of hom] (sim) {similaridad};
+  \draw[arr] (rp)--node[left]{dos centros}(tr);
+  \draw[arr] (rr)--node[right]{ejes paralelos}(tr);
+  \draw[arr] (rr)--node[right]{ejes secantes}(rot);
+  \draw[arr] (tr)--(sim);
+  \draw[arr] (rot)--(sim);
+  \draw[arr] (hom)--(sim);
+\end{tikzpicture}
+\end{center}
+
+\section{Programa}\label{cap:01}\label{sec:organizacion}
+
+El programa oficial recorre una cadena conceptual que comienza con transformaciones lineales
+y termina en problemas geodésicos y cartográficos:
+\[
+\boxed{\text{álgebra lineal}}
+\longrightarrow
+\boxed{\text{geometría diferencial}}
+\longrightarrow
+\boxed{\text{superficies y elipsoide}}
+\longrightarrow
+\boxed{\text{proyecciones y marcos}}
+\]
+
+\subsection{Los bloques del programa}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X}
+\toprule
+Bloque & Contenido\\
+\midrule
+Transformaciones &
+Rotaciones, reflexiones, traslaciones, homotecias, similaridades, afinidades y
+transformaciones proyectivas \\
+Herramientas lineales &
+Matrices, composición, producto interno y vectorial, determinante, producto exterior,
+núcleo, formas lineales, puntos fijos, autovalores y autovectores, exponencial \\
+Cambio de base y SVD &
+Bases de autovectores, potencias de una matriz, valores singulares, inversa y
+pseudoinversa \\
+Coordenadas y variedades &
+Coordenadas curvilíneas, bases locales, espacios tangentes y derivadas \\
+Superficies &
+Métrica, esfera, elipsoide, curvatura y geodésicas \\
+Aplicaciones &
+Proyecciones conformes, marcos de referencia, Molodensky, grillas y remuestreo \\
+Transformaciones conformes y proyecciones (cierre) &
+Cuatro caracterizaciones de la conformidad, Tissot, latitud isométrica, Mercator,
+autálica y planteo de Gauss--Krüger \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Tabla del programa}
+
+Cada tema del programa tiene su capítulo y su unidad interactiva; los complementos (C1 a C4)
+tratan temas sin lugar propio en la secuencia.
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{9mm}>{\raggedright\arraybackslash}p{34mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{42mm}>{\raggedright\arraybackslash}p{22mm}@{}}
+\toprule
+\textbf{N.º} & \textbf{Tema} & \textbf{Capítulo} & \textbf{Unidad interactiva} & \textbf{Observaciones}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+1 & Rotaciones & \ref{cap:rotaciones}. \nameref{cap:rotaciones} & \linkUnidad{00_desaprender_el_cbc}{Fundamentos}, \linkUnidad{01a_punto_quieto}{Rotaciones I}, \linkUnidad{01b_rotacion_plano}{Rotaciones II}, \linkUnidad{01c_rotaciones_3d}{Rotaciones III}, \linkUnidad{02_producto_interno}{Producto interno} & \\
+2 & Más rotaciones, composición, líneas coordenadas & \ref{cap:traslaciones}. \nameref{cap:traslaciones} & \linkUnidad{01c_rotaciones_3d}{Rotaciones III}, \linkUnidad{03_reflexiones_similaridades}{Reflexiones y similaridades} & \\
+3 & Reflexiones, isometrías y similaridades & \ref{cap:reflexiones}. \nameref{cap:reflexiones} & \linkUnidad{03_reflexiones_similaridades}{Reflexiones y similaridades} & \\
+4 & Afinidades y coordenadas homogéneas & \ref{cap:afines}. \nameref{cap:afines} & \linkUnidad{04_afines_homogeneas}{Afinidades y homogéneas} & \\
+5 & Espacios lineales y transformaciones lineales & \ref{cap:formas-lineales}. \nameref{cap:formas-lineales} & \linkUnidad{00_desaprender_el_cbc}{Fundamentos}, \linkUnidad{06_formas_lineales}{Formas lineales y dualidad} & \\
+6 & Subespacios afines y lineales & \ref{cap:subespacios}. \nameref{cap:subespacios} & \linkUnidad{07a_cuna_determinante}{Cuña y determinante}, \linkUnidad{07b_nucleo_autovectores}{Núcleo y autovectores} & \\
+7 & Subespacios invariantes & \ref{cap:autovectores}. \nameref{cap:autovectores} & \linkUnidad{07b_nucleo_autovectores}{Núcleo y autovectores}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{Autovalores en 3D} & \\
+8 & TL II: subespacios y la SVD & \ref{cap:svd}. \nameref{cap:svd} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
+9 & Cambios de base & \ref{cap:cambio-base}. \nameref{cap:cambio-base} & \linkUnidad{08_cambio_de_base}{Cambio de base y diagonalización} & \\
+10 & Repaso de análisis & \ref{cap:derivada}. \nameref{cap:derivada} & \linkUnidad{00_desaprender_el_cbc}{Fundamentos}, \linkUnidad{10_jacobiano_primera_forma}{Jacobiano y primera forma} & \\
+11 & Inversas & \ref{cap:inversas}. \nameref{cap:inversas} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
+12 & Cuatro problemas & \ref{cap:cuatro-problemas}. \nameref{cap:cuatro-problemas} & \linkUnidad{11_cuatro_problemas}{Cuatro problemas} & En preparación\\
+13 & Curvatura & \ref{cap:curvatura}. \nameref{cap:curvatura} & \linkUnidad{12_curvatura}{Curvatura} & En preparación\\
+14 & Geometría del elipsoide & \ref{cap:elipsoide}. \nameref{cap:elipsoide} & \linkUnidad{13_elipsoide}{Geometría del elipsoide}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
+15 & Trigonometría esférica & \ref{cap:esfera}. \nameref{cap:esfera} & \linkUnidad{14_trigonometria_esferica}{Trigonometría esférica}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
+--- & Transformaciones proyectivas & \ref{cap:proyectivas}. \nameref{cap:proyectivas} & \linkUnidad{05_proyectivas}{Proyectivas} & Tema de clase extra, en dos fechas\\
+--- & El terreno como matriz & \ref{cap:dem}. \nameref{cap:dem} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
+--- & Transformaciones conformes & \ref{cap:conformes}. \nameref{cap:conformes} & \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & \\
+--- & Marcos de referencia, grillas y remuestreo & \ref{cap:marcos}. \nameref{cap:marcos} & --- & \\
+\end{longtable}
+}
+
+\section{El hilo conductor}\label{cap:02}\label{sec:hilo}
+
+\textbf{Material de partida.} La materia no es una lista de temas sueltos sino un
+recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando un bloque parece
+desconectado del anterior, casi siempre es porque cambió la \emph{cara} desde la que se mira
+la misma idea.
+
+\begin{idea}[Las tres ideas que se repiten]
+\begin{enumerate}
+  \item \textbf{Transformaciones, operaciones y coordenadas} son tres caras de lo mismo. Una
+  transformación mueve puntos; una operación (componer, multiplicar matrices, hacer un
+  producto interno) es la cuenta que la representa; una coordenada es lo que queda cuando se
+  pregunta ``hasta dónde llegué con esta transformación''. Una de las cosas importantes de
+  la materia es entender la relación entre transformaciones, operaciones y coordenadas.
+  \item \textbf{Ir a lo chico para volver a lo grande.} Una rotación grande es muchas
+  rotaciones chiquitas; la derivada de una transformación da vectores tangentes a las
+  trayectorias; la exponencial rearma el movimiento completo. La misma jugada reaparece con
+  el gradiente, con las potencias de una matriz y con la primera forma fundamental de una
+  superficie.
+  \item \textbf{La composición es una operación entre transformaciones}, y una
+  transformación se identifica con la trayectoria que genera al aplicarla repetidas veces.
+  Por eso importa tanto que la composición no sea conmutativa: sin conmutatividad no se
+  pueden armar líneas coordenadas.
+\end{enumerate}
+\end{idea}
+
+Antes del bloque 1 va la Unidad 0 del sitio de la materia, ``fundamentos y lenguaje''
+(subsección~\ref{sec:desaprender}): no es un bloque temático sino
+el encuadre del curso con el que conviene entrar a la tabla. El sitio tiene tres capas: el
+hilo conductor (las 20 unidades interactivas en marimo + Python, construidas ladrillo a
+ladrillo en el orden de esta tabla), el mapa de conceptos, para repasar, y este apunte
+formal en \LaTeX{} con las demostraciones (apéndice~\ref{ap:notebooks}).
+
+La tabla ubica cada bloque con su idea central, el hecho geométrico que está detrás de la fórmula, y la sección de este apunte donde se
+desarrolla. Regla del apunte: una fórmula sin su hecho geométrico es magia.
+
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{20mm}>{\raggedright\arraybackslash}p{60mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{28mm}}
+\toprule
+\textbf{Bloque} & \textbf{Idea central} & \textbf{Hecho geométrico} &
+\textbf{En este apunte}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Bloque} & \textbf{Idea central} & \textbf{Hecho geométrico} &
+\textbf{En este apunte}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+1. Rotaciones &
+Una rotación implica dejar quieto un punto, mover otro, y en base a esos acomodar todos
+los demás; se puede porque había una estructura de algo que se conservaba (distancias y
+ángulos). Complejos, matrices ortogonales, rotaciones 3D, no conmutatividad, ángulos
+chicos, exponencial. &
+Rotación = conservar distancias alrededor de un punto fijo; cada punto recorre una
+circunferencia y multiplicar por \(i\) es girar un cuarto de vuelta. &
+\S\ref{sec:rotar}, \S\ref{sec:rot-plano}, \S\ref{sec:rot-complejos}, \S\ref{sec:rot-3d},
+\S\ref{sec:eje-exp}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales}\\
+2. Más rotaciones, composición y líneas coordenadas &
+En general es necesario para construir un sistema de coordenadas que haya conmutatividad
+a la hora de componer movimientos por coordenadas. El problema de los vasos; rotaciones
+sobre la cáscara de la esfera hacia latitud y longitud. &
+Componer en distinto orden lleva a lugares distintos; las trayectorias de un movimiento
+repetido son las líneas coordenadas (meridianos y paralelos). &
+\S\ref{sec:orden-importa}, \S\ref{sec:sistemas-marcos}, \S\ref{sec:curvilineas}\\
+3. Transformaciones afines &
+Una afinidad conserva paralelas las paralelas; con reflexiones se construyen
+rotaciones; un tema insistente es la composición como una operación entre
+transformaciones. Dos escrituras: en \(\R^2\) y en coordenadas homogéneas. &
+Afinidad = los paralelogramos siguen siendo paralelogramos; dos reflexiones en rectas
+secantes son una rotación; rotar y trasladar repetidamente dibuja círculos alrededor del
+punto fijo. &
+\S\ref{sec:afinidades-primera}, \S\ref{sec:reflejar}, \S\ref{sec:componer-centros},
+\S\ref{sec:homogeneas-primera}, \S\ref{sec:bloque-euclideas}--\S\ref{sec:afinidades-construidas}\\
+4. Espacios lineales, transformaciones lineales y formas lineales &
+Las formas lineales, funciones que van de un espacio vectorial a un escalar; se
+comportan igual que las ecuaciones de las rectas o los planos; una forma lineal se
+transforma con una transformación lineal del lado contrario que un vector. &
+Forma lineal = una regla graduada tirada en el plano: sus curvas de nivel son rectas
+paralelas equiespaciadas; la matriz es una pila de reglas. &
+\S\ref{sec:transf-plano}, \S\ref{sec:formas-lineales}\\
+5. Subespacios y producto cuña &
+El producto cuña, una operación relacionada al determinante que sirve para armar formas
+lineales; construir una transformación lineal que tuviera un vector especial (o varios)
+en el núcleo. &
+Producto cuña = área o volumen orientado; vale cero cuando los vectores están alineados;
+una transformación con núcleo aplasta una dirección entera a un punto. &
+\S\ref{sec:vectorial}, \S\ref{sec:determinante}, \S\ref{sec:exterior}, \S\ref{sec:nucleo}\\
+6. Subespacios invariantes y autovectores &
+\((A-\lambda\,Id)\cdot\vec v=0\): hay un vector que está en el núcleo de
+\(A-\lambda\,Id\); los subespacios invariantes de la transformación lineal de
+\(\R^3\) correspondían a los puntos fijos en \(\mathbb{P}\R^2\). &
+Autovector = dirección que cae sobre sí misma; en homogéneas es un punto fijo del plano;
+el cero siempre queda quieto. &
+\S\ref{sec:autovalores}, \S\ref{sec:autovalores-geom}, \S\ref{sec:homografia-fijos}\\
+7. Transformaciones lineales II: subespacios y SVD &
+Encontrar una base privilegiada de la transformación; siempre existe una base
+ortogonal del espacio de entrada que se conserva ortogonal a la salida. Polya y las
+estrategias para resolver problemas. &
+Diagonalizar = mirar la transformación desde sus direcciones fijas (estiramientos
+axiales); SVD = la circunferencia unidad se vuelve elipse, con ejes ortogonales antes y
+después. &
+\S\ref{sec:autovalores-geom}, \S\ref{sec:svd}, ap.~\ref{ap:notebooks}\\
+8. Cambios de base, autovectores y Marimo &
+El cambio de base se construye con una matriz que tiene en sus columnas los vectores de
+una base expresada en la otra; no parece haber un conjunto de vectores privilegiado
+a priori; potencias de una matriz y trayectorias. &
+Cambio de base = la misma flecha medida con otra grilla; potencia real de una matriz =
+trayectoria continua de un punto bajo la transformación. &
+\S\ref{sec:cambio-base}, ap.~\ref{ap:notebooks}\\
+9. Repaso de análisis (con álgebra de contrabando) &
+La derivada es la mejor aproximación lineal a una función en determinado punto;
+dato clave: el gradiente es una forma lineal, no un vector. Hessiana como forma
+cuadrática. &
+Derivada = el plano tangente; gradiente = forma lineal cuya recta de nivel cero es la
+tangente, perpendicular a la curva de nivel. &
+\S\ref{sec:plano-superficie}, \S\ref{sec:variedades}, \S\ref{sec:metrica},
+\S\ref{sec:formas-lineales}\\
+10. Inversas &
+La inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
+neutro respecto de esa operación; núcleo, imagen, co-imagen y espacio inaccesible;
+pseudoinversa de Moore--Penrose. &
+Inversa = deshacer el movimiento; una transformación que pierde dimensiones aplasta y no se
+deshace del todo; la pseudoinversa elige el punto de la imagen más cercano. &
+\S\ref{sec:pseudoinversa}, \S\ref{cap:cuatro-problemas}, \S\ref{sec:sistemas-ecuaciones}\\
+\end{longtable}
+}
+
+\begin{atencion}[Otro orden, mismo hilo]
+El curso también admite otro orden: rotaciones \(\to\) guía de
+reflexiones y similaridades \(\to\) afinidades y coordenadas homogéneas \(\to\)
+transformaciones proyectivas \(\to\) productos, determinante y autovectores. Las tres ideas
+son las mismas y el apunte sirve para ambos recorridos: la tabla anterior dice dónde está
+cada tema.
+\end{atencion}
+
+\section{Repaso de álgebra lineal desde la geometría}\label{cap:03}
 
 % --- 03-cbc-nivel1 ---
 \subsection{Lo que trajimos del CBC y qué le cambia la mirada}\label{sec:cbc-mirada}
@@ -76,7 +387,7 @@ Norma y distancia &
 La pone el producto interno, no el espacio: no existe una base vectorial privilegiada de
 \(\R^n\) salvo la que la métrica elige; sobre una superficie la
 métrica cambia de punto a punto. &
-cap.~\ref{cap:afines}, cap.~\ref{cap:derivada}\\
+cap.~\ref{cap:reflexiones}, cap.~\ref{cap:derivada}\\
 \bottomrule
 \end{tabularx}
 }
@@ -203,9 +514,7 @@ regla se mide.
 
 {\small\vspace{1mm}\linkUnidad{00_desaprender_el_cbc}{Simulación interactiva: Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)}\par}
 
-\section{Construcciones, cuentas y ejemplos}
-
-\subsection{Fundamentos: los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
+\subsection{Los cinco ladrillos y el idioma de la materia}\label{sec:desaprender}
 
 {\small\vspace{1mm}\linkUnidad{00_desaprender_el_cbc}{Simulación interactiva: Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)}\par}
 
@@ -290,15 +599,15 @@ Fijados los cinco ladrillos, casi todas las cuentas lineales del curso responden
 \textbf{Ecuación} & \textbf{Pregunta de campo} & \textbf{Dónde la desarrollamos} \\
 \hline
 \(Ax=b\) &
-\textbf{Transformar o deshacer.} Evaluar \(Ax\) es transformar: conocemos \(A\) y calculamos a dónde va un mojón. Resolver \(Ax=b\) es la pregunta inversa: conocemos \(A\) y el resultado \(b\) y buscamos de dónde vino, \(x=A^{-1}b\); leer un punto en otra base es eso mismo (las coordenadas nuevas son la \(x\) que cumple \(Px=b\)). Hallar la homografía que rectifica los cuatro puntos de una imagen de dron también es un \(Ax=b\), pero con la matriz como incógnita: un sistema lineal \(8\times8\) en los coeficientes de \(H\). &
+\textbf{Transformar o deshacer.} Evaluar \(Ax\) es transformar: conocemos \(A\) y calculamos a dónde va un mojón. Resolver \(Ax=b\) es la pregunta inversa: conocemos \(A\) y el resultado \(b\) y buscamos de dónde vino, \(x=A^{-1}b\); leer un punto en otra base es eso mismo (las coordenadas nuevas son la \(x\) que cumple \(Px=b\)). Hay problemas del mismo tipo en los que la incógnita es la propia matriz (véase el capítulo~\ref{cap:proyectivas}). &
 \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}, \linkUnidad{03_reflexiones_similaridades}{03}, \linkUnidad{04_afines_homogeneas}{04}, \linkUnidad{05_proyectivas}{05}, \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08} \\
 \hline
 \(Ax=\lambda x\) y \(Av_i=\sigma_i u_i\) &
-\textbf{Buscar direcciones privilegiadas.} Las que no giran (autovectores): el eje de giro en \(\mathbb{R}^3\), los puntos fijos de una afinidad o proyectiva, las direcciones principales de curvatura del elipsoide, cuyas curvaturas principales \(1/M\) y \(1/N\) son los autovalores de \(I^{-1}II\) (el operador de forma). Y, con la SVD, el par de bases perpendiculares que sigue perpendicular: los \(v_i\) (direcciones propias de \(A^TA\)) van a los \(u_i\) girando, pero sin perder el ángulo recto; son los semiejes de la elipse de Tissot. &
+\textbf{Buscar direcciones privilegiadas.} Las que no giran (autovectores): el eje de giro en \(\mathbb{R}^3\), los puntos fijos de una afinidad o proyectiva, las direcciones principales de curvatura del elipsoide, cuyas curvaturas principales \(1/M\) y \(1/N\) son los autovalores de \(I^{-1}II\) (el operador de forma). Y el par de bases perpendiculares que sigue perpendicular después de transformar (véase el capítulo~\ref{cap:svd}; su lectura sobre la cartografía está en el capítulo~\ref{cap:conformes}). &
 preparación: \linkUnidad{07a_cuna_determinante}{07a}; \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}, \linkUnidad{08_cambio_de_base}{08}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{12_curvatura}{12}, \linkUnidad{13_elipsoide}{13}, \linkUnidad{15_transformaciones_conformes}{15} \\
 \hline
 \(Ax\approx b\) &
-\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\mathrm{Im}(A)\): regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con la SVD de una matriz armada con los datos. &
+\textbf{Aproximar cuando sobran mediciones y hay error de campaña.} Hay más ecuaciones que incógnitas y el vector medido \(b\) cae fuera de la imagen de \(A\); buscamos \(\hat{x}=A^{+}b\), cuya imagen \(A\hat{x}\) es la proyección perpendicular de \(b\) sobre el subespacio columna \(\mathrm{Im}(A)\): regresión e intersección de círculos por distancias. Procrustes y regresión total también son mínimos cuadrados, con otra geometría (restricción ortogonal; distancia perpendicular), y se resuelven con una descomposición de una matriz armada con los datos (véase el capítulo~\ref{cap:svd}). &
 \linkUnidad{02_producto_interno}{02}, \linkUnidad{09_cambio_de_base_svd}{09}, \linkUnidad{11_cuatro_problemas}{11} \\
 \end{tabularx}
 \normalsize
@@ -314,8 +623,6 @@ En este apunte, el producto \(F G\) significa ``primero aplicar \(G\) y después
   (F G)(x)=F\bigl(G(x)\bigr).
 \]
 Esta convención es importante porque, en general, cambiar el orden cambia el resultado.
-
-\section{En profundidad}
 
 \subsection{La mirada geométrica}
 
@@ -377,7 +684,7 @@ y en la Unidad 0, son el idioma en que están escritas las tres filas:
 
 \begin{description}
   \item[Grupos de transformaciones (ladrillo 1).] Las transformaciones de un mismo tipo
-  (rotaciones, traslaciones, afinidades, homografías) forman un grupo: componer dos da otra
+  (rotaciones, traslaciones, afinidades, transformaciones proyectivas, véase el capítulo~\ref{cap:proyectivas}) forman un grupo: componer dos da otra
   del mismo tipo, la identidad es el neutro y cada una tiene inversa. Transformaciones y
   Operaciones son dos conceptos que van atravesando la materia; la inversa es un elemento
   de un conjunto que, al operar con otro, resulta en el elemento neutro respecto de esa
@@ -463,3 +770,37 @@ es. Y curvarse, la hessiana o la segunda forma fundamental, es una forma cuadrá
 número por cada dirección, cuya diagonalización da las direcciones principales
 (sección~\ref{cap:curvatura}).
 \end{resultado}
+\section{Notación}\label{sec:notacion}
+
+Esta tabla fija las convenciones que se usan en todo el apunte; cuando un capítulo necesita un
+símbolo distinto, lo declara donde lo introduce. Una sola regla de lectura: lo que se compone
+se aplica de derecha a izquierda, como cualquier función.
+
+{\small
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{38mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{62mm}@{}}
+\toprule
+\textbf{Objeto} & \textbf{Notación} & \textbf{Comentario}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Puntos y vectores & \(p,\ q,\ v\) (minúscula cursiva) & Un vector se identifica con su punto. En el texto, \((x,y)\); en las cuentas, columna \(\begin{pmatrix}x\\y\end{pmatrix}\).\\
+Rectas y figuras & \(L\), el triángulo \(ABC\) (mayúscula) & \\
+Matrices & \(A,\ R,\ M\) (mayúscula itálica) & Identidad \(I\); transpuesta \(A^T\); inversa \(A^{-1}\); determinante \(\det A\).\\
+Norma & \(\lVert\cdot\rVert\) & \\
+Formas lineales y gradiente & \(\omega,\ \ell\) y \(\nabla f\) como fila & El covector se escribe como fila y actúa sobre el vector columna.\\
+Rotación & \(R(\theta)\) lineal; \(\rho_{c,\theta}\) con centro \(c\) & \\
+Reflexión & \(\sigma_L\) respecto de la recta \(L\) & \\
+Homotecia & \(\eta_o^k\) de centro \(o\) y razón \(k\) & \\
+Traslación & \(\tau_v\) & \\
+Afinidad & \(f(x)=Ax+b\) & En homogéneas, \((x,y,1)^T\) con última fila \((0\ \ 0\ \ 1)\).\\
+Composición & \(g\circ f\) aplica primero \(f\) & Las matrices van a la izquierda del vector columna.\\
+Ángulos & \(\theta\), antihorario positivo & Radianes por defecto; grados con \(^\circ\).\\
+Acimut & \(\mathrm{Az}\) desde el norte, sentido horario & \(\theta=90^\circ-\mathrm{Az}\).\\
+Cambio de base & \(C_{e\leftarrow b}\) & Lleva coordenadas en \(b\) a coordenadas en \(e\).\\
+Autovalores & \(\lambda\) en los capítulos 3 a 9 y 11; \(\mu_1,\mu_2\) en los capítulos 10, 12 a 15 y los complementos C2 y C4 & En esos últimos, \(\lambda\) es la longitud geodésica.\\
+Valores singulares & \(\sigma_1\ge\sigma_2\ge\cdots\) & \\
+Latitud y longitud & \(\varphi\) (sólo latitud), \(\lambda\) (longitud) & \\
+Elipsoide GRS80 & \(a=6\,378\,137\ \mathrm{m}\), \(1/f=298{,}257222101\) & \\
+\end{longtable}
+}
