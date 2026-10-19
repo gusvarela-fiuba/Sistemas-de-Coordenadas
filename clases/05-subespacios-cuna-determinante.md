@@ -10,7 +10,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-4
   - fuentes/transcripciones/2026-09-16.md
 conceptos: [subespacio-lineal, subespacio-afin, producto-vectorial, producto-cuna, determinante, nucleo, colinealidad]
-apunte: ["08"]
+apunte: ["subespacios"]
 unidad: 07a_cuna_determinante   # y 07b_nucleo_autovectores (núcleo)
 ---
 

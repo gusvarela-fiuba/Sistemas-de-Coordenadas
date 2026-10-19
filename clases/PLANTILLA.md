@@ -9,7 +9,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-N
   - fuentes/transcripciones/2026-MM-DD.md
 conceptos: [id1, id2]       # ids de mapa/CONCEPTOS.md
-apunte: ["07", "14"]        # prefijos de apunte/contenido/
+apunte: ["proyectivas", "14"]   # claves de \label{cap:...} del apunte sin «cap:» (capítulos: "rotaciones", …; apéndices: "14", …)
 unidad: 01_rotaciones       # o null
 ---
 

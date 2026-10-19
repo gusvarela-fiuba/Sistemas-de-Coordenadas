@@ -11,7 +11,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-9
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [espacio-vectorial, transformacion-lineal, forma-lineal, dualidad, curvas-de-nivel]
-apunte: ["08"]
+apunte: ["formas-lineales"]
 unidad: 06_formas_lineales
 ---
 

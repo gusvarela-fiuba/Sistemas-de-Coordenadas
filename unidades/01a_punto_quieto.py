@@ -403,7 +403,7 @@ def _(mo):
     En esta unidad demostramos que el punto no se mueve y que las coordenadas nuevas son $R^T P$. La demostración de que la inversa de
     una rotación es su transpuesta (y por qué) está en el apunte:
 
-    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva

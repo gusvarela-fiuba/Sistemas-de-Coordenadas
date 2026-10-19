@@ -1,0 +1,245 @@
+% Cambio de base: las coordenadas son etiquetas (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{Cambio de base: las coordenadas son etiquetas}\label{cap:cambio-base}
+
+\section{La idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\section{En profundidad}
+
+\subsection{Cambio de base y diagonalización}\label{sec:cambio-base}
+
+{\small\vspace{1mm}\linkUnidad{08_cambio_de_base}{Simulación interactiva: Unidad 12 — Cambio de base y diagonalización}\par}
+{\small\vspace{1mm}\linkAnimacion{03_cambio_de_base_viaje}{Animación: el viaje \(A\,T_{\mathrm{diag}}\,A^{-1}\)}\par}
+
+
+\begin{atencion}[Anticipado]
+El cambio de base y la diagonalización se dictaron el 30 de septiembre de 2026 (clase 8 del
+esqueleto) y se desarrollan en el párrafo ``La matriz de cambio de base y el despeje de la
+diagonalización''. Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: se
+desarrolla antes de que la cátedra lo dicte, a partir del resumen 2025 del profesor y de las
+fichas de clase. Pendiente de validar con lo que efectivamente se dicte.
+\end{atencion}
+
+\paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
+coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos usamos
+las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
+\[
+  \begin{pmatrix}3\\4\end{pmatrix}
+  =\tfrac72\begin{pmatrix}1\\1\end{pmatrix}-\tfrac12\begin{pmatrix}1\\-1\end{pmatrix},
+  \qquad\text{coordenadas nuevas }(\tfrac72,-\tfrac12).
+\]
+El mojón está donde estaba; cambió la regla con que lo medimos. Escalera: en \(\R\) cambiar
+de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
+longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
+\(\R^n\) es una matriz \(n\times n\) invertible. El profesor observó en 2025 que ``no parece
+haber un conjunto de vectores privilegiado a priori'': lo único que distingue a la base
+canónica es que con ella el producto interno es la cuenta de siempre.
+
+\begin{resultado}[La matriz de cambio de base]
+Si \(P\) tiene en sus columnas los vectores de la base nueva escritos en la canónica,
+\[
+  [v]_{\text{can}}=P\,[v]_{\text{nueva}},\qquad [v]_{\text{nueva}}=P^{-1}[v]_{\text{can}} .
+\]
+Con \(P=\begin{pmatrix}1&1\\1&-1\end{pmatrix}\), \(P^{-1}=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\)
+y \(P^{-1}(3,4)^T=(\tfrac72,-\tfrac12)^T\), como arriba. Los tres tipos de objeto cambian
+de base distinto, y conviene escribir siempre el sentido (acá, de la canónica a la nueva):
+los vectores como \([v]_{\text{nueva}}=P^{-1}[v]_{\text{can}}\); las formas lineales, que
+son filas, multiplicando por \(P\) del lado derecho, \([\varphi]_{\text{nueva}}=[\varphi]_{\text{can}}\,P\)
+(sección~\ref{sec:formas-lineales}), para que \(\varphi(v)\) dé lo mismo en las dos bases;
+y las transformaciones con
+\[
+  A_{\text{nueva}}=P^{-1}\,A\,P ,
+\]
+que se lee de derecha a izquierda: pasamos las coordenadas nuevas a canónicas, aplicamos \(A\)
+como siempre, volvemos a las nuevas. Todo se convierte a la vez para que ninguna relación
+cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
+\end{resultado}
+
+\paragraph{El ejercicio del 30 de septiembre, resuelto.} Consigna del profesor (en hoja
+grande, dibujado): formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
+\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida ``no muy distinta de
+la identidad''. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
+paralelas que juntos arman una grilla), ubicar el vector en la grilla, transformar el
+vector con \(T\) y las formas con \(T^{-1}\), redibujar y verificar que el vector
+transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
+\((-1,2)\cdot(3,4)=5\): el vector está en la séptima curva de una y la quinta de la otra.
+Inversa por adjunta sobre determinante, \(\det T=1{,}56+0{,}05=1{,}61\):
+\[
+  T^{-1}=\frac1{1{,}61}\begin{pmatrix}1{,}3&-0{,}5\\0{,}1&1{,}2\end{pmatrix},\qquad
+  T\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}5{,}6\\4{,}9\end{pmatrix},
+\]
+\[
+  (1,1)\,T^{-1}=\tfrac1{1{,}61}(1{,}4,\ 0{,}7)=(0{,}870,\ 0{,}435),\qquad
+  (-1,2)\,T^{-1}=\tfrac1{1{,}61}(-1{,}1,\ 2{,}9)=(-0{,}683,\ 1{,}801).
+\]
+Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
+\(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
+curva de la primera forma y en la quinta de la segunda. En clase la forma \((1,1)\)
+quedó ``\((0{,}86,\ 0{,}43)\), se acostó un poco'' (redondeo) y la \((-1,2)\) ``un poco más
+vertical''. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
+plano; medido con la grilla deformada, el punto está donde estaba. ``No hacemos nada,
+convertimos todo para que nada cambie'' (profesor, 30/9/2026). En planilla: dos columnas
+para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
+
+\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
+\(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\). Polinomio característico
+\((2-\lambda)^2-1=0\), autovalores \(3\) y \(1\), autovectores \((1,1)\) y \((1,-1)\)
+(perpendiculares porque \(A\) es simétrica). Con esos autovectores como columnas de \(P\),
+\[
+  P^{-1}AP=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}
+  \begin{pmatrix}3&1\\3&-1\end{pmatrix}
+  =\begin{pmatrix}3&0\\0&1\end{pmatrix}=D .
+\]
+Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
+independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
+``se estira o se comprime pero no se rompe''. En la grilla común la misma transformación
+no tiene lectura fácil. Es lo que el resumen 2025 describe como ``aplicar dos afinidades
+axiales sucesivas''.
+
+\paragraph{La matriz de cambio de base y el despeje de la diagonalización.} En este
+párrafo usamos los nombres de la clase: \(A\) es la matriz que tiene los autovectores en
+columnas (la \(P\) del recuadro de arriba, con otro nombre) y \(T\) es la transformación
+(la \(A\) del párrafo anterior).
+
+\emph{El diagrama de conmutatividad.} Dualidad y cambio de base se juntan en una sola
+cadena, escrita en orden de aplicación (de izquierda a derecha):
+\[
+  (p)\;\to\;(A)\;\to\;[\,A^{-1}\to T_{\mathrm{diag}}\to A\,]\;\to\;(A^{-1})\;\to\;(\ell) .
+\]
+En un extremo entra un punto \(p\) y en el otro una recta \(\ell\), los dos escritos en la
+base de autovectores; lo que se mide es la incidencia. Con la convención de abajo (\(A\)
+lleva de la base de autovectores a la canónica), el punto pasa a la canónica como \(A\,p\)
+y la forma como \(\ell\,A^{-1}\) (multiplicando del lado derecho). El recuadro del medio
+recibe y devuelve coordenadas canónicas: adentro actúa \(T_{\mathrm{diag}}\), en la base
+de autovectores, y el recuadro entero, leído como producto (lo que se aplica último va a la
+izquierda), es \(A\,T_{\mathrm{diag}}\,A^{-1}=T_{\mathrm{can}}\), la misma transformación
+escrita en la base canónica. La cadena completa es
+\(\ell A^{-1}\,(A\,T_{\mathrm{diag}}\,A^{-1})\,A\,p=\ell\,T_{\mathrm{diag}}\,p\): las
+conversiones se absorben de a pares (\(A^{-1}A=I\)) y la incidencia no cambia; el punto
+transformado sigue cayendo en la recta transformada. Despejar
+\(T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A\) es sacar la diagonal del recuadro, como
+hacemos más abajo. Todo se convierte a la vez para que nada cambie.
+
+\emph{La matriz con los autovectores en columnas.} Definimos \(A=[\,v_1\mid v_2\,]\), los
+autovectores escritos en la base canónica, uno por columna, y la probamos con el vector
+\((1,0)^T\):
+\[
+  A\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}
+  =\begin{pmatrix}A_{11}\\A_{21}\end{pmatrix}=v_1 .
+\]
+Entra una unidad del primer autovector escrita en la base de autovectores y sale ese mismo
+autovector escrito en la canónica: \(A\) traduce de la base de autovectores a la canónica
+y \(A^{-1}\) hace el camino inverso, de la canónica a la de autovectores. El recorrido
+completo para un punto cualquiera: el punto \((1,1)=e_x+e_y\), dado en la canónica, pasa
+con \(A^{-1}\) a coordenadas \((c_1,c_2)\) en la base de autovectores, es decir
+\((1,1)=c_1v_1+c_2v_2\); ahí la transformación es diagonal y devuelve
+\((\lambda_1c_1,\ \lambda_2c_2)\); y \(A\) traduce ese resultado de vuelta a la canónica,
+\(\lambda_1c_1v_1+\lambda_2c_2v_2\), que es \(T(1,1)\). Con la matriz del párrafo
+anterior, \(v_1=(1,1)\) y \(v_2=(1,-1)\), el punto \((1,1)\) es el propio \(v_1\):
+\((c_1,c_2)=(1,0)\), la diagonal da \((3,0)\) y \(A\) devuelve \(3v_1=(3,3)\), que
+coincide con \(\begin{pmatrix}2&1\\1&2\end{pmatrix}(1,1)^T=(3,3)^T\).
+
+\emph{El despeje.} El mismo recorrido, escrito como producto de matrices, dice que la
+transformación en la base canónica es la diagonal conjugada por el cambio de base:
+\[
+  T_{\mathrm{can}}=A\,T_{\mathrm{diag}}\,A^{-1}
+  \quad\Longrightarrow\quad
+  T_{\mathrm{diag}}=A^{-1}\,T_{\mathrm{can}}\,A ,
+\]
+leída de derecha a izquierda: \(A^{-1}\) lleva a la base de autovectores,
+\(T_{\mathrm{diag}}\) estira cada eje propio, \(A\) vuelve a la canónica. El despeje se
+hace multiplicando por \(A^{-1}\) a la izquierda y por \(A\) a la derecha; los dos
+productos \(A^{-1}A=I\) y \(A\,A^{-1}=I\) que aparecen se cancelan y queda
+\(T_{\mathrm{diag}}\) sola. Con los nombres de este apunte (\(P\) para la matriz de
+autovectores, \(A\) para la transformación) es exactamente el \(D=P^{-1}AP\) del párrafo
+anterior: misma matriz, otro nombre.
+
+\paragraph{Potencias y la trayectoria de un punto.} Volvemos a los nombres del apunte:
+\(P\) es la matriz de autovectores y \(A\) la transformación. Como \(A=PDP^{-1}\),
+\(A^n=PD^nP^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
+propio. Para \(n=5\),
+\[
+  A^5=P\begin{pmatrix}243&0\\0&1\end{pmatrix}P^{-1}
+  =\tfrac12\begin{pmatrix}244&242\\242&244\end{pmatrix}
+  =\begin{pmatrix}122&121\\121&122\end{pmatrix}.
+\]
+Lectura: \((1,0)=\tfrac12(1,1)+\tfrac12(1,-1)\); la parte en \((1,1)\) se multiplica por
+\(243\) y la parte en \((1,-1)\) queda igual: \(\tfrac12(243,243)+\tfrac12(1,-1)=(122,121)\),
+la primera columna. Si los autovalores son positivos el exponente puede ser real:
+\(A^t=PD^tP^{-1}\) con \(D^t=\operatorname{diag}(3^t,1)\), y el punto \((1,0)\) recorre
+\[
+  A^t\begin{pmatrix}1\\0\end{pmatrix}=\tfrac12\begin{pmatrix}3^t+1\\3^t-1\end{pmatrix}:
+  \quad(1,0)\ \text{en } t=0,\quad(1{,}37,\,0{,}37)\ \text{en } t=\tfrac12,\quad(2,1)\ \text{en } t=1 .
+\]
+Es la tercera idea del hilo (sección~\ref{sec:hilo}): la transformación se identifica con
+la trayectoria que genera, y la potencia real la convierte en película. La misma jugada que
+la exponencial de una rotación, ahora con estiramientos en vez de giros. La unidad
+\texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
+
+\begin{atencion}[Una convención, tres escrituras en el resumen 2025]
+Verificado en el resumen del profesor: la clase 7 escribe
+\(A=B_{av\mapsto e}\,D\,B_{e\mapsto av}\) y la clase 10 escribe
+\(A=C^{-1}_{e\mapsto av}\,\Lambda\,C_{e\mapsto av}\); en ambas el factor de la derecha,
+el que actúa primero sobre un vector en canónica, es el que \emph{convierte de \(e\) a
+\(av\)}. La clase 8 escribe \(M_{av}=C_{av\mapsto e}\,M\,C_{e\mapsto av}\), donde con la
+misma lectura el factor de la derecha debería ser el que convierte de \(av\) a \(e\)
+(un vector en base \(av\) entra primero). Los subíndices de la clase 8 están al revés de
+los de las clases 7 y 10. En la clase del 30 de septiembre de 2026 quedó con subíndices
+descriptivos, no direccionales:
+\(A\,T_{\mathrm{diag}\langle Av\rangle}A^{-1}=T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}\)
+con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base
+nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
+\end{atencion}
+
+\begin{resultado}[Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo]
+Las dos preguntas de la clase 6, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
+un autovalor repetido no alcanza para armar una base?'', son independientes. Invertir
+pide que el núcleo sea \(\{0\}\), es decir, que ningún autovalor sea \(0\). Diagonalizar
+pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones aparecen:
+\medskip
+
+\renewcommand{\arraystretch}{1.35}
+\noindent\begin{tabular}{@{}p{2.6cm}p{1.1cm}p{2.2cm}p{2.1cm}p{5.6cm}@{}}
+\textbf{Matriz} & \(\det\) & \textbf{Autovalores} & \textbf{¿Base de autovectores?} & \textbf{Hecho geométrico}\\
+\hline
+\textbf{1.}~\(\bigl(\begin{smallmatrix}2&0\\0&1\end{smallmatrix}\bigr)\) & \(2\ne0\) & \(2,\ 1\) & sí, \(e_1,e_2\) &
+diagonalizable e invertible: estira el eje \(x\) al doble y deja fijo el \(y\); dos direcciones propias independientes.\\
+\textbf{2.}~\(\bigl(\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(\lambda_1=1,\ \lambda_2=0\) & sí, \(e_1,e_2\) &
+proyección sobre el eje \(x\): aplasta el eje \(y\) al origen, sin inversa, pero con base completa de autovectores.\\
+\textbf{3a.}~\(\bigl(\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr)\) & \(1\) & \(1\) (doble) & no: sólo \(e_1\) &
+corte: invertible, con inversa \(\bigl(\begin{smallmatrix}1&-1\\0&1\end{smallmatrix}\bigr)\); sólo el eje \(x\) queda fijo.\\
+\textbf{3b.}~\(\bigl(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\bigr)\) & \(1\) & \(\pm i\) & no en \(\R\) &
+giro de \(90^\circ\): invertible, ninguna recta real queda fija.\\
+\textbf{4.}~\(\bigl(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\bigr)\) & \(0\) & \(0\) (doble) & no: sólo \(e_1\) &
+ni diagonalizable ni invertible: manda \(e_2\mapsto e_1\) y \(e_1\mapsto0\).\\
+\end{tabular}
+\renewcommand{\arraystretch}{1.18}
+\medskip
+
+\textbf{Matriz 2.} Tener autovalor \(0\) impide invertir (el núcleo es el eje \(y\),
+\(\det=0\)) y no impide diagonalizar: \(e_1\) y \(e_2\) son autovectores con
+\(\lambda_1=1\), \(\lambda_2=0\), y en esa base la matriz ya es diagonal.
+
+\textbf{Matriz 3a.} El polinomio característico es \((\lambda-1)^2=0\): la raíz
+\(\lambda=1\) tiene multiplicidad algebraica \(2\). Pero \((A-I)v=0\) da \(v_2=0\), de modo
+que el autoespacio es sólo el eje \(x\): multiplicidad geométrica \(1\). Falta un segundo
+autovector, y sin él no hay base.
+
+\textbf{Matriz 3b.} En el giro el motivo es otro: no hay rectas reales fijas, los
+autovalores \(\pm i\) no son reales.
+
+\textbf{Matriz 4.} \(\lambda=0\) doble, pero el núcleo es sólo el eje \(x\): un único
+autovector \(e_1\).
+
+El defecto de las matrices 3a, 3b y 4 es exactamente por lo que la sección~\ref{sec:svd}
+pasa a la SVD, \(A=U\Sigma V^T\): con una base ortonormal a la entrada (\(V\)) y otra
+\emph{distinta} a la salida (\(U\)), toda matriz, incluso un corte o una rectangular, se
+lee como diagonal. Es diagonal entre dos grillas distintas, no una semejanza: \(\Sigma\) no
+es ``\(A\) en otra base'', los \(\sigma\) no son autovalores (en el corte,
+\(\sigma=(\sqrt5\pm1)/2\) y \(\lambda=1\) doble) y no sirve para potencias,
+\(A^n\neq U\Sigma^nV^T\). Las dos descomposiciones coinciden sólo si \(A\) es simétrica
+semidefinida positiva.
+\linkUnidad{09_cambio_de_base_svd}{Simulación interactiva: cambio de base y SVD}
+\end{resultado}

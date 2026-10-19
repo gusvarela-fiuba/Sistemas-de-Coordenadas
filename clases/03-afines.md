@@ -12,7 +12,7 @@ fuentes:
   - entregas/afinidades/Afinidades_Ejercicios_Varela_56798.tex
   - entregas/afinidades/Afinidades_Triangulo_Varela_56798.tex
 conceptos: [reflexion, afinidad-axial, similaridad, transformacion-afin, coordenadas-homogeneas, punto-fijo, traslacion]
-apunte: ["05", "06", "16", "17", "04"]
+apunte: ["afines", "16", "17", "traslaciones"]
 unidad: 04_afines_homogeneas   # y 03_reflexiones_similaridades
 ---
 

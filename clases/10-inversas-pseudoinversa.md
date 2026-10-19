@@ -9,7 +9,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-30.md
   - fuentes/transcripciones/2026-10-14.md
 conceptos: [inversa, cuatro-subespacios, pseudoinversa, sistema-sobredeterminado]
-apunte: ["02", "08"]
+apunte: ["02", "inversas"]
 unidad: 09_cambio_de_base_svd
 ---
 

@@ -1,0 +1,197 @@
+% Traslaciones y movimientos rígidos (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{Traslaciones y movimientos rígidos}\label{cap:traslaciones}
+
+\section{La idea}
+
+\subsection{Componer transformaciones con centros distintos}\label{sec:componer-centros}
+
+Supongamos que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
+\(90^\circ\) alrededor de otro punto \(c_2\). Cada etapa es una rotación, pero ninguno de los
+dos centros queda fijo en el resultado: \(c_1\) no se mueve en la primera etapa pero sí en la
+segunda, y \(c_2\) se mueve en la primera. La pregunta natural es si el resultado sigue siendo
+una rotación y, en ese caso, dónde está su centro.
+
+La respuesta (proposición de la sección~\ref{sec:composicion-rotaciones}) es que los ángulos
+se suman y que aparece un centro nuevo, distinto de los dos originales; en el ejemplo, una
+rotación de \(180^\circ\). Solo cuando los ángulos se cancelan el resultado es una traslación,
+que no tiene punto fijo.
+
+Si una de las dos etapas es una homotecia \(\homot{c_2}{k}\) en lugar de una rotación, la parte
+lineal resulta \(kR(\theta)\) y la composición es una similaridad, que también tiene un único
+punto fijo cuando \(k\neq1\) (capítulo~\ref{cap:afines}).
+
+\paragraph{Movimiento discreto y trayectoria imaginada.}
+Una transformación lleva cada punto directamente a su imagen. Dibujar el movimiento como
+``primero un arco alrededor de \(c_1\), después otro arco alrededor de \(c_2\)'' es una
+interpolación útil para seguir las dos etapas, pero no forma parte de la transformación
+compuesta: el arco único alrededor del centro nuevo une los mismos extremos por otro camino.
+
+\begin{idea}[Idea]
+Aplicar giros sucesivos a un punto lo hace recorrer arcos de circunferencia, y eso es
+inevitable: la composición tiene un punto fijo, y alrededor de él todo se mueve en
+círculos. Encontrar el punto fijo es entender la transformación.
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Composición de dos rotaciones de centros distintos}\label{sec:composicion-rotaciones}
+
+La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
+dos reflexiones, y una reflexión aplicada dos veces se cancela.
+
+\begin{definicion}[Reflexión respecto de una recta]
+Sea \(L\) una recta que pasa por el punto \(q\) con ángulo de dirección \(\delta\). La
+\emph{reflexión respecto de \(L\)} es la transformación \(\sigma_L\) que deja fijos los puntos
+de \(L\) y lleva cada punto a su simétrico respecto de \(L\). En fórmulas,
+\[
+\sigma_L(p)=q+S(\delta)(p-q),\qquad
+S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
+\]
+\end{definicion}
+
+La matriz \(S(\delta)\) deja fija la dirección \((\cos\delta,\sin\delta)\) de \(L\) y cambia
+de signo la perpendicular; tiene \(\det S(\delta)=-1\), invierte la orientación y cumple
+\(S(\delta)^2=I\), es decir, \(\sigma_L\circ\sigma_L\) es la identidad.
+
+\begin{proposicion}[Dos reflexiones]\label{prop:dos-reflexiones}
+Sean \(L_1\) y \(L_2\) rectas con ángulos de dirección \(\delta_1\) y \(\delta_2\).
+\begin{enumerate}
+  \item Si se cortan en un punto \(q\), entonces
+  \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{q,\,2(\delta_2-\delta_1)}\).
+  \item Si son paralelas, \(\sigma_{L_2}\circ\sigma_{L_1}\) es una traslación.
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+Multiplicando y usando las fórmulas de suma,
+\[
+S(\delta_2)S(\delta_1)=
+\begin{pmatrix}
+\cos(2\delta_2-2\delta_1)&-\sin(2\delta_2-2\delta_1)\\
+\sin(2\delta_2-2\delta_1)&\cos(2\delta_2-2\delta_1)
+\end{pmatrix}
+=R\bigl(2(\delta_2-\delta_1)\bigr).
+\]
+Si ambas rectas pasan por \(q\), podemos usar \(q\) como punto de las dos fórmulas:
+\(\sigma_{L_2}(\sigma_{L_1}(p))=q+S(\delta_2)S(\delta_1)(p-q)=q+R(2(\delta_2-\delta_1))(p-q)\).
+Si son paralelas, \(\delta_2=\delta_1\) (módulo \(\pi\)), la parte lineal de la composición es
+\(R(0)=I\), y una afinidad con parte lineal \(I\) es una traslación.
+\end{demostracion}
+
+\begin{proposicion}[Composición de dos rotaciones]\label{prop:composicion-rotaciones}
+Sean \(c_1\neq c_2\) y \(\alpha,\beta\) ángulos. Entonces:
+\begin{enumerate}
+  \item si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), la composición
+  \(\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}\) es una rotación de ángulo \(\alpha+\beta\)
+  alrededor de un centro \(c\);
+  \item si \(\alpha+\beta\equiv0\pmod{2\pi}\), la composición es una traslación.
+\end{enumerate}
+El centro \(c\) se construye así: sea \(L\) la recta que une \(c_1\) con \(c_2\); sea \(M_1\)
+la recta por \(c_1\) que forma con \(L\) un ángulo \(\alpha/2\) en sentido horario, y \(M_2\)
+la recta por \(c_2\) que forma con \(L\) un ángulo \(\beta/2\) en sentido antihorario.
+Entonces \(c=M_1\cap M_2\).
+\end{proposicion}
+
+\begin{demostracion}
+Sea \(\delta_0\) el ángulo de dirección de \(L\). Entonces \(M_1\) tiene dirección
+\(\delta_0-\alpha/2\) y \(M_2\), dirección \(\delta_0+\beta/2\). Por la
+proposición~\ref{prop:dos-reflexiones}, como \(L\) y \(M_1\) se cortan en \(c_1\),
+\[
+\sigma_L\circ\sigma_{M_1}=\rhoP{c_1,\,2(\delta_0-(\delta_0-\alpha/2))}=\rhoP{c_1,\alpha},
+\]
+y como \(M_2\) y \(L\) se cortan en \(c_2\),
+\(\sigma_{M_2}\circ\sigma_L=\rhoP{c_2,\,2(\beta/2)}=\rhoP{c_2,\beta}\). Luego
+\[
+\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}
+=\sigma_{M_2}\circ\sigma_L\circ\sigma_L\circ\sigma_{M_1}
+=\sigma_{M_2}\circ\sigma_{M_1},
+\]
+porque \(\sigma_L\circ\sigma_L\) es la identidad. La diferencia de direcciones entre \(M_2\) y
+\(M_1\) es \((\alpha+\beta)/2\). Si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), entonces
+\((\alpha+\beta)/2\not\equiv0\pmod{\pi}\), las rectas no son paralelas, se cortan en un punto
+\(c\) y, otra vez por la proposición~\ref{prop:dos-reflexiones}, la composición es
+\(\rhoP{c,\,\alpha+\beta}\). Si \(\alpha+\beta\equiv0\pmod{2\pi}\), las rectas \(M_1\) y
+\(M_2\) son paralelas y la composición es una traslación.
+\end{demostracion}
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  \draw[muted,dotted] (-1.5,0)--(0,0);
+  \draw[mainline] (-1.2,0)--(5.4,0) node[right] {$L$};
+  \draw[teal,line width=.9pt] (-1.2,1.2)--(3.3,-3.3) node[below] {$M_1$};
+  \draw[rust,line width=.9pt] (5.2,1.2)--(0.7,-3.3) node[below] {$M_2$};
+  \fill[ink] (0,0) circle (2.4pt) node[below left] {$c_1=(0,0)$};
+  \fill[ink] (4,0) circle (2.4pt) node[above left] {$c_2=(4,0)$};
+  \fill[gold] (2,-2) circle (2.6pt);
+  \node[labelback,text=ink] at (2,-2.55) {$c=(2,-2)$};
+  \draw[teal,line width=.8pt] (.9,0) arc[start angle=0,end angle=-45,radius=.9];
+  \node[text=teal,font=\small] at (1.35,-.32) {$\alpha/2$};
+  \draw[rust,line width=.8pt] (3.1,0) arc[start angle=180,end angle=225,radius=.9];
+  \node[text=rust,font=\small] at (2.65,-.32) {$\beta/2$};
+  \draw[gold,line width=.8pt] ($(2,-2)+(45:.55)$) arc[start angle=45,end angle=135,radius=.55];
+  \node[text=gold!80!ink,font=\small] at (2,-1.15) {$\tfrac{\alpha+\beta}{2}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{ejemplo}[Dos cuartos de vuelta con centros distintos]\label{ej:composicion-centros}
+Sean \(c_1=(0,0)\), \(\alpha=90^\circ\), \(c_2=(4,0)\), \(\beta=90^\circ\). Como
+\(\alpha+\beta=180^\circ\not\equiv0\), la proposición anuncia una rotación de \(180^\circ\).
+
+\emph{Construcción.} \(L\) es el eje \(x\). \(M_1\) pasa por \((0,0)\) con dirección
+\(-45^\circ\): es la recta \(y=-x\). \(M_2\) pasa por \((4,0)\) con dirección \(45^\circ\):
+es \(y=x-4\). Igualando, \(-x=x-4\), de donde \(x=2\), \(y=-2\): el centro es \(c=(2,-2)\).
+
+\emph{Cuenta matricial.} Con \(R(90^\circ)\) del ejemplo de la sección~\ref{sec:rot-plano}, la
+traslación de la segunda rotación es \((I-R(90^\circ))c_2=(4,0)-(0,4)=(4,-4)\), y en
+coordenadas homogéneas
+\[
+H_2H_1=
+\begin{pmatrix}0&-1&4\\1&0&-4\\0&0&1\end{pmatrix}
+\begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix}
+=\begin{pmatrix}-1&0&4\\0&-1&-4\\0&0&1\end{pmatrix}.
+\]
+La parte lineal es \(-I=R(180^\circ)\). El punto fijo resuelve \(-c+(4,-4)=c\), o sea
+\(c=(2,-2)\), el mismo que dio la construcción. La composición es
+\(\rhoP{(2,-2),\,180^\circ}\), es decir \(p\mapsto(4,-4)-p\).
+\end{ejemplo}
+
+\subsubsection{Experimento: rotar una figura con dos centros distintos}
+
+Tomemos el triángulo de vértices \((1,1)\), \((3,1)\), \((1,2)\) y apliquemos las dos
+rotaciones del ejemplo~\ref{ej:composicion-centros}. Tras \(\rhoP{c_1,90^\circ}\) los vértices
+van a \((-1,1)\), \((-1,3)\), \((-2,1)\); tras \(\rhoP{c_2,90^\circ}\), a \((3,-5)\),
+\((1,-5)\), \((3,-6)\). La rotación única \(\rhoP{(2,-2),180^\circ}\), \(p\mapsto(4,-4)-p\),
+da exactamente los mismos tres puntos: por ejemplo \((4,-4)-(1,1)=(3,-5)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=.62]
+  \draw[axisline,-{Latex[length=2mm]}] (-2.8,0)--(5.4,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-6.6)--(0,3.6) node[above] {$y$};
+  \draw[teal,line width=1.1pt,fill=teal!15] (1,1)--(3,1)--(1,2)--cycle;
+  \draw[gold,line width=1.1pt,fill=gold!15] (-1,1)--(-1,3)--(-2,1)--cycle;
+  \draw[rust,line width=1.1pt,fill=rust!15] (3,-5)--(1,-5)--(3,-6)--cycle;
+  \draw[auxline,-{Latex[length=2mm]}] (1,1) arc[start angle=45,end angle=135,radius=1.414];
+  \draw[auxline,-{Latex[length=2mm]}] (-1,1) arc[start angle=168.69,end angle=258.69,radius=5.099];
+  \fill[ink] (0,0) circle (2.2pt) node[below left] {$c_1$};
+  \fill[ink] (4,0) circle (2.2pt) node[above] {$c_2$};
+  \fill[ink] (2,-2) circle (2.4pt) node[right] {$c=(2,-2)$};
+  \node[labelback,text=teal,font=\small] at (3.3,1.8) {original};
+  \node[labelback,text=gold!80!ink,font=\small,anchor=east] at (-2.3,2.4) {tras \(\rhoP{c_1,90^\circ}\)};
+  \node[labelback,text=rust,font=\small] at (3.9,-6.2) {final};
+\end{tikzpicture}
+\end{center}
+
+El vértice \((1,1)\) recorre primero un arco alrededor de \(c_1\) y después otro alrededor de
+\(c_2\); el resultado final, en cambio, es un único medio giro alrededor de \(c=(2,-2)\), un
+punto que no aparece en ninguna de las dos etapas.
+
+\section{En profundidad}
+
+\section{Ejercicios propuestos}
+
+\begin{ejercicio}
+Calcular \(\rhoP{(2,0),-90^\circ}\circ\rhoP{(0,0),90^\circ}\) y explicar el resultado con la
+proposición~\ref{prop:composicion-rotaciones}.
+\solucion{Como \(90^\circ+(-90^\circ)=0\), es una traslación: la matriz homogénea es
+\(\left(\begin{smallmatrix}1&0&2\\0&1&2\\0&0&1\end{smallmatrix}\right)\), traslación de vector \((2,2)\).}
+\end{ejercicio}

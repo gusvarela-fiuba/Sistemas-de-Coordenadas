@@ -1,0 +1,211 @@
+% Formas lineales: el gradiente no es un vector (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{Formas lineales: el gradiente no es un vector}\label{cap:formas-lineales}
+
+\section{La idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Producto vectorial: unir dos puntos, cortar dos rectas}\label{sec:vectorial}
+
+\textbf{Desarrollo.} Queremos una operación que, dados dos puntos \(p,q\), devuelva la recta
+\(\ell=p\times q\) que los une. ¿Qué tiene que cumplir? Que \(p\) esté en esa recta y \(q\)
+también:
+\[
+  (p\times q)\cdot p=0,\qquad (p\times q)\cdot q=0 .
+\]
+Por lo tanto la operación debe producir un vector \emph{ortogonal a sus dos argumentos}. Y
+más: si ponemos dos veces el mismo punto no hay recta que determinar, así que \(p\times p=0\).
+Estas exigencias, junto con la linealidad en cada argumento, \emph{obligan} a que la
+operación sea, a menos de una constante, el producto vectorial de \(\R^3\) (en homogéneas
+la constante no importa):
+\[
+  p\times q=\begin{pmatrix}p_2q_3-p_3q_2\\ p_3q_1-p_1q_3\\ p_1q_2-p_2q_1\end{pmatrix}.
+\]
+
+\begin{resultado}[Las dos propiedades que lo definen]
+\begin{itemize}
+  \item \textbf{Linealidad} en cada argumento: \((2p)\times q=2\,(p\times q)\),
+  \((p+p')\times q=p\times q+p'\times q\).
+  \item \textbf{Antisimetría}: \(p\times q=-\,q\times p\). Es equivalente a \(p\times p=0\):
+  el único vector igual a su opuesto es el nulo.
+\end{itemize}
+Son exactamente las propiedades del \emph{área orientada} de un paralelogramo (duplicar un
+lado duplica el área; cambiar el orden de los lados cambia la orientación; dos lados
+paralelos no encierran área). Por eso \(\lVert p\times q\rVert\) es el área del paralelogramo
+de lados \(p,q\).
+\end{resultado}
+
+Por simetría de la ecuación de incidencia, la misma operación resuelve el problema dual:
+\emph{el punto donde se cortan dos rectas es} \(\ell\times m\). Dos rectas paralelas
+\((a,b,c)\) y \((a,b,c')\) dan \(\ell\times m=(c'-c)\,(b,-a,0)^T\): un punto ideal, su
+dirección común.
+
+\subsection{Formas lineales: la recta como máquina de medir}\label{sec:formas-lineales}
+
+{\small\vspace{1mm}\linkUnidad{06_formas_lineales}{Simulación interactiva: Unidad 8 — Formas lineales y dualidad}\par}
+{\small\vspace{1mm}\linkAnimacion{01_dualidad_gradiente}{Animación: dualidad punto–gradiente}\par}
+
+
+\textbf{Desarrollo} (a partir de los resúmenes de clase 4 y 9 del profesor). Hasta acá los
+vectores fueron flechas: cosas que se suman y se estiran. Hay otro objeto, igual de simple,
+que en los libros aparece tarde y que el profesor prefiere presentar apenas definido el
+espacio: la \emph{forma lineal}, una función que toma un vector y devuelve un número,
+respetando sumas y escalas.
+
+\paragraph{Primero en \(\R\).} Una forma lineal en la recta es multiplicar por un número:
+\(\varphi(x)=2x\). Es una regla graduada: los puntos donde \(\varphi\) vale
+\(0,1,2,3,\ldots\) están equiespaciados sobre la recta, a distancia \(\tfrac12\). No hay
+nada más que saber. Al pasar al plano la regla sigue siendo la misma, pero ahora hay
+direcciones que la regla no mide.
+
+\paragraph{Un ejemplo con números chicos.} Sea
+\[
+  \varphi(x,y)=2x+3y .
+\]
+Con \(v=(1,0)\) da \(2\); con \((0,1)\) da \(3\); con \((1,1)\) da \(5\); con \((3,-2)\)
+da \(0\). Es lineal: \(\varphi(v+w)=\varphi(v)+\varphi(w)\) y
+\(\varphi(\lambda v)=\lambda\,\varphi(v)\). Y basta conocer \(\varphi\) en los dos vectores
+de la base para conocerla en todos: \(\varphi(x,y)=x\,\varphi(1,0)+y\,\varphi(0,1)\).
+
+\paragraph{Hecho geométrico: una regla graduada tirada en el plano.} Los puntos donde
+\(\varphi\) vale lo mismo forman una recta, \(2x+3y=c\), y al variar \(c\) se obtiene una
+familia de rectas paralelas equiespaciadas. La forma lineal \emph{es} esa familia: para
+medir un punto, se mira qué recta de la familia pasa por él. La recta \(c=0\) pasa por el
+origen y contiene la dirección \((3,-2)\), que es lo que la forma ``no ve'' (su núcleo).
+El vector \((2,3)\) es perpendicular a todas las rectas de nivel y apunta hacia donde
+\(\varphi\) crece.
+
+\begin{center}
+\begin{tikzpicture}[scale=.78]
+  \begin{scope}
+    \clip (-3.2,-3.2) rectangle (4.2,3.2);
+    \foreach \c in {-6,-4,-2,0,2,4,6,8}
+      \draw[teal,line width=.7pt] (-3.2,{(\c+6.4)/3})--(4.2,{(\c-8.4)/3});
+    \draw[teal,line width=1.2pt] (-3.2,{6.4/3})--(4.2,{-8.4/3});
+    \draw[axisline] (-3.2,0)--(4.2,0);
+    \draw[axisline] (0,-3.2)--(0,3.2);
+    \draw[rust,line width=1pt,-{Latex[length=2.4mm]}] (0,0)--(1,1.5)
+      node[right,font=\small,labelback] {\((2,3)\)};
+    \draw[tealdark,line width=1pt,-{Latex[length=2.4mm]}] (0,0)--(1.5,-1)
+      node[below right,font=\small,labelback] {\((3,-2)\): \(\varphi=0\)};
+    \fill[ink] (1,1) circle (2pt) node[above left,font=\small,labelback] {\((1,1)\): \(\varphi=5\)};
+  \end{scope}
+  \foreach \c/\y in {8/-0.13,6/-0.8,4/-1.47,2/-2.13}
+    \node[right,font=\scriptsize,text=teal] at (4.2,\y) {\(c=\c\)};
+  \foreach \c/\y in {0/2.13,-2/1.47,-4/0.8,-6/0.13}
+    \node[left,font=\scriptsize,text=teal] at (-3.2,\y) {\(c=\c\)};
+\end{tikzpicture}
+\end{center}
+
+\paragraph{Las selectoras y el espacio de las formas.} Las formas más básicas son las que
+seleccionan una coordenada: \(\mathsf{x}(x,y)=x\) y \(\mathsf{y}(x,y)=y\). Cualquier otra
+es combinación de ellas: \(\varphi=2\,\mathsf{x}+3\,\mathsf{y}\). Las formas lineales se
+suman y se multiplican por escalares, y el resultado sigue siendo una forma lineal: forman
+un espacio vectorial, el \emph{dual} del plano. En la base canónica una forma se describe
+con dos números, igual que un vector, pero conviene escribirla como \emph{fila}:
+\[
+  \varphi(v)=\begin{pmatrix}2&3\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}
+  =(2,3)\cdot v .
+\]
+La fila por la columna es el producto interno con el vector \((2,3)\): la forma se
+``disfraza'' de vector gracias al producto interno. En coordenadas homogéneas esto ya se
+usó: una recta \(\ell=(a,b,c)\) es una forma lineal, un punto \(p\) es un vector, y
+\(\ell\cdot p=0\) es la incidencia de la sección~\ref{sec:interno}.
+
+\paragraph{La matriz como pila de formas.} Una transformación lineal del plano al plano
+devuelve dos números por cada vector; cada uno de ellos es una forma lineal. Con
+\[
+  A=\begin{pmatrix}2&3\\1&-1\end{pmatrix},\qquad
+  A\begin{pmatrix}1\\2\end{pmatrix}=\begin{pmatrix}2\cdot1+3\cdot2\\1\cdot1-1\cdot2\end{pmatrix}
+  =\begin{pmatrix}8\\-1\end{pmatrix},
+\]
+la primera fila mide con la regla \(2x+3y\) y la segunda con la regla \(x-y\).
+Geométricamente, aplicar \(A\) es leer dos reglas graduadas a la vez. El núcleo de \(A\)
+es el conjunto de puntos donde las dos reglas marcan cero: la intersección de las rectas
+\(2x+3y=0\) y \(x-y=0\), que es sólo el origen porque las rectas se cortan
+(\(\det A=-5\neq0\)). Si en cambio \(B=\begin{pmatrix}2&3\\4&6\end{pmatrix}\), las dos
+filas son la misma regla escalada, sus rectas de nivel cero coinciden, el núcleo es toda
+la recta \(2x+3y=0\) y \(\det B=0\): es la sección~\ref{sec:nucleo} vista desde las
+filas. Y el método del producto cruz para autovectores (sección~\ref{sec:autovalores})
+busca justamente el vector que todas las reglas de \(A-\lambda I\) marcan en cero.
+
+\paragraph{Cómo se transforma una forma cuando se transforma el vector.} Sea
+\(A=\begin{pmatrix}1&1\\0&2\end{pmatrix}\) y \(v=(1,1)\). Entonces \(Av=(2,2)\) y
+\(\varphi(Av)=2\cdot2+3\cdot2=10\). ¿Qué regla, aplicada al \(v\) original, da ese mismo
+\(10\)? Se calcula la fila por la matriz:
+\[
+  (2,3)\,A=\bigl(2\cdot1+3\cdot0,\ 2\cdot1+3\cdot2\bigr)=(2,8),
+  \qquad (2,8)\cdot(1,1)=10\ \checkmark
+\]
+El vector se multiplica por \(A\) a la izquierda (columna); la forma se multiplica por
+\(A\) a la derecha (fila). Es lo que el profesor resume como \(\varphi(A\vec v)=(\varphi A)(\vec v)\):
+``una forma lineal se transforma del lado contrario que un vector''.
+
+Si lo que se quiere es \emph{arrastrar la regla junto con la figura}, es decir, encontrar
+la forma \(\psi\) cuyas rectas de nivel son las imágenes por \(A\) de las rectas de nivel
+de \(\varphi\), hay que deshacer \(A\): \(\psi=\varphi A^{-1}\). Con
+\(A^{-1}=\begin{pmatrix}1&-\tfrac12\\0&\tfrac12\end{pmatrix}\),
+\[
+  \psi=(2,3)\,A^{-1}=\bigl(2,\ -1+\tfrac32\bigr)=\bigl(2,\tfrac12\bigr).
+\]
+Verificación: el punto \((3,-2)\) está en la recta \(\varphi=0\); su imagen es
+\(A(3,-2)=(1,-4)\), y \(\psi(1,-4)=2-2=0\): sigue en la recta de nivel cero de la regla
+arrastrada. El punto \((3,0)\), con \(\varphi=6\), va a \((3,0)\) y \(\psi(3,0)=6\).
+Hecho geométrico: al deformar el plano las rectas de nivel se deforman con él, siguen
+siendo rectas paralelas equiespaciadas (es una afinidad), pero la separación y la
+inclinación cambian, y por eso los coeficientes de la forma cambian ``al revés'' que los
+de los vectores.
+
+\paragraph{El gradiente es una forma lineal.} Sea \(f(x,y)=x^2+y\) en el punto \((1,1)\),
+donde \(f=2\). Para un desplazamiento chico \((h,k)\),
+\[
+  f(1+h,1+k)=2+2h+k+h^2\approx 2+\underbrace{(2h+k)}_{\text{forma lineal}} .
+\]
+La derivada en \((1,1)\) es la regla \(2h+k\): la mejor aproximación lineal de \(f\) cerca
+del punto. Su recta de nivel cero, \(2(x-1)+(y-1)=0\), es la tangente a la curva de nivel
+\(x^2+y=2\) en \((1,1)\). Que ``el gradiente es perpendicular a la curva de nivel'' es la
+misma figura de arriba: el vector \((2,1)\) es perpendicular a la familia de rectas de la
+forma. Ir a lo chico (la forma lineal en un punto) para volver a lo grande (la superficie
+completa) es lo que hace el capítulo~\ref{cap:derivada} con el plano tangente y la métrica.
+
+\begin{idea}[Aplicación en Inteligencia Artificial: Support Vector Machines (SVM) como formas lineales]
+Desarrollo complementario, desde la especialización en IA (CEIA); no es de la cátedra. Un
+\emph{clasificador lineal} separa dos lotes de puntos del plano (dos clases, \(y_i=\pm1\))
+con una regla \(\omega(x)=w_1x+w_2y+b\): la clase es el signo de \(\omega\). Es exactamente
+una forma lineal, una regla graduada tirada sobre la nube: los puntos viven en \(V\), el
+clasificador vive en \(V^{*}\), y en coordenadas homogéneas \((x,y,1)\) la traslación \(b\)
+entra en la misma fila, \(\omega=(w_1,w_2,b)\), igual que una recta en la
+sección~\ref{sec:interno}. La máquina de vectores soporte elige, entre todas las reglas
+que separan, la que deja más \emph{margen}: pide \(\omega(x_i)\ge+1\) para una clase y
+\(\le-1\) para la otra, y entre las que cumplen toma la de \(\|w\|\) mínima. Las tres
+rectas de nivel \(-1\), \(0\), \(+1\) son el borde de un lado, la frontera y el borde del
+otro; los puntos que tocan los bordes son los \emph{vectores soporte}. El ancho de la
+franja entre las rectas \(-1\) y \(+1\) es \(2/\|w\|\), porque la separación entre
+curvas de nivel consecutivas de una forma es \(1/\|w\|\) (clase del 30/9: ``cuanto más
+largo el vector de la forma, más apretadas las curvas''), y esa cuenta necesita el
+producto interno: sin métrica hay regla, pero no hay ancho. Ejemplo con enteros: clase
+\(+1\) en \((1,1)\) y \((2,0)\), clase \(-1\) en \((-1,-1)\) y \((-2,0)\). La frontera
+de margen máximo es \(x+y=0\) con \(w=(\tfrac12,\tfrac12)\), \(b=0\): los cuatro puntos
+dan \(\omega=\pm1\) exacto (los cuatro son vectores soporte) y el ancho es
+\(2/\|w\|=2\sqrt2\); la recta vertical \(x=0\) también separa, pero con ancho \(2\). Lo
+verificamos resolviendo el problema de minimización con \texttt{scipy.optimize}. La unidad
+\texttt{06\_formas\_lineales} (apéndice~\ref{ap:notebooks}) lo dibuja con el helper
+\texttt{svm\_margen\_duro\_2d} de \file{cb104.py}: mover un punto y ver cómo gira la regla.
+\end{idea}
+
+\begin{resultado}[Dualidad en pocas palabras]
+\begin{itemize}
+  \item Un vector es una columna; una forma lineal es una fila. Fila por columna es un
+  número: la medición.
+  \item Hecho geométrico: vector = flecha; forma = familia de rectas paralelas
+  equiespaciadas (una regla). En \(\R^3\), planos paralelos.
+  \item Una matriz es una pila de formas (sus filas) o una hilera de vectores (sus
+  columnas). Ambas lecturas son útiles: las filas dan el núcleo, las columnas dan la imagen.
+  \item Al transformar el plano con \(A\), los vectores van con \(A\) y las formas con
+  \(A^{-1}\) (o con \(A\) del otro lado, si se pregunta ``qué regla mide lo mismo'').
+  \item En homogéneas, los puntos son vectores y las rectas son formas; cambiarlos de rol
+  es la dualidad de la geometría proyectiva.
+\end{itemize}
+\end{resultado}
+
+\section{En profundidad}

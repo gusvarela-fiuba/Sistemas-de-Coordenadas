@@ -28,7 +28,7 @@ site/index.html                  portada = el hilo conductor (docs/camino.md): t
                                  una entrada por unidad de mapa/_fragmentos/unidades.yaml, en ese orden, con número,
                                  título, pregunta, gancho de agrimensura, estado calculado (lista / en clase / todavía no),
                                  las clases que cubre con etiquetas de procedencia y validación, y enlaces a la unidad,
-                                 las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:NN). Última unidad
+                                 las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:<clave>). Última unidad
                                  "Lo que viene": las clases sin unidad (11–14).
 site/mapa.html                   mapa de conceptos (SVG inline generado en Python) con dos controles en JS inline: filtro
                                  de ruta (troncal / todo, por el `nivel` de la clase de cada nodo) y deslizador "hasta la

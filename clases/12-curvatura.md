@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - "Bibliografia/Clavijo - Apunte Teoría Elipsoide (guía para clase).pdf (sección Radios de curvatura)"
 conceptos: [curvatura, forma-cuadratica, geodesica]
-apunte: ["11"]
+apunte: ["curvatura"]
 unidad: 12_curvatura
 ---
 

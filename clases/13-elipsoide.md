@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
 conceptos: [elipsoide, simetria]
-apunte: ["11"]
+apunte: ["elipsoide"]
 unidad: 13_elipsoide
 ---
 

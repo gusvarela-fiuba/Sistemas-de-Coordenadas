@@ -6,7 +6,8 @@ Entradas (relativas a la raíz del repo):
   clases/*.md                           fichas por clase
   unidades/*.py                         notebooks marimo
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
-  apunte/contenido/NN-*.tex             sólo para validar prefijos (sin exigir numeración continua: 12 y 13 no existen) y leer el título del primer \chapter/\section
+  apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
+                                        `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "14", …) y leer su título
 
 Salida:
   site/index.html                       portada = el hilo conductor: tres entradas (Empezar / Seguir la cursada / Repasar)
@@ -43,6 +44,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 MAPA = RAIZ / "mapa" / "mapa.yaml"
 CONTENIDO_APUNTE = RAIZ / "apunte" / "contenido"
 PDF_APUNTE = RAIZ / "apunte" / "Apunte_Sistemas_de_Coordenadas.pdf"
+MAESTRO_APUNTE = RAIZ / "apunte" / "Apunte_Sistemas_de_Coordenadas.tex"
 DIR_CLASES = RAIZ / "clases"
 
 ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
@@ -190,15 +192,37 @@ def cargar_mapa(ruta: Path) -> dict:
     return datos
 
 
-def prefijos_apunte_existentes() -> dict[str, Path]:
-    """{'04': Path('.../04-rotaciones.tex'), ...}"""
-    res: dict[str, Path] = {}
-    if CONTENIDO_APUNTE.is_dir():
-        for p in sorted(CONTENIDO_APUNTE.glob("*.tex")):
-            m = re.match(r"(\d{2})-", p.name)
-            if m:
-                res[m.group(1)] = p
+RE_ENCABEZADO = re.compile(r"\\(?:chapter|section|subsection|capituloComplemento)\*?(?:\[[^\]]*\])?\{([^}]*)\}")
+
+
+def capitulos_apunte() -> dict[str, str]:
+    """{'rotaciones': 'Rotaciones: girar es multiplicar', '14': '…', …} en el orden del apunte.
+
+    Cada clave X es un \\label{cap:X} de los .tex que el maestro incluye con \\input (o del maestro
+    mismo); el valor es el título del encabezado de esa línea. El enlace es `apunte.pdf#nameddest=cap:X`.
+    """
+    res: dict[str, str] = {}
+    if not MAESTRO_APUNTE.exists():
+        return res
+    maestro = MAESTRO_APUNTE.read_text(encoding="utf-8")
+    archivos = [MAESTRO_APUNTE] + [MAESTRO_APUNTE.parent / f"{m}.tex"
+                                   for m in re.findall(r"^\\input\{(contenido/[^}]+)\}", maestro, re.M)]
+    for p in archivos:
+        try:
+            texto = p.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        for linea in texto.split("\n"):
+            if linea.lstrip().startswith("%"):
+                continue
+            for lab in re.findall(r"\\label\{cap:([^}]+)\}", linea):
+                m = RE_ENCABEZADO.search(linea)
+                res.setdefault(lab, m.group(1).strip() if m else p.stem)
     return res
+
+
+# compatibilidad: el resto del build llama «prefijos» a las claves de capítulo
+prefijos_apunte_existentes = capitulos_apunte
 
 
 def validar(datos: dict) -> list[str]:
@@ -228,7 +252,7 @@ def validar(datos: dict) -> list[str]:
         for pref in lista or []:
             pref = str(pref)
             if pref not in prefijos:
-                errores.append(f"{donde}: prefijo de apunte '{pref}' sin archivo en apunte/contenido/")
+                errores.append(f"{donde}: clave de apunte '{pref}' sin \\label{{cap:{pref}}} en el apunte")
 
     for c in datos["clases"]:
         if "id" not in c:
@@ -745,16 +769,8 @@ def svg_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str]) -> str:
 
 
 def titulos_secciones_apunte() -> dict[str, str]:
-    """{'04': 'Rotaciones', ...} a partir del primer \\chapter{} (o \\section{} en los apéndices) de cada .tex."""
-    res: dict[str, str] = {}
-    for pref, p in prefijos_apunte_existentes().items():
-        try:
-            texto = p.read_text(encoding="utf-8")
-        except OSError:
-            continue
-        m = re.search(r"\\(?:section|chapter)\*?\{([^}]*)\}", texto)
-        res[pref] = m.group(1).strip() if m else p.stem
-    return res
+    """{'rotaciones': 'Rotaciones: girar es multiplicar', '14': '…', …} (ver capitulos_apunte)."""
+    return capitulos_apunte()
 
 
 def hoy() -> _dt.date:
@@ -788,11 +804,11 @@ def ultima_clase_dictada(clases: list[dict], fecha: _dt.date) -> dict | None:
 
 
 def enlace_apunte(pref: str, titulos: dict[str, str], hay_pdf: bool) -> str:
-    """Sección del apunte como enlace `apunte.pdf#nameddest=cap:NN` (los \\label{cap:NN} viven en el .tex)."""
+    """Capítulo del apunte como enlace `apunte.pdf#nameddest=cap:<clave>` (los \\label{cap:…} viven en el .tex)."""
     tit = titulos.get(pref, pref)
-    texto = f"apunte §{html.escape(pref)}: {html.escape(tit)}"
+    texto = f"apunte: {html.escape(tit)}"
     if hay_pdf:
-        return f'<span><a href="apunte.pdf#nameddest=cap:{html.escape(pref)}" title="apunte, sección {html.escape(pref)}">{texto}</a></span>'
+        return f'<span><a href="apunte.pdf#nameddest=cap:{html.escape(pref)}" title="apunte, cap:{html.escape(pref)}">{texto}</a></span>'
     return f'<span class="pend">{texto}</span>'
 
 
@@ -804,7 +820,8 @@ def prefijos_apunte_de_clase(c: dict, conceptos_por_clase: dict[str, list[dict]]
             for pr in k["apunte"]:
                 if pr not in prefs:
                     prefs.append(pr)
-    return sorted(prefs)
+    orden = list(capitulos_apunte())
+    return sorted(prefs, key=lambda x: orden.index(x) if x in orden else len(orden))
 
 
 JS_MAPA = r"""

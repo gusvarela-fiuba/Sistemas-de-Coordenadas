@@ -1,5 +1,6 @@
-% Capítulo 10 — Transformaciones conformes
-\chapter{Transformaciones conformes}\label{cap:10}
+% Complemento C2: Transformaciones conformes (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\capituloComplemento[2]{Transformaciones conformes}\label{cap:conformes}
+
 
 \section{La idea}
 
@@ -61,17 +62,17 @@ Armamos la cuenta de punta a punta, del número complejo y el Jacobiano a la pro
 \begin{atencion}[Desarrollo complementario]
 Esta sección no fue dictada por la cátedra en 2C2026. La armamos nosotros para cerrar el
 arco de la materia: el número complejo de la clase 1 (sección~\ref{sec:rot-complejos}),
-las similaridades de la clase 3 (secciones~\ref{sec:escalar} y~\ref{cap:05}), la SVD de la
+las similaridades de la clase 3 (secciones~\ref{sec:escalar} y~\ref{cap:afines}), la SVD de la
 clase 7 (sección~\ref{sec:svd}), el Jacobiano y la primera forma de la clase 9
 (sección~\ref{sec:metrica}) son, vistos desde acá, cuatro maneras de decir lo mismo, y
-el elipsoide de la clase 13 (sección~\ref{sec:elipsoide}) es el escenario donde las
+el elipsoide de la clase 13 (sección~\ref{cap:elipsoide}) es el escenario donde las
 aplicamos. Y
 con ese lenguaje resolvemos las preguntas con que termina el apunte del elipsoide del
-profesor, incluida la transversa de Mercator que en la sección~\ref{sec:arco-meridiano}
-(capítulo~\ref{cap:11}) dejamos planteada. Pendiente de validar por la cátedra.
+profesor, incluida la transversa de Mercator que en la sección~\ref{cap:elipsoide}
+(capítulo~\ref{cap:elipsoide}) dejamos planteada. Pendiente de validar por la cátedra.
 \end{atencion}
 
-\paragraph{El problema cartográfico.} En la sección~\ref{sec:curvatura} (capítulo~\ref{cap:11}) calculamos que la
+\paragraph{El problema cartográfico.} En la sección~\ref{cap:curvatura} (capítulo~\ref{cap:curvatura}) calculamos que la
 curvatura gaussiana del elipsoide es \(K=1/(MN)>0\) en todos los puntos; la del plano es
 \(K=0\). El \emph{theorema egregium} de Gauss dice que \(K\) se puede calcular con la
 primera forma fundamental sola (con \(E,F,G\) y sus derivadas), es decir, midiendo
@@ -245,7 +246,7 @@ Con el lenguaje ya armado, retomamos las proyecciones que el apunte del profesor
 \subsection{Las proyecciones del elipsoide con este lenguaje}\label{sec:conformes-elipsoide}
 
 \paragraph{Las proyecciones del cierre del apunte del elipsoide, con este lenguaje.} En
-la sección~\ref{sec:arco-meridiano} (capítulo~\ref{cap:11}) planteamos las cinco proyecciones que el apunte del
+la sección~\ref{cap:elipsoide} (capítulo~\ref{cap:elipsoide}) planteamos las cinco proyecciones que el apunte del
 profesor deja como ``puntapié inicial'' (página 20) y resolvimos las cilíndricas
 integrando una condición cada vez. Ahora las vemos con las cuatro caras. Sobre el
 elipsoide, con la base \((\varphi,\lambda)\),
@@ -290,7 +291,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
   =\frac e2\Bigl(\frac{e\cos\varphi}{1+e\sin\varphi}+\frac{e\cos\varphi}{1-e\sin\varphi}\Bigr)
   =\frac{e^2\cos\varphi}{1-e^2\sin^2\varphi}\), que es lo que había que obtener; y
   numéricamente, en \(\varphi=-34{,}6^\circ\), \(q=-0{,}640531\) tanto por la fórmula como
-  por \texttt{quad}, y \(a\,q=-4\,085\,391{,}659\) m, el valor de la sección~\ref{sec:arco-meridiano}.
+  por \texttt{quad}, y \(a\,q=-4\,085\,391{,}659\) m, el valor de la sección~\ref{cap:elipsoide}.
   Lo importante no es la fórmula sino lo que hace: en las coordenadas \((\lambda,q)\), con
   \(d\varphi=(N\cos\varphi/M)\,dq\), la métrica del elipsoide queda
   \[
@@ -304,11 +305,11 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \frac{dy}{d\varphi}=\frac{MN\cos\varphi}{a}\quad\Longrightarrow\quad
     y=\frac1a\int_0^\varphi MN\cos u\,du ,
   \]
-  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{sec:arco-meridiano} (\(q_A\), de ``autálica'', para no
+  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{cap:elipsoide} (\(q_A\), de ``autálica'', para no
   confundirla con la latitud isométrica \(q\)). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
   ecuador.
   \item \textbf{Cilíndrica equidistante.} Meridianos a escala verdadera, \(h=1\):
-  \(y=S(\varphi)\), el arco de meridiano de la sección~\ref{sec:arco-meridiano}. Ni
+  \(y=S(\varphi)\), el arco de meridiano de la sección~\ref{cap:elipsoide}. Ni
   conforme ni equivalente: \(\sigma_1=k\), \(\sigma_2=1\).
   \item \textbf{Esfera autálica.} El área del elipsoide se integra con la misma jacobiana
   \(3\times2\) de la sección~\ref{sec:metrica}: el elemento de área es
@@ -328,7 +329,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \qquad R_A=\sqrt{\frac{A}{4\pi}} .
   \]
   En GRS80, \(A=510\,065\,621{,}7\) km\(^2\) y \(R_A=6\,371\,007{,}181\) m (la integral
-  numérica da lo mismo con nueve cifras). Es el \(R_q\) de la sección~\ref{sec:arco-meridiano};
+  numérica da lo mismo con nueve cifras). Es el \(R_q\) de la sección~\ref{cap:elipsoide};
   para comparar, el radio medio \((2a+b)/3=6\,371\,008{,}771\) m y el de igual volumen
   \(\sqrt[3]{a^2b}=6\,371\,000{,}790\) m: los tres ``radios de la Tierra'' difieren en
   metros. Pasar a la esfera autálica es equivalente (cara \(\det J=1\)), no conforme.

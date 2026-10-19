@@ -9,7 +9,7 @@ fuentes:
   - "Bibliografia/Clavijo - Apunte Teoría Elipsoide (guía para clase).pdf (La forma de la tierra)"
   - fuentes/transcripciones/2026-10-14.md
 conceptos: [trigonometria-esferica, poligono-geodesico]
-apunte: ["08", "11"]
+apunte: ["formas-lineales", "esfera"]
 unidad: 14_trigonometria_esferica
 ---
 

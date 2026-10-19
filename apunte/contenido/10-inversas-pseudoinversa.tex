@@ -1,0 +1,150 @@
+% Inversas y pseudoinversa: los cuatro subespacios (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{Inversas y pseudoinversa: los cuatro subespacios}\label{cap:inversas}
+
+\section{La idea}
+
+\subsection{Sistemas de ecuaciones y aplicaciones}\label{sec:sistemas-ecuaciones}
+
+El programa incluye sistemas de ecuaciones y ecuaciones de segundo orden. En el contexto de
+coordenadas pueden aparecer al:
+\begin{itemize}
+  \item determinar intersecciones, puntos fijos y parámetros de transformación;
+  \item ajustar coordenadas a partir de observaciones redundantes;
+  \item describir curvas y superficies cuadráticas;
+  \item formular ecuaciones diferenciales sobre superficies.
+\end{itemize}
+
+Este bloque deberá precisarse con los enunciados y ejemplos que presente la cátedra. Mientras tanto, los cuatro problemas del esqueleto 2025 (regresión, intersección de círculos, Procrustes, regresión total) están desarrollados, como anticipo, en la sección~\ref{cap:cuatro-problemas}.
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Inversas, los cuatro subespacios y la pseudoinversa}\label{sec:pseudoinversa}
+
+\begin{atencion}[Anticipado]
+La clase 10 del esqueleto (inversas) no se dictó en 2C2026; la inversa de una \(2\times2\)
+se usó el 30/9 por adjunta sobre determinante, sin discutirla. Esta sección se armó antes
+de que la cátedra la diera, a partir del resumen 2025 del profesor y de bibliografía.
+Pendiente de validar.
+\end{atencion}
+
+\paragraph{Inversa respecto de una operación.} El profesor volvió en 2025 ``a algo que
+hablamos muy al principio de la cursada: la relación entre operaciones, elementos y
+transformaciones''. Una inversa es siempre ``inversa respecto de'' una operación: el
+elemento que, operado con otro, da el neutro de esa operación.
+
+{\small
+\begin{center}
+\begin{tabularx}{.92\textwidth}{>{\bfseries}l l l Y}
+\toprule
+Conjunto & Operación & Neutro & Inversa de \(x\)\\
+\midrule
+enteros & suma & \(0\) & \(-x\): sumar \(3\) se deshace restando \(3\)\\
+reales & producto & \(1\) & \(1/x\): no existe si \(x=0\)\\
+funciones & composición & \(f(x)=x\) & \(f^{-1}\): la que devuelve cada valor a su origen\\
+transformaciones lineales & composición & \(v\mapsto v\) & deshacer el movimiento\\
+matrices & producto & \(I\) & \(A^{-1}\): no existe si \(\det A=0\)\\
+\bottomrule
+\end{tabularx}
+\end{center}
+}
+
+Escalera. En \(\R\), \(x\mapsto ax\) se deshace con \(x\mapsto x/a\), y no hay forma de
+deshacer \(a=0\): todo se aplastó al cero y no se sabe de dónde vino cada punto. En
+\(\R^2\), \(\det A=0\) significa que el cuadrado unidad se aplastó a un segmento, una
+dirección entera cayó a un punto (el núcleo, sección~\ref{sec:nucleo}) y no se puede
+desplegar lo aplastado. En \(\R^n\): \(\det A=0\) equivale a que algún valor singular es
+cero, la elipse perdió un semieje. Rotar \(30^\circ\) se deshace rotando \(-30^\circ\)
+(\(R^{-1}=R^T\)); reflejar se deshace reflejando de nuevo; escalar por \(2\), escalando
+por \(\tfrac12\).
+
+\begin{resultado}[Invertir con las descomposiciones]
+\[
+  A=PDP^{-1}\ \Rightarrow\ A^{-1}=P\,\tfrac1D\,P^{-1},\qquad
+  A=U\Sigma V^T\ \Rightarrow\ A^{-1}=V\,\tfrac1\Sigma\,U^T .
+\]
+El profesor escribe \(1/D\) y \(1/\Sigma\) a propósito: invertir una matriz diagonal es
+tomar los recíprocos de las entradas, deshacer cada estiramiento por separado. En la SVD
+se deshace en orden inverso: desgirar lo último (\(U^T\)), desestirar, desgirar lo primero
+(\(V\)). Con \(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}=P\operatorname{diag}(3,1)P^{-1}\):
+\[
+  A^{-1}=P\operatorname{diag}(\tfrac13,1)P^{-1}
+  =\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}\begin{pmatrix}\tfrac13&0\\0&1\end{pmatrix}
+  \begin{pmatrix}1&1\\1&-1\end{pmatrix}
+  =\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix},
+\]
+que coincide con la adjunta sobre el determinante (\(\det A=3\)).
+\end{resultado}
+
+\paragraph{Los cuatro subespacios, con los nombres del profesor.} Una matriz \(m\times n\)
+parte la entrada \(\R^n\) en dos pedazos perpendiculares y la salida \(\R^m\) en otros dos:
+\begin{itemize}
+  \item \textbf{núcleo}: ``vectores de la entrada que caen al \(0\)''; la dirección
+  aplastada;
+  \item \textbf{co-imagen} (``rango de entrada o podríamos llamar contra-núcleo''):
+  lo perpendicular al núcleo; las direcciones que sí se distinguen a la salida;
+  \item \textbf{imagen} (``rango o co-dominio''): lo alcanzable a la salida; el plano o la
+  recta donde cae todo;
+  \item \textbf{espacio inaccesible} (``la llamaría contra-imagen''): lo perpendicular a la
+  imagen; adonde no llega nada.
+\end{itemize}
+La SVD los entrega hechos: los \(v_i\) con \(\sigma_i>0\) generan la co-imagen, los
+\(v_i\) con \(\sigma_i=0\) el núcleo, los \(u_i\) con \(\sigma_i>0\) la imagen y los
+\(u_i\) sobrantes el espacio inaccesible. Restringida de la co-imagen a la imagen, la
+transformación sí se invierte: ahí no se aplastó nada. Situación de campo: la jacobiana
+\(3\times2\) de una superficie parametrizada (sección~\ref{sec:curvilineas}) tiene
+co-imagen todo el plano \((u,v)\), imagen el plano tangente, espacio inaccesible la normal
+y núcleo \(\{0\}\), salvo en el polo del elipsoide, donde \(r_\lambda=0\) y aparece núcleo:
+``mover la longitud no me mueve''.
+
+\begin{resultado}[Pseudoinversa de Moore--Penrose]
+\[
+  \boxed{\ A^{+}=V\,\Sigma^{+}\,U^T\ },\qquad
+  \Sigma^{+}=\text{recíprocos de los }\sigma_i\neq0\text{, ceros donde había ceros}.
+\]
+Hecho geométrico: proyectar el término independiente sobre la imagen (descartar la parte
+en el espacio inaccesible, que no se puede alcanzar) y deshacer sólo la parte invertible;
+si había núcleo, no inventar nada en la dirección aplastada (solución de norma mínima).
+En \(\R\), la pseudoinversa de \(a=0\) es \(0\). Si \(A\) es cuadrada e invertible,
+\(A^{+}=A^{-1}\); si \(A\) es alta (más filas que columnas) y sus columnas son
+independientes, \(A^{+}=(A^TA)^{-1}A^T\), y \(x=A^{+}b\) resuelve las \emph{ecuaciones
+normales} \(A^TAx=A^Tb\).
+\end{resultado}
+
+\paragraph{Sin inversa.} \(B=\begin{pmatrix}1&1\\1&1\end{pmatrix}\): \(\det B=0\), núcleo
+\((1,-1)\), imagen la recta de \((1,1)\). \(Bx=(1,0)^T\) no tiene solución porque \((1,0)\)
+no está en la imagen. SVD: \(\sigma_1=2\), \(\sigma_2=0\), \(u_1=v_1=\tfrac1{\sqrt2}(1,1)\);
+entonces \(B^{+}=v_1\tfrac12u_1^T=\tfrac14\begin{pmatrix}1&1\\1&1\end{pmatrix}\) y
+\(B^{+}(1,0)^T=(\tfrac14,\tfrac14)^T\): proyecta \((1,0)\) sobre la recta imagen (da
+\((\tfrac12,\tfrac12)\)), deshace el estiramiento por \(2\) y no pone nada en la dirección
+del núcleo. Otra que aplasta, la de la unidad \texttt{09}:
+\(C=\begin{pmatrix}1&2\\2&4\end{pmatrix}\), rango \(1\), \(\sigma_1=5\),
+\(u_1=v_1=\tfrac1{\sqrt5}(1,2)\), \(C^{+}=v_1\tfrac15u_1^T=\tfrac1{25}C\). Chequeo con
+\(CC^{+}C=C\), una de las cuatro condiciones de Moore--Penrose (las otras:
+\(C^{+}CC^{+}=C^{+}\), y \(CC^{+}\) y \(C^{+}C\) simétricas; las cuatro juntas fijan
+\(C^{+}\) de manera única): como \(C^2=5C\), \(C^3=25C\) y
+\(C\cdot\tfrac1{25}C\cdot C=C\). Lo que \(C\) aplastó, la dirección \((2,-1)\), no vuelve:
+\(C^{+}C=\tfrac15\begin{pmatrix}1&2\\2&4\end{pmatrix}\) es la proyección sobre \((1,2)\),
+no la identidad.
+
+\paragraph{Sistema sobredeterminado: una recta por tres puntos que no están alineados.}
+Puntos \((0,0)\), \((1,1)\), \((2,3)\), recta \(y=ax+b\). Las tres ecuaciones no se pueden
+cumplir a la vez:
+\[
+  \underbrace{\begin{pmatrix}0&1\\1&1\\2&1\end{pmatrix}}_{A}
+  \begin{pmatrix}a\\b\end{pmatrix}
+  =\underbrace{\begin{pmatrix}0\\1\\3\end{pmatrix}}_{y},\qquad
+  A^TA=\begin{pmatrix}5&3\\3&3\end{pmatrix},\quad A^Ty=\begin{pmatrix}7\\4\end{pmatrix}.
+\]
+De \(5a+3b=7\) y \(3a+3b=4\): \(a=\tfrac32\), \(b=-\tfrac16\). Residuo
+\(y-A\hat x=(\tfrac16,-\tfrac13,\tfrac16)\), perpendicular a las dos columnas de \(A\):
+\(0-\tfrac13+\tfrac26=0\) y \(\tfrac16-\tfrac13+\tfrac16=0\). Hecho geométrico: en
+\(\R^3\) el vector \(y\) no está en el plano generado por las dos columnas de \(A\);
+\(A\hat x\) es su proyección ortogonal sobre ese plano y el residuo vive en el espacio
+inaccesible. Es ``el punto de la entrada que corresponde en la salida a lo más cercano al
+término independiente'' (resumen 2025). Verificado con \texttt{np.linalg.lstsq} y
+\texttt{np.linalg.pinv(A) @ y}: \((1{,}5,\ -0{,}1667)\). Situación de campo: una poligonal
+con más mediciones que incógnitas no cierra exactamente; compensarla es elegir las
+coordenadas cuya salida queda más cerca de lo medido, con el residuo repartido
+perpendicularmente a lo que el modelo puede explicar.
+
+\section{En profundidad}

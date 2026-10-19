@@ -8,7 +8,7 @@ fuentes:
   - fuentes/campus/resumenes_clase_2025_profesor.md#clase-8
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [cambio-de-base, diagonalizacion, potencias-de-matrices]
-apunte: ["02", "19"]
+apunte: ["02", "cambio-base"]
 unidad: 08_cambio_de_base
 ---
 

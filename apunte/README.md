@@ -15,15 +15,18 @@ formato + contenido (antes era un único `.tex` de ~5000 líneas; ese monolito s
   tablas, `\file`, hyperref (colores de links), encabezado/pie (fancyhdr), macros de notación
   (`\R`, `\vect`, `\rhoP`, `\refl`, `\homot`, `\figlabel`) y estilos TikZ. No contiene texto.
 - `contenido/NN-nombre.tex` — el cuerpo, en orden, un archivo por capítulo. Cada archivo
-  arranca con un comentario de una línea con su título y un `\chapter{...}\label{cap:NN}`,
+  arranca con un comentario de una línea con su título y un `\chapter{...}\label{cap:<clave>}`,
   y adentro tiene las tres secciones de nivel `\section{La idea}`, `\section{Construcciones,
   cuentas y ejemplos}` y `\section{En profundidad}`. Las figuras TikZ están dentro del
   contenido, donde se usan. Los archivos son: `00-como-leer`, `01-organizacion` y
-  `02-hilo-de-la-materia` (capítulo 0, "Antes de empezar"); `03-algebra-cbc-mirada-clavijo`,
-  `04-rotaciones`, `05-euclideas-similaridades`, `06-afines-homogeneas`, `07-proyectivas`,
-  `08-algebra-transformaciones`, `09-svd`, `10-transformaciones-conformes` y
-  `11-superficies-geodesia` (los nueve capítulos temáticos); `14-…` a `22-…` (apéndices
-  A.1 a A.9, labels `ap:*`). `contenido/_borradores/` guarda fragmentos en preparación que
+  `02-hilo-de-la-materia` (capítulo 0, "Antes de empezar") y `03-algebra-cbc-mirada-clavijo`
+  (repaso, rotulado R); un capítulo por clase, `01-rotaciones` a `14-esfera-trigonometria-esferica`
+  (labels `cap:rotaciones` … `cap:esfera`; 11 a 14 son páginas «en preparación» y su material
+  está en `apunte/preparacion/`), y cuatro complementos `c1-proyectivas`, `c2-conformes`,
+  `c3-terreno-como-matriz`, `c4-marcos-grillas` (con `\capituloComplemento[N]{…}`, rotulados
+  C1 a C4); `14-…` a `16-…` y `20-…` a `22-…` (apéndices, labels `ap:*`). La partición por
+  clase la hace `scripts/reorganizar_por_clase.py` y el remapeo de labels
+  `scripts/remap_nameddest.py` (tabla en `REMAPEO_LABELS.md`). `contenido/_borradores/` guarda fragmentos en preparación que
   los capítulos 03 y 09 incorporan con `\input`.
 - `Apunte_Sistemas_de_Coordenadas.pdf` — PDF generado.
 - `01_Ejercicios_original.pdf`, `02_afinidad_original.pdf` — material del profesor que el
@@ -53,7 +56,7 @@ borrar; el `.pdf` se deja regenerado.
 
 1. Crear `contenido/NN-nombre.tex` (número siguiente en la posición que corresponda, kebab-case
    sin acentos), con un comentario de título en la primera línea, el `\chapter{...}` con su
-   `\label{cap:NN}` y las tres secciones de nivel (`La idea`, `Construcciones, cuentas y
+   `\label{cap:<clave>}` y las tres secciones de nivel (`La idea`, `Construcciones, cuentas y
    ejemplos`, `En profundidad`).
 2. Agregar una línea `\input{contenido/NN-nombre}` en `Apunte_Sistemas_de_Coordenadas.tex`, en
    el lugar del orden donde va (entre los capítulos temáticos o entre los apéndices).

@@ -26,7 +26,7 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
   3. Cuenta a mano y código lado a lado (matriz coloreada por columnas)
   4. Python de hoy                     (una sola idea nueva)
   5. Ejercicios                        (dos de lápiz, dos de código con hueco verificados con np.allclose)
-  Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:NN) y verificación silenciosa.
+  Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:<clave>) y verificación silenciosa.
 
 Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo libro de cátedra ("seguimos la
 clase", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
@@ -446,7 +446,7 @@ def _(mo):
 
     Acá verificamos; la demostración está en el apunte:
 
-    - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:NN)
+    - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:<clave>)
     - [ficha de la clase N](../../clases/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)
 
     [PLANTILLA: los enlaces son relativos a `site/unidades/<id>/index.html`.]

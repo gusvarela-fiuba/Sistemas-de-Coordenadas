@@ -46,8 +46,8 @@ la Unidad 0 ``fundamentos y lenguaje de la cátedra'' a la Unidad 19) del sitio 
 y recoge el material que mandó el profesor por el chat (planilla de las proyectivas del
 pentágono y \texttt{LaSVD.wxmx}).\par}
 
-{\color{muted}Los capítulos de SVD, inversas y cuatro problemas (cap.~\ref{cap:09}), y las
-partes de curvatura, elipsoide y trigonometría esférica (cap.~\ref{cap:11}) están marcados
+{\color{muted}Los capítulos de SVD, inversas y cuatro problemas (cap.~\ref{cap:svd}), y las
+partes de curvatura, elipsoide y trigonometría esférica (cap.~\ref{cap:curvatura}) están marcados
 ``Anticipado'': se desarrollaron antes de que la cátedra los dictara, a partir del resumen 2025
 del profesor, su apunte del elipsoide y bibliografía, y quedan pendientes de validar. Incluyen
 una fe de erratas verificada del apunte del elipsoide.\par}
@@ -72,15 +72,31 @@ tres lecturas).\par}
 \input{contenido/00-como-leer}
 \input{contenido/01-organizacion}
 \input{contenido/02-hilo-de-la-materia}
+%% «Repaso» (03) es parte de «Antes de empezar»: se rotula R y no consume número de capítulo.
+\capituloPreliminar{R}
 \input{contenido/03-algebra-cbc-mirada-clavijo}
-\input{contenido/04-rotaciones}
-\input{contenido/05-euclideas-similaridades}
-\input{contenido/06-afines-homogeneas}
-\input{contenido/07-proyectivas}
-\input{contenido/08-algebra-transformaciones}
-\input{contenido/09-svd}
-\input{contenido/10-transformaciones-conformes}
-\input{contenido/11-superficies-geodesia}
+\finCapituloPreliminar
+
+%% Capítulos de clase (1 a 14) y complementos (C1 a C4), en el orden del dictado.
+%% Los capítulos 11 a 14 son páginas «en preparación»; su material está en apunte/preparacion/.
+\input{contenido/01-rotaciones}
+\input{contenido/02-traslaciones-movimientos-rigidos}
+\input{contenido/03-reflexiones-afinidades-homogeneas}
+\input{contenido/c1-proyectivas}
+\input{contenido/04-formas-lineales}
+\input{contenido/05-subespacios-cuna-determinante}
+\input{contenido/06-autovalores-autovectores}
+\input{contenido/07-svd}
+\input{contenido/c3-terreno-como-matriz}
+\input{contenido/08-cambio-de-base}
+\input{contenido/09-derivada-aproximacion-lineal}
+\input{contenido/10-inversas-pseudoinversa}
+\input{contenido/11-cuatro-problemas}
+\input{contenido/12-curvatura}
+\input{contenido/13-elipsoide}
+\input{contenido/14-esfera-trigonometria-esferica}
+\input{contenido/c2-conformes}
+\input{contenido/c4-marcos-grillas}
 
 \clearpage
 \appendix
@@ -88,9 +104,6 @@ tres lecturas).\par}
 \input{contenido/14-apendice-rotaciones-3d}
 \input{contenido/15-apendice-infinitesimales}
 \input{contenido/16-apendice-composicion-afin}
-\input{contenido/17-apendice-ejercicios-afinidades}
-\input{contenido/18-apendice-pentagono}
-\input{contenido/19-apendice-rubricas}
 \input{contenido/20-apendice-bibliografia}
 \input{contenido/21-apendice-notebooks}
 \input{contenido/22-material-y-fuentes}

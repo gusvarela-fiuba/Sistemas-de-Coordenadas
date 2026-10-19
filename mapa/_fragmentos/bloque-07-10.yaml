@@ -49,7 +49,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "La circunferencia unidad se vuelve elipse; los ejes de la elipse (salida) y sus preimágenes (entrada) son dos bases ortonormales distintas: A = U Σ Vᵀ es girar, estirar en ejes perpendiculares, girar."
     que_se_conserva: "La ortogonalidad de una base bien elegida de la entrada: va a parar a una base ortogonal de la salida. Siempre existe, sin números complejos."
-    apunte: ["02", "09", "19"]
+    apunte: ["02", "svd"]
     requiere: [autovector, autovalor, polinomio-caracteristico, matriz-ortogonal, producto-interno, nucleo]
   - id: valores-singulares
     nombre: "Valores singulares"
@@ -57,7 +57,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Los semiejes de la elipse imagen de la circunferencia unidad; su producto es |det A|; un σ = 0 es una dirección aplastada (núcleo)."
     que_se_conserva: "El tamaño de los estiramientos principales, independiente de los giros; nunca complejos."
-    apunte: ["09"]
+    apunte: ["svd"]
     requiere: [svd, determinante]
   - id: base-privilegiada
     nombre: "Base privilegiada"
@@ -65,7 +65,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "No hay base privilegiada a priori: lo único especial de la canónica es que en ella el producto interno es suma de productos. La SVD construye la base privilegiada de una transformación a partir del producto interno, no de direcciones fijas."
     que_se_conserva: "Longitudes y ángulos medidos con el producto interno; sin distancias todas las grillas valen lo mismo."
-    apunte: ["19"]
+    apunte: ["svd"]
     requiere: [producto-interno, cambio-de-base]
 
   # --- clase 08 ---
@@ -75,7 +75,7 @@ conceptos:
     unidad: 08_cambio_de_base
     hecho_geometrico: "La misma flecha medida con otra grilla; la matriz tiene en sus columnas la base nueva escrita en la vieja. Vectores van con A, formas lineales con A⁻¹ del otro lado, transformaciones con A T A⁻¹."
     que_se_conserva: "Todas las relaciones entre los elementos (incidencias L·P = 0, valores de las formas sobre los vectores): 'convertimos todo para que nada cambie'."
-    apunte: ["02", "19"]
+    apunte: ["02", "cambio-base"]
     requiere: [transformacion-lineal, forma-lineal, dualidad, coordenadas-homogeneas, inversa]
   - id: diagonalizacion
     nombre: "Diagonalización"
@@ -83,7 +83,7 @@ conceptos:
     unidad: 08_cambio_de_base
     hecho_geometrico: "En la grilla de los autovectores la transformación sólo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas."
     que_se_conserva: "Las direcciones propias: cada eje de la grilla cae sobre sí mismo."
-    apunte: ["08", "19"]
+    apunte: ["cambio-base"]
     requiere: [autovector, autovalor, cambio-de-base]
   - id: potencias-de-matrices
     nombre: "Potencias enteras y reales de una matriz"
@@ -91,7 +91,7 @@ conceptos:
     unidad: 08_cambio_de_base
     hecho_geometrico: "Aᵗ = P Dᵗ P⁻¹: aplicar n veces es estirar n veces cada eje propio; con t real la transformación es un proceso continuo y el punto recorre una trayectoria."
     que_se_conserva: "La base de autovectores: todas las potencias comparten las mismas direcciones propias."
-    apunte: ["02", "19"]
+    apunte: ["02", "cambio-base"]
     requiere: [diagonalizacion, trayectoria, exponencial-de-matrices]
 
   # --- clase 09 ---
@@ -101,7 +101,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "Zoom en un punto hasta que la curva parece recta y la superficie parece plana: la derivada es esa recta o ese plano, una transformación lineal que lleva pasitos a pasitos. En R un número, en R²→R una forma lineal, en R²→R³ una jacobiana 3×2."
     que_se_conserva: "A primer orden, longitudes y direcciones de los pasitos (lo chico)."
-    apunte: ["08", "11"]
+    apunte: ["formas-lineales", "derivada"]
     requiere: [transformacion-lineal, rotacion-infinitesimal]
   - id: gradiente
     nombre: "Gradiente"
@@ -109,7 +109,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "Forma lineal, no vector: una regla de rectas paralelas cuya recta de nivel cero, corrida al punto, es la tangente a la curva de nivel; por eso 'es perpendicular' a la curva de nivel."
     que_se_conserva: "El valor de f a primer orden: ∇f·h mide cuánto sube f al dar el pasito h."
-    apunte: ["11", "08"]
+    apunte: ["derivada", "formas-lineales"]
     requiere: [forma-lineal, curvas-de-nivel, derivada-aproximacion-lineal]
   - id: jacobiano
     nombre: "Matriz jacobiana"
@@ -117,7 +117,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "Matriz m×n cuyas columnas son r_u, r_v: generan el plano tangente (lo recorrible a la salida); su producto cruz es la normal (lo inaccesible). El cuadradito du×dv va a un paralelogramo de lados r_u, r_v."
     que_se_conserva: "La estructura lineal local: pasitos en (u,v) ↔ pasitos sobre la superficie."
-    apunte: ["08", "11"]
+    apunte: ["formas-lineales", "derivada"]
     requiere: [derivada-aproximacion-lineal, producto-vectorial, lineas-coordenadas]
   - id: hessiana
     nombre: "Matriz hessiana"
@@ -141,7 +141,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "r: R²→R³ con los dos espacios separados; la grilla (u,v) se dibuja sobre la superficie como líneas coordenadas. En el polo una coordenada no mueve el punto (r_λ = 0): singularidad, la jacobiana pierde una columna."
     que_se_conserva: "La correspondencia (u,v) ↔ punto de la superficie, salvo en los puntos singulares."
-    apunte: ["11"]
+    apunte: ["derivada"]
     requiere: [lineas-coordenadas, jacobiano]
   - id: primera-forma-fundamental
     nombre: "Primera forma fundamental"
@@ -149,7 +149,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando sólo (du,dv); g = JᵀJ y bajo cambio de coordenadas g' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°."
     que_se_conserva: "Longitudes y ángulos sobre la superficie, medidos desde las coordenadas."
-    apunte: ["11"]
+    apunte: ["derivada"]
     requiere: [jacobiano, producto-interno, superficie-parametrica, cambio-de-base]
 
   # --- clase 10 ---
@@ -159,7 +159,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Deshacer el movimiento: 1/a en R, A⁻¹ en Rⁿ; en base de autovectores es tomar recíprocos en la diagonal, en SVD es V (1/Σ) Uᵀ. No existe si alguna dirección se aplastó (a = 0, det A = 0, algún σ = 0)."
     que_se_conserva: "El neutro de la operación: componer con la inversa da la identidad (0 para la suma, 1 para el producto, Id para las matrices)."
-    apunte: ["02", "08"]
+    apunte: ["02", "inversas"]
     requiere: [composicion, determinante, nucleo, diagonalizacion, svd, matriz-ortogonal]
   - id: cuatro-subespacios
     nombre: "Los cuatro subespacios (núcleo, co-imagen, imagen, contra-imagen)"
@@ -175,7 +175,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer sólo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0."
     que_se_conserva: "La solución exacta cuando existe; si no, la más cercana, con el residuo perpendicular a la imagen."
-    apunte: ["02", "19"]
+    apunte: ["02", "inversas"]
     requiere: [inversa, cuatro-subespacios, svd, producto-interno]
   - id: sistema-sobredeterminado
     nombre: "Sistema sobredeterminado y mínimos cuadrados"
@@ -183,5 +183,5 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Más ecuaciones que incógnitas: b no está en la imagen. Tres puntos no alineados no admiten recta; las ecuaciones normales AᵀA x = Aᵀb eligen la recta cuyo vector de residuos es perpendicular a las columnas de A. Ejemplo: (0,0),(1,1),(2,3) → y = −1/6 + 3x/2."
     que_se_conserva: "La perpendicularidad del residuo a la imagen: lo que se alcanza es la proyección de b."
-    apunte: ["09"]
+    apunte: ["inversas"]
     requiere: [pseudoinversa, producto-interno, transformacion-afin]

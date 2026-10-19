@@ -151,7 +151,7 @@ def _(mo):
     triángulo cae en los tres husos de sus vértices y la antípoda en los tres opuestos. Contamos así la esfera una vez y
     el triángulo y su antípoda dos veces de más cada uno: $4(A + B + C)R^2 = 4\pi R^2 + 4\,\text{área}$, que es
     $A + B + C - \pi = \text{área}/R^2$. Control con el octante: $4 \cdot \tfrac{3\pi}{2} = 4\pi + 4\cdot\tfrac{\pi}{2}$.
-    En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica)
+    En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=cap:esfera)
     deduce los teoremas del coseno y del seno con producto interno y determinante, enuncia el exceso de Girard con el
     control del octante y resuelve el triángulo entre tres ciudades; la demostración completa del exceso por husos está
     en Coxeter, *Geometría*, de la bibliografía del campus.
@@ -483,12 +483,12 @@ def _(mo):
 
     Acá verificamos que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
     el exceso es el área. En el apunte está en la sección
-    [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica): el triángulo
+    [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=cap:esfera): el triángulo
     como tres planos por el centro, los teoremas del coseno y del seno deducidos con producto interno y determinante, el
     exceso esférico con el control del octante y el problema resuelto entre tres ciudades. Las herramientas y la esfera
     como superficie:
 
-    - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:formas-lineales) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:esfera)
     - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
 
     **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),

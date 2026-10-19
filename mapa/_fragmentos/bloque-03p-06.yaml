@@ -50,7 +50,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "Cada punto del plano es un rayo por el origen de R3 que corta al plano w=1; la terna (x,y,w) vale a menos de escala."
     que_se_conserva: "Rectas e incidencia; nada métrico."
-    apunte: ["07"]
+    apunte: ["proyectivas"]
     requiere: [coordenadas-homogeneas, espacio-vectorial]
   - id: punto-impropio
     nombre: "Punto impropio (punto en el infinito)"
@@ -58,7 +58,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "Terna con w=0 es una dirección; es el punto de fuga común a todas las paralelas de esa dirección."
     que_se_conserva: "Una afinidad deja fija la recta ideal entera; una proyectiva general manda una recta propia al infinito y puede partir la figura."
-    apunte: ["07"]
+    apunte: ["proyectivas"]
     requiere: [coordenadas-homogeneas, traslacion]
   - id: homografia
     nombre: "Homografía (transformación proyectiva)"
@@ -66,7 +66,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "p' ~ H p con H 3x3 invertible y división por W; es la foto de una cámara inclinada: rectas siguen rectas, paralelas convergen. 8 grados de libertad, cuatro puntos sin tres alineados la fijan; H = K2 K1^-1 por el cuadrilátero patrón."
     que_se_conserva: "Rectas, incidencia y razón doble; no paralelismo, ni razones simples, ni ángulos."
-    apunte: ["07", "18"]
+    apunte: ["proyectivas", "18"]
     requiere: [transformacion-afin, coordenadas-homogeneas, colinealidad, determinante]
   - id: recta-fija
     nombre: "Puntos y rectas fijas de una homografía"
@@ -74,7 +74,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "Punto fijo = autovector real de H (siempre hay uno, grado 3); recta fija = autovector de H^T. Raíz doble con cruz de filas nula = recta entera de puntos fijos (eje) más centro: homología; autovalores opuestos = homología armónica (espejo proyectivo, H^2 ~ I)."
     que_se_conserva: "El eje punto a punto y el centro; sobre cada recta por el centro, una reflexión vista en perspectiva."
-    apunte: ["07", "18"]
+    apunte: ["proyectivas", "18"]
     requiere: [autovector, autovalor, punto-fijo, forma-lineal]
   - id: razon-doble
     nombre: "Razón doble"
@@ -82,7 +82,7 @@ conceptos:
     unidad: 05_proyectivas
     hecho_geometrico: "(A,B;C,D) de cuatro puntos alineados; en una homología armónica el centro es el conjugado armónico (valor -1) del corte con el eje respecto de los dos puntos intercambiados; el punto medio entre centro y eje se va al infinito."
     que_se_conserva: "Es el único número que una homografía conserva sobre una recta."
-    apunte: ["07"]
+    apunte: ["proyectivas"]
     requiere: [homografia, recta-fija]
   # ---- 04 espacios lineales y formas
   - id: espacio-vectorial
@@ -91,7 +91,7 @@ conceptos:
     unidad: 06_formas_lineales
     hecho_geometrico: "Flechas que se suman por el paralelogramo y se estiran; el cero queda quieto. R es el caso de una sola dirección; los vectores son puntos."
     que_se_conserva: "Las dos operaciones (suma y producto por escalar) y su linealidad."
-    apunte: ["08"]
+    apunte: ["formas-lineales"]
     requiere: []
   - id: transformacion-lineal
     nombre: "Transformación lineal y su matriz"
@@ -99,7 +99,7 @@ conceptos:
     unidad: 06_formas_lineales
     hecho_geometrico: "La grilla cuadrada se vuelve una grilla de paralelogramos; cada coordenada de salida es una regla (forma lineal) que mide la entrada, por eso la matriz 'parece formada por ecuaciones de rectas'. Filas = pila de formas, columnas = adónde van e1, e2."
     que_se_conserva: "Sumas y escalas; el cero va al cero; la composición es el producto de matrices."
-    apunte: ["08"]
+    apunte: ["formas-lineales"]
     requiere: [espacio-vectorial, composicion]
   - id: forma-lineal
     nombre: "Forma lineal"
@@ -107,7 +107,7 @@ conceptos:
     unidad: 06_formas_lineales
     hecho_geometrico: "Una regla graduada tirada en el plano; sus marcas son rectas paralelas equiespaciadas, perpendiculares al vector (a,b), con separación 1/|(a,b)|. 'No existe el vector fila'; una recta homogénea es una forma y l·p=0 es la incidencia."
     que_se_conserva: "La lectura φ(v) cuando vectores y formas se transforman del lado contrario (v con T, φ con T^-1)."
-    apunte: ["08"]
+    apunte: ["formas-lineales"]
     requiere: [espacio-vectorial, producto-interno, coordenadas-homogeneas]
   - id: dualidad
     nombre: "Dualidad vectores–formas"
@@ -115,7 +115,7 @@ conceptos:
     unidad: 06_formas_lineales
     hecho_geometrico: "Las formas forman otro espacio vectorial del mismo tamaño; fila por columna es un número; al deformar la figura la regla se deforma con ella y sus coeficientes cambian 'al revés' (A^-1). Sin producto interno forma y vector son objetos distintos; con él, la forma se disfraza de vector. En proyectivas, puntos y rectas se intercambian."
     que_se_conserva: "La incidencia punto-recta bajo cualquier transformación; φ(Av) = (φA)(v)."
-    apunte: ["08", "07"]
+    apunte: ["formas-lineales", "proyectivas"]
     requiere: [forma-lineal, producto-interno, homografia]
   - id: curvas-de-nivel
     nombre: "Curvas de nivel de una forma lineal"
@@ -123,7 +123,7 @@ conceptos:
     unidad: 06_formas_lineales
     hecho_geometrico: "Las rectas φ=c, c entero, son las marcas de la regla; dos formas dan una grilla y un vector se ubica por qué par de marcas lo cruza (la 'séptima con la quinta'). Una matriz diagonal estira las grillas de sus autovectores sin romperlas; el gradiente es una forma cuya marca cero es la tangente."
     que_se_conserva: "El número de marca de cada vector al transformar formas con T^-1."
-    apunte: ["08", "11"]
+    apunte: ["formas-lineales", "derivada"]
     requiere: [forma-lineal]
   # ---- 05 subespacios, cuña, determinante
   - id: subespacio-afin
@@ -132,7 +132,7 @@ conceptos:
     unidad: 07a_cuna_determinante
     hecho_geometrico: "Una recta o un plano cualquiera, no necesariamente por el origen (p + S); tres escrituras de la misma recta: paramétrica, implícita (forma lineal = c) y homogénea (terna l)."
     que_se_conserva: "Las afinidades mandan subespacios afines en subespacios afines y conservan paralelismo."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [espacio-vectorial, transformacion-afin]
   - id: subespacio-lineal
     nombre: "Subespacio lineal"
@@ -140,7 +140,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "Rectas y planos por el origen; en homogéneas un rayo de R3 es un punto del plano y un plano por el origen es una recta. Los planos elementales e1∧e2, e1∧e3, e2∧e3 son los subespacios coordenados."
     que_se_conserva: "Cerrado por suma y escala; contiene al cero."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [espacio-vectorial, subespacio-afin]
   - id: producto-vectorial
     nombre: "Producto vectorial (producto cruz)"
@@ -148,7 +148,7 @@ conceptos:
     unidad: 07a_cuna_determinante
     hecho_geometrico: "La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Sólo existe en R3."
     que_se_conserva: "La incidencia (p×q)·p = 0; la antisimetría es la orientación del área."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [producto-interno, coordenadas-homogeneas]
   - id: producto-cuna
     nombre: "Producto cuña (exterior)"
@@ -156,7 +156,7 @@ conceptos:
     unidad: 07a_cuna_determinante
     hecho_geometrico: "u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido sólo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). 'Detector de colinealidad': vale cero cuando los vectores se aplastan."
     que_se_conserva: "Nada; mide cuánto se aplasta. El ortogonal a un subespacio es el que maximiza el volumen."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [producto-vectorial, determinante]
   - id: determinante
     nombre: "Determinante"
@@ -164,7 +164,7 @@ conceptos:
     unidad: 07a_cuna_determinante
     hecho_geometrico: "La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y sólo si los vectores son dependientes."
     que_se_conserva: "El signo dice si se invierte la orientación; el módulo cuánto se agranda."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [producto-vectorial, colinealidad, matriz-ortogonal]
   - id: nucleo
     nombre: "Núcleo (espacio nulo)"
@@ -172,7 +172,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "Las direcciones que la transformación aplasta a un punto; visto por filas, el vector donde todas las reglas marcan cero, ortogonal a todas las filas, que entonces caben en un plano: núcleo no trivial ⇔ det = 0. Construir una TL con un vector dado en el núcleo es lo que hace A − λI."
     que_se_conserva: "Nada en esas direcciones; se pierde dimensión y no hay inversa."
-    apunte: ["08"]
+    apunte: ["subespacios"]
     requiere: [determinante, forma-lineal, subespacio-lineal]
   - id: colinealidad
     nombre: "Colinealidad (tres puntos alineados)"
@@ -180,7 +180,7 @@ conceptos:
     unidad: 07a_cuna_determinante
     hecho_geometrico: "r está en la recta pq ⇔ (p×q)·r = 0 ⇔ det de las tres ternas = 0; completamente simétrico en los tres puntos. Es la condición 'sin tres alineados' que necesita la homografía."
     que_se_conserva: "Las homografías conservan la colinealidad y nada más."
-    apunte: ["08", "07"]
+    apunte: ["subespacios", "proyectivas"]
     requiere: [producto-vectorial, producto-interno, coordenadas-homogeneas]
   # ---- 06 invariantes y autovectores
   - id: subespacio-invariante
@@ -189,7 +189,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "Una recta por el origen que, al transformar, cae sobre sí misma (quizá estirada o invertida); {0} siempre lo es. En homogéneas, una recta invariante de R3 es un punto fijo del plano y un plano invariante una recta fija. En R3 siempre hay al menos una."
     que_se_conserva: "La dirección (la trayectoria más simple que genera la transformación)."
-    apunte: ["08"]
+    apunte: ["autovectores"]
     requiere: [subespacio-lineal, transformacion-lineal, punto-fijo]
   - id: autovector
     nombre: "Autovector"
@@ -197,7 +197,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble)."
     que_se_conserva: "La dirección; sólo cambia la escala."
-    apunte: ["08", "18", "07"]
+    apunte: ["autovectores", "18", "proyectivas"]
     requiere: [nucleo, subespacio-invariante, producto-vectorial]
   - id: autovalor
     nombre: "Autovalor"
@@ -205,7 +205,7 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "Cuánto se estira la dirección fija: 1 queda quieta (eje, punto fijo), −1 se invierte (reflexión), 0 aplasta (núcleo). Complejos conjugados = un giro en un plano, sin vector real. Una rotación de R3 tiene exactamente un autovalor real, 1."
     que_se_conserva: "La escala sobre cada dirección invariante."
-    apunte: ["08", "07"]
+    apunte: ["autovectores", "proyectivas"]
     requiere: [autovector, determinante]
   - id: polinomio-caracteristico
     nombre: "Polinomio característico"
@@ -213,5 +213,5 @@ conceptos:
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "det(A − λI) = 0; es el detector de colinealidad aplicado a las filas corridas de A: para qué λ se vuelven coplanares. Grado impar ⇒ una raíz real; raíces complejas de a pares; raíz doble con cruz nula ⇒ plano de autovectores. Una matriz genérica da raíces feas: el método tiene que correr en planilla o código."
     que_se_conserva: "El conjunto de autovalores no depende de la base (anticipa cambio de base)."
-    apunte: ["08", "07"]
+    apunte: ["autovectores", "proyectivas"]
     requiere: [determinante, nucleo, autovalor]

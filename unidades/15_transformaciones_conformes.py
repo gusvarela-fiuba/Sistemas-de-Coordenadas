@@ -744,10 +744,10 @@ def _(mo):
       similaridad infinitesimal $\iff$ $\sigma_1 = \sigma_2$ $\iff$ $F = 0$, $E = G$ $\iff$ Cauchy-Riemann; la indicatriz de
       Tissot y $\omega_{\max}$; la deducción de la latitud isométrica $q(\varphi)$ y de las tres cilíndricas; el planteo de
       Gauss-Krüger como $w = f(q + i\,\Delta\lambda)$
-    - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=sec:elipsoide): $M$, $N$, la primera forma
+    - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=cap:elipsoide): $M$, $N$, la primera forma
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
     - [apunte, «Transformaciones conformes» (esfera, elipsoide y representación plana; $K = 1/(MN)$, lo que
-      impide la isometría)](../../apunte.pdf#nameddest=cap:10)
+      impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
     - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12), última página: las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
     - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·

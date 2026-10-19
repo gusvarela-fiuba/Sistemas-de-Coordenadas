@@ -486,7 +486,7 @@ def _(mo):
     Acá verificamos; las demostraciones (núcleo no trivial $\Leftrightarrow$ $\det = 0$, el pase de magia $(A - \lambda I)v = 0$,
     cuántas raíces reales, el método de la cruz de filas):
 
-    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores; la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:08)
+    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores; la misma idea en cada dimensión)](../../apunte.pdf#nameddest=cap:autovectores)
     - [ficha de la clase 5](../../clases/05.html) · [ficha de la clase 6](../../clases/06.html) · [unidad anterior: cuña y determinante](../07a_cuna_determinante/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html):

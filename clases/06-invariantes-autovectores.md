@@ -11,7 +11,7 @@ fuentes:
   - fuentes/transcripciones/2026-09-16.md
   - fuentes/transcripciones/2026-09-30.md
 conceptos: [subespacio-invariante, autovector, autovalor, polinomio-caracteristico]
-apunte: ["08", "18", "07"]
+apunte: ["autovectores", "18", "proyectivas"]
 unidad: 07b_nucleo_autovectores   # y 07c_autovalores_3d_puntos_fijos (3D, puntos fijos)
 ---
 

@@ -543,8 +543,8 @@ def _(mo):
 
     Acá verificamos; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
 
-    - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:06)
-    - [apunte, «Euclídeas y similaridades» (la guía de reflexiones y similaridades, y la guía resuelta)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:afines)
+    - [apunte, «Euclídeas y similaridades» (la guía de reflexiones y similaridades, y la guía resuelta)](../../apunte.pdf#nameddest=cap:afines)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
 

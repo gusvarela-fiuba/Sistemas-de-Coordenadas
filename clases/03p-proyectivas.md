@@ -13,7 +13,7 @@ fuentes:
   - entregas/pentagono/Problema_transformaciones_proyectivas.pdf
   - fuentes/campus/profesor/Proyectivas_del_pentagono.xlsx
 conceptos: [plano-proyectivo, punto-impropio, homografia, recta-fija, razon-doble]
-apunte: ["07", "18"]
+apunte: ["proyectivas", "18"]
 unidad: 05_proyectivas
 ---
 

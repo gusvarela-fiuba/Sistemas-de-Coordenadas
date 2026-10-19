@@ -621,7 +621,7 @@ def _(mo):
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
     aplicaciones*, y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
 
-    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:09) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
+    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:svd) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
     - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·

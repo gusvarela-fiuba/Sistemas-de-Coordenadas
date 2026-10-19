@@ -1,0 +1,165 @@
+% Subespacios invariantes: autovalores y autovectores (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{Subespacios invariantes: autovalores y autovectores}\label{cap:autovectores}
+
+\section{La idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Autovalores y autovectores}\label{sec:autovalores}
+
+{\small\vspace{1mm}\linkUnidad{07c_autovalores_3d_puntos_fijos}{Simulación interactiva: Unidad 11 — Autovalores en 3D y puntos fijos proyectivos}\par}
+
+
+\textbf{Dictado.} \(v\neq0\) es \emph{autovector} de \(A\) con \emph{autovalor}
+\(\lambda\) si \(Av=\lambda v\): la transformación lo deja sobre su propia recta. En
+coordenadas homogéneas eso es exactamente ``la transformación deja fijo el punto que \(v\)
+representa''.
+
+\paragraph{El pase de magia.} \(Av=\lambda v\) equivale a \(Av-\lambda Iv=0\), es decir
+\[
+  (A-\lambda I)\,v=0 :
+\]
+\(v\) está en el núcleo de \(A-\lambda I\). Para que ese núcleo no sea trivial,
+\[
+  \boxed{\ \det(A-\lambda I)=0\ }\qquad\text{(polinomio característico)} .
+\]
+Para \(A\) de \(3\times3\) es un polinomio de grado \(3\) en \(\lambda\).
+
+\begin{resultado}[Cuántos autovalores reales]
+\begin{itemize}
+  \item Un polinomio real de grado \(3\) tiene tres raíces, todas reales, o una real y dos
+  complejas conjugadas. Nunca tres complejas: las raíces complejas de un polinomio real
+  vienen de a pares conjugados.
+  \item A cada autovalor real le corresponde un autovector real. A un autovalor complejo no
+  le corresponde ningún vector de \(\R^3\).
+  \item Una matriz de rotación de \(\R^3\) tiene siempre el autovalor \(1\): su autovector es
+  el eje. Los otros dos son \(e^{\pm i\theta}\), con \(\theta\) el ángulo de giro; son reales
+  sólo para \(\theta=0^\circ\) (identidad: \(1,1,1\)) y \(\theta=180^\circ\) (\(1,-1,-1\)),
+  y complejos conjugados en cualquier otro caso.
+\end{itemize}
+\end{resultado}
+
+\begin{idea}[Método del producto cruz para el autovector]
+Encontrado \(\lambda\), las filas de \(A-\lambda I\) son todas ortogonales al autovector.
+Entonces el autovector es el producto vectorial de dos de esas filas:
+\[
+  v=(\text{fila}_i)\times(\text{fila}_j) .
+\]
+Si esas dos filas son paralelas y el producto da cero, se toma otro par. Si \emph{todos} los
+pares dan cero, \(\operatorname{rango}(A-\lambda I)\le1\): el autoespacio tiene dimensión
+\(\ge2\) (multiplicidad \emph{geométrica} \(\ge2\)) y hay al menos todo un plano de
+autovectores (en homogéneas: toda una recta de puntos fijos). La vuelta no vale: una raíz
+doble del polinomio (multiplicidad \emph{algebraica} \(2\)) no garantiza que los pares se
+anulen; ver la matriz 3a de la tabla de testigos más abajo. No hace falta resolver el sistema: es la
+misma operación de ``unir dos rectas en su punto común'' de la sección~\ref{sec:vectorial}.
+\end{idea}
+
+\subsubsection{Ejemplo 1: reflexión respecto del plano \texorpdfstring{$xy$}{xy}}
+
+\(A=\operatorname{diag}(1,1,-1)\) conserva \(x,y\) e invierte \(z\).
+\[
+  \det(A-\lambda I)=(1-\lambda)^2(-1-\lambda)=0
+  \quad\Longrightarrow\quad\lambda=1\ (\text{doble}),\ \lambda=-1 .
+\]
+Para \(\lambda=-1\): \(A+I=\operatorname{diag}(2,2,0)\), y el producto cruz de las dos
+primeras filas es \((2,0,0)\times(0,2,0)=(0,0,4)\): el eje \(z\), como se esperaba, con
+\(A(0,0,4)^T=(0,0,-4)^T\). Para \(\lambda=1\): \(A-I=\operatorname{diag}(0,0,-2)\), y
+cualquier par de filas da producto cruz nulo. Es la raíz doble: todo el plano \(xy\) es de
+autovectores, porque la reflexión lo deja quieto punto a punto.
+
+\subsubsection{Ejemplo 2: eje de una rotación compuesta}
+
+Se compone una rotación de \(90^\circ\) alrededor de \(y\) seguida de una de \(90^\circ\)
+alrededor de \(z\):
+\[
+  R=R_z(90^\circ)\,R_y(90^\circ)=
+  \begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix}
+  \begin{pmatrix}0&0&1\\0&1&0\\-1&0&0\end{pmatrix}
+  =\begin{pmatrix}0&-1&0\\0&0&1\\-1&0&0\end{pmatrix}.
+\]
+Es una rotación, así que \emph{sin calcular el polinomio} se sabe que \(\lambda=1\) es
+autovalor y que su autovector es el eje. Filas de \(R-I\): \((-1,-1,0)\), \((0,-1,1)\),
+\((-1,0,-1)\). Producto cruz de las dos primeras:
+\[
+  (-1,-1,0)\times(0,-1,1)=(-1,\,1,\,1),
+  \qquad
+  R\begin{pmatrix}-1\\1\\1\end{pmatrix}=\begin{pmatrix}-1\\1\\1\end{pmatrix}\ \checkmark
+\]
+El eje es la dirección \((-1,1,1)\). Los otros autovalores son \(-\frac12\pm\frac{\sqrt3}2 i\):
+un giro de \(120^\circ\) alrededor de ese eje. Con ángulos genéricos (por ejemplo
+\(R_z(30^\circ)R_y(50^\circ)\)) la receta es idéntica y se hace en planilla o en NumPy: el
+eje resulta \((-0.2263,\,0.8446,\,0.4853)\), y \(Rv=v\) se verifica multiplicando.
+
+\begin{atencion}[Sobre los ``números lindos'']
+Los ejercicios de álgebra están diseñados para que den enteros. Una matriz genérica, como
+la de una rotación de \(37^\circ\) o la homografía de un pentágono regular, da raíces
+irracionales y autovalores con muchos decimales. Eso no es un error: es lo normal. Por eso
+el método debe funcionar en planilla o en código, no sólo a mano.
+\end{atencion}
+
+\section{En profundidad}
+
+% --- de 06-afines-homogeneas.tex (En profundidad) ---
+\subsection{Autovalores y geometría de una transformación}\label{sec:autovalores-geom}
+
+\begin{definicion}[Dirección propia]\label{def:06-direccion-propia}
+Una dirección \(d\neq0\) es \emph{propia} para la parte lineal \(A\) de una afinidad si
+\(Ad=\lambda d\) para algún número \(\lambda\), el \emph{autovalor}. Es decir, \(d\) es un
+autovector de \(A\). Los autovalores son las raíces de \(\det(A-\lambda I)=0\).
+\end{definicion}
+
+Sobre una dirección propia la afinidad sólo estira, contrae o invierte; no gira:
+\begin{itemize}
+  \item \(\lambda=1\): la dirección no cambia;
+  \item \(\lambda=-1\): la dirección invierte su sentido;
+  \item \(|\lambda|>1\): expansión; \(0<|\lambda|<1\): contracción;
+  \item autovalores complejos: no hay direcciones propias reales, la parte lineal gira.
+\end{itemize}
+
+\begin{ejemplo}[Direcciones propias de la afinidad axial]\label{ej:06-autovalores-axial}
+Para la afinidad axial del ejemplo~\ref{ej:06-axial}, \(A=\begin{pmatrix}1&1\\0&2\end{pmatrix}\)
+y \(\det(A-\lambda I)=(1-\lambda)(2-\lambda)\). Los autovalores son \(1\) y \(2\):
+\[
+  A\begin{pmatrix}1\\0\end{pmatrix}=1\cdot\begin{pmatrix}1\\0\end{pmatrix},
+  \qquad
+  A\begin{pmatrix}1\\1\end{pmatrix}=\begin{pmatrix}2\\2\end{pmatrix}=2\begin{pmatrix}1\\1\end{pmatrix}.
+\]
+Las dos direcciones propias son la del eje (autovalor \(1\): el eje queda fijo) y la de
+desplazamiento \(d=(1,1)\) (autovalor \(2\): la razón \(k\)). Los datos geométricos de la
+construcción son exactamente los datos espectrales de la matriz. En cambio, en el
+ejemplo~\ref{ej:06-rot-escala} los autovalores de \(A\) son \(0{,}354\pm0{,}354\,i\): no hay
+direcciones propias reales porque la parte lineal gira \(45^\circ\).
+\end{ejemplo}
+
+En una rotación de \(\R^3\) el eje es una dirección propia de autovalor \(1\)
+(capítulo~\ref{cap:rotaciones}); el mismo razonamiento, aplicado a la matriz homogénea, localiza los
+puntos fijos de una afinidad.
+
+\begin{proposicion}[Punto fijo como autovector de autovalor 1]\label{prop:06-fijo-autovector}
+Sea \(M=\begin{pmatrix}A&b\\0\ \ 0&1\end{pmatrix}\) la matriz homogénea de una afinidad. El
+punto \(p\) es fijo si y sólo si \((p,1)^T\) es autovector de \(M\) con autovalor \(1\). Un
+autovector de autovalor \(1\) con última coordenada \(0\) no es un punto fijo, sino una
+dirección propia de \(A\) con autovalor \(1\).
+\end{proposicion}
+
+\begin{demostracion}
+Por bloques, \(M(p,1)^T=(Ap+b,\ 1)^T\). Esto es igual a \((p,1)^T\) si y sólo si \(Ap+b=p\),
+la definición de punto fijo. Si en cambio \(M(d,0)^T=(d,0)^T\), entonces \(Ad=d\). Un
+autovector \((X,Y,W)^T\) con \(W\neq0\) se normaliza dividiendo por \(W\) y da el punto fijo
+\((X/W,\ Y/W)\).
+\end{demostracion}
+
+En el ejemplo~\ref{ej:06-rot-escala}, los autovalores de \(M\) son \(0{,}354\pm0{,}354\,i\)
+y \(1\), y el autovector de \(1\) normalizado es \((0{,}293,\ 0{,}293,\ 1)^T\): el punto fijo
+\(p_\ast\).
+
+\begin{idea}[Preguntas para leer una matriz afín]
+\begin{itemize}
+  \item ¿Es invertible? Revisar \(\det A\).
+  \item ¿Conserva la orientación? Revisar el signo de \(\det A\).
+  \item ¿Cómo cambian las áreas? El factor es \(|\det A|\).
+  \item ¿Tiene puntos fijos? Resolver \((I-A)p=b\), o buscar autovectores de \(M\) de
+  autovalor \(1\) con última coordenada no nula.
+  \item ¿Tiene direcciones invariantes? Buscar autovectores reales de \(A\).
+\end{itemize}
+\end{idea}

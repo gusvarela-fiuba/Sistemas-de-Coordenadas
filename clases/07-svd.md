@@ -11,7 +11,7 @@ fuentes:
   - datos/dem_copernicus/README.md
   - fuentes/campus/profesor/LaSVD.wxmx
 conceptos: [svd, valores-singulares, base-privilegiada]
-apunte: ["02", "09"]
+apunte: ["02", "svd"]
 unidad: 09_cambio_de_base_svd
 ---
 

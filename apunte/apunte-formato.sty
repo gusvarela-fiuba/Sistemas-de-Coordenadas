@@ -154,4 +154,45 @@
 \newenvironment{demostracion}{\begin{proof}}{\end{proof}}
 \newcommand{\solucion}[1]{\par\smallskip\noindent{\small\textit{Solución.} #1}}
 
+%% --- Numeración de capítulos: complementos y capítulo preliminar ---
+%% \capituloComplemento[N]{Título}: capítulo rotulado «Complemento CN» (encabezado, índice y
+%% \ref dan «C1», «C2», …; definiciones y ejemplos «C1.1», «C1.2», …). Sin [N] toma el
+%% siguiente número de complemento. El capítulo de clase que sigue conserva su número: al
+%% llamar a \chapter (o \appendix) se restaura la numeración arábiga y el contador guardado.
+%% \capituloPreliminar{R} … \finCapituloPreliminar: el \chapter que queda entre ambos se
+%% numera con la letra dada y no consume número de capítulo de clase.
+\newcounter{complemento}
+\newcounter{apunteCapGuardado}
+\newif\ifapunteNumEspecial
+\let\apunteChapterOriginal\chapter
+\let\apunteAppendixOriginal\appendix
+\let\apunteChapternameGuardado\relax
+\newcommand{\apunteRestaurarNumeracion}{%
+  \ifapunteNumEspecial
+    \global\apunteNumEspecialfalse
+    \setcounter{chapter}{\value{apunteCapGuardado}}%
+    \gdef\thechapter{\arabic{chapter}}%
+    \gdef\theHchapter{\arabic{chapter}}%
+    \global\let\chaptername\apunteChapternameGuardado
+  \fi}
+\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}
+\renewcommand{\appendix}{\apunteRestaurarNumeracion\apunteAppendixOriginal}
+\newcommand{\apunteNumeracionEspecial}[1]{% #1 = rótulo de \thechapter
+  \apunteRestaurarNumeracion
+  \setcounter{apunteCapGuardado}{\value{chapter}}%
+  \global\let\apunteChapternameGuardado\chaptername
+  \gdef\thechapter{#1}%
+  \gdef\theHchapter{#1}%
+  \global\apunteNumEspecialtrue}
+\newcommand{\capituloComplemento}[2][]{%
+  \if\relax\detokenize{#1}\relax\stepcounter{complemento}\else\setcounter{complemento}{#1}\fi
+  \apunteNumeracionEspecial{C\arabic{complemento}}%
+  \gdef\chaptername{Complemento}%
+  \let\apunteACL\addcontentsline
+  \def\addcontentsline##1##2##3{\let\addcontentsline\apunteACL}% el \chapter no escribe su línea…
+  \apunteChapterOriginal{#2}%
+  \addcontentsline{toc}{chapter}{Complemento \thechapter: #2}}% …la escribimos con el rótulo
+\newcommand{\capituloPreliminar}[1]{\apunteNumeracionEspecial{#1}\let\chapter\apunteChapterOriginal}
+\newcommand{\finCapituloPreliminar}{\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}\apunteRestaurarNumeracion}
+
 \endinput

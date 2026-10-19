@@ -27,57 +27,57 @@ cómo los miramos acá y en qué capítulo vuelven.
 Vector y punto: una flecha o una terna de números &
 El punto no es su columna de números: el terreno es un espacio afín, hay mojones y
 desplazamientos entre mojones; la columna aparece recién cuando elegimos origen y ejes. &
-cap.~\ref{cap:04}, cap.~\ref{cap:06}\\
+cap.~\ref{cap:rotaciones}, cap.~\ref{cap:afines}\\
 Producto escalar \(u\cdot v\) &
 Dos cosas pegadas: fila por columna es una forma lineal, una regla de medir que lee un
 punto sin necesidad de ángulos (\(\ell^Tp=0\) es incidencia: el punto está sobre la
 recta); largos y ángulos son otra cosa, la métrica. &
-cap.~\ref{cap:05}, cap.~\ref{cap:08}\\
+cap.~\ref{cap:afines}, cap.~\ref{cap:formas-lineales}\\
 Producto vectorial; determinante \(2\times2\) y \(3\times3\) &
 Área o volumen con signo; el producto cuña es el ``detector de colinealidad'' (resumen
 2025, clase 7): vale cero exactamente cuando los vectores están alineados. &
-cap.~\ref{cap:08}\\
+cap.~\ref{cap:subespacios}\\
 Recta y plano: \(ax+by=c\), \(ax+by+cz=d\) &
 La implícita es una forma lineal \((a\ \ b)\) leída en el nivel \(c\): una máquina de medir
 cuyas curvas de nivel son las rectas paralelas del mazo. La paramétrica \(P+t\,v\) es otra
 cosa: la trayectoria de una traslación. &
-cap.~\ref{cap:07}, cap.~\ref{cap:08}\\
+cap.~\ref{cap:proyectivas}, cap.~\ref{cap:formas-lineales}\\
 Sistema lineal y Gauss &
 Cada ecuación es una recta o un plano (el producto de matriz por vector ``parecía estar
 formado por ecuaciones de rectas'', resumen 2025, clase 4); resolver \(Ax=b\) es encontrar
 la preimagen de \(b\) bajo la transformación \(A\). &
-cap.~\ref{cap:08}, cap.~\ref{cap:09}\\
+cap.~\ref{cap:subespacios}, cap.~\ref{cap:inversas}\\
 Matriz y producto de matrices &
 Una matriz es una transformación, no una tabla: ``las matrices y las transformaciones
 lineales tienen una correspondencia 1 a 1'', y ``las Transformaciones se identifican con
 las trayectorias que generan (por aplicación repetida)'' (resumen 2025, clase 1). El
 producto es la composición. &
-cap.~\ref{cap:04}, cap.~\ref{cap:08}\\
+cap.~\ref{cap:rotaciones}, cap.~\ref{cap:formas-lineales}\\
 Inversa \(A^{-1}\) &
 Deshacer el movimiento. La inversa se dice respecto de una operación: le llamamos a algo
 ``inversa con respecto a \ldots'' (resumen 2025, clase 10). Es el opuesto para la suma, el
 recíproco para el producto, la transformación que devuelve cada punto a su lugar para la
 composición. &
-cap.~\ref{cap:08}, cap.~\ref{cap:09}\\
+cap.~\ref{cap:subespacios}, cap.~\ref{cap:inversas}\\
 Cambio de base &
 La misma transformación vista con otra regla: cambiar la base de su matriz es ``componer
 esta transformación con las transformaciones de cambio de base que correspondan'' (resumen
 2025, clase 8), \(B^{-1}AB\). &
-cap.~\ref{cap:08}\\
+cap.~\ref{cap:cambio-base}\\
 Transformación lineal &
 Un movimiento del espacio que deja quieto el origen y respeta sumas y escalas; el molde
 para afinidades, proyectivas y, en lo chico, para cualquier transformación derivable. &
-cap.~\ref{cap:06}, cap.~\ref{cap:08}\\
+cap.~\ref{cap:afines}, cap.~\ref{cap:formas-lineales}\\
 Autovalores y autovectores &
 Dirección que cae sobre sí misma; en coordenadas homogéneas, punto fijo. Si la matriz tiene
 tantos ``subespacios unidimensionales invariantes'' como la dimensión (resumen 2025,
 clase 7), mirada desde ellos es diagonal. &
-cap.~\ref{cap:07}, cap.~\ref{cap:08}\\
+cap.~\ref{cap:proyectivas}, cap.~\ref{cap:autovectores}\\
 Norma y distancia &
 La pone el producto interno, no el espacio: ``no existe una base vectorial privilegiada de
 \(\R^n\)'' (resumen 2025, clase 6) salvo la que la métrica elige; sobre una superficie la
 métrica cambia de punto a punto. &
-cap.~\ref{cap:05}, cap.~\ref{cap:11}\\
+cap.~\ref{cap:afines}, cap.~\ref{cap:derivada}\\
 \bottomrule
 \end{tabularx}
 }
@@ -469,5 +469,5 @@ sección~\ref{sec:metrica}); por eso la perpendicular dibujada en \((\varphi,\la
 es la del terreno, y el gradiente levantado con esa métrica, \(G^{-1}\nabla f^{T}\), sí lo
 es. Y curvarse, la hessiana o la segunda forma fundamental, es una forma cuadrática: un
 número por cada dirección, cuya diagonalización da las direcciones principales
-(sección~\ref{sec:curvatura}).
+(sección~\ref{cap:curvatura}).
 \end{resultado}

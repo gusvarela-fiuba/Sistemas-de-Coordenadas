@@ -10,7 +10,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - datos/dem_copernicus/README.md
 conceptos: [regresion-simple, interseccion-de-circulos, procrustes, regresion-total]
-apunte: ["09"]
+apunte: ["cuatro-problemas"]
 unidad: 11_cuatro_problemas
 ---
 

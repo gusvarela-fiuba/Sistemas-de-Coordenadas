@@ -1,6 +1,6 @@
 ---
 clase: "02"
-titulo: Más rotaciones, composición y líneas coordenadas
+titulo: Traslaciones y movimientos rígidos
 fecha_2025: null
 fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1 (2025-08-21); el .wxmx "Maxima 2025.2.2" está fechado 25-08-2025
 fechas_2026: []   # el 2026-08-26 no hubo clase; esta clase de 2025 no se dictó en 2C2026
@@ -12,11 +12,11 @@ fuentes:
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
   - apunte/01_Ejercicios_original.pdf
 conceptos: [composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia]
-apunte: ["04", "15", "16", "11"]
+apunte: ["traslaciones", "15", "16", "esfera"]
 unidad: 01c_rotaciones_3d
 ---
 
-# Clase 2 — Más rotaciones, composición y líneas coordenadas
+# Clase 2 — Traslaciones y movimientos rígidos
 
 > **Estado:** **no dictada en 2C2026.** El miércoles 2026-08-26 no hubo clase (dato de Gustavo, 2026-10-17). Iba a ser traslaciones; el profesor mandó ese contenido por el grupo de Google Chat como la guía de reflexiones y seis teoremas `apunte/01_Ejercicios_original.pdf`, con ejercicios para resolver en clase, y se trabajó el 09-02 y el 09-09 (ficha 03). El hilo de abajo es el de la cursada 2025, **reconstruido sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. Sirve como contexto de la lección 01c y del apunte, no como registro de una clase dada.
 

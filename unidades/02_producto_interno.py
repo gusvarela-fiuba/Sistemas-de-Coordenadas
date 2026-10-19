@@ -438,8 +438,8 @@ def _(mo):
 
     En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
-    - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:04)
-    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:08)
+    - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:rotaciones)
+    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva

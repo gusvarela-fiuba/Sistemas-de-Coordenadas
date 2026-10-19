@@ -1,0 +1,391 @@
+% Complemento C3: El terreno como matriz (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\capituloComplemento[3]{El terreno como matriz}\label{cap:dem}
+
+\section{La idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\section{En profundidad}
+
+\subsection{La SVD de un terreno real: del modelo digital de elevación a las curvas de nivel}\label{sec:svd-dem}
+Un modelo digital de elevación es una
+matriz: cada celda es una altura. El recorte de \(512\times512\) celdas del Copernicus DEM
+GLO-30 sobre la Precordillera de Mendoza (\file{datos/dem\_copernicus/}, latitud
+\(-32{,}284\) a \(-32{,}142\), longitud \(-69{,}000\) a \(-68{,}858\), una celda
+\(\approx30\) m) tiene alturas entre \(1014\) y \(2989\) m, con desvío \(406\) m. Como
+matriz tiene \(512\) valores singulares, ordenados de mayor a menor, y quedarse con los
+\(k\) primeros términos \(\sigma_iu_iv_i^T\) es la mejor aproximación de rango \(k\): el
+mismo problema 4 de la sección~\ref{cap:cuatro-problemas}, en grande. Los valores salieron
+de \file{svd\_dem\_proto.py}, corrido fuera del navegador (la SVD completa tarda
+\(0{,}06\) s en un M1):
+
+{\small
+\begin{center}
+\begin{tabular}{l rrrrrrr}
+\toprule
+\(k\) (términos) & 1 & 2 & 5 & 10 & 20 & 50 & 100\\
+\midrule
+error RMS (m) & 103 & 66 & 31 & 17 & 9{,}8 & 4{,}4 & 2{,}0\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Hecho geométrico: una matriz constante es de rango \(1\), y la altura media del recorte
+(unos \(1600\) m) es la ``meseta'' sobre la que está apoyado el relieve. Por eso
+\(\sigma_1\) domina y la energía acumulada \(\sum_{i\le k}\sigma_i^2/\sum\sigma_i^2\) ya
+da \(99{,}6\)\,\% con \(k=1\): esa cifra engaña, mide la meseta y no el relieve. El RMS
+del error, o restar la media antes de descomponer (lo mismo que centrar la nube de puntos
+en el problema 4), muestra lo que importa: el relieve ``aparece'' alrededor de \(k=20\)
+(error de \(9{,}8\) m sobre un terreno de casi \(2000\) m de desnivel) y con \(100\)
+términos de \(512\) el error es de \(2\) m. La unidad \texttt{09\_cambio\_de\_base\_svd}
+(apéndice~\ref{ap:notebooks}) carga ese mismo recorte y deja mover \(k\) en vivo.
+
+% --- 09-svd-nivel3 (redactado 2026-10-18) ---
+
+\begin{atencion}[Anticipado]
+\textbf{Desarrollo} del apunte, no contenido dictado. La cátedra no trabajó modelos digitales
+de elevación ni curvas de nivel con la SVD; lo que sigue extiende el remate anterior con el
+mismo recorte del Copernicus DEM GLO-30 que usa la unidad \texttt{09\_cambio\_de\_base\_svd}.
+Todos los números salen de \texttt{np.linalg.svd} sobre la matriz de \(512\times512\)
+(\file{apunte/figuras/svd/gen\_dem\_curvas\_nivel.py}). Pendiente de validar.
+\end{atencion}
+
+\subsubsection{El modelo digital de elevación como matriz y como función}
+
+Un modelo digital de elevación (DEM) es una tabla de alturas tomadas sobre una grilla
+regular. En el recorte de la Precordillera, la fila \(i\) corresponde a una latitud (de norte
+a sur, desde \(-32{,}142^\circ\) hasta \(-32{,}284^\circ\)), la columna \(j\) a una longitud
+(de oeste a este, desde \(-69{,}000^\circ\) hasta \(-68{,}858^\circ\)) y la entrada
+\(z_{ij}\) es la altura en metros. El paso de la grilla es de un segundo de arco en las dos
+direcciones; sobre el elipsoide WGS84, a la latitud media del recorte, un segundo de latitud
+mide \(30{,}80\) m y un segundo de longitud \(26{,}19\) m. El recorte cubre
+\(15{,}8\) km de norte a sur por \(13{,}4\) km de este a oeste, con alturas entre
+\(1014\) y \(2989\) m, media \(1626\) m y desvío \(406\) m.
+
+La misma tabla admite dos lecturas, y las dos nos sirven.
+
+\begin{itemize}
+  \item \textbf{Como matriz} \(Z\in\R^{512\times512}\). Cada fila es un perfil
+  oeste--este del terreno a latitud fija; cada columna, un perfil norte--sur a longitud fija.
+  Sumar matrices es sumar relieves; multiplicar por un número es exagerar o aplanar el
+  relieve.
+  \item \textbf{Como muestra de una función} \(z=f(x,y)\) definida en todo el rectángulo,
+  de la que sólo conocemos los valores en los nodos: \(z_{ij}=f(x_j,y_i)\). La grilla es
+  la regla con que leemos el terreno, en el sentido de la
+  sección~\ref{sec:puntos-formas-grillas}: los números \((i,j)\) no son metros sino marcas
+  de dos mazos de rectas, uno de meridianos y otro de paralelos.
+\end{itemize}
+
+La primera lectura es la que permite descomponer; la segunda, la que permite hablar de
+gradiente, plano tangente y curvas de nivel. Lo que sigue va y viene entre las dos.
+
+\subsubsection{La SVD del terreno: una suma de relieves separables}\label{sec:svd-dem-separables}
+
+Como cualquier matriz, \(Z\) se escribe
+\[
+  Z=U\Sigma V^T=\sum_{i=1}^{512}\sigma_i\,u_i\,v_i^T ,
+  \qquad \sigma_1\ge\sigma_2\ge\dots\ge\sigma_{512}\ge0 .
+\]
+Cada término \(\sigma_iu_iv_i^T\) es una matriz de rango uno, y una matriz de rango uno
+tiene una forma muy particular: su entrada \((r,c)\) es \(\sigma_i\,(u_i)_r\,(v_i)_c\), el
+producto de un número que depende sólo de la fila por otro que depende sólo de la columna.
+
+\paragraph{Hecho geométrico: el relieve separable.} Un término de rango uno es un relieve
+que se obtiene tomando un perfil norte--sur \(u_i\) y un perfil oeste--este \(v_i\) y
+multiplicándolos punto a punto. Todos sus perfiles oeste--este tienen la misma forma
+\(v_i\), escalada por el valor de \(u_i\) en esa latitud; todos sus perfiles norte--sur tienen
+la forma \(u_i\). Escalera: en \(\R\), un número es un relieve de una sola celda; en
+\(\R^2\), una matriz de rango uno es un terreno ``tejido'' con un solo hilo en cada
+dirección; la SVD dice que cualquier terreno es una suma de esos tejidos, ordenados por
+importancia. Los vectores \(u_i\) y \(v_i\) son unitarios y adimensionales, de modo que
+\(\sigma_i\) lleva las unidades de la altura: es la ``amplitud'' del tejido \(i\).
+
+Los cinco primeros valores singulares del recorte son
+\[
+  \sigma_1=856\,621\ \text{m},\quad
+  \sigma_2=40\,405\ \text{m},\quad
+  \sigma_3=22\,048\ \text{m},\quad
+  \sigma_4=18\,308\ \text{m},\quad
+  \sigma_5=8\,784\ \text{m},
+\]
+y siguen bajando: \(\sigma_{20}=1467\) m, \(\sigma_{50}=453\) m, \(\sigma_{100}=170\) m. El
+primero es más de veinte veces el segundo. La razón está en la meseta del remate: si \(Z\) fuera
+constante e igual a la media \(\bar z\), sería \(\bar z\) por la matriz de unos, de rango uno,
+con \(\sigma_1=\bar z\cdot512\) y \(u_1=v_1=\tfrac1{\sqrt{512}}(1,\dots,1)\). En el
+recorte real \(\sigma_1/(\bar z\cdot512)=1{,}029\), y las entradas de \(u_1\) van de
+\(0{,}0406\) a \(0{,}0461\), alrededor de \(1/\sqrt{512}=0{,}0442\): el perfil norte--sur del
+primer término es casi plano. Las de \(v_1\) van de \(0{,}0302\) a \(0{,}0678\): el perfil
+oeste--este baja a menos de la mitad, como el terreno, cuya altura media por columna pasa de
+\(2563\) m en el borde oeste a \(1141\) m en el borde este. El primer término es entonces una
+meseta inclinada hacia el este, con alturas entre \(1048\) y \(2677\) m.
+
+\paragraph{Cuánto explica cada término.} Truncar la suma en \(k\) términos da
+\(Z_k=\sum_{i\le k}\sigma_iu_iv_i^T\), la mejor aproximación de rango \(k\) de \(Z\): ninguna
+otra matriz de rango \(k\) queda más cerca en la norma de Frobenius, la raíz de la suma de los
+cuadrados de las entradas (es el problema 4 de la sección~\ref{cap:cuatro-problemas}). Como
+las columnas de \(U\) y de \(V\) son ortonormales, los términos son perpendiculares entre sí
+como matrices, y Pitágoras da
+\[
+  \|Z\|_F^2=\sum_{i}\sigma_i^2,\qquad
+  \|Z-Z_k\|_F^2=\sum_{i>k}\sigma_i^2,\qquad
+  \mathrm{RMS}_k=\sqrt{\frac{1}{512^2}\sum_{i>k}\sigma_i^2}\ .
+\]
+El error medio cuadrático en metros se lee directamente de los valores singulares que
+descartamos, sin reconstruir nada. Comprobación con una matriz de juguete:
+\(Z=\begin{pmatrix}12&11\\11&12\end{pmatrix}\) m, simétrica, con autovalores \(23\) y \(1\)
+y autovectores \((1,1)\) y \((1,-1)\); sus valores singulares son \(23\) y \(1\), y
+\(Z_1=23\cdot\tfrac12\begin{pmatrix}1&1\\1&1\end{pmatrix}\) es la meseta de \(11{,}5\) m. El
+error \(Z-Z_1\) vale \(\pm0{,}5\) m en las cuatro celdas, su RMS es \(0{,}5\) m, y la fórmula
+da \(\sqrt{1^2/4}=0{,}5\) m.
+
+Para el DEM, con \(\|Z\|_F=858\,240\) m:
+
+{\small
+\begin{center}
+\begin{tabular}{l rrrr}
+\toprule
+\(k\) & 1 & 5 & 10 & 20\\
+\midrule
+energía \(\sum_{i\le k}\sigma_i^2/\sum_i\sigma_i^2\) & \(99{,}62\)\,\% & \(99{,}967\)\,\% & \(99{,}990\)\,\% & \(99{,}997\)\,\%\\
+error relativo \(\|Z-Z_k\|_F/\|Z\|_F\) & \(6{,}14\)\,\% & \(1{,}82\)\,\% & \(1{,}01\)\,\% & \(0{,}59\)\,\%\\
+error RMS (m) & \(102{,}9\) & \(30{,}6\) & \(16{,}9\) & \(9{,}8\)\\
+error máximo en una celda (m) & \(641\) & \(236\) & \(126\) & \(75\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Los RMS coinciden con los de la tabla del remate y con los que imprime la unidad
+\texttt{09} con el repositorio clonado; en el navegador la unidad usa la submuestra de
+\(128\times128\) (una celda de cada cuatro) y da \(103{,}5\), \(30{,}8\), \(17{,}0\) y
+\(9{,}8\) m para los mismos \(k\). La primera fila muestra otra vez que la energía engaña: con
+un solo término ya pasa del \(99{,}6\)\,\%, y sin embargo ese término se equivoca en \(103\) m
+de RMS y en \(641\) m en la peor celda. Restando la media antes de descomponer, el primer
+término deja de pagar la meseta y el RMS de \(k=1\) baja a \(85{,}4\) m; desde \(k\approx20\)
+las dos versiones dan lo mismo. Para dibujar curvas de nivel la fila que importa es la del
+RMS, porque se mide en las mismas unidades que la equidistancia.
+
+\subsubsection{Curvas de nivel en una grilla}\label{sec:svd-dem-curvas}
+
+\paragraph{Definición.} La curva de nivel \(c\) de \(z=f(x,y)\) es el conjunto de los puntos
+del plano donde \(f(x,y)=c\): la huella, proyectada sobre el plano horizontal, del corte del
+terreno con el plano \(z=c\). En un plano topográfico se dibujan las curvas de una familia
+equiespaciada, \(c=c_0+n\,e\), donde \(e\) es la \emph{equidistancia}; cada quinta curva es
+maestra y lleva su cota rotulada.
+
+\paragraph{Hecho geométrico: la curva de nivel es la recta de nivel cero del plano
+tangente.} Cerca de un punto \(p\), el terreno se parece a su plano tangente,
+\(f(p+h)\approx f(p)+df_p(h)\), donde \(df_p\) es la forma lineal que toma un desplazamiento
+horizontal \(h\) y devuelve cuánto sube el terreno. Sus rectas de nivel son un mazo de
+paralelas equiespaciadas, una regla graduada tirada sobre el plano
+(sección~\ref{sec:puntos-formas-grillas}). Moverse a lo largo de la curva de nivel es moverse
+sin subir ni bajar, es decir, en una dirección \(h\) con \(df_p(h)=0\): la tangente a la curva
+de nivel es la recta de nivel cero de la forma \(df_p\), el núcleo de esa forma. Esta
+afirmación no usa ninguna métrica. La que sí la usa es la otra, ``el gradiente es perpendicular
+a la curva de nivel'': para hablar de la dirección de máxima pendiente hay que convertir la
+forma en un vector con el producto interno, y en la grilla del DEM ese producto interno no es
+el de los índices (secciones~\ref{sec:puntos-formas-grillas} y~\ref{cap:curvatura}). La
+escalera: en \(\R\), la ``curva'' de nivel de \(z=f(x)\) es un punto aislado donde
+\(f(x)=c\); en \(\R^2\), una curva; en \(\R^3\), las superficies de nivel de una función de
+tres variables, como las superficies de igual temperatura o de igual potencial.
+
+\paragraph{Una celda a mano.} En la grilla sólo tenemos alturas en los nodos. Dentro de cada
+celda, entre cuatro nodos vecinos, completamos \(f\) de la manera más simple que respete los
+cuatro valores: lineal a lo largo de cada lado de la celda. Una curva de nivel cruza un lado
+exactamente cuando sus dos extremos quedan uno por encima y otro por debajo de \(c\), y el
+punto de cruce se obtiene por interpolación lineal, como una regla de tres. Tomemos una celda
+con coordenadas locales \((s,t)\in[0,1]^2\) (\(s\) hacia el este, \(t\) hacia el norte, en
+unidades de celda) y alturas
+\[
+  f(0,0)=1496,\quad f(1,0)=1504,\quad f(1,1)=1508,\quad f(0,1)=1498\ \text{m},
+\]
+y busquemos la curva de \(1500\) m. El lado sur va de \(1496\) a \(1504\): lo cruza en
+\(s=\frac{1500-1496}{1504-1496}=0{,}5\). El lado norte va de \(1498\) a \(1508\): lo cruza en
+\(s=\frac{1500-1498}{1508-1498}=0{,}2\). Los lados oeste (\(1496\), \(1498\)) y este
+(\(1504\), \(1508\)) no tienen cambio de signo. El tramo de curva dentro de la celda es el
+segmento de \((0{,}5;\ 0)\) a \((0{,}2;\ 1)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=2.4]
+  \fill[teallight!40] (0,0)--(0.5,0)--(0.2,1)--(0,1)--cycle;
+  \draw[mainline] (0,0) rectangle (1,1);
+  \draw[rust,line width=1.2pt] (0.5,0)--(0.2,1);
+  \fill (0,0) circle (0.7pt) node[below left,font=\small] {\(1496\)};
+  \fill (1,0) circle (0.7pt) node[below right,font=\small] {\(1504\)};
+  \fill (1,1) circle (0.7pt) node[above right,font=\small] {\(1508\)};
+  \fill (0,1) circle (0.7pt) node[above left,font=\small] {\(1498\)};
+  \node[font=\small,text=rust] at (0.62,0.5) {\(1500\)};
+  \node[font=\small,text=muted] at (0.12,0.5) {\(-\)};
+  \node[font=\small,text=muted] at (0.85,0.5) {\(+\)};
+  \node[font=\footnotesize,below] at (0.5,-0.02) {\(s=0{,}5\)};
+  \node[font=\footnotesize,above] at (0.2,1.02) {\(s=0{,}2\)};
+\end{tikzpicture}
+\end{center}
+
+Con cuatro nodos y dos estados para cada uno (por encima o por debajo de \(c\)) hay
+\(2^4=16\) configuraciones, que se reducen a cuatro casos. Si los cuatro nodos están del mismo
+lado, la curva no entra en la celda. Si uno solo difiere, la curva corta la esquina de ese
+nodo con un segmento entre los dos lados que llegan a él. Si dos nodos vecinos están de un
+lado y los otros dos del otro, como en la celda de recién, un segmento atraviesa la celda.
+Y si los nodos de una diagonal están por encima y los de la otra por debajo, hay cuatro
+cruces y dos maneras de unirlos de a pares; el caso se decide con el valor del centro de la
+celda, el promedio de los cuatro nodos, que dice si las dos esquinas altas están conectadas
+por un lomo o separadas por un collado. Recorrer la grilla celda por celda aplicando estos
+cuatro casos y empalmar los segmentos que comparten un punto de cruce es, en lo esencial, lo que
+hace una rutina de curvas de nivel como \texttt{matplotlib.pyplot.contour}.
+
+\paragraph{La misma celda, leída con el gradiente.} La función que vale lo que vale en los
+cuatro nodos y es lineal a lo largo de cada recta paralela a los lados (la interpolación
+bilineal) es
+\(f(s,t)=1496+8s+2t+2st\) (se verifica en los cuatro vértices). En el centro de la celda,
+\(\partial f/\partial s=8+2t=9\) y \(\partial f/\partial t=2+2s=3\) metros por celda: la
+forma lineal \(df=(9\ \ 3)\), cuyo núcleo es la dirección \((-1,3)\). El segmento que
+trazamos tiene dirección \((0{,}2-0{,}5;\ 1-0)=(-0{,}3;\ 1)\), proporcional a
+\((-1;\ 3{,}33)\): casi la recta de nivel cero del plano tangente. No coinciden del todo
+porque el término \(2st\) curva la curva de nivel dentro de la celda (es un arco de hipérbola
+y el segmento es su cuerda); en el centro, la curva verdadera pasa por \(t=0{,}444\) cuando
+\(s=0{,}35\) y el segmento por \(t=0{,}5\), una diferencia de \(0{,}06\) celdas, menos de
+\(2\) m sobre el terreno.
+
+Ahora la métrica. Pasada a metros, con \(26{,}19\) m por celda hacia el este y \(30{,}80\) m
+hacia el norte, la forma es \(df=(9/26{,}19\ \ \ 3/30{,}80)=(0{,}344\ \ 0{,}097)\), sin
+unidades (metros de subida por metro de avance), y la tangente a la curva de nivel, que es
+la misma dirección física, se escribe \((-26{,}19;\ 92{,}40)\) m; el producto da \(-9+9=0\), como
+debe ser, porque el núcleo de una forma no depende de cómo graduemos los ejes. La dirección de
+máxima pendiente, en cambio, es \((0{,}344;\ 0{,}097)\) en metros, que forma con el este un
+ángulo de \(15{,}8^\circ\); el ``perpendicular'' calculado con los índices, \((9,3)\) en celdas,
+corresponde en metros a \((235{,}7;\ 92{,}4)\), a \(21{,}4^\circ\) del este. Los
+\(5{,}6^\circ\) de diferencia son la métrica de la grilla geográfica que se olvida.
+
+\subsubsection{Curvas de nivel sobre \texorpdfstring{$Z_k$}{Zk}: filtrar el relieve con la SVD}\label{sec:svd-dem-filtro}
+
+La rutina de curvas de nivel acepta cualquier matriz de alturas. Si en lugar de \(Z\) le damos
+\(Z_k\), dibuja las curvas de un terreno simplificado que conserva los \(k\) tejidos de mayor
+amplitud. La figura~\ref{fig:svd-dem-curvas} muestra el resultado con la misma equidistancia
+de \(50\) m y maestras cada \(250\) m en los cuatro paneles.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figuras/svd/dem_curvas_nivel.png}
+\caption{Curvas de nivel del recorte de la Precordillera de Mendoza (Copernicus DEM GLO-30,
+\(512\times512\) celdas de \(1''\)), equidistancia \(50\) m, maestras cada \(250\) m, trazadas
+sobre el DEM original y sobre sus aproximaciones de rango \(2\), \(5\) y \(20\). El fondo gris
+es la altura (más oscuro, más alto). Generada con
+\texttt{apunte/figuras/svd/gen\_dem\_curvas\_nivel.py}.}
+\label{fig:svd-dem-curvas}
+\end{figure}
+
+\paragraph{Lo que se ve.} Con \(k=2\) quedan las formas grandes: el cordón alto del oeste, el
+descenso hacia el este y un par de lomas, todo con curvas de trazo largo y casi paralelas a
+los meridianos. Es lo que cabe esperar de una suma de dos tejidos: cada uno tiene perfiles
+norte--sur de una sola forma, de modo que las curvas tienden a alinearse con las columnas o con
+las filas de la grilla. Ese sesgo es propio del método, no del terreno: un cordón oblicuo a la
+grilla necesita muchos términos separables para quedar bien descripto. Con \(k=5\) aparecen
+el cerro del ángulo noreste y los cerros del centro, todavía como manchas suaves. Con
+\(k=20\) vuelve casi todo el dibujo: los cerros chicos alineados de norte a sur en el centro,
+las entradas de las curvas en los cauces del oeste, los bordes quebrados de las maestras de
+\(1500\) y \(1250\) m. Medido por el largo total de las curvas
+de \(50\) m sobre el terreno, el DEM original tiene \(1174\) km de curvas repartidos en
+\(307\) tramos; \(Z_{20}\) tiene \(923\) km en \(172\) tramos; \(Z_5\), \(716\) km en
+\(119\); \(Z_2\), \(609\) km en \(83\). Cada término agregado agrega rugosidad, y una parte
+de esa rugosidad es relieve y otra parte es ruido del propio DEM (es un modelo de superficie,
+con vegetación y artefactos de medición, no de terreno desnudo).
+
+\paragraph{Cuándo el filtro sirve y cuándo falsea.} Truncar la SVD es un filtro con una
+ventaja clara: el error está controlado por números que conocemos antes de dibujar, los
+\(\sigma_i\) descartados. Sirve cuando la escala del plano no puede mostrar el detalle: en
+cartografía a escala chica, con equidistancia grande, las curvas del DEM original salen
+temblorosas y llenas de tramos cortos que el dibujante igual eliminaría a mano, y \(Z_k\) los
+elimina con un criterio uniforme en toda la hoja. Falsea cuando lo que se busca es justamente
+el detalle local: el talud de un camino, una cárcava, el borde de una terraza, el pie de un
+cerro que define un límite. Un error RMS bajo es un promedio sobre \(262\,144\) celdas y no
+garantiza nada en una celda en particular: con \(k=20\) el RMS es \(9{,}8\) m pero el error
+llega a \(75\) m en la peor celda, aunque sólo en el \(0{,}04\)\,\% de las celdas supera los
+\(50\) m. Para un relevamiento de detalle, la matriz que manda es \(Z\), y conviene mirar
+\(Z-Z_k\) como mapa para saber qué se está tirando.
+
+\paragraph{Un criterio numérico para elegir \(k\).} Una curva de nivel está bien ubicada si
+el error en altura es chico frente a la equidistancia: si el error vale la mitad de \(e\), la
+curva puede confundirse con su vecina. Una regla práctica razonable es pedir
+\[
+  \mathrm{RMS}_k\le\frac{e}{5},
+\]
+y como \(\mathrm{RMS}_k\) se calcula sólo con los \(\sigma_i\), el menor \(k\) que la cumple
+se busca recorriendo la lista de valores singulares. En el recorte de la Precordillera:
+
+{\small
+\begin{center}
+\begin{tabular}{r r r r r}
+\toprule
+equidistancia \(e\) & tolerancia \(e/5\) & menor \(k\) & \(\mathrm{RMS}_k\) & error máximo\\
+\midrule
+\(100\) m & \(20\) m & \(9\) & \(18{,}7\) m & \(129\) m\\
+\(50\) m & \(10\) m & \(20\) & \(9{,}8\) m & \(75\) m\\
+\(25\) m & \(5\) m & \(44\) & \(4{,}95\) m & \(33\) m\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+Para la equidistancia de la figura, \(50\) m, el criterio elige \(k=20\): veinte tejidos de
+\(512\), y \(Z_{20}\) se guarda con \(20\cdot(512+512+1)=20\,500\) números en lugar de
+\(262\,144\), menos del \(8\)\,\%. El error en altura se traduce en un corrimiento horizontal
+de la curva que depende de la pendiente: donde el terreno sube \(\tan\theta\) metros por
+metro, un error vertical \(\delta\) corre la curva unos \(\delta/\tan\theta\) metros. La
+pendiente mediana del recorte es \(0{,}188\) (unos \(10{,}6^\circ\)), así que los \(9{,}8\) m
+de \(Z_{20}\) mueven las curvas del orden de \(52\) m, dos celdas, en un terreno típico, y
+bastante más en los llanos del este, donde la pendiente es menor. Es el mismo número visto de
+otro modo: en escala \(1\!:\!50\,000\), \(52\) m son un milímetro del plano, el límite de lo
+que se dibuja; en escala \(1\!:\!5000\) son un centímetro, y ahí \(k=20\) ya no alcanza.
+
+\subsubsection{Conexiones con el resto del programa}\label{sec:svd-dem-conexiones}
+
+\paragraph{El plano de ajuste y la pseudoinversa.} El primer modelo de un terreno que se le
+ocurre a un agrimensor no es \(Z_1\) sino un plano, \(z=a\,x+b\,y+c\), con \(x\) hacia el este
+y \(y\) hacia el norte en metros. Ajustarlo es un sistema sobredeterminado de \(262\,144\)
+ecuaciones con tres incógnitas, una por celda, \(a\,x_j+b\,y_i+c\approx z_{ij}\), que se
+resuelve con la pseudoinversa de la sección~\ref{sec:pseudoinversa}: \((a,b,c)=A^{+}z\), con
+\(A\) de \(262\,144\times3\) y columnas \(x\), \(y\) y unos. En el recorte da un plano que baja
+\(97\) m por kilómetro hacia el este y sube \(4{,}4\) m por kilómetro hacia el norte
+(pendiente de \(5{,}5^\circ\)), con un RMS de \(153{,}7\) m.
+
+La comparación con la SVD es instructiva. El plano, escrito como matriz, es
+\((b\,y_i+c)\cdot1+a\cdot x_j\): la suma de una matriz que sólo depende de la fila y otra que
+sólo depende de la columna, de rango dos. Por lo tanto su error no puede ser menor que el de la
+mejor aproximación de rango dos, y efectivamente \(153{,}7\ \text{m}>66{,}0\ \text{m}\). Lo
+llamativo es que también pierde contra \(Z_1\), de rango uno, que da \(102{,}9\) m. La razón
+es que el plano obliga a los perfiles a ser rectas, mientras que la SVD elige los perfiles que
+mejor describen el terreno, y el perfil oeste--este real, que cae más de \(1400\) m en
+\(13\) km de manera nada uniforme, no es una recta. Los dos ajustes son mínimos cuadrados con
+el mismo dibujo de la proyección ortogonal (caja ``El dibujo único detrás de \(Ax\approx b\)''
+de la sección~\ref{cap:cuatro-problemas}); lo que cambia es el subespacio sobre el que
+proyectamos: planos en un caso, matrices de rango \(k\) en el otro.
+
+\paragraph{La grilla geográfica no es cuadrada.} Todo lo anterior trató a \(Z\) como una
+tabla con celdas iguales, y la SVD lo hace sin preguntar: suma cuadrados de alturas celda por
+celda. Pero las celdas de un segundo de arco no son cuadradas (\(30{,}80\) por \(26{,}19\) m
+en este recorte) ni todas iguales: el ancho este--oeste es \(N\cos\varphi\) por un segundo
+en radianes, con \(N\) la gran normal del elipsoide, y pasa de \(26{,}17\) m en el borde sur a
+\(26{,}21\) m en el borde norte. En \(15\) km la variación es despreciable; en un DEM que cubre
+varios grados de latitud no lo es, y una celda cerca del polo es una astilla. La grilla
+\((\lambda,\varphi)\) es una parametrización del elipsoide con primera forma fundamental
+\(ds^2=N^2\cos^2\varphi\,d\lambda^2+M^2\,d\varphi^2\) (secciones~\ref{sec:metrica}
+y~\ref{cap:elipsoide}). Para las curvas de nivel eso tiene dos consecuencias. El trazado
+mismo no cambia, porque una curva de nivel es el núcleo de una forma y no necesita métrica.
+Cambian todas las cuentas que miden: el largo de las curvas, las pendientes, la dirección de
+máxima pendiente y el corrimiento horizontal de una curva por un error vertical, que en este
+recorte hicimos convirtiendo celdas a metros con los dos factores de la métrica. Y si
+quisiéramos que la propia SVD pesara cada celda por el área que representa, habría que
+descomponer \(D_1^{1/2}\,Z\,D_2^{1/2}\), con \(D_1\) y \(D_2\) diagonales con los pesos de
+filas y columnas: otra vez, la base privilegiada la elige la regla de medir.
+
+\begin{resultado}[Lo que sabemos hacer con un modelo digital de elevación]
+Leerlo como matriz \(Z\) y como muestra de una función \(z=f(x,y)\) en una grilla geográfica.
+Descomponerlo en tejidos separables \(\sigma_iu_iv_i^T\) y saber, sólo con los \(\sigma_i\)
+descartados, el error RMS en metros de la aproximación \(Z_k\). Trazar sus curvas de nivel
+celda por celda por interpolación lineal, sabiendo que cada tramo aproxima la recta de nivel
+cero del plano tangente. Y elegir \(k\) para que el error quede por debajo de una fracción de
+la equidistancia (en la Precordillera, \(k=20\) para \(50\) m), sabiendo que el filtro sirve
+para la forma grande y no para el detalle de un relevamiento.
+\end{resultado}

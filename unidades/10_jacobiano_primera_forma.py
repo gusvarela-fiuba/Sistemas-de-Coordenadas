@@ -525,7 +525,7 @@ def _(mo):
     Acá verificamos que los ejes locales son las columnas de la jacobiana y que su tabla de productos internos mide desde la
     grilla. Las demostraciones:
 
-    - [apunte, «Superficies, elipsoide, curvatura…» (pasar del plano a una superficie; coordenadas curvilíneas, espacio tangente, métrica)](../../apunte.pdf#nameddest=cap:11)
+    - [apunte, «Superficies, elipsoide, curvatura…» (pasar del plano a una superficie; coordenadas curvilíneas, espacio tangente, métrica)](../../apunte.pdf#nameddest=cap:derivada)
     - [ficha de la clase 9](../../clases/09.html) (gradiente como forma lineal, función implícita) ·
       [unidad 02](../02_producto_interno/index.html) · [el hilo conductor](../../index.html)
 

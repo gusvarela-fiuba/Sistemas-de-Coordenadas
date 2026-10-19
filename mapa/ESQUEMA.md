@@ -17,7 +17,7 @@ clases:                          # 14 entradas, en el orden de la cursada
     validacion: pendiente        # cuánto se revisó: pendiente | revisado | validado-catedra (independiente de `estado`)
     nivel: troncal               # ruta de estudio: troncal | complementario | avanzado (filtro de ruta en mapa.html)
     pregunta: "¿Qué se conserva cuando giro, y cómo escribo ese giro como una cuenta?"   # una línea, pregunta de campo que la clase responde
-    apunte: ["07"]               # OPCIONAL: prefijos de apunte/contenido/NN-*.tex; si falta, se infiere de los conceptos de la clase
+    apunte: ["proyectivas"]      # OPCIONAL: claves \label{cap:<clave>} del apunte; si falta, se infiere de los conceptos de la clase
 
 conceptos:
   - id: rotacion                 # slug único, minúsculas, guion medio
@@ -26,7 +26,7 @@ conceptos:
     unidad: 01_rotaciones        # OPCIONAL: id de una unidad existente; el nodo linkea ahí (si no, a la ficha de la clase)
     hecho_geometrico: "dejar quieto un punto, mover otro, acomodar el resto conservando distancias y ángulos"
     que_se_conserva: "distancias y ángulos"
-    apunte: ["07", "14", "15"]   # prefijos de apunte/contenido/NN-*.tex (00-11 por tema, 14-22 apéndices; 12 y 13 no existen); cada uno tiene que existir
+    apunte: ["proyectivas", "14", "15"]   # claves \label{cap:<clave>}: capítulos por nombre ("rotaciones", …), apéndices por número ("14" … "22"); cada una tiene que existir
     requiere: [producto-interno] # ids de conceptos que lo motivan; se dibujan como flechas requerido → concepto
 
 unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su orden es el de las unidades en la portada
@@ -51,7 +51,7 @@ Errores (el build se detiene):
 - `conceptos[].clase` que no sea un id de `clases`;
 - `conceptos[].unidad` declarado que no sea un id de `unidades`;
 - `conceptos[].requiere` con ids que no están en `conceptos` (o que se refieren a sí mismos);
-- prefijos de `apunte` (en conceptos o clases) sin archivo `apunte/contenido/<NN>-*.tex`;
+- claves de `apunte` (en conceptos o clases) sin `\label{cap:<clave>}` en los `.tex` que incluye el maestro;
 - `unidades[].archivo` inexistente cuando el estado es `piloto` o `migrada`;
 - `unidades[].clases` vacío o con ids que no están en `clases`;
 - `estado` fuera del vocabulario (clases: `con-transcripcion`, `reconstruida`, `no-dictada`, `anticipada`; unidades: `piloto`, `migrada`, `legacy`, `pendiente`);
@@ -68,15 +68,15 @@ Avisos (el build sigue):
 
 ## Qué hace el build con cada campo
 
-- Portada (`index.html`, el hilo conductor): una entrada por unidad en el orden de `unidades.yaml`, con `titulo`, `pregunta`, `gancho_agrimensura`, `nivel`, estado calculado, sus `clases` (cada una con `estado` como procedencia y `validacion`), link a la unidad si está exportada, a las fichas y a las secciones del apunte (`apunte.pdf#nameddest=cap:NN`, con `NN` el prefijo del `.tex`). Entradas: *Empezar* (unidad 0), *Seguir la cursada* (la unidad de la clase con la `fechas_2026` ≤ hoy más reciente), *Repasar* (`mapa.html`).
+- Portada (`index.html`, el hilo conductor): una entrada por unidad en el orden de `unidades.yaml`, con `titulo`, `pregunta`, `gancho_agrimensura`, `nivel`, estado calculado, sus `clases` (cada una con `estado` como procedencia y `validacion`), link a la unidad si está exportada, a las fichas y a las secciones del apunte (`apunte.pdf#nameddest=cap:<clave>`). Entradas: *Empezar* (unidad 0), *Seguir la cursada* (la unidad de la clase con la `fechas_2026` ≤ hoy más reciente), *Repasar* (`mapa.html`).
 - Mapa (`mapa.html`): columnas = `clases` en orden de aparición. Color del nodo: `estado` de su clase (teal = con transcripción, dorado = reconstruida, óxido = no dictada, violeta = anticipada). Cada nodo lleva `data-nivel` (el `nivel` de su clase) y `data-orden` (posición de la clase) para el filtro de ruta (`troncal` / `todo`) y el deslizador "hasta la clase N" (opacity 0.25 para lo posterior; default N = última clase dictada).
 - Nodo: `nombre`; `<title>` = `hecho_geometrico`; link a `unidades/<unidad>/` si el concepto declara `unidad` y esa unidad se exportó, si no a `clases/<clase>.html`.
 - Aristas: `requiere`; la flecha va del requerido al concepto.
-- Lista de clases (en `mapa.html`): `fecha_2025` (o `fecha_2025_estimada` con "(est.)"), `fechas_2026`, etiquetas de `estado`, `validacion` y `nivel`, links a ficha, unidades (las de sus conceptos) y secciones del apunte (título tomado del primer `\section{}` de cada `.tex` referido).
+- Lista de clases (en `mapa.html`): `fecha_2025` (o `fecha_2025_estimada` con "(est.)"), `fechas_2026`, etiquetas de `estado`, `validacion` y `nivel`, links a ficha, unidades (las de sus conceptos) y secciones del apunte (título tomado del encabezado que lleva el `\label{cap:<clave>}`).
 - Fichas: dos etiquetas arriba del título, procedencia (`estado`) y `validacion`.
 
 ## Convenciones
 
-- Prefijos del apunte: dos dígitos (`"07"`), siempre como string para no perder el cero.
+- Claves del apunte: el label sin `cap:` (`"rotaciones"`; los apéndices, dos dígitos como string: `"14"`).
 - Ids de clase también como string (`"01"`): YAML convertiría `01` en el entero 1.
 - Sin acentos en ids; con acentos en `nombre`/`titulo` (es lo que se muestra).

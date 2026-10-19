@@ -468,7 +468,7 @@ def _(mo):
     En esta unidad demostramos qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
-    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones III — tres ejes y el orden importa](../01c_rotaciones_3d/index.html): en 3D hay un

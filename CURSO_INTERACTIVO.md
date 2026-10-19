@@ -85,7 +85,7 @@ Clases del esqueleto: 01 y 02. Pregunta guía: nivelar la estación es inclinar 
 **Ejercicios en Python:** (b) código con hueco sin función: armar R = Rz(90°)·Ry(90°), aplicarla a (1, 0, 0) y verificar con `np.allclose` que u = (−1, 1, 1)/√3 queda fijo. Lápiz (a): escribir Rz(90°) con números, aplicarla a (1, 2, 3) y comprobar que dos veces da diag(−1, −1, 1).
 
 - Notebook: [unidades/01c_rotaciones_3d.py](unidades/01c_rotaciones_3d.py)
-- Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/02-mas-rotaciones.md](clases/02-mas-rotaciones.md)
+- Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Rotaciones en tres dimensiones", "Eje de rotación, autovectores y exponencial" y el apéndice "Construcción geométrica de las matrices de rotación 3D".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html)
 
@@ -118,7 +118,7 @@ Clases del esqueleto: 02 y 03. Pregunta guía: un plano viejo a otra escala y co
 **Ejercicios en Python:** `reflexion(alpha)` (c) y `similaridad_por_dos_puntos(P1, P2, Q1, Q2)` (d). Lápiz (a): por qué diag(1, −1) conserva distancias y no es rotación, con un número y con un dibujo; (b): escala, giro y centro de la similaridad z ↦ 2i·z + 1.
 
 - Notebook: [unidades/03_reflexiones_similaridades.py](unidades/03_reflexiones_similaridades.py)
-- Fichas: [clases/02-mas-rotaciones.md](clases/02-mas-rotaciones.md), [clases/03-afines.md](clases/03-afines.md)
+- Fichas: [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md), [clases/03-afines.md](clases/03-afines.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Reflejar y componer", "Escalar: homotecias y similaridades" y el bloque "Transformaciones euclídeas y similaridades" con su guía resuelta.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/03_reflexiones_similaridades/index.html)
 
@@ -389,7 +389,7 @@ Clases del esqueleto: 13 y 14 (desarrollo complementario del alumno que cierra e
 
 - Notebook: [unidades/15_transformaciones_conformes.py](unidades/15_transformaciones_conformes.py)
 - Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), capítulo 10 (Transformaciones conformes) del apunte.
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), complemento C2 (Transformaciones conformes) del apunte.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html)
 
 ## Autoevaluación

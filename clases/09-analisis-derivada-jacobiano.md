@@ -9,7 +9,7 @@ fuentes:
   - fuentes/transcripciones/2026-10-14.md
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
 conceptos: [derivada-aproximacion-lineal, gradiente, jacobiano, hessiana, funcion-implicita, superficie-parametrica, primera-forma-fundamental]
-apunte: ["11"]
+apunte: ["derivada"]
 unidad: 10_jacobiano_primera_forma
 ---
 

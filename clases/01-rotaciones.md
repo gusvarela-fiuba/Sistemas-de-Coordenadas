@@ -10,7 +10,7 @@ fuentes:
   - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
   - apunte/01_Ejercicios_original.pdf
 conceptos: [rotacion, numeros-complejos, formula-de-euler, producto-interno, matriz-ortogonal, rotacion-3d, rotacion-infinitesimal, exponencial-de-matrices]
-apunte: ["04", "14", "15", "03", "19"]
+apunte: ["rotaciones", "14", "15", "03"]
 unidad: 01a_punto_quieto   # también 01b_rotacion_plano y 01c_rotaciones_3d
 ---
 
