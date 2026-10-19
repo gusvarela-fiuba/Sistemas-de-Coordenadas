@@ -1,60 +1,30 @@
 ---
-clase: "03"
-titulo: Transformaciones afines (reflexiones, similaridades, afinidades y coordenadas homogéneas)
-fecha_2025: null
-fecha_2025_estimada: "2025-09-04"   # jueves siguiente a la clase 2; el .wxmx de la clase 4 está fechado 10-09-2025
-fechas_2026: ["2026-09-02", "2026-09-09"]
-estado: reconstruida
-fuentes:
-  - fuentes/campus/resumenes_clase_2025_profesor.md#clase-3-transformaciones-afines
-  - apunte/01_Ejercicios_original.pdf
-  - apunte/02_afinidad_original.pdf
-  - entregas/afinidades/Afinidades_Ejercicios_Varela_56798.tex
-  - entregas/afinidades/Afinidades_Triangulo_Varela_56798.tex
-conceptos: [reflexion, afinidad-axial, similaridad, transformacion-afin, coordenadas-homogeneas, punto-fijo, traslacion]
+clase: 3
+titulo: "Clase 3: reflexiones, similaridades y afinidades"
+idea: "Las reflexiones generan las isometrías; con homotecias dan las similaridades, y las afinidades $x\\mapsto Ax+t$ caben en una matriz $3\\times3$ con coordenadas homogéneas."
+que_se_estudia: ["Reflexión por un punto y por una recta; composición de dos reflexiones", "Afinidad axial y similaridad; punto fijo de una similaridad", "Transformación afín $F(x)=Ax+t$ y su determinación por tres puntos", "Coordenadas homogéneas: la traslación entra en la matriz", "Punto fijo y traslación como límite con centro en el infinito"]
+conceptos_previos: ["Rotaciones y matrices ortogonales (clase 1)", "Composición y conmutatividad (clase 2)", "Homotecia (clase 2)"]
 apunte: ["reflexiones", "afines", "16", "17", "traslaciones"]
-unidad: 04_afines_homogeneas   # y 03_reflexiones_similaridades
+unidades: ["03_reflexiones_similaridades", "04_afines_homogeneas"]
+animaciones: ["02_homogeneas_pentagono_3d"]
+ejercicios_sugeridos: ["Componer tres reflexiones puntuales y reconocer el resultado", "Mostrar que dos reflexiones en rectas secantes son una rotación del doble del ángulo entre ellas", "Hallar la afinidad que lleva un triángulo en otro y su punto fijo si lo tiene", "Escribir en homogéneas la composición de una rotación y una traslación"]
 ---
 
-# Clase 3 — Transformaciones afines
+# Clase 3: reflexiones, similaridades y afinidades
 
-> **Estado:** **reconstruida sin transcripción** a partir del resumen 2025 de la clase 3, de los dos PDFs que el profesor mandó por el grupo de Google Chat en 2C2026 (`apunte/01_Ejercicios_original.pdf`, guía de reflexiones y similaridades con seis teoremas; `apunte/02_afinidad_original.pdf`, resumen de la clase de afinidades con seis ejercicios), del apunte y de las entregas de Gustavo. Gustavo faltó al miércoles 2026-09-02, así que de ese día no hay registro propio; los apuntes de memoria corresponden al 09-09. El 08-26 anterior no hubo clase (ficha 02).
+Las reflexiones generan las isometrías; con homotecias dan las similaridades, y las afinidades $x\mapsto Ax+t$ caben en una matriz $3\times3$ con coordenadas homogéneas.
 
-## El hilo del profesor (cursada 2025)
+## Qué se estudia
 
-"Vimos en esta clase las transformaciones afines, primero en forma geométrica y luego en su expresión algebraica" *(profesor, resumen 2025)*. La definición coloquial: "una afinidad conserva paralelas las paralelas" o "una afinidad conserva rectas las rectas y proporcionales las distancias sobre una recta".
-
-La construcción básica fue "la de una reflexión (considerando una línea de base y sus perpendiculares, sobre las que todas las distancias se 'escalaban' por −1). A la que luego modificamos pudiendo usar cualquier escala": eso es la afinidad axial. Con reflexiones se construyen rotaciones, "con un argumento 'coloquial' sobre que un par de reflexiones sucesivas no altera las distancias, pero tiene un punto fijo así que tiene que ser una rotación". Y "el otro tipo de afinidad que habíamos visto permitiría construir cualquier afinidad que se nos ocurra".
-
-Coordenadas: "si le queríamos poner coordenadas a la afinidad podíamos, combinando rotaciones y una transformación con una matriz diagonal" (es la lectura de la afinidad axial como $B\,\mathrm{diag}(1,f)\,B^{-1}$). Después el experimento de la clase 2: "qué pasaba cuando aplicábamos rotaciones y traslaciones sucesivamente a un punto (formar círculos) y tratamos de pensar por qué esto era inevitable, con un argumento nuevamente sobre el punto fijo de la transformación".
-
-Cierre: "dos formas de expresión algebraica, una en $\mathbb R^2$ y otra en el plano proyectivo, que aproveché para explicar coordenadas homogéneas". Sobre el proyectivo, "nos preguntamos especialmente qué pasaba con los puntos impropios y cómo se expresaría una transformación con puntos fijos". "Un tema insistente de la clase fue la composición como una operación entre transformaciones", con énfasis en cuándo la composición de afinidades conmuta y cuándo no.
-
-Bibliografía recomendada ese día: los PDFs de Paris Pamfilos ("tienen muy buenos gráficos para todos estos ejemplos que hicimos en el pizarrón"; su afinidad tiene "una línea fija y como guía una familia de rectas paralelas que no son necesariamente perpendiculares a la línea fija", con la que "es mucho más fácil mostrar que siempre hay una afinidad para llevar un triángulo a otro triángulo"), Burgos ("el que mejor les va a venir, aunque el escaneo es francamente malo") y la planilla Excel para experimentar.
-
-## Lo que pasó en 2C2026
-
-Reconstruida sin transcripción (Notion no tiene notas del 09-02 ni del 09-09). Dos miércoles; el 08-26 anterior no hubo clase, y Gustavo faltó el 09-02, así que lo que se dice de ese día sale sólo de los PDFs y de lo que el profesor dijo después.
-
-**2026-09-02** (Gustavo ausente). La guía `01_Ejercicios_original.pdf` es el contenido de la clase del 08-26 que no se dio (traslaciones), mandado por el profesor por el grupo de Google Chat con ejercicios para resolver en clase. Dice: "Todos los ejercicios que planteamos tienen una forma geométrica y otra algebraica de resolverse. La idea es avanzar lo más posible sobre ambas formas"; "vamos a trabajar con algunos teoremas para familiarizarnos con el concepto de teorema y su rol en nuestra materia"; y la pregunta de arranque, "¿qué es un punto?". Contenido: Definición 1 (reflexión por un punto, $\rho_b$), Teorema 1 ($\rho_a\rho_b$ es traslación), Teorema 2 ($\rho_d = \rho_a\rho_b\rho_c$ ⇒ $abcd$ paralelogramo), observación (con esto se definen suma y resta de vectores; involución), Definición 2 (reflexión por una recta, $\varphi_B$), Teorema 3 (ejes paralelos ⇒ traslación), Teorema 4 (ejes secantes ⇒ rotación), Teorema 5 (traslación∘rotación es rotación, y en el otro orden otra rotación distinta), Definición 3 (homotecia $\eta_o^k$), Teorema 6 (toda similaridad es $\varphi_A\varphi_B\eta_o^k$ con $o = A\cap B$ el punto fijo; el centro se halla con una construcción de Euler). Consigna: verificar cada uno con un ejemplo gráfico y uno algebraico con vectores; pista para reflexiones: proyección perpendicular con producto interno o con el vector normal de la ecuación canónica.
-
-**2026-09-09.** El profesor mandó por el grupo `02_afinidad_original.pdf`, resumen de la clase con seis ejercicios. Dice que arrancó "con un repaso de la clase anterior, donde habíamos visto rotaciones" (ver Huecos); define afines "como aquellas que conservan paralelas las rectas paralelas", "así como habíamos definido a las rotaciones como las transformaciones lineales que conservaban el producto interno (y la orientación)". Dos ejemplos de composición: tres reflexiones puntuales y reflexiones por un eje, preguntando por los puntos fijos. Ejercicio: dos reflexiones puntuales son una traslación en la dirección que une los centros; hallar el punto fijo de cuatro reflexiones. Idea límite: dos reflexiones en rectas no paralelas, llevando el punto de intersección "tan lejos como queramos", en el límite dan una traslación. Pregunta: ¿toda afinidad con punto fijo es lineal en un sistema de coordenadas adecuado? Sí, porque paralelogramo va a paralelogramo y se conservan proporciones en cada recta; en fórmulas $A(x - x_0) + x_0$, reacomodada como $Ax + \binom ef$, y "similar a" la $3\times3$ con fila $(0\ 0\ 1)$. Afinidad con eje, dirección y factor; con ella, llevar un triángulo sobre otro moviendo un vértice por vez; "definir la imagen de un triángulo ya nos define completamente la afinidad, ¿puede ver por qué?". Tercera coordenada: "¿es porque permite representar un punto en el infinito, que resulta el punto fijo de componer dos afinidades con ejes paralelos?"; coordenadas homogéneas, gráficos en perspectiva del plano $z=1$ ("la clase que viene va a estar llena de dibujos similares"). Punto fijo en homogéneas: $A\vec v = \lambda\vec v$, $A - \lambda I$ sin rango completo, autovectores y autovalores; para una rotación de $\mathbb R^3$ "sí o sí tiene un autovalor real cuyo autovector corresponde al eje de rotación". Tarea: repasar cambio de base. Ejercicios 1–6 (resueltos en `entregas/afinidades/`).
-
-**Apuntes de memoria de Gustavo (sin transcripción, de sesiones anteriores; son del 09-09, la única de las dos clases a la que asistió):**
-- "Si este fuera el 0 y este el 1, este es el 2": sobre una recta cualquiera, elegir origen y unidad ya da coordenadas; eso distingue subespacio afín (una recta cualquiera, sin cero privilegiado) de subespacio vectorial (pasa por el cero).
-- Plano $z=1$ en $\mathbb R^3$: un punto del plano ↔ una recta por el origen de $\mathbb R^3$.
-- Punto impropio dividiendo por $x$ con $\lambda\to\infty$: el ejemplo del pizarrón dio $(1, 3/2, 0)$ (la dirección de pendiente $3/2$).
-- Las afinidades son las lineales de $\mathbb R^3$ con última fila $(0\ 0\ 1)$.
-- Punto fijo = autovector (de autovalor 1, con tercera coordenada no nula).
-- Ejercicio de clase: rotación alrededor de un centro seguida de escala alrededor de otro centro, hallar el punto fijo de la composición y verificar en AutoCAD (`ROTATE`, `SCALE`).
-
-Falta confirmar: qué parte de cada PDF se dio cada miércoles; si el ejercicio de rotación+escala se hizo con la figura en T y los centros $c=(3,1)$, $d=(-1,2)$, $k=0.5$, 45° del apunte 16; si se mostró la planilla `Ejercicio Tl_Afin_Homogenea.xlsx`; si hubo tarea de AutoCAD entregable.
-
-## Hecho geométrico
+- Reflexión por un punto y por una recta; composición de dos reflexiones
+- Afinidad axial y similaridad; punto fijo de una similaridad
+- Transformación afín $F(x)=Ax+t$ y su determinación por tres puntos
+- Coordenadas homogéneas: la traslación entra en la matriz
+- Punto fijo y traslación como límite con centro en el infinito
 
 **reflexion.** Álgebra: por un punto, $\rho_b(x) = 2b - x$; por una recta con normal $n$ y ecuación $n\cdot x = c$, $\varphi_B(x) = x - 2\frac{n\cdot x - c}{\|n\|^2}n$; matriz ortogonal con $\det = -1$. Se ve: el espejo. Aplicada dos veces, nada (involución). Dos espejos seguidos devuelven la orientación: puntuales dan traslación $x + 2(a-b)$; ejes paralelos, traslación perpendicular de longitud $2h$; ejes secantes en $o$ con ángulo $\theta$, rotación $R_{o,2\theta}$. Las reflexiones son los átomos: con ellas se arma toda isometría. Escalera: en $\mathbb R$, $x\mapsto 2b - x$ es la única reflexión; en $\mathbb R^2$ hay por punto y por recta; en $\mathbb R^3$, por plano.
 
-**afinidad-axial.** Álgebra: eje $e$, dirección $\vec d$ no paralela al eje, factor $f$: $X\mapsto X_0 + f(X - X_0)$ con $X_0$ el corte de la paralela a $\vec d$ por $X$ con el eje; en matrices $B\,\mathrm{diag}(1,f)\,B^{-1}$ con $B = (\vec u\ \vec d)$, $\det = f$. Se ve: una faja que se estira (o se da vuelta, $f<0$) desde una recta fija, cada punto deslizando por su paralela a $\vec d$. $f=-1$ con $\vec d\perp e$ es la reflexión de la clase; $f=-1$ oblicua es la reflexión oblicua. Tres de estas, con el eje por los dos vértices que quedan quietos, llevan cualquier triángulo sobre cualquier otro; el producto de los factores es el cociente de áreas (entrega del triángulo).
+**afinidad-axial.** Álgebra: eje $e$, dirección $\vec d$ no paralela al eje, factor $f$: $X\mapsto X_0 + f(X - X_0)$ con $X_0$ el corte de la paralela a $\vec d$ por $X$ con el eje; en matrices $B\,\mathrm{diag}(1,f)\,B^{-1}$ con $B = (\vec u\ \vec d)$, $\det = f$. Se ve: una faja que se estira (o se da vuelta, $f<0$) desde una recta fija, cada punto deslizando por su paralela a $\vec d$. $f=-1$ con $\vec d\perp e$ es la reflexión de la clase; $f=-1$ oblicua es la reflexión oblicua. Tres de estas, con el eje por los dos vértices que quedan quietos, llevan cualquier triángulo sobre cualquier otro; el producto de los factores es el cociente de áreas.
 
 **similaridad.** Álgebra: $S(x) = o + \lambda R(x-o)$, o $S = \varphi_A\varphi_B\eta_o^\lambda$. Se ve: misma forma, otro tamaño y otra orientación; conserva ángulos y razones entre distancias. El centro $o$ es el único punto fijo (si $\lambda\neq1$ o el giro no es nulo); se halla con dos círculos de Apolonio o resolviendo $(I - \lambda R)o = a' - \lambda R a$. Es la composición rotación-alrededor-de-$c$ y escala-alrededor-de-$d$ del ejercicio: la parte lineal $kR$ gira y achica, y el punto fijo de la composición no es ni $c$ ni $d$.
 
@@ -62,45 +32,36 @@ Falta confirmar: qué parte de cada PDF se dio cada miércoles; si el ejercicio 
 
 **coordenadas-homogeneas.** Álgebra: $(x,y)\leftrightarrow(x,y,1)$, y la afinidad es $\begin{pmatrix}a&b&e\\c&d&f\\0&0&1\end{pmatrix}$; componer afinidades es multiplicar $3\times3$, la traslación entra en la matriz. Se ve: el plano es el plano $z=1$ de $\mathbb R^3$ y cada punto es la recta por el origen que lo atraviesa; $(x,y,1)\sim\lambda(x,y,1)$. Un vector con tercera coordenada 0 es una dirección, un punto impropio: las rectas paralelas lo comparten. Escalera: la recta afín es $z=1$ en $\mathbb R^2$; el plano afín, $z=1$ en $\mathbb R^3$; $\mathbb R^n$ afín, $w=1$ en $\mathbb R^{n+1}$.
 
-**punto-fijo.** Álgebra: $F(x_*) = x_*$, es decir $(I - A)x_* = t$; en homogéneas, autovector de $H$ con $\lambda = 1$ y $w\neq0$. Se ve: el lugar alrededor del cual la transformación "gira": rotar y trasladar repetidamente dibuja círculos alrededor del punto fijo; una rotación con centro fuera del origen tiene centro $c$ con $t = (I-R)c$; una traslación no tiene (el sistema es incompatible, el autovector de $\lambda=1$ tiene $w=0$: el punto fijo "se fue al infinito"). Si hay punto fijo, poniendo el origen ahí la afinidad queda lineal. Una rotación de $\mathbb R^3$ tiene autovalor 1 porque el polinomio característico es de grado impar y los autovalores tienen módulo 1 (entrega, ejercicio 4).
+**punto-fijo.** Álgebra: $F(x_*) = x_*$, es decir $(I - A)x_* = t$; en homogéneas, autovector de $H$ con $\lambda = 1$ y $w\neq0$. Se ve: el lugar alrededor del cual la transformación "gira": rotar y trasladar repetidamente dibuja círculos alrededor del punto fijo; una rotación con centro fuera del origen tiene centro $c$ con $t = (I-R)c$; una traslación no tiene (el sistema es incompatible, el autovector de $\lambda=1$ tiene $w=0$: el punto fijo "se fue al infinito"). Si hay punto fijo, poniendo el origen ahí la afinidad queda lineal. Una rotación de $\mathbb R^3$ tiene autovalor 1 porque el polinomio característico es de grado impar y los autovalores tienen módulo 1.
 
 **traslacion.** Álgebra: $A = I$, $F(x) = x + v$. Se ve: todo se desplaza igual; es la única afinidad sin punto fijo propio (y conmuta con las demás traslaciones, no con rotaciones: $T_vQ_c \neq Q_cT_v$, mismo giro, centros distintos). Nace de dos reflexiones (puntuales o en ejes paralelos) y es el límite de rotaciones cuyo centro se va al infinito. En homogéneas su punto fijo es impropio: la dirección $v$.
 
-## Cuentas chicas
+## Conceptos previos
 
-1. **Tres reflexiones puntuales** (entrega, ejercicio 1). $a = (0,0)$, $b = (2,0)$, $c = (0,2)$, punto $x = (1,1)$: $\sigma_c(1,1) = (0,4) - (1,1) = (-1,3)$; $\sigma_b(-1,3) = (4,0) - (-1,3) = (5,-3)$; $\sigma_a(5,-3) = (-5,3)$. Con $x = (3,0)$: $(-3,4)\to(7,-4)\to(-7,4)$. En los dos casos $x + F(x) = (-4,4)$: el punto medio es siempre $(-2,2)$, así que la composición es la reflexión puntual de centro $d = a - b + c = (-2,2)$, y $a,b,c,d$ forman paralelogramo ($\vec{ad} = \vec{bc} = (-2,2)$). Verificación: GeoGebra con `Refleja(Refleja(Refleja(x, c), b), a)` y arrastrar $x$.
+- Rotaciones y matrices ortogonales (clase 1)
+- Composición y conmutatividad (clase 2)
+- Homotecia (clase 2)
 
-2. **Dos reflexiones en rectas secantes son una rotación.** $B$ = eje $x$, $A$ = recta $y = x$ (45°). $p = (1,1)\to\varphi_B\to(1,-1)\to\varphi_A\to(-1,1)$. Y $R(90°)(1,1) = (-1,1)$: giro del doble del ángulo entre los ejes, centro en la intersección. Con $B$ = eje $x$ y $A$ a 30°, $H_AH_B = R(60°)$ (apunte 09).
+## En el apunte
 
-3. **Afinidad desde tres puntos, sin punto fijo** (entrega, ejercicio 6). $a = (1,1)$, $b = (3,1)$, $c = (1,2)$ van a $a' = (2,2)$, $b' = (4,2)$, $c' = (3,3)$. Restando: $A(2,0) = (2,0)$, $A(0,1) = (1,1)$, luego $A = \begin{pmatrix}1&1\\0&1\end{pmatrix}$ y $t = a' - Aa = (2,2) - (2,1) = (0,1)$; control con $b$: $(4,2) - (4,1) = (0,1)$. Es $\gamma(x,y) = (x+y,\ y+1)$. Punto fijo: $(I-A)x = t$ da $-y = 0$ y $0 = 1$, incompatible. En homogéneas $M = X'X^{-1} = \begin{pmatrix}1&1&0\\0&1&1\\0&0&1\end{pmatrix}$, autovector de $\lambda = 1$: $(1,0,0)$, punto impropio (la dirección horizontal queda fija como conjunto). Verificación: `uv run --with numpy python entregas/afinidades/verificacion.py`; en Excel, `MMULT(M; punto)`.
+- Reflexiones, isometrías y similaridades (`cap:reflexiones`)
+- Afinidades y coordenadas homogéneas (`cap:afines`)
+- Composición afín práctica: rotación y escala (`cap:16`)
+- Resolución de los ejercicios de afinidades (`cap:17`)
+- Traslaciones y movimientos rígidos (`cap:traslaciones`)
 
-4. **Puente con la clase 2.** $F(x) = R(90°)x + (2,0)$: desde $(0,0)$, $(2,0)\to(2,2)\to(0,2)\to(0,0)$, cuadrado inscripto en la circunferencia de centro $(1,1)$; $(I - R)(1,1) = (2,0)$, el punto fijo es el centro del círculo.
+## Unidades interactivas
 
-## Dónde está desarrollado
+- Reflexiones y similaridades (`03_reflexiones_similaridades`)
+- Afinidades y coordenadas homogéneas (`04_afines_homogeneas`)
 
-- Animaciones propias (14/10/2026) de pentágonos bajo las seis transformaciones afines (identidad, traslación, rotación, escala no uniforme, cizalla, afín general), en 2D y en 3D con perspectiva: `ejercicios/2026-10-14_pentagonos_afines/` (Python; originales Javis en `julia/`).
+## Animaciones
 
-- Lección marimo `unidades/04_afines_homogeneas.py` (*Afinidades y coordenadas homogéneas*, 17/10/2026; sitio `site/unidades/04_afines_homogeneas/`): la matriz como lo que le pasa a la grilla (casos: escala anisótropa, corte, reflexión, similaridad, afinidad axial, general), la traslación por la tercera columna de la $3\times3$ (composición y orden), tres puntos determinan la afinidad (apéndice 17, ejercicio 6) y el ejercicio de corregir un plano escaneado a partir de tres mojones.
-- Apunte: `05-euclideas-similaridades.tex` (los seis teoremas de la guía, con dos salvedades: Definición 3 vale para $k>0$ y el Teorema 6 describe sólo similaridades directas con punto fijo); `05-euclideas-similaridades.tex`, nivel de cuentas (cada definición y teorema con dibujo, prueba vectorial y ejemplo numérico; Teorema 4 con $H(\alpha) = \begin{pmatrix}\cos2\alpha&\sin2\alpha\\\sin2\alpha&-\cos2\alpha\end{pmatrix}$; Teorema 5 con $T_vQ_c$ y $Q_cT_v$; centro de una similaridad por Apolonio); `06-afines-homogeneas.tex` ($F = Ax + t$ y por qué conserva paralelas, tabla de puntos fijos de traslación/rotación/homotecia/reflexión, homogéneas, afinidad por eje-dirección-factor, "una afinidad queda determinada por un triángulo", clase práctica con la figura en T, preguntas guía para una matriz afín, ejercicios con respuestas); `16-apendice-composicion-afin.tex` (rotación de 45° alrededor de $c = (3,1)$ y escala $0.5$ alrededor de $d = (-1,2)$: $H = H_2H_1$, punto fijo $p_* = (1-\tfrac{\sqrt2}{2}, 1-\tfrac{\sqrt2}{2})$, autovalores $0.5e^{\pm i\pi/4}$ y 1, Excel `MMULT`/`MINVERSE`, AutoCAD `ROTATE` y `SCALE`); `17-apendice-ejercicios-afinidades.tex` (los seis ejercicios resueltos, con la ambigüedad del 3, la salvedad del 4 y el contraejemplo del 5: $\mathrm{diag}(R(\theta), -1)$ es ortogonal con $\det=-1$ y autovalores $e^{\pm i\theta}, -1$, una rotorreflexión); `05-euclideas-similaridades.tex` §reflejar y componer, §escalar; `06-afines-homogeneas.tex` §afinidades; `04-rotaciones.tex` §componer con centros distintos; `06-afines-homogeneas.tex` §coordenadas homogéneas: puntos como rayos.
-- Lección marimo `unidades/03_reflexiones_similaridades.py` (*Reflexiones y similaridades*, 17/10/2026; sitio `site/unidades/03_reflexiones_similaridades/`): reconstruida sin transcripción desde el esqueleto 2025 y el apunte (secciones 8, 9 y 16); la reflexión $H(\alpha)$ por columnas ($\det = -1$, involución, dos espejos = $R(2\beta)$), la similaridad $k\,R(\theta)\,x + t$ con su centro fijo $(I - A)\,c = t$, la similaridad por dos puntos con complejos ($z \mapsto az + b$) para superponer un plano viejo sobre el relevamiento, y la mención de homotecia, trayectoria y líneas coordenadas (clase 2) con la figura de círculo, rayo y espiral.
-- Unidades marimo: `03_reflexiones_similaridades` y `04_afines_homogeneas` hechas (fase 2), según la serie propuesta en `ap5-notebooks.tex`.
-- Entregas: `Afinidades_Ejercicios_Varela_56798.pdf` (seis ejercicios del 09-09, con `verificacion.py`) y `Afinidades_Triangulo_Varela_56798.pdf` (triángulo sobre triángulo con tres afinidades axiales, $A = (0,0), B = (4,0), C = (0,3)\to A' = (1,1), B' = (5,1), C' = (2,4)$, factores $4/3$, $9/8$, $2/3$ de producto 1 = cociente de áreas, $M = \begin{pmatrix}1&1/3&1\\0&1&1\\0&0&1\end{pmatrix}$ coincide con $X'X^{-1}$; material extra, no pedido).
-- Bibliografía del campus, comentarios del profesor: Burgos, *Álgebra Lineal y Geometría Cartesiana* ("A partir de la página 382 del libro de Burgos hay una muy buena explicación de geometría afín, aunque está basada toda en expresiones algebraicas. Es bastante importante notar que este enfoque es mixto, no se basa directamente en transformaciones lineales pero tampoco se basa en puntos y rectas abstractas sino que trabaja en coordenadas cartesianas"); Coxeter, *Geometría* ("El enfoque que da en el capítulo de geometría afín se relaciona con la forma en la que explicamos nosotros en lo siguiente: no depende de la expresión en coordenadas para definir las transformaciones. Nuestro enfoque fue menos riguroso (sobre todo por cuestiones de tiempo), pero es importante ver que a partir de puntos y rectas sueltos en el plano se pueden definir las transformaciones afines, su composición, etc."); Behnke V2 cap. 3 ("explica transformaciones afines desde las propiedades y transformaciones de rectas (algo similar a lo que hicimos en clase), y recién al final arma la representación con matrices") y cap. 2 (similaridades desde reflexiones); Reid caps. 1–2 (similaridades con reflexiones, composición); Pamfilos, *Isometries*, *Similarities*, *Affinity* (Teorema 1: grupo; Teorema 4: dos ternas no alineadas definen una única afinidad), *ProjectivePlane*; Lay, *Álgebra lineal y sus aplicaciones* ("tiene el ejemplo de coordenadas homogéneas cerca del final del capítulo 2 (Aplicaciones a gráficos por computadora)"). Serie de cuatro videos sobre afines (recomendada en el resumen de la clase 4).
-- Material de clase del profesor: `Ejercicio Tl_Afin_Homogenea.xlsx` (Planilla para experimentar transformaciones, 2025); `Ejemplo_para_pensar.py` (los círculos descentrados, 2025); los dos PDFs de 2026 en `apunte/`.
+- `02_homogeneas_pentagono_3d`
 
-## Enlaces del mapa
+## Ejercicios sugeridos
 
-- Viene de: `rotacion` y `matriz-ortogonal` (clase 1: las ortogonales con $\det = -1$ son las reflexiones; rotar alrededor de un centro es afín, no lineal), `composicion` y `conmutatividad` (clase 2: $T_vQ_c\neq Q_cT_v$; los círculos descentrados), `homotecia` (clase 2: la escala como afinidad con punto fijo), `trayectoria` (los círculos que dibuja rotar y trasladar repetidamente).
-- Lleva a: `plano-proyectivo`, `punto-impropio` y `homografia` (03p: sacar la restricción de la fila $(0\ 0\ 1)$; la recta del infinito), `transformacion-lineal` y `subespacio-afin` (clases 4 y 5: el cero y la diferencia entre recta por el origen y recta cualquiera), `forma-lineal` (clase 4: la afinidad axial como familia de paralelas), `autovector` y `subespacio-invariante` (clase 6: "los subespacios invariantes de la transformación lineal de $\mathbb R^3$ correspondían a los puntos fijos en $\mathbb P\mathbb R^2$"), `determinante` (clase 5: el factor de una afinidad axial es su determinante, cociente de áreas), `cambio-de-base` (clase 8: $B\,\mathrm{diag}(1,f)\,B^{-1}$ es un cambio de base, un estiramiento y la vuelta), `diagonalizacion` (clase 7: "en cierto sentido se relaciona con aplicar dos afinidades axiales sucesivas").
-- Qué se conserva: la escalera de invariantes. Reflexiones y rotaciones conservan distancias (isometrías); similaridades conservan ángulos y razones de distancias; afinidades conservan rectas, paralelismo y proporciones sobre cada recta; las proyectivas (03p) sólo rectas. Cada escalón suelta un invariante y gana transformaciones.
-
-## Huecos y dudas
-
-- `02_afinidad_original.pdf` dice que la clase arrancó repasando "la clase anterior, donde habíamos visto rotaciones". Con lo que se sabe ahora (el 08-26 no hubo clase y Gustavo faltó el 09-02) la lectura más simple es que el 09-02 se cerró rotaciones y recién el 09-09 se entró en afinidades; la guía de seis teoremas llegó por el chat como contenido de la clase que faltó y pudo trabajarse cualquiera de los dos días. Confirmar con un compañero o con el profesor qué se dio el 09-02.
-- Fecha 2025 estimada (2025-09-04); el campus no la dice.
-- Ejercicio 3 del PDF: dice "cuatro rectas $a,b,c,d$" pero cierra con "$\varphi_i$ la reflexión alrededor del punto $i$"; la entrega lo resolvió como rectas. Ejercicio 5: el enunciado ("tres autovalores reales que son 1 o −1") es falso en general (rotorreflexión); la entrega lo señala. Ejercicio 4: "1 es autovalor y es el único" necesita excluir la identidad. Preguntar si el profesor acepta esas lecturas.
-- Teorema 6 de la guía, tal como está, cubre sólo similaridades directas con punto fijo (una inversa necesita un número impar de reflexiones; una traslación no tiene punto fijo propio). Definición 3: la razón de distancias es $|k|$, el enunciado asume $k>0$.
-- El punto impropio $(1, 3/2, 0)$ de la memoria: no está claro de qué recta salió; reconstruir el ejemplo del pizarrón.
-- Verificación en AutoCAD del ejercicio rotación+escala: no hay archivo `.dwg` ni captura en el repo; confirmar si se hizo y con qué figura.
-- La planilla `Ejercicio Tl_Afin_Homogenea.xlsx` no está descripta hoja por hoja; abrirla y anotar qué columnas tiene.
-- Unidades marimo 03 y 04 hechas el 17/10/2026 (anticipadas, sin validar por la cátedra); queda cotejarlas contra lo que se dio en clase.
+- Componer tres reflexiones puntuales y reconocer el resultado
+- Mostrar que dos reflexiones en rectas secantes son una rotación del doble del ángulo entre ellas
+- Hallar la afinidad que lleva un triángulo en otro y su punto fijo si lo tiene
+- Escribir en homogéneas la composición de una rotación y una traslación

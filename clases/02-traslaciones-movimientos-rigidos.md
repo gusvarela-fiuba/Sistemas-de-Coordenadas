@@ -1,91 +1,57 @@
 ---
-clase: "02"
-titulo: Traslaciones y movimientos rígidos
-fecha_2025: null
-fecha_2025_estimada: "2025-08-28"   # jueves siguiente a la clase 1 (2025-08-21); el .wxmx "Maxima 2025.2.2" está fechado 25-08-2025
-fechas_2026: []   # el 2026-08-26 no hubo clase; esta clase de 2025 no se dictó en 2C2026
-estado: no-dictada
-fuentes:
-  - fuentes/campus/resumenes_clase_2025_profesor.md#clase-2-mas-rotaciones-composicion-y-lineas-coordenadas-y-hacia-el-fin-afin
-  - fuentes/campus/resumenes_clase_2025_profesor.md#rotaciones-clase-21-de-agosto
-  - fuentes/transcripciones/2026-08-19.md
-  - fuentes/notion/sistemas_de_coordenadas_geometria_diferencial.md
-  - apunte/01_Ejercicios_original.pdf
-conceptos: [composicion, conmutatividad, trayectoria, lineas-coordenadas, homotecia]
+clase: 2
+titulo: "Clase 2: composición, conmutatividad y líneas coordenadas"
+idea: "Para nombrar un punto con dos coordenadas hacen falta dos familias de transformaciones que conmuten; la composición y su orden son el hilo entre transformaciones, operaciones y coordenadas."
+que_se_estudia: ["Composición de transformaciones: neutro, inversa, asociatividad, y no conmutatividad en general", "Conmutatividad y coordenadas: cuándo un par $(u,v)$ nombra un único punto", "Trayectorias y líneas coordenadas: cartesianas, polares y sobre la esfera", "Homotecia: la escala $kI$ conmuta con las rotaciones del mismo centro", "Traslaciones y movimientos rígidos $x\\mapsto R(\\theta)x+v$"]
+conceptos_previos: ["Rotaciones (clase 1)", "Matrices y composición de transformaciones lineales"]
 apunte: ["traslaciones", "15", "16", "esfera"]
-unidad: 01c_rotaciones_3d
+unidades: ["01c_rotaciones_3d", "03_reflexiones_similaridades"]
+animaciones: []
+ejercicios_sugeridos: ["Verificar con $R(90°)$ y $H=2I$ que rotación y homotecia conmutan, y con $R_x$, $R_y$ que las rotaciones 3D no", "Armar el cubo de estados de tres vasos y comprobar que las tres transformaciones conmutan", "Iterar $F(x)=R(90°)x+(2,0)^T$ desde el origen y hallar el centro de la circunferencia que recorre", "Mostrar con dos rotaciones que el orden latitud–longitud no es intercambiable"]
 ---
 
-# Clase 2 — Traslaciones y movimientos rígidos
+# Clase 2: composición, conmutatividad y líneas coordenadas
 
-> **Estado:** **no dictada en 2C2026.** El miércoles 2026-08-26 no hubo clase (dato de Gustavo, 2026-10-17). Iba a ser traslaciones; el profesor mandó ese contenido por el grupo de Google Chat como la guía de reflexiones y seis teoremas `apunte/01_Ejercicios_original.pdf`, con ejercicios para resolver en clase, y se trabajó el 09-02 y el 09-09 (ficha 03). El hilo de abajo es el de la cursada 2025, **reconstruido sin transcripción** a partir del resumen 2025 de la clase 2 (y el final del de la clase 1), del material de clase 2025 (planilla, wxMaxima, `Ejemplo_para_pensar.py`), del apunte y de la página Notion de Gustavo. Sirve como contexto de la lección 01c y del apunte, no como registro de una clase dada.
+Para nombrar un punto con dos coordenadas hacen falta dos familias de transformaciones que conmuten; la composición y su orden son el hilo entre transformaciones, operaciones y coordenadas.
 
-## El hilo del profesor (cursada 2025)
+## Qué se estudia
 
-"Esta clase es un poco más práctica que la clase pasada" *(profesor, resumen 2025)*. Material de preparación: la planilla "Planilla Clase 2025.2.2", "donde se experimenta con la conmutatividad de las matrices de rotación y con la construcción de una rotación según eje-ángulo (por repetición de rotaciones pequeñas y por exponenciación)"; un ejemplo en Python ("Ejemplo Clase 2025.2.2") "que vamos a trabajar en papel en clase, pero está bueno que empiecen por mirarlo y piensen qué hace" (es de transformación afín, "va a quedar para la clase 3"); y un notebook de wxMaxima que "experimenta nuevamente el tema de la conmutatividad y aparece una yapa relativa a autovectores".
+- Composición de transformaciones: neutro, inversa, asociatividad, y no conmutatividad en general
+- Conmutatividad y coordenadas: cuándo un par $(u,v)$ nombra un único punto
+- Trayectorias y líneas coordenadas: cartesianas, polares y sobre la esfera
+- Homotecia: la escala $kI$ conmuta con las rotaciones del mismo centro
+- Traslaciones y movimientos rígidos $x\mapsto R(\theta)x+v$
 
-El centro de la clase es la pregunta de qué hace falta para construir un sistema de coordenadas, y la respuesta pasa por los vasos: "vamos a pensar cómo se genera un sistema de coordenadas para la esfera o el plano usando sólo rotaciones. Para eso tenemos que empezar por entender qué necesitamos para construir un sistema de coordenadas, y para eso vamos a hacer un breve análisis inicial sobre el caso de los vasos que planteamos como disparador la clase pasada. Hicimos el ejemplo de tres transformaciones: mover el último, mover los dos últimos o mover los tres últimos, que le dan a los puntos una estructura de cubo".
+**composicion.** Álgebra: hacer $F$ y después $G$ es $G\circ F$, y en matrices $G F$; la matriz de la derecha actúa primero. Se ve: dos movimientos encadenados son un movimiento. La composición es una operación *entre transformaciones*, como la suma lo es entre números: tiene neutro (la identidad), inversa (deshacer) y asociativa, pero no siempre conmuta. Escalera: en $\mathbb R$ componer $x\mapsto ax$ con $x\mapsto bx$ da $abx$ y el orden no importa; en $\mathbb R^2$ las rotaciones alrededor del mismo centro conmutan, $R(\alpha)R(\beta) = R(\alpha+\beta)$; en $\mathbb R^3$ las rotaciones alrededor de ejes distintos no; en $\mathbb R^n$ dos matrices cualesquiera en general no.
 
-Lo que se quería y no se llegó: "buscar una intuición de rotaciones y coordenadas sobre la cáscara de la esfera, que va a terminar conectando con el sistema de coordenadas de latitud y longitud. (No llegamos, la idea era hacer aparecer como herramienta el producto cruz, para encontrar los ejes alrededor de los cuales estábamos rotando, aunque más adelante vamos a verlo en más profundidad.)"
+**conmutatividad.** Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: la falta de conmutatividad depende de la magnitud de los ángulos. Por qué importa para coordenadas: decir "el punto $(u,v)$" es decir "moví $u$ con la primera transformación y $v$ con la segunda"; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es "dar vuelta dos vasos a la vez", el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en "accesibles o no" del resumen.
 
-La tesis de la clase, textual: "una de las cosas importantes en esta materia es entender la relación entre Transformaciones, operaciones, y coordenadas. Una operación muy importante es la composición, y veremos que hay una propiedad muy importante de esta operación relacionada con los sistemas de coordenadas: En general es necesario para construir un sistema de coordenadas que haya conmutatividad a la hora de componer movimientos por coordenadas".
+**trayectoria.** Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (clase 1).
 
-Quedó para la clase 3: "pasar a un ejemplo en el plano $\mathbb R^2$, calculando una serie de operaciones que nos van a llevar a formar círculos pero no necesariamente centrados en el origen (como la clase pasada). Analizaremos cómo se puede expresar ese tipo de operación en una forma que la composición sea fácil de trabajar, y con esto introduciremos el concepto de transformaciones afines". Eso es exactamente lo que hace `Ejemplo_para_pensar.py`.
-
-Del resumen de la clase 1 que pertenece acá: "la rotación genera para cada punto una trayectoria o línea de los lugares posibles a los que caer"; con los vasos, "definida una transformación, el espacio de posiciones posibles queda a veces partido en lugares accesibles o no, y a su vez puede existir una segunda transformación (en el caso de los vasos dar vuelta un vaso, en el espacio puede ser escalar) que me lleva de una trayectoria posible a otra trayectoria posible. Estas trayectorias posibles son lo que conocemos normalmente como líneas coordenadas". Y de la rúbrica: "Las Transformaciones se identifican con las trayectorias que generan (por aplicación repetida)"; "La falta de conmutatividad de Transformaciones lineales depende de la magnitud".
-
-## Lo que pasó en 2C2026
-
-No hubo clase. El miércoles 2026-08-26 la clase no se dictó (dato de Gustavo, 2026-10-17). Al cerrar el 2026-08-19 el profesor había anunciado para ese día "transformaciones afines: rotaciones, traslaciones, escalas y transformaciones rígidas en el plano" y "conectar el experimento de hoy con la teoría del logaritmo de matrices de forma más ordenada". En lugar de la clase mandó por el grupo de Google Chat el contenido previsto, traslaciones: la guía `apunte/01_Ejercicios_original.pdf` (reflexión por un punto y por una recta; seis teoremas que arrancan en "la composición de dos reflexiones es una traslación"; homotecia; toda similaridad como dos reflexiones y una homotecia) con ejercicios para resolver en clase. Se trabajó el 09-02 y el 09-09 (ficha 03) y está desarrollada en la lección `03_reflexiones_similaridades`. También habían quedado pendientes el instructivo de `uv` + `marimo`, el WiFi de la sede con las notebooks y los ejercicios de Excel.
-
-Qué pasó con el contenido 2025 de esta clase:
-
-- Parte ya se había dado el 08-19: el ejercicio 2 de Excel (rotación por repetición de pasitos) y el logaritmo con `logm` son el contenido de la planilla 2025 de esta clase.
-- El resto (el problema de los vasos y el cubo de estados, latitud y longitud como líneas coordenadas generadas por rotaciones, el producto cruz como eje de giro, la "yapa" de autovectores del wxMaxima) no consta que se haya dado en ninguna clase posterior de 2C2026. El producto cruz y los autovectores reaparecen el 16/9 (ficha 05 y 06); la esfera, recién en la tercera lectura del apunte.
-- El orden efectivo de 2C2026 (apunte, `00-antes-de-empezar.tex`) quedó rotaciones → guía de reflexiones y similaridades → afines y homogéneas → proyectivas, sin esta clase. El 09-02 Gustavo no asistió, así que si algo de esto se retomó ese día no hay registro (ver ficha 03, Huecos).
-
-La ficha se conserva porque el hilo 2025 explica de dónde salen la lección 01c (el orden de los giros, la conmutatividad) y la pregunta guía de la grilla de coordenadas.
-
-## Hecho geométrico
-
-**composicion.** Álgebra: hacer $F$ y después $G$ es $G\circ F$, y en matrices $G F$; "la matriz de la derecha actúa primero". Se ve: dos movimientos encadenados son un movimiento. La composición es una operación *entre transformaciones*, como la suma lo es entre números: tiene neutro (la identidad), inversa (deshacer) y asociativa, pero no siempre conmuta. Escalera: en $\mathbb R$ componer $x\mapsto ax$ con $x\mapsto bx$ da $abx$ y el orden no importa; en $\mathbb R^2$ las rotaciones alrededor del mismo centro conmutan, $R(\alpha)R(\beta) = R(\alpha+\beta)$; en $\mathbb R^3$ las rotaciones alrededor de ejes distintos no; en $\mathbb R^n$ dos matrices cualesquiera en general no.
-
-**conmutatividad.** Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: "la falta de conmutatividad depende de la magnitud". Por qué importa para coordenadas: decir "el punto $(u,v)$" es decir "moví $u$ con la primera transformación y $v$ con la segunda"; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es "dar vuelta dos vasos a la vez", el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en "accesibles o no" del resumen.
-
-**trayectoria.** Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: "la transformación se identifica con la trayectoria que genera". Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (clase 1).
-
-**lineas-coordenadas.** Álgebra: dos familias de transformaciones que conmutan, $T_u$ y $S_v$, y el punto $p(u,v) = T_u S_v p_0$. Se ve: las trayectorias de $T$ y de $S$ son las dos familias de líneas de la grilla. Cartesianas: traslaciones en $x$ y en $y$ (conmutan, grilla de rectas). Polares: rotación y homotecia desde el origen (conmutan, circunferencias y rayos). Esfera: paralelos como trayectorias de $R_z(\lambda)$, meridianos como trayectorias de la rotación alrededor de un eje horizontal; el eje de la rotación que mueve el punto $p$ a lo largo de su meridiano es $e_z\times p$, y ahí es donde "la idea era hacer aparecer como herramienta el producto cruz". Como ese eje depende del punto, las dos familias no conmutan globalmente; latitud y longitud funcionan igual porque se fija una convención de orden (primero bajar del polo, después girar).
+**lineas-coordenadas.** Álgebra: dos familias de transformaciones que conmutan, $T_u$ y $S_v$, y el punto $p(u,v) = T_u S_v p_0$. Se ve: las trayectorias de $T$ y de $S$ son las dos familias de líneas de la grilla. Cartesianas: traslaciones en $x$ y en $y$ (conmutan, grilla de rectas). Polares: rotación y homotecia desde el origen (conmutan, circunferencias y rayos). Esfera: paralelos como trayectorias de $R_z(\lambda)$, meridianos como trayectorias de la rotación alrededor de un eje horizontal; el eje de la rotación que mueve el punto $p$ a lo largo de su meridiano es $e_z\times p$, y ahí aparece el producto cruz como herramienta para hallar los ejes de giro. Como ese eje depende del punto, las dos familias no conmutan globalmente; latitud y longitud funcionan igual porque se fija una convención de orden (primero bajar del polo, después girar).
 
 **homotecia.** Álgebra: $x' = o + k(x-o)$; con centro en el origen, la matriz $kI$. Se ve: todo se agranda o achica desde el centro, cada punto sobre el rayo que lo une al centro; conserva ángulos y paralelas, multiplica distancias por $|k|$. Conmuta con cualquier rotación del mismo centro ($kI\,R = R\,kI$), y por eso rotación y escala juntas dan coordenadas polares. En complejos es el $\rho$ de $\rho e^{i\theta}$, y la conmutatividad es la del producto de complejos. Es "la segunda transformación que me lleva de una trayectoria posible a otra": salta de una circunferencia a otra.
 
-## Cuentas chicas
+## Conceptos previos
 
-1. **Rotación y homotecia conmutan; rotaciones 3D no.** $R(90°) = \begin{pmatrix}0&-1\\1&0\end{pmatrix}$, $H = 2I$. $R\,H\binom10 = R\binom20 = \binom02$ y $H\,R\binom10 = H\binom01 = \binom02$. Contraste en 3D (de la clase 1): $R_y(90°)R_x(90°)e_z = -e_y$ pero $R_x(90°)R_y(90°)e_z = e_x$. Verificación: `MMULT` en los dos órdenes; en el wxMaxima de 2025 está hecho simbólicamente.
+- Rotaciones (clase 1)
+- Matrices y composición de transformaciones lineales
 
-2. **El cubo de los vasos.** Estado $(b_1,b_2,b_3)$ con $b_i\in\{0,1\}$ (0 boca arriba). Las tres transformaciones son sumar módulo 2 las máscaras $m_1 = (0,0,1)$, $m_2 = (0,1,1)$, $m_3 = (1,1,1)$. Desde $(0,0,0)$: $m_3$ da $(1,1,1)$, luego $m_1$ da $(1,1,0)$; en el otro orden, $m_1$ da $(0,0,1)$ y luego $m_3$ da $(1,1,0)$. Mismo vértice: conmutan. Las ocho combinaciones de $\{m_1,m_2,m_3\}$ aplicadas o no dan los ocho vértices, sin repetir: coordenadas. Con la sola transformación "dar vuelta dos vasos" nunca se sale de la paridad de $b_1+b_2+b_3$: cuatro vértices accesibles, cuatro no.
+## En el apunte
 
-3. **Círculo no centrado en el origen (el ejemplo que queda para la clase 3).** $F(x) = R(90°)x + \binom20$, arrancando de $(0,0)$: $(0,0)\to(2,0)\to(2,2)\to(0,2)\to(0,0)$. Cuatro puntos sobre la circunferencia de centro $(1,1)$ y radio $\sqrt2$. El centro es el punto fijo: $(I-R)c = \binom20$ con $I-R = \begin{pmatrix}1&1\\-1&1\end{pmatrix}$ y $c = \binom11$: $\binom{1+1}{-1+1} = \binom20$. Verificación: `Ejemplo_para_pensar.py` hace lo mismo con $R = e^{M}$, $M = \begin{pmatrix}0&-\pi/20\\\pi/20&0\end{pmatrix}$ (giro de 9°) y tres traslaciones $k$ distintas, 100 veces cada una desde el origen: salen tres circunferencias de centros distintos. En Excel: `MMULT(R; anterior) + k` arrastrado.
+- Traslaciones y movimientos rígidos (`cap:traslaciones`)
+- Rotaciones infinitesimales y orden de composición (`cap:15`)
+- Composición afín práctica: rotación y escala (`cap:16`)
+- Coordenadas sobre la esfera y trigonometría esférica (`cap:esfera`)
 
-4. **Latitud y longitud con dos rotaciones, y por qué el orden está fijado.** Punto del ecuador $p = e_x = (1,0,0)$. El eje para subir por el meridiano es $p\times e_z = -e_y$, o sea girar alrededor de $y$ con ángulo $-\varphi$: $R_y(-\varphi)e_x = (\cos\varphi, 0, \sin\varphi)$, latitud $\varphi$. Después girar alrededor de $z$: $R_z(\lambda)(\cos\varphi,0,\sin\varphi) = (\cos\varphi\cos\lambda,\ \cos\varphi\sin\lambda,\ \sin\varphi)$, la fórmula de la esfera del Notion de Gustavo. Con $\varphi = \lambda = 90°$: subir y después girar, $R_z(90°)R_y(-90°)e_x = R_z(90°)e_z = e_z$, el polo; girar y después subir, $R_y(-90°)R_z(90°)e_x = R_y(-90°)e_y = e_y$, un punto del ecuador. No conmutan; el par $(\varphi,\lambda)$ nombra un punto sólo porque la convención dice "primero latitud, después longitud". Verificación: las dos cuentas con `MMULT` sobre el vector columna $(1,0,0)$.
+## Unidades interactivas
 
-## Dónde está desarrollado
+- Rotaciones III: tres ejes y el orden importa (`01c_rotaciones_3d`)
+- Reflexiones y similaridades (`03_reflexiones_similaridades`)
 
-- Apunte: `04-rotaciones.tex` §"El orden importa" y §"Eje de rotación, autovectores y exponencial" (el experimento de rotación por repetición, eje $(1,1,1)$, $\Theta \approx n\varepsilon\sqrt3$); `15-apendice-infinitesimales.tex` (por qué el orden no aparece a primer orden, conmutador, interpretación con $\varepsilon = \delta = 0.01$); `16-apendice-composicion-afin.tex` (composición en homogéneas, "la matriz situada a la derecha actúa primero", orden rotación–escala); `11-superficies-geodesia.tex` §"Coordenadas curvilíneas y bases locales" (grilla $(u,v)$ sobre una superficie, $r_u, r_v$). El problema de los vasos no está en el apunte.
-- Unidad marimo: `unidades/01c_rotaciones_3d.py` (Rotaciones III: $R_zR_y \neq R_yR_z$ con el mismo cubo, la diferencia de segundo orden con ángulos chicos, el eje fijo de la composición) cubre el arranque de esta clase; la legacy `unidades/_legacy/01_rotaciones_v1.py` cubre la no conmutatividad (curva $\|R_xR_yR_z - R_zR_yR_x\|$ contra el ángulo) y la trayectoria $R^kv$. Pendiente: una unidad de líneas coordenadas (vasos, polares, esfera) sin número asignado todavía.
-- Bibliografía del campus: Miles Reid, *Geometry and Topology*, caps. 1 y 2 ("Clase 2 y Clase 3. Los capítulos 1 y 2 del libro de Reid explican muy bien cómo se pueden formar todas las similaridades del plano con reflexiones, es muy bueno para entender la composición de transformaciones y transformaciones en el plano en general"); Behnke, *Fundamentals of Mathematics* V2, cap. 2 ("Clase 2 y 3. El capítulo 2 también está muy bueno, a partir de reflexiones construye todas las transformaciones de similaridad (afinidades que no deforman ángulos)"). Mahecha cap. 7 para rotaciones 3D (clase 1).
-- Material de clase del profesor (2025, en `Bibliografia/material de clase 2C2025/`): `Rotaciones_No_Conmutan.xlsx` (Planilla Clase 2025.2.2), `Algun_ejemplo_de_rotacion.wxmx` (Maxima 2025.2.2, 25-08-2025, conmutatividad + yapa de autovectores), `Ejemplo Clase 2025/Ejemplo_para_pensar.py` + `.jpeg` (rotación de $\pi/20$ vía `expm` más traslación, iterada 100 veces con tres $k$). Notion de Gustavo: "las rotaciones infinitesimales conmutan, igual que los pasitos $du$, $dv$; lo infinitesimal simplifica; lo finito se construye por acumulación".
+## Ejercicios sugeridos
 
-## Enlaces del mapa
-
-- Viene de: `rotacion`, `rotacion-3d` y `rotacion-infinitesimal` (clase 1: el orden importa salvo para ángulos chicos), `exponencial-de-matrices` (la trayectoria continua $e^{tM}$), `numeros-complejos` (el producto de complejos conmuta: rotación y escala a la vez).
-- Lleva a: `transformacion-afin`, `traslacion` y `punto-fijo` (clase 3: los círculos descentrados y cómo escribir la composición de rotación y traslación), `producto-vectorial` (clase 5: el eje alrededor del cual se rota, que acá se quiso hacer aparecer), `potencias-de-matrices` (clase 8: la trayectoria de un punto bajo $A^t$), `primera-forma-fundamental` y `superficie-parametrica` (clase 9: latitud y longitud como grilla sobre la esfera), `curvas-de-nivel` (clase 4: las líneas de una coordenada son curvas de nivel de la otra).
-- Qué se conserva: en la composición, lo que conservan ambas transformaciones (dos rotaciones conservan distancias; rotación y homotecia conservan ángulos). La pregunta guía es otra: ¿qué pasa con el orden? Si conmutan, hay coordenadas.
-
-## Huecos y dudas
-
-- **Signo de $\beta$ en la matriz infinitesimal.** El PDF del campus (impreso 2026-10-17) muestra $\Gamma = \begin{pmatrix}1&-\gamma&-\beta\\\gamma&1&-\alpha\\\beta&\alpha&1\end{pmatrix}$; el md (copiado 2026-09-21) dice $\Gamma = \begin{pmatrix}1&-\gamma&\beta\\\gamma&1&-\alpha\\-\beta&\alpha&1\end{pmatrix}$. La convención estándar (mano derecha, $R_y$ como en el Notion de Gustavo y en el apunte 14/15) da $R_z(\gamma)R_y(\beta)R_x(\alpha) \approx Id + \alpha A_x + \beta A_y + \gamma A_z = Id + [\omega]_\times$ con $\omega = (\alpha,\beta,\gamma)$, que es la versión del md; la del PDF equivale a tomar $R_y$ con el seno de signo cambiado (girar $-\beta$ alrededor de $y$). Las dos son $Id$ más una antisimétrica ($P^T = -P$: ceros en la diagonal y entradas opuestas a un lado y otro), así que las dos son rotaciones a primer orden; sólo cambia la orientación convenida del eje $y$. Mirar cuál está renderizada en el campus y cuál se escribió en el pizarrón.
-- Fecha 2025 estimada (2025-08-28); el campus no la dice.
-- La clase no se dictó en 2C2026 (dato de Gustavo, 2026-10-17). Queda por confirmar si el 09-02, al que Gustavo faltó, se retomó algo de los vasos, la esfera o el producto cruz.
-- La "yapa relativa a autovectores" del wxMaxima no está descripta en ningún lado; abrir `Algun_ejemplo_de_rotacion.wxmx` y anotar qué calcula.
-- El vínculo esfera → latitud/longitud → producto cruz quedó enunciado en 2025 y no desarrollado en clase; el apunte lo trata recién en el capítulo 11 (superficies y geodesia). La cuenta chica 4 es reconstrucción propia, no del pizarrón.
-- La página Notion de Gustavo cierra con "el tensor métrico se transforma con la jacobiana $J$ como $g' = J^Tg\,J$, el mismo patrón que las rotaciones": vale anotarlo acá como puente a la clase 9, pero no consta que el profesor lo haya dicho en la clase 2.
+- Verificar con $R(90°)$ y $H=2I$ que rotación y homotecia conmutan, y con $R_x$, $R_y$ que las rotaciones 3D no
+- Armar el cubo de estados de tres vasos y comprobar que las tres transformaciones conmutan
+- Iterar $F(x)=R(90°)x+(2,0)^T$ desde el origen y hallar el centro de la circunferencia que recorre
+- Mostrar con dos rotaciones que el orden latitud–longitud no es intercambiable
