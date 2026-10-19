@@ -4,13 +4,34 @@
 
 \section{La idea}
 
+Imaginá una lámina de goma con una cuadrícula estampada, de cuadraditos de un centímetro de
+lado. La estirás parejo, tirando de los bordes siempre de la misma manera, y quizás la
+inclinás un poco. ¿Qué forma tienen ahora los cuadraditos?
+Son paralelogramos, y todos iguales entre sí. ¿Cuánto mide cada uno?
+Como son todos iguales, alcanza con medir uno: si cada cuadradito pasó a medir \(5\)
+centímetros cuadrados, cualquier figura dibujada en la goma quedó con cinco veces su área.
+Ese número, el mismo para todos los cuadraditos, es el \emph{determinante} del estiramiento.
+¿Y si aplastás la goma hasta que quede reducida a una línea?
+Los cuadraditos ya no encierran superficie, y el número vale cero.
+
+Pensá ahora en dos reglas apoyadas sobre una mesa, con un extremo en común. ¿Cuánta superficie
+abarca el paralelogramo que forman? ¿La segunda regla queda a la izquierda o a la derecha de la
+primera?
+Un solo número contesta las dos preguntas: su tamaño es el área y su signo dice el lado.
+Ese número es el \emph{producto cuña} de las dos reglas, pensadas como flechas, y vale cero
+justo cuando las dos quedan sobre una misma recta.
+
 El capítulo~\ref{cap:formas-lineales} usó el producto vectorial para unir puntos y cortar
 rectas, y dejó anotado que su largo es un área; ahora hacemos del área con signo la
-herramienta central. Con ella se contestan preguntas que en el campo aparecen todo el tiempo:
-¿están alineados estos tres mojones?, ¿dónde se cortan dos alineaciones?, ¿cuánta superficie
-encierra esta poligonal?, ¿cuánto agranda las áreas esta transformación? El \emph{producto
-cuña} mide áreas \emph{con signo}; el determinante es su versión para \(n\) vectores de
-\(\R^n\), y el núcleo de una matriz es lo que queda cuando ese número se anula.
+herramienta central. Con ella se contestan preguntas que en un terreno aparecen todo el
+tiempo:
+¿están alineados estos tres mojones (las marcas fijas que se dejan clavadas en el suelo)?,
+¿dónde se cortan dos alineaciones?, ¿cuánta superficie encierra un lote del que conocemos
+las coordenadas de los vértices?, ¿cuánto agranda las áreas esta transformación? El
+\emph{producto cuña} mide áreas \emph{con signo}; el determinante es su versión para \(n\)
+vectores de \(\R^n\) (el espacio de las listas de \(n\) números: el plano si \(n=2\), el
+espacio si \(n=3\)), y el núcleo de una matriz, el conjunto de flechas que la matriz aplasta
+hasta el cero, es lo que aparece cuando ese número se anula.
 
 \paragraph{Convenciones del capítulo.} \(\times\) es el producto vectorial de \(\R^3\) y
 \(\wedge\) el producto cuña; en homogéneas, el punto \((x,y)\) es \((x,y,1)\) y la recta
@@ -18,7 +39,12 @@ cuña} mide áreas \emph{con signo}; el determinante es su versión para \(n\) v
 
 \subsection{Del álgebra a la geometría: qué pregunta cada operación}\label{sec:algebra-geometria}
 
-Cada operación del álgebra responde una pregunta geométrica:
+Antes de entrar en detalle conviene tener el mapa. Cada operación del álgebra responde una
+pregunta geométrica. En la tabla, \(u\), \(v\), \(w\) son vectores (flechas con origen en el
+origen de coordenadas), \(A\) es una matriz cuadrada, \(\det\) abrevia determinante y
+\(\lambda\) (lambda) es el número por el que \(A\) estira una flecha que no hace girar; el
+núcleo y los autovectores se desarrollan más adelante, y estos últimos, en el
+capítulo~\ref{cap:autovectores}.
 
 \begin{center}
 \begin{tabularx}{\textwidth}{>{\bfseries}p{34mm} X X}
@@ -50,9 +76,19 @@ autovalores y para hallar los autovectores como núcleo de unas matrices que arm
 
 \subsection{Subespacios lineales y afines}\label{sec:subespacios-lineales-afines}
 
-Una recta del plano puede pasar por el origen o no. La diferencia parece menor, pero decide
-qué operaciones se le pueden aplicar: la suma de dos vectores de la recta \(y=2x\) sigue en
-esa recta, y la de dos puntos de \(y=2x+1\) no.
+Imaginá dos rectas paralelas dibujadas en una hoja cuadriculada: una pasa por el origen y la
+otra, un cuadradito más arriba. Marcá dos puntos en la primera, dibujá las flechas que van
+del origen a cada uno y sumalas, poniendo una a continuación de la otra. ¿Dónde cae la punta
+de la suma?
+Sobre la misma recta. Hacé lo mismo con dos puntos de la segunda: ¿cae la punta en la
+segunda recta?
+No: cae más arriba. La diferencia entre las dos rectas parece menor, pero decide qué
+operaciones se les pueden aplicar. Para qué sirve distinguirlas: en la recta que pasa por el
+origen podemos sumar y estirar flechas sin salirnos, y eso permite describirla con muy pocos
+datos y combinar soluciones de ecuaciones; en la otra no. En números: la suma de dos vectores
+de la recta \(y=2x\) sigue en esa recta, y la de dos puntos de \(y=2x+1\) no. A los conjuntos
+que se comportan como la primera recta los llamamos subespacios lineales; a los que son una
+copia corrida de uno de ellos, subespacios afines.
 
 \begin{definicion}[Subespacio lineal y subespacio afín]\label{def:subespacio}
 Un \emph{subespacio lineal} de \(\R^n\) es un conjunto \(S\) no vacío cerrado por sumas y por
@@ -62,10 +98,17 @@ subespacio lineal trasladado, \(p_0+S=\{p_0+s:\ s\in S\}\); pasa por el origen s
 \(p_0\in S\), y en ese caso es lineal. La \emph{dimensión} de \(p_0+S\) es la de \(S\).
 \end{definicion}
 
+En la definición, \(S\) es el subespacio lineal, \(t\) un número cualquiera y \(p_0\) un punto
+elegido a gusto en el subespacio afín, el que hace de ancla: la recta de arriba de la hoja
+es la de abajo corrida hasta pasar por \(p_0\).
+
 Cada subespacio se describe de dos maneras. La \textbf{paramétrica} dice cómo se recorre:
 \(x=p_0+t\,d\) para una recta, \(x=p_0+s\,u+t\,v\) para un plano, con \(d\), o \(u,v\),
-generadores de \(S\). La \textbf{implícita} dice qué ecuaciones cumple: \(ax+by=c\) para una
-recta del plano, \(n\cdot x=c\) para un plano de \(\R^3\); es lineal si \(c=0\) y afín si
+generadores de \(S\). Acá \(x\) es el punto que recorre el subespacio, \(d\) es el vector
+dirección de la recta (la flecha que indica hacia dónde va) y \(s\), \(t\) son los números
+que se mueven libremente: cada valor da un punto. La \textbf{implícita} dice qué ecuaciones
+cumple: \(ax+by=c\) para una recta del plano, \(n\cdot x=c\) para un plano de \(\R^3\), donde
+\(n\) es un vector perpendicular al plano y \(c\) un número; es lineal si \(c=0\) y afín si
 \(c\neq0\). Por ejemplo, la recta que pasa por \(p_0=(0,1)\) con dirección \(d=(1,2)\) es
 \((x,y)=(0,1)+t(1,2)\) en forma paramétrica; eliminando \(t\) queda \(2x-y=-1\), una recta
 afín, paralela a la recta lineal \(2x-y=0\). Pasar de la paramétrica a la implícita es buscar
@@ -80,9 +123,21 @@ una recta afín del plano es un plano lineal de \(\R^3\) que pasa por el origen.
 
 \subsection{El producto cuña en el plano: área con signo}\label{sec:cuna-plano}
 
+Volvamos a las dos reglas sobre la mesa, con un extremo en común. Dejá quieta la primera y
+girá la segunda despacio alrededor del extremo compartido. ¿Qué le pasa al paralelogramo que
+forman?
+Se ensancha hasta que las reglas quedan perpendiculares, después se angosta y, cuando la
+segunda regla se apoya sobre la primera, desaparece. Si seguís girando, el paralelogramo
+vuelve a aparecer, pero ahora la segunda regla está del otro lado. Para qué sirve llevar la
+cuenta de ese lado: con el área sola no distinguimos un punto a la izquierda de una recta de
+uno a la derecha, y esa distinción es la que decide si tres puntos están alineados, si un
+recorrido va en un sentido o en el otro, o si un punto está adentro de un lote.
+
 Dos vectores \(u\), \(v\) del plano, con su origen común, forman un paralelogramo. Si además
 de su área registramos en qué sentido hay que girar para ir de \(u\) a \(v\), obtenemos un
-número con signo, mucho más útil.
+número con signo, mucho más útil. Lo llamamos producto cuña y lo escribimos \(u\wedge v\) (se
+lee \enquote{\(u\) cuña \(v\)}); en la definición, \(u_x\), \(u_y\) son las dos componentes de
+\(u\) y \(v_x\), \(v_y\) las de \(v\).
 
 \begin{definicion}[Producto cuña de dos vectores del plano]\label{def:cuna-plano}
 Para \(u=(u_x,u_y)\) y \(v=(v_x,v_y)\),
@@ -109,7 +164,9 @@ paralelogramo de \(u=(3,1)\) y \(v=(1,2)\) mide \(4\times3=12\); le sacamos dos 
 \(12-3-2-2=5=3\cdot2-1\cdot1\). Tres propiedades lo caracterizan: es \textbf{lineal en cada
 vector} (duplicar un lado duplica el área), \textbf{antisimétrico} (\(v\wedge u=-\,u\wedge v\):
 cambiar el orden cambia el sentido) y \(u\wedge u=0\) (un vector consigo mismo no encierra
-área).
+área). Las tres se ven con las reglas: si estirás la segunda al doble, el paralelogramo
+duplica su ancho; si las nombrás al revés, el giro de la primera a la segunda cambia de
+sentido; y una regla apoyada sobre sí misma no abarca nada.
 
 \begin{idea}[El signo del área es el sentido de giro]
 El cuña dice de qué lado del primer vector está el segundo: positivo, a la izquierda;
@@ -122,6 +179,19 @@ el área de cualquier polígono (sección~\ref{sec:poligono-cunas}).
 \section{Construcciones, cuentas y ejemplos}
 
 \subsection{El cuña como detector de colinealidad}\label{sec:cuna-colinealidad}
+
+Imaginá que solo podés moverte por el plano dando pasos de dos tipos, uno según la flecha
+\(u\) y otro según la flecha \(v\), hacia adelante o hacia atrás y de cualquier largo. ¿A qué
+puntos llegás?
+Si las dos flechas apuntan en direcciones distintas, a cualquiera: un poco de \(u\) y un poco
+de \(v\) te llevan adonde quieras. Pero si \(v\) es un múltiplo de \(u\), por ejemplo
+\(v=2u\), los dos tipos de paso te mueven sobre la misma recta y nunca salís de ella. En el
+segundo caso decimos que \(u\) y \(v\) son \emph{linealmente dependientes}: uno se escribe con
+el otro y no aporta una dirección nueva; en el primero, que son \emph{linealmente
+independientes}. Para qué sirve saberlo: dos flechas independientes alcanzan para describir
+cualquier punto del plano, y dos dependientes no. El cuña lo detecta sin hacer ninguna
+cuenta de pasos: con las reglas sobre la mesa, el paralelogramo desaparece justo cuando una
+queda sobre la otra.
 
 \begin{proposicion}[El cuña se anula exactamente en los vectores dependientes]\label{prop:cuna-dependencia}
 Para \(u,v\in\R^2\), \(u\wedge v=0\) si y solo si \(u\) y \(v\) son linealmente dependientes,
@@ -136,7 +206,9 @@ Recíprocamente, supongamos \(u\wedge v=u_xv_y-u_yv_x=0\). Si \(u=0\), son depen
 recta de dirección \(u\), y \(v=tu\) para algún \(t\).
 \end{demostracion}
 
-La demostración deja una lectura que vamos a usar todo el capítulo:
+En la demostración, \(u^\perp\) (se lee \enquote{\(u\) perpendicular}) es la flecha \(u\)
+girada un cuarto de vuelta en sentido antihorario, y \(u^\perp\cdot v\) su producto interno
+con \(v\). La demostración deja una lectura que vamos a usar todo el capítulo:
 \(u\wedge v=u^\perp\cdot v\). El cuña es un producto interno con el vector \(u\) girado
 \(90^\circ\); por eso mide cuánto se aparta \(v\) de la recta de \(u\). Tres puntos \(a,b,c\)
 están alineados si y solo si \((b-a)\wedge(c-a)=0\), y la mitad de ese número es el área con
@@ -153,8 +225,16 @@ El signo positivo dice que el recorrido \(a\to b\to c\) es antihorario; recorrid
 cero.
 \end{ejemplo}
 
-\paragraph{En el espacio: el cuña como vector normal.} Para \(u,v\in\R^3\) hay tres planos
-coordenados y en cada uno el paralelogramo de \(u\) y \(v\) proyecta un área con signo. Esos
+\paragraph{En el espacio: el cuña como vector normal.} Imaginá un paralelogramo de cartón
+sostenido en el aire, inclinado, en el rincón de una habitación. Iluminado desde arriba
+proyecta una sombra sobre el piso; iluminado de frente o de costado, una sombra sobre cada una
+de las dos paredes. ¿Cuánto mide cada sombra?
+Depende de cuánto mire el cartón hacia el piso o hacia cada pared: si está paralelo a una
+pared, su sombra sobre ella es del mismo tamaño que el cartón, y sobre las otras dos es una
+raya. Para \(u,v\in\R^3\) (las dos flechas que forman los lados del cartón) hay tres planos
+coordenados, que hacen de piso y paredes, y en cada uno el paralelogramo de \(u\) y \(v\)
+proyecta un área con signo. En lo que sigue, \(u_1\), \(u_2\), \(u_3\) son las tres
+componentes de \(u\), y lo mismo para \(v\). Esos
 tres números, \(u_2v_3-u_3v_2\), \(u_3v_1-u_1v_3\) y \(u_1v_2-u_2v_1\), son las componentes del producto vectorial \(u\times v\)
 (sección~\ref{sec:vectorial}): un vector normal al plano de \(u\) y \(v\), de largo igual al
 área del paralelogramo. Cada componente es un cuña de \(2\times2\) de las coordenadas que
@@ -165,10 +245,22 @@ proposición~\ref{prop:cuna-dependencia} sigue valiendo: \(u\times v=0\) si y so
 
 \subsection{El determinante como factor de área y de volumen}\label{sec:det-factor}
 
-Una matriz \(M\) de \(2\times2\) lleva \(e_1\) y \(e_2\) a sus columnas \(u\) y \(v\), y el
-cuadrado unidad al paralelogramo de \(u\) y \(v\), de área con signo \(u\wedge v=\det M\). Como \(M\) es lineal, toda la grilla de cuadrados se
-transforma en una grilla de paralelogramos iguales (figura~\ref{fig:cuna-grilla}); cualquier
-región, aproximada por cuadraditos, cambia su área por el mismo factor.
+Volvamos a la goma con la cuadrícula estampada de \enquote{La idea}. Antes de estirarla,
+dibujá en ella el contorno de un lote cualquiera, con bordes curvos si querés. Después de
+estirarla parejo, ¿cuánta superficie encierra el contorno?
+Contá los cuadraditos que quedaron adentro: son los mismos que antes, porque la goma no se
+cortó ni se plegó, y cada uno pasó a medir lo mismo que los demás. Entonces el área del lote
+quedó multiplicada por lo que mide un cuadradito estirado, sea cual sea la forma del lote.
+Para qué sirve: alcanza con un solo número para saber cómo cambia cualquier superficie al
+pasar de un sistema de coordenadas a otro, sin volver a medir figura por figura.
+
+En números, el estiramiento parejo es una matriz \(M\) de \(2\times2\) (lo vimos en el
+capítulo~\ref{cap:afines}), y \(e_1=(1,0)\), \(e_2=(0,1)\) son las dos flechas de largo \(1\)
+sobre los ejes, los lados del cuadradito de partida. \(M\) lleva \(e_1\) y \(e_2\) a sus
+columnas \(u\) y \(v\), y el cuadrado unidad al paralelogramo de \(u\) y \(v\), de área con
+signo \(u\wedge v=\det M\). Como \(M\) es lineal, toda la cuadrícula se transforma en
+una de paralelogramos iguales (figura~\ref{fig:cuna-grilla}); cualquier región, aproximada
+por cuadraditos, cambia su área por el mismo factor.
 
 \begin{figure}[htbp]
 \centering
@@ -189,51 +281,29 @@ conserva la orientación (un recorrido antihorario sigue siendo antihorario); si
 paralelepípedo de lados \(u,v,w\).
 \end{proposicion}
 
-\begin{demostracion}
-\emph{Paralelogramos.} Sea \(M=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\) y
-\(p,q\in\R^2\). Por cuenta directa,
-\[
-  (Mp)\wedge(Mq)=(ap_x+bp_y)(cq_x+dq_y)-(cp_x+dp_y)(aq_x+bq_y)
-  =(ad-bc)(p_xq_y-p_yq_x)=\det M\,(p\wedge q).
-\]
-Es lo que se espera de una operación bilineal y alternada (\(p\wedge p=0\)): desarrollando
-\(p\) y \(q\) en la base canónica solo sobreviven los términos en \(e_1\wedge e_2\) y
-\(e_2\wedge e_1=-e_1\wedge e_2\), así que \((Mp)\wedge(Mq)=(p\wedge q)\,(Me_1\wedge Me_2)\),
-y \(Me_1\wedge Me_2\) es el cuña de las columnas de \(M\), \(\det M\). Como \(M\) es lineal,
-lleva el paralelogramo de lados \(p,q\) al de lados \(Mp,Mq\), y su área con signo queda
-multiplicada por \(\det M\).
+En la proposición, \(R\) es la región, \(M(R)\) la región transformada (los puntos \(Mx\) con
+\(x\) en \(R\)) y \(\operatorname{área}\) su superficie; \(|\det M|\) es el valor absoluto del
+determinante, porque una superficie no puede ser negativa. La demostración sigue la imagen de
+la goma en tres pasos: primero un paralelogramo, después cualquier polígono partido en
+triángulos y por último cualquier región, encerrada entre polígonos cada vez más finos; está
+completa en la sección~\ref{sec:demos-determinante}.
 
-\emph{Polígonos.} Un polígono de vértices \(p_1,\dots,p_n\) se descompone en los triángulos
-\(p_1\,p_i\,p_{i+1}\) que salen del vértice \(p_1\), y su área con signo es la suma de las
-áreas con signo \(\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\) de esos triángulos (es la
-proposición~\ref{prop:area-poligono} con el origen trasladado a \(p_1\)). \(M\) lleva cada
-triángulo al de vértices \(Mp_1\), \(Mp_i\), \(Mp_{i+1}\), cuya área con signo es
-\(\tfrac12\,M(p_i-p_1)\wedge M(p_{i+1}-p_1)=\det M\cdot\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\).
-Sumando, el área con signo de \(M(P)\) es \(\det M\) por la de \(P\), y en valor absoluto
-\(\operatorname{área}(M(P))=|\det M|\,\operatorname{área}(P)\). Una región con área se
-aproxima tanto como se quiera por polígonos, y sus imágenes por \(M\) aproximan a \(M(R)\);
-la igualdad pasa al límite.
-
-\emph{Orientación.} Un recorrido antihorario tiene área con signo positiva; la de su imagen
-es \(\det M\) por ella, positiva si \(\det M>0\) y negativa si \(\det M<0\). Si
-\(\det M=0\), las columnas de \(M\) son dependientes
-(proposición~\ref{prop:cuna-dependencia}) y todo el plano cae en la recta (o el punto) que
-generan: el área de la imagen es \(0=|\det M|\cdot\operatorname{área}(R)\).
-
-\emph{En \(\R^3\).} Por la definición~\ref{def:producto-mixto} y la parte (a) de la
-proposición~\ref{prop:producto-mixto}, \(\det[u\ v\ w]=u\cdot(v\times w)\) es área de la base
-por altura, el volumen con signo del paralelepípedo. El paralelepípedo de \(u,v,w\) va a
-parar al de \(Mu,Mv,Mw\), y \(\det[Mu\ Mv\ Mw]\) es lineal en cada uno de \(u,v,w\) y cambia
-de signo al intercambiar dos (parte (c) de la misma proposición). Desarrollando \(u,v,w\) en
-la base canónica solo sobreviven los términos con \(e_1,e_2,e_3\) en algún orden, cada uno
-igual a \(\pm\det[Me_1\ Me_2\ Me_3]=\pm\det M\) con el mismo signo que en el desarrollo de
-\(\det[u\ v\ w]\); queda \(\det[Mu\ Mv\ Mw]=\det M\,\det[u\ v\ w]\). Los poliedros se
-descomponen en tetraedros desde un vértice y las regiones se aproximan por poliedros, como
-en el plano.
-\end{demostracion}
+¿Y en el espacio? Imaginá un bloque de goma transparente con una red de cubitos marcada
+adentro, y deformalo parejo, como la lámina. Cada cubito se convierte en un
+\emph{paralelepípedo}, una caja cuyas seis caras son paralelogramos, y todos los cubitos
+pasan a medir el mismo volumen. Ese volumen común es el determinante de \(3\times3\):
+\(\det[u\ v\ w]\) es el determinante de la matriz cuyas columnas son \(u\), \(v\) y \(w\), las
+tres aristas en que se convirtieron los lados del cubito de partida. Si el bloque se aplasta
+hasta quedar plano, los cubitos no encierran volumen y el determinante vale cero.
 \comprobacion{prop:det-factor}{NUMERICA}
 
-La consecuencia más útil es que el factor de una composición es el producto de los factores.
+Estirá la goma una vez, de modo que cada cuadradito pase a medir el doble, y después estirala
+de nuevo, de otra manera, de modo que cada cuadradito ya estirado pase a medir el triple.
+¿Cuánto mide al final cada cuadradito original?
+Seis veces lo que medía: los factores se multiplican. Esa es la consecuencia más útil: el
+factor de una composición es el producto de los factores. En el enunciado, \(A\) y \(B\) son
+dos matrices cuadradas y \(AB\) su producto, que hace primero lo que hace \(B\) y después lo
+que hace \(A\).
 
 \begin{proposicion}[El determinante de un producto]\label{prop:det-producto}
 Para matrices cuadradas del mismo tamaño, \(\det(AB)=\det A\,\det B\).
@@ -252,8 +322,15 @@ Por ejemplo, \(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\) y
 \(B=\left(\begin{smallmatrix}1&0\\1&3\end{smallmatrix}\right)\) tienen \(\det A=2\) y
 \(\det B=3\); su producto \(AB=\left(\begin{smallmatrix}3&3\\1&3\end{smallmatrix}\right)\)
 tiene \(\det(AB)=9-3=6\). De la proposición sale también que una rotación conserva áreas
-(\(\det R(\theta)=\cos^2\theta+\sin^2\theta=1\)) y que una matriz invertible tiene
-\(\det A^{-1}=1/\det A\).
+(\(\det R(\theta)=\cos^2\theta+\sin^2\theta=1\), donde \(R(\theta)\) es la matriz que gira un
+ángulo \(\theta\), la del capítulo~\ref{cap:rotaciones}) y que una matriz invertible tiene
+\(\det A^{-1}=1/\det A\), donde \(A^{-1}\) es la inversa, la matriz que deshace lo que hace
+\(A\): si \(A\) multiplica las áreas por \(2\), deshacerla tiene que dividirlas por \(2\).
+
+Para el determinante de \(3\times3\) vale la misma lectura que en el plano, con volúmenes:
+el signo dice si la terna de aristas gira como los dedos de la mano derecha (pulgar, índice y
+mayor, en ese orden), que es como giran \(e_1\), \(e_2\), \(e_3\), las tres flechas de largo
+\(1\) sobre los ejes, o como los de la izquierda.
 
 \begin{ejemplo}[Un determinante de \(3\times3\) como volumen con signo]\label{ej:det-volumen}
 Sean \(u=(1,2,0)\), \(v=(0,1,1)\), \(w=(1,0,2)\), las columnas de
@@ -268,9 +345,23 @@ columnas, \(\det[v\ u\ w]=-4\): el mismo volumen, terna izquierda.
 
 \subsection{El producto mixto}\label{sec:producto-mixto}
 
-En el ejemplo~\ref{ej:det-volumen} el determinante de \(3\times3\) apareció como un producto
-vectorial seguido de un producto interno. Esa combinación tiene nombre propio y sirve para
-preguntar si cuatro puntos del espacio están en un mismo plano.
+¿Por qué una mesa de cuatro patas puede bailar sobre un piso parejo y una de tres nunca?
+Tres puntos que no están en línea siempre determinan un plano, así que tres patas siempre
+apoyan. Con cuatro, la cuarta punta puede quedar un poco por encima o por debajo del plano de
+las otras tres, y entonces la mesa se balancea. Para saber si cuatro puntos del espacio están
+en un mismo plano hace falta medir cuánto se aparta el cuarto del plano de los otros tres, y
+la herramienta natural es un volumen: si los cuatro están en un plano, la caja que forman no
+tiene altura.
+
+Tomá ahora una resma de hojas apoyada sobre la mesa y empujala de costado, de modo que la pila
+se incline como un mazo de cartas corrido. ¿Cambió la cantidad de papel?
+No: la base es la misma hoja y la altura, la misma pila. El volumen de una caja inclinada es
+área de la base por altura, no por el largo de la arista inclinada. En el
+ejemplo~\ref{ej:det-volumen} el determinante de \(3\times3\) apareció como un producto
+vectorial seguido de un producto interno, y es justo esa cuenta: el producto vectorial da el
+área de la base y el producto interno toma la altura. Esa combinación tiene nombre propio y
+sirve para preguntar si cuatro puntos del espacio están en un mismo plano. En la definición,
+\(\lvert v\times w\rvert\) es el largo del vector \(v\times w\).
 
 \begin{definicion}[Producto mixto]\label{def:producto-mixto}
 El \emph{producto mixto} de tres vectores \(u,v,w\) de \(\R^3\) es el número
@@ -295,30 +386,10 @@ Para \(u,v,w\in\R^3\):
 \end{enumerate}
 \end{proposicion}
 
-\begin{demostracion}
-(a) Las componentes de \(v\times w\) son \(v_2w_3-v_3w_2\), \(v_3w_1-v_1w_3\) y
-\(v_1w_2-v_2w_1\), así que
-\[
-  u\cdot(v\times w)=u_1(v_2w_3-v_3w_2)-u_2(v_1w_3-v_3w_1)+u_3(v_1w_2-v_2w_1),
-\]
-que es, término a término, el desarrollo de \(\det[u\;v\;w]\) por la primera columna: cada
-\(u_i\) multiplica, con su signo alternado, el cuña de \(2\times2\) que queda al tachar la
-fila \(i\) y la columna de \(u\).
-
-(b) Si los tres son dependientes, una columna es combinación de las otras y el determinante
-se anula. Recíprocamente, supongamos \(u\cdot(v\times w)=0\). Si \(v\times w=0\), \(v\) y
-\(w\) ya son dependientes (análogo en \(\R^3\) de la
-proposición~\ref{prop:cuna-dependencia}). Si \(v\times w\neq0\), es la normal del plano generado por \(v\) y \(w\), y \(u\) es
-perpendicular a ella: \(u\) está en ese plano y los tres son coplanares. Por último,
-coplanares implica dependientes: si \(u,v,w\) están en un plano por el origen, que es un
-subespacio de dimensión \(2\), tres vectores de él no pueden ser independientes (una base
-del plano tiene dos elementos), así que alguno es combinación de los otros.
-
-(c) Permutar columnas de una matriz multiplica su determinante por el signo de la
-permutación: un intercambio da \(-1\) y una permutación cíclica de tres columnas, que son dos
-intercambios, da \(+1\). Por (a), lo mismo le pasa al producto mixto. Cambiar el signo es
-pasar de una terna derecha a una izquierda, con el mismo volumen.
-\end{demostracion}
+La parte (a) es la cuenta del ejemplo~\ref{ej:det-volumen} hecha con letras; la (b) dice que
+la caja no tiene altura justo cuando las tres aristas caen en un mismo plano, como la resma
+aplastada contra la mesa; la (c), que el volumen no depende de qué cara se tome como base.
+Las tres demostraciones completas están en la sección~\ref{sec:demos-determinante}.
 
 Con los vectores del ejemplo~\ref{ej:det-volumen}, \(u=(1,2,0)\), \(v=(0,1,1)\),
 \(w=(1,0,2)\), se tiene \(v\times w=(2,1,-1)\), de largo \(\sqrt6\), y
@@ -341,8 +412,17 @@ de \(u\) sobre la base es la componente de \(u\) según la normal \(v\times w\).
 
 \subsubsection{Aplicación: cuatro puntos relevados, ¿están en el mismo plano?}
 
-Se relevaron con un instrumento que mide ángulos y distancias las cuatro esquinas de una losa, en coordenadas locales
-\((x,y,z)\) en metros:
+Una losa de hormigón recién terminada tiene que haber quedado plana: si una esquina quedó
+más alta o más baja que las otras, la losa está alabeada, como la mesa que baila. Para
+comprobarlo se miden las posiciones de sus cuatro esquinas con un instrumento que mide
+ángulos y distancias, y se pregunta si la cuarta esquina cae en el plano de las otras tres.
+Como ninguna medición es perfecta, la pregunta se hace con una \emph{tolerancia}: el
+apartamiento máximo que se acepta como error de medición antes de decir que la losa no es
+plana.
+
+Se relevaron (se midieron sus posiciones) las cuatro esquinas de la losa, en coordenadas
+locales \((x,y,z)\) en metros, con \(z\) la altura (en Topografía, la altura de un punto se
+llama cota):
 \begin{gather*}
   P_1=(102{,}315;\ 205{,}480;\ 12{,}347),\qquad P_2=(110{,}842;\ 205{,}912;\ 12{,}391),\\
   P_3=(110{,}407;\ 214{,}276;\ 12{,}472),\qquad P_4=(101{,}874;\ 213{,}829;\ 12{,}431).
@@ -385,8 +465,17 @@ antes de decidir.
 
 \subsection{Tres puntos alineados: el determinante}\label{sec:determinante}
 
-¿Está el punto \(r\) en la recta que une \(p\) y \(q\)? Formamos la recta y preguntamos por
-la incidencia, \((p\times q)\cdot r=0\). Su anulación es simétrica en los tres puntos (si \(r\) está en \(pq\), entonces \(p\) está
+Imaginá tres estacas clavadas en un campo y que te parás detrás de la primera, mirando hacia
+la segunda. ¿La tercera queda tapada?
+Si queda tapada, las tres están alineadas; si asoma a la izquierda o a la derecha, no, y el
+lado hacia el que asoma es el signo del cuña de la sección~\ref{sec:cuna-colinealidad}. Ahora
+queremos la misma prueba con una sola cuenta y en coordenadas homogéneas, donde cada punto
+\((x,y)\) es la terna \((x,y,1)\): así sirve también para los puntos impropios del
+capítulo~\ref{cap:afines}.
+
+¿Está el punto \(r\) en la recta que une \(p\) y \(q\)? Acá \(p\), \(q\), \(r\) son las ternas
+homogéneas de los tres puntos y \(p_1\), \(p_2\), \(p_3\) las componentes de \(p\). Formamos la
+recta y preguntamos por la incidencia, \((p\times q)\cdot r=0\). Su anulación es simétrica en los tres puntos (si \(r\) está en \(pq\), entonces \(p\) está
 en \(qr\) y \(q\) en \(rp\)); el valor, en cambio, es antisimétrico: se anula si dos de
 ellos coinciden, es lineal en cada uno y cambia de signo al intercambiar dos. Es, término a
 término, el determinante:
@@ -410,7 +499,13 @@ forman. Intercambiar dos filas cambia el signo: es la antisimetría otra vez.
 
 \subsection{Recta por dos puntos y punto de corte: cuñas en homogéneas}\label{sec:cunas-homogeneas}
 
-Con la traducción homogénea de la sección~\ref{sec:homogeneas}, en la que la incidencia es
+Tenés en un plano las coordenadas de cuatro puntos y querés saber dónde se cruza la recta que
+pasa por los dos primeros con la que pasa por los otros dos. ¿Hace falta plantear y resolver un
+sistema de ecuaciones?
+No: alcanzan dos productos vectoriales para armar las rectas y un tercero para cortarlas. En
+lo que sigue, \(\ell\), \(\ell_1\), \(\ell_2\) y \(m\) son ternas que representan rectas, como
+en las convenciones del capítulo, y \(x\) es la terna del punto buscado. Con la traducción
+homogénea de la sección~\ref{sec:homogeneas}, en la que la incidencia es
 \(\ell\cdot p=0\), las dos construcciones básicas de la geometría del plano son un producto
 cuña de \(\R^3\), escrito como producto vectorial:
 \[
@@ -443,6 +538,16 @@ Dividiendo por la tercera coordenada, \(x=\bigl(\tfrac{35}{17},\tfrac{40}{17}\bi
 
 \subsection{Núcleo de una matriz y determinante nulo}\label{sec:nucleo}
 
+Imaginá el sol justo encima de tu cabeza, al mediodía, y una varilla sostenida en el aire.
+Si la inclinás, su sombra en el piso es un segmento; si la ponés vertical, ¿qué queda de su
+sombra?
+Un punto. La sombra es una transformación que lleva cada flecha del espacio a una flecha del
+piso, y aplasta por completo las flechas verticales: todas van a parar al cero. Ese conjunto
+de flechas aplastadas es el núcleo de la transformación, y el piso, donde caen todas las
+sombras, es su imagen. Para qué sirve el núcleo: si una matriz aplasta alguna flecha, dos
+puntos distintos (uno encima del otro) tienen la misma sombra, y ya no se puede volver atrás
+desde la sombra al objeto.
+
 El \emph{núcleo} de \(A\) es el conjunto de vectores \(v\) con \(Av=0\). Leído fila por fila,
 cada coordenada de \(Av\) es el producto interno de una fila de \(A\) con \(v\). Que las tres
 den cero significa que \(v\) es ortogonal a las tres filas: las filas están en el plano de
@@ -450,7 +555,9 @@ normal \(v\), son linealmente dependientes, y por lo tanto
 \[
   \boxed{\ \ker A\neq\{0\}\quad\Longleftrightarrow\quad\det A=0\ }.
 \]
-Es la propiedad del determinante que se usa para encontrar autovalores.
+Acá \(\ker A\) es el núcleo (del alemán \emph{Kern}) y \(\{0\}\) el conjunto que tiene solo
+el vector nulo: \(\ker A\neq\{0\}\) dice que \(A\) aplasta alguna flecha no nula. Es la
+propiedad del determinante que se usa para encontrar autovalores.
 
 \begin{definicion}[Núcleo, imagen y rango]\label{def:nucleo-imagen}
 Para una matriz \(A\) de \(m\times n\): el \emph{núcleo} \(\ker A=\{v\in\R^n:\ Av=0\}\) es un
@@ -462,6 +569,12 @@ Las dimensiones se compensan:
   \dim\ker A+\operatorname{rango}A=n .
 \]
 \end{definicion}
+
+En la definición, \(m\) es la cantidad de filas y \(n\) la de columnas: \(A\) toma flechas de
+\(\R^n\) (la entrada) y devuelve flechas de \(\R^m\) (la salida). \(\operatorname{im}A\) es la
+imagen, \(\operatorname{rango}A\) el rango y \(\dim\) la dimensión de un subespacio (\(1\) para
+una recta, \(2\) para un plano). Con la sombra del mediodía, \(n=3\): el núcleo es la recta
+vertical, de dimensión \(1\), la imagen es el piso, de dimensión \(2\), y \(1+2=3\).
 
 Lo que \(A\) aplasta (el núcleo) es lo que le falta a la imagen para ser toda la
 entrada: cada dirección que va a parar al cero es una dimensión menos en la salida. Para una
@@ -487,28 +600,44 @@ receta, aplicada a las filas de \(A-\lambda I\), da los autovectores del
 capítulo~\ref{cap:autovectores}.
 \end{ejemplo}
 
+En ese último paso, \(I\) es la matriz identidad, la que deja cada flecha como está, y
+\(A-\lambda I\) es la matriz que resta a cada flecha \(\lambda\) veces ella misma: su núcleo son
+las flechas que \(A\) estira en el factor \(\lambda\) sin hacerlas girar.
+
 \subsection{Simulaciones}
 
 \unidadInteractiva{07b_nucleo_autovectores}{Núcleo y autovectores: las direcciones que no giran}{Verificá: elegí el caso «proyección [[1, 2], [2, 4]]: det 0, el núcleo» y comprobá que la dirección \((2,-1)\) va a parar al origen y que todo el plano cae sobre la recta de \((1,2)\): núcleo e imagen de una matriz de determinante nulo.}
 
+Es la sombra del mediodía en versión plana: todas las flechas caen sobre una recta, y las de
+una dirección se aplastan en el origen.
+
 En la unidad de cuña y determinante conviene recorrer los casos precargados. Con
-«\(v = 2u\)» el cuña y \texttt{np.linalg.det(M)} valen \(0\) y la grilla se aplasta sobre una
-recta; con «orden invertido» el área se conserva y cambia de signo; con el giro de
-\(40^\circ\) el determinante vale \(1\). Las cuentas del capítulo se comprueban con el
-script \texttt{apunte/scripts/cap06\_cuna\_determinante.py} o con dos funciones de NumPy:
-\texttt{np.cross} para los cuñas en homogéneas y \texttt{np.linalg.det} para los
-determinantes.
+«\(v = 2u\)» el cuña y el determinante valen \(0\) y la cuadrícula se aplasta sobre una recta,
+como la goma reducida a una línea; con «orden invertido» el área se conserva y cambia de
+signo; con el giro de \(40^\circ\) el determinante vale \(1\): la goma gira sin estirarse. Las
+cuentas del capítulo se comprueban con el script
+\texttt{apunte/scripts/cap06\_cuna\_determinante.py}; las funciones de cálculo que usa están
+en la sección~\ref{sec:demos-determinante}.
 
 \section{En profundidad}
 
 \subsection{Producto exterior: la misma idea en cualquier dimensión}\label{sec:exterior}
+
+Pensá en el paralelogramo de cartón de la sección~\ref{sec:cuna-colinealidad}. En \(\R^3\)
+lo representamos con una flecha perpendicular a él, la de \(u\times v\). ¿Qué flecha usarías en
+un espacio de cuatro coordenadas?
+No hay una sola: en \(\R^4\) un plano tiene todo un plano de direcciones perpendiculares, y
+ninguna es la preferida. La salida es dejar de buscar la flecha y quedarse con el cartón
+mismo, un trozo de plano con un sentido de giro.
 
 El producto vectorial existe solo en \(\R^3\). La operación que
 generaliza la idea a cualquier dimensión es el \emph{producto exterior} de Grassmann,
 \(u\wedge v\), definido únicamente por linealidad y antisimetría (\(u\wedge u=0\)). Su
 resultado no es un vector sino un \emph{bivector}: un elemento de área orientada.
 
-Escribiendo \(u=ae_1+be_2+ce_3\) y \(v=de_1+ee_2+fe_3\) y distribuyendo, los términos
+Escribiendo \(u=ae_1+be_2+ce_3\) y \(v=de_1+ee_2+fe_3\), donde \(a,\dots,f\) son las
+componentes y \(e_1\), \(e_2\), \(e_3\) las flechas de largo \(1\) sobre los ejes, y
+distribuyendo, los términos
 \(e_i\wedge e_i\) se anulan y \(e_2\wedge e_1=-e_1\wedge e_2\), de modo que
 \[
   u\wedge v=(ae-bd)\,e_1\wedge e_2+(af-cd)\,e_1\wedge e_3+(bf-ce)\,e_2\wedge e_3 .
@@ -540,11 +669,103 @@ matrices grandes los autovectores se calculan con otros algoritmos (QR, Lanczos)
 \end{idea}
 
 \paragraph{Ortogonal es lo que maximiza el volumen.} Entre todos los vectores de norma
-\(1\), el que forma mayor volumen con un plano dado es el perpendicular al plano; los otros
-producen un prisma \enquote{inclinado} de menor altura. De esta idea sale
+\(1\) (de largo \(1\)), el que forma mayor volumen con un plano dado es el perpendicular al
+plano; los otros producen un prisma \enquote{inclinado} de menor altura, como la resma
+empujada de costado cuando se mantiene el largo de la arista y no la altura. De esta idea sale
 la regla para encontrar el vector ortogonal a un subespacio en cualquier dimensión.
 
+\subsection{Demostraciones del determinante y del producto mixto}\label{sec:demos-determinante}
+
+Reunimos acá, completas, las demostraciones que en las construcciones del capítulo quedaron
+resumidas en una frase. Cada una lleva el nombre y el número del enunciado que demuestra.
+
+\paragraph{El determinante mide cuánto cambian las áreas
+(proposición~\ref{prop:det-factor}).}
+\begin{demostracion}
+\emph{Paralelogramos.} Sea \(M=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\) y
+\(p,q\in\R^2\). Por cuenta directa,
+\[
+  (Mp)\wedge(Mq)=(ap_x+bp_y)(cq_x+dq_y)-(cp_x+dp_y)(aq_x+bq_y)
+  =(ad-bc)(p_xq_y-p_yq_x)=\det M\,(p\wedge q).
+\]
+Es lo que se espera de una operación bilineal y alternada (\(p\wedge p=0\)): desarrollando
+\(p\) y \(q\) en la base canónica solo sobreviven los términos en \(e_1\wedge e_2\) y
+\(e_2\wedge e_1=-e_1\wedge e_2\), así que \((Mp)\wedge(Mq)=(p\wedge q)\,(Me_1\wedge Me_2)\),
+y \(Me_1\wedge Me_2\) es el cuña de las columnas de \(M\), \(\det M\). Como \(M\) es lineal,
+lleva el paralelogramo de lados \(p,q\) al de lados \(Mp,Mq\), y su área con signo queda
+multiplicada por \(\det M\).
+
+\emph{Polígonos.} Un polígono de vértices \(p_1,\dots,p_n\) se descompone en los triángulos
+\(p_1\,p_i\,p_{i+1}\) que salen del vértice \(p_1\), y su área con signo es la suma de las
+áreas con signo \(\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\) de esos triángulos (es la
+proposición~\ref{prop:area-poligono} con el origen trasladado a \(p_1\)). \(M\) lleva cada
+triángulo al de vértices \(Mp_1\), \(Mp_i\), \(Mp_{i+1}\), cuya área con signo es
+\(\tfrac12\,M(p_i-p_1)\wedge M(p_{i+1}-p_1)=\det M\cdot\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\).
+Sumando, el área con signo de \(M(P)\) es \(\det M\) por la de \(P\), y en valor absoluto
+\(\operatorname{área}(M(P))=|\det M|\,\operatorname{área}(P)\). Una región con área se
+aproxima tanto como se quiera por polígonos, y sus imágenes por \(M\) aproximan a \(M(R)\);
+la igualdad pasa al límite.
+
+\emph{Orientación.} Un recorrido antihorario tiene área con signo positiva; la de su imagen
+es \(\det M\) por ella, positiva si \(\det M>0\) y negativa si \(\det M<0\). Si
+\(\det M=0\), las columnas de \(M\) son dependientes
+(proposición~\ref{prop:cuna-dependencia}) y todo el plano cae en la recta (o el punto) que
+generan: el área de la imagen es \(0=|\det M|\cdot\operatorname{área}(R)\).
+
+\emph{En \(\R^3\).} Por la definición~\ref{def:producto-mixto} y la parte (a) de la
+proposición~\ref{prop:producto-mixto}, \(\det[u\ v\ w]=u\cdot(v\times w)\) es área de la base
+por altura, el volumen con signo del paralelepípedo. El paralelepípedo de \(u,v,w\) va a
+parar al de \(Mu,Mv,Mw\), y \(\det[Mu\ Mv\ Mw]\) es lineal en cada uno de \(u,v,w\) y cambia
+de signo al intercambiar dos (parte (c) de la misma proposición). Desarrollando \(u,v,w\) en
+la base canónica solo sobreviven los términos con \(e_1,e_2,e_3\) en algún orden, cada uno
+igual a \(\pm\det[Me_1\ Me_2\ Me_3]=\pm\det M\) con el mismo signo que en el desarrollo de
+\(\det[u\ v\ w]\); queda \(\det[Mu\ Mv\ Mw]=\det M\,\det[u\ v\ w]\). Los poliedros se
+descomponen en tetraedros desde un vértice y las regiones se aproximan por poliedros, como
+en el plano.
+\end{demostracion}
+
+\paragraph{Propiedades del producto mixto (proposición~\ref{prop:producto-mixto}).}
+\begin{demostracion}
+(a) Las componentes de \(v\times w\) son \(v_2w_3-v_3w_2\), \(v_3w_1-v_1w_3\) y
+\(v_1w_2-v_2w_1\), así que
+\[
+  u\cdot(v\times w)=u_1(v_2w_3-v_3w_2)-u_2(v_1w_3-v_3w_1)+u_3(v_1w_2-v_2w_1),
+\]
+que es, término a término, el desarrollo de \(\det[u\;v\;w]\) por la primera columna: cada
+\(u_i\) multiplica, con su signo alternado, el cuña de \(2\times2\) que queda al tachar la
+fila \(i\) y la columna de \(u\).
+
+(b) Si los tres son dependientes, una columna es combinación de las otras y el determinante
+se anula. Recíprocamente, supongamos \(u\cdot(v\times w)=0\). Si \(v\times w=0\), \(v\) y
+\(w\) ya son dependientes (análogo en \(\R^3\) de la
+proposición~\ref{prop:cuna-dependencia}). Si \(v\times w\neq0\), es la normal del plano generado por \(v\) y \(w\), y \(u\) es
+perpendicular a ella: \(u\) está en ese plano y los tres son coplanares. Por último,
+coplanares implica dependientes: si \(u,v,w\) están en un plano por el origen, que es un
+subespacio de dimensión \(2\), tres vectores de él no pueden ser independientes (una base
+del plano tiene dos elementos), así que alguno es combinación de los otros.
+
+(c) Permutar columnas de una matriz multiplica su determinante por el signo de la
+permutación: un intercambio da \(-1\) y una permutación cíclica de tres columnas, que son dos
+intercambios, da \(+1\). Por (a), lo mismo le pasa al producto mixto. Cambiar el signo es
+pasar de una terna derecha a una izquierda, con el mismo volumen.
+\end{demostracion}
+
+\paragraph{Las cuentas en la computadora.} Para comprobar las cuentas del capítulo alcanzan
+dos funciones de NumPy: \texttt{np.cross} para los cuñas en homogéneas y los productos
+vectoriales, y \texttt{np.linalg.det} para los determinantes. En el caso «\(v = 2u\)» de la
+unidad de cuña y determinante, \texttt{np.linalg.det(M)} vale \(0\).
+
 \subsection{El área de un polígono es una suma de cuñas}\label{sec:poligono-cunas}
+
+Imaginá que atás una cuerda a un poste clavado en un terreno, tomás el otro extremo y
+recorrés el borde de un lote, siempre en el mismo sentido, hasta volver al punto de partida.
+La cuerda va barriendo triángulos con un vértice en el poste. ¿Qué superficie barrió en
+total?
+Si el poste está adentro del lote, la cuerda barrió el lote una vez. Si está afuera, en una
+parte del recorrido la cuerda gira en un sentido y en otra parte vuelve hacia atrás: lo
+barrido hacia atrás, contado con signo negativo, descuenta lo que se contó de más. Para qué
+sirve: el área de cualquier lote sale de las coordenadas de sus vértices, sin dividirlo a mano
+en figuras conocidas.
 
 Un polígono de vértices \(p_1,\dots,p_n\), recorridos en orden, se puede cubrir con los
 triángulos \(O\,p_i\,p_{i+1}\) que tienen un vértice en el origen \(O\) (con
@@ -563,6 +784,11 @@ que cubren la zona entre \(O\) y el polígono, que los positivos cuentan de más
 \texttt{apunte/scripts/cap06\_cuna\_determinante.py}.}
 \label{fig:cuna-poligono}
 \end{figure}
+
+En el enunciado, \(S\) es el área con signo (no el subespacio de la
+sección~\ref{sec:subespacios-lineales-afines}), \((x_i,y_i)\) son las coordenadas del vértice
+\(p_i\) y \(\sum\) indica la suma de los \(n\) términos, uno por cada lado del polígono. Un
+polígono \emph{simple} es uno cuyo borde no se cruza a sí mismo.
 
 \begin{proposicion}[Área de un polígono por cuñas]\label{prop:area-poligono}
 Si \(p_1,\dots,p_n\) son los vértices de un polígono simple recorridos en orden y
@@ -600,8 +826,23 @@ con signo no. Podemos elegir el origen más cómodo, por ejemplo uno de los vér
 
 \subsection{Aplicación topográfica: superficie de una parcela por coordenadas}\label{sec:aplicacion-superficie}
 
-Una parcela rural se relevó y sus seis vértices quedaron en coordenadas Gauss-Krüger, faja 5,
-en metros:
+Hay que calcular la superficie de un campo para escriturarlo. Nadie recorre el campo con una
+cinta métrica cuadrado por cuadrado: se miden las posiciones de sus esquinas, se anotan sus
+coordenadas y la superficie sale de una cuenta, la suma de cuñas de la
+sección~\ref{sec:poligono-cunas}, que hacemos ahora con números reales.
+
+\begin{idea}[Esto lo vas a usar en Topografía]
+Las coordenadas Gauss-Krüger son un sistema de coordenadas planas en metros que se usa para los
+planos oficiales: \(E\) crece hacia el este y \(N\) hacia el norte. Para que las distorsiones
+queden chicas, el país se divide en franjas angostas de norte a sur, llamadas fajas, cada una
+con sus propios ejes; \enquote{faja 5} dice en cuál cae la parcela. Los números son largos,
+de siete cifras enteras, pero para una superficie importan las diferencias entre vértices, no
+el valor completo.
+\end{idea}
+
+Una parcela rural se relevó (se midieron las posiciones de sus vértices) y sus seis vértices
+quedaron en coordenadas Gauss-Krüger, faja 5, en metros. En la tabla, \(V_1,\dots,V_6\) son
+los vértices, \(E\) y \(N\) sus coordenadas y \(E_1\), \(N_1\) las de \(V_1\):
 
 \begin{center}
 \small
