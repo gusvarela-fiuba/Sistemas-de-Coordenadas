@@ -13,13 +13,8 @@
 {\small\vspace{1mm}\linkAnimacion{03_cambio_de_base_viaje}{Animación: el viaje \(A\,T_{\mathrm{diag}}\,A^{-1}\)}\par}
 
 
-\begin{atencion}[Anticipado]
-El cambio de base y la diagonalización se dictaron el 30 de septiembre de 2026 (clase 8 del
-esqueleto) y se desarrollan en el párrafo ``La matriz de cambio de base y el despeje de la
-diagonalización''. Lo que sigue sobre potencias \(A^t\) y trayectorias no se dictó en 2C2026: se
-desarrolla antes de que la cátedra lo dicte, a partir del resumen 2025 del profesor y de las
-fichas de clase. Pendiente de validar con lo que efectivamente se dicte.
-\end{atencion}
+El cambio de base y la diagonalización se desarrollan en el párrafo ``La matriz de cambio de
+base y el despeje de la diagonalización''; después se extienden a potencias \(A^t\) y trayectorias.
 
 \paragraph{Hecho geométrico: la flecha no se movió, cambió la grilla.} Un mojón tiene
 coordenadas \((3,4)\) en la grilla cuadrada de siempre. Si en vez de los ejes canónicos usamos
@@ -32,8 +27,8 @@ las direcciones \(b_1=(1,1)\) y \(b_2=(1,-1)\), el \emph{mismo} punto se escribe
 El mojón está donde estaba; cambió la regla con que lo medimos. Escalera: en \(\R\) cambiar
 de base es cambiar de unidad (de metros a centímetros el número se multiplica por 100 y la
 longitud no cambia); en \(\R^2\) la grilla puede ser oblicua y con pasos distintos; en
-\(\R^n\) es una matriz \(n\times n\) invertible. El profesor observó en 2025 que ``no parece
-haber un conjunto de vectores privilegiado a priori'': lo único que distingue a la base
+\(\R^n\) es una matriz \(n\times n\) invertible. No parece
+haber un conjunto de vectores privilegiado a priori: lo único que distingue a la base
 canónica es que con ella el producto interno es la cuenta de siempre.
 
 \begin{resultado}[La matriz de cambio de base]
@@ -56,10 +51,9 @@ como siempre, volvemos a las nuevas. Todo se convierte a la vez para que ninguna
 cambie: cada punto sigue en su recta y \(A\) sigue llevando cada punto adonde lo llevaba.
 \end{resultado}
 
-\paragraph{El ejercicio del 30 de septiembre, resuelto.} Consigna del profesor (en hoja
-grande, dibujado): formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
-\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida ``no muy distinta de
-la identidad''. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
+\paragraph{Ejercicio resuelto: grilla de formas y vector.} Consigna: formas lineales \((1,1)\) y \((-1,2)\), vector \((3,4)\), transformación
+\(T=\begin{pmatrix}1{,}2&0{,}5\\-0{,}1&1{,}3\end{pmatrix}\), elegida no muy distinta de
+la identidad. Dibujar las curvas de nivel de las dos formas (dos mazos de rectas
 paralelas que juntos arman una grilla), ubicar el vector en la grilla, transformar el
 vector con \(T\) y las formas con \(T^{-1}\), redibujar y verificar que el vector
 transformado cae en la misma intersección. Antes de transformar, \((1,1)\cdot(3,4)=7\) y
@@ -75,11 +69,11 @@ Inversa por adjunta sobre determinante, \(\det T=1{,}56+0{,}05=1{,}61\):
 \]
 Verificación: \(0{,}870\cdot5{,}6+0{,}435\cdot4{,}9=7{,}0\) y
 \(-0{,}683\cdot5{,}6+1{,}801\cdot4{,}9=5{,}0\). El vector transformado sigue en la séptima
-curva de la primera forma y en la quinta de la segunda. En clase la forma \((1,1)\)
-quedó ``\((0{,}86,\ 0{,}43)\), se acostó un poco'' (redondeo) y la \((-1,2)\) ``un poco más
-vertical''. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
-plano; medido con la grilla deformada, el punto está donde estaba. ``No hacemos nada,
-convertimos todo para que nada cambie'' (profesor, 30/9/2026). En planilla: dos columnas
+curva de la primera forma y en la quinta de la segunda. La forma \((1,1)\)
+queda \((0{,}86,\ 0{,}43)\), se acuesta un poco (redondeo), y la \((-1,2)\) queda un poco más
+vertical. Hecho geométrico: la grilla se deformó con el plano y el punto se movió con el
+plano; medido con la grilla deformada, el punto está donde estaba. No hacemos nada: convertimos
+todo para que nada cambie. En planilla: dos columnas
 para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 
 \paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
@@ -94,11 +88,11 @@ para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
 independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
 ``se estira o se comprime pero no se rompe''. En la grilla común la misma transformación
-no tiene lectura fácil. Es lo que el resumen 2025 describe como ``aplicar dos afinidades
-axiales sucesivas''.
+no tiene lectura fácil. Equivale a aplicar dos afinidades
+axiales sucesivas.
 
 \paragraph{La matriz de cambio de base y el despeje de la diagonalización.} En este
-párrafo usamos los nombres de la clase: \(A\) es la matriz que tiene los autovectores en
+párrafo usamos otros nombres: \(A\) es la matriz que tiene los autovectores en
 columnas (la \(P\) del recuadro de arriba, con otro nombre) y \(T\) es la transformación
 (la \(A\) del párrafo anterior).
 
@@ -178,23 +172,12 @@ la trayectoria que genera, y la potencia real la convierte en película. La mism
 la exponencial de una rotación, ahora con estiramientos en vez de giros. La unidad
 \texttt{08\_cambio\_de\_base} (apéndice~\ref{ap:notebooks}) tiene el deslizador en \(t\).
 
-\begin{atencion}[Una convención, tres escrituras en el resumen 2025]
-Verificado en el resumen del profesor: la clase 7 escribe
-\(A=B_{av\mapsto e}\,D\,B_{e\mapsto av}\) y la clase 10 escribe
-\(A=C^{-1}_{e\mapsto av}\,\Lambda\,C_{e\mapsto av}\); en ambas el factor de la derecha,
-el que actúa primero sobre un vector en canónica, es el que \emph{convierte de \(e\) a
-\(av\)}. La clase 8 escribe \(M_{av}=C_{av\mapsto e}\,M\,C_{e\mapsto av}\), donde con la
-misma lectura el factor de la derecha debería ser el que convierte de \(av\) a \(e\)
-(un vector en base \(av\) entra primero). Los subíndices de la clase 8 están al revés de
-los de las clases 7 y 10. En la clase del 30 de septiembre de 2026 quedó con subíndices
-descriptivos, no direccionales:
+\paragraph{Dirección de cada cambio de base.} En la factorización \(A=P\,D\,P^{-1}\), el factor de la derecha, el que actúa primero sobre un vector en canónica, es el que \emph{convierte de la canónica a la base de autovectores}. Con subíndices descriptivos:
 \(A\,T_{\mathrm{diag}\langle Av\rangle}A^{-1}=T_{\mathrm{no\,diag}\langle\mathrm{can}\rangle}\)
-con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base
-nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
-\end{atencion}
+con \(A\) = autovectores en columnas, que es \(P\,D\,P^{-1}\) de arriba. Para no mezclar, en este apunte \(P\) siempre tiene la base nueva en columnas y se lee ``\(P\) lleva de la nueva a la canónica''.
 
 \begin{resultado}[Diagonalizabilidad no tiene nada que ver con invertibilidad: cuatro matrices testigo]
-Las dos preguntas de la clase 6, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
+Las dos preguntas, ``¿qué pasa si hay algo en el núcleo?'' y ``¿qué pasa si
 un autovalor repetido no alcanza para armar una base?'', son independientes. Invertir
 pide que el núcleo sea \(\{0\}\), es decir, que ningún autovalor sea \(0\). Diagonalizar
 pide una base de \(\R^2\) formada por autovectores. Las cuatro combinaciones aparecen:

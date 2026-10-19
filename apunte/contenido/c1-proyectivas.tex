@@ -4,17 +4,15 @@
 
 \section{La idea}
 
-Quitamos la última condición: una proyectiva conserva rectas y nada más. Partimos de la frase dictada en clase, que un cuadrilátero la determina, y la ubicamos en la jerarquía de transformaciones del plano.
+Quitamos la última condición: una proyectiva conserva rectas y nada más. Mostramos que un cuadrilátero la determina y la ubicamos en la jerarquía de transformaciones del plano.
 
 \subsection{Transformaciones proyectivas: conservar rectas, nada más}\label{sec:proyectivas-primera}
 
-{\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor}\par}
+{\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la perspectiva de una cámara y el pentágono regular}\par}
 
 
-\textbf{Dictado}: \emph{``Transformaciones proyectivas: mantienen rectas las rectas
-\(\Rightarrow\) quedan definidas por un cuadrilátero''}.
-
-\textbf{Desarrollo.} La imagen mental es la toma de una cámara. Una cámara inclinada sobre un
+Las transformaciones proyectivas mantienen las rectas como rectas y, por eso, quedan
+definidas por un cuadrilátero. La imagen mental es la toma de una cámara. Una cámara inclinada sobre un
 terreno plano convierte un lote rectangular en un trapecio: los alambrados paralelos
 convergen hacia un punto de fuga, las distancias no se conservan en ninguna proporción fija,
 y sin embargo toda recta del terreno sigue siendo una recta en la foto. Esa es la única
@@ -45,8 +43,8 @@ transformación (el factor se cancela al dividir por \(W\)). Quedan ocho número
 independientes. Cada correspondencia ``el punto \(p\) va al punto \(p'\)'' aporta dos
 ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
 transformación queda determinada. Con tres puntos falta decidir ``cuánta perspectiva hay'';
-con cinco puntos, en general, no hay solución, y el quinto va a donde la transformación lo
-mande.
+un quinto punto ya no se puede prescribir: va a donde la transformación determinada por los
+otros cuatro lo mande.
 
 \paragraph{Puntos fijos.}
 Un punto es fijo cuando \(Hp=\lambda p\): un autovector de \(H\). El polinomio característico
@@ -54,11 +52,11 @@ tiene grado \(3\), y un polinomio real de grado impar siempre tiene una raíz re
 \textbf{toda transformación proyectiva del plano tiene al menos un punto fijo}, que puede ser
 un punto ordinario o un punto ideal (una dirección fija, como en una traslación).
 
-\begin{idea}[En palabras del profesor]
-``Estos espacios invariantes ya habían aparecido cuando usábamos las coordenadas
-homogéneas para analizar transformaciones afines o proyectivas. En ese caso los subespacios
-invariantes de la transformación lineal de \(\R^3\) correspondían a los puntos fijos en
-\(\mathbb{P}\R^2\)'' (resumen de clase 6, cursada 2025).
+\begin{idea}[Puntos fijos del plano = subespacios invariantes de \(\R^3\)]
+En coordenadas homogéneas, una transformación afín o proyectiva del plano es una
+transformación lineal de \(\R^3\). Sus subespacios invariantes corresponden a los elementos
+fijos en \(\mathbb{P}\R^2\): una recta invariante por el origen de \(\R^3\) es un punto fijo,
+y un plano invariante es una recta fija.
 \end{idea}
 
 \subsection{Jerarquía de transformaciones del plano}\label{sec:jerarquia}
@@ -84,14 +82,15 @@ transformación. Cada familia contiene a la anterior y conserva menos.
 
 \section{Construcciones, cuentas y ejemplos}
 
-Escribimos la homografía como una matriz de \(3\times3\), mostramos que cuatro puntos la determinan y buscamos sus puntos y rectas fijas. La construcción es desarrollo nuestro sobre lo dictado, con ejercicios de consolidación al final.
+Escribimos la homografía como una matriz de \(3\times3\), mostramos que cuatro puntos la determinan y buscamos sus puntos y rectas fijas. Cerramos con ejercicios sobre el pentágono regular.
 
-{\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor}\par}
+{\small\vspace{1mm}\linkUnidad{05_proyectivas}{Simulación interactiva: Unidad 7 — Proyectivas: la perspectiva de una cámara y el pentágono regular}\par}
 {\small\vspace{1mm}\linkAnimacion{02_homogeneas_pentagono_3d}{Animación: el pentágono en coordenadas homogéneas (3D)}\par}
 
 \subsection{Homografías: forma algebraica}\label{sec:homografias}
 
-\textbf{Desarrollo.} Una \emph{transformación proyectiva} u \emph{homografía} del plano es la
+\begin{definicion}[Homografía]
+Una \emph{transformación proyectiva} u \emph{homografía} del plano es la
 aplicación
 \[
   \boxed{p\longmapsto p'\sim Hp},
@@ -99,7 +98,10 @@ aplicación
 con \(H\) una matriz real \(3\times3\) invertible que actúa sobre las coordenadas
 homogéneas \(p=(x,y,1)^T\). El símbolo \(\sim\) recuerda que el resultado se lee \emph{a menos
 de escala}: se normaliza dividiendo por la tercera coordenada. Como \(H\) y \(\lambda H\)
-definen la misma transformación, una homografía tiene \(8\) grados de libertad. Se compone
+definen la misma transformación, una homografía tiene \(8\) grados de libertad.
+\end{definicion}
+
+Las homografías se componen
 multiplicando matrices con la convención habitual: \(H_2H_1\) significa primero \(H_1\) y
 después \(H_2\).
 
@@ -109,11 +111,106 @@ después \(H_2\).
   con \(\ell'=H^{-T}\ell\). Los puntos se transforman con \(H\), las rectas con
   \(H^{-T}\).
   \item La \emph{razón doble} de cuatro puntos alineados, el invariante fundamental de la
-  geometría proyectiva (no se desarrolla en este apunte).
+  geometría proyectiva (definición~\ref{def:c1-razon-doble} y
+  proposición~\ref{prop:c1-razon-doble}).
   \item No conserva distancias, ángulos, áreas, paralelismo ni razones simples: el punto medio
   de un segmento puede ir a cualquier punto interior de la imagen.
 \end{itemize}
 \end{resultado}
+
+\paragraph{Razón doble.}
+Las distancias y las razones simples se pierden, pero hay un número que se conserva.
+Sobre una recta se fija una coordenada afín: un origen y una unidad, de modo que cada punto
+queda identificado con un número real.
+
+\begin{definicion}[Razón doble]\label{def:c1-razon-doble}
+Sean \(a,b,c,d\) cuatro puntos distintos de una recta, identificados con sus coordenadas
+afines sobre ella. Su \emph{razón doble} es
+\[
+  (a,b;c,d)=\frac{(c-a)(d-b)}{(c-b)(d-a)} .
+\]
+No depende de la coordenada afín elegida: al cambiar \(x\) por \(mx+n\) cada diferencia se
+multiplica por \(m\), y los cuatro factores \(m\) se cancelan.
+\end{definicion}
+
+Restringida a una recta, una homografía del plano es, en coordenadas afines sobre la recta
+y sobre su imagen, una función de la forma
+\[
+  x\longmapsto \frac{\alpha x+\beta}{\gamma x+\delta},\qquad \alpha\delta-\beta\gamma\neq0 .
+\]
+En efecto, si la recta es \(p(x)=p_0+xv\), las tres coordenadas homogéneas de \(Hp(x)\) son
+funciones lineales de \(x\), y una coordenada afín sobre la recta imagen es un cociente de
+dos de ellas. Lo mismo vale para la proyección central de una recta sobre otra desde un
+centro \(O\) (figura): es la vista de una recta desde una cámara.
+
+\begin{proposicion}[La razón doble es invariante proyectivo]\label{prop:c1-razon-doble}
+Si \(f(x)=\dfrac{\alpha x+\beta}{\gamma x+\delta}\) con \(\alpha\delta-\beta\gamma\neq0\) y
+\(a,b,c,d\) son cuatro puntos distintos con \(\gamma x+\delta\neq0\), entonces
+\[
+  \bigl(f(a),f(b);f(c),f(d)\bigr)=(a,b;c,d).
+\]
+\end{proposicion}
+
+\begin{demostracion}
+Para dos puntos \(x,y\), restando y sacando denominador común,
+\[
+  f(x)-f(y)=\frac{(\alpha x+\beta)(\gamma y+\delta)-(\alpha y+\beta)(\gamma x+\delta)}
+  {(\gamma x+\delta)(\gamma y+\delta)}
+  =\frac{(\alpha\delta-\beta\gamma)\,(x-y)}{(\gamma x+\delta)(\gamma y+\delta)} .
+\]
+Se escribe \(D=\alpha\delta-\beta\gamma\) y \(g(x)=\gamma x+\delta\). Entonces
+\[
+  \frac{\bigl(f(c)-f(a)\bigr)\bigl(f(d)-f(b)\bigr)}{\bigl(f(c)-f(b)\bigr)\bigl(f(d)-f(a)\bigr)}
+  =\frac{D^2\,(c-a)(d-b)\,\big/\,\bigl(g(c)g(a)g(d)g(b)\bigr)}
+        {D^2\,(c-b)(d-a)\,\big/\,\bigl(g(c)g(b)g(d)g(a)\bigr)}
+  =\frac{(c-a)(d-b)}{(c-b)(d-a)} .
+\]
+En el numerador y en el denominador aparecen los mismos cuatro factores
+\(g(a),g(b),g(c),g(d)\) y el mismo \(D^2\): todo se cancela salvo la razón doble.
+\end{demostracion}
+
+\begin{ejemplo}[Razón doble de cuatro puntos]\label{ej:c1-razon-doble}
+Sean \(a=0,\ b=1,\ c=3,\ d=7\) sobre una recta y la homografía
+\(f(x)=\dfrac{2x+1}{x+3}\), con \(\alpha\delta-\beta\gamma=2\cdot3-1\cdot1=5\neq0\).
+Antes:
+\[
+  (0,1;3,7)=\frac{(3-0)(7-1)}{(3-1)(7-0)}=\frac{18}{14}=\frac97 .
+\]
+Las imágenes son \(f(0)=\tfrac13\), \(f(1)=\tfrac34\), \(f(3)=\tfrac76\), \(f(7)=\tfrac{15}{10}=\tfrac32\).
+Después:
+\[
+  \Bigl(\tfrac13,\tfrac34;\tfrac76,\tfrac32\Bigr)
+  =\frac{\bigl(\tfrac76-\tfrac13\bigr)\bigl(\tfrac32-\tfrac34\bigr)}
+        {\bigl(\tfrac76-\tfrac34\bigr)\bigl(\tfrac32-\tfrac13\bigr)}
+  =\frac{\tfrac56\cdot\tfrac34}{\tfrac5{12}\cdot\tfrac76}
+  =\frac{5/8}{35/72}=\frac97 .
+\]
+La razón doble coincide. La razón simple, en cambio, no se conserva:
+\(\frac{b-a}{c-a}=\frac13\) pero \(\frac{f(b)-f(a)}{f(c)-f(a)}=\frac{5/12}{5/6}=\frac12\).
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.25]
+  % recta r (y = 0) y recta s, centro O
+  \draw[teal,line width=.9pt] (-0.8,0)--(4.8,0) node[right,font=\small,text=tealdark] {$r$};
+  \draw[rust,line width=.9pt] (-1.5,2.025)--(3.4,0.8) node[right,font=\small,text=rust] {$s$};
+  \fill[ink] (-1.6,3.4) circle (1.4pt) node[above,font=\small] {$O$};
+  \foreach \x/\y/\X/\Y/\n/\pos in {0/0/-0.880/1.870/a/{above left}, 0.6/0/-0.558/1.789/b/{above right}, 1.8/0/0.200/1.600/c/{above right}, 4.2/0/2.415/1.046/d/{above right}}{
+    \draw[linegray,thin] (-1.6,3.4)--(\x,\y);
+    \fill[teal] (\x,\y) circle (1.3pt) node[below,font=\small,text=tealdark] {$\n$};
+    \fill[rust] (\X,\Y) circle (1.3pt) node[\pos,inner sep=1pt,font=\small,text=rust,labelback] {$\n'$};
+  }
+  \node[font=\scriptsize,anchor=north] at (2.1,-0.35) {$ab:bc:cd=0.6:1.2:2.4=1:2:4$};
+  \node[font=\scriptsize,anchor=west,text=rust] at (0.9,2.2) {$a'b':b'c':c'd'=0.33:0.78:2.28$};
+  \node[font=\scriptsize,anchor=north] at (2.1,-0.75) {$(a,b;c,d)=(a',b';c',d')=9/7\approx1.2857$};
+\end{tikzpicture}
+\end{center}
+Proyección central de la recta \(r\) sobre la recta \(s\) desde el centro \(O\): cada punto
+\(x\) de \(r\) va al punto \(x'\) donde el rayo \(Ox\) corta a \(s\). Los puntos
+\(a,b,c,d\) están en las abscisas \(0,\ 0.6,\ 1.8,\ 4.2\) (proporcionales a \(0,1,3,7\)). Las
+distancias consecutivas pasan de estar en proporción \(1:2:4\) a \(0.33:0.78:2.28\): la escala cambia de un tramo a otro
+(\(0.55\), \(0.65\) y \(0.95\)), así que ni las distancias ni sus cocientes se conservan. La razón doble, en cambio, es \(9/7\) en
+las dos rectas, porque la proyección central es una homografía de \(r\) en \(s\).
 
 \paragraph{La recta que se va al infinito.}
 Sea \(h_3=(h_{31},h_{32},h_{33})\) la tercera fila de \(H\). La tercera coordenada de la
@@ -174,16 +271,22 @@ Se lee de derecha a izquierda: \(K_1^{-1}\) lleva el cuadrilátero de partida al
 \(K_2\) lleva el patrón al cuadrilátero de llegada.
 \end{resultado}
 
-Es el mismo esquema del ejercicio 6 de afinidades (\(A=P'P^{-1}\)), con un punto más para
-absorber la perspectiva. Los \(\lambda_i\), invisibles punto a punto, son precisamente los
+Es el mismo esquema de la afinidad determinada por tres puntos de control
+(proposición~\ref{prop:06-tres-puntos}, \(A=P'P^{-1}\)), con un punto más para absorber la
+perspectiva. Los \(\lambda_i\), invisibles punto a punto, son precisamente los
 grados de libertad que faltaban.
 
 \subsection{Puntos fijos y rectas fijas de una homografía}\label{sec:homografia-fijos}
 
-\textbf{Desarrollo.} Acá se cierra la cadena de los autovectores (secciones~\ref{sec:autovalores-geom} y~\ref{sec:autovalores}). \(p\) es fijo si
+Los puntos fijos de una homografía son autovectores; la teoría general de autovalores y
+autovectores se desarrolla en las secciones~\ref{sec:autovalores} y~\ref{sec:autovalores-geom}.
+Un punto \(p\) es fijo si
 \(Hp\sim p\), es decir si existe \(\lambda\neq0\) con \(Hp=\lambda p\): \emph{los puntos
-fijos son los autovectores reales de \(H\)}. Se calculan como se explicó: raíces reales de
-\(\det(H-\lambda I)=0\), y para cada una el producto cruz de dos filas de \(H-\lambda I\).
+fijos son los autovectores reales de \(H\)}. Se calculan así: se buscan las raíces reales de
+\(\det(H-\lambda I)=0\) y, para cada una, se toma el producto cruz de dos filas de
+\(H-\lambda I\). Ese vector es perpendicular a las dos filas; cuando \(H-\lambda I\) tiene
+rango \(2\), la tercera fila es combinación de las otras dos y el producto cruz anula a toda
+la matriz, es decir, resuelve \((H-\lambda I)p=0\).
 
 \begin{resultado}[Existencia de punto fijo]
 Toda homografía del plano tiene al menos un punto fijo, porque el polinomio característico
@@ -210,7 +313,7 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
   homología es \emph{armónica}, una involución, como una reflexión.
 \end{itemize}
 
-\subsection{Ejercicios de consolidación: proyectivas}
+\subsection{Ejercicios: proyectivas}
 
 \begin{enumerate}
   \item Verifique con el determinante que \(A,B,C\) del pentágono regular no están alineados
@@ -239,11 +342,11 @@ si es autovector de \(H^{T}\); se encuentra con el producto cruz de dos filas de
 
 \section{En profundidad}
 
-Resolvemos caso por caso el ejercicio del pentágono regular. El enunciado es dictado; la planilla que envió el profesor es material docente, y la resolución es desarrollo nuestro.
+Resolvemos caso por caso el ejercicio del pentágono regular.
 
 \subsection{El ejercicio del pentágono regular}
 
-\begin{enunciado}[Dictado, clase del 18 de septiembre]
+\begin{enunciado}[El quinto vértice de un pentágono regular]
 Tomar un pentágono \emph{regular} \(ABCDE\). Una transformación proyectiva queda definida
 por cuatro puntos, así que se prescriben cuatro vértices y sus imágenes (otros cuatro
 vértices) y se pregunta \emph{a dónde cae el quinto}. Hay tres casos, y sus combinaciones
@@ -254,12 +357,10 @@ con las rotaciones del pentágono:
   \item intercambiar dos vértices no adyacentes.
 \end{enumerate}
 Para cada transformación, determinar si tiene punto fijo (un autovector de la matriz).
-Entrega: un único PDF en el campus (o por correo), con figuras y observaciones; se
-comparten avances en el grupo.
 \end{enunciado}
 
-\textbf{Desarrollo.} Se toma el pentágono regular inscripto en la circunferencia unidad,
-centrado en el origen y con un vértice arriba. El docente sugirió centrarlo en el origen:
+Se toma el pentágono regular inscripto en la circunferencia unidad,
+centrado en el origen y con un vértice arriba. Conviene centrarlo en el origen:
 en el caso más simple el punto fijo es el centro, cuyo autovector es \((0,0,1)^T\).
 \begin{gather*}
   A=(0,\,1),\qquad B=(-0.9511,\,0.3090),\qquad C=(-0.5878,\,-0.8090),\\
@@ -343,17 +444,22 @@ reflexión del pentágono. Por ejemplo \(A\mapsto E,\ B\mapsto D,\ C\mapsto C,\ 
 es la reflexión respecto del eje \(OC\) (afín, \(E\mapsto A\), todo el eje fijo y la
 dirección perpendicular como punto fijo ideal). Componer (b) con la rotación da un único punto
 fijo real y dos autovalores complejos; componer (c) con la rotación da tres autovalores
-reales distintos y un triángulo invariante. Es un buen ejercicio de exploración con el
-script del apéndice.
+reales distintos y un triángulo invariante. El script de la sección~\ref{ap:pentagono}
+permite verificarlo.
 
 \begin{resultado}[Respuestas a la consigna]
 \begin{itemize}
-  \item Hay \(600\) correspondencias de cuatro vértices ordenados en cuatro vértices, todas
-  bien definidas (el pentágono es convexo); a menos de las \(10\) simetrías del pentágono se
-  reducen a los casos (a), (b), (c) y sus composiciones.
+  \item Con \(A,B,C,D\) fijos como puntos de partida, sus imágenes son cuatro vértices
+  distintos elegidos en orden entre cinco: hay \(5\cdot4\cdot3\cdot2=120\) correspondencias,
+  todas bien definidas (el pentágono es convexo, nunca hay tres vértices alineados). Componer
+  con las \(10\) simetrías del pentágono (\(5\) rotaciones y \(5\) reflexiones) agrupa esas
+  \(120\) correspondencias en \(120/10=12\) clases. Dentro de una clase las homografías
+  difieren en una simetría, así que basta estudiar un representante por clase: (a) está en
+  la clase de la identidad, y (b) y (c) son representantes de otras dos.
   \item (a) es la rotación; el quinto vértice cae en un vértice y el punto fijo es el centro.
-  \item (b) y (c) son homologías armónicas: una recta entera de puntos fijos (el lado cuyos
-  extremos quedan quietos) más un centro; el quinto vértice cae fuera del pentágono, en
+  \item (b) y (c) son homologías armónicas: una recta entera de puntos fijos, la que une los
+  dos vértices que quedan quietos (el lado \(CD\) en (b), la diagonal \(BD\) en (c)), más un
+  centro; el quinto vértice cae fuera del pentágono, en
   \((-3.08,1)\) y \((0,-1.24)\) respectivamente. En (b) la imagen se parte; en (c) no.
   \item Siempre hay punto fijo: es el autovector real de \(H\), y se calcula con el producto
   cruz de dos filas de \(H-\lambda I\).

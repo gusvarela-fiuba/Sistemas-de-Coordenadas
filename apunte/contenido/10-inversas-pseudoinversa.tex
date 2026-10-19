@@ -20,16 +20,10 @@ Este bloque deberá precisarse con los enunciados y ejemplos que presente la cá
 
 \subsection{Inversas, los cuatro subespacios y la pseudoinversa}\label{sec:pseudoinversa}
 
-\begin{atencion}[Anticipado]
-La clase 10 del esqueleto (inversas) no se dictó en 2C2026; la inversa de una \(2\times2\)
-se usó el 30/9 por adjunta sobre determinante, sin discutirla. Esta sección se armó antes
-de que la cátedra la diera, a partir del resumen 2025 del profesor y de bibliografía.
-Pendiente de validar.
-\end{atencion}
+La inversa de una \(2\times2\) se calcula por adjunta sobre determinante; en este capítulo se discute qué significa invertir y qué pasa cuando no se puede.
 
-\paragraph{Inversa respecto de una operación.} El profesor volvió en 2025 ``a algo que
-hablamos muy al principio de la cursada: la relación entre operaciones, elementos y
-transformaciones''. Una inversa es siempre ``inversa respecto de'' una operación: el
+\paragraph{Inversa respecto de una operación.} Volvemos a la relación entre operaciones, elementos y
+transformaciones. Una inversa es siempre ``inversa respecto de'' una operación: el
 elemento que, operado con otro, da el neutro de esa operación.
 
 {\small
@@ -62,7 +56,7 @@ por \(\tfrac12\).
   A=PDP^{-1}\ \Rightarrow\ A^{-1}=P\,\tfrac1D\,P^{-1},\qquad
   A=U\Sigma V^T\ \Rightarrow\ A^{-1}=V\,\tfrac1\Sigma\,U^T .
 \]
-El profesor escribe \(1/D\) y \(1/\Sigma\) a propósito: invertir una matriz diagonal es
+Se escribe \(1/D\) y \(1/\Sigma\) a propósito: invertir una matriz diagonal es
 tomar los recíprocos de las entradas, deshacer cada estiramiento por separado. En la SVD
 se deshace en orden inverso: desgirar lo último (\(U^T\)), desestirar, desgirar lo primero
 (\(V\)). Con \(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}=P\operatorname{diag}(3,1)P^{-1}\):
@@ -75,7 +69,7 @@ se deshace en orden inverso: desgirar lo último (\(U^T\)), desestirar, desgirar
 que coincide con la adjunta sobre el determinante (\(\det A=3\)).
 \end{resultado}
 
-\paragraph{Los cuatro subespacios, con los nombres del profesor.} Una matriz \(m\times n\)
+\paragraph{Los cuatro subespacios, con sus nombres habituales.} Una matriz \(m\times n\)
 parte la entrada \(\R^n\) en dos pedazos perpendiculares y la salida \(\R^m\) en otros dos:
 \begin{itemize}
   \item \textbf{núcleo}: ``vectores de la entrada que caen al \(0\)''; la dirección
@@ -141,7 +135,7 @@ De \(5a+3b=7\) y \(3a+3b=4\): \(a=\tfrac32\), \(b=-\tfrac16\). Residuo
 \(\R^3\) el vector \(y\) no está en el plano generado por las dos columnas de \(A\);
 \(A\hat x\) es su proyección ortogonal sobre ese plano y el residuo vive en el espacio
 inaccesible. Es ``el punto de la entrada que corresponde en la salida a lo más cercano al
-término independiente'' (resumen 2025). Verificado con \texttt{np.linalg.lstsq} y
+término independiente''. Verificado con \texttt{np.linalg.lstsq} y
 \texttt{np.linalg.pinv(A) @ y}: \((1{,}5,\ -0{,}1667)\). Situación de campo: una poligonal
 con más mediciones que incógnitas no cierra exactamente; compensarla es elegir las
 coordenadas cuya salida queda más cerca de lo medido, con el residuo repartido

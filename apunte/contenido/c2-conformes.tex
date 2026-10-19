@@ -4,7 +4,7 @@
 
 \section{La idea}
 
-Volvemos a la rotación combinada con una escala, ahora escrita con números complejos, y de ahí pasamos a las proyecciones cartográficas. Este tema no se dictó en 2C2026: lo armamos nosotros para cerrar el arco de la materia.
+Volvemos a la rotación combinada con una escala, ahora escrita con números complejos, y de ahí pasamos a las proyecciones cartográficas.
 
 \subsection{Variable compleja y conformidad}
 
@@ -22,8 +22,8 @@ extendido
 \[
   \widehat{\mathbb C}=\mathbb C\cup\{\infty\}.
 \]
-La relación entre rotaciones, multiplicación compleja y conformidad conecta la primera clase
-con este capítulo.
+La relación entre rotaciones, multiplicación compleja y conformidad conecta el capítulo de
+rotaciones (capítulo~\ref{cap:rotaciones}) con este.
 
 \subsection{Proyecciones cartográficas}\label{sec:proyecciones}
 
@@ -51,7 +51,7 @@ escalas principales de deformación; su determinante describe el cambio local de
 
 \section{Construcciones, cuentas y ejemplos}
 
-Armamos la cuenta de punta a punta, del número complejo y el Jacobiano a la proyección del elipsoide, con la indicatriz de Tissot como figura. Es desarrollo complementario, pendiente de validar por la cátedra.
+La cuenta va de punta a punta, del número complejo y el Jacobiano a la proyección del elipsoide, con la indicatriz de Tissot como figura. Es desarrollo complementario.
 
 \subsection{Transformaciones conformes: del número complejo y el Jacobiano a la proyección del elipsoide}\label{sec:transformaciones-conformes}
 
@@ -60,16 +60,13 @@ Armamos la cuenta de punta a punta, del número complejo y el Jacobiano a la pro
 
 
 \begin{atencion}[Desarrollo complementario]
-Esta sección no fue dictada por la cátedra en 2C2026. La armamos nosotros para cerrar el
-arco de la materia: el número complejo de la clase 1 (sección~\ref{sec:rot-complejos}),
-las similaridades de la clase 3 (secciones~\ref{sec:escalar} y~\ref{cap:afines}), la SVD de la
-clase 7 (sección~\ref{sec:svd}), el Jacobiano y la primera forma de la clase 9
+Esta sección cierra el arco de la materia: el número complejo (sección~\ref{sec:rot-complejos}),
+las similaridades (secciones~\ref{sec:escalar} y~\ref{cap:afines}), la SVD
+(sección~\ref{sec:svd}), el Jacobiano y la primera forma fundamental
 (sección~\ref{sec:metrica}) son, vistos desde acá, cuatro maneras de decir lo mismo, y
-el elipsoide de la clase 13 (sección~\ref{cap:elipsoide}) es el escenario donde las
-aplicamos. Y
-con ese lenguaje resolvemos las preguntas con que termina el apunte del elipsoide del
-profesor, incluida la transversa de Mercator que en la sección~\ref{cap:elipsoide}
-(capítulo~\ref{cap:elipsoide}) dejamos planteada. Pendiente de validar por la cátedra.
+el elipsoide (capítulo~\ref{cap:elipsoide}) es el escenario donde se aplican. Con ese
+lenguaje se resuelven las preguntas con que termina el capítulo del elipsoide, incluida la
+transversa de Mercator que allí quedó planteada.
 \end{atencion}
 
 \paragraph{El problema cartográfico.} En la sección~\ref{cap:curvatura} (capítulo~\ref{cap:curvatura}) calculamos que la
@@ -101,14 +98,14 @@ los pasitos del terreno con la primera forma del terreno y los del mapa con la d
 lo que sigue suponemos que trabajamos en bases ortonormales de los dos planos tangentes
 (sobre el elipsoide, \(r_\varphi/M\) y \(r_\lambda/(N\cos\varphi)\); en el plano, los
 versores), de modo que \(J\) es una matriz real \(2\times2\) común y corriente y la
-pregunta ``¿conserva ángulos?'' es la de la clase 3.
+pregunta ``¿conserva ángulos?'' es la de las similaridades (sección~\ref{sec:escalar}).
 
 \begin{resultado}[Las cuatro caras de una transformación conforme]
 Sea \(J=J(P)\) la jacobiana en un punto, con \(\det J>0\) (invertible y sin reflejar:
 conserva la orientación). Son equivalentes:
 \begin{enumerate}[label=(\roman*)]
   \item \textbf{Similaridad directa.} \(J=\rho\,R(\theta)\) con \(\rho>0\): una rotación
-  seguida de una homotecia, la similaridad directa con punto fijo de la clase 3
+  seguida de una homotecia, la similaridad directa con punto fijo
   (sección~\ref{sec:escalar}).
   \item \textbf{Valores singulares iguales.} \(\sigma_1=\sigma_2=k\) en la SVD de \(J\)
   (sección~\ref{sec:svd}): la indicatriz de Tissot (la imagen de la circunferencia unidad
@@ -137,8 +134,8 @@ rotación local (la ``convergencia de meridianos'' en las proyecciones).
 \]
 y al revés: toda matriz \(\begin{pmatrix}a&-b\\b&a\end{pmatrix}\) con \((a,b)\neq(0,0)\)
 se escribe así tomando \(\rho=\sqrt{a^2+b^2}\) y \(\theta=\operatorname{atan2}(b,a)\). Es
-exactamente la identificación \(\rho e^{i\theta}\leftrightarrow\rho R(\theta)\) de la
-clase 1: la matriz de la izquierda tiene dos parámetros, no cuatro. Leer \(a=x_u\),
+exactamente la identificación \(\rho e^{i\theta}\leftrightarrow\rho R(\theta)\) de los números
+complejos (sección~\ref{sec:rot-complejos}): la matriz de la izquierda tiene dos parámetros, no cuatro. Leer \(a=x_u\),
 \(b=y_u\) y comparar con la jacobiana general
 \(\begin{pmatrix}x_u&x_v\\y_u&y_v\end{pmatrix}\) da Cauchy--Riemann.
 
@@ -199,14 +196,19 @@ tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas
 Gauss--Krüger de \(3^\circ\) de ancho: no para ``mantener la conformidad'' (Gauss--Krüger
 ya es conforme a cualquier distancia del meridiano central), sino para acotar la
 deformación lineal \(k-1\approx\tfrac12\,\Delta\lambda^2\cos^2\varphi\) (con \(\Delta\lambda\)
-en radianes) por debajo de unos \(3{,}4\times10^{-4}\), es decir \(34\) cm/km, en el borde
-de la faja (\(\Delta\lambda=1{,}5^\circ\)).
+en radianes) por debajo de unos \(2{,}3\times10^{-4}\), es decir \(23\) cm/km, en el borde de la
+faja (\(\Delta\lambda=1{,}5^\circ\)) a la latitud de Buenos Aires
+(\(\varphi=-34{,}6^\circ\)). La cifra se calcula sobre el elipsoide GRS80 (POSGAR 2007,
+faja de meridiano central \(-60^\circ\)): la aproximación da \(2{,}32\times10^{-4}\) y el
+factor de escala exacto, \(2{,}33\times10^{-4}\). Los \(34\) cm/km corresponden al
+ecuador (\(\cos\varphi=1\), \(3{,}45\times10^{-4}\) exacto), que es el peor caso de la
+faja.
 
 \paragraph{Por qué (iii) es ``conservar ángulos''.} El ángulo entre dos pasitos \(p,q\)
 del terreno se calcula con el producto interno, \(\cos\alpha=p\cdot q/(\|p\|\|q\|)\). En el
 mapa los pasitos son \(Jp\) y \(Jq\), y \((Jp)\cdot(Jq)=p^T(J^TJ)q=k^2\,p\cdot q\): el
 numerador se multiplica por \(k^2\), cada norma por \(k\), y el coseno no cambia. Es el
-mismo argumento de la clase 1 (el producto interno es invariante por rotaciones) con una
+mismo argumento del capítulo de rotaciones (el producto interno es invariante por rotaciones) con una
 homotecia más. Y es lo único que lo logra: si \(J^TJ\) no fuera múltiplo de la identidad,
 sus dos autovectores (las direcciones \(v_1,v_2\) de la SVD) se estirarían distinto y
 alguna dirección intermedia giraría respecto de las otras.
@@ -241,13 +243,13 @@ que da maximizar numéricamente \(2(\alpha-\alpha')\).
 
 \section{En profundidad}
 
-Con el lenguaje ya armado, retomamos las proyecciones que el apunte del profesor deja planteadas al final y las leemos como casos de conformidad. El planteo es del material docente; la resolución es nuestra.
+Con el lenguaje ya armado, retomamos las proyecciones que el capítulo del elipsoide deja planteadas al final y las leemos como casos de conformidad.
 
 \subsection{Las proyecciones del elipsoide con este lenguaje}\label{sec:conformes-elipsoide}
 
 \paragraph{Las proyecciones del cierre del apunte del elipsoide, con este lenguaje.} En
-la sección~\ref{cap:elipsoide} (capítulo~\ref{cap:elipsoide}) planteamos las cinco proyecciones que el apunte del
-profesor deja como ``puntapié inicial'' (página 20) y resolvimos las cilíndricas
+la sección~\ref{cap:elipsoide} (capítulo~\ref{cap:elipsoide}) planteamos las cinco proyecciones que quedan como
+``puntapié inicial'' y resolvimos las cilíndricas
 integrando una condición cada vez. Ahora las vemos con las cuatro caras. Sobre el
 elipsoide, con la base \((\varphi,\lambda)\),
 \[

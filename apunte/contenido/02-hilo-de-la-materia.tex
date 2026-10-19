@@ -1,22 +1,18 @@
-% El hilo de la materia: clase por clase
-\section{El hilo de la materia: clase por clase}\label{cap:02}\label{sec:hilo}
+% El hilo de la materia: tema por tema
+\section{El hilo de la materia: tema por tema}\label{cap:02}\label{sec:hilo}
 
-\textbf{Material docente.} El profesor publicó en el campus un resumen escrito de cada una de
-sus diez clases de la cursada 2025 (segundo cuatrimestre 2025: la clase 1 es del 21 de agosto
-de 2025 y el material se llama ``Clase 2025.2.2''); el campus los titula ``1er Cuatri 2026'',
-pero acá se citan como ``cursada 2025''. Leídos de corrido muestran que la materia no
-es una lista de temas sueltos sino un recorrido con tres ideas que vuelven una y otra vez.
-Cuando una clase parece desconectada de la anterior, casi siempre es porque cambió la
-\emph{cara} desde la que se mira la misma idea.
+\textbf{Material de partida.} La materia no es una lista de temas sueltos sino un
+recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando un bloque parece
+desconectado del anterior, casi siempre es porque cambió la \emph{cara} desde la que se mira
+la misma idea.
 
 \begin{idea}[Las tres ideas que se repiten]
 \begin{enumerate}
   \item \textbf{Transformaciones, operaciones y coordenadas} son tres caras de lo mismo. Una
   transformación mueve puntos; una operación (componer, multiplicar matrices, hacer un
   producto interno) es la cuenta que la representa; una coordenada es lo que queda cuando se
-  pregunta ``hasta dónde llegué con esta transformación''. En palabras del profesor:
-  ``una de las cosas importantes en esta materia es entender la relación entre
-  transformaciones, operaciones y coordenadas'' (resumen de clase 2).
+  pregunta ``hasta dónde llegué con esta transformación''. Una de las cosas importantes de
+  la materia es entender la relación entre transformaciones, operaciones y coordenadas.
   \item \textbf{Ir a lo chico para volver a lo grande.} Una rotación grande es muchas
   rotaciones chiquitas; la derivada de una transformación da vectores tangentes a las
   trayectorias; la exponencial rearma el movimiento completo. La misma jugada reaparece con
@@ -29,116 +25,114 @@ Cuando una clase parece desconectada de la anterior, casi siempre es porque camb
 \end{enumerate}
 \end{idea}
 
-Antes de la clase 1 va la Unidad 0 del sitio de la materia, ``fundamentos y lenguaje de
-la cátedra'' (subsección~\ref{sec:desaprender}): no es una clase del profesor sino
+Antes del bloque 1 va la Unidad 0 del sitio de la materia, ``fundamentos y lenguaje''
+(subsección~\ref{sec:desaprender}): no es un bloque temático sino
 el encuadre del curso con el que conviene entrar a la tabla. El sitio tiene tres capas: el
 hilo conductor (las 20 unidades interactivas en marimo + Python, construidas ladrillo a
 ladrillo en el orden de esta tabla), el mapa de conceptos, para repasar, y este apunte
 formal en \LaTeX{} con las demostraciones (apéndice~\ref{ap:notebooks}).
 
-La tabla ubica cada clase con la idea eje dicha con las palabras del resumen del profesor,
-el hecho geométrico que está detrás de la fórmula, y la sección de este apunte donde se
+La tabla ubica cada bloque con su idea central, el hecho geométrico que está detrás de la fórmula, y la sección de este apunte donde se
 desarrolla. Regla del apunte: una fórmula sin su hecho geométrico es magia.
 
 {\small
 \begin{longtable}{>{\raggedright\arraybackslash}p{20mm}>{\raggedright\arraybackslash}p{60mm}>{\raggedright\arraybackslash}p{44mm}>{\raggedright\arraybackslash}p{28mm}}
 \toprule
-\textbf{Clase} & \textbf{Idea eje (palabras del profesor)} & \textbf{Hecho geométrico} &
+\textbf{Bloque} & \textbf{Idea central} & \textbf{Hecho geométrico} &
 \textbf{En este apunte}\\
 \midrule
 \endfirsthead
 \toprule
-\textbf{Clase} & \textbf{Idea eje (palabras del profesor)} & \textbf{Hecho geométrico} &
+\textbf{Bloque} & \textbf{Idea central} & \textbf{Hecho geométrico} &
 \textbf{En este apunte}\\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
 1. Rotaciones &
-``Una rotación implica dejar quieto un punto, mover otro, y en base a esos acomodar todos
-los demás''; se puede porque ``había una estructura de algo que se conservaba (distancias y
-ángulos)''. Complejos, matrices ortogonales, rotaciones 3D, no conmutatividad, ángulos
+Una rotación implica dejar quieto un punto, mover otro, y en base a esos acomodar todos
+los demás; se puede porque había una estructura de algo que se conservaba (distancias y
+ángulos). Complejos, matrices ortogonales, rotaciones 3D, no conmutatividad, ángulos
 chicos, exponencial. &
 Rotación = conservar distancias alrededor de un punto fijo; cada punto recorre una
 circunferencia y multiplicar por \(i\) es girar un cuarto de vuelta. &
 \S\ref{sec:rotar}, \S\ref{sec:rot-plano}, \S\ref{sec:rot-complejos}, \S\ref{sec:rot-3d},
 \S\ref{sec:eje-exp}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales}\\
 2. Más rotaciones, composición y líneas coordenadas &
-``En general es necesario para construir un sistema de coordenadas que haya conmutatividad
-a la hora de componer movimientos por coordenadas.'' El problema de los vasos; rotaciones
+En general es necesario para construir un sistema de coordenadas que haya conmutatividad
+a la hora de componer movimientos por coordenadas. El problema de los vasos; rotaciones
 sobre la cáscara de la esfera hacia latitud y longitud. &
 Componer en distinto orden lleva a lugares distintos; las trayectorias de un movimiento
 repetido son las líneas coordenadas (meridianos y paralelos). &
 \S\ref{sec:orden-importa}, \S\ref{sec:sistemas-marcos}, \S\ref{sec:curvilineas}\\
 3. Transformaciones afines &
-``Una afinidad conserva paralelas las paralelas''; con reflexiones se construyen
-rotaciones; ``un tema insistente de la clase fue la composición como una operación entre
-transformaciones''. Dos escrituras: en \(\R^2\) y en coordenadas homogéneas. &
+Una afinidad conserva paralelas las paralelas; con reflexiones se construyen
+rotaciones; un tema insistente es la composición como una operación entre
+transformaciones. Dos escrituras: en \(\R^2\) y en coordenadas homogéneas. &
 Afinidad = los paralelogramos siguen siendo paralelogramos; dos reflexiones en rectas
 secantes son una rotación; rotar y trasladar repetidamente dibuja círculos alrededor del
 punto fijo. &
 \S\ref{sec:afinidades-primera}, \S\ref{sec:reflejar}, \S\ref{sec:componer-centros},
 \S\ref{sec:homogeneas-primera}, \S\ref{sec:bloque-euclideas}--\S\ref{sec:afinidades-construidas}\\
 4. Espacios lineales, transformaciones lineales y formas lineales &
-``Las formas lineales, funciones que van de un espacio vectorial a un escalar''; ``se
-comportan igual que las ecuaciones de las rectas o los planos''; ``una forma lineal se
-transforma con una transformación lineal del lado contrario que un vector''. &
+Las formas lineales, funciones que van de un espacio vectorial a un escalar; se
+comportan igual que las ecuaciones de las rectas o los planos; una forma lineal se
+transforma con una transformación lineal del lado contrario que un vector. &
 Forma lineal = una regla graduada tirada en el plano: sus curvas de nivel son rectas
 paralelas equiespaciadas; la matriz es una pila de reglas. &
 \S\ref{sec:transf-plano}, \S\ref{sec:formas-lineales}\\
 5. Subespacios y producto cuña &
-``El producto cuña, una operación relacionada al determinante que sirve para armar formas
-lineales''; ``construir una transformación lineal que tuviera un vector especial (o varios)
-en el núcleo''. &
+El producto cuña, una operación relacionada al determinante que sirve para armar formas
+lineales; construir una transformación lineal que tuviera un vector especial (o varios)
+en el núcleo. &
 Producto cuña = área o volumen orientado; vale cero cuando los vectores están alineados;
 una transformación con núcleo aplasta una dirección entera a un punto. &
 \S\ref{sec:vectorial}, \S\ref{sec:determinante}, \S\ref{sec:exterior}, \S\ref{sec:nucleo}\\
 6. Subespacios invariantes y autovectores &
-``\((A-\lambda\,Id)\cdot\vec v=0\): hay un vector que está en el núcleo de
-\(A-\lambda\,Id\)''; ``los subespacios invariantes de la transformación lineal de
-\(\R^3\) correspondían a los puntos fijos en \(\mathbb{P}\R^2\)''. &
+\((A-\lambda\,Id)\cdot\vec v=0\): hay un vector que está en el núcleo de
+\(A-\lambda\,Id\); los subespacios invariantes de la transformación lineal de
+\(\R^3\) correspondían a los puntos fijos en \(\mathbb{P}\R^2\). &
 Autovector = dirección que cae sobre sí misma; en homogéneas es un punto fijo del plano;
 el cero siempre queda quieto. &
 \S\ref{sec:autovalores}, \S\ref{sec:autovalores-geom}, \S\ref{sec:homografia-fijos}\\
 7. Transformaciones lineales II: subespacios y SVD &
-``Encontrar una `base privilegiada' de la transformación''; ``siempre existe una base
-ortogonal del espacio de entrada que se conserva ortogonal a la salida''. Polya y las
+Encontrar una base privilegiada de la transformación; siempre existe una base
+ortogonal del espacio de entrada que se conserva ortogonal a la salida. Polya y las
 estrategias para resolver problemas. &
 Diagonalizar = mirar la transformación desde sus direcciones fijas (estiramientos
 axiales); SVD = la circunferencia unidad se vuelve elipse, con ejes ortogonales antes y
 después. &
-\S\ref{sec:autovalores-geom}, \S\ref{sec:svd} (anticipado), ap.~\ref{ap:notebooks}\\
+\S\ref{sec:autovalores-geom}, \S\ref{sec:svd}, ap.~\ref{ap:notebooks}\\
 8. Cambios de base, autovectores y Marimo &
-``El cambio de base se construye con una matriz que tiene en sus columnas los vectores de
-una base expresada en la otra''; ``no parece haber un conjunto de vectores privilegiado
-a priori''; potencias de una matriz y trayectorias. &
+El cambio de base se construye con una matriz que tiene en sus columnas los vectores de
+una base expresada en la otra; no parece haber un conjunto de vectores privilegiado
+a priori; potencias de una matriz y trayectorias. &
 Cambio de base = la misma flecha medida con otra grilla; potencia real de una matriz =
 trayectoria continua de un punto bajo la transformación. &
 \S\ref{sec:cambio-base}, ap.~\ref{ap:notebooks}\\
 9. Repaso de análisis (con álgebra de contrabando) &
-``La derivada es la mejor aproximación lineal a una función en determinado punto'';
-``dato clave: el gradiente es una forma lineal, no un vector''. Hessiana como forma
+La derivada es la mejor aproximación lineal a una función en determinado punto;
+dato clave: el gradiente es una forma lineal, no un vector. Hessiana como forma
 cuadrática. &
 Derivada = el plano tangente; gradiente = forma lineal cuya recta de nivel cero es la
 tangente, perpendicular a la curva de nivel. &
 \S\ref{sec:plano-superficie}, \S\ref{sec:variedades}, \S\ref{sec:metrica},
 \S\ref{sec:formas-lineales}\\
 10. Inversas &
-``La inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
-neutro respecto de esa operación''; núcleo, imagen, co-imagen y espacio inaccesible;
+La inversa es un elemento de un conjunto que, al operar con otro, resulta en el elemento
+neutro respecto de esa operación; núcleo, imagen, co-imagen y espacio inaccesible;
 pseudoinversa de Moore--Penrose. &
 Inversa = deshacer el movimiento; una transformación que pierde dimensiones aplasta y no se
 deshace del todo; la pseudoinversa elige el punto de la imagen más cercano. &
-\S\ref{sec:pseudoinversa} (anticipado), \S\ref{cap:cuatro-problemas}, \S\ref{sec:sistemas-ecuaciones}\\
+\S\ref{sec:pseudoinversa}, \S\ref{cap:cuatro-problemas}, \S\ref{sec:sistemas-ecuaciones}\\
 \end{longtable}
 }
 
-\begin{atencion}[Segundo cuatrimestre 2026: otro orden, mismo hilo]
-El curso del segundo cuatrimestre 2026 sigue otro orden: rotaciones \(\to\) guía de
+\begin{atencion}[Otro orden, mismo hilo]
+El curso también admite otro orden: rotaciones \(\to\) guía de
 reflexiones y similaridades \(\to\) afinidades y coordenadas homogéneas \(\to\)
 transformaciones proyectivas \(\to\) productos, determinante y autovectores. Las tres ideas
 son las mismas y el apunte sirve para ambos recorridos: la tabla anterior dice dónde está
-cada tema, y las cajas ``En palabras del profesor'' de las secciones ``La idea'' de cada capítulo marcan a qué
-clase de la cursada 2025 corresponde cada sección.
+cada tema.
 \end{atencion}
 

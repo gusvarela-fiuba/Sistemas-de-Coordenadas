@@ -1,26 +1,25 @@
-% Apéndice: material de clase y notebooks
-\section{Material de clase y notebooks}\label{cap:21}\label{ap:notebooks}
+% Apéndice: material de práctica y notebooks
+\section{Material de práctica y notebooks}\label{cap:21}\label{ap:notebooks}
 
-\subsection{Material publicado en el campus (cursada 2025)}
+\subsection{Planillas y cuadernos de práctica}
 
 Copia local en \file{Proyectos / Agrimensura / Sistemas de Coordenadas / Bibliografia / material de
-clase 2C2025} de Dropbox.
+práctica} de Dropbox.
 
 \begin{itemize}
-  \item \file{Rotaciones_No_Conmutan.xlsx} (Planilla Clase 2025.2.2, clase 2): planilla
-  para ``experimentar con la conmutatividad de las matrices de rotación y con la
+  \item \file{Rotaciones_No_Conmutan.xlsx}: planilla
+  para experimentar con la conmutatividad de las matrices de rotación y con la
   construcción de una rotación según eje-ángulo (por repetición de rotaciones pequeñas y por
-  exponenciación)''. \texttt{MMULT} es la función de Excel para multiplicar matrices.
-  \item \file{Ejercicio Tl_Afin_Homogenea.xlsx} (Planilla para experimentar
-  transformaciones, clase 3): afinidades en \(\R^2\) y en homogéneas; composición y orden.
-  \item \file{Algun_ejemplo_de_rotacion.wxmx} (Maxima 2025.2.2, clase 2): notebook de
-  wxMaxima que ``experimenta nuevamente el tema de la conmutatividad y aparece una yapa
-  relativa a autovectores''.
-  \item \file{Formas_Lineales.wxmx} (clase 4): el ejemplo \(\varphi(A\vec v)=(\varphi A)(\vec v)\)
+  exponenciación). \texttt{MMULT} es la función de Excel para multiplicar matrices.
+  \item \file{Ejercicio Tl_Afin_Homogenea.xlsx}: planilla para experimentar
+  transformaciones; afinidades en \(\R^2\) y en homogéneas, composición y orden.
+  \item \file{Algun_ejemplo_de_rotacion.wxmx}: notebook de
+  wxMaxima que vuelve sobre la conmutatividad e incluye un agregado
+  relativo a autovectores.
+  \item \file{Formas_Lineales.wxmx}: el ejemplo \(\varphi(A\vec v)=(\varphi A)(\vec v)\)
   trabajado en Maxima; es el de la sección~\ref{sec:formas-lineales}.
-  \item \file{Ejemplo_para_pensar.py} (+ \texttt{.jpeg}; Ejemplo Clase 2025.2.2): ejemplo
-  en Python de transformación afín ``que vamos a trabajar en papel en clase [\ldots]
-  piensen qué hace''.
+  \item \file{Ejemplo_para_pensar.py} (+ \texttt{.jpeg}): ejemplo
+  en Python de transformación afín para trabajar en papel y predecir qué hace.
 \end{itemize}
 
 \subsection{Unidades interactivas (lecciones marimo)}
@@ -36,50 +35,45 @@ El sitio tiene tres capas: ese hilo conductor (la portada), el mapa de conceptos
 \file{unidades/} del repositorio; se abren localmente con \texttt{marimo edit}
 (entorno \texttt{uv}). Cada unidad enlaza a la sección de este apunte que desarrolla su
 tema (destino \texttt{cap:NN} del PDF), y cada una cierra con ejercicios con hueco y
-verificación automática. La columna ``clase'' es la del esqueleto de 14 clases de la
-cursada 2025 (sección~\ref{sec:hilo}). La Unidad 0 va antes de la clase 1: es el
+verificación automática. La columna ``capítulo'' indica dónde se desarrolla el tema de cada unidad. La Unidad 0 es el
 encuadre de la subsección~\ref{sec:desaprender} y de la brújula de la
-sección~\ref{sec:puntos-formas-grillas}, no una clase. Las unidades 11 a 14 son
-\emph{anticipadas}: la clase no se dictó en 2C2026 y el contenido desarrolla el
-esqueleto 2025 y el apunte del elipsoide del profesor, pendiente de validar por la
-cátedra. La unidad 15 es \emph{complementaria}: cierra el arco de la materia con las
-transformaciones conformes (sección~\ref{sec:transformaciones-conformes}), sin clase
-del esqueleto.
+sección~\ref{sec:puntos-formas-grillas}. Las unidades 11 a 14 acompañan capítulos en preparación. La unidad 15 es \emph{complementaria}: cierra el arco de la materia con las
+transformaciones conformes (sección~\ref{sec:transformaciones-conformes}).
 
 {\small
 \begin{longtable}{>{\ttfamily\raggedright\arraybackslash}p{62mm}>{\raggedright\arraybackslash}p{70mm}>{\raggedright\arraybackslash}p{16mm}}
 \toprule
-\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Clase}\\
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Capítulo}\\
 \midrule
 \endfirsthead
 \toprule
-\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Clase}\\
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Capítulo}\\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
 \linkUnidadId{00_desaprender_el_cbc} & Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica & ---\\
-\linkUnidadId{01a_punto_quieto} & Rotaciones I: el punto no se movió & 01\\
-\linkUnidadId{01b_rotacion_plano} & Rotaciones II: la rotación en el plano & 01\\
-\linkUnidadId{01c_rotaciones_3d} & Rotaciones III: tres ejes y el orden importa & 01, 02\\
-\linkUnidadId{02_producto_interno} & Producto interno: proyección, longitud, ángulo & 01\\
-\linkUnidadId{03_reflexiones_similaridades} & Reflexiones y similaridades & 02, 03\\
-\linkUnidadId{04_afines_homogeneas} & Afinidades y coordenadas homogéneas & 03\\
-\linkUnidadId{05_proyectivas} & Proyectivas & 03p\\
-\linkUnidadId{06_formas_lineales} & Formas lineales y dualidad & 04\\
-\linkUnidadId{07a_cuna_determinante} & Cuña y determinante: el detector de colinealidad & 05\\
-\linkUnidadId{07b_nucleo_autovectores} & Núcleo y autovectores: las direcciones que no giran & 05, 06\\
-\href{\sitioURL/unidades/07c_autovalores_3d_puntos_fijos/index.html}{\texttt{\detokenize{07c_autovalores_3d_}\allowbreak\detokenize{puntos_fijos}}} & Autovalores en 3D y puntos fijos proyectivos & 06\\
-\linkUnidadId{08_cambio_de_base} & Cambio de base y diagonalización & 08\\
+\linkUnidadId{01a_punto_quieto} & Rotaciones I: el punto no se movió & \ref{cap:rotaciones}\\
+\linkUnidadId{01b_rotacion_plano} & Rotaciones II: la rotación en el plano & \ref{cap:rotaciones}\\
+\linkUnidadId{01c_rotaciones_3d} & Rotaciones III: tres ejes y el orden importa & \ref{cap:rotaciones}\\
+\linkUnidadId{02_producto_interno} & Producto interno: proyección, longitud, ángulo & \ref{cap:03}\\
+\linkUnidadId{03_reflexiones_similaridades} & Reflexiones y similaridades & \ref{cap:afines}\\
+\linkUnidadId{04_afines_homogeneas} & Afinidades y coordenadas homogéneas & \ref{cap:afines}\\
+\linkUnidadId{05_proyectivas} & Proyectivas & \ref{cap:proyectivas}\\
+\linkUnidadId{06_formas_lineales} & Formas lineales y dualidad & \ref{cap:formas-lineales}\\
+\linkUnidadId{07a_cuna_determinante} & Cuña y determinante: el detector de colinealidad & \ref{cap:subespacios}\\
+\linkUnidadId{07b_nucleo_autovectores} & Núcleo y autovectores: las direcciones que no giran & \ref{cap:subespacios}, \ref{cap:autovectores}\\
+\href{\sitioURL/unidades/07c_autovalores_3d_puntos_fijos/index.html}{\texttt{\detokenize{07c_autovalores_3d_}\allowbreak\detokenize{puntos_fijos}}} & Autovalores en 3D y puntos fijos proyectivos & \ref{cap:autovectores}\\
+\linkUnidadId{08_cambio_de_base} & Cambio de base y diagonalización & \ref{cap:cambio-base}\\
 \linkUnidadId{09_cambio_de_base_svd} & Cambio de base, SVD e inversas (con el DEM real de la
-sección~\ref{sec:svd}) & 07, 10\\
-\linkUnidadId{10_jacobiano_primera_forma} & Jacobiano y primera forma fundamental & 09\\
+sección~\ref{sec:svd}) & \ref{cap:svd}, \ref{cap:inversas}\\
+\linkUnidadId{10_jacobiano_primera_forma} & Jacobiano y primera forma fundamental & \ref{cap:derivada}\\
 \linkUnidadId{11_cuatro_problemas} & Cuatro problemas: regresión, círculos, Procrustes, regresión total
-(anticipada) & 11\\
-\linkUnidadId{12_curvatura} & Curvatura como forma cuadrática (anticipada) & 12\\
-\linkUnidadId{13_elipsoide} & Geometría del elipsoide (anticipada) & 13\\
-\linkUnidadId{14_trigonometria_esferica} & Trigonometría esférica (anticipada) & 14\\
-\href{\sitioURL/unidades/15_transformaciones_conformes/index.html}{\texttt{\detokenize{15_transformaciones_}\allowbreak\detokenize{conformes}}} & Transformaciones conformes: complejos, Jacobiano, elipsoide al plano (complementaria) & ---\\
+& \ref{cap:cuatro-problemas}\\
+\linkUnidadId{12_curvatura} & Curvatura como forma cuadrática & \ref{cap:curvatura}\\
+\linkUnidadId{13_elipsoide} & Geometría del elipsoide & \ref{cap:elipsoide}\\
+\linkUnidadId{14_trigonometria_esferica} & Trigonometría esférica & \ref{cap:esfera}\\
+\href{\sitioURL/unidades/15_transformaciones_conformes/index.html}{\texttt{\detokenize{15_transformaciones_}\allowbreak\detokenize{conformes}}} & Transformaciones conformes: complejos, Jacobiano, elipsoide al plano (complementaria) & \ref{cap:conformes}\\
 \end{longtable}
 }
 
@@ -97,33 +91,30 @@ no existe en el navegador: \file{tools/build.py} reemplaza la celda marcada
 \texttt{\# cb104:inline} por una que embebe el archivo. Se prueba con
 \texttt{uv run python unidades/cb104.py}.
 
-\subsection{Archivos del profesor recibidos por el chat (2C2026)}
+\subsection{Planilla y cuaderno adicionales}
 
-Copias fieles en \file{fuentes/campus/profesor/} del repositorio (recibidos el 17 de
-octubre de 2026 por el grupo de Google Chat, junto con los dos PDF que este apunte
-reproduce al final).
+Copias fieles en la carpeta \file{fuentes/} del repositorio.
 
 \begin{itemize}
-  \item \file{Proyectivas\_del\_pentagono.xlsx}: planilla del profesor (una hoja,
+  \item \file{Proyectivas\_del\_pentagono.xlsx}: planilla de la proyectiva del pentágono (una hoja,
   \texttt{B2:U59}). Pentágono regular centrado en el origen con \(D=(0,1)\) y los demás
   vértices por rotaciones de \(72^\circ\); arma el sistema \(13\times13\) de la proyectiva
   \(3\times3\) (nueve coeficientes más un factor \(\lambda\) por punto, con el último
   coeficiente fijado en \(1\)) que deja fijos \(A\) y \(B\) e intercambia \(C\) con \(E\),
   lo resuelve con la matriz inversa y verifica dónde cae cada vértice al dividir por la
-  tercera coordenada. Es la planilla que el 30 de septiembre el profesor dijo haber hecho
-  la clase anterior. La lectura de la planilla es nuestra, a partir de sus fórmulas.
+  tercera coordenada. La lectura de la planilla es nuestra, a partir de sus fórmulas.
   \item \file{LaSVD.wxmx}: cuaderno de wxMaxima con la SVD analítica de
   \(A=\begin{pmatrix}1&2&4\\-3&-2&3\end{pmatrix}\): \(AA^T\) y \(A^TA\), polinomio
   característico, autovectores, ortogonalidad de a pares, \(U\) y \(V^T\) normalizados,
-  \(\Sigma\) con las raíces de los autovalores y la verificación \(U\Sigma V^T=A\). Es ``la
-  SVD con Maxima, analíticamente'' que el profesor mencionó el 14 de octubre; rehecha en
+  \(\Sigma\) con las raíces de los autovalores y la verificación \(U\Sigma V^T=A\). Es la
+  SVD con Maxima, analíticamente, rehecha en
   la sección~\ref{sec:svd}. Se abre con wxMaxima (es un zip con \texttt{content.xml}).
 \end{itemize}
 
 \subsection{Índice general de problemas y guías resueltas}
 
-Dónde está resuelto cada tipo de problema: en este apunte, en las entregas al campus
-(\file{entregas/}, alumno Gustavo Varela, padrón 56798) y en los ejercicios con hueco de
+Dónde está resuelto cada tipo de problema: en este apunte, en las entregas
+(\file{entregas/}) y en los ejercicios con hueco de
 las unidades.
 
 {\small
@@ -144,22 +135,20 @@ Rotaciones 2D y 3D, eje y ángulo, exponencial &
 \S\ref{cap:rotaciones}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & --- & \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}\\
 Guía de reflexiones, traslaciones, rotaciones, homotecias y similaridades (teoremas 1 a 6) &
 enunciados en \S\ref{cap:afines}, guía resuelta completa en \S\ref{cap:afines} & --- & \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}\\
-Afinidades: los seis ejercicios de la clase del 9/9 &
+Afinidades: los seis ejercicios &
 resolución en ap.~\ref{cap:17}; composición en ap.~\ref{ap:composicion-afin} &
-\file{Afinidades\_Ejercicios\_Varela\_56798.pdf} (fuente y verificación NumPy en
-\file{afinidades/}); extra no pedido: \file{Afinidades\_Triangulo\_Varela\_56798.pdf},
-llevar un triángulo sobre otro con afinidades axiales & \linkUnidad{04_afines_homogeneas}{04}\\
-Proyectivas del pentágono (consigna del 16/9, aclaración del 18/9) &
+resolución de los seis ejercicios (fuente y verificación NumPy en
+\file{afinidades/}); extra: llevar un triángulo sobre otro con afinidades axiales & \linkUnidad{04_afines_homogeneas}{04}\\
+Proyectivas del pentágono &
 cuentas y script en ap.~\ref{ap:pentagono}; teoría en \S\ref{cap:proyectivas} &
-\file{Pentagono\_Proyectivas\_Varela\_56798.pdf} (20 páginas: pentágono regular, tres
+entrega de 20 páginas (pentágono regular, tres
 casos y composiciones, más el mismo problema sobre un pentágono irregular con enteros y
 la parte conceptual; fuente, notebook marimo y verificación en \file{pentagono/}) &
 \linkUnidad{05_proyectivas}{05}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Productos, determinante, núcleo, autovectores por producto cruz &
 ejemplos resueltos en \S\ref{cap:autovectores} (reflexión, rotación compuesta) & --- & \linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
 Formas lineales, cambio de base, diagonalización &
-\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio del
-30/9, \(A^5\), \(A^t\)) & --- & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
+\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio, \(A^5\), \(A^t\)) & --- & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
 SVD, inversas, pseudoinversa &
 \S\ref{sec:svd} (dos SVD a mano, DEM), \S\ref{sec:pseudoinversa} (recta por tres puntos)
 & --- & \linkUnidad{09_cambio_de_base_svd}{09}\\

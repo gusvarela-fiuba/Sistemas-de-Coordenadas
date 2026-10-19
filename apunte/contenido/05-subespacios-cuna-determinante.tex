@@ -4,7 +4,7 @@
 \section{La idea}
 
 
-Primero el mapa: cada operación del álgebra se lee como una pregunta geométrica. Lo armamos con los resúmenes del profesor y dejamos las cuentas para la sección siguiente.
+Primero el mapa: cada operación del álgebra se lee como una pregunta geométrica. Lo armamos así y dejamos las cuentas para la sección siguiente.
 
 \subsection{Del álgebra a la geometría: qué pregunta cada operación}\label{sec:algebra-geometria}
 
@@ -39,21 +39,20 @@ núcleo \(\to\) autovectores \(\to\) puntos fijos. Cada eslabón se deduce del a
 es lo que desarrollan las secciones siguientes de este capítulo.
 \end{idea}
 
-\begin{idea}[En palabras del profesor]
-``Traemos a la mesa a nuestro `detector de colinealidad': el producto cuña, y lo usamos
-primero para construir un polinomio cuyas raíces son los autovalores, y luego para hallar
-los autovectores como el subespacio nulo de unas matrices que armamos'' (resumen de clase 7, cursada 2025).
+\begin{idea}[El producto cuña como detector de colinealidad]
+El producto cuña, detector de colinealidad, sirve primero para construir un polinomio cuyas
+raíces son los autovalores, y luego para hallar los autovectores como el subespacio nulo
+de unas matrices que armamos.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
 
 
-Hacemos la cuenta de cada operación con su figura: producto interno, producto vectorial, determinante, núcleo, autovalores y formas lineales. Lo dictado fija el orden; los resúmenes del profesor y nuestro desarrollo completan los pasos.
+Hacemos la cuenta de cada operación con su figura: producto interno, producto vectorial, determinante, núcleo, autovalores y formas lineales. El orden es el de la cadena de la sección anterior.
 
-\textbf{Dictado} (clase del 18 de septiembre). El objetivo declarado por el docente: que la
-parte geométrica y la parte algebraica ``se conecten'', y entender por qué el determinante
-tiene las propiedades ``mágicas'' que tiene. Lo que sigue reconstruye ese razonamiento en el
-orden en que se dio.
+El objetivo es que la parte geométrica y la parte algebraica se conecten, y entender por qué
+el determinante tiene las propiedades ``mágicas'' que tiene. Lo que sigue reconstruye ese
+razonamiento en orden.
 
 \subsection{Tres puntos alineados: el determinante}\label{sec:determinante}
 
@@ -80,7 +79,7 @@ alineados como puntos homogéneos) y su valor absoluto es el volumen del paralel
 forman. Intercambiar dos filas cambia el signo: es la antisimetría otra vez.
 \end{resultado}
 
-\paragraph{Verificación numérica hecha en clase.} Con \(p=(1,2,3)\), \(q=(4,5,-1)\),
+\paragraph{Verificación numérica.} Con \(p=(1,2,3)\), \(q=(4,5,-1)\),
 \(r=(0,0,1)\):
 \[
   p\times q=\begin{pmatrix}2\cdot(-1)-3\cdot5\\ 3\cdot4-1\cdot(-1)\\ 1\cdot5-2\cdot4\end{pmatrix}
@@ -109,7 +108,7 @@ Es la propiedad del determinante que se usa para encontrar autovalores.
 \section{En profundidad}
 
 
-Extendemos lo anterior con el producto exterior en cualquier dimensión y con el cambio de base y la diagonalización, que se dictaron el 30 de septiembre. Lo que excede lo dictado queda marcado como anticipado.
+Extendemos lo anterior con el producto exterior en cualquier dimensión y con el cambio de base y la diagonalización.
 
 \subsection{Producto exterior: la misma idea en cualquier dimensión}\label{sec:exterior}
 
@@ -147,5 +146,5 @@ matrices grandes los autovectores se calculan con otros algoritmos (QR, Lanczos)
 
 \paragraph{Ortogonal es lo que maximiza el volumen.} Entre todos los vectores de norma
 \(1\), el que forma mayor volumen con un plano dado es el perpendicular al plano; los otros
-producen un prisma ``inclinado'' de menor altura. El docente adelantó que de esta idea sale
+producen un prisma ``inclinado'' de menor altura. De esta idea sale
 la regla para encontrar el vector ortogonal a un subespacio en cualquier dimensión.
