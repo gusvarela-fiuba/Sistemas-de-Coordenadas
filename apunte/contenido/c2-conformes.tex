@@ -1,13 +1,46 @@
 % Complemento C2: Transformaciones conformes
+% Números y figuras PNG: apunte/scripts/c2_conformes.py (uv run python apunte/scripts/c2_conformes.py)
 \capituloComplemento[2]{Transformaciones conformes}\label{cap:conformes}
 
 
 \section{La idea}
 
-Volvemos a la rotación combinada con una escala, ahora escrita con números complejos, y de ahí pasamos a las proyecciones cartográficas.
+Imaginá que pelás una naranja en pocos pedazos grandes y aplastás cada pedazo contra la mesa.
+¿Se puede aplanar la cáscara sin rajarla ni estirarla en ningún lado?
+No se puede, y la superficie de la Tierra tiene el mismo problema: ningún mapa plano la
+representa sin deformar algo. Lo que sí podemos elegir es \emph{qué} se deforma.
+
+Mirá el plano de un barrio de manzanas cuadradas.
+¿Qué sería peor: que las esquinas dejaran de verse de \(90^\circ\), o que una cuadra lejos del centro del plano midiera, en el papel, un poco más que una cuadra del centro?
+Para quien mide en el terreno lo primero es inaceptable, porque cada ángulo medido tiene que
+poder dibujarse tal cual; lo segundo, en cambio, se corrige multiplicando por un número.
+
+Tomá una foto de ese plano y estirala parejo en horizontal, un 50 por ciento.
+¿Las calles siguen cortándose en ángulo recto? ¿Y una diagonal que cruza la manzana sigue formando \(45^\circ\) con la calle?
+Las calles horizontales y verticales siguen perpendiculares, pero las diagonales se tuercen:
+estirar parejo en una sola dirección no conserva los ángulos.
+
+Pensá en una lupa que recorre el mapa.
+¿Puede pasar que en cada lugar la lupa muestre una copia fiel del terreno, girada y agrandada, aunque el aumento cambie de un lugar a otro?
+Ese es el mapa que buscamos: cerca de cada punto se comporta como una similaridad (un giro con
+un cambio de tamaño, sección~\ref{sec:escalar}), y de un punto a otro cambia el tamaño.
+
+Suponé que medís un lado de un kilómetro a cien kilómetros del centro de un mapa así.
+¿Cuánto más largo sale dibujado? ¿Centímetros o metros?
+
+Una transformación que conserva los ángulos chicos en cada punto se llama
+\emph{transformación conforme}. Sirve porque deja dibujar cada ángulo del terreno sin
+corregirlo; el precio es un \emph{factor de escala} \(k\), el número que dice cuántos metros
+del mapa corresponden a un metro del terreno en cada lugar, y que hay que conocer. Al final
+del complemento (sección~\ref{sec:conformes-aplicacion}) respondemos la última pregunta con
+las coordenadas planas que se usan en la Argentina.
 
 \subsection{Variable compleja y conformidad}
 
+¿Cómo se escribe con números \enquote{girar y agrandar}? En el capítulo de rotaciones
+(sección~\ref{sec:rot-complejos}) vimos que multiplicar por un número complejo
+\(\rho e^{i\theta}\) gira en \(\theta\) y agranda en \(\rho\). Llamamos \(z\) al punto del
+plano escrito como número complejo, \(w\) a su imagen y \(f\) a la regla que los une, \(w=f(z)\).
 Una función compleja \(w=f(z)\) es derivable en sentido complejo cuando existe
 \[
   f'(z)=\lim_{\Delta z\to0}
@@ -39,7 +72,8 @@ rotaciones (capítulo~\ref{cap:rotaciones}) con este.
 
 \subsection{Proyecciones cartográficas}\label{sec:proyecciones}
 
-Una proyección es una aplicación desde una superficie de referencia al plano:
+¿Qué es, en general, un mapa? Una regla que a cada punto de la superficie de la Tierra le
+asigna un punto del papel. Una proyección es una aplicación desde una superficie de referencia al plano:
 \[
   P:S\longrightarrow\R^2.
 \]
@@ -93,7 +127,7 @@ longitudes (una isometría local), las dos superficies tendrían la misma \(K\),
 una mezcla. Hecho geométrico: una cáscara de naranja no se aplana sin rajarse.
 
 Entonces elegimos qué conservar. Un agrimensor no negocia el ángulo: los \(90^\circ\)
-medidos con el instrumento entre dos alineaciones tienen que cortarse a \(90^\circ\) en
+medidos en el terreno entre dos alineaciones tienen que cortarse a \(90^\circ\) en
 el plano de la mensura, y la dirección de la tangente a una visual en el terreno tiene
 que ser la del plano más una corrección que dependa del punto, no de la dirección (la
 convergencia de meridianos; para un lado finito se suma además la corrección
@@ -171,6 +205,36 @@ es ortogonal; por la hipótesis \(\det J>0\) es una rotación y \(J=k\,R(\theta)
 invierte la orientación, una similaridad inversa; por eso la hipótesis va en el enunciado:
 sin ella (ii) y (iii) no implican (i). Las proyecciones cartográficas se toman directas.)
 \(\square\)
+
+\begin{ejemplo}[La lupa de \(w=z^2\) en \(1+i\)]\label{ej:conf-z2}
+¿Qué hace \(w=z^2\) cerca del punto \(z_0=1+i\)? Su derivada es \(f'(z)=2z\), así que
+\(f'(z_0)=2+2i\): la lupa en ese punto agranda \(k=\lvert2+2i\rvert=2\sqrt2\approx2{,}8284\)
+veces y gira \(\theta=\arg(2+2i)=45^\circ\). Lo comprobamos con dos pasitos perpendiculares
+de largo \(h\), uno hacia la derecha (\(z_0+h\)) y otro hacia arriba (\(z_0+ih\)). Con
+\(h=0{,}1\), las imágenes se corren
+\[
+  (z_0+h)^2-z_0^2=2z_0h+h^2=0{,}21+0{,}2\,i,\qquad
+  (z_0+ih)^2-z_0^2=2z_0ih-h^2=-0{,}21+0{,}2\,i ,
+\]
+que forman un ángulo de \(92{,}79^\circ\) y miden \(2{,}9000\,h\) cada una. Con \(h=0{,}01\) el
+ángulo baja a \(90{,}29^\circ\) y el largo a \(2{,}8355\,h\). Cuanto más chico el pasito, más se
+acercan al ángulo recto y al aumento \(2{,}8284\) que predice \(f'(z_0)\): la conformidad es
+una propiedad del límite, y el término \(h^2\) es lo que la cuadrícula grande ve curvado
+(figura~\ref{fig:conf-cuadricula}, centro).
+\end{ejemplo}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/conformes/conf_cuadricula.png}
+\caption{Una cuadrícula chica alrededor de \(1+i\) (izquierda), su imagen por \(w=z^2\)
+(centro) y su imagen por el estiramiento \(\operatorname{diag}(1{,}5;\ 1)\) (derecha). Las
+flechas son dos direcciones a \(90^\circ\) y el círculo, uno chico centrado en el punto. En
+el centro, flechas y círculo están dibujados con la lupa \(f'(1+i)\): las líneas de la
+cuadrícula se curvan pero se siguen cortando a \(90^\circ\), y el círculo sigue siendo círculo.
+A la derecha las flechas pasan a formar \(112{,}6^\circ\) y el círculo se vuelve elipse.
+Generada con \texttt{apunte/scripts/c2\_conformes.py}.}
+\label{fig:conf-cuadricula}
+\end{figure}
 
 \paragraph{El conjugado complejo: transponer es reflejar.}\phantomsection\label{sec:conjugado-complejo}
 Para un número complejo \(z=a+ib\) se escribe
@@ -297,6 +361,128 @@ que el ángulo \(2\alpha\) entre ambas es el que más cambia, y cambia en
 (deformación angular máxima de Tissot). Control: \(\omega=0\) si y solo si
 \(\sigma_1=\sigma_2\), que es (ii). Con \(r=1/2\), \(\omega=38{,}94^\circ\), lo mismo
 que da maximizar numéricamente \(2(\alpha-\alpha')\).
+
+\begin{ejemplo}[Una foto estirada parejo no es conforme]\label{ej:conf-foto}
+Estirar una foto un 50 por ciento en horizontal es aplicarle \(J=\operatorname{diag}(1{,}5;\ 1)\),
+la misma matriz en todos los puntos. Las direcciones horizontal y vertical son las de la SVD
+y siguen perpendiculares. La diagonal de \(45^\circ\), \((1,1)\), va a \((1{,}5;\ 1)\), de
+ángulo \(\arctan(1/1{,}5)=33{,}69^\circ\), y la de \(135^\circ\) va a la simétrica: el ángulo
+recto entre las dos diagonales se dibuja de \(112{,}62^\circ\). Con \(r=1/1{,}5\), la fórmula de
+Tissot da \(\omega=2\arcsin\frac{0{,}5}{2{,}5}=23{,}07^\circ\), algo más que los
+\(22{,}62^\circ\) de las diagonales: el máximo ocurre en la dirección
+\(\alpha=\arctan\sqrt{1{,}5}=50{,}77^\circ\), que va a \(39{,}23^\circ\) (suman \(90^\circ\), como
+predice la cuenta de arriba). Ningún estiramiento en una sola dirección es conforme, por más
+parejo que sea; una conforme puede cambiar el tamaño de un lugar a otro, pero en cada lugar
+estira igual en todas las direcciones (figura~\ref{fig:conf-cuadricula}, derecha).
+\end{ejemplo}
+
+\unidadInteractiva{15_transformaciones_conformes}{Transformaciones conformes}{Explorá: en «caso precargado» elegí el mapa complejo en el plano. Con la función compleja \(w=z^2\), comprobá que el círculo sigue siendo círculo y que el ángulo entre las dos visuales no cambia al mover «rumbo α (°) de la primera visual». Después pasá a la función \(w=z+\alpha\bar z\), mové el deslizador de \(\alpha\) desde \(0\) y mirá cómo el círculo se vuelve elipse, como la foto estirada del ejemplo~\ref{ej:conf-foto}.}
+
+\subsection{Aplicación topográfica: el factor de escala de Gauss-Krüger en la faja 5}\label{sec:conformes-aplicacion}
+
+Contada en llano, la situación es esta. Quien mide un terreno no anota latitudes y longitudes
+sino coordenadas planas en metros, \((E,N)\): cuántos metros al este y cuántos al norte de un
+origen. Para pasar de la superficie curva al plano, la Argentina usa una proyección conforme
+(la de Gauss-Krüger, la transversa de Mercator de la sección~\ref{sec:conformes-elipsoide})
+aplicada por franjas angostas: cada \emph{faja} es una franja de \(3^\circ\) de longitud de
+ancho con su propio meridiano central, y el marco oficial de coordenadas del país, POSGAR 2007,
+numera esas franjas del 1 al 7. Por ser conforme, un ángulo recto medido en el terreno se
+dibuja recto en el plano en cualquier lugar de la franja. Lo que se paga es la escala: sobre
+el meridiano central un kilómetro del terreno es un kilómetro del plano, y a medida que nos
+alejamos hacia el este o el oeste el plano estira un poco. ¿Cuánto? Lo calculamos en la
+franja 5, la de meridiano central \(\lambda_0=-60^\circ\), que es la de la ciudad de Buenos
+Aires.
+
+\paragraph{Qué pedimos y a quién.} Usamos la biblioteca \texttt{pyproj} (versión \texttt{3.8.0}, sobre
+PROJ \texttt{9.8.1}), que implementa las proyecciones oficiales. Le pedimos el sistema de coordenadas
+de código EPSG:5347 (\enquote{POSGAR 2007 / Argentina 5}), que trae meridiano central
+\(-60^\circ\), factor de escala \(1\) sobre él y \(5\,500\,000\) m sumados al este para que no
+haya coordenadas negativas (por eso importa la diferencia \(\Delta E\), el este menos esos
+\(5\,500\,000\) m, y no el número completo). Tomamos cuatro puntos sintéticos, todos a la latitud
+de ejemplo \(\varphi=-34{,}6^\circ\), a \(\Delta E=0\), \(50\), \(100\) y \(150\) km al este del
+meridiano central. Para cada uno, el script busca la longitud que da ese \(\Delta E\) y le pide
+a la función \texttt{get\_factors} de \texttt{pyproj.Proj} la escala a lo largo del meridiano,
+la escala a lo largo del paralelo y la convergencia de meridianos (el ángulo entre el norte
+del plano y el meridiano del lugar). PROJ declara para ese código el elipsoide WGS84, que para
+estas cifras es el mismo que GRS80 (capítulo~\ref{cap:elipsoide}).
+
+\paragraph{La cuenta de bolsillo.} Junto al valor exacto ponemos la aproximación
+\[
+  k\approx1+\frac{(\Delta E)^2}{2R^2},
+\]
+con \(R\) el radio medio \(R_1=(2a+b)/3=6\,371\,008{,}771\) m del capítulo del elipsoide
+(figura~\ref{fig:elip-radios}). De dónde sale lo mostramos en la
+sección~\ref{sec:conformes-escala-serie}; en una esfera de radio \(R\) es la escala de la
+transversa de Mercator hasta segundo orden.
+
+\begin{ejemplo}[El factor de escala a \(0\), \(50\), \(100\) y \(150\) km del meridiano central]\label{ej:conf-faja5}
+Valores de \texttt{pyproj} y de la aproximación con \(R_1\), en \(\varphi=-34{,}6^\circ\); la
+columna \enquote{diferencia} es exacto menos aproximado.
+
+{\small
+\begin{center}
+\begin{tabular}{r r r r r r r}
+\toprule
+\(\Delta E\) (km) & \(\lambda\) & \(k\) (\texttt{pyproj}) & \(k-1\) (cm/km) & aprox.\ (cm/km) & diferencia (mm/km) & convergencia\\
+\midrule
+0 & \(-60^\circ\) & 1{,}00000000 & 0{,}00 & 0{,}00 & 0{,}000 & \(0^\circ\)\\
+50 & \(-59{,}4549^\circ\) & 1{,}00003080 & 3{,}08 & 3{,}08 & 0{,}005 & \(-0{,}3095^\circ\)\\
+100 & \(-58{,}9099^\circ\) & 1{,}00012321 & 12{,}32 & 12{,}32 & 0{,}022 & \(-0{,}6191^\circ\)\\
+150 & \(-58{,}3648^\circ\) & 1{,}00027722 & 27{,}72 & 27{,}72 & 0{,}056 & \(-0{,}9287^\circ\)\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+
+En los cuatro puntos la escala a lo largo del meridiano y la escala a lo largo del paralelo
+que devuelve \texttt{pyproj} coinciden (difieren en menos de \(10^{-9}\), el error de la
+derivada numérica): es la cara (ii) de las transformaciones conformes, \(\sigma_1=\sigma_2\),
+leída en una biblioteca oficial.
+\end{ejemplo}
+
+\paragraph{Lectura.} Primero, el estiramiento crece con el cuadrado de la distancia: al
+duplicar \(\Delta E\) de \(50\) a \(100\) km, \(k-1\) se multiplica por cuatro, de \(3{,}08\) a
+\(12{,}32\) cm por kilómetro (figura~\ref{fig:conf-k}). Segundo, el último punto está fuera de
+la franja: en esta latitud el borde, \(\lambda=-58{,}5^\circ\), queda a \(137{,}6\) km del
+meridiano central, y ahí \(k-1\) llega a \(2{,}33\times10^{-4}\), los \(23\) cm/km del párrafo
+\enquote{Conforme es una propiedad local}. Partir el país en franjas angostas es lo que mantiene
+el estiramiento por debajo de eso. Tercero, la cuenta de bolsillo alcanza de sobra: con
+\(R_1\) se equivoca en \(0{,}056\) mm por kilómetro a \(150\) km, y con el radio
+\(\sqrt{MN}=6\,370\,503{,}553\) m de esa latitud, en \(0{,}012\) mm por kilómetro
+(figura~\ref{fig:conf-exacta-aprox}). Cuarto, como las áreas se multiplican por \(k^2\), a
+\(150\) km del meridiano central una hectárea del terreno ocupa en el plano
+\(10\,000+5{,}55\) m\(^2\). Por último, la convergencia de meridianos crece casi en proporción a la diferencia de
+longitud (ejercicio~\ref{ex:conf-convergencia}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.8\linewidth]{figuras/conformes/conf_k_DeltaE.png}
+\caption{Estiramiento \(k-1\), en centímetros por kilómetro, en función de la distancia
+\(\Delta E\) al meridiano central de la franja 5, a la latitud de ejemplo
+\(\varphi=-34{,}6^\circ\). Línea llena: \texttt{pyproj} \texttt{3.8.0} con EPSG:5347; trazos: la
+aproximación \(1+\Delta E^2/(2R_1^2)\), que a esta escala no se distingue. Los puntos son los del
+ejemplo~\ref{ej:conf-faja5} y la línea punteada, el borde de la franja.}
+\label{fig:conf-k}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.8\linewidth]{figuras/conformes/conf_exacta_aprox.png}
+\caption{Diferencia entre la escala exacta (\texttt{pyproj}) y la aproximada, en milímetros por
+kilómetro, con el radio medio \(R_1\) y con el radio \(\sqrt{MN}\) de la latitud de ejemplo.
+Dentro de la franja (a la izquierda de la línea punteada) las dos quedan por debajo de
+\(0{,}05\) mm por kilómetro; \(\sqrt{MN}\) es mejor por la razón que da la
+sección~\ref{sec:conformes-escala-serie}.}
+\label{fig:conf-exacta-aprox}
+\end{figure}
+
+En la práctica, lo que esto dice es que una distancia medida en el terreno no se copia tal
+cual al plano: se multiplica por el \(k\) del lugar. Un lado de un kilómetro a \(100\) km del
+meridiano central se dibuja \(12{,}3\) cm más largo; los ángulos, en cambio, pasan sin
+corrección de escala. La dependencia de los radios con la latitud se puede explorar en la
+unidad del elipsoide.
+
+{\small\linkUnidad{13_elipsoide}{Simulación interactiva: geometría del elipsoide (los radios \(M\), \(N\) y \(\sqrt{MN}\) según la latitud)}\par}
 
 \section{En profundidad}
 
@@ -478,3 +664,120 @@ según la proyección. En \(-54^\circ\): \(M=6\,377\,306{,}911\) m, \(N=6\,392\,
 \(y_{\text{equivalente}}=-5\,140\,508{,}988\) m. La \(q\) de la fórmula cerrada y la de
 la integral numérica coinciden en las seis cifras mostradas, y
 \(dq/d\varphi=1{,}697349\) por diferencias finitas, igual a \(M/(N\cos\varphi)\).
+
+\subsection{De dónde sale \texorpdfstring{\(k\approx1+\Delta E^2/(2R^2)\)}{k = 1 + ΔE²/(2R²)}}\label{sec:conformes-escala-serie}
+
+¿Por qué el estiramiento crece con el cuadrado de la distancia, y qué radio va en la
+fórmula? Seguimos con la serie del punto (e): \(z=q+i\,\Delta\lambda\), \(w=f(z)\) con
+\(f(q)=S(\varphi(q))\) sobre el meridiano central, y la escala
+\(k=\lvert f'(z)\rvert/(N\cos\varphi)\), porque un pasito \(dz\) mide \(N\cos\varphi\,\lvert dz\rvert\)
+sobre el elipsoide y \(\lvert f'(z)\rvert\,\lvert dz\rvert\) en el plano.
+
+\begin{proposicion}[Escala de la transversa de Mercator hasta segundo orden]\label{prop:conf-escala-serie}
+A la latitud \(\varphi\) y a una diferencia de longitud \(\Delta\lambda\) (en radianes) del
+meridiano central,
+\[
+  k^2=1+\Delta\lambda^2\cos^2\varphi\,\frac NM+O(\Delta\lambda^4),
+  \qquad
+  k\approx1+\frac12\,\Delta\lambda^2\cos^2\varphi\,\frac NM ,
+\]
+y, en términos de la distancia al meridiano central,
+\(k\approx1+\dfrac{(\Delta E)^2}{2MN}\). En la esfera de radio \(R\) (\(M=N=R\)),
+\(k\approx1+(\Delta E)^2/(2R^2)\).
+\end{proposicion}
+
+\begin{demostracion}
+Derivando la serie de Taylor del punto (e) respecto de \(z\),
+\[
+  f'(z)=S'+i\,\Delta\lambda\,S''-\frac{\Delta\lambda^2}{2}\,S'''+O(\Delta\lambda^3),
+\]
+con \('=d/dq\). La parte real es \(S'-\tfrac12\Delta\lambda^2S'''\) y la imaginaria
+\(\Delta\lambda\,S''\), así que
+\[
+  \lvert f'(z)\rvert^2=S'^2+\Delta\lambda^2\bigl(S''^2-S'S'''\bigr)+O(\Delta\lambda^4).
+\]
+Ya tenemos \(S'=N\cos\varphi\) y \(S''=-N\cos\varphi\sin\varphi\). Para obtener \(S'''\),
+derivamos \(S''\) respecto de \(q\) con la regla
+\(d/dq=(N\cos\varphi/M)\,d/d\varphi\) y la derivada
+\(d(N\cos\varphi)/d\varphi=-M\sin\varphi\) del punto (e):
+\[
+  \frac{d}{d\varphi}\bigl(N\cos\varphi\sin\varphi\bigr)=-M\sin^2\varphi+N\cos^2\varphi,
+  \qquad
+  S'''=-\frac{N\cos\varphi}{M}\bigl(N\cos^2\varphi-M\sin^2\varphi\bigr).
+\]
+Entonces
+\[
+  S''^2-S'S'''=N^2\cos^2\varphi\sin^2\varphi
+  +\frac{N^2\cos^2\varphi}{M}\bigl(N\cos^2\varphi-M\sin^2\varphi\bigr)
+  =N^2\cos^2\varphi\cdot\frac{N\cos^2\varphi}{M},
+\]
+porque los términos en \(\sin^2\varphi\) se cancelan. Dividiendo por \(S'^2=N^2\cos^2\varphi\)
+queda \(k^2=1+\Delta\lambda^2\cos^2\varphi\,N/M+O(\Delta\lambda^4)\), y la raíz,
+\(\sqrt{1+x}=1+\tfrac x2+O(x^2)\), da la segunda fórmula. Para pasar a \(\Delta E\) usamos el
+primer término del este, \(\Delta E\approx N\cos\varphi\,\Delta\lambda\): \(\Delta\lambda^2\cos^2\varphi\approx(\Delta E)^2/N^2\),
+y \(\frac{(\Delta E)^2}{N^2}\cdot\frac NM=\frac{(\Delta E)^2}{MN}\). En la esfera, \(MN=R^2\).
+\end{demostracion}
+
+Tres consecuencias. La primera: el radio natural de la cuenta de bolsillo es \(\sqrt{MN}\), el
+radio medio de Gauss del lugar (capítulo~\ref{cap:elipsoide}); por eso en la
+figura~\ref{fig:conf-exacta-aprox} la curva con \(\sqrt{MN}\) queda más cerca de cero que la de
+\(R_1\), que es un promedio de toda la Tierra. La segunda: el factor
+\(N/M=1+e'^2\cos^2\varphi\) vale \(1{,}00457\) en \(\varphi=-34{,}6^\circ\), y explica la pequeña
+diferencia del párrafo \enquote{Conforme es una propiedad local}: en el borde de la franja,
+\(\tfrac12\Delta\lambda^2\cos^2\varphi\) da \(2{,}322\times10^{-4}\), multiplicado por \(N/M\) da
+\(2{,}333\times10^{-4}\), y \texttt{pyproj} da \(2{,}333\times10^{-4}\). La tercera: el término
+siguiente es de cuarto orden en \(\Delta\lambda\), y a \(150\) km del meridiano central ya no
+se nota en milímetros por kilómetro.
+
+\section{Ejercicios con solución}
+
+\begin{ejercicio}\label{ex:conf-exp}
+Verificá que \(f(z)=e^z\), con \(z=u+iv\), cumple las ecuaciones de Cauchy--Riemann, y calculá la
+escala \(k\) y el giro \(\theta\) de su lupa en \(z=\ln2+i\pi/6\).
+\solucion{\(e^z=e^u\cos v+i\,e^u\sin v\), así que \(x=e^u\cos v\) e \(y=e^u\sin v\). Entonces
+\(x_u=e^u\cos v=y_v\) y \(x_v=-e^u\sin v=-y_u\): se cumplen en todo el plano, y como
+\(f'(z)=e^z\neq0\), \(e^z\) es conforme en todas partes. En \(z=\ln2+i\pi/6\),
+\(f'(z)=e^{\ln2}e^{i\pi/6}=2e^{i\pi/6}\): \(k=2\) y \(\theta=30^\circ\). Numéricamente,
+\(x_u=y_v=\sqrt3\approx1{,}732051\) y \(x_v=-y_u=-1\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:conf-foto10}
+Una foto se estira un 10 por ciento en horizontal. ¿En cuánto cambia el ángulo recto entre
+sus dos diagonales? ¿Cuál es la deformación angular máxima \(\omega\)?
+\solucion{\(J=\operatorname{diag}(1{,}1;\ 1)\). Las diagonales \((1,1)\) y \((-1,1)\) van a
+\((1{,}1;\ 1)\) y \((-1{,}1;\ 1)\), que forman \(95{,}45^\circ\): el ángulo recto se abre
+\(5{,}45^\circ\). La fórmula de Tissot da
+\(\omega=2\arcsin\frac{0{,}1}{2{,}1}=5{,}46^\circ\), apenas más, porque el máximo no ocurre en
+las diagonales sino en \(\alpha=\arctan\sqrt{1{,}1}\). Un estiramiento chico en una dirección
+ya tuerce ángulos de varios grados.}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:conf-lado}
+En la franja 5, a la latitud \(\varphi=-34{,}6^\circ\) y a \(100\) km al este del meridiano
+central, se mide en el terreno un lado de \(1\,000\) m. ¿Cuánto mide en el plano? Usá el
+ejemplo~\ref{ej:conf-faja5}.
+\solucion{En el plano mide \(k\cdot1\,000\) m, con \(k=1{,}00012321\): \(1\,000{,}123\) m, unos
+\(12{,}3\) cm más. La aproximación con \(R_1\) da lo mismo a esa precisión:
+\(100^2/(2\cdot6\,371{,}008771^2)=1{,}232\times10^{-4}\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:conf-10cm}
+¿A qué distancia del meridiano central el plano estira \(10\) cm por kilómetro
+(\(k-1=10^{-4}\))? Resolvelo con la aproximación y compará con el valor exacto.
+\solucion{De \((\Delta E)^2/(2R_1^2)=10^{-4}\) sale \(\Delta E=R_1\sqrt{2\times10^{-4}}=90{,}10\) km.
+Resolviendo \(k(\Delta E)=1+10^{-4}\) con \texttt{pyproj} a \(\varphi=-34{,}6^\circ\) da
+\(90{,}09\) km. Como \(k-1\) crece con el cuadrado, para la mitad del estiramiento
+(\(5\) cm/km) alcanza con dividir la distancia por \(\sqrt2\), no por \(2\).}
+\end{ejercicio}
+
+\begin{ejercicio}\label{ex:conf-convergencia}
+En una esfera, la convergencia de meridianos de la transversa de Mercator vale, en primera
+aproximación, \(\Delta\lambda\sin\varphi\). Comparala con la que da \texttt{pyproj} en el punto a
+\(100\) km del ejemplo~\ref{ej:conf-faja5}.
+\solucion{El punto está en \(\lambda=-58{,}9099^\circ\), \(\Delta\lambda=1{,}0901^\circ\). Entonces
+\(\Delta\lambda\sin(-34{,}6^\circ)=-0{,}6190^\circ=-2\,228{,}5''\), y \texttt{pyproj} da
+\(-0{,}6191^\circ=-2\,228{,}7''\): difieren en \(0{,}2''\). El signo depende de la convención del
+programa; en valor absoluto, a \(100\) km del meridiano central el norte del plano y el
+meridiano del lugar forman algo más de medio grado, y eso sí hay que corregirlo al pasar una
+dirección medida al plano.}
+\end{ejercicio}
