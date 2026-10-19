@@ -57,7 +57,7 @@ jobs:
         run: uv run python apunte/scripts/estilo.py --estricto
 
       - name: Demostraciones (comprobaciones con código de apunte/demostraciones; si fallan, no se publica)
-        run: uv run pytest apunte/demostraciones -q
+        run: uv run pytest apunte/demostraciones tools/cad -q
 
       - name: Los fragmentos commiteados (apunte/generado) tienen que coincidir con las pruebas
         run: |
