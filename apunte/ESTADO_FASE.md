@@ -5,15 +5,13 @@ Actualizado en cada commit de fase. Formato de commit: `[FASE-X] [OK|PARADA|BLOQ
 | Fase | Contenido | Estado | Commit | PDF |
 |---|---|---|---|---|
 | 0 | Informe de lectura e infraestructura LaTeX | OK | 6c4f9b6 | — |
-| Piloto | Capítulos 04 rotaciones y 06 afines con el molde | OK | da54735, 0e56d71 | — |
+| Piloto | Capítulos de rotaciones y afines con el molde | OK | da54735, 0e56d71 | — |
 | Paso 1 | Partición en un capítulo por clase y remapeo de labels | OK (aprobado) | a54da0a | — |
-| Portada | Trabajo final CB104, metadatos, sin leyenda | OK | 93740dd | — |
-| Renombre | 03 → repaso de álgebra lineal desde la geometría | OK | 1f9eeee | — |
-| Donación | Licencias retiradas; CITATION.cff y NOTA_DE_DONACION.md | OK | 78fa328 | — |
-| A | Línea de base (ESTADO.md), Overfull, título interno | OK (aprobada) | 2bb7c4e | entregas/ (no generado en A) |
-| C | Capítulo 7, la SVD como lectura de las curvas de nivel | OK (pendiente de aprobación) | dec4296 | — |
-| B0 | Entrega-1: cero menciones prohibidas, errores de proyectivas, cifra de conformes con pyproj | OK, PARADA para revisión | (este commit) | entregas/2026-10-19_entrega-1.pdf |
-| B | Capítulo 0 fusionado, apéndice 14 renombrado, partición del 3 en 3 y 4, capítulo 2 reescrito | pendiente | — | — |
-| D | Capítulos 5, 6, 7, 9, 10 y 11 (numeración nueva) al molde | pendiente | — | — |
-| E | Complementos y apéndices | pendiente | — | — |
+| Portada / renombre / donación | Trabajo final CB104; 03 renombrado; licencias fuera, CITATION y NOTA_DE_DONACION | OK | 93740dd, 1f9eeee, 78fa328 | — |
+| A | Línea de base (ESTADO.md), Overfull, título interno | OK (aprobada) | 2bb7c4e | — |
+| C | Capítulo de SVD, la lectura de las curvas de nivel | OK (aprobado condicionado a lectura) | dec4296 | — |
+| B0 | Entrega-1: cero menciones prohibidas, proyectivas, conformes; limpieza del maestro | OK (aprobada) | ef6b397 (tag entrega-1), 622fd50 | entregas/2026-10-19_entrega-1.pdf |
+| B | Capítulo 0 fusionado, apéndices ap1–ap6, capítulo 3 partido en 3 y 4 con renumeración, capítulo 2 reescrito | OK, PARADA para revisión | (dos commits de esta fase) | entregas/2026-10-19_fase-B.pdf |
+| D | Capítulos 5, 6, 7, 9, 10 y 11 al molde | pendiente | — | — |
+| E | Complementos C1–C4 y apéndices | pendiente | — | — |
 | F | Pasada editorial final e INFORME_FINAL.md | pendiente | — | — |
