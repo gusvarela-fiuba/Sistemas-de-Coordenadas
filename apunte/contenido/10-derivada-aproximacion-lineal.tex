@@ -267,36 +267,36 @@ medidas desde un punto conocido, se llama \emph{radiación}.
 Desde una estación \(S=(E_0,N_0)\), a cada punto \((E,N)\) le asignamos su distancia y su
 acimut: con \(\Delta E=E-E_0\), \(\Delta N=N-N_0\),
 \[
-  G(E,N)=(d,\mathrm{Az}),\qquad d=\sqrt{\Delta E^2+\Delta N^2},\qquad
+  \operatorname{Pol}(E,N)=(d,\mathrm{Az}),\qquad d=\sqrt{\Delta E^2+\Delta N^2},\qquad
   \mathrm{Az}=\operatorname{atan2}(\Delta E,\Delta N),
 \]
 con el acimut medido desde el norte en sentido horario (sección~\ref{sec:acimut-campo}) y en
 radianes. Derivando,
 \[
-  J_G=\begin{pmatrix}\dfrac{\Delta E}{d}&\dfrac{\Delta N}{d}\\[2mm]
+  J_{\operatorname{Pol}}=\begin{pmatrix}\dfrac{\Delta E}{d}&\dfrac{\Delta N}{d}\\[2mm]
   \dfrac{\Delta N}{d^2}&-\dfrac{\Delta E}{d^2}\end{pmatrix}
   =\begin{pmatrix}\sin\mathrm{Az}&\cos\mathrm{Az}\\[1mm]
   \dfrac{\cos\mathrm{Az}}{d}&-\dfrac{\sin\mathrm{Az}}{d}\end{pmatrix},
-  \qquad \det J_G=-\frac1d .
+  \qquad \det J_{\operatorname{Pol}}=-\frac1d .
 \]
 La primera fila es el versor que va de la estación al punto: la distancia solo cambia si nos
 movemos en esa dirección. La segunda fila es perpendicular y está dividida por \(d\): el mismo
 desplazamiento lateral cambia menos el acimut cuanto más lejos está el punto.
 
-La inversa es la radiación, \(F(d,\mathrm{Az})=(E_0+d\sin\mathrm{Az},\ N_0+d\cos\mathrm{Az})\),
+La inversa es la radiación, \(\operatorname{Rad}(d,\mathrm{Az})=(E_0+d\sin\mathrm{Az},\ N_0+d\cos\mathrm{Az})\),
 con
 \[
-  J_F=\begin{pmatrix}\sin\mathrm{Az}&d\cos\mathrm{Az}\\ \cos\mathrm{Az}&-d\sin\mathrm{Az}\end{pmatrix}.
+  J_{\operatorname{Rad}}=\begin{pmatrix}\sin\mathrm{Az}&d\cos\mathrm{Az}\\ \cos\mathrm{Az}&-d\sin\mathrm{Az}\end{pmatrix}.
 \]
 Con \(\Delta E=300\) m, \(\Delta N=400\) m resulta \(d=500\) m, \(\mathrm{Az}=36{,}8699^\circ\), y
 \[
-  J_G=\begin{pmatrix}0{,}6&0{,}8\\0{,}0016&-0{,}0012\end{pmatrix},\qquad
-  J_F=\begin{pmatrix}0{,}6&400\\0{,}8&-300\end{pmatrix},\qquad
-  J_GJ_F=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
+  J_{\operatorname{Pol}}=\begin{pmatrix}0{,}6&0{,}8\\0{,}0016&-0{,}0012\end{pmatrix},\qquad
+  J_{\operatorname{Rad}}=\begin{pmatrix}0{,}6&400\\0{,}8&-300\end{pmatrix},\qquad
+  J_{\operatorname{Pol}}J_{\operatorname{Rad}}=\begin{pmatrix}1&0\\0&1\end{pmatrix}.
 \]
 (A mano: \(0{,}6\cdot0{,}6+0{,}8\cdot0{,}8=1\) y \(0{,}6\cdot400-0{,}8\cdot300=0\).) Las
-unidades acompañan: la segunda fila de \(J_G\) está en
-radianes por metro y la segunda columna de \(J_F\) en metros por radián.
+unidades acompañan: la segunda fila de \(J_{\operatorname{Pol}}\) está en
+radianes por metro y la segunda columna de \(J_{\operatorname{Rad}}\) en metros por radián.
 
 Si el punto se corre \((0{,}10;\ -0{,}05)\) m, la aproximación lineal da
 \(\Delta d=0{,}6\cdot0{,}10-0{,}8\cdot0{,}05=0{,}02\) m y
@@ -366,7 +366,8 @@ el producto interno del espacio):
   F=\langle r_u,r_v\rangle,\qquad
   G=\langle r_v,r_v\rangle.
 \]
-El elemento de longitud, el cuadrado del largo de un pasito, es
+Acá \(E\), \(F\) y \(G\) son tres números de la métrica; no tienen que ver con el Este \(E\) ni
+con la función \(F\) de las secciones anteriores. El elemento de longitud, el cuadrado del largo de un pasito, es
 \[
   \boxed{ds^2=E\,du^2+2F\,du\,dv+G\,dv^2}
   =\begin{pmatrix}du&dv\end{pmatrix}
@@ -410,11 +411,11 @@ donde \(H\) es la \emph{hessiana}: la matriz de las derivadas segundas, que es e
 gradiente. Con derivadas segundas continuas las cruzadas coinciden y \(H\) es simétrica; el
 término \(\tfrac12v^THv\) es una forma cuadrática, como las de los capítulos~\ref{cap:autovectores}
 y~\ref{cap:svd}. En \(\R\), es el conocido \(\tfrac12f''(x)h^2\). En el enunciado que sigue,
-\(\lambda_1,\ldots,\lambda_n\) son los autovalores de \(H\): cuánto se curva la función en cada
+\(\mu_1,\ldots,\mu_n\) son los autovalores de \(H\): cuánto se curva la función en cada
 una de sus direcciones principales.
 
 \begin{proposicion}[Máximos, mínimos y sillas por los autovalores de la hessiana]\label{prop:hessiana-criterio}
-Sea \(p\) un punto crítico de \(h\) (\(dh_p=0\)) y \(\lambda_1,\ldots,\lambda_n\) los
+Sea \(p\) un punto crítico de \(h\) (\(dh_p=0\)) y \(\mu_1,\ldots,\mu_n\) los
 autovalores de la hessiana \(H\) en \(p\).
 \begin{enumerate}[label=(\alph*)]
   \item Si todos son positivos, \(p\) es un mínimo local (cuenca).
@@ -428,12 +429,12 @@ autovalores de la hessiana \(H\) en \(p\).
 
 \begin{demostracion}
 Por el teorema espectral (capítulo~\ref{cap:svd}) hay una base ortonormal de autovectores
-\(u_1,\ldots,u_n\); escribiendo \(v=\sum y_iu_i\), queda \(v^THv=\sum\lambda_iy_i^2\). En (a),
-\(v^THv\ge\lambda_{\min}\lVert v\rVert^2\) con \(\lambda_{\min}>0\), y como el resto es
+\(u_1,\ldots,u_n\); escribiendo \(v=\sum y_iu_i\), queda \(v^THv=\sum\mu_iy_i^2\). En (a),
+\(v^THv\ge\mu_{\min}\lVert v\rVert^2\) con \(\mu_{\min}>0\), y como el resto es
 \(\operatorname{o}(\lVert v\rVert^2)\), para \(v\) chico y no nulo
-\(h(p+v)-h(p)\ge\tfrac14\lambda_{\min}\lVert v\rVert^2>0\). (b) es (a) aplicado a \(-h\). En
-(c), sobre \(v=tu_i\) se tiene \(h(p+tu_i)-h(p)=\tfrac12\lambda_it^2+\operatorname{o}(t^2)\),
-que para \(t\) chico tiene el signo de \(\lambda_i\). Para (d), \(x^4+y^2\) y \(-x^4+y^2\)
+\(h(p+v)-h(p)\ge\tfrac14\mu_{\min}\lVert v\rVert^2>0\). (b) es (a) aplicado a \(-h\). En
+(c), sobre \(v=tu_i\) se tiene \(h(p+tu_i)-h(p)=\tfrac12\mu_it^2+\operatorname{o}(t^2)\),
+que para \(t\) chico tiene el signo de \(\mu_i\). Para (d), \(x^4+y^2\) y \(-x^4+y^2\)
 tienen en el origen la misma hessiana \(\operatorname{diag}(0,2)\): la primera tiene un mínimo y
 la segunda no.
 \end{demostracion}
@@ -516,7 +517,7 @@ mismo punto \(X=(x,y)\), que está al norte de la base. Buscamos el cero de
   J_F=\begin{pmatrix}(X-A)^T/\lVert X-A\rVert\\ (X-B)^T/\lVert X-B\rVert\end{pmatrix}.
 \]
 Las filas de \(J_F\) son los versores que van de cada estación al punto: la primera fila del
-\(J_G\) del ejemplo~\ref{ej:der-dist-acimut}. Arrancamos de un croquis, \(x_0=(60,40)\).
+\(J_{\operatorname{Pol}}\) del ejemplo~\ref{ej:der-dist-acimut}. Arrancamos de un croquis, \(x_0=(60,40)\).
 
 \paragraph{Una iteración a mano.} Las distancias desde \(x_0\) son
 \(\sqrt{60^2+40^2}=72{,}1110\) y \(\sqrt{40^2+40^2}=56{,}5685\), así que
@@ -597,7 +598,7 @@ error: la distancia, de unos milímetros; el ángulo, de unos segundos de arco. 
 hereda el punto calculado, y hacia qué lado?
 
 \begin{idea}[Esto lo vas a usar en Topografía]
-Ubicar un punto con una distancia y un ángulo medidos desde otro conocido es la función \(F\)
+Ubicar un punto con una distancia y un ángulo medidos desde otro conocido es la función \(\operatorname{Rad}\)
 de la sección~\ref{sec:inversa-local}. Calcular cuánto del error de las mediciones pasa a lo
 calculado se llama \emph{propagación de errores}. El resultado se dibuja como una elipse
 alrededor del punto, la \emph{elipse de error}, cuyo tamaño y forma dicen cuánto y hacia dónde
@@ -614,9 +615,9 @@ direcciones con \(5''\). El \emph{desvío estándar}, que escribimos \(\sigma\),
 típico del error de una medición; \(3\) mm \(+\ 2\) ppm quiere decir \(3\) mm fijos más \(2\) mm
 por cada kilómetro medido (ppm: partes por millón). ¿Cuán bien queda determinado el punto?
 
-\paragraph{El punto y su jacobiano.} Con \(F(d,\mathrm{Az})=(E_0+d\sin\mathrm{Az},\
+\paragraph{El punto y su jacobiano.} Con \(\operatorname{Rad}(d,\mathrm{Az})=(E_0+d\sin\mathrm{Az},\
 N_0+d\cos\mathrm{Az})\) el punto calculado es \(E=5\,513\,530{,}030\) m,
-\(N=6\,173\,393{,}142\) m. Su jacobiano respecto de \((d,\mathrm{Az})\) es el \(J_F\) del
+\(N=6\,173\,393{,}142\) m. Su jacobiano respecto de \((d,\mathrm{Az})\) es el \(J_{\operatorname{Rad}}\) del
 ejemplo~\ref{ej:der-dist-acimut}:
 \[
   J=\begin{pmatrix}\sin\mathrm{Az}&d\cos\mathrm{Az}\\ \cos\mathrm{Az}&-d\sin\mathrm{Az}\end{pmatrix}
@@ -659,11 +660,11 @@ visual; el grande es \(d\,\sigma_{\mathrm{Az}}=1500\cdot2{,}424\cdot10^{-5}\) m 
 perpendicular a ella. Es el temblor de la mano: un error de ángulo chico, multiplicado por un
 brazo de un kilómetro y medio, corre el punto de costado varios centímetros.
 
-\paragraph{Verificación por simulación.} Generamos \(10\,000\) pares
-\((d,\mathrm{Az})\) con ruido gaussiano de esos desvíos, errores al azar con la forma de campana
-de Gauss (semilla \(2026\), el número que fija los sorteos para que se puedan repetir),
-calculamos cada
-punto con la \(F\) exacta, con senos y cosenos, sin linealizar, y calculamos la misma matriz para
+\paragraph{Verificación por simulación.} Sorteamos \(10\,000\) mediciones con errores al
+azar del tamaño de esos desvíos: la mayoría chicos, pocos grandes, repartidos como una campana
+de Gauss. Para que cualquiera pueda repetir exactamente el mismo sorteo, lo fijamos con un número
+de partida, la semilla \(2026\). Calculamos cada
+punto con la \(\operatorname{Rad}\) exacta, con senos y cosenos, sin linealizar, y calculamos la misma matriz para
 la nube de puntos, que llamamos \(\widehat\Sigma_{EN}\) (el sombrero indica que sale de los
 datos simulados y no de la fórmula):
 \[
@@ -675,7 +676,7 @@ orden del error de muestreo con \(10\,000\) puntos; los semiejes empíricos son 
 \(6{,}03\) mm. Dentro de la elipse de un desvío cae el \(38{,}33\)\,\% de los puntos y dentro de
 la del \(95\)\,\% (la agrandada para que, en teoría, contenga el \(95\)\,\% de los puntos), el
 \(94{,}95\)\,\%. La linealización en sí no aporta error visible: sobre la
-misma muestra, la máxima diferencia entre \(F\) exacta y \(F(p)+J\varepsilon\) es de
+misma muestra, la máxima diferencia entre \(\operatorname{Rad}\) exacta y \(\operatorname{Rad}(p)+J\varepsilon\) es de
 \(5{,}17\) micrómetros, porque los errores angulares son de \(10^{-5}\) rad y el término de
 segundo orden es del orden de \(d\,\sigma_{\mathrm{Az}}^2\).
 

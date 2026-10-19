@@ -300,7 +300,7 @@ for a, pc, tit in ((ax[0], (1.0, 1.0), "cuenca en (1, 1): autovalores 3 y 9"),
     lamh, Vv = np.linalg.eigh(H)
     for i in range(2):
         a.annotate("", np.array(pc) + 0.45 * Vv[:, i], pc, arrowprops=dict(arrowstyle="->", color=GOLD, lw=1.6))
-        a.text(*(np.array(pc) + 0.5 * Vv[:, i]), f"λ = {lamh[i]:.0f}".replace("-", "−"), color="k", fontsize=8)
+        a.text(*(np.array(pc) + 0.5 * Vv[:, i]), f"μ = {lamh[i]:.0f}".replace("-", "−"), color="k", fontsize=8)
     a.plot(*pc, "o", color="k")
     a.set_aspect("equal"); a.set_title(tit, fontsize=10)
 ax[0].plot([], [], color=TEAL, label="h − h(p)"); ax[0].plot([], [], color=RUST, ls="--", label="½ vᵀHv")
