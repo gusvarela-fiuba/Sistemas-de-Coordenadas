@@ -3,7 +3,26 @@
 
 \section{La idea}
 
-Arrancamos por lo que dejó instalado la primera clase: un punto no es sus coordenadas, transformar es mover figuras y rotar es conservar distancias alrededor de un centro. Las cajas ``En palabras del profesor'' vienen de los resúmenes de clase de la cursada 2025; el resto es desarrollo nuestro para que el texto se sostenga solo.
+Este capítulo parte de tres afirmaciones: un punto no es lo mismo que sus coordenadas,
+transformar es mover figuras y rotar es conservar distancias alrededor de un centro. Primero
+las miramos geométricamente; después las traducimos a matrices y las verificamos con cuentas.
+
+\paragraph{Convenciones del capítulo.}
+Puntos y vectores se escriben con minúscula cursiva (\(p,q,c,o\)) y un vector se identifica
+con el punto que señala desde el origen \(o\); en el texto escribimos \((x,y)\) y en las
+cuentas matriciales lo escribimos como columna, \((x,y)^T\). Las matrices van en
+mayúscula itálica (\(A\), \(R\)), \(I\) es la identidad, \(A^T\) la transpuesta y \(\det A\) el
+determinante. Los ángulos se llaman \(\theta\), se miden en radianes salvo que lleven el
+símbolo de grados (como en \(30^\circ\)), y son \emph{positivos en sentido antihorario}. La composición \(T_2\circ T_1\)
+aplica primero \(T_1\), y las matrices actúan a la izquierda del vector columna.
+
+\begin{atencion}[Acimut no es \(\theta\)]
+En topografía, el acimut \(\mathrm{Az}\) se mide desde el norte y en sentido \emph{horario}.
+El ángulo \(\theta\) de este capítulo se mide desde el eje \(x\) (el este) y en sentido
+\emph{antihorario}. Ambos describen la misma dirección con números distintos; la conversión
+\(\theta=90^\circ-\mathrm{Az}\) (módulo \(360^\circ\)) se deduce en la
+sección~\ref{sec:acimut-campo}.
+\end{atencion}
 
 \subsection{El punto y sus coordenadas no son lo mismo}\label{sec:punto-coordenadas}
 
@@ -11,36 +30,80 @@ Arrancamos por lo que dejó instalado la primera clase: un punto no es sus coord
 
 
 Un punto geométrico existe independientemente de la manera elegida para describirlo. Sus
-coordenadas son una lista de números obtenida después de elegir un origen, unos ejes, una
-orientación y una unidad. Si cambia el sistema de coordenadas, cambian los números, pero no
-necesariamente cambia el punto.
+coordenadas son una lista de números que aparece recién después de elegir un sistema de
+referencia.
 
-\begin{idea}[Idea conceptual]
-La materia estudia simultáneamente dos problemas distintos:
-\begin{itemize}
-  \item mover o deformar objetos geométricos;
-  \item cambiar la manera de asignarles coordenadas.
-\end{itemize}
-Las fórmulas pueden parecer similares, pero la interpretación activa o pasiva determina qué
-está cambiando realmente.
+\begin{definicion}[Sistema de coordenadas cartesiano]
+Un sistema de coordenadas cartesiano del plano consiste en un punto \(o\), el \emph{origen};
+dos rectas perpendiculares por \(o\), los \emph{ejes}, cada una con un sentido positivo; y una
+\emph{unidad} de longitud. Si los vectores unitarios de los ejes son \(e_x,e_y\), las
+coordenadas de un punto \(p\) son los únicos números \((x,y)\) tales que
+\(p=o+x\,e_x+y\,e_y\). El sistema tiene \emph{orientación positiva} cuando \(e_y\) se obtiene
+girando \(e_x\) un cuarto de vuelta en sentido antihorario.
+\end{definicion}
+
+Si cambia el sistema de coordenadas, cambian los números, pero el punto sigue en su lugar.
+Hay entonces dos maneras de que cambien las coordenadas de un punto.
+
+\begin{definicion}[Transformación activa y pasiva]
+Una transformación es \emph{activa} cuando los ejes quedan fijos y el punto se mueve a otro
+lugar. Es \emph{pasiva} cuando el punto queda fijo y lo que cambia es el sistema de
+coordenadas con el que se lo describe.
+\end{definicion}
+
+\begin{center}
+\begin{tikzpicture}[scale=.78]
+  % panel izquierdo: ejes originales
+  \draw[axisline,-{Latex[length=2mm]}] (-.4,0)--(4,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-.4)--(0,2.6) node[above] {$y$};
+  \draw[auxline] (3,0)--(3,1)--(0,1);
+  \fill[teal] (3,1) circle (2.5pt) node[above right] {$p=(3,1)$};
+  \fill[ink] (0,0) circle (1.6pt) node[below left] {$o$};
+  % panel derecho: mismo punto, ejes girados 90 grados
+  \begin{scope}[xshift=9.6cm]
+    \draw[axisline,dotted] (-.4,0)--(4,0);
+    \draw[axisline,dotted] (0,-.4)--(0,2.6);
+    \draw[mainline,-{Latex[length=2mm]}] (0,-.4)--(0,2.6) node[above] {$x'$};
+    \draw[mainline,-{Latex[length=2mm]}] (.4,0)--(-2.6,0) node[left] {$y'$};
+    \draw[auxline] (3,1)--(0,1);
+    \fill[teal] (3,1) circle (2.5pt) node[above right] {$p$: \((x',y')=(1,-3)\)};
+    \fill[ink] (0,0) circle (1.6pt) node[below right] {$o$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{ejemplo}[El mismo punto, dos descripciones]
+Sea \(p=(3,1)\). Si giramos el \emph{punto} \(90^\circ\) alrededor de \(o\) (transformación
+activa), su imagen tiene coordenadas \((-1,3)\) en los mismos ejes. Si en cambio giramos los
+\emph{ejes} \(90^\circ\) y dejamos \(p\) quieto (transformación pasiva), los nuevos vectores
+unitarios son \(e_{x'}=(0,1)\) y \(e_{y'}=(-1,0)\), y las nuevas coordenadas son
+\(x'=p\cdot e_{x'}=1\), \(y'=p\cdot e_{y'}=-3\): el mismo punto se describe ahora como
+\((1,-3)\). Las dos cuentas usan matrices inversas entre sí, \(R(90^\circ)\) y \(R(-90^\circ)\),
+que se construyen en la sección~\ref{sec:rot-plano}.
+\end{ejemplo}
+
+\begin{idea}[Idea]
+La materia estudia a la vez dos problemas distintos: mover o deformar objetos geométricos y
+cambiar la manera de asignarles coordenadas. Las fórmulas se parecen; la lectura activa o
+pasiva decide qué está cambiando realmente.
 \end{idea}
 
-\paragraph{Primera traducción algebraica.}
-Una posición puede representarse mediante un vector \(x\). Cambiar de descripción significa
-cambiar sus coordenadas; transformar activamente el objeto significa producir un nuevo punto
-\(x'=F(x)\). La fórmula es breve, pero su interpretación depende de qué permanece fijo:
-el objeto, los ejes o ambos.
-
-\begin{idea}[En palabras del profesor]
-``La rotación genera para cada punto una trayectoria o línea de los lugares posibles a
-los que caer. [\ldots] Estas trayectorias posibles son lo que conocemos normalmente como
-líneas coordenadas'' (resumen de clase 1, cursada 2025).
+\begin{idea}[Idea]
+Al girar alrededor de un centro, cada punto recorre una circunferencia. La familia de esas
+circunferencias, junto con las semirrectas que salen del centro, forma las líneas coordenadas
+de un sistema polar: la rotación misma sugiere una manera de poner coordenadas.
 \end{idea}
 
 \subsection{Qué significa transformar una figura}\label{sec:transformar}
 
-Una transformación asigna a cada punto una imagen. Para comprenderla geométricamente conviene
-imaginar una figura sencilla, como un triángulo, y observar:
+\begin{definicion}[Transformación del plano]
+Una \emph{transformación del plano} es una función \(F:\R^2\to\R^2\) que asigna a cada punto
+\(p\) un punto imagen \(p'=F(p)\). Un \emph{punto fijo} de \(F\) es un punto \(q\) con
+\(F(q)=q\).
+\end{definicion}
+
+Para comprender una transformación geométricamente conviene imaginar una figura sencilla,
+como un triángulo, y observar:
 \begin{itemize}
   \item hacia dónde se desplaza cada vértice;
   \item si los lados conservan longitud;
@@ -66,19 +129,22 @@ imaginar una figura sencilla, como un triángulo, y observar:
 \end{tikzpicture}
 \end{center}
 
-La matriz y el vector de traslación son una descripción compacta de ese movimiento. Antes de
-operar con ellos, debe poder anticiparse cualitativamente la figura resultante.
+\begin{definicion}[Orientación]
+Una transformación \emph{conserva la orientación} si todo triángulo cuyos vértices
+\(a,b,c\) se recorren en sentido antihorario tiene una imagen \(a',b',c'\) que también se
+recorre en sentido antihorario. Si el sentido se invierte, la transformación \emph{invierte}
+la orientación (como un espejo).
+\end{definicion}
 
-\paragraph{Primera traducción algebraica.}
-\[
-  F(x)=Ax+t.
-\]
-Aquí \(A\) transforma direcciones y formas, mientras que \(t\) desplaza toda la figura sin
-deformarla. Las columnas de \(A\) muestran dónde terminan los vectores unitarios de los ejes.
+Muchas de las transformaciones de este apunte tienen la forma \(F(p)=Ap+t\): la matriz \(A\)
+transforma direcciones y formas, mientras que el vector \(t\) desplaza toda la figura sin
+deformarla. En la sección~\ref{sec:transf-plano} las definimos con precisión y comprobamos que
+las columnas de \(A\) son las imágenes de \(e_x\) y \(e_y\).
 
-\begin{idea}[En palabras del profesor]
-``Hay transformaciones que se definen completamente por qué propiedades de los objetos
-transformados mantienen'' (resumen de clase 1, rúbrica, cursada 2025).
+\begin{idea}[Idea]
+Muchas transformaciones se definen por lo que conservan: las rotaciones conservan distancias
+y dejan fijo un punto, las similaridades conservan ángulos, las afinidades conservan el
+paralelismo. Saber qué se conserva es saber de qué transformación se trata.
 \end{idea}
 
 \subsection{Rotar: conservar distancias alrededor de un centro}\label{sec:rotar}
@@ -86,96 +152,87 @@ transformados mantienen'' (resumen de clase 1, rúbrica, cursada 2025).
 {\small\vspace{1mm}\linkUnidad{01b_rotacion_plano}{Simulación interactiva: Unidad 2 — Rotaciones II: la rotación en el plano}\par}
 
 
-Una rotación mueve cada punto sobre una circunferencia cuyo centro es el centro de rotación.
-Por eso conserva:
+Una rotación mueve cada punto sobre una circunferencia cuyo centro es el centro de rotación,
+y todos los puntos barren el mismo ángulo.
+
+\begin{definicion}[Rotación del plano]
+Sean \(c\) un punto y \(\theta\) un ángulo. La \emph{rotación de centro \(c\) y ángulo
+\(\theta\)} es la transformación \(\rhoP{c,\theta}\) que deja fijo \(c\) y lleva cada punto
+\(p\neq c\) al único punto \(p'\) tal que \(|p'-c|=|p-c|\) y el ángulo orientado que va de
+\(p-c\) a \(p'-c\) es \(\theta\). Si \(c=o\) la llamamos \emph{rotación lineal} y la
+escribimos \(R(\theta)\).
+\end{definicion}
+
+De la definición se siguen (y en la sección~\ref{sec:rot-plano} se demuestran con la matriz)
+estas propiedades:
 \begin{itemize}
-  \item la distancia de cada punto al centro;
-  \item las distancias entre puntos;
-  \item los ángulos y la forma;
-  \item la orientación.
+  \item conserva la distancia de cada punto al centro;
+  \item conserva las distancias entre puntos;
+  \item conserva los ángulos y, por lo tanto, la forma;
+  \item conserva la orientación.
 \end{itemize}
 
 En dos dimensiones basta un centro y un ángulo. En tres dimensiones también se necesita un
-eje: la dirección del eje permanece fija y todo plano perpendicular a él gira como un plano
-bidimensional.
+\emph{eje}: una recta por el centro cuyos puntos quedan fijos; todo plano perpendicular al eje
+gira como un plano bidimensional (sección~\ref{sec:rot-3d}).
 
 \paragraph{Primera traducción algebraica.}
 \[
-  x'=c+R(\theta)(x-c).
+  \rhoP{c,\theta}(p)=c+R(\theta)(p-c).
 \]
-El vector \(x-c\) expresa la posición vista desde el centro; \(R(\theta)\) lo gira, y sumar
+El vector \(p-c\) expresa la posición vista desde el centro; \(R(\theta)\) lo gira, y sumar
 \(c\) devuelve el resultado al sistema original.
 
 \begin{resultado}[Lectura inmediata]
-Si una transformación 3D es una rotación, debe existir una dirección que no cambie. Esa
-dirección es el eje y más adelante (sección~\ref{sec:eje-exp} y capítulo~\ref{cap:08}) aparecerá algebraicamente
-como un autovector de autovalor \(1\).
+Si una transformación del espacio es una rotación, debe existir una dirección que no cambie:
+la del eje. En la sección~\ref{sec:eje-exp} esa propiedad se escribe como \(Rv=v\) y en el
+capítulo~\ref{cap:08} se la reconoce como un caso de autovector.
 \end{resultado}
 
-\begin{idea}[En palabras del profesor]
-``Una rotación implica dejar quieto un punto, mover otro, y en base a esos acomodar todos
-los demás. [\ldots] Se podían acomodar los demás porque había una estructura de algo que
-se conservaba (distancias y ángulos)'' (resumen de clase 1, cursada 2025).
+\begin{idea}[Idea]
+Una rotación deja fijo un punto, el centro, y conserva las distancias y los ángulos. Todo lo
+demás se deduce de esa propiedad: fijado el centro y la imagen de un segundo punto, la imagen
+de cualquier otro queda determinada.
 \end{idea}
 
 \subsection{Componer transformaciones con centros distintos}\label{sec:componer-centros}
 
-La clase práctica combina dos operaciones:
-\begin{enumerate}
-  \item una rotación de \(45^\circ\) alrededor de un punto \(c\);
-  \item una escala uniforme de razón \(k=0.5\) alrededor de otro punto \(d\).
-\end{enumerate}
-La primera cambia la orientación sin cambiar el tamaño. La segunda reduce todas las distancias
-al centro \(d\) a la mitad. Como los centros son distintos, la transformación final no puede
-entenderse mirando solamente una de las dos operaciones.
+Supongamos que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
+\(90^\circ\) alrededor de otro punto \(c_2\). Cada etapa es una rotación, pero ninguno de los
+dos centros queda fijo en el resultado: \(c_1\) no se mueve en la primera etapa pero sí en la
+segunda, y \(c_2\) se mueve en la primera. La pregunta natural es si el resultado sigue siendo
+una rotación y, en ese caso, dónde está su centro.
 
-\paragraph{Primera traducción algebraica.}
-\[
-F_1(x)=c+R_{45^\circ}(x-c),
-\qquad
-F_2(y)=d+0.5(y-d).
-\]
-La composición es
-\[
-F(x)=F_2\bigl(F_1(x)\bigr).
-\]
-La expresión situada más a la derecha actúa primero: \(F_1\) rota y después \(F_2\) escala.
-Al desarrollar,
-\[
-F(x)=0.5R_{45^\circ}x+t,
-\]
-donde el vector \(t\) reúne el efecto de trasladar hacia ambos centros y regresar.
+La respuesta (proposición de la sección~\ref{sec:composicion-rotaciones}) es que los ángulos
+se suman y que aparece un centro nuevo, distinto de los dos originales; en el ejemplo, una
+rotación de \(180^\circ\). Solo cuando los ángulos se cancelan el resultado es una traslación,
+que no tiene punto fijo.
 
-\begin{idea}[Qué clase de transformación resulta]
-La parte lineal \(0.5R_{45^\circ}\) gira \(45^\circ\) y reduce a la mitad. Por tanto, la
-composición completa es una similaridad directa contractiva. Posee un único punto fijo, que
-actúa como centro global de la transformación compuesta aunque no coincida, en general, con
-ninguno de los dos centros originales.
-\end{idea}
+Si una de las dos etapas es una homotecia \(\homot{c_2}{k}\) en lugar de una rotación, la parte
+lineal resulta \(kR(\theta)\) y la composición es una similaridad, que también tiene un único
+punto fijo cuando \(k\neq1\) (capítulo~\ref{cap:05}).
 
 \paragraph{Movimiento discreto y trayectoria imaginada.}
-Matemáticamente, \(F\) lleva cada punto directamente a su imagen. La trayectoria ``primero
-un arco y después un segmento recto'' es una interpolación útil para comprender las dos
-etapas, pero no forma parte de la definición de la transformación compuesta. Otra
-interpolación podría unir los mismos extremos por un camino diferente.
+Una transformación lleva cada punto directamente a su imagen. Dibujar el movimiento como
+``primero un arco alrededor de \(c_1\), después otro arco alrededor de \(c_2\)'' es una
+interpolación útil para seguir las dos etapas, pero no forma parte de la transformación
+compuesta: el arco único alrededor del centro nuevo une los mismos extremos por otro camino.
 
-\begin{idea}[En palabras del profesor]
-``Experimentamos qué pasaba cuando aplicábamos rotaciones y traslaciones sucesivamente a
-un punto (formar círculos) y tratamos de pensar por qué esto era inevitable, con un
-argumento nuevamente sobre el punto fijo de la transformación'' (resumen de clase 3, cursada 2025).
+\begin{idea}[Idea]
+Aplicar giros sucesivos a un punto lo hace recorrer arcos de circunferencia, y eso es
+inevitable: la composición tiene un punto fijo, y alrededor de él todo se mueve en
+círculos. Encontrar el punto fijo es entender la transformación.
 \end{idea}
 
 \section{Construcciones, cuentas y ejemplos}
 
-Pasamos a las cuentas: la matriz de rotación en el plano y en el espacio, el número complejo como giro y el experimento de la primera clase, el que se armó en una planilla con \texttt{MMULT}. Lo dictado marca el orden y el desarrollo agrega los pasos para repetirlo con lápiz.
+Pasamos a las cuentas: las transformaciones lineales y afines, la matriz de rotación en el
+plano, su uso para orientar mediciones de campo, la composición de rotaciones de centros
+distintos, el número complejo como giro y las rotaciones del espacio.
 
 \subsection{Transformaciones del plano}\label{sec:transf-plano}
 
-Una transformación del plano es una función
-\[
-  F:\R^2\longrightarrow\R^2.
-\]
-Estudiarla significa responder cuatro preguntas:
+Estudiar una transformación \(F:\R^2\to\R^2\) significa responder cuatro preguntas:
 \begin{itemize}
   \item ¿qué puntos permanecen fijos?;
   \item ¿qué magnitudes conserva: distancias, ángulos, áreas o paralelismo?;
@@ -185,18 +242,42 @@ Estudiarla significa responder cuatro preguntas:
 
 \subsubsection{Transformaciones lineales y afines}
 
-Una transformación lineal \(L\) cumple
+\begin{definicion}[Transformación lineal y afín]
+Una transformación \(T:\R^2\to\R^2\) es \emph{lineal} si para todo par de vectores \(p,q\) y
+todo número real \(s\)
 \[
-  L(x+y)=L(x)+L(y),\qquad L(\lambda x)=\lambda L(x).
+  T(p+q)=T(p)+T(q),\qquad T(s\,p)=s\,T(p).
 \]
-En particular, necesariamente \(L(0)=0\). Por eso una rotación alrededor del origen puede ser
-lineal, pero una rotación con centro distinto del origen no puede serlo en esas coordenadas.
+Una transformación \(F\) es \emph{afín} si existen una matriz \(A\) y un vector \(t\) tales
+que \(F(p)=Ap+t\) para todo \(p\).
+\end{definicion}
 
-Una transformación afín agrega una traslación:
+\begin{proposicion}\label{prop:lineal-origen}
+Toda transformación lineal fija el origen. En consecuencia, una rotación con centro
+\(c\neq o\) no es lineal.
+\end{proposicion}
+
+\begin{demostracion}
+Con \(s=0\): \(T(o)=T(0\,p)=0\,T(p)=o\). Una rotación de centro \(c\neq o\) y ángulo
+\(\theta\not\equiv0\) mueve el origen (lo lleva a otro punto de la circunferencia de centro
+\(c\) que pasa por \(o\)), así que no puede ser lineal.
+\end{demostracion}
+
+Toda transformación lineal del plano es de la forma \(T(p)=Ap\): escribiendo
+\(p=x\,e_x+y\,e_y\) y usando la linealidad, \(T(p)=x\,T(e_x)+y\,T(e_y)\), que es el producto
+de la matriz cuyas columnas son \(T(e_x)\) y \(T(e_y)\) por la columna \((x,y)^T\). Esto
+demuestra que \emph{las columnas de \(A\) son las imágenes de los vectores unitarios de los
+ejes}.
+
+\begin{ejemplo}[Columnas como imágenes de los ejes]
+Sean
 \[
-  F(x)=Ax+t.
+A=\begin{pmatrix}2&0\\0&1\end{pmatrix},\qquad t=(1,0).
 \]
-La matriz \(A\) determina la deformación lineal y el vector \(t\) desplaza el resultado.
+La afinidad \(F(p)=Ap+t\) cumple \(Ae_x=(2,0)\) y \(Ae_y=(0,1)\): estira el eje \(x\) al doble y deja igual el eje
+\(y\); después todo se corre una unidad hacia la derecha. El punto \((3,1)\) va a
+\((2\cdot3+1,\,1)=(7,1)\). El origen va a \(t=(1,0)\), así que \(F\) no es lineal.
+\end{ejemplo}
 
 \subsection{Rotaciones en el plano}\label{sec:rot-plano}
 
@@ -206,7 +287,12 @@ La matriz \(A\) determina la deformación lineal y el vector \(t\) desplaza el r
 
 \subsubsection{Matriz de rotación}
 
-La rotación antihoraria de ángulo \(\theta\) alrededor del origen es
+La rotación lineal de ángulo \(\theta\) lleva \(e_x=(1,0)\) a \((\cos\theta,\sin\theta)\) y
+\(e_y=(0,1)\) a \((-\sin\theta,\cos\theta)\), que es \(e_x\) girado un cuarto de vuelta más.
+Como las columnas de la matriz son las imágenes de los ejes, queda determinada.
+
+\begin{definicion}[Matriz de rotación]
+La \emph{matriz de rotación} de ángulo \(\theta\) es
 \[
   R(\theta)=
   \begin{pmatrix}
@@ -214,14 +300,15 @@ La rotación antihoraria de ángulo \(\theta\) alrededor del origen es
     \sin\theta& \cos\theta
   \end{pmatrix}.
 \]
-Aplicada a \(x=(x_1,x_2)^T\):
+Aplicada a \(p=(x,y)\):
 \[
-  R(\theta)x=
+  R(\theta)p=
   \begin{pmatrix}
-    x_1\cos\theta-x_2\sin\theta\\
-    x_1\sin\theta+x_2\cos\theta
+    x\cos\theta-y\sin\theta\\
+    x\sin\theta+y\cos\theta
   \end{pmatrix}.
 \]
+\end{definicion}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -233,44 +320,67 @@ Aplicada a \(x=(x_1,x_2)^T\):
   \draw[auxline] (0,0)--(q);
   \draw[mainline,-{Latex[length=2.6mm]}] (p)
     arc[start angle=14,end angle=58,radius=4.12];
-  \fill[teal] (p) circle (2.5pt) node[below right] {$x$};
-  \fill[rust] (q) circle (2.5pt) node[above right] {$R(\theta)x$};
+  \fill[teal] (p) circle (2.5pt) node[below right] {$p$};
+  \fill[rust] (q) circle (2.5pt) node[above right] {$R(\theta)p$};
   \node[text=teal] at (2.1,.75) {$\theta$};
 \end{tikzpicture}
 \end{center}
 
-\begin{resultado}[Propiedades]
+\begin{proposicion}[Propiedades de \(R(\theta)\)]\label{prop:propiedades-R}
+Para todo par de ángulos \(\theta,\beta\):
 \[
 R(\theta)^TR(\theta)=I,\qquad
 \det R(\theta)=1,\qquad
-R(\alpha)R(\beta)=R(\alpha+\beta).
+R(\beta)R(\theta)=R(\theta+\beta).
 \]
-La ortogonalidad implica que conserva producto interno, longitudes y ángulos. El determinante
-positivo indica que también conserva la orientación.
-\end{resultado}
+En consecuencia \(R(\theta)\) conserva el producto interno, las longitudes, los ángulos y la
+orientación.
+\end{proposicion}
 
-\paragraph{Ejemplo.}
-Para \(\theta=90^\circ\):
+\begin{demostracion}
+Las columnas de \(R(\theta)\) tienen norma \(\cos^2\theta+\sin^2\theta=1\) y su producto
+interno es \(-\cos\theta\sin\theta+\sin\theta\cos\theta=0\); eso es \(R^TR=I\). El
+determinante es \(\cos^2\theta+\sin^2\theta=1\). Para el producto, la primera columna de
+\(R(\beta)R(\theta)\) es
+\((\cos\beta\cos\theta-\sin\beta\sin\theta,\ \sin\beta\cos\theta+\cos\beta\sin\theta)
+=(\cos(\theta+\beta),\sin(\theta+\beta))\) por las fórmulas de suma, y la segunda se obtiene
+igual. Finalmente, \((Rp)\cdot(Rq)=p^TR^TRq=p\cdot q\), de modo que se conservan producto
+interno, longitudes y ángulos; \(\det R>0\) significa que se conserva la orientación
+(capítulo~\ref{cap:08}).
+\end{demostracion}
+
+\begin{ejemplo}[Un cuarto de vuelta]
+Para \(\theta=90^\circ=\pi/2\):
 \[
 R\left(\frac{\pi}{2}\right)=
 \begin{pmatrix}0&-1\\1&0\end{pmatrix},
 \qquad
-R\left(\frac{\pi}{2}\right)(3,1)^T=(-1,3)^T.
+R\left(\frac{\pi}{2}\right)\begin{pmatrix}3\\1\end{pmatrix}
+=\begin{pmatrix}0\cdot3-1\cdot1\\1\cdot3+0\cdot1\end{pmatrix}
+=\begin{pmatrix}-1\\3\end{pmatrix}.
 \]
+Es la transformación activa del ejemplo de la sección~\ref{sec:punto-coordenadas}; la pasiva
+usa \(R(-\pi/2)=R(\pi/2)^T\) y da \((1,-3)\).
+\end{ejemplo}
 
 \subsubsection{Rotación alrededor de un centro cualquiera}
 
 Para rotar alrededor de \(c\), primero se traslada el centro al origen, luego se rota y
 finalmente se deshace la traslación:
 \[
-  \boxed{Q_{c,\theta}(x)=c+R(\theta)(x-c)}.
+  \boxed{\rhoP{c,\theta}(p)=c+R(\theta)(p-c)}.
 \]
-Equivalentemente,
+Distribuyendo, \(c+R(\theta)p-R(\theta)c=R(\theta)p+\bigl(I-R(\theta)\bigr)c\). Es una
+transformación afín con parte lineal \(R(\theta)\) y traslación \(t=(I-R(\theta))c\), que es
+distinta de cero si \(c\neq o\) y \(\theta\not\equiv0\). En coordenadas homogéneas
+\((x,y,1)^T\) se escribe con una sola matriz:
 \[
-  Q_{c,\theta}(x)=R(\theta)x+\bigl(I-R(\theta)\bigr)c.
+H_{c,\theta}=
+\begin{pmatrix}
+R(\theta) & (I-R(\theta))c\\
+0\ \ 0 & 1
+\end{pmatrix}.
 \]
-Es una transformación afín. Si \(c\neq0\), el término independiente suele ser distinto de
-cero y la transformación no es lineal.
 
 \begin{center}
 \begin{tikzpicture}[scale=.95]
@@ -282,13 +392,263 @@ cero y la transformación no es lineal.
   \draw[mainline,-{Latex[length=2.6mm]}] (p)
     arc[start angle=-12,end angle=42,radius=3.28];
   \fill[ink] (c) circle (2.7pt) node[below left] {$c$};
-  \fill[teal] (p) circle (2.5pt) node[below right] {$x$};
-  \fill[rust] (q) circle (2.5pt) node[above right] {$Q_{c,\theta}(x)$};
+  \fill[teal] (p) circle (2.5pt) node[below right] {$p$};
+  \fill[rust] (q) circle (2.5pt) node[above right] {$\rhoP{c,\theta}(p)$};
   \draw[muted,dotted] (0,0)--(7.6,0);
   \draw[muted,dotted] (0,0)--(0,5);
-  \fill[muted] (0,0) circle (1.8pt) node[below left] {$0$};
+  \fill[muted] (0,0) circle (1.8pt) node[below left] {$o$};
 \end{tikzpicture}
 \end{center}
+
+\begin{ejemplo}[Rotar \(p=(3,1)\) un ángulo de \(30^\circ\) alrededor de \(c=(1,1)\)]\label{ej:rot30}
+\emph{Paso 1, ver el punto desde el centro.} \(p-c=(3-1,\,1-1)=(2,0)\).
+
+\emph{Paso 2, girar.} Con \(\cos30^\circ=\sqrt3/2\approx0{,}866\) y \(\sin30^\circ=1/2\):
+\[
+R(30^\circ)(p-c)=
+\begin{pmatrix}\sqrt3/2&-1/2\\[2pt]1/2&\sqrt3/2\end{pmatrix}
+\begin{pmatrix}2\\0\end{pmatrix}
+=\begin{pmatrix}\sqrt3\\1\end{pmatrix}
+\approx\begin{pmatrix}1{,}732\\1\end{pmatrix}.
+\]
+
+\emph{Paso 3, volver al sistema original.}
+\(p'=c+(\sqrt3,1)=(1+\sqrt3,\,2)\approx(2{,}732;\ 2)\).
+
+\emph{Verificación.} \(|p-c|=|(2,0)|=2\) y \(|p'-c|=|(\sqrt3,1)|=\sqrt{3+1}=2\): el punto
+quedó sobre la circunferencia de radio \(2\) y centro \(c\). Con la forma afín se llega a lo
+mismo: \((I-R(30^\circ))c\approx(0{,}634;\,-0{,}366)\) y
+\(R(30^\circ)p+(0{,}634;\,-0{,}366)\approx(2{,}732;\ 2)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.25]
+  \draw[axisline,-{Latex[length=2mm]}] (-.3,0)--(4.4,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-.3)--(0,3.4) node[above] {$y$};
+  \coordinate (c) at (1,1);
+  \coordinate (p) at (3,1);
+  \coordinate (pp) at (2.732,2);
+  \draw[auxline] (c) circle (2);
+  \draw[auxline] (c)--(p);
+  \draw[auxline] (c)--(pp);
+  \draw[mainline,-{Latex[length=2.4mm]}] (p) arc[start angle=0,end angle=30,radius=2];
+  \draw[gold,line width=.9pt] ($(c)+(.7,0)$) arc[start angle=0,end angle=30,radius=.7];
+  \node[text=gold!80!ink] at ($(c)+(15:1.0)$) {$30^\circ$};
+  \fill[ink] (c) circle (2.4pt) node[below left] {$c=(1,1)$};
+  \fill[teal] (p) circle (2.4pt) node[below right] {$p=(3,1)$};
+  \fill[rust] (pp) circle (2.4pt) node[above right] {$p'\approx(2{,}732;\,2)$};
+  \node[labelback,text=muted,font=\small] at (1,-1.25) {radio \(2\)};
+\end{tikzpicture}
+\end{center}
+\end{ejemplo}
+
+\subsection{Orientar una estación total: acimut y ángulo matemático}\label{sec:acimut-campo}
+
+Una estación total mide direcciones horizontales sobre un limbo graduado. Al estacionar el
+instrumento, el cero del limbo apunta a una dirección arbitraria, de modo que cada lectura
+\(\mathrm{Lec}\) es la dirección medida desde ese cero, en sentido horario. Para pasar a
+acimutes se visa un punto de referencia cuyo acimut \(\mathrm{Az}_{\text{ref}}\) se conoce
+(por ejemplo, a partir de coordenadas de una red) y se calcula la \emph{corrección de
+orientación} \(\kappa\)
+\[
+\kappa=\mathrm{Az}_{\text{ref}}-\mathrm{Lec}_{\text{ref}}\pmod{360^\circ},
+\qquad
+\mathrm{Az}_i=\mathrm{Lec}_i+\kappa\pmod{360^\circ}.
+\]
+Sumar la misma constante a todas las lecturas es girar el haz de direcciones completo: es una
+rotación, en sentido horario, de ángulo \(\kappa\). En el lenguaje de este capítulo, con
+\(\theta\) antihorario, es la rotación \(R(-\kappa)\).
+
+\begin{proposicion}[Acimut y ángulo matemático]\label{prop:acimut-theta}
+Si el eje \(x\) apunta al este y el eje \(y\) al norte, la dirección de acimut \(\mathrm{Az}\)
+tiene ángulo matemático
+\[
+\theta=90^\circ-\mathrm{Az}\pmod{360^\circ},
+\]
+y un tramo de longitud \(d\) en esa dirección tiene componentes
+\((\Delta E,\Delta N)=d\,(\sin\mathrm{Az},\cos\mathrm{Az})=d\,(\cos\theta,\sin\theta)\).
+\end{proposicion}
+
+\begin{demostracion}
+El norte tiene \(\theta=90^\circ\) y \(\mathrm{Az}=0^\circ\). Aumentar el acimut en cierto ángulo
+es girar en sentido horario, es decir, disminuir \(\theta\) en ese mismo ángulo; por lo tanto
+\(\theta=90^\circ-\mathrm{Az}\). Las componentes salen de
+\(\cos(90^\circ-\mathrm{Az})=\sin\mathrm{Az}\) y \(\sin(90^\circ-\mathrm{Az})=\cos\mathrm{Az}\).
+\end{demostracion}
+
+\begin{ejemplo}[Orientar una lectura]
+Desde una estación se visa la referencia con lectura \(\mathrm{Lec}_{\text{ref}}=352{,}5^\circ\)
+y acimut conocido \(\mathrm{Az}_{\text{ref}}=40^\circ\). La corrección es
+\(\kappa=40^\circ-352{,}5^\circ\equiv47{,}5^\circ\). Un punto \(q\) leído en
+\(\mathrm{Lec}_q=100^\circ\) tiene \(\mathrm{Az}_q=147{,}5^\circ\) y, por la
+proposición~\ref{prop:acimut-theta}, \(\theta_q=90^\circ-147{,}5^\circ=-57{,}5^\circ\equiv302{,}5^\circ\).
+Con una distancia horizontal \(d=50\) m:
+\(\Delta E=50\sin147{,}5^\circ\approx26{,}865\) m y \(\Delta N=50\cos147{,}5^\circ\approx-42{,}170\) m;
+con \(\theta\) se obtienen los mismos valores, \(50\cos(-57{,}5^\circ)\) y \(50\sin(-57{,}5^\circ)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1]
+  \draw[axisline,-{Latex[length=2mm]}] (-2.2,0)--(2.6,0) node[right] {$E$ (eje \(x\))};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-2.2)--(0,2.4) node[above] {$N$ (eje \(y\))};
+  \draw[mainline,-{Latex[length=2.4mm]}] (0,0)--(-57.5:2.2) node[below right] {$q$};
+  \draw[rust,line width=.9pt,-{Latex[length=2mm]}] (90:1.3) arc[start angle=90,end angle=-57.5,radius=1.3];
+  \node[labelback,text=rust] at (40:1.75) {\(\mathrm{Az}=147{,}5^\circ\) (horario)};
+  \draw[gold,line width=.9pt,-{Latex[length=2mm]}] (0:.65) arc[start angle=0,end angle=-57.5,radius=.65];
+  \node[labelback,text=gold!80!ink,font=\small] at (-1.55,-1.0) {\(\theta=-57{,}5^\circ\equiv302{,}5^\circ\)};
+  \fill[ink] (0,0) circle (1.8pt);
+\end{tikzpicture}
+\end{center}
+\end{ejemplo}
+
+\subsection{Composición de dos rotaciones de centros distintos}\label{sec:composicion-rotaciones}
+
+La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
+dos reflexiones, y una reflexión aplicada dos veces se cancela.
+
+\begin{definicion}[Reflexión respecto de una recta]
+Sea \(L\) una recta que pasa por el punto \(q\) con ángulo de dirección \(\delta\). La
+\emph{reflexión respecto de \(L\)} es la transformación \(\sigma_L\) que deja fijos los puntos
+de \(L\) y lleva cada punto a su simétrico respecto de \(L\). En fórmulas,
+\[
+\sigma_L(p)=q+S(\delta)(p-q),\qquad
+S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
+\]
+\end{definicion}
+
+La matriz \(S(\delta)\) deja fija la dirección \((\cos\delta,\sin\delta)\) de \(L\) y cambia
+de signo la perpendicular; tiene \(\det S(\delta)=-1\), invierte la orientación y cumple
+\(S(\delta)^2=I\), es decir, \(\sigma_L\circ\sigma_L\) es la identidad.
+
+\begin{proposicion}[Dos reflexiones]\label{prop:dos-reflexiones}
+Sean \(L_1\) y \(L_2\) rectas con ángulos de dirección \(\delta_1\) y \(\delta_2\).
+\begin{enumerate}
+  \item Si se cortan en un punto \(q\), entonces
+  \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{q,\,2(\delta_2-\delta_1)}\).
+  \item Si son paralelas, \(\sigma_{L_2}\circ\sigma_{L_1}\) es una traslación.
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+Multiplicando y usando las fórmulas de suma,
+\[
+S(\delta_2)S(\delta_1)=
+\begin{pmatrix}
+\cos(2\delta_2-2\delta_1)&-\sin(2\delta_2-2\delta_1)\\
+\sin(2\delta_2-2\delta_1)&\cos(2\delta_2-2\delta_1)
+\end{pmatrix}
+=R\bigl(2(\delta_2-\delta_1)\bigr).
+\]
+Si ambas rectas pasan por \(q\), podemos usar \(q\) como punto de las dos fórmulas:
+\(\sigma_{L_2}(\sigma_{L_1}(p))=q+S(\delta_2)S(\delta_1)(p-q)=q+R(2(\delta_2-\delta_1))(p-q)\).
+Si son paralelas, \(\delta_2=\delta_1\) (módulo \(\pi\)), la parte lineal de la composición es
+\(R(0)=I\), y una afinidad con parte lineal \(I\) es una traslación.
+\end{demostracion}
+
+\begin{proposicion}[Composición de dos rotaciones]\label{prop:composicion-rotaciones}
+Sean \(c_1\neq c_2\) y \(\alpha,\beta\) ángulos. Entonces:
+\begin{enumerate}
+  \item si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), la composición
+  \(\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}\) es una rotación de ángulo \(\alpha+\beta\)
+  alrededor de un centro \(c\);
+  \item si \(\alpha+\beta\equiv0\pmod{2\pi}\), la composición es una traslación.
+\end{enumerate}
+El centro \(c\) se construye así: sea \(L\) la recta que une \(c_1\) con \(c_2\); sea \(M_1\)
+la recta por \(c_1\) que forma con \(L\) un ángulo \(\alpha/2\) en sentido horario, y \(M_2\)
+la recta por \(c_2\) que forma con \(L\) un ángulo \(\beta/2\) en sentido antihorario.
+Entonces \(c=M_1\cap M_2\).
+\end{proposicion}
+
+\begin{demostracion}
+Sea \(\delta_0\) el ángulo de dirección de \(L\). Entonces \(M_1\) tiene dirección
+\(\delta_0-\alpha/2\) y \(M_2\), dirección \(\delta_0+\beta/2\). Por la
+proposición~\ref{prop:dos-reflexiones}, como \(L\) y \(M_1\) se cortan en \(c_1\),
+\[
+\sigma_L\circ\sigma_{M_1}=\rhoP{c_1,\,2(\delta_0-(\delta_0-\alpha/2))}=\rhoP{c_1,\alpha},
+\]
+y como \(M_2\) y \(L\) se cortan en \(c_2\),
+\(\sigma_{M_2}\circ\sigma_L=\rhoP{c_2,\,2(\beta/2)}=\rhoP{c_2,\beta}\). Luego
+\[
+\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}
+=\sigma_{M_2}\circ\sigma_L\circ\sigma_L\circ\sigma_{M_1}
+=\sigma_{M_2}\circ\sigma_{M_1},
+\]
+porque \(\sigma_L\circ\sigma_L\) es la identidad. La diferencia de direcciones entre \(M_2\) y
+\(M_1\) es \((\alpha+\beta)/2\). Si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), entonces
+\((\alpha+\beta)/2\not\equiv0\pmod{\pi}\), las rectas no son paralelas, se cortan en un punto
+\(c\) y, otra vez por la proposición~\ref{prop:dos-reflexiones}, la composición es
+\(\rhoP{c,\,\alpha+\beta}\). Si \(\alpha+\beta\equiv0\pmod{2\pi}\), las rectas \(M_1\) y
+\(M_2\) son paralelas y la composición es una traslación.
+\end{demostracion}
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  \draw[muted,dotted] (-1.5,0)--(0,0);
+  \draw[mainline] (-1.2,0)--(5.4,0) node[right] {$L$};
+  \draw[teal,line width=.9pt] (-1.2,1.2)--(3.3,-3.3) node[below] {$M_1$};
+  \draw[rust,line width=.9pt] (5.2,1.2)--(0.7,-3.3) node[below] {$M_2$};
+  \fill[ink] (0,0) circle (2.4pt) node[below left] {$c_1=(0,0)$};
+  \fill[ink] (4,0) circle (2.4pt) node[above left] {$c_2=(4,0)$};
+  \fill[gold] (2,-2) circle (2.6pt);
+  \node[labelback,text=ink] at (2,-2.55) {$c=(2,-2)$};
+  \draw[teal,line width=.8pt] (.9,0) arc[start angle=0,end angle=-45,radius=.9];
+  \node[text=teal,font=\small] at (1.35,-.32) {$\alpha/2$};
+  \draw[rust,line width=.8pt] (3.1,0) arc[start angle=180,end angle=225,radius=.9];
+  \node[text=rust,font=\small] at (2.65,-.32) {$\beta/2$};
+  \draw[gold,line width=.8pt] ($(2,-2)+(45:.55)$) arc[start angle=45,end angle=135,radius=.55];
+  \node[text=gold!80!ink,font=\small] at (2,-1.15) {$\tfrac{\alpha+\beta}{2}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{ejemplo}[Dos cuartos de vuelta con centros distintos]\label{ej:composicion-centros}
+Sean \(c_1=(0,0)\), \(\alpha=90^\circ\), \(c_2=(4,0)\), \(\beta=90^\circ\). Como
+\(\alpha+\beta=180^\circ\not\equiv0\), la proposición anuncia una rotación de \(180^\circ\).
+
+\emph{Construcción.} \(L\) es el eje \(x\). \(M_1\) pasa por \((0,0)\) con dirección
+\(-45^\circ\): es la recta \(y=-x\). \(M_2\) pasa por \((4,0)\) con dirección \(45^\circ\):
+es \(y=x-4\). Igualando, \(-x=x-4\), de donde \(x=2\), \(y=-2\): el centro es \(c=(2,-2)\).
+
+\emph{Cuenta matricial.} Con \(R(90^\circ)\) del ejemplo de la sección~\ref{sec:rot-plano}, la
+traslación de la segunda rotación es \((I-R(90^\circ))c_2=(4,0)-(0,4)=(4,-4)\), y en
+coordenadas homogéneas
+\[
+H_2H_1=
+\begin{pmatrix}0&-1&4\\1&0&-4\\0&0&1\end{pmatrix}
+\begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix}
+=\begin{pmatrix}-1&0&4\\0&-1&-4\\0&0&1\end{pmatrix}.
+\]
+La parte lineal es \(-I=R(180^\circ)\). El punto fijo resuelve \(-c+(4,-4)=c\), o sea
+\(c=(2,-2)\), el mismo que dio la construcción. La composición es
+\(\rhoP{(2,-2),\,180^\circ}\), es decir \(p\mapsto(4,-4)-p\).
+\end{ejemplo}
+
+\subsubsection{Experimento: rotar una figura con dos centros distintos}
+
+Tomemos el triángulo de vértices \((1,1)\), \((3,1)\), \((1,2)\) y apliquemos las dos
+rotaciones del ejemplo~\ref{ej:composicion-centros}. Tras \(\rhoP{c_1,90^\circ}\) los vértices
+van a \((-1,1)\), \((-1,3)\), \((-2,1)\); tras \(\rhoP{c_2,90^\circ}\), a \((3,-5)\),
+\((1,-5)\), \((3,-6)\). La rotación única \(\rhoP{(2,-2),180^\circ}\), \(p\mapsto(4,-4)-p\),
+da exactamente los mismos tres puntos: por ejemplo \((4,-4)-(1,1)=(3,-5)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=.62]
+  \draw[axisline,-{Latex[length=2mm]}] (-2.8,0)--(5.4,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-6.6)--(0,3.6) node[above] {$y$};
+  \draw[teal,line width=1.1pt,fill=teal!15] (1,1)--(3,1)--(1,2)--cycle;
+  \draw[gold,line width=1.1pt,fill=gold!15] (-1,1)--(-1,3)--(-2,1)--cycle;
+  \draw[rust,line width=1.1pt,fill=rust!15] (3,-5)--(1,-5)--(3,-6)--cycle;
+  \draw[auxline,-{Latex[length=2mm]}] (1,1) arc[start angle=45,end angle=135,radius=1.414];
+  \draw[auxline,-{Latex[length=2mm]}] (-1,1) arc[start angle=168.69,end angle=258.69,radius=5.099];
+  \fill[ink] (0,0) circle (2.2pt) node[below left] {$c_1$};
+  \fill[ink] (4,0) circle (2.2pt) node[above] {$c_2$};
+  \fill[ink] (2,-2) circle (2.4pt) node[right] {$c=(2,-2)$};
+  \node[labelback,text=teal,font=\small] at (3.3,1.8) {original};
+  \node[labelback,text=gold!80!ink,font=\small,anchor=east] at (-2.3,2.4) {tras \(\rhoP{c_1,90^\circ}\)};
+  \node[labelback,text=rust,font=\small] at (3.9,-6.2) {final};
+\end{tikzpicture}
+\end{center}
+
+El vértice \((1,1)\) recorre primero un arco alrededor de \(c_1\) y después otro alrededor de
+\(c_2\); el resultado final, en cambio, es un único medio giro alrededor de \(c=(2,-2)\), un
+punto que no aparece en ninguna de las dos etapas.
 
 \subsection{Rotaciones y números complejos}\label{sec:rot-complejos}
 
@@ -296,15 +656,21 @@ Identificando \((x,y)\in\R^2\) con \(z=x+iy\in\mathbb C\), la fórmula de Euler
 \[
   e^{i\theta}=\cos\theta+i\sin\theta
 \]
-permite escribir una rotación como
+(que se obtiene comparando las series de Taylor de las tres funciones) permite escribir la
+rotación lineal como
 \[
   z'=e^{i\theta}z.
 \]
-Si se multiplica por un complejo general \(\rho e^{i\theta}\), el módulo \(\rho\) produce
-una escala uniforme y el argumento \(\theta\) produce una rotación:
+Si se multiplica por un complejo general \(k\,e^{i\theta}\) con \(k>0\), el módulo \(k\)
+produce una homotecia de razón \(k\) y el argumento \(\theta\) produce una rotación:
 \[
-  z'=\rho e^{i\theta}z.
+  z'=k\,e^{i\theta}z.
 \]
+
+\begin{ejemplo}[El cuarto de vuelta en forma compleja]
+Para \(z=3+i\) y \(\theta=\pi/2\), \(e^{i\pi/2}=i\) y \(z'=i(3+i)=3i+i^2=-1+3i\), que
+corresponde al punto \((-1,3)\): el mismo resultado que \(R(\pi/2)(3,1)\).
+\end{ejemplo}
 
 \begin{idea}[Relación entre la forma compleja y la matricial]
 \[
@@ -318,7 +684,8 @@ equivale a
 \begin{pmatrix}x\\y\end{pmatrix}.
 \]
 La multiplicación compleja es una familia especial de transformaciones lineales reales:
-solo usa dos parámetros, frente a los cuatro de una matriz real \(2\times2\) general.
+solo usa dos parámetros, frente a los cuatro de una matriz real \(2\times2\) general. La
+familia es cerrada por producto, porque el producto de dos complejos es otro complejo.
 \end{idea}
 
 \subsection{Rotaciones en tres dimensiones}\label{sec:rot-3d}
@@ -328,179 +695,282 @@ solo usa dos parámetros, frente a los cuatro de una matriz real \(2\times2\) ge
 
 \subsubsection{Rotaciones elementales}
 
-Las rotaciones alrededor de los ejes coordenados se representan por
+Una rotación alrededor de un eje coordenado deja fija la coordenada de ese eje y gira el
+plano perpendicular como una rotación plana, con sentido positivo dado por la regla de la mano
+derecha (el pulgar apunta en el sentido positivo del eje).
+
+\begin{definicion}[Rotaciones elementales]
+Las rotaciones de ángulo \(\theta\) alrededor de los ejes \(x\), \(y\), \(z\) son
 \[
-R_x(\alpha)=
+R_x(\theta)=
 \begin{pmatrix}
-1&0&0\\0&\cos\alpha&-\sin\alpha\\0&\sin\alpha&\cos\alpha
-\end{pmatrix},
-\]
-\[
-R_y(\beta)=
+1&0&0\\0&\cos\theta&-\sin\theta\\0&\sin\theta&\cos\theta
+\end{pmatrix},\quad
+R_y(\theta)=
 \begin{pmatrix}
-\cos\beta&0&\sin\beta\\0&1&0\\-\sin\beta&0&\cos\beta
-\end{pmatrix},
-\qquad
-R_z(\gamma)=
+\cos\theta&0&\sin\theta\\0&1&0\\-\sin\theta&0&\cos\theta
+\end{pmatrix},\quad
+R_z(\theta)=
 \begin{pmatrix}
-\cos\gamma&-\sin\gamma&0\\
-\sin\gamma& \cos\gamma&0\\
+\cos\theta&-\sin\theta&0\\
+\sin\theta& \cos\theta&0\\
 0&0&1
 \end{pmatrix}.
 \]
+\end{definicion}
+
+El signo cambiado de \(R_y\) se debe a que el plano perpendicular a \(y\), recorrido según la
+mano derecha, es el plano \(zx\) (de \(z\) hacia \(x\)) y no el \(xz\). La construcción
+geométrica completa de las tres matrices, con figuras, está en el
+apéndice~\ref{ap:rot3d}.
 
 \subsubsection{El orden importa}\label{sec:orden-importa}
 
-En general,
-\[
-  R_x(\alpha)R_y(\beta)R_z(\gamma)
-  \neq
-  R_z(\gamma)R_y(\beta)R_x(\alpha).
-\]
-La matriz situada más a la derecha actúa primero. Esta falta de conmutatividad fue uno de los
-experimentos principales de la primera clase.
+En el plano, \(R(\beta)R(\theta)=R(\theta+\beta)=R(\theta)R(\beta)\): las rotaciones lineales
+conmutan. En el espacio no.
 
-\paragraph{Ejemplo sencillo.}
-Con giros de \(90^\circ\), aplicar primero \(R_x\) y luego \(R_y\) al vector
-\(e_z=(0,0,1)^T\) produce
+\begin{ejemplo}[Dos cuartos de vuelta en distinto orden]
+Tomemos \(e_z=(0,0,1)^T\) y giros de \(90^\circ\). La tercera columna de
+\(R_x(\pi/2)\) es \((0,-\sin\tfrac{\pi}{2},\cos\tfrac{\pi}{2})^T=(0,-1,0)^T\), así que
+\(R_x(\pi/2)e_z=-e_y\); además \(R_y\) deja fijo \(e_y\). Entonces
 \[
 R_y\left(\frac{\pi}{2}\right)
 R_x\left(\frac{\pi}{2}\right)e_z
 =R_y\left(\frac{\pi}{2}\right)(-e_y)
 =-e_y.
 \]
-Al invertir el orden:
+Al invertir el orden, la tercera columna de \(R_y(\pi/2)\) es \((1,0,0)^T\) y \(R_x\) deja
+fijo \(e_x\):
 \[
 R_x\left(\frac{\pi}{2}\right)
 R_y\left(\frac{\pi}{2}\right)e_z
 =R_x\left(\frac{\pi}{2}\right)e_x
 =e_x.
 \]
-Como \(-e_y\neq e_x\), la diferencia no es un error numérico: es una propiedad geométrica
-de las rotaciones espaciales.
-
-\subsection{Experimento de la primera clase}
-
-Se construyeron en Excel o LibreOffice las matrices \(R_x,R_y,R_z\) y se compararon distintos
-órdenes con la función \texttt{MMULT}. Después se aplicó muchas veces una composición de
-giros pequeños e iguales alrededor de los tres ejes. El resultado aproxima una rotación
-alrededor de la dirección \((1,1,1)\), capaz de permutar cíclicamente los ejes:
-\[
-  e_x\longmapsto e_y,\qquad
-  e_y\longmapsto e_z,\qquad
-  e_z\longmapsto e_x.
-\]
-El ángulo de esa permutación es \(120^\circ\), no \(90^\circ\).
-
-Para cuantificar el experimento, puede tomarse un paso
-\[
-Q_\varepsilon
-=R_z(\varepsilon)R_y(\varepsilon)R_x(\varepsilon),
-\qquad \varepsilon=0.01.
-\]
-A primer orden,
-\[
-Q_\varepsilon
-\approx I+\varepsilon(A_x+A_y+A_z).
-\]
-La suma de generadores corresponde al eje \((1,1,1)\), cuya norma es \(\sqrt3\). Después de
-\(n\) pasos, el ángulo acumulado es aproximadamente
-\[
-  \Theta\approx n\varepsilon\sqrt3.
-\]
-Con \(n=121\):
-\[
-  \Theta\approx121(0.01)\sqrt3
-  \approx2.096\ {\rm rad}
-  \approx120.1^\circ.
-\]
-La rotación exacta de \(120^\circ\) alrededor de \((1,1,1)\) que realiza la permutación
-anterior tiene matriz
-\[
-P=
-\begin{pmatrix}
-0&0&1\\
-1&0&0\\
-0&1&0
-\end{pmatrix}.
-\]
-Las columnas muestran directamente que \(Pe_x=e_y\), \(Pe_y=e_z\) y \(Pe_z=e_x\).
-
-\begin{idea}[Práctica recomendada]
-\begin{enumerate}
-  \item Construir \(R_x,R_y,R_z\) en una hoja de cálculo.
-  \item Comparar dos órdenes con ángulos grandes.
-  \item Repetir con \(\varepsilon=0.01\) radianes.
-  \item Calcular en Python \(\log(R)\) con \texttt{scipy.linalg.logm}.
-  \item Interpretar la matriz antisimétrica obtenida.
-\end{enumerate}
-\end{idea}
+Como \(-e_y\neq e_x\), \(R_yR_x\neq R_xR_y\). La diferencia no es un error numérico: es una
+propiedad geométrica de las rotaciones espaciales.
+\end{ejemplo}
 
 \section{En profundidad}
 
-Quedan dos temas que se apoyan en lo dictado y que completamos con desarrollo propio: qué pasa cuando los ángulos son chicos y por qué todo giro del espacio tiene un eje. Los apéndices~\ref{ap:infinitesimales} y~\ref{ap:rot3d} los llevan más lejos, y el eje es la puerta a los autovectores del capítulo~\ref{cap:08}.
+Quedan tres temas: qué pasa cuando los ángulos son chicos, por qué todo giro del espacio tiene
+un eje y cómo se acumulan muchos giros pequeños. El apéndice~\ref{ap:infinitesimales}
+desarrolla las rotaciones infinitesimales y su relación con la exponencial; el
+apéndice~\ref{ap:rot3d} construye las matrices de rotación 3D y la fórmula de Rodrigues para
+un eje arbitrario. El eje como dirección fija es la puerta a los autovectores del
+capítulo~\ref{cap:08}.
 
 \subsection{Rotaciones pequeñas}
 
+\begin{definicion}[Generadores infinitesimales]
+Los \emph{generadores} de las rotaciones elementales son las derivadas en \(\theta=0\):
+\[
+A_x=\left.\frac{dR_x}{d\theta}\right|_{0}=
+\begin{pmatrix}0&0&0\\0&0&-1\\0&1&0\end{pmatrix},\quad
+A_y=\left.\frac{dR_y}{d\theta}\right|_{0}=
+\begin{pmatrix}0&0&1\\0&0&0\\-1&0&0\end{pmatrix},\quad
+A_z=\left.\frac{dR_z}{d\theta}\right|_{0}=
+\begin{pmatrix}0&-1&0\\1&0&0\\0&0&0\end{pmatrix}.
+\]
+\end{definicion}
+
+\begin{proposicion}\label{prop:rot-pequenas}
 Para un ángulo pequeño \(\varepsilon\),
+\(R_x(\varepsilon)=I+\varepsilon A_x+O(\varepsilon^2)\), y lo mismo para \(y\) y \(z\).
+Además, los dos órdenes de composición coinciden a primer orden y difieren a segundo orden en
 \[
-  R_x(\varepsilon)\approx I+\varepsilon A_x,
-  \qquad
-  R_y(\varepsilon)\approx I+\varepsilon A_y.
+(I+\varepsilon A_x)(I+\varepsilon A_y)-(I+\varepsilon A_y)(I+\varepsilon A_x)
+=\varepsilon^2(A_xA_y-A_yA_x)=\varepsilon^2A_z.
 \]
-Entonces
-\[
-(I+\varepsilon A_x)(I+\varepsilon A_y)
-=I+\varepsilon(A_x+A_y)+\varepsilon^2A_xA_y,
-\]
-mientras que el orden inverso cambia solo el término de segundo orden:
-\[
-(I+\varepsilon A_y)(I+\varepsilon A_x)
-=I+\varepsilon(A_x+A_y)+\varepsilon^2A_yA_x.
-\]
-Por eso las rotaciones muy pequeñas parecen conmutar a primer orden, aunque no conmuten
-exactamente.
+\end{proposicion}
+
+\begin{demostracion}
+La primera afirmación es el desarrollo de Taylor de \(\cos\varepsilon=1+O(\varepsilon^2)\) y
+\(\sin\varepsilon=\varepsilon+O(\varepsilon^3)\) en cada entrada (detalle en el
+apéndice~\ref{ap:infinitesimales}). Al desarrollar los productos,
+\((I+\varepsilon A_x)(I+\varepsilon A_y)=I+\varepsilon(A_x+A_y)+\varepsilon^2A_xA_y\), y el
+orden inverso cambia solo el término \(\varepsilon^2A_yA_x\). Multiplicando las matrices,
+\(A_xA_y\) tiene un único \(1\) en la posición \((2,1)\) y \(A_yA_x\) un único \(1\) en la
+posición \((1,2)\); su diferencia es \(A_z\).
+\end{demostracion}
+
+\begin{ejemplo}[Cuánto no conmutan dos giros de \(0{,}01\) rad]
+Con \(\varepsilon=0{,}01\), el cálculo exacto da
+\(R_x(\varepsilon)R_y(\varepsilon)-R_y(\varepsilon)R_x(\varepsilon)\approx\varepsilon^2A_z\),
+cuyas entradas no nulas son \(\mp0{,}0001\): cien veces menores que el giro mismo. Por eso las
+rotaciones muy pequeñas parecen conmutar, aunque no conmutan exactamente; y la diferencia es,
+ella misma, un giro pequeño alrededor del tercer eje.
+\end{ejemplo}
 
 \subsection{Eje de rotación, autovectores y exponencial}\label{sec:eje-exp}
 
 \subsubsection{El eje como dirección fija}
 
-Toda rotación propia de \(\R^3\) posee un eje. Si \(v\) apunta en la dirección de ese eje,
+\begin{definicion}[Rotación propia y eje]
+Una matriz \(R\) de \(3\times3\) es una \emph{rotación propia} si \(R^TR=I\) y \(\det R=1\).
+Un \emph{eje} de \(R\) es una dirección \(v\neq0\) con \(Rv=v\); en el lenguaje del
+capítulo~\ref{cap:08}, un autovector de autovalor \(1\).
+\end{definicion}
+
+\begin{teorema}[Euler]\label{teo:euler-eje}
+Toda rotación propia de \(\R^3\) tiene un eje.
+\end{teorema}
+
+\begin{demostracion}
+Hay que ver que \((R-I)v=0\) tiene solución no nula, es decir, que \(\det(R-I)=0\). Usando
+\(R^TR=I\) y \(\det R=\det R^T=1\):
 \[
-  Rv=v.
+\det(R-I)=\det\bigl(R^T(R-I)\bigr)=\det(I-R^T)=\det\bigl((I-R)^T\bigr)=\det(I-R)
+=(-1)^3\det(R-I).
 \]
-Por lo tanto, \(v\) es un autovector de \(R\) con autovalor \(1\). Equivalentemente,
+Un número igual a su opuesto es cero.
+\end{demostracion}
+
+Para hallar el ángulo alcanza la traza: en una base ortonormal cuyo tercer vector es el eje,
+\(R\) tiene un bloque \(R(\theta)\) de \(2\times2\) y un \(1\) en la diagonal, de modo que
+\(\operatorname{tr}R=1+2\cos\theta\) (la traza no depende de la base;
+sección~\ref{sec:cambio-base}).
+
+\begin{ejemplo}[Eje y ángulo de una permutación de ejes]\label{ej:permutacion}
+La matriz
 \[
-  (R-I)v=0.
+P=\begin{pmatrix}0&0&1\\1&0&0\\0&1&0\end{pmatrix}
 \]
+tiene columnas \(Pe_x=e_y\), \(Pe_y=e_z\), \(Pe_z=e_x\): permuta cíclicamente los ejes. Es
+ortogonal con \(\det P=1\). El sistema \((P-I)v=0\) da \(v_3=v_1\), \(v_1=v_2\), \(v_2=v_3\):
+el eje es \((1,1,1)\). La traza es \(0=1+2\cos\theta\), de modo que \(\cos\theta=-1/2\) y
+\(\theta=120^\circ\).
+\end{ejemplo}
 
 \subsubsection{Exponencial de matrices}
 
-La exponencial matricial se define por la serie
+\begin{definicion}[Exponencial de una matriz]
+La exponencial de una matriz cuadrada \(A\) es la serie
 \[
-  e^A=I+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\cdots.
+  e^A=I+A+\frac{A^2}{2!}+\frac{A^3}{3!}+\cdots,
 \]
-Si una rotación se expresa como \(R=e^A\), entonces
-\[
-  R^t=e^{tA},\qquad 0\le t\le1,
-\]
-describe una trayectoria continua desde la identidad hasta \(R\). Del mismo modo,
-\[
-  e^{A/n}
-\]
-es un paso pequeño que, aplicado \(n\) veces, produce \(e^A\).
+que converge para toda \(A\) (la norma del término \(k\)-ésimo está acotada por
+\(\|A\|^k/k!\)). Un \emph{logaritmo} de \(R\) es una matriz \(A\) con \(e^A=R\).
+\end{definicion}
 
-\begin{resultado}[Generador antisimétrico]
-Para una rotación tridimensional, el logaritmo matricial principal produce, bajo condiciones
-adecuadas, una matriz antisimétrica
+Si \(R=e^A\), la familia \(e^{\tau A}\), \(0\le\tau\le1\), describe una trayectoria continua
+desde la identidad hasta \(R\), y \(e^{A/n}\) es un paso pequeño que, aplicado \(n\) veces,
+produce \(e^A\).
+
+\begin{ejemplo}[La rotación plana como exponencial]
+Sea \(J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\). Como \(J^2=-I\), las potencias pares de
+\(\tau J\) son \(\pm\tau^{2m}I\) y las impares \(\pm\tau^{2m+1}J\); agrupando,
+\[
+e^{\tau J}=\Bigl(1-\frac{\tau^2}{2!}+\cdots\Bigr)I+\Bigl(\tau-\frac{\tau^3}{3!}+\cdots\Bigr)J
+=\cos\tau\,I+\sin\tau\,J=R(\tau).
+\]
+Para \(\tau=\pi/6\) la serie sumada numéricamente da las entradas \(0{,}866\) y \(0{,}500\) de
+\(R(30^\circ)\). El generador \(J\) es el análogo plano de \(A_z\).
+\end{ejemplo}
+
+\begin{proposicion}[Generador antisimétrico]\label{prop:generador}
+Sea \(R\) la rotación de ángulo \(\theta\in[0,\pi)\) alrededor del eje unitario \(u\). Entonces
+\(R=e^{A}\) con
 \[
 A=
 \begin{pmatrix}
 0&-\omega_z&\omega_y\\
 \omega_z&0&-\omega_x\\
 -\omega_y&\omega_x&0
-\end{pmatrix}.
+\end{pmatrix},
+\qquad \omega=(\omega_x,\omega_y,\omega_z)=\theta\,u,
 \]
-El vector \(\omega=(\omega_x,\omega_y,\omega_z)\) indica el eje y su norma representa el
-ángulo de rotación.
-\end{resultado}
+y es el único logaritmo antisimétrico con \(|\omega|<\pi\) (el \emph{logaritmo principal}).
+El vector \(\omega\) indica el eje y su norma es el ángulo.
+\end{proposicion}
+
+La demostración combina la fórmula de Rodrigues del apéndice~\ref{ap:rot3d} con la relación
+entre generadores y exponencial del apéndice~\ref{ap:infinitesimales}. Numéricamente, el
+logaritmo se calcula con \texttt{scipy.linalg.logm}.
+
+\begin{ejemplo}[Generador de la permutación \(P\)]
+Para la matriz \(P\) del ejemplo~\ref{ej:permutacion}, \(\theta=2\pi/3\approx2{,}094\) y
+\(u=(1,1,1)/\sqrt3\), de modo que
+\(\omega=\tfrac{2\pi}{3\sqrt3}(1,1,1)\approx(1{,}209;\,1{,}209;\,1{,}209)\) y
+\(|\omega|\approx2{,}094\) rad \(=120^\circ\).
+\end{ejemplo}
+
+\subsection{Experimento: muchos giros pequeños alrededor de los tres ejes}
+
+Componemos muchas veces un mismo paso formado por tres giros pequeños e iguales,
+\[
+Q_\varepsilon
+=R_z(\varepsilon)R_y(\varepsilon)R_x(\varepsilon),
+\qquad \varepsilon=0{,}01,
+\]
+por ejemplo con \texttt{MMULT} en una hoja de cálculo o con \texttt{numpy}. Por la
+proposición~\ref{prop:rot-pequenas}, a primer orden
+\(Q_\varepsilon\approx I+\varepsilon(A_x+A_y+A_z)\). La matriz \(A_x+A_y+A_z\) es la de la
+proposición~\ref{prop:generador} con \(\omega=(1,1,1)\), cuya norma es \(\sqrt3\): cada paso
+es, aproximadamente, un giro de \(\varepsilon\sqrt3\) alrededor de \((1,1,1)\). Después de
+\(n\) pasos el ángulo acumulado es
+\[
+  \Theta\approx n\varepsilon\sqrt3.
+\]
+Para llegar a la permutación \(P\) del ejemplo~\ref{ej:permutacion} hace falta
+\(\Theta=2\pi/3\), es decir \(n\approx(2\pi/3)/(0{,}01\sqrt3)\approx120{,}9\); el entero más
+cercano es \(n=121\):
+\[
+  \Theta\approx121\cdot0{,}01\cdot\sqrt3
+  \approx2{,}096\ \text{rad}
+  \approx120{,}079^\circ.
+\]
+El producto exacto \(Q_\varepsilon^{121}\), calculado numéricamente, tiene eje
+\(\approx(0{,}575;\,0{,}581;\,0{,}575)\), muy cerca de \((1,1,1)/\sqrt3\), cuyas
+componentes valen \(\approx0{,}577\), y ángulo \(\approx119{,}879^\circ\); sus entradas difieren de las de \(P\) en
+menos de \(0{,}008\). La pequeña discrepancia es el término de segundo orden de la
+proposición~\ref{prop:rot-pequenas}, acumulado a lo largo de los 121 pasos.
+
+\section{Ejercicios propuestos}
+
+\begin{ejercicio}
+Calcular la imagen de \(p=(5,2)\) por la rotación de \(60^\circ\) alrededor de \(c=(2,-1)\) y
+verificar que \(|p'-c|=|p-c|\).
+\solucion{\(p-c=(3,3)\), \(R(60^\circ)(3,3)\approx(-1{,}098;\,4{,}098)\),
+\(p'\approx(0{,}902;\,3{,}098)\); ambas distancias valen \(3\sqrt2\approx4{,}243\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+La matriz homogénea
+\[
+H=\begin{pmatrix}0&-1&4\\1&0&2\\0&0&1\end{pmatrix}
+\]
+representa una rotación. Hallar su
+ángulo y su centro.
+\solucion{La parte lineal es \(R(90^\circ)\). El centro resuelve
+\((I-R)c=(4,2)\); con \(c=(x,y)\): \(x+y=4\), \(-x+y=2\), de donde \(c=(1,3)\); en efecto
+\(H(1,3,1)^T=(1,3,1)^T\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Calcular \(\rhoP{(2,0),-90^\circ}\circ\rhoP{(0,0),90^\circ}\) y explicar el resultado con la
+proposición~\ref{prop:composicion-rotaciones}.
+\solucion{Como \(90^\circ+(-90^\circ)=0\), es una traslación: la matriz homogénea es
+\(\left(\begin{smallmatrix}1&0&2\\0&1&2\\0&0&1\end{smallmatrix}\right)\), traslación de vector \((2,2)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Un punto está a \(100\) m de una estación, en \(p=(100,0)\). Comparar su rotación exacta en
+\(\varepsilon=0{,}02\) rad con la aproximación \((I+\varepsilon J)p\),
+\(J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\).
+\solucion{Exacta \(\approx(99{,}980;\,2{,}000)\), aproximada \((100;\,2)\); el error es
+\(\approx0{,}020\) m \(\approx\varepsilon^2\cdot100/2\), de segundo orden.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Calcular \(R_z(90^\circ)R_x(90^\circ)e_y\) y \(R_x(90^\circ)R_z(90^\circ)e_y\). ¿Conmutan?
+\solucion{El primero da \(e_z\) (\(R_x\) lleva \(e_y\) a \(e_z\), que \(R_z\) deja fijo); el
+segundo da \(-e_x\) (\(R_z\) lleva \(e_y\) a \(-e_x\), que \(R_x\) deja fijo). No conmutan.}
+\end{ejercicio}
+
+\begin{ejercicio}
+Convertir el acimut \(\mathrm{Az}=230^\circ\) en ángulo matemático \(\theta\), y el ángulo
+\(\theta=30^\circ\) en acimut.
+\solucion{\(\theta=90^\circ-230^\circ=-140^\circ\equiv220^\circ\);
+\(\mathrm{Az}=90^\circ-30^\circ=60^\circ\).}
+\end{ejercicio}
