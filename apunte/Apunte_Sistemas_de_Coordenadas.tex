@@ -29,34 +29,21 @@
 \thispagestyle{empty}
 \vspace*{30mm}
 \begin{idea}[Propósito]
-Integrar en un único documento el contenido dictado, las guías docentes, los desarrollos
-algebraicos y geométricos, ejemplos resueltos y el panorama general de la materia. El apunte
-está preparado para crecer con cada nueva clase y cada nuevo documento.
+Reunir en un solo documento los contenidos de Sistemas de Coordenadas: las transformaciones del
+plano y del espacio, el álgebra que las describe y su uso para construir coordenadas, medir
+sobre superficies y proyectar, con ejemplos resueltos, figuras y enlaces a las unidades
+interactivas del sitio de la materia.
 \end{idea}
 
 \vspace{8mm}
-{\large\bfseries Sobre esta versión\par}
-{\color{muted}Esta versión (2026-10-18). El apunte se reorganizó por tema: cada capítulo trata una
-transformación o herramienta y se lee en tres niveles, ``La idea'', ``Construcciones, cuentas
-y ejemplos'' y ``En profundidad''. La SVD y las transformaciones conformes pasan a capítulos
-propios, y se agrega un capítulo de repaso de Álgebra del CBC con la mirada del profesor.
-El contenido de la v3 se conserva entero; sólo cambió el lugar donde está. Cubre las 14
-clases del esqueleto de la materia, enlaza las 20 unidades interactivas (lecciones marimo, de
-la Unidad 0 ``fundamentos y lenguaje de la cátedra'' a la Unidad 19) del sitio de la materia
-y recoge el material que mandó el profesor por el chat (planilla de las proyectivas del
-pentágono y \texttt{LaSVD.wxmx}).\par}
-
-{\color{muted}Los capítulos de SVD, inversas y cuatro problemas (cap.~\ref{cap:svd}), y las
-partes de curvatura, elipsoide y trigonometría esférica (cap.~\ref{cap:curvatura}) están marcados
-``Anticipado'': se desarrollaron antes de que la cátedra los dictara, a partir del resumen 2025
-del profesor, su apunte del elipsoide y bibliografía, y quedan pendientes de validar. Incluyen
-una fe de erratas verificada del apunte del elipsoide.\par}
-
-{\color{muted}Versiones anteriores: v1 (rotaciones y guía de transformaciones), v2
-(2026-09-21: afinidades, homogéneas, proyectivas, productos y autovectores, hilo del
-profesor, rúbricas, bibliografía comentada), v3 (2026-10-17: las 14 clases del esqueleto, SVD,
-cuatro problemas, curvatura, elipsoide, trigonometría esférica y fe de erratas, organizado en
-tres niveles).\par}
+{\large\bfseries Sobre la estructura\par}
+{\color{muted}Cada capítulo trata un tema del programa y se lee en tres niveles: ``La idea'',
+``Construcciones, cuentas y ejemplos'' y ``En profundidad'', seguidos de ejercicios con
+solución. Los complementos tratan temas que extienden el programa (transformaciones
+proyectivas, el terreno como matriz, transformaciones conformes, marcos de referencia y
+grillas). Los capítulos marcados ``en preparación'' presentan sólo su índice previsto y su
+bibliografía. Los apéndices reúnen demostraciones largas, la bibliografía y la lista de
+unidades interactivas. Todo número de un ejemplo proviene de un script del repositorio.\par}
 
 \vspace{8mm}
 {\color{muted}\small Carátula: el monolito que gira alrededor de cada eje (rotaciones y el orden de composición), el cubo unitario que $A$ lleva a un paralelepípedo (determinante como volumen, autovector como dirección que cae sobre sí misma) y el elipsoide con su plano tangente (coordenadas locales y métrica). Es el recorrido de la materia en una página.\par}
@@ -77,7 +64,7 @@ tres niveles).\par}
 \input{contenido/03-algebra-lineal-repaso}
 \finCapituloPreliminar
 
-%% Capítulos de clase (1 a 14) y complementos (C1 a C4), en el orden del dictado.
+%% Capítulos de clase (1 a 14) y complementos (C1 a C4), en el orden del programa.
 %% Los capítulos 11 a 14 son páginas «en preparación»; su material está en apunte/preparacion/.
 \input{contenido/01-rotaciones}
 \input{contenido/02-traslaciones-movimientos-rigidos}
@@ -108,7 +95,7 @@ tres niveles).\par}
 \input{contenido/21-apendice-notebooks}
 \input{contenido/22-material-y-fuentes}
 
-%% --- Facsímiles del material docente (deben estar en esta carpeta) ---
+%% --- Facsímiles de las guías de ejercicios (deben estar en esta carpeta) ---
 \includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]
   {01_Ejercicios_original.pdf}
 \includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]

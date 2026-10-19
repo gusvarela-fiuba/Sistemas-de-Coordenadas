@@ -1,4 +1,10 @@
-"""Escala de Gauss-Kruger en el borde de faja (cap. 2). Determinista.
+"""Escala de Gauss-Kruger en el borde de faja (complemento de conformes). Determinista.
+
+Ejecutar desde la raiz del repositorio:
+    uv run python apunte/scripts/capc2_conformes.py
+
+Salida esperada (resumen): borde de faja (lon -58,5, lat -34,6): k-1 = +2.333e-04 = 23,3 cm/km;
+ecuador, borde de faja: k-1 = +3.451e-04 = 34,5 cm/km; meridiano central: k-1 = 0.
 
 Se toma el meridiano central y k0 de POSGAR 2007 / Argentina 5 (EPSG:5347) y se
 calcula sobre el elipsoide GRS80 (el de POSGAR 2007). PROJ declara WGS 84 en ese
