@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Rotaciones III — tres ejes y el orden importa (unidad 01c, molde v2 sobre cb104). Clases 1 y 2.
-
+"""Rotaciones III — tres ejes y el orden importa (unidad 01c, molde v2 sobre cb104).
 Una sola idea: en 3D hay una rotación por cada eje coordenado, no conmutan, y toda composición es una sola rotación
 alrededor de un eje fijo (Euler; la fórmula es la de Rodrigues). Cubo unitario y terreno con figura_espacio;
 tres ángulos; Rz·Ry ≠ Ry·Rz con el mismo cubo.
@@ -42,9 +41,9 @@ def _(mo):
     mo.md(r"""
     # Rotaciones III — tres ejes y el orden importa
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos el final de la clase 1 y el comienzo de la 2. En el plano alcanzaba un ángulo. En el espacio hay que decir
+    En el plano alcanzaba un ángulo. En el espacio hay que decir
     **alrededor de qué eje**, hay un giro básico por cada eje coordenado, y **el orden en que los encadenamos cambia el
     resultado**. La parte buena: por más giros que encadenemos, el resultado es **un solo giro** alrededor de algún eje.
 
@@ -318,7 +317,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("Las rotaciones son matrices ortogonales con determinante mayor a 0").* Escribí
+        **(a) Lápiz — elemental** *Idea central: las rotaciones son matrices ortogonales con determinante mayor a 0.* Escribí
         $R_z(90°)$ con números y aplicala a $(1, 2, 3)$. Verificá que la tercera coordenada no cambia, que el largo
         tampoco, y que $R_z(90°)$ aplicada dos veces es $R_z(180°) = \mathrm{diag}(-1, -1, 1)$.
         """),
@@ -341,8 +340,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — avanzado** *("Combinación de rotaciones son rotaciones"; el eje como dirección que queda
-        fija, que en la clase 6 va a ser "autovector de autovalor 1").* Armá $R = R_z(90°)\,R_y(90°)$ (primero gira
+        **(b) Código con hueco — avanzado** *Idea central: la combinación de rotaciones es una rotación; el eje es la dirección que queda
+        fija, que más adelante va a ser el autovector de autovalor 1.* Armá $R = R_z(90°)\,R_y(90°)$ (primero gira
         alrededor de $y$, después alrededor de $z$), aplicala a $(1, 0, 0)$ y verificá que $u = (-1, 1, 1)/\sqrt3$ queda
         fijo: `np.allclose(R @ u, u)`. Tenés `np`, `rot_x`, `rot_y`, `rot_z`. Para el cuaderno: ¿por qué $R$ **tiene**
         que dejar quieta alguna dirección?
@@ -375,7 +374,7 @@ def _(editor_b, lib, mo, np):
             _res = mo.callout(mo.md(f"❌ `R` e `imagen` están bien; `fijo` vale `{_fijo!r}`, tiene que ser `np.allclose(R @ u, u)` → `True`."), kind="warn")
         else:
             _res = mo.callout(mo.md(r"✅ $R = R_z(90°)R_y(90°)$ manda $e_x \mapsto (0,0,-1)$ y deja fijo $u = (-1,1,1)/\sqrt3$: ese es el eje de la "
-                                    r"rotación compuesta, un giro de $120°$ ($R^3 = I$). En la clase 6, $Ru = u$ se lee \"$u$ es autovector de autovalor 1\". "
+                                    r"rotación compuesta, un giro de $120°$ ($R^3 = I$). Más adelante, $Ru = u$ se lee \"$u$ es autovector de autovalor 1\". "
                                     r"Y la respuesta del cuaderno: $R$ es ortogonal con $\det = 1$, y toda matriz así deja fija una recta (Euler)."), kind="success")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")
@@ -423,7 +422,7 @@ def _(mo):
 
     En esta unidad demostramos que los giros básicos no conmutan y que la composición deja un eje quieto. Las demostraciones:
 
-    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04) (el orden importa, el ejemplo de $90°$)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones) (el orden importa, el ejemplo de $90°$)
     - [apunte, «Construcción geométrica de las matrices de rotación 3D» ($R_x, R_y, R_z$ por columnas y Rodrigues)](../../apunte.pdf#nameddest=cap:14)
     - [apunte, «Rotaciones infinitesimales y orden de composición» (por qué el orden aparece recién en el segundo orden)](../../apunte.pdf#nameddest=cap:15)
     - [ficha de la clase 1](../../clases/01.html) · [ficha de la clase 2](../../clases/02.html) · [unidad anterior: Rotaciones II](../01b_rotacion_plano/index.html) · [el hilo conductor](../../index.html)

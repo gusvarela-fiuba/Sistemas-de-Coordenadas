@@ -31,7 +31,7 @@ for _s in np.linspace(0.0, 1.0, 11):
 
 
 def _nube() -> np.ndarray:
-    rng = np.random.default_rng(56798)
+    rng = np.random.default_rng(0xDDDE)
     return rng.uniform(-2.5, 2.5, size=(12, 2))
 
 

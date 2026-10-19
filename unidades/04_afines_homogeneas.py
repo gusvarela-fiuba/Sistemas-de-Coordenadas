@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Afinidades y coordenadas homogéneas (unidad 04, molde v2 sobre cb104). Clase 3.
-
+"""Afinidades y coordenadas homogéneas (unidad 04, molde v2 sobre cb104).
 Una sola idea: la matriz es lo que le pasa a la grilla (cada columna, a dónde va un eje; paralelogramos; área × det).
 La traslación no entra en una 2×2: tercera coordenada, 3×3. Tres puntos conocidos determinan la afinidad.
 
@@ -41,9 +40,9 @@ def _(mo):
     mo.md(r"""
     # Afinidades y coordenadas homogéneas
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 3. La pregunta: **¿Cómo metemos la traslación adentro de la matriz para componer rotar, escalar y mover
+    La pregunta: **¿Cómo metemos la traslación adentro de la matriz para componer rotar, escalar y mover
     con una sola cuenta?** El gancho: *un plano escaneado que quedó estirado distinto en cada eje: las paralelas siguen
     paralelas y tres puntos conocidos alcanzan para corregirlo.*
 
@@ -385,7 +384,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("una afinidad conserva paralelas las paralelas").* $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
+        **(a) Lápiz — elemental** *Idea central: una afinidad conserva paralelas las paralelas.* $A = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$,
         $t = (1, 0)$. Calculá las imágenes de los cuatro vértices del cuadrado unitario y el área de la figura que forman.
         ¿Puede un escaneo afín convertir el rectángulo de la parcela en un **trapecio** (dos lados que, prolongados, se cruzan)?
         """),
@@ -396,7 +395,7 @@ def _(mo):
         transformación proyectiva (unidad 05).
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("definir la imagen de un triángulo ya nos define completamente la afinidad").*
+        **(b) Lápiz — medio** *Idea central: definir la imagen de un triángulo ya nos define completamente la afinidad.*
         $a = (0,0) \mapsto (1,2)$, $b = (1,0) \mapsto (3,3)$, $c = (0,1) \mapsto (2,4)$. Hallá $A$ y $t$, el factor de
         área y la imagen de $d = (1,1)$.
         """),
@@ -417,8 +416,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("un tema insistente de la clase fue la composición como una operación entre
-        transformaciones").* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
+        **(c) Código con hueco — medio** *Idea central: un tema insistente de la clase fue la composición como una operación entre
+        transformaciones.* Completá `girar_y_mover(puntos, theta, t)`: gira la nube $N\times2$ un ángulo `theta`
         (radianes) alrededor del origen y **después** la mueve `t`, con una sola matriz homogénea. Tenés `np`, `rot2`,
         `hom`, `dehom` y `matriz_afin(A, t)`. Se verifica con `np.allclose` sobre 20 puntos al azar.
         """),
@@ -429,7 +428,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _puntos = np.random.default_rng(56798).uniform(-5, 5, size=(20, 2))
+    _puntos = np.random.default_rng(0xDDDE).uniform(-5, 5, size=(20, 2))
     _theta, _t = np.deg2rad(37), np.array([2.0, -1.0])
     _R = lib.rot2(_theta)
     _esperado = lib.transformar_afin(_puntos, _R, _t)
@@ -463,8 +462,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: corregir el plano escaneado** *("tres puntos conocidos alcanzan para
-        corregirlo").* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
+        **(d) Código con hueco — avanzado: corregir el plano escaneado** *Idea central: tres puntos conocidos alcanzan para
+        corregirlo.* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
         El cuarto sólo lo tenemos en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
         mojón. Tenés `np`, `hom`, `dehom` y los tres arrays cargados.
         """),
@@ -543,8 +542,8 @@ def _(mo):
 
     Acá verificamos; las demostraciones (por qué $Ax + t$ conserva paralelas, puntos fijos, composición por bloques):
 
-    - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:06)
-    - [apunte, «Euclídeas y similaridades» (la guía de reflexiones y similaridades, y la guía resuelta)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Afinidades y homogéneas» (transformaciones afines, coordenadas homogéneas y puntos como rayos)](../../apunte.pdf#nameddest=cap:afines)
+    - [apunte, «Reflexiones, isometrías y similaridades» (la guía de reflexiones y similaridades, y la guía resuelta)](../../apunte.pdf#nameddest=cap:reflexiones)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro y escalar alrededor de otro)](../../apunte.pdf#nameddest=cap:16) · [apunte, «Resolución de los ejercicios de afinidades» (los seis ejercicios de afinidades)](../../apunte.pdf#nameddest=cap:17)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html)
 

@@ -1,9 +1,9 @@
 """Animación 02 — coordenadas homogéneas en 3D: los puntos del plano son rayos por el origen y la lámina
-z = 1 es la foto. Una homografía H mueve los rayos; su corte con la lámina deforma el pentágono del
-profesor proyectivamente.
+z = 1 es la foto. Una homografía H mueve los rayos; su corte con la lámina deforma el pentágono
+proyectivamente.
 
 Elegimos la homografía "foto del dron inclinada" H = [[1, 0, 0], [0, 1, 0], [0, k, 1]] con k = 0.6: la del
-profesor (A y B fijas, C ↔ E) anula la tercera coordenada de A y B a mitad de la mezcla lineal
+pentágono (A y B fijas, C ↔ E) anula la tercera coordenada de A y B a mitad de la mezcla lineal
 (1 − s) I + s H, o sea que esos vértices se van al infinito y el rayo cruza la lámina por el lado opuesto.
 Con la del dron (H(s) p)_z = 1 + s k y ≥ 0.51 en todo el ciclo y el pentágono deformado queda dentro de
 la lámina.
@@ -47,7 +47,7 @@ def _mezcla(c1: str, c2: str, t: float) -> tuple[float, float, float]:
 
 def verificar() -> None:
     """Chequeos numéricos de la consigna: ningún (H(s) p)_z se acerca a 0 y los cortes quedan en la lámina."""
-    P_hom = lib.hom(lib.pentagono_profesor())
+    P_hom = lib.hom(lib.pentagono_ejemplo())
     z_min, xy_max = np.inf, 0.0
     for s in np.linspace(0.0, 1.0, 201):
         q, corte = vertices_en_lamina(P_hom, homografia_parcial(s))
@@ -55,14 +55,14 @@ def verificar() -> None:
         xy_max = max(xy_max, float(np.abs(corte[:, :2]).max()))
     assert z_min > 0.4, f"(H(s)p)_z se acerca a 0: mínimo {z_min:.3f}"
     assert xy_max < LADO_LAMINA, f"un vértice se sale de la lámina: |xy| máximo {xy_max:.3f}"
-    esperado = lib.aplicar_proyectiva(lib.pentagono_profesor(), H_DRON)
+    esperado = lib.aplicar_proyectiva(lib.pentagono_ejemplo(), H_DRON)
     _, corte_1 = vertices_en_lamina(P_hom, homografia_parcial(1.0))
     assert np.allclose(corte_1[:, :2], esperado), "el corte con la lámina no coincide con aplicar_proyectiva"
 
 
 def render(out_dir: Path, s: np.ndarray) -> None:
     verificar()
-    P = lib.pentagono_profesor()              # 5×2, vértices A..E
+    P = lib.pentagono_ejemplo()              # 5×2, vértices A..E
     P_hom = lib.hom(P)                        # 5×3, (x, y, 1)
     letras = "ABCDE"
 

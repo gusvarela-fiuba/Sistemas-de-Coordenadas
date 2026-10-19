@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Exporta el banco de autoevaluación (`unidades/banco_autoevaluacion.py`) a Moodle XML para el Campus FIUBA.
+"""Exporta el banco de autoevaluación (`unidades/banco_autoevaluacion.py`) a Moodle XML.
 
-Genera `campus/moodle_banco_120_preguntas_cb104.xml`: por cada unidad del hilo (orden de
+Genera `moodle/moodle_banco_120_preguntas_cb104.xml`: por cada unidad del hilo (orden de
 mapa/_fragmentos/unidades.yaml) y cada nivel (elemental, medio, avanzado) una pregunta de categoría
 `$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_NN_<id>/<nivel>` seguida de sus dos preguntas
 `multichoice` (4 opciones, una correcta, la explicación de cada opción como feedback).
 
-Las fórmulas `$...$` pasan a `\\( ... \\)` y `$$...$$` a `\\[ ... \\]` (filtro MathJax del Campus); el Markdown
+Las fórmulas `$...$` pasan a `\\( ... \\)` y `$$...$$` a `\\[ ... \\]` (filtro MathJax de Moodle); el Markdown
 mínimo (`**negrita**`, `` `código` ``, saltos de línea) se convierte a HTML.
 
 Uso:  uv run python tools/merge_banco.py && uv run python tools/exportar_moodle_xml.py [--salida ARCHIVO] [--parcial]
-      --salida   archivo de salida (default: campus/moodle_banco_120_preguntas_cb104.xml)
+      --salida   archivo de salida (default: moodle/moodle_banco_120_preguntas_cb104.xml)
       --parcial  admite un banco con menos de 20 unidades (mientras se redacta)
 """
 from __future__ import annotations
@@ -29,7 +29,7 @@ if str(RAIZ) not in sys.path:
 
 from unidades.banco_autoevaluacion import BANCO_AUTOEVALUACION  # noqa: E402
 
-SALIDA_DEFAULT = RAIZ / "campus" / "moodle_banco_120_preguntas_cb104.xml"
+SALIDA_DEFAULT = RAIZ / "moodle" / "moodle_banco_120_preguntas_cb104.xml"
 NIVELES = ("elemental", "medio", "avanzado")
 CATEGORIA_RAIZ = "$course$/top/CB104_Sistemas_de_Coordenadas"
 UNIDADES_ESPERADAS = 20
@@ -45,7 +45,7 @@ def unidades_hilo() -> list[dict]:
 
 
 # ---------------------------------------------------------------------------------------------------
-# Texto: Markdown mínimo + fórmulas → HTML para el filtro MathJax del Campus
+# Texto: Markdown mínimo + fórmulas → HTML para el filtro MathJax de Moodle
 # ---------------------------------------------------------------------------------------------------
 
 # Primero `$$...$$` (display), después `$...$` (inline), y protegemos el código entre acentos graves.

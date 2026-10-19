@@ -1,0 +1,115 @@
+% Complemento C4: Marcos de referencia, grillas y remuestreo (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\capituloComplemento[4]{Marcos de referencia, grillas y remuestreo}\label{cap:marcos}
+
+\section{La idea}
+
+\subsection{Sistemas, marcos y grillas}\label{sec:sistemas-marcos}
+
+Un sistema de coordenadas define reglas matemáticas para expresar posiciones. Un marco de
+referencia materializa esas reglas en una época concreta mediante puntos, estaciones y
+observaciones.
+
+Cuando se cambia de marco pueden bastar traslaciones, rotaciones y escala. Si existen
+deformaciones regionales, se utilizan grillas de corrección que asignan desplazamientos
+variables según la ubicación. En datos ráster, el cambio de coordenadas obliga además a
+remuestrear porque los centros de píxel no coinciden exactamente.
+
+\begin{resultado}[Mapa mental de la materia]
+Las primeras transformaciones enseñan a reconocer invariantes. Las afinidades amplían la
+familia permitiendo deformaciones. La geometría diferencial lleva esas ideas a superficies
+curvas, y la geodesia las aplica al elipsoide, las proyecciones y los marcos de referencia.
+\end{resultado}
+
+\begin{idea}[La composición como operación central]
+Una operación muy importante es la composición: en general, para
+construir un sistema de coordenadas es necesario que haya conmutatividad a la hora de componer
+movimientos por coordenadas.
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Marcos de referencia y transformaciones geodésicas}
+
+Un sistema de coordenadas indica cómo expresar posiciones; un marco de referencia materializa
+ese sistema mediante convenciones, época y puntos o estaciones observadas. Cambiar de marco
+puede exigir traslaciones, rotaciones, escala y correcciones espaciales.
+
+\subsubsection{Transformaciones paramétricas}
+
+Las transformaciones tridimensionales de semejanza suelen organizarse como
+\[
+  X_2=t+(1+\mu)RX_1,
+\]
+donde \(t\) es una traslación, \(\mu\) una pequeña variación de escala y \(R\) una rotación.
+Las fórmulas de Molodensky permiten transformar coordenadas geodésicas considerando cambios
+de datum y de elipsoide sin pasar necesariamente por una proyección plana.
+
+\subsubsection{Transformaciones mediante grillas}
+
+Una grilla NTv2 almacena correcciones \(\Delta\varphi,\Delta\lambda\) en nodos regulares. Para
+un punto interior se interpolan las correcciones de los cuatro nodos vecinos, típicamente por
+interpolación bilineal:
+\[
+\Delta(u,v)=
+(1-u)(1-v)\Delta_{00}
++u(1-v)\Delta_{10}
++(1-u)v\Delta_{01}
++uv\Delta_{11}.
+\]
+Este enfoque representa deformaciones regionales que una transformación global de pocos
+parámetros no puede modelar.
+
+\subsection{Discretización, grillas y remuestreo}
+
+Al pasar de coordenadas continuas a una grilla aparecen decisiones sobre resolución,
+origen, orientación y regla de muestreo. Una transformación geométrica rara vez lleva los
+centros de píxel exactamente a centros de otra grilla; por eso se requiere remuestreo.
+
+\begin{center}
+\begin{tabularx}{.9\textwidth}{>{\bfseries}l X}
+\toprule
+Método & Característica\\
+\midrule
+Vecino más próximo & conserva valores originales; apropiado para clases categóricas\\
+Bilineal & interpola cuatro celdas; suaviza datos continuos\\
+Bicúbico & usa un vecindario mayor; mayor suavidad y costo\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+El jacobiano de la transformación permite estudiar deformaciones locales y convertir áreas
+y densidades entre sistemas de coordenadas.
+
+\section{En profundidad}
+
+\subsection{Conexión con la práctica de Agrimensura}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{>{\bfseries}p{47mm} X}
+\toprule
+Concepto & Aplicación\\
+\midrule
+Coordenadas geodésicas \((\varphi,\lambda,h)\) & salida y procesamiento de observaciones GNSS\\
+Base tangente y métrica & distancias y ángulos locales sobre el elipsoide\\
+Radios \(M,N\) & variación geométrica con la latitud\\
+Proyección conforme & coordenadas planas para cartografía y mensura\\
+Transformaciones de marco & compatibilidad entre realizaciones geodésicas\\
+Grillas de corrección & transformación regional de alta precisión\\
+Remuestreo & ortomosaicos, modelos de elevación y datos ráster\\
+Jacobiano & escala, deformación y propagación local\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\begin{idea}[Estrategia de estudio acumulativa]
+Cada nuevo tema debería incorporarse con la secuencia
+\[
+\text{definición}\rightarrow
+\text{representación geométrica}\rightarrow
+\text{fórmula}\rightarrow
+\text{ejemplo numérico}\rightarrow
+\text{implementación}.
+\]
+Para la implementación pueden usarse Python, NumPy, SciPy, SymPy, \texttt{pyproj},
+GeographicLib y QGIS según el capítulo.
+\end{idea}

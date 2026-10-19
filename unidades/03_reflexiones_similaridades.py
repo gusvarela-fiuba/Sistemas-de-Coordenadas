@@ -6,11 +6,11 @@
 #     "plotly",
 # ]
 # ///
-"""Reflexiones y similaridades (unidad 03, molde v2 sobre cb104). Clase 3, reconstruida: sin transcripción.
+"""Reflexiones y similaridades (unidad 03, molde v2 sobre cb104).
 
 Una sola idea: la reflexión (det = −1) conserva todo pero da vuelta la orientación, y dos seguidas son una rotación;
 la similaridad k·R(θ) x + t conserva forma y ángulos, escala todo por k y tiene un centro fijo: con dos puntos se
-superpone un plano viejo sobre el relevamiento. Menciona homotecia, trayectoria y líneas coordenadas (clase 2).
+superpone un plano viejo sobre el relevamiento. Menciona homotecia, trayectoria y líneas coordenadas.
 
 Chequear:  uv run marimo check --select MW unidades/03_reflexiones_similaridades.py
 Exportar:  uv run python tools/build.py --only 03_reflexiones_similaridades
@@ -42,10 +42,9 @@ def _(mo):
     mo.md(r"""
     # Reflexiones y similaridades
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 3. *La clase 3 no tiene transcripción: esta lección está reconstruida desde el esqueleto 2025 del
-    profesor, la guía de seis teoremas y el apunte.* La pregunta: **¿qué movimiento conserva la forma pero no el
+    La pregunta: **¿qué movimiento conserva la forma pero no el
     tamaño, y cuál da vuelta la orientación?** El gancho: *un plano viejo en otra escala y con el norte para otro lado
     hay que superponerlo sobre el relevamiento nuevo.*
 
@@ -288,7 +287,7 @@ def _(go, lib, mo, n_pasos, np):
     lib.punto(fig_t, p0, "#444", "p", texto="p")
     mo.vstack([
         mo.md(r"""
-        **Trayectorias y líneas coordenadas** (clase 2). Lo que deja un punto al repetir una transformación,
+        **Trayectorias y líneas coordenadas.** Lo que deja un punto al repetir una transformación,
         $p, Ap, A^2p, \dots$, la identifica: la **rotación** lo pasea por una circunferencia, la **homotecia** por un
         rayo, y la **similaridad**, las dos a la vez, por una espiral que se acerca al centro si $k < 1$ y se aleja si
         $k > 1$. Rotación y homotecia con el mismo centro **conmutan**; sus trayectorias, círculos y rayos, son las
@@ -385,8 +384,8 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("un par de reflexiones sucesivas no altera las distancias, pero tiene un punto fijo,
-        así que tiene que ser una rotación").* $H(0°) = \mathrm{diag}(1, -1)$ conserva todas las distancias, igual que una
+        **(a) Lápiz — elemental** *Idea central: un par de reflexiones sucesivas no altera las distancias, pero tiene un punto fijo,
+        así que tiene que ser una rotación.* $H(0°) = \mathrm{diag}(1, -1)$ conserva todas las distancias, igual que una
         rotación. ¿Por qué **no** es una rotación? Dos razones: una con un número y otra con un dibujo.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
@@ -396,8 +395,8 @@ def _(mo):
         entera**; una rotación distinta de la identidad sólo deja quieto el centro. Para un giro hacen falta **dos** espejos.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("el punto $o$ es la intersección de las rectas $A$ y $B$, y es el punto fijo de la
-        transformación").* La similaridad $z \mapsto 2i\,z + 1$: ¿cuánto escala, cuánto gira, y cuál es su centro?
+        **(b) Lápiz — medio** *Idea central: el punto $o$ es la intersección de las rectas $A$ y $B$, y es el punto fijo de la
+        transformación.* La similaridad $z \mapsto 2i\,z + 1$: ¿cuánto escala, cuánto gira, y cuál es su centro?
         Verificá que el centro no se mueve.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -418,8 +417,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("la reflexión, considerando una línea de base y sus perpendiculares, sobre
-        las que todas las distancias se escalaban por −1").* Completá `reflexion(alpha)`: la matriz $2\times2$ del
+        **(c) Código con hueco — medio** *Idea central: la reflexión, considerando una línea de base y sus perpendiculares, sobre
+        las que todas las distancias se escalaban por −1.* Completá `reflexion(alpha)`: la matriz $2\times2$ del
         espejo respecto de la recta por el origen de ángulo `alpha` (radianes). Tenés `np`. Se verifica con
         `np.allclose` en dos ángulos.
         """),
@@ -463,8 +462,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: superponer el plano viejo** *("dado un triángulo y su imagen puede hallarse
-        el punto $o$").* Completá `similaridad_por_dos_puntos(P1, P2, Q1, Q2)`: dos puntos del plano viejo y sus
+        **(d) Código con hueco — avanzado: superponer el plano viejo** *Idea central: dado un triángulo y su imagen puede hallarse
+        el punto $o$.* Completá `similaridad_por_dos_puntos(P1, P2, Q1, Q2)`: dos puntos del plano viejo y sus
         imágenes en el terreno (arrays de dos números) → `(A, t)` con $A = \lvert a \rvert\,R(\arg a)$. Tenés `np` y
         `rot2`. Se verifica con `np.allclose` sobre otro par de mojones y un tercero de control.
         """),
@@ -543,7 +542,7 @@ def _(mo):
     Acá verificamos; las demostraciones (reflexión por proyección sobre el espejo, dos espejos = giro del doble, el centro de
     una similaridad por Apolonio, el punto fijo $(I - A)^{-1} t$):
 
-    - [apunte, «Euclídeas y similaridades» (la guía de seis teoremas y la guía resuelta)](../../apunte.pdf#nameddest=cap:05)
+    - [apunte, «Reflexiones, isometrías y similaridades» (la guía de seis teoremas y la guía resuelta)](../../apunte.pdf#nameddest=cap:reflexiones)
     - [apunte, «Composición afín práctica: rotación y escala» (rotar alrededor de un centro, escalar alrededor de otro, y el punto fijo)](../../apunte.pdf#nameddest=cap:16)
     - [ficha de la clase 3](../../clases/03.html) · [el hilo conductor](../../index.html) · [Rotaciones II](../01b_rotacion_plano/index.html)
 

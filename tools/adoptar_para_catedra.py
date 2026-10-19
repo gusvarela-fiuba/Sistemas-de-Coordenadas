@@ -14,7 +14,7 @@ Qué toca (y nada más):
   1. unidades/*.py (las lecciones y PLANTILLA_leccion.py; no cb104.py ni _legacy/):
      la línea de firma bajo el H1 `**Sistemas de Coordenadas** · Agrimensura · FIUBA · <cola>`
      y, en el docstring inicial, `Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · <cola>.`
-     La cola se reemplaza por --autor. Las semillas `default_rng(56798)` no se tocan.
+     La cola se reemplaza por --autor. Las semillas `default_rng(0xDDDE)` no se tocan.
   2. tools/build.py: en la constante PIE, el tramo entre `(Agrimensura, FIUBA), ` y el primer `. ` pasa a `publicado por <autor>`.
   3. LaTeX: pdfauthor={...} y \\newcommand/\\providecommand{\\portadaAutor}{...} en
      apunte/Apunte_Sistemas_de_Coordenadas.tex, apunte/portada/portada-standalone.tex y

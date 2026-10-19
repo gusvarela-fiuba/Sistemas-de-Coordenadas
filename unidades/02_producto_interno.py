@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Producto interno: proyección, longitud, ángulo (unidad 02, molde v2 sobre cb104). Clase 1.
-
+"""Producto interno: proyección, longitud, ángulo (unidad 02, molde v2 sobre cb104).
 Una sola idea: una sola cuenta con las coordenadas (suma de productos) mide cuánto de un vector cae sobre otro; de ahí
 salen longitud, distancia, ángulo y perpendicularidad, y es lo que una rotación conserva. Entre Rotaciones III y Reflexiones.
 
@@ -41,9 +40,9 @@ def _(mo):
     mo.md(r"""
     # Producto interno: proyección, longitud, ángulo
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 1. La pregunta: **¿qué cuenta con dos columnas de coordenadas nos da la distancia entre dos mojones, el
+    La pregunta: **¿qué cuenta con dos columnas de coordenadas nos da la distancia entre dos mojones, el
     ángulo entre dos lados y cuánto de un lado cae sobre el otro?** El gancho: con las coordenadas de tres mojones
     calculamos el ángulo en el vértice sin medirlo, y proyectamos un lado sobre el rumbo de la línea de base.
 
@@ -142,7 +141,7 @@ def _(mo):
     - ángulo: $\cos\theta = \dfrac{\langle v, u\rangle}{|v|\,|u|}$;
     - perpendiculares $\iff \langle v, u\rangle = 0$ (sombra nula).
 
-    Y la frase del profesor: **no hay base privilegiada salvo por el producto interno**. La canónica es especial sólo
+    Y la idea de fondo: **no hay base privilegiada salvo por el producto interno**. La canónica es especial sólo
     porque sobre ella la cuenta $\sum x_i y_i$ mide de verdad, y eso pasa porque sus ejes son perpendiculares y de largo
     $1$. Conservar esa cuenta es conservar regla y transportador: es lo que define a una rotación (Rotaciones II).
     """)
@@ -286,7 +285,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("El producto interno puede servir como base para definir tipos de transformaciones").*
+        **(a) Lápiz — elemental** *Idea central: el producto interno puede servir como base para definir tipos de transformaciones.*
         $u = (3, 4)$. Calculá $|u|$ y el vector de largo $1$ en su dirección. Después decidí, sin dibujar, si
         $w = (4, -3)$ es perpendicular a $u$, y cuánto vale la sombra de $(6, 2)$ sobre $u$.
         """),
@@ -295,8 +294,8 @@ def _(mo):
         Sombra de $(6, 2)$: $\langle (6,2), u\rangle / |u| = (18 + 8)/5 = 5.2$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los objetos
-        transformados mantienen").* Mojones $A = (7, 6)$, $B = (10, 10)$, $C = (14, 7)$. Sin transportador: ¿cuánto vale
+        **(b) Lápiz — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los objetos
+        transformados mantienen.* Mojones $A = (7, 6)$, $B = (10, 10)$, $C = (14, 7)$. Sin transportador: ¿cuánto vale
         el ángulo en $B$? Calculá $|AC|$ de dos maneras: restando coordenadas y por la ley del coseno. Después girá los
         tres mojones $90°$ alrededor del origen y repetí la primera cuenta: ¿qué cambió?
         """),
@@ -329,7 +328,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _pares = [(_rng.uniform(-5, 5, 2), _rng.uniform(-5, 5, 2)) for _ in range(10)]
     _pares += [(np.array([4.0, 3.0]), np.array([-3.0, 4.0])), (np.array([1.0, 0.0]), np.array([-2.0, 0.0])), (0.3 * np.array([0.1, 0.6]), np.array([0.1, 0.6]))]
     _esperado = np.array([np.degrees(lib.angulo(v, u)) for v, u in _pares])
@@ -438,8 +437,8 @@ def _(mo):
 
     En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
-    - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:04)
-    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:08)
+    - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:rotaciones)
+    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva

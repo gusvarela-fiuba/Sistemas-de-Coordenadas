@@ -1,0 +1,610 @@
+% Traslaciones y movimientos rígidos. Números verificados con apunte/scripts/cap02_traslaciones.py
+\chapter{Traslaciones y movimientos rígidos}\label{cap:traslaciones}
+
+\section{La idea}
+
+Una traslación mueve todos los puntos la misma cantidad en la misma dirección; una rotación los
+hace girar alrededor de un centro. Componiendo las dos se obtienen todos los movimientos que
+un cuerpo rígido puede hacer en el plano: es lo que hace falta para pasar una figura de un
+sistema de coordenadas a otro del mismo tamaño y la misma orientación, por ejemplo un
+relevamiento hecho desde un instrumento al sistema de una obra.
+
+\begin{definicion}[Traslación]\label{def:traslacion}
+La \emph{traslación de vector \(v\)} es la transformación \(\tau_v\colon\mathbb{R}^2\to\mathbb{R}^2\),
+\(\tau_v(x)=x+v\). Si \(v\neq0\) no deja fijo ningún punto; \(\tau_0\) es la identidad. En
+coordenadas homogéneas (capítulo~\ref{cap:rotaciones}, punto \((x,y,1)^T\))
+\[
+\tau_v\;\leftrightarrow\;
+\begin{pmatrix}1&0&v_1\\0&1&v_2\\0&0&1\end{pmatrix}.
+\]
+\end{definicion}
+
+\begin{definicion}[Movimiento rígido]\label{def:movimiento-rigido}
+Un \emph{movimiento rígido} del plano es una transformación que conserva las distancias y la
+orientación. Equivale a una composición de rotaciones y traslaciones, y se escribe siempre
+\[
+F(x)=R(\theta)\,x+v,
+\]
+con \(R(\theta)\) la rotación lineal del capítulo~\ref{cap:rotaciones} y \(v\) un vector.
+\end{definicion}
+
+(La equivalencia sale de que componer \(x\mapsto R_1x+v_1\) con \(x\mapsto R_2x+v_2\) da
+\(x\mapsto R_2R_1x+(R_2v_1+v_2)\), de la misma forma; se desarrolla en la
+sección~\ref{sec:grupo-rigidos}.)
+
+\subsection{Componer transformaciones con centros distintos}\label{sec:componer-centros}
+
+Supongamos que giramos una figura \(90^\circ\) alrededor de un punto \(c_1\) y después
+\(90^\circ\) alrededor de otro punto \(c_2\). Cada etapa es una rotación, pero ninguno de los
+dos centros queda fijo en el resultado: \(c_1\) no se mueve en la primera etapa pero sí en la
+segunda, y \(c_2\) se mueve en la primera. La pregunta natural es si el resultado sigue siendo
+una rotación y, en ese caso, dónde está su centro.
+
+La respuesta (proposición de la sección~\ref{sec:composicion-rotaciones}) es que los ángulos
+se suman y que aparece un centro nuevo, distinto de los dos originales; en el ejemplo, una
+rotación de \(180^\circ\). Solo cuando los ángulos se cancelan el resultado es una traslación,
+que no tiene punto fijo.
+
+Si una de las dos etapas es una homotecia \(\homot{c_2}{k}\) en lugar de una rotación, la parte
+lineal resulta \(kR(\theta)\) y la composición es una similaridad, que también tiene un único
+punto fijo cuando \(k\neq1\) (capítulo~\ref{cap:reflexiones}).
+
+\paragraph{Movimiento discreto y trayectoria imaginada.}
+Una transformación lleva cada punto directamente a su imagen. Dibujar el movimiento como
+``primero un arco alrededor de \(c_1\), después otro arco alrededor de \(c_2\)'' es una
+interpolación útil para seguir las dos etapas, pero no forma parte de la transformación
+compuesta: el arco único alrededor del centro nuevo une los mismos extremos por otro camino.
+
+\begin{idea}[Las traslaciones conmutan; las rotaciones de centros distintos no]
+Dos traslaciones compuestas en cualquier orden llevan cada punto al mismo lugar: la suma de
+vectores es conmutativa. Dos rotaciones de centros distintos, en cambio, dan rotaciones con
+\emph{centros finales distintos} según cuál se aplique primero. Todo lo que sigue, desde las
+líneas coordenadas hasta el orden en que se aplican traslación y rotación a un relevamiento,
+depende de saber cuándo el orden importa.
+\end{idea}
+
+\begin{center}
+\begin{minipage}{.46\linewidth}\centering
+\begin{tikzpicture}[scale=.78]
+  \coordinate (O) at (0,0); \coordinate (A) at (3,1); \coordinate (B) at (1,2); \coordinate (C) at (4,3);
+  \fill[teal!10] (O)--(A)--(C)--(B)--cycle;
+  \draw[teal,line width=1pt,-{Latex[length=2mm]}] (O)--(A) node[midway,below right] {$a$};
+  \draw[rust,line width=1pt,-{Latex[length=2mm]}] (A)--(C) node[midway,right] {$b$};
+  \draw[rust,line width=1pt,-{Latex[length=2mm]}] (O)--(B) node[midway,left] {$b$};
+  \draw[teal,line width=1pt,-{Latex[length=2mm]}] (B)--(C) node[midway,above left] {$a$};
+  \fill[ink] (O) circle (2pt) node[below left] {$p$};
+  \fill[gold] (C) circle (2.4pt) node[above right] {$p+a+b$};
+\end{tikzpicture}
+
+{\small \(\tau_b\circ\tau_a=\tau_a\circ\tau_b=\tau_{a+b}\)}
+\end{minipage}\hfill
+\begin{minipage}{.50\linewidth}\centering
+\begin{tikzpicture}[scale=.6]
+  \draw[teal,line width=1pt,fill=teal!15] (1,1)--(3,1)--(1,2)--cycle;
+  \draw[rust,line width=1pt,fill=rust!15] (3,-5)--(1,-5)--(3,-6)--cycle;
+  \draw[gold,line width=1pt,fill=gold!15] (3,3)--(1,3)--(3,2)--cycle;
+  \fill[ink] (0,0) circle (2pt) node[left] {$c_1$};
+  \fill[ink] (4,0) circle (2pt) node[right] {$c_2$};
+  \fill[rust] (2,-2) circle (2.4pt) node[right] {$(2,-2)$};
+  \fill[gold!80!ink] (2,2) circle (2.4pt);
+  \draw[muted] (.2,2.45)--(2,2); \node[left,font=\small] at (.2,2.45) {$(2,2)$};
+  \node[text=teal,font=\small] at (2.3,.45) {$T$};
+  \node[text=rust,font=\small] at (4.4,-5.4) {$\rho_{c_2}\!\circ\rho_{c_1}$};
+  \node[text=gold!80!ink,font=\small] at (4.9,3.4) {$\rho_{c_1}\!\circ\rho_{c_2}$};
+\end{tikzpicture}
+
+{\small centros finales distintos}
+\end{minipage}
+\end{center}
+
+En la figura de la derecha, el triángulo \(T\) de vértices \((1,1)\), \((3,1)\), \((1,2)\) se
+gira \(90^\circ\) alrededor de \(c_1=(0,0)\) y luego \(90^\circ\) alrededor de
+\(c_2=(4,0)\) (resultado inferior, centro \((2,-2)\)); si se aplican en el orden contrario el
+resultado es otro triángulo (superior) y el centro es \((2,2)\). Por ejemplo, \((1,1)\) va a
+\((3,-5)\) en un orden y a \((3,3)\) en el otro.
+
+\paragraph{Un adelanto sobre la esfera.}
+Sobre una esfera los giros alrededor de ejes distintos juegan el papel de los centros distintos
+del plano. Girar un vaso un cuarto de vuelta alrededor de un eje vertical y después un cuarto
+de vuelta alrededor de un eje horizontal no lo deja en la misma posición que hacerlo en el
+orden inverso. El mismo hecho está detrás de ubicar un punto de la esfera con dos giros
+alrededor de ejes distintos (longitud y latitud): por qué el orden importa, y cuál es la
+consecuencia para el sistema de coordenadas, se desarrolla en el capítulo~\ref{cap:esfera}.
+
+\section{Construcciones, cuentas y ejemplos}
+
+\subsection{Una traslación seguida de una rotación: el círculo descentrado}\label{sec:circulo-descentrado}
+
+\begin{ejemplo}[El círculo descentrado]\label{ej:circulo-descentrado}
+Sea \(F(x)=R(90^\circ)x+(2,0)\), con \(R(90^\circ)=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\).
+Un punto fijo \(x\) cumple \(x=Rx+v\), es decir \((I-R)x=v\) con \(v=(2,0)\):
+\[
+\begin{pmatrix}1&1\\-1&1\end{pmatrix}x=\begin{pmatrix}2\\0\end{pmatrix}
+\quad\Longrightarrow\quad
+x=\tfrac12\begin{pmatrix}1&-1\\1&1\end{pmatrix}\begin{pmatrix}2\\0\end{pmatrix}=(1,1).
+\]
+Entonces \(F(x)=R(90^\circ)x+(2,0)\) y \(\rhoP{(1,1),90^\circ}(x)=(1,1)+R(90^\circ)(x-(1,1))\)
+coinciden: ambas valen \(Rx+(I-R)(1,1)=Rx+(2,0)\). Así, \(F\) \emph{es} la rotación de
+\(90^\circ\) alrededor de \((1,1)\), aunque su fórmula parezca la de un giro alrededor del
+origen seguido de un corrimiento. Tres puntos:
+\[
+F(0,0)=(2,0),\qquad F(1,0)=(2,1),\qquad F(0,1)=(1,0).
+\]
+El círculo unidad centrado en el origen va a un círculo del mismo radio centrado en
+\(F(0,0)=(2,0)\): la rotación conserva distancias, de modo que lleva círculos en círculos de
+igual radio y el centro va a la imagen del centro.
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05]
+  \draw[axisline,-{Latex[length=2mm]}] (-1.6,0)--(3.7,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-1.6)--(0,2.4) node[above] {$y$};
+  \draw[teal,line width=1.1pt,fill=teal!10] (0,0) circle (1);
+  \draw[rust,line width=1.1pt,fill=rust!10] (2,0) circle (1);
+  \fill[ink] (0,0) circle (1.8pt) node[below left] {$0$};
+  \fill[ink] (2,0) circle (1.8pt) node[below right] {$F(0)=(2,0)$};
+  \fill[gold] (1,1) circle (2.6pt) node[above] {punto fijo $(1,1)$};
+  \draw[auxline] (1,1)--(0,0); \draw[auxline] (1,1)--(2,0);
+  \draw[gold,line width=.8pt,-{Latex[length=2mm]}] ($(1,1)+(225:.45)$) arc[start angle=225,end angle=315,radius=.45];
+  \node[labelback,text=gold!80!ink,font=\small] at (1,.42) {$90^\circ$};
+  \draw[muted,-{Latex[length=1.8mm]}] (1,0) to[bend left=25] (2,1);
+  \draw[muted,-{Latex[length=1.8mm]}] (0,1) to[bend left=25] (1,0);
+  \node[text=teal,font=\small] at (-.7,.75) {círculo original};
+  \node[text=rust,font=\small] at (3.05,.95) {imagen};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Puntos fijos}\label{sec:puntos-fijos}
+
+\begin{proposicion}[Puntos fijos de rotaciones y traslaciones]\label{prop:puntos-fijos}
+\begin{enumerate}
+  \item Una rotación \(\rhoP{c,\theta}\) con \(\theta\not\equiv0\pmod{2\pi}\) tiene exactamente un
+  punto fijo: su centro \(c\).
+  \item Una traslación \(\tau_v\) con \(v\neq0\) no tiene puntos fijos.
+  \item Sea \(F(x)=R(\theta)x+w\) con \(\theta\not\equiv0\pmod{2\pi}\). Entonces \(F\) tiene
+  exactamente un punto fijo,
+  \[
+  c'=(I-R(\theta))^{-1}w .
+  \]
+  En particular esto vale para \(\tau_v\circ\rhoP{0,\theta}\) (con \(w=v\)) y para
+  \(\rhoP{0,\theta}\circ\tau_v\) (con \(w=R(\theta)v\)).
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+(3) \(x\) es fijo si y sólo si \(x=R x+w\), o sea \((I-R)x=w\). Se tiene
+\[
+\det(I-R(\theta))=(1-\cos\theta)^2+\sin^2\theta=2-2\cos\theta,
+\]
+que se anula sólo si \(\cos\theta=1\), es decir \(\theta\equiv0\). Si \(\theta\not\equiv0\), la
+matriz \(I-R\) es invertible y hay una única solución. (1) es el caso
+\(w=(I-R)c\): la solución única es \(c\). (2) es el caso \(R=I\): \(x=x+v\) obliga a \(v=0\).
+\end{demostracion}
+
+\begin{ejemplo}[Punto fijo de una composición]\label{ej:punto-fijo-composicion}
+Sea \(v=(1,2)\) y \(\theta=90^\circ\). La composición \(\rhoP{0,90^\circ}\circ\tau_v\) es
+\(x\mapsto R(x+v)=Rx+Rv\), con \(Rv=(-2,1)\). Como
+\((I-R)^{-1}=\tfrac12\left(\begin{smallmatrix}1&-1\\1&1\end{smallmatrix}\right)\), el centro es
+\(c'=\tfrac12(-3,-1)=(-\tfrac32,-\tfrac12)\). En el otro orden, \(\tau_v\circ\rhoP{0,90^\circ}\) es
+\(x\mapsto Rx+v\) con centro \(\tfrac12(-1,3)=(-\tfrac12,\tfrac32)\): otra vez, el orden cambia el centro.
+\end{ejemplo}
+
+\subsection{Líneas coordenadas}\label{sec:lineas-coordenadas}
+
+\begin{definicion}[Líneas coordenadas de un par de transformaciones]\label{def:lineas-coordenadas}
+Sean \(T_u\) y \(S_v\) dos familias de transformaciones con parámetros reales \(u\) y \(v\) tales
+que \(T_u\circ S_v=S_v\circ T_u\) para todo \(u,v\). Dado un punto base \(p_0\), las curvas
+\[
+u\mapsto T_uS_v(p_0)\ \ (v\text{ fijo}),\qquad v\mapsto T_uS_v(p_0)\ \ (u\text{ fijo})
+\]
+son las \emph{líneas coordenadas}, y el par \((u,v)\) son las coordenadas del punto
+\(q=T_uS_v(p_0)\).
+\end{definicion}
+
+Con dos traslaciones, \(T_u=\tau_{u e_1}\), \(S_v=\tau_{v e_2}\) y \(p_0=0\), se tiene
+\(T_uS_v(0)=(u,v)\): las líneas coordenadas son las rectas \(x=u\) y \(y=v\), la grilla
+cartesiana. Con la rotación \(S_\varphi=\rhoP{0,\varphi}\) y la homotecia
+\(T_r(x)=r\,x\) (\(r>0\)) de centro el origen, que conmutan, y \(p_0=(1,0)\), se tiene
+\(T_rS_\varphi(p_0)=r(\cos\varphi,\sin\varphi)\): las líneas coordenadas son las circunferencias
+\(r=\text{cte}\) y las semirrectas \(\varphi=\text{cte}\), la grilla polar. (Una
+traslación y una rotación no sirven para este fin: no conmutan.)
+
+\begin{center}
+\begin{minipage}{.48\linewidth}\centering
+\begin{tikzpicture}[scale=.62]
+  \foreach \u in {-3,...,3}{\draw[teal!70,line width=.6pt] (\u,-3)--(\u,3);
+    \draw[rust!70,line width=.6pt] (-3,\u)--(3,\u);}
+  \draw[axisline,-{Latex[length=2mm]}] (-3.3,0)--(3.5,0) node[right] {$u$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-3.3)--(0,3.5) node[above] {$v$};
+  \fill[gold] (2,1) circle (2.6pt) node[above right] {$(u,v)$};
+\end{tikzpicture}
+
+{\small dos traslaciones: grilla cartesiana}
+\end{minipage}\hfill
+\begin{minipage}{.48\linewidth}\centering
+\begin{tikzpicture}[scale=.62]
+  \foreach \r in {1,2,3}{\draw[teal!70,line width=.6pt] (0,0) circle (\r);}
+  \foreach \a in {0,30,...,330}{\draw[rust!70,line width=.6pt] (0,0)--(\a:3);}
+  \draw[axisline,-{Latex[length=2mm]}] (-3.3,0)--(3.5,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-3.3)--(0,3.5) node[above] {$y$};
+  \fill[gold] (60:2) circle (2.6pt) node[above right] {$(r,\varphi)$};
+\end{tikzpicture}
+
+{\small homotecia y rotación: grilla polar}
+\end{minipage}
+\end{center}
+
+\begin{atencion}[La conmutatividad es lo que permite usar \((u,v)\) como coordenadas]
+Que \(T_u\) y \(S_v\) conmuten significa que ``primero \(u\), después \(v\)'' y ``primero
+\(v\), después \(u\)'' llegan al mismo punto. Si no conmutaran, el par \((u,v)\) no
+identificaría un punto: habría que decir en qué orden se aplicaron.
+\end{atencion}
+
+\subsection{Composición de dos rotaciones de centros distintos}\label{sec:composicion-rotaciones}
+
+La herramienta para componer rotaciones son las reflexiones: cada rotación se descompone en
+dos reflexiones, y una reflexión aplicada dos veces se cancela.
+
+\begin{definicion}[Reflexión respecto de una recta]
+Sea \(L\) una recta que pasa por el punto \(q\) con ángulo de dirección \(\delta\). La
+\emph{reflexión respecto de \(L\)} es la transformación \(\sigma_L\) que deja fijos los puntos
+de \(L\) y lleva cada punto a su simétrico respecto de \(L\). En fórmulas,
+\[
+\sigma_L(p)=q+S(\delta)(p-q),\qquad
+S(\delta)=\begin{pmatrix}\cos2\delta&\sin2\delta\\ \sin2\delta&-\cos2\delta\end{pmatrix}.
+\]
+\end{definicion}
+
+La matriz \(S(\delta)\) deja fija la dirección \((\cos\delta,\sin\delta)\) de \(L\) y cambia
+de signo la perpendicular; tiene \(\det S(\delta)=-1\), invierte la orientación y cumple
+\(S(\delta)^2=I\), es decir, \(\sigma_L\circ\sigma_L\) es la identidad.
+
+\begin{proposicion}[Dos reflexiones]\label{prop:dos-reflexiones}
+Sean \(L_1\) y \(L_2\) rectas con ángulos de dirección \(\delta_1\) y \(\delta_2\).
+\begin{enumerate}
+  \item Si se cortan en un punto \(q\), entonces
+  \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{q,\,2(\delta_2-\delta_1)}\).
+  \item Si son paralelas, \(\sigma_{L_2}\circ\sigma_{L_1}\) es una traslación.
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+Multiplicando y usando las fórmulas de suma,
+\[
+S(\delta_2)S(\delta_1)=
+\begin{pmatrix}
+\cos(2\delta_2-2\delta_1)&-\sin(2\delta_2-2\delta_1)\\
+\sin(2\delta_2-2\delta_1)&\cos(2\delta_2-2\delta_1)
+\end{pmatrix}
+=R\bigl(2(\delta_2-\delta_1)\bigr).
+\]
+Si ambas rectas pasan por \(q\), podemos usar \(q\) como punto de las dos fórmulas:
+\(\sigma_{L_2}(\sigma_{L_1}(p))=q+S(\delta_2)S(\delta_1)(p-q)=q+R(2(\delta_2-\delta_1))(p-q)\).
+Si son paralelas, \(\delta_2=\delta_1\) (módulo \(\pi\)), la parte lineal de la composición es
+\(R(0)=I\), y una afinidad con parte lineal \(I\) es una traslación.
+\end{demostracion}
+
+\begin{proposicion}[Composición de dos rotaciones]\label{prop:composicion-rotaciones}
+Sean \(c_1\neq c_2\) y \(\alpha,\beta\) ángulos. Entonces:
+\begin{enumerate}
+  \item si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), la composición
+  \(\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}\) es una rotación de ángulo \(\alpha+\beta\)
+  alrededor de un centro \(c\);
+  \item si \(\alpha+\beta\equiv0\pmod{2\pi}\), la composición es una traslación.
+\end{enumerate}
+El centro \(c\) se construye así: sea \(L\) la recta que une \(c_1\) con \(c_2\); sea \(M_1\)
+la recta por \(c_1\) que forma con \(L\) un ángulo \(\alpha/2\) en sentido horario, y \(M_2\)
+la recta por \(c_2\) que forma con \(L\) un ángulo \(\beta/2\) en sentido antihorario.
+Entonces \(c=M_1\cap M_2\).
+\end{proposicion}
+
+\begin{demostracion}
+Sea \(\delta_0\) el ángulo de dirección de \(L\). Entonces \(M_1\) tiene dirección
+\(\delta_0-\alpha/2\) y \(M_2\), dirección \(\delta_0+\beta/2\). Por la
+proposición~\ref{prop:dos-reflexiones}, como \(L\) y \(M_1\) se cortan en \(c_1\),
+\[
+\sigma_L\circ\sigma_{M_1}=\rhoP{c_1,\,2(\delta_0-(\delta_0-\alpha/2))}=\rhoP{c_1,\alpha},
+\]
+y como \(M_2\) y \(L\) se cortan en \(c_2\),
+\(\sigma_{M_2}\circ\sigma_L=\rhoP{c_2,\,2(\beta/2)}=\rhoP{c_2,\beta}\). Luego
+\[
+\rhoP{c_2,\beta}\circ\rhoP{c_1,\alpha}
+=\sigma_{M_2}\circ\sigma_L\circ\sigma_L\circ\sigma_{M_1}
+=\sigma_{M_2}\circ\sigma_{M_1},
+\]
+porque \(\sigma_L\circ\sigma_L\) es la identidad. La diferencia de direcciones entre \(M_2\) y
+\(M_1\) es \((\alpha+\beta)/2\). Si \(\alpha+\beta\not\equiv0\pmod{2\pi}\), entonces
+\((\alpha+\beta)/2\not\equiv0\pmod{\pi}\), las rectas no son paralelas, se cortan en un punto
+\(c\) y, otra vez por la proposición~\ref{prop:dos-reflexiones}, la composición es
+\(\rhoP{c,\,\alpha+\beta}\). Si \(\alpha+\beta\equiv0\pmod{2\pi}\), las rectas \(M_1\) y
+\(M_2\) son paralelas y la composición es una traslación.
+\end{demostracion}
+
+\begin{center}
+\begin{tikzpicture}[scale=.95]
+  \draw[muted,dotted] (-1.5,0)--(0,0);
+  \draw[mainline] (-1.2,0)--(5.4,0) node[right] {$L$};
+  \draw[teal,line width=.9pt] (-1.2,1.2)--(3.3,-3.3) node[below] {$M_1$};
+  \draw[rust,line width=.9pt] (5.2,1.2)--(0.7,-3.3) node[below] {$M_2$};
+  \fill[ink] (0,0) circle (2.4pt) node[below left] {$c_1=(0,0)$};
+  \fill[ink] (4,0) circle (2.4pt) node[above left] {$c_2=(4,0)$};
+  \fill[gold] (2,-2) circle (2.6pt);
+  \node[labelback,text=ink] at (2,-2.55) {$c=(2,-2)$};
+  \draw[teal,line width=.8pt] (.9,0) arc[start angle=0,end angle=-45,radius=.9];
+  \node[text=teal,font=\small] at (1.35,-.32) {$\alpha/2$};
+  \draw[rust,line width=.8pt] (3.1,0) arc[start angle=180,end angle=225,radius=.9];
+  \node[text=rust,font=\small] at (2.65,-.32) {$\beta/2$};
+  \draw[gold,line width=.8pt] ($(2,-2)+(45:.55)$) arc[start angle=45,end angle=135,radius=.55];
+  \node[text=gold!80!ink,font=\small] at (2,-1.15) {$\tfrac{\alpha+\beta}{2}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{ejemplo}[Dos cuartos de vuelta con centros distintos]\label{ej:composicion-centros}
+Sean \(c_1=(0,0)\), \(\alpha=90^\circ\), \(c_2=(4,0)\), \(\beta=90^\circ\). Como
+\(\alpha+\beta=180^\circ\not\equiv0\), la proposición anuncia una rotación de \(180^\circ\).
+
+\emph{Construcción.} \(L\) es el eje \(x\). \(M_1\) pasa por \((0,0)\) con dirección
+\(-45^\circ\): es la recta \(y=-x\). \(M_2\) pasa por \((4,0)\) con dirección \(45^\circ\):
+es \(y=x-4\). Igualando, \(-x=x-4\), de donde \(x=2\), \(y=-2\): el centro es \(c=(2,-2)\).
+
+\emph{Cuenta matricial.} Con \(R(90^\circ)\) del ejemplo de la sección~\ref{sec:rot-plano}, la
+traslación de la segunda rotación es \((I-R(90^\circ))c_2=(4,0)-(0,4)=(4,-4)\), y en
+coordenadas homogéneas
+\[
+H_2H_1=
+\begin{pmatrix}0&-1&4\\1&0&-4\\0&0&1\end{pmatrix}
+\begin{pmatrix}0&-1&0\\1&0&0\\0&0&1\end{pmatrix}
+=\begin{pmatrix}-1&0&4\\0&-1&-4\\0&0&1\end{pmatrix}.
+\]
+La parte lineal es \(-I=R(180^\circ)\). El punto fijo resuelve \(-c+(4,-4)=c\), o sea
+\(c=(2,-2)\), el mismo que dio la construcción. La composición es
+\(\rhoP{(2,-2),\,180^\circ}\), es decir \(p\mapsto(4,-4)-p\).
+\end{ejemplo}
+
+\subsubsection{Experimento: rotar una figura con dos centros distintos}
+
+Tomemos el triángulo de vértices \((1,1)\), \((3,1)\), \((1,2)\) y apliquemos las dos
+rotaciones del ejemplo~\ref{ej:composicion-centros}. Tras \(\rhoP{c_1,90^\circ}\) los vértices
+van a \((-1,1)\), \((-1,3)\), \((-2,1)\); tras \(\rhoP{c_2,90^\circ}\), a \((3,-5)\),
+\((1,-5)\), \((3,-6)\). La rotación única \(\rhoP{(2,-2),180^\circ}\), \(p\mapsto(4,-4)-p\),
+da exactamente los mismos tres puntos: por ejemplo \((4,-4)-(1,1)=(3,-5)\).
+
+\begin{center}
+\begin{tikzpicture}[scale=.62]
+  \draw[axisline,-{Latex[length=2mm]}] (-2.8,0)--(5.4,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-6.6)--(0,3.6) node[above] {$y$};
+  \draw[teal,line width=1.1pt,fill=teal!15] (1,1)--(3,1)--(1,2)--cycle;
+  \draw[gold,line width=1.1pt,fill=gold!15] (-1,1)--(-1,3)--(-2,1)--cycle;
+  \draw[rust,line width=1.1pt,fill=rust!15] (3,-5)--(1,-5)--(3,-6)--cycle;
+  \draw[auxline,-{Latex[length=2mm]}] (1,1) arc[start angle=45,end angle=135,radius=1.414];
+  \draw[auxline,-{Latex[length=2mm]}] (-1,1) arc[start angle=168.69,end angle=258.69,radius=5.099];
+  \fill[ink] (0,0) circle (2.2pt) node[below left] {$c_1$};
+  \fill[ink] (4,0) circle (2.2pt) node[above] {$c_2$};
+  \fill[ink] (2,-2) circle (2.4pt) node[right] {$c=(2,-2)$};
+  \node[labelback,text=teal,font=\small] at (3.3,1.8) {original};
+  \node[labelback,text=gold!80!ink,font=\small,anchor=east] at (-2.3,2.4) {tras \(\rhoP{c_1,90^\circ}\)};
+  \node[labelback,text=rust,font=\small] at (3.9,-6.2) {final};
+\end{tikzpicture}
+\end{center}
+
+El vértice \((1,1)\) recorre primero un arco alrededor de \(c_1\) y después otro alrededor de
+\(c_2\); el resultado final, en cambio, es un único medio giro alrededor de \(c=(2,-2)\), un
+punto que no aparece en ninguna de las dos etapas.
+
+
+\subsection{Toda traslación y toda rotación es un producto de dos reflexiones}\label{sec:t3-t4}
+
+Los dos enunciados siguientes dan la razón de fondo de lo anterior: las reflexiones
+\(\sigma_L\) generan todos los movimientos rígidos.
+
+\begin{teorema}[Toda traslación es producto de dos reflexiones]\label{teo:traslacion-dos-reflexiones-enunciado}
+Sea \(v\neq0\). Si \(L_1\) y \(L_2\) son rectas paralelas, perpendiculares a \(v\), con \(L_2\)
+a distancia \(|v|/2\) de \(L_1\) en el sentido de \(v\), entonces
+\(\sigma_{L_2}\circ\sigma_{L_1}=\tau_v\).
+\end{teorema}
+
+La demostración usa las reflexiones, que se definen en el capítulo~\ref{cap:reflexiones};
+véase \ref{teo:traslacion-dos-reflexiones}. La parte de las rectas paralelas ya figura en la
+proposición~\ref{prop:dos-reflexiones}.
+
+\begin{ejemplo}[\(v=(4,0)\) con las rectas \(x=0\) y \(x=2\)]\label{ej:t3}
+Las rectas \(L_1\colon x=0\) y \(L_2\colon x=2\) son perpendiculares a \(v\) y están a distancia
+\(2=|v|/2\). Para \(p=(1,3)\): \(\sigma_{L_1}(p)=(-1,3)\) y \(\sigma_{L_2}(-1,3)=(5,3)=p+(4,0)\).
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.75]
+  \draw[axisline,-{Latex[length=2mm]}] (-2.3,0)--(6.3,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-.6)--(0,4.2) node[above] {$y$};
+  \draw[teal,line width=1pt] (0,-.4)--(0,3.9) node[above right] {$L_1$};
+  \draw[rust,line width=1pt] (2,-.4)--(2,3.9) node[above right] {$L_2$};
+  \fill[ink] (1,3) circle (2.2pt) node[below] {$p=(1,3)$};
+  \fill[ink] (-1,3) circle (2.2pt) node[below] {$\sigma_{L_1}(p)$};
+  \fill[gold] (5,3) circle (2.6pt) node[below] {$\sigma_{L_2}\sigma_{L_1}(p)=p+v$};
+  \draw[auxline,-{Latex[length=2mm]}] (1,3.35)--(-1,3.35);
+  \draw[auxline,-{Latex[length=2mm]}] (-1,3.7) to[bend left=20] (5,3.7);
+  \node[labelback,text=gold!80!ink,font=\small] at (2,4.35) {$v=(4,0)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{teorema}[Toda rotación es producto de dos reflexiones]\label{teo:rotacion-dos-reflexiones-enunciado}
+Sea \(\theta\not\equiv0\). Si \(L_1\) y \(L_2\) son rectas por el centro \(c\) y el ángulo de
+\(L_1\) a \(L_2\) es \(\theta/2\), entonces \(\sigma_{L_2}\circ\sigma_{L_1}=\rhoP{c,\theta}\).
+\end{teorema}
+
+La demostración usa las reflexiones, que se definen en el capítulo~\ref{cap:reflexiones};
+véase \ref{teo:rotacion-dos-reflexiones}. Es el caso (1) de la
+proposición~\ref{prop:dos-reflexiones}.
+
+\begin{ejemplo}[Rotación de \(90^\circ\) en el origen]\label{ej:t4}
+Con \(L_1\colon y=0\) (\(\delta_1=0\)) y \(L_2\colon y=x\) (\(\delta_2=45^\circ\)), el ángulo
+entre ellas es \(45^\circ=\theta/2\). Para \(p=(2,1)\): \(\sigma_{L_1}(p)=(2,-1)\),
+\(\sigma_{L_2}(2,-1)=(-1,2)=R(90^\circ)p\).
+\end{ejemplo}
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[axisline,-{Latex[length=2mm]}] (-1.8,0)--(3.6,0) node[right] {$x$};
+  \draw[axisline,-{Latex[length=2mm]}] (0,-1.8)--(0,3.2) node[above] {$y$};
+  \draw[teal,line width=1pt] (-1.2,0)--(3.2,0);
+  \node[text=teal] at (3.1,.3) {$L_1$};
+  \draw[rust,line width=1pt] (-1.4,-1.4)--(3,3) node[right] {$L_2$};
+  \fill[ink] (2,1) circle (2.2pt) node[right] {$p=(2,1)$};
+  \fill[ink] (2,-1) circle (2.2pt) node[right] {$\sigma_{L_1}(p)=(2,-1)$};
+  \fill[gold] (-1,2) circle (2.6pt) node[left] {$\sigma_{L_2}\sigma_{L_1}(p)=(-1,2)$};
+  \draw[gold,line width=.8pt] (.8,0) arc[start angle=0,end angle=45,radius=.8];
+  \node[text=gold!80!ink,font=\small] at (1.15,.3) {$45^\circ$};
+\end{tikzpicture}
+\end{center}
+
+\section{En profundidad}
+
+\subsection{El grupo de los movimientos rígidos}\label{sec:grupo-rigidos}
+
+En coordenadas homogéneas, \(F(x)=Rx+v\) es la matriz
+\(\left(\begin{smallmatrix}R&v\\0&1\end{smallmatrix}\right)\), con \(R=R(\theta)\). El producto
+\[
+\begin{pmatrix}R_2&v_2\\0&1\end{pmatrix}\begin{pmatrix}R_1&v_1\\0&1\end{pmatrix}
+=\begin{pmatrix}R_2R_1&R_2v_1+v_2\\0&1\end{pmatrix}
+\]
+es otra matriz del mismo tipo, con \(R_2R_1=R(\theta_2+\theta_1)\): la composición de dos
+movimientos rígidos es un movimiento rígido. La inversa también:
+\[
+\begin{pmatrix}R&v\\0&1\end{pmatrix}^{-1}
+=\begin{pmatrix}R^T&-R^Tv\\0&1\end{pmatrix},
+\]
+como se comprueba multiplicando (\(R^TR=I\)). El conjunto de los movimientos rígidos, con la
+composición, es un \emph{grupo}. Las traslaciones forman un subgrupo conmutativo; las
+rotaciones alrededor de un mismo centro, también; las rotaciones de centros distintos no.
+
+\begin{teorema}[Clasificación de los movimientos rígidos]\label{teo:clasificacion-rigidos}
+Todo movimiento rígido \(F(x)=R(\theta)x+v\) del plano es una traslación (si
+\(\theta\equiv0\)) o una rotación (si \(\theta\not\equiv0\)).
+\end{teorema}
+
+\begin{demostracion}
+Si \(\theta\equiv0\), \(F(x)=x+v=\tau_v(x)\). Si \(\theta\not\equiv0\), por la
+proposición~\ref{prop:puntos-fijos} existe un único punto fijo \(c\), con \(c=Rc+v\), es decir
+\(v=(I-R)c\). Entonces \(F(x)=Rx+(I-R)c=c+R(x-c)=\rhoP{c,\theta}(x)\).
+\end{demostracion}
+
+\paragraph{Puente.} Los movimientos rígidos conservan la orientación: \(\det R=1\). Al agregar
+las reflexiones aparecen las isometrías con \(\det=-1\), que invierten la orientación. Son el
+tema del capítulo~\ref{cap:reflexiones}, donde además se ve que todo movimiento rígido
+es un producto de a lo sumo dos reflexiones.
+
+\subsection{Aplicación topográfica: llevar una poligonal del sistema del instrumento a un origen de obra}\label{sec:aplicacion-poligonal}
+
+Una estación total mide los vértices de una poligonal en su sistema local: origen en el
+instrumento, eje \(x\) hacia el cero del limbo. Se midieron cuatro vértices, en metros:
+\(V_1=(0;0)\), \(V_2=(48{,}215;\,12{,}630)\), \(V_3=(71{,}480;\,60{,}905)\),
+\(V_4=(23{,}117;\,84{,}992)\). La obra tiene su origen en la estación, de coordenadas conocidas
+\(E=(1000{,}000;\,2000{,}000)\), con el eje \(y\) hacia el norte, y el cero del limbo apunta con
+acimut \(\mathrm{Az}_0=37{,}25^\circ\).
+
+\paragraph{El ángulo de giro.} Por la proposición~\ref{prop:acimut-theta} (sección~\ref{sec:acimut-campo}),
+el ángulo matemático de la dirección del cero del limbo es
+\(\theta_0=90^\circ-\mathrm{Az}_0=52{,}75^\circ\): el eje \(x\) local, que apunta al cero del limbo,
+queda a \(52{,}75^\circ\) antihorarios del este. (Este \(\theta_0\) es el ángulo de la rotación
+que lleva la dirección local \(e_1\) a su dirección en la obra; no se confunde con la corrección
+\(\kappa\) de orientación de lecturas de la sección~\ref{sec:acimut-campo}, medida en sentido
+horario.) La transformación local a obra es una rotación seguida de una traslación,
+\[
+x_{\text{obra}}=E+R(\theta_0)\,x_{\text{local}},
+\]
+con \(R(52{,}75^\circ)=\left(\begin{smallmatrix}0{,}6053&-0{,}7960\\0{,}7960&0{,}6053\end{smallmatrix}\right)\);
+en forma homogénea
+\[
+H=\begin{pmatrix}0{,}6053&-0{,}7960&1000\\0{,}7960&0{,}6053&2000\\0&0&1\end{pmatrix}.
+\]
+
+\begin{center}
+\begin{tabular}{lcc}
+vértice & local \((x;y)\) & obra \((E;N)\)\\\hline
+\(V_1\) & \(0{,}000;\ 0{,}000\) & \(1000{,}000;\ 2000{,}000\)\\
+\(V_2\) & \(48{,}215;\ 12{,}630\) & \(1019{,}131;\ 2046{,}024\)\\
+\(V_3\) & \(71{,}480;\ 60{,}905\) & \(\phantom{0}994{,}786;\ 2093{,}764\)\\
+\(V_4\) & \(23{,}117;\ 84{,}992\) & \(\phantom{0}946{,}339;\ 2069{,}846\)
+\end{tabular}
+\end{center}
+
+\paragraph{Lo que se conserva.} Los lados \(V_1V_2,V_2V_3,V_3V_4,V_4V_1\) miden
+\(49{,}842\), \(53{,}589\), \(54{,}029\) y \(88{,}080\) m tanto en el sistema local como en el de obra,
+y las diagonales \(93{,}909\) y \(76{,}591\) m. El área por la fórmula de Gauss,
+\(A=\tfrac12\bigl|\sum_i(x_iy_{i+1}-x_{i+1}y_i)\bigr|\), vale \(3350{,}515\) m\(^2\) antes y
+después: es un movimiento rígido.
+
+\begin{center}
+\begin{tikzpicture}[x=.042cm,y=.042cm]
+  \begin{scope}
+    \draw[axisline,-{Latex[length=2mm]}] (-6,0)--(85,0) node[right] {$x$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,-6)--(0,100) node[above] {$y$};
+    \draw[teal,line width=1.1pt,fill=teal!10] (0,0)--(48.215,12.630)--(71.480,60.905)--(23.117,84.992)--cycle;
+    \foreach \p/\n/\d in {{(0,0)}/1/below left,{(48.215,12.630)}/2/below right,{(71.480,60.905)}/3/right,{(23.117,84.992)}/4/above}{
+      \fill[ink] \p circle (1.8pt) node[\d] {$V_\n$};}
+    \node[text=teal,font=\small] at (40,-22) {sistema local (\(x\): cero del limbo)};
+  \end{scope}
+  \begin{scope}[xshift=215]
+    \draw[axisline,-{Latex[length=2mm]}] (-65,0)--(30,0) node[right] {$E$};
+    \draw[axisline,-{Latex[length=2mm]}] (0,-6)--(0,103) node[above left] {$N$};
+    \draw[auxline,-{Latex[length=2mm]}] (0,0)--(36.3,47.8) node[above right,font=\scriptsize] {cero del limbo};
+    \draw[rust,line width=1.1pt,fill=rust!10] (0,0)--(19.131,46.024)--(-5.214,93.764)--(-53.661,69.846)--cycle;
+    \foreach \p/\n/\d in {{(0,0)}/1/below right,{(19.131,46.024)}/2/right,{(-5.214,93.764)}/3/above,{(-53.661,69.846)}/4/left}{
+      \fill[ink] \p circle (1.8pt) node[\d] {$V_\n$};}
+    \node[text=rust,font=\small] at (-20,-22) {sistema de obra (origen en \(E\))};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\paragraph{El orden importa.} Si se traslada primero y se rota después, se calcula
+\(R(\theta_0)(x_{\text{local}}+E)=R(\theta_0)x_{\text{local}}+R(\theta_0)E\), con
+\(R(\theta_0)E\neq E\): la estación misma queda mal. Para \(V_2\) se obtiene
+\((-967{,}579;\ 2052{,}614)\) en lugar de \((1019{,}131;\ 2046{,}024)\), a \(1986{,}721\) m del
+correcto; hasta \(V_1\) va a \((-986{,}710;\ 2006{,}590)\) en lugar de \(E\). La forma correcta es
+rotar alrededor del origen del instrumento y trasladar después, que es la composición
+\(\tau_E\circ\rhoP{0,\theta_0}\), la matriz \(H\) de arriba.
+
+Dos unidades permiten ver la rotación con centro y la composición de dos reflexiones.
+
+\unidadInteractiva{01b_rotacion_plano}{Rotaciones II: la rotación en el plano}{Explorá: mové el deslizador \(\theta\) y mirá cómo gira el plano alrededor del centro.}
+
+\unidadInteractiva{03_reflexiones_similaridades}{Reflexiones y similaridades}{Verificá: componé dos reflexiones y comprobá que el resultado es una rotación.}
+
+\section{Ejercicios propuestos}
+
+\begin{ejercicio}
+Calcular \(\rhoP{(2,0),-90^\circ}\circ\rhoP{(0,0),90^\circ}\) y explicar el resultado con la
+proposición~\ref{prop:composicion-rotaciones}.
+\solucion{Como \(90^\circ+(-90^\circ)=0\), es una traslación: la matriz homogénea es
+\(\left(\begin{smallmatrix}1&0&2\\0&1&2\\0&0&1\end{smallmatrix}\right)\), traslación de vector \((2,2)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Hallar el punto fijo de \(F(x)=R(60^\circ)x+(3,0)\) e identificar \(F\).
+\solucion{\(\det(I-R(60^\circ))=2-2\cos60^\circ=1\), así que existe un único punto fijo:
+\(c'=(I-R)^{-1}(3,0)=\bigl(\tfrac32,\tfrac{3\sqrt3}{2}\bigr)\approx(1{,}5;\,2{,}598)\). \(F\) es la
+rotación de \(60^\circ\) alrededor de \(c'\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+(a) Componer \(\tau_{(3,-1)}\) con \(\tau_{(1,2)}\). (b) Hallar la imagen de \(p=(3,1)\) por
+\(\rhoP{0,90^\circ}\circ\tau_{(1,2)}\) y por \(\tau_{(1,2)}\circ\rhoP{0,90^\circ}\), y decir
+si las composiciones coinciden.
+\solucion{(a) \(\tau_{(4,1)}\), en cualquier orden. (b) \(\rhoP{0,90^\circ}(\tau(p))=R(4,3)=(-3,4)\);
+\(\tau(\rhoP{0,90^\circ}(p))=(-1,3)+(1,2)=(0,5)\). No coinciden: los centros son
+\((-\tfrac32,-\tfrac12)\) y \((-\tfrac12,\tfrac32)\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Escribir la traslación de vector \(v=(0,6)\) como producto de dos reflexiones y comprobarlo con
+\(p=(2,1)\).
+\solucion{Rectas horizontales a distancia \(|v|/2=3\): por ejemplo \(L_1\colon y=0\) y \(L_2\colon y=3\).
+\(\sigma_{L_1}(2,1)=(2,-1)\) y \(\sigma_{L_2}(2,-1)=(2,7)=p+v\).}
+\end{ejercicio}
+
+\begin{ejercicio}
+Con el mismo \(E=(1000;\,2000)\) pero \(\mathrm{Az}_0=120^\circ\), pasar a coordenadas de obra el
+punto local \((50;\,20)\).
+\solucion{\(\theta_0=90^\circ-120^\circ=-30^\circ\). \(R(-30^\circ)(50,20)=(53{,}301;\,-7{,}679)\), y
+\(x_{\text{obra}}=(1053{,}301;\ 1992{,}321)\).}
+\end{ejercicio}

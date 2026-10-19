@@ -1,4 +1,4 @@
-%% Apunte integral — Sistemas de Coordenadas (CB104)
+%% Apunte — Sistemas de Coordenadas (CB104)
 %% Archivo principal: metadatos, portada, índice y lista de secciones.
 %% El formato vive en apunte-formato.sty; el contenido en contenido/NN-nombre.tex.
 %% Compilar: lualatex ×3 desde esta carpeta (NO xelatex).
@@ -9,10 +9,11 @@
 
 %% --- Metadatos del documento ---
 \renewcommand{\apunteEncabezadoIzq}{Sistemas de Coordenadas}
-\renewcommand{\apunteEncabezadoDer}{Apunte integral}
+\renewcommand{\apunteEncabezadoDer}{Apunte}
 \hypersetup{
-  pdftitle={Sistemas de Coordenadas: apunte integral de la materia},
-  pdfauthor={Gustavo Varela}
+  pdftitle={Sistemas de Coordenadas: apunte (trabajo final)},
+  pdfauthor={Gustavo Varela},
+  pdfsubject={Trabajo final de Sistemas de Coordenadas (CB104, FIUBA)}
 }
 
 \begin{document}
@@ -20,7 +21,7 @@
 \begin{titlepage}
 \pagecolor{paper}
 \noindent
-\newcommand{\portadaAutor}{Gustavo Varela \textperiodcentered{} alumno de CB104, cátedra del Prof. Javier Clavijo}
+\newcommand{\portadaAutor}{Trabajo final de Sistemas de Coordenadas (CB104, FIUBA) \textperiodcentered{} Gustavo Varela}
 \input{portada/portada-tikz}
 \end{titlepage}
 
@@ -28,34 +29,21 @@
 \thispagestyle{empty}
 \vspace*{30mm}
 \begin{idea}[Propósito]
-Integrar en un único documento el contenido dictado, las guías docentes, los desarrollos
-algebraicos y geométricos, ejemplos resueltos y el panorama general de la materia. El apunte
-está preparado para crecer con cada nueva clase y cada nuevo documento.
+Reunir en un solo documento los contenidos de Sistemas de Coordenadas: las transformaciones del
+plano y del espacio, el álgebra que las describe y su uso para construir coordenadas, medir
+sobre superficies y proyectar, con ejemplos resueltos, figuras y enlaces a las unidades
+interactivas del sitio de la materia.
 \end{idea}
 
 \vspace{8mm}
-{\large\bfseries Sobre esta versión\par}
-{\color{muted}Versión 4 (2026-10-18). El apunte se reorganizó por tema: cada capítulo trata una
-transformación o herramienta y se lee en tres niveles, ``La idea'', ``Construcciones, cuentas
-y ejemplos'' y ``En profundidad''. La SVD y las transformaciones conformes pasan a capítulos
-propios, y se agrega un capítulo de repaso de Álgebra del CBC con la mirada del profesor.
-El contenido de la v3 se conserva entero; sólo cambió el lugar donde está. Cubre las 14
-clases del esqueleto de la materia, enlaza las 20 unidades interactivas (lecciones marimo, de
-la Unidad 0 ``fundamentos y lenguaje de la cátedra'' a la Unidad 19) del sitio de la materia
-y recoge el material que mandó el profesor por el chat (planilla de las proyectivas del
-pentágono y \texttt{LaSVD.wxmx}).\par}
-
-{\color{muted}Los capítulos de SVD, inversas y cuatro problemas (cap.~\ref{cap:09}), y las
-partes de curvatura, elipsoide y trigonometría esférica (cap.~\ref{cap:11}) están marcados
-``Anticipado'': se desarrollaron antes de que la cátedra los dictara, a partir del resumen 2025
-del profesor, su apunte del elipsoide y bibliografía, y quedan pendientes de validar. Incluyen
-una fe de erratas verificada del apunte del elipsoide.\par}
-
-{\color{muted}Versiones anteriores: v1 (rotaciones y guía de transformaciones), v2
-(2026-09-21: afinidades, homogéneas, proyectivas, productos y autovectores, hilo del
-profesor, rúbricas, bibliografía comentada), v3 (2026-10-17: las 14 clases del esqueleto, SVD,
-cuatro problemas, curvatura, elipsoide, trigonometría esférica y fe de erratas, organizado en
-tres lecturas).\par}
+{\large\bfseries Sobre la estructura\par}
+{\color{muted}Cada capítulo trata un tema del programa y se lee en tres niveles: ``La idea'',
+``Construcciones, cuentas y ejemplos'' y ``En profundidad'', seguidos de ejercicios con
+solución. Los complementos tratan temas que extienden el programa (transformaciones
+proyectivas, el terreno como matriz, transformaciones conformes, marcos de referencia y
+grillas). Los capítulos marcados ``en preparación'' presentan sólo su índice previsto y su
+bibliografía. Los apéndices reúnen demostraciones largas, la bibliografía y la lista de
+unidades interactivas. Todo número de un ejemplo proviene de un script del repositorio.\par}
 
 \vspace{8mm}
 {\color{muted}\small Carátula: el monolito que gira alrededor de cada eje (rotaciones y el orden de composición), el cubo unitario que $A$ lleva a un paralelepípedo (determinante como volumen, autovector como dirección que cae sobre sí misma) y el elipsoide con su plano tangente (coordenadas locales y métrica). Es el recorrido de la materia en una página.\par}
@@ -68,36 +56,38 @@ tres lecturas).\par}
 
 %% --- Cuerpo: una línea \input por archivo de contenido/, en orden ---
 \setcounter{chapter}{-1}
-\input{contenido/00-como-leer}
-\input{contenido/01-organizacion}
-\input{contenido/02-hilo-de-la-materia}
-\input{contenido/03-algebra-cbc-mirada-clavijo}
-\input{contenido/04-rotaciones}
-\input{contenido/05-euclideas-similaridades}
-\input{contenido/06-afines-homogeneas}
-\input{contenido/07-proyectivas}
-\input{contenido/08-algebra-transformaciones}
-\input{contenido/09-svd}
-\input{contenido/10-transformaciones-conformes}
-\input{contenido/11-superficies-geodesia}
+\input{contenido/00-antes-de-empezar}
+
+%% Capítulos de clase (1 a 15) y complementos (C1 a C4), en el orden del programa.
+%% Los capítulos 12 a 15 son páginas «en preparación».
+\input{contenido/01-rotaciones}
+\input{contenido/02-traslaciones-movimientos-rigidos}
+\input{contenido/03-reflexiones-isometrias-similaridades}
+\input{contenido/04-afinidades-homogeneas}
+\input{contenido/c1-proyectivas}
+\input{contenido/05-formas-lineales}
+\input{contenido/06-subespacios-cuna-determinante}
+\input{contenido/07-autovalores-autovectores}
+\input{contenido/08-svd}
+\input{contenido/c3-terreno-como-matriz}
+\input{contenido/09-cambio-de-base}
+\input{contenido/10-derivada-aproximacion-lineal}
+\input{contenido/11-inversas-pseudoinversa}
+\input{contenido/12-cuatro-problemas}
+\input{contenido/13-curvatura}
+\input{contenido/14-elipsoide}
+\input{contenido/15-esfera-trigonometria-esferica}
+\input{contenido/c2-conformes}
+\input{contenido/c4-marcos-grillas}
 
 \clearpage
 \appendix
 \chapter{Apéndices}\label{cap:apendices}
-\input{contenido/14-apendice-rotaciones-3d}
-\input{contenido/15-apendice-infinitesimales}
-\input{contenido/16-apendice-composicion-afin}
-\input{contenido/17-apendice-ejercicios-afinidades}
-\input{contenido/18-apendice-pentagono}
-\input{contenido/19-apendice-rubricas}
-\input{contenido/20-apendice-bibliografia}
-\input{contenido/21-apendice-notebooks}
-\input{contenido/22-material-y-fuentes}
-
-%% --- Facsímiles del material docente (deben estar en esta carpeta) ---
-\includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]
-  {01_Ejercicios_original.pdf}
-\includepdf[pages=-,pagecommand={\thispagestyle{empty}},fitpaper=true]
-  {02_afinidad_original.pdf}
+\input{contenido/ap1-rotaciones-3d}
+\input{contenido/ap2-infinitesimales}
+\input{contenido/ap3-composicion-afin}
+\input{contenido/ap4-bibliografia}
+\input{contenido/ap5-notebooks}
+\input{contenido/ap6-material-y-fuentes}
 
 \end{document}

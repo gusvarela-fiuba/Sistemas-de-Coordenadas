@@ -269,7 +269,7 @@ BANCO = {
         {
             "id": "05_a1",
             "nivel": "avanzado",
-            "enunciado": r"El pentágono regular del profesor, con $D = (0, 1)$ arriba y $A$, $B$ abajo. La proyectiva $H = \begin{pmatrix} -\sqrt5 & 0 & 0 \\ 0 & -1 & 1 \\ 0 & 4 & 1 \end{pmatrix}$ deja fijos $A$ y $B$ e intercambia $C$ con $E$. ¿Dónde cae $D$ y cómo queda la imagen?",
+            "enunciado": r"El pentágono regular, con $D = (0, 1)$ arriba y $A$, $B$ abajo. La proyectiva $H = \begin{pmatrix} -\sqrt5 & 0 & 0 \\ 0 & -1 & 1 \\ 0 & 4 & 1 \end{pmatrix}$ deja fijos $A$ y $B$ e intercambia $C$ con $E$. ¿Dónde cae $D$ y cómo queda la imagen?",
             "opciones": [
                 {"id": "a", "texto": r"$D$ cae en el centro $(0, 0)$ y la imagen es otro pentágono convexo: las rectas van a rectas.", "correcta": False,
                  "explicacion": r"$D$ sí cae en el centro, pero la recta $4y + 1 = 0$ que se va al infinito pasa entre $AB$ y $CE$: los lados que la cruzan se vuelven dos semirrectas y la figura se parte."},
@@ -303,7 +303,7 @@ BANCO = {
         {
             "id": "06_e1",
             "nivel": "elemental",
-            "enunciado": r"El profesor dijo que no existe el vector fila. ¿Qué es, entonces, una forma lineal $\ell = (a, b)$?",
+            "enunciado": r"En esta materia no existe el vector fila. ¿Qué es, entonces, una forma lineal $\ell = (a, b)$?",
             "opciones": [
                 {"id": "a", "texto": r"Un vector escrito acostado, que se dibuja como una flecha igual que $(a, b)^T$.", "correcta": False,
                  "explicacion": r"La flecha $(a, b)$ sólo representa a la forma en la base canónica, a través del producto interno. Si se deforma el plano con una $A$ que no lo conserva, la flecha $A(a, b)^T$ ya no dice nada sobre la regla."},

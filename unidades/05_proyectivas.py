@@ -6,11 +6,10 @@
 #     "plotly",
 # ]
 # ///
-"""Proyectivas: la foto del dron y el pentágono del profesor (unidad 05, molde v2 sobre cb104). Clase 03p.
-
+"""Proyectivas: la foto del dron y el pentágono (unidad 05, molde v2 sobre cb104).
 Una sola idea: un punto del plano es un rayo por el origen de R³ y la foto de una cámara inclinada es una 3×3 que
 actúa sobre esos rayos; al dividir por la tercera coordenada las rectas siguen rectas pero las paralelas se cortan.
-Cuatro puntos fijan la homografía (sistema con un λ por punto, como el profesor, o la forma estándar DLT).
+Cuatro puntos fijan la homografía (sistema con un λ por punto, o la forma estándar DLT).
 
 Chequear:  uv run marimo check --select MW unidades/05_proyectivas.py
 Exportar:  uv run python tools/build.py --only 05_proyectivas
@@ -40,13 +39,13 @@ def _():
 @app.cell
 def _(mo):
     mo.md(r"""
-    # Proyectivas: la foto del dron y el pentágono del profesor
+    # Proyectivas: la foto del dron y el pentágono
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase extra del 16/9 y 23/9. La pregunta: **¿por qué en la foto los alambrados paralelos se juntan en un
+    La pregunta: **¿por qué en la foto los alambrados paralelos se juntan en un
     punto, y con cuántos puntos enderezamos la imagen?** El gancho: *una foto de dron inclinada sobre un lote plano: cuatro
-    mojones de coordenadas conocidas la rectifican.* Y el problema del profesor: un pentágono regular, una proyectiva
+    mojones de coordenadas conocidas la rectifican.* Y un problema clásico: un pentágono regular, una proyectiva
     que deja dos vértices quietos e intercambia otros dos; ¿dónde cae el quinto?
 
     Colores, iguales en la figura y en el álgebra: **primera columna** <span style="color:#1b6f6a">**teal**</span>,
@@ -185,7 +184,7 @@ def _(lib, mo):
 @app.cell
 def _(H_foto, lib, mo, np):
     # ---------- casos precargados: etiqueta → (tipo, dato, objeto, rango, paso, qué pasa) ----------
-    pent = lib.pentagono_profesor()  # A..E, D = (0, 1), horario
+    pent = lib.pentagono_ejemplo()  # A..E, D = (0, 1), horario
     H_pent, lam_pent = lib.homografia_lambda(pent[[0, 1, 2, 4]], pent[[0, 1, 4, 2]])  # A, B fijos; C ↔ E
     parcela = np.array([[1, 1], [4, 1], [5, 3], [3, 5], [1, 4]], dtype=float)  # la misma de Rotaciones II
     H_afin = H_foto.copy()
@@ -196,7 +195,7 @@ def _(H_foto, lib, mo, np):
                                                      r"el corte de la foto sin la fila 3: las paralelas **siguen paralelas**, las columnas 1 y 2 siguen impropias (flechas)."),
         "foto de dron: cámara inclinada (k)": ("inclinacion", (-0.4, 0.4, 0.05, 0.25), parcela, 6, 1,
                                               r"$h_{32} = k$: las rectas $x = $ cte convergen al punto de fuga (columna 2, ×); con $k = 0.25$ es la foto de la sección 0. Con $k < 0$ la recta $y = -1/k$ atraviesa la parcela y la imagen **se parte**."),
-        "pentágono del profesor: A y B fijos, C ↔ E": ("fijo", H_pent, pent, 2, 0.5,
+        "pentágono: A y B fijos, C ↔ E": ("fijo", H_pent, pent, 2, 0.5,
                                                       r"$D$ **cae en el centro** $(0, 0)$. $W$ es negativa en $A$ y $B$ y positiva en $C$, $D$, $E$: la recta $4y + 1 = 0$ cruza el pentágono y la imagen se parte. Es una homología armónica: eje $AB$, centro $(0, 0.309)$, $H^2 \sim I$."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="foto de dron: cámara inclinada (k)", label="caso precargado")
@@ -300,12 +299,11 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
         mo.md(r"""
         ## 3. Cuenta a mano y código lado a lado
 
-        Izquierda, la cuenta del cuaderno; derecha, la misma en numpy. Primero el pentágono como lo hizo el profesor en
-        su planilla, después la foto del dron con la forma estándar.
+        Izquierda, la cuenta del cuaderno; derecha, la misma en numpy. Primero el pentágono con una planilla, después la foto del dron con la forma estándar.
         """),
         mo.hstack([
             mo.md(r"""
-            **3.1 Un $\lambda$ por punto (la planilla del profesor).** Pentágono regular centrado, $D = (0, 1)$ y los
+            **3.1 Un $\lambda$ por punto (la planilla).** Pentágono regular centrado, $D = (0, 1)$ y los
             demás vértices por giros de $72°$: $A = (0.588, -0.809)$, $B = (-0.588, -0.809)$, $C = (-0.951, 0.309)$,
             $E = (0.951, 0.309)$. Queremos $H$ con $A$ y $B$ fijos y $C \leftrightarrow E$. Como $Hp$ es el punto **a
             menos de escala**, cada par da tres ecuaciones con una incógnita más:
@@ -324,7 +322,7 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
             negativos de $A$ y $B$ dicen que la recta $4y + 1 = 0$ pasa entre $AB$ y $CE$: la imagen se parte.
             """),
             mo.vstack([
-                mo.md("```python\nP = lib.pentagono_profesor()        # A..E\no, d = P[[0, 1, 2, 4]], P[[0, 1, 4, 2]]\nM, b = lib.sistema_lambda(o, d)     # 13×13\nx = np.linalg.solve(M, b)\nH, lam = x[:9].reshape(3, 3), x[9:]\nH @ lib.hom(P[3])                   # D\n```"),
+                mo.md("```python\nP = lib.pentagono_ejemplo()        # A..E\no, d = P[[0, 1, 2, 4]], P[[0, 1, 4, 2]]\nM, b = lib.sistema_lambda(o, d)     # 13×13\nx = np.linalg.solve(M, b)\nH, lam = x[:9].reshape(3, 3), x[9:]\nH @ lib.hom(P[3])                   # D\n```"),
                 mo.md(f"`M.shape` = `{_M.shape}` → `H` =\n```\n{np.round(_x[:9].reshape(3, 3), 3)}\n```\n`lam` = `{np.round(_x[9:], 3).tolist()}`  \n"
                       f"`H @ hom(D)` = `{np.round(_HD, 3).tolist()}` → `{np.round(lib.dehom(_HD), 3).tolist()}`  \n"
                       f"`lib.homografia_lambda(o, d)` da lo mismo: `{bool(np.allclose(_x[:9].reshape(3, 3), H_pent) and np.allclose(_x[9:], lam_pent))}`"),
@@ -387,7 +385,7 @@ def _(H_foto, lib, mo, np, terr):
         Una sola idea: **aplicar una homografía a una nube es `hom(puntos) @ H.T` y después dividir cada fila por su
         tercera columna**, `Q[:, :2] / Q[:, 2:3]` (el `2:3` conserva la forma `(N, 1)` para que la división se
         reparta fila a fila). Es `lib.aplicar_proyectiva`. Para hallar $H$: `np.linalg.solve` cuando el sistema es
-        cuadrado (el $8\times8$ con $h_{33} = 1$ o el $13\times13$ del profesor); con **más de cuatro mojones** el sistema
+        cuadrado (el $8\times8$ con $h_{33} = 1$ o el $13\times13$ de un $\lambda$ por punto); con **más de cuatro mojones** el sistema
         tiene más ecuaciones que incógnitas y va `np.linalg.lstsq(A, b, rcond=None)[0]`, que es lo que hace
         `lib.homografia_4puntos` por la SVD cuando le pasamos $N > 4$ pares.
         """),
@@ -405,7 +403,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("mantienen rectas las rectas").* Con la $H$ de la foto, calculá a dónde van los dos
+        **(a) Lápiz — elemental** *Idea central: mantienen rectas las rectas.* Con la $H$ de la foto, calculá a dónde van los dos
         puntos impropios $(1, 0, 0)$ y $(0, 1, 0)$. ¿Qué pasa en la foto con los alambrados paralelos al eje $x$? ¿Y con
         los paralelos al eje $y$? ¿Dónde se cruzan estos últimos?
         """),
@@ -416,8 +414,8 @@ def _(mo):
         punto de fuga. Está arriba del lote, por eso el trapecio se angosta hacia arriba.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("¿dónde cae el vértice restante? ¿tiene punto fijo?").* Con la $H$ del pentágono del
-        profesor, verificá que $B$ queda fijo, calculá $H^2$ y decí qué significa. Sobre la recta $x = 0$ están $D = (0, 1)$,
+        **(b) Lápiz — medio** *Pregunta guía: ¿dónde cae el vértice restante? ¿tiene punto fijo?* Con la $H$ del pentágono,
+        verificá que $B$ queda fijo, calculá $H^2$ y decí qué significa. Sobre la recta $x = 0$ están $D = (0, 1)$,
         su imagen $D' = (0, 0)$, el centro $O = (0, 0.309)$ y el corte con el eje $AB$, $X = (0, -0.809)$: calculá la razón
         doble $(D, D'; O, X)$ con la coordenada $y$.
         """),
@@ -441,7 +439,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("se normaliza dividiendo por la tercera coordenada").* Completá
+        **(c) Código con hueco — medio** *Idea central: se normaliza dividiendo por la tercera coordenada.* Completá
         `aplicar(H, puntos)`: aplica la homografía `H` a una nube $N\times2$ y devuelve la nube $N\times2$ de las
         imágenes, ya divididas por $W$. Tenés `np` y `hom`. Se verifica con `np.allclose` sobre 20 puntos al azar con la
         $H$ de la foto.
@@ -453,7 +451,7 @@ def _(mo):
 
 @app.cell
 def _(H_foto, editor_c, lib, mo, np):
-    _puntos = np.random.default_rng(56798).uniform(0, 4, size=(20, 2))
+    _puntos = np.random.default_rng(0xDDDE).uniform(0, 4, size=(20, 2))
     _esperado = lib.aplicar_proyectiva(_puntos, H_foto)
     _ns = {"np": np, "hom": lib.hom}
     try:
@@ -485,8 +483,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: rectificar la foto** *("cuatro mojones de coordenadas conocidas la
-        rectifican").* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
+        **(d) Código con hueco — avanzado: rectificar la foto** *Idea central: cuatro mojones de coordenadas conocidas la
+        rectifican.* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
         Un pozo sólo lo tenemos en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
         `np`, `hom`, `dehom`, `homografia_4puntos(origen, destino)`, `aplicar_proyectiva(nube, H)` y los tres arrays.
         """),
@@ -565,7 +563,7 @@ def _(mo):
     Acá verificamos; las demostraciones (por qué un rayo es un punto, por qué cuatro puntos alcanzan y tres no, la
     clasificación por autovalores, el pentágono regular con los tres casos y la tabla de verificación):
 
-    - [apunte, «Proyectivas» (homogéneas y proyectivas)](../../apunte.pdf#nameddest=cap:07) ·
+    - [apunte, «Proyectivas» (homogéneas y proyectivas)](../../apunte.pdf#nameddest=cap:proyectivas) ·
       [apunte, «Pentágono regular: cuentas y script» (el pentágono)](../../apunte.pdf#nameddest=cap:18)
     - [ficha de la clase 03p](../../clases/03p.html) · [el hilo conductor](../../index.html) ·
       [unidad 04: afinidades y homogéneas](../04_afines_homogeneas/index.html) (el caso $W = 1$)
@@ -586,7 +584,7 @@ def _(H, H8, H_foto, H_ft, H_pent, H_rect, W, candidatos, centro, foto, foto5, l
          len({tuple(np.round(v, 6)) for v in candidatos.values()}) == 4 and lib.exacto(H_foto, [[1, 0.5, 0], [0, 1, 0], [0, 0.25, 1]])
          and lib.exacto(candidatos["correcta"], [2, 4 / 3]) and lib.exacto(H_foto @ lib.hom(centro), [3, 2, 1.5])
          and lib.exacto(lib.aplicar_proyectiva(terr, H_foto), foto)),
-        ("sección 2: W de cada vértice es la fila 3 por el punto; el pentágono del profesor: A, B fijos, C ↔ E, D al centro, λ = (−√5, −√5, √5, √5)",
+        ("sección 2: W de cada vértice es la fila 3 por el punto; el pentágono: A, B fijos, C ↔ E, D al centro, λ = (−√5, −√5, √5, √5)",
          lib.exacto(W, lib.hom(objeto) @ lib.recta_al_infinito(H))
          and lib.exacto(H_pent, [[-_r5, 0, 0], [0, -1, 1], [0, 4, 1]]) and lib.exacto(lam_pent, [-_r5, -_r5, _r5, _r5])
          and lib.exacto(lib.aplicar_proyectiva(pent, H_pent), np.vstack([pent[[0, 1, 4]], [[0, 0]], pent[[2]]]))),

@@ -6,12 +6,12 @@
 #     "plotly",
 # ]
 # ///
-"""Transformaciones conformes (unidad 15, molde v2 sobre cb104). Cierre del arco: clases 13 y 14.
+"""Transformaciones conformes (unidad 15, molde v2 sobre cb104).
 
-DESARROLLO COMPLEMENTARIO del curso, pendiente de validar por la cátedra. Una sola idea: una transformación es
+DESARROLLO COMPLEMENTARIO del curso. Una sola idea: una transformación es
 conforme cuando, mirada con lupa, es una similaridad directa; eso se escribe de cuatro maneras equivalentes (Jacobiano
 k·R(θ) = número complejo; σ₁ = σ₂, Tissot círculo; F = 0 y E = G; Cauchy-Riemann) y resuelve el "puntapié inicial" del
-apunte del elipsoide del profesor: Mercator con la latitud isométrica, las cilíndricas equidistante y equivalente, y
+apunte del elipsoide: Mercator con la latitud isométrica, las cilíndricas equidistante y equivalente, y
 Gauss-Krüger como función analítica de q + iΔλ.
 
 Chequear:  uv run marimo check --select MW unidades/15_transformaciones_conformes.py
@@ -44,12 +44,12 @@ def _(mo):
     mo.md(r"""
     # Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Desarrollo complementario del curso, cierre del arco: no corresponde a una clase dictada; toma el "puntapié
-    inicial" de la última página del apunte del profesor sobre el elipsoide, pendiente de validar por la cátedra.*
+    *Desarrollo complementario del curso, cierre del arco: toma el "puntapié inicial" de la última página del apunte
+    sobre el elipsoide.*
 
-    Cerramos el arco que abrió la clase 1. La pregunta: **¿qué tiene que cumplir una transformación para conservar los
+    Cerramos el arco que abrieron las rotaciones. La pregunta: **¿qué tiene que cumplir una transformación para conservar los
     ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?** El gancho: *dos visuales a $90°$
     medidas con la estación total siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
     POSGAR.*
@@ -159,7 +159,7 @@ def _(mo):
     | **A** · similaridad (unidad 03) | con lupa infinitesimal, $J = k(P)\,R(\theta)$: rotación más escala uniforme | un cuadradito del terreno va a un cuadradito girado, más grande o más chico |
     | **B** · SVD (unidad 09) | $\sigma_1 = \sigma_2$ y $\det J > 0$; la elipse imagen del círculo unitario es un círculo, recorrido en el mismo sentido | la **indicatriz de Tissot** es un círculo; si no, elipse, y la deformación angular máxima es $\omega_{\max} = 2\arcsin\dfrac{\sigma_1 - \sigma_2}{\sigma_1 + \sigma_2}$ |
     | **C** · primera forma (unidad 10) | en bases ortonormales (metros) del terreno y del mapa, $F = 0$ y $E = G = k^2$, con $\det J > 0$: $ds^2_{\text{mapa}} = k^2\,ds^2_{\text{terreno}}$ | las líneas coordenadas se cortan a $90°$ y los dos pasos de grilla miden lo mismo: cuadraditos a cuadraditos |
-    | **D** · número complejo (unidades 00 y 01a-01c, clase 1) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
+    | **D** · número complejo (unidades 00 y 01a-01c) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
 
     """)
     return
@@ -224,10 +224,10 @@ def _(mo):
     mo.md(r"""
     La escalera: en $\mathbb R$ toda transformación $x \mapsto kx$ con $k > 0$ conserva "el ángulo" (no hay otro que
     $0$ o $180°$); en $\mathbb R^2$ conservar ángulos obliga a $J = kR(\theta)$, que es el número complejo de la
-    clase 1; en $\mathbb R^3$ las conformes son mucho más pocas (Liouville: similaridades e inversiones), por eso la
+    unidad 00; en $\mathbb R^3$ las conformes son mucho más pocas (Liouville: similaridades e inversiones), por eso la
     cartografía es un problema del plano.
 
-    **Las cinco preguntas de la última página del apunte del elipsoide** (el "puntapié inicial" del profesor) se
+    **Las cinco preguntas de la última página del apunte del elipsoide** (el "puntapié inicial") se
     responden con esto. En las cilíndricas normales tomamos $x = a\lambda$ y queda por elegir $y(\varphi)$; la escala a
     lo largo del paralelo es siempre $k = \dfrac{a}{N\cos\varphi}$ y a lo largo del meridiano $h = \dfrac{y'(\varphi)}{M}$:
 
@@ -569,7 +569,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("toda función analítica es conforme").* Multiplicá dos matrices de la forma
+        **(a) Lápiz — elemental** *Idea central: toda función analítica es conforme.* Multiplicá dos matrices de la forma
         $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$ y $\begin{pmatrix} c & -d \\ d & c \end{pmatrix}$ y mostrá que el
         producto tiene la misma forma. ¿Qué dice eso de componer dos transformaciones conformes, y qué número complejo es?
         """),
@@ -578,13 +578,13 @@ def _(mo):
         = \begin{pmatrix} ac - bd & -(ad + bc) \\ ad + bc & ac - bd \end{pmatrix},$$
 
         que es $\begin{pmatrix} p & -q \\ q & p \end{pmatrix}$ con $p = ac - bd$, $q = ad + bc$: exactamente el producto
-        $(a + ib)(c + id)$ de la clase 1. Componer dos conformes da una conforme, y la escala se multiplica
+        $(a + ib)(c + id)$ de la unidad 00. Componer dos conformes da una conforme, y la escala se multiplica
         ($\sqrt{p^2 + q^2} = \sqrt{a^2 + b^2}\sqrt{c^2 + d^2}$) mientras los giros se suman. Por la regla de la cadena, el
         Jacobiano de $g \circ f$ es $J_g J_f$: por eso una proyección conforme seguida de una similaridad (cambiar de faja,
         girar la hoja) sigue siendo conforme.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("cilíndrica equivalente").* En una cilíndrica normal $x = a\lambda$, $y = y(\varphi)$ sobre el
+        **(b) Lápiz — medio** *Idea central: cilíndrica equivalente.* En una cilíndrica normal $x = a\lambda$, $y = y(\varphi)$ sobre el
         elipsoide, deducí la condición sobre $y(\varphi)$ para que conserve áreas, y resolvela en la esfera ($M = N = R$).
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -595,7 +595,7 @@ def _(mo):
 
         En la esfera, $y' = R\cos\varphi$ y $y = R\sin\varphi$: la cilíndrica equivalente de Lambert, que aplasta los polos
         contra $y = \pm R$. Sobre el elipsoide la integral es la misma que define la latitud autálica (pregunta 4 del
-        apunte del profesor), y es elemental: $\int MN\cos u\,du = a^2(1 - e^2)\int \frac{\cos u\,du}{(1 - e^2\sin^2 u)^2}$.
+        apunte), y es elemental: $\int MN\cos u\,du = a^2(1 - e^2)\int \frac{\cos u\,du}{(1 - e^2\sin^2 u)^2}$.
         """)}),
     ])
     return
@@ -609,7 +609,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("Jacobiano = similaridad directa").* Completá `es_jacobiano_conforme(J, tol)`:
+        **(c) Código con hueco — medio** *Idea central: jacobiano = similaridad directa.* Completá `es_jacobiano_conforme(J, tol)`:
         `True` si $J^T J = k^2 I$ con $k > 0$ (conserva ángulos) **y** $\det J > 0$ (no refleja). Tenés `np`. Se verifica
         con `np.allclose` sobre una lista de ocho matrices: similaridades, una reflexión, una afinidad, un corte y la nula.
         """),
@@ -658,7 +658,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("Mercator sobre el elipsoide").* Completá `latitud_isometrica_elipsoide(phi_deg, e)`
+        **(d) Código con hueco — avanzado** *Idea central: mercator sobre el elipsoide.* Completá `latitud_isometrica_elipsoide(phi_deg, e)`
         con $q(\varphi) = \ln\tan\!\left(\frac{\pi}{4} + \frac{\varphi}{2}\right) - \frac{e}{2}\ln\frac{1 + e\sin\varphi}{1 - e\sin\varphi}$,
         grados adentro, vectorizada (acepta un array de latitudes). Tenés `np`. Se verifica con `np.allclose` contra
         `lib.latitud_isometrica` en 20 latitudes al azar entre $-80°$ y $80°$, con $e$ de GRS80 y con $e = 0$.
@@ -670,7 +670,7 @@ def _(mo):
 
 @app.cell
 def _(editor_d, grs80, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _phis = _rng.uniform(-80, 80, 20)
     _e = np.sqrt(grs80["e2"])
     _ns = {"np": np}
@@ -744,16 +744,16 @@ def _(mo):
       similaridad infinitesimal $\iff$ $\sigma_1 = \sigma_2$ $\iff$ $F = 0$, $E = G$ $\iff$ Cauchy-Riemann; la indicatriz de
       Tissot y $\omega_{\max}$; la deducción de la latitud isométrica $q(\varphi)$ y de las tres cilíndricas; el planteo de
       Gauss-Krüger como $w = f(q + i\,\Delta\lambda)$
-    - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=sec:elipsoide): $M$, $N$, la primera forma
+    - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=cap:elipsoide): $M$, $N$, la primera forma
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
     - [apunte, «Transformaciones conformes» (esfera, elipsoide y representación plana; $K = 1/(MN)$, lo que
-      impide la isometría)](../../apunte.pdf#nameddest=cap:10)
-    - apunte del profesor *Geometría del Elipsoide y cálculos Geodésicos* (campus, clase 12), última página: las cinco
+      impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
+    - apunte *Geometría del Elipsoide y cálculos Geodésicos*, última página: las cinco
       preguntas (Mercator, equidistante, equivalente, esfera autálica, Mercator transversa) que esta unidad responde
     - [ficha de la clase 13](../../clases/13.html) · [ficha de la clase 14](../../clases/14.html) ·
       [el hilo conductor](../../index.html) · [unidad anterior: trigonometría esférica](../14_trigonometria_esferica/index.html)
 
-    **Lo que viene:** nada; es la última unidad. El arco se cierra donde empezó: en la clase 1 un número complejo giraba
+    **Lo que viene:** nada; es la última unidad. El arco se cierra donde empezó: en las rotaciones un número complejo giraba
     un punto sin moverlo; acá el mismo número complejo, $f'(z)$, es la lupa con la que una proyección conforme mira el
     elipsoide. Lo que sigue es de Topografía y Geodesia: las fajas Gauss-Krüger de POSGAR, la reducción de distancias y
     la convergencia de meridianos, que son los números de esta unidad aplicados en el campo.

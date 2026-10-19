@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Cambio de base, SVD e inversas (unidad 09, molde v2 sobre cb104). Clases 7 y 10.
-
-LECCIÓN ANTICIPADA: las clases 7 y 10 no se dictaron todavía en 2C2026; lectura del esqueleto 2025, pendiente de
-validar por la cátedra. Una sola idea: toda matriz manda algún par de direcciones perpendiculares a otro par
+"""Cambio de base, SVD e inversas (unidad 09, molde v2 sobre cb104).
+Una sola idea: toda matriz manda algún par de direcciones perpendiculares a otro par
 perpendicular, estiradas por los valores singulares: A = U Σ Vᵀ es rotar, estirar, rotar. La inversa lo deshace si
 ninguna σ es cero; si no, lo más parecido a deshacer es la pseudoinversa A⁺ = V Σ⁺ Uᵀ.
 
@@ -43,12 +41,9 @@ def _(mo):
     mo.md(r"""
     # Cambio de base, SVD e inversas
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: las clases 7 y 10 no se dictaron todavía; lo que sigue desarrolla el esqueleto 2025, la
-    nota de formas cuadráticas del campus y el apunte, pendiente de validar por la cátedra.*
-
-    Seguimos las clases 7 y 10. La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
+    La pregunta: **¿Qué direcciones perpendiculares siguen perpendiculares después de
     transformar, y qué es lo más parecido a deshacer cuando no hay inversa?** El gancho: *más mediciones que incógnitas
     (una recta por puntos que no están alineados): la pseudoinversa elige la que deja el residuo perpendicular.*
 
@@ -136,9 +131,8 @@ def _(mo):
     mo.md(r"""
     ## 1. Hecho geométrico
 
-    **¿Qué se conserva?** La perpendicularidad de **un** par de direcciones bien elegido de la entrada: "siempre existe
-    una base ortogonal del espacio de entrada que se asigna a una base ortogonal de la salida" (el profesor, resumen
-    2025). Los largos no se conservan: cada dirección se estira por su **valor singular** $\sigma_k \ge 0$, nunca complejo.
+    **¿Qué se conserva?** La perpendicularidad de **un** par de direcciones bien elegido de la entrada: siempre existe
+    una base ortogonal del espacio de entrada que se asigna a una base ortogonal de la salida. Los largos no se conservan: cada dirección se estira por su **valor singular** $\sigma_k \ge 0$, nunca complejo.
 
     | | álgebra | lo que se ve |
     |---|---|---|
@@ -149,7 +143,7 @@ def _(mo):
     **Rotar, estirar, rotar.** $A v_k = \sigma_k u_k$ con $V = [\textcolor{#1b6f6a}{v_1}\ \textcolor{#b5451b}{v_2}]$
     y $U = [u_1\ u_2]$ ortogonales. De derecha a izquierda, $A = U\Sigma V^T$: $V^T$ **gira** la entrada hasta
     que $v_1, v_2$ caen sobre los ejes, $\Sigma$ **estira** cada eje, $U$ **gira** (o refleja) al lugar final. Es la
-    "base privilegiada" que buscaba el profesor: una grilla a la entrada, otra a la salida, y entre las dos la matriz
+    «base privilegiada» que se buscaba: una grilla a la entrada, otra a la salida, y entre las dos la matriz
     es diagonal. Ojo: diagonal entre **dos** grillas distintas, no es una semejanza; los $\sigma$ no son autovalores y
     $A^n \ne U\Sigma^nV^T$. Si $A$ es simétrica, $\sigma_k = \lvert\lambda_k\rvert$ y $u_k = \pm v_k$ ($U = V$ si
     además todos los $\lambda_k \ge 0$): ahí sí es la diagonalización de la unidad 08.
@@ -164,7 +158,7 @@ def _(mo):
     solución de **mínimos cuadrados** de norma mínima, que proyecta el término independiente sobre lo que $A$ puede
     producir y deshace sólo esa parte. En $\mathbb R$, la pseudoinversa de $0$ es $0$.
 
-    **Los cuatro subespacios** (nombres del profesor), para $A$ de $m\times n$:
+    **Los cuatro subespacios** (con sus nombres usuales), para $A$ de $m\times n$:
 
     | | quién lo genera | qué es |
     |---|---|---|
@@ -461,7 +455,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("existe una base ortogonal de la entrada que va a una base ortogonal de la salida").*
+        **(a) Lápiz — elemental** *Idea central: existe una base ortogonal de la entrada que va a una base ortogonal de la salida.*
         Si $A = U\Sigma V^T$, calculá $A^T A$ y explicá por qué los $\sigma_k^2$ son sus autovalores y los $v_k$ sus
         autovectores. ¿Por qué eso garantiza que los $\sigma$ nunca son complejos?
         """),
@@ -474,7 +468,7 @@ def _(mo):
         los $u_k = Av_k/\sigma_k$ son perpendiculares y de largo $1$.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("invertir una matriz diagonal es tomar recíprocos").* ¿Cuándo $A^{+} = A^{-1}$? Calculá
+        **(b) Lápiz — medio** *Idea central: invertir una matriz diagonal es tomar recíprocos.* ¿Cuándo $A^{+} = A^{-1}$? Calculá
         las dos para $D = \begin{pmatrix} 3 & 0 \\ 0 & -2 \end{pmatrix}$ y para $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$, y decí qué hace $A^{+}A$ con un vector.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
@@ -495,7 +489,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("quedarse con los $k$ primeros es la mejor aproximación de rango $k$").*
+        **(c) Código con hueco — medio** *Idea central: quedarse con los $k$ primeros es la mejor aproximación de rango $k$.*
         Completá `reconstruir(U, s, Vt, k)`. Tenés `np`. Se verifica con `np.allclose` en una matriz $6\times6$ al azar
         con $k = 2$ y $k = 6$ (con $k = 6$ tiene que devolver la matriz entera).
         """),
@@ -506,7 +500,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _M = np.random.default_rng(56798).normal(size=(6, 6))
+    _M = np.random.default_rng(0xDDDE).normal(size=(6, 6))
     _U, _s, _Vt = np.linalg.svd(_M)
     _ns = {"np": np}
     try:
@@ -539,7 +533,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado** *("la pseudoinversa elige el punto de la imagen más cercano").* Completá
+        **(d) Código con hueco — avanzado** *Idea central: la pseudoinversa elige el punto de la imagen más cercano.* Completá
         `pseudoinversa(A)` desde la SVD. Tenés `np`. Se verifica con `np.allclose` contra `np.linalg.pinv` en
         $P = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$, en la no simétrica $\begin{pmatrix} 1 & 1 \\ 2 & 2 \end{pmatrix}$ y en la $3\times2$ de la sección 2.
         """),
@@ -615,13 +609,13 @@ def _(mo):
     Acá verificamos que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
     deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
     [Descomposición en valores singulares (SVD)](../../apunte.pdf#nameddest=sec:svd) construye $U$, $\Sigma$, $V$ con
-    un ejemplo a mano, rehace el cuaderno `LaSVD.wxmx` del profesor y remata con la SVD de un modelo digital de
+    un ejemplo a mano, la rehace en un cuaderno de cálculo simbólico y remata con la SVD de un modelo digital de
     elevación; la sección [Inversas, los cuatro subespacios y la pseudoinversa](../../apunte.pdf#nameddest=sec:pseudoinversa)
     tiene la tabla de los cuatro subespacios y la pseudoinversa de Moore–Penrose. La demostración general de que $U$,
     $\Sigma$, $V$ existen y de que $A^{+}y$ minimiza $\lVert y - Ax\rVert$ está en Strang, *Álgebra lineal y sus
-    aplicaciones*, y en Calvetti–Somersalo, nombrados por el profesor el 2026-10-14.
+    aplicaciones*, y en Calvetti–Somersalo.
 
-    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:09) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
+    - [apunte, «SVD, pseudoinversa, cuatro problemas, DEM» (SVD y cambio de base)](../../apunte.pdf#nameddest=cap:svd) · [apunte, «El hilo de la materia: clase por clase» (el hilo)](../../apunte.pdf#nameddest=cap:02)
     - [ficha de la clase 7](../../clases/07.html) · [ficha de la clase 10](../../clases/10.html) · [el hilo conductor](../../index.html)
     - viene de: [cambio de base](../08_cambio_de_base/index.html) (la SVD es la versión que siempre existe) ·
       [núcleo y autovectores](../07b_nucleo_autovectores/index.html) (los $v_k$ con $\sigma_k = 0$) ·

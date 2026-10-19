@@ -1,43 +1,25 @@
 # Apunte integral — Sistemas de Coordenadas (CB104)
 
-Versión vigente: v4 (2026-10-18, portada interior "Versión 4"): el apunte está organizado por tema, un capítulo por tema y tres niveles dentro de cada uno (`La idea`, `Construcciones, cuentas y ejemplos`, `En profundidad`). La v3 (2026-10-17, organizada en tres lecturas, 117 págs.; la v4 tiene 137 con los fragmentos nuevos) y la de 2026-09-22 (84 págs.) tienen el mismo contenido, salvo lo agregado. Desde el 2026-09-22 el fuente está partido en
-formato + contenido (antes era un único `.tex` de ~5000 líneas; ese monolito se conserva en
-`_old/Apunte_Sistemas_de_Coordenadas.monolitico-2026-09-22.tex`).
+Versión vigente: v4. El apunte está organizado por tema: un capítulo por tema y tres niveles dentro de cada uno (`La idea`, `Construcciones, cuentas y ejemplos`, `En profundidad`). El fuente está partido en formato + contenido.
 
 ## Estructura
 
 - `Apunte_Sistemas_de_Coordenadas.tex` — archivo principal (corto): `\documentclass`,
-  `\usepackage{apunte-formato}`, metadatos (título PDF, autor, textos de encabezado), portada,
-  índice, la lista ordenada de `\input{contenido/NN-nombre}` (con `\clearpage` y `\appendix`
-  entre medio) y los dos `\includepdf` del final. Ya no hay `\part`.
+  `\usepackage{apunte-formato}`, metadatos, portada, índice y la lista ordenada de
+  `\input{contenido/NN-nombre}` (con `\appendix` antes de los apéndices).
 - `apunte-formato.sty` — todo el formato: paquetes, fuentes (fontspec), geometría, paleta
-  teal/rust/gold, cajas `idea` / `resultado` / `atencion` / `enunciado`, columna `Y` de
-  tablas, `\file`, hyperref (colores de links), encabezado/pie (fancyhdr), macros de notación
-  (`\R`, `\vect`, `\rhoP`, `\refl`, `\homot`, `\figlabel`) y estilos TikZ. No contiene texto.
-- `contenido/NN-nombre.tex` — el cuerpo, en orden, un archivo por capítulo. Cada archivo
-  arranca con un comentario de una línea con su título y un `\chapter{...}\label{cap:NN}`,
-  y adentro tiene las tres secciones de nivel `\section{La idea}`, `\section{Construcciones,
-  cuentas y ejemplos}` y `\section{En profundidad}`. Las figuras TikZ están dentro del
-  contenido, donde se usan. Los archivos son: `00-como-leer`, `01-organizacion` y
-  `02-hilo-de-la-materia` (capítulo 0, "Antes de empezar"); `03-algebra-cbc-mirada-clavijo`,
-  `04-rotaciones`, `05-euclideas-similaridades`, `06-afines-homogeneas`, `07-proyectivas`,
-  `08-algebra-transformaciones`, `09-svd`, `10-transformaciones-conformes` y
-  `11-superficies-geodesia` (los nueve capítulos temáticos); `14-…` a `22-…` (apéndices
-  A.1 a A.9, labels `ap:*`). `contenido/_borradores/` guarda fragmentos en preparación que
-  los capítulos 03 y 09 incorporan con `\input`.
+  teal/rust/gold, cajas `idea` / `resultado` / `atencion` / `enunciado`, macros de notación y
+  estilos TikZ. No contiene texto.
+- `contenido/` — el cuerpo, un archivo por capítulo. Cada archivo arranca con un comentario de
+  una línea con su título y un `\chapter{...}\label{cap:<clave>}`. Orden actual: `00-antes-de-empezar`
+  (capítulo 0), capítulos `01-rotaciones` a `15-esfera-trigonometria-esferica`, complementos
+  `c1-proyectivas`, `c2-conformes`, `c3-terreno-como-matriz`, `c4-marcos-grillas` (rotulados C1 a C4)
+  y apéndices `ap1` a `ap6` (labels `ap:*`). Los capítulos 12 a 15 son páginas «en preparación».
 - `Apunte_Sistemas_de_Coordenadas.pdf` — PDF generado.
-- `01_Ejercicios_original.pdf`, `02_afinidad_original.pdf` — material del profesor que el
-  apunte incluye con `\includepdf`; deben estar en esta misma carpeta.
-- `_old/` — backups: `.bak-2026-09-19`, `.bak-2026-09-21`, el monolito previo a la partición
-  (`…monolitico-2026-09-22.tex`), la versión original (generada por IA, 2026-09-09)
-  (`apunte_sistemas_coordenadas.tex`, 16/9) y la del 9/9.
-- `scripts/` — `Apunte_insert_proyectivas_v2.py`, `Apunte_insert_hilo_v3.py`: inserciones
-  reproducibles que produjeron v2 y v3 sobre el archivo monolítico. `reorganizar_por_tema.py`:
-  la reorganización v3 → v4 (de tres lecturas a un capítulo por tema), de una sola corrida
-  sobre el árbol viejo. Quedan como referencia
-  histórica: **ya no aplican al fuente partido** (operan sobre un solo `.tex`). Para regenerar
-  v3 monolítica desde cero: `cp _old/Apunte_Sistemas_de_Coordenadas.bak-2026-09-21.tex X.tex`
-  y `python3 scripts/Apunte_insert_hilo_v3.py X.tex`.
+- `ESTADO.md` — estado del apunte, generado por `scripts/estado.py`.
+- `PENDIENTES.md` — tareas abiertas sobre unidades y material.
+- `figuras/`, `portada/` — figuras y carátula (la carátula se genera con `portada/gen-portada-tikz.py`).
+- `scripts/` — utilidades de mantenimiento del apunte (estado, enlaces y generadores de capítulos).
 
 ## Compilar
 
@@ -53,7 +35,7 @@ borrar; el `.pdf` se deja regenerado.
 
 1. Crear `contenido/NN-nombre.tex` (número siguiente en la posición que corresponda, kebab-case
    sin acentos), con un comentario de título en la primera línea, el `\chapter{...}` con su
-   `\label{cap:NN}` y las tres secciones de nivel (`La idea`, `Construcciones, cuentas y
+   `\label{cap:<clave>}` y las tres secciones de nivel (`La idea`, `Construcciones, cuentas y
    ejemplos`, `En profundidad`).
 2. Agregar una línea `\input{contenido/NN-nombre}` en `Apunte_Sistemas_de_Coordenadas.tex`, en
    el lugar del orden donde va (entre los capítulos temáticos o entre los apéndices).

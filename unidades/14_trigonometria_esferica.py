@@ -6,10 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Trigonometría esférica (unidad 14, molde v2 sobre cb104). Clase 14.
-
-LECCIÓN ANTICIPADA: la clase no se dictó todavía en 2C2026; lectura del esqueleto 2025 (sólo el título), pendiente de
-validar por la cátedra. Una sola idea: un triángulo sobre la esfera tiene lados que son ángulos (arcos de círculo máximo
+"""Trigonometría esférica (unidad 14, molde v2 sobre cb104).
+Una sola idea: un triángulo sobre la esfera tiene lados que son ángulos (arcos de círculo máximo
 medidos desde el centro) y sus ángulos suman más de 180°; el exceso es el área (Girard), y las leyes del coseno y del
 seno salen de productos internos y cuñas de los tres vectores unitarios de los vértices (unidades 02 y 07a).
 
@@ -43,12 +41,9 @@ def _(mo):
     mo.md(r"""
     # Trigonometría esférica
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Lección anticipada: la clase no se dictó todavía; lo que sigue desarrolla el esqueleto 2025, pendiente de validar
-    por la cátedra.*
-
-    Seguimos la clase 14. La pregunta: **¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por
+    La pregunta: **¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por
     qué sus ángulos suman más de 180°?** El gancho: *entre tres vértices lejanos la suma de ángulos de la poligonal trae
     un exceso esférico; corregirlo es parte del cálculo.*
 
@@ -151,16 +146,16 @@ def _(mo):
     triángulo cae en los tres husos de sus vértices y la antípoda en los tres opuestos. Contamos así la esfera una vez y
     el triángulo y su antípoda dos veces de más cada uno: $4(A + B + C)R^2 = 4\pi R^2 + 4\,\text{área}$, que es
     $A + B + C - \pi = \text{área}/R^2$. Control con el octante: $4 \cdot \tfrac{3\pi}{2} = 4\pi + 4\cdot\tfrac{\pi}{2}$.
-    En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica)
+    En el apunte, la sección [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=cap:esfera)
     deduce los teoremas del coseno y del seno con producto interno y determinante, enuncia el exceso de Girard con el
     control del octante y resuelve el triángulo entre tres ciudades; la demostración completa del exceso por husos está
-    en Coxeter, *Geometría*, de la bibliografía del campus.
+    en Coxeter, *Geometría*, de la bibliografía.
 
     | | la cuenta | lo que se ve |
     |---|---|---|
     | plano | $a^2 = b^2 + c^2 - 2bc\cos A$; $A + B + C = 180°$ | lados en metros, suma fija |
     | esfera | $\cos a = \cos b\cos c + \sin b\sin c\cos A$; $A + B + C = 180° + \text{área}/R^2$ | lados que son ángulos; el exceso crece con el área |
-    | elipsoide | sin fórmula cerrada: los lados son geodésicas que no son círculos | problemas directo e inverso por series o con Maxima (clase 14 del esqueleto) |
+    | elipsoide | sin fórmula cerrada: los lados son geodésicas que no son círculos | problemas directo e inverso por series o con Maxima (unidad 14) |
 
     **¿Qué se conserva?** Al rotar la esfera (unidad 01c) no cambian ni lados, ni ángulos, ni área: el producto interno
     y la cuña son invariantes por rotaciones. Y para lados chicos ($\sin b \approx b$, $\cos b \approx 1 - b^2/2$) la ley
@@ -321,7 +316,7 @@ def _(R_TIERRA, lib, mo, np):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("los problemas geodésicos sobre la superficie de la esfera").* Triángulo con $b = c = 60°$
+        **(a) Lápiz — elemental** *Idea central: los problemas geodésicos sobre la superficie de la esfera.* Triángulo con $b = c = 60°$
         y ángulo $A = 90°$. Calculá el lado $a$, los ángulos $B$ y $C$ (ley del coseno), la suma y el exceso. ¿Qué
         fracción de la esfera cubre?
         """),
@@ -332,8 +327,8 @@ def _(R_TIERRA, lib, mo, np):
         ${_ex60:.4f}\,R^2$, el ${100 * _ex60 / (4 * np.pi):.2f}\,\%$ de la esfera.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("verificando si el error obtenido al regresar al punto de origen es compatible con la
-        precisión de los instrumentos").* Una poligonal triangular de campo con lados de $10$ km sobre la Tierra
+        **(b) Lápiz — medio** *Idea central: verificando si el error obtenido al regresar al punto de origen es compatible con la
+        precisión de los instrumentos.* Una poligonal triangular de campo con lados de $10$ km sobre la Tierra
         ($R = 6371$ km). ¿Cuánto exceso esférico trae la suma de sus tres ángulos? ¿Y con lados de $100$ km? ¿Puede un
         cuadrilátero sobre la esfera tener los cuatro ángulos rectos?
         """),
@@ -341,7 +336,7 @@ def _(R_TIERRA, lib, mo, np):
         El triángulo es casi plano: área $\approx \tfrac{{\sqrt3}}{{4}}\,10^2 = {_area10:.1f}$ km²; exceso
         $\varepsilon = {_area10:.1f}/6371^2 = {_area10 / R_TIERRA**2:.2e}$ rad $= {np.degrees(_area10 / R_TIERRA**2) * 3600:.2f}''$. Con $100$ km el área es
         $100$ veces mayor: $\varepsilon \approx {np.degrees(100 * _area10 / R_TIERRA**2) * 3600:.0f}''$, ya del orden de lo que mide un teodolito. Nota de
-        agrimensura, no del profesor: en topografía se reparte restando $\varepsilon/3$ a cada ángulo (Legendre) y se
+        agrimensura: en topografía se reparte restando $\varepsilon/3$ a cada ángulo (Legendre) y se
         calcula como plano. Cuadrilátero de cuatro rectos: imposible; cortado en dos triángulos la suma es
         $360° + \text{{área}}/R^2 > 360°$.
         """)}),
@@ -368,7 +363,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _pares = [(_rng.normal(size=3), _rng.normal(size=3)) for _ in range(8)]
     _pp = lib.punto_esfera(np.radians(45.0), np.radians(30.0))  # cociente 1.0000000000000002 y −1.0000000000000002
     _pares += [(_pp, _pp.copy()), (2 * _pp, -3 * _pp)]
@@ -483,13 +478,13 @@ def _(mo):
 
     Acá verificamos que lados y ángulos de un triángulo esférico salen de productos internos y cuñas de tres vectores, y que
     el exceso es el área. En el apunte está en la sección
-    [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=sec:trigonometria-esferica): el triángulo
+    [Polígonos geodésicos y trigonometría esférica](../../apunte.pdf#nameddest=cap:esfera): el triángulo
     como tres planos por el centro, los teoremas del coseno y del seno deducidos con producto interno y determinante, el
     exceso esférico con el control del octante y el problema resuelto entre tres ciudades. Las herramientas y la esfera
     como superficie:
 
-    - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:11)
-    - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte del profesor sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
+    - [apunte, «Álgebra de las transformaciones» (producto interno y producto vectorial)](../../apunte.pdf#nameddest=cap:formas-lineales) · [apunte, «Superficies, elipsoide, curvatura…» (esfera, métrica y curvatura)](../../apunte.pdf#nameddest=cap:esfera)
+    - [ficha de la clase 14](../../clases/14.html) (con la bibliografía: Coxeter, *Geometría*; el apunte sobre el elipsoide) · [unidad anterior: el elipsoide](../13_elipsoide/index.html)
 
     **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),
     la unidad que cierra el hilo conductor. De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no

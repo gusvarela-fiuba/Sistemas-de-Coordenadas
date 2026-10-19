@@ -1,0 +1,129 @@
+% La derivada como aproximación lineal: jacobiano, gradiente y hessiana (partición por clase: apunte/scripts/reorganizar_por_clase.py)
+\chapter{La derivada como aproximación lineal: jacobiano, gradiente y hessiana}\label{cap:derivada}
+
+\section{La idea}
+
+
+Pasamos del plano a la superficie curva: plano tangente, base local y métrica. Tenemos como horizonte el elipsoide.
+
+\subsection{Pasar del plano a una superficie}\label{sec:plano-superficie}
+
+{\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
+
+
+Sobre una superficie curva no existe una única base cartesiana válida en todas partes. En
+cada punto aparece un plano tangente y una base local que cambia al desplazarse. La métrica
+indica cómo convertir pequeños cambios de coordenadas en distancias y ángulos reales sobre
+la superficie.
+
+\paragraph{Primera traducción algebraica.}
+\[
+  ds^2=E\,du^2+2F\,du\,dv+G\,dv^2.
+\]
+Los coeficientes \(E,F,G\) describen cuánto miden y qué ángulo forman los dos vectores de la
+base local. La expresión transforma pequeños cambios \((du,dv)\) en una distancia geométrica.
+
+\begin{idea}[De lo global a lo local]
+Una superficie curva se estudia mediante pequeños parches que se parecen a un plano. En cada
+parche se usan coordenadas locales; al conectar los parches se recupera la geometría global.
+Esta es la intuición básica de una variedad.
+\end{idea}
+
+\begin{idea}[La derivada como mejor aproximación lineal]
+La derivada es la mejor aproximación lineal a una función en un punto dado; el
+gradiente es perpendicular a una superficie o curva de nivel porque es
+una forma lineal, y la curva de nivel 0 de esa forma lineal es el plano tangente.
+\end{idea}
+
+\section{Construcciones, cuentas y ejemplos}
+
+
+Ponemos el aparato en cuentas: parametrizaciones, espacio tangente, primera forma fundamental, esfera y elipsoide, marcos de referencia y remuestreo. La cátedra aporta los resúmenes y el apunte del elipsoide; las cuentas son desarrollo nuestro.
+
+\subsection{Coordenadas curvilíneas y bases locales}\label{sec:curvilineas}
+
+Una parametrización
+\[
+  r:U\subset\R^2\longrightarrow\R^3,
+  \qquad
+  (u,v)\longmapsto r(u,v)
+\]
+describe una superficie mediante dos coordenadas. Los vectores
+\[
+  r_u=\frac{\partial r}{\partial u},
+  \qquad
+  r_v=\frac{\partial r}{\partial v}
+\]
+forman una base tangente local cuando son linealmente independientes.
+
+\begin{center}
+\begin{tikzpicture}[scale=.9]
+  \draw[teallight,fill=teallight!60] (1,1)
+    .. controls (3,.2) and (6,.5) .. (8,1.4)
+    .. controls (7,3.8) and (3.2,4.5) .. (1,3)
+    .. controls (.7,2.2) and (.7,1.6) .. cycle;
+  \coordinate (p) at (4.6,2.1);
+  \fill[ink] (p) circle (2.5pt) node[below left] {$p$};
+  \draw[mainline,-{Latex[length=2.6mm]}] (p)--++(2.2,.25)
+    node[right] {$r_u$};
+  \draw[rust,line width=1.05pt,-{Latex[length=2.6mm]}] (p)--++(-.6,1.7)
+    node[above] {$r_v$};
+  \draw[muted,line width=.8pt,-{Latex[length=2.6mm]}] (p)--++(.2,2.2)
+    node[above] {$n$};
+  \node[text=muted] at (6.8,.8) {superficie};
+\end{tikzpicture}
+\end{center}
+
+En coordenadas cartesianas la base es fija. En una superficie curva, la base cambia de
+orientación y de longitud al cambiar el punto. Esta dependencia espacial es la razón por la
+cual los productos internos y las derivadas adquieren coeficientes adicionales.
+
+\subsection{Variedades y espacio tangente}\label{sec:variedades}
+
+Una variedad es un objeto que localmente se parece a un espacio euclídeo. Una superficie
+regular \(S\subset\R^3\) tiene en cada punto \(p\) un espacio tangente
+\[
+  T_pS=\operatorname{span}\{r_u(p),r_v(p)\}.
+\]
+El plano tangente es la mejor aproximación lineal local a la superficie. No es una proyección
+cartográfica: pertenece al punto \(p\) y cambia al desplazarse sobre \(S\).
+
+Si \(\Phi:S\to\mathcal N\) es una aplicación entre superficies (variedades), su derivada
+\[
+  d\Phi_p:T_pS\longrightarrow T_{\Phi(p)}\mathcal N
+\]
+es una transformación lineal entre espacios tangentes. Esa transformación contiene la
+información local sobre escala, orientación, deformación angular y deformación de áreas.
+
+\subsection{Métrica y primera forma fundamental}\label{sec:metrica}
+
+{\small\vspace{1mm}\linkUnidad{10_jacobiano_primera_forma}{Simulación interactiva: Unidad 14 — Jacobiano y primera forma fundamental}\par}
+
+
+La métrica inducida por la parametrización queda determinada por
+\[
+  E=\langle r_u,r_u\rangle,\qquad
+  F=\langle r_u,r_v\rangle,\qquad
+  G=\langle r_v,r_v\rangle.
+\]
+El elemento de longitud es
+\[
+  \boxed{ds^2=E\,du^2+2F\,du\,dv+G\,dv^2}.
+\]
+En forma matricial:
+\[
+  ds^2=
+  \begin{pmatrix}du&dv\end{pmatrix}
+  \begin{pmatrix}E&F\\F&G\end{pmatrix}
+  \begin{pmatrix}du\\dv\end{pmatrix}.
+\]
+
+\paragraph{Esfera.}
+Para una esfera de radio \(R\), usando longitud \(\lambda\) y latitud \(\varphi\),
+\[
+  ds^2=R^2\cos^2\varphi\,d\lambda^2+R^2\,d\varphi^2.
+\]
+El factor \(\cos\varphi\) explica por qué un incremento fijo de longitud representa una
+distancia cada vez menor al acercarse a los polos.
+
+\section{En profundidad}

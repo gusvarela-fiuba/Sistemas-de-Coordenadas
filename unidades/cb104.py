@@ -72,10 +72,10 @@ __all__ = [
     # DEM Precordillera (lección 09)
     "dem_precordillera", "rms_rango_k",
     # proyectivas (lección 05)
-    "pentagono_profesor", "aplicar_proyectiva", "recta_al_infinito", "sistema_lambda", "homografia_lambda",
+    "pentagono_ejemplo", "aplicar_proyectiva", "recta_al_infinito", "sistema_lambda", "homografia_lambda",
     "homografia_4puntos", "razon_doble", "curva_proyectiva", "grilla_proyectiva", "estelas_proyectivas",
     "capa_despues_proyectiva",
-    # SVM de margen duro (lección 06, aporte CEIA)
+    # SVM de margen duro (lección 06, complemento)
     "svm_margen_duro_2d",
 ]
 
@@ -757,7 +757,7 @@ def capa_ejes_propios(fig, A, rango=5):
 def cuna2(u, v):
     """Producto cuña en el plano: u ∧ v = u₁v₂ − u₂v₁, el área ORIENTADA del paralelogramo de lados u y v
     (= det[u v] con u, v como columnas). Positiva si de u a v se gira antihorario; cero si y sólo si son
-    colineales: el "detector de colinealidad" del profesor."""
+    colineales: el "detector de colinealidad"."""
     u = np.asarray(u, dtype=float).reshape(2)
     v = np.asarray(v, dtype=float).reshape(2)
     return float(u[0] * v[1] - u[1] * v[0])
@@ -821,7 +821,7 @@ def autovalores_reales(A, tol=1e-7):
 
 
 def autovectores_cuna(A, tol=1e-7):
-    """Autovalores reales y autovectores por el método del profesor ("la cruz de dos filas").
+    """Autovalores reales y autovectores por el método de "la cruz de dos filas".
 
     Para cada raíz real λ de det(A − λI), las filas de B = A − λI son reglas que marcan cero sobre el autovector:
     en 3×3 el autovector es el producto cruz de dos filas de B (el par que no da cero); en 2×2, la perpendicular a
@@ -1236,7 +1236,7 @@ def circulo_3d(centro, u, v, radio, m=73):
 def elipsoide(a, f):
     """Parámetros del elipsoide de revolución de semieje mayor a y aplastamiento f = (a − b)/a: dict con a, f, b,
     e2 (primera excentricidad al cuadrado, e² = (a² − b²)/a² = 2f − f²) y ep2 (segunda, e'² = (a² − b²)/b²).
-    f = 0 es la esfera. Notación del apunte del profesor (Clavijo, Geometría del Elipsoide)."""
+    f = 0 es la esfera. Notación del apunte Geometría del Elipsoide."""
     a, f = float(a), float(f)
     e2 = 2 * f - f**2
     return dict(a=a, f=f, b=a * (1 - f), e2=e2, ep2=e2 / (1 - e2))
@@ -1563,7 +1563,7 @@ def pseudoinversa(A, tol=1e-10):
 
 
 def cuatro_subespacios(A, tol=1e-10):
-    """Los cuatro subespacios de una m×n, con los nombres del profesor, como bases ortonormales en columnas:
+    """Los cuatro subespacios de una m×n, con sus nombres usuales, como bases ortonormales en columnas:
     `imagen` (los uₖ con σₖ ≠ 0, en Rᵐ), `contra_imagen` (los uₖ restantes: el núcleo de Aᵀ, perpendicular a la
     imagen, donde vive el residuo), `coimagen` (los vₖ con σₖ ≠ 0, en Rⁿ: la imagen de Aᵀ) y `nucleo` (los vₖ con
     σₖ = 0). También `s` (los σ) y `rango`. Una base vacía es un array con cero columnas."""
@@ -1607,8 +1607,8 @@ def capa_direcciones_singulares(fig, A, antes=True, despues=True, nombre="A"):
 # ----------------------------------------------------------------------------
 
 
-def pentagono_profesor():
-    """Los vértices A..E (5×2) del pentágono regular de la planilla del profesor (23/9): D = (0, 1) y los demás por
+def pentagono_ejemplo():
+    """Los vértices A..E (5×2) del pentágono regular de la planilla: D = (0, 1) y los demás por
     giros de 72° alrededor del origen, C = R(72°) D, B = R(144°) D, A = R(216°) D, E = R(288°) D. Recorrido
     A → B → C → D → E horario; el centro (0, 0) es el punto fijo (0, 0, 1) de cualquier giro."""
     giros = dict(A=216, B=144, C=72, D=0, E=288)
@@ -1628,7 +1628,7 @@ def recta_al_infinito(H):
 
 
 def sistema_lambda(origen, destino):
-    """El sistema 13×13 del profesor para la homografía que lleva cuatro puntos (4×2) a otros cuatro (4×2):
+    """El sistema 13×13 (un λ por punto) para la homografía que lleva cuatro puntos (4×2) a otros cuatro (4×2):
     incógnitas (h11, h12, h13, h21, …, h33, λ1, λ2, λ3, λ4); por cada punto las tres ecuaciones H pᵢ − λᵢ qᵢ = 0
     (pᵢ, qᵢ en homogéneas con w = 1) y la decimotercera h33 = 1. Devuelve (M, b) con M x = b."""
     P, Q = hom(origen), hom(destino)
@@ -2050,7 +2050,7 @@ def rms_rango_k(Z, ks, centrar=False):
 
 
 # ----------------------------------------------------------------------------
-# --- SVM de margen duro (lección 06, aporte CEIA) ---
+# --- SVM de margen duro (lección 06, complemento) ---
 # ----------------------------------------------------------------------------
 
 
@@ -2128,7 +2128,7 @@ def svm_margen_duro_2d(C1, C2):
 # ----------------------------------------------------------------------------
 
 HILO_CONDUCTOR: dict[str, dict[str, str]] = {
-    "00_desaprender_el_cbc": {
+    "00_fundamentos": {
         "titulo": "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)",
         "venimos_de": (
             "Del CBC: vectores como flechas sueltas, el gradiente como una flecha más, la distancia siempre "
@@ -2161,7 +2161,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             r"Si en vez de los ejes giramos la parcela entera (rotación activa, $R\,p$), hace falta saber qué conserva $R$ "
             "y por qué su inversa es la transpuesta: unidad 01b."
         ),
-        "anterior": "00_desaprender_el_cbc",
+        "anterior": "00_fundamentos",
         "siguiente": "01b_rotacion_plano",
     },
     "01b_rotacion_plano": {
@@ -2252,7 +2252,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
         "siguiente": "05_proyectivas",
     },
     "05_proyectivas": {
-        "titulo": "Proyectivas: la foto del dron y el pentágono del profesor",
+        "titulo": "Proyectivas: la foto del dron y el pentágono",
         "venimos_de": (
             r"La unidad 04 dejó la $3\times3$ afín con última fila $(0\ 0\ 1)$: paralelas a paralelas y tres puntos la "
             "fijan; una foto inclinada no cumple eso."
@@ -2478,8 +2478,8 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             "(`lib.latitud_isometrica`, `lib.escalas_proyeccion_cilindrica`, `lib.defecto_conformidad_jacobiano`)."
         ),
         "vamos_hacia": (
-            r"Gauss-Krüger / POSGAR como función analítica de $q + i\,\Delta\lambda$: el cierre del arco, de la "
-            "clase 1 (el número complejo que gira) a la clase 13 (el elipsoide que se proyecta)."
+            r"Gauss-Krüger / POSGAR como función analítica de $q + i\,\Delta\lambda$: el cierre del arco, de "
+            "las rotaciones (el número complejo que gira) al elipsoide que se proyecta."
         ),
         "anterior": "14_trigonometria_esferica",
         "siguiente": "",
@@ -2683,7 +2683,7 @@ if __name__ == "__main__":
     assert exacto(cuna2([3, 1], [1, 2]), 5.0) and exacto(cuna2([1, 2], [3, 1]), -5.0) and exacto(cuna2([3, 1], [6, 2]), 0.0)
     assert exacto(cuna2([3, 1], [1, 2]), np.linalg.det(np.column_stack([[3, 1], [1, 2]]))), "u ∧ v = det[u v]"
     assert exacto(cuna3([1, 2, 0], [0, 1, 1], [1, 0, 2]), 4.0) and exacto(cuna3([1, 2, 0], [0, 1, 1], [1, 3, 1]), 0.0)
-    assert exacto(cuna3([1, 2, 3], [4, 5, -1], [0, 0, 1]), -3.0), "la apuesta del 16/9: (p × q) · r = −3"
+    assert exacto(cuna3([1, 2, 3], [4, 5, -1], [0, 0, 1]), -3.0), "tres mojones: (p × q) · r = −3"
     assert alineados([1, 1], [4, 3], [7, 5]) and not alineados([1, 1], [4, 3], [7, 6])
     assert exacto(area_poligono(paralelogramo([3, 1], [1, 2])), cuna2([3, 1], [1, 2])), "el área del paralelogramo es la cuña"
     vp, ap = paralelepipedo([1, 2, 0], [0, 1, 1], [1, 0, 2])
@@ -2846,8 +2846,8 @@ if __name__ == "__main__":
     # lección 06: formas lineales
     assert exacto(forma_transformada([2, 1], np.diag([2.0, 1.0])), [1, 1]), "lección 06: (2,1) diag(2,1)⁻¹ = (1,1)"
     A06 = np.array([[1.2, 0.5], [-0.1, 1.3]])
-    assert exacto(forma_transformada([1, 1], A06) @ (A06 @ [3, 4]), 7.0) and exacto(forma_transformada([-1, 2], A06) @ (A06 @ [3, 4]), 5.0), "30/9: la séptima con la quinta"
-    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "30/9: (1,1) T⁻¹ por adjunta sobre determinante"
+    assert exacto(forma_transformada([1, 1], A06) @ (A06 @ [3, 4]), 7.0) and exacto(forma_transformada([-1, 2], A06) @ (A06 @ [3, 4]), 5.0), "la séptima con la quinta"
+    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "(1,1) T⁻¹ por adjunta sobre determinante"
     assert exacto(forma_transformada([2, 3], [[1, 1], [0, 2]]), [2, 0.5]), "apunte 11: ψ = φ A⁻¹ = (2, 1/2)"
     assert exacto(forma_transformada([2, 1], rot2(th)), rot2(th) @ [2, 1]), "con una rotación la fila gira como un punto"
     try:
@@ -2899,11 +2899,11 @@ if __name__ == "__main__":
     assert exacto(truncar_svd(_U9, _s9, _Vt9, 4), _M9) and np.linalg.matrix_rank(truncar_svd(_U9, _s9, _Vt9, 2)) == 2, "truncar_svd: k = todo devuelve la matriz; k = 2 tiene rango 2"
     assert elipse_imagen(np.diag([3.0, 2.0]), 5).shape == (5, 2) and exacto(elipse_imagen(np.diag([3.0, 2.0]), 5)[0], [3, 0])
     # --- Proyectivas (lección 05) ---
-    _P5 = pentagono_profesor()
+    _P5 = pentagono_ejemplo()
     assert exacto(_P5[3], [0, 1]) and exacto(np.linalg.norm(_P5, axis=1), np.ones(5)) and exacto(_P5[2], rot2(np.deg2rad(72)) @ [0, 1]), "planilla: D = (0, 1), C = R(72°) D"
     assert exacto(abs(area_poligono(_P5)), abs(area_poligono(pentagono_regular(1.0)))) and area_poligono(_P5) < 0, "el mismo pentágono que pentagono_regular(1), recorrido horario"
     _Hp, _lam = homografia_lambda(_P5[[0, 1, 2, 4]], _P5[[0, 1, 4, 2]])
-    assert exacto(_Hp, [[-np.sqrt(5), 0, 0], [0, -1, 1], [0, 4, 1]]), "planilla del profesor: H = [[−√5, 0, 0], [0, −1, 1], [0, 4, 1]]"
+    assert exacto(_Hp, [[-np.sqrt(5), 0, 0], [0, -1, 1], [0, 4, 1]]), "planilla del pentágono: H = [[−√5, 0, 0], [0, −1, 1], [0, 4, 1]]"
     assert exacto(_lam, [-np.sqrt(5), -np.sqrt(5), np.sqrt(5), np.sqrt(5)]), "λ = (−√5, −√5, √5, √5): A y B con W negativa, la imagen se parte"
     assert exacto(aplicar_proyectiva(_P5, _Hp), np.vstack([_P5[[0, 1, 4]], [[0, 0]], _P5[[2]]])), "A, B fijos, C ↔ E y D cae en el centro"
     assert exacto(homografia_4puntos(_P5[[0, 1, 2, 4]], _P5[[0, 1, 4, 2]]), _Hp), "DLT (8×9) y sistema λ (13×13) dan la misma H"
@@ -2942,7 +2942,7 @@ if __name__ == "__main__":
         assert exacto(_Z[::4, ::4], _D, tol=0.5), "la submuestra embebida es a[::4, ::4] al metro"
     else:
         assert _Z.shape == (128, 128), "sin el .npy en disco se usa la submuestra"
-    # --- SVM de margen duro (lección 06, aporte CEIA) ---
+    # --- SVM de margen duro (lección 06, complemento) ---
     _s = svm_margen_duro_2d([[0, 0], [1, 0], [0, 1]], [[3, 3], [4, 3], [3, 4]])
     assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.4) and exacto(_s["margen"], 5 / np.sqrt(2)), "lado (1,0)–(0,1) contra (3,3): x + y = 3.5, ancho 5/√2"
     assert exacto(_s["soporte_1"], [[1, 0], [0, 1]]) and exacto(_s["soporte_2"], [[3, 3]]) and exacto(_s["u"], [1, 1] / np.sqrt(2)), "tres soportes: (1,0), (0,1) y (3,3)"

@@ -1,12 +1,11 @@
 """Banco de autoevaluación, bloque 1: unidades 00, 01a, 01b, 01c y 02.
 
 Seis preguntas por unidad (2 elementales, 2 medias, 2 avanzadas), cuatro opciones con explicación cada una. El campo
-`rubrica` nombra la celda del apéndice 19 (rúbrica del profesor para rotaciones, o las propuestas del curso) que la
-pregunta cubre. Lo mezcla `tools/merge_banco.py`; no se importa directo.
+`rubrica` nombra el tema y nivel de contenido (por ejemplo «Productos/medio») que la pregunta cubre. Lo mezcla `tools/merge_banco.py`; no se importa directo.
 """
 
 BANCO = {
-    "00_desaprender_el_cbc": [
+    "00_fundamentos": [
         {
             "id": "00_e1",
             "nivel": "elemental",
@@ -379,7 +378,7 @@ BANCO = {
                 {"id": "d", "texto": r"No tiene eje: dos giros alrededor de ejes distintos no son un giro, sino otra clase de movimiento.", "correcta": False,
                  "explicacion": r"El producto de ortogonales con $\det = 1$ es ortogonal con $\det = 1$, y toda matriz así es un giro alrededor de alguna recta: la composición de rotaciones es una rotación."},
             ],
-            "rubrica": "Rotaciones/medio: combinacion de rotaciones son rotaciones (el eje fijo, que en la clase 6 sera autovector de autovalor 1)",
+            "rubrica": "Rotaciones/medio: combinacion de rotaciones son rotaciones (el eje fijo, que más adelante será autovector de autovalor 1)",
         },
         {
             "id": "01c_a2",

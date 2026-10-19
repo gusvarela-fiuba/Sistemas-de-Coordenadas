@@ -8,8 +8,8 @@
 # ///
 """Rotaciones I — el punto no se movió (unidad 01a, molde v2 sobre el módulo común cb104).
 
-Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · 2C2026 · Gustavo Varela (padrón 56798).
-Sigue la clase 1. Una sola idea: todo vector es un punto; si giramos los ejes, el punto (el mojón) se queda quieto y
+Sistemas de Coordenadas (CB104) · Agrimensura · FIUBA · Gustavo Varela.
+Una sola idea: todo vector es un punto; si giramos los ejes, el punto (el mojón) se queda quieto y
 lo que cambian son sus coordenadas (rotación pasiva). Girar el punto con los ejes quietos es la rotación activa, y una
 es la transpuesta de la otra. La matriz R(θ) aparece recién al final, como la cuenta que hace lo que ya se vio.
 
@@ -43,9 +43,9 @@ def _(mo):
     mo.md(r"""
     # Rotaciones I — el punto no se movió
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 1. La pregunta de esta lección es una sola: **si giramos los ejes 30°, ¿se mueve el mojón o se mueven
+    La pregunta de esta lección es una sola: **si giramos los ejes 30°, ¿se mueve el mojón o se mueven
     sus coordenadas?** Lo que viene después (la matriz, qué conserva, el 3D) queda para las lecciones II y III.
 
     Código de colores, igual en la figura y en el álgebra: lo que estaba **antes** va en gris, lo que queda **después**
@@ -137,8 +137,8 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **Todo vector es un punto.** El mojón es un lugar del terreno; $(4, 3)$ es su **etiqueta** en unos ejes. Cambiá los
-    ejes y cambia la etiqueta, no el lugar. Como dijo el profesor con la soga: "la geometría no me exige coordenadas;
-    las coordenadas son algo que yo le pongo por comodidad".
+    ejes y cambia la etiqueta, no el lugar. Con la soga lo vemos: la geometría no exige coordenadas;
+    las coordenadas son algo que le ponemos por comodidad.
 
     Hay dos maneras de girar, y conviene tenerlas separadas desde el principio:
 
@@ -302,7 +302,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("Las matrices y las transformaciones lineales tienen una correspondencia 1 a 1").*
+        **(a) Lápiz — elemental** *Idea central: las matrices y las transformaciones lineales tienen una correspondencia 1 a 1.*
         El mojón está en $(2, 0)$ y la estación tiene sus ejes girados $90°$ antihorario. Sin matriz, con un dibujo:
         ¿qué lee la estación? Después hacé la cuenta $R(90°)^T\binom{2}{0}$ y comprobá que da lo mismo.
         """),
@@ -325,8 +325,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los
-        objetos transformados mantienen").* Completá `lectura(p, theta_grados)`: recibe un punto (array de 2) en los ejes
+        **(b) Código con hueco — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los
+        objetos transformados mantienen.* Completá `lectura(p, theta_grados)`: recibe un punto (array de 2) en los ejes
         de la obra y el giro de los ejes de la estación **en grados**, y devuelve lo que lee la estación. Tenés `np`.
         Se verifica con `np.allclose` contra la referencia en 20 puntos al azar.
         """),
@@ -337,7 +337,7 @@ def _(mo):
 
 @app.cell
 def _(editor_b, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _puntos = _rng.uniform(-5, 5, size=(20, 2))
     _grados = 37.0
     _R = lib.rot2(np.deg2rad(_grados))
@@ -403,7 +403,7 @@ def _(mo):
     En esta unidad demostramos que el punto no se mueve y que las coordenadas nuevas son $R^T P$. La demostración de que la inversa de
     una rotación es su transpuesta (y por qué) está en el apunte:
 
-    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva

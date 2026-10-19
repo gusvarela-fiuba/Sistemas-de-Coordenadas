@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Rotaciones II — la rotación en el plano (unidad 01b, molde v2 sobre cb104). Clase 1.
-
+"""Rotaciones II — la rotación en el plano (unidad 01b, molde v2 sobre cb104).
 Una sola idea: R(θ) es "a dónde van e1 y e2"; conserva longitudes, ángulos, producto interno y área (det = 1);
 R(α)R(β) = R(α+β); e^{iθ} es la misma rotación. Casos precargados con contraejemplos, estelas, parcela girando.
 
@@ -41,9 +40,9 @@ def _(mo):
     mo.md(r"""
     # Rotaciones II — la rotación en el plano
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 1. En la lección I el mojón quedaba quieto y giraban los ejes. Acá giramos la **parcela entera** con los
+    En la lección I el mojón quedaba quieto y giraban los ejes. Acá giramos la **parcela entera** con los
     ejes quietos (rotación activa) y nos preguntamos **qué le pasa y qué no le pasa**: eso define a la rotación.
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
@@ -366,8 +365,8 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — medio** *("Hay transformaciones que se definen completamente por qué propiedades de los objetos
-        transformados mantienen").* ¿Qué ángulo $\theta$ lleva $(1, 0)$ a $(0, -1)$? Escribí $R(\theta)$ con números y
+        **(a) Lápiz — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los objetos
+        transformados mantienen.* ¿Qué ángulo $\theta$ lleva $(1, 0)$ a $(0, -1)$? Escribí $R(\theta)$ con números y
         verificá que el largo de $(1,0)$ no cambia. ¿Hay otra matriz ortogonal, que **no** sea una rotación, que también
         lleve $(1,0)$ a $(0,-1)$? ¿Qué la distingue?
         """),
@@ -393,8 +392,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(b) Código con hueco — medio** *("Hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$"; la
-        idea de la sección 4).* Completá `rotar(puntos, theta)`: recibe una nube $N\times2$ y un ángulo en **radianes** y
+        **(b) Código con hueco — medio** *Idea central: hay una equivalencia entre operaciones en $\mathbb C$ y en $\mathbb R^2$ (sección 4).* Completá `rotar(puntos, theta)`: recibe una nube $N\times2$ y un ángulo en **radianes** y
         devuelve la nube girada. Tenés `np`. Se verifica con `np.allclose` sobre 20 puntos al azar.
         """),
         editor_b,
@@ -404,7 +402,7 @@ def _(mo):
 
 @app.cell
 def _(editor_b, lib, mo, np):
-    _puntos = np.random.default_rng(56798).uniform(-5, 5, size=(20, 2))
+    _puntos = np.random.default_rng(0xDDDE).uniform(-5, 5, size=(20, 2))
     _theta = np.deg2rad(37)
     _esperado = lib.transformar(_puntos, lib.rot2(_theta))
     _ns = {"np": np}
@@ -468,7 +466,7 @@ def _(mo):
     En esta unidad demostramos qué conserva una rotación y qué no conservan el espejo, el corte y la proyección. Las demostraciones
     (producto interno $\Rightarrow R^TR = I$, el determinante como orientación, complejos $\leftrightarrow$ matriz):
 
-    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:04)
+    - [apunte, «Rotaciones» (rotaciones)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha de la clase 1](../../clases/01.html) · [unidad anterior: Rotaciones I](../01a_punto_quieto/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones III — tres ejes y el orden importa](../01c_rotaciones_3d/index.html): en 3D hay un

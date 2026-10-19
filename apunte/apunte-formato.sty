@@ -1,4 +1,4 @@
-%% apunte-formato.sty — formato del "Apunte integral — Sistemas de Coordenadas"
+%% apunte-formato.sty — formato del "Apunte — Sistemas de Coordenadas"
 %% Todo lo que es presentación vive acá: paquetes, fuentes, geometría, paleta,
 %% cajas tcolorbox, tablas, encabezados, macros de notación y estilos TikZ.
 %% El contenido (texto, figuras, metadatos) NO va en este archivo.
@@ -29,6 +29,7 @@
 % columna Y: tabularx con texto alineado a la izquierda y sin justificar
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \usepackage{enumitem}
+\usepackage{amsthm}% antes de hyperref
 
 %% --- TikZ y cajas ---
 \usepackage{tikz}
@@ -40,6 +41,9 @@
 \PassOptionsToPackage{obeyspaces,spaces,hyphens}{url}
 \usepackage[destlabel]{hyperref}
 % \file{...}: nombre de archivo en tamaño small, sin link
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z}
+\makeatother
 \newcommand{\file}[1]{{\small\nolinkurl{#1}}}
 \renewcommand{\UrlBreakPenalty}{100}\renewcommand{\UrlBigBreakPenalty}{100}
 \usepackage{pdfpages}
@@ -68,11 +72,39 @@
 %% simulación interactiva de una unidad (negrita, color teal = urlcolor, triángulo final).
 %% \linkFicha{<slug>}{<texto>}: enlace a la ficha de una clase (color teal, sin negrita).
 %% \linkUnidadId{<id>}: el id de la unidad como texto monoespaciado del enlace (tablas).
-\newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}
+%% \urlsitio: única fuente de la URL del sitio en el apunte (con barra final).
+\newcommand{\sitioURL}{https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas}% raíz sin barra final (los links añaden /ruta). ÚNICO lugar donde se escribe la URL.
+\newcommand{\urlsitio}{\sitioURL/}% misma URL con barra final, para \url y texto
 \newcommand{\linkUnidad}[2]{\href{\sitioURL/unidades/#1/index.html}{\textcolor{teal}{\textbf{#2 \(\triangleright\)}}}}
 \newcommand{\linkAnimacion}[2]{\href{\sitioURL/animaciones/#1.mp4}{\textcolor{rust}{\textbf{#2}\,\(\circlearrowright\)}}}
 \newcommand{\linkFicha}[2]{\href{\sitioURL/clases/#1.html}{\textcolor{teal}{#2}}}
 \newcommand{\linkUnidadId}[1]{\href{\sitioURL/unidades/#1/index.html}{\texttt{\detokenize{#1}}}}
+
+%% \unidadInteractiva{<id>}{<título>}{<qué hacer>}: recuadro compacto para una actividad concreta
+%% en una unidad interactiva. Línea 1: ▷ y título en negrita (hipervínculo a la unidad); línea 2:
+%% la tarea en una frase; línea 3: ruta corta unidades/<id> en monoespaciado.
+%% \animacion{<nombre>}{<título>}{<qué mirar>}: igual, con ↻ y la ruta animaciones/<nombre>.mp4.
+%% Ejemplo: \unidadInteractiva{01b_rotacion_plano}{Rotaciones II}{Mové el deslizador \(\theta\) y comprobá que \(|p'-c|\) no cambia.}
+%% Se puede usar en el texto corriente o dentro de otras cajas (resultado, atencion, enunciado);
+%% no se usa dentro de idea. No se corta entre páginas. En escala de grises se lee por la
+%% negrita, el ícono y la banda izquierda, no por el color.
+\newtcolorbox{recuadroEnlace}{
+  enhanced,breakable=false,width=\linewidth,colback=paper,colframe=linegray,
+  borderline west={2.5pt}{0pt}{teal},boxrule=0.5pt,arc=1mm,
+  left=3.5mm,right=3mm,top=1.6mm,bottom=1.6mm,before skip=5pt,after skip=5pt
+}
+\newcommand{\unidadInteractiva}[3]{%
+  \begin{recuadroEnlace}\raggedright
+  \(\triangleright\)\ \href{\sitioURL/unidades/#1/index.html}{\textbf{#2}}\par
+  #3\par
+  {\footnotesize\ttfamily\detokenize{unidades/#1}}%
+  \end{recuadroEnlace}}
+\newcommand{\animacion}[3]{%
+  \begin{recuadroEnlace}\raggedright
+  \(\circlearrowright\)\ \href{\sitioURL/animaciones/#1.mp4}{\textbf{#2}}\par
+  #3\par
+  {\footnotesize\ttfamily\detokenize{animaciones/#1.mp4}}%
+  \end{recuadroEnlace}}
 
 %% --- Encabezado y pie de página (fancyhdr) ---
 \pagestyle{fancy}
@@ -135,5 +167,61 @@
   auxline/.style={line width=.7pt,draw=muted,dashed},
   labelback/.style={fill=white,fill opacity=.94,text opacity=1,inner sep=1.4pt}
 }
+
+%% --- Entornos numerados: definicion, proposicion, teorema, ejemplo, ejercicio, demostracion ---
+%% Uso: \begin{ejemplo}[Título opcional] ... \end{ejemplo}; \begin{demostracion} ... \end{demostracion};
+%% \solucion{texto breve} tras un ejercicio. definicion/ejemplo/proposicion/teorema comparten
+%% contador por capítulo (Definición 6.1, Ejemplo 6.2, ...); ejercicio tiene contador propio.
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{ejemplo}[definicion]{Ejemplo}
+\theoremstyle{plain}
+\newtheorem{proposicion}[definicion]{Proposición}
+\newtheorem{teorema}[definicion]{Teorema}
+\theoremstyle{definition}
+\newtheorem{ejercicio}{Ejercicio}[chapter]
+\newenvironment{demostracion}{\begin{proof}}{\end{proof}}
+\newcommand{\solucion}[1]{\par\smallskip\noindent{\small\textit{Solución.} #1}}
+
+%% --- Numeración de capítulos: complementos y capítulo preliminar ---
+%% \capituloComplemento[N]{Título}: capítulo rotulado «Complemento CN» (encabezado, índice y
+%% \ref dan «C1», «C2», …; definiciones y ejemplos «C1.1», «C1.2», …). Sin [N] toma el
+%% siguiente número de complemento. El capítulo de clase que sigue conserva su número: al
+%% llamar a \chapter (o \appendix) se restaura la numeración arábiga y el contador guardado.
+%% \capituloPreliminar{R} … \finCapituloPreliminar: el \chapter que queda entre ambos se
+%% numera con la letra dada y no consume número de capítulo de clase.
+\newcounter{complemento}
+\newcounter{apunteCapGuardado}
+\newif\ifapunteNumEspecial
+\let\apunteChapterOriginal\chapter
+\let\apunteAppendixOriginal\appendix
+\let\apunteChapternameGuardado\relax
+\newcommand{\apunteRestaurarNumeracion}{%
+  \ifapunteNumEspecial
+    \global\apunteNumEspecialfalse
+    \setcounter{chapter}{\value{apunteCapGuardado}}%
+    \gdef\thechapter{\arabic{chapter}}%
+    \gdef\theHchapter{\arabic{chapter}}%
+    \global\let\chaptername\apunteChapternameGuardado
+  \fi}
+\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}
+\renewcommand{\appendix}{\apunteRestaurarNumeracion\apunteAppendixOriginal}
+\newcommand{\apunteNumeracionEspecial}[1]{% #1 = rótulo de \thechapter
+  \apunteRestaurarNumeracion
+  \setcounter{apunteCapGuardado}{\value{chapter}}%
+  \global\let\apunteChapternameGuardado\chaptername
+  \gdef\thechapter{#1}%
+  \gdef\theHchapter{#1}%
+  \global\apunteNumEspecialtrue}
+\newcommand{\capituloComplemento}[2][]{%
+  \if\relax\detokenize{#1}\relax\stepcounter{complemento}\else\setcounter{complemento}{#1}\fi
+  \apunteNumeracionEspecial{C\arabic{complemento}}%
+  \gdef\chaptername{Complemento}%
+  \let\apunteACL\addcontentsline
+  \def\addcontentsline##1##2##3{\let\addcontentsline\apunteACL}% el \chapter no escribe su línea…
+  \apunteChapterOriginal{#2}%
+  \addcontentsline{toc}{chapter}{Complemento \thechapter: #2}}% …la escribimos con el rótulo
+\newcommand{\capituloPreliminar}[1]{\apunteNumeracionEspecial{#1}\let\chapter\apunteChapterOriginal}
+\newcommand{\finCapituloPreliminar}{\renewcommand{\chapter}{\apunteRestaurarNumeracion\apunteChapterOriginal}\apunteRestaurarNumeracion}
 
 \endinput

@@ -4,7 +4,7 @@ site/
 __pycache__/
 __marimo__/
 *.pyc
-# datos pesados (quedan en Dropbox)
+# datos pesados (fuera del repositorio)
 *.tif
 *.zip
 # LaTeX temporales
@@ -21,3 +21,11 @@ __marimo__/
 .DS_Store
 # plotly interactivo de los ejercicios (~5 MB cada uno; se regeneran con los .py)
 ejercicios/**/*.html
+
+# Material privado (vive en sistemas-de-coordenadas-fuentes)
+entregas/
+apunte/preparacion/
+apunte/_retirado/
+docs/auditoria.md
+apunte/01_Ejercicios_original.pdf
+apunte/02_afinidad_original.pdf

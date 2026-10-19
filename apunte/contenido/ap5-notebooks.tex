@@ -1,0 +1,121 @@
+% Apéndice: material de práctica y notebooks
+\section{Material de práctica y notebooks}\label{cap:21}\label{ap:notebooks}
+
+\subsection{Unidades interactivas}
+
+Las 20 unidades (00 a 15) son el hilo conductor del sitio de la materia: unidades interactivas
+con Python, construidas ladrillo a ladrillo y publicadas como
+páginas WASM (corren en el navegador, sin instalar nada):
+
+\begin{center}\url{\urlsitio}\end{center}
+
+El sitio tiene tres capas: ese hilo conductor (la portada), el mapa de conceptos
+(herramienta de repaso) y este apunte formal en \LaTeX{}. El fuente está en
+\file{unidades/} del repositorio; se abren localmente con \texttt{marimo edit}
+(entorno \texttt{uv}). Cada unidad enlaza a la sección de este apunte que desarrolla su
+tema (destino \texttt{cap:NN} del PDF), y cada una cierra con ejercicios con hueco y
+verificación automática. La columna ``capítulo'' indica dónde se desarrolla el tema de cada unidad. La Unidad 0 es el
+encuadre de la subsección~\ref{sec:desaprender} y de la brújula de la
+sección~\ref{sec:puntos-formas-grillas}. Las unidades 11 a 14 acompañan capítulos en preparación. La unidad 15 es \emph{complementaria}: cierra el arco de la materia con las
+transformaciones conformes (sección~\ref{sec:transformaciones-conformes}).
+
+{\small
+\begin{longtable}{>{\ttfamily\raggedright\arraybackslash}p{62mm}>{\raggedright\arraybackslash}p{70mm}>{\raggedright\arraybackslash}p{16mm}}
+\toprule
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Capítulo}\\
+\midrule
+\endfirsthead
+\toprule
+\textrm{\textbf{Unidad (id)}} & \textbf{Título} & \textbf{Capítulo}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\linkUnidadId{00_fundamentos} & Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica & ---\\
+\linkUnidadId{01a_punto_quieto} & Rotaciones I: el punto no se movió & \ref{cap:rotaciones}\\
+\linkUnidadId{01b_rotacion_plano} & Rotaciones II: la rotación en el plano & \ref{cap:rotaciones}\\
+\linkUnidadId{01c_rotaciones_3d} & Rotaciones III: tres ejes y el orden importa & \ref{cap:rotaciones}\\
+\linkUnidadId{02_producto_interno} & Producto interno: proyección, longitud, ángulo & \ref{cap:03}\\
+\linkUnidadId{03_reflexiones_similaridades} & Reflexiones y similaridades & \ref{cap:reflexiones}\\
+\linkUnidadId{04_afines_homogeneas} & Afinidades y coordenadas homogéneas & \ref{cap:afines}\\
+\linkUnidadId{05_proyectivas} & Proyectivas & \ref{cap:proyectivas}\\
+\linkUnidadId{06_formas_lineales} & Formas lineales y dualidad & \ref{cap:formas-lineales}\\
+\linkUnidadId{07a_cuna_determinante} & Cuña y determinante: el detector de colinealidad & \ref{cap:subespacios}\\
+\linkUnidadId{07b_nucleo_autovectores} & Núcleo y autovectores: las direcciones que no giran & \ref{cap:subespacios}, \ref{cap:autovectores}\\
+\href{\sitioURL/unidades/07c_autovalores_3d_puntos_fijos/index.html}{\texttt{\detokenize{07c_autovalores_3d_}\allowbreak\detokenize{puntos_fijos}}} & Autovalores en 3D y puntos fijos proyectivos & \ref{cap:autovectores}\\
+\linkUnidadId{08_cambio_de_base} & Cambio de base y diagonalización & \ref{cap:cambio-base}\\
+\linkUnidadId{09_cambio_de_base_svd} & Cambio de base, SVD e inversas (con el DEM real de la
+sección~\ref{sec:svd}) & \ref{cap:svd}, \ref{cap:inversas}\\
+\linkUnidadId{10_jacobiano_primera_forma} & Jacobiano y primera forma fundamental & \ref{cap:derivada}\\
+\linkUnidadId{11_cuatro_problemas} & Cuatro problemas: regresión, círculos, Procrustes, regresión total
+& \ref{cap:cuatro-problemas}\\
+\linkUnidadId{12_curvatura} & Curvatura como forma cuadrática & \ref{cap:curvatura}\\
+\linkUnidadId{13_elipsoide} & Geometría del elipsoide & \ref{cap:elipsoide}\\
+\linkUnidadId{14_trigonometria_esferica} & Trigonometría esférica & \ref{cap:esfera}\\
+\href{\sitioURL/unidades/15_transformaciones_conformes/index.html}{\texttt{\detokenize{15_transformaciones_}\allowbreak\detokenize{conformes}}} & Transformaciones conformes: complejos, Jacobiano, elipsoide al plano (complementaria) & \ref{cap:conformes}\\
+\end{longtable}
+}
+
+\paragraph{Módulo común \file{cb104.py}.} Vive en \file{unidades/}, junto a los
+notebooks, y todas las unidades lo importan (\texttt{import cb104 as lib}). Sólo depende
+de NumPy (y de Plotly adentro de las funciones que dibujan). Reúne la paleta del apunte
+(teal, rust, gold), las rotaciones \texttt{rot2}, \texttt{rot\_x}, \texttt{rot\_y},
+\texttt{rot\_z} y \texttt{rodrigues}, coordenadas homogéneas (\texttt{hom}, \texttt{dehom}),
+área orientada de un polígono, potencias reales \texttt{pot\_real}, cambio de base
+(\texttt{coordenadas\_en\_base}, \texttt{diagonalizar}), eje y ángulo de una rotación,
+helpers de \LaTeX{} para mostrar matrices coloreadas, las capas de Plotly ``antes/después''
+de la grilla, el cubo unitario y los terrenos sintéticos en 3D, y la verificación de los
+ejercicios con hueco (\texttt{verificar}, \texttt{exacto}). Para el export WASM el módulo
+no existe en el navegador: \file{tools/build.py} reemplaza la celda marcada
+\texttt{\# cb104:inline} por una que embebe el archivo. Se prueba con
+\texttt{uv run python unidades/cb104.py}.
+
+\subsection{Índice general de problemas y guías resueltas}
+
+Dónde está resuelto cada tipo de problema: en este apunte y en los ejercicios con hueco de
+las unidades.
+
+{\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{48mm}>{\raggedright\arraybackslash}p{64mm}>{\raggedright\arraybackslash}p{30mm}}
+\toprule
+\textbf{Tema} & \textbf{En este apunte} & \textbf{Unidades}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Tema} & \textbf{En este apunte} & \textbf{Unidades}\\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Desaprender el CBC: los cuatro cambios de chip &
+\S\ref{sec:desaprender}, \S\ref{sec:puntos-formas-grillas} & \linkUnidad{00_fundamentos}{00}\\
+Rotaciones 2D y 3D, eje y ángulo, exponencial &
+\S\ref{cap:rotaciones}, ap.~\ref{ap:rot3d}, ap.~\ref{ap:infinitesimales} & \linkUnidad{01a_punto_quieto}{01a}, \linkUnidad{01b_rotacion_plano}{01b}, \linkUnidad{01c_rotaciones_3d}{01c}\\
+Guía de reflexiones, traslaciones, rotaciones, homotecias y similaridades (teoremas 1 a 6) &
+enunciados en \S\ref{cap:reflexiones}, guía resuelta completa en \S\ref{cap:reflexiones} & \linkUnidad{02_producto_interno}{02}, \linkUnidad{03_reflexiones_similaridades}{03}\\
+Afinidades: los seis ejercicios &
+resolución en ap.~\ref{cap:17}; composición en ap.~\ref{ap:composicion-afin} &
+\linkUnidad{04_afines_homogeneas}{04}\\
+Proyectivas del pentágono &
+cuentas y script en ap.~\ref{ap:pentagono}; teoría en \S\ref{cap:proyectivas} &
+\linkUnidad{05_proyectivas}{05}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
+Productos, determinante, núcleo, autovectores por producto cruz &
+ejemplos resueltos en \S\ref{cap:autovectores} (reflexión, rotación compuesta) & \linkUnidad{07a_cuna_determinante}{07a}, \linkUnidad{07b_nucleo_autovectores}{07b}, \linkUnidad{07c_autovalores_3d_puntos_fijos}{07c}\\
+Formas lineales, cambio de base, diagonalización &
+\S\ref{sec:formas-lineales} (forma arrastrada), \S\ref{sec:cambio-base} (ejercicio, \(A^5\), \(A^t\)) & \linkUnidad{06_formas_lineales}{06}, \linkUnidad{08_cambio_de_base}{08}\\
+SVD, inversas, pseudoinversa &
+\S\ref{sec:svd} (dos SVD a mano, DEM), \S\ref{sec:pseudoinversa} (recta por tres puntos)
+& \linkUnidad{09_cambio_de_base_svd}{09}\\
+Los cuatro problemas: regresión, círculos, Procrustes, regresión total &
+guía resuelta en \S\ref{cap:cuatro-problemas} & \linkUnidad{11_cuatro_problemas}{11}\\
+Jacobiano, primera forma, curvatura &
+\S\ref{sec:metrica}, \S\ref{cap:curvatura} (silla, esfera) & \linkUnidad{10_jacobiano_primera_forma}{10}, \linkUnidad{12_curvatura}{12}\\
+Elipsoide, arco de meridiano, proyecciones &
+\S\ref{cap:elipsoide} (GRS80 en \(45^\circ\) y \(-34{,}6^\circ\)),
+\S\ref{cap:elipsoide} (serie y cinco proyecciones) & \linkUnidad{13_elipsoide}{13}\\
+Trigonometría esférica, exceso &
+\S\ref{cap:esfera} (octante, tres ciudades) & \linkUnidad{14_trigonometria_esferica}{14}\\
+Transformaciones conformes, Tissot, latitud isométrica, Gauss--Krüger &
+\S\ref{sec:transformaciones-conformes} (cuatro caras, Buenos Aires y Ushuaia) & \linkUnidad{15_transformaciones_conformes}{15}\\
+\end{longtable}
+}

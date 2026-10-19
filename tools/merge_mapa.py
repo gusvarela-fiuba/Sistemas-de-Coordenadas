@@ -12,7 +12,7 @@ Qué hace:
   - lee `unidades` de `mapa/_fragmentos/unidades.yaml` (el orden de ese archivo es el de las
     unidades de la portada) y valida sus campos: `estado`, `nivel`, `clases` (ids existentes),
     `pregunta` y `gancho_agrimensura` (una línea cada uno);
-  - valida en cada clase `pregunta`, `validacion` y `nivel` (vocabulario en mapa/ESQUEMA.md);
+  - valida en cada clase `pregunta` y `nivel` (vocabulario en mapa/ESQUEMA.md);
   - escribe `mapa/mapa.yaml` con cabecera `titulo` / `pregunta_guia`.
 
 Errores de vocabulario o de referencias → sale con código 1 sin escribir.
@@ -39,8 +39,6 @@ TITULO = "Sistemas de Coordenadas — mapa de conceptos"
 PREGUNTA_GUIA = "transformaciones ↔ operaciones ↔ coordenadas"
 
 NIVELES = ("troncal", "complementario", "avanzado")
-VALIDACIONES = ("pendiente", "revisado", "validado-catedra")
-ESTADOS_CLASE = ("con-transcripcion", "reconstruida", "no-dictada", "anticipada")
 ESTADOS_UNIDAD = ("piloto", "migrada", "legacy", "pendiente")
 CAMPOS_UNIDAD = ("id", "archivo", "titulo", "estado", "clases", "pregunta", "gancho_agrimensura", "nivel")
 
@@ -90,10 +88,6 @@ def _una_linea(valor) -> bool:
 def validar_clases(clases: list[dict], errores: list[str]) -> None:
     for c in clases:
         donde = f"clase {c['id']}"
-        if c.get("estado") not in ESTADOS_CLASE:
-            errores.append(f"{donde}: estado '{c.get('estado')}' no es uno de {ESTADOS_CLASE}")
-        if c.get("validacion") not in VALIDACIONES:
-            errores.append(f"{donde}: validacion '{c.get('validacion')}' no es uno de {VALIDACIONES}")
         if c.get("nivel") not in NIVELES:
             errores.append(f"{donde}: nivel '{c.get('nivel')}' no es uno de {NIVELES}")
         if not _una_linea(c.get("pregunta")):
@@ -187,7 +181,7 @@ def mezclar(fragmentos: list[tuple[Path, dict]], unidades: list[dict], informes:
         if iid not in canon:
             informes.append(f"concepto '{iid}' ({ruta.name}) no figura en CONCEPTOS.md")
         elif canon[iid] != k["clase"]:
-            informes.append(f"concepto '{iid}' está en clase {k['clase']} ({ruta.name}) pero CONCEPTOS.md lo lista en {canon[iid]}")
+            informes.append(f"concepto '{iid}' figura en la clase {k['clase']} ({ruta.name}) pero CONCEPTOS.md lo lista en {canon[iid]}")
     for iid, clase in canon.items():
         if iid not in conceptos:
             informes.append(f"CONCEPTOS.md lista '{iid}' (clase {clase}) y ningún fragmento lo define")
@@ -236,7 +230,7 @@ def volcar(datos: dict, fragmentos: list[Path]) -> str:
         "# Esquema: mapa/ESQUEMA.md. Regenerar con `uv run tools/merge_mapa.py`.\n"
     )
     cuerpo = yaml.dump(datos, Dumper=_Dumper, sort_keys=False, allow_unicode=True, width=10_000, default_flow_style=None)
-    # listas cortas en una línea (flow) sólo para apunte/requiere/fechas: default_flow_style=None ya lo hace para listas de escalares
+    # listas cortas en una línea (flow) sólo para apunte/requiere: default_flow_style=None ya lo hace para listas de escalares
     return cab + cuerpo
 
 

@@ -1,6 +1,6 @@
 # Curso interactivo — las 20 simulaciones, ladrillo a ladrillo
 
-Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan la clase del esqueleto del profesor que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Lo escribió Gustavo Varela como alumno de la cursada 2C2026 (profesor Javier Clavijo); no es material oficial de la cátedra.
+Este archivo es el mapa directo de las 20 simulaciones de la guía de estudio de CB104 Sistemas de Coordenadas (Agrimensura, FIUBA), en el orden del hilo conductor: cada unidad apoya sobre la anterior y para cada una se listan el tema del programa que cubre, la pregunta de campo con que arranca, los controles que de verdad tiene el panel, los ejercicios y los enlaces al notebook, a la ficha de clase y al apunte. Es parte del trabajo final de Sistemas de Coordenadas (CB104, FIUBA) de Gustavo Varela.
 Cada simulación corre adentro del navegador con WebAssembly: no hay que instalar nada ni tener cuenta en ningún lado (la primera carga tarda unos segundos). En una pantalla 16:9 cada sección interactiva muestra la figura a la izquierda y, a la derecha, el panel de controles con el selector de caso, los deslizadores y los números vivos que se recalculan con cada movimiento.
 Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 1 hecho geométrico, 2 manipulación, 3 cuenta a mano y código lado a lado, 4 Python de hoy, 5 ejercicios (lápiz y código con hueco, verificado en la página).
 
@@ -35,14 +35,14 @@ Clases del esqueleto: 01, 04 y 09 (desarrollo complementario que las cruza). Pre
 
 **Ejercicios en Python:** `matriz_complejo(z)` (E1), `arrastrar_punto_y_forma(A, x, w)` (E2), `angulo_g(a, b, g)` y `subida_metrica(w, g)` (E3). Lápiz (a): con la cota h = 3x + y y el Norte estirado por 2, calcular la cota del mojón, el mojón dibujado, la regla arrastrada y decidir si la flecha (3, 1) dibujada en el papel es la subida más empinada. Esta unidad no tiene ejercicio de lápiz (b); los tres de código lo reemplazan.
 
-- Notebook: [unidades/00_desaprender_el_cbc.py](unidades/00_desaprender_el_cbc.py)
+- Notebook: [unidades/00_fundamentos.py](unidades/00_fundamentos.py)
 - Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/04-espacios-lineales-formas.md](clases/04-espacios-lineales-formas.md), [clases/09-analisis-derivada-jacobiano.md](clases/09-analisis-derivada-jacobiano.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "El punto y sus coordenadas no son lo mismo", "Formas lineales: la recta como máquina de medir" y "Métrica y primera forma fundamental".
-- [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_desaprender_el_cbc/index.html)
+- [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html)
 
 ## Unidad 1 — Rotaciones I: el punto no se movió
 
-Clase del esqueleto: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero la estación total mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee la estación?
+Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se tocó, pero la estación total mide en sus propios ejes, girados 30° respecto de los de la obra; ¿qué coordenadas lee la estación?
 
 **Qué se manipula:**
 - Deslizadores `θ (°): giro de los ejes`, `x del mojón (ejes de la obra)`, `y del mojón (ejes de la obra)`.
@@ -58,7 +58,7 @@ Clase del esqueleto: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no s
 
 ## Unidad 2 — Rotaciones II: la rotación en el plano
 
-Clase del esqueleto: 01. Pregunta guía: para dibujar la parcela con el norte arriba giramos el plano entero un cuarto de vuelta antihorario; el vértice del frente es (4, 1), ¿a dónde va?
+Tema del programa: 01. Pregunta guía: para dibujar la parcela con el norte arriba giramos el plano entero un cuarto de vuelta antihorario; el vértice del frente es (4, 1), ¿a dónde va?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: identidad (0°), un cuarto de vuelta (90°), media vuelta (180°), giro de 30°, −90° (horario), y tres contraejemplos que no son rotaciones: espejo diag(1, −1), corte [[1, 0.5], [0, 1]], proyección [[1, 0], [0, 0]].
@@ -85,13 +85,13 @@ Clases del esqueleto: 01 y 02. Pregunta guía: nivelar la estación es inclinar 
 **Ejercicios en Python:** (b) código con hueco sin función: armar R = Rz(90°)·Ry(90°), aplicarla a (1, 0, 0) y verificar con `np.allclose` que u = (−1, 1, 1)/√3 queda fijo. Lápiz (a): escribir Rz(90°) con números, aplicarla a (1, 2, 3) y comprobar que dos veces da diag(−1, −1, 1).
 
 - Notebook: [unidades/01c_rotaciones_3d.py](unidades/01c_rotaciones_3d.py)
-- Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/02-mas-rotaciones.md](clases/02-mas-rotaciones.md)
+- Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Rotaciones en tres dimensiones", "Eje de rotación, autovectores y exponencial" y el apéndice "Construcción geométrica de las matrices de rotación 3D".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html)
 
 ## Unidad 4 — Producto interno: proyección, longitud, ángulo
 
-Clase del esqueleto: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y la línea de base BA, queremos sin volver al campo el ángulo en B y cuánto del lado BC cae sobre la dirección BA (su sombra).
+Tema del programa: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y la línea de base BA, queremos sin volver al campo el ángulo en B y cuánto del lado BC cae sobre la dirección BA (su sombra).
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: el triángulo de mojones (v = BC), perpendiculares, paralelos, opuestos, a mano.
@@ -118,7 +118,7 @@ Clases del esqueleto: 02 y 03. Pregunta guía: un plano viejo a otra escala y co
 **Ejercicios en Python:** `reflexion(alpha)` (c) y `similaridad_por_dos_puntos(P1, P2, Q1, Q2)` (d). Lápiz (a): por qué diag(1, −1) conserva distancias y no es rotación, con un número y con un dibujo; (b): escala, giro y centro de la similaridad z ↦ 2i·z + 1.
 
 - Notebook: [unidades/03_reflexiones_similaridades.py](unidades/03_reflexiones_similaridades.py)
-- Fichas: [clases/02-mas-rotaciones.md](clases/02-mas-rotaciones.md), [clases/03-afines.md](clases/03-afines.md)
+- Fichas: [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md), [clases/03-afines.md](clases/03-afines.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Reflejar y componer", "Escalar: homotecias y similaridades" y el bloque "Transformaciones euclídeas y similaridades" con su guía resuelta.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/03_reflexiones_similaridades/index.html)
 
@@ -128,7 +128,7 @@ Clases del esqueleto: 02 y 03. Pregunta guía: un plano viejo a otra escala y co
 
 *Bucle ida y vuelta: cada vértice del pentágono es un rayo desde el origen que corta la lámina z = 1; H(s) mueve los rayos y el pentágono se deforma sobre la lámina.*
 
-Clase del esqueleto: 03. Pregunta guía: un plano escaneado quedó estirado distinto en cada eje e inclinado; conociendo dónde cayeron las dos esquinas de un lado, ¿dónde tiene que aparecer el mojón intermedio?
+Tema del programa: 03. Pregunta guía: un plano escaneado quedó estirado distinto en cada eje e inclinado; conociendo dónde cayeron las dos esquinas de un lado, ¿dónde tiene que aparecer el mojón intermedio?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: identidad, escala anisótropa diag(1.5, s), corte [[1, s], [0, 1]], reflexión diag(1, −1), rotación + escala 0.8·R(θ), afinidad axial (eje x, dirección (1, 1), factor s), general (a, b, c, d).
@@ -144,16 +144,16 @@ Clase del esqueleto: 03. Pregunta guía: un plano escaneado quedó estirado dist
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Afinidades: idea geométrica y forma algebraica" y "Coordenadas homogéneas".
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/04_afines_homogeneas/index.html)
 
-## Unidad 7 — Proyectivas: la foto del dron y el pentágono del profesor
+## Unidad 7 — Proyectivas: la foto del dron y el pentágono
 
 ![Pentágono en 3D: rayos, lámina z = 1 y homografía](animaciones/02_homogeneas_pentagono_3d.gif)
 
 *Bucle ida y vuelta: los rayos desde el origen a los vértices del pentágono se mueven con H(s) y el pentágono sobre la lámina z = 1 se deforma proyectivamente, luego vuelve.*
 
-Clase del esqueleto: 03p. Pregunta guía: en la foto inclinada del dron el lote cuadrado es un trapecio y los alambrados paralelos se juntan; el mojón del centro del lote, ¿dónde aparece en la foto?
+Tema del programa: 03p. Pregunta guía: en la foto inclinada del dron el lote cuadrado es un trapecio y los alambrados paralelos se juntan; el mojón del centro del lote, ¿dónde aparece en la foto?
 
 **Qué se manipula:**
-- Dropdown `caso precargado`: identidad, afinidad (la misma A con última fila (0 0 1)), foto de dron: cámara inclinada (k), pentágono del profesor (A y B fijos, C ↔ E).
+- Dropdown `caso precargado`: identidad, afinidad (la misma A con última fila (0 0 1)), foto de dron: cámara inclinada (k), pentágono (A y B fijos, C ↔ E).
 - Deslizador `k (inclinación, h₃₂)`, habilitado sólo en el caso del dron.
 - Botón reproducir: el camino desde la identidad (en el pentágono, pasando por el espejo).
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después (rectas, pero ya no paralelas), con las columnas de H leídas como puntos: las cruces teal y rust son los puntos de fuga, el punto gold es la imagen del origen; violeta, el objeto con estelas.
@@ -171,7 +171,7 @@ Clase del esqueleto: 03p. Pregunta guía: en la foto inclinada del dron el lote 
 
 *Bucle ida y vuelta: A(s) = (1−s)I + s·diag(2, 1); las rectas de nivel de ω = (2, 1) se arrastran con A⁻¹, el mojón (1, 1) sigue en ω′x′ = 3 y la flecha Aωᵀ deja de ser perpendicular.*
 
-Clase del esqueleto: 04. Pregunta guía: la cota de un lote inclinado es la fila (2, 1) más una constante; si el plano digitalizado deforma los puntos con A, ¿qué fila sigue leyendo la misma cota sobre el mojón deformado?
+Tema del programa: 04. Pregunta guía: la cota de un lote inclinado es la fila (2, 1) más una constante; si el plano digitalizado deforma los puntos con A, ¿qué fila sigue leyendo la misma cota sobre el mojón deformado?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: la cota 2x + y sin deformar, giro de 30°, escala anisótropa diag(2, 1), cizalla [[1, 1], [0, 1]], a la base oblicua de 08 (A = B⁻¹).
@@ -189,7 +189,7 @@ Clase del esqueleto: 04. Pregunta guía: la cota de un lote inclinado es la fila
 
 ## Unidad 9 — Cuña y determinante: el detector de colinealidad
 
-Clase del esqueleto: 05. Pregunta guía: tres mojones de un alambrado que según el título es recto, A = (1, 1), B = (4, 3), C = (7, 6); el detector de colinealidad (B − A) ∧ (C − A), ¿qué número da?
+Tema del programa: 05. Pregunta guía: tres mojones de un alambrado que según el título es recto, A = (1, 1), B = (4, 3), C = (7, 6); el detector de colinealidad (B − A) ∧ (C − A), ¿qué número da?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: u = (3, 1), v = (1, 2) (área 5); v gira alrededor de u = (3, 1); v = 2u (colineales, área 0); orden invertido (columnas v, u, área −5); espejo diag(1, −1) (det −1); giro de 40° (det 1).
@@ -198,7 +198,7 @@ Clase del esqueleto: 05. Pregunta guía: tres mojones de un alambrado que según
 - Un piso más arriba, la caja 3D: deslizador `s (posición de w)` que lleva el tercer lado w hasta el plano de u y v y hace bajar el volumen orientado a cero.
 - La figura: gris, grilla y cuadrado unitario antes; teal, el cuadrado unitario convertido en el paralelogramo de u y v (flechas teal y rust); violeta, la parcela con estelas, cuya área se multiplica por det M.
 
-**Ejercicios en Python:** `alineados(p, q, r)` (c) y `volumen(u, v, w)` (d). Lápiz (a): la apuesta del pizarrón del 16/9: producto cruz de p y q, producto interno con r, control por el determinante y si están alineados como puntos homogéneos; (b): el área de la parcela después de [[2, 1], [1, 2]], el área con signo después del espejo y qué deja una matriz con det = 0.
+**Ejercicios en Python:** `alineados(p, q, r)` (c) y `volumen(u, v, w)` (d). Lápiz (a): una apuesta: producto cruz de p y q, producto interno con r, control por el determinante y si están alineados como puntos homogéneos; (b): el área de la parcela después de [[2, 1], [1, 2]], el área con signo después del espejo y qué deja una matriz con det = 0.
 
 - Notebook: [unidades/07a_cuna_determinante.py](unidades/07a_cuna_determinante.py)
 - Ficha: [clases/05-subespacios-cuna-determinante.md](clases/05-subespacios-cuna-determinante.md)
@@ -225,7 +225,7 @@ Clases del esqueleto: 05 y 06. Pregunta guía: un escáner deforma el plano con 
 
 ## Unidad 11 — Autovalores en 3D y puntos fijos proyectivos
 
-Clase del esqueleto: 06. Pregunta guía: nivelar (90° alrededor de y) y después orientar (90° alrededor de z) la estación es un solo giro alrededor de un eje nuevo; ¿qué dirección del espacio deja quieta esa rotación compuesta?
+Tema del programa: 06. Pregunta guía: nivelar (90° alrededor de y) y después orientar (90° alrededor de z) la estación es un solo giro alrededor de un eje nuevo; ¿qué dirección del espacio deja quieta esa rotación compuesta?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: R_z(θ)·R_y(90°) (una rotación, el eje es su único autovector); reflexión diag(1, 1, −1) (λ = 1 doble y λ = −1); H_c del pentágono de la lección 05 (homología: recta de puntos fijos y centro); giro de 72° alrededor de (2, 1) (un solo punto fijo propio); traslación (1, 2) (el punto fijo es impropio).
@@ -246,7 +246,7 @@ Clase del esqueleto: 06. Pregunta guía: nivelar (90° alrededor de y) y despué
 
 *Bucle ida y vuelta: leemos p en la base de autovectores, estiramos cada dirección propia (λ₁ = 3, λ₂ = 1) y volvemos a la canónica; después se deshace el camino.*
 
-Clase del esqueleto: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, medido en frentes y lados de una parcela cuyos rumbos b₁ = (3, 1) y b₂ = (1, 2) forman 45°; ¿cuántas veces b₁ y cuántas b₂ hay que avanzar para llegar a él?
+Tema del programa: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, medido en frentes y lados de una parcela cuyos rumbos b₁ = (3, 1) y b₂ = (1, 2) forman 45°; ¿cuántas veces b₁ y cuántas b₂ hay que avanzar para llegar a él?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: base girada 30° (Rotaciones I); base oblicua de la parcela; base de autovectores de A = [[2, 1], [1, 2]]; cizalla [[1, 1], [0, 1]] (un solo autovector).
@@ -286,7 +286,7 @@ Clases del esqueleto: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre 
 
 ## Unidad 14 — Jacobiano y primera forma fundamental
 
-Clase del esqueleto: 09. Pregunta guía: sobre el modelo digital de una loma damos el mismo paso de grilla (una unidad en u, nada en v) desde la cima y desde la ladera; ¿cuánto mide ese paso con cinta, sobre el terreno, en cada lugar?
+Tema del programa: 09. Pregunta guía: sobre el modelo digital de una loma damos el mismo paso de grilla (una unidad en u, nada en v) desde la cima y desde la ladera; ¿cuánto mide ese paso con cinta, sobre el terreno, en cada lugar?
 
 **Qué se manipula:**
 - Dropdown `superficie precargada`: la loma r = (u, v, 2·exp(−(u²+v²)/8)); plano inclinado z = 1 + 0.4u + 0.3v; cilindro de radio 1.5 (u ángulo, v altura); esfera de radio 2 (φ latitud, λ longitud).
@@ -302,7 +302,7 @@ Clase del esqueleto: 09. Pregunta guía: sobre el modelo digital de una loma dam
 
 ## Unidad 15 — Cuatro problemas: regresión, círculos, Procrustes, regresión total
 
-Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendiente de validar por la cátedra). Pregunta guía: ubicar un poste midiendo con cinta sus distancias a cuatro mojones conocidos, con dos incógnitas y cuatro mediciones con error; ¿qué punto anotamos como posición del poste?
+Tema del programa: 11. Pregunta guía: ubicar un poste midiendo con cinta sus distancias a cuatro mojones conocidos, con dos incógnitas y cuatro mediciones con error; ¿qué punto anotamos como posición del poste?
 
 **Qué se manipula:**
 - Dropdown `problema`: (a) recta de ajuste y = ax + b por nueve puntos; (b) punto por distancias a cuatro mojones; (c) Procrustes: dos relevamientos del mismo lote; (d) regresión total: error en x y en y.
@@ -322,7 +322,7 @@ Clase del esqueleto: 11 (anticipación del alumno sobre el esqueleto 2025; pendi
 
 *Bucle ida y vuelta: el plano normal gira en acimut (Euler: el círculo osculador entre M y N) y después se inclina hasta el paralelo de radio N cos φ (Meusnier).*
 
-Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: parados en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
+Tema del programa: 12. Pregunta guía: parados en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: esfera (cuenco de radio 2.5); cilindro (canaleta de radio 2.5, eje y); silla z = (x² − y²)/4; loma (terreno suave).
@@ -342,7 +342,7 @@ Clase del esqueleto: 12 (anticipación del alumno; pendiente de validar por la c
 
 *Bucle ida y vuelta: el plano normal gira en acimut (Euler, círculo osculador entre M y N) y luego se inclina hasta el paralelo de radio N cos φ (Meusnier).*
 
-Clase del esqueleto: 13 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: un mojón sobre GRS80 con latitud geodésica 45° según el GNSS; la recta del mojón al centro de la Tierra, ¿qué ángulo forma con el plano del ecuador?
+Tema del programa: 13. Pregunta guía: un mojón sobre GRS80 con latitud geodésica 45° según el GNSS; la recta del mojón al centro de la Tierra, ¿qué ángulo forma con el plano del ecuador?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: esfera (f = 0); elipsoide exagerado (f = 0.3); elipsoide de juguete a = 5, b = 4; GRS80 (f = 1/298.257).
@@ -358,7 +358,7 @@ Clase del esqueleto: 13 (anticipación del alumno; pendiente de validar por la c
 
 ## Unidad 18 — Trigonometría esférica
 
-Clase del esqueleto: 14 (anticipación del alumno; pendiente de validar por la cátedra). Pregunta guía: una red de tres vértices que no caben en ningún plano, Buenos Aires, Mendoza y Ushuaia, con lados de miles de km sobre la esfera; los tres ángulos medidos en los vértices, ¿cuánto suman?
+Tema del programa: 14. Pregunta guía: una red de tres vértices que no caben en ningún plano, Buenos Aires, Mendoza y Ushuaia, con lados de miles de km sobre la esfera; los tres ángulos medidos en los vértices, ¿cuánto suman?
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: octante (tres ángulos rectos); triángulo chico (lados de 1°, casi plano); tres ciudades argentinas; a mano (A y B fijos, C con los deslizadores).
@@ -378,7 +378,7 @@ Clase del esqueleto: 14 (anticipación del alumno; pendiente de validar por la c
 
 *Bucle ida y vuelta, lado a lado: a la izquierda la cilíndrica equidistante, no conforme, aplasta los círculos de Tissot y tuerce las visuales a 90°; a la derecha Mercator, con la latitud isométrica, manda cuadraditos a cuadraditos y conserva los círculos y el ángulo.*
 
-Clases del esqueleto: 13 y 14 (desarrollo complementario del alumno que cierra el arco Clase 1 complejos → Clase 3 similaridades → Clase 7 SVD y Tissot → Clase 9 Jacobiano y métrica → Clase 13 elipsoide M, N → Mercator y Gauss-Krüger; pendiente de validar por la cátedra). Pregunta guía: medimos en Tierra del Fuego (φ = −54°) dos visuales a 90°; si volcamos (λ, φ) directo en una hoja cuadriculada, ¿siguen a 90°?
+Temas del programa: 13 y 14 (desarrollo complementario que cierra el arco complejos → similaridades → SVD y Tissot → Jacobiano y métrica → elipsoide M, N → Mercator y Gauss-Krüger). Pregunta guía: medimos en Tierra del Fuego (φ = −54°) dos visuales a 90°; si volcamos (λ, φ) directo en una hoja cuadriculada, ¿siguen a 90°?
 
 **Qué se manipula:**
 - Dropdown `caso`: Mercator conforme (h = k); cilíndrica equidistante (h = 1); cilíndrica equivalente (h·k = 1); mapa complejo (w = z², eᶻ o z + α z̄).
@@ -389,7 +389,7 @@ Clases del esqueleto: 13 y 14 (desarrollo complementario del alumno que cierra e
 
 - Notebook: [unidades/15_transformaciones_conformes.py](unidades/15_transformaciones_conformes.py)
 - Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), capítulo 10 (Transformaciones conformes) del apunte.
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), complemento C2 (Transformaciones conformes) del apunte.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html)
 
 ## Autoevaluación
@@ -400,4 +400,4 @@ Al final de cada unidad hay seis preguntas de opción múltiple para chequear qu
 - **Simulacro:** veinte preguntas, una por unidad; la corrección llega al entregar.
 - **Evaluación:** treinta preguntas y hasta cuatro intentos, que quedan anotados sólo en nuestro navegador.
 
-Para la cátedra, el mismo banco está como XML de Moodle en `campus/moodle_banco_120_preguntas_cb104.xml`.
+El mismo banco está como XML de Moodle en `moodle/moodle_banco_120_preguntas_cb104.xml`.

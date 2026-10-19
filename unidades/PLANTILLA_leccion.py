@@ -26,7 +26,7 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
   3. Cuenta a mano y código lado a lado (matriz coloreada por columnas)
   4. Python de hoy                     (una sola idea nueva)
   5. Ejercicios                        (dos de lápiz, dos de código con hueco verificados con np.allclose)
-  Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:NN) y verificación silenciosa.
+  Anexo: enlaces al apunte por sección (../../apunte.pdf#nameddest=cap:<clave>) y verificación silenciosa.
 
 Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo libro de cátedra ("seguimos la
 clase", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
@@ -64,7 +64,7 @@ def _(mo):
     mo.md(r"""
     # Unidad [NN] — [Título: la pregunta de campo que responde la unidad]
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
     [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué clase sigue esta
     unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos la clase N (…). La pregunta: ¿qué le pasa a …
@@ -304,7 +304,7 @@ def _(mo):
     mo.md(r"""
     ## 5. Ejercicios
 
-    **(a) Lápiz — elemental** *("[PLANTILLA: frase de la rúbrica del profesor]")*. [PLANTILLA: enunciado.]
+    **(a) Lápiz — elemental** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 
@@ -318,7 +318,7 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(b) Lápiz — medio** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
+    **(b) Lápiz — medio** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 
@@ -332,7 +332,7 @@ def _(mo):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(c) Código con hueco — medio** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado. Qué tiene
+    **(c) Código con hueco — medio** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado. Qué tiene
     disponible: `np` y las funciones que se le pasan al `exec`.] Se verifica con `np.allclose`.
     """)
     return
@@ -374,7 +374,7 @@ def _(editor_c, lib, mo, np):
 @app.cell
 def _(mo):
     mo.md(r"""
-    **(d) Código con hueco — avanzado** *("[PLANTILLA: frase de la rúbrica]")*. [PLANTILLA: enunciado.]
+    **(d) Código con hueco — avanzado** *Idea central: [PLANTILLA: idea central del ejercicio].* [PLANTILLA: enunciado.]
     """)
     return
 
@@ -446,7 +446,7 @@ def _(mo):
 
     Acá verificamos; la demostración está en el apunte:
 
-    - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:NN)
+    - [apunte, sección NN: [título de la sección]](../../apunte.pdf#nameddest=cap:<clave>)
     - [ficha de la clase N](../../clases/NN.html) · [el hilo conductor](../../index.html) · [unidad anterior](../NN_anterior/index.html)
 
     [PLANTILLA: los enlaces son relativos a `site/unidades/<id>/index.html`.]

@@ -6,8 +6,7 @@
 #     "plotly",
 # ]
 # ///
-"""Autovalores en 3D y puntos fijos proyectivos (unidad 07c, complementaria, molde v2 sobre cb104). Clase 6.
-
+"""Autovalores en 3D y puntos fijos proyectivos (unidad 07c, complementaria, molde v2 sobre cb104).
 Una sola idea: en 3D el polinomio característico es de grado 3 y siempre tiene una raíz real, así que siempre hay una
 recta que cae sobre sí misma; el eje de una rotación es su autovector de autovalor 1 (cruz de dos filas de R − I);
 y un autovector de la 3×3 homogénea es un punto fijo de la proyectiva: la recta invariante pincha el plano z = 1.
@@ -42,9 +41,9 @@ def _(mo):
     mo.md(r"""
     # Autovalores en 3D y puntos fijos proyectivos
 
-    **Sistemas de Coordenadas** · Agrimensura · FIUBA · 2C2026 · Gustavo Varela
+    **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    Seguimos la clase 6 (lección complementaria). La pregunta: **¿qué recta del espacio deja quieta una rotación compuesta,
+    La pregunta: **¿qué recta del espacio deja quieta una rotación compuesta,
     y qué tiene que ver eso con los puntos fijos del pentágono?** El gancho: *el eje de una rotación es la dirección
     que no gira; en la foto rectificada, un punto fijo es un autovector de la $3\times3$.*
 
@@ -141,7 +140,7 @@ def _(mo):
     | $\mathbb R^3$ | autovector $=$ cruz de **dos** filas de $A - \lambda I$; rotación: $\lambda = 1$ y nada más real | el **eje**: la recta que la rotación deja quieta; reflexión: $\lambda = -1$ en la normal, $1$ doble en el plano del espejo |
     | $\mathbb P^2$ (homogéneas) | autovector $v$ de la $3\times3$ $H$ con $Hv = \lambda v$ | la recta invariante de $\mathbb R^3$ **pincha** el plano $z = 1$ en un **punto fijo** $(v_1/v_3, v_2/v_3)$; si $v_3 = 0$ es paralela: punto fijo **impropio** |
 
-    Con las palabras del profesor: *los puntos fijos de una transformación proyectiva del plano son los subespacios
+    En una frase: *los puntos fijos de una transformación proyectiva del plano son los subespacios
     invariantes de $\mathbb R^3$*. Esto es una **muestra**; la demostración está en el apunte, «Bloque algebraico-geométrico: productos, determinante y autovectores», y el caso del
     pentágono en el apunte, «Pentágono regular: cuentas y script».
     """)
@@ -286,8 +285,8 @@ def _(R_sit, lib, mo, np):
 
             $$(-1, -1, 0) \times (0, -1, 1) = \big((-1)(1) - 0(-1),\ 0 \cdot 0 - (-1)(1),\ (-1)(-1) - (-1)(0)\big) = (-1, 1, 1).$$
 
-            Control: $R(-1, 1, 1) = (-1, 1, 1)$ ✓. Filas 2 y 3 dan $(1, -1, -1)$: la misma recta. En la planilla del
-            profesor era `MMULT(R; eje)` y mirar que no cambie.
+            Control: $R(-1, 1, 1) = (-1, 1, 1)$ ✓. Filas 2 y 3 dan $(1, -1, -1)$: la misma recta. En una planilla
+            alcanza con `MMULT(R; eje)` y mirar que no cambie.
             """),
             mo.vstack([
                 mo.md("```python\nR = lib.rot_z(np.pi / 2) @ lib.rot_y(np.pi / 2)\nB = R - np.eye(3)\neje = np.cross(B[0], B[1])\nnp.allclose(R @ eje, eje)\nnp.cross(B[1], B[2])   # otro par: misma recta\nlib.eje_angulo(R)      # (eje unitario, ángulo)\n```"),
@@ -336,7 +335,7 @@ def _(mo):
         mo.md(r"""
         ## 5. Ejercicios
 
-        **(a) Lápiz — elemental** *("conserva $x$ e $y$, da vuelta $z$").* $A = \mathrm{diag}(1, -1, 1)$, la reflexión
+        **(a) Lápiz — elemental** *Idea central: conserva $x$ e $y$, da vuelta $z$.* $A = \mathrm{diag}(1, -1, 1)$, la reflexión
         respecto del plano $xz$. Autovalores, autovectores por cruz de filas, y qué transformación del plano $z = 1$ es:
         ¿cuáles son sus puntos fijos propios e impropios?
         """),
@@ -348,7 +347,7 @@ def _(mo):
         ($A^2 = I$) con eje $y = 0$ y centro impropio.
         """)}),
         mo.md(r"""
-        **(b) Lápiz — medio** *("tres raíces: todas reales, o una real y dos complejas conjugadas").* ¿Por qué toda
+        **(b) Lápiz — medio** *Idea central: tres raíces: todas reales, o una real y dos complejas conjugadas.* ¿Por qué toda
         transformación proyectiva del plano tiene al menos un punto fijo real (propio o impropio)? ¿Y por qué una
         afinidad que es un giro de $72°$ alrededor de un centro tiene exactamente uno propio?
         """),
@@ -370,7 +369,7 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(c) Código con hueco — medio** *("hacemos el producto cruz de dos filas y nos tiene que dar el eje").* Completá
+        **(c) Código con hueco — medio** *Idea central: hacemos el producto cruz de dos filas y nos tiene que dar el eje.* Completá
         `eje(R)`: recibe una rotación $3\times3$ y devuelve su eje unitario, por la cruz de dos filas de $R - I$. Tenés `np`.
         Se verifica con `np.allclose(R @ v, v)` en cinco rotaciones al azar (`rodrigues`), y que `|v| = 1`.
         """),
@@ -381,7 +380,7 @@ def _(mo):
 
 @app.cell
 def _(editor_c, lib, mo, np):
-    _rng = np.random.default_rng(56798)
+    _rng = np.random.default_rng(0xDDDE)
     _Rs = [lib.rodrigues(_rng.normal(size=3), _rng.uniform(0.3, 3.0)) for _ in range(5)]
     _ns = {"np": np}
     try:
@@ -410,8 +409,8 @@ def _(mo):
     )
     mo.vstack([
         mo.md(r"""
-        **(d) Código con hueco — avanzado: los puntos fijos de la tarea** *("los puntos fijos son los autovectores de la
-        transformación").* Completá `puntos_fijos(H)`: recibe una $3\times3$ homogénea y devuelve la lista de sus puntos
+        **(d) Código con hueco — avanzado: los puntos fijos de la tarea** *Idea central: los puntos fijos son los autovectores de la
+        transformación.* Completá `puntos_fijos(H)`: recibe una $3\times3$ homogénea y devuelve la lista de sus puntos
         fijos **propios** $(x, y)$ (autovalores reales, $v_3 \neq 0$). Tenés `np`. Se verifica que cada punto cumpla
         `H p ~ p` y que no falte ni sobre ninguno, en el giro de $72°$ alrededor de $(2, 1)$ y en una escala alrededor de $(1, 3)$.
         """),
@@ -487,7 +486,7 @@ def _(mo):
     Acá verificamos; las demostraciones (cuántas raíces reales, el método de la cruz de filas, los dos ejemplos de la clase,
     puntos y rectas fijas de una homografía, la homología del pentágono):
 
-    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:08) · [apunte, «Proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:07)
+    - [apunte, «Álgebra de las transformaciones» (productos, determinante y autovectores)](../../apunte.pdf#nameddest=cap:autovectores) · [apunte, «Proyectivas» (puntos fijos y rectas fijas de una homografía)](../../apunte.pdf#nameddest=cap:proyectivas)
     - [apunte, «Pentágono regular: cuentas y script» (pentágono regular, autovector por producto cruz)](../../apunte.pdf#nameddest=cap:18) · [apunte, «Construcción geométrica de las matrices de rotación 3D» (rotaciones 3D)](../../apunte.pdf#nameddest=cap:14)
     - [ficha de la clase 6](../../clases/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 

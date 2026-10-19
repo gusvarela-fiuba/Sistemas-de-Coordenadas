@@ -4,238 +4,224 @@ Banco de autoevaluación: 6 preguntas por unidad (2 elementales, 2 medias, 2 ava
 con explicación cada una. Lo importa cb104.py y tools/build.py lo embebe en cada export WASM.
 """
 
-BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
-                            'nivel': 'elemental',
-                            'enunciado': 'La cota de una loma es $h = 3x + y$, o sea la forma lineal $w^T = '
-                                         '(3, 1)$. Si la dibujamos sobre el plano de la parcela, ¿qué vemos?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Una familia de rectas paralelas equiespaciadas, las '
-                                                   'curvas de nivel $3x + y = c$: una regla graduada tirada '
-                                                   'sobre el plano.',
-                                          'correcta': True,
-                                          'explicacion': 'Una forma lineal se ve por sus conjuntos de nivel, '
-                                                         'que son rectas paralelas a distancia $1/\\lvert '
-                                                         'w\\rvert$; leer un punto es ver qué marca lo '
-                                                         'atraviesa.'},
-                                         {'id': 'b',
-                                          'texto': 'Una flecha clavada en el origen con extremo en $(3, 1)$, '
-                                                   'como cualquier vector de $\\mathbb R^2$.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso es tratar la fila como columna: los números de '
-                                                         'una forma no son una flecha, y sin métrica no hay '
-                                                         'manera de convertirlos en una.'},
-                                         {'id': 'c',
-                                          'texto': 'Una sola recta, la $3x + y = 0$, porque una forma lineal '
-                                                   'es una ecuación y una ecuación es una recta.',
-                                          'correcta': False,
-                                          'explicacion': 'Esa recta es sólo la marca cero de la regla (el '
-                                                         'núcleo de $w^T$); la forma entera asigna un número '
-                                                         'a cada punto del plano, no sólo a los que dan '
-                                                         '$0$.'},
-                                         {'id': 'd',
-                                          'texto': 'El número $3 \\cdot 1 + 1 \\cdot 1 = 4$, la lectura de '
-                                                   'la forma en el punto $(1, 1)$.',
-                                          'correcta': False,
-                                          'explicacion': 'Esa es una sola lectura, el valor de la forma en '
-                                                         'un punto; la forma es la función entera, no uno de '
-                                                         'sus resultados.'}],
-                            'rubrica': 'Productos/elemental: una forma lineal es una regla graduada, familia '
-                                       'de rectas paralelas equiespaciadas'},
-                           {'id': '00_e2',
-                            'nivel': 'elemental',
-                            'enunciado': 'Los giros de la estación total alrededor de su eje vertical, con '
-                                         'la operación hacer uno y después el otro, forman un grupo. ¿Cuál '
-                                         'es la inversa de girar $30°$ y respecto de qué operación lo es?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Girar $-30°$, respecto de la composición: hecho después '
-                                                   'del primero da el neutro, que es no girar.',
-                                          'correcta': True,
-                                          'explicacion': 'La inversa es siempre respecto de una operación: '
-                                                         'compuesto con el giro de $30°$ devuelve el '
-                                                         'elemento neutro, y el neutro de componer giros es '
-                                                         'el giro nulo.'},
-                                         {'id': 'b',
-                                          'texto': 'Girar $\\tfrac{1}{30}$ de grado, porque la inversa de un '
-                                                   'elemento es su recíproco.',
-                                          'correcta': False,
-                                          'explicacion': 'El recíproco es la inversa respecto del producto '
-                                                         'de números; acá la operación es componer giros, y '
-                                                         '$\\tfrac{1}{30}°$ compuesto con $30°$ da '
-                                                         '$30\\tfrac{1}{30}°$, no el neutro.'},
-                                         {'id': 'c',
-                                          'texto': 'Girar $150°$, porque $30° + 150° = 180°$ y media vuelta '
-                                                   'deshace lo hecho.',
-                                          'correcta': False,
-                                          'explicacion': 'Media vuelta no es el neutro: deja la estación '
-                                                         'apuntando al revés. El neutro es el giro de $0°$, '
-                                                         'y lo que suma $0°$ con $30°$ es $-30°$.'},
-                                         {'id': 'd',
-                                          'texto': 'No tiene inversa: una vez girada, la estación no vuelve '
-                                                   'sola a la posición inicial.',
-                                          'correcta': False,
-                                          'explicacion': 'Que no vuelva sola no quita que exista el giro que '
-                                                         'la devuelve; en un grupo todo elemento tiene '
-                                                         'inversa, y girar $-30°$ lo es.'}],
-                            'rubrica': 'SVD/medio: la inversa es siempre respecto de una operacion (suma, '
-                                       'producto, composicion)'},
-                           {'id': '00_m1',
-                            'nivel': 'medio',
-                            'enunciado': 'Dibujamos el plano con el Este estirado por 2, $A = '
-                                         '\\mathrm{diag}(2, 1)$. La cota es la regla $w^T = (1, 1)$ y el '
-                                         'mojón está en $x = (1, 2)$, cota $3$. ¿Qué regla hay que dibujar '
-                                         'en el papel para que el mojón dibujado $Ax = (2, 2)$ siga leyendo '
-                                         'cota $3$?',
-                            'opciones': [{'id': 'a',
-                                          'texto': '$(\\tfrac12, 1)$, que es $w^T A^{-1}$: en efecto '
-                                                   '$\\tfrac12 \\cdot 2 + 1 \\cdot 2 = 3$.',
-                                          'correcta': True,
-                                          'explicacion': 'La forma se arrastra con la inversa y por la '
-                                                         "derecha, $w'^T = w^T A^{-1}$, justamente para que "
-                                                         "$w'^T(Ax) = w^T x$ y la lectura no cambie."},
-                                         {'id': 'b',
-                                          'texto': '$(2, 1)$, que es $Aw$: la regla va con la misma matriz '
-                                                   'que los puntos.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso mueve la fila como si fuera un punto; con $(2, '
-                                                         '1)$ el mojón dibujado lee $2 \\cdot 2 + 1 \\cdot 2 '
-                                                         '= 6$, el doble de su cota.'},
-                                         {'id': 'c',
-                                          'texto': '$(1, 1)$, la misma: la cota es del terreno y no depende '
-                                                   'de cómo dibujemos el plano.',
-                                          'correcta': False,
-                                          'explicacion': 'La cota del mojón no depende del dibujo, pero la '
-                                                         'regla escrita en la grilla del papel sí: con $(1, '
-                                                         '1)$ el punto $(2, 2)$ lee $4$, no $3$.'},
-                                         {'id': 'd',
-                                          'texto': '$(2, 2)$, que es $Ax$: regla y mojón van juntos al mismo '
-                                                   'lugar.',
-                                          'correcta': False,
-                                          'explicacion': '$(2, 2)$ es el mojón dibujado, un punto; confunde '
-                                                         'el objeto que se lee con la regla que lo lee, y '
-                                                         '$(2, 2)\\cdot(2, 2) = 8$.'}],
-                            'rubrica': 'Productos/medio: las formas lineales se transforman del lado '
-                                       'contrario que los vectores (las rectas de nivel se arrastran con la '
-                                       'figura)'},
-                           {'id': '00_m2',
-                            'nivel': 'medio',
-                            'enunciado': 'Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa '
-                                         'a leerse $(x - 5, y)$. ¿Por qué esa traslación no es una '
-                                         'transformación lineal del plano?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Porque no manda el origen al origen: el $(0, 0)$ pasa a '
-                                                   '$(-5, 0)$, y toda lineal conserva el cero.',
-                                          'correcta': True,
-                                          'explicacion': '$T(0) = T(0 \\cdot v) = 0 \\cdot T(v) = 0$ para '
-                                                         'cualquier lineal; la traslación lo viola, y por '
-                                                         'eso hace falta homogeneizar para escribirla como '
-                                                         'matriz.'},
-                                         {'id': 'b',
-                                          'texto': 'Porque no conserva las distancias entre mojones: al '
-                                                   'correr todo $5$ m los largos cambian.',
-                                          'correcta': False,
-                                          'explicacion': 'Una traslación conserva todas las distancias y los '
-                                                         'ángulos; además, conservar distancias no es lo que '
-                                                         'define a una lineal (el corte es lineal y no las '
-                                                         'conserva).'},
-                                         {'id': 'c',
-                                          'texto': 'Porque no tiene inversa: una vez corridos los mojones no '
-                                                   'se puede volver atrás.',
-                                          'correcta': False,
-                                          'explicacion': 'Correr $5$ m al Oeste la deshace; ser invertible '
-                                                         'no es ni necesario ni suficiente para ser lineal '
-                                                         '(la proyección es lineal y no es invertible).'},
-                                         {'id': 'd',
-                                          'texto': 'Porque cambia los ángulos entre los lados de la parcela '
-                                                   'al correrla.',
-                                          'correcta': False,
-                                          'explicacion': 'Correr la parcela entera deja idénticos sus '
-                                                         'ángulos; la falla no está en lo que conserva sino '
-                                                         'en que el cero no queda en el cero.'}],
-                            'rubrica': 'Productos/medio: el cero siempre va al cero (ladrillo 3, espacio '
-                                       'afin vs. vectorial)'},
-                           {'id': '00_a1',
-                            'nivel': 'avanzado',
-                            'enunciado': 'El plano se dibuja con el Este estirado por 2, $A = '
-                                         '\\mathrm{diag}(2, 1)$. Queremos medir largos y ángulos de terreno '
-                                         "sobre el papel con $\\langle a, b\\rangle_{G'} = a^T G' b$. ¿Qué "
-                                         "matriz $G'$ hay que usar?",
-                            'opciones': [{'id': 'a',
-                                          'texto': "$G' = A^{-T} A^{-1} = \\mathrm{diag}(\\tfrac14, 1)$: "
-                                                   'cada paso Este del papel vale medio metro.',
-                                          'correcta': True,
-                                          'explicacion': "Si $x' = Ax$, el largo de terreno es $x^T x = x'^T "
-                                                         "A^{-T} A^{-1} x'$; con $A^{-1} = "
-                                                         '\\mathrm{diag}(\\tfrac12, 1)$ queda '
-                                                         '$\\mathrm{diag}(\\tfrac14, 1)$, y con ella la '
-                                                         'subida $(2, 1)$ y la marca $(2, -1)$ dan $1 - 1 = '
-                                                         '0$: recto.'},
-                                         {'id': 'b',
-                                          'texto': "$G' = A^T A = \\mathrm{diag}(4, 1)$: la métrica se "
-                                                   'transforma con la misma matriz que los puntos.',
-                                          'correcta': False,
-                                          'explicacion': '$A^T A$ es la métrica que pondría al terreno lo '
-                                                         'que el papel mide con $I$, el sentido contrario: '
-                                                         'con ella un paso Este del papel valdría dos metros '
-                                                         'en vez de medio.'},
-                                         {'id': 'c',
-                                          'texto': "$G' = A = \\mathrm{diag}(2, 1)$: la propia deformación "
-                                                   'del dibujo es la métrica.',
-                                          'correcta': False,
-                                          'explicacion': '$A$ mueve puntos, no mide; una métrica es '
-                                                         'simétrica definida positiva y relaciona dos copias '
-                                                         'del mismo vector, por eso aparece elevada al '
-                                                         'cuadrado ($A^{-T}A^{-1}$).'},
-                                         {'id': 'd',
-                                          'texto': "$G' = I$: la cuenta $x_1 x_2 + y_1 y_2$ mide bien en "
-                                                   'cualquier grilla.',
-                                          'correcta': False,
-                                          'explicacion': 'Con $I$ el ángulo recto del terreno entre $(2, 1)$ '
-                                                         'y $(2, -1)$ se mide como $53.1°$; la suma de '
-                                                         'productos mide de verdad sólo en una grilla '
-                                                         'ortonormal.'}],
-                            'rubrica': 'SVD/avanzado: no hay base privilegiada a priori; lo unico especial '
-                                       'de la canonica es que el producto interno es suma de productos'},
-                           {'id': '00_a2',
-                            'nivel': 'avanzado',
-                            'enunciado': 'En el mojón $(2, 2)$ de la loma $h = 100 - \\tfrac{x^2 + y^2}{4}$ '
-                                         'el gradiente es $(-1, -1)$, así que en el terreno el agua baja '
-                                         'hacia $(1, 1)$. Dibujamos el plano con el Este estirado por 2. '
-                                         '¿Hacia dónde dibujamos la flecha de la bajada más empinada?',
-                            'opciones': [{'id': 'a',
-                                          'texto': 'Hacia $(2, 1)$: la bajada real $(1, 1)$ pasada por $A = '
-                                                   '\\mathrm{diag}(2, 1)$, aunque en el papel no se vea '
-                                                   'perpendicular a las elipses.',
-                                          'correcta': True,
-                                          'explicacion': 'La bajada es un desplazamiento del terreno y viaja '
-                                                         'con $A$ como cualquier punto; el ángulo recto con '
-                                                         'la curva de nivel vive en la métrica del terreno, '
-                                                         'no en la del papel.'},
-                                         {'id': 'b',
-                                          'texto': 'Hacia $(1, 1)$: los dos números del gradiente, puestos '
-                                                   'tal cual como flecha en el dibujo.',
-                                          'correcta': False,
-                                          'explicacion': 'Eso trata la forma $\\nabla h$ como si fuera un '
-                                                         'vector en una grilla que no mide metros; ese trazo '
-                                                         'del papel es el desplazamiento $(\\tfrac12, 1)$ '
-                                                         'del terreno, que no es la bajada más empinada.'},
-                                         {'id': 'c',
-                                          'texto': 'Hacia $(1, 2)$: perpendicular a las curvas de nivel tal '
-                                                   'como se ven dibujadas.',
-                                          'correcta': False,
-                                          'explicacion': '$(1, 2)$ es proporcional a la regla arrastrada '
-                                                         '$\\pm(\\tfrac12, 1)$, leída como flecha: '
-                                                         'perpendicular con $G = I$, la métrica del papel, '
-                                                         'pero el papel está estirado y ese ángulo recto es '
-                                                         'falso en el terreno.'},
-                                         {'id': 'd',
-                                          'texto': 'Hacia $(2, -1)$: a lo largo de la curva de nivel que '
-                                                   'pasa por el mojón.',
-                                          'correcta': False,
-                                          'explicacion': 'A lo largo de la curva de nivel la cota no cambia; '
-                                                         'es la marca de la regla, y la bajada la cruza en '
-                                                         'vez de seguirla.'}],
-                            'rubrica': "Productos/avanzado: el gradiente es una forma lineal; 'perpendicular "
-                                       "a la curva de nivel' es una frase sobre G^{-1} grad f"}],
+BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
+                     'nivel': 'elemental',
+                     'enunciado': 'La cota de una loma es $h = 3x + y$, o sea la forma lineal $w^T = (3, '
+                                  '1)$. Si la dibujamos sobre el plano de la parcela, ¿qué vemos?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Una familia de rectas paralelas equiespaciadas, las curvas de '
+                                            'nivel $3x + y = c$: una regla graduada tirada sobre el plano.',
+                                   'correcta': True,
+                                   'explicacion': 'Una forma lineal se ve por sus conjuntos de nivel, que '
+                                                  'son rectas paralelas a distancia $1/\\lvert w\\rvert$; '
+                                                  'leer un punto es ver qué marca lo atraviesa.'},
+                                  {'id': 'b',
+                                   'texto': 'Una flecha clavada en el origen con extremo en $(3, 1)$, como '
+                                            'cualquier vector de $\\mathbb R^2$.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso es tratar la fila como columna: los números de una '
+                                                  'forma no son una flecha, y sin métrica no hay manera de '
+                                                  'convertirlos en una.'},
+                                  {'id': 'c',
+                                   'texto': 'Una sola recta, la $3x + y = 0$, porque una forma lineal es una '
+                                            'ecuación y una ecuación es una recta.',
+                                   'correcta': False,
+                                   'explicacion': 'Esa recta es sólo la marca cero de la regla (el núcleo de '
+                                                  '$w^T$); la forma entera asigna un número a cada punto del '
+                                                  'plano, no sólo a los que dan $0$.'},
+                                  {'id': 'd',
+                                   'texto': 'El número $3 \\cdot 1 + 1 \\cdot 1 = 4$, la lectura de la forma '
+                                            'en el punto $(1, 1)$.',
+                                   'correcta': False,
+                                   'explicacion': 'Esa es una sola lectura, el valor de la forma en un '
+                                                  'punto; la forma es la función entera, no uno de sus '
+                                                  'resultados.'}],
+                     'rubrica': 'Productos/elemental: una forma lineal es una regla graduada, familia de '
+                                'rectas paralelas equiespaciadas'},
+                    {'id': '00_e2',
+                     'nivel': 'elemental',
+                     'enunciado': 'Los giros de la estación total alrededor de su eje vertical, con la '
+                                  'operación hacer uno y después el otro, forman un grupo. ¿Cuál es la '
+                                  'inversa de girar $30°$ y respecto de qué operación lo es?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Girar $-30°$, respecto de la composición: hecho después del '
+                                            'primero da el neutro, que es no girar.',
+                                   'correcta': True,
+                                   'explicacion': 'La inversa es siempre respecto de una operación: '
+                                                  'compuesto con el giro de $30°$ devuelve el elemento '
+                                                  'neutro, y el neutro de componer giros es el giro nulo.'},
+                                  {'id': 'b',
+                                   'texto': 'Girar $\\tfrac{1}{30}$ de grado, porque la inversa de un '
+                                            'elemento es su recíproco.',
+                                   'correcta': False,
+                                   'explicacion': 'El recíproco es la inversa respecto del producto de '
+                                                  'números; acá la operación es componer giros, y '
+                                                  '$\\tfrac{1}{30}°$ compuesto con $30°$ da '
+                                                  '$30\\tfrac{1}{30}°$, no el neutro.'},
+                                  {'id': 'c',
+                                   'texto': 'Girar $150°$, porque $30° + 150° = 180°$ y media vuelta deshace '
+                                            'lo hecho.',
+                                   'correcta': False,
+                                   'explicacion': 'Media vuelta no es el neutro: deja la estación apuntando '
+                                                  'al revés. El neutro es el giro de $0°$, y lo que suma '
+                                                  '$0°$ con $30°$ es $-30°$.'},
+                                  {'id': 'd',
+                                   'texto': 'No tiene inversa: una vez girada, la estación no vuelve sola a '
+                                            'la posición inicial.',
+                                   'correcta': False,
+                                   'explicacion': 'Que no vuelva sola no quita que exista el giro que la '
+                                                  'devuelve; en un grupo todo elemento tiene inversa, y '
+                                                  'girar $-30°$ lo es.'}],
+                     'rubrica': 'SVD/medio: la inversa es siempre respecto de una operacion (suma, producto, '
+                                'composicion)'},
+                    {'id': '00_m1',
+                     'nivel': 'medio',
+                     'enunciado': 'Dibujamos el plano con el Este estirado por 2, $A = \\mathrm{diag}(2, '
+                                  '1)$. La cota es la regla $w^T = (1, 1)$ y el mojón está en $x = (1, 2)$, '
+                                  'cota $3$. ¿Qué regla hay que dibujar en el papel para que el mojón '
+                                  'dibujado $Ax = (2, 2)$ siga leyendo cota $3$?',
+                     'opciones': [{'id': 'a',
+                                   'texto': '$(\\tfrac12, 1)$, que es $w^T A^{-1}$: en efecto $\\tfrac12 '
+                                            '\\cdot 2 + 1 \\cdot 2 = 3$.',
+                                   'correcta': True,
+                                   'explicacion': 'La forma se arrastra con la inversa y por la derecha, '
+                                                  "$w'^T = w^T A^{-1}$, justamente para que $w'^T(Ax) = w^T "
+                                                  'x$ y la lectura no cambie.'},
+                                  {'id': 'b',
+                                   'texto': '$(2, 1)$, que es $Aw$: la regla va con la misma matriz que los '
+                                            'puntos.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso mueve la fila como si fuera un punto; con $(2, 1)$ el '
+                                                  'mojón dibujado lee $2 \\cdot 2 + 1 \\cdot 2 = 6$, el '
+                                                  'doble de su cota.'},
+                                  {'id': 'c',
+                                   'texto': '$(1, 1)$, la misma: la cota es del terreno y no depende de cómo '
+                                            'dibujemos el plano.',
+                                   'correcta': False,
+                                   'explicacion': 'La cota del mojón no depende del dibujo, pero la regla '
+                                                  'escrita en la grilla del papel sí: con $(1, 1)$ el punto '
+                                                  '$(2, 2)$ lee $4$, no $3$.'},
+                                  {'id': 'd',
+                                   'texto': '$(2, 2)$, que es $Ax$: regla y mojón van juntos al mismo lugar.',
+                                   'correcta': False,
+                                   'explicacion': '$(2, 2)$ es el mojón dibujado, un punto; confunde el '
+                                                  'objeto que se lee con la regla que lo lee, y $(2, '
+                                                  '2)\\cdot(2, 2) = 8$.'}],
+                     'rubrica': 'Productos/medio: las formas lineales se transforman del lado contrario que '
+                                'los vectores (las rectas de nivel se arrastran con la figura)'},
+                    {'id': '00_m2',
+                     'nivel': 'medio',
+                     'enunciado': 'Movemos la estación total $5$ m al Este: cada mojón $(x, y)$ pasa a '
+                                  'leerse $(x - 5, y)$. ¿Por qué esa traslación no es una transformación '
+                                  'lineal del plano?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Porque no manda el origen al origen: el $(0, 0)$ pasa a $(-5, '
+                                            '0)$, y toda lineal conserva el cero.',
+                                   'correcta': True,
+                                   'explicacion': '$T(0) = T(0 \\cdot v) = 0 \\cdot T(v) = 0$ para cualquier '
+                                                  'lineal; la traslación lo viola, y por eso hace falta '
+                                                  'homogeneizar para escribirla como matriz.'},
+                                  {'id': 'b',
+                                   'texto': 'Porque no conserva las distancias entre mojones: al correr todo '
+                                            '$5$ m los largos cambian.',
+                                   'correcta': False,
+                                   'explicacion': 'Una traslación conserva todas las distancias y los '
+                                                  'ángulos; además, conservar distancias no es lo que define '
+                                                  'a una lineal (el corte es lineal y no las conserva).'},
+                                  {'id': 'c',
+                                   'texto': 'Porque no tiene inversa: una vez corridos los mojones no se '
+                                            'puede volver atrás.',
+                                   'correcta': False,
+                                   'explicacion': 'Correr $5$ m al Oeste la deshace; ser invertible no es ni '
+                                                  'necesario ni suficiente para ser lineal (la proyección es '
+                                                  'lineal y no es invertible).'},
+                                  {'id': 'd',
+                                   'texto': 'Porque cambia los ángulos entre los lados de la parcela al '
+                                            'correrla.',
+                                   'correcta': False,
+                                   'explicacion': 'Correr la parcela entera deja idénticos sus ángulos; la '
+                                                  'falla no está en lo que conserva sino en que el cero no '
+                                                  'queda en el cero.'}],
+                     'rubrica': 'Productos/medio: el cero siempre va al cero (ladrillo 3, espacio afin vs. '
+                                'vectorial)'},
+                    {'id': '00_a1',
+                     'nivel': 'avanzado',
+                     'enunciado': 'El plano se dibuja con el Este estirado por 2, $A = \\mathrm{diag}(2, '
+                                  '1)$. Queremos medir largos y ángulos de terreno sobre el papel con '
+                                  "$\\langle a, b\\rangle_{G'} = a^T G' b$. ¿Qué matriz $G'$ hay que usar?",
+                     'opciones': [{'id': 'a',
+                                   'texto': "$G' = A^{-T} A^{-1} = \\mathrm{diag}(\\tfrac14, 1)$: cada paso "
+                                            'Este del papel vale medio metro.',
+                                   'correcta': True,
+                                   'explicacion': "Si $x' = Ax$, el largo de terreno es $x^T x = x'^T A^{-T} "
+                                                  "A^{-1} x'$; con $A^{-1} = \\mathrm{diag}(\\tfrac12, 1)$ "
+                                                  'queda $\\mathrm{diag}(\\tfrac14, 1)$, y con ella la '
+                                                  'subida $(2, 1)$ y la marca $(2, -1)$ dan $1 - 1 = 0$: '
+                                                  'recto.'},
+                                  {'id': 'b',
+                                   'texto': "$G' = A^T A = \\mathrm{diag}(4, 1)$: la métrica se transforma "
+                                            'con la misma matriz que los puntos.',
+                                   'correcta': False,
+                                   'explicacion': '$A^T A$ es la métrica que pondría al terreno lo que el '
+                                                  'papel mide con $I$, el sentido contrario: con ella un '
+                                                  'paso Este del papel valdría dos metros en vez de medio.'},
+                                  {'id': 'c',
+                                   'texto': "$G' = A = \\mathrm{diag}(2, 1)$: la propia deformación del "
+                                            'dibujo es la métrica.',
+                                   'correcta': False,
+                                   'explicacion': '$A$ mueve puntos, no mide; una métrica es simétrica '
+                                                  'definida positiva y relaciona dos copias del mismo '
+                                                  'vector, por eso aparece elevada al cuadrado '
+                                                  '($A^{-T}A^{-1}$).'},
+                                  {'id': 'd',
+                                   'texto': "$G' = I$: la cuenta $x_1 x_2 + y_1 y_2$ mide bien en cualquier "
+                                            'grilla.',
+                                   'correcta': False,
+                                   'explicacion': 'Con $I$ el ángulo recto del terreno entre $(2, 1)$ y $(2, '
+                                                  '-1)$ se mide como $53.1°$; la suma de productos mide de '
+                                                  'verdad sólo en una grilla ortonormal.'}],
+                     'rubrica': 'SVD/avanzado: no hay base privilegiada a priori; lo unico especial de la '
+                                'canonica es que el producto interno es suma de productos'},
+                    {'id': '00_a2',
+                     'nivel': 'avanzado',
+                     'enunciado': 'En el mojón $(2, 2)$ de la loma $h = 100 - \\tfrac{x^2 + y^2}{4}$ el '
+                                  'gradiente es $(-1, -1)$, así que en el terreno el agua baja hacia $(1, '
+                                  '1)$. Dibujamos el plano con el Este estirado por 2. ¿Hacia dónde '
+                                  'dibujamos la flecha de la bajada más empinada?',
+                     'opciones': [{'id': 'a',
+                                   'texto': 'Hacia $(2, 1)$: la bajada real $(1, 1)$ pasada por $A = '
+                                            '\\mathrm{diag}(2, 1)$, aunque en el papel no se vea '
+                                            'perpendicular a las elipses.',
+                                   'correcta': True,
+                                   'explicacion': 'La bajada es un desplazamiento del terreno y viaja con '
+                                                  '$A$ como cualquier punto; el ángulo recto con la curva de '
+                                                  'nivel vive en la métrica del terreno, no en la del '
+                                                  'papel.'},
+                                  {'id': 'b',
+                                   'texto': 'Hacia $(1, 1)$: los dos números del gradiente, puestos tal cual '
+                                            'como flecha en el dibujo.',
+                                   'correcta': False,
+                                   'explicacion': 'Eso trata la forma $\\nabla h$ como si fuera un vector en '
+                                                  'una grilla que no mide metros; ese trazo del papel es el '
+                                                  'desplazamiento $(\\tfrac12, 1)$ del terreno, que no es la '
+                                                  'bajada más empinada.'},
+                                  {'id': 'c',
+                                   'texto': 'Hacia $(1, 2)$: perpendicular a las curvas de nivel tal como se '
+                                            'ven dibujadas.',
+                                   'correcta': False,
+                                   'explicacion': '$(1, 2)$ es proporcional a la regla arrastrada '
+                                                  '$\\pm(\\tfrac12, 1)$, leída como flecha: perpendicular '
+                                                  'con $G = I$, la métrica del papel, pero el papel está '
+                                                  'estirado y ese ángulo recto es falso en el terreno.'},
+                                  {'id': 'd',
+                                   'texto': 'Hacia $(2, -1)$: a lo largo de la curva de nivel que pasa por '
+                                            'el mojón.',
+                                   'correcta': False,
+                                   'explicacion': 'A lo largo de la curva de nivel la cota no cambia; es la '
+                                                  'marca de la regla, y la bajada la cruza en vez de '
+                                                  'seguirla.'}],
+                     'rubrica': "Productos/avanzado: el gradiente es una forma lineal; 'perpendicular a la "
+                                "curva de nivel' es una frase sobre G^{-1} grad f"}],
  '01a_punto_quieto': [{'id': '01a_e1',
                        'nivel': 'elemental',
                        'enunciado': 'Plantamos la estación total en el origen de la obra, pero con su eje '
@@ -842,7 +828,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                      'giro alrededor de alguna recta: la composición de '
                                                      'rotaciones es una rotación.'}],
                         'rubrica': 'Rotaciones/medio: combinacion de rotaciones son rotaciones (el eje fijo, '
-                                   'que en la clase 6 sera autovector de autovalor 1)'},
+                                   'que más adelante será autovector de autovalor 1)'},
                        {'id': '01c_a2',
                         'nivel': 'avanzado',
                         'enunciado': 'Con giros de $90°$ los dos órdenes, $R_z R_y R_x$ y $R_x R_y R_z$, '
@@ -1700,10 +1686,10 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                 'punto de fuga; el punto ideal común se hizo propio'},
                     {'id': '05_a1',
                      'nivel': 'avanzado',
-                     'enunciado': 'El pentágono regular del profesor, con $D = (0, 1)$ arriba y $A$, $B$ '
-                                  'abajo. La proyectiva $H = \\begin{pmatrix} -\\sqrt5 & 0 & 0 \\\\ 0 & -1 & '
-                                  '1 \\\\ 0 & 4 & 1 \\end{pmatrix}$ deja fijos $A$ y $B$ e intercambia $C$ '
-                                  'con $E$. ¿Dónde cae $D$ y cómo queda la imagen?',
+                     'enunciado': 'El pentágono regular, con $D = (0, 1)$ arriba y $A$, $B$ abajo. La '
+                                  'proyectiva $H = \\begin{pmatrix} -\\sqrt5 & 0 & 0 \\\\ 0 & -1 & 1 \\\\ 0 '
+                                  '& 4 & 1 \\end{pmatrix}$ deja fijos $A$ y $B$ e intercambia $C$ con $E$. '
+                                  '¿Dónde cae $D$ y cómo queda la imagen?',
                      'opciones': [{'id': 'a',
                                    'texto': '$D$ cae en el centro $(0, 0)$ y la imagen es otro pentágono '
                                             'convexo: las rectas van a rectas.',
@@ -1782,7 +1768,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                 'y sus autovalores repetidos'}],
  '06_formas_lineales': [{'id': '06_e1',
                          'nivel': 'elemental',
-                         'enunciado': 'El profesor dijo que no existe el vector fila. ¿Qué es, entonces, una '
+                         'enunciado': 'En esta materia no existe el vector fila. ¿Qué es, entonces, una '
                                       'forma lineal $\\ell = (a, b)$?',
                          'opciones': [{'id': 'a',
                                        'texto': 'Un vector escrito acostado, que se dibuja como una flecha '
@@ -2942,8 +2928,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                      'canónica, $A$ lo transforma, y $B^{-1}$ lo lee de '
                                                      'vuelta en la base propia, donde cada eje sólo se '
                                                      'estiró por su $\\lambda$. Es el $T_{\\mathrm{diag}} = '
-                                                     'A^{-1}T_{\\mathrm{can}}A$ del profesor, con su $A$ en '
-                                                     'el lugar de nuestra $B$.'},
+                                                     'A^{-1}T_{\\mathrm{can}}A$ de otra notación habitual, '
+                                                     'con su $A$ en el lugar de nuestra $B$.'},
                                      {'id': 'd',
                                       'texto': '$A\\,B$: aplicar $A$ a cada autovector ya da $\\lambda_k '
                                                'v_k$, que es diagonal.',
@@ -3172,8 +3158,7 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                          '(la casilla de la lección), y cambia qué significa '
                                                          '$k = 1$.'}],
                             'rubrica': 'Cambio de base y SVD · medio: A = UΣVᵀ, rotar, estirar, rotar '
-                                       '(aplicación: la aproximación de rango k; sin celda propia en la '
-                                       'rúbrica)'},
+                                       '(aplicación: la aproximación de rango k)'},
                            {'id': '09_m2',
                             'nivel': 'medio',
                             'enunciado': 'Para $A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 1 \\end{pmatrix}$ '
@@ -3361,9 +3346,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                               'para $r = (u, v, h)$ sale $E = 1 + h_u^2$, $F '
                                                               '= h_uh_v$, $G = 1 + h_v^2$, que no es lo '
                                                               'mismo.'}],
-                                 'rubrica': 'Sin celda propia (la rúbrica del apéndice termina en SVD); más '
-                                            'cercana: Rotaciones · elemental: el producto interno puede '
-                                            'servir como base para definir tipos de transformaciones'},
+                                 'rubrica': 'Rotaciones · elemental: el producto interno puede servir como '
+                                            'base para definir tipos de transformaciones'},
                                 {'id': '10_e2',
                                  'nivel': 'elemental',
                                  'enunciado': 'Sobre la esfera con latitud y longitud encontramos $E = R^2$, '
@@ -3409,9 +3393,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                               'plano inclinado $z = 1 + 0.4u + 0.3v$ la '
                                                               'grilla es perpendicular en el papel y $F = '
                                                               '0.12 \\neq 0$.'}],
-                                 'rubrica': 'Sin celda propia; más cercana: Productos, determinante y '
-                                            'autovectores · elemental: el producto interno decide incidencia '
-                                            'y ortogonalidad'},
+                                 'rubrica': 'Productos, determinante y autovectores · elemental: el producto '
+                                            'interno decide incidencia y ortogonalidad'},
                                 {'id': '10_m1',
                                  'nivel': 'medio',
                                  'enunciado': 'Parametrizamos el cilindro de radio $R = 10$ m como $r(u, v) '
@@ -3456,9 +3439,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                               '= 0.1745$ m; es la regla del plano con el eje '
                                                               '$u$ reescalado, por eso el cilindro se '
                                                               'desenrolla.'}],
-                                 'rubrica': 'Sin celda propia; más cercana: Rotaciones · avanzado: existe la '
-                                            'derivada de una transformación y genera un conjunto de vectores '
-                                            'tangentes a trayectorias'},
+                                 'rubrica': 'Rotaciones · avanzado: existe la derivada de una transformación '
+                                            'y genera un conjunto de vectores tangentes a trayectorias'},
                                 {'id': '10_m2',
                                  'nivel': 'medio',
                                  'enunciado': 'En el plano inclinado $z = 1 + 0.4u + 0.3v$ tenemos $E = '
@@ -3502,9 +3484,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                               'chico respecto de los largos significa ejes '
                                                               '**casi** perpendiculares, no casi '
                                                               'paralelos.'}],
-                                 'rubrica': 'Sin celda propia; más cercana: Productos, determinante y '
-                                            'autovectores · elemental: el producto interno decide incidencia '
-                                            'y ortogonalidad'},
+                                 'rubrica': 'Productos, determinante y autovectores · elemental: el producto '
+                                            'interno decide incidencia y ortogonalidad'},
                                 {'id': '10_a1',
                                  'nivel': 'avanzado',
                                  'enunciado': 'En la esfera de $R = 6371$ km, $ds^2 = R^2\\,d\\varphi^2 + '
@@ -3548,9 +3529,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                               'mismo ángulo abarca **menos** arco. Se '
                                                               'multiplica por $\\cos\\varphi$, no se '
                                                               'divide.'}],
-                                 'rubrica': 'Sin celda propia (métrica como JᵀJ); más cercana: Rotaciones · '
-                                            'avanzado: existe la derivada de una transformación y genera '
-                                            'vectores tangentes a trayectorias'},
+                                 'rubrica': 'Rotaciones · avanzado: existe la derivada de una transformación '
+                                            'y genera vectores tangentes a trayectorias'},
                                 {'id': '10_a2',
                                  'nivel': 'avanzado',
                                  'enunciado': 'Sobre la grilla $(u, v)$ de la loma tenemos la altura $h(u, '
@@ -3678,8 +3658,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                         'correcta': False,
                                         'explicacion': 'Las dos usan todos los puntos; dos puntos definen '
                                                        'una recta exacta sin residuo, y eso no es ajuste.'}],
-                          'rubrica': 'propuesta: Cuatro problemas · elemental · vertical contra '
-                                     'perpendicular, la misma nube y dos preguntas distintas'},
+                          'rubrica': 'Cuatro problemas · elemental · vertical contra perpendicular, la misma '
+                                     'nube y dos preguntas distintas'},
                          {'id': '11_m1',
                           'nivel': 'medio',
                           'enunciado': 'Ajustamos $y = ax + b$ a los puntos $(-1, 1)$, $(0, 1)$ y $(1, 4)$ '
@@ -3872,8 +3852,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': '$L/E$ es la curvatura normal en una dirección particular de '
                                                 'la grilla, que depende de cómo se parametrizó; $K$ no '
                                                 'depende de la grilla.'}],
-                   'rubrica': 'propuesta: Curvatura · elemental · $K = \\kappa_1\\kappa_2 = \\det II/\\det '
-                              'I$; hecho geométrico: su signo dice cuenco, canaleta o silla'},
+                   'rubrica': 'Curvatura · elemental · $K = \\kappa_1\\kappa_2 = \\det II/\\det I$; hecho '
+                              'geométrico: su signo dice cuenco, canaleta o silla'},
                   {'id': '12_e2',
                    'nivel': 'elemental',
                    'enunciado': 'Apoyamos el nivel en el punto más bajo de un paso de montaña: la burbuja '
@@ -3904,13 +3884,13 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'correcta': False,
                                  'explicacion': 'Una cima baja en todos los rumbos; hacia el este el paso '
                                                 'sube, así que hay un rumbo de curvatura positiva.'}],
-                   'rubrica': 'propuesta: Curvatura · elemental · tangente horizontal no es curvatura cero; '
-                              'hecho geométrico: la silla sube en un rumbo y baja en el perpendicular'},
+                   'rubrica': 'Curvatura · elemental · tangente horizontal no es curvatura cero; hecho '
+                              'geométrico: la silla sube en un rumbo y baja en el perpendicular'},
                   {'id': '12_m1',
                    'nivel': 'medio',
                    'enunciado': 'En un punto los radios de curvatura principales valen $R_1 = 4$ m y $R_2 = '
-                                '9$ m. El apunte del profesor promedia el radio $1/\\chi(\\alpha)$ sobre un '
-                                'cuadrante. ¿Qué radio medio obtiene?',
+                                '9$ m. El apunte promedia el radio $1/\\chi(\\alpha)$ sobre un cuadrante. '
+                                '¿Qué radio medio obtiene?',
                    'opciones': [{'id': 'a',
                                  'texto': '$R = 6{,}5$ m, el promedio aritmético de $R_1$ y $R_2$.',
                                  'correcta': False,
@@ -3940,8 +3920,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Esa es la inversa de la curvatura media $H$; el apunte '
                                                 'promedia radios sobre el ángulo, no curvaturas, y eso lleva '
                                                 'a la media geométrica.'}],
-                   'rubrica': 'propuesta: Curvatura · medio · Euler $\\chi(\\alpha) = \\chi_1\\cos^2\\alpha '
-                              '+ \\chi_2\\sin^2\\alpha$ y el radio medio $\\sqrt{R_1 R_2}$'},
+                   'rubrica': 'Curvatura · medio · Euler $\\chi(\\alpha) = \\chi_1\\cos^2\\alpha + '
+                              '\\chi_2\\sin^2\\alpha$ y el radio medio $\\sqrt{R_1 R_2}$'},
                   {'id': '12_m2',
                    'nivel': 'medio',
                    'enunciado': 'En una canaleta cilíndrica de radio $R = 2$ las curvaturas principales son '
@@ -3975,8 +3955,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Desenrollarse sin estirar dice $K = \\kappa_1\\kappa_2 = '
                                                 '0$, no que toda sección sea recta; la única sección normal '
                                                 'recta es la paralela al eje.'}],
-                   'rubrica': 'propuesta: Curvatura · medio · la curvatura normal es cuadrática en el rumbo '
-                              '(Euler); hecho geométrico: el cilindro sólo es recto a lo largo del eje'},
+                   'rubrica': 'Curvatura · medio · la curvatura normal es cuadrática en el rumbo (Euler); '
+                              'hecho geométrico: el cilindro sólo es recto a lo largo del eje'},
                   {'id': '12_a1',
                    'nivel': 'avanzado',
                    'enunciado': 'Por un punto trazamos la sección normal en cierta dirección, de radio de '
@@ -4013,9 +3993,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Dividir por $\\cos\\theta$ es invertir el factor de la '
                                                 'fórmula de Meusnier; la sección oblicua es más curva, así '
                                                 'que su radio es $\\rho_\\alpha\\cos\\theta$, menor.'}],
-                   'rubrica': 'propuesta: Curvatura · avanzado · Meusnier $\\rho_\\beta = '
-                              '\\rho_\\alpha\\cos\\theta$; hecho geométrico: el paralelo es sección oblicua '
-                              "del primer vertical, $x' = N\\cos\\varphi$"},
+                   'rubrica': 'Curvatura · avanzado · Meusnier $\\rho_\\beta = \\rho_\\alpha\\cos\\theta$; '
+                              "hecho geométrico: el paralelo es sección oblicua del primer vertical, $x' = "
+                              'N\\cos\\varphi$'},
                   {'id': '12_a2',
                    'nivel': 'avanzado',
                    'enunciado': 'Queremos un plano de la Tierra que conserve todas las distancias, aunque '
@@ -4051,9 +4031,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'La esfera tiene $K = 1/R^2 > 0$ y tampoco se aplana; lo que '
                                                 'impide la isometría es $K \\ne 0$, no que las curvaturas '
                                                 'principales sean distintas.'}],
-                   'rubrica': 'propuesta: Curvatura · avanzado · $K$ sobrevive al doblado sin estirar '
-                              '(theorema egregium); hecho geométrico: la hoja se enrolla en cilindro pero la '
-                              'cáscara no se aplana'}],
+                   'rubrica': 'Curvatura · avanzado · $K$ sobrevive al doblado sin estirar (theorema '
+                              'egregium); hecho geométrico: la hoja se enrolla en cilindro pero la cáscara '
+                              'no se aplana'}],
  '13_elipsoide': [{'id': '13_e1',
                    'nivel': 'elemental',
                    'enunciado': 'Un receptor GNSS nos da latitud $\\varphi = 45°$ para un punto de la '
@@ -4084,8 +4064,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Sobre la superficie ($h = 0$) $\\psi$ depende sólo de '
                                                 '$\\varphi$ y de $e^2$; la altura cambia la cuenta sólo si '
                                                 'el punto se corre por la normal.'}],
-                   'rubrica': 'propuesta: Elipsoide · elemental · tres latitudes, $\\psi \\le \\beta \\le '
-                              '\\varphi$; hecho geométrico: la normal no pasa por el centro'},
+                   'rubrica': 'Elipsoide · elemental · tres latitudes, $\\psi \\le \\beta \\le \\varphi$; '
+                              'hecho geométrico: la normal no pasa por el centro'},
                   {'id': '13_e2',
                    'nivel': 'elemental',
                    'enunciado': 'En un punto del elipsoide de revolución hablamos de dos radios de '
@@ -4117,9 +4097,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': '$N$ es la distancia del punto al eje polar medida a lo '
                                                 'largo de la normal, no al centro; por eso la normal corta '
                                                 'el eje polar a $N e^2 \\sin\\varphi$ del centro.'}],
-                   'rubrica': 'propuesta: Elipsoide · elemental · $M$ meridiano y $N$ primer vertical son '
-                              'las direcciones principales; hecho geométrico: $N$ es el tramo de la normal '
-                              'hasta el eje polar'},
+                   'rubrica': 'Elipsoide · elemental · $M$ meridiano y $N$ primer vertical son las '
+                              'direcciones principales; hecho geométrico: $N$ es el tramo de la normal hasta '
+                              'el eje polar'},
                   {'id': '13_m1',
                    'nivel': 'medio',
                    'enunciado': 'En el ecuador de GRS80 ($a = 6378137$ m, $e^2 = 0{,}00669438$) calculamos '
@@ -4149,8 +4129,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Los exponentes actúan sobre $1 - e^2\\sin^2\\varphi$, que '
                                                 'en el ecuador vale $1$; lo que distingue $M$ de $N$ ahí es '
                                                 'el factor $(1 - e^2)$ entero.'}],
-                   'rubrica': 'propuesta: Elipsoide · medio · $M$ y $N$ en ecuador y polo; hecho geométrico: '
-                              'más curvo a lo largo del meridiano que a lo ancho'},
+                   'rubrica': 'Elipsoide · medio · $M$ y $N$ en ecuador y polo; hecho geométrico: más curvo '
+                              'a lo largo del meridiano que a lo ancho'},
                   {'id': '13_m2',
                    'nivel': 'medio',
                    'enunciado': 'En la esfera de radio $R$ (el caso $M = N = R$), ¿cuánto mide el radio del '
@@ -4178,9 +4158,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': 'Es $\\cos^2 60°$: el cuadrado aparece en la primera forma, '
                                                 '$G = N^2\\cos^2\\varphi$, pero el radio del paralelo lleva '
                                                 'el coseno sin elevar.'}],
-                   'rubrica': 'propuesta: Elipsoide · medio · primera forma $E = M^2$, $G = '
-                              'N^2\\cos^2\\varphi$; hecho geométrico: el paralelo se achica con '
-                              '$\\cos\\varphi$'},
+                   'rubrica': 'Elipsoide · medio · primera forma $E = M^2$, $G = N^2\\cos^2\\varphi$; hecho '
+                              'geométrico: el paralelo se achica con $\\cos\\varphi$'},
                   {'id': '13_a1',
                    'nivel': 'avanzado',
                    'enunciado': 'Elipsoide de juguete con $a = 5$, $b = 4$ ($e^2 = 0{,}36$). En el ecuador '
@@ -4211,8 +4190,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                 '5/0{,}8$ y $M = a(1 - e^2)/(1 - e^2)^{3/2}$, el mismo '
                                                 'valor; en el polo pasan todos los meridianos, todos los '
                                                 'rumbos son iguales y el punto es umbilical.'}],
-                   'rubrica': 'propuesta: Elipsoide · avanzado · deducciones por simetría: en el polo todos '
-                              'los rumbos son meridianos y $M = N = a^2/b$'},
+                   'rubrica': 'Elipsoide · avanzado · deducciones por simetría: en el polo todos los rumbos '
+                              'son meridianos y $M = N = a^2/b$'},
                   {'id': '13_a2',
                    'nivel': 'avanzado',
                    'enunciado': 'Pasamos $(\\varphi, \\lambda, h = 0)$ a cartesianas geocéntricas. $X = '
@@ -4248,9 +4227,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                  'explicacion': '$M$ es el radio de curvatura del meridiano, un radio '
                                                 'osculador, no una distancia desde ningún eje; la conversión '
                                                 'usa $N$ y el factor $(1 - e^2)$.'}],
-                   'rubrica': 'propuesta: Elipsoide · avanzado · conversión $(\\varphi, \\lambda, h) \\to '
-                              '(X, Y, Z)$; hecho geométrico: la normal corta el eje polar debajo del '
-                              'centro'}],
+                   'rubrica': 'Elipsoide · avanzado · conversión $(\\varphi, \\lambda, h) \\to (X, Y, Z)$; '
+                              'hecho geométrico: la normal corta el eje polar debajo del centro'}],
  '14_trigonometria_esferica': [{'id': '14_e1',
                                 'nivel': 'elemental',
                                 'enunciado': 'Tomamos tres vértices $A$, $B$, $C$ sobre la esfera unitaria '
@@ -4323,9 +4301,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                               'explicacion': '$270°$ es sólo el octante; el exceso crece con '
                                                              'el área, y un triángulo de pocos km suma '
                                                              '$180°$ más una fracción de segundo.'}],
-                                'rubrica': 'propuesta: Trigonometría esférica · elemental · exceso esférico '
-                                           '= área$/R^2$ (Girard); hecho geométrico: el triángulo abomba y '
-                                           'los ángulos se abren'},
+                                'rubrica': 'Trigonometría esférica · elemental · exceso esférico = '
+                                           'área$/R^2$ (Girard); hecho geométrico: el triángulo abomba y los '
+                                           'ángulos se abren'},
                                {'id': '14_m1',
                                 'nivel': 'medio',
                                 'enunciado': 'Un triángulo esférico sobre la esfera de radio $R$ tiene '
@@ -4353,8 +4331,8 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                               'correcta': False,
                                               'explicacion': 'Ese es el octante, de exceso $90°$; acá el '
                                                              'exceso es $30°$, un tercio.'}],
-                                'rubrica': 'propuesta: Trigonometría esférica · medio · cuenta del exceso y '
-                                           'del área con el control del octante'},
+                                'rubrica': 'Trigonometría esférica · medio · cuenta del exceso y del área '
+                                           'con el control del octante'},
                                {'id': '14_m2',
                                 'nivel': 'medio',
                                 'enunciado': 'Triángulo esférico con $b = c = 60°$ y ángulo $A = 90°$. Con '
@@ -4429,9 +4407,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                               'explicacion': 'El exceso no depende del número de lados, pero '
                                                              'la parte plana sí: $(n - 2)\\cdot 180°$, que '
                                                              'para cinco lados es $540°$.'}],
-                                'rubrica': 'propuesta: Trigonometría esférica · avanzado · polígono '
-                                           'geodésico, $\\sum\\text{ángulos} - (n-2)\\pi = $ área$/R^2$; '
-                                           'hecho geométrico: no hay cuadrilátero de cuatro rectos'},
+                                'rubrica': 'Trigonometría esférica · avanzado · polígono geodésico, '
+                                           '$\\sum\\text{ángulos} - (n-2)\\pi = $ área$/R^2$; hecho '
+                                           'geométrico: no hay cuadrilátero de cuatro rectos'},
                                {'id': '14_a2',
                                 'nivel': 'avanzado',
                                 'enunciado': 'Medimos los tres ángulos de un triángulo de $100$ km de lado '
@@ -4635,9 +4613,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                                  'ecuador porque $\\sin 0 = 0$ deja $\\ln '
                                                                  '1$; el $-e/2$ sólo multiplica ese '
                                                                  'logaritmo.'}],
-                                    'rubrica': 'propuesta: Conformes · medio · Mercator es $y = '
-                                               'a\\,q(\\varphi)$ con $h = k$; hecho geométrico: el ecuador '
-                                               'queda en $y = 0$ y el mapa es simétrico'},
+                                    'rubrica': 'Conformes · medio · Mercator es $y = a\\,q(\\varphi)$ con $h '
+                                               '= k$; hecho geométrico: el ecuador queda en $y = 0$ y el '
+                                               'mapa es simétrico'},
                                    {'id': '15_a1',
                                     'nivel': 'avanzado',
                                     'enunciado': 'En Mercator la escala a lo largo del paralelo es $k = '
@@ -4685,10 +4663,9 @@ BANCO_AUTOEVALUACION = {'00_desaprender_el_cbc': [{'id': '00_e1',
                                                                  'aplasta los polos contra $y = \\pm R$ en '
                                                                  'la esfera; Mercator hace lo contrario, $hk '
                                                                  '= k^2 \\to \\infty$.'}],
-                                    'rubrica': 'propuesta: Conformes · avanzado · $h = k$ con $k = '
-                                               'a/(N\\cos\\varphi)$: por qué Mercator estira hacia los '
-                                               'polos; hecho geométrico: círculos de Tissot que crecen pero '
-                                               'siguen círculos'},
+                                    'rubrica': 'Conformes · avanzado · $h = k$ con $k = a/(N\\cos\\varphi)$: '
+                                               'por qué Mercator estira hacia los polos; hecho geométrico: '
+                                               'círculos de Tissot que crecen pero siguen círculos'},
                                    {'id': '15_a2',
                                     'nivel': 'avanzado',
                                     'enunciado': 'Queremos la proyección de POSGAR (Gauss-Krüger): conforme '
