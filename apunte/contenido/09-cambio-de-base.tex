@@ -359,19 +359,11 @@ y la \((-1,2)\) queda un poco más vertical. Hecho geométrico: la grilla se def
 y el punto se movió con él; medido con la grilla deformada, el punto está donde estaba. En
 planilla: dos columnas para la forma, dos para el vector, \texttt{SUMAPRODUCTO}.
 
-\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Sea
-\(A=\begin{pmatrix}2&1\\1&2\end{pmatrix}\). Polinomio característico
-\((2-\lambda)^2-1=0\), autovalores \(3\) y \(1\), autovectores \((1,1)\) y \((1,-1)\)
-(perpendiculares porque \(A\) es simétrica). Con esos autovectores como columnas de \(C\),
-\[
-  C^{-1}AC=\tfrac12\begin{pmatrix}1&1\\1&-1\end{pmatrix}
-  \begin{pmatrix}3&1\\3&-1\end{pmatrix}
-  =\begin{pmatrix}3&0\\0&1\end{pmatrix}=D .
-\]
-Hecho geométrico: en la grilla de los autovectores la transformación es dos estiramientos
-independientes, por \(3\) a lo largo de \(b_1\) y por \(1\) a lo largo de \(b_2\); la grilla
-\enquote{se estira o se comprime pero no se rompe}. Equivale a aplicar dos afinidades axiales
-sucesivas.
+\paragraph{Diagonalizar es elegir la grilla de los autovectores.} Con
+\(A=\left(\begin{smallmatrix}2&1\\1&2\end{smallmatrix}\right)\), el procedimiento del
+ejemplo~\ref{ej:cb-diagonalizar} da los autovalores \(3\) y \(1\), los autovectores \((1,1)\)
+y \((1,-1)\) en las columnas de \(C\) y \(C^{-1}AC=\operatorname{diag}(3,1)=D\): en la grilla
+de los autovectores la transformación es dos estiramientos independientes.
 
 \paragraph{La matriz de cambio de base y el despeje de la diagonalización.} Seguimos con
 \(C\), los autovectores en columnas, \(A\), la transformación, y \(D\), su matriz diagonal en
@@ -407,17 +399,10 @@ coordenadas canónicas y, leído como producto, es \(C\,D\,C^{-1}=A\). La cadena
 \(\ell C^{-1}\,(C\,D\,C^{-1})\,C\,p=\ell\,D\,p\): las conversiones se absorben de a pares y
 el punto transformado sigue cayendo en la recta transformada.
 
-\paragraph{Potencias y la trayectoria de un punto.} De \(A=CDC^{-1}\) sale
-\(A^n=CD^nC^{-1}\): aplicar \(n\) veces la transformación es estirar \(n\) veces cada eje
-propio. Para \(n=5\),
-\[
-  A^5=C\begin{pmatrix}243&0\\0&1\end{pmatrix}C^{-1}
-  =\tfrac12\begin{pmatrix}244&242\\242&244\end{pmatrix}
-  =\begin{pmatrix}122&121\\121&122\end{pmatrix}.
-\]
-Lectura: \((1,0)=\tfrac12(1,1)+\tfrac12(1,-1)\); la parte en \((1,1)\) se multiplica por
-\(243\) y la parte en \((1,-1)\) queda igual: \(\tfrac12(243,243)+\tfrac12(1,-1)=(122,121)\),
-la primera columna. Si los autovalores son positivos el exponente puede ser real:
+\paragraph{Potencias y la trayectoria de un punto.} Como en el
+ejemplo~\ref{ej:cb-diagonalizar}, \(A^n=CD^nC^{-1}\); para \(n=5\),
+\(A^5=\left(\begin{smallmatrix}122&121\\121&122\end{smallmatrix}\right)\).
+Si los autovalores son positivos el exponente puede ser real:
 \(A^t=CD^tC^{-1}\) con \(D^t=\operatorname{diag}(3^t,1)\), y el punto \((1,0)\) recorre
 \[
   A^t\begin{pmatrix}1\\0\end{pmatrix}=\tfrac12\begin{pmatrix}3^t+1\\3^t-1\end{pmatrix}:

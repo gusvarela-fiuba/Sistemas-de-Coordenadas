@@ -14,7 +14,7 @@ El sitio tiene tres capas: ese hilo conductor (la portada), el mapa de conceptos
 \file{unidades/} del repositorio; se abren localmente con \texttt{marimo edit}
 (entorno \texttt{uv}). Cada unidad enlaza a la sección de este apunte que desarrolla su
 tema (destino \texttt{cap:NN} del PDF), y cada una cierra con ejercicios con hueco y
-verificación automática. La columna ``capítulo'' indica dónde se desarrolla el tema de cada unidad. La Unidad 0 es el
+verificación automática. La columna \enquote{capítulo} indica dónde se desarrolla el tema de cada unidad. La Unidad 0 es el
 encuadre de la subsección~\ref{sec:desaprender} y de la brújula de la
 sección~\ref{sec:puntos-formas-grillas}. Las unidades 11 a 14 acompañan capítulos en preparación. La unidad 15 es \emph{complementaria}: cierra el arco de la materia con las
 transformaciones conformes (sección~\ref{sec:transformaciones-conformes}).
@@ -57,13 +57,13 @@ sección~\ref{sec:svd}) & \ref{cap:svd}, \ref{cap:inversas}\\
 }
 
 \paragraph{Módulo común \file{cb104.py}.} Vive en \file{unidades/}, junto a los
-notebooks, y todas las unidades lo importan (\texttt{import cb104 as lib}). Sólo depende
+notebooks, y todas las unidades lo importan (\texttt{import cb104 as lib}). Solo depende
 de NumPy (y de Plotly adentro de las funciones que dibujan). Reúne la paleta del apunte
 (teal, rust, gold), las rotaciones \texttt{rot2}, \texttt{rot\_x}, \texttt{rot\_y},
 \texttt{rot\_z} y \texttt{rodrigues}, coordenadas homogéneas (\texttt{hom}, \texttt{dehom}),
 área orientada de un polígono, potencias reales \texttt{pot\_real}, cambio de base
 (\texttt{coordenadas\_en\_base}, \texttt{diagonalizar}), eje y ángulo de una rotación,
-helpers de \LaTeX{} para mostrar matrices coloreadas, las capas de Plotly ``antes/después''
+helpers de \LaTeX{} para mostrar matrices coloreadas, las capas de Plotly \enquote{antes/después}
 de la grilla, el cubo unitario y los terrenos sintéticos en 3D, y la verificación de los
 ejercicios con hueco (\texttt{verificar}, \texttt{exacto}). Para el export WASM el módulo
 no existe en el navegador: \file{tools/build.py} reemplaza la celda marcada

@@ -34,15 +34,15 @@ proyectiva tiene una matriz \(3\times3\) invertible \emph{cualquiera}:
 (x',y')=\left(\frac{X}{W},\frac{Y}{W}\right).
 \]
 Ahora \(W=h_{31}x+h_{32}y+h_{33}\) depende del punto, y la división por \(W\) es
-exactamente la perspectiva: lo que ``está lejos'' se achica. Los puntos con \(W=0\) forman
+exactamente la perspectiva: lo que \enquote{está lejos} se achica. Los puntos con \(W=0\) forman
 una recta que se va al infinito, el horizonte de la foto.
 
 \paragraph{Por qué un cuadrilátero.}
 La matriz tiene nueve entradas, pero \(H\) y \(\lambda H\) representan la misma
 transformación (el factor se cancela al dividir por \(W\)). Quedan ocho números
-independientes. Cada correspondencia ``el punto \(p\) va al punto \(p'\)'' aporta dos
+independientes. Cada correspondencia \enquote{el punto \(p\) va al punto \(p'\)} aporta dos
 ecuaciones, una por coordenada. Cuatro puntos, sin tres alineados, dan ocho ecuaciones: la
-transformación queda determinada. Con tres puntos falta decidir ``cuánta perspectiva hay'';
+transformación queda determinada. Con tres puntos falta decidir \enquote{cuánta perspectiva hay};
 un quinto punto ya no se puede prescribir: va a donde la transformación determinada por los
 otros cuatro lo mande.
 
@@ -71,7 +71,7 @@ punto impropio \((d_1,d_2,0)^T\) (definición~\ref{def:06-impropio}). Una afinid
 fila \((0,0,1)\), lo manda a \((Ad,0)^T\), otro punto impropio: las imágenes siguen paralelas.
 Una homografía lo manda a \(H(d_1,d_2,0)^T\), cuya tercera coordenada es
 \(h_{31}d_1+h_{32}d_2\), en general distinta de cero. Entonces las dos rectas imagen comparten
-un punto \emph{ordinario}, el punto de fuga, y se cortan ahí. Sólo la dirección con
+un punto \emph{ordinario}, el punto de fuga, y se cortan ahí. Solo la dirección con
 \(h_{31}d_1+h_{32}d_2=0\) conserva sus paralelas.
 
 \emph{La recta del infinito.} Los puntos impropios forman una recta, la recta ideal
@@ -92,7 +92,7 @@ puntos distintos \(a,b,c\) de la recta,
 \]
 es una homografía que los lleva a \(0\), \(1\) y \(\infty\). Si un número \(I(a,b,c,d)\)
 calculado con cuatro puntos alineados no cambia por homografías, entonces
-\(I(a,b,c,d)=I\bigl(0,1,\infty,g(d)\bigr)\): depende sólo de \(g(d)\), y
+\(I(a,b,c,d)=I\bigl(0,1,\infty,g(d)\bigr)\): depende solo de \(g(d)\), y
 \(g(d)=1/\bigl(1-(a,b;c,d)\bigr)\), como se comprueba restando
 \(1-(a,b;c,d)=\frac{(a-b)(d-c)}{(c-b)(d-a)}\). Todo invariante numérico de cuatro puntos
 alineados es, entonces, una función de la razón doble (proposición~\ref{prop:c1-razon-doble}).
@@ -236,7 +236,7 @@ imagen es \(W=h_3\cdot p\). Los puntos de la recta \(h_{31}x+h_{32}y+h_{33}=0\) 
 \(W=0\): se van al infinito. Si esa recta \emph{no toca} una figura acotada, la imagen es una
 figura acotada con las mismas incidencias. Si la \emph{atraviesa}, los puntos de un lado
 tienen \(W>0\) y los del otro \(W<0\), y la imagen se parte: un segmento que cruza la recta se
-transforma en dos semirrectas unidas ``por el infinito'', como un objeto que está en parte
+transforma en dos semirrectas unidas \enquote{por el infinito}, como un objeto que está en parte
 delante y en parte detrás de la cámara.
 
 \begin{atencion}[Las afinidades vistas desde acá]
@@ -334,7 +334,7 @@ conjugados armónicos respecto del centro y del corte de su recta con el eje; es
 comprueba la razón doble \((D,D';O,X)=-1\) en el ejercicio del pentágono de la unidad
 interactiva.
 
-\begin{atencion}[Tres ``conjugados'' distintos]
+\begin{atencion}[Tres \enquote{conjugados} distintos]
 El conjugado armónico no tiene relación con la conjugación de matrices
 (sección~\ref{sec:conjugacion}) ni con el conjugado complejo
 (sección~\ref{sec:conjugado-complejo}): es la misma palabra para tres ideas distintas. El
@@ -466,7 +466,7 @@ por cuatro puntos, así que se prescriben cuatro vértices y sus imágenes (otro
 vértices) y se pregunta \emph{a dónde cae el quinto}. Hay tres casos, y sus combinaciones
 con las rotaciones del pentágono:
 \begin{enumerate}[label=(\alph*)]
-  \item no intercambiar ningún vértice: sólo ``correr'' el pentágono;
+  \item no intercambiar ningún vértice: solo \enquote{correr} el pentágono;
   \item intercambiar dos vértices adyacentes;
   \item intercambiar dos vértices no adyacentes.
 \end{enumerate}
@@ -514,7 +514,7 @@ rotación:
   H_a=\begin{pmatrix}0{,}3090&-0{,}9511&0\\0{,}9511&0{,}3090&0\\0&0&1\end{pmatrix},
   \qquad H_aE=A .
 \]
-El quinto vértice cae en \(A\): el pentágono regular sí ``cierra''. Autovalores \(1\) y
+El quinto vértice cae en \(A\): el pentágono regular sí \enquote{cierra}. Autovalores \(1\) y
 \(e^{\pm i\,72^\circ}\); único punto fijo real \(O=(0,0)\), obtenido como producto cruz de
 las dos primeras filas de \(H_a-I\):
 \[
@@ -532,7 +532,7 @@ cualquier par de filas de \(H_b+5{,}8541I\) es nulo: hay toda una recta de punto
 la recta \(CD\) (\(y=-0{,}8090\)), lógico porque \(C\) y \(D\) quedan quietos. El autovalor
 simple da el centro, \(O_b=(-0{,}5878;\ 0{,}5729)\), que está sobre la recta \(AB\) (la recta
 \(AB\) va a sí misma porque sus extremos se intercambian). Como los autovalores son
-opuestos, \(H_b^2\sim I\): es una \emph{homología armónica}, un ``espejo proyectivo'' de eje
+opuestos, \(H_b^2\sim I\): es una \emph{homología armónica}, un \enquote{espejo proyectivo} de eje
 \(CD\) y centro \(O_b\). La recta que se va al infinito es \(y=-0{,}1180\), que
 \emph{atraviesa} el pentágono (\(W\) vale \(9{,}47;\ 3{,}62;\ -5{,}85;\ -5{,}85;\ 3{,}62\) en
 \(A,\dots,E\)): los lados \(BC\) y \(DE\) la cruzan y la imagen del pentágono se parte en

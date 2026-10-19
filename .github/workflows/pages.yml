@@ -51,11 +51,10 @@ jobs:
       - name: marimo check de las lecciones
         run: uv run marimo check --select MW unidades/[01]*.py
 
-      # Hoja de estilo (apunte/ESTILO.md): por ahora sólo avisa. Al cerrar la fase F se quita
-      # continue-on-error y se agrega --estricto, para que un hallazgo de estilo frene la publicación.
-      - name: Estilo (advertencia)
-        run: uv run python apunte/scripts/estilo.py
-        continue-on-error: true
+      # Hoja de estilo (apunte/ESTILO.md): la fase F cerró y el control es bloqueante;
+      # un hallazgo de estilo frena la publicación.
+      - name: Estilo (hoja de estilo apunte/ESTILO.md; si hay hallazgos, no se publica)
+        run: uv run python apunte/scripts/estilo.py --estricto
 
       - name: Demostraciones (comprobaciones con código de apunte/demostraciones; si fallan, no se publica)
         run: uv run pytest apunte/demostraciones -q

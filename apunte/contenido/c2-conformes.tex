@@ -25,7 +25,7 @@ escala \(k(p)=\lvert f'(z)\rvert\) y giro \(\theta(p)=\arg f'(z)\): multiplicar 
 complejo \(f'(z)\). La escala y el giro son propios de cada punto, así que en una figura grande
 ninguna similaridad sola la representa: las rectas se curvan, las paralelas dejan de serlo y
 las áreas se multiplican por factores distintos en cada lugar. Es lo que registra la columna
-Conforme del cuadro~\ref{tab:conserva}: ángulos y sentido de giro, sí; el resto, sólo
+Conforme del cuadro~\ref{tab:conserva}: ángulos y sentido de giro, sí; el resto, solo
 localmente.
 \end{idea}
 
@@ -100,17 +100,17 @@ convergencia de meridianos; para un lado finito se suma además la corrección
 arco-cuerda, que sí depende de la dirección y del largo). Eso es una
 \emph{transformación conforme}: en cada punto conserva los ángulos entre curvas, con su
 orientación (no refleja). Lo que sí cambia de punto a punto es la escala, y la pagamos con
-un factor \(k(P)\) que hay que conocer (la ``escala de la proyección'').
+un factor \(k(P)\) que hay que conocer (la \enquote{escala de la proyección}).
 
 \paragraph{Qué es una transformación en un punto.} Una aplicación \(P\mapsto P'\) entre
 superficies (o entre planos) es, cerca de cada punto, su jacobiana \(J(P)\): la matriz
 \(2\times2\) que lleva un pasito \((du,dv)\) del terreno al pasito correspondiente del mapa
-(sección~\ref{sec:metrica}). Para que ``conservar ángulos'' tenga sentido métrico, medimos
+(sección~\ref{sec:metrica}). Para que \enquote{conservar ángulos} tenga sentido métrico, medimos
 los pasitos del terreno con la primera forma del terreno y los del mapa con la del mapa; en
 lo que sigue suponemos que trabajamos en bases ortonormales de los dos planos tangentes
 (sobre el elipsoide, \(r_\varphi/M\) y \(r_\lambda/(N\cos\varphi)\); en el plano, los
 versores), de modo que \(J\) es una matriz real \(2\times2\) común y corriente y la
-pregunta ``¿conserva ángulos?'' es la de las similaridades (sección~\ref{sec:escalar}).
+pregunta \enquote{¿conserva ángulos?} es la de las similaridades (sección~\ref{sec:escalar}).
 
 \begin{resultado}[Las cuatro caras de una transformación conforme]
 Sea \(J=J(P)\) la jacobiana en un punto, con \(\det J>0\) (invertible y sin reflejar:
@@ -134,7 +134,7 @@ conserva la orientación). Son equivalentes:
   función analítica con \(f'(z)\neq0\) es conforme, y recíprocamente.
 \end{enumerate}
 En todas, \(k=\rho=|f'(z)|=\sqrt{\det J}\) es la escala local y \(\theta=\arg f'(z)\) la
-rotación local (la ``convergencia de meridianos'' en las proyecciones).
+rotación local (la \enquote{convergencia de meridianos} en las proyecciones).
 \end{resultado}
 
 \emph{Demostración.} Son tres equivalencias con el centro en (i).
@@ -159,7 +159,7 @@ podría ser una reflexión: \(J=\operatorname{diag}(1,-1)\) tiene \(\sigma_1=\si
 es una similaridad directa. Al revés, si
 \(J=\rho R(\theta)\), su SVD es \(U=R(\theta)\), \(\Sigma=\rho I\), \(V=I\), y los dos
 valores singulares valen \(\rho\). Geométricamente: la circunferencia unidad va a una
-elipse de semiejes \(\sigma_1,\sigma_2\); la elipse es circunferencia si y sólo si los
+elipse de semiejes \(\sigma_1,\sigma_2\); la elipse es circunferencia si y solo si los
 semiejes son iguales.
 
 (i)\(\Leftrightarrow\)(iii), por el producto \(J^TJ\). La primera forma inducida es
@@ -214,7 +214,7 @@ Reflexión del cuadro~\ref{tab:conserva}: distancias y ángulos, sí; sentido de
 Tercera: como \(S^{-1}=S\), la igualdad \(J(\bar z)=S^{-1}J(z)\,S\) dice que \(J(\bar z)\) es
 \emph{conjugada} de \(J(z)\) por \(S\) en el sentido de la sección~\ref{sec:conjugacion}:
 multiplicar por \(\bar z\) es reflejar, multiplicar por \(z\) y volver a reflejar,
-\(\bar z\,w=\overline{z\,\bar w}\). La palabra ``conjugado'' aparece así con dos sentidos que
+\(\bar z\,w=\overline{z\,\bar w}\). La palabra \enquote{conjugado} aparece así con dos sentidos que
 acá coinciden; el glosario de la sección~\ref{sec:glosario} los separa.
 
 \begin{atencion}[¿Sobre qué Jacobiano pedimos \(J^TJ=k^2I\)? Coordenadas \((\varphi,\lambda)\) vs.\ metros en el plano tangente]
@@ -250,7 +250,7 @@ el ángulo en el punto donde se cortan dos curvas y lleva circulitos infinitesim
 circulitos. Pero el factor de escala \(k(P)\) varía con la posición, así que las figuras
 extensas no mantienen ni su área ni su forma global (Groenlandia en Mercator parece del
 tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas de
-Gauss--Krüger de \(3^\circ\) de ancho: no para ``mantener la conformidad'' (Gauss--Krüger
+Gauss--Krüger de \(3^\circ\) de ancho: no para \enquote{mantener la conformidad} (Gauss--Krüger
 ya es conforme a cualquier distancia del meridiano central), sino para acotar la
 deformación lineal \(k-1\approx\tfrac12\,\Delta\lambda^2\cos^2\varphi\) (con \(\Delta\lambda\)
 en radianes) por debajo de unos \(2{,}3\times10^{-4}\), es decir \(23\) cm/km, en el borde de la
@@ -261,7 +261,7 @@ factor de escala exacto, \(2{,}33\times10^{-4}\). Los \(34\) cm/km corresponden 
 ecuador (\(\cos\varphi=1\), \(3{,}45\times10^{-4}\) exacto), que es el peor caso de la
 faja.
 
-\paragraph{Por qué (iii) es ``conservar ángulos''.} El ángulo entre dos pasitos \(p,q\)
+\paragraph{Por qué (iii) es \enquote{conservar ángulos}.} El ángulo entre dos pasitos \(p,q\)
 del terreno se calcula con el producto interno, \(\cos\alpha=p\cdot q/(\|p\|\|q\|)\). En el
 mapa los pasitos son \(Jp\) y \(Jq\), y \((Jp)\cdot(Jq)=p^T(J^TJ)q=k^2\,p\cdot q\): el
 numerador se multiplica por \(k^2\), cada norma por \(k\), y el coseno no cambia. Es el
@@ -294,7 +294,7 @@ que el ángulo \(2\alpha\) entre ambas es el que más cambia, y cambia en
 \[
   \boxed{\ \omega=2\arcsin\frac{\sigma_1-\sigma_2}{\sigma_1+\sigma_2}\ }
 \]
-(deformación angular máxima de Tissot). Control: \(\omega=0\) si y sólo si
+(deformación angular máxima de Tissot). Control: \(\omega=0\) si y solo si
 \(\sigma_1=\sigma_2\), que es (ii). Con \(r=1/2\), \(\omega=38{,}94^\circ\), lo mismo
 que da maximizar numéricamente \(2(\alpha-\alpha')\).
 
@@ -306,7 +306,7 @@ Con el lenguaje ya armado, retomamos las proyecciones que el capítulo del elips
 
 \paragraph{Las proyecciones del cierre del apunte del elipsoide, con este lenguaje.} En
 la sección~\ref{cap:elipsoide} (capítulo~\ref{cap:elipsoide}) planteamos las cinco proyecciones que quedan como
-``puntapié inicial'' y resolvimos las cilíndricas
+\enquote{puntapié inicial} y resolvimos las cilíndricas
 integrando una condición cada vez. Ahora las vemos con las cuatro caras. Sobre el
 elipsoide, con la base \((\varphi,\lambda)\),
 \[
@@ -364,7 +364,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \frac{dy}{d\varphi}=\frac{MN\cos\varphi}{a}\quad\Longrightarrow\quad
     y=\frac1a\int_0^\varphi MN\cos u\,du ,
   \]
-  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{cap:elipsoide} (\(q_A\), de ``autálica'', para no
+  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{cap:elipsoide} (\(q_A\), de \enquote{autálica}, para no
   confundirla con la latitud isométrica \(q\)). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
   ecuador.
   \item \textbf{Cilíndrica equidistante.} Meridianos a escala verdadera, \(h=1\):
@@ -390,7 +390,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
   En GRS80, \(A=510\,065\,621{,}7\) km\(^2\) y \(R_A=6\,371\,007{,}181\) m (la integral
   numérica da lo mismo con nueve cifras). Es el \(R_q\) de la sección~\ref{cap:elipsoide};
   para comparar, el radio medio \((2a+b)/3=6\,371\,008{,}771\) m y el de igual volumen
-  \(\sqrt[3]{a^2b}=6\,371\,000{,}790\) m: los tres ``radios de la Tierra'' difieren en
+  \(\sqrt[3]{a^2b}=6\,371\,000{,}790\) m: los tres \enquote{radios de la Tierra} difieren en
   metros. Pasar a la esfera autálica es equivalente (cara \(\det J=1\)), no conforme.
   \item \textbf{Transversa de Mercator (Gauss--Krüger), el planteo.} Queremos conforme
   \emph{y} el meridiano central \(\lambda_0\) sin deformación (\(h=k=1\) sobre él), porque
@@ -434,7 +434,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
   \(-3\,831\,241{,}1\) y \(137\,600{,}9\) de \texttt{pyproj} (\texttt{tmerc}, GRS80):
   \(0{,}2\) m en el norte y \(5{,}6\) m en el este, que es el término cúbico que falta.
   Queda como desarrollo complementario; lo que la materia aporta es el planteo:
-  \emph{conforme} es ``analítica'', y ``sin deformación sobre el meridiano central'' es la
+  \emph{conforme} es \enquote{analítica}, y \enquote{sin deformación sobre el meridiano central} es la
   condición de contorno que la vuelve única.
 \end{enumerate}
 
