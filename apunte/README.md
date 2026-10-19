@@ -19,7 +19,7 @@ formato + contenido (antes era un único `.tex` de ~5000 líneas; ese monolito s
   y adentro tiene las tres secciones de nivel `\section{La idea}`, `\section{Construcciones,
   cuentas y ejemplos}` y `\section{En profundidad}`. Las figuras TikZ están dentro del
   contenido, donde se usan. Los archivos son: `00-como-leer`, `01-organizacion` y
-  `02-hilo-de-la-materia` (capítulo 0, "Antes de empezar") y `03-algebra-cbc-mirada-clavijo`
+  `02-hilo-de-la-materia` (capítulo 0, "Antes de empezar") y `03-algebra-lineal-repaso`
   (repaso, rotulado R); un capítulo por clase, `01-rotaciones` a `14-esfera-trigonometria-esferica`
   (labels `cap:rotaciones` … `cap:esfera`; 11 a 14 son páginas «en preparación» y su material
   está en `apunte/preparacion/`), y cuatro complementos `c1-proyectivas`, `c2-conformes`,
