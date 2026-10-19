@@ -4,7 +4,7 @@ Resolución propia (Gustavo, 2026-09-30) del ejercicio de la clase del 30/9: for
 
 Versión viva: los `.py` de esta carpeta (numpy + matplotlib). Los `.jl` originales (Julia 1.12 con Plots, antes en `~/julia/`) quedan en `julia/` como referencia; los `.py` son ports fieles, con la misma salida de texto y la misma figura.
 
-- `matriz2x2.py`: cofactores, adjunta, determinante e inversa de una 2×2 a mano (`cofactores2x2`, `adjunta2x2`, `determinante2x2`, `inversa2x2`, `mostrar`), verificadas contra `numpy.linalg.inv`; después dibuja la grilla oblicua de la base {u, v} (paralelas a u por k·v y paralelas a v por k·u) y la misma grilla transformada por inv(A). Salida `matriz2x2_rectas.png`.
+- `matriz2x2.py`: cofactores, adjugada, determinante e inversa de una 2×2 a mano (`cofactores2x2`, `adjugada2x2`, `determinante2x2`, `inversa2x2`, `mostrar`), verificadas contra `numpy.linalg.inv`; después dibuja la grilla oblicua de la base {u, v} (paralelas a u por k·v y paralelas a v por k·u) y la misma grilla transformada por inv(A). Salida `matriz2x2_rectas.png`.
 - `rectas_paralelas.py`: sólo la parte gráfica, con inv(A) calculada inline. Salida `rectas_paralelas.png`.
 - `julia/matriz2x2.jl`, `julia/rectas_paralelas.jl`: los originales. Escriben sus PNG en `julia/`.
 

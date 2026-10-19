@@ -1,5 +1,6 @@
 % Formas lineales: el gradiente no es un vector
 % Números del texto nuevo verificados con apunte/scripts/cap05_formas_lineales.py
+% y apunte/scripts/cap05_transpuesta_normales.py (subsección sec:transpuesta-normales)
 \chapter{Formas lineales: el gradiente no es un vector}\label{cap:formas-lineales}
 
 \section{La idea}
@@ -376,6 +377,168 @@ depende de cómo se elijan los ejes. Por eso el gradiente es una fila, un elemen
 y no una columna.
 \end{idea}
 
+\subsection{Cómo se transforman las mediciones}\label{sec:transpuesta-normales}
+
+La proposición~\ref{prop:co-contra} dice cómo cambian las componentes de un vector y de una
+forma cuando se cambia la base. Falta la otra mitad: si una transformación \(A\) mueve los
+puntos, ¿qué les pasa a las reglas que los miden? La respuesta es la transpuesta, leída de
+una manera que no depende de escribir la matriz.
+
+\begin{definicion}[Transpuesta como adjunta]\label{def:transpuesta-adjunta}
+Sea \(A\) una matriz \(n\times n\) y \(\langle\cdot,\cdot\rangle\) el producto interno usual
+de \(\R^n\). La \emph{transpuesta} de \(A\), o su \emph{adjunta}, es la única matriz
+\(A^T\) tal que
+\[
+  \langle Au,v\rangle=\langle u,A^Tv\rangle\qquad\text{para todo par }u,v\in\R^n .
+\]
+Lectura: medir el punto movido \(Au\) con la regla \(\langle\cdot,v\rangle\) da lo mismo que
+medir el punto original \(u\) con la regla \(\langle\cdot,A^Tv\rangle\). La transpuesta lleva
+la regla \(v\) del lado de llegada a la regla \(A^Tv\) del lado de partida: la que mide a
+\(u\) lo mismo que \(v\) mide a \(Au\). No es la regla que viaja junto con los puntos; esa,
+la que sigue marcando lo mismo sobre los puntos movidos, es \(A^{-T}v\)
+(proposición~\ref{prop:normales-inversa-transpuesta}).
+\end{definicion}
+
+\begin{proposicion}[La adjunta existe, es única y es la transpuesta de siempre]\label{prop:transpuesta-propiedades}
+\begin{enumerate}[label=(\alph*)]
+  \item Hay una sola matriz con la propiedad de la definición~\ref{def:transpuesta-adjunta},
+  y su entrada \((i,j)\) es \(A_{ji}\): se obtiene intercambiando filas y columnas de \(A\).
+  \item \((AB)^T=B^TA^T\) y, si \(A\) es invertible, \((A^{-1})^T=(A^T)^{-1}\), matriz que se
+  escribe \(A^{-T}\).
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+(a) Unicidad: si \(B\) y \(C\) cumplen la propiedad, \(\langle u,(B-C)v\rangle=0\) para todo
+\(u\); con \(u=(B-C)v\) queda \(\lVert(B-C)v\rVert^2=0\), así que \(Bv=Cv\) para todo \(v\)
+y \(B=C\). Entradas: si \(B\) cumple la propiedad, \(B_{ij}=\langle e_i,Be_j\rangle=
+\langle Ae_i,e_j\rangle=A_{ji}\). Existencia: con \(B_{ij}=A_{ji}\),
+\(\langle Au,v\rangle=\sum_{i,j}A_{ji}u_iv_j=\sum_{i,j}u_iB_{ij}v_j=\langle u,Bv\rangle\).
+(b) \(\langle ABu,v\rangle=\langle Bu,A^Tv\rangle=\langle u,B^TA^Tv\rangle\), y por la
+unicidad \((AB)^T=B^TA^T\). Con \(B=A^{-1}\): \((A^{-1})^TA^T=(AA^{-1})^T=I^T=I\).
+\end{demostracion}
+
+Por ejemplo, con \(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\),
+\(u=(1,2)\) y \(v=(3,-1)\): \(Au=(4,2)\) y \(\langle Au,v\rangle=10\);
+\(A^Tv=(6,2)\) y \(\langle u,A^Tv\rangle=10\).
+
+\paragraph{Nota terminológica.} En este apunte «adjunta» se usa sólo en el sentido de la
+definición~\ref{def:transpuesta-adjunta}. La transpuesta de la matriz de cofactores, que
+aparece en la fórmula de la inversa, es otro objeto y se llama \emph{adjugada}
+(definición~\ref{def:adjugada}).
+
+\begin{proposicion}[En una rotación, la transpuesta es la inversa]\label{prop:rotacion-transpuesta}
+Si \(R\) conserva el producto interno, \(\langle Ru,Rv\rangle=\langle u,v\rangle\) para
+todo \(u,v\), entonces \(R^TR=I\) y \(R^T=R^{-1}\). En particular vale para toda rotación
+\(R(\theta)\) (proposición~\ref{prop:propiedades-R}).
+\end{proposicion}
+
+\begin{demostracion}
+Por la definición, \(\langle u,R^TRv\rangle=\langle Ru,Rv\rangle=\langle u,v\rangle\) para
+todo \(u\); por el argumento de unicidad de la proposición~\ref{prop:transpuesta-propiedades},
+\(R^TRv=v\) para todo \(v\), es decir \(R^TR=I\). Una matriz cuadrada con inversa a izquierda
+es invertible con esa misma inversa, así que \(R^T=R^{-1}\). La
+proposición~\ref{prop:propiedades-R} dice que \(R(\theta)\) conserva el producto interno.
+\end{demostracion}
+
+Para una rotación, entonces, mover las reglas «hacia atrás» con \(R^T\) es lo mismo que
+moverlas con \(R^{-1}\): reglas y puntos giran juntos y no hay diferencia visible entre una
+flecha y una forma. La diferencia aparece cuando \(A\) no conserva el producto interno.
+
+\begin{proposicion}[Las normales se transforman con la inversa transpuesta]\label{prop:normales-inversa-transpuesta}
+Sea \(x'=Ax+c\) una transformación afín con \(A\) invertible y sea \(\ell\) la recta
+(hiperplano) \(n\cdot(x-q)=0\). La imagen de \(\ell\) es la recta
+\((A^{-T}n)\cdot(x'-q')=0\), con \(q'=Aq+c\): su normal es \(A^{-T}n\), no \(An\). Del mismo
+modo, si \(h'(x')=h(x)\), el diferencial cambia como \(dh'=dh\,A^{-1}\), es decir, como
+columna, \(dh'^T=A^{-T}dh^T\).
+\end{proposicion}
+
+\begin{demostracion}
+Si \(p,q\in\ell\), entonces \(n\cdot(p-q)=0\) y la diferencia de las imágenes es
+\(Ap+c-(Aq+c)=A(p-q)\). Por la definición~\ref{def:transpuesta-adjunta} aplicada a
+\(A^{-1}\) y por la proposición~\ref{prop:transpuesta-propiedades}(b),
+\[
+  (A^{-T}n)\cdot A(p-q)=n\cdot A^{-1}A(p-q)=n\cdot(p-q)=0 .
+\]
+Recíprocamente, todo \(x'\) con \((A^{-T}n)\cdot(x'-q')=0\) es imagen de
+\(x=A^{-1}(x'-c)\), que cumple \(n\cdot(x-q)=n\cdot A^{-1}(x'-q')=0\). Para el diferencial:
+\(h'(x_0'+w')=h(x_0+A^{-1}w')\approx h(x_0)+dh\,A^{-1}w'\), y el término lineal en \(w'\) es
+\(dh\,A^{-1}\).
+\end{demostracion}
+
+\paragraph{Contraejemplo numérico.} Tomamos la recta por \(q=(1,1)\) con dirección
+\(d=(2,1)\) y normal \(n=(-1,2)\) (ecuación \(-x+2y=1\)), y la afinidad
+\[
+  x'=Ax+c,\qquad A=\begin{pmatrix}2&1\\0&1\end{pmatrix},\quad c=(0{,}5;\ 1),\qquad
+  A^{-T}=\begin{pmatrix}0{,}5&0\\-0{,}5&1\end{pmatrix},
+\]
+que no es ortogonal. La recta imagen pasa por \(q'=Aq+c=(3{,}5;\ 2)\) con dirección
+\(d'=Ad=(5,1)\). Si se transforma la normal como un punto, \(An=(0,2)\) y
+\((An)\cdot d'=2\neq0\): el ángulo entre \(An\) y la recta imagen es \(78{,}69^\circ\).
+Con la inversa transpuesta, \(A^{-T}n=(-0{,}5;\ 2{,}5)\) y \((A^{-T}n)\cdot d'=0\): el ángulo
+es \(90^\circ\). La ecuación de la recta imagen es \(-0{,}5\,x'+2{,}5\,y'=3{,}25\); la cumple
+también la imagen \((8{,}5;\ 3)\) del segundo punto \(q+d=(3,2)\)
+(figura~\ref{fig:fl-normales}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.92\linewidth]{figuras/formas-lineales/fl_normales.png}
+\caption{Izquierda: la recta por \(q=(1,1)\) con dirección \((2,1)\) y su normal
+\(n=(-1,2)\). Derecha: sus imágenes por \(x'=Ax+c\) con
+\(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\). La normal llevada con \(A\)
+forma \(78{,}69^\circ\) con la recta imagen; llevada con \(A^{-T}\) sigue siendo perpendicular.}
+\label{fig:fl-normales}
+\end{figure}
+
+Es la misma regla de la proposición~\ref{prop:co-contra}: un cambio de coordenadas
+\(x'=Ax\) es el cambio de base con \(P=A^{-1}\), y ahí las columnas cambian con
+\(P^{-1}=A\) mientras que las filas cambian con \(\omega P=\omega A^{-1}\), que escrito como
+columna es \(A^{-T}\omega^T\). Una normal es una fila disfrazada de columna: la normal de
+una recta es la forma lineal cuyo núcleo es la dirección de la recta.
+
+\begin{idea}[Los puntos viajan con \(A\), las reglas con \(A^{-T}\)]
+Lo que se conserva es la medición: si la regla \(n\) marcaba cero sobre la recta, la regla
+transformada tiene que marcar cero sobre la recta transformada. Eso obliga a deshacer \(A\)
+antes de medir, y la transpuesta es la que pasa ese \(A^{-1}\) del lado del punto al lado de
+la regla. Sólo cuando \(A\) es ortogonal (o ortogonal por un factor de escala común)
+\(A^{-T}\) apunta igual que \(A\) y la distinción no se ve.
+\end{idea}
+
+\paragraph{Aplicación: la pendiente después de un cambio de coordenadas afín.} Volvemos al
+plano del terreno de la sección~\ref{sec:aplicacion-pendiente}, con
+\(dh=(a,b)=(0{,}018392;\ 0{,}011622)\) en \((\Delta E,\Delta N)\) en metros. Pasamos a unas
+coordenadas locales \(x'=Ax+c\) que giran los ejes \(30^\circ\) y miden el primer eje en
+medios metros:
+\[
+  A=\operatorname{diag}(2,1)\,R(30^\circ)\approx\begin{pmatrix}1{,}732051&-1\\0{,}5&0{,}866025\end{pmatrix},
+  \quad c=(100,200),\quad
+  A^{-1}\approx\begin{pmatrix}0{,}433013&0{,}5\\-0{,}25&0{,}866025\end{pmatrix},
+\]
+con \(\det A=2\). Por la proposición~\ref{prop:normales-inversa-transpuesta} la forma en las
+coordenadas nuevas es
+\[
+  dh'=dh\,A^{-1}\approx(0{,}005059;\ 0{,}019261).
+\]
+El desplazamiento de \(50\) m hacia el acimut \(120^\circ\) de la verificación numérica,
+\(W=(43{,}301;\ -25{,}000)\), pasa a \(W'=AW=(100{,}000;\ 0{,}000)\), de \(P_1'=c=(100,200)\)
+a \((200,200)\). La cota predicha es la misma en los dos sistemas:
+\(dh(W)=dh'(W')\approx0{,}505852\) m, y la cota de llegada es \(32{,}9559\) m en ambos. Si se
+hubiera transformado \(dh\) con \(A\), como un punto, se obtendría
+\((0{,}020234;\ 0{,}019261)\), que aplicado a \(W'\) da \(2{,}023\) m: cuatro veces más.
+
+La dirección de máxima pendiente, en cambio, es una dirección y viaja con \(A\): el versor
+\(u\) de acimut \(57{,}71^\circ\) pasa a \(Au\approx(0{,}930045;\ 0{,}885299)\), paralelo a
+\(A\,dh^T=(0{,}020234;\ 0{,}019261)\). Es lo que da la
+proposición~\ref{prop:vector-asociado} con la métrica de las coordenadas nuevas: el largo
+en metros de \(w'\) es \(\lVert A^{-1}w'\rVert\), así que
+\(G'=A^{-T}A^{-1}=\operatorname{diag}(0{,}25;\ 1)\) y
+\(G'^{-1}dh'^T=AA^TA^{-T}dh^T=A\,dh^T\). La columna \(A^{-T}dh^T=(0{,}005059;\ 0{,}019261)\)
+forma \(31{,}70^\circ\) con esa dirección; tomada por error como dirección y llevada de vuelta
+al terreno con \(A^{-1}\), apunta al acimut \(37{,}48^\circ\), donde la pendiente es
+\(2{,}041\)\,\% y no la máxima, \(2{,}176\)\,\%. La forma se transforma con \(A^{-T}\) y la
+dirección de máxima pendiente con \(A\); sólo con \(G'=I\) (ejes ortogonales de igual
+unidad) coinciden. Los números salen de \texttt{cap05\_transpuesta\_normales.py}.
+
 \section{En profundidad}
 
 \subsection{El producto interno identifica formas con vectores}\label{sec:formas-metrica}
@@ -658,3 +821,17 @@ desplazarse \(40\) m al este y \(40\) m al norte, y la pendiente en la direcció
 -1{,}039\) m. El acimut \(300^\circ=210^\circ+90^\circ\) es el de la curva de nivel:
 \(dh(\sin300^\circ,\cos300^\circ)=0\), pendiente \(0\)\,\%.}
 
+\begin{ejercicio}\label{ex:fl-normales}
+Sea \(A=\left(\begin{smallmatrix}1&2\\0&1\end{smallmatrix}\right)\) y la recta \(x+y=1\), de
+normal \(n=(1,1)\) y dirección \(d=(-1,1)\). (a) Calcular \(A^{-T}\) y la ecuación de la
+imagen de la recta por \(x'=Ax\); comprobarla con las imágenes de \((1,0)\) y \((0,1)\).
+(b) ¿Qué ángulo forma \(An\) con la recta imagen? ¿Y \(A^{-T}n\)?
+\end{ejercicio}
+\solucion{(a) \(A^{-1}=\left(\begin{smallmatrix}1&-2\\0&1\end{smallmatrix}\right)\) y
+\(A^{-T}=\left(\begin{smallmatrix}1&0\\-2&1\end{smallmatrix}\right)\), así que
+\(A^{-T}n=(1,-1)\). Por la proposición~\ref{prop:normales-inversa-transpuesta}, como
+\(n\cdot x=(A^{-T}n)\cdot Ax\), la recta imagen es \(x'-y'=1\). En efecto, \((1,0)\mapsto(1,0)\)
+y \((0,1)\mapsto(2,1)\), y los dos cumplen \(x'-y'=1\). (b) La dirección imagen es
+\(Ad=(1,1)\). Con \(An=(3,1)\): \((An)\cdot(Ad)=4\neq0\), y el ángulo entre \(An\) y la
+recta imagen es \(26{,}57^\circ\), lejos de \(90^\circ\). Con \(A^{-T}n=(1,-1)\):
+\((A^{-T}n)\cdot(Ad)=0\), ángulo de \(90^\circ\).}

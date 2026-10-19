@@ -227,6 +227,50 @@ conserva la orientación (un recorrido antihorario sigue siendo antihorario); si
 paralelepípedo de lados \(u,v,w\).
 \end{proposicion}
 
+\begin{demostracion}
+\emph{Paralelogramos.} Sea \(M=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\) y
+\(p,q\in\R^2\). Por cuenta directa,
+\[
+  (Mp)\wedge(Mq)=(ap_x+bp_y)(cq_x+dq_y)-(cp_x+dp_y)(aq_x+bq_y)
+  =(ad-bc)(p_xq_y-p_yq_x)=\det M\,(p\wedge q).
+\]
+Es lo que se espera de una operación bilineal y alternada (\(p\wedge p=0\)): desarrollando
+\(p\) y \(q\) en la base canónica sólo sobreviven los términos en \(e_1\wedge e_2\) y
+\(e_2\wedge e_1=-e_1\wedge e_2\), así que \((Mp)\wedge(Mq)=(p\wedge q)\,(Me_1\wedge Me_2)\),
+y \(Me_1\wedge Me_2\) es el cuña de las columnas de \(M\), \(\det M\). Como \(M\) es lineal,
+lleva el paralelogramo de lados \(p,q\) al de lados \(Mp,Mq\), y su área con signo queda
+multiplicada por \(\det M\).
+
+\emph{Polígonos.} Un polígono de vértices \(p_1,\dots,p_n\) se descompone en los triángulos
+\(p_1\,p_i\,p_{i+1}\) que salen del vértice \(p_1\), y su área con signo es la suma de las
+áreas con signo \(\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\) de esos triángulos (es la
+proposición~\ref{prop:area-poligono} con el origen trasladado a \(p_1\)). \(M\) lleva cada
+triángulo al de vértices \(Mp_1\), \(Mp_i\), \(Mp_{i+1}\), cuya área con signo es
+\(\tfrac12\,M(p_i-p_1)\wedge M(p_{i+1}-p_1)=\det M\cdot\tfrac12(p_i-p_1)\wedge(p_{i+1}-p_1)\).
+Sumando, el área con signo de \(M(P)\) es \(\det M\) por la de \(P\), y en valor absoluto
+\(\operatorname{área}(M(P))=|\det M|\,\operatorname{área}(P)\). Una región con área se
+aproxima tanto como se quiera por polígonos, y sus imágenes por \(M\) aproximan a \(M(R)\);
+la igualdad pasa al límite.
+
+\emph{Orientación.} Un recorrido antihorario tiene área con signo positiva; la de su imagen
+es \(\det M\) por ella, positiva si \(\det M>0\) y negativa si \(\det M<0\). Si
+\(\det M=0\), las columnas de \(M\) son dependientes
+(proposición~\ref{prop:cuna-dependencia}) y todo el plano cae en la recta (o el punto) que
+generan: el área de la imagen es \(0=|\det M|\cdot\operatorname{área}(R)\).
+
+\emph{En \(\R^3\).} Por la definición~\ref{def:producto-mixto} y la parte (a) de la
+proposición~\ref{prop:producto-mixto}, \(\det[u\ v\ w]=u\cdot(v\times w)\) es área de la base
+por altura, el volumen con signo del paralelepípedo. El paralelepípedo de \(u,v,w\) va a
+parar al de \(Mu,Mv,Mw\), y \(\det[Mu\ Mv\ Mw]\) es lineal en cada uno de \(u,v,w\) y cambia
+de signo al intercambiar dos (parte (c) de la misma proposición). Desarrollando \(u,v,w\) en
+la base canónica sólo sobreviven los términos con \(e_1,e_2,e_3\) en algún orden, cada uno
+igual a \(\pm\det[Me_1\ Me_2\ Me_3]=\pm\det M\) con el mismo signo que en el desarrollo de
+\(\det[u\ v\ w]\); queda \(\det[Mu\ Mv\ Mw]=\det M\,\det[u\ v\ w]\). Los poliedros se
+descomponen en tetraedros desde un vértice y las regiones se aproximan por poliedros, como
+en el plano.
+\end{demostracion}
+\comprobacion{prop:det-factor}{NUMERICA}
+
 La consecuencia más útil es que el factor de una composición es el producto de los factores.
 
 \begin{proposicion}[El determinante de un producto]\label{prop:det-producto}
@@ -240,6 +284,7 @@ en particular de la imagen, por \(\det A\). El resultado es el cuadrado unidad c
 multiplicada por \(\det A\,\det B\), y eso es, por definición, \(\det(AB)\). Los signos se
 componen igual: dos inversiones de orientación dan una conservación.
 \end{demostracion}
+\comprobacion{prop:det-producto}{SIMBOLICA}
 
 Por ejemplo, \(A=\left(\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right)\) y
 \(B=\left(\begin{smallmatrix}1&0\\1&3\end{smallmatrix}\right)\) tienen \(\det A=2\) y
@@ -261,6 +306,133 @@ sobre el plano. El paralelepípedo tiene volumen \(4\) y el signo positivo dice 
 \(u,v,w\) forman una terna derecha, como \(e_1,e_2,e_3\). Intercambiando las dos primeras
 columnas, \(\det[v\ u\ w]=-4\): el mismo volumen, terna izquierda.
 \end{ejemplo}
+
+\subsection{El producto mixto}\label{sec:producto-mixto}
+
+En el ejemplo~\ref{ej:det-volumen} el determinante de \(3\times3\) apareció como un producto
+vectorial seguido de un producto interno. Esa combinación tiene nombre propio y es la
+herramienta natural para preguntar si cuatro puntos del espacio están en un mismo plano.
+
+\begin{definicion}[Producto mixto]\label{def:producto-mixto}
+El \emph{producto mixto} de tres vectores \(u,v,w\) de \(\R^3\) es el número
+\[
+  u\cdot(v\times w)=\det[u\;v\;w],
+\]
+donde \([u\;v\;w]\) es la matriz de columnas \(u,v,w\). Es el volumen con signo del
+paralelepípedo de aristas \(u,v,w\): \(\lvert v\times w\rvert\) es el área del paralelogramo
+de la base y \(u\cdot(v\times w)/\lvert v\times w\rvert\) es la altura de \(u\) sobre esa
+base, con signo positivo si \(u\) queda del lado hacia el que apunta \(v\times w\).
+\end{definicion}
+
+\begin{proposicion}[Propiedades del producto mixto]\label{prop:producto-mixto}
+Para \(u,v,w\in\R^3\):
+\begin{enumerate}[label=(\alph*)]
+  \item \(u\cdot(v\times w)=\det[u\;v\;w]\);
+  \item \(u\cdot(v\times w)=0\) si y sólo si \(u,v,w\) son linealmente dependientes, es
+  decir, están en un mismo plano por el origen (coplanares);
+  \item una permutación cíclica no lo cambia, \(u\cdot(v\times w)=v\cdot(w\times u)=
+  w\cdot(u\times v)\), e intercambiar dos vectores le cambia el signo: el signo es la
+  orientación de la terna.
+\end{enumerate}
+\end{proposicion}
+
+\begin{demostracion}
+(a) Las componentes de \(v\times w\) son \(v_2w_3-v_3w_2\), \(v_3w_1-v_1w_3\) y
+\(v_1w_2-v_2w_1\), así que
+\[
+  u\cdot(v\times w)=u_1(v_2w_3-v_3w_2)-u_2(v_1w_3-v_3w_1)+u_3(v_1w_2-v_2w_1),
+\]
+que es, término a término, el desarrollo de \(\det[u\;v\;w]\) por la primera columna: cada
+\(u_i\) multiplica, con su signo alternado, el cuña de \(2\times2\) que queda al tachar la
+fila \(i\) y la columna de \(u\).
+
+(b) Si los tres son dependientes, una columna es combinación de las otras y el determinante
+se anula. Recíprocamente, supongamos \(u\cdot(v\times w)=0\). Si \(v\times w=0\), \(v\) y
+\(w\) ya son dependientes (es el análogo en \(\R^3\) de la
+proposición~\ref{prop:cuna-dependencia}, enunciado al final de la
+sección~\ref{sec:cuna-colinealidad}). Si
+\(v\times w\neq0\), es la normal del plano generado por \(v\) y \(w\), y \(u\) es
+perpendicular a ella: \(u\) está en ese plano y los tres son coplanares. Por último,
+coplanares implica dependientes: si \(u,v,w\) están en un plano por el origen, que es un
+subespacio de dimensión \(2\), tres vectores de él no pueden ser independientes (una base
+del plano tiene dos elementos), así que alguno es combinación de los otros.
+
+(c) Permutar columnas de una matriz multiplica su determinante por el signo de la
+permutación: un intercambio da \(-1\) y una permutación cíclica de tres columnas, que son dos
+intercambios, da \(+1\). Por (a), lo mismo le pasa al producto mixto. Cambiar el signo es
+pasar de una terna derecha a una izquierda, con el mismo volumen.
+\end{demostracion}
+
+Con los vectores del ejemplo~\ref{ej:det-volumen}, \(u=(1,2,0)\), \(v=(0,1,1)\),
+\(w=(1,0,2)\), se tiene \(v\times w=(2,1,-1)\), de largo \(\sqrt6\), y
+\(u\cdot(v\times w)=2+2+0=4=\det[u\;v\;w]\): la base mide \(\sqrt6\), la altura \(4/\sqrt6\) y
+el volumen \(4\) (figura~\ref{fig:cuna-mixto}). Las permutaciones cíclicas dan otra vez
+\(4\); \(v\cdot(u\times w)\) da \(-4\).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.72\linewidth]{figuras/cuna-determinante/cuna_mixto.png}
+\caption{El paralelepípedo de aristas \(u=(1,2,0)\), \(v=(0,1,1)\), \(w=(1,0,2)\). La base es
+el paralelogramo de \(v\) y \(w\), de área \(\lvert v\times w\rvert=\sqrt6\); la altura \(h\)
+de \(u\) sobre la base es la componente de \(u\) según la normal \(v\times w\). Volumen
+\(=\) base \(\times\) altura \(=u\cdot(v\times w)=\det[u\;v\;w]=4\). Generada con
+\texttt{apunte/scripts/cap06\_producto\_mixto.py}.}
+\label{fig:cuna-mixto}
+\end{figure}
+
+\begin{idea}[Volumen dividido por base es distancia]
+El producto mixto mide un volumen, pero dividido por el área de la base da una altura: la
+distancia del extremo de \(u\) al plano de \(v\) y \(w\). Así se convierte un número en
+m\(^3\), que depende del tamaño de la figura, en un apartamiento en milímetros que se puede
+comparar con una tolerancia.
+\end{idea}
+
+\subsubsection{Aplicación: cuatro puntos relevados, ¿están en el mismo plano?}
+
+Se relevaron con estación total las cuatro esquinas de una losa, en coordenadas locales
+\((x,y,z)\) en metros:
+\[
+  P_1=(102{,}315;\ 205{,}480;\ 12{,}347),\qquad P_2=(110{,}842;\ 205{,}912;\ 12{,}391),
+\]
+\[
+  P_3=(110{,}407;\ 214{,}276;\ 12{,}472),\qquad P_4=(101{,}874;\ 213{,}829;\ 12{,}431).
+\]
+¿Están en un mismo plano, con una tolerancia de \(5\) mm? Tres puntos no alineados siempre
+determinan un plano; la pregunta es si el cuarto cae en él. Con origen en \(P_1\),
+\[
+  a=P_2-P_1=(8{,}527;\ 0{,}432;\ 0{,}044),\quad
+  b=P_3-P_1=(8{,}092;\ 8{,}796;\ 0{,}125),\quad
+  c=P_4-P_1=(-0{,}441;\ 8{,}349;\ 0{,}084).
+\]
+La normal del plano de \(P_1,P_2,P_3\) es
+\[
+  a\times b=(-0{,}333024;\ -0{,}709827;\ 71{,}507748)\ \text{m}^2,
+\]
+y su largo, \(\lvert a\times b\rvert=71{,}5120\) m\(^2\), es el área del paralelogramo de
+\(a\) y \(b\). El producto mixto, por la parte (c) de la
+proposición~\ref{prop:producto-mixto}, se puede calcular como \((a\times b)\cdot c\):
+\[
+  a\cdot(b\times c)=(a\times b)\cdot c=0{,}146864-5{,}926346+6{,}006651
+  =0{,}227169\ \text{m}^3 .
+\]
+No es cero, pero eso por sí solo no dice nada: con mediciones reales nunca da cero, y
+\(0{,}23\) m\(^3\) parece mucho o poco según el tamaño de la losa. Dividido por el área de la
+base da el apartamiento de \(P_4\) respecto del plano de los otros tres:
+\[
+  d=\frac{\lvert a\cdot(b\times c)\rvert}{\lvert (P_2-P_1)\times(P_3-P_1)\rvert}
+  =\frac{0{,}227169\ \text{m}^3}{71{,}5120\ \text{m}^2}=0{,}003177\ \text{m}=3{,}177\ \text{mm}.
+\]
+Como \(3{,}2\) mm \(<5\) mm, los cuatro puntos se aceptan como coplanares dentro de la
+tolerancia. El signo positivo dice además de qué lado está \(P_4\): del lado hacia el que
+apunta \(a\times b\), que tiene tercera componente positiva, es decir, por encima del plano
+de los otros tres.
+
+\begin{atencion}[Comparar distancias, no volúmenes]
+La tolerancia se fija en milímetros, no en m\(^3\). El mismo apartamiento en una losa más
+chica daría un producto mixto menor, en proporción al área de la base, y en una más grande,
+mayor. Siempre hay que dividir por \(\lvert(P_2-P_1)\times(P_3-P_1)\rvert\)
+antes de decidir.
+\end{atencion}
 
 \subsection{Tres puntos alineados: el determinante}\label{sec:determinante}
 
@@ -493,6 +665,7 @@ rotación \(R\),
 \(Rp\wedge Rq=\det[Rp\ Rq]=\det\bigl(R\,[p\ q]\bigr)=\det R\,(p\wedge q)=p\wedge q\), por la
 proposición~\ref{prop:det-producto} y porque \(\det R=1\).
 \end{demostracion}
+\comprobacion{prop:area-poligono}{NUMERICA}
 
 \begin{idea}[El origen es auxiliar: la superficie no depende de dónde se mida]
 Los triángulos desde el origen son un andamio: cambian si se mueve el origen, pero su suma
@@ -637,3 +810,17 @@ m\(^2\)\(\ =1{,}04875\) ha. El signo positivo indica numeración antihoraria. Co
 coordenadas trasladadas la fórmula da otra vez \(10\,487{,}5\) m\(^2\), como asegura la
 proposición~\ref{prop:area-poligono}; a mano conviene, sin embargo, trabajar con las
 coordenadas chicas.}
+
+\begin{ejercicio}\label{ex:cuna-mixto-losa}
+En el relevamiento de la losa de la sección~\ref{sec:producto-mixto} se revisa la libreta y
+la cota de \(P_4\) resulta \(12{,}436\) m en lugar de \(12{,}431\) m (las otras coordenadas no
+cambian). Calcular el producto mixto de \(P_2-P_1\), \(P_3-P_1\), \(P_4-P_1\), el apartamiento
+de \(P_4\) respecto del plano de \(P_1,P_2,P_3\) y decidir si los cuatro puntos son coplanares
+con una tolerancia de \(5\) mm.
+\end{ejercicio}
+\solucion{Sólo cambia \(c=P_4-P_1=(-0{,}441;\ 8{,}349;\ 0{,}089)\); \(a\times b=(-0{,}333024;\
+-0{,}709827;\ 71{,}507748)\) es el mismo. Entonces
+\((a\times b)\cdot c=0{,}146864-5{,}926346+6{,}364190=0{,}584708\) m\(^3\) y
+\(d=0{,}584708/71{,}5120=0{,}008176\) m \(=8{,}176\) mm. Como \(8{,}2\) mm \(>5\) mm, los
+cuatro puntos \emph{no} se aceptan como coplanares: o la losa está alabeada o hay un error de
+lectura en la cota, y conviene volver a medir \(P_4\).}

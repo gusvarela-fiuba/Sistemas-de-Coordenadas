@@ -504,6 +504,28 @@ pseudoinversa del capítulo~\ref{cap:inversas}. Ese es el método de Gauss--Newt
 se ajusta el problema de la intersección de circunferencias del
 capítulo~\ref{cap:cuatro-problemas}.
 
+\subsection{La traza del jacobiano: divergencia de un campo de desplazamientos}
+
+Entre dos épocas, cada punto \(x\) del terreno se corre a \(x+\varepsilon u(x)\), donde
+\(u\) es un campo de desplazamientos y \(\varepsilon\) indica que el corrimiento es chico.
+El jacobiano de esa transformación es \(I+\varepsilon J\), con \(J\) el jacobiano de \(u\),
+y el factor local de área es su determinante (sección~\ref{sec:metrica}). Por la
+proposición~\ref{prop:traza-derivada-det}, \(\det(I+\varepsilon J)=1+\varepsilon
+\operatorname{tr}J+O(\varepsilon^2)\), con el \(O(\varepsilon^2)\) en el sentido del
+apéndice~\ref{ap:infinitesimales}. La traza de \(J\) es la \emph{divergencia} de \(u\),
+\(\operatorname{div}u=\partial u_E/\partial E+\partial u_N/\partial N\). Cuando \(u\) es
+afín, \(J\) es constante y el planteo se reduce al de la red deformada del
+capítulo~\ref{cap:autovectores}: la divergencia es la dilatación de la
+sección~\ref{sec:aplicacion-deformacion}, la parte simétrica de \(J\) es el tensor de
+deformación y la antisimétrica, un giro sin efecto sobre el área.
+
+\begin{idea}[La divergencia mide cuánto se expande el terreno alrededor de un punto]
+Cerca de un punto, el campo de desplazamientos actúa como \(I+\varepsilon J\), y el área de
+una parcela chica cambia en la proporción \(\varepsilon\operatorname{tr}J\): divergencia
+positiva, el terreno se expande; negativa, se contrae; nula, sólo se deforma o gira sin
+cambiar de área.
+\end{idea}
+
 \subsection{Aplicación topográfica: propagación de errores de una radiación}\label{sec:aplicacion-radiacion}
 
 Desde una estación de coordenadas Gauss--Krüger faja~5

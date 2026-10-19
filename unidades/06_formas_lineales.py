@@ -327,7 +327,7 @@ def _(lib, mo, np):
             **3.2 Un ejercicio con dos formas.** Formas $(1, 1)$ y $(-1, 2)$, vector $v = (3, 4)$,
             $T = \begin{pmatrix} \textcolor{#1b6f6a}{1.2} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{-0.1} & \textcolor{#b5451b}{1.3} \end{pmatrix}$.
             Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en "la séptima con la quinta".
-            $\det T = 1.61$ y, por adjunta sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
+            $\det T = 1.61$ y, por adjugada sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
 
             $$Tv = \binom{5.6}{4.9}, \qquad (1, 1)\,T^{-1} = \tfrac{(1.4,\ 0.7)}{1.61} = (0.870,\ 0.435), \qquad (-1, 2)\,T^{-1} = \tfrac{(-1.1,\ 2.9)}{1.61} = (-0.683,\ 1.801).$$
 

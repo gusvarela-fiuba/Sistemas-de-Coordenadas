@@ -2847,7 +2847,7 @@ if __name__ == "__main__":
     assert exacto(forma_transformada([2, 1], np.diag([2.0, 1.0])), [1, 1]), "lección 06: (2,1) diag(2,1)⁻¹ = (1,1)"
     A06 = np.array([[1.2, 0.5], [-0.1, 1.3]])
     assert exacto(forma_transformada([1, 1], A06) @ (A06 @ [3, 4]), 7.0) and exacto(forma_transformada([-1, 2], A06) @ (A06 @ [3, 4]), 5.0), "la séptima con la quinta"
-    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "(1,1) T⁻¹ por adjunta sobre determinante"
+    assert exacto(forma_transformada([1, 1], A06), np.array([1.4, 0.7]) / 1.61), "(1,1) T⁻¹ por adjugada sobre determinante"
     assert exacto(forma_transformada([2, 3], [[1, 1], [0, 2]]), [2, 0.5]), "apunte 11: ψ = φ A⁻¹ = (2, 1/2)"
     assert exacto(forma_transformada([2, 1], rot2(th)), rot2(th) @ [2, 1]), "con una rotación la fila gira como un punto"
     try:

@@ -1,9 +1,9 @@
-# matriz2x2.jl — adjunta, determinante e inversa de una matriz 2x2
+# matriz2x2.jl — adjugada, determinante e inversa de una matriz 2x2
 #
 # Para A = [a b; c d]:
 #   det(A)  = a*d - b*c
 #   cof(A)  = [ d -c; -b a ]        (matriz de cofactores)
-#   adj(A)  = cof(A)'  = [ d -b; -c a ]   (adjunta = traspuesta de los cofactores)
+#   adj(A)  = cof(A)'  = [ d -b; -c a ]   (adjugada = traspuesta de los cofactores)
 #   inv(A)  = adj(A) / det(A)       (solo si det(A) != 0)
 
 using LinearAlgebra   # solo para verificar contra inv() y det() de la librería
@@ -17,8 +17,8 @@ function cofactores2x2(A)
             -b   a ]
 end
 
-"Adjunta (adjugada) de una 2x2: traspuesta de la matriz de cofactores."
-adjunta2x2(A) = transpose(cofactores2x2(A))
+"Adjugada de una 2x2: traspuesta de la matriz de cofactores."
+adjugada2x2(A) = transpose(cofactores2x2(A))
 
 "Determinante de una 2x2 por la regla a*d - b*c."
 determinante2x2(A) = A[1,1]*A[2,2] - A[1,2]*A[2,1]
@@ -29,7 +29,7 @@ function inversa2x2(A)
     if Δ == 0
         return nothing
     end
-    return adjunta2x2(A) ./ Δ
+    return adjugada2x2(A) ./ Δ
 end
 
 function mostrar(A)
@@ -40,7 +40,7 @@ function mostrar(A)
     println("\nCofactores de A =")
     display(cofactores2x2(A))
     println("\nadj(A) = cofactores' =")
-    display(adjunta2x2(A))
+    display(adjugada2x2(A))
     Ainv = inversa2x2(A)
     if Ainv === nothing
         println("\nA es singular (det = 0): no tiene inversa.")

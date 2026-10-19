@@ -407,14 +407,26 @@ su multiplicidad algebraica y aunque sean complejos, entonces
 \end{proposicion}
 
 \begin{demostracion}
-Lo hacemos en \(2\times2\); en \(3\times3\) la cuenta es la misma con la fórmula de la
-sección~\ref{sec:autovalores}. El polinomio mónico \(\lambda^2-(\operatorname{tr}A)\lambda+
-\det A\) tiene raíces \(\lambda_1,\lambda_2\), así que es igual a
-\((\lambda-\lambda_1)(\lambda-\lambda_2)=\lambda^2-(\lambda_1+\lambda_2)\lambda+\lambda_1\lambda_2\).
-Comparando coeficientes, \(\lambda_1+\lambda_2=\operatorname{tr}A\) y
-\(\lambda_1\lambda_2=\det A\). En \(3\times3\),
-\(-\lambda^3+(\operatorname{tr}A)\lambda^2-c_2\lambda+\det A=-(\lambda-\lambda_1)(\lambda-\lambda_2)(\lambda-\lambda_3)\),
-y se comparan el coeficiente de \(\lambda^2\) y el término independiente.
+Sea \(p(\lambda)=\det(A-\lambda I)\), el polinomio característico, de grado \(n\). Sus
+raíces complejas, contadas con multiplicidad, son los autovalores, y su coeficiente
+principal es \((-1)^n\), así que se factoriza como
+\[
+  p(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\cdots(\lambda_n-\lambda)
+  =(-1)^n\lambda^n+(-1)^{n-1}(\lambda_1+\dots+\lambda_n)\,\lambda^{n-1}+\dots+
+  \lambda_1\cdots\lambda_n .
+\]
+Por otro lado, \(\det(A-\lambda I)\) es una suma de productos de \(n\) entradas de
+\(A-\lambda I\), una de cada fila y de cada columna, con su signo. El producto de la
+diagonal, \((a_{11}-\lambda)\cdots(a_{nn}-\lambda)\), aporta
+\((-1)^n\lambda^n+(-1)^{n-1}(a_{11}+\dots+a_{nn})\lambda^{n-1}+\cdots\). Cualquier otro
+producto deja afuera al menos dos entradas de la diagonal (si una entrada sale de la
+diagonal en la fila \(i\), toma la columna de otra fila \(j\), que también tiene que salir de
+la diagonal), así que tiene a lo sumo \(n-2\) factores con \(\lambda\) y no aporta a
+\(\lambda^{n-1}\). Comparando el coeficiente de \(\lambda^{n-1}\),
+\((-1)^{n-1}\operatorname{tr}A=(-1)^{n-1}(\lambda_1+\dots+\lambda_n)\). El término
+independiente es \(p(0)=\det A\) por un lado y \(\lambda_1\cdots\lambda_n\) por el otro. En
+\(2\times2\) queda la cuenta conocida:
+\(\lambda^2-(\operatorname{tr}A)\lambda+\det A=(\lambda-\lambda_1)(\lambda-\lambda_2)\).
 \end{demostracion}
 
 La proposición tiene una lectura geométrica: \(\det A\) es el factor de área o de volumen
@@ -425,6 +437,126 @@ son \(1\), \(e^{i\theta}\) y \(e^{-i\theta}\), cuya suma es \(1+2\cos\theta\). P
 rotación del ejemplo 2, \(\operatorname{tr}R=0\), de modo que \(\cos\theta=-\tfrac12\) y
 \(\theta=120^\circ\), sin calcular ninguna raíz. Para \(2\times2\) con autovalores complejos
 \(k\,e^{\pm i\theta}\), el producto es \(k^2=\det A\) y la suma \(2k\cos\theta=\operatorname{tr}A\).
+
+\subsection{La traza como derivada del determinante}\label{sec:traza-derivada-det}
+
+La proposición~\ref{prop:traza-det} lee la traza a través de los autovalores. Hay otra
+lectura, que no los necesita: la traza es lo que cambia el determinante cuando la matriz se
+aparta un poco de la identidad. Como el determinante es el factor de área o de volumen
+(proposición~\ref{prop:det-factor}; en \(\R^3\), el volumen con signo de la
+sección~\ref{sec:producto-mixto}), la traza mide cuánto se agranda o se achica una figura
+bajo una transformación cercana a la identidad.
+
+\begin{proposicion}[La traza es la derivada del determinante en la identidad]\label{prop:traza-derivada-det}
+Sea \(E\) una matriz de \(n\times n\). Para \(\varepsilon\) pequeño,
+\[
+  \det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+O(\varepsilon^2).
+\]
+En \(2\times2\) la igualdad es exacta con el término siguiente:
+\(\det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+\varepsilon^2\det E\).
+\end{proposicion}
+
+\begin{demostracion}
+\emph{En \(2\times2\).} Con \(E=\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)\),
+\[
+  \det\begin{pmatrix}1+\varepsilon a&\varepsilon b\\ \varepsilon c&1+\varepsilon d\end{pmatrix}
+  =(1+\varepsilon a)(1+\varepsilon d)-\varepsilon^2bc
+  =1+\varepsilon(a+d)+\varepsilon^2(ad-bc).
+\]
+El término de orden \(\varepsilon\) sale sólo del producto de la diagonal; las entradas
+fuera de la diagonal aparecen multiplicadas entre sí y aportan a \(\varepsilon^2\).
+
+\emph{En \(n\times n\).} Por inducción en \(n\); el caso \(n=1\) es
+\(1+\varepsilon e_{11}\). Sea \(A=I+\varepsilon E\) y desarrollemos su determinante por
+menores a lo largo de la primera fila:
+\[
+  \det A=(1+\varepsilon e_{11})\,M_{11}+\sum_{j\ge2}(-1)^{1+j}\,\varepsilon e_{1j}\,M_{1j},
+\]
+donde \(M_{1j}\) es el determinante que queda al quitar la fila \(1\) y la columna \(j\).
+\(M_{11}=\det(I+\varepsilon E')\), con \(E'\) la matriz \(E\) sin su primera fila ni su
+primera columna; por la hipótesis inductiva, \(M_{11}=1+\varepsilon\operatorname{tr}E'+
+O(\varepsilon^2)\). Para \(j\ge2\), el menor \(M_{1j}\) conserva la fila \(j\) de \(A\) sin
+su columna \(j\), es decir, sin el \(1\) de la diagonal: todas las entradas de esa fila son
+de la forma \(\varepsilon e_{jk}\). Desarrollando \(M_{1j}\) por esa fila, cada término
+lleva un factor \(\varepsilon\), así que \(M_{1j}=O(\varepsilon)\) y el término
+\(\varepsilon e_{1j}M_{1j}\) es \(O(\varepsilon^2)\). Queda
+\[
+  \det A=(1+\varepsilon e_{11})\bigl(1+\varepsilon\operatorname{tr}E'\bigr)+O(\varepsilon^2)
+  =1+\varepsilon\bigl(e_{11}+\operatorname{tr}E'\bigr)+O(\varepsilon^2)
+  =1+\varepsilon\operatorname{tr}E+O(\varepsilon^2).
+\]
+Los términos de orden \(\varepsilon\) vienen sólo de la diagonal: cualquier otro producto
+del desarrollo usa por lo menos dos entradas fuera de ella.
+\end{demostracion}
+
+\paragraph{Lectura: el cambio relativo de área.} Si \(I+\varepsilon E\) actúa sobre una
+figura de área \(S\), la imagen tiene área \(S\det(I+\varepsilon E)\), y el cambio
+relativo es
+\[
+  \frac{\Delta S}{S}=\det(I+\varepsilon E)-1=\varepsilon\operatorname{tr}E+O(\varepsilon^2).
+\]
+A primer orden sólo importa la diagonal de \(E\): \(\varepsilon e_{11}\) es el
+estiramiento relativo en la dirección \(x\), \(\varepsilon e_{22}\) el de la dirección
+\(y\), y los dos se suman. Una cizalla pura, con ceros en la diagonal, no cambia el área a
+primer orden; lo mismo un giro pequeño. En \(\R^3\) vale igual para el volumen, con
+\(\varepsilon(e_{11}+e_{22}+e_{33})\). La figura~\ref{fig:traza-area} lo muestra con
+\(\varepsilon=0{,}1\) para tres matrices: con traza \(3\), el área medida es
+\(1{,}3185\) frente a \(1+\varepsilon\operatorname{tr}E=1{,}3\); con traza \(0\) y una
+cizalla, \(0{,}99\) frente a \(1\); con traza \(-3\), \(0{,}7225\) frente a \(0{,}7\). En
+los tres casos la diferencia es exactamente \(\varepsilon^2\det E\) (\(0{,}0185\),
+\(-0{,}01\) y \(0{,}0225\)), el término de segundo orden de la proposición.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{figuras/autovectores/cap07_traza_area.pdf}
+\caption{El cuadrado unidad (a trazos) y su imagen por \(I+\varepsilon E\) (rayada), con
+\(\varepsilon=0{,}1\), para \(E=\left(\begin{smallmatrix}1&0{,}5\\0{,}3&2\end{smallmatrix}\right)\)
+(traza positiva), \(E=\left(\begin{smallmatrix}1&2\\0&-1\end{smallmatrix}\right)\) (traza
+cero, con cizalla) y \(E=\left(\begin{smallmatrix}-2&0{,}5\\-0{,}5&-1\end{smallmatrix}\right)\)
+(traza negativa). El área de la imagen, medida con la fórmula de Gauss
+(proposición~\ref{prop:area-poligono}), se compara con \(1+\varepsilon\operatorname{tr}E\);
+la diferencia es \(\varepsilon^2\det E\). Generada con
+\texttt{apunte/scripts/cap07\_traza\_area.py}.}
+\label{fig:traza-area}
+\end{figure}
+
+\paragraph{Otras lecturas de la traza.} La traza apareció varias veces en el apunte, con
+significados que ahora se pueden reunir.
+\begin{itemize}
+\item \emph{Rotaciones.} En el plano,
+\(\operatorname{tr}R(\theta)=2\cos\theta\), directamente de la matriz de rotación del
+capítulo~\ref{cap:rotaciones}. En \(\R^3\), \(\operatorname{tr}R=1+2\cos\theta\)
+(sección~\ref{sec:eje-exp} y sección~\ref{sec:traza-det-autovalores}): la traza da el
+ángulo de giro sin calcular el eje. Una rotación pequeña es \(I+\varepsilon A\) con \(A\)
+antisimétrica (proposición~\ref{prop:rot-pequenas}), de diagonal nula: \(\operatorname{tr}A=0\)
+y, por la proposición~\ref{prop:traza-derivada-det}, el giro no cambia el área a primer
+orden, como debe ser para una isometría.
+\item \emph{Proyectores.} La traza de un proyector ortogonal es la dimensión del subespacio
+sobre el que proyecta: \(\operatorname{tr}P=\operatorname{rango}P\)
+(sección~\ref{sec:proyectores}). En una línea: de \(P^2=P\) y \(Pv=\lambda v\) sale
+\(\lambda v=\lambda^2v\), así que los autovalores son \(0\) o \(1\); como \(P\) es
+simétrica, por la proposición~\ref{prop:simetrica} hay una base ortonormal de autovectores,
+y \(P\) conserva los de autovalor \(1\) y anula los demás, así que los primeros forman una base de la imagen; por la proposición~\ref{prop:traza-det}, la
+traza cuenta esos unos. Para la recta por cuatro puntos del
+ejemplo~\ref{ej:recta-cuatro-puntos}, \(\operatorname{tr}P=2\).
+\item \emph{Valores singulares.} Para \(A\) de \(m\times n\),
+\(\operatorname{tr}(A^TA)=\sum_i\lVert Ae_i\rVert^2=\sum_i\sigma_i^2\). La primera igualdad
+es la definición: la entrada \(ii\) de \(A^TA\) es la columna \(i\) de \(A\) por sí misma,
+\(\lVert Ae_i\rVert^2\). La segunda sale de que los \(\sigma_i^2\) son los autovalores de
+\(A^TA\) (teorema~\ref{teo:svd-existencia}, capítulo~\ref{cap:svd}) y de la
+proposición~\ref{prop:traza-det}. Para la matriz del ejemplo~\ref{ej:svd-mano},
+\(\operatorname{tr}(A^TA)=9+16+25=50=45+5\).
+\item \emph{Deformación.} La dilatación de una red es la traza del tensor de deformación
+(sección~\ref{sec:aplicacion-deformacion}): es el caso \(n=2\) de la lectura de área de la
+proposición~\ref{prop:traza-derivada-det}.
+\end{itemize}
+
+\begin{idea}[La traza suma lo que pasa en cada eje]
+El determinante multiplica los factores de cada dirección; la traza los suma. Cerca de la
+identidad, multiplicar \((1+\varepsilon e_{11})(1+\varepsilon e_{22})\cdots\) y sumar
+\(1+\varepsilon(e_{11}+e_{22}+\cdots)\) dan lo mismo a primer orden: por eso la traza es el
+cambio relativo de área o de volumen de una transformación casi idéntica.
+\end{idea}
 
 \subsection{Subespacios invariantes de dimensión 2: el plano de una rotación}\label{sec:plano-invariante}
 
@@ -595,6 +727,15 @@ perpendicular, de acimut \(149{,}93^\circ\), se acortó \(15{,}2\) mm por kilóm
 \(e_1+e_2=24{,}742\ \mu\varepsilon\); la \emph{cizalla máxima}, la mayor variación de ángulo
 entre dos direcciones perpendiculares, es \(e_1-e_2=55{,}211\ \mu\varepsilon\).
 
+Que la dilatación sea la traza se justifica con la proposición~\ref{prop:traza-derivada-det}:
+toda figura de la red cambia su área por el factor \(\det F\), y en \(2\times2\)
+\(\det F=\det\bigl(I+(F-I)\bigr)=1+\operatorname{tr}(F-I)+\det(F-I)\). La parte
+antisimétrica tiene diagonal nula, así que \(\operatorname{tr}(F-I)=\operatorname{tr}E\), que
+por la proposición~\ref{prop:traza-det} es \(e_1+e_2\). Con los números de la red,
+\(\det F-1=24{,}742\ \mu\varepsilon\): el término de segundo orden,
+\(\det(F-I)\approx-512\ \mu\varepsilon^2=-0{,}0005\ \mu\varepsilon\), no alcanza la tercera
+cifra decimal.
+
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.62\linewidth]{figuras/autovectores/autovec_red.png}
@@ -703,3 +844,45 @@ perpendicular \((10;\ 2{,}361)\) es la dirección de \(e_1\): acimut
 \(166{,}72^\circ\). Dilatación \(e_1+e_2=20\ \mu\varepsilon\); cizalla máxima
 \(e_1-e_2=2\sqrt{500}\approx44{,}721\ \mu\varepsilon\). Para la base Norte, \(u=(0,1)\) y
 \(u^TEu=E_{22}=-10\ \mu\varepsilon\): se acortó \(10^{-5}\cdot1500\ \text{m}=15\) mm.}
+
+\begin{ejercicio}\label{ex:autovec-traza-area}
+Cuatro puntos de una red local, en coordenadas planas \((E,N)\) en metros, se midieron en
+dos épocas. En la época 1 son \(P_1=(1000;\ 1000)\), \(P_2=(3400;\ 1200)\),
+\(P_3=(3000;\ 3300)\) y \(P_4=(1200;\ 2900)\), y entre épocas se desplazaron
+\((39;\ -4)\), \((84;\ -11)\), \((95;\ 3)\) y \((60;\ 8)\) mm. (a) Con cuatro puntos no hay
+una transformación afín exacta: ajustar \(F-I\) por mínimos cuadrados, con coordenadas
+reducidas al baricentro, y dar los residuos. (b) Calcular \(\operatorname{tr}E\).
+(c) Calcular el área del cuadrilátero \(P_1P_2P_3P_4\) en las dos épocas con la fórmula de
+Gauss (sección~\ref{sec:poligono-cunas}) y comparar el cambio relativo de área con
+\(\operatorname{tr}E\).
+\end{ejercicio}
+\solucion{Se usan los cuatro puntos con mínimos cuadrados, y no tres con el cuarto de
+control, para que todos pesen igual; los residuos hacen de control.
+(a) Baricentro de la época 1: \((2150;\ 2100)\) m; desplazamiento medio
+\((69{,}5;\ -1{,}0)\) mm, que es la traslación. Coordenadas reducidas \(x_i\):
+\((-1150;\ -1100)\), \((1250;\ -900)\), \((850;\ 1200)\), \((-950;\ 800)\) m;
+desplazamientos reducidos \(\delta_i\): \((-30{,}5;\ -3)\), \((14{,}5;\ -10)\),
+\((25{,}5;\ 4)\), \((-9{,}5;\ 9)\) mm. El modelo es \(\delta_i=(F-I)\,x_i\), y cada fila de
+\(F-I\) se ajusta por separado con las ecuaciones normales
+(proposición~\ref{prop:ecuaciones-normales}, capítulo~\ref{cap:inversas}), con la misma
+matriz \(X\) de filas \(x_i\):
+\(X^TX=\left(\begin{smallmatrix}4\,510\,000&400\,000\\400\,000&4\,100\,000\end{smallmatrix}\right)\)
+m\(^2\), \(X^T\delta_E=(83\,900;\ 43\,500)\) y \(X^T\delta_N=(-14\,200;\ 24\,300)\) m\(\cdot\)mm.
+Resolviendo, en mm/km, es decir en \(\mu\varepsilon\),
+\[
+  F-I=\begin{pmatrix}17{,}8163&8{,}8716\\-3{,}7063&6{,}2884\end{pmatrix}\ \mu\varepsilon .
+\]
+Los residuos \(\delta_i-(F-I)x_i\) no superan \(0{,}45\) mm.
+(b) La parte antisimétrica tiene diagonal nula, así que
+\(\operatorname{tr}E=\operatorname{tr}(F-I)=17{,}8163+6{,}2884=24{,}105\ \mu\varepsilon\).
+(c) \(S_1=4\,230\,000\) m\(^2\). Sumando los desplazamientos a las coordenadas (en metros,
+con los milímetros) y aplicando otra vez la fórmula, \(S_2=4\,230\,101{,}9006\) m\(^2\):
+\(\Delta S=101{,}90\) m\(^2\) y \(\Delta S/S_1=24{,}090\ \mu\varepsilon\). La
+proposición~\ref{prop:traza-derivada-det} predice \(\operatorname{tr}E=24{,}105\
+\mu\varepsilon\), es decir \(101{,}96\) m\(^2\); el término de segundo orden es despreciable
+(\(\det F-1\) también da \(24{,}105\ \mu\varepsilon\)). La diferencia, \(0{,}015\
+\mu\varepsilon\) o \(0{,}06\) m\(^2\), se debe a que el cuadrilátero de la época 2 no es
+exactamente la imagen afín del de la época 1: es la huella de los residuos de
+\(0{,}45\) mm como máximo. Cien metros cuadrados parecen mucho, pero repartidos sobre un
+perímetro de \(8\,300\) m equivalen a que los lados se corran hacia afuera, en promedio,
+\(12\) mm.}

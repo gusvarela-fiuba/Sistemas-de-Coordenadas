@@ -7,7 +7,7 @@ conceptos_previos: ["Composición (clase 2)", "Determinante y núcleo (clase 5)"
 apunte: ["inversas"]
 unidades: ["09_cambio_de_base_svd"]
 animaciones: []
-ejercicios_sugeridos: ["Ajustar una recta a $(0,0)$, $(1,1)$, $(2,3)$ con las ecuaciones normales y comprobar que el residuo es perpendicular a las columnas", "Invertir $\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ por la diagonal y por la adjunta", "Calcular la pseudoinversa de $\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$ y resolver $Bx=(1,0)$ en mínimos cuadrados"]
+ejercicios_sugeridos: ["Ajustar una recta a $(0,0)$, $(1,1)$, $(2,3)$ con las ecuaciones normales y comprobar que el residuo es perpendicular a las columnas", "Invertir $\\begin{pmatrix}2&1\\\\1&2\\end{pmatrix}$ por la diagonal y por la adjugada", "Calcular la pseudoinversa de $\\begin{pmatrix}1&1\\\\1&1\\end{pmatrix}$ y resolver $Bx=(1,0)$ en mínimos cuadrados"]
 ---
 
 # Clase 10: inversas, cuatro subespacios y pseudoinversa
@@ -58,5 +58,5 @@ Restringida de co-imagen a imagen, la transformación sí se invierte: ahí no s
 ## Ejercicios sugeridos
 
 - Ajustar una recta a $(0,0)$, $(1,1)$, $(2,3)$ con las ecuaciones normales y comprobar que el residuo es perpendicular a las columnas
-- Invertir $\begin{pmatrix}2&1\\1&2\end{pmatrix}$ por la diagonal y por la adjunta
+- Invertir $\begin{pmatrix}2&1\\1&2\end{pmatrix}$ por la diagonal y por la adjugada
 - Calcular la pseudoinversa de $\begin{pmatrix}1&1\\1&1\end{pmatrix}$ y resolver $Bx=(1,0)$ en mínimos cuadrados

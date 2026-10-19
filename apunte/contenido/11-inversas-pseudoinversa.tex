@@ -52,7 +52,7 @@ Procrustes, regresión total) se reúnen en el capítulo~\ref{cap:cuatro-problem
 
 \subsection{Inversas, los cuatro subespacios y la pseudoinversa}\label{sec:pseudoinversa}
 
-La inversa de una \(2\times2\) se calcula por adjunta sobre determinante; en este capítulo se discute qué significa invertir y qué pasa cuando no se puede.
+La inversa de una \(2\times2\) se calcula por adjugada sobre determinante (proposición~\ref{prop:adjugada-inversa}); en este capítulo se discute qué significa invertir y qué pasa cuando no se puede.
 
 \paragraph{Inversa respecto de una operación.} Volvemos a la relación entre operaciones, elementos y
 transformaciones. Una inversa es siempre ``inversa respecto de'' una operación: el
@@ -101,15 +101,79 @@ Para una matriz \(A\) de \(n\times n\) son equivalentes: (a) existe \(A^{-1}\) c
 
 \begin{demostracion}
 (b), (c) y (d) son equivalentes por la sección~\ref{sec:nucleo}. Si \(A^{-1}\) existe y
-\(Av=0\), entonces \(v=A^{-1}Av=0\): de (a) sale (c). Recíprocamente, la construcción que
-sigue fabrica \(A^{-1}\) cuando \(\det A\neq0\).
+\(Av=0\), entonces \(v=A^{-1}Av=0\): de (a) sale (c). Recíprocamente, la proposición~\ref{prop:adjugada-inversa}, que
+sigue, fabrica \(A^{-1}\) cuando \(\det A\neq0\).
 \end{demostracion}
 
-En \(2\times2\), la inversa es la adjunta sobre el determinante:
+La construcción usa una matriz con nombre propio.
+
+\begin{definicion}[Adjugada]\label{def:adjugada}
+Sea \(A\) una matriz de \(n\times n\). El \emph{cofactor} \((i,j)\) de \(A\) es \((-1)^{i+j}\)
+por el determinante de la matriz que queda al borrar la fila \(i\) y la columna \(j\). La
+\emph{adjugada} de \(A\), \(\operatorname{adj}(A)\), es la transpuesta de la matriz de
+cofactores: su entrada \((i,j)\) es el cofactor \((j,i)\).
+\end{definicion}
+
+\begin{proposicion}[La adjugada fabrica la inversa]\label{prop:adjugada-inversa}
+Para toda matriz \(A\) de \(n\times n\),
+\(A\,\operatorname{adj}(A)=\operatorname{adj}(A)\,A=(\det A)\,I\). En consecuencia, si
+\(\det A\neq0\),
 \[
+  A^{-1}=\frac{\operatorname{adj}(A)}{\det A}.
+\]
+\end{proposicion}
+
+\begin{demostracion}
+Sea \(C_{ij}\) el cofactor \((i,j)\). La entrada \((i,k)\) de \(A\,\operatorname{adj}(A)\) es
+\(\sum_j a_{ij}C_{kj}\). Si \(k=i\), es \(\sum_j a_{ij}C_{ij}\), el desarrollo de \(\det A\)
+por la fila \(i\) (el desarrollo por menores del ejemplo~\ref{ej:det-volumen}, que vale por
+cualquier fila): da \(\det A\). Si \(k\neq i\), sea \(A'\) la matriz que resulta de
+reemplazar la fila \(k\) de \(A\) por la fila \(i\). Los cofactores \(C_{kj}\) no dependen
+de la fila \(k\), así que son los mismos en \(A\) y en \(A'\), y \(\sum_j a_{ij}C_{kj}\) es el
+desarrollo de \(\det A'\) por la fila \(k\). Pero \(A'\) tiene dos filas iguales, y su
+determinante es cero: intercambiar esas dos filas no cambia la matriz y, como el
+determinante es alternado (sección~\ref{sec:exterior}), le cambia el signo, así que
+\(\det A'=-\det A'\). Por lo tanto \(A\,\operatorname{adj}(A)=(\det A)\,I\). Con el
+desarrollo por columnas el mismo argumento da \(\operatorname{adj}(A)\,A=(\det A)\,I\): la
+entrada \((i,k)\) es \(\sum_j C_{ji}a_{jk}\), el desarrollo por la columna \(i\) de la
+matriz que tiene la columna \(k\) de \(A\) en el lugar de la \(i\). Si \(\det A\neq0\),
+dividiendo por \(\det A\) queda \(A\,\tfrac{\operatorname{adj}(A)}{\det A}=
+\tfrac{\operatorname{adj}(A)}{\det A}\,A=I\).
+\end{demostracion}
+
+El nombre \emph{adjunta} queda reservado para otra cosa: la transpuesta \(A^T\), que es la
+adjunta geométrica de \(A\) respecto del producto interno
+(definición~\ref{def:transpuesta-adjunta}). Adjugada y adjunta son, en general, matrices
+distintas.
+
+En \(2\times2\) los cofactores son entradas sueltas con signo, y la inversa es la adjugada
+sobre el determinante:
+\[
+  \operatorname{adj}\begin{pmatrix}a&b\\c&d\end{pmatrix}=\begin{pmatrix}d&-b\\-c&a\end{pmatrix},
+  \qquad
   \begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1}=\frac1{ad-bc}\begin{pmatrix}d&-b\\-c&a\end{pmatrix}.
 \]
-En \(3\times3\) la adjunta se arma con productos cuña de filas, el mismo recurso que dio el
+
+\begin{idea}[La adjugada en el plano: girar \(90^\circ\) e intercambiar]
+Sea \(J(x,y)=(-y,x)\) el giro de \(90^\circ\) en sentido antihorario y sean \(f_1=(a,b)\),
+\(f_2=(c,d)\) las filas de \(A\). Las columnas de \(\operatorname{adj}(A)\) son esas filas
+giradas \(90^\circ\) y en el orden cambiado: la primera columna, \((d,-c)=-Jf_2\), sale de la
+segunda fila; la segunda, \((-b,a)=Jf_1\), sale de la primera. Un vector girado \(90^\circ\) es
+perpendicular al original, y eso se ve en los productos internos:
+\[
+  f_1\cdot(d,-c)=ad-bc,\qquad f_2\cdot(d,-c)=cd-dc=0,\qquad
+  f_1\cdot(-b,a)=-ab+ba=0,\qquad f_2\cdot(-b,a)=-cb+da=ad-bc .
+\]
+Cada columna de \(\operatorname{adj}(A)\) es perpendicular a la \emph{otra} fila de \(A\), y
+contra su propia fila da el determinante: es \(A\,\operatorname{adj}(A)=(\det A)\,I\) leída
+entrada por entrada. Mirada por filas pasa lo mismo con las columnas \(a_1=(a,c)\) y
+\(a_2=(b,d)\) de \(A\): las filas de \(\operatorname{adj}(A)\) son \((d,-b)=-Ja_2\) y
+\((-c,a)=Ja_1\), y \((d,-b)\cdot a_2=db-bd=0\), \((-c,a)\cdot a_1=-ca+ac=0\). Es decir,
+\(\operatorname{adj}(A)\,A=(\det A)\,I\). En el plano, el giro de \(90^\circ\) de una sola
+fila hace el papel que en el espacio hace el cuña de dos filas.
+\end{idea}
+
+En \(3\times3\) la adjugada se arma con productos cuña de filas, el mismo recurso que dio el
 núcleo en el ejemplo~\ref{ej:nucleo-cuna}. Si \(f_1,f_2,f_3\) son las filas de \(A\), el
 vector \(f_2\times f_3\) es perpendicular a \(f_2\) y a \(f_3\), y su producto interno con
 \(f_1\) es el determinante (volumen con signo de la caja de las tres filas). Lo mismo con
@@ -121,6 +185,9 @@ cumple
   \qquad
   A^{-1}=\frac1{\det A}\bigl(f_2\times f_3\ \big|\ f_3\times f_1\ \big|\ f_1\times f_2\bigr).
 \]
+La matriz de los tres cuñas en columnas es \(\operatorname{adj}(A)\): cada cuña
+\(f_j\times f_k\) tiene por componentes los cofactores de la fila restante, que la
+transposición de la definición~\ref{def:adjugada} acomoda en una columna.
 Hecho geométrico: la columna \(j\) de la inversa es perpendicular a todas las filas de
 \(A\) salvo la \(j\)-ésima, que es exactamente lo que hace falta para que \(AA^{-1}\) tenga
 ceros fuera de la diagonal.
@@ -157,7 +224,7 @@ se deshace en orden inverso: desgirar lo último (\(U^T\)), desestirar, desgirar
   \begin{pmatrix}1&1\\1&-1\end{pmatrix}
   =\tfrac13\begin{pmatrix}2&-1\\-1&2\end{pmatrix},
 \]
-que coincide con la adjunta sobre el determinante (\(\det A=3\)).
+que coincide con la adjugada sobre el determinante (\(\det A=3\)).
 \end{resultado}
 
 \paragraph{Los cuatro subespacios, con sus nombres habituales.} Una matriz \(m\times n\)
@@ -165,9 +232,9 @@ parte la entrada \(\R^n\) en dos pedazos perpendiculares y la salida \(\R^m\) en
 \begin{itemize}
   \item \textbf{núcleo}: ``vectores de la entrada que caen al \(0\)''; la dirección
   aplastada;
-  \item \textbf{co-imagen} (``rango de entrada o podríamos llamar contra-núcleo''):
+  \item \textbf{co-imagen} (rango de entrada, \(\operatorname{Im}A^T\)):
   lo perpendicular al núcleo; las direcciones que sí se distinguen a la salida;
-  \item \textbf{imagen} (``rango o co-dominio''): lo alcanzable a la salida; el plano o la
+  \item \textbf{imagen}: lo alcanzable a la salida; el plano o la
   recta donde cae todo;
   \item \textbf{espacio inaccesible} (``la llamaría contra-imagen''): lo perpendicular a la
   imagen; adonde no llega nada.

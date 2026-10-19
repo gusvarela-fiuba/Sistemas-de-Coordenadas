@@ -14,12 +14,12 @@ Sección & Objetivo\\
 La idea & Comprender qué representa el concepto, qué se mueve y qué permanece.
 Incluye una primera expresión algebraica, explicada término por término.\\
 Construcciones, cuentas y ejemplos & Construir figuras, seguir puntos e imágenes, reconocer
-visualmente invariantes, centros, ejes y direcciones, resolver las guías paso a paso y
+visualmente invariantes, centros, ejes y direcciones, resolver los ejercicios paso a paso y
 verificar numéricamente.\\
 En profundidad & Reunir las demostraciones largas, las conexiones con el resto del programa
 y la relación con la práctica de Agrimensura.\\
 Apéndices & Reunir matrices, demostraciones, desarrollos de Taylor, casos excepcionales y
-soluciones completas de las guías.\\
+soluciones completas de los ejercicios.\\
 \bottomrule
 \end{tabularx}
 \end{center}
@@ -54,9 +54,7 @@ Los capítulos temáticos son diecinueve:
   \item Complemento~\ref{cap:marcos}, \nameref{cap:marcos}.
 \end{enumerate}
 
-Dentro de cada sección, \textbf{material de partida} identifica los documentos
-recibidos como base y \textbf{desarrollo} reúne las explicaciones agregadas para hacer el
-material autónomo.
+Los quince capítulos numerados cierran con una sección de ejercicios con solución.
 
 La sección~\ref{sec:hilo} ordena los temas en un recorrido único, y los
 apéndices~\ref{ap:bibliografia} y~\ref{ap:notebooks} reúnen la bibliografía comentada y los notebooks.
@@ -70,6 +68,30 @@ Para cada definición o teorema conviene producir:
   \item una frase que identifique la propiedad esencial: distancia, ángulo, paralelismo,
   orientación o punto fijo.
 \end{enumerate}
+\end{idea}
+
+\begin{idea}[Comprobaciones con código]\label{caja:comprobaciones}
+Las proposiciones y los teoremas llevan, a continuación de la demostración, un recuadro
+marcado con {\sffamily ⚙}: el fragmento central de un programa que pone a prueba el enunciado
+y el enlace al archivo completo, en la carpeta \file{apunte/demostraciones} del repositorio
+(por ejemplo, después de la proposición~\ref{prop:dos-reflexiones}). Todos esos programas se
+ejecutan cada vez que se publica el sitio, y si alguno falla el sitio no se publica. Hay tres
+tipos:
+\begin{itemize}
+  \item \textbf{Verificación simbólica}: el programa hace la cuenta con letras (biblioteca
+  SymPy) y comprueba que una identidad algebraica vale para todos los valores de las
+  variables. Demuestra esa identidad y sólo esa: no comprueba las hipótesis del enunciado ni
+  los pasos de la demostración que no son cuentas.
+  \item \textbf{Comprobación numérica}: el programa genera al menos 200 casos al azar, con
+  una semilla fija para que el resultado sea reproducible, y verifica el enunciado en cada
+  uno con una tolerancia explícita. Una comprobación numérica \emph{no es una
+  demostración}: muestra que el enunciado vale en los casos probados y detecta errores de
+  signo, de orden o de fórmula, pero no cubre todos los casos posibles.
+  \item \textbf{Contraejemplo}: el programa exhibe un caso concreto en el que la afirmación,
+  sin alguna de sus hipótesis o en su forma general, falla: muestra que «en general no vale».
+\end{itemize}
+Lo que justifica cada resultado es la demostración del texto; el código es un control
+independiente de las cuentas.
 \end{idea}
 
 \subsection{Cómo usar las unidades interactivas}
@@ -158,7 +180,9 @@ sección~\ref{sec:mapa-transformaciones}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.75\textwidth]{figuras/afines/cap04_mapa_transformaciones.pdf}
-\caption{Hacia dónde vamos: cada familia conserva menos que la anterior. El mismo predio (gris,
+\caption{Hacia dónde vamos. Traslación, rotación y reflexión son piezas sueltas; en la cadena
+movimiento rígido, similaridad, afinidad, proyectiva, cada familia conserva menos que la
+anterior; la conforme es otra rama. El mismo predio (gris,
 punteado) y su imagen (teal, continuo) por las ocho familias que estudian los
 capítulos~\ref{cap:rotaciones} a~\ref{cap:afines} y los complementos~\ref{cap:proyectivas}
 y~\ref{cap:conformes}; el mapa completo está en la sección~\ref{sec:mapa-transformaciones}.}
@@ -189,10 +213,10 @@ tratan temas sin lugar propio en la secuencia.
 9 & Cambios de base & \ref{cap:cambio-base}. \nameref{cap:cambio-base} & \linkUnidad{08_cambio_de_base}{Cambio de base y diagonalización} & \\
 10 & Repaso de análisis & \ref{cap:derivada}. \nameref{cap:derivada} & \linkUnidad{00_fundamentos}{Fundamentos}, \linkUnidad{10_jacobiano_primera_forma}{Jacobiano y primera forma} & \\
 11 & Inversas & \ref{cap:inversas}. \nameref{cap:inversas} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
-12 & Cuatro problemas & \ref{cap:cuatro-problemas}. \nameref{cap:cuatro-problemas} & \linkUnidad{11_cuatro_problemas}{Cuatro problemas} & En preparación\\
-13 & Curvatura & \ref{cap:curvatura}. \nameref{cap:curvatura} & \linkUnidad{12_curvatura}{Curvatura} & En preparación\\
-14 & Geometría del elipsoide & \ref{cap:elipsoide}. \nameref{cap:elipsoide} & \linkUnidad{13_elipsoide}{Geometría del elipsoide}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
-15 & Trigonometría esférica & \ref{cap:esfera}. \nameref{cap:esfera} & \linkUnidad{14_trigonometria_esferica}{Trigonometría esférica}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & En preparación\\
+12 & Cuatro problemas & \ref{cap:cuatro-problemas}. \nameref{cap:cuatro-problemas} & \linkUnidad{11_cuatro_problemas}{Cuatro problemas} & \\
+13 & Curvatura & \ref{cap:curvatura}. \nameref{cap:curvatura} & \linkUnidad{12_curvatura}{Curvatura} & \\
+14 & Geometría del elipsoide & \ref{cap:elipsoide}. \nameref{cap:elipsoide} & \linkUnidad{13_elipsoide}{Geometría del elipsoide}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & \\
+15 & Trigonometría esférica & \ref{cap:esfera}. \nameref{cap:esfera} & \linkUnidad{14_trigonometria_esferica}{Trigonometría esférica}, \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & \\
 --- & Transformaciones proyectivas & \ref{cap:proyectivas}. \nameref{cap:proyectivas} & \linkUnidad{05_proyectivas}{Proyectivas} & Tema complementario\\
 --- & El terreno como matriz & \ref{cap:dem}. \nameref{cap:dem} & \linkUnidad{09_cambio_de_base_svd}{Cambio de base, SVD e inversas} & \\
 --- & Transformaciones conformes & \ref{cap:conformes}. \nameref{cap:conformes} & \linkUnidad{15_transformaciones_conformes}{Transformaciones conformes} & \\
@@ -202,7 +226,7 @@ tratan temas sin lugar propio en la secuencia.
 
 \section{El hilo conductor}\label{cap:02}\label{sec:hilo}
 
-\textbf{Material de partida.} La materia no es una lista de temas sueltos sino un
+La materia no es una lista de temas sueltos sino un
 recorrido de diez bloques con tres ideas que vuelven una y otra vez. Cuando un bloque parece
 desconectado del anterior, casi siempre es porque cambió la \emph{cara} desde la que se mira
 la misma idea.
@@ -330,7 +354,7 @@ deshace del todo; la pseudoinversa elige el punto de la imagen más cercano. &
 }
 
 \begin{atencion}[Otro orden, mismo hilo]
-El curso también admite otro orden: rotaciones \(\to\) guía de
+El curso también admite otro orden: rotaciones \(\to\) tema de
 reflexiones y similaridades \(\to\) afinidades y coordenadas homogéneas \(\to\)
 transformaciones proyectivas \(\to\) productos, determinante y autovectores. Las tres ideas
 son las mismas y el apunte sirve para ambos recorridos: la tabla anterior dice dónde está
@@ -859,3 +883,94 @@ es el norte e \(Y\) es el este, y a \(Y\) se le antepone el número de faja (por
 cuidar qué columna es cuál: el valor que empieza con el número de faja es el este, aunque la
 planilla lo llame \(Y\), y el otro es el norte, aunque la planilla lo llame \(X\).
 \end{atencion}
+
+\subsection*{Qué mide cada operación}
+
+El cuadro~\ref{tab:operaciones} reúne, en una página, la lectura geométrica de cada operación
+del álgebra que usa el apunte: qué mide, cuándo se anula o da la identidad, dónde se
+desarrolla y en qué aplicación topográfica aparece. Es una tabla de consulta: cada celda
+remite a la sección donde la afirmación se demuestra o se ilustra, y conviene volver a ella
+al terminar cada capítulo. Una raya en la última columna indica que la operación es una
+herramienta de cálculo sin aplicación topográfica propia en el apunte.
+
+\begin{table}[p]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.02}
+\caption{Qué mide cada operación}\label{tab:operaciones}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{23mm}YY>{\centering\arraybackslash}p{10mm}>{\raggedright\arraybackslash}p{31mm}@{}}
+\toprule
+\textbf{Operación} & \textbf{Qué mide o hace geométricamente} & \textbf{Cuándo vale cero o la identidad} & \textbf{Sec.} & \textbf{Uso en topografía}\\
+\midrule
+Producto interno \(u\cdot v\) & Proyección de un vector sobre otro y, con las normas, el ángulo; en homogéneas, \(\ell\cdot p=0\): el punto está en la recta & \(u\cdot v=0\): \(u\) y \(v\) son perpendiculares & \ref{sec:interno} & Componentes de obra \(d_L=u_L\cdot d\)\\
+Norma \(\lVert v\rVert\) & Longitud del vector; las rotaciones y las isometrías la conservan & \(\lVert v\rVert=0\) sólo para \(v=0\) & \ref{sec:rot-plano} & Pendiente máxima \(\sqrt{a^2+b^2}\); residuo de Helmert\\
+Producto cuña \(u\wedge v\) en 2D & Área con signo del paralelogramo de \(u\) y \(v\); el signo dice de qué lado de \(u\) está \(v\) & \(u\wedge v=0\) si y sólo si \(u\) y \(v\) son colineales & \ref{sec:cuna-plano} & Superficie de una parcela por coordenadas\\
+Producto vectorial \(u\times v\) & Vector perpendicular a ambos, de norma igual al área del paralelogramo; en homogéneas, recta por dos puntos y corte de dos rectas & Se anula para vectores paralelos (\(p\times p=0\)); dos rectas paralelas se cortan en un punto impropio & \ref{sec:vectorial} & ---\\
+Producto mixto \(u\cdot(v\times w)\) & Volumen con signo del paralelepípedo de \(u\), \(v\), \(w\); es \(\det[u\ v\ w]\) & Cero si los tres vectores son linealmente dependientes (coplanares) & \ref{sec:producto-mixto} & ¿cuatro puntos de una losa son coplanares?\\
+Determinante \(\det A\) & Factor de área o de volumen; el signo indica si conserva o invierte la orientación; \(\det(AB)=\det A\,\det B\) & \(\det A=0\): \(A\) aplasta el espacio (núcleo no trivial). \(\det R=1\) en las rotaciones & \ref{sec:det-factor} & Ortofoto: \(\det A<0\), la georreferenciación invierte la orientación\\
+Traza \(\operatorname{tr}A\) & Suma de los autovalores; cambio relativo de área: \(\det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+O(\varepsilon^2)\) & \(\operatorname{tr}E=0\): la deformación infinitesimal conserva el área a primer orden & \ref{sec:traza-det-autovalores}, \ref{sec:traza-derivada-det} & Dilatación de una red de control\\
+Transpuesta \(A^T\) & Adjunta geométrica: \(\langle Au,v\rangle=\langle u,A^Tv\rangle\); las normales se transforman con \(A^{-T}\) & \(A^TA=I\): \(A\) es ortogonal (rotación o reflexión) y \(A^{-1}=A^T\) & \ref{sec:transpuesta-normales} & Nivelación: ecuaciones normales y residuo con \(A^Tv=0\)\\
+Inversa \(A^{-1}\) & Deshace la transformación: \(AA^{-1}=A^{-1}A=I\) & Existe si y sólo si \(\det A\neq0\), \(\ker A=\{0\}\), \(\operatorname{rango}A=n\); \(R(\theta)^{-1}=R(\theta)^T\) & \ref{sec:pseudoinversa} & Nivelación con cota fija: \((A^TA)^{-1}\) da las cotas y su precisión\\
+Adjugada \(\operatorname{adj}A\) & \(A\operatorname{adj}A=(\det A)\,I\); en \(3\times3\), sus columnas son cuñas de pares de filas & Si \(\det A=0\), \(A\operatorname{adj}A=0\) y no hay inversa; si no, \(A^{-1}=\operatorname{adj}A/\det A\) & \ref{sec:pseudoinversa} & ---\\
+Rango & Dimensión de la imagen; \(\dim\ker A+\operatorname{rango}A=n\); cantidad de valores singulares no nulos & Rango \(n\) en una cuadrada: \(A\) es invertible & \ref{sec:nucleo} & Red de nivelación libre: rango \(3\) con \(4\) cotas\\
+Núcleo \(\ker A\) & Vectores que \(A\) manda a cero: las direcciones que aplasta & \(\ker A\neq\{0\}\) si y sólo si \(\det A=0\) (cuadrada) & \ref{sec:nucleo} & Datum de la red libre; curva de nivel, núcleo de \(dh\)\\
+Autovalores y autovectores & \(Av=\lambda v\): direcciones que \(A\) deja sobre su recta, estiradas por \(\lambda\) & \(\lambda=0\): \(v\) está en el núcleo; \(\lambda=1\) en homogéneas: punto fijo & \ref{sec:autovalores} & Direcciones principales de deformación de una red\\
+Valores singulares \(\sigma_i\) & Semiejes de la elipse imagen del círculo unidad; \(\sigma_1=\max_{\lVert x\rVert=1}\lVert Ax\rVert\); \(\lvert\det A\rvert=\sigma_1\cdots\sigma_n\) & \(\sigma_i=0\): una dirección aplastada; el rango cuenta los \(\sigma_i\neq0\) & \ref{prop:svd-mide} & Elipse de error de un punto GNSS\\
+Pseudoinversa \(A^{+}\) & \(A^{+}=V\Sigma^{+}U^T\): solución de mínimos cuadrados de norma mínima; \(AA^{+}\) proyecta sobre la imagen & Coincide con \(A^{-1}\) cuando \(A\) es invertible; caracterizada por las cuatro condiciones de Moore--Penrose & \ref{sec:pinv-svd} & Red de nivelación libre: cotas de norma mínima\\
+Jacobiano \(J_F\) & Matriz de la aproximación lineal \(F(p+v)\approx F(p)+Jv\); \(\det J\) es el factor local de área & \(\det J_F(p)\neq0\): \(F\) es invertible cerca de \(p\), con \(J_{F^{-1}}=J_F^{-1}\) & \ref{sec:jacobiano} & Errores de una radiación: \(\Sigma_{EN}=J\Sigma J^T\)\\
+Hessiano \(H\) & Matriz de derivadas segundas; forma cuadrática \(\tfrac12v^THv\) que da la forma de la función en un punto crítico & Algún autovalor nulo y los demás del mismo signo: el segundo orden no decide & \ref{sec:hessiana} & Cima, cuenca o portezuelo del terreno\\
+Conjugación o semejanza \(C^{-1}AC\) & La misma transformación escrita en otra base; conserva determinante, traza y autovalores & Si \(C\) es ortogonal, coincide con la congruencia & \ref{sec:conjugacion} & Coordenadas de obra\\
+Congruencia \(C^TAC\) & Regla con que cambia la matriz de una forma cuadrática al cambiar de base & Con \(C\) ortogonal, \(C^TAC=C^{-1}AC\) & \ref{sec:congruencia} & Tolerancia en coordenadas de obra; covarianza propagada \(\Sigma'=J\Sigma J^T\) (congruencia con \(C=J^T\)), sección~\ref{sec:aplicacion-radiacion}\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Glosario}\label{sec:glosario}
+
+Algunos términos del apunte tienen nombre propio y aparecen en capítulos distintos; otros
+comparten la raíz sin compartir el significado. Cada entrada remite a su definición.
+
+\begin{description}[style=nextline,leftmargin=1.2em,itemsep=2pt]
+\item[Adjunta] Nombre geométrico de la transpuesta \(A^T\): la única matriz con
+\(\langle Au,v\rangle=\langle u,A^Tv\rangle\) (definición~\ref{def:transpuesta-adjunta}).
+No confundir con la adjugada.
+\item[Adjugada] \(\operatorname{adj}A\), transpuesta de la matriz de cofactores; cumple
+\(A^{-1}=\operatorname{adj}A/\det A\) (definición~\ref{def:adjugada} y proposición~\ref{prop:adjugada-inversa}).
+\item[Afinidad] Transformación \(f(x)=Ax+b\) con \(\det A\neq0\); conserva rectas y
+paralelismo (definición~\ref{def:06-afinidad}, capítulo~\ref{cap:afines}).
+\item[Base dual] Formas \(e^1,\dots,e^n\) con \(e^i(b_j)=\delta_{ij}\): la forma \(e^i\) lee
+la coordenada \(i\)-ésima en la base \(b\) (definición~\ref{def:base-dual}).
+\item[Conforme] Transformación que conserva los ángulos; en cada punto su jacobiano es una
+similaridad directa, \(J=\rho\,R(\theta)\) (sección~\ref{sec:transformaciones-conformes},
+complemento~\ref{cap:conformes}).
+\item[Congruencia] Relación \(B=C^TAC\), la regla de cambio de base de una forma cuadrática;
+si \(C\) es ortogonal coincide con la conjugación (sección~\ref{sec:congruencia},
+proposición~\ref{prop:congruencia-ortogonal}).
+\item[Conjugación o semejanza] Relación \(B=C^{-1}AC\): \(A\) y \(B\) son la misma
+transformación escrita en dos bases (definición~\ref{def:conjugacion},
+sección~\ref{sec:conjugacion}).
+\item[Conjugado armónico] Punto \(D\) que cumple \((A,B;C,D)=-1\) respecto de \(A\), \(B\),
+\(C\) alineados; se construye con el cuadrilátero completo (definición~\ref{def:conjugado-armonico}).
+No tiene relación con la conjugación de matrices.
+\item[Conjugado complejo] \(\bar z\); su matriz es la de \(z\) transpuesta,
+\(J(\bar z)=J(z)^T=SJ(z)S\), con \(S\) la reflexión en el eje real
+(proposición~\ref{prop:conjugado-complejo}).
+\item[Forma lineal] Función lineal \(\omega\colon\R^n\to\R\); se escribe como fila y se
+dibuja como una pila de niveles (definición~\ref{def:forma-lineal}).
+\item[Homografía] Transformación proyectiva \(p\mapsto p'\sim Hp\) con \(H\) de \(3\times3\)
+invertible en coordenadas homogéneas (sección~\ref{sec:homografias},
+complemento~\ref{cap:proyectivas}).
+\item[Isometría] Transformación que conserva las distancias; en el plano es composición de a
+lo sumo tres reflexiones (teorema~\ref{teo:tres-reflexiones}, capítulo~\ref{cap:reflexiones}).
+\item[Métrica] Matriz \(G\) de los productos internos de una base, con la que se miden
+longitudes y ángulos; sobre una superficie, la primera forma fundamental
+(secciones~\ref{sec:formas-metrica} y~\ref{sec:metrica}).
+\item[Producto mixto] \(u\cdot(v\times w)=\det[u\ v\ w]\), volumen con signo del
+paralelepípedo de \(u\), \(v\), \(w\) (definición~\ref{def:producto-mixto}).
+\item[Similaridad] Transformación que multiplica todas las distancias por una misma razón
+\(\lambda>0\) (definición~\ref{def:similaridad}).
+\item[Traza] Suma de los elementos diagonales, igual a la suma de los autovalores; es la
+derivada del determinante en la identidad, \(\det(I+\varepsilon E)=1+\varepsilon\operatorname{tr}E+O(\varepsilon^2)\)
+(proposición~\ref{prop:traza-derivada-det}).
+\end{description}
