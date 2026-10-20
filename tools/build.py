@@ -1908,7 +1908,7 @@ def generar_autoevaluacion(datos_mapa: dict, out: Path) -> None:
 
 REDIRECCIONES = {"unidades/00_desaprender_el_cbc/index.html": "../00_fundamentos/"}
 # las fichas vivían en site/clases/<id>.html y pasaron a site/capitulos/<id>.html
-for _id in ("01", "02", "03", "03p", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"):
+for _id in ("01", "02", "03", "03p", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"):
     REDIRECCIONES[f"clases/{_id}.html"] = f"../capitulos/{_id}.html"
 
 
