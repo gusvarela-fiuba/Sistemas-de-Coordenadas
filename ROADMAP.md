@@ -32,6 +32,7 @@ Los contenidos mínimos del plan 2023 (CB104, tercer cuatrimestre, 64 horas) inc
 - [ ] C4 → capítulo: sistema y marco de referencia, transformación de siete parámetros, Molodensky, grillas de corrección (NTv2), discretización y remuestreo (vecino más cercano, bilineal), número de faja en las coordenadas Gauss–Krüger. Con unidad y problemas.
 - [ ] Alturas: sección nueva sobre altura elipsoidal, geoide y altura ortométrica (h = H + N), con su caja «Esto lo vas a usar en Topografía». Hoy no aparecen en el apunte.
 - [ ] Problemas para C1 a C4, con `tools/problemas/gen.py`.
+- [ ] Producto interno: la unidad 2 (proyección, longitud y ángulo) no tiene sección propia en el apunte; hoy enlaza a «Producto interno: incidencia» del capítulo 1. Sección nueva o subsección en el capítulo 1 o en el 5, con su recuadro.
 
 ### 3. GeoGebra
 

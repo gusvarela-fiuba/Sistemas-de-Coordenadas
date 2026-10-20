@@ -6,7 +6,7 @@
 titulo: Sistemas de Coordenadas — mapa de conceptos
 pregunta_guia: "transformaciones ↔ operaciones ↔ coordenadas"
 
-clases:                          # 15 entradas, en el orden del programa (la 3p es el complemento de proyectivas)
+clases:                          # 16 entradas, en el orden del programa (la 3p es el complemento C1 de proyectivas; la 15, el C2 de conformes)
   - id: "01"                     # string de dos dígitos; único; define el orden de las columnas del mapa
     titulo: Rotaciones
     ficha: clases/01-rotaciones.md   # ruta relativa a la raíz del repo; si no existe, el build avisa (warning) y sigue
@@ -36,7 +36,7 @@ unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su or
     nivel: troncal               # troncal | complementario | avanzado
 ```
 
-El `estado` de una **unidad** es interno (decide qué se exporta); en el sitio una unidad sin exportar figura como «en preparación».Las fichas que ninguna unidad cubre (hoy 11–14) van a la última unidad, «Lo que viene».
+El `estado` de una **unidad** es interno (decide qué se exporta: hoy las 20 unidades están activas y exportadas). Si hubiera fichas que ninguna unidad cubriera, irían a una entrada final «Lo que viene».
 
 ## Reglas que valida `tools/build.py`
 

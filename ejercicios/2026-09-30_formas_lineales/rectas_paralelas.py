@@ -12,6 +12,24 @@
 # entre las familias y el espaciado, pero no la estructura de grilla.
 #
 # Correr desde esta carpeta:  uv run python rectas_paralelas.py
+#
+# ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON, NUMPY Y MATPLOTLIB
+# ==============================================================================
+# 1. Indexación base 0: en Python los índices arrancan en 0 (`A[0, 0]` es la
+#    primera fila y primera columna; `u[0]` y `u[1]` son las componentes x e y).
+# 2. Producto matricial `@` vs. producto elemento a elemento `*`:
+#    `Ainv @ u` multiplica la matriz 2×2 por el vector `u`, mientras que
+#    `t * u[0]` multiplica cada valor del arreglo `t` por el escalar `u[0]`.
+# 3. Comprensión de listas (*list comprehension*):
+#    `[a * u + b * v for a in range(...) for b in range(...)]` construye de
+#    forma compacta todos los nodos de la red entera `a·u + b·v`. Nota:
+#    `range(-k_max, k_max + 1)` incluye `k_max` porque en Python el límite
+#    superior de `range(inicio, fin)` es abierto (no se incluye).
+# 4. Slicing de columnas en NumPy:
+#    `nodos[:, 0]` extrae toda la columna 0 (coordenadas x) y `nodos[:, 1]`
+#    la columna 1 (coordenadas y) para graficarlas de una sola vez con `scatter`.
+# ==============================================================================
 
 from pathlib import Path
 

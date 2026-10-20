@@ -8,6 +8,26 @@
 #   inv(A)  = adj(A) / det(A)       (solo si det(A) != 0)
 #
 # Correr desde esta carpeta:  uv run python matriz2x2.py
+#
+# ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON, NUMPY Y MATPLOTLIB
+# ==============================================================================
+# 1. Indexación base 0 vs. base 1 (Julia / MATLAB):
+#    En Julia se escribe `A[1, 1]`, `A[1, 2]`, `A[2, 1]`, `A[2, 2]`. En Python
+#    los índices empiezan en 0: `A[0, 0]`, `A[0, 1]`, `A[1, 0]`, `A[1, 1]`.
+# 2. Transpuesta y producto matricial en NumPy:
+#    - `.T` transpone un arreglo 2D (`cofactores2x2(A).T`, equivalente a `'` en
+#      Julia/MATLAB para matrices reales).
+#    - `@` es el producto de matrices (`A @ Ainv`). El operador `*` en NumPy
+#      multiplica coordenada a coordenada (producto de Hadamard, como `.*`).
+# 3. Valor especial `None`:
+#    Cuando `det(A) == 0`, `inversa2x2(A)` devuelve `None` (el equivalente a
+#    `nothing` en Julia) y lo chequeamos con `if Ainv is None:`.
+# 4. Comparación en punto flotante (`np.allclose`):
+#    En vez de comparar matrices con `==` (que fallaría por redondeos de 10⁻¹⁶),
+#    `np.allclose(Ainv, np.linalg.inv(A))` verifica que coincidan dentro de la
+#    tolerancia numérica estándar.
+# ==============================================================================
 
 from pathlib import Path
 

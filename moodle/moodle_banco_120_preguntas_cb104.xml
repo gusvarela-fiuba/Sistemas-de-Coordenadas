@@ -78,7 +78,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>No tiene inversa: una vez girado, el instrumento no vuelve solo a la posición inicial.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Que no vuelva sola no quita que exista el giro que la devuelve; en un grupo todo elemento tiene inversa, y girar \(-30°\) lo es.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Que no vuelva solo no quita que exista el giro que lo devuelve; en un grupo todo elemento tiene inversa, y girar \(-30°\) lo es.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3146,7 +3146,7 @@
   <question type="multichoice">
     <name><text>08_e2 · Unidad 12 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Armamos \(B\) poniendo en sus columnas los ejes nuevos \(b_1, b_2\) escritos en la grilla vieja. ¿Qué hace \(B\) con un vector de coordenadas?</p>]]></text>
+      <text><![CDATA[<p>Armamos \(C\) poniendo en sus columnas los ejes nuevos \(b_1, b_2\) escritos en la grilla vieja. ¿Qué hace \(C\) con un vector de coordenadas?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3161,20 +3161,20 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Lleva coordenadas viejas a nuevas: \(c = Bp\) es la lectura del punto \(p\) en la grilla de la parcela.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Es el error de la predicción: \(Bp\) interpreta a \(p\) como cantidades de \(b_1\) y \(b_2\), y devuelve otro punto. Para leer en la base nueva hay que <strong>resolver</strong> \(Bc = p\), o sea \(c = B^{-1}p\).</p>]]></text></feedback>
+      <text><![CDATA[<p>Lleva coordenadas viejas a nuevas: \(c = Cp\) es la lectura del punto \(p\) en la grilla de la parcela.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Es el error de la predicción: \(Cp\) interpreta a \(p\) como cantidades de \(b_1\) y \(b_2\), y devuelve otro punto. Para leer en la base nueva hay que <strong>resolver</strong> \(Cc = p\), o sea \(c = C^{-1}p\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>Lleva coordenadas nuevas a viejas: \(p = Bc = c_1 b_1 + c_2 b_2\); para ir al revés hay que resolver, \(c = B^{-1}p\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Multiplicar por \(B\) es avanzar \(c_1\) veces \(b_1\) y \(c_2\) veces \(b_2\), en metros de la obra. Las columnas dicen a dónde van los ejes; leer coordenadas nuevas es el problema inverso.</p>]]></text></feedback>
+      <text><![CDATA[<p>Lleva coordenadas nuevas a viejas: \(p = Cc = c_1 b_1 + c_2 b_2\); para ir al revés hay que resolver, \(c = C^{-1}p\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Multiplicar por \(C\) es avanzar \(c_1\) veces \(b_1\) y \(c_2\) veces \(b_2\), en metros de la obra. Las columnas dicen a dónde van los ejes; leer coordenadas nuevas es el problema inverso.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Solo es un cambio de base si \(b_1 \perp b_2\); con ejes oblicuos hay que usar \(B^\top\) en lugar de \(B\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Cualquier par de direcciones no paralelas es base (\(\det B \neq 0\)). \(B^\top\) solo coincide con \(B^{-1}\) si los ejes son perpendiculares y de largo \(1\), como en Rotaciones I; en general no sirve.</p>]]></text></feedback>
+      <text><![CDATA[<p>Solo es un cambio de base si \(b_1 \perp b_2\); con ejes oblicuos hay que usar \(C^\top\) en lugar de \(C\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Cualquier par de direcciones no paralelas es base (\(\det C \neq 0\)). \(C^\top\) solo coincide con \(C^{-1}\) si los ejes son perpendiculares y de largo \(1\), como en Rotaciones I; en general no sirve.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Sus filas son los ejes nuevos y sus columnas los viejos; \(B\) convierte en los dos sentidos según de qué lado se multiplique.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los ejes nuevos van en las <strong>columnas</strong>, y \(B\) solo convierte de nuevas a viejas. Poner los ejes como filas es usar \(B^\top\), que da otra matriz salvo que \(B\) sea simétrica.</p>]]></text></feedback>
+      <text><![CDATA[<p>Sus filas son los ejes nuevos y sus columnas los viejos; \(C\) convierte en los dos sentidos según de qué lado se multiplique.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Los ejes nuevos van en las <strong>columnas</strong>, y \(C\) solo convierte de nuevas a viejas. Poner los ejes como filas es usar \(C^\top\), que da otra matriz salvo que \(C\) sea simétrica.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3208,12 +3208,12 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(c = (7, -1)\), el resultado de \(Bp\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(Bp\) va de nuevas a viejas, no al revés. \((7, -1)\) son las coordenadas en la obra del punto \(7b_1 - 1b_2 = (6, 8)\), que no es \(p\). Falta el \(\tfrac12\) de \(B^{-1} = \tfrac12 B\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(c = (7, -1)\), el resultado de \(Cp\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(Cp\) va de nuevas a viejas, no al revés. \((7, -1)\) son las coordenadas en la obra del punto \(7b_1 - 1b_2 = (6, 8)\), que no es \(p\). Falta el \(\tfrac12\) de \(C^{-1} = \tfrac12 C\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(c = (3{,}5;\ -0{,}5)\): resolviendo \(c_1 + c_2 = 3\), \(c_1 - c_2 = 4\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(Bc = p\) es ese sistema: sumando, \(2c_1 = 7\); restando, \(2c_2 = -1\). Control: \(3{,}5\,(1, 1) - 0{,}5\,(1, -1) = (3{,}5 - 0{,}5;\ 3{,}5 + 0{,}5) = (3, 4)\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(Cc = p\) es ese sistema: sumando, \(2c_1 = 7\); restando, \(2c_2 = -1\). Control: \(3{,}5\,(1, 1) - 0{,}5\,(1, -1) = (3{,}5 - 0{,}5;\ 3{,}5 + 0{,}5) = (3, 4)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(c = (3, 4)\): el punto no se movió, así que sus coordenadas tampoco.</p>]]></text>
@@ -3232,7 +3232,7 @@
   <question type="multichoice">
     <name><text>08_m2 · Unidad 12 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Ponemos los autovectores \(v_1, v_2\) de \(A\) como columnas de \(B\), de modo que \(B\) traduce de la base propia a la canónica. ¿Qué producto nos devuelve la diagonal \(\Lambda\) de autovalores?</p>]]></text>
+      <text><![CDATA[<p>Ponemos los autovectores \(v_1, v_2\) de \(A\) como columnas de \(C\), de modo que \(C\) traduce de la base propia a la canónica. ¿Qué producto nos devuelve la diagonal \(\Lambda\) de autovalores?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3247,20 +3247,20 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(B\,A\,B^{-1}\): primero \(B^{-1}\) a la derecha para entrar, después \(A\), después \(B\) para salir.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(BAB^{-1}\) traduce a la base propia, aplica \(A\) (que espera coordenadas canónicas) y vuelve a canónica: mezcla las bases y en general no es diagonal. Lo correcto es \(B^{-1}AB\): de propia a canónica con \(B\), transformar con \(A\), y de canónica a propia con \(B^{-1}\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(C\,A\,C^{-1}\): primero \(C^{-1}\) a la derecha para entrar, después \(A\), después \(C\) para salir.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(CAC^{-1}\) traduce a la base propia, aplica \(A\) (que espera coordenadas canónicas) y vuelve a canónica: mezcla las bases y en general no es diagonal. Lo correcto es \(C^{-1}AC\): de propia a canónica con \(C\), transformar con \(A\), y de canónica a propia con \(C^{-1}\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(B^\top A\,B\): la transpuesta deshace a \(B\), como en Rotaciones I.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(B^\top = B^{-1}\) solo si las columnas son perpendiculares de largo \(1\), lo que pasa cuando \(A\) es simétrica. Para \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\) los autovectores \((1, 0)\) y \((1, -1)\) no lo son y \(B^\top AB\) no es diagonal.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(C^\top A\,C\): la transpuesta deshace a \(C\), como en Rotaciones I.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(C^\top = C^{-1}\) solo si las columnas son perpendiculares de largo \(1\), lo que pasa cuando \(A\) es simétrica. Para \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\) los autovectores \((1, 0)\) y \((1, -1)\) no lo son y \(C^\top AC\) no es diagonal.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(B^{-1} A\,B\): la de la derecha actúa primero, lleva a la base propia; \(A\) estira; \(B^{-1}\) vuelve a leer en la base propia.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(B\) a canónica, \(A\) lo transforma, y \(B^{-1}\) lo lee de vuelta en la base propia, donde cada eje solo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A\) de otra notación habitual, con su \(A\) en el lugar de nuestra \(B\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(C^{-1} A\,C\): la de la derecha actúa primero, lleva a la base propia; \(A\) estira; \(C^{-1}\) vuelve a leer en la base propia.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(C\) a canónica, \(A\) lo transforma, y \(C^{-1}\) lo lee de vuelta en la base propia, donde cada eje solo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = C^{-1}T_{\mathrm{can}}C\) del capítulo 9 del apunte.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(A\,B\): aplicar \(A\) a cada autovector ya da \(\lambda_k v_k\), que es diagonal.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(AB = B\Lambda\) tiene en sus columnas \(\lambda_k v_k\): los autovectores estirados, escritos todavía en canónica. Para que quede \(\Lambda\) falta leerlos en la base propia, o sea multiplicar por \(B^{-1}\) a la izquierda.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(A\,C\): aplicar \(A\) a cada autovector ya da \(\lambda_k v_k\), que es diagonal.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(AC = C\Lambda\) tiene en sus columnas \(\lambda_k v_k\): los autovectores estirados, escritos todavía en canónica. Para que quede \(\Lambda\) falta leerlos en la base propia, o sea multiplicar por \(C^{-1}\) a la izquierda.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3279,7 +3279,7 @@
   <question type="multichoice">
     <name><text>08_a1 · Unidad 12 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Para \(A = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\) tenemos \(\lambda = 3, 1\), \(B = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}\) y \(B^{-1} = \tfrac12 B\). Calculamos \(A^5 = B\Lambda^5 B^{-1}\) sin multiplicar cinco veces. ¿Cuánto da?</p>]]></text>
+      <text><![CDATA[<p>Para \(A = \begin{pmatrix} 2 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\) tenemos \(\lambda = 3, 1\), \(C = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}\) y \(C^{-1} = \tfrac12 C\). Calculamos \(A^5 = C\Lambda^5 C^{-1}\) sin multiplicar cinco veces. ¿Cuánto da?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3295,19 +3295,19 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(\begin{pmatrix} 243 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}\), porque en la base propia elevar es elevar los autovalores.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Eso es \(\Lambda^5\), la transformación <strong>leída en la base propia</strong>. \(A^5\) pide volver a la canónica: \(B\Lambda^5B^{-1}\). Sin ese regreso tenemos la misma transformación en otros números.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Eso es \(\Lambda^5\), la transformación <strong>leída en la base propia</strong>. \(A^5\) pide volver a la canónica: \(C\Lambda^5C^{-1}\). Sin ese regreso tenemos la misma transformación en otros números.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(\begin{pmatrix} 32 &amp; 1 \\ 1 &amp; 32 \end{pmatrix}\), elevando cada entrada a la quinta.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Es <code>A ** 5</code> de numpy, que eleva número por número; \(A^5\) es multiplicar matrices. Control rápido: \(A^2 = \begin{pmatrix} 5 &amp; 4 \\ 4 &amp; 5 \end{pmatrix}\), no \(\begin{pmatrix} 4 &amp; 1 \\ 1 &amp; 4 \end{pmatrix}\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(\begin{pmatrix} 244 &amp; 242 \\ 242 &amp; 244 \end{pmatrix}\), el producto \(B\,\mathrm{diag}(243, 1)\,B\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Falta el \(\tfrac12\) de \(B^{-1} = \tfrac12 B\): se usó \(B\) en lugar de su inversa. Control: \(\det A^5 = 3^5 = 243\), y \(244^2 - 242^2 = 972 \neq 243\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(\begin{pmatrix} 244 &amp; 242 \\ 242 &amp; 244 \end{pmatrix}\), el producto \(C\,\mathrm{diag}(243, 1)\,C\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Falta el \(\tfrac12\) de \(C^{-1} = \tfrac12 C\): se usó \(C\) en lugar de su inversa. Control: \(\det A^5 = 3^5 = 243\), y \(244^2 - 242^2 = 972 \neq 243\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(\begin{pmatrix} 122 &amp; 121 \\ 121 &amp; 122 \end{pmatrix}\): \(\tfrac12 \begin{pmatrix} 243 + 1 &amp; 243 - 1 \\ 243 - 1 &amp; 243 + 1 \end{pmatrix}\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(B\Lambda^5 = \begin{pmatrix} 243 &amp; 1 \\ 243 &amp; -1 \end{pmatrix}\) y, por \(\tfrac12 B\), queda \(\tfrac12\begin{pmatrix} 244 &amp; 242 \\ 242 &amp; 244 \end{pmatrix}\). Lectura: \(e_1 = \tfrac12 b_1 + \tfrac12 b_2\); la parte en \(b_1\) se multiplica por \(243\) y la de \(b_2\) queda; los \(B^{-1}B\) del medio se cancelan.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(C\Lambda^5 = \begin{pmatrix} 243 &amp; 1 \\ 243 &amp; -1 \end{pmatrix}\) y, por \(\tfrac12 C\), queda \(\tfrac12\begin{pmatrix} 244 &amp; 242 \\ 242 &amp; 244 \end{pmatrix}\). Lectura: \(e_1 = \tfrac12 b_1 + \tfrac12 b_2\); la parte en \(b_1\) se multiplica por \(243\) y la de \(b_2\) queda; los \(C^{-1}C\) del medio se cancelan.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3334,7 +3334,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La cizalla \(\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\): tiene \(\lambda = 1\) doble, dos autovalores reales.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Dos raíces reales, pero una sola dirección propia: el núcleo de \(C - I\) es la recta del eje \(x\). Sin segundo eje propio no hay grilla en la que \(C\) solo estire; \(B^{-1}CB\) nunca es diagonal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Dos raíces reales, pero una sola dirección propia: el núcleo de \(S - I\) es la recta del eje \(x\). Sin segundo eje propio no hay grilla en la que la cizalla \(S\) solo estire; \(C^{-1}SC\) nunca es diagonal.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>El giro \(R(30°)\): conserva largos y ángulos, así que en su propia grilla es la identidad.</p>]]></text>
@@ -3342,7 +3342,7 @@
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>La triangular \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\): \(\lambda = 3, 2\) distintos, con autovectores \((1, 0)\) y \((1, -1)\) independientes.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Dos autovalores reales distintos dan dos direcciones propias independientes, y eso basta: \(B = \begin{pmatrix} 1 &amp; 1 \\ 0 &amp; -1 \end{pmatrix}\) y \(B^{-1}AB = \mathrm{diag}(3, 2)\). Que los ejes propios no sean perpendiculares no molesta; solo impide usar \(B^\top\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Dos autovalores reales distintos dan dos direcciones propias independientes, y eso basta: \(C = \begin{pmatrix} 1 &amp; 1 \\ 0 &amp; -1 \end{pmatrix}\) y \(C^{-1}AC = \mathrm{diag}(3, 2)\). Que los ejes propios no sean perpendiculares no molesta; solo impide usar \(C^\top\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Ninguna de las anteriores: para diagonalizar hace falta que la matriz sea simétrica.</p>]]></text>

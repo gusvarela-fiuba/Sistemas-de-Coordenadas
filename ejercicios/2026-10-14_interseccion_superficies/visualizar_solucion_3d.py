@@ -14,6 +14,16 @@
 #
 # Salida: ilustracion_3d_rotacion.gif (560×420, 60 cuadros a 20 fps, pillow writer; < 3 MB).
 # Correr desde esta carpeta:  uv run python visualizar_solucion_3d.py
+#
+# ==============================================================================
+# GUÍA DIDÁCTICA: ANIMACIONES 3D EN MATPLOTLIB (`FuncAnimation`)
+# ==============================================================================
+# En lugar de volver a dibujar las superficies en cada fotograma (lo que sería
+# lento), `construir_grafico_3d(ax)` arma la escena 3D una sola vez y la función
+# `cuadro(i)` únicamente actualiza el ángulo de la cámara con
+# `ax.view_init(elev=24, azim=azimuts[i])`. `PillowWriter(fps=20)` ensambla los
+# cuadros en un archivo `.gif` sin requerir herramientas externas.
+# ==============================================================================
 
 from pathlib import Path
 

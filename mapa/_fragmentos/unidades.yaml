@@ -181,7 +181,7 @@ unidades:
     archivo: unidades/15_transformaciones_conformes.py
     titulo: "Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico"
     estado: piloto
-    clases: ["13", "14"]
+    clases: ["13", "14", "15"]
     pregunta: "¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?"
     gancho_agrimensura: "Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja solo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
     nivel: complementario

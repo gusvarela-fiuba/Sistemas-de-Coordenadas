@@ -2,6 +2,22 @@
 # con numpy/scipy. Misma salida de texto que `julia test.jl`.
 #
 # Correr desde esta carpeta:  uv run python test.py
+#
+# ==============================================================================
+# GUÍA DIDÁCTICA: DE JULIA / MATLAB A PYTHON + NUMPY + SCIPY
+# ==============================================================================
+# 1. Arreglos de NumPy (`np.array`):
+#    En Julia se escribe `[4.0 2.0 1.0; 2.0 5.0 3.0; 1.0 3.0 6.0]`; en Python
+#    pasamos una lista de listas (una sub-lista por fila) a `np.array(...)`.
+# 2. Resolución de sistemas lineales (`A \ b` vs `np.linalg.solve`):
+#    En Julia o MATLAB se usa la barra invertida `x = A \ b`. En NumPy se llama
+#    a `np.linalg.solve(A, b)` (para matrices cuadradas invertibles) o a
+#    `np.linalg.lstsq(A, b)` (para sistemas sobredeterminados en mínimos cuadrados).
+# 3. Autovalores de matrices simétricas (`np.linalg.eigh`):
+#    Como `A` es simétrica ($A^T = A$), `np.linalg.eigh(A)` aprovecha la simetría
+#    para garantizar autovalores reales ordenados de menor a mayor y una base
+#    ortonormal de autovectores (capítulos 7, 8 y 9).
+# ==============================================================================
 
 import numpy as np
 from scipy.linalg import lu

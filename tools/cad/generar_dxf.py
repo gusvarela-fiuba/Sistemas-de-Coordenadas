@@ -73,8 +73,41 @@ FACTOR_SCALE = 2.0                      # SCALE x2 con punto base A (capítulo 6
 CAPAS_CAP06 = {"CUNAS": 30, "AREA": 4}  # sólo en los DXF de los capítulos 6 y 9
 
 
+# ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON, NUMPY Y EZDXF
+# ==============================================================================
+# Este script construye desde Python los archivos DXF de todos los ejercicios
+# del laboratorio CAD y sus respuestas esperadas. Algunas notas para estudiar el
+# código:
+#
+# 1. Representación de transformaciones afines:
+#    - Cada transformación del plano p' = M p + t se guarda como una tupla `(M, t)`
+#      donde `M` es un `np.ndarray` de 2×2 y `t` un vector de 2 componentes.
+#    - Componer `f2` después de `f1` es `(M2 @ M1, M2 @ t1 + t2)` (ver `componer`),
+#      que equivale a multiplicar sus matrices 3×3 en coordenadas homogéneas.
+#
+# 2. Vectorización sobre listas de puntos:
+#    - Si `P` tiene forma `(N, 2)` (cada fila es un vértice `[x, y]`), aplicar
+#      `p' = M p + t` a todos los vértices a la vez se escribe `P @ M.T + t`:
+#      como las filas son puntos, multiplicamos a derecha por la transpuesta `M.T`
+#      y NumPy suma el vector `t` a cada fila automáticamente (*broadcasting*).
+#
+# 3. Creación de entidades DXF con `ezdxf`:
+#    - `doc = ezdxf.new("R2000")` crea un dibujo vacío y `msp = doc.modelspace()`
+#      obtiene el espacio modelo donde se agregan líneas (`add_line`), puntos
+#      (`add_point`), polilíneas (`add_lwpolyline`) y textos (`add_text`).
+#    - Los bloques (`doc.blocks.new(...)`) se definen una vez y se insertan con
+#      `msp.add_blockref(...)` indicando posición y factores de escala `xscale`,
+#      `yscale`: así el CAD materializa una transformación afín diagonal.
+# ==============================================================================
+
+
 def area_con_signo(P) -> float:
-    """Fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1} (positiva si es antihoraria)."""
+    """Fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1} (positiva si es antihoraria).
+
+    `np.roll(y, -1)` corre el vector `y` un lugar hacia la izquierda, emparejando
+    cada `x[i]` con `y[i+1]` y `x[N-1]` con `y[0]` sin usar bucles explícitos.
+    """
     P = np.asarray(P, float)
     x, y = P[:, 0], P[:, 1]
     return float(0.5 * np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
@@ -95,12 +128,17 @@ def base_frente(a, b):
 
 
 def rot(grados: float) -> np.ndarray:
+    """Matriz de rotación activa 2×2 para un ángulo en grados (sentido antihorario)."""
     t = math.radians(grados)
     return np.array([[math.cos(t), -math.sin(t)], [math.sin(t), math.cos(t)]])
 
 
 def reflexion_recta(punto, direccion):
-    """(M, t) de la reflexión en la recta que pasa por `punto` con `direccion`."""
+    """(M, t) de la reflexión en la recta que pasa por `punto` con `direccion`.
+
+    Si `u` es el versor director de la recta, proyectar sobre `u` es `(u u^T) x`
+    (`np.outer(u, u)`) y reflejar es `2 (u u^T) - I`.
+    """
     u = np.asarray(direccion, float) / np.linalg.norm(direccion)
     M = 2 * np.outer(u, u) - np.eye(2)
     p = np.asarray(punto, float)

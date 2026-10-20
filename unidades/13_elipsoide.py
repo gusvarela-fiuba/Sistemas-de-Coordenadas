@@ -258,9 +258,10 @@ def _(N, a, beta, el, go, lib, mo, np, phi, psi):
     lib.flecha(fig2, (0, 0), (xp, zp), "#555", "radio (ψ)", ancho=3)
     lib.flecha(fig2, (0, 0), (np.cos(beta), np.sin(beta)), lib.COLORES[2], "al punto del círculo auxiliar (β)", ancho=3)
     fig2.add_trace(go.Scatter(x=[xp, np.cos(beta)], y=[zp, np.sin(beta)], mode="lines", line=dict(color=lib.COLORES[2], width=1, dash="dot"), name="misma x′", hoverinfo="skip"))
-    lib.arco_angulo(fig2, [1, 0], [np.cos(phi), np.sin(phi)], 0.22, lib.COLORES[1], "", "φ")
-    fig2.data[-2].update(x=np.asarray(fig2.data[-2].x) + _pie[0])
-    fig2.data[-1].update(x=np.asarray(fig2.data[-1].x) + _pie[0])
+    if abs(phi) > 1e-12:
+        lib.arco_angulo(fig2, [1, 0], [np.cos(phi), np.sin(phi)], 0.22, lib.COLORES[1], "", "φ")
+        fig2.data[-2].update(x=np.asarray(fig2.data[-2].x) + _pie[0])
+        fig2.data[-1].update(x=np.asarray(fig2.data[-1].x) + _pie[0])
     lib.arco_angulo(fig2, [1, 0], [xp, zp], 0.34, "#555", "", "ψ")
     lib.arco_angulo(fig2, [1, 0], [np.cos(beta), np.sin(beta)], 0.46, lib.COLORES[2], "", "β")
     lib.punto(fig2, (xp, zp), nombre="mojón", texto="P")

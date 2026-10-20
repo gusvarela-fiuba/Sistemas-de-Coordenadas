@@ -70,7 +70,8 @@ conceptos:
   - id: espacio-vectorial
     nombre: "Espacio vectorial"
     clase: "04"
-    unidad: 06_formas_lineales
+    unidad: 00_fundamentos
+    unidades: [00_fundamentos, 06_formas_lineales]
     hecho_geometrico: "Flechas que se suman por el paralelogramo y se estiran; el cero queda quieto. R es el caso de una sola dirección; los vectores son puntos."
     que_se_conserva: "Las dos operaciones (suma y producto por escalar) y su linealidad."
     apunte: ["formas-lineales"]
@@ -184,7 +185,8 @@ conceptos:
   - id: autovalor
     nombre: "Autovalor"
     clase: "06"
-    unidad: 07b_nucleo_autovectores
+    unidad: 07c_autovalores_3d_puntos_fijos
+    unidades: [07c_autovalores_3d_puntos_fijos, 07b_nucleo_autovectores]
     hecho_geometrico: "Cuánto se estira la dirección fija: 1 queda quieta (eje, punto fijo), −1 se invierte (reflexión), 0 aplasta (núcleo). Complejos conjugados = un giro en un plano, sin vector real. Una rotación de R3 tiene exactamente un autovalor real, 1."
     que_se_conserva: "La escala sobre cada dirección invariante."
     apunte: ["autovectores", "proyectivas"]
@@ -192,7 +194,8 @@ conceptos:
   - id: polinomio-caracteristico
     nombre: "Polinomio característico"
     clase: "06"
-    unidad: 07b_nucleo_autovectores
+    unidad: 07c_autovalores_3d_puntos_fijos
+    unidades: [07c_autovalores_3d_puntos_fijos, 07b_nucleo_autovectores]
     hecho_geometrico: "det(A − λI) = 0; es el detector de colinealidad aplicado a las filas corridas de A: para qué λ se vuelven coplanares. Grado impar ⇒ una raíz real; raíces complejas de a pares; raíz doble con cruz nula ⇒ plano de autovectores. Una matriz genérica da raíces feas: el método tiene que correr en planilla o código."
     que_se_conserva: "El conjunto de autovalores no depende de la base (anticipa cambio de base)."
     apunte: ["autovectores", "proyectivas"]

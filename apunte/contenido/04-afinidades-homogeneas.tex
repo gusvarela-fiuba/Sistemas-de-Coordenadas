@@ -231,8 +231,8 @@ sigue hace las cuentas de las dos.
 \begin{ejemplo}[Escalado no uniforme y corte]\label{ej:06-escalado}
 El \emph{escalado no uniforme} \(S=\begin{pmatrix}2&0\\0&1\end{pmatrix}\) duplica las
 abscisas y deja las ordenadas. El círculo unidad \(x^2+y^2=1\) va a la curva formada por los
-puntos \((2x,y)\), la elipse \(\frac{X^2}{4}+Y^2=1\). Los puntos \((1,0)\), \((0,1)\) y \((0{,}707,\ 0{,}707)\) del círculo van a \((2,0)\), \((0,1)\) y
-\((1{,}414,\ 0{,}707)\). Las distancias al origen dejan de ser iguales: la afinidad no es una
+puntos \((2x,y)\), la elipse \(\frac{X^2}{4}+Y^2=1\). Los puntos \((1,0)\), \((0,1)\) y \((0{,}707;\ 0{,}707)\) del círculo van a \((2,0)\), \((0,1)\) y
+\((1{,}414;\ 0{,}707)\). Las distancias al origen dejan de ser iguales: la afinidad no es una
 similaridad. El área pasa de \(\pi\approx3{,}142\) a \(2\pi\approx6{,}283\), porque
 \(\det S=2\).
 
@@ -409,10 +409,10 @@ giro corto de \(u\) a \(v\) es horario; en el terreno, el de \(E\) a \(N\) es an
 El módulo \(0{,}25\) dice que cada píxel (de área \(1\)) cubre \(0{,}25\ \mathrm{m}^2\).
 En homogéneas, la matriz es
 \(\left(\begin{smallmatrix}0{,}5&0&5000\\0&-0{,}5&8000\\0&0&1\end{smallmatrix}\right)\). Para el píxel \((0,0)\) se obtiene \((5000,\ 8000)\); para el píxel \((200,100)\),
-\((0{,}5\cdot200+5000,\ -0{,}5\cdot100+8000,\ 1)^T=(5100,\ 7950,\ 1)^T\). Los otros vértices van a \((400,0)\mapsto(5200,\ 8000)\), \((0,300)\mapsto(5000,\ 7850)\) y
+\((0{,}5\cdot200+5000;\ -0{,}5\cdot100+8000;\ 1)^T=(5100,\ 7950,\ 1)^T\). Los otros vértices van a \((400,0)\mapsto(5200,\ 8000)\), \((0,300)\mapsto(5000,\ 7850)\) y
 \((400,300)\mapsto(5200,\ 7850)\): la imagen cubre un rectángulo de
 \(200\ \mathrm{m}\times150\ \mathrm{m}\). El punto impropio \((1,0,0)^T\) (dirección de las
-filas de la imagen) va a \((0{,}5,\ 0,\ 0)^T\), dirección Este; la traslación no lo afecta.
+filas de la imagen) va a \((0{,}5;\ 0;\ 0)^T\), dirección Este; la traslación no lo afecta.
 \end{ejemplo}
 
 \begin{center}
@@ -600,12 +600,12 @@ unos grados respecto del Norte y, como en el ejemplo~\ref{ej:06-dron}, \(\det A<
 eje \(v\) hacia abajo.
 
 \emph{Verificación con un cuarto punto.} El punto \((u,v)=(80,80)\) no se usó para calcular
-la afinidad; en el terreno se midió \((1043{,}23,\ 1963{,}49)\). La afinidad predice
+la afinidad; en el terreno se midió \((1043{,}23;\ 1963{,}49)\). La afinidad predice
 \[
   A\begin{pmatrix}80\\80\end{pmatrix}+b
   =\begin{pmatrix}1043{,}20\\1963{,}52\end{pmatrix},
 \]
-con un residuo (medido menos predicho) de \((0{,}03,\ -0{,}03)\ \mathrm{m}\), de módulo
+con un residuo (medido menos predicho) de \((0{,}03;\ -0{,}03)\ \mathrm{m}\), de módulo
 \(0{,}042\ \mathrm{m}\). Con tres puntos el ajuste es exacto y no deja control; el cuarto
 punto es el que permite juzgar la calidad de la georreferenciación.
 \end{ejemplo}
@@ -620,7 +620,7 @@ punto que no se mueve de la composición.
 
 \begin{ejemplo}[Rotación alrededor de un centro y escala alrededor de otro]\label{ej:06-rot-escala}
 Tomamos una figura en forma de T con vértices \((-2,2)\), \((2,2)\), \((2,1)\),
-\((0{,}5,\ 1)\), \((0{,}5,\ -2)\), \((-0{,}5,\ -2)\), \((-0{,}5,\ 1)\) y \((-2,1)\). Primero se aplica la rotación \(\rhoP{c,45^\circ}\) alrededor de \(c=(3,1)\); después, la
+\((0{,}5;\ 1)\), \((0{,}5;\ -2)\), \((-0{,}5;\ -2)\), \((-0{,}5;\ 1)\) y \((-2,1)\). Primero se aplica la rotación \(\rhoP{c,45^\circ}\) alrededor de \(c=(3,1)\); después, la
 homotecia \(\homot{o}{1/2}\) de centro \(o=(-1,2)\) y razón \(k=\tfrac12\). Con la tabla de la
 sección~\ref{sec:puntos-fijos-afin}, sus matrices homogéneas son
 \[
@@ -648,22 +648,22 @@ M=M_2M_1=
 0&0&1
 \end{pmatrix}.
 \]
-El orden importa: \(M_1M_2\) tiene la misma parte lineal pero traslación \((0{,}525,\ -1{,}475)\).
+El orden importa: \(M_1M_2\) tiene la misma parte lineal pero traslación \((0{,}525;\ -1{,}475)\).
 El vértice \(q=(2,2)\) sigue
 \[
-  q=(2,2)\ \longmapsto\ q_1=(1{,}586,\ 1{,}000)\ \longmapsto\ q_2=(0{,}293,\ 1{,}500),
+  q=(2,2)\ \longmapsto\ q_1=(1{,}586;\ 1{,}000)\ \longmapsto\ q_2=(0{,}293;\ 1{,}500),
 \]
-y \(M\) aplicada a \((2,2,1)^T\) da directamente \((0{,}293,\ 1{,}500,\ 1)^T\). La primera
+y \(M\) aplicada a \((2,2,1)^T\) da directamente \((0{,}293;\ 1{,}500;\ 1)^T\). La primera
 etapa recorre un arco de \(45^\circ\) alrededor de \(c\); la segunda, el segmento de \(q_1\)
 a \(o\) hasta su punto medio.
 
 \emph{Punto fijo.} Con \(A=\begin{pmatrix}0{,}354&-0{,}354\\0{,}354&0{,}354\end{pmatrix}\) y
-\(b=(0{,}293,\ 0{,}086)\), el sistema \((I-A)p_\ast=b\) da
+\(b=(0{,}293;\ 0{,}086)\), el sistema \((I-A)p_\ast=b\) da
 \[
-  p_\ast=\Bigl(1-\tfrac{\sqrt2}{2},\ 1-\tfrac{\sqrt2}{2}\Bigr)\approx(0{,}293,\ 0{,}293).
+  p_\ast=\Bigl(1-\tfrac{\sqrt2}{2},\ 1-\tfrac{\sqrt2}{2}\Bigr)\approx(0{,}293;\ 0{,}293).
 \]
 Ninguna de las dos transformaciones lo deja quieto por separado, pero la composición sí:
-\(M\,(0{,}293,\ 0{,}293,\ 1)^T=(0{,}293,\ 0{,}293,\ 1)^T\). Como \(A=\tfrac12R(45^\circ)\), la
+\(M\,(0{,}293;\ 0{,}293;\ 1)^T=(0{,}293;\ 0{,}293;\ 1)^T\). Como \(A=\tfrac12R(45^\circ)\), la
 composición es una similaridad: gira \(45^\circ\) y reduce a la mitad alrededor de \(p_\ast\).
 \end{ejemplo}
 
@@ -1355,7 +1355,7 @@ seguida de la traslación de vector \((3,0)\). Calculá la imagen de \((0,0)\) y
 punto fijo de la composición.
 \solucion{\(M=\begin{pmatrix}0&-1&6\\1&0&1\\0&0&1\end{pmatrix}\) (la rotación sola tiene
 última columna \((3,1)\)); \((0,0)\mapsto(6,1)\), \(c\mapsto(4,2)\); punto fijo
-\((2{,}5,\ 3{,}5)\): la composición es una rotación de \(90^\circ\) con otro centro.}
+\((2{,}5;\ 3{,}5)\): la composición es una rotación de \(90^\circ\) con otro centro.}
 \end{ejercicio}
 
 \begin{ejercicio}

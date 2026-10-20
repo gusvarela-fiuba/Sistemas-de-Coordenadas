@@ -367,10 +367,10 @@ en el elipsoide no hace falta diagonalizar nada: la simetría las elige.
 
 \begin{proposicion}[Curvaturas principales del elipsoide]\label{prop:elip-principales}
 En todo punto del elipsoide que no sea un polo, las direcciones principales son la del
-meridiano y la del paralelo, y las curvaturas principales son
+meridiano y la del paralelo, y las curvaturas principales (tomadas en módulo, o con signo respecto de la normal interior \(-n\) hacia la que se curva la superficie) son
 \[
-  k_1=\frac1M\quad\text{(meridiano)},\qquad k_2=\frac1N\quad\text{(primer vertical)},
-  \qquad k_1\ge k_2 .
+  \kappa_1=\frac1M\quad\text{(meridiano)},\qquad \kappa_2=\frac1N\quad\text{(primer vertical)},
+  \qquad \kappa_1\ge \kappa_2 .
 \]
 Los meridianos y los paralelos son líneas de curvatura.
 \end{proposicion}
@@ -454,8 +454,8 @@ habría que elegir: \(M\), \(N\) o algo intermedio? Para responder, resumimos la
 curvaturas en un solo número.
 Con las curvaturas principales se arman los dos invariantes del capítulo~\ref{cap:curvatura}:
 \[
-  K=k_1k_2=\frac1{MN}\quad\text{(curvatura de Gauss)},\qquad
-  H=\frac{k_1+k_2}2=\frac12\Bigl(\frac1M+\frac1N\Bigr)\quad\text{(curvatura media)} .
+  K=\kappa_1\kappa_2=\frac1{MN}\quad\text{(curvatura de Gauss)},\qquad
+  H=\frac{\kappa_1+\kappa_2}2=\frac12\Bigl(\frac1M+\frac1N\Bigr)\quad\text{(curvatura media)} .
 \]
 El \emph{radio medio de Gauss} es \(R=1/\sqrt K=\sqrt{MN}\): el radio de la esfera que tiene,
 en ese punto, la misma curvatura de Gauss que el elipsoide. Una dirección sobre el terreno se
@@ -702,7 +702,7 @@ radio \(\sqrt{MN}\) corta la curva de la figura~\ref{fig:elip-esfera-local} un p
 \begin{ejercicio}\label{ex:elip-paralelo}
 Calculá la longitud de \(1^\circ\) de paralelo en \(\varphi=-34{,}6^\circ\) y en
 \(\varphi=60^\circ\) sobre GRS80 y sobre la esfera de radio \(R_1=(2a+b)/3\). Calculá también
-\(1^\circ\) de meridiano centrado en \(-34{,}6^\circ\) y compararlo con \(M\cdot1^\circ\).
+\(1^\circ\) de meridiano centrado en \(-34{,}6^\circ\) y comparalo con \(M\cdot1^\circ\).
 \end{ejercicio}
 \solucion{Sobre el elipsoide, \(N\cos\varphi\cdot\pi/180\): \(91\,730{,}178\) m en
 \(-34{,}6^\circ\) y \(55\,800{,}002\) m en \(60^\circ\); sobre la esfera, \(91\,528{,}714\) m y

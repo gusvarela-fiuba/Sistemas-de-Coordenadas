@@ -34,7 +34,7 @@ BANCO = {
                 {"id": "c", "texto": r"Girar $150°$, porque $30° + 150° = 180°$ y media vuelta deshace lo hecho.", "correcta": False,
                  "explicacion": r"Media vuelta no es el neutro: deja el instrumento apuntando al revés. El neutro es el giro de $0°$, y lo que suma $0°$ con $30°$ es $-30°$."},
                 {"id": "d", "texto": r"No tiene inversa: una vez girado, el instrumento no vuelve solo a la posición inicial.", "correcta": False,
-                 "explicacion": r"Que no vuelva sola no quita que exista el giro que la devuelve; en un grupo todo elemento tiene inversa, y girar $-30°$ lo es."},
+                 "explicacion": r"Que no vuelva solo no quita que exista el giro que lo devuelve; en un grupo todo elemento tiene inversa, y girar $-30°$ lo es."},
             ],
             "rubrica": "SVD/medio: la inversa es siempre respecto de una operacion (suma, producto, composicion)",
         },

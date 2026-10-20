@@ -233,7 +233,7 @@ def _(mo):
 
 
 @app.cell
-def _(np):
+def _(lib, mo, np):
     # elipse conocida: centro, semiejes y giro
     _c = np.array([3.0, -2.0]); _sa, _sb, _t = 5.0, 3.0, np.deg2rad(30)
     _R = np.array([[np.cos(_t), -np.sin(_t)], [np.sin(_t), np.cos(_t)]])
@@ -249,10 +249,18 @@ def _(np):
     _A = np.column_stack([_y**2, _x * _y, _x, _y, np.ones(12)])
     _b = -_x**2
     _hat = np.linalg.pinv(_A) @ _b
-    print("verdaderos  (B, C, D, E, F):", np.round(_verd, 4))
-    print("recuperados (B, C, D, E, F):", np.round(_hat, 4))
-    print("|residuo| =", round(float(np.linalg.norm(_b - _A @ _hat)), 4), " |A^T r| =", float(np.linalg.norm(_A.T @ (_b - _A @ _hat))))
-    print("coinciden:", np.allclose(_hat, _verd, rtol=0.05, atol=0.1))
+    _norm_r = float(np.linalg.norm(_b - _A @ _hat))
+    _norm_Atr = float(np.linalg.norm(_A.T @ (_b - _A @ _hat)))
+    _ok_el = bool(np.allclose(_hat, _verd, rtol=0.05, atol=0.1))
+    _nombres = ("B", "C", "D", "E", "F")
+    mo.md(
+        "| Coeficiente | " + " | ".join(f"${k}$" for k in _nombres) + " |\n"
+        "|---|" + "---|" * 5 + "\n"
+        "| Verdadero | " + " | ".join(f"${lib.num_tex(v, 4)}$" for v in _verd) + " |\n"
+        "| Recuperado ($A^+ b$) | " + " | ".join(f"${lib.num_tex(v, 4)}$" for v in _hat) + " |\n\n"
+        f"$\\lVert r\\rVert = {lib.num_tex(_norm_r, 4)}$ · $\\lVert A^T r\\rVert = {_norm_Atr:.2e}$ · "
+        f"`np.allclose`: `{_ok_el}` (discriminante $4B - C^2 = {lib.num_tex(4 * _hat[0] - _hat[1]**2, 3)} > 0$: elipse)."
+    )
     return
 
 

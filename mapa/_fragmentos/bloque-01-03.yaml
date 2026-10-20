@@ -32,7 +32,8 @@ conceptos:
   - id: numeros-complejos
     nombre: "Números complejos como transformaciones del plano"
     clase: "01"
-    unidad: 01b_rotacion_plano
+    unidad: 00_fundamentos
+    unidades: [00_fundamentos, 01b_rotacion_plano]
     hecho_geometrico: "Multiplicar por a+ib es rotar y estirar a la vez; es la matriz [[a,−b],[b,a]], dos números libres frente a los cuatro de una 2×2 cualquiera. Los vectores son puntos."
     que_se_conserva: "ángulos (y distancias si el módulo es 1)"
     apunte: ["rotaciones"]

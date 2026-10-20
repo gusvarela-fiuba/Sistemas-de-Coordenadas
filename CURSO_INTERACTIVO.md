@@ -390,7 +390,7 @@ Temas del programa: 13 y 14 (desarrollo complementario que cierra el arco comple
 **Ejercicios en Python:** `es_jacobiano_conforme(J)` (c) y `latitud_isometrica_elipsoide(phi_deg, e)` (d). Lápiz (a): el producto de dos matrices de la forma [[a, −b], [b, a]] vuelve a tener esa forma, así que componer conformes da conforme; (b): la condición de la cilíndrica equivalente (h·k = 1) y por qué conservar áreas obliga a torcer los ángulos.
 
 - Notebook: [unidades/15_transformaciones_conformes.py](unidades/15_transformaciones_conformes.py)
-- Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
+- Fichas: [clases/13-elipsoide.md](clases/13-elipsoide.md), [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md), [clases/15-transformaciones-conformes.md](clases/15-transformaciones-conformes.md)
 - Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), complemento C2 (Transformaciones conformes) del apunte.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/15_transformaciones_conformes/index.html)
 

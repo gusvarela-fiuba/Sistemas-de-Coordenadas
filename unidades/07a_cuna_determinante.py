@@ -434,7 +434,7 @@ def _(editor_c, lib, mo, np):
 @app.cell
 def _(mo):
     editor_d = mo.ui.code_editor(
-        value="def volumen(u, v, w):\n    cruz = ...      # u × v con sumas y productos de coordenadas: (u2 w3 − u3 w2, ..., ...)\n    return ...      # (u × v) · w\n",
+        value="def volumen(u, v, w):\n    cruz = ...      # u × v con sumas y productos de coordenadas: (u2 v3 − u3 v2, ..., ...)\n    return ...      # (u × v) · w\n",
         language="python", min_height=120, label="ejercicio (d)",
     )
     mo.vstack([
@@ -463,7 +463,7 @@ def _(editor_d, lib, mo, np):
         elif np.allclose(_obt, _esperado):
             _res = mo.callout(mo.md("✅ coincide con `np.linalg.det` en las 20 ternas: escribiste el determinante 3×3 a mano."), kind="success")
         elif np.allclose(_obt, -_esperado):
-            _res = mo.callout(mo.md(r"❌ te quedó la orientación al revés (todo con signo cambiado): revisá el orden de cada resta, $u_2 w_3 - u_3 w_2$ y no al revés, o el signo del término del medio."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ te quedó la orientación al revés (todo con signo cambiado): revisá el orden de cada resta, $u_2 v_3 - u_3 v_2$ y no al revés, o el signo del término del medio."), kind="warn")
         elif np.allclose(np.abs(_obt), np.abs(_esperado)):
             _res = mo.callout(mo.md("❌ el tamaño está bien pero el signo falla en algunas ternas: un término tiene el signo cambiado."), kind="warn")
         else:

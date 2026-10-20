@@ -1,3 +1,11 @@
+"""Genera programáticamente el cuaderno Jupyter `interseccion_superficies.ipynb` usando `nbformat`.
+
+Nota didáctica de Python:
+  Un archivo `.ipynb` es un documento JSON con una lista de celdas (`cells`) de
+  tipo Markdown (`new_markdown_cell`) o código (`new_code_cell`). Usar cadenas
+  crudas `r\"\"\"...\"\"\"` (*raw strings*) evita que Python interprete las barras
+  invertidas de LaTeX (`\\nabla`, `\\frac`, `\\mathbb`) como secuencias de escape.
+"""
 import json
 import nbformat as nbf
 

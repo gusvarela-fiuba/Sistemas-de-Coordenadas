@@ -263,6 +263,7 @@ def _(mo):
 
 @app.cell
 def _(lib, mo, np):
+    # np.pi / 2 son 90° en radianes; el operador @ multiplica la matriz 2×2 por el vector de 2 componentes
     _R = lib.rot2(np.pi / 2)
     _p = np.array([4.0, 3.0])
     _q = _R @ _p
@@ -273,7 +274,7 @@ def _(lib, mo, np):
         [PLANTILLA: la cuenta a mano, término a término.]
         """),
         mo.vstack([
-            mo.md("```python\nR = lib.rot2(np.pi / 2)\np = np.array([4.0, 3.0])\nR @ p\n```"),
+            mo.md("```python\n# rot2 recibe el ángulo en radianes\nR = lib.rot2(np.pi / 2)\np = np.array([4.0, 3.0])\n# @ es el producto matricial R p\nR @ p\n```"),
             mo.md(f"`{np.round(_q, 3).tolist()}`"),
         ]),
     ], widths="equal")
@@ -293,7 +294,9 @@ def _(mo):
 
 @app.cell
 def _(lib, mo, np):
+    # Nube 3×2: 3 puntos del plano (una fila por punto, dos columnas x e y)
     _nube = np.array([[1.0, 0.0], [0.0, 1.0], [2.0, 2.0]])
+    # transformar(nube, R) calcula nube @ R.T para rotar todas las filas de una sola vez
     _salida = lib.transformar(_nube, lib.rot2(np.pi / 2))
     mo.md(f"`nube.shape = {_nube.shape}` → `transformar(nube, R).shape = {_salida.shape}`\n\n```\n{np.round(_salida, 3)}\n```")
     return

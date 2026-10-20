@@ -146,7 +146,7 @@ C[6] = ("Subespacios, producto cuña y determinante", [
  (2, "Aplicale al lote del problema anterior la transformación \\(A=\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}\\). ¿Qué superficie tiene la imagen? ¿Se invierte el sentido del recorrido?",
   f"\\(\\det A=5\\): la superficie pasa a \\({n(area*5,0)}\\) m\\(^2\\). Como el determinante es positivo, el sentido se conserva."),
  (3, "Para \\(A=\\begin{pmatrix}1&2\\\\2&4\\end{pmatrix}\\), calculá \\(\\det A\\), el núcleo y la imagen. ¿En qué se convierte el cuadrado de lados \\(e_1\\) y \\(e_2\\)?",
-  "\\(\\det A=0\\). El núcleo es la recta generada por \\((2,-1)\\) y la imagen, la generada por \\((1,2)\\). El cuadrado se aplasta sobre esa recta: queda un segmento, de área \\(0\\)."),
+  "\\(\\det A=0\\). Como la primera columna es no nula, \\(\\mathrm{rango}\\,A=1\\) y \\(\\dim\\ker A=2-1=1\\): el núcleo es la recta generada por \\((2,-1)\\) y la imagen, la generada por \\((1,2)\\). El cuadrado se aplasta sobre esa recta: queda un segmento, de área \\(0\\)."),
 ])
 
 # ---------------------------------------------------------------- 7 Autovalores

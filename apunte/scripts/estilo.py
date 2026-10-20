@@ -459,12 +459,21 @@ def es_prosa(valor):
     return len(RE_PALABRAS.findall(_limpiar(valor))) >= 2 or bool(RE_MATE_PROSA.search(_limpiar(valor, mate=False)))
 
 
-def _rangos_py(arbol):
+def _col_char(lineas, lineno, col_offset):
+    if not lineas or not (1 <= lineno <= len(lineas)):
+        return col_offset
+    return len(lineas[lineno - 1].encode("utf-8")[:col_offset].decode("utf-8", errors="replace"))
+
+
+def _rangos_py(arbol, lineas=None):
     """(fuera, tecnico): rangos ((l0, c0), (l1, c1)) de cadenas que no son prosa (docstrings, código de
     mo.ui.code_editor, assert, raise) y de cadenas técnicas para el decimal: comparaciones, claves de diccionario (nombres de casos
     precargados), argumentos label/options/value de mo.ui (nombres de controles, que el apunte copia
     tal cual entre « ») y las descripciones de las verificaciones (`_checks = [...]`)."""
-    rango = lambda n: ((n.lineno, n.col_offset), (n.end_lineno, n.end_col_offset))
+    rango = lambda n: (
+        (n.lineno, _col_char(lineas, n.lineno, n.col_offset)),
+        (n.end_lineno, _col_char(lineas, n.end_lineno, n.end_col_offset)),
+    )
     fuera, tecnico = [], []
     for nodo in ast.walk(arbol):
         if isinstance(nodo, (ast.Module, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and nodo.body:
@@ -493,13 +502,15 @@ def _dentro(pos, rangos):
     return any(a <= pos < b for a, b in rangos)
 
 
-def prosa_py(fuente):
+def prosa_py(fuente, archivo="<py>"):
     """[(línea inicial, texto, técnico)] de las cadenas de un .py que se muestran como prosa. Los
     f-strings se rearman con ¤ en lugar de cada {expresión} (no se revisa lo que calcula el código) y
     las cadenas contiguas ("a" "b", una por renglón) se juntan en una sola, con un salto por renglón."""
+    lineas = fuente.split("\n")
     try:
-        fuera, tecnico = _rangos_py(ast.parse(fuente))
-    except SyntaxError:
+        fuera, tecnico = _rangos_py(ast.parse(fuente), lineas)
+    except SyntaxError as exc:
+        print(f"estilo.py: advertencia: error de sintaxis en {archivo}: {exc}", file=sys.stderr)
         fuera, tecnico = [], []
     out, pila, grupo = [], [], []   # pila: [inicio, profundidad de llaves, partes] por f-string abierto
 
@@ -519,36 +530,39 @@ def prosa_py(fuente):
             valor = valor.replace("\n", " ")   # "\n" escrito como escape: no cambia de renglón en el fuente
         grupo.append((inicio, valor))
 
-    for tok in tokenize.generate_tokens(io.StringIO(fuente).readline):
-        tipo = tokenize.tok_name[tok.type]
-        if pila:
-            if tipo == "FSTRING_END":
-                inicio, _, partes, triple = pila.pop()
-                if not pila:
-                    literal(inicio, "".join(partes), triple)
-            elif tipo == "OP" and tok.string in "{}":
-                if tok.string == "{":
-                    if pila[-1][1] == 0:
-                        pila[-1][2].append("¤")
-                    pila[-1][1] += 1
-                else:
-                    pila[-1][1] -= 1
-            elif tipo == "FSTRING_MIDDLE" and pila[-1][1] == 0:
-                pila[-1][2].append(tok.string)
-            elif tipo == "FSTRING_START":
-                pila.append([tok.start, 0, [], tok.string.endswith(('"""', "'''"))])
-            continue
-        if tipo == "FSTRING_START":
-            pila.append([tok.start, 0, [], tok.string.endswith(('"""', "'''"))])
-        elif tipo == "STRING":
-            try:
-                valor = ast.literal_eval(tok.string)
-            except Exception:
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(fuente).readline):
+            tipo = tokenize.tok_name[tok.type]
+            if pila:
+                if tipo == "FSTRING_END":
+                    inicio, _, partes, triple = pila.pop()
+                    if not pila:
+                        literal(inicio, "".join(partes), triple)
+                elif tipo == "OP" and tok.string in "{}":
+                    if tok.string == "{":
+                        if pila[-1][1] == 0:
+                            pila[-1][2].append("¤")
+                        pila[-1][1] += 1
+                    else:
+                        pila[-1][1] -= 1
+                elif tipo == "FSTRING_MIDDLE" and pila[-1][1] == 0:
+                    pila[-1][2].append(tok.string)
+                elif tipo == "FSTRING_START":
+                    pila.append([tok.start, 0, [], tok.string.endswith(('"""', "'''"))])
                 continue
-            if isinstance(valor, str):
-                literal(tok.start, valor, tok.string.endswith(('"""', "'''")))
-        elif tipo not in ("NL", "COMMENT", "INDENT", "DEDENT"):
-            cerrar_grupo()
+            if tipo == "FSTRING_START":
+                pila.append([tok.start, 0, [], tok.string.endswith(('"""', "'''"))])
+            elif tipo == "STRING":
+                try:
+                    valor = ast.literal_eval(tok.string)
+                except Exception:
+                    continue
+                if isinstance(valor, str):
+                    literal(tok.start, valor, tok.string.endswith(('"""', "'''")))
+            elif tipo not in ("NL", "COMMENT", "INDENT", "DEDENT"):
+                cerrar_grupo()
+    except (tokenize.TokenError, IndentationError, SyntaxError):
+        pass
     cerrar_grupo()
     return out
 
@@ -594,7 +608,10 @@ def analizar_interactivo(path):
     fuente = path.read_text(encoding="utf-8", errors="ignore")
     lineas = fuente.split("\n")
     suf = path.suffix
-    trozos = {".py": prosa_py, ".md": prosa_md, ".xml": prosa_xml}.get(suf, prosa_yaml)(fuente)
+    if suf == ".py":
+        trozos = prosa_py(fuente, path)
+    else:
+        trozos = {".md": prosa_md, ".xml": prosa_xml}.get(suf, prosa_yaml)(fuente)
     hall = defaultdict(set)
     ed = []
     for n0, txt, tecnico in trozos:

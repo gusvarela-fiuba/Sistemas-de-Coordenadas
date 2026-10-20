@@ -18,27 +18,27 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 | contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1394 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/04-afinidades-homogeneas.tex | chapter: Afinidades y coordenadas homogéneas | 1335 | 10 | 5 | 8 | 3 | 3 | 0 | — | 9 | 9 | 4 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 828 | 6 | 4 | 8 | 5 | 5 | 0 | — | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 934 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 856 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 935 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 857 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 599 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 934 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 689 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 785 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 798 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 850 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 853 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 633 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 803 | 3 | 4 | 13 | 8 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 13919 | 87 | 70 | 139 | 89 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 13924 | 87 | 70 | 139 | 89 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
 | Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| contenido/c1-proyectivas.tex | capituloComplemento: Transformaciones proyectivas | 852 | 6 | 2 | 4 | 1 | 1 | 0 | — | 7 | 7 | 3 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/c1-proyectivas.tex | capituloComplemento: Transformaciones proyectivas | 855 | 6 | 2 | 4 | 1 | 1 | 0 | — | 7 | 7 | 3 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/c3-terreno-como-matriz.tex | capituloComplemento: El terreno como matriz | 734 | 5 | 2 | 2 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/c2-conformes.tex | capituloComplemento: Transformaciones conformes | 708 | 3 | 3 | 2 | 2 | 2 | 0 | — | 5 | 5 | 2 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/c2-conformes.tex | capituloComplemento: Transformaciones conformes | 706 | 3 | 3 | 2 | 2 | 2 | 0 | — | 5 | 5 | 2 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/c4-marcos-grillas.tex | capituloComplemento: Marcos de referencia, grillas y remuest | 505 | 4 | 3 | 3 | 3 | 3 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 2799 | 18 | 10 | 11 | 8 | 8 | 0 |  | 21 | 21 | 10 | 7 | 0 |  |  | 0 | 0 |  |  |
+| **Total** | | 2800 | 18 | 10 | 11 | 8 | 8 | 0 |  | 21 | 21 | 10 | 7 | 0 |  |  | 0 | 0 |  |  |
 
 ## Apéndices (sin molde)
 
@@ -78,8 +78,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Total de enlaces a unidades: 140; a animaciones: 8; recuadros: 45
 - Enlaces rotos: 0
 
-- Fecha: 2026-10-19
-- HEAD: 44e77d3
+- Fecha: 2026-10-20
+- HEAD: 252d699
 - Páginas del último PDF: 329 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 4 de 4
@@ -106,3 +106,18 @@ Para decidir por el editor:
 - C2: el script viejo `capc2_conformes.py` se retiró por decisión del editor (reemplazado por `c2_conformes.py`). El enlace heredado a la unidad `15_transformaciones_conformes` dice «Unidad 19»: revisar la numeración.
 - C1: los escalares de las columnas del patrón del pentágono siguen escritos con \(\lambda\) (no son autovalores); pasar a \(\mu_i\) si se quiere la convención estricta.
 - C3: «Copernicus DEM GLO-30» cuenta como término de campo por la sigla, pero el crédito de la figura lo exige.
+
+## Decisiones del editor sobre la entrega 5a (2026-10-19)
+
+- La predicción a mano alzada queda como está en la página para quien da la materia (las unidades son de opción múltiple; el croquis en papel es práctica de aula antes de marcar).
+- Alcance de MIT dentro de `apunte/` (scripts de figuras y portada) y `.githooks/`: aprobado.
+- Los números que calcula el código de las unidades quedan con punto por ahora.
+- El subtítulo de la Unidad 0 no va en la portada ni en el mapa.
+- La unidad 2 sin sección propia en el apunte se anotó en `ROADMAP.md`, entrega 5, cobertura del programa.
+
+## Para la próxima entrega (anotado, sin hacer)
+
+- `<title>` de cada unidad exportada con su título, no con el identificador.
+- «teal» → «verde azulado» en la prosa para alumnos (no en el código de colores).
+- `tools/adoptar_para_catedra.py`: reescribir también la dirección del LICENSE y la del pie del sitio.
+- Pregunta de la Unidad 0 menos técnica.

@@ -56,7 +56,7 @@ conceptos:
     nombre: "Cambio de base"
     clase: "08"
     unidad: 08_cambio_de_base
-    hecho_geometrico: "La misma flecha medida con otra grilla; la matriz tiene en sus columnas la base nueva escrita en la vieja. Vectores van con A, formas lineales con A⁻¹ del otro lado, transformaciones con A T A⁻¹."
+    hecho_geometrico: "La misma flecha medida con otra grilla; la matriz C tiene en sus columnas la base nueva escrita en la vieja. Al pasar a la base nueva, los vectores van con C⁻¹, las formas lineales con C del otro lado y las transformaciones con C⁻¹ T C (de modo que T = C T_nueva C⁻¹)."
     que_se_conserva: "Todas las relaciones entre los elementos (incidencias L·P = 0, valores de las formas sobre los vectores): 'convertimos todo para que nada cambie'."
     apunte: ["hilo", "cambio-base"]
     requiere: [transformacion-lineal, forma-lineal, dualidad, coordenadas-homogeneas, inversa]
@@ -64,7 +64,7 @@ conceptos:
     nombre: "Diagonalización"
     clase: "08"
     unidad: 08_cambio_de_base
-    hecho_geometrico: "En la grilla de los autovectores la transformación solo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas."
+    hecho_geometrico: "En la grilla de los autovectores la transformación solo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = C D C⁻¹ (o sea D = C⁻¹ T C) con C = autovectores en columnas."
     que_se_conserva: "Las direcciones propias: cada eje de la grilla cae sobre sí mismo."
     apunte: ["cambio-base"]
     requiere: [autovector, autovalor, cambio-de-base]
@@ -72,7 +72,7 @@ conceptos:
     nombre: "Potencias enteras y reales de una matriz"
     clase: "08"
     unidad: 08_cambio_de_base
-    hecho_geometrico: "Aᵗ = P Dᵗ P⁻¹: aplicar n veces es estirar n veces cada eje propio; con t real la transformación es un proceso continuo y el punto recorre una trayectoria."
+    hecho_geometrico: "Tᵗ = C Dᵗ C⁻¹: aplicar n veces es estirar n veces cada eje propio; con t real la transformación es un proceso continuo y el punto recorre una trayectoria."
     que_se_conserva: "La base de autovectores: todas las potencias comparten las mismas direcciones propias."
     apunte: ["hilo", "cambio-base"]
     requiere: [diagonalizacion, trayectoria, exponencial-de-matrices]
@@ -89,7 +89,8 @@ conceptos:
   - id: gradiente
     nombre: "Gradiente"
     clase: "09"
-    unidad: 10_jacobiano_primera_forma
+    unidad: 00_fundamentos
+    unidades: [00_fundamentos, 10_jacobiano_primera_forma]
     hecho_geometrico: "Forma lineal, no vector: una regla de rectas paralelas cuya recta de nivel cero, corrida al punto, es la tangente a la curva de nivel; por eso 'es perpendicular' a la curva de nivel."
     que_se_conserva: "El valor de f a primer orden: ∇f·h mide cuánto sube f al dar el pasito h."
     apunte: ["derivada", "formas-lineales"]
@@ -108,7 +109,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "Forma cuadrática del segundo orden: dice si la gráfica queda arriba del plano tangente (mínimo), abajo (máximo) o lo cruza (silla); sus autovectores son las direcciones principales de curvatura."
     que_se_conserva: "La curvatura de la gráfica en el punto, independiente de la base elegida."
-    apunte: []
+    apunte: ["derivada"]
     requiere: [derivada-aproximacion-lineal, gradiente, autovector]
   - id: funcion-implicita
     nombre: "Teorema de la función implícita"
@@ -116,7 +117,7 @@ conceptos:
     unidad: 10_jacobiano_primera_forma
     hecho_geometrico: "F(x,y,z) = 0 define z = g(x,y) cerca de un punto si la normal (∇F) 'hace sombra' sobre el eje z, o sea ∂F/∂z ≠ 0; si la normal está acostada en el plano xy la superficie está de canto y no es gráfica ahí. La esfera define z = g(x,y) pero no x = g(y,z) donde la normal es perpendicular al eje x."
     que_se_conserva: "Localmente, la superficie como gráfica de una función de dos variables."
-    apunte: []
+    apunte: ["derivada"]
     requiere: [gradiente, superficie-parametrica]
   - id: superficie-parametrica
     nombre: "Superficie paramétrica"
@@ -130,7 +131,7 @@ conceptos:
     nombre: "Primera forma fundamental"
     clase: "09"
     unidad: 10_jacobiano_primera_forma
-    hecho_geometrico: "ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando solo (du,dv); g = JᵀJ y bajo cambio de coordenadas g' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°."
+    hecho_geometrico: "ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando solo (du,dv); g = JᵀJ y bajo cambio de coordenadas g' = Jᵀ g J. En la esfera G = R² cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°."
     que_se_conserva: "Longitudes y ángulos sobre la superficie, medidos desde las coordenadas."
     apunte: ["derivada"]
     requiere: [jacobiano, producto-interno, superficie-parametrica, cambio-de-base]
@@ -150,7 +151,7 @@ conceptos:
     unidad: 09_cambio_de_base_svd
     hecho_geometrico: "Núcleo: lo que entra y cae al 0; co-imagen (contra-núcleo): lo que entra y no cae; imagen: lo alcanzable a la salida; contra-imagen (espacio inaccesible): lo perpendicular a la imagen. Restringida de co-imagen a imagen la transformación sí se invierte. En SVD los v_i y u_i con σ_i > 0 generan co-imagen e imagen."
     que_se_conserva: "La dimensión: dim co-imagen = dim imagen = rango; para la jacobiana 3×2, imagen = plano tangente y contra-imagen = normal."
-    apunte: []
+    apunte: ["inversas"]
     requiere: [nucleo, subespacio-lineal, svd, jacobiano]
   - id: pseudoinversa
     nombre: "Pseudoinversa de Moore-Penrose"

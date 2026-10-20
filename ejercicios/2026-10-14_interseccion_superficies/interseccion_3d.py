@@ -24,6 +24,26 @@
 #   $$\mathbf{v}(x, y, z) = \nabla F_1 \times \nabla F_2 = \begin{vmatrix} \hat{i} & \hat{j} & \hat{k} \\ 2x & 2y & 1 \\ 1 & 1 & 0 \end{vmatrix} = (-1, 1, 2x - 2y)$$
 
 # %%
+# ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON, NUMPY, MATPLOTLIB Y PLOTLY
+# ==============================================================================
+# 1. Grillas 1D y 2D (`np.linspace` y `np.meshgrid`):
+#    - `np.linspace(a, b, N)` genera `N` puntos equiespaciados entre `a` y `b`
+#      (incluyendo ambos extremos).
+#    - `R, THETA = np.meshgrid(r, theta)` cruza dos vectores 1D para formar dos
+#      matrices 2D de coordenadas polares sobre las cuales evaluamos `X`, `Y`, `Z`
+#      de forma vectorizada (sin bucles `for`).
+# 2. Potencias en Python (`**` vs. `^`):
+#    En Python la potencia se escribe con doble asterisco (`t_vals**2`), a
+#    diferencia de Julia o MATLAB donde se usa `^` (en Python `^` es el XOR bit a bit).
+# 3. Gráficos 3D estáticos (`matplotlib`) e interactivos (`plotly`):
+#    - `ax.plot_surface(X, Y, Z, ...)` dibuja una malla 2D en el espacio 3D.
+#    - `ax.quiver(x0, y0, z0, vx, vy, vz)` dibuja una flecha 3D con origen en
+#      `(x0, y0, z0)` y componentes `(vx, vy, vz)` (acá, los gradientes normales
+#      y el vector tangente a la curva de intersección).
+#    - `go.Figure()` de Plotly exporta un archivo `.html` autónomo que se puede
+#      girar con el mouse en cualquier navegador.
+# ==============================================================================
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D

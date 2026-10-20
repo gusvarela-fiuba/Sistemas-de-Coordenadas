@@ -1,4 +1,4 @@
-# Fragmento del mapa: fichas 11 a 14.
+# Fragmento del mapa: fichas 11 a 15 (la 15 es el complemento C2, transformaciones conformes).
 # Esquema: clases[id,titulo,ficha,pregunta,nivel]; conceptos[id,nombre,clase,unidad,hecho_geometrico,que_se_conserva,apunte[],requiere[]] (ver mapa/ESQUEMA.md).
 # Ids de conceptos: mapa/CONCEPTOS.md. `requiere` puede apuntar a ids de otros bloques.
 
@@ -22,6 +22,12 @@ clases:
     titulo: "Trigonometría esférica y polígonos geodésicos"
     ficha: clases/14-trigonometria-esferica.md
     pregunta: "¿Cómo se relacionan lados y ángulos de un triángulo trazado sobre la esfera, y por qué sus ángulos suman más de 180°?"
+    nivel: complementario
+
+  - id: "15"
+    titulo: "Transformaciones conformes"
+    ficha: clases/15-transformaciones-conformes.md
+    pregunta: "¿Qué tiene que cumplir una transformación para conservar todos los ángulos, y cómo se lleva el elipsoide al plano (Mercator, Gauss-Krüger) pagando solo con la escala?"
     nivel: complementario
 
 conceptos:
@@ -103,7 +109,7 @@ conceptos:
     unidad: 14_trigonometria_esferica
     hecho_geometrico: "Un triángulo esférico son tres planos por el centro: los lados son ángulos entre radios (producto interno), los ángulos son diedros entre planos (producto vectorial); ley de cosenos cos a = cos b cos c + sin b sin c cos A; exceso esférico = área/R²."
     que_se_conserva: "Lados, ángulos y área bajo rotaciones de la esfera; para lados chicos se recupera la trigonometría plana."
-    apunte: ["formas-lineales", "esfera"]
+    apunte: ["esfera"]
     requiere: [producto-interno, producto-vectorial, geodesica, rotacion-3d]
   - id: poligono-geodesico
     nombre: Polígono geodésico
@@ -115,7 +121,7 @@ conceptos:
     requiere: [trigonometria-esferica, geodesica, elipsoide]
   - id: transformacion-conforme
     nombre: Transformación conforme
-    clase: "13"
+    clase: "15"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "Con lupa infinitesimal es una similaridad directa: el Jacobiano es k(P)·R(θ), de la forma [[a, −b], [b, a]] del número complejo; σ₁ = σ₂, F = 0 y E = G = k², Cauchy-Riemann. Sobre el elipsoide (K > 0) no hay isometría al plano: lo que se negocia es la escala, nunca el ángulo."
     que_se_conserva: "Los ángulos entre curvas (y la forma de las figuras chicas); la escala k(P) cambia de punto a punto."
@@ -123,7 +129,7 @@ conceptos:
     requiere: [jacobiano, similaridad, svd, primera-forma-fundamental, numeros-complejos, elipsoide]
   - id: indicatriz-de-tissot
     nombre: Indicatriz de Tissot
-    clase: "13"
+    clase: "15"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y solo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J."
     que_se_conserva: "Lo que dice la elipse: forma (conforme) si σ₁ = σ₂, área (equivalente) si σ₁σ₂ = 1, el meridiano (equidistante) si h = 1."
@@ -131,7 +137,7 @@ conceptos:
     requiere: [jacobiano, svd, valores-singulares, primera-forma-fundamental]
   - id: latitud-isometrica
     nombre: Latitud isométrica
-    clase: "13"
+    clase: "15"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "q(φ) = ln tan(π/4 + φ/2) − (e/2) ln[(1 + e sin φ)/(1 − e sin φ)]: la coordenada norte que estira el meridiano hasta que dq = M dφ/(N cos φ) mide lo mismo que dλ; con ella ds² = N² cos²φ (dq² + dλ²) y la grilla (λ, q) tiene cuadraditos de verdad."
     que_se_conserva: "La igualdad de escalas en las dos direcciones de la grilla: E = G, F = 0; q → ∞ en los polos."
@@ -139,7 +145,7 @@ conceptos:
     requiere: [elipsoide, primera-forma-fundamental, transformacion-conforme]
   - id: mercator
     nombre: Proyección de Mercator
-    clase: "13"
+    clase: "15"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "x = a λ, y = a q(φ): la cilíndrica conforme; h = k = a/(N cos φ) crece hacia los polos, los círculos de Tissot siguen círculos y las loxodromias son rectas. La cilíndrica equidistante (y = S(φ), h = 1) y la equivalente (h·k = 1) son las otras dos respuestas a las preguntas del apunte del elipsoide."
     que_se_conserva: "Los ángulos (rumbos); ni las distancias ni las áreas, que se inflan como 1/(N² cos²φ)."
@@ -147,7 +153,7 @@ conceptos:
     requiere: [latitud-isometrica, transformacion-conforme, indicatriz-de-tissot]
   - id: gauss-kruger
     nombre: Gauss-Krüger (Mercator transversa)
-    clase: "13"
+    clase: "15"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "La conforme que usa la Argentina (POSGAR, fajas): w = f(q + i Δλ) con f analítica (Cauchy-Riemann ⇒ conforme) y elegida para que sobre el meridiano central (Δλ = 0) la ordenada sea el arco de meridiano S(φ); el cilindro es tangente a un meridiano en vez del ecuador y la escala k crece con Δλ²."
     que_se_conserva: "Los ángulos; la escala 1 solo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino)."

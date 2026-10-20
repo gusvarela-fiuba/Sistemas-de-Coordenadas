@@ -5,7 +5,7 @@ Trabajo final de Sistemas de Coordenadas (CB104, FIUBA), Gustavo Varela. Es una 
 Todo se usa desde el navegador, sin instalar nada:
 
 - **Curso interactivo online (20 unidades en el navegador):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
-- **Apunte formal y guías resueltas en PDF (137 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
+- **Apunte formal y guías resueltas en PDF (329 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
 - **Autoevaluación (120 preguntas, 3 modos):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html
 
@@ -161,10 +161,10 @@ unidades/   unidades interactivas en marimo (NN_nombre.py), módulo común cb104
 mapa/       fuente editable del mapa (_fragmentos/*.yaml), mapa.yaml generado, ESQUEMA.md y CONCEPTOS.md
 clases/     fichas temáticas por capítulo
 apunte/     apunte LaTeX (fuente por capítulo) y el PDF compilado
-tools/      build.py (sitio), merge_mapa.py (mapa), bootstrap_github.sh y el README con el flujo
-ejercicios/ resoluciones del material Julia del curso y sus ports a Python
+tools/      build.py (sitio), merge_mapa.py (mapa), cad/ (inspector que_matriz.py y generador DXF comentados paso a paso)
+ejercicios/ resoluciones del material Julia del curso y sus ports a Python comentados como material de estudio
 moodle/     banco de preguntas para importar en Moodle
-datos/      datos de apoyo (los archivos pesados quedan fuera del repo)
+datos/      datos de apoyo y scripts de recorte y SVD de modelos de elevación comentados paso a paso
 site/       salida del build (ignorada por git); la publica .github/workflows/pages.yml
 ```
 
