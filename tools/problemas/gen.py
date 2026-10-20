@@ -337,13 +337,13 @@ def tex(salida):
     d = pathlib.Path(salida); (d / "problemas").mkdir(parents=True, exist_ok=True)
     resp = ["% Apéndice: respuestas de los problemas. Generado por tools/problemas/gen.py; no editar a mano.",
             "\\section{Respuestas de los problemas}\\label{cap:respuestas}\\label{ap:respuestas}", "",
-            "Los problemas de cada capítulo están graduados: \\(\\star\\) directo, \\(\\star\\star\\) para pensar, "
-            "\\(\\star\\star\\star\\) desafío. Todos los valores de estas respuestas se calcularon con "
+            "Los problemas de cada capítulo están graduados: \\({\\star}\\) directo, \\({\\star}{\\star}\\) para pensar, "
+            "\\({\\star}{\\star}{\\star}\\) desafío. Todos los valores de estas respuestas se calcularon con "
             "\\file{tools/problemas/gen.py}.", ""]
     for cap, (tit, pbs) in C.items():
         L = [f"% Problemas del capítulo {cap}. Generado por tools/problemas/gen.py; no editar a mano.",
              f"\\section{{Problemas}}\\label{{sec:problemas-{cap:02d}}}", "",
-             "Graduados: \\(\\star\\) directo, \\(\\star\\star\\) para pensar, \\(\\star\\star\\star\\) desafío. "
+             "Graduados: \\({\\star}\\) directo, \\({\\star}{\\star}\\) para pensar, \\({\\star}{\\star}{\\star}\\) desafío. "
              "Las respuestas están en el apéndice~\\ref{ap:respuestas}; conviene intentarlos antes de mirarlas.", ""]
         resp += [f"\\paragraph{{Capítulo {cap}: {tit}.}}", "\\begin{itemize}"]
         for i, (nv, en, rs) in enumerate(pbs, 1):
