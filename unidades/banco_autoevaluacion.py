@@ -69,7 +69,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'texto': 'No tiene inversa: una vez girado, el instrumento no vuelve solo '
                                             'a la posición inicial.',
                                    'correcta': False,
-                                   'explicacion': 'Que no vuelva sola no quita que exista el giro que la '
+                                   'explicacion': 'Que no vuelva solo no quita que exista el giro que lo '
                                                   'devuelve; en un grupo todo elemento tiene inversa, y '
                                                   'girar $-30°$ lo es.'}],
                      'rubrica': 'SVD/medio: la inversa es siempre respecto de una operacion (suma, producto, '
@@ -2822,42 +2822,42 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'las grillas valen lo mismo'},
                        {'id': '08_e2',
                         'nivel': 'elemental',
-                        'enunciado': 'Armamos $B$ poniendo en sus columnas los ejes nuevos $b_1, b_2$ '
-                                     'escritos en la grilla vieja. ¿Qué hace $B$ con un vector de '
+                        'enunciado': 'Armamos $C$ poniendo en sus columnas los ejes nuevos $b_1, b_2$ '
+                                     'escritos en la grilla vieja. ¿Qué hace $C$ con un vector de '
                                      'coordenadas?',
                         'opciones': [{'id': 'a',
-                                      'texto': 'Lleva coordenadas viejas a nuevas: $c = Bp$ es la lectura '
+                                      'texto': 'Lleva coordenadas viejas a nuevas: $c = Cp$ es la lectura '
                                                'del punto $p$ en la grilla de la parcela.',
                                       'correcta': False,
-                                      'explicacion': 'Es el error de la predicción: $Bp$ interpreta a $p$ '
+                                      'explicacion': 'Es el error de la predicción: $Cp$ interpreta a $p$ '
                                                      'como cantidades de $b_1$ y $b_2$, y devuelve otro '
                                                      'punto. Para leer en la base nueva hay que **resolver** '
-                                                     '$Bc = p$, o sea $c = B^{-1}p$.'},
+                                                     '$Cc = p$, o sea $c = C^{-1}p$.'},
                                      {'id': 'b',
-                                      'texto': 'Lleva coordenadas nuevas a viejas: $p = Bc = c_1 b_1 + c_2 '
-                                               'b_2$; para ir al revés hay que resolver, $c = B^{-1}p$.',
+                                      'texto': 'Lleva coordenadas nuevas a viejas: $p = Cc = c_1 b_1 + c_2 '
+                                               'b_2$; para ir al revés hay que resolver, $c = C^{-1}p$.',
                                       'correcta': True,
-                                      'explicacion': 'Multiplicar por $B$ es avanzar $c_1$ veces $b_1$ y '
+                                      'explicacion': 'Multiplicar por $C$ es avanzar $c_1$ veces $b_1$ y '
                                                      '$c_2$ veces $b_2$, en metros de la obra. Las columnas '
                                                      'dicen a dónde van los ejes; leer coordenadas nuevas es '
                                                      'el problema inverso.'},
                                      {'id': 'c',
                                       'texto': 'Solo es un cambio de base si $b_1 \\perp b_2$; con ejes '
-                                               'oblicuos hay que usar $B^\\top$ en lugar de $B$.',
+                                               'oblicuos hay que usar $C^\\top$ en lugar de $C$.',
                                       'correcta': False,
                                       'explicacion': 'Cualquier par de direcciones no paralelas es base '
-                                                     '($\\det B \\neq 0$). $B^\\top$ solo coincide con '
-                                                     '$B^{-1}$ si los ejes son perpendiculares y de largo '
+                                                     '($\\det C \\neq 0$). $C^\\top$ solo coincide con '
+                                                     '$C^{-1}$ si los ejes son perpendiculares y de largo '
                                                      '$1$, como en Rotaciones I; en general no sirve.'},
                                      {'id': 'd',
-                                      'texto': 'Sus filas son los ejes nuevos y sus columnas los viejos; $B$ '
+                                      'texto': 'Sus filas son los ejes nuevos y sus columnas los viejos; $C$ '
                                                'convierte en los dos sentidos según de qué lado se '
                                                'multiplique.',
                                       'correcta': False,
-                                      'explicacion': 'Los ejes nuevos van en las **columnas**, y $B$ solo '
+                                      'explicacion': 'Los ejes nuevos van en las **columnas**, y $C$ solo '
                                                      'convierte de nuevas a viejas. Poner los ejes como '
-                                                     'filas es usar $B^\\top$, que da otra matriz salvo que '
-                                                     '$B$ sea simétrica.'}],
+                                                     'filas es usar $C^\\top$, que da otra matriz salvo que '
+                                                     '$C$ sea simétrica.'}],
                         'rubrica': 'Cambio de base y SVD · elemental: un cambio de base expresa el mismo '
                                    'vector como combinación de otros vectores; la matriz tiene en sus '
                                    'columnas una base escrita en la otra'},
@@ -2866,17 +2866,17 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                         'enunciado': 'Tomamos los ejes nuevos $b_1 = (1, 1)$ y $b_2 = (1, -1)$ y el punto $p '
                                      '= (3, 4)$. ¿Cuáles son sus coordenadas $c$ en la base nueva?',
                         'opciones': [{'id': 'a',
-                                      'texto': '$c = (7, -1)$, el resultado de $Bp$.',
+                                      'texto': '$c = (7, -1)$, el resultado de $Cp$.',
                                       'correcta': False,
-                                      'explicacion': '$Bp$ va de nuevas a viejas, no al revés. $(7, -1)$ son '
+                                      'explicacion': '$Cp$ va de nuevas a viejas, no al revés. $(7, -1)$ son '
                                                      'las coordenadas en la obra del punto $7b_1 - 1b_2 = '
                                                      '(6, 8)$, que no es $p$. Falta el $\\tfrac12$ de '
-                                                     '$B^{-1} = \\tfrac12 B$.'},
+                                                     '$C^{-1} = \\tfrac12 C$.'},
                                      {'id': 'b',
                                       'texto': '$c = (3{,}5;\\ -0{,}5)$: resolviendo $c_1 + c_2 = 3$, $c_1 - '
                                                'c_2 = 4$.',
                                       'correcta': True,
-                                      'explicacion': '$Bc = p$ es ese sistema: sumando, $2c_1 = 7$; '
+                                      'explicacion': '$Cc = p$ es ese sistema: sumando, $2c_1 = 7$; '
                                                      'restando, $2c_2 = -1$. Control: $3{,}5\\,(1, 1) - '
                                                      '0{,}5\\,(1, -1) = (3{,}5 - 0{,}5;\\ 3{,}5 + 0{,}5) = '
                                                      '(3, 4)$.'},
@@ -2900,47 +2900,46 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'flecha medida con otra grilla'},
                        {'id': '08_m2',
                         'nivel': 'medio',
-                        'enunciado': 'Ponemos los autovectores $v_1, v_2$ de $A$ como columnas de $B$, de '
-                                     'modo que $B$ traduce de la base propia a la canónica. ¿Qué producto '
+                        'enunciado': 'Ponemos los autovectores $v_1, v_2$ de $A$ como columnas de $C$, de '
+                                     'modo que $C$ traduce de la base propia a la canónica. ¿Qué producto '
                                      'nos devuelve la diagonal $\\Lambda$ de autovalores?',
                         'opciones': [{'id': 'a',
-                                      'texto': '$B\\,A\\,B^{-1}$: primero $B^{-1}$ a la derecha para entrar, '
-                                               'después $A$, después $B$ para salir.',
+                                      'texto': '$C\\,A\\,C^{-1}$: primero $C^{-1}$ a la derecha para entrar, '
+                                               'después $A$, después $C$ para salir.',
                                       'correcta': False,
-                                      'explicacion': '$BAB^{-1}$ traduce a la base propia, aplica $A$ (que '
+                                      'explicacion': '$CAC^{-1}$ traduce a la base propia, aplica $A$ (que '
                                                      'espera coordenadas canónicas) y vuelve a canónica: '
                                                      'mezcla las bases y en general no es diagonal. Lo '
-                                                     'correcto es $B^{-1}AB$: de propia a canónica con $B$, '
+                                                     'correcto es $C^{-1}AC$: de propia a canónica con $C$, '
                                                      'transformar con $A$, y de canónica a propia con '
-                                                     '$B^{-1}$.'},
+                                                     '$C^{-1}$.'},
                                      {'id': 'b',
-                                      'texto': '$B^\\top A\\,B$: la transpuesta deshace a $B$, como en '
+                                      'texto': '$C^\\top A\\,C$: la transpuesta deshace a $C$, como en '
                                                'Rotaciones I.',
                                       'correcta': False,
-                                      'explicacion': '$B^\\top = B^{-1}$ solo si las columnas son '
+                                      'explicacion': '$C^\\top = C^{-1}$ solo si las columnas son '
                                                      'perpendiculares de largo $1$, lo que pasa cuando $A$ '
                                                      'es simétrica. Para $\\begin{pmatrix} 3 & 1 \\\\ 0 & 2 '
                                                      '\\end{pmatrix}$ los autovectores $(1, 0)$ y $(1, -1)$ '
-                                                     'no lo son y $B^\\top AB$ no es diagonal.'},
+                                                     'no lo son y $C^\\top AC$ no es diagonal.'},
                                      {'id': 'c',
-                                      'texto': '$B^{-1} A\\,B$: la de la derecha actúa primero, lleva a la '
-                                               'base propia; $A$ estira; $B^{-1}$ vuelve a leer en la base '
+                                      'texto': '$C^{-1} A\\,C$: la de la derecha actúa primero, lleva a la '
+                                               'base propia; $A$ estira; $C^{-1}$ vuelve a leer en la base '
                                                'propia.',
                                       'correcta': True,
-                                      'explicacion': 'Un vector escrito en la base propia pasa por $B$ a '
-                                                     'canónica, $A$ lo transforma, y $B^{-1}$ lo lee de '
+                                      'explicacion': 'Un vector escrito en la base propia pasa por $C$ a '
+                                                     'canónica, $A$ lo transforma, y $C^{-1}$ lo lee de '
                                                      'vuelta en la base propia, donde cada eje solo se '
                                                      'estiró por su $\\lambda$. Es el $T_{\\mathrm{diag}} = '
-                                                     'A^{-1}T_{\\mathrm{can}}A$ de otra notación habitual, '
-                                                     'con su $A$ en el lugar de nuestra $B$.'},
+                                                     'C^{-1}T_{\\mathrm{can}}C$ del capítulo 9 del apunte.'},
                                      {'id': 'd',
-                                      'texto': '$A\\,B$: aplicar $A$ a cada autovector ya da $\\lambda_k '
+                                      'texto': '$A\\,C$: aplicar $A$ a cada autovector ya da $\\lambda_k '
                                                'v_k$, que es diagonal.',
                                       'correcta': False,
-                                      'explicacion': '$AB = B\\Lambda$ tiene en sus columnas $\\lambda_k '
+                                      'explicacion': '$AC = C\\Lambda$ tiene en sus columnas $\\lambda_k '
                                                      'v_k$: los autovectores estirados, escritos todavía en '
                                                      'canónica. Para que quede $\\Lambda$ falta leerlos en '
-                                                     'la base propia, o sea multiplicar por $B^{-1}$ a la '
+                                                     'la base propia, o sea multiplicar por $C^{-1}$ a la '
                                                      'izquierda.'}],
                         'rubrica': 'Cambio de base y SVD · medio: cambiar la base de la matriz de una '
                                    'transformación es componer con los dos cambios de base: M_av = C_{av←e} '
@@ -2948,16 +2947,16 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                        {'id': '08_a1',
                         'nivel': 'avanzado',
                         'enunciado': 'Para $A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$ tenemos '
-                                     '$\\lambda = 3, 1$, $B = \\begin{pmatrix} 1 & 1 \\\\ 1 & -1 '
-                                     '\\end{pmatrix}$ y $B^{-1} = \\tfrac12 B$. Calculamos $A^5 = '
-                                     'B\\Lambda^5 B^{-1}$ sin multiplicar cinco veces. ¿Cuánto da?',
+                                     '$\\lambda = 3, 1$, $C = \\begin{pmatrix} 1 & 1 \\\\ 1 & -1 '
+                                     '\\end{pmatrix}$ y $C^{-1} = \\tfrac12 C$. Calculamos $A^5 = '
+                                     'C\\Lambda^5 C^{-1}$ sin multiplicar cinco veces. ¿Cuánto da?',
                         'opciones': [{'id': 'a',
                                       'texto': '$\\begin{pmatrix} 243 & 0 \\\\ 0 & 1 \\end{pmatrix}$, porque '
                                                'en la base propia elevar es elevar los autovalores.',
                                       'correcta': False,
                                       'explicacion': 'Eso es $\\Lambda^5$, la transformación **leída en la '
                                                      'base propia**. $A^5$ pide volver a la canónica: '
-                                                     '$B\\Lambda^5B^{-1}$. Sin ese regreso tenemos la misma '
+                                                     '$C\\Lambda^5C^{-1}$. Sin ese regreso tenemos la misma '
                                                      'transformación en otros números.'},
                                      {'id': 'b',
                                       'texto': '$\\begin{pmatrix} 32 & 1 \\\\ 1 & 32 \\end{pmatrix}$, '
@@ -2969,22 +2968,22 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      '$\\begin{pmatrix} 4 & 1 \\\\ 1 & 4 \\end{pmatrix}$.'},
                                      {'id': 'c',
                                       'texto': '$\\begin{pmatrix} 244 & 242 \\\\ 242 & 244 \\end{pmatrix}$, '
-                                               'el producto $B\\,\\mathrm{diag}(243, 1)\\,B$.',
+                                               'el producto $C\\,\\mathrm{diag}(243, 1)\\,C$.',
                                       'correcta': False,
-                                      'explicacion': 'Falta el $\\tfrac12$ de $B^{-1} = \\tfrac12 B$: se usó '
-                                                     '$B$ en lugar de su inversa. Control: $\\det A^5 = 3^5 '
+                                      'explicacion': 'Falta el $\\tfrac12$ de $C^{-1} = \\tfrac12 C$: se usó '
+                                                     '$C$ en lugar de su inversa. Control: $\\det A^5 = 3^5 '
                                                      '= 243$, y $244^2 - 242^2 = 972 \\neq 243$.'},
                                      {'id': 'd',
                                       'texto': '$\\begin{pmatrix} 122 & 121 \\\\ 121 & 122 \\end{pmatrix}$: '
                                                '$\\tfrac12 \\begin{pmatrix} 243 + 1 & 243 - 1 \\\\ 243 - 1 & '
                                                '243 + 1 \\end{pmatrix}$.',
                                       'correcta': True,
-                                      'explicacion': '$B\\Lambda^5 = \\begin{pmatrix} 243 & 1 \\\\ 243 & -1 '
-                                                     '\\end{pmatrix}$ y, por $\\tfrac12 B$, queda '
+                                      'explicacion': '$C\\Lambda^5 = \\begin{pmatrix} 243 & 1 \\\\ 243 & -1 '
+                                                     '\\end{pmatrix}$ y, por $\\tfrac12 C$, queda '
                                                      '$\\tfrac12\\begin{pmatrix} 244 & 242 \\\\ 242 & 244 '
                                                      '\\end{pmatrix}$. Lectura: $e_1 = \\tfrac12 b_1 + '
                                                      '\\tfrac12 b_2$; la parte en $b_1$ se multiplica por '
-                                                     '$243$ y la de $b_2$ queda; los $B^{-1}B$ del medio se '
+                                                     '$243$ y la de $b_2$ queda; los $C^{-1}C$ del medio se '
                                                      'cancelan.'}],
                         'rubrica': 'Cambio de base y SVD · medio: la base de autovectores permite potencias '
                                    'enteras y reales de la matriz. Hecho geométrico: ver la transformación '
@@ -3000,9 +2999,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                'reales.',
                                       'correcta': False,
                                       'explicacion': 'Dos raíces reales, pero una sola dirección propia: el '
-                                                     'núcleo de $C - I$ es la recta del eje $x$. Sin segundo '
-                                                     'eje propio no hay grilla en la que $C$ solo estire; '
-                                                     '$B^{-1}CB$ nunca es diagonal.'},
+                                                     'núcleo de $S - I$ es la recta del eje $x$. Sin segundo '
+                                                     'eje propio no hay grilla en la que la cizalla $S$ solo '
+                                                     'estire; $C^{-1}SC$ nunca es diagonal.'},
                                      {'id': 'b',
                                       'texto': 'El giro $R(30°)$: conserva largos y ángulos, así que en su '
                                                'propia grilla es la identidad.',
@@ -3017,11 +3016,11 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                'autovectores $(1, 0)$ y $(1, -1)$ independientes.',
                                       'correcta': True,
                                       'explicacion': 'Dos autovalores reales distintos dan dos direcciones '
-                                                     'propias independientes, y eso basta: $B = '
+                                                     'propias independientes, y eso basta: $C = '
                                                      '\\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}$ y '
-                                                     '$B^{-1}AB = \\mathrm{diag}(3, 2)$. Que los ejes '
+                                                     '$C^{-1}AC = \\mathrm{diag}(3, 2)$. Que los ejes '
                                                      'propios no sean perpendiculares no molesta; solo '
-                                                     'impide usar $B^\\top$.'},
+                                                     'impide usar $C^\\top$.'},
                                      {'id': 'd',
                                       'texto': 'Ninguna de las anteriores: para diagonalizar hace falta que '
                                                'la matriz sea simétrica.',

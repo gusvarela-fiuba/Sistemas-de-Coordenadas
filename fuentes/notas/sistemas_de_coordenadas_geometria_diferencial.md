@@ -44,24 +44,28 @@ El tensor métrico codifica toda la geometría local de la superficie.
 
 ## 5. Esfera
 
-$$
-\mathbf{r}(\varphi, \lambda) = (R \sin\varphi \cos\lambda,\; R \sin\varphi \sin\lambda,\; R \cos\varphi)
-$$
+Con latitud geodésica/esférica $\varphi \in [-\pi/2, \pi/2]$ y longitud $\lambda$:
 
 $$
-ds^2 = R^2\, d\varphi^2 + R^2 \sin^2\varphi\, d\lambda^2
+\mathbf{r}(\varphi, \lambda) = (R \cos\varphi \cos\lambda,\; R \cos\varphi \sin\lambda,\; R \sin\varphi)
 $$
 
-$E = R^2$, $F = 0$, $G = R^2 \sin^2\varphi$.
+Los vectores tangentes (columnas de la matriz jacobiana $J$) son $\mathbf{r}_\varphi = (-R \sin\varphi \cos\lambda,\; -R \sin\varphi \sin\lambda,\; R \cos\varphi)^{\mathsf{T}}$ con norma $h_\varphi = R$, y $\mathbf{r}_\lambda = (-R \cos\varphi \sin\lambda,\; R \cos\varphi \cos\lambda,\; 0)^{\mathsf{T}}$ con norma $h_\lambda = R \cos\varphi$.
 
-**1° de longitud vale** ($R = 6371$ km, $1° = 0.01745$ rad):
+$$
+ds^2 = R^2\, d\varphi^2 + R^2 \cos^2\varphi\, d\lambda^2
+$$
 
-| Lugar | Latitud | 1° de longitud |
-|---|---|---|
-| Ecuador | 0° | 111 km |
-| Buenos Aires | 34° | 62 km |
-| Oslo | 60° | 55 km |
-| Polo Norte | 90° | 0 km |
+$E = R^2$, $F = 0$, $G = R^2 \cos^2\varphi$, por lo que la matriz de la primera forma fundamental es $g = \operatorname{diag}(R^2,\; R^2 \cos^2\varphi)$.
+
+**1° de longitud vale** ($R = 6371$ km, $1° = 0{,}01745$ rad, arco en el ecuador $\approx 111$ km):
+
+| Lugar | Latitud $\varphi$ | $\cos\varphi$ | 1° de longitud |
+|---|---|---|---|
+| Ecuador | 0° | 1,00 | 111 km |
+| Buenos Aires | 34° | 0,83 | 92 km |
+| Oslo | 60° | 0,50 | 55 km |
+| Polo Norte | 90° | 0,00 | 0 km |
 
 ## 6. Matrices de rotación
 

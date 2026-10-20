@@ -22,7 +22,7 @@ Toda matriz lleva una base ortonormal de la entrada en una base ortogonal de la 
 - Matriz simétrica: vectores singulares y autovectores coinciden
 - Aproximación de rango $k$ de una matriz de alturas
 
-**La pregunta antes que la fórmula.** Diagonalizar pregunta ¿qué direcciones caen sobre sí mismas?. Pero una rotación de 90° no deja ninguna dirección quieta, y el polinomio característico lo dice con raíces complejas. La SVD cambia la pregunta: ¿qué direcciones perpendiculares de la entrada siguen perpendiculares a la salida?. Esa pregunta siempre tiene respuesta real.
+**La pregunta antes que la fórmula.** Diagonalizar pregunta ¿qué direcciones caen sobre sí mismas? Pero una rotación de 90° no deja ninguna dirección quieta, y el polinomio característico lo dice con raíces complejas. La SVD cambia la pregunta: ¿qué direcciones perpendiculares de la entrada siguen perpendiculares a la salida? Esa pregunta siempre tiene respuesta real.
 
 **Escalera.**
 - En $\mathbb R$: $x\mapsto a x$. «Diagonalizar» es trivial (todo $x$ es autovector). La SVD de un número es $a = (\pm1)\cdot|a|\cdot 1$: un signo a la salida, un estiramiento $|a|$, nada a la entrada. El valor singular es $|a|$; el signo quedó en la «base de salida».

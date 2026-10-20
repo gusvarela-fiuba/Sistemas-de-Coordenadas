@@ -99,3 +99,8 @@ paralelas; en $\mathbb{R}^3$ tres filas coplanares. Construir una transformació
 - Calcular $p\times q$ y $\det[p\,q\,r]$ para $p=(1,2,3)$, $q=(4,5,-1)$, $r=(0,0,1)$ y comparar
 - Unir $A$ y $C$ y cortar con $BD$ en el pentágono entero usando productos cruz
 - Hallar el núcleo de una $3\times3$ de filas coplanares con la cruz de dos filas
+
+## En el CAD
+
+- [`AREA`: la superficie de la parcela es una suma de cuñas](../cad/#cap6)
+- [`SCALE` e `INSERT`: el área se multiplica por el determinante](../cad/#cap6)

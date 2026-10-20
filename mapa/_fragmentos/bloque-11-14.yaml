@@ -103,7 +103,7 @@ conceptos:
     unidad: 14_trigonometria_esferica
     hecho_geometrico: "Un triángulo esférico son tres planos por el centro: los lados son ángulos entre radios (producto interno), los ángulos son diedros entre planos (producto vectorial); ley de cosenos cos a = cos b cos c + sin b sin c cos A; exceso esférico = área/R²."
     que_se_conserva: "Lados, ángulos y área bajo rotaciones de la esfera; para lados chicos se recupera la trigonometría plana."
-    apunte: ["formas-lineales", "esfera"]
+    apunte: ["esfera"]
     requiere: [producto-interno, producto-vectorial, geodesica, rotacion-3d]
   - id: poligono-geodesico
     nombre: Polígono geodésico

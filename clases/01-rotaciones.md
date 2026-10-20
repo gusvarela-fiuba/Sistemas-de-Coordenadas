@@ -40,7 +40,7 @@ Una rotación es la transformación que fija un punto y conserva distancias, án
 
 ### Matriz ortogonal
 
-Álgebra: $A^TA = Id$; las columnas son perpendiculares y de longitud 1. Se ve: la grilla cuadrada sigue siendo cuadrada, pero puede haberse dado vuelta como en un espejo. $\det A = +1$ dice «sin espejo» (rotación), $\det A = -1$ dice reflexión. Escalera: en $\mathbb R$, $a^2=1$; en $\mathbb R^2$ dos familias ($R(\theta)$ y las reflexiones); en $\mathbb R^3$ idem más las rotorreflexiones.
+Álgebra: $A^TA = Id$; las columnas son perpendiculares y de longitud 1. Se ve: la grilla cuadrada sigue siendo cuadrada, pero puede haberse dado vuelta como en un espejo. $\det A = +1$ dice «sin espejo» (rotación), $\det A = -1$ dice reflexión (el determinante como área orientada se estudia en detalle en el capítulo 6, *Subespacios, producto cuña y determinante*). Escalera: en $\mathbb R$, $a^2=1$; en $\mathbb R^2$ dos familias ($R(\theta)$ y las reflexiones); en $\mathbb R^3$ ídem más las rotorreflexiones.
 
 ### Rotaciones en tres dimensiones
 

@@ -63,11 +63,11 @@ TITULO_MAPA = "Sistemas de Coordenadas — mapa de conceptos"
 TEAL, RUST, GOLD = "#1b6f6a", "#b5532a", "#c9a227"
 FONDO_NODO = "#e3f1f0"
 # avance interno del programa (no se publica): fichas con capítulo desarrollado; "Seguir el programa" salta a la unidad siguiente
-PROGRAMA_AVANCE = ["01", "02", "03", "03p", "04", "05", "06", "07", "08", "09"]
+PROGRAMA_AVANCE = ["01", "02", "03", "03p", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14"]
 # Capítulo del PDF que corresponde a cada ficha (id de ficha -> rótulo): la ficha 03 cubre los capítulos 3 y 4,
-# la 03p es el complemento C1 y de la 04 a la 14 el capítulo es el id más uno.
+# la 03p es el complemento C1, de la 04 a la 14 el capítulo es el id más uno y la 15 es el complemento C2.
 CAPITULO_DE_FICHA = {"01": "1", "02": "2", "03": "3 y 4", "03p": "C1", "04": "5", "05": "6", "06": "7", "07": "8",
-                     "08": "9", "09": "10", "10": "11", "11": "12", "12": "13", "13": "14", "14": "15"}
+                     "08": "9", "09": "10", "10": "11", "11": "12", "12": "13", "13": "14", "14": "15", "15": "C2"}
 
 
 def rotulo_ficha(cid: str) -> str:

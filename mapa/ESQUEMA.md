@@ -36,7 +36,7 @@ unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su or
     nivel: troncal               # troncal | complementario | avanzado
 ```
 
-El `estado` de una **unidad** es interno (decide qué se exporta); en el sitio una unidad sin exportar figura como «en preparación».Las fichas que ninguna unidad cubre (hoy 11–14) van a la última unidad, «Lo que viene».
+El `estado` de una **unidad** es interno (decide qué se exporta: hoy las 20 unidades están activas y exportadas). Si hubiera fichas que ninguna unidad cubriera, irían a una entrada final «Lo que viene».
 
 ## Reglas que valida `tools/build.py`
 
