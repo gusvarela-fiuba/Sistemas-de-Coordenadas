@@ -45,7 +45,7 @@ ARCHIVOS_LATEX = (
     "apunte/portada/portada-standalone.tex",
     "apunte/portada/portada-tikz.tex",
 )
-ARCHIVOS_URL = ("README.md", "INSTRUCTIVO_DE_USO.md", "CURSO_INTERACTIVO.md")
+ARCHIVOS_URL = ("README.md", "INSTRUCTIVO_DE_USO.md", "CURSO_INTERACTIVO.md", "PARA_EL_DOCENTE.md")
 ARCHIVO_STY = "apunte/apunte-formato.sty"
 # `\newcommand{\sitioURL}{https://...}` del .sty: la URL va SIN barra final (el .tex le agrega las rutas).
 RE_SITIOURL = re.compile(r"^\\newcommand\{\\sitioURL\}\{[^}]*\}", re.M)
