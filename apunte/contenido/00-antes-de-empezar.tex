@@ -752,26 +752,35 @@ G)(x)=F\bigl(G(x)\bigr)\), y en general cambiar el orden cambia el resultado.
 \bottomrule
 \endlastfoot
 Puntos y vectores & \(p,\ q,\ v\) (minúscula cursiva) & Un vector se identifica con su punto. En el texto, \((x,y)\); en las cuentas, columna \(\begin{pmatrix}x\\y\end{pmatrix}\).\\
+Origen & \(o\) & También el centro de la esfera en el capítulo 15.\\
 Rectas y figuras & \(L\), el triángulo \(ABC\) (mayúscula) & \\
-Matrices & \(A,\ R,\ M\) (mayúscula itálica) & Identidad \(I\); transpuesta \(A^T\); inversa \(A^{-1}\); determinante \(\det A\).\\
+Matrices & \(A,\ R,\ M\) (mayúscula itálica) & Identidad \(I\); transpuesta \(A^T\); inversa \(A^{-1}\); determinante \(\det A\); traza \(\operatorname{tr}A\), la suma de la diagonal.\\
 Norma & \(\lVert\cdot\rVert\) & \\
-Núcleo, imagen y rango & \(\ker A\), \(\operatorname{im}A\), \(\operatorname{rango}A\) & \(\dim\ker A+\operatorname{rango}A=n\).\\
+Núcleo, imagen y rango & \(\ker A\), \(\operatorname{im}A\), \(\operatorname{rango}A\) & \(A\) de \(m\times n\) lleva la entrada \(\R^n\) a la salida \(\R^m\); \(\dim\ker A+\operatorname{rango}A=n\).\\
+Producto vectorial y producto cuña & \(u\times v\) en \(\R^3\); \(u\wedge v\) & \\
 Formas lineales y gradiente & \(\omega,\ \ell\) y \(\nabla f\) como fila & El covector se escribe como fila y actúa sobre el vector columna.\\
 Rotación & \(R(\theta)\) lineal; \(\rho_{c,\theta}\) con centro \(c\) & \\
 Reflexión & \(\sigma_L\) respecto de la recta \(L\) & \\
 Homotecia & \(\eta_o^k\) de centro \(o\) y razón \(k\) & \\
 Traslación & \(\tau_v\) & \\
 Afinidad & \(f(x)=Ax+b\) & En homogéneas, \((x,y,1)^T\) con última fila \((0\ \ 0\ \ 1)\).\\
+Coordenadas homogéneas & punto \((x,y)\mapsto(x,y,1)\); recta \(ax+by+c=0\mapsto(a,b,c)\) & Un número \(\mu\neq0\) que multiplica una terna no cambia el punto (capítulo 4 y C1).\\
 Composición & \(g\circ f\) aplica primero \(f\) & Las matrices van a la izquierda del vector columna.\\
-Ángulos & \(\theta\), antihorario positivo & Radianes por defecto; grados con \(^\circ\).\\
-Acimut & \(\mathrm{Az}\) desde el norte, sentido horario & \(\theta=90^\circ-\mathrm{Az}\).\\
-Cambio de base & \(C=C_{b\to e}\) & Base nueva en columnas; lleva coordenadas en \(b\) a coordenadas en \(e\): \([v]_e=C\,[v]_b\).\\
+Ángulos & \(\theta\), antihorario positivo & Radianes por defecto; grados con \(^\circ\); \(1''=\pi/648\,000\) rad.\\
+Acimut & \(\mathrm{Az}\) desde el norte, sentido horario & \(\theta=90^\circ-\mathrm{Az}\). En el capítulo 15, \(\alpha\).\\
+Cambio de base & \(C=C_{b\to e}\) & Base vieja \(e\) (la de partida), base nueva \(b\) (la que queremos usar); \([v]_b\) es la lista de coordenadas de \(v\) en la base \(b\). Base nueva en columnas; lleva coordenadas en \(b\) a coordenadas en \(e\): \([v]_e=C\,[v]_b\).\\
 Conjugación y diagonalización & \(C^{-1}AC\); \(A=CDC^{-1}\) & \(D\) diagonal, con los autovectores en las columnas de \(C\).\\
 Autovalores & \(\lambda\) en todo el apunte, salvo en el capítulo 10, donde se escriben \(\mu\) porque ahí \(\lambda\) es la longitud & En los capítulos 13 a 15 y los complementos C2 y C4, \(\lambda\) es la longitud; en C4, \(\mu\) es la variación de escala de la transformación de siete parámetros. En el capítulo 7, los autovalores del tensor de deformación se escriben \(e_1, e_2\) (deformaciones principales), como es habitual en geodesia. En el capítulo 13, los autovalores que importan son las curvaturas principales y se escriben \(\kappa_1,\kappa_2\).\\
-Valores singulares & \(\sigma_1\ge\sigma_2\ge\cdots\) & \\
-Matriz de dispersión (de una nube o de los errores) & \(\Sigma\) con subíndice: \(\Sigma_{EN}\), \(\Sigma_0\) & El subíndice dice de qué coordenadas o de qué nube es. Sin subíndice, \(\Sigma\) es la matriz de valores singulares de la SVD, salvo en el capítulo 10, que no usa la SVD y llama \(\Sigma\) a la de las mediciones.\\
-Latitud y longitud & \(\varphi\) (solo latitud), \(\lambda\) (longitud) & \\
+Valores singulares & \(\sigma_1\ge\sigma_2\ge\cdots\) & Vectores singulares: derechos \(v_i\) (de la entrada) e izquierdos \(u_i\) (de la salida). En el capítulo 8, \(Q(x)=x^TA^TAx=\lVert Ax\rVert^2\) es el cuadrado del largo con que sale \(x\).\\
+Nube de puntos & \(p_i=(x_i,y_i)\), \(i=1,\dots,n\); baricentro \(\bar p=(\bar x,\bar y)\) & Sumas centradas \(S_{xx}=\sum_i(x_i-\bar x)^2\), \(S_{yy}=\sum_i(y_i-\bar y)^2\), \(S_{xy}=\sum_i(x_i-\bar x)(y_i-\bar y)\); \(X_0\), de \(n\times2\), tiene por filas los \(p_i-\bar p\) (un punto por fila). En el capítulo 8 la cantidad de puntos es \(N\).\\
+Matriz de dispersión (de una nube o de los errores) & \(\Sigma\) con subíndice: \(\Sigma_{EN}\), \(\Sigma_0=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\) & El subíndice dice de qué coordenadas o de qué nube es. Sin subíndice, \(\Sigma\) es la matriz de valores singulares de la SVD, salvo en el capítulo 10, que no usa la SVD y llama \(\Sigma\) a la de las mediciones.\\
+Latitud y longitud & \(\varphi\) (solo latitud), \(\lambda\) (longitud) & \(\varphi\) es la latitud geodésica, positiva al norte; \(\lambda\), positiva al este. En el capítulo 14, latitudes geocéntrica \(\psi\) y reducida \(\beta\).\\
+Elipsoide & semiejes \(a>b\); radios \(M\) (meridiano) y \(N\) (primer vertical); \(W=\sqrt{1-e^2\sin^2\varphi}\) & Capítulo 14. En el plano meridiano, \(x'\) es la distancia al eje polar y \(z\), la altura sobre el ecuador.\\
 Elipsoide GRS80 & \(a=6\,378\,137\ \mathrm{m}\), \(1/f=298{,}257222101\) & \\
+Superficie (capítulo 13) & \(r(u,v)\in\R^3\), paso \(d=(du,dv)\); \(I\) con \(E,F,G\); \(II\) con \(L,M,N\) & Primera y segunda forma fundamental (forma o matriz).\\
+Curvaturas (capítulo 13) & principales \(\kappa_1\ge\kappa_2\); de Gauss \(K\); media \(H\) & Con signo respecto de la normal \(n\), positivas si la superficie se dobla hacia \(n\).\\
+Triángulo esférico (capítulo 15) & vértices \(A,B,C\) con vectores unitarios \(u,v,w\); lados opuestos \(a,b,c\) & Los lados son ángulos; los ángulos del triángulo también se llaman \(A,B,C\). Esfera de radio \(R\), casi siempre la unitaria.\\
+Modelo digital de elevación (C3) & \(Z=(z_{ij})\), paso \(\Delta\) & \(x\) al este e \(y\) al norte, en metros; la fila \(i=0\) es la del norte y la columna \(j=0\), la del oeste.\\
 \end{longtable}
 }
 
