@@ -5,7 +5,7 @@ Trabajo final de Sistemas de Coordenadas (CB104, FIUBA), Gustavo Varela. Es una 
 Todo se usa desde el navegador, sin instalar nada:
 
 - **Curso interactivo online (20 unidades en el navegador):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/
-- **Apunte formal y guías resueltas en PDF (137 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
+- **Apunte formal y guías resueltas en PDF (329 páginas):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf
 - **Mapa interactivo de conceptos:** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html
 - **Autoevaluación (120 preguntas, 3 modos):** https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html
 
