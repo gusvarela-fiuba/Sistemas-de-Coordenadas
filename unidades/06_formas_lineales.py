@@ -149,9 +149,9 @@ def _(mo):
     son la **base dual**, las reglas que leen cada coordenada; cualquier forma es $a\,\mathsf x + b\,\mathsf y$, y
     todas juntas forman el espacio **dual**.
 
-    **La flecha $(a, b)$ es perpendicular a las marcas sólo en la base canónica**, donde $\ell(p) = \langle (a, b),
-    p\rangle$ y la forma se disfraza de vector ([Producto interno](../02_producto_interno/index.html): "no hay base
-    privilegiada salvo por el producto interno"). Si deformamos el plano con una $A$ que no lo conserva, $A(a, b)^T$ deja
+    **La flecha $(a, b)$ es perpendicular a las marcas solo en la base canónica**, donde $\ell(p) = \langle (a, b),
+    p\rangle$ y la forma se disfraza de vector ([Producto interno](../02_producto_interno/index.html): “no hay base
+    privilegiada salvo por el producto interno”). Si deformamos el plano con una $A$ que no lo conserva, $A(a, b)^T$ deja
     de ser perpendicular a las rectas nuevas; la regla, no.
 
     **Dualidad: la regla se transforma al revés.** Si $p' = Ap$, la fila que lee lo mismo sobre $p'$ es
@@ -178,7 +178,7 @@ def _(mo):
     **El gradiente es una forma lineal, no un vector.** Permite hacer una
     aproximación lineal de la función. Es esta misma regla:
     cerca de un punto, los escalones de altura son las marcas de $\nabla h = (h_x, h_y)$. Dibujarlo como flecha
-    perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado: si cambiamos de unidades en un
+    perpendicular a las curvas de nivel solo tiene sentido con un producto interno fijado: si cambiamos de unidades en un
     eje (metros en $x$, pies en $y$), o estamos en el plano $(d\varphi, d\lambda)$ del elipsoide, donde un paso en
     $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
     es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
@@ -200,13 +200,13 @@ def _(lib, mo, np):
     B_08 = np.array([[3.0, 1.0], [1.0, 2.0]])  # la base oblicua de frentes y lados (Cambio de base)
     casos = {
         "la cota 2x + y, sin deformar": ("fijo", None, lambda s: np.eye(2),
-            r"la regla $(2, 1)$: marcas cada $1/\sqrt5 = 0.447$, perpendiculares a la flecha $(2, 1)$. El mojón está en la marca $3$."),
+            r"la regla $(2, 1)$: marcas cada $1/\sqrt5 = 0{,}447$, perpendiculares a la flecha $(2, 1)$. El mojón está en la marca $3$."),
         "giro de 30°": ("rotacion", (-180, 180, 30, 1, "θ (°)"), lambda t: lib.rot2(np.deg2rad(t)),
             r"$A^{-1} = A^T$: la fila gira como un punto y la flecha sigue perpendicular. Con una rotación la dualidad no se ve."),
         "escala anisótropa diag(2, 1)": ("param", (0.5, 2.5, 2.0, 0.1, "k: factor en x"), lambda k: np.diag([k, 1.0]),
             r"los puntos se estiran en $x$ por $k$; la fila se divide: $(2/k, 1)$. Las marcas se separan y $A(2, 1)^T$ **deja de ser perpendicular** a ellas."),
         "cizalla [[1, 1], [0, 1]]": ("param", (-1.5, 1.5, 1.0, 0.1, "s: corte"), lambda s: np.array([[1.0, s], [0.0, 1.0]]),
-            r"$A^{-1}$ corta al revés: $(2, 1) \mapsto (2, 1 - 2s)$. Con $s = \tfrac12$ las marcas quedan verticales: la regla sólo lee $x$."),
+            r"$A^{-1}$ corta al revés: $(2, 1) \mapsto (2, 1 - 2s)$. Con $s = \tfrac12$ las marcas quedan verticales: la regla solo lee $x$."),
         "a la base oblicua de 08 (A = B⁻¹)": ("fijo", None, lambda s: np.linalg.inv(B_08),
             r"coordenadas nuevas $c = B^{-1}p$ y fila $\ell B = (7, 4)$: en frentes y lados la cota es $7c_1 + 4c_2 + 100$. Mismo mojón, misma cota, otros números."),
     }
@@ -279,7 +279,7 @@ def _(caso, casos, fila, go, h0, lib, mo, np, param):
           ${lib.num_tex(1 / np.linalg.norm(fila))}$, después ${lib.num_tex(1 / np.linalg.norm(fila_despues))}$
         - mojón: $\ell p = {lib.num_tex(fila @ mojon)}$; $p' = Ap = {lib.vec_tex(mojon_despues)}$;
           $\ell' p' = {lib.num_tex(fila_despues @ mojon_despues)}$ → `np.allclose`: `{bool(np.allclose(fila @ mojon, fila_despues @ mojon_despues))}`
-        - ángulo entre $A(2, 1)^T$ y las marcas nuevas: $\mathbf{{{_ang:.1f}°}}$ ($90°$ sólo si $A$ conserva el producto interno)
+        - ángulo entre $A(2, 1)^T$ y las marcas nuevas: $\mathbf{{{_ang:.1f}°}}$ ($90°$ solo si $A$ conserva el producto interno)
 
         **Qué pasa acá:** {que_pasa}
         """),
@@ -325,14 +325,14 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.2 Un ejercicio con dos formas.** Formas $(1, 1)$ y $(-1, 2)$, vector $v = (3, 4)$,
-            $T = \begin{pmatrix} \textcolor{#1b6f6a}{1.2} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{-0.1} & \textcolor{#b5451b}{1.3} \end{pmatrix}$.
-            Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en "la séptima con la quinta".
-            $\det T = 1.61$ y, por adjugada sobre determinante, $T^{-1} = \tfrac1{1.61}\begin{pmatrix} 1.3 & -0.5 \\ 0.1 & 1.2 \end{pmatrix}$:
+            $T = \begin{pmatrix} \textcolor{#1b6f6a}{1{,}2} & \textcolor{#b5451b}{0{,}5} \\ \textcolor{#1b6f6a}{-0{,}1} & \textcolor{#b5451b}{1{,}3} \end{pmatrix}$.
+            Antes: $(1, 1)\cdot v = 7$ y $(-1, 2)\cdot v = 5$: $v$ está en «la séptima con la quinta».
+            $\det T = 1{,}61$ y, por adjugada sobre determinante, $T^{-1} = \tfrac1{1{,}61}\begin{pmatrix} 1{,}3 & -0{,}5 \\ 0{,}1 & 1{,}2 \end{pmatrix}$:
 
-            $$Tv = \binom{5.6}{4.9}, \qquad (1, 1)\,T^{-1} = \tfrac{(1.4,\ 0.7)}{1.61} = (0.870,\ 0.435), \qquad (-1, 2)\,T^{-1} = \tfrac{(-1.1,\ 2.9)}{1.61} = (-0.683,\ 1.801).$$
+            $$Tv = \binom{5{,}6}{4{,}9}, \qquad (1, 1)\,T^{-1} = \tfrac{(1{,}4;\ 0{,}7)}{1{,}61} = (0{,}870;\ 0{,}435), \qquad (-1, 2)\,T^{-1} = \tfrac{(-1{,}1;\ 2{,}9)}{1{,}61} = (-0{,}683;\ 1{,}801).$$
 
-            Después: $0.870\cdot5.6 + 0.435\cdot4.9 = 7.00$ y $-0.683\cdot5.6 + 1.801\cdot4.9 = 5.00$: el mismo
-            cruce. La $(1, 1)$ "quedó más acostada" ($45° \to 26.6°$) y más corta: sus marcas se separaron.
+            Después: $0{,}870\cdot5{,}6 + 0{,}435\cdot4{,}9 = 7{,}00$ y $-0{,}683\cdot5{,}6 + 1{,}801\cdot4{,}9 = 5{,}00$: el mismo
+            cruce. La $(1, 1)$ «quedó más acostada» ($45° \to 26{,}6°$) y más corta: sus marcas se separaron.
             """),
             mo.vstack([
                 mo.md("```python\nT = np.array([[1.2, 0.5], [-0.1, 1.3]])\nv = np.array([3., 4.])\n# una fila por forma\nF = np.array([[1., 1.], [-1., 2.]])\nF @ v                   # lecturas antes\n# las formas arrastradas\nF2 = F @ np.linalg.inv(T)\nF2 @ (T @ v)            # lecturas después\n```"),
@@ -472,7 +472,7 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
         No mide la dirección $(4, -3)$: $12 - 12 = 0$ (toda la recta $3x + 4y = 0$). $\lvert\ell\rvert = 5$: marcas cada
-        $1/5 = 0.2$. $\ell(2, 1) = 6 + 4 = 10$: la recta $3x + 4y = 10$. Y $\ell = 3\,\mathsf x + 4\,\mathsf y$.
+        $1/5 = 0{,}2$. $\ell(2, 1) = 6 + 4 = 10$: la recta $3x + 4y = 10$. Y $\ell = 3\,\mathsf x + 4\,\mathsf y$.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *Idea central: una forma lineal se transforma del lado contrario que un vector.* El ejemplo del
@@ -625,8 +625,8 @@ def _(mo):
     Acá verificamos que una forma lineal es una regla, que sus marcas son rectas paralelas y que se transforma con $A^{-1}$
     para que la lectura no cambie. Las demostraciones:
 
-    - [apunte, «Álgebra de las transformaciones» ("Formas lineales: la recta como máquina de medir" (selectoras y dual, pila de formas,
-      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja "Dualidad en pocas palabras"; tabla "la misma idea en cada dimensión", la recta como forma $n\cdot x = c$))](../../apunte.pdf#nameddest=cap:formas-lineales)
+    - [apunte, «Álgebra de las transformaciones» («Formas lineales: la recta como máquina de medir» (selectoras y dual, pila de formas,
+      $\varphi A$ y $\varphi A^{-1}$, el gradiente como forma, caja «Dualidad en pocas palabras»; tabla «la misma idea en cada dimensión», la recta como forma $n\cdot x = c$))](../../apunte.pdf#nameddest=cap:formas-lineales)
     - [ficha del capítulo 5](../../capitulos/04.html) · [el hilo conductor](../../index.html) ·
       [Producto interno](../02_producto_interno/index.html) · [Cambio de base](../08_cambio_de_base/index.html)
 

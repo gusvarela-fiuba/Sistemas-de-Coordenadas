@@ -28,11 +28,11 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 
 ### Conmutatividad
 
-Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: la falta de conmutatividad depende de la magnitud de los ángulos. Por qué importa para coordenadas: decir "el punto $(u,v)$" es decir "moví $u$ con la primera transformación y $v$ con la segunda"; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es "dar vuelta dos vasos a la vez", el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en "accesibles o no" del resumen.
+Álgebra: $AB = BA$. Se ve: llegar al mismo lugar por los dos caminos del paralelogramo. Para rotaciones chicas la diferencia $AB-BA$ es de segundo orden: la falta de conmutatividad depende de la magnitud de los ángulos. Por qué importa para coordenadas: decir «el punto $(u,v)$» es decir “moví $u$ con la primera transformación y $v$ con la segunda”; si el orden cambia el resultado, el par $(u,v)$ no nombra un único punto. Con los vasos: tres vasos boca arriba/abajo son $2^3 = 8$ estados, los vértices de un cubo; las tres transformaciones (dar vuelta el último, los dos últimos, los tres últimos) conmutan y cada una es su propia inversa; por eso cada estado se nombra con tres bits, que son sus coordenadas. Si en cambio la única transformación permitida es «dar vuelta dos vasos a la vez», el cubo se parte en dos mitades (paridad) y hay estados inaccesibles: esa es la partición en «accesibles o no» del resumen.
 
 ### Trayectoria de una transformación
 
-Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria "se queda dando vueltas"; si no, crece o se va a cero (capítulo 1).
+Álgebra: la órbita $v, Av, A^2v, \dots$ y, en continuo, $e^{tM}v$. Se ve: la transformación se identifica con la trayectoria que genera por aplicación repetida. Para una rotación, circunferencias; para una homotecia, rayos desde el centro; para una afinidad general, elipses, espirales o rectas según la matriz. Con determinante 1 la trayectoria «se queda dando vueltas»; si no, crece o se va a cero (capítulo 1).
 
 ### Líneas coordenadas
 
@@ -40,7 +40,7 @@ Para nombrar un punto con dos coordenadas hacen falta dos familias de transforma
 
 ### Homotecia
 
-Álgebra: $x' = o + k(x-o)$; con centro en el origen, la matriz $kI$. Se ve: todo se agranda o achica desde el centro, cada punto sobre el rayo que lo une al centro; conserva ángulos y paralelas, multiplica distancias por $|k|$. Conmuta con cualquier rotación del mismo centro ($kI\,R = R\,kI$), y por eso rotación y escala juntas dan coordenadas polares. En complejos es el $\rho$ de $\rho e^{i\theta}$, y la conmutatividad es la del producto de complejos. Es "la segunda transformación que me lleva de una trayectoria posible a otra": salta de una circunferencia a otra.
+Álgebra: $x' = o + k(x-o)$; con centro en el origen, la matriz $kI$. Se ve: todo se agranda o achica desde el centro, cada punto sobre el rayo que lo une al centro; conserva ángulos y paralelas, multiplica distancias por $|k|$. Conmuta con cualquier rotación del mismo centro ($kI\,R = R\,kI$), y por eso rotación y escala juntas dan coordenadas polares. En complejos es el $\rho$ de $\rho e^{i\theta}$, y la conmutatividad es la del producto de complejos. Es “la segunda transformación que me lleva de una trayectoria posible a otra”: salta de una circunferencia a otra.
 
 ## Conceptos previos
 

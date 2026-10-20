@@ -114,7 +114,7 @@ def _(distancia_C, lib, mo, prediccion):
                   r"**No.** $-3$ es la cuenta en el **otro orden**, $(C - A) \wedge (B - A)$: la misma área, orientación opuesta. "
                   r"Recorrer $A \to B \to C$ gira antihorario, y eso es signo $+$. El signo es lo que distingue un giro de un espejo (sección 2)."),
         "mitad": ("warn",
-                  r"**No.** $1.5$ es el área del **triángulo** $ABC$; el detector mide el **paralelogramo** de lados $AB$ y $AC$, el doble. "
+                  r"**No.** $1{,}5$ es el área del **triángulo** $ABC$; el detector mide el **paralelogramo** de lados $AB$ y $AC$, el doble. "
                   r"Los dos detectan lo mismo, pero el número de la cuenta $u_1 v_2 - u_2 v_1$, y del determinante, es el del paralelogramo."),
     }
     _kind, _texto = _respuestas[prediccion.value]
@@ -131,7 +131,7 @@ def _(mo):
     signo**: positiva si de $u$ a $v$ se gira antihorario, negativa si horario, y **cero exactamente cuando $u$ y $v$
     son colineales**, porque el paralelogramo se aplastó a un segmento. Por eso lo llamamos *detector de
     colinealidad*. Dos reglas lo calculan con coordenadas: es lineal en cada vector, y $v \wedge v = 0$ (de donde
-    $v \wedge u = -\,u \wedge v$: "el único elemento igual a su opuesto es el cero").
+    $v \wedge u = -\,u \wedge v$: “el único elemento igual a su opuesto es el cero”).
 
     **El determinante de una matriz es lo mismo** sobre sus columnas: $\det M = Me_1 \wedge Me_2$, el área del
     cuadrado unitario después de transformar. Es **cuánto agranda el área** $M$ (de cualquier figura) y, por el
@@ -307,7 +307,7 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
             mo.md(r"""
             **3.2 El volumen, un piso más arriba.** Con $u = (1, 2, 0)$, $v = (0, 1, 1)$ las mismas reglas dejan tres áreas:
             $u \wedge v = 1\, e_1 \wedge e_2 + 1\, e_1 \wedge e_3 + 2\, e_2 \wedge e_3$, los números de $u \times v = (2, -1, 1)$.
-            Pegarle $w = (1, 0, 2)$ sólo deja vivo, en cada término, el versor que falta:
+            Pegarle $w = (1, 0, 2)$ solo deja vivo, en cada término, el versor que falta:
             $(u \wedge v) \wedge w = (2 \cdot 1 - 1 \cdot 0 + 1 \cdot 2)\; e_1 \wedge e_2 \wedge e_3$: es $(u \times v) \cdot w = \det[u\ v\ w] = 4$.
             Con $w = u + v$ da $2 - 3 + 1 = 0$: en el plano.
             """),
@@ -324,8 +324,8 @@ def _(AB, AC, lib, mo, mojones, np, u3, v3, w0):
 
             $$\det\begin{pmatrix} 1 & 1 & 1 \\ 4 & 3 & 1 \\ 7 & 6 & 1 \end{pmatrix} = (24 - 21) - (6 - 7) + (3 - 4) = 3 .$$
 
-            El mismo $3$ que $(B - A) \wedge (C - A)$: "tres puntos alineados" es "tres vectores en un plano por el origen",
-            y el volumen cero lo detecta. Es la condición "sin tres alineados" de la unidad 05.
+            El mismo $3$ que $(B - A) \wedge (C - A)$: «tres puntos alineados» es «tres vectores en un plano por el origen»,
+            y el volumen cero lo detecta. Es la condición «sin tres alineados» de la unidad 05.
             """),
             mo.vstack([
                 mo.md("```python\n# A, B, C, una fila por mojón\nP = np.array([[1., 1.], [4., 3.], [7., 6.]])\nnp.linalg.det(lib.hom(P))   # filas (x, y, 1)\nlib.cuna2(P[1] - P[0], P[2] - P[0])\nlib.alineados(P[0], P[1], P[2])\n```"),
@@ -346,7 +346,7 @@ def _(lib, mo, np):
 
         Una sola idea: **`np.column_stack([u, v, w])` arma la matriz con esos vectores como columnas**, y
         `np.linalg.det` es el detector en cualquier dimensión; en 3D `np.cross(u, v) @ w` es el mismo número. Dan
-        `float`: "¿es cero?" con decimales se pregunta con `np.isclose(det, 0)`, nunca con `det == 0`.
+        `float`: “¿es cero?” con decimales se pregunta con `np.isclose(det, 0)`, nunca con `det == 0`.
         """),
         mo.md("```python\np, q, r = np.array([1., 2., 3.]), np.array([4., 5., -1.]), np.array([0., 0., 1.])\nM = np.column_stack([p, q, r])      # shape (3, 3): columnas p, q, r\nnp.linalg.det(M)\nnp.cross(p, q) @ r                  # la apuesta: ¿alineados?\nnp.isclose(np.linalg.det(M), 0)\n```"),
         mo.md(f"`M.shape` = `{_M.shape}` → `np.linalg.det(M)` = `{np.linalg.det(_M):.1f}` · `np.cross(p, q)` = `{np.cross(_p, _q).tolist()}` · "
@@ -440,7 +440,7 @@ def _(mo):
     mo.vstack([
         mo.md(r"""
         **(d) Código con hueco — avanzado** *Idea central: los mismos números del producto cruz, con un signo cambiado en el del
-        medio.* Completá `volumen(u, v, w)`: el volumen orientado $\det[u\ v\ w]$ escrito **sólo con sumas y productos
+        medio.* Completá `volumen(u, v, w)`: el volumen orientado $\det[u\ v\ w]$ escrito **solo con sumas y productos
         de coordenadas**, sin `np.cross` ni `np.linalg.det` (están bloqueados). Tenés `np`. Se verifica con `np.allclose`
         contra el determinante en 20 ternas al azar.
         """),

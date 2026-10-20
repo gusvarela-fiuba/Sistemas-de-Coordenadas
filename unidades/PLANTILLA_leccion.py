@@ -21,7 +21,7 @@ Cómo usarla: copiar a `unidades/NN_<tema>.py`, reemplazar todo lo que está ent
                                        `mo.hstack([mo.ui.plotly(figura), _panel], widths=[10, 6], align="start", gap=1.25)`.
                                        Tamaños por default: `lib.figura_plano` 540×500 y `lib.figura_espacio` 540×520
                                        (no pasar ancho/alto mayores en la figura de manipulación). La celda que crea el
-                                       dropdown `caso` NO lo muestra suelto: `caso` se muestra sólo adentro del panel.
+                                       dropdown `caso` NO lo muestra suelto: `caso` se muestra solo adentro del panel.
                                        Nada de figura arriba y controles abajo, nada de panel a la izquierda.
   3. Cuenta a mano y código lado a lado (matriz coloreada por columnas)
   4. Python de hoy                     (una sola idea nueva)
@@ -32,7 +32,7 @@ Tono: primera persona del PLURAL didáctica, en presente del indicativo, estilo 
 el tema", "plantamos la estación", "calculamos", "acá verificamos que", "la demostración está en el apunte"). Nunca
 primera persona del singular ("muestro", "mi lectura") ni pasado ("mostré"). Distinguir siempre "muestra" (la
 figura muestra que…) de "demostración" (la demostración está en el apunte, sección NN).
-Grados en la interfaz, radianes adentro. Sólo numpy y plotly, vía el módulo común `cb104` (celda marcada).
+Grados en la interfaz, radianes adentro. Solo numpy y plotly, vía el módulo común `cb104` (celda marcada).
 
 Chequear:  uv run marimo check --select MW unidades/NN_<tema>.py
 Exportar:  uv run python tools/build.py --only NN_<tema>
@@ -67,8 +67,8 @@ def _(mo):
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
     [PLANTILLA: una o dos líneas, en primera persona del plural didáctica y en presente: qué capítulo sigue esta
-    unidad y qué pregunta de campo responde. Por ejemplo: "Seguimos el capítulo N (…). La pregunta: ¿qué le pasa a …
-    cuando …?"]
+    unidad y qué pregunta de campo responde. Por ejemplo: “Seguimos el capítulo N (…). La pregunta: ¿qué le pasa a …
+    cuando …?”]
 
     Código de colores, igual en la figura y en el álgebra: la **primera columna** de una matriz es
     <span style="color:#1b6f6a">**teal**</span>, la **segunda** <span style="color:#b5451b">**rust**</span> y la
@@ -124,7 +124,7 @@ def _(mo, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success", "**Sí.** [PLANTILLA: confirmar y adelantar qué va a mostrar la unidad.]"),
-        "error-tipico": ("warn", "**No.** [PLANTILLA: explicar el error concreto: qué se confundió con qué, no sólo 'incorrecto'.]"),
+        "error-tipico": ("warn", "**No.** [PLANTILLA: explicar el error concreto: qué se confundió con qué, no solo «incorrecto».]"),
         "reflexion": ("warn", "**No.** [PLANTILLA: por qué eso es un espejo y no la transformación de la situación.]"),
         "mismas": ("warn", "**No.** [PLANTILLA: por qué los números cambian aunque el punto no se mueva.]"),
     }

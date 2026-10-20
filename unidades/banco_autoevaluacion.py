@@ -26,9 +26,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'texto': 'Una sola recta, la $3x + y = 0$, porque una forma lineal es una '
                                             'ecuación y una ecuación es una recta.',
                                    'correcta': False,
-                                   'explicacion': 'Esa recta es sólo la marca cero de la regla (el núcleo de '
+                                   'explicacion': 'Esa recta es solo la marca cero de la regla (el núcleo de '
                                                   '$w^T$); la forma entera asigna un número a cada punto del '
-                                                  'plano, no sólo a los que dan $0$.'},
+                                                  'plano, no solo a los que dan $0$.'},
                                   {'id': 'd',
                                    'texto': 'El número $3 \\cdot 1 + 1 \\cdot 1 = 4$, la lectura de la forma '
                                             'en el punto $(1, 1)$.',
@@ -62,12 +62,12 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'texto': 'Girar $150°$, porque $30° + 150° = 180°$ y media vuelta deshace '
                                             'lo hecho.',
                                    'correcta': False,
-                                   'explicacion': 'Media vuelta no es el neutro: deja la estación apuntando '
-                                                  'al revés. El neutro es el giro de $0°$, y lo que suma '
-                                                  '$0°$ con $30°$ es $-30°$.'},
+                                   'explicacion': 'Media vuelta no es el neutro: deja el instrumento '
+                                                  'apuntando al revés. El neutro es el giro de $0°$, y lo '
+                                                  'que suma $0°$ con $30°$ es $-30°$.'},
                                   {'id': 'd',
-                                   'texto': 'No tiene inversa: una vez girada, la estación no vuelve sola a '
-                                            'la posición inicial.',
+                                   'texto': 'No tiene inversa: una vez girado, el instrumento no vuelve solo '
+                                            'a la posición inicial.',
                                    'correcta': False,
                                    'explicacion': 'Que no vuelva sola no quita que exista el giro que la '
                                                   'devuelve; en un grupo todo elemento tiene inversa, y '
@@ -178,8 +178,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                             'grilla.',
                                    'correcta': False,
                                    'explicacion': 'Con $I$ el ángulo recto del terreno entre $(2, 1)$ y $(2, '
-                                                  '-1)$ se mide como $53.1°$; la suma de productos mide de '
-                                                  'verdad sólo en una grilla ortonormal.'}],
+                                                  '-1)$ se mide como $53{,}1°$; la suma de productos mide de '
+                                                  'verdad solo en una grilla ortonormal.'}],
                      'rubrica': 'SVD/avanzado: no hay base privilegiada a priori; lo unico especial de la '
                                 'canonica es que el producto interno es suma de productos'},
                     {'id': '00_a2',
@@ -220,8 +220,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'explicacion': 'A lo largo de la curva de nivel la cota no cambia; es la '
                                                   'marca de la regla, y la bajada la cruza en vez de '
                                                   'seguirla.'}],
-                     'rubrica': "Productos/avanzado: el gradiente es una forma lineal; 'perpendicular a la "
-                                "curva de nivel' es una frase sobre G^{-1} grad f"}],
+                     'rubrica': 'Productos/avanzado: el gradiente es una forma lineal; «perpendicular a la '
+                                'curva de nivel» es una frase sobre G^{-1} grad f'}],
  '01a_punto_quieto': [{'id': '01a_e1',
                        'nivel': 'elemental',
                        'enunciado': 'Plantamos el instrumento en el origen de la obra, pero con su eje $x$ '
@@ -245,9 +245,10 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                      'texto': 'Nada: el mojón está quieto, así que sus coordenadas tienen '
                                               'que ser las mismas.',
                                      'correcta': False,
-                                     'explicacion': 'Si no cambiaran, la obra y la estación dirían lo mismo '
-                                                    'y no habría que transformar lecturas; la coordenada '
-                                                    'depende de los ejes aunque el punto no se mueva.'},
+                                     'explicacion': 'Si no cambiaran, la obra y el instrumento dirían lo '
+                                                    'mismo y no habría que transformar lecturas; la '
+                                                    'coordenada depende de los ejes aunque el punto no se '
+                                                    'mueva.'},
                                     {'id': 'd',
                                      'texto': 'Su distancia al origen, porque se mide sobre ejes distintos.',
                                      'correcta': False,
@@ -257,8 +258,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                        'rubrica': 'Cambio de base/elemental: la misma flecha medida con otra grilla'},
                       {'id': '01a_e2',
                        'nivel': 'elemental',
-                       'enunciado': 'El mojón está en $(2, 0)$ en los ejes de la obra. La estación tiene sus '
-                                    'ejes girados $90°$ antihorario. ¿Qué lee la estación?',
+                       'enunciado': 'El mojón está en $(2, 0)$ en los ejes de la obra. El instrumento tiene '
+                                    'sus ejes girados $90°$ antihorario. ¿Qué lee el instrumento?',
                        'opciones': [{'id': 'a',
                                      'texto': "$(0, -2)$: el mojón queda sobre el semieje $y'$ negativo, a "
                                               'distancia $2$.',
@@ -289,8 +290,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                   'una correspondencia 1 a 1'},
                       {'id': '01a_m1',
                        'nivel': 'medio',
-                       'enunciado': 'Giramos los ejes de la estación $+\\theta$ y el mojón $P$ queda quieto. '
-                                    '¿Qué cuenta da lo que lee la estación?',
+                       'enunciado': 'Giramos los ejes del instrumento $+\\theta$ y el mojón $P$ queda '
+                                    'quieto. ¿Qué cuenta da lo que lee el instrumento?',
                        'opciones': [{'id': 'a',
                                      'texto': '$R(\\theta)^T P$, que es lo mismo que $R(-\\theta)P$: como si '
                                               'el punto hubiera girado $-\\theta$ en los ejes viejos.',
@@ -306,7 +307,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                     'quietos (activa); con los ejes girados $+\\theta$ los '
                                                     'números cambian al revés, con $R(-\\theta)$.'},
                                     {'id': 'c',
-                                     'texto': '$P$ sin cambios: el mojón no se movió y la matriz sólo hace '
+                                     'texto': '$P$ sin cambios: el mojón no se movió y la matriz solo hace '
                                               'falta si se mueve.',
                                      'correcta': False,
                                      'explicacion': 'La matriz convierte etiquetas entre dos sistemas de '
@@ -358,7 +359,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                   'Id) con determinante mayor a 0'},
                       {'id': '01a_a1',
                        'nivel': 'avanzado',
-                       'enunciado': 'El mojón es $(4, 3)$ en la obra. Una estación con ejes girados un '
+                       'enunciado': 'El mojón es $(4, 3)$ en la obra. Un instrumento con ejes girados un '
                                     "ángulo que no conocemos lee $(x', y')$. Sin saber el ángulo, ¿qué "
                                     'podemos afirmar de la lectura?',
                        'opciones': [{'id': 'a',
@@ -407,7 +408,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                     {'id': 'b',
                                      'texto': '$R(60°)P$: dos giros de $30°$ en el mismo sentido se suman.',
                                      'correcta': False,
-                                     'explicacion': 'Se suman sólo si los dos son activos; el primero fue de '
+                                     'explicacion': 'Se suman solo si los dos son activos; el primero fue de '
                                                     'los ejes, que sobre los números actúa como $R(-30°)$, y '
                                                     '$-30° + 30° = 0°$.'},
                                     {'id': 'c',
@@ -450,9 +451,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                        'texto': 'Conserva el área, y eso basta; el espejo no conserva el '
                                                 'área.',
                                        'correcta': False,
-                                       'explicacion': 'El corte $\\begin{pmatrix} 1 & 0.5 \\\\ 0 & 1 '
+                                       'explicacion': 'El corte $\\begin{pmatrix} 1 & 0{,}5 \\\\ 0 & 1 '
                                                       '\\end{pmatrix}$ conserva el área y no es rotación; el '
-                                                      'espejo también conserva el área, sólo le cambia el '
+                                                      'espejo también conserva el área, solo le cambia el '
                                                       'signo.'},
                                       {'id': 'd',
                                        'texto': 'Conserva distancias y ángulos, igual que el espejo; nada '
@@ -532,17 +533,17 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                     'las columnas dicen adonde van los ejes'},
                         {'id': '01b_m2',
                          'nivel': 'medio',
-                         'enunciado': 'El corte $M = \\begin{pmatrix} 1 & 0.5 \\\\ 0 & 1 \\end{pmatrix}$ '
+                         'enunciado': 'El corte $M = \\begin{pmatrix} 1 & 0{,}5 \\\\ 0 & 1 \\end{pmatrix}$ '
                                       'tiene $\\det M = 1$ y manda el cuadrado unitario a un paralelogramo '
                                       'de área $1$. ¿Es una rotación?',
                          'opciones': [{'id': 'a',
                                        'texto': 'No: $\\det = 1$ no alcanza; falla $M^T M = I$, y $M$ no '
                                                 'conserva en general largos ni ángulos.',
                                        'correcta': True,
-                                       'explicacion': '$M e_2 = (0.5, 1)$ tiene largo $\\sqrt{1.25}$ y ya no '
-                                                      'es perpendicular a $M e_1 = (1, 0)$; la rotación es '
-                                                      'ortogonal con $\\det = +1$, y acá sólo se cumple lo '
-                                                      'segundo.'},
+                                       'explicacion': '$M e_2 = (0{,}5;\\ 1)$ tiene largo $\\sqrt{1{,}25}$ y '
+                                                      'ya no es perpendicular a $M e_1 = (1, 0)$; la '
+                                                      'rotación es ortogonal con $\\det = +1$, y acá solo se '
+                                                      'cumple lo segundo.'},
                                       {'id': 'b',
                                        'texto': 'Sí: toda matriz con determinante $1$ es una rotación, '
                                                 'porque el determinante dice que el área y la orientación se '
@@ -553,13 +554,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                       '$\\det = 1$ es la condición que separa giro de espejo '
                                                       'entre las ortogonales, no entre todas las matrices.'},
                                       {'id': 'c',
-                                       'texto': 'No: una rotación sólo puede tener coeficientes $0$, $1$ o '
-                                                '$-1$, y el $0.5$ la descarta.',
+                                       'texto': 'No: una rotación solo puede tener coeficientes $0$, $1$ o '
+                                                '$-1$, y el $0{,}5$ la descarta.',
                                        'correcta': False,
-                                       'explicacion': '$R(30°)$ tiene coeficientes $0.866$ y $0.5$ y es una '
-                                                      'rotación; lo que descarta a $M$ no es el valor $0.5$ '
-                                                      'sino que sus columnas no son perpendiculares de largo '
-                                                      '$1$.'},
+                                       'explicacion': '$R(30°)$ tiene coeficientes $0{,}866$ y $0{,}5$ y es '
+                                                      'una rotación; lo que descarta a $M$ no es el valor '
+                                                      '$0{,}5$ sino que sus columnas no son perpendiculares '
+                                                      'de largo $1$.'},
                                       {'id': 'd',
                                        'texto': 'Sí: conserva el área, y el área es la única propiedad que '
                                                 'una rotación tiene que mantener.',
@@ -593,7 +594,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                       '\\times 2$ y no conmutan: en un orden dan el espejo '
                                                       'de $y = x$, en el otro el de $y = -x$.'},
                                       {'id': 'c',
-                                       'texto': 'No conmutan en general; sólo coincide en este ejemplo '
+                                       'texto': 'No conmutan en general; solo coincide en este ejemplo '
                                                 'porque $30° + 60° = 90°$ es un ángulo especial.',
                                        'correcta': False,
                                        'explicacion': '$R(\\alpha)R(\\beta) = R(\\alpha + \\beta)$ vale para '
@@ -689,7 +690,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                      '$y$, es decir aplicamos $R_y(\\beta)$ a todo el espacio. ¿Qué puntos '
                                      'quedan quietos?',
                         'opciones': [{'id': 'a',
-                                      'texto': 'Sólo los puntos del eje $y$: la recta de giro queda fija y '
+                                      'texto': 'Solo los puntos del eje $y$: la recta de giro queda fija y '
                                                'todo lo demás gira en planos perpendiculares a ella.',
                                       'correcta': True,
                                       'explicacion': 'La segunda columna de $R_y$ es $e_y$, así que '
@@ -750,7 +751,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'texto': 'En $(-1, 0, 0)$: dos giros de $90°$ suman $180°$ y media '
                                                'vuelta lo da vuelta.',
                                       'correcta': False,
-                                      'explicacion': 'Los ángulos se suman sólo cuando el eje es el mismo; '
+                                      'explicacion': 'Los ángulos se suman solo cuando el eje es el mismo; '
                                                      'alrededor de ejes distintos la composición es otro '
                                                      'giro, de $120°$ alrededor de $(-1, 1, 1)$, y $e_x$ no '
                                                      'termina en su opuesto.'}],
@@ -758,8 +759,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'columnas dicen adonde van los ejes'},
                        {'id': '01c_m2',
                         'nivel': 'medio',
-                        'enunciado': 'Para nivelar, primero inclinamos la estación alrededor del eje fijo '
-                                     '$y$ de la obra ($R_y$, con $90°$ para fijar ideas) y después la '
+                        'enunciado': 'Para nivelar, primero inclinamos el instrumento alrededor del eje fijo '
+                                     '$y$ de la obra ($R_y$, con $90°$ para fijar ideas) y después lo '
                                      'giramos alrededor del eje fijo $z$ ($R_z$, también $90°$). ¿Qué matriz '
                                      'describe la operación completa?',
                         'opciones': [{'id': 'a',
@@ -833,7 +834,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                         'nivel': 'avanzado',
                         'enunciado': 'Con giros de $90°$ los dos órdenes, $R_z R_y R_x$ y $R_x R_y R_z$, '
                                      'dejan el cubo en lugares muy distintos. Bajamos los tres ángulos a '
-                                     '$1°$ y después a $0.1°$. ¿Qué le pasa a la diferencia entre los dos '
+                                     '$1°$ y después a $0{,}1°$. ¿Qué le pasa a la diferencia entre los dos '
                                      'órdenes?',
                         'opciones': [{'id': 'a',
                                       'texto': 'Cae unas $100$ veces al dividir los ángulos por $10$: es de '
@@ -855,7 +856,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                      {'id': 'c',
                                       'texto': 'Es exactamente cero: los giros de ángulos chicos conmutan.',
                                       'correcta': False,
-                                      'explicacion': 'Conmutan sólo en el límite; para cualquier '
+                                      'explicacion': 'Conmutan solo en el límite; para cualquier '
                                                      '$\\varepsilon \\neq 0$ hay una diferencia del orden de '
                                                      '$\\varepsilon^2$, chica pero no nula, y el cuaderno la '
                                                      'mide.'},
@@ -868,7 +869,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'K_y + K_z)$ es la misma en los dos órdenes y lo que '
                                                      'difiere es el término cuadrático.'}],
                         'rubrica': 'Rotaciones/elemental: la falta de conmutatividad depende de la magnitud; '
-                                   "Rotaciones/medio: 'identidad + algo chiquito' da la pista diferencial"}],
+                                   'Rotaciones/medio: «identidad + algo chiquito» da la pista diferencial'}],
  '02_producto_interno': [{'id': '02_e1',
                           'nivel': 'elemental',
                           'enunciado': 'Desde el mojón $B$ salen los lados $BA = (4, 3)$ y $BC = (4, -3)$, '
@@ -885,7 +886,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'texto': '$25$: el producto de los dos largos, $5 \\cdot 5$.',
                                         'correcta': False,
                                         'explicacion': '$\\lvert v\\rvert\\,\\lvert u\\rvert = 25$ es el '
-                                                       'producto interno sólo si apuntan igual '
+                                                       'producto interno solo si apuntan igual '
                                                        '($\\cos\\theta = 1$); acá falta el coseno, que vale '
                                                        '$7/25$.'},
                                        {'id': 'c',
@@ -896,10 +897,10 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                        'mueva. Hay que multiplicar coordenada con coordenada '
                                                        'del otro vector y recién sumar.'},
                                        {'id': 'd',
-                                        'texto': '$0.28$: el cociente $7/25$ entre la suma de productos y '
+                                        'texto': '$0{,}28$: el cociente $7/25$ entre la suma de productos y '
                                                  'los largos.',
                                         'correcta': False,
-                                        'explicacion': '$0.28$ es $\\cos\\hat B$, el producto interno ya '
+                                        'explicacion': '$0{,}28$ es $\\cos\\hat B$, el producto interno ya '
                                                        'dividido por los dos largos; el producto interno es '
                                                        'el $7$ antes de dividir.'}],
                           'rubrica': 'Productos/elemental: el producto interno decide incidencia y '
@@ -910,7 +911,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                        'cambiarles el largo. ¿Qué le pasa a $\\langle BC, BA\\rangle$?',
                           'opciones': [{'id': 'a',
                                         'texto': 'No cambia: la rotación conserva largos y ángulos, y el '
-                                                 'producto interno sólo depende de ellos.',
+                                                 'producto interno solo depende de ellos.',
                                         'correcta': True,
                                         'explicacion': '$\\langle Rv, Ru\\rangle = v^T R^T R\\,u = v^T u$ '
                                                        'porque $R^T R = I$; cambian todas las coordenadas y '
@@ -945,24 +946,24 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                           'enunciado': 'De los $5$ m del lado $BC = (4, -3)$, ¿cuánto cae sobre la dirección '
                                        'de la línea de base $BA = (4, 3)$?',
                           'opciones': [{'id': 'a',
-                                        'texto': '$1.4$ m: el producto interno $7$ dividido por el largo de '
-                                                 '$BA$.',
+                                        'texto': '$1{,}4$ m: el producto interno $7$ dividido por el largo '
+                                                 'de $BA$.',
                                         'correcta': True,
                                         'explicacion': 'La sombra (proyección escalar) es $\\lvert '
                                                        'BC\\rvert\\cos\\hat B = \\langle BC, BA\\rangle / '
                                                        '\\lvert BA\\rvert = 7/5$; Pitágoras lo cierra, '
-                                                       '$1.4^2 + 4.8^2 = 25$.'},
+                                                       '$1{,}4^2 + 4{,}8^2 = 25$.'},
                                        {'id': 'b',
                                         'texto': '$5$ m: el lado entero, porque su largo no cambia al '
                                                  'proyectarlo.',
                                         'correcta': False,
                                         'explicacion': 'El largo no cambia al girar, pero proyectar lo '
-                                                       'acorta: sobre $BA$ cae sólo la distancia por el '
-                                                       'coseno, y $\\cos\\hat B = 0.28$.'},
+                                                       'acorta: sobre $BA$ cae solo la distancia por el '
+                                                       'coseno, y $\\cos\\hat B = 0{,}28$.'},
                                        {'id': 'c',
-                                        'texto': '$4.8$ m: el largo por el seno del ángulo en $B$.',
+                                        'texto': '$4{,}8$ m: el largo por el seno del ángulo en $B$.',
                                         'correcta': False,
-                                        'explicacion': '$5\\sin\\hat B = 4.8$ es la parte de $BC$ '
+                                        'explicacion': '$5\\sin\\hat B = 4{,}8$ es la parte de $BC$ '
                                                        'perpendicular a $BA$, lo que queda afuera de la '
                                                        'sombra; la sombra va con el coseno.'},
                                        {'id': 'd',
@@ -979,33 +980,33 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                           'enunciado': 'Queremos el vector sombra de $v = BC = (4, -3)$ sobre $u = BA = (4, '
                                        '3)$, la proyección vectorial. ¿Cuál es?',
                           'opciones': [{'id': 'a',
-                                        'texto': '$\\tfrac{7}{25}(4, 3) = (1.12, 0.84)$: un múltiplo de $u$ '
-                                                 'con coeficiente $\\langle v, u\\rangle / \\langle u, '
-                                                 'u\\rangle$.',
+                                        'texto': '$\\tfrac{7}{25}(4, 3) = (1{,}12;\\ 0{,}84)$: un múltiplo '
+                                                 'de $u$ con coeficiente $\\langle v, u\\rangle / \\langle '
+                                                 'u, u\\rangle$.',
                                         'correcta': True,
                                         'explicacion': 'El coeficiente es la sombra $7/5$ dividida otra vez '
                                                        'por $\\lvert u\\rvert$ para que multiplique al '
                                                        'unitario: $\\tfrac{7}{5}\\cdot\\tfrac{u}{5} = '
-                                                       '\\tfrac{7}{25}u$, y $v - p = (2.88, -3.84)$ es '
+                                                       '\\tfrac{7}{25}u$, y $v - p = (2{,}88;\\ -3{,}84)$ es '
                                                        'perpendicular a $u$.'},
                                        {'id': 'b',
-                                        'texto': '$\\tfrac{7}{5}(4, 3) = (5.6, 4.2)$: la sombra $1.4$ por el '
-                                                 'vector $u$.',
+                                        'texto': '$\\tfrac{7}{5}(4, 3) = (5{,}6;\\ 4{,}2)$: la sombra '
+                                                 '$1{,}4$ por el vector $u$.',
                                         'correcta': False,
                                         'explicacion': 'Multiplica la sombra por $u$ entero, que mide $5$, y '
                                                        'queda cinco veces más largo que la sombra; el '
                                                        'múltiplo correcto es la sombra por el unitario '
                                                        '$u/5$.'},
                                        {'id': 'c',
-                                        'texto': '$1.4$: la proyección es un número, cuánto de $v$ cae sobre '
-                                                 '$u$.',
+                                        'texto': '$1{,}4$: la proyección es un número, cuánto de $v$ cae '
+                                                 'sobre $u$.',
                                         'correcta': False,
-                                        'explicacion': '$1.4$ es la proyección escalar, un largo; la '
+                                        'explicacion': '$1{,}4$ es la proyección escalar, un largo; la '
                                                        'proyección vectorial es la flecha de ese largo '
                                                        'apoyada sobre $u$, un elemento de $\\mathbb R^2$.'},
                                        {'id': 'd',
-                                        'texto': '$\\tfrac{7}{25}(4, -3) = (1.12, -0.84)$: el coeficiente '
-                                                 'por el vector que proyectamos.',
+                                        'texto': '$\\tfrac{7}{25}(4, -3) = (1{,}12;\\ -0{,}84)$: el '
+                                                 'coeficiente por el vector que proyectamos.',
                                         'correcta': False,
                                         'explicacion': 'Eso es un múltiplo de $v$, la sombra de $u$ sobre '
                                                        '$v$; la proyección de $v$ sobre $u$ tiene que caer '
@@ -1066,7 +1067,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                        'ingenua se equivoca.'},
                                        {'id': 'b',
                                         'texto': 'Que es la única base de $\\mathbb R^2$; cualquier otro par '
-                                                 'de vectores es sólo un cambio de nombre de la misma.',
+                                                 'de vectores es solo un cambio de nombre de la misma.',
                                         'correcta': False,
                                         'explicacion': 'Hay infinitas bases y ninguna es privilegiada a '
                                                        'priori: lo único especial de la canónica es que '
@@ -1078,13 +1079,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'correcta': False,
                                         'explicacion': 'La geometría no cambia, pero los números sí: con el '
                                                        'Este estirado por 2 el ángulo recto del terreno se '
-                                                       'calcula como $53.1°$ si se usa $x_1 x_2 + y_1 y_2$ '
+                                                       'calcula como $53{,}1°$ si se usa $x_1 x_2 + y_1 y_2$ '
                                                        'en la grilla del papel.'},
                                        {'id': 'd',
                                         'texto': 'Que tiene determinante $1$, y eso garantiza que los largos '
                                                  'salen bien.',
                                         'correcta': False,
-                                        'explicacion': 'El corte $\\begin{pmatrix} 1 & 0.5 \\\\ 0 & 1 '
+                                        'explicacion': 'El corte $\\begin{pmatrix} 1 & 0{,}5 \\\\ 0 & 1 '
                                                        '\\end{pmatrix}$ también da una base de determinante '
                                                        '$1$ y sus ejes no son perpendiculares: con sus '
                                                        'coordenadas la fórmula mide mal.'}],
@@ -1213,14 +1214,14 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                 '2i\\,z + 1$. ¿Cuánto escala, cuánto gira y cuál es su '
                                                 'centro fijo?',
                                    'opciones': [{'id': 'a',
-                                                 'texto': 'Escala $2$, gira $90°$ y el centro es $(0.2, '
-                                                          '0.4)$.',
+                                                 'texto': 'Escala $2$, gira $90°$ y el centro es $(0{,}2;\\ '
+                                                          '0{,}4)$.',
                                                  'correcta': True,
                                                  'explicacion': '$\\lvert 2i \\rvert = 2$ y $\\arg 2i = '
                                                                 '90°$. El centro cumple $c = 2i\\,c + 1$, o '
-                                                                'sea $c = 1/(1 - 2i) = (1 + 2i)/5 = 0.2 + '
-                                                                '0.4i$; control: $2i(0.2 + 0.4i) + 1 = 0.2 + '
-                                                                '0.4i$.'},
+                                                                'sea $c = 1/(1 - 2i) = (1 + 2i)/5 = 0{,}2 + '
+                                                                '0{,}4i$; control: $2i(0{,}2 + 0{,}4i) + 1 = '
+                                                                '0{,}2 + 0{,}4i$.'},
                                                 {'id': 'b',
                                                  'texto': 'Escala $2$, gira $90°$ y el centro es $(1, 0)$.',
                                                  'correcta': False,
@@ -1229,15 +1230,15 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                                 'mueve, $(I - A)\\,c = t$, y $(1, 0)$ va a '
                                                                 '$2i + 1 = (1, 2)$: se mueve.'},
                                                 {'id': 'c',
-                                                 'texto': 'Escala $4$, gira $90°$ y el centro es $(0.2, '
-                                                          '0.4)$.',
+                                                 'texto': 'Escala $4$, gira $90°$ y el centro es $(0{,}2;\\ '
+                                                          '0{,}4)$.',
                                                  'correcta': False,
                                                  'explicacion': '$4 = k^2$ es el factor de área ($\\det A = '
                                                                 '4$), no el de longitud. Las distancias se '
                                                                 'multiplican por $\\lvert a \\rvert = 2$.'},
                                                 {'id': 'd',
-                                                 'texto': 'Escala $2$, gira $180°$ y el centro es $(0.2, '
-                                                          '0.4)$.',
+                                                 'texto': 'Escala $2$, gira $180°$ y el centro es $(0{,}2;\\ '
+                                                          '0{,}4)$.',
                                                  'correcta': False,
                                                  'explicacion': 'Multiplicar por $i$ es girar $\\pi/2$, no '
                                                                 '$\\pi$; $i^2 = -1$ es lo que da el giro de '
@@ -1279,7 +1280,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                                 'factor $k$.'},
                                                 {'id': 'd',
                                                  'texto': 'No hay diferencia: con dos mojones alcanza para '
-                                                          'las dos, el tercero es sólo de control.',
+                                                          'las dos, el tercero es solo de control.',
                                                  'correcta': False,
                                                  'explicacion': 'Con dos mojones quedan cuatro ecuaciones '
                                                                 'para seis incógnitas: una familia entera de '
@@ -1289,8 +1290,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                               'triángulo dado a otro (tres puntos, seis ecuaciones)'},
                                   {'id': '03_a2',
                                    'nivel': 'avanzado',
-                                   'enunciado': 'Repetimos la similaridad $S(x) = 0.85\\,R(30°)\\,x + t$ con '
-                                                '$t \\neq 0$: $p$, $S(p)$, $S^2(p)$, … ¿Qué trayectoria '
+                                   'enunciado': 'Repetimos la similaridad $S(x) = 0{,}85\\,R(30°)\\,x + t$ '
+                                                'con $t \\neq 0$: $p$, $S(p)$, $S^2(p)$, … ¿Qué trayectoria '
                                                 'dibuja el punto?',
                                    'opciones': [{'id': 'a',
                                                  'texto': 'Una espiral que se enrosca hacia el origen, '
@@ -1304,7 +1305,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                           'rotación manda sobre la escala.',
                                                  'correcta': False,
                                                  'explicacion': 'El círculo es la trayectoria de la rotación '
-                                                                'pura ($k = 1$). Con $k = 0.85$ cada paso '
+                                                                'pura ($k = 1$). Con $k = 0{,}85$ cada paso '
                                                                 'acorta el radio un $15\\%$: la curva se '
                                                                 'cierra en espiral.'},
                                                 {'id': 'c',
@@ -1312,16 +1313,16 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                           '$c = (I - A)^{-1}\\,t$, no hacia el origen.',
                                                  'correcta': True,
                                                  'explicacion': 'Con el origen puesto en $c$ la similaridad '
-                                                                'es sólo girar $30°$ y escalar $0.85$: giro '
-                                                                'y homotecia con el mismo centro conmutan, y '
-                                                                'la trayectoria es su espiral polar '
-                                                                'alrededor de $c$.'},
+                                                                'es solo girar $30°$ y escalar $0{,}85$: '
+                                                                'giro y homotecia con el mismo centro '
+                                                                'conmutan, y la trayectoria es su espiral '
+                                                                'polar alrededor de $c$.'},
                                                 {'id': 'd',
                                                  'texto': 'Una espiral que se aleja, porque a cada paso se '
                                                           'vuelve a sumar $t$.',
                                                  'correcta': False,
                                                  'explicacion': 'El corrimiento no acumula sin freno: cada '
-                                                                'paso también escala por $0.85$ lo que '
+                                                                'paso también escala por $0{,}85$ lo que '
                                                                 'había. La suma converge y el punto se '
                                                                 'acerca a $c$, no se escapa.'}],
                                    'rubrica': 'Afinidades · medio: rotar y trasladar sucesivamente un punto '
@@ -1347,7 +1348,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                         'pero no rompe el paralelismo. El trapecio es la '
                                                         'huella de la cámara inclinada, no del rodillo.'},
                                         {'id': 'c',
-                                         'texto': 'Sólo en un rectángulo: los ángulos rectos se conservan.',
+                                         'texto': 'Solo en un rectángulo: los ángulos rectos se conservan.',
                                          'correcta': False,
                                          'explicacion': 'Los ángulos no se conservan en una afinidad; sí en '
                                                         'una similaridad. El corte $\\begin{pmatrix} 1 & s '
@@ -1364,35 +1365,35 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'cuadrado va a un paralelogramo, nunca a un trapecio'},
                           {'id': '04_e2',
                            'nivel': 'elemental',
-                           'enunciado': 'Con $H = \\begin{pmatrix} 1.5 & 0.5 & 1 \\\\ 0 & 1.25 & 1 \\\\ 0 & '
-                                        '0 & 1 \\end{pmatrix}$ transformamos el punto homogéneo $(4, 2, 1)$. '
-                                        '¿Qué terna obtenemos?',
+                           'enunciado': 'Con $H = \\begin{pmatrix} 1{,}5 & 0{,}5 & 1 \\\\ 0 & 1{,}25 & 1 '
+                                        '\\\\ 0 & 0 & 1 \\end{pmatrix}$ transformamos el punto homogéneo '
+                                        '$(4, 2, 1)$. ¿Qué terna obtenemos?',
                            'opciones': [{'id': 'a',
-                                         'texto': '$(7, 2.5, 1)$.',
+                                         'texto': '$(7;\\ 2{,}5;\\ 1)$.',
                                          'correcta': False,
                                          'explicacion': 'Es $Ap$ sin la tercera columna: el $1$ del punto '
                                                         'enciende la columna $(1, 1, 1)$ y suma la '
                                                         'traslación. Falta $t = (1, 1)$.'},
                                         {'id': 'b',
-                                         'texto': '$(6, 4.5, 7)$.',
+                                         'texto': '$(6;\\ 4{,}5;\\ 7)$.',
                                          'correcta': False,
                                          'explicacion': 'Es $H^T$ por el punto: se usaron las columnas como '
                                                         'filas. Cada fila de $H$ por el punto da una '
                                                         'coordenada; con la traspuesta la última fila deja '
                                                         'de ser $(0, 0, 1)$.'},
                                         {'id': 'c',
-                                         'texto': '$(8, 3.5, 0)$.',
+                                         'texto': '$(8;\\ 3{,}5;\\ 0)$.',
                                          'correcta': False,
                                          'explicacion': 'La fila $(0, 0, 1)$ garantiza que el $1$ siga '
                                                         'siendo $1$. Con tercera coordenada $0$ la terna '
                                                         'sería un punto impropio, una dirección, no el punto '
-                                                        '$(8, 3.5)$.'},
+                                                        '$(8;\\ 3{,}5)$.'},
                                         {'id': 'd',
-                                         'texto': '$(8, 3.5, 1)$.',
+                                         'texto': '$(8;\\ 3{,}5;\\ 1)$.',
                                          'correcta': True,
-                                         'explicacion': '$4\\,(1.5, 0, 0) + 2\\,(0.5, 1.25, 0) + 1\\,(1, 1, '
-                                                        '1) = (8, 3.5, 1)$: es $(Ap + t, 1)$ con $Ap = (7, '
-                                                        '2.5)$ y $t = (1, 1)$.'}],
+                                         'explicacion': '$4\\,(1{,}5;\\ 0;\\ 0) + 2\\,(0{,}5;\\ 1{,}25;\\ 0) '
+                                                        '+ 1\\,(1, 1, 1) = (8;\\ 3{,}5;\\ 1)$: es $(Ap + t, '
+                                                        '1)$ con $Ap = (7;\\ 2{,}5)$ y $t = (1, 1)$.'}],
                            'rubrica': 'Afinidades · elemental: en coordenadas homogéneas la traslación entra '
                                       'en la 3×3 con última fila (0, 0, 1); el plano afín es w = 1'},
                           {'id': '04_m1',
@@ -1495,7 +1496,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                         '-1) = (1, -1)$: hay una dirección con autovalor $1$ '
                                                         'y la inversa no existe.'},
                                         {'id': 'd',
-                                         'texto': 'No, porque $\\det A = 3 \\neq 1$ y sólo las isometrías '
+                                         'texto': 'No, porque $\\det A = 3 \\neq 1$ y solo las isometrías '
                                                   'tienen punto fijo.',
                                          'correcta': False,
                                          'explicacion': 'El determinante no decide: una similaridad con $k '
@@ -1512,13 +1513,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         '& 2 \\end{pmatrix}$ con $B = \\begin{pmatrix} 1 & 1 \\\\ 0 & 1 '
                                         '\\end{pmatrix}$. ¿Qué queda fijo y cuánto vale $\\det M$?',
                            'opciones': [{'id': 'a',
-                                         'texto': 'Queda fijo sólo el origen y $\\det M = 4$, porque el '
+                                         'texto': 'Queda fijo solo el origen y $\\det M = 4$, porque el '
                                                   'factor $2$ actúa en las dos direcciones.',
                                          'correcta': False,
                                          'explicacion': 'El factor $2$ actúa en una sola dirección, $(1, '
                                                         '1)$; sobre el eje $x$ el factor es $1$. Por eso '
                                                         '$\\det M = 1 \\cdot 2 = 2$, y el eje entero queda '
-                                                        'quieto, no sólo el origen.'},
+                                                        'quieto, no solo el origen.'},
                                         {'id': 'b',
                                          'texto': 'Queda fijo el eje $x$ punto a punto y $\\det M = 1$, como '
                                                   'en un corte.',
@@ -1577,30 +1578,30 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'correcta': False,
                                    'explicacion': 'Una cámara ideal (sin distorsión de lente) es una '
                                                   'proyectiva, y una proyectiva lleva rectas a rectas. Los '
-                                                  'alambrados salen rectos, sólo que ya no paralelos.'}],
+                                                  'alambrados salen rectos, solo que ya no paralelos.'}],
                      'rubrica': 'Proyectivas · elemental: una proyectiva conserva rectas, nada más; la foto '
                                 'de un lote rectangular es un trapecio'},
                     {'id': '05_e2',
                      'nivel': 'elemental',
-                     'enunciado': 'Con la $H$ de la foto, el centro del lote da $H\\,(2, 2, 1)^T = (3, 2, '
-                                  '1.5)^T$. ¿En qué punto de la foto aparece el centro?',
+                     'enunciado': 'Con la $H$ de la foto, el centro del lote da $H\\,(2, 2, 1)^T = (3;\\ '
+                                  '2;\\ 1{,}5)^T$. ¿En qué punto de la foto aparece el centro?',
                      'opciones': [{'id': 'a',
                                    'texto': 'En $(3, 2)$.',
                                    'correcta': False,
                                    'explicacion': 'Son las dos primeras coordenadas sin dividir por la '
-                                                  'tercera: el rayo, no el punto. En homogéneas $(3, 2, '
-                                                  '1.5)$ y $(2, 1.333, 1)$ son el mismo punto, y sólo el '
-                                                  'segundo se lee en el plano $W = 1$.'},
+                                                  'tercera: el rayo, no el punto. En homogéneas $(3;\\ 2;\\ '
+                                                  '1{,}5)$ y $(2;\\ 1{,}333;\\ 1)$ son el mismo punto, y '
+                                                  'solo el segundo se lee en el plano $W = 1$.'},
                                   {'id': 'b',
-                                   'texto': 'En $(4.5, 3)$.',
+                                   'texto': 'En $(4{,}5;\\ 3)$.',
                                    'correcta': False,
-                                   'explicacion': 'Multiplicó por $1.5$ en vez de dividir. Volver al plano '
+                                   'explicacion': 'Multiplicó por $1{,}5$ en vez de dividir. Volver al plano '
                                                   'es escalar la terna hasta que la tercera coordenada valga '
                                                   '$1$: dividir por $W$.'},
                                   {'id': 'c',
-                                   'texto': 'En $(2, 1.333)$.',
+                                   'texto': 'En $(2;\\ 1{,}333)$.',
                                    'correcta': True,
-                                   'explicacion': '$(3/1.5,\\ 2/1.5) = (2, 4/3)$: justo el cruce de las '
+                                   'explicacion': '$(3/1{,}5;\\ 2/1{,}5) = (2, 4/3)$: justo el cruce de las '
                                                   'diagonales de la foto. Queda más arriba que la mitad del '
                                                   'trapecio (que está en $y = 1$), hacia el lado lejano, '
                                                   'porque ese lado se achica.'},
@@ -1630,7 +1631,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'correcta': False,
                                    'explicacion': 'Cada mojón aporta dos ecuaciones, no una, y $H$ está '
                                                   'definida a menos de escala: son $8$ grados de libertad, '
-                                                  'no $9$. Nueve puntos sobran (y sólo sirven para mínimos '
+                                                  'no $9$. Nueve puntos sobran (y solo sirven para mínimos '
                                                   'cuadrados).'},
                                   {'id': 'c',
                                    'texto': 'Cuatro, sin tres alineados: nueve números menos la escala son '
@@ -1651,22 +1652,22 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 'homografía; con tres puntos falta decidir cuánta perspectiva hay'},
                     {'id': '05_m2',
                      'nivel': 'medio',
-                     'enunciado': 'Con $H = \\begin{pmatrix} 1 & 0.5 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0.25 & 1 '
-                                  '\\end{pmatrix}$, ¿a dónde va el punto impropio $(0, 1, 0)$ de las rectas '
-                                  '$x = $ cte?',
+                     'enunciado': 'Con $H = \\begin{pmatrix} 1 & 0{,}5 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0{,}25 & '
+                                  '1 \\end{pmatrix}$, ¿a dónde va el punto impropio $(0, 1, 0)$ de las '
+                                  'rectas $x = $ cte?',
                      'opciones': [{'id': 'a',
                                    'texto': 'Sigue impropio: las rectas $x = $ cte siguen paralelas en la '
                                             'foto.',
                                    'correcta': False,
                                    'explicacion': 'Eso le pasa a $(1, 0, 0)$, cuya imagen es la columna $1$, '
-                                                  '$(1, 0, 0)$, con $W = 0$. La columna $2$ tiene $W = 0.25 '
-                                                  '\\neq 0$: ese punto ideal se hizo propio.'},
+                                                  '$(1, 0, 0)$, con $W = 0$. La columna $2$ tiene $W = '
+                                                  '0{,}25 \\neq 0$: ese punto ideal se hizo propio.'},
                                   {'id': 'b',
-                                   'texto': 'A $(0.5, 1)$, la segunda columna de $H$.',
+                                   'texto': 'A $(0{,}5;\\ 1)$, la segunda columna de $H$.',
                                    'correcta': False,
-                                   'explicacion': 'La segunda columna es $(0.5, 1, 0.25)$, y falta dividir '
-                                                  'por $0.25$. Sin dividir es el rayo; el punto del plano es '
-                                                  '$(2, 4)$.'},
+                                   'explicacion': 'La segunda columna es $(0{,}5;\\ 1;\\ 0{,}25)$, y falta '
+                                                  'dividir por $0{,}25$. Sin dividir es el rayo; el punto '
+                                                  'del plano es $(2, 4)$.'},
                                   {'id': 'c',
                                    'texto': 'A $(0, 1)$: una homografía no mueve las direcciones.',
                                    'correcta': False,
@@ -1678,10 +1679,10 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'texto': 'A $(2, 4)$, un punto propio: ahí se cruzan en la foto todas las '
                                             'rectas $x = $ cte.',
                                    'correcta': True,
-                                   'explicacion': '$H(0, 1, 0)^T = (0.5, 1, 0.25)^T \\sim (2, 4, 1)^T$. Las '
-                                                  'paralelas del terreno comparten ese punto ideal, y su '
-                                                  'imagen común es el punto de fuga, arriba del lote: por '
-                                                  'eso el trapecio se angosta hacia arriba.'}],
+                                   'explicacion': '$H(0, 1, 0)^T = (0{,}5;\\ 1;\\ 0{,}25)^T \\sim (2, 4, '
+                                                  '1)^T$. Las paralelas del terreno comparten ese punto '
+                                                  'ideal, y su imagen común es el punto de fuga, arriba del '
+                                                  'lote: por eso el trapecio se angosta hacia arriba.'}],
                      'rubrica': 'Proyectivas · elemental: las paralelas dejan de serlo, se cortan en un '
                                 'punto de fuga; el punto ideal común se hizo propio'},
                     {'id': '05_a1',
@@ -1703,15 +1704,15 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                             'del pentágono.',
                                    'correcta': False,
                                    'explicacion': 'El eje de simetría no es una recta fija de $H$. Lo fijo '
-                                                  'es la recta $AB$ (punto a punto) y el centro $(0, '
-                                                  '0.309)$; $D$ está en $x = 0$ pero $H(0, 1, 1)^T = (0, 0, '
-                                                  '5)^T$: va a $(0, 0)$.'},
+                                                  'es la recta $AB$ (punto a punto) y el centro $(0;\\ '
+                                                  '0{,}309)$; $D$ está en $x = 0$ pero $H(0, 1, 1)^T = (0, '
+                                                  '0, 5)^T$: va a $(0, 0)$.'},
                                   {'id': 'c',
                                    'texto': '$D$ cae en el centro $(0, 0)$ y la imagen se parte, porque la '
                                             'recta $y = -1/4$ que va al infinito cruza el pentágono.',
                                    'correcta': True,
                                    'explicacion': '$H\\vec D = (0, -1 + 1, 4 + 1) = (0, 0, 5)$. La fila $3$ '
-                                                  'da $W = 4y + 1$: negativa en $A$ y $B$ ($y = -0.809$), '
+                                                  'da $W = 4y + 1$: negativa en $A$ y $B$ ($y = -0{,}809$), '
                                                   'positiva en $C$, $D$, $E$; donde $W$ cambia de signo la '
                                                   'imagen pasa por el infinito.'},
                                   {'id': 'd',
@@ -1738,8 +1739,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                   'intercambia $C$ con $E$ y manda $D$ al centro del '
                                                   "pentágono; la razón doble $(D, D'; O, X) = -1$ confirma "
                                                   "la cuaterna armónica, con $D = (0, 1)$, su imagen $D' = "
-                                                  '(0, 0)$, el centro de la homología $O = (0, 0.309)$ y el '
-                                                  'corte $X = (0, -0.809)$ con el eje $AB$.'},
+                                                  '(0, 0)$, el centro de la homología $O = (0;\\ 0{,}309)$ y '
+                                                  'el corte $X = (0;\\ -0{,}809)$ con el eje $AB$.'},
                                   {'id': 'b',
                                    'texto': 'Aplicarla dos veces multiplica todas las coordenadas por $5$: '
                                             'una homotecia de factor $5$ desde el origen.',
@@ -1757,12 +1758,12 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                   'nada.'},
                                   {'id': 'd',
                                    'texto': 'Que $H$ no tiene puntos fijos propios: sus autovalores '
-                                            '$\\pm\\sqrt5$ sólo fijan direcciones.',
+                                            '$\\pm\\sqrt5$ solo fijan direcciones.',
                                    'correcta': False,
                                    'explicacion': '$A$ y $B$ son fijos y propios: $H\\vec A = '
                                                   '-\\sqrt5\\,\\vec A$ con $W \\neq 0$. El autovalor doble '
                                                   '$-\\sqrt5$ tiene todo un plano de autovectores, la recta '
-                                                  '$AB$ entera, más el centro $(0, 0.309)$ para '
+                                                  '$AB$ entera, más el centro $(0;\\ 0{,}309)$ para '
                                                   '$+\\sqrt5$.'}],
                      'rubrica': 'Proyectivas · avanzado: razón doble como invariante; reconocer la homología '
                                 'y sus autovalores repetidos'}],
@@ -1774,14 +1775,14 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                        'texto': 'Un vector escrito acostado, que se dibuja como una flecha '
                                                 'igual que $(a, b)^T$.',
                                        'correcta': False,
-                                       'explicacion': 'La flecha $(a, b)$ sólo representa a la forma en la '
+                                       'explicacion': 'La flecha $(a, b)$ solo representa a la forma en la '
                                                       'base canónica, a través del producto interno. Si se '
                                                       'deforma el plano con una $A$ que no lo conserva, la '
                                                       'flecha $A(a, b)^T$ ya no dice nada sobre la regla.'},
                                       {'id': 'b',
                                        'texto': 'La recta $ax + by = 0$ que pasa por el origen.',
                                        'correcta': False,
-                                       'explicacion': 'Esa recta es sólo su marca cero (el núcleo). La forma '
+                                       'explicacion': 'Esa recta es solo su marca cero (el núcleo). La forma '
                                                       'es toda la familia de rectas $ax + by = k$, una por '
                                                       'cada valor, equiespaciadas.'},
                                       {'id': 'c',
@@ -1807,13 +1808,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                          'enunciado': 'La regla $\\ell = (3, 4)$. ¿Qué marca pasa por el punto $(2, 1)$ y a '
                                       'qué distancia están sus marcas enteras?',
                          'opciones': [{'id': 'a',
-                                       'texto': 'La marca $11$, con marcas cada $0.2$.',
+                                       'texto': 'La marca $11$, con marcas cada $0{,}2$.',
                                        'correcta': False,
                                        'explicacion': '$11 = 3 \\cdot 1 + 4 \\cdot 2$: se cruzaron las '
                                                       'coordenadas. La fila multiplica la primera coordenada '
                                                       'por $3$ y la segunda por $4$.'},
                                       {'id': 'b',
-                                       'texto': 'La marca $10$, con marcas cada $0.2$.',
+                                       'texto': 'La marca $10$, con marcas cada $0{,}2$.',
                                        'correcta': True,
                                        'explicacion': '$\\ell(2, 1) = 3 \\cdot 2 + 4 \\cdot 1 = 10$: la '
                                                       'recta $3x + 4y = 10$. Como $\\lvert(3, 4)\\rvert = '
@@ -1902,12 +1903,12 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       {'id': 'd',
                                        'texto': '$(4, 3, 2)$: la suma de las ternas.',
                                        'correcta': False,
-                                       'explicacion': 'La suma de ternas es otro punto, $(2, 1.5)$, el punto '
-                                                      'medio del segmento. Es un punto y no una recta: leído '
-                                                      'como fila no se anula ni en $p$ ni en $q$.'}],
+                                       'explicacion': 'La suma de ternas es otro punto, $(2;\\ 1{,}5)$, el '
+                                                      'punto medio del segmento. Es un punto y no una recta: '
+                                                      'leído como fila no se anula ni en $p$ ni en $q$.'}],
                          'rubrica': 'Productos · elemental: el producto interno decide incidencia y el '
-                                    "vectorial une dos puntos y corta dos rectas; ℓ·p = 0 es 'el punto está "
-                                    "en la recta'"},
+                                    'vectorial une dos puntos y corta dos rectas; ℓ·p = 0 es «el punto está '
+                                    'en la recta»'},
                         {'id': '06_a1',
                          'nivel': 'avanzado',
                          'enunciado': 'Si los puntos van con $A$ (a la izquierda), ¿por qué una recta, o '
@@ -1917,7 +1918,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                        'texto': 'Porque la fila es el vector traspuesto, y la traspuesta de '
                                                 '$A$ es su inversa.',
                                        'correcta': False,
-                                       'explicacion': '$A^T = A^{-1}$ sólo para rotaciones y reflexiones; '
+                                       'explicacion': '$A^T = A^{-1}$ solo para rotaciones y reflexiones; '
                                                       'por eso con un giro la dualidad no se ve. Con '
                                                       '$\\mathrm{diag}(2, 1)$ la traspuesta es la misma '
                                                       'matriz y la fila debe ir con $\\mathrm{diag}(1/2, '
@@ -1941,7 +1942,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                       '$H^T$; por eso el eje de la homología del pentágono '
                                                       'aparece del lado de las filas.'},
                                       {'id': 'd',
-                                       'texto': 'Porque las rectas no se mueven: sólo se transforman los '
+                                       'texto': 'Porque las rectas no se mueven: solo se transforman los '
                                                 'puntos.',
                                        'correcta': False,
                                        'explicacion': 'Si la recta quedara quieta, sus puntos movidos ya no '
@@ -1957,16 +1958,16 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       '$h(x, y)$ de un terreno?',
                          'opciones': [{'id': 'a',
                                        'texto': 'Nada: los números $(h_x, h_y)$ son los mismos en cualquier '
-                                                'grilla, y decir forma lineal en vez de vector es sólo una '
+                                                'grilla, y decir forma lineal en vez de vector es solo una '
                                                 'formalidad de nombre.',
                                        'correcta': False,
-                                       'explicacion': 'Los números coinciden sólo en la base canónica con el '
+                                       'explicacion': 'Los números coinciden solo en la base canónica con el '
                                                       'producto interno usual. Si cambiamos las unidades de '
                                                       'un eje, la fila se transforma con $A^{-1}$, mientras '
                                                       'una flecha iría con $A$: los números dejan de '
                                                       'coincidir.'},
                                       {'id': 'b',
-                                       'texto': 'La flecha perpendicular a las curvas de nivel sólo tiene '
+                                       'texto': 'La flecha perpendicular a las curvas de nivel solo tiene '
                                                 'sentido con un producto interno fijado; si cambiamos las '
                                                 'unidades de un eje, la flecha deja de ser perpendicular en '
                                                 'el terreno, la regla sigue valiendo.',
@@ -2044,7 +2045,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                           'explicacion': '$(3, 2) \\wedge (6, 5) = 3 \\cdot 5 - 2 \\cdot 6 = '
                                                          '3$, el área del paralelogramo de lados $AB$ y '
                                                          '$AC$. Dividida por $\\lvert AB \\rvert = '
-                                                         '\\sqrt{13}$ da $0.83$ m de desvío; con $C = (7, '
+                                                         '\\sqrt{13}$ da $0{,}83$ m de desvío; con $C = (7, '
                                                          '5)$ daría $0$.'},
                                          {'id': 'b',
                                           'texto': '$28$: no están alineados.',
@@ -2054,9 +2055,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                          'si son perpendiculares. El detector de '
                                                          'colinealidad es la cuña, con la resta cruzada.'},
                                          {'id': 'c',
-                                          'texto': '$1.5$: no están alineados.',
+                                          'texto': '$1{,}5$: no están alineados.',
                                           'correcta': False,
-                                          'explicacion': '$1.5$ es el área del triángulo $ABC$. Detecta lo '
+                                          'explicacion': '$1{,}5$ es el área del triángulo $ABC$. Detecta lo '
                                                          'mismo, pero el número de la cuenta $u_1 v_2 - u_2 '
                                                          'v_1$, y del determinante, es el del paralelogramo: '
                                                          'el doble.'},
@@ -2087,7 +2088,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                          {'id': 'b',
                                           'texto': '$48$ y $-12$.',
                                           'correcta': False,
-                                          'explicacion': '$48 = 4 \\cdot 12$ usa sólo la diagonal $2 \\cdot '
+                                          'explicacion': '$48 = 4 \\cdot 12$ usa solo la diagonal $2 \\cdot '
                                                          '2$ y se olvida de restar $1 \\cdot 1$. $\\det A = '
                                                          '4 - 1 = 3$, y el área es $3 \\cdot 12 = 36$.'},
                                          {'id': 'c',
@@ -2196,7 +2197,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                          'a $1$. ¿Qué le pasa a la parcela en el camino?',
                             'opciones': [{'id': 'a',
                                           'texto': 'El determinante va de $1$ a $-1$ sin sobresaltos: la '
-                                                   'parcela sólo gira hasta quedar dada vuelta.',
+                                                   'parcela solo gira hasta quedar dada vuelta.',
                                           'correcta': False,
                                           'explicacion': 'Un giro mantiene $\\det = +1$ todo el tiempo. Para '
                                                          'pasar de $+1$ a $-1$ por un camino continuo el '
@@ -2259,7 +2260,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                            '\\end{pmatrix}$ la imagen es la recta de $(1, '
                                                            '2)$ y el núcleo la de $(2, -1)$.'},
                                            {'id': 'd',
-                                            'texto': 'Sólo el vector $0$, en toda transformación lineal, '
+                                            'texto': 'Solo el vector $0$, en toda transformación lineal, '
                                                      'porque el cero siempre va al cero.',
                                             'correcta': False,
                                             'explicacion': 'El cero siempre está en el núcleo, pero no '
@@ -2290,7 +2291,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                            'ángulo no nulo, como en un giro, no hay ningún '
                                                            'autovector real.'},
                                            {'id': 'c',
-                                            'texto': 'Cae sobre su propia recta: $Av = \\lambda v$, sólo se '
+                                            'texto': 'Cae sobre su propia recta: $Av = \\lambda v$, solo se '
                                                      'estira por $\\lambda$ (si $\\lambda < 0$ se invierte; '
                                                      'si $\\lambda = 0$ va al cero).',
                                             'correcta': True,
@@ -2309,7 +2310,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                            'R^3$, la cruz de dos filas), que es otra cosa.'}],
                               'rubrica': 'Productos, determinante y autovectores · elemental: un autovector '
                                          'cumple Av = λv. Hecho geométrico: una dirección que cae sobre sí '
-                                         'misma, sólo se estira o se invierte'},
+                                         'misma, solo se estira o se invierte'},
                              {'id': '07b_m1',
                               'nivel': 'medio',
                               'enunciado': 'Tomamos $B = \\begin{pmatrix} 3 & 1 \\\\ 0 & 2 \\end{pmatrix}$ y '
@@ -2347,7 +2348,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                             'texto': 'Ninguno real: como $B$ no es simétrica, las raíces '
                                                      'salen complejas.',
                                             'correcta': False,
-                                            'explicacion': 'No ser simétrica sólo quita la perpendicularidad '
+                                            'explicacion': 'No ser simétrica solo quita la perpendicularidad '
                                                            'entre autovectores, no su existencia. Las raíces '
                                                            'complejas aparecen con un giro escondido, y $(3 '
                                                            '- \\lambda)(2 - \\lambda)$ tiene dos raíces '
@@ -2371,7 +2372,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'fila.',
                                             'correcta': False,
                                             'explicacion': 'La perpendicular a $(a, b)$ es $(b, -a)$, con '
-                                                           'las coordenadas **intercambiadas**, no sólo un '
+                                                           'las coordenadas **intercambiadas**, no solo un '
                                                            'signo cambiado. Control: $(1, 2) \\cdot (1, -2) '
                                                            '= -3 \\neq 0$, así que $N(1, -2) \\neq 0$.'},
                                            {'id': 'c',
@@ -2402,7 +2403,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'no cambia nada y por eso no tiene direcciones que '
                                                      'estirar.',
                                             'correcta': False,
-                                            'explicacion': '$\\det = 1$ sólo dice que conserva áreas '
+                                            'explicacion': '$\\det = 1$ solo dice que conserva áreas '
                                                            'orientadas. La cizalla $\\begin{pmatrix} 1 & 1 '
                                                            '\\\\ 0 & 1 \\end{pmatrix}$ también tiene $\\det '
                                                            '= 1$ y sí tiene un autovector real, $(1, 0)$.'},
@@ -2418,7 +2419,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                            'mismo ángulo y ninguna recta cae sobre sí '
                                                            'misma.'},
                                            {'id': 'c',
-                                            'texto': 'Porque $R$ no es simétrica, y sólo las matrices '
+                                            'texto': 'Porque $R$ no es simétrica, y solo las matrices '
                                                      'simétricas tienen autovectores reales.',
                                             'correcta': False,
                                             'explicacion': 'La simetría garantiza autovectores reales **y '
@@ -2452,7 +2453,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                             'explicacion': 'Vale para $2I$ pero no para la cizalla: $C - I = '
                                                            '\\begin{pmatrix} 0 & 1 \\\\ 0 & 0 '
                                                            '\\end{pmatrix}$ no es la matriz nula, su núcleo '
-                                                           'es sólo la recta del eje $x$. Raíz doble no '
+                                                           'es solo la recta del eje $x$. Raíz doble no '
                                                            'garantiza dos direcciones.'},
                                            {'id': 'b',
                                             'texto': 'En la cizalla es la recta del eje $x$ (una sola '
@@ -2471,14 +2472,14 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                             'explicacion': 'La cizalla deja quieto el eje $x$: $C(1, 0) = '
                                                            '(1, 0)$. Y $2I$ no privilegia a los ejes: estira '
                                                            'igual cualquier dirección, así que todas son '
-                                                           'propias, no sólo dos.'},
+                                                           'propias, no solo dos.'},
                                            {'id': 'd',
                                             'texto': 'En las dos es una sola recta: con $\\det = 1$ y $\\det '
                                                      '= 4$ no hay núcleo, así que a lo sumo queda una '
                                                      'dirección.',
                                             'correcta': False,
                                             'explicacion': 'Mezcla el núcleo de $A$ con el de $A - \\lambda '
-                                                           'I$. Que $\\det A \\neq 0$ sólo dice que '
+                                                           'I$. Que $\\det A \\neq 0$ solo dice que '
                                                            '$\\lambda = 0$ no es autovalor; para $\\lambda = '
                                                            '2$, $2I - 2I$ tiene determinante cero y su '
                                                            'núcleo es todo el plano.'}],
@@ -2554,7 +2555,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                                    'Para una rotación esa raíz es $1$ y la '
                                                                    'recta es el eje (Euler).'},
                                                    {'id': 'c',
-                                                    'texto': 'No, pero sólo para matrices simétricas; una '
+                                                    'texto': 'No, pero solo para matrices simétricas; una '
                                                              '$3\\times3$ general puede no tener autovector '
                                                              'real.',
                                                     'correcta': False,
@@ -2662,7 +2663,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                              'porque los autovectores dan direcciones fijas, '
                                                              'no puntos.',
                                                     'correcta': False,
-                                                    'explicacion': 'Un autovector da un punto impropio sólo '
+                                                    'explicacion': 'Un autovector da un punto impropio solo '
                                                                    'si $v_3 = 0$ (recta paralela al plano $z '
                                                                    '= 1$). Acá $v_3 = 2 \\neq 0$: la recta '
                                                                    'pincha el plano y el punto fijo es '
@@ -2730,7 +2731,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                    '$(0, -1, 2)$, y el autovector de $-2$ es $(4, 6, 1)$. '
                                                    '¿Qué puntos fijos tiene en el plano?',
                                       'opciones': [{'id': 'a',
-                                                    'texto': 'Sólo el centro $(4, 6)$: los autovectores de '
+                                                    'texto': 'Solo el centro $(4, 6)$: los autovectores de '
                                                              '$\\lambda = 2$ no cuentan porque $2 \\neq 1$ '
                                                              'los mueve.',
                                                     'correcta': False,
@@ -2791,7 +2792,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'de unos ejes**.'},
                                      {'id': 'b',
                                       'texto': 'Se conserva el punto con toda su geometría (distancias, '
-                                               'ángulos, incidencias); sólo cambian los números que lo '
+                                               'ángulos, incidencias); solo cambian los números que lo '
                                                'describen.',
                                       'correcta': True,
                                       'explicacion': 'El hierro no se movió: convertimos todo para que nada '
@@ -2802,7 +2803,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'texto': 'Nada se conserva: cada base define su propia geometría y la '
                                                'canónica es la única verdadera.',
                                       'correcta': False,
-                                      'explicacion': 'No hay base privilegiada a priori. La canónica sólo es '
+                                      'explicacion': 'No hay base privilegiada a priori. La canónica solo es '
                                                      'cómoda porque en ella el producto interno se calcula '
                                                      'como $x_1x_2 + y_1y_2$; la geometría es la misma en '
                                                      'cualquier grilla.'},
@@ -2813,7 +2814,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'explicacion': 'Con ejes perpendiculares de largo $1$ cambia la '
                                                      '**cuenta** (proyectar alcanza), no el hecho: los '
                                                      'números cambian igual. Y con ejes oblicuos el punto '
-                                                     'tampoco se desplaza; sólo hay que resolver en vez de '
+                                                     'tampoco se desplaza; solo hay que resolver en vez de '
                                                      'proyectar.'}],
                         'rubrica': 'Cambio de base y SVD · avanzado: no hay base privilegiada a priori; lo '
                                    'único especial de la canónica es que en ella el producto interno se '
@@ -2841,11 +2842,11 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'dicen a dónde van los ejes; leer coordenadas nuevas es '
                                                      'el problema inverso.'},
                                      {'id': 'c',
-                                      'texto': 'Sólo es un cambio de base si $b_1 \\perp b_2$; con ejes '
+                                      'texto': 'Solo es un cambio de base si $b_1 \\perp b_2$; con ejes '
                                                'oblicuos hay que usar $B^\\top$ en lugar de $B$.',
                                       'correcta': False,
                                       'explicacion': 'Cualquier par de direcciones no paralelas es base '
-                                                     '($\\det B \\neq 0$). $B^\\top$ sólo coincide con '
+                                                     '($\\det B \\neq 0$). $B^\\top$ solo coincide con '
                                                      '$B^{-1}$ si los ejes son perpendiculares y de largo '
                                                      '$1$, como en Rotaciones I; en general no sirve.'},
                                      {'id': 'd',
@@ -2853,7 +2854,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                'convierte en los dos sentidos según de qué lado se '
                                                'multiplique.',
                                       'correcta': False,
-                                      'explicacion': 'Los ejes nuevos van en las **columnas**, y $B$ sólo '
+                                      'explicacion': 'Los ejes nuevos van en las **columnas**, y $B$ solo '
                                                      'convierte de nuevas a viejas. Poner los ejes como '
                                                      'filas es usar $B^\\top$, que da otra matriz salvo que '
                                                      '$B$ sea simétrica.'}],
@@ -2872,12 +2873,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      '(6, 8)$, que no es $p$. Falta el $\\tfrac12$ de '
                                                      '$B^{-1} = \\tfrac12 B$.'},
                                      {'id': 'b',
-                                      'texto': '$c = (3.5, -0.5)$: resolviendo $c_1 + c_2 = 3$, $c_1 - c_2 = '
-                                               '4$.',
+                                      'texto': '$c = (3{,}5;\\ -0{,}5)$: resolviendo $c_1 + c_2 = 3$, $c_1 - '
+                                               'c_2 = 4$.',
                                       'correcta': True,
                                       'explicacion': '$Bc = p$ es ese sistema: sumando, $2c_1 = 7$; '
-                                                     'restando, $2c_2 = -1$. Control: $3.5\\,(1, 1) - '
-                                                     '0.5\\,(1, -1) = (3.5 - 0.5,\\ 3.5 + 0.5) = (3, 4)$.'},
+                                                     'restando, $2c_2 = -1$. Control: $3{,}5\\,(1, 1) - '
+                                                     '0{,}5\\,(1, -1) = (3{,}5 - 0{,}5;\\ 3{,}5 + 0{,}5) = '
+                                                     '(3, 4)$.'},
                                      {'id': 'c',
                                       'texto': '$c = (3, 4)$: el punto no se movió, así que sus coordenadas '
                                                'tampoco.',
@@ -2886,12 +2888,13 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'respecto de unos ejes. $(3, 4)$ en la base nueva sería '
                                                      '$3b_1 + 4b_2 = (7, -1)$, otro punto.'},
                                      {'id': 'd',
-                                      'texto': '$c = (3.5, 0.5)$: la mitad de la suma y la mitad de la '
+                                      'texto': '$c = (3{,}5;\\ 0{,}5)$: la mitad de la suma y la mitad de la '
                                                'diferencia de las coordenadas.',
                                       'correcta': False,
-                                      'explicacion': 'La segunda es $(3 - 4)/2 = -0.5$, con signo. Control: '
-                                                     '$3.5\\,(1, 1) + 0.5\\,(1, -1) = (4, 3) \\neq (3, 4)$: '
-                                                     'con el signo cambiado se cruzan las coordenadas.'}],
+                                      'explicacion': 'La segunda es $(3 - 4)/2 = -0{,}5$, con signo. '
+                                                     'Control: $3{,}5\\,(1, 1) + 0{,}5\\,(1, -1) = (4, 3) '
+                                                     '\\neq (3, 4)$: con el signo cambiado se cruzan las '
+                                                     'coordenadas.'}],
                         'rubrica': 'Cambio de base y SVD · elemental: un cambio de base expresa el mismo '
                                    'vector como combinación de otros vectores. Hecho geométrico: la misma '
                                    'flecha medida con otra grilla'},
@@ -2914,7 +2917,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'texto': '$B^\\top A\\,B$: la transpuesta deshace a $B$, como en '
                                                'Rotaciones I.',
                                       'correcta': False,
-                                      'explicacion': '$B^\\top = B^{-1}$ sólo si las columnas son '
+                                      'explicacion': '$B^\\top = B^{-1}$ solo si las columnas son '
                                                      'perpendiculares de largo $1$, lo que pasa cuando $A$ '
                                                      'es simétrica. Para $\\begin{pmatrix} 3 & 1 \\\\ 0 & 2 '
                                                      '\\end{pmatrix}$ los autovectores $(1, 0)$ y $(1, -1)$ '
@@ -2926,7 +2929,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'correcta': True,
                                       'explicacion': 'Un vector escrito en la base propia pasa por $B$ a '
                                                      'canónica, $A$ lo transforma, y $B^{-1}$ lo lee de '
-                                                     'vuelta en la base propia, donde cada eje sólo se '
+                                                     'vuelta en la base propia, donde cada eje solo se '
                                                      'estiró por su $\\lambda$. Es el $T_{\\mathrm{diag}} = '
                                                      'A^{-1}T_{\\mathrm{can}}A$ de otra notación habitual, '
                                                      'con su $A$ en el lugar de nuestra $B$.'},
@@ -2988,7 +2991,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                    'como un proceso continuo'},
                        {'id': '08_a2',
                         'nivel': 'avanzado',
-                        'enunciado': 'Queremos una grilla real en la que la transformación sea sólo estirar '
+                        'enunciado': 'Queremos una grilla real en la que la transformación sea solo estirar '
                                      'cada eje. ¿Cuál de estas matrices se diagonaliza con una base real de '
                                      'autovectores?',
                         'opciones': [{'id': 'a',
@@ -2998,7 +3001,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                       'correcta': False,
                                       'explicacion': 'Dos raíces reales, pero una sola dirección propia: el '
                                                      'núcleo de $C - I$ es la recta del eje $x$. Sin segundo '
-                                                     'eje propio no hay grilla en la que $C$ sólo estire; '
+                                                     'eje propio no hay grilla en la que $C$ solo estire; '
                                                      '$B^{-1}CB$ nunca es diagonal.'},
                                      {'id': 'b',
                                       'texto': 'El giro $R(30°)$: conserva largos y ángulos, así que en su '
@@ -3017,7 +3020,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                      'propias independientes, y eso basta: $B = '
                                                      '\\begin{pmatrix} 1 & 1 \\\\ 0 & -1 \\end{pmatrix}$ y '
                                                      '$B^{-1}AB = \\mathrm{diag}(3, 2)$. Que los ejes '
-                                                     'propios no sean perpendiculares no molesta; sólo '
+                                                     'propios no sean perpendiculares no molesta; solo '
                                                      'impide usar $B^\\top$.'},
                                      {'id': 'd',
                                       'texto': 'Ninguna de las anteriores: para diagonalizar hace falta que '
@@ -3045,9 +3048,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                          'por una escala), pero no para cualquier $A$. Para '
                                                          '$\\begin{pmatrix} 2 & 1 \\\\ 0 & 1 \\end{pmatrix}$ '
                                                          'los autovalores son $2, 1$ y los valores '
-                                                         'singulares $2.288, 0.874$: dos preguntas distintas '
-                                                         '(qué cae sobre sí mismo, qué par perpendicular '
-                                                         'sigue perpendicular).'},
+                                                         'singulares $2{,}288, 0{,}874$: dos preguntas '
+                                                         'distintas (qué cae sobre sí mismo, qué par '
+                                                         'perpendicular sigue perpendicular).'},
                                          {'id': 'b',
                                           'texto': 'Cuánto se estira cada una de las dos direcciones '
                                                    'perpendiculares $v_1, v_2$ que siguen perpendiculares a '
@@ -3177,7 +3180,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                           'correcta': False,
                                           'explicacion': '$\\sigma_k = \\lvert\\lambda_k\\rvert$ vale para '
                                                          'las matrices normales (por ejemplo las '
-                                                         'simétricas), y ésta no lo es ($AA^\\top \\neq '
+                                                         'simétricas), y esta no lo es ($AA^\\top \\neq '
                                                          'A^\\top A$). Control: $\\sigma_1^2 + \\sigma_2^2 = '
                                                          '(3 + \\sqrt5) + (3 - \\sqrt5) = 6 \\neq 5$.'},
                                          {'id': 'c',
@@ -3188,7 +3191,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                          'A$ y su suma es la traza, $4 + 2 = 6$; también '
                                                          '$2^2 + 1^2 + 0^2 + 1^2$. Con $\\sigma_1\\sigma_2 = '
                                                          '\\lvert\\det A\\rvert = 2$ queda $\\mu^2 - 6\\mu + '
-                                                         '4 = 0$, $\\sigma = 2.288, 0.874$.'},
+                                                         '4 = 0$, $\\sigma = 2{,}288, 0{,}874$.'},
                                          {'id': 'd',
                                           'texto': '$2$: el determinante de $A$, igual a '
                                                    '$\\sigma_1\\sigma_2$.',
@@ -3208,7 +3211,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                             'opciones': [{'id': 'a',
                                           'texto': 'Porque la SVD admite $\\sigma$ complejos cuando hace '
                                                    'falta, mientras que la diagonalización que estudiamos '
-                                                   'sólo acepta autovalores reales.',
+                                                   'solo acepta autovalores reales.',
                                           'correcta': False,
                                           'explicacion': 'Al revés: los $\\sigma$ **nunca** son complejos ni '
                                                          'negativos. La SVD no esquiva el problema '
@@ -3231,7 +3234,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                          {'id': 'c',
                                           'texto': 'Porque toda matriz $2\\times2$ es simétrica salvo un '
                                                    'signo, y las simétricas se diagonalizan con base '
-                                                   'ortogonal; la SVD sólo acomoda ese signo en $U$.',
+                                                   'ortogonal; la SVD solo acomoda ese signo en $U$.',
                                           'correcta': False,
                                           'explicacion': '$\\begin{pmatrix} 2 & 1 \\\\ 0 & 1 \\end{pmatrix}$ '
                                                          'no es simétrica ni lo es salvo signo, y sus '
@@ -3293,7 +3296,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                           'explicacion': '$PP^{+}P = P$ sí se cumple, pero no implica '
                                                          '$P^{+}P = I$: $P^{+}P = P/5$ es una proyección, '
                                                          'que sobre la imagen actúa como la identidad y '
-                                                         'sobre el núcleo como el cero. Sólo con todos los '
+                                                         'sobre el núcleo como el cero. Solo con todos los '
                                                          '$\\sigma \\neq 0$ la pseudoinversa es la '
                                                          'inversa.'}],
                             'rubrica': 'Cambio de base y SVD · avanzado: pseudoinversa de Moore–Penrose: '
@@ -3390,9 +3393,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                'explicacion': 'La grilla $(u, v)$ es perpendicular en el '
                                                               'papel **siempre**; eso no lo mide $F$. $F$ '
                                                               'mide el ángulo **sobre el terreno**: en el '
-                                                              'plano inclinado $z = 1 + 0.4u + 0.3v$ la '
+                                                              'plano inclinado $z = 1 + 0{,}4u + 0{,}3v$ la '
                                                               'grilla es perpendicular en el papel y $F = '
-                                                              '0.12 \\neq 0$.'}],
+                                                              '0{,}12 \\neq 0$.'}],
                                  'rubrica': 'Productos, determinante y autovectores · elemental: el producto '
                                             'interno decide incidencia y ortogonalidad'},
                                 {'id': '10_m1',
@@ -3436,53 +3439,55 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                               '0, 1)$: $E = R^2 = 100$, $F = 0$, $G = 1$, '
                                                               'sin depender del punto. Un paso de $1°$ en '
                                                               '$u$ mide $\\sqrt E\\,du = 10 \\cdot \\pi/180 '
-                                                              '= 0.1745$ m; es la regla del plano con el eje '
-                                                              '$u$ reescalado, por eso el cilindro se '
+                                                              '= 0{,}1745$ m; es la regla del plano con el '
+                                                              'eje $u$ reescalado, por eso el cilindro se '
                                                               'desenrolla.'}],
                                  'rubrica': 'Rotaciones · avanzado: existe la derivada de una transformación '
                                             'y genera un conjunto de vectores tangentes a trayectorias'},
                                 {'id': '10_m2',
                                  'nivel': 'medio',
-                                 'enunciado': 'En el plano inclinado $z = 1 + 0.4u + 0.3v$ tenemos $E = '
-                                              '1.16$, $F = 0.12$, $G = 1.09$. Las líneas de la grilla son '
-                                              'perpendiculares en el papel. ¿A qué ángulo se cruzan sobre el '
-                                              'plano?',
+                                 'enunciado': 'En el plano inclinado $z = 1 + 0{,}4u + 0{,}3v$ tenemos $E = '
+                                              '1{,}16$, $F = 0{,}12$, $G = 1{,}09$. Las líneas de la grilla '
+                                              'son perpendiculares en el papel. ¿A qué ángulo se cruzan '
+                                              'sobre el plano?',
                                  'opciones': [{'id': 'a',
                                                'texto': 'A $90°$: la grilla es perpendicular y una afinidad '
                                                         'conserva eso.',
                                                'correcta': False,
                                                'explicacion': 'Una afinidad conserva paralelismo, no '
                                                               'ángulos. $F \\neq 0$ es justamente la señal '
-                                                              'de que los ejes locales $r_u = (1, 0, 0.4)$ y '
-                                                              '$r_v = (0, 1, 0.3)$ ya no son '
+                                                              'de que los ejes locales $r_u = (1;\\ 0;\\ '
+                                                              '0{,}4)$ y $r_v = (0;\\ 1;\\ 0{,}3)$ ya no son '
                                                               'perpendiculares: $\\langle r_u, r_v\\rangle = '
-                                                              '0.12$.'},
+                                                              '0{,}12$.'},
                                               {'id': 'b',
-                                               'texto': 'A $83.1°$: $\\cos\\theta = F = 0.12$.',
+                                               'texto': 'A $83{,}1°$: $\\cos\\theta = F = 0{,}12$.',
                                                'correcta': False,
                                                'explicacion': '$F$ es $\\lvert r_u\\rvert\\lvert '
                                                               'r_v\\rvert\\cos\\theta$, no el coseno a '
                                                               'secas. Falta dividir por $\\sqrt{EG} = '
-                                                              '\\sqrt{1.16 \\cdot 1.09} \\approx 1.124$; sin '
-                                                              'normalizar, el ángulo sale levemente mal.'},
+                                                              '\\sqrt{1{,}16 \\cdot 1{,}09} \\approx '
+                                                              '1{,}124$; sin normalizar, el ángulo sale '
+                                                              'levemente mal.'},
                                               {'id': 'c',
-                                               'texto': 'A $83.9°$: $\\cos\\theta = F/\\sqrt{EG} = '
-                                                        '0.12/\\sqrt{1.16 \\cdot 1.09} \\approx 0.107$.',
+                                               'texto': 'A $83{,}9°$: $\\cos\\theta = F/\\sqrt{EG} = '
+                                                        '0{,}12/\\sqrt{1{,}16 \\cdot 1{,}09} \\approx '
+                                                        '0{,}107$.',
                                                'correcta': True,
                                                'explicacion': 'Es el coseno de la lección 02 escrito con la '
                                                               'tabla: $\\cos\\theta = \\langle r_u, '
                                                               'r_v\\rangle / (\\lvert r_u\\rvert\\lvert '
-                                                              'r_v\\rvert) = F/\\sqrt{EG}$. $\\arccos 0.107 '
-                                                              '\\approx 83.9°$: a $90°$ en el papel, a '
-                                                              '$83.9°$ sobre el plano.'},
+                                                              'r_v\\rvert) = F/\\sqrt{EG}$. $\\arccos '
+                                                              '0{,}107 \\approx 83{,}9°$: a $90°$ en el '
+                                                              'papel, a $83{,}9°$ sobre el plano.'},
                                               {'id': 'd',
-                                               'texto': 'A $6.1°$: $\\sin\\theta = F/\\sqrt{EG} \\approx '
-                                                        '0.107$.',
+                                               'texto': 'A $6{,}1°$: $\\sin\\theta = F/\\sqrt{EG} \\approx '
+                                                        '0{,}107$.',
                                                'correcta': False,
                                                'explicacion': '$F/\\sqrt{EG}$ es el **coseno** del ángulo, '
-                                                              'no el seno; $6.1°$ es el complemento. Un $F$ '
-                                                              'chico respecto de los largos significa ejes '
-                                                              '**casi** perpendiculares, no casi '
+                                                              'no el seno; $6{,}1°$ es el complemento. Un '
+                                                              '$F$ chico respecto de los largos significa '
+                                                              'ejes **casi** perpendiculares, no casi '
                                                               'paralelos.'}],
                                  'rubrica': 'Productos, determinante y autovectores · elemental: el producto '
                                             'interno decide incidencia y ortogonalidad'},
@@ -3490,39 +3495,39 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                  'nivel': 'avanzado',
                                  'enunciado': 'En la esfera de $R = 6371$ km, $ds^2 = R^2\\,d\\varphi^2 + '
                                               'R^2\\cos^2\\varphi\\,d\\lambda^2$. Un grado de latitud mide '
-                                              '$R\\,\\pi/180 = 111.2$ km en todos lados. ¿Cuánto mide un '
+                                              '$R\\,\\pi/180 = 111{,}2$ km en todos lados. ¿Cuánto mide un '
                                               'grado de **longitud** a latitud $45°$?',
                                  'opciones': [{'id': 'a',
-                                               'texto': '$111.2$ km: un grado es un grado, la esfera es '
+                                               'texto': '$111{,}2$ km: un grado es un grado, la esfera es '
                                                         'simétrica.',
                                                'correcta': False,
                                                'explicacion': 'Ignora $G = R^2\\cos^2\\varphi$: hacia el '
                                                               'polo el eje $r_\\lambda$ se achica hasta '
                                                               'desaparecer (mover la longitud casi no nos '
-                                                              'mueve). Sólo en el ecuador, $\\cos 0 = 1$, el '
-                                                              'grado de longitud vale $111.2$ km.'},
+                                                              'mueve). Solo en el ecuador, $\\cos 0 = 1$, el '
+                                                              'grado de longitud vale $111{,}2$ km.'},
                                               {'id': 'b',
-                                               'texto': '$78.6$ km: $ds = \\sqrt{G}\\,d\\lambda = R\\cos '
+                                               'texto': '$78{,}6$ km: $ds = \\sqrt{G}\\,d\\lambda = R\\cos '
                                                         '45°\\cdot\\pi/180$.',
                                                'correcta': True,
                                                'explicacion': 'Con $d\\varphi = 0$ queda $ds = '
                                                               '\\sqrt{G}\\,d\\lambda$, y $\\sqrt G = '
                                                               'R\\cos\\varphi$: el radio del paralelo. $6371 '
-                                                              '\\cdot 0.7071 \\cdot 0.01745 = 78.6$ km, '
-                                                              'contra $111.2$ km del grado de latitud '
+                                                              '\\cdot 0{,}7071 \\cdot 0{,}01745 = 78{,}6$ '
+                                                              'km, contra $111{,}2$ km del grado de latitud '
                                                               '($\\sqrt E = R$).'},
                                               {'id': 'c',
-                                               'texto': '$55.6$ km: $111.2 \\cdot \\cos^2 45° = 111.2 \\cdot '
-                                                        '0.5$.',
+                                               'texto': '$55{,}6$ km: $111{,}2 \\cdot \\cos^2 45° = 111{,}2 '
+                                                        '\\cdot 0{,}5$.',
                                                'correcta': False,
                                                'explicacion': 'Se usó $G$ sin la raíz. $G = '
                                                               'R^2\\cos^2\\varphi$ es el largo **al '
                                                               'cuadrado** del eje local; el largo es $\\sqrt '
-                                                              'G = R\\cos\\varphi$, y $\\cos 45° = 0.707$, '
-                                                              'no $0.5$.'},
+                                                              'G = R\\cos\\varphi$, y $\\cos 45° = 0{,}707$, '
+                                                              'no $0{,}5$.'},
                                               {'id': 'd',
-                                               'texto': '$157.2$ km: $111.2 / \\cos 45°$, porque el paralelo '
-                                                        'es más corto y el grado se agranda.',
+                                               'texto': '$157{,}2$ km: $111{,}2 / \\cos 45°$, porque el '
+                                                        'paralelo es más corto y el grado se agranda.',
                                                'correcta': False,
                                                'explicacion': 'Al revés: el paralelo a $45°$ tiene radio '
                                                               '$R\\cos 45°$, más chico que $R$, así que el '
@@ -3544,7 +3549,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                         'es la perpendicular sobre el terreno.',
                                                'correcta': False,
                                                'explicacion': 'La perpendicular del papel y la del terreno '
-                                                              'coinciden sólo si $E = G$ y $F = 0$. En la '
+                                                              'coinciden solo si $E = G$ y $F = 0$. En la '
                                                               'esfera un paso en $\\lambda$ mide '
                                                               '$\\cos\\varphi$ veces uno en $\\varphi$: la '
                                                               'misma flecha dibujada en la grilla apunta a '
@@ -3632,12 +3637,12 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'texto': 'La simple minimiza las distancias perpendiculares a la '
                                                  'recta; la total, las verticales.',
                                         'correcta': False,
-                                        'explicacion': 'Es al revés: la simple es la que mira sólo el error '
+                                        'explicacion': 'Es al revés: la simple es la que mira solo el error '
                                                        'en $y$ (distancia vertical) y la total es la que '
                                                        'admite error en las dos coordenadas (distancia '
                                                        'perpendicular).'},
                                        {'id': 'b',
-                                        'texto': 'La simple minimiza las distancias verticales (error sólo '
+                                        'texto': 'La simple minimiza las distancias verticales (error solo '
                                                  'en $y$); la total, las perpendiculares a la recta (error '
                                                  'en $x$ y en $y$).',
                                         'correcta': True,
@@ -3647,7 +3652,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                        'de $X_0^\\top X_0$ y el residuo es la distancia '
                                                        'perpendicular.'},
                                        {'id': 'c',
-                                        'texto': 'Dan siempre la misma recta; cambia sólo el método de '
+                                        'texto': 'Dan siempre la misma recta; cambia solo el método de '
                                                  'cálculo.',
                                         'correcta': False,
                                         'explicacion': 'Con los mismos cuatro puntos $(\\pm1, 0)$, $(0, '
@@ -3720,7 +3725,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'texto': 'Restando las ecuaciones de los círculos quedan rectas; con '
                                                  'las tres cintas el punto es $(3, -4)$.',
                                         'correcta': False,
-                                        'explicacion': '$(3, -4)$ cumple sólo los dos primeros círculos: es '
+                                        'explicacion': '$(3, -4)$ cumple solo los dos primeros círculos: es '
                                                        'el otro corte, y la tercera cinta ($3$ m a $M_3$) es '
                                                        'justamente la que lo descarta.'},
                                        {'id': 'c',
@@ -3774,7 +3779,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                        '$\\Sigma$ por ella, pero no toca $U$ ni $V$: la '
                                                        'rotación es la misma.'},
                                        {'id': 'd',
-                                        'texto': 'Hay que convertir antes a metros; Procrustes sólo funciona '
+                                        'texto': 'Hay que convertir antes a metros; Procrustes solo funciona '
                                                  'si las dos nubes tienen la misma escala.',
                                         'correcta': False,
                                         'explicacion': 'Procrustes con escala resuelve exactamente ese caso: '
@@ -3796,7 +3801,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'correcta': True,
                                         'explicacion': 'La recta total va por la dirección de mayor '
                                                        'dispersión, $(1, 1)$, y deja residuo '
-                                                       '$\\lambda_{\\min} = 4$; la simple minimiza sólo '
+                                                       '$\\lambda_{\\min} = 4$; la simple minimiza solo '
                                                        'residuos verticales y su pendiente es $6/10$, más '
                                                        'chata que la total. Dos rectas distintas para la '
                                                        'misma nube.'},
@@ -3811,9 +3816,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                         'texto': 'Las dos dan $y = x$: la nube es simétrica respecto de esa '
                                                  'bisectriz y por eso las dos rectas coinciden.',
                                         'correcta': False,
-                                        'explicacion': 'La simple mide residuos sólo en $y$ y su pendiente '
+                                        'explicacion': 'La simple mide residuos solo en $y$ y su pendiente '
                                                        'es $\\sum x_i y_i / \\sum x_i^2 = 6/10 \\neq 1$; '
-                                                       'sólo coincidiría con la total si la correlación '
+                                                       'solo coincidiría con la total si la correlación '
                                                        'fuera perfecta.'},
                                        {'id': 'd',
                                         'texto': 'Total: $y = 0{,}6\\,x$ (el cociente $6/10$ de la matriz); '
@@ -3837,7 +3842,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 {'id': 'b',
                                  'texto': 'La mayor de las dos, $\\kappa_1$.',
                                  'correcta': False,
-                                 'explicacion': '$\\kappa_1$ es sólo la curvatura normal máxima; no dice '
+                                 'explicacion': '$\\kappa_1$ es solo la curvatura normal máxima; no dice '
                                                 'nada del otro rumbo y no distingue la silla del cuenco.'},
                                 {'id': 'c',
                                  'texto': 'El producto $\\kappa_1\\kappa_2 = \\det II / \\det I$.',
@@ -3856,16 +3861,16 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                               'geométrico: su signo dice cuenco, canaleta o silla'},
                   {'id': '12_e2',
                    'nivel': 'elemental',
-                   'enunciado': 'Apoyamos el nivel en el punto más bajo de un paso de montaña: la burbuja '
-                                'centra. Hacia el este y el oeste el terreno sube; hacia el norte y el sur '
-                                'baja. ¿Qué dice eso de la curvatura en ese punto?',
+                   'enunciado': 'Apoyamos en el punto más bajo de un paso de montaña un instrumento con '
+                                'burbuja: la burbuja centra. Hacia el este y el oeste el terreno sube; hacia '
+                                'el norte y el sur baja. ¿Qué dice eso de la curvatura en ese punto?',
                    'opciones': [{'id': 'a',
                                  'texto': 'La tangente es horizontal, así que la curvatura es cero en todos '
                                           'los rumbos.',
                                  'correcta': False,
                                  'explicacion': 'Burbuja centrada es gradiente nulo (término lineal cero), '
                                                 'no hessiana nula: a un paso el terreno ya se aparta del '
-                                                'plano del nivel, y cuánto se aparta es la curvatura.'},
+                                                'plano horizontal, y cuánto se aparta es la curvatura.'},
                                 {'id': 'b',
                                  'texto': 'Las curvaturas principales tienen signos opuestos y $K < 0$: la '
                                           'superficie cruza su plano tangente.',
@@ -3911,7 +3916,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                  'texto': '$R = 4$ m: el radio medio es el menor, porque la curvatura máxima '
                                           'manda.',
                                  'correcta': False,
-                                 'explicacion': 'El menor radio es sólo el extremo de un rumbo; el promedio '
+                                 'explicacion': 'El menor radio es solo el extremo de un rumbo; el promedio '
                                                 'sobre todos los rumbos queda entre $R_1$ y $R_2$.'},
                                 {'id': 'd',
                                  'texto': '$R \\approx 5{,}54$ m, el promedio de las curvaturas invertido: '
@@ -3956,7 +3961,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                 '0$, no que toda sección sea recta; la única sección normal '
                                                 'recta es la paralela al eje.'}],
                    'rubrica': 'Curvatura · medio · la curvatura normal es cuadrática en el rumbo (Euler); '
-                              'hecho geométrico: el cilindro sólo es recto a lo largo del eje'},
+                              'hecho geométrico: el cilindro solo es recto a lo largo del eje'},
                   {'id': '12_a1',
                    'nivel': 'avanzado',
                    'enunciado': 'Por un punto trazamos la sección normal en cierta dirección, de radio de '
@@ -3972,10 +3977,10 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                 'sección normal sobre el plano oblicuo, y el radio queda '
                                                 '$\\rho_\\alpha\\cos\\theta$: se achica, no se agranda.'},
                                 {'id': 'b',
-                                 'texto': '$\\rho_\\beta = 10$ m: el radio depende sólo de la dirección '
+                                 'texto': '$\\rho_\\beta = 10$ m: el radio depende solo de la dirección '
                                           'tangente, no del plano que corta.',
                                  'correcta': False,
-                                 'explicacion': 'Depende del plano: la curvatura normal es sólo la parte de '
+                                 'explicacion': 'Depende del plano: la curvatura normal es solo la parte de '
                                                 'la aceleración sobre la normal, y un plano inclinado ve '
                                                 'además una componente dentro de la superficie.'},
                                 {'id': 'c',
@@ -4022,7 +4027,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                           'curvatura es máxima.',
                                  'correcta': False,
                                  'explicacion': '$K > 0$ en todo el elipsoide, polos incluidos o no; los '
-                                                'polos sólo son los puntos umbilicales, donde las dos '
+                                                'polos solo son los puntos umbilicales, donde las dos '
                                                 'curvaturas coinciden.'},
                                 {'id': 'd',
                                  'texto': 'No se puede porque $\\kappa_1 \\ne \\kappa_2$ en el elipsoide; en '
@@ -4036,9 +4041,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                               'no se aplana'}],
  '13_elipsoide': [{'id': '13_e1',
                    'nivel': 'elemental',
-                   'enunciado': 'Un receptor GNSS nos da latitud $\\varphi = 45°$ para un punto de la '
-                                'superficie del elipsoide ($h = 0$). ¿Qué ángulo forma la recta del mojón al '
-                                'centro de la Tierra con el plano del ecuador?',
+                   'enunciado': 'Un receptor que se ubica con satélites nos da latitud $\\varphi = 45°$ para '
+                                'un punto de la superficie del elipsoide ($h = 0$). ¿Qué ángulo forma la '
+                                'recta del mojón al centro de la Tierra con el plano del ecuador?',
                    'opciones': [{'id': 'a',
                                  'texto': '$45°$: toda normal a la superficie pasa por el centro.',
                                  'correcta': False,
@@ -4061,8 +4066,8 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 {'id': 'd',
                                  'texto': 'No se puede saber sin la altura $h$ del mojón.',
                                  'correcta': False,
-                                 'explicacion': 'Sobre la superficie ($h = 0$) $\\psi$ depende sólo de '
-                                                '$\\varphi$ y de $e^2$; la altura cambia la cuenta sólo si '
+                                 'explicacion': 'Sobre la superficie ($h = 0$) $\\psi$ depende solo de '
+                                                '$\\varphi$ y de $e^2$; la altura cambia la cuenta solo si '
                                                 'el punto se corre por la normal.'}],
                    'rubrica': 'Elipsoide · elemental · tres latitudes, $\\psi \\le \\beta \\le \\varphi$; '
                               'hecho geométrico: la normal no pasa por el centro'},
@@ -4078,7 +4083,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 {'id': 'b',
                                  'texto': '$M$ es el radio de la sección meridiana y $N$ el de la sección '
                                           'normal perpendicular a ella, el primer vertical; $M \\le N$, '
-                                          'iguales sólo en los polos.',
+                                          'iguales solo en los polos.',
                                  'correcta': True,
                                  'explicacion': 'Son las direcciones principales del elipsoide (por simetría '
                                                 'del plano meridiano), con $\\kappa_1 = 1/M$ y $\\kappa_2 = '
@@ -4143,7 +4148,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                 {'id': 'b',
                                  'texto': '$R$: todos los paralelos son círculos máximos.',
                                  'correcta': False,
-                                 'explicacion': 'Sólo el ecuador es círculo máximo; los demás paralelos '
+                                 'explicacion': 'Solo el ecuador es círculo máximo; los demás paralelos '
                                                 'tienen radio $R\\cos\\varphi$ y se achican hacia el polo, '
                                                 'por eso un grado de longitud vale cada vez menos metros.'},
                                 {'id': 'c',
@@ -4298,7 +4303,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                               'texto': 'Suman siempre $270°$, como el triángulo con tres '
                                                        'ángulos rectos.',
                                               'correcta': False,
-                                              'explicacion': '$270°$ es sólo el octante; el exceso crece con '
+                                              'explicacion': '$270°$ es solo el octante; el exceso crece con '
                                                              'el área, y un triángulo de pocos km suma '
                                                              '$180°$ más una fracción de segundo.'}],
                                 'rubrica': 'Trigonometría esférica · elemental · exceso esférico = '
@@ -4379,7 +4384,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                              'esfera de radio $R$. ¿Cuánto suman sus ángulos interiores?',
                                 'opciones': [{'id': 'a',
                                               'texto': '$540°$ exactos, como en el plano: el exceso aparece '
-                                                       'sólo en triángulos.',
+                                                       'solo en triángulos.',
                                               'correcta': False,
                                               'explicacion': 'Cortado en tres triángulos, cada uno aporta su '
                                                              'exceso; la suma total es $540°$ más el área '
@@ -4442,7 +4447,9 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                               'explicacion': 'Con $1$ km de lado el exceso es de '
                                                              "$0{,}002''$, invisible; con $100$ km el área "
                                                              'es $10^4$ veces mayor y el exceso ya es del '
-                                                             'orden de lo que mide un teodolito.'},
+                                                             'orden de lo que miden las herramientas que '
+                                                             'leen ángulos con precisión de hasta 1 '
+                                                             'segundo.'},
                                              {'id': 'd',
                                               'texto': "Hay que restar $22''$ a un solo ángulo, el del "
                                                        'vértice más alejado.',
@@ -4484,10 +4491,10 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                                  '$-54°$ cada hectárea se dibuja como '
                                                                  '$2{,}88$ y los ángulos salen exactos.'},
                                                  {'id': 'd',
-                                                  'texto': 'Los ángulos sólo entre meridianos y paralelos, '
+                                                  'texto': 'Los ángulos solo entre meridianos y paralelos, '
                                                            'que siguen a $90°$.',
                                                   'correcta': False,
-                                                  'explicacion': 'Meridianos y paralelos a $90°$ es sólo $F '
+                                                  'explicacion': 'Meridianos y paralelos a $90°$ es solo $F '
                                                                  '= 0$; la cilíndrica equidistante lo cumple '
                                                                  'y tuerce las demás direcciones hasta $30°$ '
                                                                  'en Ushuaia. Conforme pide además $E = '
@@ -4575,7 +4582,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                   'correcta': False,
                                                   'explicacion': 'Los ejes siguen a $90°$ pero las '
                                                                  'direcciones intermedias giran; conforme es '
-                                                                 '$\\sigma_1 = \\sigma_2$, no sólo $F = '
+                                                                 '$\\sigma_1 = \\sigma_2$, no solo $F = '
                                                                  '0$.'}],
                                     'rubrica': 'Cambio de base y SVD · medio: la SVD gira, estira en '
                                                'direcciones perpendiculares y gira; la indicatriz de Tissot '
@@ -4611,7 +4618,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                   'correcta': False,
                                                   'explicacion': 'La corrección del elipsoide se anula en el '
                                                                  'ecuador porque $\\sin 0 = 0$ deja $\\ln '
-                                                                 '1$; el $-e/2$ sólo multiplica ese '
+                                                                 '1$; el $-e/2$ solo multiplica ese '
                                                                  'logaritmo.'}],
                                     'rubrica': 'Conformes · medio · Mercator es $y = a\\,q(\\varphi)$ con $h '
                                                '= k$; hecho geométrico: el ecuador queda en $y = 0$ y el '
@@ -4714,7 +4721,7 @@ BANCO_AUTOEVALUACION = {'00_fundamentos': [{'id': '00_e1',
                                                            'meridiano central.',
                                                   'correcta': False,
                                                   'explicacion': '$h = 1$ en todo punto con $k \\ne 1$ no es '
-                                                                 'conforme; la escala $1$ sólo puede '
+                                                                 'conforme; la escala $1$ solo puede '
                                                                  'exigirse sobre el meridiano central y '
                                                                  'crece con $\\Delta\\lambda^2$, por eso las '
                                                                  'fajas de POSGAR son angostas.'}],

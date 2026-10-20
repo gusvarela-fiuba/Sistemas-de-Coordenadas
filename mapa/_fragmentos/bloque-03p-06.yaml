@@ -128,7 +128,7 @@ conceptos:
     nombre: "Producto vectorial (producto cruz)"
     clase: "05"
     unidad: 07a_cuna_determinante
-    hecho_geometrico: "La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Sólo existe en R3."
+    hecho_geometrico: "La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Solo existe en R3."
     que_se_conserva: "La incidencia (p×q)·p = 0; la antisimetría es la orientación del área."
     apunte: ["subespacios"]
     requiere: [producto-interno, coordenadas-homogeneas]
@@ -136,7 +136,7 @@ conceptos:
     nombre: "Producto cuña (exterior)"
     clase: "05"
     unidad: 07a_cuna_determinante
-    hecho_geometrico: "u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido sólo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). 'Detector de colinealidad': vale cero cuando los vectores se aplastan."
+    hecho_geometrico: "u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido solo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). 'Detector de colinealidad': vale cero cuando los vectores se aplastan."
     que_se_conserva: "Nada; mide cuánto se aplasta. El ortogonal a un subespacio es el que maximiza el volumen."
     apunte: ["subespacios"]
     requiere: [producto-vectorial, determinante]
@@ -144,7 +144,7 @@ conceptos:
     nombre: "Determinante"
     clase: "05"
     unidad: 07a_cuna_determinante
-    hecho_geometrico: "La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y sólo si los vectores son dependientes."
+    hecho_geometrico: "La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y solo si los vectores son dependientes."
     que_se_conserva: "El signo dice si se invierte la orientación; el módulo cuánto se agranda."
     apunte: ["subespacios"]
     requiere: [producto-vectorial, colinealidad, matriz-ortogonal]
@@ -178,7 +178,7 @@ conceptos:
     clase: "06"
     unidad: 07b_nucleo_autovectores
     hecho_geometrico: "v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble)."
-    que_se_conserva: "La dirección; sólo cambia la escala."
+    que_se_conserva: "La dirección; solo cambia la escala."
     apunte: ["autovectores", "pentagono", "proyectivas"]
     requiere: [nucleo, subespacio-invariante, producto-vectorial]
   - id: autovalor

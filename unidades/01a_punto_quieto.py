@@ -72,7 +72,7 @@ def _(mo):
     en el mismo origen, pero mide **en sus propios ejes**: su eje $x$ apunta $30°$ a la izquierda del frente. El mojón
     no se tocó; es el mismo pedazo de hierro.
 
-    La pregunta de campo es la de siempre en este oficio: las lecturas de la estación hay que pasarlas al sistema de
+    La pregunta de campo es la de siempre en este oficio: las lecturas del instrumento hay que pasarlas al sistema de
     la parcela, y al revés. Antes de ver cómo, una predicción.
     """)
     return
@@ -97,8 +97,8 @@ def _(lib, mo, np):
             lib.vec_plano(candidatos["reflexion"]): "reflexion",
         }),
         value=None,
-        label=r"**Predicción.** Los ejes de la estación están girados $30°$ antihorario respecto de los de la obra y el "
-        r"mojón $P = (4, 3)$ se queda quieto. Las coordenadas que lee la estación son…",
+        label=r"**Predicción.** Los ejes del instrumento están girados $30°$ antihorario respecto de los de la obra y el "
+        r"mojón $P = (4, 3)$ se queda quieto. Las coordenadas que lee el instrumento son…",
     )
     prediccion
     return R30, candidatos, mojon, prediccion
@@ -115,14 +115,14 @@ def _(candidatos, lib, mo, prediccion):
                    r"girado $-30°$. En la sección 2 se ve: el mojón no se mueve, la grilla teal sí."),
         "mismas": ("warn",
                    r"**No.** El mojón no se movió, pero una coordenada es un número **respecto de unos ejes**. Si los ejes "
-                   r"giran, los números cambian aunque el punto no. Si no cambiaran, la estación y la obra dirían lo mismo, "
+                   r"giran, los números cambian aunque el punto no. Si no cambiaran, el instrumento y la obra dirían lo mismo, "
                    r"y no lo dicen: por eso hay que transformar las lecturas."),
         "reflexion": ("warn",
                       rf"**No.** ${_r}$ es el mojón **reflejado** respecto del eje $x$: cambia el signo de una sola coordenada, "
                       r"que es lo que hace un espejo, no un giro. Un giro **mezcla** las dos coordenadas: las dos nuevas dependen "
                       r"de las dos viejas."),
         "pasiva": ("success",
-                   rf"**Sí.** El mojón queda y los ejes giran $30°$: la estación lee ${_p}$, como si el punto hubiera girado "
+                   rf"**Sí.** El mojón queda y los ejes giran $30°$: el instrumento lee ${_p}$, como si el punto hubiera girado "
                    r"$-30°$. Eso es lo que muestra la lección: con los ejes girados $\theta$, las coordenadas nuevas se leen "
                    r"proyectando el mismo punto sobre los ejes nuevos. La cuenta que lo hace aparece recién en la sección 3."),
     }
@@ -151,7 +151,7 @@ def _(mo):
 
     | | ¿qué podemos girar? | lo que se ve |
     |---|---|---|
-    | $\mathbb R$ | nada: en una recta el único "giro" es dar vuelta la regla, $x \mapsto -x$ | el mojón queda; cambia el signo de su número |
+    | $\mathbb R$ | nada: en una recta el único «giro» es dar vuelta la regla, $x \mapsto -x$ | el mojón queda; cambia el signo de su número |
     | $\mathbb R^2$ | los dos ejes a la vez, un ángulo $\theta$ | el mojón queda; sus dos números se mezclan con senos y cosenos |
     | $\mathbb R^3$ | hace falta decir **alrededor de qué eje** | lección III: tres giros básicos, y el orden importa |
     """)
@@ -163,10 +163,10 @@ def _(mo):
     mo.md(r"""
     ## 2. Manipulación
 
-    Tres capas. En **gris**, la grilla de la obra (los ejes de antes). En **teal**, la grilla de la estación: los mismos
+    Tres capas. En **gris**, la grilla de la obra (los ejes de antes). En **teal**, la grilla del instrumento: los mismos
     ejes girados $\theta$, con el eje $x'$ en teal y el eje $y'$ en rust. En **violeta**, el mojón, que no se mueve, y el
     **camino de lectura**: para leer sus coordenadas en los ejes nuevos avanzamos por $x'$ y después paralelo a $y'$.
-    Los dos tramos de ese camino son los dos números que anota la estación.
+    Los dos tramos de ese camino son los dos números que anota el instrumento.
 
     Movelo: cambiá $\theta$ y mirá que el punto queda clavado mientras los números cambian. Cambiá el punto y mirá qué
     pasa con uno que está sobre el eje $x'$ (su segunda coordenada nueva es $0$). Apretá **reproducir** para ver los
@@ -189,7 +189,7 @@ def _(angulo, go, lib, mo, np, px, py):
     theta = np.deg2rad(angulo.value)
     P = np.array([px.value, py.value])
     R = lib.rot2(theta)  # columnas: los ejes girados x′ (teal) e y′ (rust)
-    coords_nuevas = lib.coordenadas_en_base(P, R)  # = Rᵀ P: lo que lee la estación
+    coords_nuevas = lib.coordenadas_en_base(P, R)  # = Rᵀ P: lo que lee el instrumento
     camino = [lib.rot2(t) for t in np.linspace(0, theta, 36)]
 
     def _dinamicas(i):
@@ -255,7 +255,7 @@ def _(R30, go, lib, mo, mojon, np):
             \textcolor{{#1b6f6a}}{{\sin\theta}} & \textcolor{{#b5451b}}{{\cos\theta}} \end{{pmatrix}}, \qquad
             R(30°) = {lib.matriz_coloreada(R30)}$$
 
-            La coordenada nueva $x'$ es "cuánto de $P$ cae sobre el eje $x'$": el producto interno de $P$ con la
+            La coordenada nueva $x'$ es «cuánto de $P$ cae sobre el eje $x'$»: el producto interno de $P$ con la
             primera columna. Igual $y'$ con la segunda. Las dos cuentas juntas son **$R^T$ por $P$** (las columnas
             pasan a ser filas):
 
@@ -269,7 +269,7 @@ def _(R30, go, lib, mo, mojon, np):
             """),
             mo.vstack([
                 mo.ui.plotly(_f),
-                mo.md("```python\nR = lib.rot2(np.deg2rad(30))\nP = np.array([4.0, 3.0])\nR.T @ P   # pasiva: lo que lee la estación\nR @ P     # activa: el punto girado\n```"),
+                mo.md("```python\nR = lib.rot2(np.deg2rad(30))\nP = np.array([4.0, 3.0])\nR.T @ P   # pasiva: lo que lee el instrumento\nR @ P     # activa: el punto girado\n```"),
                 mo.md(f"`R.T @ P` = `{np.round(_lect, 3).tolist()}`  \n`R @ P` = `{np.round(R30 @ mojon, 3).tolist()}`  \n"
                       f"`np.allclose(R.T, lib.rot2(np.deg2rad(-30)))` = `{bool(np.allclose(R30.T, lib.rot2(np.deg2rad(-30))))}`"),
             ]),
@@ -303,12 +303,12 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *Idea central: las matrices y las transformaciones lineales tienen una correspondencia 1 a 1.*
-        El mojón está en $(2, 0)$ y la estación tiene sus ejes girados $90°$ antihorario. Sin matriz, con un dibujo:
-        ¿qué lee la estación? Después hacé la cuenta $R(90°)^T\binom{2}{0}$ y comprobá que da lo mismo.
+        El mojón está en $(2, 0)$ y el instrumento tiene sus ejes girados $90°$ antihorario. Sin matriz, con un dibujo:
+        ¿qué lee el instrumento? Después hacé la cuenta $R(90°)^T\binom{2}{0}$ y comprobá que da lo mismo.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
         Con los ejes girados $90°$, el eje $x'$ apunta hacia $+y$ y el eje $y'$ hacia $-x$. El mojón $(2,0)$ está sobre
-        el eje $-y'$, a distancia $2$: la estación lee $(0, -2)$.
+        el eje $-y'$, a distancia $2$: el instrumento lee $(0, -2)$.
         $R(90°)^T = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$, y $R(90°)^T\binom{2}{0} = \binom{0\cdot2 + 1\cdot0}{-1\cdot2 + 0\cdot0} = \binom{0}{-2}$. ✓
         """)}),
     ])
@@ -327,7 +327,7 @@ def _(mo):
         mo.md(r"""
         **(b) Código con hueco — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los
         objetos transformados mantienen.* Completá `lectura(p, theta_grados)`: recibe un punto (array de 2) en los ejes
-        de la obra y el giro de los ejes de la estación **en grados**, y devuelve lo que lee la estación. Tenés `np`.
+        de la obra y el giro del instrumento **en grados**, y devuelve lo que lee el instrumento. Tenés `np`.
         Se verifica con `np.allclose` contra la referencia en 20 puntos al azar.
         """),
         editor_b,
@@ -351,7 +351,7 @@ def _(editor_b, lib, mo, np):
         elif np.allclose(_obtenido, _esperado):
             _res = mo.callout(mo.md("✅ coincide con la referencia en los 20 puntos (θ = 37°): giraste los ejes, no el punto."), kind="success")
         elif np.allclose(_obtenido, lib.transformar(_puntos, _R)):
-            _res = mo.callout(mo.md("❌ devolvés `R @ p`: ese es el **punto girado** (activa). La estación lee con los ejes girados: `R.T @ p`."), kind="warn")
+            _res = mo.callout(mo.md("❌ devolvés `R @ p`: ese es el **punto girado** (activa). El instrumento lee con los ejes girados: `R.T @ p`."), kind="warn")
         elif np.allclose(_obtenido, lib.transformar(_puntos, lib.rot2(_grados).T)):
             _res = mo.callout(mo.md("❌ usaste los grados como si fueran radianes. Falta `np.deg2rad(theta_grados)`."), kind="warn")
         else:
@@ -407,7 +407,7 @@ def _(mo):
     - [ficha del capítulo 1](../../capitulos/01.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Rotaciones II — la rotación en el plano](../01b_rotacion_plano/index.html): qué conserva
-    $R(\theta)$, por qué sus columnas son "a dónde van $e_1$ y $e_2$", y el mismo giro escrito como número complejo.
+    $R(\theta)$, por qué sus columnas son «a dónde van $e_1$ y $e_2$», y el mismo giro escrito como número complejo.
     """)
     return
 

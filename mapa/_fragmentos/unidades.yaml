@@ -3,7 +3,7 @@
 #   clases[] (ids de ficha que cubre), pregunta (una línea), gancho_agrimensura (una línea),
 #   nivel (troncal|complementario|avanzado).
 # El orden de esta lista es el orden de las unidades en la portada (site/index.html).
-# `pendiente` no se exporta (build.py sólo exige que el archivo exista en `piloto`/`migrada`).
+# `pendiente` no se exporta (build.py solo exige que el archivo exista en `piloto`/`migrada`).
 
 unidades:
   - id: 00_fundamentos
@@ -39,7 +39,7 @@ unidades:
     estado: piloto
     clases: ["01", "02"]
     pregunta: "¿Por qué en 3D importa el orden en que giro, y por qué igual el resultado es un solo giro alrededor de un eje?"
-    gancho_agrimensura: "Nivelar la estación: inclinar y después girar no deja el instrumento igual que girar y después inclinar, salvo con correcciones chicas."
+    gancho_agrimensura: "Nivelar el instrumento: inclinar y después girar no lo deja igual que girar y después inclinar, salvo con correcciones chicas."
     nivel: troncal
 
   - id: 02_producto_interno
@@ -119,7 +119,7 @@ unidades:
     titulo: Cambio de base y diagonalización
     estado: piloto
     clases: ["08"]
-    pregunta: "Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es sólo estirar?"
+    pregunta: "Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es solo estirar?"
     gancho_agrimensura: "El mismo mojón con coordenadas en tres marcos: cambia la grilla con que se mide, no el punto."
     nivel: troncal
 
@@ -137,7 +137,7 @@ unidades:
     titulo: Jacobiano y primera forma fundamental
     estado: piloto
     clases: ["09"]
-    pregunta: "¿Cómo mido una distancia chica sobre una superficie curva usando sólo los números (u, v) de la grilla?"
+    pregunta: "¿Cómo mido una distancia chica sobre una superficie curva usando solo los números (u, v) de la grilla?"
     gancho_agrimensura: "Sobre el terreno, un pasito en latitud y otro en longitud no miden lo mismo en metros: la primera forma fundamental es la regla que los convierte."
     nivel: troncal
 
@@ -164,7 +164,7 @@ unidades:
     titulo: Geometría del elipsoide
     estado: piloto
     clases: ["13"]
-    pregunta: "¿Qué se deduce del elipsoide con sólo saber que todos sus meridianos son la misma elipse?"
+    pregunta: "¿Qué se deduce del elipsoide con solo saber que todos sus meridianos son la misma elipse?"
     gancho_agrimensura: "La latitud geodésica y la geocéntrica no coinciden porque la normal al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón."
     nivel: troncal
 
@@ -183,5 +183,5 @@ unidades:
     estado: piloto
     clases: ["13", "14"]
     pregunta: "¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?"
-    gancho_agrimensura: "Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
+    gancho_agrimensura: "Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja solo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR."
     nivel: complementario

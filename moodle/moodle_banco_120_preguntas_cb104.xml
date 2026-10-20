@@ -35,7 +35,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Una sola recta, la \(3x + y = 0\), porque una forma lineal es una ecuación y una ecuación es una recta.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Esa recta es sólo la marca cero de la regla (el núcleo de \(w^T\)); la forma entera asigna un número a cada punto del plano, no sólo a los que dan \(0\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Esa recta es solo la marca cero de la regla (el núcleo de \(w^T\)); la forma entera asigna un número a cada punto del plano, no solo a los que dan \(0\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>El número \(3 \cdot 1 + 1 \cdot 1 = 4\), la lectura de la forma en el punto \((1, 1)\).</p>]]></text>
@@ -74,10 +74,10 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Girar \(150°\), porque \(30° + 150° = 180°\) y media vuelta deshace lo hecho.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Media vuelta no es el neutro: deja la estación apuntando al revés. El neutro es el giro de \(0°\), y lo que suma \(0°\) con \(30°\) es \(-30°\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Media vuelta no es el neutro: deja el instrumento apuntando al revés. El neutro es el giro de \(0°\), y lo que suma \(0°\) con \(30°\) es \(-30°\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No tiene inversa: una vez girada, la estación no vuelve sola a la posición inicial.</p>]]></text>
+      <text><![CDATA[<p>No tiene inversa: una vez girado, el instrumento no vuelve solo a la posición inicial.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Que no vuelva sola no quita que exista el giro que la devuelve; en un grupo todo elemento tiene inversa, y girar \(-30°\) lo es.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -211,7 +211,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(G' = I\): la cuenta \(x_1 x_2 + y_1 y_2\) mide bien en cualquier grilla.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Con \(I\) el ángulo recto del terreno entre \((2, 1)\) y \((2, -1)\) se mide como \(53.1°\); la suma de productos mide de verdad sólo en una grilla ortonormal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Con \(I\) el ángulo recto del terreno entre \((2, 1)\) y \((2, -1)\) se mide como \(53{,}1°\); la suma de productos mide de verdad solo en una grilla ortonormal.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -293,7 +293,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Nada: el mojón está quieto, así que sus coordenadas tienen que ser las mismas.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Si no cambiaran, la obra y la estación dirían lo mismo y no habría que transformar lecturas; la coordenada depende de los ejes aunque el punto no se mueva.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Si no cambiaran, la obra y el instrumento dirían lo mismo y no habría que transformar lecturas; la coordenada depende de los ejes aunque el punto no se mueva.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Su distancia al origen, porque se mide sobre ejes distintos.</p>]]></text>
@@ -308,7 +308,7 @@
   <question type="multichoice">
     <name><text>01a_e2 · Unidad 01 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>El mojón está en \((2, 0)\) en los ejes de la obra. La estación tiene sus ejes girados \(90°\) antihorario. ¿Qué lee la estación?</p>]]></text>
+      <text><![CDATA[<p>El mojón está en \((2, 0)\) en los ejes de la obra. El instrumento tiene sus ejes girados \(90°\) antihorario. ¿Qué lee el instrumento?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -355,7 +355,7 @@
   <question type="multichoice">
     <name><text>01a_m1 · Unidad 01 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Giramos los ejes de la estación \(+\theta\) y el mojón \(P\) queda quieto. ¿Qué cuenta da lo que lee la estación?</p>]]></text>
+      <text><![CDATA[<p>Giramos los ejes del instrumento \(+\theta\) y el mojón \(P\) queda quieto. ¿Qué cuenta da lo que lee el instrumento?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -378,7 +378,7 @@
       <feedback format="html"><text><![CDATA[<p>\(R(\theta)P\) mueve el punto \(+\theta\) con los ejes quietos (activa); con los ejes girados \(+\theta\) los números cambian al revés, con \(R(-\theta)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(P\) sin cambios: el mojón no se movió y la matriz sólo hace falta si se mueve.</p>]]></text>
+      <text><![CDATA[<p>\(P\) sin cambios: el mojón no se movió y la matriz solo hace falta si se mueve.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>La matriz convierte etiquetas entre dos sistemas de ejes; el punto quieto tiene dos etiquetas distintas y la cuenta pasa de una a la otra.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -441,7 +441,7 @@
   <question type="multichoice">
     <name><text>01a_a1 · Unidad 01 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>El mojón es \((4, 3)\) en la obra. Una estación con ejes girados un ángulo que no conocemos lee \((x', y')\). Sin saber el ángulo, ¿qué podemos afirmar de la lectura?</p>]]></text>
+      <text><![CDATA[<p>El mojón es \((4, 3)\) en la obra. Un instrumento con ejes girados un ángulo que no conocemos lee \((x', y')\). Sin saber el ángulo, ¿qué podemos afirmar de la lectura?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -500,7 +500,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(R(60°)P\): dos giros de \(30°\) en el mismo sentido se suman.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Se suman sólo si los dos son activos; el primero fue de los ejes, que sobre los números actúa como \(R(-30°)\), y \(-30° + 30° = 0°\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Se suman solo si los dos son activos; el primero fue de los ejes, que sobre los números actúa como \(R(-30°)\), y \(-30° + 30° = 0°\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(R(60°)^T P\): dos giros de ejes de \(30°\) se acumulan en \(60°\).</p>]]></text>
@@ -551,7 +551,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Conserva el área, y eso basta; el espejo no conserva el área.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El corte \(\begin{pmatrix} 1 &amp; 0.5 \\ 0 &amp; 1 \end{pmatrix}\) conserva el área y no es rotación; el espejo también conserva el área, sólo le cambia el signo.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El corte \(\begin{pmatrix} 1 &amp; 0{,}5 \\ 0 &amp; 1 \end{pmatrix}\) conserva el área y no es rotación; el espejo también conserva el área, solo le cambia el signo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Conserva distancias y ángulos, igual que el espejo; nada las distingue salvo el nombre.</p>]]></text>
@@ -652,7 +652,7 @@
   <question type="multichoice">
     <name><text>01b_m2 · Unidad 02 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>El corte \(M = \begin{pmatrix} 1 &amp; 0.5 \\ 0 &amp; 1 \end{pmatrix}\) tiene \(\det M = 1\) y manda el cuadrado unitario a un paralelogramo de área \(1\). ¿Es una rotación?</p>]]></text>
+      <text><![CDATA[<p>El corte \(M = \begin{pmatrix} 1 &amp; 0{,}5 \\ 0 &amp; 1 \end{pmatrix}\) tiene \(\det M = 1\) y manda el cuadrado unitario a un paralelogramo de área \(1\). ¿Es una rotación?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -668,15 +668,15 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>No: \(\det = 1\) no alcanza; falla \(M^T M = I\), y \(M\) no conserva en general largos ni ángulos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(M e_2 = (0.5, 1)\) tiene largo \(\sqrt{1.25}\) y ya no es perpendicular a \(M e_1 = (1, 0)\); la rotación es ortogonal con \(\det = +1\), y acá sólo se cumple lo segundo.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(M e_2 = (0{,}5;\ 1)\) tiene largo \(\sqrt{1{,}25}\) y ya no es perpendicular a \(M e_1 = (1, 0)\); la rotación es ortogonal con \(\det = +1\), y acá solo se cumple lo segundo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Sí: toda matriz con determinante \(1\) es una rotación, porque el determinante dice que el área y la orientación se conservan.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Área y orientación son necesarias pero no suficientes; el corte las conserva y aun así deforma: \(\det = 1\) es la condición que separa giro de espejo entre las ortogonales, no entre todas las matrices.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No: una rotación sólo puede tener coeficientes \(0\), \(1\) o \(-1\), y el \(0.5\) la descarta.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(R(30°)\) tiene coeficientes \(0.866\) y \(0.5\) y es una rotación; lo que descarta a \(M\) no es el valor \(0.5\) sino que sus columnas no son perpendiculares de largo \(1\).</p>]]></text></feedback>
+      <text><![CDATA[<p>No: una rotación solo puede tener coeficientes \(0\), \(1\) o \(-1\), y el \(0{,}5\) la descarta.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(R(30°)\) tiene coeficientes \(0{,}866\) y \(0{,}5\) y es una rotación; lo que descarta a \(M\) no es el valor \(0{,}5\) sino que sus columnas no son perpendiculares de largo \(1\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Sí: conserva el área, y el área es la única propiedad que una rotación tiene que mantener.</p>]]></text>
@@ -722,7 +722,7 @@
       <feedback format="html"><text><![CDATA[<p>El espejo \(\mathrm{diag}(1, -1)\) y \(R(90°)\) son \(2 \times 2\) y no conmutan: en un orden dan el espejo de \(y = x\), en el otro el de \(y = -x\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No conmutan en general; sólo coincide en este ejemplo porque \(30° + 60° = 90°\) es un ángulo especial.</p>]]></text>
+      <text><![CDATA[<p>No conmutan en general; solo coincide en este ejemplo porque \(30° + 60° = 90°\) es un ángulo especial.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(R(\alpha)R(\beta) = R(\alpha + \beta)\) vale para cualquier par de ángulos, no por casualidad de los números: la suma de ángulos conmuta siempre.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -839,7 +839,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>Sólo los puntos del eje \(y\): la recta de giro queda fija y todo lo demás gira en planos perpendiculares a ella.</p>]]></text>
+      <text><![CDATA[<p>Solo los puntos del eje \(y\): la recta de giro queda fija y todo lo demás gira en planos perpendiculares a ella.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>La segunda columna de \(R_y\) es \(e_y\), así que \(R_y(\lambda e_y) = \lambda e_y\); cualquier punto fuera del eje tiene componente en el plano \((z, x)\), que gira.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -899,7 +899,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En \((-1, 0, 0)\): dos giros de \(90°\) suman \(180°\) y media vuelta lo da vuelta.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los ángulos se suman sólo cuando el eje es el mismo; alrededor de ejes distintos la composición es otro giro, de \(120°\) alrededor de \((-1, 1, 1)\), y \(e_x\) no termina en su opuesto.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Los ángulos se suman solo cuando el eje es el mismo; alrededor de ejes distintos la composición es otro giro, de \(120°\) alrededor de \((-1, 1, 1)\), y \(e_x\) no termina en su opuesto.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -910,7 +910,7 @@
   <question type="multichoice">
     <name><text>01c_m2 · Unidad 03 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Para nivelar, primero inclinamos la estación alrededor del eje fijo \(y\) de la obra (\(R_y\), con \(90°\) para fijar ideas) y después la giramos alrededor del eje fijo \(z\) (\(R_z\), también \(90°\)). ¿Qué matriz describe la operación completa?</p>]]></text>
+      <text><![CDATA[<p>Para nivelar, primero inclinamos el instrumento alrededor del eje fijo \(y\) de la obra (\(R_y\), con \(90°\) para fijar ideas) y después lo giramos alrededor del eje fijo \(z\) (\(R_z\), también \(90°\)). ¿Qué matriz describe la operación completa?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -996,7 +996,7 @@
   <question type="multichoice">
     <name><text>01c_a2 · Unidad 03 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Con giros de \(90°\) los dos órdenes, \(R_z R_y R_x\) y \(R_x R_y R_z\), dejan el cubo en lugares muy distintos. Bajamos los tres ángulos a \(1°\) y después a \(0.1°\). ¿Qué le pasa a la diferencia entre los dos órdenes?</p>]]></text>
+      <text><![CDATA[<p>Con giros de \(90°\) los dos órdenes, \(R_z R_y R_x\) y \(R_x R_y R_z\), dejan el cubo en lugares muy distintos. Bajamos los tres ángulos a \(1°\) y después a \(0{,}1°\). ¿Qué le pasa a la diferencia entre los dos órdenes?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -1020,7 +1020,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Es exactamente cero: los giros de ángulos chicos conmutan.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Conmutan sólo en el límite; para cualquier \(\varepsilon \neq 0\) hay una diferencia del orden de \(\varepsilon^2\), chica pero no nula, y el cuaderno la mide.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Conmutan solo en el límite; para cualquier \(\varepsilon \neq 0\) hay una diferencia del orden de \(\varepsilon^2\), chica pero no nula, y el cuaderno la mide.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Cae unas \(10\) veces al dividir los ángulos por \(10\): es proporcional al ángulo, como cualquier giro.</p>]]></text>
@@ -1063,15 +1063,15 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(25\): el producto de los dos largos, \(5 \cdot 5\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(\lvert v\rvert\,\lvert u\rvert = 25\) es el producto interno sólo si apuntan igual (\(\cos\theta = 1\)); acá falta el coseno, que vale \(7/25\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(\lvert v\rvert\,\lvert u\rvert = 25\) es el producto interno solo si apuntan igual (\(\cos\theta = 1\)); acá falta el coseno, que vale \(7/25\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(1\): sumamos las coordenadas de \(BC\), \(4 + (-3)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Sumar las coordenadas de un vector no mide nada: cambia si giramos los ejes aunque el mojón no se mueva. Hay que multiplicar coordenada con coordenada del otro vector y recién sumar.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(0.28\): el cociente \(7/25\) entre la suma de productos y los largos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(0.28\) es \(\cos\hat B\), el producto interno ya dividido por los dos largos; el producto interno es el \(7\) antes de dividir.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(0{,}28\): el cociente \(7/25\) entre la suma de productos y los largos.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(0{,}28\) es \(\cos\hat B\), el producto interno ya dividido por los dos largos; el producto interno es el \(7\) antes de dividir.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -1097,7 +1097,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>No cambia: la rotación conserva largos y ángulos, y el producto interno sólo depende de ellos.</p>]]></text>
+      <text><![CDATA[<p>No cambia: la rotación conserva largos y ángulos, y el producto interno solo depende de ellos.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(\langle Rv, Ru\rangle = v^T R^T R\,u = v^T u\) porque \(R^T R = I\); cambian todas las coordenadas y la cuenta da el mismo \(7\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -1144,16 +1144,16 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(1.4\) m: el producto interno \(7\) dividido por el largo de \(BA\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La sombra (proyección escalar) es \(\lvert BC\rvert\cos\hat B = \langle BC, BA\rangle / \lvert BA\rvert = 7/5\); Pitágoras lo cierra, \(1.4^2 + 4.8^2 = 25\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(1{,}4\) m: el producto interno \(7\) dividido por el largo de \(BA\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>La sombra (proyección escalar) es \(\lvert BC\rvert\cos\hat B = \langle BC, BA\rangle / \lvert BA\rvert = 7/5\); Pitágoras lo cierra, \(1{,}4^2 + 4{,}8^2 = 25\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(5\) m: el lado entero, porque su largo no cambia al proyectarlo.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El largo no cambia al girar, pero proyectar lo acorta: sobre \(BA\) cae sólo la distancia por el coseno, y \(\cos\hat B = 0.28\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El largo no cambia al girar, pero proyectar lo acorta: sobre \(BA\) cae solo la distancia por el coseno, y \(\cos\hat B = 0{,}28\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(4.8\) m: el largo por el seno del ángulo en \(B\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(5\sin\hat B = 4.8\) es la parte de \(BC\) perpendicular a \(BA\), lo que queda afuera de la sombra; la sombra va con el coseno.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(4{,}8\) m: el largo por el seno del ángulo en \(B\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(5\sin\hat B = 4{,}8\) es la parte de \(BC\) perpendicular a \(BA\), lo que queda afuera de la sombra; la sombra va con el coseno.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(7\) m: el producto interno ya es la proyección.</p>]]></text>
@@ -1183,19 +1183,19 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(\tfrac{7}{25}(4, 3) = (1.12, 0.84)\): un múltiplo de \(u\) con coeficiente \(\langle v, u\rangle / \langle u, u\rangle\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El coeficiente es la sombra \(7/5\) dividida otra vez por \(\lvert u\rvert\) para que multiplique al unitario: \(\tfrac{7}{5}\cdot\tfrac{u}{5} = \tfrac{7}{25}u\), y \(v - p = (2.88, -3.84)\) es perpendicular a \(u\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(\tfrac{7}{25}(4, 3) = (1{,}12;\ 0{,}84)\): un múltiplo de \(u\) con coeficiente \(\langle v, u\rangle / \langle u, u\rangle\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>El coeficiente es la sombra \(7/5\) dividida otra vez por \(\lvert u\rvert\) para que multiplique al unitario: \(\tfrac{7}{5}\cdot\tfrac{u}{5} = \tfrac{7}{25}u\), y \(v - p = (2{,}88;\ -3{,}84)\) es perpendicular a \(u\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(\tfrac{7}{5}(4, 3) = (5.6, 4.2)\): la sombra \(1.4\) por el vector \(u\).</p>]]></text>
+      <text><![CDATA[<p>\(\tfrac{7}{5}(4, 3) = (5{,}6;\ 4{,}2)\): la sombra \(1{,}4\) por el vector \(u\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Multiplica la sombra por \(u\) entero, que mide \(5\), y queda cinco veces más largo que la sombra; el múltiplo correcto es la sombra por el unitario \(u/5\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(1.4\): la proyección es un número, cuánto de \(v\) cae sobre \(u\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(1.4\) es la proyección escalar, un largo; la proyección vectorial es la flecha de ese largo apoyada sobre \(u\), un elemento de \(\mathbb R^2\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(1{,}4\): la proyección es un número, cuánto de \(v\) cae sobre \(u\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(1{,}4\) es la proyección escalar, un largo; la proyección vectorial es la flecha de ese largo apoyada sobre \(u\), un elemento de \(\mathbb R^2\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(\tfrac{7}{25}(4, -3) = (1.12, -0.84)\): el coeficiente por el vector que proyectamos.</p>]]></text>
+      <text><![CDATA[<p>\(\tfrac{7}{25}(4, -3) = (1{,}12;\ -0{,}84)\): el coeficiente por el vector que proyectamos.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Eso es un múltiplo de \(v\), la sombra de \(u\) sobre \(v\); la proyección de \(v\) sobre \(u\) tiene que caer sobre la recta de \(u\).</p>]]></text></feedback>
     </answer>
     <tags>
@@ -1273,16 +1273,16 @@
       <feedback format="html"><text><![CDATA[<p>La suma de productos es \(v^T G u\) con \(G = I\), y \(G = I\) es justamente la tabla de productos internos de una base ortonormal; en la grilla del papel estirado \(G' = \mathrm{diag}(\tfrac14, 1)\) y la fórmula ingenua se equivoca.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Que es la única base de \(\mathbb R^2\); cualquier otro par de vectores es sólo un cambio de nombre de la misma.</p>]]></text>
+      <text><![CDATA[<p>Que es la única base de \(\mathbb R^2\); cualquier otro par de vectores es solo un cambio de nombre de la misma.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Hay infinitas bases y ninguna es privilegiada a priori: lo único especial de la canónica es que sobre ella está definida la distancia por la suma de productos.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Nada: en cualquier base la suma de productos de coordenadas mide igual, la grilla no cambia la geometría.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La geometría no cambia, pero los números sí: con el Este estirado por 2 el ángulo recto del terreno se calcula como \(53.1°\) si se usa \(x_1 x_2 + y_1 y_2\) en la grilla del papel.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La geometría no cambia, pero los números sí: con el Este estirado por 2 el ángulo recto del terreno se calcula como \(53{,}1°\) si se usa \(x_1 x_2 + y_1 y_2\) en la grilla del papel.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Que tiene determinante \(1\), y eso garantiza que los largos salen bien.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El corte \(\begin{pmatrix} 1 &amp; 0.5 \\ 0 &amp; 1 \end{pmatrix}\) también da una base de determinante \(1\) y sus ejes no son perpendiculares: con sus coordenadas la fórmula mide mal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El corte \(\begin{pmatrix} 1 &amp; 0{,}5 \\ 0 &amp; 1 \end{pmatrix}\) también da una base de determinante \(1\) y sus ejes no son perpendiculares: con sus coordenadas la fórmula mide mal.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -1441,19 +1441,19 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>Escala \(2\), gira \(90°\) y el centro es \((0.2, 0.4)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(\lvert 2i \rvert = 2\) y \(\arg 2i = 90°\). El centro cumple \(c = 2i\,c + 1\), o sea \(c = 1/(1 - 2i) = (1 + 2i)/5 = 0.2 + 0.4i\); control: \(2i(0.2 + 0.4i) + 1 = 0.2 + 0.4i\).</p>]]></text></feedback>
+      <text><![CDATA[<p>Escala \(2\), gira \(90°\) y el centro es \((0{,}2;\ 0{,}4)\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(\lvert 2i \rvert = 2\) y \(\arg 2i = 90°\). El centro cumple \(c = 2i\,c + 1\), o sea \(c = 1/(1 - 2i) = (1 + 2i)/5 = 0{,}2 + 0{,}4i\); control: \(2i(0{,}2 + 0{,}4i) + 1 = 0{,}2 + 0{,}4i\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Escala \(2\), gira \(90°\) y el centro es \((1, 0)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Confunde el corrimiento \(b = 1\) con el centro. El centro es el punto que no se mueve, \((I - A)\,c = t\), y \((1, 0)\) va a \(2i + 1 = (1, 2)\): se mueve.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Escala \(4\), gira \(90°\) y el centro es \((0.2, 0.4)\).</p>]]></text>
+      <text><![CDATA[<p>Escala \(4\), gira \(90°\) y el centro es \((0{,}2;\ 0{,}4)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(4 = k^2\) es el factor de área (\(\det A = 4\)), no el de longitud. Las distancias se multiplican por \(\lvert a \rvert = 2\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Escala \(2\), gira \(180°\) y el centro es \((0.2, 0.4)\).</p>]]></text>
+      <text><![CDATA[<p>Escala \(2\), gira \(180°\) y el centro es \((0{,}2;\ 0{,}4)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Multiplicar por \(i\) es girar \(\pi/2\), no \(\pi\); \(i^2 = -1\) es lo que da el giro de \(180°\) si se aplica dos veces. El giro de \(2i\) es de \(90°\).</p>]]></text></feedback>
     </answer>
     <tags>
@@ -1500,7 +1500,7 @@
       <feedback format="html"><text><![CDATA[<p>La afinidad sí conserva rectas y paralelas. La diferencia está en los grados de libertad: dos estiramientos independientes y una inclinación en lugar de un solo factor \(k\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No hay diferencia: con dos mojones alcanza para las dos, el tercero es sólo de control.</p>]]></text>
+      <text><![CDATA[<p>No hay diferencia: con dos mojones alcanza para las dos, el tercero es solo de control.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Con dos mojones quedan cuatro ecuaciones para seis incógnitas: una familia entera de afinidades pasa por ellos. El tercero no controla, decide.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -1512,7 +1512,7 @@
   <question type="multichoice">
     <name><text>03_a2 · Unidad 05 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Repetimos la similaridad \(S(x) = 0.85\,R(30°)\,x + t\) con \(t \neq 0\): \(p\), \(S(p)\), \(S^2(p)\), … ¿Qué trayectoria dibuja el punto?</p>]]></text>
+      <text><![CDATA[<p>Repetimos la similaridad \(S(x) = 0{,}85\,R(30°)\,x + t\) con \(t \neq 0\): \(p\), \(S(p)\), \(S^2(p)\), … ¿Qué trayectoria dibuja el punto?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -1532,15 +1532,15 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Un círculo alrededor del centro fijo, porque la rotación manda sobre la escala.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El círculo es la trayectoria de la rotación pura (\(k = 1\)). Con \(k = 0.85\) cada paso acorta el radio un \(15\%\): la curva se cierra en espiral.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El círculo es la trayectoria de la rotación pura (\(k = 1\)). Con \(k = 0{,}85\) cada paso acorta el radio un \(15\%\): la curva se cierra en espiral.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Una espiral que se enrosca hacia el centro fijo \(c = (I - A)^{-1}\,t\), no hacia el origen.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Con el origen puesto en \(c\) la similaridad es sólo girar \(30°\) y escalar \(0.85\): giro y homotecia con el mismo centro conmutan, y la trayectoria es su espiral polar alrededor de \(c\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Con el origen puesto en \(c\) la similaridad es solo girar \(30°\) y escalar \(0{,}85\): giro y homotecia con el mismo centro conmutan, y la trayectoria es su espiral polar alrededor de \(c\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Una espiral que se aleja, porque a cada paso se vuelve a sumar \(t\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El corrimiento no acumula sin freno: cada paso también escala por \(0.85\) lo que había. La suma converge y el punto se acerca a \(c\), no se escapa.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El corrimiento no acumula sin freno: cada paso también escala por \(0{,}85\) lo que había. La suma converge y el punto se acerca a \(c\), no se escapa.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -1582,7 +1582,7 @@
       <feedback format="html"><text><![CDATA[<p>Estirar distinto en cada eje deforma los ángulos, pero no rompe el paralelismo. El trapecio es la huella de la cámara inclinada, no del rodillo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Sólo en un rectángulo: los ángulos rectos se conservan.</p>]]></text>
+      <text><![CDATA[<p>Solo en un rectángulo: los ángulos rectos se conservan.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Los ángulos no se conservan en una afinidad; sí en una similaridad. El corte \(\begin{pmatrix} 1 &amp; s \\ 0 &amp; 1 \end{pmatrix}\) inclina el eje \(y\) y sigue siendo afín.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -1598,7 +1598,7 @@
   <question type="multichoice">
     <name><text>04_e2 · Unidad 06 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Con \(H = \begin{pmatrix} 1.5 &amp; 0.5 &amp; 1 \\ 0 &amp; 1.25 &amp; 1 \\ 0 &amp; 0 &amp; 1 \end{pmatrix}\) transformamos el punto homogéneo \((4, 2, 1)\). ¿Qué terna obtenemos?</p>]]></text>
+      <text><![CDATA[<p>Con \(H = \begin{pmatrix} 1{,}5 &amp; 0{,}5 &amp; 1 \\ 0 &amp; 1{,}25 &amp; 1 \\ 0 &amp; 0 &amp; 1 \end{pmatrix}\) transformamos el punto homogéneo \((4, 2, 1)\). ¿Qué terna obtenemos?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -1613,20 +1613,20 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\((7, 2.5, 1)\).</p>]]></text>
+      <text><![CDATA[<p>\((7;\ 2{,}5;\ 1)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Es \(Ap\) sin la tercera columna: el \(1\) del punto enciende la columna \((1, 1, 1)\) y suma la traslación. Falta \(t = (1, 1)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\((6, 4.5, 7)\).</p>]]></text>
+      <text><![CDATA[<p>\((6;\ 4{,}5;\ 7)\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Es \(H^T\) por el punto: se usaron las columnas como filas. Cada fila de \(H\) por el punto da una coordenada; con la traspuesta la última fila deja de ser \((0, 0, 1)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\((8, 3.5, 0)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La fila \((0, 0, 1)\) garantiza que el \(1\) siga siendo \(1\). Con tercera coordenada \(0\) la terna sería un punto impropio, una dirección, no el punto \((8, 3.5)\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\((8;\ 3{,}5;\ 0)\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>La fila \((0, 0, 1)\) garantiza que el \(1\) siga siendo \(1\). Con tercera coordenada \(0\) la terna sería un punto impropio, una dirección, no el punto \((8;\ 3{,}5)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\((8, 3.5, 1)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(4\,(1.5, 0, 0) + 2\,(0.5, 1.25, 0) + 1\,(1, 1, 1) = (8, 3.5, 1)\): es \((Ap + t, 1)\) con \(Ap = (7, 2.5)\) y \(t = (1, 1)\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\((8;\ 3{,}5;\ 1)\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(4\,(1{,}5;\ 0;\ 0) + 2\,(0{,}5;\ 1{,}25;\ 0) + 1\,(1, 1, 1) = (8;\ 3{,}5;\ 1)\): es \((Ap + t, 1)\) con \(Ap = (7;\ 2{,}5)\) y \(t = (1, 1)\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -1758,7 +1758,7 @@
       <feedback format="html"><text><![CDATA[<p>La fórmula vale cuando \(I - A\) es invertible, es decir cuando \(1\) no es autovalor de \(A\). Acá \(A(1, -1) = (1, -1)\): hay una dirección con autovalor \(1\) y la inversa no existe.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No, porque \(\det A = 3 \neq 1\) y sólo las isometrías tienen punto fijo.</p>]]></text>
+      <text><![CDATA[<p>No, porque \(\det A = 3 \neq 1\) y solo las isometrías tienen punto fijo.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El determinante no decide: una similaridad con \(k \neq 1\) tiene \(\det = k^2 \neq 1\) y siempre tiene centro. Lo que decide es si \(1\) es autovalor de \(A\) y si \(t\) es compatible.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -1785,8 +1785,8 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Queda fijo sólo el origen y \(\det M = 4\), porque el factor \(2\) actúa en las dos direcciones.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El factor \(2\) actúa en una sola dirección, \((1, 1)\); sobre el eje \(x\) el factor es \(1\). Por eso \(\det M = 1 \cdot 2 = 2\), y el eje entero queda quieto, no sólo el origen.</p>]]></text></feedback>
+      <text><![CDATA[<p>Queda fijo solo el origen y \(\det M = 4\), porque el factor \(2\) actúa en las dos direcciones.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>El factor \(2\) actúa en una sola dirección, \((1, 1)\); sobre el eje \(x\) el factor es \(1\). Por eso \(\det M = 1 \cdot 2 = 2\), y el eje entero queda quieto, no solo el origen.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Queda fijo el eje \(x\) punto a punto y \(\det M = 1\), como en un corte.</p>]]></text>
@@ -1845,7 +1845,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Nada: en una foto hasta las rectas pueden salir curvas.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Una cámara ideal (sin distorsión de lente) es una proyectiva, y una proyectiva lleva rectas a rectas. Los alambrados salen rectos, sólo que ya no paralelos.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Una cámara ideal (sin distorsión de lente) es una proyectiva, y una proyectiva lleva rectas a rectas. Los alambrados salen rectos, solo que ya no paralelos.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -1856,7 +1856,7 @@
   <question type="multichoice">
     <name><text>05_e2 · Unidad 07 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Con la \(H\) de la foto, el centro del lote da \(H\,(2, 2, 1)^T = (3, 2, 1.5)^T\). ¿En qué punto de la foto aparece el centro?</p>]]></text>
+      <text><![CDATA[<p>Con la \(H\) de la foto, el centro del lote da \(H\,(2, 2, 1)^T = (3;\ 2;\ 1{,}5)^T\). ¿En qué punto de la foto aparece el centro?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -1872,15 +1872,15 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En \((3, 2)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Son las dos primeras coordenadas sin dividir por la tercera: el rayo, no el punto. En homogéneas \((3, 2, 1.5)\) y \((2, 1.333, 1)\) son el mismo punto, y sólo el segundo se lee en el plano \(W = 1\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Son las dos primeras coordenadas sin dividir por la tercera: el rayo, no el punto. En homogéneas \((3;\ 2;\ 1{,}5)\) y \((2;\ 1{,}333;\ 1)\) son el mismo punto, y solo el segundo se lee en el plano \(W = 1\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>En \((4.5, 3)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Multiplicó por \(1.5\) en vez de dividir. Volver al plano es escalar la terna hasta que la tercera coordenada valga \(1\): dividir por \(W\).</p>]]></text></feedback>
+      <text><![CDATA[<p>En \((4{,}5;\ 3)\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Multiplicó por \(1{,}5\) en vez de dividir. Volver al plano es escalar la terna hasta que la tercera coordenada valga \(1\): dividir por \(W\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>En \((2, 1.333)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\((3/1.5,\ 2/1.5) = (2, 4/3)\): justo el cruce de las diagonales de la foto. Queda más arriba que la mitad del trapecio (que está en \(y = 1\)), hacia el lado lejano, porque ese lado se achica.</p>]]></text></feedback>
+      <text><![CDATA[<p>En \((2;\ 1{,}333)\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\((3/1{,}5;\ 2/1{,}5) = (2, 4/3)\): justo el cruce de las diagonales de la foto. Queda más arriba que la mitad del trapecio (que está en \(y = 1\)), hacia el lado lejano, porque ese lado se achica.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En \((2, 2)\): una homografía deja quieto el centro del cuadrilátero.</p>]]></text>
@@ -1923,7 +1923,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Nueve, uno por cada entrada de la matriz \(3\times3\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Cada mojón aporta dos ecuaciones, no una, y \(H\) está definida a menos de escala: son \(8\) grados de libertad, no \(9\). Nueve puntos sobran (y sólo sirven para mínimos cuadrados).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Cada mojón aporta dos ecuaciones, no una, y \(H\) está definida a menos de escala: son \(8\) grados de libertad, no \(9\). Nueve puntos sobran (y solo sirven para mínimos cuadrados).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Cuatro, sin tres alineados: nueve números menos la escala son ocho incógnitas, dos ecuaciones por mojón.</p>]]></text>
@@ -1942,7 +1942,7 @@
   <question type="multichoice">
     <name><text>05_m2 · Unidad 07 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Con \(H = \begin{pmatrix} 1 &amp; 0.5 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0.25 &amp; 1 \end{pmatrix}\), ¿a dónde va el punto impropio \((0, 1, 0)\) de las rectas \(x =\) cte?</p>]]></text>
+      <text><![CDATA[<p>Con \(H = \begin{pmatrix} 1 &amp; 0{,}5 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0{,}25 &amp; 1 \end{pmatrix}\), ¿a dónde va el punto impropio \((0, 1, 0)\) de las rectas \(x =\) cte?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -1958,11 +1958,11 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Sigue impropio: las rectas \(x =\) cte siguen paralelas en la foto.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Eso le pasa a \((1, 0, 0)\), cuya imagen es la columna \(1\), \((1, 0, 0)\), con \(W = 0\). La columna \(2\) tiene \(W = 0.25 \neq 0\): ese punto ideal se hizo propio.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Eso le pasa a \((1, 0, 0)\), cuya imagen es la columna \(1\), \((1, 0, 0)\), con \(W = 0\). La columna \(2\) tiene \(W = 0{,}25 \neq 0\): ese punto ideal se hizo propio.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>A \((0.5, 1)\), la segunda columna de \(H\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La segunda columna es \((0.5, 1, 0.25)\), y falta dividir por \(0.25\). Sin dividir es el rayo; el punto del plano es \((2, 4)\).</p>]]></text></feedback>
+      <text><![CDATA[<p>A \((0{,}5;\ 1)\), la segunda columna de \(H\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>La segunda columna es \((0{,}5;\ 1;\ 0{,}25)\), y falta dividir por \(0{,}25\). Sin dividir es el rayo; el punto del plano es \((2, 4)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>A \((0, 1)\): una homografía no mueve las direcciones.</p>]]></text>
@@ -1970,7 +1970,7 @@
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>A \((2, 4)\), un punto propio: ahí se cruzan en la foto todas las rectas \(x =\) cte.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(H(0, 1, 0)^T = (0.5, 1, 0.25)^T \sim (2, 4, 1)^T\). Las paralelas del terreno comparten ese punto ideal, y su imagen común es el punto de fuga, arriba del lote: por eso el trapecio se angosta hacia arriba.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(H(0, 1, 0)^T = (0{,}5;\ 1;\ 0{,}25)^T \sim (2, 4, 1)^T\). Las paralelas del terreno comparten ese punto ideal, y su imagen común es el punto de fuga, arriba del lote: por eso el trapecio se angosta hacia arriba.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -2009,11 +2009,11 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(D\) queda fijo, porque está sobre el eje de simetría \(x = 0\) del pentágono.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El eje de simetría no es una recta fija de \(H\). Lo fijo es la recta \(AB\) (punto a punto) y el centro \((0, 0.309)\); \(D\) está en \(x = 0\) pero \(H(0, 1, 1)^T = (0, 0, 5)^T\): va a \((0, 0)\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El eje de simetría no es una recta fija de \(H\). Lo fijo es la recta \(AB\) (punto a punto) y el centro \((0;\ 0{,}309)\); \(D\) está en \(x = 0\) pero \(H(0, 1, 1)^T = (0, 0, 5)^T\): va a \((0, 0)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(D\) cae en el centro \((0, 0)\) y la imagen se parte, porque la recta \(y = -1/4\) que va al infinito cruza el pentágono.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(H\vec D = (0, -1 + 1, 4 + 1) = (0, 0, 5)\). La fila \(3\) da \(W = 4y + 1\): negativa en \(A\) y \(B\) (\(y = -0.809\)), positiva en \(C\), \(D\), \(E\); donde \(W\) cambia de signo la imagen pasa por el infinito.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(H\vec D = (0, -1 + 1, 4 + 1) = (0, 0, 5)\). La fila \(3\) da \(W = 4y + 1\): negativa en \(A\) y \(B\) (\(y = -0{,}809\)), positiva en \(C\), \(D\), \(E\); donde \(W\) cambia de signo la imagen pasa por el infinito.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(D\) se va al infinito, porque es el único vértice que no aparece entre los datos.</p>]]></text>
@@ -2044,7 +2044,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Aplicarla dos veces es la identidad, porque \(5I \sim I\) en homogéneas: es un espejo proyectivo, una homología armónica con eje \(AB\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Las matrices proporcionales son la misma homografía. \(H\) intercambia \(C\) con \(E\) y manda \(D\) al centro del pentágono; la razón doble \((D, D'; O, X) = -1\) confirma la cuaterna armónica, con \(D = (0, 1)\), su imagen \(D' = (0, 0)\), el centro de la homología \(O = (0, 0.309)\) y el corte \(X = (0, -0.809)\) con el eje \(AB\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Las matrices proporcionales son la misma homografía. \(H\) intercambia \(C\) con \(E\) y manda \(D\) al centro del pentágono; la razón doble \((D, D'; O, X) = -1\) confirma la cuaterna armónica, con \(D = (0, 1)\), su imagen \(D' = (0, 0)\), el centro de la homología \(O = (0;\ 0{,}309)\) y el corte \(X = (0;\ -0{,}809)\) con el eje \(AB\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Aplicarla dos veces multiplica todas las coordenadas por \(5\): una homotecia de factor \(5\) desde el origen.</p>]]></text>
@@ -2055,8 +2055,8 @@
       <feedback format="html"><text><![CDATA[<p>Una matriz tiene muchas raíces cuadradas: \(H\) no es diagonal y tiene autovalores \(-\sqrt5\) (doble, sobre \(AB\)) y \(+\sqrt5\). \(\sqrt5\,I\) no intercambiaría nada.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Que \(H\) no tiene puntos fijos propios: sus autovalores \(\pm\sqrt5\) sólo fijan direcciones.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(A\) y \(B\) son fijos y propios: \(H\vec A = -\sqrt5\,\vec A\) con \(W \neq 0\). El autovalor doble \(-\sqrt5\) tiene todo un plano de autovectores, la recta \(AB\) entera, más el centro \((0, 0.309)\) para \(+\sqrt5\).</p>]]></text></feedback>
+      <text><![CDATA[<p>Que \(H\) no tiene puntos fijos propios: sus autovalores \(\pm\sqrt5\) solo fijan direcciones.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(A\) y \(B\) son fijos y propios: \(H\vec A = -\sqrt5\,\vec A\) con \(W \neq 0\). El autovalor doble \(-\sqrt5\) tiene todo un plano de autovectores, la recta \(AB\) entera, más el centro \((0;\ 0{,}309)\) para \(+\sqrt5\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -2091,11 +2091,11 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Un vector escrito acostado, que se dibuja como una flecha igual que \((a, b)^T\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La flecha \((a, b)\) sólo representa a la forma en la base canónica, a través del producto interno. Si se deforma el plano con una \(A\) que no lo conserva, la flecha \(A(a, b)^T\) ya no dice nada sobre la regla.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La flecha \((a, b)\) solo representa a la forma en la base canónica, a través del producto interno. Si se deforma el plano con una \(A\) que no lo conserva, la flecha \(A(a, b)^T\) ya no dice nada sobre la regla.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La recta \(ax + by = 0\) que pasa por el origen.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Esa recta es sólo su marca cero (el núcleo). La forma es toda la familia de rectas \(ax + by = k\), una por cada valor, equiespaciadas.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Esa recta es solo su marca cero (el núcleo). La forma es toda la familia de rectas \(ax + by = k\), una por cada valor, equiespaciadas.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Una regla graduada: una función que a cada vector le asigna un número respetando sumas y escalas, dibujada como rectas de nivel paralelas y equiespaciadas.</p>]]></text>
@@ -2129,11 +2129,11 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>La marca \(11\), con marcas cada \(0.2\).</p>]]></text>
+      <text><![CDATA[<p>La marca \(11\), con marcas cada \(0{,}2\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(11 = 3 \cdot 1 + 4 \cdot 2\): se cruzaron las coordenadas. La fila multiplica la primera coordenada por \(3\) y la segunda por \(4\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>La marca \(10\), con marcas cada \(0.2\).</p>]]></text>
+      <text><![CDATA[<p>La marca \(10\), con marcas cada \(0{,}2\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(\ell(2, 1) = 3 \cdot 2 + 4 \cdot 1 = 10\): la recta \(3x + 4y = 10\). Como \(\lvert(3, 4)\rvert = 5\), las marcas enteras están separadas \(1/5\): cuanto más larga la fila, más apretadas las marcas.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -2228,7 +2228,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\((4, 3, 2)\): la suma de las ternas.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La suma de ternas es otro punto, \((2, 1.5)\), el punto medio del segmento. Es un punto y no una recta: leído como fila no se anula ni en \(p\) ni en \(q\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La suma de ternas es otro punto, \((2;\ 1{,}5)\), el punto medio del segmento. Es un punto y no una recta: leído como fila no se anula ni en \(p\) ni en \(q\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -2263,7 +2263,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Porque la fila es el vector traspuesto, y la traspuesta de \(A\) es su inversa.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(A^T = A^{-1}\) sólo para rotaciones y reflexiones; por eso con un giro la dualidad no se ve. Con \(\mathrm{diag}(2, 1)\) la traspuesta es la misma matriz y la fila debe ir con \(\mathrm{diag}(1/2, 1)\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(A^T = A^{-1}\) solo para rotaciones y reflexiones; por eso con un giro la dualidad no se ve. Con \(\mathrm{diag}(2, 1)\) la traspuesta es la misma matriz y la fila debe ir con \(\mathrm{diag}(1/2, 1)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Porque \(\ell A\) lee sobre \(p' = Ap\) lo mismo que \(\ell\) sobre \(p\).</p>]]></text>
@@ -2274,7 +2274,7 @@
       <feedback format="html"><text><![CDATA[<p>Es la dualidad: convertimos todo para que nada cambie. En homogéneas una recta fija es una fila con \(\ell H \sim \ell\), es decir un autovector de \(H^T\); por eso el eje de la homología del pentágono aparece del lado de las filas.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Porque las rectas no se mueven: sólo se transforman los puntos.</p>]]></text>
+      <text><![CDATA[<p>Porque las rectas no se mueven: solo se transforman los puntos.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Si la recta quedara quieta, sus puntos movidos ya no estarían sobre ella: \((2, 1)\cdot(3, 1) = 7 \neq 3\). La recta se arrastra con la figura, con la matriz inversa y del otro lado.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -2301,11 +2301,11 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Nada: los números \((h_x, h_y)\) son los mismos en cualquier grilla, y decir forma lineal en vez de vector es sólo una formalidad de nombre.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los números coinciden sólo en la base canónica con el producto interno usual. Si cambiamos las unidades de un eje, la fila se transforma con \(A^{-1}\), mientras una flecha iría con \(A\): los números dejan de coincidir.</p>]]></text></feedback>
+      <text><![CDATA[<p>Nada: los números \((h_x, h_y)\) son los mismos en cualquier grilla, y decir forma lineal en vez de vector es solo una formalidad de nombre.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Los números coinciden solo en la base canónica con el producto interno usual. Si cambiamos las unidades de un eje, la fila se transforma con \(A^{-1}\), mientras una flecha iría con \(A\): los números dejan de coincidir.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>La flecha perpendicular a las curvas de nivel sólo tiene sentido con un producto interno fijado; si cambiamos las unidades de un eje, la flecha deja de ser perpendicular en el terreno, la regla sigue valiendo.</p>]]></text>
+      <text><![CDATA[<p>La flecha perpendicular a las curvas de nivel solo tiene sentido con un producto interno fijado; si cambiamos las unidades de un eje, la flecha deja de ser perpendicular en el terreno, la regla sigue valiendo.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El gradiente es la regla cuyas marcas son los escalones de altura cerca del punto; su marca cero es la tangente a la curva de nivel. Dibujarlo como flecha perpendicular exige una métrica, y en el elipsoide o con metros y pies mezclados esa métrica no es la de la grilla.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -2388,15 +2388,15 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(3\): no están alineados, \(C\) se salió del alambrado.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\((3, 2) \wedge (6, 5) = 3 \cdot 5 - 2 \cdot 6 = 3\), el área del paralelogramo de lados \(AB\) y \(AC\). Dividida por \(\lvert AB \rvert = \sqrt{13}\) da \(0.83\) m de desvío; con \(C = (7, 5)\) daría \(0\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\((3, 2) \wedge (6, 5) = 3 \cdot 5 - 2 \cdot 6 = 3\), el área del paralelogramo de lados \(AB\) y \(AC\). Dividida por \(\lvert AB \rvert = \sqrt{13}\) da \(0{,}83\) m de desvío; con \(C = (7, 5)\) daría \(0\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(28\): no están alineados.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(3 \cdot 6 + 2 \cdot 5 = 28\) es el producto interno, que mide cuán paralelos son y vale cero si son perpendiculares. El detector de colinealidad es la cuña, con la resta cruzada.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(1.5\): no están alineados.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(1.5\) es el área del triángulo \(ABC\). Detecta lo mismo, pero el número de la cuenta \(u_1 v_2 - u_2 v_1\), y del determinante, es el del paralelogramo: el doble.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(1{,}5\): no están alineados.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(1{,}5\) es el área del triángulo \(ABC\). Detecta lo mismo, pero el número de la cuenta \(u_1 v_2 - u_2 v_1\), y del determinante, es el del paralelogramo: el doble.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(0\): están alineados, porque las tres coordenadas crecen de a \(3\).</p>]]></text>
@@ -2439,7 +2439,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(48\) y \(-12\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(48 = 4 \cdot 12\) usa sólo la diagonal \(2 \cdot 2\) y se olvida de restar \(1 \cdot 1\). \(\det A = 4 - 1 = 3\), y el área es \(3 \cdot 12 = 36\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(48 = 4 \cdot 12\) usa solo la diagonal \(2 \cdot 2\) y se olvida de restar \(1 \cdot 1\). \(\det A = 4 - 1 = 3\), y el área es \(3 \cdot 12 = 36\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(36\) y \(-12\).</p>]]></text>
@@ -2559,7 +2559,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>El determinante va de \(1\) a \(-1\) sin sobresaltos: la parcela sólo gira hasta quedar dada vuelta.</p>]]></text>
+      <text><![CDATA[<p>El determinante va de \(1\) a \(-1\) sin sobresaltos: la parcela solo gira hasta quedar dada vuelta.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Un giro mantiene \(\det = +1\) todo el tiempo. Para pasar de \(+1\) a \(-1\) por un camino continuo el determinante tiene que valer cero en algún momento: no hay giro que dé vuelta una hoja.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -2618,7 +2618,7 @@
       <feedback format="html"><text><![CDATA[<p>Esa recta es la <strong>imagen</strong> (lo que sale), no el núcleo (lo que entra y se pierde). En \(\begin{pmatrix} 1 &amp; 2 \\ 2 &amp; 4 \end{pmatrix}\) la imagen es la recta de \((1, 2)\) y el núcleo la de \((2, -1)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Sólo el vector \(0\), en toda transformación lineal, porque el cero siempre va al cero.</p>]]></text>
+      <text><![CDATA[<p>Solo el vector \(0\), en toda transformación lineal, porque el cero siempre va al cero.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El cero siempre está en el núcleo, pero no siempre está solo: en una proyección o en cualquier matriz con \(\det A = 0\) hay una recta entera que va al cero.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -2653,7 +2653,7 @@
       <feedback format="html"><text><![CDATA[<p>Al revés: un autovector es la dirección que <strong>no gira</strong>. Si todos los vectores giran el mismo ángulo no nulo, como en un giro, no hay ningún autovector real.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>Cae sobre su propia recta: \(Av = \lambda v\), sólo se estira por \(\lambda\) (si \(\lambda &lt; 0\) se invierte; si \(\lambda = 0\) va al cero).</p>]]></text>
+      <text><![CDATA[<p>Cae sobre su propia recta: \(Av = \lambda v\), solo se estira por \(\lambda\) (si \(\lambda &lt; 0\) se invierte; si \(\lambda = 0\) va al cero).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Es la definición con su hecho geométrico: una dirección que la transformación no gira. \(\lambda = 1\) la deja quieta, \(-1\) la da vuelta, \(0\) la aplasta: ahí el autovector está en el núcleo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -2705,7 +2705,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Ninguno real: como \(B\) no es simétrica, las raíces salen complejas.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>No ser simétrica sólo quita la perpendicularidad entre autovectores, no su existencia. Las raíces complejas aparecen con un giro escondido, y \((3 - \lambda)(2 - \lambda)\) tiene dos raíces reales a la vista.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>No ser simétrica solo quita la perpendicularidad entre autovectores, no su existencia. Las raíces complejas aparecen con un giro escondido, y \((3 - \lambda)(2 - \lambda)\) tiene dos raíces reales a la vista.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -2736,7 +2736,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\((1, -2)\), que cambia el signo de una coordenada de la fila.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La perpendicular a \((a, b)\) es \((b, -a)\), con las coordenadas <strong>intercambiadas</strong>, no sólo un signo cambiado. Control: \((1, 2) \cdot (1, -2) = -3 \neq 0\), así que \(N(1, -2) \neq 0\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La perpendicular a \((a, b)\) es \((b, -a)\), con las coordenadas <strong>intercambiadas</strong>, no solo un signo cambiado. Control: \((1, 2) \cdot (1, -2) = -3 \neq 0\), así que \(N(1, -2) \neq 0\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\((2, -1)\), la perpendicular a la fila \((1, 2)\).</p>]]></text>
@@ -2779,14 +2779,14 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Porque \(\det R = 1\): una matriz de determinante \(1\) no cambia nada y por eso no tiene direcciones que estirar.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(\det = 1\) sólo dice que conserva áreas orientadas. La cizalla \(\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\) también tiene \(\det = 1\) y sí tiene un autovector real, \((1, 0)\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(\det = 1\) solo dice que conserva áreas orientadas. La cizalla \(\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\) también tiene \(\det = 1\) y sí tiene un autovector real, \((1, 0)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Porque \(\det(R - \lambda I) = \lambda^2 - 2\cos 30°\,\lambda + 1\) tiene discriminante \(4\cos^2 30° - 4 &lt; 0\): raíces complejas, ninguna dirección real queda sobre su recta.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El detector es un polinomio real de grado \(2\) y puede no tener raíces reales. Para un giro de \(0 &lt; \theta &lt; 180°\) nunca las tiene: todo gira el mismo ángulo y ninguna recta cae sobre sí misma.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Porque \(R\) no es simétrica, y sólo las matrices simétricas tienen autovectores reales.</p>]]></text>
+      <text><![CDATA[<p>Porque \(R\) no es simétrica, y solo las matrices simétricas tienen autovectores reales.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>La simetría garantiza autovectores reales <strong>y perpendiculares</strong>, pero no es necesaria: \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\) no es simétrica y tiene dos direcciones propias reales.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -2818,7 +2818,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En las dos es el plano entero: un autovalor doble siempre da dos direcciones propias independientes.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Vale para \(2I\) pero no para la cizalla: \(C - I = \begin{pmatrix} 0 &amp; 1 \\ 0 &amp; 0 \end{pmatrix}\) no es la matriz nula, su núcleo es sólo la recta del eje \(x\). Raíz doble no garantiza dos direcciones.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Vale para \(2I\) pero no para la cizalla: \(C - I = \begin{pmatrix} 0 &amp; 1 \\ 0 &amp; 0 \end{pmatrix}\) no es la matriz nula, su núcleo es solo la recta del eje \(x\). Raíz doble no garantiza dos direcciones.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>En la cizalla es la recta del eje \(x\) (una sola dirección propia); en \(2I\) es el plano entero (ninguna dirección gira).</p>]]></text>
@@ -2826,11 +2826,11 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En la cizalla no hay ninguno, porque inclina todas las direcciones; en \(2I\) hay exactamente dos, los ejes.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La cizalla deja quieto el eje \(x\): \(C(1, 0) = (1, 0)\). Y \(2I\) no privilegia a los ejes: estira igual cualquier dirección, así que todas son propias, no sólo dos.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La cizalla deja quieto el eje \(x\): \(C(1, 0) = (1, 0)\). Y \(2I\) no privilegia a los ejes: estira igual cualquier dirección, así que todas son propias, no solo dos.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>En las dos es una sola recta: con \(\det = 1\) y \(\det = 4\) no hay núcleo, así que a lo sumo queda una dirección.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Mezcla el núcleo de \(A\) con el de \(A - \lambda I\). Que \(\det A \neq 0\) sólo dice que \(\lambda = 0\) no es autovalor; para \(\lambda = 2\), \(2I - 2I\) tiene determinante cero y su núcleo es todo el plano.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Mezcla el núcleo de \(A\) con el de \(A - \lambda I\). Que \(\det A \neq 0\) solo dice que \(\lambda = 0\) no es autovalor; para \(\lambda = 2\), \(2I - 2I\) tiene determinante cero y su núcleo es todo el plano.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -2911,7 +2911,7 @@
       <feedback format="html"><text><![CDATA[<p>Tres raíces reales, o una real y dos complejas conjugadas: siempre hay al menos una real, con autovector real. Para una rotación esa raíz es \(1\) y la recta es el eje (Euler).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>No, pero sólo para matrices simétricas; una \(3\times3\) general puede no tener autovector real.</p>]]></text>
+      <text><![CDATA[<p>No, pero solo para matrices simétricas; una \(3\times3\) general puede no tener autovector real.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>La simetría garantiza <strong>tres</strong> autovalores reales. Pero al menos uno real lo garantiza el grado impar, sin pedir simetría: en \(\mathbb R^3\) no hay excepción.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -3002,7 +3002,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Un punto impropio en la dirección \((2, 4)\), porque los autovectores dan direcciones fijas, no puntos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Un autovector da un punto impropio sólo si \(v_3 = 0\) (recta paralela al plano \(z = 1\)). Acá \(v_3 = 2 \neq 0\): la recta pincha el plano y el punto fijo es propio.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Un autovector da un punto impropio solo si \(v_3 = 0\) (recta paralela al plano \(z = 1\)). Acá \(v_3 = 2 \neq 0\): la recta pincha el plano y el punto fijo es propio.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3075,7 +3075,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Sólo el centro \((4, 6)\): los autovectores de \(\lambda = 2\) no cuentan porque \(2 \neq 1\) los mueve.</p>]]></text>
+      <text><![CDATA[<p>Solo el centro \((4, 6)\): los autovectores de \(\lambda = 2\) no cuentan porque \(2 \neq 1\) los mueve.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>En homogéneas \(v\) y \(2v\) son el mismo punto; cualquier \(\lambda \neq 0\) da puntos fijos. Y \((4, 6)\) tampoco se salva con ese criterio: su \(\lambda\) es \(-2\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -3126,16 +3126,16 @@
       <feedback format="html"><text><![CDATA[<p>Es exactamente al revés: el mojón no se toca y la figura no gira. Lo que cambia son los números con que lo nombramos; una coordenada es un número <strong>respecto de unos ejes</strong>.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>Se conserva el punto con toda su geometría (distancias, ángulos, incidencias); sólo cambian los números que lo describen.</p>]]></text>
+      <text><![CDATA[<p>Se conserva el punto con toda su geometría (distancias, ángulos, incidencias); solo cambian los números que lo describen.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El hierro no se movió: convertimos todo para que nada cambie. Las coordenadas son etiquetas que dependen de la grilla; la geometría vive en el punto, no en la etiqueta.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Nada se conserva: cada base define su propia geometría y la canónica es la única verdadera.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>No hay base privilegiada a priori. La canónica sólo es cómoda porque en ella el producto interno se calcula como \(x_1x_2 + y_1y_2\); la geometría es la misma en cualquier grilla.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>No hay base privilegiada a priori. La canónica solo es cómoda porque en ella el producto interno se calcula como \(x_1x_2 + y_1y_2\); la geometría es la misma en cualquier grilla.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Se conservan las coordenadas si los ejes nuevos son perpendiculares; si son oblicuos, el punto se desplaza.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Con ejes perpendiculares de largo \(1\) cambia la <strong>cuenta</strong> (proyectar alcanza), no el hecho: los números cambian igual. Y con ejes oblicuos el punto tampoco se desplaza; sólo hay que resolver en vez de proyectar.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Con ejes perpendiculares de largo \(1\) cambia la <strong>cuenta</strong> (proyectar alcanza), no el hecho: los números cambian igual. Y con ejes oblicuos el punto tampoco se desplaza; solo hay que resolver en vez de proyectar.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3169,12 +3169,12 @@
       <feedback format="html"><text><![CDATA[<p>Multiplicar por \(B\) es avanzar \(c_1\) veces \(b_1\) y \(c_2\) veces \(b_2\), en metros de la obra. Las columnas dicen a dónde van los ejes; leer coordenadas nuevas es el problema inverso.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Sólo es un cambio de base si \(b_1 \perp b_2\); con ejes oblicuos hay que usar \(B^\top\) en lugar de \(B\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Cualquier par de direcciones no paralelas es base (\(\det B \neq 0\)). \(B^\top\) sólo coincide con \(B^{-1}\) si los ejes son perpendiculares y de largo \(1\), como en Rotaciones I; en general no sirve.</p>]]></text></feedback>
+      <text><![CDATA[<p>Solo es un cambio de base si \(b_1 \perp b_2\); con ejes oblicuos hay que usar \(B^\top\) en lugar de \(B\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Cualquier par de direcciones no paralelas es base (\(\det B \neq 0\)). \(B^\top\) solo coincide con \(B^{-1}\) si los ejes son perpendiculares y de largo \(1\), como en Rotaciones I; en general no sirve.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Sus filas son los ejes nuevos y sus columnas los viejos; \(B\) convierte en los dos sentidos según de qué lado se multiplique.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los ejes nuevos van en las <strong>columnas</strong>, y \(B\) sólo convierte de nuevas a viejas. Poner los ejes como filas es usar \(B^\top\), que da otra matriz salvo que \(B\) sea simétrica.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Los ejes nuevos van en las <strong>columnas</strong>, y \(B\) solo convierte de nuevas a viejas. Poner los ejes como filas es usar \(B^\top\), que da otra matriz salvo que \(B\) sea simétrica.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3212,16 +3212,16 @@
       <feedback format="html"><text><![CDATA[<p>\(Bp\) va de nuevas a viejas, no al revés. \((7, -1)\) son las coordenadas en la obra del punto \(7b_1 - 1b_2 = (6, 8)\), que no es \(p\). Falta el \(\tfrac12\) de \(B^{-1} = \tfrac12 B\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(c = (3.5, -0.5)\): resolviendo \(c_1 + c_2 = 3\), \(c_1 - c_2 = 4\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(Bc = p\) es ese sistema: sumando, \(2c_1 = 7\); restando, \(2c_2 = -1\). Control: \(3.5\,(1, 1) - 0.5\,(1, -1) = (3.5 - 0.5,\ 3.5 + 0.5) = (3, 4)\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(c = (3{,}5;\ -0{,}5)\): resolviendo \(c_1 + c_2 = 3\), \(c_1 - c_2 = 4\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(Bc = p\) es ese sistema: sumando, \(2c_1 = 7\); restando, \(2c_2 = -1\). Control: \(3{,}5\,(1, 1) - 0{,}5\,(1, -1) = (3{,}5 - 0{,}5;\ 3{,}5 + 0{,}5) = (3, 4)\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(c = (3, 4)\): el punto no se movió, así que sus coordenadas tampoco.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>El punto no se mueve, pero las coordenadas son números respecto de unos ejes. \((3, 4)\) en la base nueva sería \(3b_1 + 4b_2 = (7, -1)\), otro punto.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(c = (3.5, 0.5)\): la mitad de la suma y la mitad de la diferencia de las coordenadas.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La segunda es \((3 - 4)/2 = -0.5\), con signo. Control: \(3.5\,(1, 1) + 0.5\,(1, -1) = (4, 3) \neq (3, 4)\): con el signo cambiado se cruzan las coordenadas.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(c = (3{,}5;\ 0{,}5)\): la mitad de la suma y la mitad de la diferencia de las coordenadas.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>La segunda es \((3 - 4)/2 = -0{,}5\), con signo. Control: \(3{,}5\,(1, 1) + 0{,}5\,(1, -1) = (4, 3) \neq (3, 4)\): con el signo cambiado se cruzan las coordenadas.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3252,11 +3252,11 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(B^\top A\,B\): la transpuesta deshace a \(B\), como en Rotaciones I.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(B^\top = B^{-1}\) sólo si las columnas son perpendiculares de largo \(1\), lo que pasa cuando \(A\) es simétrica. Para \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\) los autovectores \((1, 0)\) y \((1, -1)\) no lo son y \(B^\top AB\) no es diagonal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(B^\top = B^{-1}\) solo si las columnas son perpendiculares de largo \(1\), lo que pasa cuando \(A\) es simétrica. Para \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\) los autovectores \((1, 0)\) y \((1, -1)\) no lo son y \(B^\top AB\) no es diagonal.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(B^{-1} A\,B\): la de la derecha actúa primero, lleva a la base propia; \(A\) estira; \(B^{-1}\) vuelve a leer en la base propia.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(B\) a canónica, \(A\) lo transforma, y \(B^{-1}\) lo lee de vuelta en la base propia, donde cada eje sólo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A\) de otra notación habitual, con su \(A\) en el lugar de nuestra \(B\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Un vector escrito en la base propia pasa por \(B\) a canónica, \(A\) lo transforma, y \(B^{-1}\) lo lee de vuelta en la base propia, donde cada eje solo se estiró por su \(\lambda\). Es el \(T_{\mathrm{diag}} = A^{-1}T_{\mathrm{can}}A\) de otra notación habitual, con su \(A\) en el lugar de nuestra \(B\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(A\,B\): aplicar \(A\) a cada autovector ya da \(\lambda_k v_k\), que es diagonal.</p>]]></text>
@@ -3318,7 +3318,7 @@
   <question type="multichoice">
     <name><text>08_a2 · Unidad 12 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Queremos una grilla real en la que la transformación sea sólo estirar cada eje. ¿Cuál de estas matrices se diagonaliza con una base real de autovectores?</p>]]></text>
+      <text><![CDATA[<p>Queremos una grilla real en la que la transformación sea solo estirar cada eje. ¿Cuál de estas matrices se diagonaliza con una base real de autovectores?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3334,7 +3334,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La cizalla \(\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\): tiene \(\lambda = 1\) doble, dos autovalores reales.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Dos raíces reales, pero una sola dirección propia: el núcleo de \(C - I\) es la recta del eje \(x\). Sin segundo eje propio no hay grilla en la que \(C\) sólo estire; \(B^{-1}CB\) nunca es diagonal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Dos raíces reales, pero una sola dirección propia: el núcleo de \(C - I\) es la recta del eje \(x\). Sin segundo eje propio no hay grilla en la que \(C\) solo estire; \(B^{-1}CB\) nunca es diagonal.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>El giro \(R(30°)\): conserva largos y ángulos, así que en su propia grilla es la identidad.</p>]]></text>
@@ -3342,7 +3342,7 @@
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>La triangular \(\begin{pmatrix} 3 &amp; 1 \\ 0 &amp; 2 \end{pmatrix}\): \(\lambda = 3, 2\) distintos, con autovectores \((1, 0)\) y \((1, -1)\) independientes.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Dos autovalores reales distintos dan dos direcciones propias independientes, y eso basta: \(B = \begin{pmatrix} 1 &amp; 1 \\ 0 &amp; -1 \end{pmatrix}\) y \(B^{-1}AB = \mathrm{diag}(3, 2)\). Que los ejes propios no sean perpendiculares no molesta; sólo impide usar \(B^\top\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Dos autovalores reales distintos dan dos direcciones propias independientes, y eso basta: \(B = \begin{pmatrix} 1 &amp; 1 \\ 0 &amp; -1 \end{pmatrix}\) y \(B^{-1}AB = \mathrm{diag}(3, 2)\). Que los ejes propios no sean perpendiculares no molesta; solo impide usar \(B^\top\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Ninguna de las anteriores: para diagonalizar hace falta que la matriz sea simétrica.</p>]]></text>
@@ -3381,7 +3381,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Los autovalores de \(A\) en valor absoluto, para cualquier matriz \(A\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>En general no vale: sí para las simétricas y, más en general, para las normales (como una rotación por una escala), pero no para cualquier \(A\). Para \(\begin{pmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\) los autovalores son \(2, 1\) y los valores singulares \(2.288, 0.874\): dos preguntas distintas (qué cae sobre sí mismo, qué par perpendicular sigue perpendicular).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>En general no vale: sí para las simétricas y, más en general, para las normales (como una rotación por una escala), pero no para cualquier \(A\). Para \(\begin{pmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\) los autovalores son \(2, 1\) y los valores singulares \(2{,}288, 0{,}874\): dos preguntas distintas (qué cae sobre sí mismo, qué par perpendicular sigue perpendicular).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Cuánto se estira cada una de las dos direcciones perpendiculares \(v_1, v_2\) que siguen perpendiculares a la salida: los semiejes de la elipse imagen del círculo unitario.</p>]]></text>
@@ -3510,11 +3510,11 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(5\): los autovalores al cuadrado, \(2^2 + 1^2\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(\sigma_k = \lvert\lambda_k\rvert\) vale para las matrices normales (por ejemplo las simétricas), y ésta no lo es (\(AA^\top \neq A^\top A\)). Control: \(\sigma_1^2 + \sigma_2^2 = (3 + \sqrt5) + (3 - \sqrt5) = 6 \neq 5\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(\sigma_k = \lvert\lambda_k\rvert\) vale para las matrices normales (por ejemplo las simétricas), y esta no lo es (\(AA^\top \neq A^\top A\)). Control: \(\sigma_1^2 + \sigma_2^2 = (3 + \sqrt5) + (3 - \sqrt5) = 6 \neq 5\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(6\): la traza de \(A^\top A\), que es la suma de los cuadrados de todas las entradas de \(A\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los \(\sigma_k^2\) son los autovalores de \(A^\top A\) y su suma es la traza, \(4 + 2 = 6\); también \(2^2 + 1^2 + 0^2 + 1^2\). Con \(\sigma_1\sigma_2 = \lvert\det A\rvert = 2\) queda \(\mu^2 - 6\mu + 4 = 0\), \(\sigma = 2.288, 0.874\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Los \(\sigma_k^2\) son los autovalores de \(A^\top A\) y su suma es la traza, \(4 + 2 = 6\); también \(2^2 + 1^2 + 0^2 + 1^2\). Con \(\sigma_1\sigma_2 = \lvert\det A\rvert = 2\) queda \(\mu^2 - 6\mu + 4 = 0\), \(\sigma = 2{,}288, 0{,}874\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(2\): el determinante de \(A\), igual a \(\sigma_1\sigma_2\).</p>]]></text>
@@ -3552,7 +3552,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Porque la SVD admite \(\sigma\) complejos cuando hace falta, mientras que la diagonalización que estudiamos sólo acepta autovalores reales.</p>]]></text>
+      <text><![CDATA[<p>Porque la SVD admite \(\sigma\) complejos cuando hace falta, mientras que la diagonalización que estudiamos solo acepta autovalores reales.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Al revés: los \(\sigma\) <strong>nunca</strong> son complejos ni negativos. La SVD no esquiva el problema admitiendo complejos; lo esquiva preguntando otra cosa (qué par perpendicular sigue perpendicular).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
@@ -3560,7 +3560,7 @@
       <feedback format="html"><text><![CDATA[<p>\(A^\top A = V\Sigma^2V^\top\) es la diagonalización de una simétrica, que siempre existe y es ortogonal; \(\sigma_k = \sqrt{\mu_k}\) está definido porque \(\mu_k \ge 0\), y \(u_k = Av_k/\sigma_k\). La diagonalización de \(A\) exige que \(A\) deje rectas quietas, y el giro no deja ninguna.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Porque toda matriz \(2\times2\) es simétrica salvo un signo, y las simétricas se diagonalizan con base ortogonal; la SVD sólo acomoda ese signo en \(U\).</p>]]></text>
+      <text><![CDATA[<p>Porque toda matriz \(2\times2\) es simétrica salvo un signo, y las simétricas se diagonalizan con base ortogonal; la SVD solo acomoda ese signo en \(U\).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>\(\begin{pmatrix} 2 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}\) no es simétrica ni lo es salvo signo, y sus autovectores no son perpendiculares. La SVD usa dos bases distintas, \(U \neq V\), no un signo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -3604,7 +3604,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(P^{+} = P/25\) y \(P^{+}P = I\), porque la pseudoinversa cumple \(PP^{+}P = P\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(PP^{+}P = P\) sí se cumple, pero no implica \(P^{+}P = I\): \(P^{+}P = P/5\) es una proyección, que sobre la imagen actúa como la identidad y sobre el núcleo como el cero. Sólo con todos los \(\sigma \neq 0\) la pseudoinversa es la inversa.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(PP^{+}P = P\) sí se cumple, pero no implica \(P^{+}P = I\): \(P^{+}P = P/5\) es una proyección, que sobre la imagen actúa como la identidad y sobre el núcleo como el cero. Solo con todos los \(\sigma \neq 0\) la pseudoinversa es la inversa.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3690,7 +3690,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Que la grilla es perpendicular en el papel; sobre el terreno los ejes pueden cruzarse a otro ángulo.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La grilla \((u, v)\) es perpendicular en el papel <strong>siempre</strong>; eso no lo mide \(F\). \(F\) mide el ángulo <strong>sobre el terreno</strong>: en el plano inclinado \(z = 1 + 0.4u + 0.3v\) la grilla es perpendicular en el papel y \(F = 0.12 \neq 0\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La grilla \((u, v)\) es perpendicular en el papel <strong>siempre</strong>; eso no lo mide \(F\). \(F\) mide el ángulo <strong>sobre el terreno</strong>: en el plano inclinado \(z = 1 + 0{,}4u + 0{,}3v\) la grilla es perpendicular en el papel y \(F = 0{,}12 \neq 0\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3737,7 +3737,7 @@
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(E = 100\), \(F = 0\), \(G = 1\): constantes en toda la superficie.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(r_u = (-R\sin u, R\cos u, 0)\) y \(r_v = (0, 0, 1)\): \(E = R^2 = 100\), \(F = 0\), \(G = 1\), sin depender del punto. Un paso de \(1°\) en \(u\) mide \(\sqrt E\,du = 10 \cdot \pi/180 = 0.1745\) m; es la regla del plano con el eje \(u\) reescalado, por eso el cilindro se desenrolla.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(r_u = (-R\sin u, R\cos u, 0)\) y \(r_v = (0, 0, 1)\): \(E = R^2 = 100\), \(F = 0\), \(G = 1\), sin depender del punto. Un paso de \(1°\) en \(u\) mide \(\sqrt E\,du = 10 \cdot \pi/180 = 0{,}1745\) m; es la regla del plano con el eje \(u\) reescalado, por eso el cilindro se desenrolla.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3748,7 +3748,7 @@
   <question type="multichoice">
     <name><text>10_m2 · Unidad 14 · medio</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>En el plano inclinado \(z = 1 + 0.4u + 0.3v\) tenemos \(E = 1.16\), \(F = 0.12\), \(G = 1.09\). Las líneas de la grilla son perpendiculares en el papel. ¿A qué ángulo se cruzan sobre el plano?</p>]]></text>
+      <text><![CDATA[<p>En el plano inclinado \(z = 1 + 0{,}4u + 0{,}3v\) tenemos \(E = 1{,}16\), \(F = 0{,}12\), \(G = 1{,}09\). Las líneas de la grilla son perpendiculares en el papel. ¿A qué ángulo se cruzan sobre el plano?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3764,19 +3764,19 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>A \(90°\): la grilla es perpendicular y una afinidad conserva eso.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Una afinidad conserva paralelismo, no ángulos. \(F \neq 0\) es justamente la señal de que los ejes locales \(r_u = (1, 0, 0.4)\) y \(r_v = (0, 1, 0.3)\) ya no son perpendiculares: \(\langle r_u, r_v\rangle = 0.12\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Una afinidad conserva paralelismo, no ángulos. \(F \neq 0\) es justamente la señal de que los ejes locales \(r_u = (1;\ 0;\ 0{,}4)\) y \(r_v = (0;\ 1;\ 0{,}3)\) ya no son perpendiculares: \(\langle r_u, r_v\rangle = 0{,}12\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>A \(83.1°\): \(\cos\theta = F = 0.12\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(F\) es \(\lvert r_u\rvert\lvert r_v\rvert\cos\theta\), no el coseno a secas. Falta dividir por \(\sqrt{EG} = \sqrt{1.16 \cdot 1.09} \approx 1.124\); sin normalizar, el ángulo sale levemente mal.</p>]]></text></feedback>
+      <text><![CDATA[<p>A \(83{,}1°\): \(\cos\theta = F = 0{,}12\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(F\) es \(\lvert r_u\rvert\lvert r_v\rvert\cos\theta\), no el coseno a secas. Falta dividir por \(\sqrt{EG} = \sqrt{1{,}16 \cdot 1{,}09} \approx 1{,}124\); sin normalizar, el ángulo sale levemente mal.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>A \(83.9°\): \(\cos\theta = F/\sqrt{EG} = 0.12/\sqrt{1.16 \cdot 1.09} \approx 0.107\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Es el coseno de la lección 02 escrito con la tabla: \(\cos\theta = \langle r_u, r_v\rangle / (\lvert r_u\rvert\lvert r_v\rvert) = F/\sqrt{EG}\). \(\arccos 0.107 \approx 83.9°\): a \(90°\) en el papel, a \(83.9°\) sobre el plano.</p>]]></text></feedback>
+      <text><![CDATA[<p>A \(83{,}9°\): \(\cos\theta = F/\sqrt{EG} = 0{,}12/\sqrt{1{,}16 \cdot 1{,}09} \approx 0{,}107\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Es el coseno de la lección 02 escrito con la tabla: \(\cos\theta = \langle r_u, r_v\rangle / (\lvert r_u\rvert\lvert r_v\rvert) = F/\sqrt{EG}\). \(\arccos 0{,}107 \approx 83{,}9°\): a \(90°\) en el papel, a \(83{,}9°\) sobre el plano.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>A \(6.1°\): \(\sin\theta = F/\sqrt{EG} \approx 0.107\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(F/\sqrt{EG}\) es el <strong>coseno</strong> del ángulo, no el seno; \(6.1°\) es el complemento. Un \(F\) chico respecto de los largos significa ejes <strong>casi</strong> perpendiculares, no casi paralelos.</p>]]></text></feedback>
+      <text><![CDATA[<p>A \(6{,}1°\): \(\sin\theta = F/\sqrt{EG} \approx 0{,}107\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>\(F/\sqrt{EG}\) es el <strong>coseno</strong> del ángulo, no el seno; \(6{,}1°\) es el complemento. Un \(F\) chico respecto de los largos significa ejes <strong>casi</strong> perpendiculares, no casi paralelos.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -3795,7 +3795,7 @@
   <question type="multichoice">
     <name><text>10_a1 · Unidad 14 · avanzado</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>En la esfera de \(R = 6371\) km, \(ds^2 = R^2\,d\varphi^2 + R^2\cos^2\varphi\,d\lambda^2\). Un grado de latitud mide \(R\,\pi/180 = 111.2\) km en todos lados. ¿Cuánto mide un grado de <strong>longitud</strong> a latitud \(45°\)?</p>]]></text>
+      <text><![CDATA[<p>En la esfera de \(R = 6371\) km, \(ds^2 = R^2\,d\varphi^2 + R^2\cos^2\varphi\,d\lambda^2\). Un grado de latitud mide \(R\,\pi/180 = 111{,}2\) km en todos lados. ¿Cuánto mide un grado de <strong>longitud</strong> a latitud \(45°\)?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -3810,19 +3810,19 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(111.2\) km: un grado es un grado, la esfera es simétrica.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Ignora \(G = R^2\cos^2\varphi\): hacia el polo el eje \(r_\lambda\) se achica hasta desaparecer (mover la longitud casi no nos mueve). Sólo en el ecuador, \(\cos 0 = 1\), el grado de longitud vale \(111.2\) km.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(111{,}2\) km: un grado es un grado, la esfera es simétrica.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Ignora \(G = R^2\cos^2\varphi\): hacia el polo el eje \(r_\lambda\) se achica hasta desaparecer (mover la longitud casi no nos mueve). Solo en el ecuador, \(\cos 0 = 1\), el grado de longitud vale \(111{,}2\) km.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(78.6\) km: \(ds = \sqrt{G}\,d\lambda = R\cos 45°\cdot\pi/180\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Con \(d\varphi = 0\) queda \(ds = \sqrt{G}\,d\lambda\), y \(\sqrt G = R\cos\varphi\): el radio del paralelo. \(6371 \cdot 0.7071 \cdot 0.01745 = 78.6\) km, contra \(111.2\) km del grado de latitud (\(\sqrt E = R\)).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(78{,}6\) km: \(ds = \sqrt{G}\,d\lambda = R\cos 45°\cdot\pi/180\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Con \(d\varphi = 0\) queda \(ds = \sqrt{G}\,d\lambda\), y \(\sqrt G = R\cos\varphi\): el radio del paralelo. \(6371 \cdot 0{,}7071 \cdot 0{,}01745 = 78{,}6\) km, contra \(111{,}2\) km del grado de latitud (\(\sqrt E = R\)).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(55.6\) km: \(111.2 \cdot \cos^2 45° = 111.2 \cdot 0.5\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Se usó \(G\) sin la raíz. \(G = R^2\cos^2\varphi\) es el largo <strong>al cuadrado</strong> del eje local; el largo es \(\sqrt G = R\cos\varphi\), y \(\cos 45° = 0.707\), no \(0.5\).</p>]]></text></feedback>
+      <text><![CDATA[<p>\(55{,}6\) km: \(111{,}2 \cdot \cos^2 45° = 111{,}2 \cdot 0{,}5\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Se usó \(G\) sin la raíz. \(G = R^2\cos^2\varphi\) es el largo <strong>al cuadrado</strong> del eje local; el largo es \(\sqrt G = R\cos\varphi\), y \(\cos 45° = 0{,}707\), no \(0{,}5\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(157.2\) km: \(111.2 / \cos 45°\), porque el paralelo es más corto y el grado se agranda.</p>]]></text>
+      <text><![CDATA[<p>\(157{,}2\) km: \(111{,}2 / \cos 45°\), porque el paralelo es más corto y el grado se agranda.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Al revés: el paralelo a \(45°\) tiene radio \(R\cos 45°\), más chico que \(R\), así que el mismo ángulo abarca <strong>menos</strong> arco. Se multiplica por \(\cos\varphi\), no se divide.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -3850,7 +3850,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Es el vector \((h_u, h_v)\) de la grilla; su perpendicular a las curvas de nivel en el papel ya es la perpendicular sobre el terreno.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La perpendicular del papel y la del terreno coinciden sólo si \(E = G\) y \(F = 0\). En la esfera un paso en \(\lambda\) mide \(\cos\varphi\) veces uno en \(\varphi\): la misma flecha dibujada en la grilla apunta a otro lado sobre la superficie.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La perpendicular del papel y la del terreno coinciden solo si \(E = G\) y \(F = 0\). En la esfera un paso en \(\lambda\) mide \(\cos\varphi\) veces uno en \(\varphi\): la misma flecha dibujada en la grilla apunta a otro lado sobre la superficie.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Es la fila \((h_u, h_v)\), una forma lineal que lee \(dh = h_u\,du + h_v\,dv\) sobre cada pasito; para volverla flecha sobre el terreno hace falta la tabla \(g = J^\top J\): la flecha es \(g^{-1}(h_u, h_v)^\top\).</p>]]></text>
@@ -3936,14 +3936,14 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La simple minimiza las distancias perpendiculares a la recta; la total, las verticales.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Es al revés: la simple es la que mira sólo el error en \(y\) (distancia vertical) y la total es la que admite error en las dos coordenadas (distancia perpendicular).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Es al revés: la simple es la que mira solo el error en \(y\) (distancia vertical) y la total es la que admite error en las dos coordenadas (distancia perpendicular).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>La simple minimiza las distancias verticales (error sólo en \(y\)); la total, las perpendiculares a la recta (error en \(x\) y en \(y\)).</p>]]></text>
+      <text><![CDATA[<p>La simple minimiza las distancias verticales (error solo en \(y\)); la total, las perpendiculares a la recta (error en \(x\) y en \(y\)).</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>En la simple las \(x\) se toman exactas y el residuo es vertical; en la total la recta pasa por el centroide con la dirección propia de mayor autovalor de \(X_0^\top X_0\) y el residuo es la distancia perpendicular.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Dan siempre la misma recta; cambia sólo el método de cálculo.</p>]]></text>
+      <text><![CDATA[<p>Dan siempre la misma recta; cambia solo el método de cálculo.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Con los mismos cuatro puntos \((\pm1, 0)\), \((0, \pm2)\) la simple da \(y = 0\) y la total da \(x = 0\): la pregunta cambia la respuesta.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -4026,7 +4026,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Restando las ecuaciones de los círculos quedan rectas; con las tres cintas el punto es \((3, -4)\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\((3, -4)\) cumple sólo los dos primeros círculos: es el otro corte, y la tercera cinta (\(3\) m a \(M_3\)) es justamente la que lo descarta.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\((3, -4)\) cumple solo los dos primeros círculos: es el otro corte, y la tercera cinta (\(3\) m a \(M_3\)) es justamente la que lo descarta.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Cada círculo es cuadrático, así que el sistema no se puede linealizar y hay que iterar desde una aproximación inicial.</p>]]></text>
@@ -4080,7 +4080,7 @@
       <feedback format="html"><text><![CDATA[<p>Multiplicar \(Q_0\) por una constante multiplica \(H\) y \(\Sigma\) por ella, pero no toca \(U\) ni \(V\): la rotación es la misma.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Hay que convertir antes a metros; Procrustes sólo funciona si las dos nubes tienen la misma escala.</p>]]></text>
+      <text><![CDATA[<p>Hay que convertir antes a metros; Procrustes solo funciona si las dos nubes tienen la misma escala.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Procrustes con escala resuelve exactamente ese caso: \(s\) sale de \(\operatorname{tr}\Sigma / \lVert P_0\rVert^2\) sin convertir nada a mano.</p>]]></text></feedback>
     </answer>
     <tags>
@@ -4108,7 +4108,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Total: \(y = x\) (dirección del autovalor \(16\)); simple: \(y = 0{,}6\,x\) (pendiente \(\sum x_i y_i / \sum x_i^2 = 6/10\)).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La recta total va por la dirección de mayor dispersión, \((1, 1)\), y deja residuo \(\lambda_{\min} = 4\); la simple minimiza sólo residuos verticales y su pendiente es \(6/10\), más chata que la total. Dos rectas distintas para la misma nube.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La recta total va por la dirección de mayor dispersión, \((1, 1)\), y deja residuo \(\lambda_{\min} = 4\); la simple minimiza solo residuos verticales y su pendiente es \(6/10\), más chata que la total. Dos rectas distintas para la misma nube.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Total: \(y = -x\) (dirección del autovalor \(4\)); simple: \(y = 0{,}6\,x\).</p>]]></text>
@@ -4116,7 +4116,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Las dos dan \(y = x\): la nube es simétrica respecto de esa bisectriz y por eso las dos rectas coinciden.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La simple mide residuos sólo en \(y\) y su pendiente es \(\sum x_i y_i / \sum x_i^2 = 6/10 \neq 1\); sólo coincidiría con la total si la correlación fuera perfecta.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La simple mide residuos solo en \(y\) y su pendiente es \(\sum x_i y_i / \sum x_i^2 = 6/10 \neq 1\); solo coincidiría con la total si la correlación fuera perfecta.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Total: \(y = 0{,}6\,x\) (el cociente \(6/10\) de la matriz); simple: \(y = x\) (la dirección del autovalor \(16\)).</p>]]></text>
@@ -4159,7 +4159,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La mayor de las dos, \(\kappa_1\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(\kappa_1\) es sólo la curvatura normal máxima; no dice nada del otro rumbo y no distingue la silla del cuenco.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(\kappa_1\) es solo la curvatura normal máxima; no dice nada del otro rumbo y no distingue la silla del cuenco.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>El producto \(\kappa_1\kappa_2 = \det II / \det I\).</p>]]></text>
@@ -4178,7 +4178,7 @@
   <question type="multichoice">
     <name><text>12_e2 · Unidad 16 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Apoyamos el nivel en el punto más bajo de un paso de montaña: la burbuja centra. Hacia el este y el oeste el terreno sube; hacia el norte y el sur baja. ¿Qué dice eso de la curvatura en ese punto?</p>]]></text>
+      <text><![CDATA[<p>Apoyamos en el punto más bajo de un paso de montaña un instrumento con burbuja: la burbuja centra. Hacia el este y el oeste el terreno sube; hacia el norte y el sur baja. ¿Qué dice eso de la curvatura en ese punto?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -4194,7 +4194,7 @@
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>La tangente es horizontal, así que la curvatura es cero en todos los rumbos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Burbuja centrada es gradiente nulo (término lineal cero), no hessiana nula: a un paso el terreno ya se aparta del plano del nivel, y cuánto se aparta es la curvatura.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Burbuja centrada es gradiente nulo (término lineal cero), no hessiana nula: a un paso el terreno ya se aparta del plano horizontal, y cuánto se aparta es la curvatura.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>Las curvaturas principales tienen signos opuestos y \(K &lt; 0\): la superficie cruza su plano tangente.</p>]]></text>
@@ -4249,7 +4249,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(R = 4\) m: el radio medio es el menor, porque la curvatura máxima manda.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>El menor radio es sólo el extremo de un rumbo; el promedio sobre todos los rumbos queda entre \(R_1\) y \(R_2\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>El menor radio es solo el extremo de un rumbo; el promedio sobre todos los rumbos queda entre \(R_1\) y \(R_2\).</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(R \approx 5{,}54\) m, el promedio de las curvaturas invertido: \(2/(1/R_1 + 1/R_2)\).</p>]]></text>
@@ -4330,8 +4330,8 @@
       <feedback format="html"><text><![CDATA[<p>Al revés: el círculo osculador de la sección oblicua tiene por centro la proyección del centro de curvatura de la sección normal sobre el plano oblicuo, y el radio queda \(\rho_\alpha\cos\theta\): se achica, no se agranda.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(\rho_\beta = 10\) m: el radio depende sólo de la dirección tangente, no del plano que corta.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Depende del plano: la curvatura normal es sólo la parte de la aceleración sobre la normal, y un plano inclinado ve además una componente dentro de la superficie.</p>]]></text></feedback>
+      <text><![CDATA[<p>\(\rho_\beta = 10\) m: el radio depende solo de la dirección tangente, no del plano que corta.</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Depende del plano: la curvatura normal es solo la parte de la aceleración sobre la normal, y un plano inclinado ve además una componente dentro de la superficie.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(\rho_\beta = 5\) m, por Meusnier: \(\rho_\beta = \rho_\alpha\cos\theta\).</p>]]></text>
@@ -4374,7 +4374,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Se puede si la región no contiene los polos, donde \(M = N\) y la curvatura es máxima.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(K &gt; 0\) en todo el elipsoide, polos incluidos o no; los polos sólo son los puntos umbilicales, donde las dos curvaturas coinciden.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(K &gt; 0\) en todo el elipsoide, polos incluidos o no; los polos solo son los puntos umbilicales, donde las dos curvaturas coinciden.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>No se puede porque \(\kappa_1 \ne \kappa_2\) en el elipsoide; en la esfera, donde son iguales, sí.</p>]]></text>
@@ -4397,7 +4397,7 @@
   <question type="multichoice">
     <name><text>13_e1 · Unidad 17 · elemental</text></name>
     <questiontext format="html">
-      <text><![CDATA[<p>Un receptor GNSS nos da latitud \(\varphi = 45°\) para un punto de la superficie del elipsoide (\(h = 0\)). ¿Qué ángulo forma la recta del mojón al centro de la Tierra con el plano del ecuador?</p>]]></text>
+      <text><![CDATA[<p>Un receptor que se ubica con satélites nos da latitud \(\varphi = 45°\) para un punto de la superficie del elipsoide (\(h = 0\)). ¿Qué ángulo forma la recta del mojón al centro de la Tierra con el plano del ecuador?</p>]]></text>
     </questiontext>
     <generalfeedback format="html"><text></text></generalfeedback>
     <defaultgrade>1</defaultgrade>
@@ -4425,7 +4425,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>No se puede saber sin la altura \(h\) del mojón.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Sobre la superficie (\(h = 0\)) \(\psi\) depende sólo de \(\varphi\) y de \(e^2\); la altura cambia la cuenta sólo si el punto se corre por la normal.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Sobre la superficie (\(h = 0\)) \(\psi\) depende solo de \(\varphi\) y de \(e^2\); la altura cambia la cuenta solo si el punto se corre por la normal.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -4455,7 +4455,7 @@
       <feedback format="html"><text><![CDATA[<p>El radio del paralelo es \(x' = N\cos\varphi\), no \(M\); \(M\) es el radio de curvatura de la elipse meridiana.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
-      <text><![CDATA[<p>\(M\) es el radio de la sección meridiana y \(N\) el de la sección normal perpendicular a ella, el primer vertical; \(M \le N\), iguales sólo en los polos.</p>]]></text>
+      <text><![CDATA[<p>\(M\) es el radio de la sección meridiana y \(N\) el de la sección normal perpendicular a ella, el primer vertical; \(M \le N\), iguales solo en los polos.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Son las direcciones principales del elipsoide (por simetría del plano meridiano), con \(\kappa_1 = 1/M\) y \(\kappa_2 = 1/N\); el elipsoide es más curvo a lo largo del meridiano que a lo ancho.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
@@ -4542,7 +4542,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(R\): todos los paralelos son círculos máximos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Sólo el ecuador es círculo máximo; los demás paralelos tienen radio \(R\cos\varphi\) y se achican hacia el polo, por eso un grado de longitud vale cada vez menos metros.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Solo el ecuador es círculo máximo; los demás paralelos tienen radio \(R\cos\varphi\) y se achican hacia el polo, por eso un grado de longitud vale cada vez menos metros.</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
       <text><![CDATA[<p>\(R/2\).</p>]]></text>
@@ -4722,7 +4722,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Suman siempre \(270°\), como el triángulo con tres ángulos rectos.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(270°\) es sólo el octante; el exceso crece con el área, y un triángulo de pocos km suma \(180°\) más una fracción de segundo.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(270°\) es solo el octante; el exceso crece con el área, y un triángulo de pocos km suma \(180°\) más una fracción de segundo.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -4842,7 +4842,7 @@
     <partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback>
     <incorrectfeedback format="html"><text>Incorrecto.</text></incorrectfeedback>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>\(540°\) exactos, como en el plano: el exceso aparece sólo en triángulos.</p>]]></text>
+      <text><![CDATA[<p>\(540°\) exactos, como en el plano: el exceso aparece solo en triángulos.</p>]]></text>
       <feedback format="html"><text><![CDATA[<p>Cortado en tres triángulos, cada uno aporta su exceso; la suma total es \(540°\) más el área total sobre \(R^2\).</p>]]></text></feedback>
     </answer>
     <answer fraction="100" format="html">
@@ -4890,7 +4890,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>El triángulo es demasiado chico para tener exceso medible: los \(22''\) son error grosero.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Con \(1\) km de lado el exceso es de \(0{,}002''\), invisible; con \(100\) km el área es \(10^4\) veces mayor y el exceso ya es del orden de lo que mide un teodolito.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Con \(1\) km de lado el exceso es de \(0{,}002''\), invisible; con \(100\) km el área es \(10^4\) veces mayor y el exceso ya es del orden de lo que miden las herramientas que leen ángulos con precisión de hasta 1 segundo.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Hay que restar \(22''\) a un solo ángulo, el del vértice más alejado.</p>]]></text>
@@ -4940,8 +4940,8 @@
       <feedback format="html"><text><![CDATA[<p>Conservar áreas es \(\det J = hk = 1\), la proyección equivalente; en Mercator a \(-54°\) cada hectárea se dibuja como \(2{,}88\) y los ángulos salen exactos.</p>]]></text></feedback>
     </answer>
     <answer fraction="0" format="html">
-      <text><![CDATA[<p>Los ángulos sólo entre meridianos y paralelos, que siguen a \(90°\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Meridianos y paralelos a \(90°\) es sólo \(F = 0\); la cilíndrica equidistante lo cumple y tuerce las demás direcciones hasta \(30°\) en Ushuaia. Conforme pide además \(E = G\).</p>]]></text></feedback>
+      <text><![CDATA[<p>Los ángulos solo entre meridianos y paralelos, que siguen a \(90°\).</p>]]></text>
+      <feedback format="html"><text><![CDATA[<p>Meridianos y paralelos a \(90°\) es solo \(F = 0\); la cilíndrica equidistante lo cumple y tuerce las demás direcciones hasta \(30°\) en Ushuaia. Conforme pide además \(E = G\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -5027,7 +5027,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(\omega_{\max} = 0°\): el Jacobiano es diagonal y conserva el ángulo entre los ejes.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>Los ejes siguen a \(90°\) pero las direcciones intermedias giran; conforme es \(\sigma_1 = \sigma_2\), no sólo \(F = 0\).</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>Los ejes siguen a \(90°\) pero las direcciones intermedias giran; conforme es \(\sigma_1 = \sigma_2\), no solo \(F = 0\).</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -5066,7 +5066,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>\(q(0) = -e/2\).</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>La corrección del elipsoide se anula en el ecuador porque \(\sin 0 = 0\) deja \(\ln 1\); el \(-e/2\) sólo multiplica ese logaritmo.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>La corrección del elipsoide se anula en el ecuador porque \(\sin 0 = 0\) deja \(\ln 1\); el \(-e/2\) solo multiplica ese logaritmo.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>
@@ -5152,7 +5152,7 @@
     </answer>
     <answer fraction="0" format="html">
       <text><![CDATA[<p>Pidiendo \(h = 1\) en toda la faja, como la cilíndrica equidistante pero con el eje en el meridiano central.</p>]]></text>
-      <feedback format="html"><text><![CDATA[<p>\(h = 1\) en todo punto con \(k \ne 1\) no es conforme; la escala \(1\) sólo puede exigirse sobre el meridiano central y crece con \(\Delta\lambda^2\), por eso las fajas de POSGAR son angostas.</p>]]></text></feedback>
+      <feedback format="html"><text><![CDATA[<p>\(h = 1\) en todo punto con \(k \ne 1\) no es conforme; la escala \(1\) solo puede exigirse sobre el meridiano central y crece con \(\Delta\lambda^2\), por eso las fajas de POSGAR son angostas.</p>]]></text></feedback>
     </answer>
     <tags>
       <tag><text>cb104</text></tag>

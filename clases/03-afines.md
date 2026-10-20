@@ -44,7 +44,7 @@ Las reflexiones generan las isometrías; con homotecias dan las similaridades, y
 
 ### Punto fijo
 
-Álgebra: $F(x_*) = x_*$, es decir $(I - A)x_* = t$; en homogéneas, autovector de $H$ con $\lambda = 1$ y $w\neq0$. Se ve: el lugar alrededor del cual la transformación "gira": rotar y trasladar repetidamente dibuja círculos alrededor del punto fijo; una rotación con centro fuera del origen tiene centro $c$ con $t = (I-R)c$; una traslación no tiene (el sistema es incompatible, el autovector de $\lambda=1$ tiene $w=0$: el punto fijo "se fue al infinito"). Si hay punto fijo, poniendo el origen ahí la afinidad queda lineal. Una rotación de $\mathbb R^3$ tiene autovalor 1 porque el polinomio característico es de grado impar y los autovalores tienen módulo 1.
+Álgebra: $F(x_*) = x_*$, es decir $(I - A)x_* = t$; en homogéneas, autovector de $H$ con $\lambda = 1$ y $w\neq0$. Se ve: el lugar alrededor del cual la transformación «gira»: rotar y trasladar repetidamente dibuja círculos alrededor del punto fijo; una rotación con centro fuera del origen tiene centro $c$ con $t = (I-R)c$; una traslación no tiene (el sistema es incompatible, el autovector de $\lambda=1$ tiene $w=0$: el punto fijo «se fue al infinito»). Si hay punto fijo, poniendo el origen ahí la afinidad queda lineal. Una rotación de $\mathbb R^3$ tiene autovalor 1 porque el polinomio característico es de grado impar y los autovalores tienen módulo 1.
 
 ### Traslación
 

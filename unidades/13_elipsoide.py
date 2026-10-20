@@ -43,7 +43,7 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    La pregunta: **¿Qué se deduce del elipsoide con sólo saber que todos sus
+    La pregunta: **¿Qué se deduce del elipsoide con solo saber que todos sus
     meridianos son la misma elipse?** El gancho: *la latitud geodésica y la geocéntrica no coinciden porque la normal
     al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón.*
 
@@ -84,9 +84,9 @@ def _(lib, mo, np):
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
-        Un mojón sobre el elipsoide GRS80 ($h = 0$). El receptor GNSS dice latitud $\varphi = 45°$: es la **latitud
+        Un mojón sobre el elipsoide GRS80 ($h = 0$). El receptor que se ubica con satélites da latitud $\varphi = 45°$: es la **latitud
         geodésica**, el ángulo entre la **normal** al elipsoide en el mojón (la vertical elipsoidal, la plomada
-        idealizada) y el plano del ecuador. El elipsoide está achatado: $a = 6378137$ m, $f = 1/298.257$.
+        idealizada) y el plano del ecuador. El elipsoide está achatado: $a = 6378137$ m, $f = 1/298{,}257$.
         """),
         prediccion,
     ])
@@ -110,7 +110,7 @@ def _(dif_sit, lib, mo, np, prediccion, psi_sit):
                 r"**No.** El signo: $\tan\psi = (1 - e^2)\tan\varphi < \tan\varphi$, la geocéntrica es **menor** en módulo: el achatamiento "
                 r"acuesta la recta al centro respecto de la normal."),
         "altura": ("warn",
-                   r"**No** con $h = 0$: sobre el elipsoide $\psi$ sale sólo de $\varphi$ y $e^2$. Con $h \ne 0$ sí cambia (el punto sube "
+                   r"**No** con $h = 0$: sobre el elipsoide $\psi$ sale solo de $\varphi$ y $e^2$. Con $h \ne 0$ sí cambia (el punto sube "
                    r"por la normal, no por el radio), pero el mojón está en la superficie."),
     }
     _kind, _texto = _respuestas[prediccion.value]
@@ -124,7 +124,7 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **¿Qué se conserva?** Al girar el elipsoide alrededor del eje polar cae sobre sí mismo; al reflejarlo en un
-    plano meridiano, también. Eso es "todos los meridianos son la misma elipse y los paralelos son círculos", y de
+    plano meridiano, también. Eso es “todos los meridianos son la misma elipse y los paralelos son círculos”, y de
     ahí deducimos:
 
     1. nada métrico depende de $\lambda$: $M$, $N$, $K$ y la primera forma son funciones de $\varphi$ sola;
@@ -140,8 +140,8 @@ def _(mo):
     | $\mathbb R^2$ | elipse meridiana $x'^2/a^2 + z^2/b^2 = 1$, $b = a(1 - f)$, $e^2 = (a^2 - b^2)/a^2 = 2f - f^2$; normal $\propto (x'/a^2,\ z/b^2)$ | una circunferencia estirada: $x' = a\cos\beta$, $z = b\sin\beta$; la normal no pasa por el centro salvo en los vértices |
     | $\mathbb R^3$ | $r(\varphi, \lambda) = \big(N\cos\varphi\cos\lambda,\ N\cos\varphi\sin\lambda,\ N(1 - e^2)\sin\varphi\big)$ | meridianos: la misma elipse girada; paralelos: círculos de radio $x' = N\cos\varphi$ |
 
-    **Tres latitudes** del mismo punto: la **geodésica** $\varphi$ (ángulo de la normal con el ecuador, la que da el
-    GNSS), la **geocéntrica** $\psi$ (ángulo del radio) y la **reducida** $\beta$ (ángulo del punto de la
+    **Tres latitudes** del mismo punto: la **geodésica** $\varphi$ (ángulo de la normal con el ecuador, la que dan los
+    receptores que se ubican con satélites), la **geocéntrica** $\psi$ (ángulo del radio) y la **reducida** $\beta$ (ángulo del punto de la
     circunferencia auxiliar de radio $a$ con la misma $x'$):
 
     $$\tan\psi = (1 - e^2)\tan\varphi, \qquad \tan\beta = \sqrt{1 - e^2}\,\tan\varphi, \qquad |\psi| \le |\beta| \le |\varphi|.$$
@@ -152,7 +152,7 @@ def _(mo):
       M = \frac{a(1 - e^2)}{(1 - e^2\sin^2\varphi)^{3/2}}\ \text{(meridiano)}, \qquad K = \frac{1}{MN}.$$
 
     $N$ es también la distancia del punto al eje polar **a lo largo de la normal** (Meusnier: el paralelo, de radio
-    $x' = N\cos\varphi$, es una sección oblicua de la del primer vertical). $M \le N$, iguales sólo en los polos; los dos
+    $x' = N\cos\varphi$, es una sección oblicua de la del primer vertical). $M \le N$, iguales solo en los polos; los dos
     crecen del ecuador al polo. Con $f = 0$, la esfera: $M = N = a$.
 
     **De $(\varphi, \lambda, h)$ a cartesianas geocéntricas**, con $h$ sobre la normal:
@@ -179,9 +179,9 @@ def _(mo):
         "elipsoide exagerado (f = 0.3)": (1.0, 0.3, "", 45.0, 30.0,
                                           r"achatado a ojo: la normal corta el eje polar lejos del centro y $\varphi - \psi$ llega a decenas de grados; $M < N$ salvo en los polos."),
         "elipsoide de juguete a = 5, b = 4": (5.0, 0.2, "", 45.0, 30.0,
-                                             r"los números de la ficha: ecuador $M = b^2/a = 3.2$, $N = a = 5$; polo $M = N = a^2/b = 6.25$."),
+                                             r"los números de la ficha: ecuador $M = b^2/a = 3{,}2$, $N = a = 5$; polo $M = N = a^2/b = 6{,}25$."),
         "GRS80 (f = 1/298.257)": (6378137.0, 1 / 298.257222101, " m", -34.6, -58.4,
-                                  r"la Tierra: el achatamiento no se ve ($b$ es $21$ km más corto que $a$), pero $\varphi - \psi$ llega a $11.5′$ y $N - M$ a $42.7$ km."),
+                                  r"la Tierra: el achatamiento no se ve ($b$ es $21$ km más corto que $a$), pero $\varphi - \psi$ llega a $11{,}5′$ y $N - M$ a $42{,}7$ km."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="elipsoide exagerado (f = 0.3)", label="caso precargado")
     mo.md(r"""
@@ -267,7 +267,7 @@ def _(N, a, beta, el, go, lib, mo, np, phi, psi):
     lib.mesa_interactiva(mo, mo.ui.plotly(fig2), mo.md(rf"""
     **La misma cosa en el plano del meridiano.** El punto $P = (x', z) = (N\cos\varphi,\ N(1 - e^2)\sin\varphi)$,
     en unidades de $a$. La normal (rust) corta el ecuador en $x' = N e^2\cos\varphi = {_pie[0]:.3f}\,a$ y el eje polar en
-    $z = -N e^2\sin\varphi = {_eje[1]:.3f}\,a$: pasa por el centro sólo si $e^2 = 0$ o $\varphi \in \{{0, \pm 90°\}}$. Los tres
+    $z = -N e^2\sin\varphi = {_eje[1]:.3f}\,a$: pasa por el centro solo si $e^2 = 0$ o $\varphi \in \{{0, \pm 90°\}}$. Los tres
     arcos son $\varphi = {lib.gms(np.rad2deg(phi))}$, $\psi = {lib.gms(np.rad2deg(psi), 1)}$ y $\beta = {lib.gms(np.rad2deg(beta), 1)}$.
     Se mueve con los deslizadores de arriba.
     """))
@@ -295,10 +295,10 @@ def _(grs80, lib, mo, np):
 
             $$\frac{x'^2}{a^2}\big(1 + (1 - e^2)\tan^2\varphi\big) = 1 \ \Rightarrow\ x' = \frac{a\cos\varphi}{\sqrt{\cos^2\varphi + (1 - e^2)\sin^2\varphi}} = \frac{a\cos\varphi}{\sqrt{1 - e^2\sin^2\varphi}} = N\cos\varphi.$$
 
-            **3.2 GRS80 en $\varphi = 45°$, $\lambda = 30°$.** $e^2 = 2f - f^2 = 0.00669438$, $\sin^2 45° = 1/2$,
-            $w = \sqrt{1 - e^2/2} = 0.99832500$. $N = a/w = 6\,388\,838.29$ m; $M = a(1 - e^2)/w^3 = 6\,335\,439.33/0.99498 = 6\,367\,381.82$ m.
-            $X = N\cos 45°\cos 30° = 3\,912\,348.47$, $Y = N\cos 45°\sin 30° = 2\,258\,795.44$, $Z = N(1 - e^2)\sin 45° = 4\,487\,348.41$ m.
-            $\tan\psi = 1 - e^2$: $\psi = 44.80758° = 44° 48′ 27″$.
+            **3.2 GRS80 en $\varphi = 45°$, $\lambda = 30°$.** $e^2 = 2f - f^2 = 0{,}00669438$, $\sin^2 45° = 1/2$,
+            $w = \sqrt{1 - e^2/2} = 0{,}99832500$. $N = a/w = 6\,388\,838{,}29$ m; $M = a(1 - e^2)/w^3 = 6\,335\,439{,}33/0{,}99498 = 6\,367\,381{,}82$ m.
+            $X = N\cos 45°\cos 30° = 3\,912\,348{,}47$, $Y = N\cos 45°\sin 30° = 2\,258\,795{,}44$, $Z = N(1 - e^2)\sin 45° = 4\,487\,348{,}41$ m.
+            $\tan\psi = 1 - e^2$: $\psi = 44{,}80758° = 44° 48′ 27″$.
             """),
             mo.vstack([
                 mo.md("```python\ng = lib.elipsoide_grs80()   # a, f, b, e2, ep2\nphi, lam = np.deg2rad(45.0), np.deg2rad(30.0)\na, e2 = g[\"a\"], g[\"e2\"]\nM, N = lib.radios_curvatura(phi, a, e2)\nP = lib.geodesica_a_cartesiana(phi, lam, 0.0,\n                               a, e2)\npsi, beta = lib.latitudes(phi, e2)\nnp.allclose([N, M],\n            [6388838.29, 6367381.82], atol=0.01)\nnp.allclose(P, [3912348.47, 2258795.44,\n                4487348.41], atol=0.01)\n```"),
@@ -346,12 +346,12 @@ def _(mo):
         mo.md(r"""
         **(b) Lápiz — medio** *Idea central: los radios mayor y menor tienen que ser el de la sección meridiana y el del primer
         vertical.* Calculá $N - M$ en el ecuador en función de $a$ y $e^2$, y su valor en metros para GRS80
-        ($a = 6378137$ m, $e^2 = 0.00669438$). ¿Cuánto vale en los polos?
+        ($a = 6378137$ m, $e^2 = 0{,}00669438$). ¿Cuánto vale en los polos?
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         En $\varphi = 0$: $N = a$ y $M = a(1 - e^2) = b^2/a$, así que $N - M = a e^2 = (a^2 - b^2)/a$. GRS80:
-        $6378137 \times 0.00669438 = 42\,698$ m: en el ecuador el elipsoide es más curvo a lo largo del meridiano
-        ($M$ chico) que a lo ancho. En los polos $M = N = a^2/b$, diferencia cero. Juguete $a = 5$, $b = 4$: $5 - 3.2 = 1.8$.
+        $6378137 \times 0{,}00669438 = 42\,698$ m: en el ecuador el elipsoide es más curvo a lo largo del meridiano
+        ($M$ chico) que a lo ancho. En los polos $M = N = a^2/b$, diferencia cero. Juguete $a = 5$, $b = 4$: $5 - 3{,}2 = 1{,}8$.
         """)}),
     ])
     return
@@ -433,7 +433,7 @@ def _(editor_d, grs80, lib, mo, np, puntos_cd):
         if np.allclose(_obtenido, _esperado, atol=1e-6):
             _res = mo.callout(mo.md(r"✅ coincide, también en el ecuador y los polos (ahí $\psi = \varphi$)."), kind="success")
         elif np.allclose(_obtenido, _phis, atol=1e-6):
-            _res = mo.callout(mo.md(r"❌ devolvés $\varphi$: sin el factor $(1 - e^2)$ la geocéntrica es la geodésica, y eso sólo vale en la esfera."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ devolvés $\varphi$: sin el factor $(1 - e^2)$ la geocéntrica es la geodésica, y eso solo vale en la esfera."), kind="warn")
         elif np.allclose(_obtenido, np.rad2deg(lib.latitudes(np.deg2rad(_phis), _e2)[1]), atol=1e-6):
             _res = mo.callout(mo.md(r"❌ eso es la latitud **reducida** $\beta$: usaste $\sqrt{1 - e^2}$ en vez de $(1 - e^2)$."), kind="warn")
         elif np.allclose(_obtenido, np.rad2deg(np.arctan((1 - _e2) * np.tan(_phis))), atol=1e-6, equal_nan=True) or np.allclose(_obtenido, np.arctan((1 - _e2) * np.tan(np.deg2rad(_phis))), atol=1e-6):
@@ -500,7 +500,7 @@ def _(mo):
     - [ficha del capítulo 14](../../capitulos/13.html) · [el hilo conductor](../../index.html) · [unidad 12](../12_curvatura/index.html)
 
     **Lo que viene:** [Trigonometría esférica](../14_trigonometria_esferica/index.html) (unidad 14): triángulos de lados
-    geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y "Máxima para el elipsoide", donde ya no hay fórmula cerrada.
+    geodésicos sobre la esfera, cuyos ángulos suman más de $180°$; y «Máxima para el elipsoide», donde ya no hay fórmula cerrada.
     """)
     return
 

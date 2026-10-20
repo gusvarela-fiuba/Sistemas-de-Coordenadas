@@ -8,7 +8,7 @@
 # ///
 """Núcleo y autovectores: las direcciones que no giran (unidad 07b, molde v2 sobre cb104).
 Una sola idea: el núcleo son los vectores que van al cero (ahí la transformación aplasta: det = 0); un autovector es
-una dirección que la transformación no gira, sólo estira por λ; encontrarlos es buscar el núcleo de A − λI, y el
+una dirección que la transformación no gira, solo estira por λ; encontrarlos es buscar el núcleo de A − λI, y el
 detector det(A − λI) = 0 dice para qué λ ese núcleo existe. El autovector sale como la perpendicular a una fila
 (en 3D, la cruz de dos filas): el método de «la cruz de dos filas».
 
@@ -109,7 +109,7 @@ def _(mo, prediccion):
                   r"y una dirección propia por cada una."),
         "homotecia": ("warn",
                       r"**No.** Que **ningún** rumbo cambie es una homotecia $kI$: todo se estira igual. $A$ no es múltiplo de $I$: "
-                      r"manda $(1, 0)$ a $(2, 1)$, que ya giró. Sólo dos rumbos se salvan."),
+                      r"manda $(1, 0)$ a $(2, 1)$, que ya giró. Solo dos rumbos se salvan."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -126,7 +126,7 @@ def _(mo):
     recta y no hay vuelta atrás (no existe $A^{-1}$, como no existe $1/0$). El detector lo anuncia: filas colineales,
     $\det A = 0$. Y la dirección que se aplasta es la que **todas las filas ven como cero**: la perpendicular a una fila.
 
-    **Después, las direcciones que no giran.** $Av = \lambda v$: la recta de $v$ cae sobre sí misma, sólo estirada por
+    **Después, las direcciones que no giran.** $Av = \lambda v$: la recta de $v$ cae sobre sí misma, solo estirada por
     el **autovalor** $\lambda$ ($1$ queda quieta, $-1$ se invierte, $0$ es el núcleo). El pase de magia:
     $Av = \lambda v$ es lo mismo que $(A - \lambda I)\,v = 0$: **$v$ está en el núcleo de $A - \lambda I$**, una versión
     modificada de la transformación. Y ya sabemos cuándo un núcleo no es trivial: cuando el detector da cero,
@@ -135,7 +135,7 @@ def _(mo):
 
     | | álgebra | lo que se ve |
     |---|---|---|
-    | $\mathbb R$ | $a x = 0$ sólo con $x = 0$, salvo $a = 0$; $a x = \lambda x$ para **todo** $x$ con $\lambda = a$ | el núcleo es $\{0\}$ o la recta entera; **toda** dirección es propia (hay una sola) |
+    | $\mathbb R$ | $a x = 0$ solo con $x = 0$, salvo $a = 0$; $a x = \lambda x$ para **todo** $x$ con $\lambda = a$ | el núcleo es $\{0\}$ o la recta entera; **toda** dirección es propia (hay una sola) |
     | $\mathbb R^2$ | núcleo $\{0\}$, una recta o todo; $\det(A - \lambda I)$ de grado $2$: $0$, $1$ ó $2$ raíces reales | a lo sumo dos direcciones que no giran; un giro no tiene ninguna; una homotecia, todas |
     | $\mathbb R^3$ | grado $3$: **siempre** una raíz real; autovector $=$ cruz de dos filas | siempre hay una recta que cae sobre sí misma: el eje (unidad 07c) |
 
@@ -295,12 +295,12 @@ def _(A_esc, lib, mo, np):
 
             $$\det(A - \lambda I) = (2 - \lambda)^2 - 1 = \lambda^2 - 4\lambda + 3 = (\lambda - 1)(\lambda - 3).$$
 
-            Sólo para $\lambda = 1$ y $\lambda = 3$ las filas son colineales y hay algo en el núcleo.
+            Solo para $\lambda = 1$ y $\lambda = 3$ las filas son colineales y hay algo en el núcleo.
 
             **3.3 Los autovectores, por la fila.** $\lambda = 3$: $A - 3I = \begin{pmatrix} -1 & 1 \\ 1 & -1 \end{pmatrix}$, perpendicular
             a la fila $(-1, 1)$: $v = (1, 1)$; control $A(1, 1) = (3, 3) = 3\,(1, 1)$ ✓. $\lambda = 1$: $A - I = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}$,
-            perpendicular a $(1, 1)$: $v = (1, -1)$; control $A(1, -1) = (1, -1)$ ✓. En $\mathbb R^2$ "la cruz de dos filas"
-            se reduce a "la perpendicular a una fila".
+            perpendicular a $(1, 1)$: $v = (1, -1)$; control $A(1, -1) = (1, -1)$ ✓. En $\mathbb R^2$ «la cruz de dos filas»
+            se reduce a «la perpendicular a una fila».
             """),
             mo.vstack([
                 mo.md("```python\nA = np.array([[2., 1.], [1., 2.]])\nnp.poly(A)                        # [1, −4, 3]: λ² − 4λ + 3\nnp.roots(np.poly(A))\nv3 = lib.perp2((A - 3 * np.eye(2))[0])\nnp.allclose(A @ v3, 3 * v3)\nlib.autovectores_cuna(A)          # el método entero\n```"),
@@ -491,7 +491,7 @@ def _(mo):
     **Lo que viene:** [Autovalores en 3D y puntos fijos proyectivos](../07c_autovalores_3d_puntos_fijos/index.html):
     en 3D el autovector es la cruz de dos filas, el eje de una rotación es su autovector de autovalor $1$, y un
     autovector de la $3\times3$ homogénea es un punto fijo del plano. Después, en
-    [cambio de base](../08_cambio_de_base/index.html), la grilla de autovectores es la grilla donde $A$ es sólo estirar.
+    [cambio de base](../08_cambio_de_base/index.html), la grilla de autovectores es la grilla donde $A$ es solo estirar.
     """)
     return
 

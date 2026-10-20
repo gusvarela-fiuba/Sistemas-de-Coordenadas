@@ -27,7 +27,7 @@ Una línea por clave del frontmatter, con rótulo, número y título como en el 
 Lecciones de `unidades/` que acompañan el capítulo.
 
 ## Animaciones
-Sólo si hay (`animaciones/*.mp4`).
+Solo si hay (`animaciones/*.mp4`).
 
 ## Ejercicios sugeridos
 Dos a cuatro ejercicios cortos, con números enteros que se puedan hacer a mano.

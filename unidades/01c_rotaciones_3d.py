@@ -116,7 +116,7 @@ def _(mo, prediccion):
                        r"muestra la lección."),
         "mismas": ("warn",
                    r"**No.** $e_x$ no está sobre el eje $y$ ni sobre el eje $z$, así que ninguno de los dos giros lo deja quieto. "
-                   r"Sólo queda quieto lo que está sobre el eje de giro."),
+                   r"Solo queda quieto lo que está sobre el eje de giro."),
         "reflexion": ("warn",
                       r"**No.** $(-1, 0, 0)$ sería dar vuelta $e_x$ como en un espejo (o girarlo $180°$ alrededor de $z$), y acá "
                       r"cada giro es de $90°$. El primer giro ya lo saca del eje $x$: va a parar a $-e_z$."),
@@ -132,8 +132,8 @@ def _(mo):
     ## 1. Hecho geométrico
 
     **Un giro básico por cada eje.** $R_x$, $R_y$, $R_z$ dejan quieto un eje coordenado y giran el plano perpendicular
-    como en 2D: es la matriz $R(\theta)$ "empotrada", con un $1$ en la diagonal para la coordenada que no se mueve.
-    Cada columna sigue siendo "a dónde va $e_k$".
+    como en 2D: es la matriz $R(\theta)$ «empotrada», con un $1$ en la diagonal para la coordenada que no se mueve.
+    Cada columna sigue siendo «a dónde va $e_k$».
 
     $$R_x(\alpha) = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{\cos\alpha} & \textcolor{#c9a227}{-\sin\alpha} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{\sin\alpha} & \textcolor{#c9a227}{\cos\alpha} \end{pmatrix}, \quad
     R_y(\beta) = \begin{pmatrix} \textcolor{#1b6f6a}{\cos\beta} & \textcolor{#b5451b}{0} & \textcolor{#c9a227}{\sin\beta} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{-\sin\beta} & \textcolor{#b5451b}{0} & \textcolor{#c9a227}{\cos\beta} \end{pmatrix}, \quad
@@ -248,7 +248,7 @@ def _(Ry90, Rz90, ex, lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.1 La composición, columna por columna.** Para armar $R = R_z(90°)R_y(90°)$ no hace falta multiplicar
-            nueve por nueve: la columna $k$ es "a dónde va $e_k$", y lo seguimos giro por giro (primero $y$, después $z$):
+            nueve por nueve: la columna $k$ es «a dónde va $e_k$», y lo seguimos giro por giro (primero $y$, después $z$):
 
             - $e_x \xrightarrow{R_y} -e_z \xrightarrow{R_z} -e_z$ (sobre el eje $z$, $R_z$ no lo toca): columna 1 $= \textcolor{#1b6f6a}{(0, 0, -1)}$
             - $e_y \xrightarrow{R_y} e_y \xrightarrow{R_z} -e_x$: columna 2 $= \textcolor{#b5451b}{(-1, 0, 0)}$
@@ -374,7 +374,7 @@ def _(editor_b, lib, mo, np):
             _res = mo.callout(mo.md(f"❌ `R` e `imagen` están bien; `fijo` vale `{_fijo!r}`, tiene que ser `np.allclose(R @ u, u)` → `True`."), kind="warn")
         else:
             _res = mo.callout(mo.md(r"✅ $R = R_z(90°)R_y(90°)$ manda $e_x \mapsto (0,0,-1)$ y deja fijo $u = (-1,1,1)/\sqrt3$: ese es el eje de la "
-                                    r"rotación compuesta, un giro de $120°$ ($R^3 = I$). Más adelante, $Ru = u$ se lee \"$u$ es autovector de autovalor 1\". "
+                                    r"rotación compuesta, un giro de $120°$ ($R^3 = I$). Más adelante, $Ru = u$ se lee «$u$ es autovector de autovalor 1». "
                                     r"Y la respuesta del cuaderno: $R$ es ortogonal con $\det = 1$, y toda matriz así deja fija una recta (Euler)."), kind="success")
     except Exception as _e:  # el `...` sin completar cae acá
         _res = mo.callout(mo.md(f"Todavía no corre: `{type(_e).__name__}: {_e}`. Completá los `...`."), kind="neutral")

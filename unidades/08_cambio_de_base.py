@@ -9,7 +9,7 @@
 """Cambio de base y diagonalización (unidad 08, molde v2 sobre cb104).
 Una sola idea: los autovectores son los ejes propios del sistema. La flecha no se movió; cambiamos la grilla con que la
 medimos y los números cambian por B (columnas = ejes nuevos escritos en los viejos; coordenadas nuevas = B⁻¹ p). En la
-grilla de los autovectores una transformación es sólo estirar por λ en cada eje (A = B Λ B⁻¹) y Aⁿ sale sola.
+grilla de los autovectores una transformación es solo estirar por λ en cada eje (A = B Λ B⁻¹) y Aⁿ sale sola.
 Generaliza a una base oblicua lo que Rotaciones I (01a) mostró con una base girada.
 
 Chequear:  uv run marimo check --select MW unidades/08_cambio_de_base.py
@@ -45,7 +45,7 @@ def _(mo):
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
     La pregunta: **Si la flecha no se movió pero cambiamos la grilla, ¿cómo cambian los números, y
-    en qué grilla una transformación es sólo estirar?** El gancho: *el mismo mojón con coordenadas en tres marcos:
+    en qué grilla una transformación es solo estirar?** El gancho: *el mismo mojón con coordenadas en tres marcos:
     cambia la grilla con que se mide, no el punto.*
 
     Colores, iguales en la figura y en el álgebra: la **primera columna** de una matriz es
@@ -108,7 +108,7 @@ def _(candidatos, lib, mo, prediccion):
         "proyeccion": ("warn",
                        rf"**No.** ${_pr}$ sale de proyectar $P$ sobre cada eje con el producto interno, "
                        r"$\langle P, b_k\rangle / \langle b_k, b_k\rangle$. Valió en Rotaciones I porque los ejes girados seguían "
-                       r"perpendiculares; a $45°$ cada proyección arrastra parte de la otra. Controlá: $1.5\,b_1 + 2\,b_2 = (6.5,\ 5.5) \ne P$."),
+                       r"perpendiculares; a $45°$ cada proyección arrastra parte de la otra. Controlá: $1{,}5\,b_1 + 2\,b_2 = (6{,}5;\ 5{,}5) \ne P$."),
         "por-B": ("warn",
                   rf"**No.** ${_pb}$ es $B\,P$: multiplicaste por $B$, que lleva de coordenadas **nuevas a viejas** "
                   r"($p = Bc$: tantos $b_1$ más tantos $b_2$). Para ir al revés hay que resolver $Bc = p$, o sea $B^{-1}$."),
@@ -128,7 +128,7 @@ def _(mo):
 
     **¿Qué se conserva?** El punto, y con él toda la geometría: distancias, ángulos, qué punto está en qué recta, a
     dónde lleva cada transformación a cada punto. Lo que cambia son los **números**. Convertimos todo para que nada
-    cambie. No hay base privilegiada: la canónica sólo es especial porque en ella el producto
+    cambie. No hay base privilegiada: la canónica solo es especial porque en ella el producto
     interno es $x_1x_2 + y_1y_2$.
 
     **La matriz de cambio de base.** Si los ejes nuevos $b_1, b_2$ (escritos en la grilla vieja) son las columnas de
@@ -136,12 +136,12 @@ def _(mo):
 
     $$p = c_1\,\textcolor{#1b6f6a}{b_1} + c_2\,\textcolor{#b5451b}{b_2} = B\,c, \qquad c = B^{-1}p.$$
 
-    $B$ lleva de nuevas a viejas; $B^{-1}$, de viejas a nuevas. Para leer hay que **resolver**, no multiplicar. Sólo
+    $B$ lleva de nuevas a viejas; $B^{-1}$, de viejas a nuevas. Para leer hay que **resolver**, no multiplicar. Solo
     con ejes perpendiculares de largo $1$ vale $B^{-1} = B^T$ y resolver es proyectar: eso fue Rotaciones I.
 
     | | álgebra | lo que se ve |
     |---|---|---|
-    | $\mathbb R$ | $B = (u)$, un número: la unidad nueva. $c = p/u$ (metros a pies: $u = 0.3048$) | la misma longitud, otro número |
+    | $\mathbb R$ | $B = (u)$, un número: la unidad nueva. $c = p/u$ (metros a pies: $u = 0{,}3048$) | la misma longitud, otro número |
     | $\mathbb R^2$ | $B$ $2\times2$ con columnas $b_1, b_2$; $c = B^{-1}p$ | la misma flecha medida con una grilla oblicua |
     | $\mathbb R^3$ | $B$ $3\times3$, tres columnas | lo mismo con tres direcciones |
 
@@ -151,7 +151,7 @@ def _(mo):
 
     **Diagonalizar.** Si las columnas de $B$ son los **autovectores** de $A$ ($A\,b_k = \lambda_k b_k$), cada $A\,b_k$
     leído en la grilla nueva es $\lambda_k e_k$: $B^{-1}AB = \Lambda = \mathrm{diag}(\lambda_1, \lambda_2)$. En su
-    grilla propia $A$ **sólo estira** cada eje por su autovalor, sin romper la grilla. Entonces $A = B\Lambda B^{-1}$ y
+    grilla propia $A$ **solo estira** cada eje por su autovalor, sin romper la grilla. Entonces $A = B\Lambda B^{-1}$ y
 
     $$A^n = (B\Lambda B^{-1})(B\Lambda B^{-1})\cdots = B\,\Lambda^n B^{-1},$$
 
@@ -233,20 +233,20 @@ def _(mo):
 
     **Matriz 3a.** Es invertible, con inversa $\begin{pmatrix}1&-1\\0&1\end{pmatrix}$ (el corte hacia el otro lado). Su
     polinomio característico es $(\lambda - 1)^2 = 0$: raíz doble $\lambda = 1$, **multiplicidad algebraica** $2$.
-    Pero $(A - I)v = 0$ da $v_2 = 0$, o sea sólo el eje $x$: **multiplicidad geométrica** $1$. Falta un segundo
+    Pero $(A - I)v = 0$ da $v_2 = 0$, o sea solo el eje $x$: **multiplicidad geométrica** $1$. Falta un segundo
     autovector para armar la grilla, así que no hay $B$ invertible con $B^{-1}AB$ diagonal.
 
     **Matriz 3b.** El polinomio es $\lambda^2 + 1 = 0$, sin raíces reales: un giro no deja ninguna recta en su lugar.
 
-    **Matriz 4.** $\lambda = 0$ doble (algebraica $2$), pero $Av = 0$ sólo para $v = (x, 0)$: un único autovector,
+    **Matriz 4.** $\lambda = 0$ doble (algebraica $2$), pero $Av = 0$ solo para $v = (x, 0)$: un único autovector,
     $e_1$ (geométrica $1$). Tiene núcleo **y** le falta una dirección propia.
 
     El defecto de las matrices 3a, 3b y 4 es exactamente la razón por la que en la [unidad siguiente](../09_cambio_de_base_svd/index.html)
     pasamos a la SVD, $A = U\Sigma V^T$: con una base ortonormal a la entrada ($V$) y **otra distinta** a la salida
     ($U$), toda matriz, incluso un corte o una rectangular, se lee como diagonal. Ojo: es diagonal entre dos grillas
-    distintas, no es una semejanza. $\Sigma$ no es "$A$ en otra base", los $\sigma$ no son autovalores (en el corte
+    distintas, no es una semejanza. $\Sigma$ no es «$A$ en otra base», los $\sigma$ no son autovalores (en el corte
     $\sigma = (\sqrt5 \pm 1)/2$ y $\lambda = 1$ doble) y no sirve para potencias: $A^n \ne U\Sigma^nV^T$. Las dos
-    descomposiciones coinciden sólo si $A$ es simétrica semidefinida positiva.
+    descomposiciones coinciden solo si $A$ es simétrica semidefinida positiva.
     """), kind="info")
     return
 
@@ -293,7 +293,7 @@ def _(mo, np):
             r"$b_2$. Girá $b_2$ y la diagonal se rompe: la grilla propia es una sola."),
         "cizalla [[1, 1], [0, 1]]: un solo autovector": (
             (1.0, 0.0), (0.0, 1.0), np.array([[1.0, 1.0], [0.0, 1.0]]),
-            r"la cizalla sólo deja en su dirección a $b_1 = (1, 0)$. Cualquier $b_2$ sirve para leer coordenadas, pero "
+            r"la cizalla solo deja en su dirección a $b_1 = (1, 0)$. Cualquier $b_2$ sirve para leer coordenadas, pero "
             r"$B^{-1}AB$ **nunca** es diagonal: sin segundo eje propio no se diagonaliza."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="base oblicua de la parcela", label="caso precargado")
@@ -347,7 +347,7 @@ def _(caso, casos, desvio, factor, lib, mo, mojon, np):
             _Ap = np.linalg.inv(B) @ A_caso @ B
             _diag = lib.exacto(_Ap, np.diag(np.diag(_Ap)), tol=1e-6)
             _numeros += rf"""
-        - $A = {lib.pmat(A_caso)}$ vista en esta base: $B^{{-1}}AB = {lib.pmat(_Ap)}$ → {"**diagonal**: acá $A$ sólo estira" if _diag else "no es diagonal: no es la grilla propia de $A$"}
+        - $A = {lib.pmat(A_caso)}$ vista en esta base: $B^{{-1}}AB = {lib.pmat(_Ap)}$ → {"**diagonal**: acá $A$ solo estira" if _diag else "no es diagonal: no es la grilla propia de $A$"}
         """
     lib.punto(figura, P, nombre="mojón (quieto)", texto="P")
     _panel = mo.vstack([
@@ -364,8 +364,8 @@ def _(mo):
     mo.md(r"""
     **La transformación en su grilla propia.** Ahora la grilla no la elegimos nosotros: la elige
     $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$. En gris, la grilla de la obra y el cuadrado de vértices
-    $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así "no se
-    entiende"). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
+    $\pm b_1$, $\pm b_2$; en teal, la grilla después de $A$ (los cuadrados pasan a paralelogramos: así «no se
+    entiende»). Las rectas punteadas son los **ejes propios**: $b_1 = (1, 1)$ con $\lambda_1 = 3$ y $b_2 = (1, -1)$
     con $\lambda_2 = 1$; el rombo se estira $\times 3$ a lo largo de $b_1$ y queda igual a lo largo de $b_2$.
     **Reproducir** recorre $A^t$ de $t = 0$ a $1$: la película, con las estelas curvándose hacia el eje de
     $\lambda = 3$. En el panel, $A^n$ multiplicando $n$ veces y por $B\Lambda^nB^{-1}$.
@@ -516,8 +516,8 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
         $B = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}$: $2c_1 + c_2 = 5$, $c_2 = 3$, luego $c_1 = 1$: $c = (1, 3)$.
-        Control: $1\,(2,0) + 3\,(1,1) = (5, 3)$. ✓ Las proyecciones dan $10/4 = 2.5$ y $8/2 = 4$: distinto, porque
-        $\langle b_1, b_2\rangle = 2 \ne 0$ y la sombra sobre un eje incluye parte del otro. Proyectar sólo lee
+        Control: $1\,(2,0) + 3\,(1,1) = (5, 3)$. ✓ Las proyecciones dan $10/4 = 2{,}5$ y $8/2 = 4$: distinto, porque
+        $\langle b_1, b_2\rangle = 2 \ne 0$ y la sombra sobre un eje incluye parte del otro. Proyectar solo lee
         coordenadas en bases ortogonales.
         """)}),
         mo.md(r"""
@@ -569,7 +569,7 @@ def _(editor_c, lib, mo, np):
         elif np.allclose(_obtenido, lib.transformar(_puntos, _B)):
             _res = mo.callout(mo.md(r"❌ devolvés `B @ p`: eso lleva de nuevas a **viejas**. Para leer hay que resolver: `np.linalg.solve(B, p)`."), kind="warn")
         elif np.allclose(_obtenido, np.array([[p @ _B[:, k] / (_B[:, k] @ _B[:, k]) for k in range(2)] for p in _puntos])):
-            _res = mo.callout(mo.md(r"❌ proyectaste con el producto interno sobre cada eje. Sólo vale con ejes perpendiculares; acá forman $45°$."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ proyectaste con el producto interno sobre cada eje. Solo vale con ejes perpendiculares; acá forman $45°$."), kind="warn")
         elif np.allclose(_obtenido, np.linalg.solve(_B.T, _puntos.T).T):
             _res = mo.callout(mo.md(r"❌ usaste los ejes como **filas** (`B.T`). Las columnas de $B$ son los ejes nuevos: `solve(B, p)`, sin transponer."), kind="warn")
         else:
@@ -660,17 +660,17 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá verificamos que los números cambian con $B^{-1}$ y que en la grilla propia $A$ sólo estira. Las demostraciones:
+    Acá verificamos que los números cambian con $B^{-1}$ y que en la grilla propia $A$ solo estira. Las demostraciones:
 
-    - [apunte, sección "Cambio de base y diagonalización"](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
-      "La matriz de cambio de base", el párrafo "Diagonalizar es elegir la grilla de los autovectores" (el ejemplo
+    - [apunte, sección «Cambio de base y diagonalización»](../../apunte.pdf#nameddest=sec:cambio-base): el resultado
+      «La matriz de cambio de base», el párrafo «Diagonalizar es elegir la grilla de los autovectores» (el ejemplo
       numérico de la diagonalización; el argumento general, $AB = B\Lambda$ columna por columna, está en la sección 1
       de esta unidad) y el párrafo con las grillas y el despeje de la diagonal
       · [apunte, «Álgebra de las transformaciones» (autovectores, formas lineales, cambio de base)](../../apunte.pdf#nameddest=cap:cambio-base)
     - [ficha del capítulo 9](../../capitulos/08.html) · [el hilo conductor](../../index.html) · [Rotaciones I](../01a_punto_quieto/index.html)
 
     **Lo que viene:** la SVD (unidad 09): dos bases perpendiculares, una a la entrada y otra a la
-    salida, para que toda matriz sea "sólo estirar" de una grilla a otra, también las que no tienen ejes propios. Y las superficies
+    salida, para que toda matriz sea «solo estirar» de una grilla a otra, también las que no tienen ejes propios. Y las superficies
     (unidad 10): la grilla $(u, v)$ dibujada sobre el terreno.
     """)
     return

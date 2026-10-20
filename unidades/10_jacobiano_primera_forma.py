@@ -42,13 +42,13 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    La pregunta: **¿Cómo medimos una distancia chica sobre una superficie curva usando sólo
+    La pregunta: **¿Cómo medimos una distancia chica sobre una superficie curva usando solo
     los números (u, v) de la grilla?** El gancho: *sobre el terreno, un pasito en latitud y otro en longitud no miden lo
     mismo en metros: la primera forma fundamental es la regla que los convierte.*
 
     Colores, iguales en la figura y en el álgebra: la **primera columna** de la jacobiana es $r_u$, en
     <span style="color:#1b6f6a">**teal**</span>; la **segunda**, $r_v$, en <span style="color:#b5451b">**rust**</span>: los
-    **ejes locales**. La grilla $(u, v)$ "antes" va en gris, levantada sobre la superficie en teal, el pasito en
+    **ejes locales**. La grilla $(u, v)$ «antes» va en gris, levantada sobre la superficie en teal, el pasito en
     <span style="color:#7a4e9e">**violeta**</span>. Grados en los controles, radianes adentro.
     """)
     return
@@ -108,7 +108,7 @@ def _(E_l, J_ladera, cinta_ladera, mo, np, prediccion):
                      rf"cuadrado del eje local $r_u = (1, 0, h_u)$. Con cinta mediríamos ${cinta_ladera:.2f}$ m, porque la pendiente afloja a "
                      rf"lo largo del paso: la regla vale **a primer orden**, para pasitos (sección 2)."),
         "siempre-1": ("warn",
-                      r"**No.** $1$ en la grilla es $1$ sobre el terreno sólo donde es horizontal (la cima). En la ladera el paso además "
+                      r"**No.** $1$ en la grilla es $1$ sobre el terreno solo donde es horizontal (la cima). En la ladera el paso además "
                       r"baja: el largo es la hipotenusa, más que $1$. La grilla es el plano del dibujo; la superficie, *otro espacio, "
                       r"completamente desconectado*; entre los dos hay una regla."),
         "pendiente": ("warn",
@@ -130,7 +130,7 @@ def _(mo):
 
     **La derivada es la mejor aproximación lineal en un punto: entra un pasito, sale un pasito.** Hacemos zoom en un punto
     hasta que la curva parece recta y la superficie parece plana; la derivada es esa recta o ese plano, una transformación
-    lineal ("la matriz es lo que le pasa a la grilla", [unidad 04](../04_afines_homogeneas/index.html)) que cambia de
+    lineal (“la matriz es lo que le pasa a la grilla”, [unidad 04](../04_afines_homogeneas/index.html)) que cambia de
     punto a punto. Con una pelota: si cortás un pedacito y le hacés zoom, cortás uno más chico y lo escalás de
     nuevo… hay un momento en que el pedazo parece plano. La matriz jacobiana describe esa transformación lineal local.
 
@@ -162,7 +162,7 @@ def _(mo):
 
     Dos cosas más: el **gradiente** de $h$ es una forma lineal, no
     un vector: la regla graduada que mide cuánto sube $h$ con cada pasito, $h_u\,du + h_v\,dv$; y la **función implícita**,
-    $F(x, y, z) = 0$ define $z = g(x, y)$ cerca de un punto si la normal "le hace sombra" al eje $z$ ($\partial F/\partial z \neq 0$).
+    $F(x, y, z) = 0$ define $z = g(x, y)$ cerca de un punto si la normal «le hace sombra» al eje $z$ ($\partial F/\partial z \neq 0$).
     Todo esto es una **muestra**; la demostración está en el apunte, secciones 6 y 13.
     """)
     mo.vstack([_texto, mo.callout(mo.md(r"""
@@ -175,7 +175,7 @@ def _(mo):
     vectores. Si $E \ne G$ o $F \ne 0$, la perpendicular dibujada en la grilla **no** es la perpendicular en el terreno: en
     la esfera un paso en $\lambda$ mide $\cos\varphi$ veces lo que uno en $\varphi$, y en el elipsoide $M\,d\varphi$ contra
     $N\cos\varphi\,d\lambda$. El mismo recordatorio, con la cita entera, en la [ficha del capítulo 10](../../capitulos/09.html); como cambio
-    de chip ("el gradiente no es un vector" y "la métrica da los metros"), en la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
+    de chip (“el gradiente no es un vector” y “la métrica da los metros”), en la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
     """), kind="neutral")])
     return
 
@@ -195,7 +195,7 @@ def _(lib, mo, np):
             r=lambda u, v: lib.xyz(u, v, 1.0 + 0.4 * u + 0.3 * v),
             u=(-3.0, 3.0, 0.25, 1.0, "u", 1.0), v=(-3.0, 3.0, 0.25, -1.0, "v", 1.0),
             antes=lambda u, v: lib.xyz(u, v, 0.0 * u),
-            que_pasa=r"$r_u = (1, 0, 0.4)$, $r_v = (0, 1, 0.3)$ no dependen del punto: $E, F, G$ **constantes** ($1.16$, $0.12$, $1.09$), como una afinidad."),
+            que_pasa=r"$r_u = (1;\ 0;\ 0{,}4)$, $r_v = (0;\ 1;\ 0{,}3)$ no dependen del punto: $E, F, G$ **constantes** ($1{,}16$, $0{,}12$, $1{,}09$), como una afinidad."),
         "cilindro de radio 1.5 (u ángulo, v altura)": dict(
             r=lambda u, v: lib.xyz(1.5 * np.cos(u), 1.5 * np.sin(u), v),
             u=(-180.0, 180.0, 5.0, 30.0, "u (°)", _d), v=(-2.0, 2.0, 0.25, 0.5, "v", 1.0),
@@ -319,9 +319,9 @@ def _(lib, mo, np):
 
             $$G = R^2\cos^2\varphi\,(\sin^2\lambda + \cos^2\lambda) = R^2\cos^2\varphi, \qquad ds^2 = R^2\,d\varphi^2 + R^2\cos^2\varphi\,d\lambda^2$$
 
-            Un paso de $1°$ en longitud ($d\lambda = \pi/180$) a latitud $45°$: $ds = \sqrt{G}\,d\lambda = R\cos 45°\cdot\pi/180 = 0.01234\,R$;
-            con $R = 6371$ km, $78.6$ km. El mismo grado vale $111.2$ km en el ecuador y $0$ en el polo; un grado de
-            latitud, $\sqrt{E}\,d\varphi = 111.2$ km en todos lados.
+            Un paso de $1°$ en longitud ($d\lambda = \pi/180$) a latitud $45°$: $ds = \sqrt{G}\,d\lambda = R\cos 45°\cdot\pi/180 = 0{,}01234\,R$;
+            con $R = 6371$ km, $78{,}6$ km. El mismo grado vale $111{,}2$ km en el ecuador y $0$ en el polo; un grado de
+            latitud, $\sqrt{E}\,d\varphi = 111{,}2$ km en todos lados.
             """),
             mo.vstack([
                 mo.md("```python\nR = 6371.0\ndef esfera(phi, lam):\n    return lib.xyz(R*np.cos(phi)*np.cos(lam), R*np.cos(phi)*np.sin(lam), R*np.sin(phi))\nphi, lam = np.deg2rad(45), np.deg2rad(-58.4)\nJ = lib.jacobiana_numerica(esfera, phi, lam)   # diferencias finitas\nJ_exacta = np.column_stack([r_phi, r_lam])     # las fórmulas de la izquierda\nnp.allclose(J, J_exacta)\nE, F, G = lib.primera_forma(J)                # J.T @ J\nnp.allclose([E, F, G], [R**2, 0, R**2*np.cos(phi)**2])\nlib.longitud_paso(E, F, G, 0, np.deg2rad(1))  # 1° de longitud a 45°\n```"),
@@ -368,19 +368,19 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
         $r_u = (-R\sin u,\ R\cos u,\ 0)$, $r_v = (0, 0, 1)$. $E = R^2\sin^2 u + R^2\cos^2 u = R^2 = 100$, $F = 0$, $G = 1$:
-        constantes. Paso de $1°$ en $u$: $\sqrt{E}\,du = 10\cdot\pi/180 = 0.1745$ m (el arco); de $1$ m en $v$: $\sqrt{G}\,dv = 1$ m.
+        constantes. Paso de $1°$ en $u$: $\sqrt{E}\,du = 10\cdot\pi/180 = 0{,}1745$ m (el arco); de $1$ m en $v$: $\sqrt{G}\,dv = 1$ m.
         Es la regla del plano con el eje $u$ reescalado por $R$: el cilindro se desenrolla sin deformar.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *Idea central: no hay base privilegiada salvo por el producto interno.* ¿Por qué $F = 0$ significa
-        ejes locales perpendiculares? Después, para el plano inclinado $z = 1 + 0.4u + 0.3v$ de la sección 2, calculá a
+        ejes locales perpendiculares? Después, para el plano inclinado $z = 1 + 0{,}4u + 0{,}3v$ de la sección 2, calculá a
         qué ángulo se cruzan sobre el plano las líneas de la grilla, perpendiculares en el papel.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         $F = \langle r_u, r_v\rangle = \lvert r_u \rvert\,\lvert r_v \rvert \cos\theta$ (unidad 02). Si ninguno es nulo,
         $F = 0 \iff \cos\theta = 0 \iff \theta = 90°$: la sombra de un eje sobre el otro es nula. Plano inclinado:
-        $r_u = (1, 0, 0.4)$, $r_v = (0, 1, 0.3)$; $E = 1.16$, $G = 1.09$, $F = 0.12$; $\cos\theta = 0.12/\sqrt{1.16 \cdot 1.09} = 0.1067$,
-        $\theta \approx 83.9°$: a $90°$ en el papel, a $83.9°$ sobre el plano.
+        $r_u = (1;\ 0;\ 0{,}4)$, $r_v = (0;\ 1;\ 0{,}3)$; $E = 1{,}16$, $G = 1{,}09$, $F = 0{,}12$; $\cos\theta = 0{,}12/\sqrt{1{,}16 \cdot 1{,}09} = 0{,}1067$,
+        $\theta \approx 83{,}9°$: a $90°$ en el papel, a $83{,}9°$ sobre el plano.
         """)}),
     ])
     return
@@ -468,7 +468,7 @@ def _(editor_d, lib, mo, np):
         exec(editor_d.value, _ns)
         _obtenido = np.array([float(_ns["longitud_paso"](e, f, g, a, b)) for e, f, g, a, b in zip(_E, _F, _G, _du, _dv)])
         if np.allclose(_obtenido, _esperado):
-            _res = mo.callout(mo.md("✅ coincide en los 13 casos, incluido el grado de longitud a 45° (78.6 km)."), kind="success")
+            _res = mo.callout(mo.md("✅ coincide en los 13 casos, incluido el grado de longitud a 45° (78,6 km)."), kind="success")
         elif np.allclose(_obtenido, _esperado**2):
             _res = mo.callout(mo.md("❌ devolvés $ds^2$, el largo **al cuadrado**: falta la raíz, como $\\lvert v \\rvert = \\sqrt{\\langle v, v\\rangle}$ en la unidad 02."), kind="warn")
         elif np.allclose(_obtenido, np.sqrt(_E * _du**2 + _F * _du * _dv + _G * _dv**2)):

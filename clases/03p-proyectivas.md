@@ -33,8 +33,8 @@ recta de puntos ideales.
 
 ### Punto impropio (punto en el infinito)
 
-Álgebra: terna con $w=0$, $(a,b,0)$. Se ve: la dirección $(a,b)$, el "punto de
-fuga" común a todas las paralelas de esa dirección. Una recta afín $p+\mu v$ es $(p,1)+\mu(v,0)$;
+Álgebra: terna con $w=0$, $(a,b,0)$. Se ve: la dirección $(a,b)$, el «punto de
+fuga» común a todas las paralelas de esa dirección. Una recta afín $p+\mu v$ es $(p,1)+\mu(v,0)$;
 cuando $\mu\to\infty$ domina $(v,0)$. Las paralelas se cortan ahí, como los alambrados en la foto
 del dron.
 
@@ -45,7 +45,7 @@ la tercera coordenada $W=h_{31}x+h_{32}y+h_{33}$. Se ve: lo que hace una cámara
 lote plano: las rectas siguen rectas, nada más se conserva (ni paralelas, ni razones, ni puntos
 medios). Nueve números menos la escala: 8 grados de libertad, 2 por cada par punto-imagen, **cuatro
 puntos** la fijan (sin tres alineados). La afinidad es el caso $h_3=(0,0,1)$: $W$ vale siempre 1,
-nadie se va al infinito. En una proyectiva general la recta $h_3\cdot p=0$ "se va al infinito"; si
+nadie se va al infinito. En una proyectiva general la recta $h_3\cdot p=0$ «se va al infinito»; si
 atraviesa la figura, la imagen se parte (un segmento que la cruza se vuelve dos semirrectas unidas
 por el infinito).
 
@@ -54,8 +54,8 @@ por el infinito).
 Álgebra: $p$ fijo si $Hp=\lambda p$, autovector real de $H$; una recta $\ell$ es
 fija si $H^{-T}\ell\sim\ell$, autovector de $H^{T}$ (cruz de dos *columnas* de $H-\lambda I$). Se
 ve: el polinomio característico es de grado 3, así que siempre hay una raíz real: **toda proyectiva
-del plano deja algo fijo**, un punto propio o una dirección. Clasificación por autovalores: tres reales distintos → triángulo invariante; uno real y dos complejos → "rotación
-proyectiva", un solo punto fijo; raíz doble con cruz de filas nula → una recta entera de puntos
+del plano deja algo fijo**, un punto propio o una dirección. Clasificación por autovalores: tres reales distintos → triángulo invariante; uno real y dos complejos → «rotación
+proyectiva», un solo punto fijo; raíz doble con cruz de filas nula → una recta entera de puntos
 fijos (el eje) más un centro: *homología*; si además los autovalores son opuestos, $H^2\sim I$ y es
 *armónica*, un espejo proyectivo. Es la misma cadena del capítulo 7: incidencia → determinante →
 núcleo → autovector → punto fijo.

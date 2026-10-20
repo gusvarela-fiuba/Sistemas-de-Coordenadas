@@ -3,10 +3,10 @@
 
 Uso (desde la raíz del repo):
   uv run python apunte/scripts/prohibidas.py [--dir RUTA | --site RUTA] [--solo-arbol | --solo-site]
-  --dir RUTA revisa SÓLO ese directorio (artefacto publicado), sin el árbol git, e incluye el
+  --dir RUTA revisa SOLO ese directorio (artefacto publicado), sin el árbol git, e incluye el
   texto de los *.pdf vía `pdftotext -layout` (requerido; si falta, falla).
 Imprime `ruta:línea: texto` por cada coincidencia fuera de EXCEPCIONES.
-Regla «guía»: «guía resuelta»/«la guía» sólo se admiten en .md de la raíz, mapa/ y docs/ (árbol git);
+Regla «guía»: «guía resuelta»/«la guía» solo se admiten en .md de la raíz, mapa/ y docs/ (árbol git);
   nunca en apunte/, unidades/, tools/, clases/ ni en el sitio/PDF (--dir).
 Exit 1 si hay alguna. Solo biblioteca estándar.
 """
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|(?:la|las) gu[ií]as?|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA|\bclases?\b(?!/)", re.I)
 
-# Regla (no por archivo): «guía resuelta» / «la guía» sólo se admiten en archivos .md de documentación del repo
+# Regla (no por archivo): «guía resuelta» / «la guía» solo se admiten en archivos .md de documentación del repo
 # que NO van al PDF ni al sitio: los .md de la raíz y los de mapa/ y docs/. NUNCA en apunte/, unidades/, tools/,
 # clases/ (las fichas clases/*.md se convierten a HTML y van al sitio) ni en el sitio/PDF (--dir).
 GUIA = re.compile(r"gu[ií]a resuelta|(?:la|las) gu[ií]as?", re.I)
@@ -26,13 +26,13 @@ DIRS_GUIA_OK = ("mapa", "docs")
 
 # (ruta relativa a la raíz, None = todo el archivo | fragmento literal que debe estar en la línea)
 EXCEPCIONES = [
-    # Ahí se declara la donación y las condiciones de uso; sólo vive en el repo.
+    # Ahí se declara la donación y las condiciones de uso; solo vive en el repo.
     ("NOTA_DE_DONACION.md", None),
     # Sección «Cómo citar»: enlace a la nota de donación.
     ("README.md", "NOTA_DE_DONACION.md"),
     # Licencia de un dato externo (Copernicus DEM).
     ("datos/dem_copernicus/README.md", "Licencia: Copernicus DEM licence"),
-    # Herramienta para que otro curso adopte el material: la palabra es su propósito (sólo árbol, no va al sitio).
+    # Herramienta para que otro curso adopte el material: la palabra es su propósito (solo árbol, no va al sitio).
     ("tools/adoptar_para_catedra.py", None),
     # El patrón mismo.
     ("apunte/scripts/prohibidas.py", None),
@@ -195,8 +195,8 @@ def revisar_pdfs(pdfs, site):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Regla «guía»: «guía resuelta»/«la guía» sólo admitidas en .md de la raíz, mapa/ y docs/ (no en apunte/, unidades/, tools/, clases/, site/ ni PDF). Sin opciones: árbol git + site/. "
-                                 "Con --dir/--site RUTA: sólo ese directorio (más PDF), sin el árbol git.")
+    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Regla «guía»: «guía resuelta»/«la guía» solo admitidas en .md de la raíz, mapa/ y docs/ (no en apunte/, unidades/, tools/, clases/, site/ ni PDF). Sin opciones: árbol git + site/. "
+                                 "Con --dir/--site RUTA: solo ese directorio (más PDF), sin el árbol git.")
     ap.add_argument("--dir", "--site", dest="dir", default=None, metavar="RUTA",
                     help="directorio a revisar (artefacto publicado); al pasarlo NO se revisa el árbol git "
                          "salvo que se agregue --con-arbol. --site es alias.")

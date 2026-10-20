@@ -45,7 +45,7 @@ def _(mo):
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
     La pregunta: **¿Cuánto se aparta la superficie de su plano tangente en cada
-    rumbo, y qué quiere decir ir derecho sobre ella?** El gancho: *un nivel apoyado en el terreno: la curvatura dice
+    rumbo, y qué quiere decir ir derecho sobre ella?** El gancho: *un instrumento con burbuja apoyado en el terreno: la curvatura dice
     cuánto cambia la vertical al dar un paso en cada rumbo.*
 
     Colores, iguales en la figura y en el álgebra: la superficie y su grilla en **gris**; el rumbo elegido, su
@@ -79,15 +79,15 @@ def _(lib, mo, np):
             "no se aparta en ningún rumbo: en el punto la tangente es horizontal": "plano",
         }),
         value=None,
-        label="**Predicción.** Damos un paso de 1 m desde el punto más bajo del paso. Respecto del plano del nivel, el terreno…",
+        label="**Predicción.** Damos un paso de 1 m desde el punto más bajo del paso. Respecto del plano horizontal, el terreno…",
     )
     mo.vstack([
         mo.md(r"""
         ## 0. Situación de campo y predicción
 
         Estamos parados en un **paso de montaña**: hacia el este y el oeste el terreno sube (los dos cerros), hacia el
-        norte y el sur baja (los dos valles). Apoyamos el nivel en el punto más bajo del paso: la burbuja centra, el
-        plano del nivel es horizontal. Medido en metros desde ese punto, el terreno cerca de ahí es la silla
+        norte y el sur baja (los dos valles). Apoyamos en el punto más bajo del paso un instrumento con burbuja: la burbuja centra, el
+        plano que marca es horizontal. Medido en metros desde ese punto, el terreno cerca de ahí es la silla
         $z = (x^2 - y^2)/4$, con $x$ hacia el este y $y$ hacia el norte.
         """),
         prediccion,
@@ -105,13 +105,13 @@ def _(apart, mo, prediccion):
                      r"mide la curvatura, y abajo mostramos que es una forma cuadrática en el rumbo."),
         "pozo": ("warn",
                  r"**No.** Un pozo sube en todos los rumbos ($z = (x^2 + y^2)/4$); el paso sube hacia los cerros y **baja** hacia los valles: "
-                 r"el signo de $-y^2$ lo dice. La burbuja centrada sólo dice que el plano tangente es horizontal, no cómo se aparta el terreno de él."),
+                 r"el signo de $-y^2$ lo dice. La burbuja centrada solo dice que el plano tangente es horizontal, no cómo se aparta el terreno de él."),
         "cima": ("warn",
                  r"**No.** Una cima baja en todos los rumbos ($z = -(x^2 + y^2)/4$). Hacia el este el paso sube: $z = x^2/4 > 0$. En el paso "
                  r"hay rumbos que suben y rumbos que bajan: las dos curvaturas principales tienen signos opuestos."),
         "plano": ("warn",
                   r"**No.** Tangente horizontal quiere decir que el término **lineal** es cero, no el cuadrático: $z \approx \tfrac12 f_{xx} x^2 + f_{xy}\,xy + \tfrac12 f_{yy} y^2$. "
-                  r"A un paso de 1 m el terreno ya está $0.25$ m arriba o abajo del plano del nivel según el rumbo."),
+                  r"A un paso de 1 m el terreno ya está $0{,}25$ m arriba o abajo del plano horizontal según el rumbo."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -170,9 +170,9 @@ def _(mo, np):
     _R = 2.5
     casos = {
         "esfera: cuenco de radio 2.5": (lambda x, y: _R - np.sqrt(_R**2 - x**2 - y**2), 30,
-                                        r"todas las curvaturas valen $1/R = 0.4$: $II = I/R$, ningún rumbo es especial (punto umbilical) y $K = 1/R^2 = 0.16$."),
+                                        r"todas las curvaturas valen $1/R = 0{,}4$: $II = I/R$, ningún rumbo es especial (punto umbilical) y $K = 1/R^2 = 0{,}16$."),
         "cilindro: canaleta de radio 2.5 (eje y)": (lambda x, y: _R - np.sqrt(_R**2 - x**2) + 0 * y, 0,
-                                                   r"en el rumbo $x$ se curva como un círculo de radio $2.5$; en el rumbo $y$ la sección es una recta, $\kappa_2 = 0$ y $K = 0$: se desenrolla sobre el plano sin estirar."),
+                                                   r"en el rumbo $x$ se curva como un círculo de radio $2{,}5$; en el rumbo $y$ la sección es una recta, $\kappa_2 = 0$ y $K = 0$: se desenrolla sobre el plano sin estirar."),
         "silla z = (x² − y²)/4": (lambda x, y: (x**2 - y**2) / 4, 45,
                                   r"sube en $x$ y baja en $y$: $\kappa_1 > 0 > \kappa_2$, $K < 0$. A $45°$ de las direcciones principales la sección normal no se curva."),
         "loma: terreno suave": (lambda x, y: 0.6 * np.sin(1.2 * x) * np.cos(0.9 * y), 0,
@@ -231,7 +231,7 @@ def _(caso, casos, go, lib, mo, np, rumbo, x0, y0):
                                       name=f"círculo osculador, radio {1 / abs(kn):.2f}"))
         _radio = rf"radio del círculo osculador $1/\lvert\kappa_n\rvert = {1 / abs(kn):.3f}$"
     else:
-        _radio = r"$\lvert\kappa_n\rvert < 0.06$: radio mayor que $16$, la sección es casi una recta y el círculo no entra en la figura"
+        _radio = r"$\lvert\kappa_n\rvert < 0{,}06$: radio mayor que $16$, la sección es casi una recta y el círculo no entra en la figura"
     figura.add_trace(go.Scatter3d(x=[p[0]], y=[p[1]], z=[p[2]], mode="markers", marker=dict(size=6, color=lib.VIOLETA_OBJETO), name="punto"))
     _panel = mo.vstack([
         mo.md("**Controles**"), caso, x0, y0, rumbo,
@@ -266,17 +266,17 @@ def _(lib, mo, np):
         ## 3. Cuenta a mano y código lado a lado
 
         A mano elegimos el punto cómodo: el fondo del cuenco, donde la tangente es horizontal y la grilla $(x, y)$ es
-        la regla misma ($I$ = identidad). El código mide en un punto cualquiera, $(0.3, -0.2)$, con diferencias
+        la regla misma ($I$ = identidad). El código mide en un punto cualquiera, $(0{,}3;\ -0{,}2)$, con diferencias
         finitas: ahí $E, F, G, L, M, N$ cambian, pero las curvaturas principales y $K$ dan lo mismo.
         """),
         mo.hstack([
             mo.md(r"""
             **3.1 Esfera de radio $R = 2$**, cuenco $z = R - \sqrt{R^2 - x^2 - y^2}$. En $(0, 0)$: $f_x = f_y = 0$,
-            $f_{xx} = f_{yy} = 1/R = 0.5$, $f_{xy} = 0$:
+            $f_{xx} = f_{yy} = 1/R = 0{,}5$, $f_{xy} = 0$:
 
-            $$I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},\quad II = \begin{pmatrix} 0.5 & 0 \\ 0 & 0.5 \end{pmatrix} = \tfrac1R I$$
+            $$I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix},\quad II = \begin{pmatrix} 0{,}5 & 0 \\ 0 & 0{,}5 \end{pmatrix} = \tfrac1R I$$
 
-            $S = I^{-1}II = \tfrac1R I$: $\kappa_1 = \kappa_2 = 1/R = 0.5$ en todo rumbo, $K = 1/R^2 = 0.25$.
+            $S = I^{-1}II = \tfrac1R I$: $\kappa_1 = \kappa_2 = 1/R = 0{,}5$ en todo rumbo, $K = 1/R^2 = 0{,}25$.
             """),
             mo.vstack([
                 mo.md("```python\nR = 2.0\nr = lambda x, y: lib.xyz(x, y, R - np.sqrt(R**2 - x**2 - y**2))\nff = lib.formas_fundamentales(r, 0.3, -0.2)\nk1, k2, D = lib.curvaturas_principales(*(ff[k] for k in \"EFGLMN\"))\nK, H = lib.curvatura_gauss(*(ff[k] for k in \"EFGLMN\"))\nnp.allclose([k1, k2, K], [1/R, 1/R, 1/R**2], atol=1e-5)\n```"),
@@ -286,9 +286,9 @@ def _(lib, mo, np):
         mo.hstack([
             mo.md(r"""
             **3.2 Cilindro de radio $R = 2$**, canaleta $z = R - \sqrt{R^2 - x^2}$ (no depende de $y$). En $(0, 0)$:
-            $f_{xx} = 1/R = 0.5$, $f_{yy} = 0$, $f_{xy} = 0$:
+            $f_{xx} = 1/R = 0{,}5$, $f_{yy} = 0$, $f_{xy} = 0$:
 
-            $$II = \begin{pmatrix} 0.5 & 0 \\ 0 & 0 \end{pmatrix}, \quad \kappa_1 = 0.5 \text{ (rumbo } x),\ \kappa_2 = 0 \text{ (rumbo } y),\ K = 0.$$
+            $$II = \begin{pmatrix} 0{,}5 & 0 \\ 0 & 0 \end{pmatrix}, \quad \kappa_1 = 0{,}5 \text{ (rumbo } x),\ \kappa_2 = 0 \text{ (rumbo } y),\ K = 0.$$
 
             Como una hoja se enrolla en un cilindro sin estirarse, el *Theorema Egregium* obliga a que tenga el mismo $K$ que el plano: $K = 0$.
             """),
@@ -315,7 +315,7 @@ def _(mo, np):
         **Diferencias finitas centradas.** La segunda derivada sin derivar a mano:
         $f''(x) \approx \dfrac{f(x+h) - 2f(x) + f(x-h)}{h^2}$ (y la mixta, con los cuatro puntos $(x \pm h, y \pm h)$ sobre $4h^2$).
         Es lo que hace `lib.formas_fundamentales`. El paso $h$ no puede ser ni grande (error de truncamiento, $\sim h^2$) ni
-        minúsculo (al dividir por $h^2$ el redondeo de `float64` se agranda): abajo, $f(x) = \sqrt{4 - x^2}$ en $x = 0.3$,
+        minúsculo (al dividir por $h^2$ el redondeo de `float64` se agranda): abajo, $f(x) = \sqrt{4 - x^2}$ en $x = 0{,}3$,
         con $f'' = -4/(4 - x^2)^{3/2}$ exacta.
         """),
         mo.md(f"| $h$ | aproximación | error |\n|---|---|---|\n{_filas}\n\nexacta: `{_exacta:.9f}`. El mínimo está cerca de $h = 10^{{-3}}$, el valor por defecto."),
@@ -346,7 +346,7 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         No. El cilindro mostró que doblar sin estirar no cambia $K$ (la hoja plana tiene $K = 0$ y la canaleta también:
-        $\kappa_1 = 1/R$, $\kappa_2 = 0$). Gauss demostró que eso vale siempre: $K$ se calcula sólo con la regla $E, F, G$
+        $\kappa_1 = 1/R$, $\kappa_2 = 0$). Gauss demostró que eso vale siempre: $K$ se calcula solo con la regla $E, F, G$
         y sus derivadas, así que cualquier mapa que conserve distancias conserva $K$ (su *theorema egregium*; acá lo
         mostramos, no lo demostramos). Pero el plano tiene $K = 0$ y la esfera $K = 1/R^2 > 0$ (y el elipsoide, $K = 1/(MN) > 0$,
         unidad 13): no hay mapa plano sin deformación. Toda proyección elige qué sacrificar.
@@ -395,7 +395,7 @@ def _(casos_cd, editor_c, lib, mo, np):
         elif np.allclose(_obtenido, _solo_II):
             _res = mo.callout(mo.md(r"❌ usaste los autovalores de $II$ sola. Eso ignora la regla: $II(d)$ se compara con el largo $I(d)$ del paso, y la grilla no es ortonormal. `np.linalg.solve(I, II)`."), kind="warn")
         elif np.allclose(_obtenido, _sin_FM):
-            _res = mo.callout(mo.md(r"❌ te quedaste con $L/E$ y $N/G$: olvidaste $F$ y $M$. Sólo vale cuando la grilla es ortogonal **y** las direcciones principales la siguen."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ te quedaste con $L/E$ y $N/G$: olvidaste $F$ y $M$. Solo vale cuando la grilla es ortogonal **y** las direcciones principales la siguen."), kind="warn")
         else:
             _res = mo.callout(mo.md(f"❌ no coincide. Para el primer caso se esperaba `{np.round(_esperado[0], 4).tolist()}` y se obtuvo `{np.round(_obtenido[0], 4).tolist()}`."), kind="danger")
     except Exception as _e:  # el `...` sin completar cae acá
@@ -498,7 +498,7 @@ def _(mo):
       $M$, $N$, $K = 1/(MN)$, el radio medio $R = \sqrt{MN}$ y por qué meridiano y primer vertical son las
       direcciones principales del elipsoide
     - [apunte, capítulo «Coordenadas sobre la esfera y trigonometría esférica»](../../apunte.pdf#nameddest=cap:esfera):
-      los círculos máximos como las "rectas" de la esfera
+      los círculos máximos como las «rectas» de la esfera
     - [ficha del capítulo 13](../../capitulos/12.html) · [el hilo conductor](../../index.html) · [unidad 10](../10_jacobiano_primera_forma/index.html)
 
     **Lo que viene:** [Geometría del elipsoide](../13_elipsoide/index.html) (unidad 13): una superficie donde $\kappa_1 = 1/M$

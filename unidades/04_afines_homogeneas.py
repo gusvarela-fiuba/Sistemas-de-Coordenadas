@@ -100,16 +100,16 @@ def _(mo, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success",
-                     r"**Sí.** $(4, 4.75)$ es el **punto medio** de las esquinas escaneadas. Una afinidad estira, inclina y corre, "
+                     r"**Sí.** $(4;\ 4{,}75)$ es el **punto medio** de las esquinas escaneadas. Una afinidad estira, inclina y corre, "
                      r"pero conserva las **razones sobre cada recta**: lo que estaba a mitad de camino sigue a mitad de camino, "
                      r"sin conocer la deformación. En la sección 3 la calculamos igual, a partir de tres puntos."),
         "rotacion": ("warn",
                      r"**No.** Dejaste el mojón a $2$ unidades de la esquina, como si el escaneo fuera un **giro** que conserva "
-                     r"distancias. Pero el lado de $4$ m aparece con largo $\sqrt{29} \approx 5.39$: se estiró. Una afinidad no "
+                     r"distancias. Pero el lado de $4$ m aparece con largo $\sqrt{29} \approx 5{,}39$: se estiró. Una afinidad no "
                      r"conserva longitudes; conserva **proporciones** sobre la recta."),
         "traslacion": ("warn",
-                       r"**No.** $(3, 4.25)$ es la esquina escaneada más el desplazamiento del terreno $(0, 2)$, como si el escaneo "
-                       r"sólo **corriera** la hoja. Ese punto ni está sobre el segmento entre las esquinas escaneadas, y una afinidad "
+                       r"**No.** $(3;\ 4{,}25)$ es la esquina escaneada más el desplazamiento del terreno $(0, 2)$, como si el escaneo "
+                       r"solo **corriera** la hoja. Ese punto ni está sobre el segmento entre las esquinas escaneadas, y una afinidad "
                        r"lleva rectas a rectas: el intermedio tiene que caer sobre ese segmento."),
         "mismas": ("warn",
                    r"**No.** $(1, 3)$ son las coordenadas en el **terreno**. El mojón no se movió, pero preguntamos dónde aparece en la "
@@ -158,12 +158,12 @@ def _(mo, np):
     casos = {
         "identidad": ("fijo", None, r"no cambia nada: $\det = 1$."),
         "escala anisótropa diag(1.5, s)": ("escala", (0.2, 2.0, 0.1, 0.6, "s (factor en y)"),
-                                           r"estira distinto en cada eje: paralelas y razones sí, ángulos no; $\det = 1.5\,s$."),
+                                           r"estira distinto en cada eje: paralelas y razones sí, ángulos no; $\det = 1{,}5\,s$."),
         "corte [[1, s], [0, 1]]": ("corte", (-1.5, 1.5, 0.1, 0.6, "s (corte)"),
                                    r"inclina el eje $y$ y deja fijo el eje $x$; $\det = 1$: **conserva el área**, no los ángulos."),
         "reflexión diag(1, −1)": ("fijo", np.diag([1.0, -1.0]), r"espejo: conserva longitudes pero **da vuelta la orientación**, $\det = -1$."),
         "rotación + escala 0.8·R(θ)": ("rotescala", (-180, 180, 1, 30, "θ (°)"),
-                                       r"similaridad: gira y achica; conserva ángulos y razones de distancias; $\det = 0.64$."),
+                                       r"similaridad: gira y achica; conserva ángulos y razones de distancias; $\det = 0{,}64$."),
         "afinidad axial: eje x, dirección (1, 1), factor s": ("axial", (-2.0, 3.0, 0.1, 2.0, "s (factor)"),
                                                                r"el eje $x$ queda fijo y cada punto se desliza por su paralela a $(1, 1)$, $s$ veces más lejos; $\det = s$."),
         "general (a, b, c, d)": ("general", None, r"cualquier $2\times2$: las columnas son los lados del paralelogramo unitario."),
@@ -320,14 +320,14 @@ def _(A_esc, lib, mo, np, t_esc):
             mo.md(r"""
             **3.1 La $2\times2$ como combinación de columnas.** Con $p = (4, 2)$:
 
-            $$Ap = \begin{pmatrix} \textcolor{#1b6f6a}{1.5} & \textcolor{#b5451b}{0.5} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1.25} \end{pmatrix}\begin{pmatrix} 4 \\ 2 \end{pmatrix}
-            = 4\,\textcolor{#1b6f6a}{\binom{1.5}{0}} + 2\,\textcolor{#b5451b}{\binom{0.5}{1.25}} = \begin{pmatrix} 7 \\ 2.5 \end{pmatrix}.$$
+            $$Ap = \begin{pmatrix} \textcolor{#1b6f6a}{1{,}5} & \textcolor{#b5451b}{0{,}5} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1{,}25} \end{pmatrix}\begin{pmatrix} 4 \\ 2 \end{pmatrix}
+            = 4\,\textcolor{#1b6f6a}{\binom{1{,}5}{0}} + 2\,\textcolor{#b5451b}{\binom{0{,}5}{1{,}25}} = \begin{pmatrix} 7 \\ 2{,}5 \end{pmatrix}.$$
 
             Cuatro veces la flecha teal más dos veces la rust: el punto conserva sus **coordenadas** en la grilla nueva.
 
-            **3.2 La $3\times3$ sobre el punto homogéneo** $(4, 2, 1)$: el $1$ "enciende" la columna gold:
+            **3.2 La $3\times3$ sobre el punto homogéneo** $(4, 2, 1)$: el $1$ «enciende» la columna gold:
 
-            $$H\begin{pmatrix} 4 \\ 2 \\ 1 \end{pmatrix} = 4\,\textcolor{#1b6f6a}{\binom{1.5}{0}_{\!0}} + 2\,\textcolor{#b5451b}{\binom{0.5}{1.25}_{\!0}} + 1\,\textcolor{#c9a227}{\binom{1}{1}_{\!1}} = \begin{pmatrix} 8 \\ 3.5 \\ 1 \end{pmatrix} = \binom{Ap + t}{1}.$$
+            $$H\begin{pmatrix} 4 \\ 2 \\ 1 \end{pmatrix} = 4\,\textcolor{#1b6f6a}{\binom{1{,}5}{0}_{\!0}} + 2\,\textcolor{#b5451b}{\binom{0{,}5}{1{,}25}_{\!0}} + 1\,\textcolor{#c9a227}{\binom{1}{1}_{\!1}} = \begin{pmatrix} 8 \\ 3{,}5 \\ 1 \end{pmatrix} = \binom{Ap + t}{1}.$$
 
             La última fila $(0\ 0\ 1)$ garantiza que el $1$ sigue siendo $1$.
             """),
@@ -464,7 +464,7 @@ def _(mo):
         mo.md(r"""
         **(d) Código con hueco — avanzado: corregir el plano escaneado** *Idea central: tres puntos conocidos alcanzan para
         corregirlo.* Tres mojones tienen coordenadas conocidas en el terreno, `terr`, y las leemos en el escaneo, `esc`.
-        El cuarto sólo lo tenemos en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
+        El cuarto solo lo tenemos en el escaneo, `esc4`. Hallá la afinidad **del escaneo al terreno** y ubicá el cuarto
         mojón. Tenés `np`, `hom`, `dehom` y los tres arrays cargados.
         """),
         editor_d,
@@ -491,7 +491,7 @@ def _(A_esc, editor_d, lib, mo, np, t_esc):
         elif np.allclose(_c, lib.transformar_afin(esc4[None, :], A_esc, t_esc)[0]):
             _res = mo.callout(mo.md("❌ armaste la afinidad al revés (del terreno al escaneo). `solve(hom(esc), terr)` va del escaneo al terreno."), kind="warn")
         elif np.allclose(_c, A_corr @ esc4):
-            _res = mo.callout(mo.md("❌ aplicaste sólo la parte lineal: te olvidaste de sumar `t`."), kind="warn")
+            _res = mo.callout(mo.md("❌ aplicaste solo la parte lineal: te olvidaste de sumar `t`."), kind="warn")
         elif np.allclose(_c, esc4 @ A_corr + t_corr):
             _res = mo.callout(mo.md("❌ casi: `esc4 @ A` es $A^T$ aplicada al punto. Con el punto como fila va `esc4 @ A.T + t`."), kind="warn")
         else:
