@@ -27,7 +27,7 @@ De la más guiada a la más completa:
 2. **El mapa de conceptos** ([mapa.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html)): los conceptos de los capítulos del apunte como grafo, con filtro de ruta (troncal / todo) y un control «hasta el capítulo N» que oculta lo posterior. Es la herramienta de repaso: sirve para ver de qué depende cada concepto y qué habilita.
 3. **El apunte formal** ([apunte.pdf](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf)): las demostraciones en LaTeX, las guías resueltas y las deducciones completas. Se organiza así: capítulo 0 (Antes de empezar), capítulos 1 a 15 por tema, complementos C1 a C4 y apéndices. Cada unidad enlaza por sección a la parte del apunte que la respalda, así que se puede ir de la pantalla al papel sin buscar.
 
-### Por qué empieza en la Unidad 0 — Fundamentos
+### Por qué empieza en la Unidad 0 — El idioma de la materia
 
 La Unidad 0 es el encuadre del curso: el idioma que la materia usa desde el primer día y que el CBC no da. Son cinco ladrillos, en este orden:
 

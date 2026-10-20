@@ -183,7 +183,7 @@ def _(mo):
     $\varphi$ y uno en $\lambda$ no miden lo mismo ($M \ne N\cos\varphi$), la flecha perpendicular en la grilla **no**
     es perpendicular en el terreno. La regla sigue valiendo; lo que falta es la métrica:
     [Jacobiano y primera forma](../10_jacobiano_primera_forma/index.html). Es el segundo de los cuatro cambios de chip de
-    la [Unidad 0: Fundamentos](../00_fundamentos/index.html).
+    la [Unidad 0: El idioma de la materia](../00_fundamentos/index.html).
     """), kind="neutral")])
     return
 
