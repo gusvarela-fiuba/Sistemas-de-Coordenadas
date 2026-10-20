@@ -5,6 +5,7 @@ Entradas (relativas a la raíz del repo):
   mapa/mapa.yaml                        mapa de conceptos (esquema en mapa/ESQUEMA.md)
   clases/*.md                           fichas por capítulo (el id de la ficha es interno; el rótulo usa la numeración del PDF)
   unidades/*.py                         notebooks marimo
+  tools/enlaces_portada.yaml            enlaces de cada unidad de la portada al apunte (principal + hasta dos de apoyo)
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
   apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
                                         `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "rot3d", …) y leer su título
@@ -976,6 +977,121 @@ def prefijos_apunte_de_clase(c: dict, conceptos_por_clase: dict[str, list[dict]]
     return sorted(prefs, key=lambda x: orden.index(x) if x in orden else len(orden))
 
 
+# ----------------------------------------------------------------------------
+# portada: enlaces de cada unidad al apunte (tabla explícita en tools/enlaces_portada.yaml)
+# ----------------------------------------------------------------------------
+
+ENLACES_PORTADA = RAIZ / "tools" / "enlaces_portada.yaml"
+MAX_ENLACES_PORTADA = 3
+RE_ENCABEZADO_CMD = re.compile(r"\\(?:chapter|section|subsection|subsubsection|paragraph|capituloComplemento)\*?(?:\[[^\]]*\])?\{")
+
+
+def _argumento_llaves(texto: str, i: int) -> tuple[str, int]:
+    """Contenido entre la llave que abre en texto[i-1] y su llave de cierre (respeta llaves anidadas)."""
+    nivel, j = 1, i
+    while j < len(texto) and nivel:
+        if texto[j] == "{":
+            nivel += 1
+        elif texto[j] == "}":
+            nivel -= 1
+        j += 1
+    return texto[i:j - 1], j
+
+
+def _titulo_tex_a_texto(t: str) -> str:
+    """Título de encabezado LaTeX → texto plano (\\texorpdfstring{tex}{pdf} → pdf; sin \\( \\))."""
+    while (k := t.find("\\texorpdfstring{")) != -1:
+        _, j = _argumento_llaves(t, k + len("\\texorpdfstring{"))
+        pdf, j2 = _argumento_llaves(t, j + 1) if j < len(t) and t[j] == "{" else ("", j)
+        t = t[:k] + pdf + t[j2:]
+    t = re.sub(r"\\[()]", "", t).replace("$", "").replace("~", " ")
+    return re.sub(r"\s+", " ", t).strip().rstrip(".")
+
+
+def etiquetas_apunte() -> dict[str, dict]:
+    """{'sec:metrica': {'titulo': 'Métrica y primera forma fundamental', 'numero': '10'}, 'cap:esfera': {…}, …}.
+
+    Todas las \\label{…} de los .tex que el maestro incluye; el título es el del encabezado de esa
+    línea (o la etiqueta, si no hay encabezado) y el número, el del capítulo del archivo según
+    apunte/numeracion.json (el primer \\label{cap:…} del archivo).
+    """
+    res: dict[str, dict] = {}
+    if not MAESTRO_APUNTE.exists():
+        return res
+    numeracion = numeracion_apunte() if NUMERACION_JSON.exists() else {}
+    maestro = MAESTRO_APUNTE.read_text(encoding="utf-8")
+    archivos = [MAESTRO_APUNTE] + [MAESTRO_APUNTE.parent / f"{m}.tex"
+                                   for m in re.findall(r"^\\input\{(contenido/[^}]+)\}", maestro, re.M)]
+    for p in archivos:
+        try:
+            texto = p.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        caps = re.findall(r"\\label\{(cap:[^}]+)\}", texto)
+        numero = numeracion.get(caps[0], {}).get("numero", "") if caps and p != MAESTRO_APUNTE else ""
+        for linea in texto.split("\n"):
+            if linea.lstrip().startswith("%"):
+                continue
+            etiquetas = re.findall(r"\\label\{([^}]+)\}", linea)
+            if not etiquetas:
+                continue
+            m = RE_ENCABEZADO_CMD.search(linea)
+            titulo = _titulo_tex_a_texto(_argumento_llaves(linea, m.end())[0]) if m else ""
+            for lab in etiquetas:
+                num = numeracion.get(lab, {}).get("numero", numero) if lab.startswith("cap:") else numero
+                res.setdefault(lab, {"titulo": titulo or lab, "numero": num})
+    return res
+
+
+def enlaces_portada(ruta: Path = ENLACES_PORTADA) -> dict[str, list[str]]:
+    """{'02_producto_interno': ['sec:interno', …], …} de tools/enlaces_portada.yaml (principal primero)."""
+    with open(ruta, encoding="utf-8") as f:
+        crudo = yaml.safe_load(f) or {}
+    return {str(k): [str(x) for x in (v or [])] for k, v in crudo.items()}
+
+
+def validar_enlaces_portada(datos: dict, enlaces: dict[str, list[str]] | None = None,
+                            etiquetas: dict[str, dict] | None = None) -> list[str]:
+    """Errores de la tabla de enlaces de la portada: unidad sin entrada o sin principal, más de
+    MAX_ENLACES_PORTADA, etiquetas repetidas o inexistentes, unidades sobrantes y dos unidades
+    consecutivas (orden de la portada = orden de `unidades:` en el mapa) con la misma lista."""
+    enlaces = enlaces_portada() if enlaces is None else enlaces
+    etiquetas = etiquetas_apunte() if etiquetas is None else etiquetas
+    orden = [str(u["id"]) for u in datos["unidades"]]
+    errores: list[str] = []
+    for uid in orden:
+        lista = enlaces.get(uid)
+        if not lista:
+            errores.append(f"enlaces_portada: la unidad {uid} no tiene enlace principal al apunte")
+            continue
+        if len(lista) > MAX_ENLACES_PORTADA:
+            errores.append(f"enlaces_portada: la unidad {uid} enlaza {len(lista)} secciones (máximo {MAX_ENLACES_PORTADA})")
+        if len(set(lista)) != len(lista):
+            errores.append(f"enlaces_portada: la unidad {uid} repite una etiqueta: {lista}")
+        for lab in lista:
+            if lab not in etiquetas:
+                errores.append(f"enlaces_portada: la unidad {uid} apunta a '{lab}', que no es un \\label del apunte")
+    for uid in enlaces:
+        if uid not in orden:
+            errores.append(f"enlaces_portada: '{uid}' no es una unidad del mapa")
+    for a, b in zip(orden, orden[1:]):
+        if enlaces.get(a) and enlaces.get(a) == enlaces.get(b):
+            errores.append(f"enlaces_portada: las unidades consecutivas {a} y {b} tienen la misma lista de enlaces")
+    return errores
+
+
+def enlace_apunte_etiqueta(lab: str, etiquetas: dict[str, dict], hay_pdf: bool, principal: bool = False) -> str:
+    """Sección del apunte como enlace `apunte.pdf#nameddest=<etiqueta>` («apunte 10 · Métrica y …»)."""
+    e = etiquetas.get(lab, {"titulo": lab, "numero": ""})
+    num = f" {e['numero']}" if e.get("numero") else ""
+    texto = f"apunte{html.escape(num)} · {html.escape(e['titulo'])}"
+    rol = "sección principal" if principal else "sección de apoyo"
+    if hay_pdf:
+        return (f'<span><a href="apunte.pdf#nameddest={html.escape(lab)}" '
+                f'title="apunte, {rol} ({html.escape(lab)})">{texto}</a></span>')
+    return f'<span class="pend">{texto}</span>'
+
+
 JS_MAPA = r"""
 (function () {
   var svg = document.querySelector('.mapa svg');
@@ -1092,6 +1208,8 @@ PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agr
 def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
     """site/index.html: el hilo conductor. Tres entradas y una entrada por unidad (más "Lo que viene")."""
     titulos_apunte = titulos_secciones_apunte()
+    tabla_enlaces = enlaces_portada()
+    etiquetas = etiquetas_apunte()
     clases = datos["clases"]
     por_id = {c["id"]: c for c in clases}
     conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in clases}
@@ -1167,13 +1285,19 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
                 links.append(f'<span><a href="unidades/{html.escape(u["id"])}/index.html">abrir la unidad interactiva</a></span>')
             else:
                 links.append('<span class="pend">unidad en preparación</span>')
-        prefs: list[str] = []
-        for c in e["clases"]:
-            for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
-                if pr not in prefs:
-                    prefs.append(pr)
-        for pr in sorted(prefs):
-            links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
+        if u is not None:
+            # tabla explícita (tools/enlaces_portada.yaml): principal + a lo sumo dos de apoyo, en ese orden
+            for j, lab in enumerate(tabla_enlaces.get(u["id"], [])):
+                links.append(enlace_apunte_etiqueta(lab, etiquetas, hay_pdf, principal=(j == 0)))
+        else:
+            # «Lo que viene»: clases sin unidad, los capítulos que declaran en el mapa
+            prefs: list[str] = []
+            for c in e["clases"]:
+                for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
+                    if pr not in prefs:
+                        prefs.append(pr)
+            for pr in prefs:
+                links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         if links:
             cuerpo.append(f'<div class="links">{"".join(links)}</div>')
         partes.append(f'<li class="unidad" id="unidad-{i}" style="--c:{color}">{"".join(cuerpo)}</li>')
@@ -1802,6 +1926,9 @@ def main() -> int:
         errores_fichas = validar_fichas(datos)
         if errores_fichas:
             raise ErrorMapa("\n".join(errores_fichas))
+        errores_portada = validar_enlaces_portada(datos)
+        if errores_portada:
+            raise ErrorMapa("\n".join(errores_portada))
     except ErrorMapa as e:
         print(f"ERROR en mapa.yaml:\n{e}", file=sys.stderr)
         return 1
