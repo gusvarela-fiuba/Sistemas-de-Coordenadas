@@ -428,9 +428,17 @@ def _tapar_re(txt, rx):
 RE_NUM_SECCION = re.compile(r"(?:\*\*|^\s*#+\s+|[Ss]ecci[oó]n(?:es)?\s+(?:\d\.\d(?:,\s*|\s+[yo]\s+))*|[IVX]+,\s+)\d{1,2}\.\d{1,2}(?!\d)", re.M)
 
 
+# Excepción del chequeo 3: número de problema, sección o capítulo entre paréntesis justo después de la palabra
+# («los problemas (12.5)», «la sección (3.2)», «capítulo (9.4)»). No es un decimal sino una referencia; solo se
+# tapa el paréntesis con el número (\d+.\d+), así que «el problema vale (0.5)» sin la palabra delante, o «problema
+# con 0.5», siguen marcándose.
+RE_NUM_PROBLEMA = re.compile(r"(?<!\w)(?:[Pp]roblemas?|[Ss]ecci[oó]n(?:es)?|[Cc]ap[ií]tulos?)\s+\(\d+\.\d+\)")
+
+
 def _quitar_secciones(con_mate, sin_mate):
-    """Tapa en con_mate los números de sección que están fuera de la matemática (visibles en sin_mate)."""
-    for m in RE_NUM_SECCION.finditer(sin_mate):
+    """Tapa en con_mate los números de sección que están fuera de la matemática (visibles en sin_mate), y los
+    números de problema, sección o capítulo entre paréntesis (RE_NUM_PROBLEMA)."""
+    for m in list(RE_NUM_SECCION.finditer(sin_mate)) + list(RE_NUM_PROBLEMA.finditer(sin_mate)):
         if m.group(0).strip():
             con_mate = con_mate[:m.start()] + re.sub(r"[^\n]", " ", m.group(0)) + con_mate[m.end():]
     return con_mate

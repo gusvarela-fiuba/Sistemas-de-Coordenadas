@@ -161,3 +161,14 @@ cierre de capítulo se anotan las páginas antes y después y qué se agregó co
   nombre sin `cap:` (`"repaso-algebra"`).
 - Cada definición aparece una sola vez en el apunte: dos `\begin{definicion}[Título]` con el mismo
   título en archivos distintos son un error. Donde haga falta recordarla, una frase y un `\ref`.
+
+## 10. Material interactivo [alcance interactivo]
+
+`uv run python apunte/scripts/estilo.py --alcance interactivo` aplica las mismas normas a la prosa que
+ve el lector fuera del apunte: las cadenas de texto de `unidades/*.py` (sin docstrings ni código), las
+fichas de `clases/`, `mapa/` (los `.md` y los valores de los `.yaml`), los CDATA de `moodle/` y los
+`.md` de la raíz. Corre los chequeos 1 (tilde), 2 (comillas rectas), 3 (decimal; no cuenta los números
+de sección ni los de problema, sección o capítulo entre paréntesis, como «los problemas (12.5)»),
+5 (es decir), 6 (Desarrollo.), 10 (instrumentos, que acá bloquea), 12 («desaprender») y 13 (imperativo
+de tú o de usted). Con `--estricto` es bloqueante en la CI (`.github/workflows/pages.yml`), igual que el
+alcance del apunte; `--todo` corre los dos.

@@ -9,7 +9,7 @@ Las seis secciones son siempre las mismas: 0 situación de campo y predicción, 
 Para usar una lección con el Python de la propia computadora (después de clonar el repositorio y correr `uv sync`) alcanzan cuatro comandos:
 
 ```
-uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la lección sin mostrar el código y sin tocar el archivo
+uv run marimo run unidades/08_cambio_de_base.py                          # solo usar: abre la lección sin mostrar el código y sin tocar el archivo
 cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
 uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
 git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
@@ -17,19 +17,21 @@ git checkout -- unidades/08_cambio_de_base.py                            # botó
 
 El primero proyecta la lección sin tocar el archivo; el segundo hace una copia de borrador (el guion bajo evita que el build la exporte) y la abre para editar; el tercero revisa que una unidad editada no tenga avisos de marimo; el cuarto descarta los cambios locales de un archivo. El paso a paso, con las tres reglas para no romper la exportación, está en la [Parte 3, Paso 4 del instructivo](INSTRUCTIVO_DE_USO.md).
 
-## Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
+## Unidad 0 — El idioma de la materia: puntos, flechas, reglas y distancias
+
+*Cuerpos, grupos, formas lineales y métrica.*
 
 ![Dualidad punto–gradiente](animaciones/01_dualidad_gradiente.gif)
 
 *Bucle ida y vuelta: al estirar el Este por 2, los mojones van con A, las marcas de la regla wᵀ van con A⁻¹, el mojón conserva su cota y la flecha ingenua Aw pierde la perpendicularidad.*
 
-Temas del programa: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua" desde el mojón, ¿para dónde la dibujamos?
+Temas del programa: 01, 04 y 09 (desarrollo complementario que las cruza). Pregunta guía: una loma con curvas de nivel circulares se dibuja en un plano con el eje Este estirado por 2; si dibujamos sobre ese plano la flecha de “hacia dónde baja el agua” desde el mojón, ¿para dónde la dibujamos?
 
 **Qué se manipula:**
 - Dropdown `objeto`: (a) punto x, (b) regla graduada wᵀ (el gradiente), (c) parche curvo r(u, v), (d) complejo z como matriz.
 - Dropdown `A (casos a y b)`: identidad, estirar Este ×2: diag(2, 1), cizalla [[1, 1], [0, 1]], rotación 30°.
 - Dropdown `parche (caso c)`: la loma r = (u, v, 2·exp(−(u²+v²)/8)) o un trozo de esfera de radio 2 (φ, λ en grados); deslizadores `u₀ (φ) del punto` y `v₀ (λ) del punto`.
-- Dropdown `z (caso d)`: z = i, z = 1 + i, z = 2, z = 0.6 − 0.8i, z = −1.
+- Dropdown `z (caso d)`: «z = i», «z = 1 + i», «z = 2», «z = 0.6 − 0.8i», «z = −1».
 - Botón reproducir en (a), (b) y (d): de la identidad a la transformación.
 - La figura: tres capas, gris antes, teal después, violeta el objeto. En (b) se ven las marcas de la regla arrastradas con la inversa, la flecha perpendicular a las marcas en el papel y la bajada real del terreno (la perpendicular con la métrica). En (c), la grilla tangente del jacobiano y los números E, F, G.
 
@@ -37,7 +39,7 @@ Temas del programa: 01, 04 y 09 (desarrollo complementario que las cruza). Pregu
 
 - Notebook: [unidades/00_fundamentos.py](unidades/00_fundamentos.py)
 - Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/04-espacios-lineales-formas.md](clases/04-espacios-lineales-formas.md), [clases/09-analisis-derivada-jacobiano.md](clases/09-analisis-derivada-jacobiano.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "El punto y sus coordenadas no son lo mismo", "Formas lineales: la recta como máquina de medir" y "Métrica y primera forma fundamental".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «El punto y sus coordenadas no son lo mismo», «Formas lineales: la recta como máquina de medir» y «Métrica y primera forma fundamental».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html)
 
 ## Unidad 1 — Rotaciones I: el punto no se movió
@@ -53,7 +55,7 @@ Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se 
 
 - Notebook: [unidades/01a_punto_quieto.py](unidades/01a_punto_quieto.py)
 - Ficha: [clases/01-rotaciones.md](clases/01-rotaciones.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "El punto y sus coordenadas no son lo mismo" y "Rotaciones en el plano".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «El punto y sus coordenadas no son lo mismo» y «Rotaciones en el plano».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01a_punto_quieto/index.html)
 
 ## Unidad 2 — Rotaciones II: la rotación en el plano
@@ -61,8 +63,8 @@ Tema del programa: 01. Pregunta guía: el mojón P = (4, 3) de la parcela no se 
 Tema del programa: 01. Pregunta guía: para dibujar la parcela con el norte arriba giramos el plano entero un cuarto de vuelta antihorario; el vértice del frente es (4, 1), ¿a dónde va?
 
 **Qué se manipula:**
-- Dropdown `caso precargado`: identidad (0°), un cuarto de vuelta (90°), media vuelta (180°), giro de 30°, −90° (horario), y tres contraejemplos que no son rotaciones: espejo diag(1, −1), corte [[1, 0.5], [0, 1]], proyección [[1, 0], [0, 0]].
-- Deslizador `θ (°)`, habilitado sólo en las rotaciones; en los contraejemplos la matriz es fija y los números vivos muestran qué falla.
+- Dropdown `caso precargado`: «identidad (0°)», «un cuarto de vuelta (90°)», «media vuelta (180°)», «giro de 30°», «−90° (horario)», y tres contraejemplos que no son rotaciones: «espejo diag(1, −1)», «corte [[1, 0.5], [0, 1]]», «proyección [[1, 0], [0, 0]]».
+- Deslizador `θ (°)`, habilitado solo en las rotaciones; en los contraejemplos la matriz es fija y los números vivos muestran qué falla.
 - Botón reproducir: el camino desde la identidad.
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después, con las imágenes de e₁ y e₂ como flechas teal y rust (las columnas de la matriz); violeta, la parcela de cinco vértices con estelas en tres de ellos.
 
@@ -70,7 +72,7 @@ Tema del programa: 01. Pregunta guía: para dibujar la parcela con el norte arri
 
 - Notebook: [unidades/01b_rotacion_plano.py](unidades/01b_rotacion_plano.py)
 - Ficha: [clases/01-rotaciones.md](clases/01-rotaciones.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Rotaciones en el plano" y "Rotaciones y números complejos".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Rotaciones en el plano» y «Rotaciones y números complejos».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01b_rotacion_plano/index.html)
 
 ## Unidad 3 — Rotaciones III: tres ejes y el orden importa
@@ -86,7 +88,7 @@ Temas del programa: 01 y 02. Pregunta guía: nivelar la estación es inclinar y 
 
 - Notebook: [unidades/01c_rotaciones_3d.py](unidades/01c_rotaciones_3d.py)
 - Fichas: [clases/01-rotaciones.md](clases/01-rotaciones.md), [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Rotaciones en tres dimensiones", "Eje de rotación, autovectores y exponencial" y el apéndice "Construcción geométrica de las matrices de rotación 3D".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Rotaciones en tres dimensiones», «Eje de rotación, autovectores y exponencial» y el apéndice «Construcción geométrica de las matrices de rotación 3D».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html)
 
 ## Unidad 4 — Producto interno: proyección, longitud, ángulo
@@ -95,14 +97,14 @@ Tema del programa: 01. Pregunta guía: con tres mojones A, B, C en coordenadas y
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: el triángulo de mojones (v = BC), perpendiculares, paralelos, opuestos, a mano.
-- Deslizadores `θ (°): ángulo de v respecto de u` y `|v|`, habilitados sólo en "a mano".
+- Deslizadores `θ (°): ángulo de v respecto de u` y `|v|`, habilitados solo en «a mano».
 - La figura: u fijo en teal (la línea de base (4, 3)), v en rust, la sombra de v sobre u en gold, el pie de la perpendicular punteado y el arco que marca θ.
 
 **Ejercicios en Python:** `angulo(v, u)` (c) y `proyeccion(v, u)` (d). Lápiz (a): largo y versor de u = (3, 4), si (4, −3) es perpendicular y la sombra de (6, 2); (b): el ángulo en B de tres mojones sin transportador, la distancia AC de dos maneras y qué cambia al girar los tres 90°.
 
 - Notebook: [unidades/02_producto_interno.py](unidades/02_producto_interno.py)
 - Ficha: [clases/01-rotaciones.md](clases/01-rotaciones.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Producto interno: incidencia".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Producto interno: incidencia».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/02_producto_interno/index.html)
 
 ## Unidad 5 — Reflexiones y similaridades
@@ -112,14 +114,14 @@ Temas del programa: 02 y 03. Pregunta guía: un plano viejo a otra escala y con 
 **Qué se manipula:**
 - Dropdown `caso precargado`: espejo del eje x, espejo de la diagonal y = x, espejo de la recta de ángulo α, dos espejos seguidos (eje x y después recta de ángulo β), similaridad k·R(θ) con centro en el origen, similaridad con centro k·R(θ)x + (3, −2) (la del plano viejo).
 - Deslizadores que dependen del caso: `α (°)`, `β (°)`, o el par `k` y `θ (°)`.
-- Segundo bloque, trayectorias y líneas coordenadas (capítulo 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0.85·I y 0.85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
+- Segundo bloque, trayectorias y líneas coordenadas (capítulo 2): deslizador `n (repeticiones)`, que repite n veces R(30°), 0,85·I y 0,85·R(30°) sobre un mismo punto y dibuja el círculo, el rayo y la espiral que dejan.
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después con las columnas como flechas; violeta, la parcela con estelas. En los espejos se dibuja la recta espejo a rayas; en la similaridad con centro, el centro fijo en gold. El número vivo clave es el área con signo.
 
 **Ejercicios en Python:** `reflexion(alpha)` (c) y `similaridad_por_dos_puntos(P1, P2, Q1, Q2)` (d). Lápiz (a): por qué diag(1, −1) conserva distancias y no es rotación, con un número y con un dibujo; (b): escala, giro y centro de la similaridad z ↦ 2i·z + 1.
 
 - Notebook: [unidades/03_reflexiones_similaridades.py](unidades/03_reflexiones_similaridades.py)
 - Fichas: [clases/02-traslaciones-movimientos-rigidos.md](clases/02-traslaciones-movimientos-rigidos.md), [clases/03-afines.md](clases/03-afines.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Reflejar y componer", "Escalar: homotecias y similaridades" y el bloque "Transformaciones euclídeas y similaridades" con su guía resuelta.
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Reflejar y componer», «Escalar: homotecias y similaridades» y el bloque «Transformaciones euclídeas y similaridades» con su guía resuelta.
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/03_reflexiones_similaridades/index.html)
 
 ## Unidad 6 — Afinidades y coordenadas homogéneas
@@ -131,8 +133,8 @@ Temas del programa: 02 y 03. Pregunta guía: un plano viejo a otra escala y con 
 Tema del programa: 03. Pregunta guía: un plano escaneado quedó estirado distinto en cada eje e inclinado; conociendo dónde cayeron las dos esquinas de un lado, ¿dónde tiene que aparecer el mojón intermedio?
 
 **Qué se manipula:**
-- Dropdown `caso precargado`: identidad, escala anisótropa diag(1.5, s), corte [[1, s], [0, 1]], reflexión diag(1, −1), rotación + escala 0.8·R(θ), afinidad axial (eje x, dirección (1, 1), factor s), general (a, b, c, d).
-- Un deslizador por caso (`s (factor en y)`, `s (corte)`, `θ (°)`, `s (factor)`) y, en "general", los cuatro deslizadores `a =`, `b =`, `c =`, `d =`.
+- Dropdown `caso precargado`: «identidad», «escala anisótropa diag(1.5, s)», «corte [[1, s], [0, 1]]», «reflexión diag(1, −1)», «rotación + escala 0.8·R(θ)», «afinidad axial (eje x, dirección (1, 1), factor s)», «general (a, b, c, d)».
+- Un deslizador por caso (`s (factor en y)`, `s (corte)`, `θ (°)`, `s (factor)`) y, en «general», los cuatro deslizadores `a =`, `b =`, `c =`, `d =`.
 - En la sección 3 (la traslación entra por la tercera columna): deslizadores `θ (°)`, `k (escala)`, `tₓ`, `tᵧ` y radio `orden de composición` (girar, escalar y después mover / mover y después girar y escalar).
 - Botón reproducir: el camino desde la identidad.
 - La figura: gris y teal, grilla y cuadrado unitario antes y después (la grilla sigue siendo de paralelogramos iguales), con las columnas de A como flechas; violeta, la parcela con estelas; el área se multiplica por det A.
@@ -141,7 +143,7 @@ Tema del programa: 03. Pregunta guía: un plano escaneado quedó estirado distin
 
 - Notebook: [unidades/04_afines_homogeneas.py](unidades/04_afines_homogeneas.py)
 - Ficha: [clases/03-afines.md](clases/03-afines.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Afinidades: idea geométrica y forma algebraica" y "Coordenadas homogéneas".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Afinidades: idea geométrica y forma algebraica» y «Coordenadas homogéneas».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/04_afines_homogeneas/index.html)
 
 ## Unidad 7 — Proyectivas: la foto del dron y el pentágono
@@ -154,7 +156,7 @@ Tema del programa: 03p. Pregunta guía: en la foto inclinada del dron el lote cu
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: identidad, afinidad (la misma A con última fila (0 0 1)), foto de dron: cámara inclinada (k), pentágono (A y B fijos, C ↔ E).
-- Deslizador `k (inclinación, h₃₂)`, habilitado sólo en el caso del dron.
+- Deslizador `k (inclinación, h₃₂)`, habilitado solo en el caso del dron.
 - Botón reproducir: el camino desde la identidad (en el pentágono, pasando por el espejo).
 - La figura: gris, grilla y cuadrado unitario antes; teal, los mismos después (rectas, pero ya no paralelas), con las columnas de H leídas como puntos: las cruces teal y rust son los puntos de fuga, el punto gold es la imagen del origen; violeta, el objeto con estelas.
 
@@ -162,7 +164,7 @@ Tema del programa: 03p. Pregunta guía: en la foto inclinada del dron el lote cu
 
 - Notebook: [unidades/05_proyectivas.py](unidades/05_proyectivas.py)
 - Ficha: [clases/03p-proyectivas.md](clases/03p-proyectivas.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Homografías: forma algebraica", "Cuatro puntos determinan la homografía" y "El ejercicio del pentágono regular".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Homografías: forma algebraica», «Cuatro puntos determinan la homografía» y «El ejercicio del pentágono regular».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/05_proyectivas/index.html)
 
 ## Unidad 8 — Formas lineales y dualidad
@@ -184,7 +186,7 @@ Tema del programa: 04. Pregunta guía: la cota de un lote inclinado es la fila (
 
 - Notebook: [unidades/06_formas_lineales.py](unidades/06_formas_lineales.py)
 - Ficha: [clases/04-espacios-lineales-formas.md](clases/04-espacios-lineales-formas.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Formas lineales: la recta como máquina de medir".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Formas lineales: la recta como máquina de medir».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/06_formas_lineales/index.html)
 
 ## Unidad 9 — Cuña y determinante: el detector de colinealidad
@@ -193,7 +195,7 @@ Tema del programa: 05. Pregunta guía: tres mojones de un alambrado que según e
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: u = (3, 1), v = (1, 2) (área 5); v gira alrededor de u = (3, 1); v = 2u (colineales, área 0); orden invertido (columnas v, u, área −5); espejo diag(1, −1) (det −1); giro de 40° (det 1).
-- Deslizador `ángulo de v (°)`, habilitado sólo en el caso "v gira".
+- Deslizador `ángulo de v (°)`, habilitado solo en el caso «v gira».
 - Botón reproducir: el camino desde la identidad.
 - Un piso más arriba, la caja 3D: deslizador `s (posición de w)` que lleva el tercer lado w hasta el plano de u y v y hace bajar el volumen orientado a cero.
 - La figura: gris, grilla y cuadrado unitario antes; teal, el cuadrado unitario convertido en el paralelogramo de u y v (flechas teal y rust); violeta, la parcela con estelas, cuya área se multiplica por det M.
@@ -202,7 +204,7 @@ Tema del programa: 05. Pregunta guía: tres mojones de un alambrado que según e
 
 - Notebook: [unidades/07a_cuna_determinante.py](unidades/07a_cuna_determinante.py)
 - Ficha: [clases/05-subespacios-cuna-determinante.md](clases/05-subespacios-cuna-determinante.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Producto vectorial: unir dos puntos, cortar dos rectas", "Tres puntos alineados: el determinante" y "Producto exterior: la misma idea en cualquier dimensión".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Producto vectorial: unir dos puntos, cortar dos rectas», «Tres puntos alineados: el determinante» y «Producto exterior: la misma idea en cualquier dimensión».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/07a_cuna_determinante/index.html)
 
 ## Unidad 10 — Núcleo y autovectores: las direcciones que no giran
@@ -214,13 +216,13 @@ Temas del programa: 05 y 06. Pregunta guía: un escáner deforma el plano con A 
 - Deslizador `rumbo de la flecha de prueba (°)`.
 - Botón reproducir: el camino desde la identidad.
 - Segundo bloque, el detector sobre A − λI: deslizador `λ`, con la elipse imagen de la circunferencia unitaria y el gráfico de p(λ) = det(A − λI); en λ = 1 y λ = 3 la elipse se aplasta a un segmento.
-- La figura: gris, grilla y parcela antes; teal, la grilla deformada con las columnas como flechas; negro a rayas, las direcciones propias con la flecha λ·v̂; violeta, la parcela con estelas y la flecha de prueba (v gris, Av violeta), que no gira sólo sobre una dirección propia.
+- La figura: gris, grilla y parcela antes; teal, la grilla deformada con las columnas como flechas; negro a rayas, las direcciones propias con la flecha λ·v̂; violeta, la parcela con estelas y la flecha de prueba (v gris, Av violeta), que no gira solo sobre una dirección propia.
 
 **Ejercicios en Python:** `nucleo(A)` (c) y `autovectores(A)` (d). Lápiz (a): si B = [[2, 3], [4, 6]] tiene núcleo no trivial, un vector del núcleo y sobre qué recta cae el plano; (b): autovalores y autovectores de [[3, 1], [0, 2]] con el detector y la perpendicular a una fila, y por qué un giro no tiene ninguno.
 
 - Notebook: [unidades/07b_nucleo_autovectores.py](unidades/07b_nucleo_autovectores.py)
 - Fichas: [clases/05-subespacios-cuna-determinante.md](clases/05-subespacios-cuna-determinante.md), [clases/06-invariantes-autovectores.md](clases/06-invariantes-autovectores.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Núcleo de una matriz y determinante nulo" y "Autovalores y autovectores".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Núcleo de una matriz y determinante nulo» y «Autovalores y autovectores».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/07b_nucleo_autovectores/index.html)
 
 ## Unidad 11 — Autovalores en 3D y puntos fijos proyectivos
@@ -229,7 +231,7 @@ Tema del programa: 06. Pregunta guía: nivelar (90° alrededor de y) y después 
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: R_z(θ)·R_y(90°) (una rotación, el eje es su único autovector); reflexión diag(1, 1, −1) (λ = 1 doble y λ = −1); H_c del pentágono de la lección 05 (homología: recta de puntos fijos y centro); giro de 72° alrededor de (2, 1) (un solo punto fijo propio); traslación (1, 2) (el punto fijo es impropio).
-- Deslizador `θ de R_z (°)`, habilitado sólo en la rotación.
+- Deslizador `θ de R_z (°)`, habilitado solo en la rotación.
 - Botón reproducir: anima el camino.
 - La figura 3D: gris, el cubo unitario antes y el plano z = 1 con el pentágono ABCDE; teal, el cubo después con las columnas como flechas; negro a rayas, las rectas invariantes (autovectores reales) y el rombo donde pinchan z = 1 (el punto fijo); un autovalor doble con cruces nulas da un plano entero de autovectores en gold, que corta z = 1 en una recta de puntos fijos; violeta, el pentágono después, proyectado sobre z = 1.
 
@@ -237,7 +239,7 @@ Tema del programa: 06. Pregunta guía: nivelar (90° alrededor de y) y después 
 
 - Notebook: [unidades/07c_autovalores_3d_puntos_fijos.py](unidades/07c_autovalores_3d_puntos_fijos.py)
 - Ficha: [clases/06-invariantes-autovectores.md](clases/06-invariantes-autovectores.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Eje de rotación, autovectores y exponencial" y "Puntos fijos y rectas fijas de una homografía".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Eje de rotación, autovectores y exponencial» y «Puntos fijos y rectas fijas de una homografía».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/07c_autovalores_3d_puntos_fijos/index.html)
 
 ## Unidad 12 — Cambio de base y diagonalización
@@ -258,7 +260,7 @@ Tema del programa: 08. Pregunta guía: el mismo mojón P = (4, 3) de la obra, me
 
 - Notebook: [unidades/08_cambio_de_base.py](unidades/08_cambio_de_base.py)
 - Ficha: [clases/08-cambio-de-base.md](clases/08-cambio-de-base.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Cambio de base y diagonalización".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Cambio de base y diagonalización».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/08_cambio_de_base/index.html)
 
 ## Unidad 13 — Cambio de base, SVD e inversas
@@ -271,7 +273,7 @@ Temas del programa: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre al
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: simétrica [[3, 1], [1, 2]]; no simétrica [[2, 1], [0, 1]]; aplastante [[1, 2], [2, 4]] (σ₂ = 0); rotación pura 40° (σ = 1, 1); general (deslizadores).
-- Deslizadores `a = A₁₁`, `b = A₁₂`, `c = A₂₁`, `d = A₂₂`, habilitados sólo en "general".
+- Deslizadores `a = A₁₁`, `b = A₁₂`, `c = A₂₁`, `d = A₂₂`, habilitados solo en «general».
 - Botón reproducir: las tres etapas Vᵀ gira, Σ estira, U gira.
 - En la sección 3 (los cuatro subespacios en una 3×2): deslizador `tercera medición y₃`, que mueve el tercer punto de una recta por tres puntos y muestra la solución de cuadrados mínimos y el residuo cayendo entero en la contra-imagen (con y₃ = 2 los puntos quedan alineados y el residuo es cero).
 - En la sección 4, la SVD sobre el DEM real de la Precordillera de Mendoza (Copernicus GLO-30): deslizador `k (valores singulares que conservo)` y checkbox `Restar altura media antes de truncar`.
@@ -281,7 +283,7 @@ Temas del programa: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre al
 
 - Notebook: [unidades/09_cambio_de_base_svd.py](unidades/09_cambio_de_base_svd.py)
 - Fichas: [clases/07-svd.md](clases/07-svd.md), [clases/10-inversas-pseudoinversa.md](clases/10-inversas-pseudoinversa.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Descomposición en valores singulares (SVD)" e "Inversas, los cuatro subespacios y la pseudoinversa".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Descomposición en valores singulares (SVD)» e «Inversas, los cuatro subespacios y la pseudoinversa».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/09_cambio_de_base_svd/index.html)
 
 ## Unidad 14 — Jacobiano y primera forma fundamental
@@ -289,7 +291,7 @@ Temas del programa: 07 y 10. Pregunta guía: el disco de 1 m de incertidumbre al
 Tema del programa: 09. Pregunta guía: sobre el modelo digital de una loma damos el mismo paso de grilla (una unidad en u, nada en v) desde la cima y desde la ladera; ¿cuánto mide ese paso con cinta, sobre el terreno, en cada lugar?
 
 **Qué se manipula:**
-- Dropdown `superficie precargada`: la loma r = (u, v, 2·exp(−(u²+v²)/8)); plano inclinado z = 1 + 0.4u + 0.3v; cilindro de radio 1.5 (u ángulo, v altura); esfera de radio 2 (φ latitud, λ longitud).
+- Dropdown `superficie precargada`: «la loma r = (u, v, 2·exp(−(u²+v²)/8))»; «plano inclinado z = 1 + 0.4u + 0.3v»; «cilindro de radio 1.5 (u ángulo, v altura)»; «esfera de radio 2 (φ latitud, λ longitud)».
 - Deslizadores del punto y del pasito, con etiquetas que siguen a la superficie: `u del punto` y `v del punto` (o `u (°)`, `φ (°)`, `λ (°)`), y `du`, `dv` (en grados, `du (°)`, `dφ (°)`, `dλ (°)`, cuando la coordenada es angular).
 - La figura 3D: gris, la grilla (u, v) plana abajo; teal, la misma grilla levantada sobre la superficie con el plano tangente y los ejes locales r_u (teal) y r_v (rust) saliendo del punto; violeta, el pasito (du, dv) en la grilla, su imagen sobre la superficie y en el plano tangente (punteado). Los números vivos son la tabla E, F, G y el largo del paso por fórmula y con cinta.
 
@@ -297,7 +299,7 @@ Tema del programa: 09. Pregunta guía: sobre el modelo digital de una loma damos
 
 - Notebook: [unidades/10_jacobiano_primera_forma.py](unidades/10_jacobiano_primera_forma.py)
 - Ficha: [clases/09-analisis-derivada-jacobiano.md](clases/09-analisis-derivada-jacobiano.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones "Coordenadas curvilíneas y bases locales" y "Métrica y primera forma fundamental".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), secciones «Coordenadas curvilíneas y bases locales» y «Métrica y primera forma fundamental».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/10_jacobiano_primera_forma/index.html)
 
 ## Unidad 15 — Cuatro problemas: regresión, círculos, Procrustes, regresión total
@@ -313,7 +315,7 @@ Tema del programa: 11. Pregunta guía: ubicar un poste midiendo con cinta sus di
 
 - Notebook: [unidades/11_cuatro_problemas.py](unidades/11_cuatro_problemas.py)
 - Ficha: [clases/11-cuatro-problemas.md](clases/11-cuatro-problemas.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Guía resuelta de los cuatro problemas (Capítulo 12)".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Guía resuelta de los cuatro problemas (Capítulo 12)».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/11_cuatro_problemas/index.html)
 
 ## Unidad 16 — Curvatura como forma cuadrática
@@ -325,7 +327,7 @@ Tema del programa: 11. Pregunta guía: ubicar un poste midiendo con cinta sus di
 Tema del programa: 12. Pregunta guía: parados en un paso de montaña con el nivel centrado, el terreno cercano es la silla z = (x² − y²)/4; al dar un paso de 1 m, ¿cuánto se aparta el terreno del plano del nivel según el rumbo?
 
 **Qué se manipula:**
-- Dropdown `caso precargado`: esfera (cuenco de radio 2.5); cilindro (canaleta de radio 2.5, eje y); silla z = (x² − y²)/4; loma (terreno suave).
+- Dropdown `caso precargado`: «esfera (cuenco de radio 2.5)»; «cilindro (canaleta de radio 2.5, eje y)»; «silla z = (x² − y²)/4»; «loma (terreno suave)».
 - Deslizadores `x₀`, `y₀` (el punto) y `rumbo α (°) desde el eje x`.
 - La figura 3D: gris, la superficie con su grilla (x, y) y el plano tangente; gold, la normal; violeta, el rumbo dentro del plano tangente, la sección normal y su círculo osculador de radio 1/κ_n; teal y rust, las direcciones principales (radio mínimo en teal, máximo en rust).
 
@@ -333,7 +335,7 @@ Tema del programa: 12. Pregunta guía: parados en un paso de montaña con el niv
 
 - Notebook: [unidades/12_curvatura.py](unidades/12_curvatura.py)
 - Ficha: [clases/12-curvatura.md](clases/12-curvatura.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Curvatura: de la curva plana a la forma cuadrática".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Curvatura: de la curva plana a la forma cuadrática».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/12_curvatura/index.html)
 
 ## Unidad 17 — Geometría del elipsoide
@@ -342,10 +344,10 @@ Tema del programa: 12. Pregunta guía: parados en un paso de montaña con el niv
 
 *Bucle ida y vuelta: el plano normal gira en acimut (Euler, círculo osculador entre M y N) y luego se inclina hasta el paralelo de radio N cos φ (Meusnier).*
 
-Tema del programa: 13. Pregunta guía: un mojón sobre GRS80 con latitud geodésica 45° según el GNSS; la recta del mojón al centro de la Tierra, ¿qué ángulo forma con el plano del ecuador?
+Tema del programa: 13. Pregunta guía: un mojón sobre GRS80 con latitud geodésica 45° según un receptor que se ubica con satélites; la recta del mojón al centro de la Tierra, ¿qué ángulo forma con el plano del ecuador?
 
 **Qué se manipula:**
-- Dropdown `caso precargado`: esfera (f = 0); elipsoide exagerado (f = 0.3); elipsoide de juguete a = 5, b = 4; GRS80 (f = 1/298.257).
+- Dropdown `caso precargado`: «esfera (f = 0)»; «elipsoide exagerado (f = 0.3)»; «elipsoide de juguete a = 5, b = 4»; «GRS80 (f = 1/298.257)».
 - Deslizadores `φ geodésica (°)` y `λ (°)`.
 - La figura 3D, en unidades de a: gris, el elipsoide con su grilla y la recta al centro; teal, el meridiano del punto; gold, su paralelo; rust, la normal desde el eje polar hasta el punto (el tramo hasta el eje mide exactamente N). Los números vivos (las tres latitudes, M, N, X, Y, Z) usan el a del caso.
 
@@ -353,7 +355,7 @@ Tema del programa: 13. Pregunta guía: un mojón sobre GRS80 con latitud geodés
 
 - Notebook: [unidades/13_elipsoide.py](unidades/13_elipsoide.py)
 - Ficha: [clases/13-elipsoide.md](clases/13-elipsoide.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Geometría del elipsoide: latitudes, radios y conversión".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Geometría del elipsoide: latitudes, radios y conversión».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/13_elipsoide/index.html)
 
 ## Unidad 18 — Trigonometría esférica
@@ -362,14 +364,14 @@ Tema del programa: 14. Pregunta guía: una red de tres vértices que no caben en
 
 **Qué se manipula:**
 - Dropdown `caso precargado`: octante (tres ángulos rectos); triángulo chico (lados de 1°, casi plano); tres ciudades argentinas; a mano (A y B fijos, C con los deslizadores).
-- Deslizadores `latitud de C (°)` y `longitud de C (°)`, habilitados sólo en "a mano".
+- Deslizadores `latitud de C (°)` y `longitud de C (°)`, habilitados solo en «a mano».
 - La figura 3D: gris, la esfera unitaria; teal, rust y gold, los vectores A, B, C desde el centro con sus latitudes y longitudes; teal grueso, los tres lados como arcos de círculo máximo. Se arrastra para girarla; los números vivos son lados, ángulos, suma y exceso esférico.
 
 **Ejercicios en Python:** `lado(p, q)` (c) y `angulo_esferico(a, b, c)` (d). Lápiz (a): triángulo con b = c = 60° y A = 90°: el lado a, los ángulos B y C por la ley del coseno, la suma, el exceso y qué fracción de la esfera cubre; (b): el exceso esférico de una poligonal triangular de lados de 10 km y de 100 km sobre la Tierra, y si un cuadrilátero esférico puede tener los cuatro ángulos rectos.
 
 - Notebook: [unidades/14_trigonometria_esferica.py](unidades/14_trigonometria_esferica.py)
 - Ficha: [clases/14-trigonometria-esferica.md](clases/14-trigonometria-esferica.md)
-- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección "Polígonos geodésicos y trigonometría esférica".
+- Apunte: [apunte/Apunte_Sistemas_de_Coordenadas.pdf](apunte/Apunte_Sistemas_de_Coordenadas.pdf), sección «Polígonos geodésicos y trigonometría esférica».
 - [Abrir simulación en el navegador](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/14_trigonometria_esferica/index.html)
 
 ## Unidad 19 — Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico
@@ -398,6 +400,6 @@ Al final de cada unidad hay seis preguntas de opción múltiple para chequear qu
 
 - **Práctica:** elegimos unidad y nivel, y cada respuesta se explica en el momento.
 - **Simulacro:** veinte preguntas, una por unidad; la corrección llega al entregar.
-- **Evaluación:** treinta preguntas y hasta cuatro intentos, que quedan anotados sólo en nuestro navegador.
+- **Evaluación:** treinta preguntas y hasta cuatro intentos, que quedan anotados solo en nuestro navegador.
 
 El mismo banco está como XML de Moodle en `moodle/moodle_banco_120_preguntas_cb104.xml`.

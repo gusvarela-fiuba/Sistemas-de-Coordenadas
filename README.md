@@ -24,7 +24,7 @@ Cada unidad cierra con seis preguntas de opción múltiple (dos elementales, dos
 De la más guiada a la más completa:
 
 1. **El hilo conductor** (la portada del sitio): las 20 unidades interactivas, construidas ladrillo a ladrillo, una por unidad, en el orden del programa de la materia. Cada unidad tiene su pregunta de campo, su gancho de agrimensura y la unidad interactiva, que corre en el navegador. Es el recorrido para estudiar.
-2. **El mapa de conceptos** ([mapa.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html)): los conceptos de los capítulos del apunte como grafo, con filtro de ruta (troncal / todo) y un control "hasta el capítulo N" que oculta lo posterior. Es la herramienta de repaso: sirve para ver de qué depende cada concepto y qué habilita.
+2. **El mapa de conceptos** ([mapa.html](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/mapa.html)): los conceptos de los capítulos del apunte como grafo, con filtro de ruta (troncal / todo) y un control «hasta el capítulo N» que oculta lo posterior. Es la herramienta de repaso: sirve para ver de qué depende cada concepto y qué habilita.
 3. **El apunte formal** ([apunte.pdf](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/apunte.pdf)): las demostraciones en LaTeX, las guías resueltas y las deducciones completas. Se organiza así: capítulo 0 (Antes de empezar), capítulos 1 a 15 por tema, complementos C1 a C4 y apéndices. Cada unidad enlaza por sección a la parte del apunte que la respalda, así que se puede ir de la pantalla al papel sin buscar.
 
 ### Por qué empieza en la Unidad 0 — Fundamentos
@@ -37,20 +37,20 @@ La Unidad 0 es el encuadre del curso: el idioma que la materia usa desde el prim
 4. **El espacio dual V\*:** una fila es una forma lineal, una regla que mide vectores. El gradiente vive ahí y no es un vector.
 5. **Producto interno y métrica G:** la cinta métrica que vectores y formas solos no tienen; es la que después se vuelve la primera forma fundamental.
 
-La situación de campo de la Unidad 0 es una loma con sus curvas de nivel: calcular hacia dónde sube más empinado con los dos números del gradiente "como flecha" da mal cuando la grilla no es cuadrada, y eso muestra por qué el gradiente es una regla y no una flecha.
+La situación de campo de la Unidad 0 es una loma con sus curvas de nivel: calcular hacia dónde sube más empinado con los dos números del gradiente “como flecha” da mal cuando la grilla no es cuadrada, y eso muestra por qué el gradiente es una regla y no una flecha.
 
 ### Los 6 pasos de cada unidad
 
 Todas las unidades siguen el mismo molde, siempre de lo conceptual y geométrico al cálculo. Los nombres de sección son fijos:
 
-- **0. Situación de campo y predicción.** Un problema de agrimensura concreto y una predicción sin cuentas (opción múltiple); cada respuesta equivocada explica el error concreto, no dice sólo "incorrecto".
+- **0. Situación de campo y predicción.** Un problema de agrimensura concreto y una predicción sin cuentas (opción múltiple); cada respuesta equivocada explica el error concreto, no dice solo “incorrecto”.
 - **1. Hecho geométrico.** Qué se conserva y qué cambia, antes de cualquier fórmula.
 - **2. Manipulación.** Figuras Plotly de tres capas (grilla antes en gris, grilla después en teal, y el objeto), con deslizadores y casos precargados (identidad, 90°, un ángulo cualquiera, y los contraejemplos: reflexión, corte, determinante cero). Álgebra y figura comparten el código de colores: cada columna de la matriz se pinta del color del vector que representa.
 - **3. Cuenta a mano y código lado a lado.** La misma cuenta en lápiz y en NumPy, con la matriz coloreada por columnas.
 - **4. Python de hoy.** Las dos o tres líneas de Python que la unidad deja aprendidas, aplicadas al problema de campo.
 - **5. Ejercicios.** Lápiz y código con hueco en un editor en vivo, con autocorrección (`np.allclose` contra la referencia).
 
-Al cierre, un anexo "Dónde está la demostración" enlaza las secciones del apunte. Lo interactivo es una muestra; las demostraciones formales son las del apunte.
+Al cierre, un anexo «Dónde está la demostración» enlaza las secciones del apunte. Lo interactivo es una muestra; las demostraciones formales son las del apunte.
 
 ### Seis animaciones en bucle
 
@@ -82,11 +82,11 @@ Seis bucles cortos de ida y vuelta (en `animaciones/`, como `.mp4` en las unidad
 
 ## Recorrido de las 20 unidades
 
-El orden es el del hilo conductor de la portada. "Tema del programa" indica qué parte del programa cubre cada unidad.
+El orden es el del hilo conductor de la portada. «Tema del programa» indica qué parte del programa cubre cada unidad.
 
 | Unidad | Unidad (enlace) | Tema del programa | Qué construye |
 |---|---|---|---|
-| Unidad 0 | [Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html) | capítulos 1, 5 y 10 (desarrollo complementario) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
+| Unidad 0 | [El idioma de la materia: puntos, flechas, reglas y distancias](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/00_fundamentos/index.html) | capítulos 1, 5 y 10 (desarrollo complementario) | Los cinco ladrillos: grupo de transformaciones, cuerpos R y C, todo vector es un punto, el dual donde vive el gradiente, y la métrica G. La loma donde el gradiente no es un vector. |
 | Unidad 1 | [Rotaciones I: el punto no se movió](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01a_punto_quieto/index.html) | capítulo 1 | La rotación pasiva: giran los ejes, cambian las coordenadas, el mojón no se mueve. |
 | Unidad 2 | [Rotaciones II: la rotación en el plano](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01b_rotacion_plano/index.html) | capítulo 1 | La rotación activa como matriz ortogonal de determinante +1: sus columnas son adónde van los ejes, y el mismo giro como número complejo. |
 | Unidad 3 | [Rotaciones III: tres ejes y el orden importa](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/01c_rotaciones_3d/index.html) | capítulos 1 y 2 | Las rotaciones alrededor de cada eje de R3, la composición que no conmuta y Euler–Rodrigues: toda composición es un solo giro alrededor de un eje. |
@@ -100,7 +100,7 @@ El orden es el del hilo conductor de la portada. "Tema del programa" indica qué
 | Unidad 11 | [Autovalores en 3D y puntos fijos proyectivos](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/07c_autovalores_3d_puntos_fijos/index.html) | capítulo 7 | Autovectores en R3 por producto cruz de dos filas: el eje de una rotación y los puntos fijos de una homografía. |
 | Unidad 12 | [Cambio de base y diagonalización](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/08_cambio_de_base/index.html) | capítulo 9 | La matriz de cambio de base (columnas = ejes nuevos), la transformación vista en la grilla nueva y la diagonalización. Las dos grillas y el esquema de cambio de base. |
 | Unidad 13 | [Cambio de base, SVD e inversas](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/09_cambio_de_base_svd/index.html) | capítulos 8 y 11 | La SVD: dos bases ortonormales, la inversa y la pseudoinversa con sus cuatro subespacios. La SVD en vivo sobre el DEM real de la Precordillera de Mendoza, con el rango elegido a mano. |
-| Unidad 14 | [Jacobiano y primera forma fundamental](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/10_jacobiano_primera_forma/index.html) | capítulo 10 | El jacobiano de 3×2 de una superficie y la primera forma fundamental: el largo de un paso medido sólo con los números de la grilla. |
+| Unidad 14 | [Jacobiano y primera forma fundamental](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/10_jacobiano_primera_forma/index.html) | capítulo 10 | El jacobiano de 3×2 de una superficie y la primera forma fundamental: el largo de un paso medido solo con los números de la grilla. |
 | Unidad 15 | [Cuatro problemas: regresión, círculos, Procrustes, regresión total](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/11_cuatro_problemas/index.html) | capítulo 12 | Las ecuaciones normales cuatro veces: recta de ajuste (regresión), punto por distancias (intersección de círculos), Procrustes y regresión total. Los cuatro problemas resueltos. |
 | Unidad 16 | [Curvatura como forma cuadrática](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/12_curvatura/index.html) | capítulo 13 | La segunda forma fundamental, la curvatura normal en cada rumbo, las curvaturas principales como autovalores y la curvatura de Gauss. |
 | Unidad 17 | [Geometría del elipsoide](https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/unidades/13_elipsoide/index.html) | capítulo 14 | El elipsoide de revolución GRS80: los radios de curvatura M y N, las tres latitudes y el paso de (latitud, longitud, altura) a cartesianas. |
@@ -111,7 +111,7 @@ El orden es el del hilo conductor de la portada. "Tema del programa" indica qué
 
 ### En el apunte (PDF)
 
-El apéndice "Material de práctica y notebooks" del apunte tiene un índice general que dice dónde está resuelto cada tipo de problema (en el apunte o en los ejercicios de las unidades). Lo que hay resuelto en el PDF:
+El apéndice «Material de práctica y notebooks» del apunte tiene un índice general que dice dónde está resuelto cada tipo de problema (en el apunte o en los ejercicios de las unidades). Lo que hay resuelto en el PDF:
 
 - **Guía de transformaciones euclídeas y similaridades** (reflexiones puntuales y axiales, traslación, rotación, homotecia, similaridades; teoremas 1 a 6): enunciados y resolución completa, ejercicio por ejercicio.
 - **Guía de afinidades**: sus ejercicios resueltos, cada uno en los «Ejercicios con solución» del capítulo de su tema (afinidades en el 4, reflexiones en el 3, autovalores de matrices ortogonales en el 7), más la composición práctica de rotación y escala.
@@ -144,7 +144,7 @@ uv run python -m http.server -d site 8765     # http://localhost:8765/
 Para usar o tocar una unidad sin romper nada (detalle en la Parte 3, Paso 4 de [INSTRUCTIVO_DE_USO.md](INSTRUCTIVO_DE_USO.md)):
 
 ```
-uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la unidad sin mostrar el código y sin tocar el archivo
+uv run marimo run unidades/08_cambio_de_base.py                          # solo usar: abre la unidad sin mostrar el código y sin tocar el archivo
 cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
 uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
 git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
@@ -170,4 +170,4 @@ site/       salida del build (ignorada por git); la publica .github/workflows/pa
 
 ### Publicación
 
-Cada push a `main` corre `.github/workflows/pages.yml`: `uv sync --frozen`, verificación de que `mapa/mapa.yaml` coincide con los fragmentos, `marimo check` de las unidades, `tools/build.py` y despliegue a GitHub Pages. En los pull requests corre sólo el build, como CI. Una vez por repo: Settings → Pages → Source: GitHub Actions.
+Cada push a `main` corre `.github/workflows/pages.yml`: `uv sync --frozen`, verificación de que `mapa/mapa.yaml` coincide con los fragmentos, `marimo check` de las unidades, `tools/build.py` y despliegue a GitHub Pages. En los pull requests corre solo el build, como CI. Una vez por repo: Settings → Pages → Source: GitHub Actions.

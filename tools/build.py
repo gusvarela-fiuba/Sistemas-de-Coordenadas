@@ -7,7 +7,7 @@ Entradas (relativas a la raíz del repo):
   unidades/*.py                         notebooks marimo
   tools/enlaces_portada.yaml            enlaces de cada unidad de la portada al apunte (principal + hasta dos de apoyo)
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
-  apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
+  apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: solo para validar las claves
                                         `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "rot3d", …) y leer su título
 
 Salida:
@@ -356,7 +356,7 @@ _RE_IMPORT_CB104 = re.compile(r"^[ \t]*(?:import cb104\b|from cb104 import\b)", 
 def embeber_modulo_comun(texto: str, archivo: str) -> tuple[str, bool]:
     """Reemplaza la línea `import cb104 as lib  # cb104:inline` por el módulo embebido como literal.
 
-    El export WASM no lleva archivos vecinos: el notebook sólo puede usar `cb104.py` si el código viaja
+    El export WASM no lleva archivos vecinos: el notebook solo puede usar `cb104.py` si el código viaja
     adentro de una celda. Devuelve (texto nuevo, True) si lo reemplazó, (texto, False) si no importa cb104.
     Si importa cb104 sin el marcador, lanza RuntimeError (en el navegador fallaría con ModuleNotFoundError).
     """
@@ -1145,7 +1145,7 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
 
     partes.append("<h2>Mapa de conceptos</h2>")
     opciones = "".join(
-        f'<option value="{v}">{t}</option>' for v, t in (("todo", "todo"), ("troncal", "sólo troncal"))
+        f'<option value="{v}">{t}</option>' for v, t in (("todo", "todo"), ("troncal", "solo troncal"))
     )
     partes.append(
         '<div class="controles">'
@@ -1288,7 +1288,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     partes.append('<ol class="hilo">')
     for i, e in enumerate(unidades_portada, start=0):
         color = TEAL
-        num = "Unidad 0 — Fundamentos" if i == 0 else f"Unidad {i}"
+        num = f"Unidad {i}"
         cab = [f'<span class="num">{num}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
                ]
         if e["nivel"]:
@@ -1775,7 +1775,7 @@ __NAV__
       var acc = el("div", "acc");
       acc.appendChild(botonBorrar(reg, function () { estado.evaluacion = null; vistaEvaluacion(); }));
       app.appendChild(acc);
-      app.appendChild(el("p", "aviso", "El registro vive sólo en este navegador; si lo borramos, empezamos de cero."));
+      app.appendChild(el("p", "aviso", "El registro vive solo en este navegador; si lo borramos, empezamos de cero."));
       return;
     }
     var st = estado.evaluacion;
@@ -1934,7 +1934,7 @@ def generar_redirecciones(out: Path) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Genera el sitio estático en site/ a partir de mapa/mapa.yaml.")
     ap.add_argument("--skip-wasm", action="store_true", help="no exporta las unidades marimo (deja lo que ya haya en site/unidades/)")
-    ap.add_argument("--only", metavar="UNIDAD_ID", help="exporta sólo esa unidad (el resto del sitio se genera igual)")
+    ap.add_argument("--only", metavar="UNIDAD_ID", help="exporta solo esa unidad (el resto del sitio se genera igual)")
     ap.add_argument("--out", default="site", help="directorio de salida (default: site, relativo a la raíz del repo)")
     ap.add_argument("--mapa", default=str(MAPA), help=argparse.SUPPRESS)
     args = ap.parse_args()
