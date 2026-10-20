@@ -75,8 +75,23 @@ def _guia_ok(ruta_rel, linea):
     return all(GUIA.fullmatch(m.group(0)) for m in PATRON.finditer(linea))
 
 
+# Nombre de la página para quien da la materia (pedido del editor): el archivo PARA_EL_DOCENTE.md, la página
+# para-el-docente.html (y su id de encabezado) y su título «Para el docente» (encabezado `# `, <title>, <h1>,
+# texto del enlace de la portada, y ese rótulo en negrita donde el instructivo describe la portada).
+# Se quitan sólo esos literales (sensibles a mayúsculas); el resto de la línea y el contenido se siguen revisando.
+NOMBRE_PAGINA_DOCENTE = re.compile(r"PARA_EL_DOCENTE\.md|para-el-docente(?:\.html)?|^# Para el docente$|>Para el docente<|\*\*Para el docente\.\*\*")
+
+
+def _nombre_pagina_ok(linea):
+    """True si la línea sólo coincide con el patrón por el nombre del archivo o el título de esa página."""
+    resto = NOMBRE_PAGINA_DOCENTE.sub("", linea.strip())
+    return resto != linea.strip() and not PATRON.search(resto)
+
+
 def permitida(ruta_rel, linea, arbol=True):
     ruta_rel = str(ruta_rel)
+    if _nombre_pagina_ok(linea):
+        return True
     if arbol and _guia_ok(ruta_rel, linea):
         return True
     if arbol and _clase_esquema_ok(ruta_rel, linea):

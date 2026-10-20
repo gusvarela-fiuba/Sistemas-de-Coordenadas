@@ -24,13 +24,17 @@ Todo corre en el navegador; no hace falta instalar nada ni tener cuenta en ning�
 
 La dirección va con mayúsculas en `Sistemas-de-Coordenadas`; escrita en minúsculas da 404.
 
-### Los tres botones de arriba de la portada
+### Las siete entradas de arriba de la portada
 
-La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de capítulo y a las secciones del apunte. Arriba de todo hay tres entradas:
+La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de capítulo y a las secciones del apunte. Arriba de todo hay siete entradas:
 
+- **Para el docente.** Abre `para-el-docente.html` (la versión del sitio de [`PARA_EL_DOCENTE.md`](PARA_EL_DOCENTE.md)): una pantalla con qué es el material, cómo usar una unidad en 20 minutos de aula, qué piezas se usan solas, qué es optativo y cómo se adopta.
 - **Empezar.** Lleva a la Unidad 0 (Fundamentos), el punto de partida del recorrido. Es la entrada para quien arranca la materia o quiere ponerse el idioma antes de empezar.
-- **Seguir el recorrido.** Lleva a la unidad correspondiente al avance del curso, con la indicación de a qué unidad apunta.
+- **Seguir el programa.** Lleva a la unidad correspondiente al avance del curso, con la indicación de a qué unidad apunta.
 - **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), con el selector **Ruta** (`todo` / `sólo troncal`) y el deslizador **hasta el capítulo N**, que atenúa los conceptos y las flechas posteriores al capítulo elegido. Debajo del mapa está la lista de capítulos con etiquetas y enlaces.
+- **Autoevaluación (120 preguntas).** Abre `autoevaluacion.html`, con los tres modos: práctica, simulacro y evaluación (Parte 5).
+- **Para el aula: qué hay para cada capítulo.** Abre `menu.html`: las piezas de cada capítulo, con duración y estado; también en PDF (`menu.pdf`).
+- **Para el aula: entradas, platos y postres por capítulo.** Abre `menu-por-capitulo.html`: un menú por capítulo en A4 apaisado, para imprimir.
 
 Más abajo en la portada está el "Recorrido paso a paso" con las 20 unidades; cada una se abre desde ahí.
 

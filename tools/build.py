@@ -10,7 +10,8 @@ Entradas (relativas a la raíz del repo):
                                         `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "rot3d", …) y leer su título
 
 Salida:
-  site/index.html                       portada = el hilo conductor: entradas (Empezar / Seguir el programa / Repasar / Autoevaluación)
+  site/index.html                       portada = el hilo conductor: entradas (para-el-docente.html / Empezar / Seguir el programa / Repasar /
+                                        Autoevaluación / las dos de «Para el aula»)
                                         y una entrada por unidad (pregunta, gancho, estado, capítulos, enlaces),
                                         más la última unidad "Lo que viene" con los capítulos sin unidad
   site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta el capítulo N",
@@ -23,6 +24,7 @@ Salida:
                                         llevan id="capN") y copia de cad/dxf/**/*.dxf (antes del menú, que la enlaza)
   site/menu.html, site/menu.pdf         piezas por capítulo para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
   site/menu-por-capitulo.html           entradas, platos y postres por capítulo, A4 apaisado (tools/menu_por_capitulo/gen.py, después del menú)
+  site/para-el-docente.html             desde PARA_EL_DOCENTE.md; enlaces reescritos para el sitio y verificados (al final, después de los menús)
   site/.nojekyll                        para GitHub Pages
 
 Uso:  uv run tools/build.py [--skip-wasm] [--only <unidad_id>] [--out site]
@@ -689,6 +691,73 @@ def generar_cad(out: Path) -> list[Path]:
 
 
 # ----------------------------------------------------------------------------
+# página para quien da la materia (PARA_EL_DOCENTE.md → site/para-el-docente.html)
+# ----------------------------------------------------------------------------
+
+SRC_PAGINA_MATERIA = RAIZ / "PARA_EL_DOCENTE.md"
+_RE_URL_PAGES = re.compile(r"https://([^/\s\"]+)\.github\.io/([^/\s\"]+)/")
+_RE_HREF = re.compile(r'href="([^"]*)"')
+# archivos del repo que el sitio publica con otro nombre (el resto de las rutas relativas va al repo en GitHub)
+COPIAS_EN_SITIO = {
+    "apunte/Apunte_Sistemas_de_Coordenadas.pdf": "apunte.pdf",
+    "moodle/moodle_banco_120_preguntas_cb104.xml": "moodle_banco_120_preguntas_cb104.xml",
+}
+
+
+def _href_para_sitio(href: str, repo_github: str) -> str:
+    """Reescribe un enlace del .md (válido en GitHub) para el sitio.
+
+    URL publicada del sitio (cualquier <usuario>.github.io/<repo>/) → ruta relativa del sitio;
+    archivo del repo que el sitio copia → su nombre en el sitio; unidades/<id>.py → unidades/<id>/index.html;
+    otra ruta relativa del repo (p. ej. INSTRUCTIVO_DE_USO.md#…) → el archivo en GitHub.
+    """
+    m = _RE_URL_PAGES.match(href)
+    if m:
+        return href[m.end():] or "index.html"
+    if re.match(r"[a-z]+:|#", href):
+        return href
+    ruta, _, ancla = href.partition("#")
+    ancla = f"#{ancla}" if ancla else ""
+    if ruta in COPIAS_EN_SITIO:
+        return COPIAS_EN_SITIO[ruta] + ancla
+    mu = re.fullmatch(r"unidades/([^/]+)\.py", ruta)
+    if mu:
+        return f"unidades/{mu.group(1)}/index.html{ancla}"
+    tipo = "tree" if (RAIZ / ruta).is_dir() else "blob"
+    return f"{repo_github}/{tipo}/main/{ruta}{ancla}"
+
+
+def generar_pagina_materia(out: Path) -> list[str]:
+    """site/para-el-docente.html desde PARA_EL_DOCENTE.md, con los enlaces reescritos para el sitio.
+
+    Devuelve los enlaces rotos: rutas relativas del sitio que no existen en `out` y rutas del repo que no existen.
+    El repo en GitHub se deduce de la URL del sitio del README (la que reescribe tools/adoptar_para_catedra.py).
+    """
+    if not SRC_PAGINA_MATERIA.exists():
+        return [f"falta {SRC_PAGINA_MATERIA.name}"]
+    texto = SRC_PAGINA_MATERIA.read_text(encoding="utf-8")
+    m = _RE_URL_PAGES.search((RAIZ / "README.md").read_text(encoding="utf-8"))
+    repo_github = f"https://github.com/{m.group(1)}/{m.group(2)}" if m else ""
+    rotos: list[str] = []
+    for href in _RE_HREF.findall(md_a_html(texto)):
+        ruta = href.split("#")[0]
+        if ruta and not _RE_URL_PAGES.match(href) and not re.match(r"[a-z]+:", href) and not (RAIZ / ruta).exists():
+            rotos.append(f"{SRC_PAGINA_MATERIA.name}: {href} (no existe en el repo)")
+    cuerpo = _RE_HREF.sub(lambda h: f'href="{html.escape(_href_para_sitio(html.unescape(h.group(1)), repo_github))}"',
+                          md_a_html(texto))
+    for href in _RE_HREF.findall(cuerpo):
+        ruta = html.unescape(href).split("#")[0]
+        mu = re.fullmatch(r"unidades/([^/]+)/index\.html", ruta)
+        if mu and (RAIZ / "unidades" / f"{mu.group(1)}.py").exists():
+            continue   # con --skip-wasm la unidad puede no estar exportada todavía; alcanza con que exista la fuente
+        if ruta and not re.match(r"[a-z]+:", ruta) and not (out / ruta).exists():
+            rotos.append(f"para-el-docente.html: {href} (no existe en {out.name}/)")
+    (out / "para-el-docente.html").write_text(
+        pagina(titulo_de_md(texto, "Sistemas de Coordenadas"), f'<div class="ficha">\n{cuerpo}\n</div>'), encoding="utf-8")
+    return rotos
+
+
+# ----------------------------------------------------------------------------
 # mapa de conceptos → SVG
 # ----------------------------------------------------------------------------
 
@@ -1059,6 +1128,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     seguir_sub = f"unidad {n_seguir}: {html.escape(unidades_portada[n_seguir]['titulo'])}"
     partes.append(
         '<nav class="entradas">'
+        '<a class="entrada" href="para-el-docente.html"><b>Para el docente</b><small>qué es, cómo usar una unidad en 20 minutos de aula, qué piezas van solas</small></a>'
         f'<a class="entrada" href="#unidad-0"><b>Empezar</b><small>unidad 0: {html.escape(unidades_portada[0]["titulo"])}</small></a>'
         f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir el programa</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
@@ -1834,6 +1904,14 @@ def main() -> int:
     if menu_por_capitulo.main(["--site", str(out)]) != 0:
         print("ERROR: tools/menu_por_capitulo/gen.py falló (enlace roto en menu-por-capitulo.html)", file=sys.stderr)
         return 1
+    print("== página para quien da la materia")
+    _rotos = generar_pagina_materia(out)
+    for _r in _rotos:
+        print(f"  enlace roto: {_r}", file=sys.stderr)
+    if _rotos:
+        print("ERROR: enlaces rotos en para-el-docente.html", file=sys.stderr)
+        return 1
+    print(f"  {out / 'para-el-docente.html'}")
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
     import prohibidas
