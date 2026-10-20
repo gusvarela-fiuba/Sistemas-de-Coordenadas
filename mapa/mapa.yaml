@@ -683,7 +683,7 @@ conceptos:
 unidades:
 - id: 00_fundamentos
   archivo: unidades/00_fundamentos.py
-  titulo: 'Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)'
+  titulo: 'El idioma de la materia: puntos, flechas, reglas y distancias'
   estado: piloto
   clases:
   - "01"
@@ -838,7 +838,7 @@ unidades:
   clases:
   - "12"
   pregunta: ¿Cuánto se aparta la superficie de su plano tangente en cada rumbo, y qué quiere decir ir derecho sobre ella?
-  gancho_agrimensura: 'Un nivel apoyado en el terreno: la curvatura dice cuánto cambia la vertical al dar un paso en cada rumbo.'
+  gancho_agrimensura: 'Un instrumento que marca la vertical, apoyado en el terreno: la curvatura dice cuánto cambia esa vertical al dar un paso en cada rumbo.'
   nivel: troncal
 - id: 13_elipsoide
   archivo: unidades/13_elipsoide.py

@@ -6,7 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia).
+"""Unidad 0 — El idioma de la materia: puntos, flechas, reglas y distancias.
+Cuerpos, grupos, formas lineales y métrica.
 
 Repaso fundacional de desarrollo complementario, no una lección del recorrido principal. Cinco ladrillos en orden
 deductivo, al estilo de Apostol, con el vocabulario de la materia y con el terreno como ejemplo: (1) conjuntos, operaciones y grupos; (2) los cuerpos R y C, con C como matrices 2×2;
@@ -41,7 +42,9 @@ def _():
 @app.cell
 def _(mo):
     mo.md(r"""
-    # Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
+    # Unidad 0 — El idioma de la materia: puntos, flechas, reglas y distancias
+
+    *Cuerpos, grupos, formas lineales y métrica*
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 

@@ -80,7 +80,7 @@ tangente a la curva de nivel (ir a lo chico para volver a lo grande).
 
 ## Unidades interactivas
 
-- Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) (`00_fundamentos`)
+- El idioma de la materia: puntos, flechas, reglas y distancias (`00_fundamentos`)
 - Formas lineales y dualidad (`06_formas_lineales`)
 
 ## Animaciones

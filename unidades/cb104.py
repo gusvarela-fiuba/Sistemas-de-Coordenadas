@@ -2129,7 +2129,7 @@ def svm_margen_duro_2d(C1, C2):
 
 HILO_CONDUCTOR: dict[str, dict[str, str]] = {
     "00_fundamentos": {
-        "titulo": "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)",
+        "titulo": "El idioma de la materia: puntos, flechas, reglas y distancias",
         "venimos_de": (
             "Del CBC: vectores como flechas sueltas, el gradiente como una flecha más, la distancia siempre "
             r"$\sqrt{x^2 + y^2}$ y cada transformación resuelta aparte, sin un idioma común para encadenarlas."

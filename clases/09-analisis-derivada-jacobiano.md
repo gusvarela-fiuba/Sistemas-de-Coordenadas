@@ -49,7 +49,7 @@ La derivada es la mejor aproximación lineal local: el gradiente es una forma li
 
 ## Unidades interactivas
 
-- Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) (`00_fundamentos`)
+- El idioma de la materia: puntos, flechas, reglas y distancias (`00_fundamentos`)
 - Jacobiano y primera forma fundamental (`10_jacobiano_primera_forma`)
 
 ## Animaciones

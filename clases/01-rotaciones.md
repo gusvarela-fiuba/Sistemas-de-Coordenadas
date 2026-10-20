@@ -71,7 +71,7 @@ Las columnas son las imágenes de $e_x, e_y, e_z$. Se ve: toda rotación de $\ma
 
 ## Unidades interactivas
 
-- Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) (`00_fundamentos`)
+- El idioma de la materia: puntos, flechas, reglas y distancias (`00_fundamentos`)
 - Rotaciones I: el punto no se movió (`01a_punto_quieto`)
 - Rotaciones II: la rotación en el plano (`01b_rotacion_plano`)
 - Rotaciones III: tres ejes y el orden importa (`01c_rotaciones_3d`)

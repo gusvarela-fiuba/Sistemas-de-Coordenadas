@@ -5,7 +5,7 @@
       <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/elemental</text>
     </category>
     <info format="html">
-      <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel elemental</p>]]></text>
+      <text><![CDATA[<p>Unidad 00: El idioma de la materia: puntos, flechas, reglas y distancias — nivel elemental</p>]]></text>
     </info>
   </question>
   <question type="multichoice">
@@ -91,7 +91,7 @@
       <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/medio</text>
     </category>
     <info format="html">
-      <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel medio</p>]]></text>
+      <text><![CDATA[<p>Unidad 00: El idioma de la materia: puntos, flechas, reglas y distancias — nivel medio</p>]]></text>
     </info>
   </question>
   <question type="multichoice">
@@ -177,7 +177,7 @@
       <text>$course$/top/CB104_Sistemas_de_Coordenadas/Unidad_00_00_fundamentos/avanzado</text>
     </category>
     <info format="html">
-      <text><![CDATA[<p>Unidad 00: Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) — nivel avanzado</p>]]></text>
+      <text><![CDATA[<p>Unidad 00: El idioma de la materia: puntos, flechas, reglas y distancias — nivel avanzado</p>]]></text>
     </info>
   </question>
   <question type="multichoice">
