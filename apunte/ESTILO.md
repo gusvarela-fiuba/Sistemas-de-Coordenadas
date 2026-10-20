@@ -62,11 +62,13 @@ lleva el comentario `% ambigüedad`.
   Ejemplos: \(C\) para la matriz de cambio de base (base nueva en columnas,
   \(C=C_{b\to e}\)); \(\operatorname{im}A\) para la imagen; \(\ker A\) para el núcleo;
   \(\operatorname{rango}A\) para el rango; \(A^T\) para la transpuesta.
-- Un capítulo que necesita una convención propia la declara en **una sola línea** (párrafo
-  «Convenciones del capítulo»). Lo demás no se repite: se remite al capítulo 0.
+- Los capítulos **no llevan** párrafo «Convenciones del capítulo» (retirados el 2026-10-19 por
+  decisión del editor): toda convención, incluso la propia de un capítulo, va como fila de la
+  tabla del capítulo 0, indicando en qué capítulo aplica. En el texto queda, como mucho, una frase
+  corta en «La idea» cuando sin ella no se puede leer lo que sigue.
 - No se escriben aclaraciones del tipo «en el capítulo X se escribe distinto» o «las tres letras
   designan lo mismo»: se unifica la letra.
-- Bien: `Convenciones del capítulo: vectores en columna; base vieja \(e\), base nueva \(b\).`
+- Bien: una fila «Cambio de base» en la tabla del capítulo 0 con «base vieja \(e\), base nueva \(b\), vectores en columna».
 - Mal: `Es la misma matriz que el recuadro llama \(P\) y el despeje llama \(A\).`
 
 ## 7. Muletillas [chequeos 5 y 6]
@@ -159,3 +161,14 @@ cierre de capítulo se anotan las páginas antes y después y qué se agregó co
   nombre sin `cap:` (`"repaso-algebra"`).
 - Cada definición aparece una sola vez en el apunte: dos `\begin{definicion}[Título]` con el mismo
   título en archivos distintos son un error. Donde haga falta recordarla, una frase y un `\ref`.
+
+## 10. Material interactivo [alcance interactivo]
+
+`uv run python apunte/scripts/estilo.py --alcance interactivo` aplica las mismas normas a la prosa que
+ve el lector fuera del apunte: las cadenas de texto de `unidades/*.py` (sin docstrings ni código), las
+fichas de `clases/`, `mapa/` (los `.md` y los valores de los `.yaml`), los CDATA de `moodle/` y los
+`.md` de la raíz. Corre los chequeos 1 (tilde), 2 (comillas rectas), 3 (decimal; no cuenta los números
+de sección ni los de problema, sección o capítulo entre paréntesis, como «los problemas (12.5)»),
+5 (es decir), 6 (Desarrollo.), 10 (instrumentos, que acá bloquea), 12 («desaprender») y 13 (imperativo
+de tú o de usted). Con `--estricto` es bloqueante en la CI (`.github/workflows/pages.yml`), igual que el
+alcance del apunte; `--todo` corre los dos.

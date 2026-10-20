@@ -1,0 +1,101 @@
+Sistemas de Coordenadas: apunte, unidades interactivas y ejercicios
+Copyright (c) 2026 Gustavo Varela
+
+Este repositorio usa dos licencias, según el tipo de material, más las
+condiciones propias de los datos de terceros.
+
+1. Texto, apunte, figuras y preguntas: CC BY-SA 4.0
+   (Creative Commons Atribución-CompartirIgual 4.0 Internacional)
+   - El apunte: apunte/ (fuentes LaTeX, contenido/, portada/, figuras/ y el
+     PDF compilado), salvo el código indicado en el punto 2.
+   - Los textos y documentos .md del repositorio, las fichas de clases/, el
+     mapa de conceptos (mapa/), los ejercicios (ejercicios/), las
+     animaciones (animaciones/) y el material de cad/.
+   - Las preguntas de autoevaluación: el banco de moodle/ y el texto de las
+     preguntas de unidades/banco_autoevaluacion.py (el texto de las preguntas
+     es CC BY-SA 4.0 aunque esté guardado dentro de un archivo de código).
+   - El texto, las figuras y las preguntas del sitio generado.
+
+2. Código: MIT (texto completo más abajo)
+   - unidades/ (unidades interactivas marimo)
+   - tools/
+   - apunte/scripts/
+   - scripts/
+   - apunte/demostraciones/
+   - los scripts (.py, .sh) que generan figuras y la portada dentro de
+     apunte/ (por ejemplo, apunte/figuras/**/*.py y
+     apunte/portada/gen-portada-tikz.py), y .githooks/
+
+3. Datos de terceros: sus propias condiciones
+   Los datos de terceros NO están cubiertos por ninguna de las dos licencias
+   anteriores y conservan sus propias condiciones. En particular, el recorte
+   del modelo digital de elevación Copernicus DEM GLO-30 (datos/dem_copernicus/
+   y las figuras derivadas del complemento C3 y de la unidad
+   09_cambio_de_base_svd) se usa bajo la Copernicus DEM licence, con la
+   atribución que figura en datos/dem_copernicus/README.md y en el apunte:
+   "© DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018
+   provided under COPERNICUS by the European Union and ESA".
+
+Si una carpeta o un archivo no aparece en esta lista, rige la licencia que
+corresponda a su tipo: CC BY-SA 4.0 para texto, figuras y preguntas; MIT para
+código.
+
+Cómo citar: ver CITATION.cff.
+
+
+======================================================================
+CC BY-SA 4.0 — Atribución-CompartirIgual 4.0 Internacional
+======================================================================
+
+Resumen (texto del resumen oficial que publica Creative Commons en
+https://creativecommons.org/licenses/by-sa/4.0/deed.es):
+
+Usted es libre de:
+  Compartir — copiar y redistribuir el material en cualquier medio o formato
+  para cualquier propósito, incluso comercialmente.
+  Adaptar — remezclar, transformar y construir a partir del material para
+  cualquier propósito, incluso comercialmente.
+  La licenciante no puede revocar estas libertades en tanto usted siga los
+  términos de la licencia.
+
+Bajo los siguientes términos:
+  Atribución — Usted debe dar crédito de manera adecuada, brindar un enlace a
+  la licencia, e indicar si se han realizado cambios. Puede hacerlo en
+  cualquier forma razonable, pero no de forma tal que sugiera que usted o su
+  uso tienen el apoyo de la licenciante.
+  CompartirIgual — Si remezcla, transforma o crea a partir del material, debe
+  distribuir su contribución bajo la misma licencia del original.
+  No hay restricciones adicionales — No puede aplicar términos legales ni
+  medidas tecnológicas que restrinjan legalmente a otras a hacer cualquier
+  uso permitido por la licencia.
+
+Este resumen no es la licencia y no tiene valor legal. El código legal
+completo es el que publica Creative Commons:
+
+  https://creativecommons.org/licenses/by-sa/4.0/legalcode.es
+  (versión en inglés: https://creativecommons.org/licenses/by-sa/4.0/legalcode)
+
+
+======================================================================
+MIT License
+======================================================================
+
+Copyright (c) 2026 Gustavo Varela
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -5,7 +5,7 @@ así que en `marimo edit` / `marimo run` alcanza con `import cb104 as lib`. Para
 módulo no existe en el navegador: `tools/build.py` reemplaza la celda marcada con `# cb104:inline`
 por una que embebe este archivo (ver tools/README.md, "Módulo común y export WASM").
 
-Reglas: sólo numpy (y plotly, importado adentro de las funciones que dibujan). Ángulos en radianes.
+Reglas: solo numpy (y plotly, importado adentro de las funciones que dibujan). Ángulos en radianes.
 Nube de puntos = array N×d, una fila por punto. Paleta del apunte: teal, rust, gold.
 
 Probar:  uv run python unidades/cb104.py
@@ -611,7 +611,7 @@ def angulo(v, u):
 
 def arco_angulo(fig, u, v, radio=1.0, color="#444", nombre="ángulo", texto=None, n=40):
     """Arco de radio `radio` desde la dirección de u hasta la de v por el camino corto (|θ| ≤ π), con etiqueta
-    opcional en el medio. Devuelve fig. Sólo 2D."""
+    opcional en el medio. Devuelve fig. Solo 2D."""
     import plotly.graph_objects as go
 
     u = np.asarray(u, dtype=float)
@@ -756,7 +756,7 @@ def capa_ejes_propios(fig, A, rango=5):
 
 def cuna2(u, v):
     """Producto cuña en el plano: u ∧ v = u₁v₂ − u₂v₁, el área ORIENTADA del paralelogramo de lados u y v
-    (= det[u v] con u, v como columnas). Positiva si de u a v se gira antihorario; cero si y sólo si son
+    (= det[u v] con u, v como columnas). Positiva si de u a v se gira antihorario; cero si y solo si son
     colineales: el "detector de colinealidad"."""
     u = np.asarray(u, dtype=float).reshape(2)
     v = np.asarray(v, dtype=float).reshape(2)
@@ -803,10 +803,10 @@ def plano_3d(fig, u, v, k=1.5, origen=(0, 0, 0), color=GRIS_ANTES, nombre="plano
 
 def nucleo2(A, tol=1e-9):
     """Un vector no nulo del núcleo de una 2×2 singular: la perpendicular (perp2) a la primera fila no nula.
-    Si A = 0 devuelve e₁ (todo el plano es núcleo). Si det A ≠ 0 lanza ValueError: el núcleo es sólo {0}."""
+    Si A = 0 devuelve e₁ (todo el plano es núcleo). Si det A ≠ 0 lanza ValueError: el núcleo es solo {0}."""
     A = np.asarray(A, dtype=float)
     if abs(np.linalg.det(A)) > tol * max(1.0, float(np.abs(A).max()) ** 2):
-        raise ValueError("det A ≠ 0: el núcleo es sólo el vector nulo")
+        raise ValueError("det A ≠ 0: el núcleo es solo el vector nulo")
     normas = np.linalg.norm(A, axis=1)
     if normas.max() < tol:
         return np.array([1.0, 0.0])
@@ -1339,7 +1339,7 @@ def escalas_proyeccion_cilindrica(phi, tipo, elipsoide=_GRS80):
 def defecto_conformidad_jacobiano(J):
     """Cuánto le falta a una jacobiana 2×2 para ser conforme: dict con `sigmas` (σ₁ ≥ σ₂ de la SVD: semiejes de la
     indicatriz de Tissot), `razon` σ₁/σ₂, `def_angular_max_deg` = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)) en grados (0 si y
-    sólo si J es una similaridad, directa o inversa; conforme exige además det J > 0), `parte_conforme` ½[[j₁₁ + j₂₂, j₁₂ − j₂₁], [j₂₁ − j₁₂, j₁₁ + j₂₂]] (la parte de la
+    solo si J es una similaridad, directa o inversa; conforme exige además det J > 0), `parte_conforme` ½[[j₁₁ + j₂₂, j₁₂ − j₂₁], [j₂₁ − j₁₂, j₁₁ + j₂₂]] (la parte de la
     forma [[a, −b], [b, a]] del número complejo, Cauchy-Riemann) y `parte_anticonforme` = J − parte_conforme."""
     J = np.asarray(J, dtype=float).reshape(2, 2)
     s = np.linalg.svd(J, compute_uv=False)
@@ -1554,7 +1554,7 @@ def svd2(A):
 def pseudoinversa(A, tol=1e-10):
     """A⁺ = V Σ⁺ Uᵀ de una matriz m×n: recíprocos de los σ mayores que tol·σ₁ y ceros donde σ = 0. Es `np.linalg.pinv`
     hecha a mano. Si A es cuadrada y ningún σ es cero coincide con A⁻¹; en general A⁺y es la solución de mínimos
-    cuadrados de norma mínima de A x ≈ y (proyecta y sobre la imagen y deshace sólo lo que no se aplastó)."""
+    cuadrados de norma mínima de A x ≈ y (proyecta y sobre la imagen y deshace solo lo que no se aplastó)."""
     A = np.asarray(A, dtype=float)
     U, s, Vt = np.linalg.svd(A, full_matrices=False)
     corte = tol * (s[0] if len(s) and s[0] > 0 else 1.0)
@@ -2129,7 +2129,7 @@ def svm_margen_duro_2d(C1, C2):
 
 HILO_CONDUCTOR: dict[str, dict[str, str]] = {
     "00_fundamentos": {
-        "titulo": "Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)",
+        "titulo": "El idioma de la materia: puntos, flechas, reglas y distancias",
         "venimos_de": (
             "Del CBC: vectores como flechas sueltas, el gradiente como una flecha más, la distancia siempre "
             r"$\sqrt{x^2 + y^2}$ y cada transformación resuelta aparte, sin un idioma común para encadenarlas."
@@ -2211,7 +2211,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
         ),
         "vamos_hacia": (
             r"Con largos y ángulos medibles podemos clasificar lo que los conserva dando vuelta la hoja (espejo, "
-            r"$\det = -1$) y lo que sólo conserva ángulos (similaridad $k\,R$): unidad 03."
+            r"$\det = -1$) y lo que solo conserva ángulos (similaridad $k\,R$): unidad 03."
         ),
         "anterior": "01c_rotaciones_3d",
         "siguiente": "03_reflexiones_similaridades",
@@ -2360,7 +2360,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
     "09_cambio_de_base_svd": {
         "titulo": "Cambio de base, SVD e inversas",
         "venimos_de": (
-            r"La unidad 08 dejó $A = B \Lambda B^{-1}$, que sólo existe con autovectores reales y sobre una base en "
+            r"La unidad 08 dejó $A = B \Lambda B^{-1}$, que solo existe con autovectores reales y sobre una base en "
             "general oblicua."
         ),
         "ladrillo_de_hoy": (
@@ -2947,7 +2947,7 @@ if __name__ == "__main__":
     assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.4) and exacto(_s["margen"], 5 / np.sqrt(2)), "lado (1,0)–(0,1) contra (3,3): x + y = 3.5, ancho 5/√2"
     assert exacto(_s["soporte_1"], [[1, 0], [0, 1]]) and exacto(_s["soporte_2"], [[3, 3]]) and exacto(_s["u"], [1, 1] / np.sqrt(2)), "tres soportes: (1,0), (0,1) y (3,3)"
     _s = svm_margen_duro_2d([[0, 0], [1, 0], [0, 1]], [[3, 0], [4, 0], [3, 1]])
-    assert exacto(_s["w"], [1, 0]) and exacto(_s["b"], -2.0) and exacto(_s["margen"], 2.0) and exacto(_s["soporte_1"], [[1, 0]]), "vértice–vértice (1,0)–(3,0): x = 2, ancho 2 (el lado x + y = 1 da sólo √2)"
+    assert exacto(_s["w"], [1, 0]) and exacto(_s["b"], -2.0) and exacto(_s["margen"], 2.0) and exacto(_s["soporte_1"], [[1, 0]]), "vértice–vértice (1,0)–(3,0): x = 2, ancho 2 (el lado x + y = 1 da solo √2)"
     _nA, _nB = np.array([[0, 0], [2, 0], [0, 2], [0.5, 0.5]], dtype=float), np.array([[4, 3], [6, 3], [4, 5], [5, 6]], dtype=float)
     _s = svm_margen_duro_2d(_nA, _nB)
     assert exacto(_s["w"], [0.4, 0.4]) and exacto(_s["b"], -1.8) and exacto(_s["soporte_1"], [[2, 0], [0, 2]]) and exacto(_s["soporte_2"], [[4, 3]]), "las dos parcelas de 06: x + y = 4.5, soportes (2,0), (0,2), (4,3)"

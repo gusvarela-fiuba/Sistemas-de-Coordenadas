@@ -5,12 +5,14 @@ Entradas (relativas a la raíz del repo):
   mapa/mapa.yaml                        mapa de conceptos (esquema en mapa/ESQUEMA.md)
   clases/*.md                           fichas por capítulo (el id de la ficha es interno; el rótulo usa la numeración del PDF)
   unidades/*.py                         notebooks marimo
+  tools/enlaces_portada.yaml            enlaces de cada unidad de la portada al apunte (principal + hasta dos de apoyo)
   apunte/Apunte_Sistemas_de_Coordenadas.pdf
-  apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: sólo para validar las claves
+  apunte/Apunte_Sistemas_de_Coordenadas.tex y los contenido/*.tex que incluye: solo para validar las claves
                                         `apunte:` (cada clave X es un \\label{cap:X}: "rotaciones", "rot3d", …) y leer su título
 
 Salida:
-  site/index.html                       portada = el hilo conductor: entradas (Empezar / Seguir el programa / Repasar / Autoevaluación)
+  site/index.html                       portada = el hilo conductor: entradas (para-el-docente.html / Empezar / Seguir el programa / Repasar /
+                                        Autoevaluación / las dos de «Para el aula»)
                                         y una entrada por unidad (pregunta, gancho, estado, capítulos, enlaces),
                                         más la última unidad "Lo que viene" con los capítulos sin unidad
   site/mapa.html                        mapa de conceptos (SVG inline) con filtro de ruta y "hasta el capítulo N",
@@ -23,6 +25,7 @@ Salida:
                                         llevan id="capN") y copia de cad/dxf/**/*.dxf (antes del menú, que la enlaza)
   site/menu.html, site/menu.pdf         piezas por capítulo para el aula (tools/menu.py, al final, antes de las menciones prohibidas)
   site/menu-por-capitulo.html           entradas, platos y postres por capítulo, A4 apaisado (tools/menu_por_capitulo/gen.py, después del menú)
+  site/para-el-docente.html             desde PARA_EL_DOCENTE.md; enlaces reescritos para el sitio y verificados (al final, después de los menús)
   site/.nojekyll                        para GitHub Pages
 
 Uso:  uv run tools/build.py [--skip-wasm] [--only <unidad_id>] [--out site]
@@ -353,7 +356,7 @@ _RE_IMPORT_CB104 = re.compile(r"^[ \t]*(?:import cb104\b|from cb104 import\b)", 
 def embeber_modulo_comun(texto: str, archivo: str) -> tuple[str, bool]:
     """Reemplaza la línea `import cb104 as lib  # cb104:inline` por el módulo embebido como literal.
 
-    El export WASM no lleva archivos vecinos: el notebook sólo puede usar `cb104.py` si el código viaja
+    El export WASM no lleva archivos vecinos: el notebook solo puede usar `cb104.py` si el código viaja
     adentro de una celda. Devuelve (texto nuevo, True) si lo reemplazó, (texto, False) si no importa cb104.
     Si importa cb104 sin el marcador, lanza RuntimeError (en el navegador fallaría con ModuleNotFoundError).
     """
@@ -689,6 +692,73 @@ def generar_cad(out: Path) -> list[Path]:
 
 
 # ----------------------------------------------------------------------------
+# página para quien da la materia (PARA_EL_DOCENTE.md → site/para-el-docente.html)
+# ----------------------------------------------------------------------------
+
+SRC_PAGINA_MATERIA = RAIZ / "PARA_EL_DOCENTE.md"
+_RE_URL_PAGES = re.compile(r"https://([^/\s\"]+)\.github\.io/([^/\s\"]+)/")
+_RE_HREF = re.compile(r'href="([^"]*)"')
+# archivos del repo que el sitio publica con otro nombre (el resto de las rutas relativas va al repo en GitHub)
+COPIAS_EN_SITIO = {
+    "apunte/Apunte_Sistemas_de_Coordenadas.pdf": "apunte.pdf",
+    "moodle/moodle_banco_120_preguntas_cb104.xml": "moodle_banco_120_preguntas_cb104.xml",
+}
+
+
+def _href_para_sitio(href: str, repo_github: str) -> str:
+    """Reescribe un enlace del .md (válido en GitHub) para el sitio.
+
+    URL publicada del sitio (cualquier <usuario>.github.io/<repo>/) → ruta relativa del sitio;
+    archivo del repo que el sitio copia → su nombre en el sitio; unidades/<id>.py → unidades/<id>/index.html;
+    otra ruta relativa del repo (p. ej. INSTRUCTIVO_DE_USO.md#…) → el archivo en GitHub.
+    """
+    m = _RE_URL_PAGES.match(href)
+    if m:
+        return href[m.end():] or "index.html"
+    if re.match(r"[a-z]+:|#", href):
+        return href
+    ruta, _, ancla = href.partition("#")
+    ancla = f"#{ancla}" if ancla else ""
+    if ruta in COPIAS_EN_SITIO:
+        return COPIAS_EN_SITIO[ruta] + ancla
+    mu = re.fullmatch(r"unidades/([^/]+)\.py", ruta)
+    if mu:
+        return f"unidades/{mu.group(1)}/index.html{ancla}"
+    tipo = "tree" if (RAIZ / ruta).is_dir() else "blob"
+    return f"{repo_github}/{tipo}/main/{ruta}{ancla}"
+
+
+def generar_pagina_materia(out: Path) -> list[str]:
+    """site/para-el-docente.html desde PARA_EL_DOCENTE.md, con los enlaces reescritos para el sitio.
+
+    Devuelve los enlaces rotos: rutas relativas del sitio que no existen en `out` y rutas del repo que no existen.
+    El repo en GitHub se deduce de la URL del sitio del README (la que reescribe tools/adoptar_para_catedra.py).
+    """
+    if not SRC_PAGINA_MATERIA.exists():
+        return [f"falta {SRC_PAGINA_MATERIA.name}"]
+    texto = SRC_PAGINA_MATERIA.read_text(encoding="utf-8")
+    m = _RE_URL_PAGES.search((RAIZ / "README.md").read_text(encoding="utf-8"))
+    repo_github = f"https://github.com/{m.group(1)}/{m.group(2)}" if m else ""
+    rotos: list[str] = []
+    for href in _RE_HREF.findall(md_a_html(texto)):
+        ruta = href.split("#")[0]
+        if ruta and not _RE_URL_PAGES.match(href) and not re.match(r"[a-z]+:", href) and not (RAIZ / ruta).exists():
+            rotos.append(f"{SRC_PAGINA_MATERIA.name}: {href} (no existe en el repo)")
+    cuerpo = _RE_HREF.sub(lambda h: f'href="{html.escape(_href_para_sitio(html.unescape(h.group(1)), repo_github))}"',
+                          md_a_html(texto))
+    for href in _RE_HREF.findall(cuerpo):
+        ruta = html.unescape(href).split("#")[0]
+        mu = re.fullmatch(r"unidades/([^/]+)/index\.html", ruta)
+        if mu and (RAIZ / "unidades" / f"{mu.group(1)}.py").exists():
+            continue   # con --skip-wasm la unidad puede no estar exportada todavía; alcanza con que exista la fuente
+        if ruta and not re.match(r"[a-z]+:", ruta) and not (out / ruta).exists():
+            rotos.append(f"para-el-docente.html: {href} (no existe en {out.name}/)")
+    (out / "para-el-docente.html").write_text(
+        pagina(titulo_de_md(texto, "Sistemas de Coordenadas"), f'<div class="ficha">\n{cuerpo}\n</div>'), encoding="utf-8")
+    return rotos
+
+
+# ----------------------------------------------------------------------------
 # mapa de conceptos → SVG
 # ----------------------------------------------------------------------------
 
@@ -907,6 +977,121 @@ def prefijos_apunte_de_clase(c: dict, conceptos_por_clase: dict[str, list[dict]]
     return sorted(prefs, key=lambda x: orden.index(x) if x in orden else len(orden))
 
 
+# ----------------------------------------------------------------------------
+# portada: enlaces de cada unidad al apunte (tabla explícita en tools/enlaces_portada.yaml)
+# ----------------------------------------------------------------------------
+
+ENLACES_PORTADA = RAIZ / "tools" / "enlaces_portada.yaml"
+MAX_ENLACES_PORTADA = 3
+RE_ENCABEZADO_CMD = re.compile(r"\\(?:chapter|section|subsection|subsubsection|paragraph|capituloComplemento)\*?(?:\[[^\]]*\])?\{")
+
+
+def _argumento_llaves(texto: str, i: int) -> tuple[str, int]:
+    """Contenido entre la llave que abre en texto[i-1] y su llave de cierre (respeta llaves anidadas)."""
+    nivel, j = 1, i
+    while j < len(texto) and nivel:
+        if texto[j] == "{":
+            nivel += 1
+        elif texto[j] == "}":
+            nivel -= 1
+        j += 1
+    return texto[i:j - 1], j
+
+
+def _titulo_tex_a_texto(t: str) -> str:
+    """Título de encabezado LaTeX → texto plano (\\texorpdfstring{tex}{pdf} → pdf; sin \\( \\))."""
+    while (k := t.find("\\texorpdfstring{")) != -1:
+        _, j = _argumento_llaves(t, k + len("\\texorpdfstring{"))
+        pdf, j2 = _argumento_llaves(t, j + 1) if j < len(t) and t[j] == "{" else ("", j)
+        t = t[:k] + pdf + t[j2:]
+    t = re.sub(r"\\[()]", "", t).replace("$", "").replace("~", " ")
+    return re.sub(r"\s+", " ", t).strip().rstrip(".")
+
+
+def etiquetas_apunte() -> dict[str, dict]:
+    """{'sec:metrica': {'titulo': 'Métrica y primera forma fundamental', 'numero': '10'}, 'cap:esfera': {…}, …}.
+
+    Todas las \\label{…} de los .tex que el maestro incluye; el título es el del encabezado de esa
+    línea (o la etiqueta, si no hay encabezado) y el número, el del capítulo del archivo según
+    apunte/numeracion.json (el primer \\label{cap:…} del archivo).
+    """
+    res: dict[str, dict] = {}
+    if not MAESTRO_APUNTE.exists():
+        return res
+    numeracion = numeracion_apunte() if NUMERACION_JSON.exists() else {}
+    maestro = MAESTRO_APUNTE.read_text(encoding="utf-8")
+    archivos = [MAESTRO_APUNTE] + [MAESTRO_APUNTE.parent / f"{m}.tex"
+                                   for m in re.findall(r"^\\input\{(contenido/[^}]+)\}", maestro, re.M)]
+    for p in archivos:
+        try:
+            texto = p.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        caps = re.findall(r"\\label\{(cap:[^}]+)\}", texto)
+        numero = numeracion.get(caps[0], {}).get("numero", "") if caps and p != MAESTRO_APUNTE else ""
+        for linea in texto.split("\n"):
+            if linea.lstrip().startswith("%"):
+                continue
+            etiquetas = re.findall(r"\\label\{([^}]+)\}", linea)
+            if not etiquetas:
+                continue
+            m = RE_ENCABEZADO_CMD.search(linea)
+            titulo = _titulo_tex_a_texto(_argumento_llaves(linea, m.end())[0]) if m else ""
+            for lab in etiquetas:
+                num = numeracion.get(lab, {}).get("numero", numero) if lab.startswith("cap:") else numero
+                res.setdefault(lab, {"titulo": titulo or lab, "numero": num})
+    return res
+
+
+def enlaces_portada(ruta: Path = ENLACES_PORTADA) -> dict[str, list[str]]:
+    """{'02_producto_interno': ['sec:interno', …], …} de tools/enlaces_portada.yaml (principal primero)."""
+    with open(ruta, encoding="utf-8") as f:
+        crudo = yaml.safe_load(f) or {}
+    return {str(k): [str(x) for x in (v or [])] for k, v in crudo.items()}
+
+
+def validar_enlaces_portada(datos: dict, enlaces: dict[str, list[str]] | None = None,
+                            etiquetas: dict[str, dict] | None = None) -> list[str]:
+    """Errores de la tabla de enlaces de la portada: unidad sin entrada o sin principal, más de
+    MAX_ENLACES_PORTADA, etiquetas repetidas o inexistentes, unidades sobrantes y dos unidades
+    consecutivas (orden de la portada = orden de `unidades:` en el mapa) con la misma lista."""
+    enlaces = enlaces_portada() if enlaces is None else enlaces
+    etiquetas = etiquetas_apunte() if etiquetas is None else etiquetas
+    orden = [str(u["id"]) for u in datos["unidades"]]
+    errores: list[str] = []
+    for uid in orden:
+        lista = enlaces.get(uid)
+        if not lista:
+            errores.append(f"enlaces_portada: la unidad {uid} no tiene enlace principal al apunte")
+            continue
+        if len(lista) > MAX_ENLACES_PORTADA:
+            errores.append(f"enlaces_portada: la unidad {uid} enlaza {len(lista)} secciones (máximo {MAX_ENLACES_PORTADA})")
+        if len(set(lista)) != len(lista):
+            errores.append(f"enlaces_portada: la unidad {uid} repite una etiqueta: {lista}")
+        for lab in lista:
+            if lab not in etiquetas:
+                errores.append(f"enlaces_portada: la unidad {uid} apunta a '{lab}', que no es un \\label del apunte")
+    for uid in enlaces:
+        if uid not in orden:
+            errores.append(f"enlaces_portada: '{uid}' no es una unidad del mapa")
+    for a, b in zip(orden, orden[1:]):
+        if enlaces.get(a) and enlaces.get(a) == enlaces.get(b):
+            errores.append(f"enlaces_portada: las unidades consecutivas {a} y {b} tienen la misma lista de enlaces")
+    return errores
+
+
+def enlace_apunte_etiqueta(lab: str, etiquetas: dict[str, dict], hay_pdf: bool, principal: bool = False) -> str:
+    """Sección del apunte como enlace `apunte.pdf#nameddest=<etiqueta>` («apunte 10 · Métrica y …»)."""
+    e = etiquetas.get(lab, {"titulo": lab, "numero": ""})
+    num = f" {e['numero']}" if e.get("numero") else ""
+    texto = f"apunte{html.escape(num)} · {html.escape(e['titulo'])}"
+    rol = "sección principal" if principal else "sección de apoyo"
+    if hay_pdf:
+        return (f'<span><a href="apunte.pdf#nameddest={html.escape(lab)}" '
+                f'title="apunte, {rol} ({html.escape(lab)})">{texto}</a></span>')
+    return f'<span class="pend">{texto}</span>'
+
+
 JS_MAPA = r"""
 (function () {
   var svg = document.querySelector('.mapa svg');
@@ -960,7 +1145,7 @@ def generar_mapa(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_
 
     partes.append("<h2>Mapa de conceptos</h2>")
     opciones = "".join(
-        f'<option value="{v}">{t}</option>' for v, t in (("todo", "todo"), ("troncal", "sólo troncal"))
+        f'<option value="{v}">{t}</option>' for v, t in (("todo", "todo"), ("troncal", "solo troncal"))
     )
     partes.append(
         '<div class="controles">'
@@ -1020,9 +1205,39 @@ PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agr
        "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
 
 
+# Pie común de condiciones de uso: una línea en todas las páginas HTML que genera el build (también menu.html y
+# menu-por-capitulo.html, que escriben tools/menu.py y tools/menu_por_capitulo/gen.py), salvo las apps marimo de
+# site/unidades/ (pantalla completa, frontend del wheel) y las redirecciones. apunte/scripts/prohibidas.py admite
+# esta frase exacta (FRASE_CC); si cambia acá, cambiarla también allá y en la página legal del PDF.
+URL_CC = "https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas/blob/main/LICENSE"
+FRASE_CC = "Texto, figuras y preguntas: CC BY-SA 4.0. Código: MIT. Ver LICENSE."
+PIE_CC = (f'<p class="pie" style="font-size:.85rem;color:#666"><a href="{URL_CC}">{FRASE_CC}</a></p>')
+
+
+def agregar_pie_cc(out: Path) -> int:
+    """Inserta PIE_CC antes de </main> (o de </body>) en cada HTML del sitio. Idempotente. Devuelve cuántas tocó."""
+    n = 0
+    for p in sorted(out.rglob("*.html")):
+        rel = p.relative_to(out).parts
+        if rel[0] == "unidades" or "/".join(rel) in REDIRECCIONES:
+            continue
+        texto = p.read_text(encoding="utf-8")
+        if FRASE_CC in texto:
+            continue
+        cierre = "</main>" if "</main>" in texto else "</body>"
+        i = texto.rfind(cierre)
+        if i < 0:
+            continue
+        p.write_text(texto[:i] + PIE_CC + "\n" + texto[i:], encoding="utf-8")
+        n += 1
+    return n
+
+
 def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
     """site/index.html: el hilo conductor. Tres entradas y una entrada por unidad (más "Lo que viene")."""
     titulos_apunte = titulos_secciones_apunte()
+    tabla_enlaces = enlaces_portada()
+    etiquetas = etiquetas_apunte()
     clases = datos["clases"]
     por_id = {c["id"]: c for c in clases}
     conceptos_por_clase: dict[str, list[dict]] = {c["id"]: [] for c in clases}
@@ -1059,6 +1274,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     seguir_sub = f"unidad {n_seguir}: {html.escape(unidades_portada[n_seguir]['titulo'])}"
     partes.append(
         '<nav class="entradas">'
+        '<a class="entrada" href="para-el-docente.html"><b>Para el docente</b><small>qué es, cómo usar una unidad en 20 minutos de aula, qué piezas van solas</small></a>'
         f'<a class="entrada" href="#unidad-0"><b>Empezar</b><small>unidad 0: {html.escape(unidades_portada[0]["titulo"])}</small></a>'
         f'<a class="entrada" href="#unidad-{n_seguir}"><b>Seguir el programa</b><small>{seguir_sub}</small></a>'
         '<a class="entrada" href="mapa.html"><b>Repasar</b><small>el mapa de conceptos completo</small></a>'
@@ -1072,7 +1288,7 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
     partes.append('<ol class="hilo">')
     for i, e in enumerate(unidades_portada, start=0):
         color = TEAL
-        num = "Unidad 0 — Fundamentos" if i == 0 else f"Unidad {i}"
+        num = f"Unidad {i}"
         cab = [f'<span class="num">{num}</span>', f'<span class="tit">{html.escape(e["titulo"])}</span>',
                ]
         if e["nivel"]:
@@ -1097,13 +1313,19 @@ def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], ha
                 links.append(f'<span><a href="unidades/{html.escape(u["id"])}/index.html">abrir la unidad interactiva</a></span>')
             else:
                 links.append('<span class="pend">unidad en preparación</span>')
-        prefs: list[str] = []
-        for c in e["clases"]:
-            for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
-                if pr not in prefs:
-                    prefs.append(pr)
-        for pr in sorted(prefs):
-            links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
+        if u is not None:
+            # tabla explícita (tools/enlaces_portada.yaml): principal + a lo sumo dos de apoyo, en ese orden
+            for j, lab in enumerate(tabla_enlaces.get(u["id"], [])):
+                links.append(enlace_apunte_etiqueta(lab, etiquetas, hay_pdf, principal=(j == 0)))
+        else:
+            # «Lo que viene»: clases sin unidad, los capítulos que declaran en el mapa
+            prefs: list[str] = []
+            for c in e["clases"]:
+                for pr in prefijos_apunte_de_clase(c, conceptos_por_clase):
+                    if pr not in prefs:
+                        prefs.append(pr)
+            for pr in prefs:
+                links.append(enlace_apunte(pr, titulos_apunte, hay_pdf))
         if links:
             cuerpo.append(f'<div class="links">{"".join(links)}</div>')
         partes.append(f'<li class="unidad" id="unidad-{i}" style="--c:{color}">{"".join(cuerpo)}</li>')
@@ -1553,7 +1775,7 @@ __NAV__
       var acc = el("div", "acc");
       acc.appendChild(botonBorrar(reg, function () { estado.evaluacion = null; vistaEvaluacion(); }));
       app.appendChild(acc);
-      app.appendChild(el("p", "aviso", "El registro vive sólo en este navegador; si lo borramos, empezamos de cero."));
+      app.appendChild(el("p", "aviso", "El registro vive solo en este navegador; si lo borramos, empezamos de cero."));
       return;
     }
     var st = estado.evaluacion;
@@ -1712,7 +1934,7 @@ def generar_redirecciones(out: Path) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Genera el sitio estático en site/ a partir de mapa/mapa.yaml.")
     ap.add_argument("--skip-wasm", action="store_true", help="no exporta las unidades marimo (deja lo que ya haya en site/unidades/)")
-    ap.add_argument("--only", metavar="UNIDAD_ID", help="exporta sólo esa unidad (el resto del sitio se genera igual)")
+    ap.add_argument("--only", metavar="UNIDAD_ID", help="exporta solo esa unidad (el resto del sitio se genera igual)")
     ap.add_argument("--out", default="site", help="directorio de salida (default: site, relativo a la raíz del repo)")
     ap.add_argument("--mapa", default=str(MAPA), help=argparse.SUPPRESS)
     args = ap.parse_args()
@@ -1732,6 +1954,9 @@ def main() -> int:
         errores_fichas = validar_fichas(datos)
         if errores_fichas:
             raise ErrorMapa("\n".join(errores_fichas))
+        errores_portada = validar_enlaces_portada(datos)
+        if errores_portada:
+            raise ErrorMapa("\n".join(errores_portada))
     except ErrorMapa as e:
         print(f"ERROR en mapa.yaml:\n{e}", file=sys.stderr)
         return 1
@@ -1834,10 +2059,21 @@ def main() -> int:
     if menu_por_capitulo.main(["--site", str(out)]) != 0:
         print("ERROR: tools/menu_por_capitulo/gen.py falló (enlace roto en menu-por-capitulo.html)", file=sys.stderr)
         return 1
+    print("== página para quien da la materia")
+    _rotos = generar_pagina_materia(out)
+    for _r in _rotos:
+        print(f"  enlace roto: {_r}", file=sys.stderr)
+    if _rotos:
+        print("ERROR: enlaces rotos en para-el-docente.html", file=sys.stderr)
+        return 1
+    print(f"  {out / 'para-el-docente.html'}")
+    print("== pie común")
+    print(f"  {agregar_pie_cc(out)} páginas con la línea de condiciones de uso")
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
     import prohibidas
-    _proh = prohibidas.revisar_archivos(prohibidas.archivos_site(out), out)
+    # arbol=False: el sitio es artefacto publicado, mismas reglas que `prohibidas.py --dir site`.
+    _proh = prohibidas.revisar_archivos(prohibidas.archivos_site(out), out, False)
     for _r, _n, _l in _proh:
         print(f"  {_r}:{_n}: {_l[:200]}")
     if _proh:

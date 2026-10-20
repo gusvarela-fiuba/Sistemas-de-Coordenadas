@@ -3,10 +3,10 @@
 
 Uso (desde la raíz del repo):
   uv run python apunte/scripts/prohibidas.py [--dir RUTA | --site RUTA] [--solo-arbol | --solo-site]
-  --dir RUTA revisa SÓLO ese directorio (artefacto publicado), sin el árbol git, e incluye el
+  --dir RUTA revisa SOLO ese directorio (artefacto publicado), sin el árbol git, e incluye el
   texto de los *.pdf vía `pdftotext -layout` (requerido; si falta, falla).
 Imprime `ruta:línea: texto` por cada coincidencia fuera de EXCEPCIONES.
-Regla «guía»: «guía resuelta»/«la guía» sólo se admiten en .md de la raíz, mapa/ y docs/ (árbol git);
+Regla «guía»: «guía resuelta»/«la guía» solo se admiten en .md de la raíz, mapa/ y docs/ (árbol git);
   nunca en apunte/, unidades/, tools/, clases/ ni en el sitio/PDF (--dir).
 Exit 1 si hay alguna. Solo biblioteca estándar.
 """
@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 PATRON = re.compile(r"profesor|docente|clavijo|resumen de clase|cursada|en clase|dictad|palabras del|pizarr|campus|anticipad|pendiente de validar|validación pendiente|2C2026|transcripci|procedencia|CC-BY|CC BY|padr[oó]n|56798|donaci|licencia|cátedra|alumno de|Dropbox|/Users/|esqueleto|sesi[oó]n|gu[ií]a resuelta|(?:la|las) gu[ií]as?|Ejercicios\.pdf|afinidad\.pdf|facsimil|enunciados originales|se reproduce|resúmenes de clase|CEIA|\bclases?\b(?!/)", re.I)
 
-# Regla (no por archivo): «guía resuelta» / «la guía» sólo se admiten en archivos .md de documentación del repo
+# Regla (no por archivo): «guía resuelta» / «la guía» solo se admiten en archivos .md de documentación del repo
 # que NO van al PDF ni al sitio: los .md de la raíz y los de mapa/ y docs/. NUNCA en apunte/, unidades/, tools/,
 # clases/ (las fichas clases/*.md se convierten a HTML y van al sitio) ni en el sitio/PDF (--dir).
 GUIA = re.compile(r"gu[ií]a resuelta|(?:la|las) gu[ií]as?", re.I)
@@ -26,17 +26,32 @@ DIRS_GUIA_OK = ("mapa", "docs")
 
 # (ruta relativa a la raíz, None = todo el archivo | fragmento literal que debe estar en la línea)
 EXCEPCIONES = [
-    # Ahí se declara la donación y las condiciones de uso; sólo vive en el repo.
+    # Ahí se declara la donación y las condiciones de uso; solo vive en el repo.
     ("NOTA_DE_DONACION.md", None),
     # Sección «Cómo citar»: enlace a la nota de donación.
     ("README.md", "NOTA_DE_DONACION.md"),
     # Licencia de un dato externo (Copernicus DEM).
     ("datos/dem_copernicus/README.md", "Licencia: Copernicus DEM licence"),
-    # Herramienta para que otro curso adopte el material: la palabra es su propósito (sólo árbol, no va al sitio).
+    # Herramienta para que otro curso adopte el material: la palabra es su propósito (solo árbol, no va al sitio).
     ("tools/adoptar_para_catedra.py", None),
     # El patrón mismo.
     ("apunte/scripts/prohibidas.py", None),
+    # Archivos de condiciones de uso pedidos por el editor (2026-10): el texto de las dos licencias y la cita.
+    ("LICENSE", None),
+    ("CITATION.cff", None),
 ]
+
+# Línea única de condiciones de uso, visible en el pie del sitio y en la página legal del PDF. Se admite SÓLO esta frase
+# literal, SÓLO en los archivos de FRASE_CC_ARBOL (árbol git) o en el sitio/PDF (--dir), y SÓLO si sacándola de la línea
+# no queda otra coincidencia del patrón. Cualquier otra mención (suelta, parafraseada o en otro archivo) sigue prohibida.
+FRASE_CC = "Texto, figuras y preguntas: CC BY-SA 4.0. Código: MIT. Ver LICENSE."
+FRASE_CC_ARBOL = {"tools/build.py", "apunte/Apunte_Sistemas_de_Coordenadas.tex"}
+
+
+def _frase_cc_ok(ruta_rel, linea, arbol):
+    if FRASE_CC not in linea or (arbol and ruta_rel not in FRASE_CC_ARBOL):
+        return False
+    return not PATRON.search(linea.replace(FRASE_CC, ""))
 
 EXT_SITE = {".html", ".md", ".xml", ".js", ".py", ".txt", ".yaml", ".yml", ".json", ".css"}
 
@@ -75,11 +90,28 @@ def _guia_ok(ruta_rel, linea):
     return all(GUIA.fullmatch(m.group(0)) for m in PATRON.finditer(linea))
 
 
+# Nombre de la página para quien da la materia (pedido del editor): el archivo PARA_EL_DOCENTE.md, la página
+# para-el-docente.html (y su id de encabezado) y su título «Para el docente» (encabezado `# `, <title>, <h1>,
+# texto del enlace de la portada, y ese rótulo en negrita donde el instructivo describe la portada).
+# Se quitan sólo esos literales (sensibles a mayúsculas); el resto de la línea y el contenido se siguen revisando.
+NOMBRE_PAGINA_DOCENTE = re.compile(r"PARA_EL_DOCENTE\.md|para-el-docente(?:\.html)?|^# Para el docente$|>Para el docente<|\*\*Para el docente\.\*\*")
+
+
+def _nombre_pagina_ok(linea):
+    """True si la línea sólo coincide con el patrón por el nombre del archivo o el título de esa página."""
+    resto = NOMBRE_PAGINA_DOCENTE.sub("", linea.strip())
+    return resto != linea.strip() and not PATRON.search(resto)
+
+
 def permitida(ruta_rel, linea, arbol=True):
     ruta_rel = str(ruta_rel)
+    if _nombre_pagina_ok(linea):
+        return True
     if arbol and _guia_ok(ruta_rel, linea):
         return True
     if arbol and _clase_esquema_ok(ruta_rel, linea):
+        return True
+    if _frase_cc_ok(ruta_rel, linea, arbol):
         return True
     for r, frag in EXCEPCIONES:
         if r == ruta_rel and (frag is None or frag in linea):
@@ -163,8 +195,8 @@ def revisar_pdfs(pdfs, site):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Regla «guía»: «guía resuelta»/«la guía» sólo admitidas en .md de la raíz, mapa/ y docs/ (no en apunte/, unidades/, tools/, clases/, site/ ni PDF). Sin opciones: árbol git + site/. "
-                                 "Con --dir/--site RUTA: sólo ese directorio (más PDF), sin el árbol git.")
+    ap = argparse.ArgumentParser(description="Búsqueda de menciones prohibidas. Regla «guía»: «guía resuelta»/«la guía» solo admitidas en .md de la raíz, mapa/ y docs/ (no en apunte/, unidades/, tools/, clases/, site/ ni PDF). Sin opciones: árbol git + site/. "
+                                 "Con --dir/--site RUTA: solo ese directorio (más PDF), sin el árbol git.")
     ap.add_argument("--dir", "--site", dest="dir", default=None, metavar="RUTA",
                     help="directorio a revisar (artefacto publicado); al pasarlo NO se revisa el árbol git "
                          "salvo que se agregue --con-arbol. --site es alias.")

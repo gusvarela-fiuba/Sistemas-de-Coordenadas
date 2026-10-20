@@ -104,11 +104,11 @@ def _(lib, mo, np):
 def _(mo, prediccion):
     _respuestas = {
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
-        "correcta": ("success", r"**Sí.** $(2, 1.333)$ es el cruce de las diagonales de la foto, $y = \tfrac{2}{3}x$ con $y = -\tfrac{2}{3}(x - 4)$. "
+        "correcta": ("success", r"**Sí.** $(2;\ 1{,}333)$ es el cruce de las diagonales de la foto, $y = \tfrac{2}{3}x$ con $y = -\tfrac{2}{3}(x - 4)$. "
                      r"El centro quedó **más arriba que la mitad** de la altura del trapecio, hacia el lado lejano: la mitad lejana del lote "
-                     r"se achica en la foto y ocupa menos alto, así que el centro sube. En la sección 3 sale de la cuenta $H\,(2, 2, 1)^T = (3, 2, 1.5)^T$ y la división por $1.5$."),
-        "sin-dividir": ("warn", r"**No.** $(3, 2)$ son las dos primeras coordenadas de $H\,(2, 2, 1)^T = (3, 2, 1.5)^T$ **sin dividir por la "
-                        r"tercera**. En homogéneas el punto es el rayo entero: hay que volver al plano $W = 1$ dividiendo por $1.5$, y queda $(2, 1.333)$."),
+                     r"se achica en la foto y ocupa menos alto, así que el centro sube. En la sección 3 sale de la cuenta $H\,(2, 2, 1)^T = (3;\ 2;\ 1{,}5)^T$ y la división por $1{,}5$."),
+        "sin-dividir": ("warn", r"**No.** $(3, 2)$ son las dos primeras coordenadas de $H\,(2, 2, 1)^T = (3;\ 2;\ 1{,}5)^T$ **sin dividir por la "
+                        r"tercera**. En homogéneas el punto es el rayo entero: hay que volver al plano $W = 1$ dividiendo por $1{,}5$, y queda $(2;\ 1{,}333)$."),
         "afin": ("warn", r"**No.** $(2, 1)$ es el promedio de las cuatro esquinas de la foto, lo que haría una **afinidad** (punto medio al punto "
                  r"medio). Pero una afinidad conserva paralelas, y en la foto los lados $x = 0$ y $x = 4$ ya no lo son: no está sobre las diagonales."),
         "mismas": ("warn", r"**No.** $(2, 2)$ es el centro en el **terreno**. Preguntamos dónde aparece en la **foto**, donde las esquinas de arriba ya "
@@ -158,15 +158,15 @@ def _(lib, mo, np):
     _d = np.array([1.0, 0.5, 0.0])  # un rayo paralelo al plano: el punto impropio de la dirección (1, 0.5)
     fig_rayos = lib.figura_espacio((-0.5, 3.2), "el plano W = 1 y dos rayos: uno lo corta, el otro es paralelo", ancho=520, alto=460)
     lib.plano_3d(fig_rayos, [1, 0, 0], [0, 1, 0], k=1.6, origen=[1.3, 1.3, 1.0], color=lib.GRIS_ANTES, nombre="plano W = 1")
-    lib.flecha_3d(fig_rayos, [0, 0, 0], 2.0 * _p, lib.VIOLETA_OBJETO, "rayo de (1.5, 1): cualquier λ(1.5, 1, 1)")
-    lib.flecha_3d(fig_rayos, [0, 0, 0], 2.5 * _d, lib.COLORES[1], "rayo (1, 0.5, 0): nunca llega al plano", ancho=5)
+    lib.flecha_3d(fig_rayos, [0, 0, 0], 2.0 * _p, lib.VIOLETA_OBJETO, "rayo de (1,5; 1): cualquier λ(1,5; 1; 1)")
+    lib.flecha_3d(fig_rayos, [0, 0, 0], 2.5 * _d, lib.COLORES[1], "rayo (1; 0,5; 0): nunca llega al plano", ancho=5)
     fig_rayos.add_trace(dict(type="scatter3d", x=[_p[0]], y=[_p[1]], z=[_p[2]], mode="markers+text", text=["(1.5, 1, 1)"],
                              marker=dict(size=6, color=lib.VIOLETA_OBJETO), name="donde corta a W = 1"))
     mo.hstack([
         mo.md(r"""
-        **Lo que muestra la figura.** El rayo violeta corta al plano gris en $(1.5, 1, 1)$: ese corte es el punto
-        $(1.5, 1)$, y $(3, 2, 2)$ es **el mismo punto**. El rayo rust, $(1, 0.5, 0)$, corre paralelo al plano y no lo
-        corta nunca: es el punto impropio de la dirección $(1, 0.5)$, donde se encuentran todas las rectas paralelas a
+        **Lo que muestra la figura.** El rayo violeta corta al plano gris en $(1{,}5;\ 1;\ 1)$: ese corte es el punto
+        $(1{,}5;\ 1)$, y $(3, 2, 2)$ es **el mismo punto**. El rayo rust, $(1;\ 0{,}5;\ 0)$, corre paralelo al plano y no lo
+        corta nunca: es el punto impropio de la dirección $(1;\ 0{,}5)$, donde se encuentran todas las rectas paralelas a
         ella. Una $3\times3$ puede girar un rayo paralelo hasta que corte al plano (un punto de fuga aparece en la
         foto) y, al revés, mandar un rayo que cortaba a uno paralelo (una recta propia se va al infinito).
         """),
@@ -194,9 +194,9 @@ def _(H_foto, lib, mo, np):
         "afinidad: la misma A, última fila (0 0 1)": ("fijo", H_afin, parcela, 6, 1,
                                                      r"el corte de la foto sin la fila 3: las paralelas **siguen paralelas**, las columnas 1 y 2 siguen impropias (flechas)."),
         "foto de dron: cámara inclinada (k)": ("inclinacion", (-0.4, 0.4, 0.05, 0.25), parcela, 6, 1,
-                                              r"$h_{32} = k$: las rectas $x = $ cte convergen al punto de fuga (columna 2, ×); con $k = 0.25$ es la foto de la sección 0. Con $k < 0$ la recta $y = -1/k$ atraviesa la parcela y la imagen **se parte**."),
+                                              r"$h_{32} = k$: las rectas $x = $ cte convergen al punto de fuga (columna 2, ×); con $k = 0{,}25$ es la foto de la sección 0. Con $k < 0$ la recta $y = -1/k$ atraviesa la parcela y la imagen **se parte**."),
         "pentágono: A y B fijos, C ↔ E": ("fijo", H_pent, pent, 2, 0.5,
-                                                      r"$D$ **cae en el centro** $(0, 0)$. $W$ es negativa en $A$ y $B$ y positiva en $C$, $D$, $E$: la recta $4y + 1 = 0$ cruza el pentágono y la imagen se parte. Es una homología armónica: eje $AB$, centro $(0, 0.309)$, $H^2 \sim I$."),
+                                                      r"$D$ **cae en el centro** $(0, 0)$. $W$ es negativa en $A$ y $B$ y positiva en $C$, $D$, $E$: la recta $4y + 1 = 0$ cruza el pentágono y la imagen se parte. Es una homología armónica: eje $AB$, centro $(0;\ 0{,}309)$, $H^2 \sim I$."),
     }
     caso = mo.ui.dropdown(options=list(casos), value="foto de dron: cámara inclinada (k)", label="caso precargado")
     mo.md(r"""
@@ -304,8 +304,8 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
         mo.hstack([
             mo.md(r"""
             **3.1 Un $\lambda$ por punto (la planilla).** Pentágono regular centrado, $D = (0, 1)$ y los
-            demás vértices por giros de $72°$: $A = (0.588, -0.809)$, $B = (-0.588, -0.809)$, $C = (-0.951, 0.309)$,
-            $E = (0.951, 0.309)$. Queremos $H$ con $A$ y $B$ fijos y $C \leftrightarrow E$. Como $Hp$ es el punto **a
+            demás vértices por giros de $72°$: $A = (0{,}588;\ -0{,}809)$, $B = (-0{,}588;\ -0{,}809)$, $C = (-0{,}951;\ 0{,}309)$,
+            $E = (0{,}951;\ 0{,}309)$. Queremos $H$ con $A$ y $B$ fijos y $C \leftrightarrow E$. Como $Hp$ es el punto **a
             menos de escala**, cada par da tres ecuaciones con una incógnita más:
 
             $$H\begin{pmatrix} a_x \\ a_y \\ 1 \end{pmatrix} = \lambda_A \begin{pmatrix} a_x \\ a_y \\ 1 \end{pmatrix},\quad
@@ -317,7 +317,7 @@ def _(H_pent, lam_pent, lib, mo, np, pent):
             $$H = \begin{pmatrix} \textcolor{#1b6f6a}{-\sqrt5} & \textcolor{#b5451b}{0} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{-1} & \textcolor{#c9a227}{1} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{4} & \textcolor{#c9a227}{1} \end{pmatrix},\qquad
             \lambda = (-\sqrt5,\ -\sqrt5,\ \sqrt5,\ \sqrt5).$$
 
-            Control: $H\vec A = (-\sqrt5\,a_x,\ -a_y + 1,\ 4a_y + 1) = (-1.314,\ 1.809,\ -2.236) = -\sqrt5\,\vec A$ ✓.
+            Control: $H\vec A = (-\sqrt5\,a_x,\ -a_y + 1,\ 4a_y + 1) = (-1{,}314;\ 1{,}809;\ -2{,}236) = -\sqrt5\,\vec A$ ✓.
             El quinto: $H\vec D = (0,\ -1 + 1,\ 4 + 1) = (0, 0, 5)$, o sea $D' = (0, 0)$: **el centro**. Los $\lambda$
             negativos de $A$ y $B$ dicen que la recta $4y + 1 = 0$ pasa entre $AB$ y $CE$: la imagen se parte.
             """),
@@ -355,10 +355,10 @@ def _(H_foto, foto, lib, mo, np, terr):
         $(4,4) \mapsto (3,2)$: $4h_{22} = 2(1 + 4h_{31} + 4h_{32})$, que con la anterior da $h_{31} = 0$, luego $h_{11} = 1$,
         y $4 + 4h_{12} = 3(1 + 4h_{32})$ da $h_{32} = \tfrac14$, $h_{12} = \tfrac12$, $h_{22} = 1$:
 
-        $$H = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0.5} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{0.25} & \textcolor{#c9a227}{1} \end{pmatrix}.$$
+        $$H = \begin{pmatrix} \textcolor{#1b6f6a}{1} & \textcolor{#b5451b}{0{,}5} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{1} & \textcolor{#c9a227}{0} \\ \textcolor{#1b6f6a}{0} & \textcolor{#b5451b}{0{,}25} & \textcolor{#c9a227}{1} \end{pmatrix}.$$
 
-        Fila 3: la recta $0.25y + 1 = 0$, $y = -4$, se va al infinito: está abajo del lote, la foto sale entera.
-        Columna 2: el punto impropio de las rectas $x = $ cte va a $(0.5, 1, 0.25) \sim (2, 4)$, el punto de fuga.
+        Fila 3: la recta $0{,}25y + 1 = 0$, $y = -4$, se va al infinito: está abajo del lote, la foto sale entera.
+        Columna 2: el punto impropio de las rectas $x = $ cte va a $(0{,}5;\ 1;\ 0{,}25) \sim (2, 4)$, el punto de fuga.
         **Rectificar** es aplicar $H^{-1}$ a lo que leemos en la foto.
         """),
         mo.vstack([
@@ -409,23 +409,23 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
         $H(1, 0, 0)^T = (1, 0, 0)^T$: la columna 1; sigue impropio, así que las rectas $y = $ cte siguen **paralelas** en la
-        foto (la cámara se inclinó sólo hacia adelante). $H(0, 1, 0)^T = (0.5, 1, 0.25)^T \sim (2, 4)$: la columna 2, un
+        foto (la cámara se inclinó solo hacia adelante). $H(0, 1, 0)^T = (0{,}5;\ 1;\ 0{,}25)^T \sim (2, 4)$: la columna 2, un
         punto propio. Todas las rectas $x = $ cte, que en el terreno son paralelas, en la foto **se cruzan en $(2, 4)$**: el
         punto de fuga. Está arriba del lote, por eso el trapecio se angosta hacia arriba.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *Pregunta guía: ¿dónde cae el vértice restante? ¿tiene punto fijo?* Con la $H$ del pentágono,
         verificá que $B$ queda fijo, calculá $H^2$ y decí qué significa. Sobre la recta $x = 0$ están $D = (0, 1)$,
-        su imagen $D' = (0, 0)$, el centro $O = (0, 0.309)$ y el corte con el eje $AB$, $X = (0, -0.809)$: calculá la razón
+        su imagen $D' = (0, 0)$, el centro $O = (0;\ 0{,}309)$ y el corte con el eje $AB$, $X = (0;\ -0{,}809)$: calculá la razón
         doble $(D, D'; O, X)$ con la coordenada $y$.
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
-        $H\vec B = (-\sqrt5 \cdot (-0.588),\ 0.809 + 1,\ 4 \cdot (-0.809) + 1) = (1.314,\ 1.809,\ -2.236) = -\sqrt5\,\vec B$: fijo ✓.
+        $H\vec B = (-\sqrt5 \cdot (-0{,}588),\ 0{,}809 + 1,\ 4 \cdot (-0{,}809) + 1) = (1{,}314;\ 1{,}809;\ -2{,}236) = -\sqrt5\,\vec B$: fijo ✓.
         $H^2 = \begin{pmatrix} 5 & 0 & 0 \\ 0 & 1 + 4 & -1 + 1 \\ 0 & -4 + 4 & 4 + 1 \end{pmatrix} = 5I$: aplicarla dos veces
         es la identidad, un **espejo proyectivo** (homología armónica) con eje $AB$ y centro $O$. Razón doble:
-        $\dfrac{(0.309 - 1)(-0.809 - 0)}{(0.309 - 0)(-0.809 - 1)} = \dfrac{0.559}{-0.559} = -1$: cuaterna armónica, el
+        $\dfrac{(0{,}309 - 1)(-0{,}809 - 0)}{(0{,}309 - 0)(-0{,}809 - 1)} = \dfrac{0{,}559}{-0{,}559} = -1$: cuaterna armónica, el
         centro es el conjugado armónico del corte con el eje respecto de $D$ y $D'$. El punto medio entre $O$ y $X$,
-        $y = -0.25$, es justo la recta que se va al infinito.
+        $y = -0{,}25$, es justo la recta que se va al infinito.
         """)}),
     ])
     return
@@ -485,7 +485,7 @@ def _(mo):
         mo.md(r"""
         **(d) Código con hueco — avanzado: rectificar la foto** *Idea central: cuatro mojones de coordenadas conocidas la
         rectifican.* Cuatro mojones tienen coordenadas conocidas en el terreno, `terr4`, y los leemos en la foto, `foto4`.
-        Un pozo sólo lo tenemos en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
+        Un pozo solo lo tenemos en la foto, `foto5`. Hallá la homografía **de la foto al terreno** y ubicá el pozo. Tenés
         `np`, `hom`, `dehom`, `homografia_4puntos(origen, destino)`, `aplicar_proyectiva(nube, H)` y los tres arrays.
         """),
         editor_d,

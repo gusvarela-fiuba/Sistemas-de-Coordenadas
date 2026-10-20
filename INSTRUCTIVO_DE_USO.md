@@ -24,15 +24,19 @@ Todo corre en el navegador; no hace falta instalar nada ni tener cuenta en ning�
 
 La dirección va con mayúsculas en `Sistemas-de-Coordenadas`; escrita en minúsculas da 404.
 
-### Los tres botones de arriba de la portada
+### Las siete entradas de arriba de la portada
 
-La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de capítulo y a las secciones del apunte. Arriba de todo hay tres entradas:
+La portada es el hilo conductor: las 20 unidades en orden, cada una con su pregunta de campo, su gancho de agrimensura, los enlaces a la lección, a las fichas de capítulo y a las secciones del apunte. Arriba de todo hay siete entradas:
 
-- **Empezar.** Lleva a la Unidad 0 (Fundamentos), el punto de partida del recorrido. Es la entrada para quien arranca la materia o quiere ponerse el idioma antes de empezar.
-- **Seguir el recorrido.** Lleva a la unidad correspondiente al avance del curso, con la indicación de a qué unidad apunta.
-- **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), con el selector **Ruta** (`todo` / `sólo troncal`) y el deslizador **hasta el capítulo N**, que atenúa los conceptos y las flechas posteriores al capítulo elegido. Debajo del mapa está la lista de capítulos con etiquetas y enlaces.
+- **Para el docente.** Abre `para-el-docente.html` (la versión del sitio de [`PARA_EL_DOCENTE.md`](PARA_EL_DOCENTE.md)): una pantalla con qué es el material, cómo usar una unidad en 20 minutos de aula, qué piezas se usan solas, qué es optativo y cómo se adopta.
+- **Empezar.** Lleva a la Unidad 0 (El idioma de la materia), el punto de partida del recorrido. Es la entrada para quien arranca la materia o quiere ponerse el idioma antes de empezar.
+- **Seguir el programa.** Lleva a la unidad correspondiente al avance del curso, con la indicación de a qué unidad apunta.
+- **Repasar.** Abre el mapa de conceptos completo (`mapa.html`), con el selector **Ruta** (`todo` / `solo troncal`) y el deslizador **hasta el capítulo N**, que atenúa los conceptos y las flechas posteriores al capítulo elegido. Debajo del mapa está la lista de capítulos con etiquetas y enlaces.
+- **Autoevaluación (120 preguntas).** Abre `autoevaluacion.html`, con los tres modos: práctica, simulacro y evaluación (Parte 5).
+- **Para el aula: qué hay para cada capítulo.** Abre `menu.html`: las piezas de cada capítulo, con duración y estado; también en PDF (`menu.pdf`).
+- **Para el aula: entradas, platos y postres por capítulo.** Abre `menu-por-capitulo.html`: un menú por capítulo en A4 apaisado, para imprimir.
 
-Más abajo en la portada está el "Recorrido paso a paso" con las 20 unidades; cada una se abre desde ahí.
+Más abajo en la portada está el «Recorrido paso a paso» con las 20 unidades; cada una se abre desde ahí.
 
 ### Cómo usar una unidad (proyectada en el aula o estudiando en casa)
 
@@ -40,14 +44,14 @@ Cada lección se abre en `https://gusvarela-fiuba.github.io/Sistemas-de-Coordena
 
 Todas las unidades siguen el mismo molde de seis secciones, siempre de lo conceptual y geométrico al cálculo. Los nombres son fijos (los de `unidades/PLANTILLA_leccion.py`):
 
-0. **Situación de campo y predicción.** Un problema concreto de agrimensura y una predicción sin cuentas, en opción múltiple. Conviene detenerse acá: en el aula, pedir que cada uno elija antes de seguir; en casa, elegir en serio antes de mirar la respuesta. Cada opción incorrecta explica el error concreto que la produce, no dice sólo "incorrecto".
+0. **Situación de campo y predicción.** Un problema concreto de agrimensura y una predicción sin cuentas, en opción múltiple. Conviene detenerse acá: en el aula, pedir que cada uno elija antes de seguir; en casa, elegir en serio antes de mirar la respuesta. Cada opción incorrecta explica el error concreto que la produce, no dice solo “incorrecto”.
 1. **Hecho geométrico.** Qué se conserva y qué cambia, antes de cualquier fórmula, con la escalera R → R² → R³ en una tabla. Es la parte para leer en voz alta con el proyector.
-2. **Manipulación.** La figura interactiva de tres capas: la grilla de antes (gris), la grilla después de la transformación (teal) y un objeto reconocible (una parcela, un cubo). Arriba del deslizador hay casos precargados (identidad, 90°, un ángulo cualquiera y los contraejemplos: reflexión, corte, determinante cero); al lado, los "números vivos" (área con signo, determinante) y la matriz actual con cada columna pintada del color de la flecha que representa en la figura. El botón de reproducir anima el camino desde la identidad hasta la transformación elegida.
+2. **Manipulación.** La figura interactiva de tres capas: la grilla de antes (gris), la grilla después de la transformación (teal) y un objeto reconocible (una parcela, un cubo). Arriba del deslizador hay casos precargados (identidad, 90°, un ángulo cualquiera y los contraejemplos: reflexión, corte, determinante cero); al lado, los “números vivos” (área con signo, determinante) y la matriz actual con cada columna pintada del color de la flecha que representa en la figura. El botón de reproducir anima el camino desde la identidad hasta la transformación elegida.
 3. **Cuenta a mano y código lado a lado.** La misma cuenta en lápiz (LaTeX con las columnas coloreadas) y en NumPy, una al lado de la otra. El código que se muestra es el mismo que corre en la celda.
 4. **Python de hoy.** Una sola idea nueva de Python por unidad, aplicada al problema de campo, con el `shape` de los arrays y un ejemplo chico.
-5. **Ejercicios.** Dos de lápiz, con la respuesta escondida en un desplegable "Ver respuesta", y dos de código con hueco: se completan los `...` en un editor en vivo y una celda de abajo verifica el resultado contra la referencia con `np.allclose`, mostrando si coincide, si la forma del array está mal o si todavía no corre. Cada ejercicio lleva un nivel (elemental / medio / avanzado).
+5. **Ejercicios.** Dos de lápiz, con la respuesta escondida en un desplegable «Ver respuesta», y dos de código con hueco: se completan los `...` en un editor en vivo y una celda de abajo verifica el resultado contra la referencia con `np.allclose`, mostrando si coincide, si la forma del array está mal o si todavía no corre. Cada ejercicio lleva un nivel (elemental / medio / avanzado).
 
-Al cierre, el anexo **"Dónde está la demostración"** enlaza las secciones del apunte PDF que respaldan la unidad, más la ficha del capítulo, el hilo conductor y las unidades anterior y siguiente. Lo interactivo muestra; las demostraciones son las del apunte.
+Al cierre, el anexo **«Dónde está la demostración»** enlaza las secciones del apunte PDF que respaldan la unidad, más la ficha del capítulo, el hilo conductor y las unidades anterior y siguiente. Lo interactivo muestra; las demostraciones son las del apunte.
 
 En las lecciones publicadas no se pueden editar las celdas del notebook (corren en modo aplicación); lo editable son los controles y los editores de los ejercicios. Para editar la lección entera hay que clonar el repositorio (Parte 3).
 
@@ -55,30 +59,30 @@ En las lecciones publicadas no se pueden editar las celdas del notebook (corren 
 
 ### Por qué arranca en la Unidad 0
 
-La Unidad 0 (Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica) es encuadre complementario del curso. Resuelve un problema concreto: la materia usa desde el primer día un idioma que el CBC no da, y sin ese idioma cada transformación se aprende aparte, sin manera de encadenarlas. Son cinco ladrillos, en orden deductivo (cada uno usa sólo los anteriores), y cada uno está escrito con la definición, lo que significa en el campo y cómo se escribe en NumPy:
+La Unidad 0 (El idioma de la materia: puntos, flechas, reglas y distancias; cuerpos, grupos, formas lineales y métrica) es encuadre complementario del curso. Resuelve un problema concreto: la materia usa desde el primer día un idioma que el CBC no da, y sin ese idioma cada transformación se aprende aparte, sin manera de encadenarlas. Son cinco ladrillos, en orden deductivo (cada uno usa solo los anteriores), y cada uno está escrito con la definición, lo que significa en el campo y cómo se escribe en NumPy:
 
-1. **Conjuntos, operaciones y grupos.** Las transformaciones forman un grupo: componer es la operación, no hacer nada es el neutro, deshacer es la inversa. Los giros de la estación total son el ejemplo; en el plano conmutan, en 3D no.
+1. **Conjuntos, operaciones y grupos.** Las transformaciones forman un grupo: componer es la operación, no hacer nada es el neutro, deshacer es la inversa. Los giros del instrumento que mide ángulos son el ejemplo; en el plano conmutan, en 3D no.
 2. **Los cuerpos R y C.** Los escalares de la materia. Un real escala la recta; multiplicar por un complejo ya es rotar y escalar a la vez: las matrices 2×2 de la forma `[[a, -b], [b, a]]` son C con otro ropaje.
 3. **Espacio afín (mojones) y espacio vectorial (nace al plantar un origen).** El terreno es afín: hay mojones, no flechas. Al plantar la estación en un mojón y declararlo origen nace el espacio vectorial, y desde ahí **todo vector es un punto** (un mojón visto desde el origen) o un desplazamiento entre dos.
-4. **El espacio dual V\*: una fila es una forma lineal.** Una fila no es un "vector fila": es una regla graduada que lee vectores. Las formas lineales se arrastran con la inversa de la transformación, al revés que los puntos, y el gradiente vive ahí: **el gradiente es una forma lineal, no un vector**.
+4. **El espacio dual V\*: una fila es una forma lineal.** Una fila no es un “vector fila”: es una regla graduada que lee vectores. Las formas lineales se arrastran con la inversa de la transformación, al revés que los puntos, y el gradiente vive ahí: **el gradiente es una forma lineal, no un vector**.
 5. **Producto interno y métrica G: la cinta métrica.** Vectores y formas solos no tienen largos ni ángulos; la métrica es un dato extra, el único puente entre V y V\*. En la base canónica G = I; sobre una superficie, G es la primera forma fundamental y cambia de punto a punto.
 
 La situación de campo de la Unidad 0 es una loma con curvas de nivel: calcular hacia dónde sube más empinado tratando al gradiente como flecha da mal cuando la grilla no es cuadrada, y eso muestra por qué el gradiente es una regla y no una flecha.
 
 ### Cómo se apoya cada bloque en el anterior
 
-Cada unidad declara de qué ladrillo viene y hacia cuál va (es el diccionario `HILO_CONDUCTOR` de `unidades/cb104.py`, que la propia lección muestra al principio como "venimos de / vamos hacia"). Resumido, el edificio es este:
+Cada unidad declara de qué ladrillo viene y hacia cuál va (es el diccionario `HILO_CONDUCTOR` de `unidades/cb104.py`, que la propia lección muestra al principio como «venimos de / vamos hacia»). Resumido, el edificio es este:
 
 - **Unidad 0 → Rotaciones (unidades 1 a 3).** Con el idioma puesto, la primera transformación del grupo: la rotación. Primero la pasiva (giran los ejes, el mojón se queda quieto, unidad 1); después la activa como matriz ortogonal de determinante +1 cuyas columnas dicen adónde van los ejes, y el mismo giro como número complejo (unidad 2); después los tres ejes de R³, donde el orden importa y toda composición es un solo giro alrededor de un eje (unidad 3).
 - **Rotaciones → Producto interno (unidad 4).** Lo que la rotación conserva, largos y ángulos, es una cuenta uᵀv; para medir desde las coordenadas hay que aislar esa cuenta.
-- **Producto interno → Reflexiones y similaridades (unidad 5).** Con largos y ángulos medibles se clasifica lo que los conserva dando vuelta la hoja (reflexión, determinante −1) y lo que sólo conserva ángulos (similaridad: rotar, escalar y trasladar, con su centro fijo).
+- **Producto interno → Reflexiones y similaridades (unidad 5).** Con largos y ángulos medibles se clasifica lo que los conserva dando vuelta la hoja (reflexión, determinante −1) y lo que solo conserva ángulos (similaridad: rotar, escalar y trasladar, con su centro fijo).
 - **Similaridades → Afinidades y homogéneas (unidad 6).** Si cada eje se estira distinto se pierden los ángulos, y la traslación sigue sumada afuera de la matriz; meterla adentro pide una matriz 3×3 sobre coordenadas homogéneas: componer es multiplicar y el área se multiplica por el determinante.
 - **Afinidades → Proyectivas (unidad 7).** La fila (0 0 1) es lo que mantiene las paralelas; al liberarla, las paralelas se cruzan como en una foto y hacen falta cuatro puntos: la homografía, la recta al infinito y la razón doble.
 - **Proyectivas → Formas lineales (unidad 8).** Las rectas se transforman con la inversa transpuesta, al revés que los puntos; para entender eso hace falta el dual: la forma lineal como regla graduada y la regla arrastrada para que la lectura no cambie.
 - **Formas lineales → Cuña y determinante (unidad 9) → Núcleo y autovectores (unidad 10) → Autovalores en 3D y puntos fijos (unidad 11).** La recta por dos puntos salió de un producto cruz sin nombre: la cuña y el determinante como área o volumen orientado, cero exactamente cuando hay colinealidad. Cuando el determinante da cero una dirección entera va al cero (el núcleo), y restando λI aparecen las direcciones que no giran (los autovectores). En R³ el polinomio es cúbico y siempre tiene una raíz real: el eje de una rotación y los puntos fijos de una homografía.
 - **Autovectores → Cambio de base y diagonalización (unidad 12).** Con los autovectores como ejes nuevos la matriz se vuelve diagonal: la matriz de cambio de base (columnas = ejes nuevos) y la transformación vista en la grilla nueva.
 - **Diagonalización → SVD e inversas (unidad 13).** La grilla propia no siempre existe (un giro no tiene ejes propios reales); con dos grillas ortogonales, una a la entrada y otra a la salida, siempre existe: la SVD, la inversa y la pseudoinversa con sus cuatro subespacios.
-- **SVD → Jacobiano y primera forma fundamental (unidad 14).** El terreno no es una matriz fija sino una transformación lineal que cambia de punto a punto: el jacobiano 3×2 de una superficie y la primera forma fundamental G = JᵀJ, con la que el largo de un paso se mide sólo con los números de la grilla.
+- **SVD → Jacobiano y primera forma fundamental (unidad 14).** El terreno no es una matriz fija sino una transformación lineal que cambia de punto a punto: el jacobiano 3×2 de una superficie y la primera forma fundamental G = JᵀJ, con la que el largo de un paso se mide solo con los números de la grilla.
 - **Primera forma → Cuatro problemas (unidad 15).** La tabla JᵀJ de productos internos de las columnas reaparece como AᵀA en las ecuaciones normales: con más mediciones que incógnitas, la solución deja el residuo perpendicular a las columnas. Cuatro veces: recta de ajuste, punto por distancias, Procrustes y regresión total.
 - **Cuatro problemas → Curvatura (unidad 16).** La regresión total termina en una forma cuadrática cuyas direcciones propias son extremos; sobre una superficie esa misma estructura mide cuánto se aparta del plano tangente: la segunda forma fundamental, las curvaturas principales como autovalores y la curvatura de Gauss.
 - **Curvatura → Elipsoide GRS80 (unidad 17).** Una superficie concreta donde todo sale de una sola simetría: los radios de curvatura M y N, las tres latitudes y el paso de (latitud, longitud, altura) a cartesianas.
@@ -127,9 +131,9 @@ uv sync
 
 ### Paso 4 — Abrir, probar y modificar una lección Marimo sin romper el repositorio
 
-Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_fundamentos`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` ("Cómo agregar una lección en 5 pasos").
+Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_fundamentos`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` («Cómo agregar una lección en 5 pasos»).
 
-**1. Modo proyección, sólo uso (`marimo run`).** No toca el archivo:
+**1. Modo proyección, solo uso (`marimo run`).** No toca el archivo:
 
 ```
 uv run marimo run unidades/08_cambio_de_base.py
@@ -144,13 +148,13 @@ cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py
 uv run marimo edit unidades/_ensayo_08.py
 ```
 
-Se abre marimo con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Como la copia queda en `unidades/`, encuentra el módulo común `cb104.py`; y como no figura en `mapa/_fragmentos/unidades.yaml`, `tools/build.py` nunca la exporta ni rompe el sitio (el build sólo exporta las unidades listadas ahí; no recorre la carpeta). El guion bajo es la convención para reconocer a simple vista que es un borrador. Conviene no commitearlo, o borrarlo al terminar.
+Se abre marimo con la lección completa, celdas incluidas: se puede cambiar el texto, los números de la situación de campo, los casos precargados o los ejercicios, y ver el efecto al momento. Como la copia queda en `unidades/`, encuentra el módulo común `cb104.py`; y como no figura en `mapa/_fragmentos/unidades.yaml`, `tools/build.py` nunca la exporta ni rompe el sitio (el build solo exporta las unidades listadas ahí; no recorre la carpeta). El guion bajo es la convención para reconocer a simple vista que es un borrador. Conviene no commitearlo, o borrarlo al terminar.
 
 **3. Editar una unidad original sin romper la exportación a WebAssembly.** Si se edita directamente `unidades/08_cambio_de_base.py` (con `uv run marimo edit unidades/08_cambio_de_base.py`), hay tres reglas de oro:
 
 1. No borrar el encabezado `# /// script … # ///` del principio del archivo ni el comentario `# cb104:inline` de la celda `import cb104 as lib  # cb104:inline`: el build los usa para declarar las dependencias e inyectar la biblioteca `cb104.py` dentro de la lección exportada.
-2. Las variables que se usan sólo dentro de una celda llevan guion bajo (`_fig`, `_panel`, `_res`). Marimo exige nombres únicos entre celdas y, así, no chocan con las de otras.
-3. Antes de dar por bueno un cambio, correr el chequeo; si da 0 avisos (no imprime nada), exportar sólo esa unidad para probar que sigue andando:
+2. Las variables que se usan solo dentro de una celda llevan guion bajo (`_fig`, `_panel`, `_res`). Marimo exige nombres únicos entre celdas y, así, no chocan con las de otras.
+3. Antes de dar por bueno un cambio, correr el chequeo; si da 0 avisos (no imprime nada), exportar solo esa unidad para probar que sigue andando:
 
 ```
 uv run marimo check --select MW unidades/08_cambio_de_base.py
@@ -168,7 +172,7 @@ Descarta los cambios locales de ese archivo y restaura la versión del repositor
 **Resumen de los cuatro comandos:**
 
 ```
-uv run marimo run unidades/08_cambio_de_base.py                          # sólo usar: abre la lección sin mostrar el código y sin tocar el archivo
+uv run marimo run unidades/08_cambio_de_base.py                          # solo usar: abre la lección sin mostrar el código y sin tocar el archivo
 cp unidades/08_cambio_de_base.py unidades/_ensayo_08.py && uv run marimo edit unidades/_ensayo_08.py   # borrador seguro: se edita la copia
 uv run marimo check --select MW unidades/08_cambio_de_base.py            # revisa la unidad editada (0 avisos = bien) y después: uv run python tools/build.py --only 08_cambio_de_base
 git checkout -- unidades/08_cambio_de_base.py                            # botón de pánico: descarta los cambios locales de ese archivo
@@ -186,7 +190,7 @@ y abrir http://localhost:8765/ en el navegador. El primer comando genera la port
 Dos atajos de `tools/build.py` (detalle en `tools/README.md`):
 
 - `uv run python tools/build.py --skip-wasm` regenera portada, mapa, fichas y apunte sin volver a exportar las lecciones (deja lo que ya haya en `site/unidades/`).
-- `uv run python tools/build.py --only 08_cambio_de_base` exporta sólo esa lección; el resto del sitio se regenera igual.
+- `uv run python tools/build.py --only 08_cambio_de_base` exporta solo esa lección; el resto del sitio se regenera igual.
 
 ### El apunte PDF
 
@@ -196,7 +200,7 @@ El apunte (`apunte/Apunte_Sistemas_de_Coordenadas.pdf`) ya viene compilado y com
 lualatex Apunte_Sistemas_de_Coordenadas.tex
 ```
 
-tres pasadas (índice, número total de páginas y referencias cruzadas). Sólo `lualatex`; `xelatex` falla por fuentes. El detalle está en `apunte/README.md`.
+tres pasadas (índice, número total de páginas y referencias cruzadas). Solo `lualatex`; `xelatex` falla por fuentes. El detalle está en `apunte/README.md`.
 
 Para dejar el PDF regenerado listo para commitear conviene `scripts/compilar_pdf.sh` desde la raíz: compila en un directorio temporal y reemplaza el PDF (y `apunte/paginas_esperadas.txt`) solo si la compilación salió entera.
 
@@ -216,7 +220,7 @@ El repositorio está pensado para que otra persona o equipo lo tome, lo publique
 
 ### Paso 1 — Fork o clon bajo la cuenta nueva
 
-La vía más simple es el **fork** desde GitHub (botón "Fork" en https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas): el repositorio queda en `https://github.com/<usuario>/Sistemas-de-Coordenadas`, donde `<usuario>` es la cuenta que va a publicar el sitio. Después se clona ese fork como en la Parte 3 (`git clone https://github.com/<usuario>/Sistemas-de-Coordenadas.git`, `uv sync`).
+La vía más simple es el **fork** desde GitHub (botón «Fork» en https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas): el repositorio queda en `https://github.com/<usuario>/Sistemas-de-Coordenadas`, donde `<usuario>` es la cuenta que va a publicar el sitio. Después se clona ese fork como en la Parte 3 (`git clone https://github.com/<usuario>/Sistemas-de-Coordenadas.git`, `uv sync`).
 
 La alternativa es clonar el original, crear un repositorio vacío en la cuenta nueva y cambiar el `origin` con `git remote set-url origin https://github.com/<usuario>/Sistemas-de-Coordenadas.git`.
 
@@ -267,7 +271,7 @@ git commit -m "Adopción: firma y URL del sitio"
 git push
 ```
 
-Una vez por repositorio, en GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. A partir de ahí, cada push a `main` dispara el workflow `.github/workflows/pages.yml`, que instala las dependencias con `uv sync --frozen`, verifica que el mapa de conceptos commiteado coincida con sus fragmentos, corre `marimo check` sobre las lecciones, genera el sitio con `tools/build.py` y lo despliega. El sitio queda en `https://<usuario>.github.io/Sistemas-de-Coordenadas/` en unos minutos; el progreso se sigue en la pestaña "Actions" del repositorio. En los pull requests el mismo workflow corre sólo el build, como verificación.
+Una vez por repositorio, en GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. A partir de ahí, cada push a `main` dispara el workflow `.github/workflows/pages.yml`, que instala las dependencias con `uv sync --frozen`, verifica que el mapa de conceptos commiteado coincida con sus fragmentos, corre `marimo check` sobre las lecciones, genera el sitio con `tools/build.py` y lo despliega. El sitio queda en `https://<usuario>.github.io/Sistemas-de-Coordenadas/` en unos minutos; el progreso se sigue en la pestaña «Actions» del repositorio. En los pull requests el mismo workflow corre solo el build, como verificación.
 
 ## Parte 5 — Autoevaluación y banco de preguntas para Moodle
 
@@ -275,11 +279,11 @@ Una vez por repositorio, en GitHub: **Settings → Pages → Build and deploymen
 
 Armamos un banco de 120 preguntas de opción múltiple: seis por unidad, dos elementales, dos medias y dos avanzadas. Cada pregunta tiene cuatro opciones, una sola correcta, y una explicación para cada opción. Las preguntas aparecen en dos lugares: dentro de cada unidad, al final de los ejercicios, y en una página propia, `autoevaluacion.html` (https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/autoevaluacion.html), que tiene tres modos:
 
-- **Práctica.** Elegimos una unidad (o todas) y un nivel (o todos). Al marcar una opción vemos de inmediato si acertamos y por qué; si fallamos, también cuál era la correcta. El botón "Mezclar" vuelve a barajar preguntas y opciones. No guarda nada.
-- **Simulacro.** Veinte preguntas, una por unidad y en el orden de las unidades, con el nivel sorteado. No hay devolución hasta "Entregar"; entonces vemos el puntaje total, el puntaje por nivel y la corrección completa con explicaciones. "Nuevo simulacro" sortea otro. No guarda nada.
+- **Práctica.** Elegimos una unidad (o todas) y un nivel (o todos). Al marcar una opción vemos de inmediato si acertamos y por qué; si fallamos, también cuál era la correcta. El botón «Mezclar» vuelve a barajar preguntas y opciones. No guarda nada.
+- **Simulacro.** Veinte preguntas, una por unidad y en el orden de las unidades, con el nivel sorteado. No hay devolución hasta «Entregar»; entonces vemos el puntaje total, el puntaje por nivel y la corrección completa con explicaciones. «Nuevo simulacro» sortea otro. No guarda nada.
 - **Evaluación (4 intentos).** Treinta preguntas: una por unidad más diez al azar. Al entregar vemos el puntaje y qué unidades acertamos, sin explicaciones. Cada intento se anota (fecha, puntaje y nivel de cada pregunta) y se pueden hacer cuatro; al agotarlos queda el historial, la mejor nota y un botón para borrarlo (pide un segundo clic para confirmar). También se puede descargar el resultado como archivo de texto.
 
-El registro de la evaluación vive sólo en el navegador de cada alumno (`localStorage`, clave `cb104_evaluacion`): no se envía a ningún servidor, no lo ve nadie más y se pierde si se borran los datos del sitio o se cambia de navegador o de computadora. Por eso el botón "Descargar resultado" es la forma de dejar constancia.
+El registro de la evaluación vive solo en el navegador de cada alumno (`localStorage`, clave `cb104_evaluacion`): no se envía a ningún servidor, no lo ve nadie más y se pierde si se borran los datos del sitio o se cambia de navegador o de computadora. Por eso el botón «Descargar resultado» es la forma de dejar constancia.
 
 ### Cómo importar el banco en Moodle
 

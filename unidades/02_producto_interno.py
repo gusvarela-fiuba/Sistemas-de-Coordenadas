@@ -92,15 +92,15 @@ def _(mo, prediccion):
         None: ("neutral", "Elegí una opción antes de seguir: la predicción vale más que la respuesta."),
         "correcta": ("success",
                      r"**Sí.** Coordenada por coordenada y sumamos: $4\cdot4 + (-3)\cdot3 = 7$; dividido por el largo de $BA$, "
-                     r"$7/5 = 1.4$ m. Esa cuenta es el **producto interno**, y de ella sale también el ángulo: "
-                     r"$\cos\hat B = 7/(5\cdot5) = 0.28$, $\hat B \approx 73.7°$. La sección 2 lo muestra como sombra."),
+                     r"$7/5 = 1{,}4$ m. Esa cuenta es el **producto interno**, y de ella sale también el ángulo: "
+                     r"$\cos\hat B = 7/(5\cdot5) = 0{,}28$, $\hat B \approx 73{,}7°$. La sección 2 lo muestra como sombra."),
         "distancia": ("warn",
-                      r"**No.** $5$ m es el largo **entero** de $BC$; sobre $BA$ cae sólo su sombra, más corta salvo que los dos "
+                      r"**No.** $5$ m es el largo **entero** de $BC$; sobre $BA$ cae solo su sombra, más corta salvo que los dos "
                       r"apunten igual. Confundiste proyección con distancia: la proyección es la distancia **por el coseno**."),
         "seno": ("warn",
-                 r"**No.** $4.8 = 5\sin\hat B$ es la parte de $BC$ **perpendicular** a $BA$: lo que queda afuera de la "
-                 r"sombra, no la sombra. La sombra va con el coseno: $5\cos\hat B = 1.4$. Pitágoras lo cierra: "
-                 r"$1.4^2 + 4.8^2 = 25 = 5^2$."),
+                 r"**No.** $4{,}8 = 5\sin\hat B$ es la parte de $BC$ **perpendicular** a $BA$: lo que queda afuera de la "
+                 r"sombra, no la sombra. La sombra va con el coseno: $5\cos\hat B = 1{,}4$. Pitágoras lo cierra: "
+                 r"$1{,}4^2 + 4{,}8^2 = 25 = 5^2$."),
         "sumar": ("warn",
                   r"**No.** $4 + (-3) = 1$ suma las coordenadas de $BC$, y eso no mide nada: cambia si giramos los ejes aunque el "
                   r"mojón no se mueva (lección I). La cuenta que mide multiplica coordenada **con** coordenada del otro vector y "
@@ -131,7 +131,7 @@ def _(mo):
     |---|---|---|
     | $\mathbb R$ | $\langle v, u\rangle = v\,u$, dos números multiplicados | el signo dice si apuntan para el mismo lado; $v\,v = \lvert v\rvert^2$ |
     | $\mathbb R^2$ | $x_1x_2 + y_1y_2$ | la sombra de $v$ sobre $u$, por el largo de $u$ |
-    | $\mathbb R^3$ | $x_1x_2 + y_1y_2 + z_1z_2$ | la misma sombra; la fórmula sólo suma un término |
+    | $\mathbb R^3$ | $x_1x_2 + y_1y_2 + z_1z_2$ | la misma sombra; la fórmula solo suma un término |
     | $\mathbb R^n$ | $\sum_i x_i y_i$ | la fórmula no se entera de la dimensión |
 
     **Cuatro consecuencias, cuatro líneas:**
@@ -141,7 +141,7 @@ def _(mo):
     - ángulo: $\cos\theta = \dfrac{\langle v, u\rangle}{|v|\,|u|}$;
     - perpendiculares $\iff \langle v, u\rangle = 0$ (sombra nula).
 
-    Y la idea de fondo: **no hay base privilegiada salvo por el producto interno**. La canónica es especial sólo
+    Y la idea de fondo: **no hay base privilegiada salvo por el producto interno**. La canónica es especial solo
     porque sobre ella la cuenta $\sum x_i y_i$ mide de verdad, y eso pasa porque sus ejes son perpendiculares y de largo
     $1$. Conservar esa cuenta es conservar regla y transportador: es lo que define a una rotación (Rotaciones II).
     """)
@@ -172,7 +172,7 @@ def _(mo, np):
 
 @app.cell
 def _(caso, casos, mo):
-    # los deslizadores sólo mandan en "a mano"; en los casos precargados quedan deshabilitados
+    # los deslizadores solo mandan en "a mano"; en los casos precargados quedan deshabilitados
     a_mano = casos[caso.value][0] == "mano"
     phi = mo.ui.slider(-180, 180, value=60, step=1, label="θ (°): ángulo de v respecto de u", show_value=True, disabled=not a_mano)
     largo = mo.ui.slider(0.5, 6, value=4.0, step=0.5, label="|v|", show_value=True, disabled=not a_mano)
@@ -240,8 +240,8 @@ def _(BA, BC, lib, mo, np):
 
             $$\langle v, u\rangle = \textcolor{#b5451b}{4}\cdot\textcolor{#1b6f6a}{4} + \textcolor{#b5451b}{(-3)}\cdot\textcolor{#1b6f6a}{3} = 16 - 9 = 7$$
             $$|u| = \sqrt{16 + 9} = 5, \qquad |v| = \sqrt{16 + 9} = 5$$
-            $$\cos\hat B = \frac{7}{5\cdot5} = 0.28, \qquad \hat B = \arccos 0.28 \approx 73.74°$$
-            $$\text{sombra} = \frac{7}{5} = 1.4, \qquad \text{proyección} = \frac{7}{25}\,(4, 3) = (1.12,\ 0.84)$$
+            $$\cos\hat B = \frac{7}{5\cdot5} = 0{,}28, \qquad \hat B = \arccos 0{,}28 \approx 73{,}74°$$
+            $$\text{sombra} = \frac{7}{5} = 1{,}4, \qquad \text{proyección} = \frac{7}{25}\,(4, 3) = (1{,}12;\ 0{,}84)$$
 
             Control por la ley del coseno: $|AC|^2 = |BA|^2 + |BC|^2 - 2\langle BA, BC\rangle = 25 + 25 - 14 = 36$, y en
             efecto $AC = C - A = (0, -6)$ mide $6$.
@@ -267,7 +267,7 @@ def _(BA, BC, mo, np):
 
         `v @ u` es el producto interno, `np.linalg.norm(v)` el largo, y el ángulo es
         `np.arccos(np.clip(v @ u / (norm(v) * norm(u)), -1, 1))`: el `clip` está porque con paralelos el cociente puede
-        dar $1.0000000000000002$ y `arccos` devuelve `nan`. La idea nueva: con los vectores como filas de un array
+        dar `1.0000000000000002` y `arccos` devuelve `nan`. La idea nueva: con los vectores como filas de un array
         $N\times2$, **`V @ V.T` es la tabla de todos los productos internos de una vez**, largos al cuadrado en la
         diagonal y productos cruzados afuera: largos y ángulos del conjunto en una matriz. En la fase de superficies
         esa tabla vuelve con nombre propio: $E$, $F$, $G$.
@@ -290,8 +290,8 @@ def _(mo):
         $w = (4, -3)$ es perpendicular a $u$, y cuánto vale la sombra de $(6, 2)$ sobre $u$.
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
-        $|u| = \sqrt{9 + 16} = 5$; el unitario es $u/5 = (0.6, 0.8)$. $\langle w, u\rangle = 12 - 12 = 0$: perpendicular.
-        Sombra de $(6, 2)$: $\langle (6,2), u\rangle / |u| = (18 + 8)/5 = 5.2$.
+        $|u| = \sqrt{9 + 16} = 5$; el unitario es $u/5 = (0{,}6;\ 0{,}8)$. $\langle w, u\rangle = 12 - 12 = 0$: perpendicular.
+        Sombra de $(6, 2)$: $\langle (6,2), u\rangle / |u| = (18 + 8)/5 = 5{,}2$.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *Idea central: hay transformaciones que se definen completamente por qué propiedades de los objetos
@@ -301,7 +301,7 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         $BA = (-3, -4)$, $BC = (4, -3)$: $\langle BA, BC\rangle = -12 + 12 = 0$, así que $\hat B = 90°$ sin medir nada.
-        $AC = C - A = (7, 1)$, $|AC| = \sqrt{50} \approx 7.07$; por la ley del coseno $|AC|^2 = 25 + 25 - 0 = 50$. ✓
+        $AC = C - A = (7, 1)$, $|AC| = \sqrt{50} \approx 7{,}07$; por la ley del coseno $|AC|^2 = 25 + 25 - 0 = 50$. ✓
         Girados $90°$: $BA \mapsto (4, -3)$, $BC \mapsto (3, 4)$, y $12 - 12 = 0$ otra vez. Cambiaron todas las
         coordenadas; el producto interno, no: la rotación conserva regla y transportador.
         """)}),
@@ -341,7 +341,7 @@ def _(editor_c, lib, mo, np):
         if np.allclose(_obtenido, _esperado):
             _res = mo.callout(mo.md("✅ coincide en los 13 pares, incluidos los paralelos (ahí sin `clip` daba `nan`)."), kind="success")
         elif np.isnan(_obtenido).any() and np.allclose(_obtenido[~np.isnan(_obtenido)], _esperado[~np.isnan(_obtenido)]):
-            _res = mo.callout(mo.md("❌ casi: en el par paralelo devolvés `nan`. El cociente dio $1.0000000000000002$ y `arccos` no lo acepta: falta `np.clip(..., -1, 1)`."), kind="warn")
+            _res = mo.callout(mo.md("❌ casi: en el par paralelo devolvés `nan`. El cociente dio `1.0000000000000002` y `arccos` no lo acepta: falta `np.clip(..., -1, 1)`."), kind="warn")
         elif np.allclose(_obtenido, np.radians(_esperado)):
             _res = mo.callout(mo.md("❌ devolvés **radianes**. Falta `np.degrees(...)` al final."), kind="warn")
         elif np.allclose(_obtenido, np.degrees(np.arcsin(np.clip(_cos, -1, 1)))):
@@ -438,7 +438,7 @@ def _(mo):
     En esta unidad demostramos que una sola cuenta da sombra, largo, distancia y ángulo, y que una rotación la deja igual. Las demostraciones:
 
     - [apunte, «Rotaciones» (rotaciones y lo que conservan)](../../apunte.pdf#nameddest=cap:rotaciones)
-    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y "fila por columna")](../../apunte.pdf#nameddest=cap:rotaciones)
+    - [apunte, «Álgebra de las transformaciones» (producto interno como incidencia, formas y «fila por columna»)](../../apunte.pdf#nameddest=cap:rotaciones)
     - [ficha del capítulo 1](../../capitulos/01.html) · [unidad anterior: Rotaciones III](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** reflexiones y similaridades (unidad 03): las ortogonales con $\det = -1$ y la escala, que conserva

@@ -25,7 +25,7 @@ Una forma lineal es una regla graduada: sus marcas son rectas paralelas, y al de
 
 Álgebra: un conjunto con suma y producto por escalar que respetan linealidad.
 Se ve: flechas que se encadenan (paralelogramo) y se estiran; el cero queda quieto. Escalera:
-$\mathbb{R}$ es un espacio vectorial donde todo es "multiplicar por un número"; $\mathbb{R}^2$
+$\mathbb{R}$ es un espacio vectorial donde todo es «multiplicar por un número»; $\mathbb{R}^2$
 agrega direcciones; $\mathbb{R}^n$ no agrega nada nuevo salvo que ya no se dibuja. Vocabulario de la
 materia: los vectores son puntos, y en homogéneas los puntos del plano son vectores de
 $\mathbb{R}^3$.
@@ -53,8 +53,8 @@ está en su marca cero.
 Álgebra: las formas forman un espacio vectorial del mismo tamaño (el dual); fila por
 columna es un número; al transformar el plano con $A$ los vectores van con $A$ (columna, a la
 izquierda) y las formas con $A^{-1}$ (fila, a la derecha) para que $\varphi(v)$ no cambie; o bien
-"qué regla mide lo mismo sobre el $v$ original": $(\varphi A)(v)=\varphi(Av)$. Se ve: si deformo la
-figura, la regla que la mide se deforma *con* ella, y por eso sus coeficientes cambian "al revés".
+«qué regla mide lo mismo sobre el $v$ original»: $(\varphi A)(v)=\varphi(Av)$. Se ve: si deformo la
+figura, la regla que la mide se deforma *con* ella, y por eso sus coeficientes cambian «al revés».
 Sin producto interno, una forma y un vector son objetos distintos; el producto interno es lo que
 permite disfrazar la forma $(2,3)$ de vector $(2,3)$ (no hay base privilegiada salvo por el
 producto interno). En proyectivas, intercambiar puntos y rectas es la dualidad.
@@ -80,7 +80,7 @@ tangente a la curva de nivel (ir a lo chico para volver a lo grande).
 
 ## Unidades interactivas
 
-- Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia) (`00_fundamentos`)
+- El idioma de la materia: puntos, flechas, reglas y distancias (`00_fundamentos`)
 - Formas lineales y dualidad (`06_formas_lineales`)
 
 ## Animaciones

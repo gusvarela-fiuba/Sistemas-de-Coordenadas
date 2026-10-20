@@ -119,7 +119,7 @@ def _(mo, prediccion):
         "afinidad": ("warn",
                      r"**No es la mejor.** Con tres mojones y la receta de la unidad 04 sale una afinidad que pasa exacto por los tres, "
                      r"pero cualquier error de lectura entra como un estiramiento distinto en cada eje, que el plano no tiene. Si los "
-                     r"ángulos se conservan hay sólo cuatro incógnitas: dos mojones, y el tercero controla."),
+                     r"ángulos se conservan hay solo cuatro incógnitas: dos mojones, y el tercero controla."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -140,7 +140,7 @@ def _(mo):
     **La similaridad conserva la forma, no el tamaño.** Gira $\theta$, multiplica **todas** las longitudes por un mismo
     $k$ y corre $t$: $S(x) = k\,R(\theta)\,x + t$. Conserva ángulos y **razones** de distancias; el área va $\times k^2$.
     Si $k \neq 1$ tiene un único punto quieto, el **centro** $c$, solución de $(I - A)\,c = t$; con el origen en $c$ es
-    sólo girar y escalar (apunte, «Composición afín práctica: rotación y escala»). Con $\theta = 0$ es una **homotecia**: todo se agranda desde el centro, sobre rayos.
+    solo girar y escalar (apunte, «Composición afín práctica: rotación y escala»). Con $\theta = 0$ es una **homotecia**: todo se agranda desde el centro, sobre rayos.
 
     | | reflexión | similaridad |
     |---|---|---|
@@ -158,7 +158,7 @@ def _(mo):
     | rotación (01b) | sí | sí | sí | sí | sí | $\times 1$ |
     | reflexión | sí | sí | **no** | sí | sí | $\times (-1)$ |
     | similaridad | **no** | sí | sí (directa) | sí | sí | $\times k^2$ |
-    | afinidad (04) | no | **no** | según $\det$ | sólo sobre cada recta | sí | $\times \det A$ |
+    | afinidad (04) | no | **no** | según $\det$ | solo sobre cada recta | sí | $\times \det A$ |
     """)
     return
 
@@ -281,8 +281,8 @@ def _(go, lib, mo, n_pasos, np):
     tray_H = lib.trayectoria(0.85 * np.eye(2), [0, 0], p0, _n)
     tray_S = lib.trayectoria(0.85 * lib.rot2(np.deg2rad(30)), [0, 0], p0, _n)
     fig_t = lib.figura_plano(3.6, "trayectorias: rotación, homotecia y similaridad repetidas")
-    for _tr, _col, _nom in ((tray_R, lib.COLORES[0], "R(30°) repetida: círculo"), (tray_H, lib.COLORES[2], "0.85·I repetida: rayo"),
-                            (tray_S, lib.VIOLETA_OBJETO, "0.85·R(30°) repetida: espiral")):
+    for _tr, _col, _nom in ((tray_R, lib.COLORES[0], "R(30°) repetida: círculo"), (tray_H, lib.COLORES[2], "0,85·I repetida: rayo"),
+                            (tray_S, lib.VIOLETA_OBJETO, "0,85·R(30°) repetida: espiral")):
         fig_t.add_trace(go.Scatter(x=_tr[:, 0], y=_tr[:, 1], mode="lines+markers", line=dict(color=_col, width=2), marker=dict(size=6), name=_nom))
     lib.punto(fig_t, p0, "#444", "p", texto="p")
     mo.vstack([
@@ -291,7 +291,7 @@ def _(go, lib, mo, n_pasos, np):
         $p, Ap, A^2p, \dots$, la identifica: la **rotación** lo pasea por una circunferencia, la **homotecia** por un
         rayo, y la **similaridad**, las dos a la vez, por una espiral que se acerca al centro si $k < 1$ y se aleja si
         $k > 1$. Rotación y homotecia con el mismo centro **conmutan**; sus trayectorias, círculos y rayos, son las
-        **líneas coordenadas** polares: cada punto es "cuánto giramos y cuánto escalamos". Las rectas de la grilla, en cambio,
+        **líneas coordenadas** polares: cada punto es «cuánto giramos y cuánto escalamos». Las rectas de la grilla, en cambio,
         siempre van a rectas (la grilla teal de arriba): eso es lo afín.
         """),
         lib.mesa_interactiva(mo, mo.ui.plotly(fig_t), mo.md("**Controles**"), n_pasos,
@@ -392,7 +392,7 @@ def _(mo):
         Con un número: $\det H = -1$ y toda rotación tiene $\det = +1$; no hay $\theta$ con $\cos\theta = 1$ y
         $\cos\theta = -1$ a la vez en la diagonal. Con un dibujo: la parcela recorrida antihorario queda recorrida
         horario (el área con signo cambia de signo), y un giro nunca hace eso. Además un espejo deja quieta una **recta
-        entera**; una rotación distinta de la identidad sólo deja quieto el centro. Para un giro hacen falta **dos** espejos.
+        entera**; una rotación distinta de la identidad solo deja quieto el centro. Para un giro hacen falta **dos** espejos.
         """)}),
         mo.md(r"""
         **(b) Lápiz — medio** *Idea central: el punto $o$ es la intersección de las rectas $A$ y $B$, y es el punto fijo de la
@@ -401,8 +401,8 @@ def _(mo):
         """),
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         $a = 2i$: $\lvert a \rvert = 2$ (todo el doble) y $\arg a = 90°$ (un cuarto de vuelta). El centro cumple
-        $c = 2i\,c + 1$, o sea $c\,(1 - 2i) = 1$, $c = \dfrac{1}{1 - 2i} = \dfrac{1 + 2i}{5} = 0.2 + 0.4i$: el punto
-        $(0.2, 0.4)$. Control: $2i\,(0.2 + 0.4i) + 1 = 0.4i - 0.8 + 1 = 0.2 + 0.4i$. ✓ En matrices es $(I - A)\,c = t$
+        $c = 2i\,c + 1$, o sea $c\,(1 - 2i) = 1$, $c = \dfrac{1}{1 - 2i} = \dfrac{1 + 2i}{5} = 0{,}2 + 0{,}4i$: el punto
+        $(0{,}2;\ 0{,}4)$. Control: $2i\,(0{,}2 + 0{,}4i) + 1 = 0{,}4i - 0{,}8 + 1 = 0{,}2 + 0{,}4i$. ✓ En matrices es $(I - A)\,c = t$
         con $A = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}$, $t = (1, 0)$.
         """)}),
     ])

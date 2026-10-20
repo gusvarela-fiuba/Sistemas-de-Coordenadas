@@ -64,7 +64,7 @@ conceptos:
     nombre: "Diagonalización"
     clase: "08"
     unidad: 08_cambio_de_base
-    hecho_geometrico: "En la grilla de los autovectores la transformación sólo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas."
+    hecho_geometrico: "En la grilla de los autovectores la transformación solo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas."
     que_se_conserva: "Las direcciones propias: cada eje de la grilla cae sobre sí mismo."
     apunte: ["cambio-base"]
     requiere: [autovector, autovalor, cambio-de-base]
@@ -130,7 +130,7 @@ conceptos:
     nombre: "Primera forma fundamental"
     clase: "09"
     unidad: 10_jacobiano_primera_forma
-    hecho_geometrico: "ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando sólo (du,dv); g = JᵀJ y bajo cambio de coordenadas g' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°."
+    hecho_geometrico: "ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando solo (du,dv); g = JᵀJ y bajo cambio de coordenadas g' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°."
     que_se_conserva: "Longitudes y ángulos sobre la superficie, medidos desde las coordenadas."
     apunte: ["derivada"]
     requiere: [jacobiano, producto-interno, superficie-parametrica, cambio-de-base]
@@ -156,7 +156,7 @@ conceptos:
     nombre: "Pseudoinversa de Moore-Penrose"
     clase: "10"
     unidad: 09_cambio_de_base_svd
-    hecho_geometrico: "Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer sólo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0."
+    hecho_geometrico: "Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer solo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0."
     que_se_conserva: "La solución exacta cuando existe; si no, la más cercana, con el residuo perpendicular a la imagen."
     apunte: ["hilo", "inversas"]
     requiere: [inversa, cuatro-subespacios, svd, producto-interno]

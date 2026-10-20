@@ -42,14 +42,9 @@ sección~\ref{sec:ecuaciones-normales}. Cuando es curvo, la perpendicularidad se
 tangente, y la cuenta se resuelve con la SVD (capítulo~\ref{cap:svd}) o linealizando, como en
 el método de Newton (sección~\ref{sec:newton}).
 
-\paragraph{Convenciones del capítulo.} Puntos \(p_i=(x_i,y_i)\), \(i=1,\dots,n\), con
-baricentro \(\bar p=(\bar x,\bar y)\); sumas centradas \(S_{xx}=\sum_i(x_i-\bar x)^2\),
-\(S_{yy}=\sum_i(y_i-\bar y)^2\), \(S_{xy}=\sum_i(x_i-\bar x)(y_i-\bar y)\); \emph{matriz de
-dispersión} \(\Sigma_0=X_0^TX_0=\left(\begin{smallmatrix}S_{xx}&S_{xy}\\S_{xy}&S_{yy}\end{smallmatrix}\right)\),
-con \(X_0\) de \(n\times2\) de filas \(p_i-\bar p\) (una matriz de nube tiene un punto por
-fila); coordenadas \((E,N)\) como en la caja de la sección~\ref{caja:convencion-en}.
-
-En palabras: el baricentro es el promedio de los puntos, su centro de gravedad; \(S_{xx}\) y
+Las letras de una nube de puntos (los puntos \(p_i\), el baricentro \(\bar p\), las sumas
+centradas \(S_{xx}\), \(S_{yy}\), \(S_{xy}\) y la matriz de dispersión \(\Sigma_0\)) están definidas en
+la tabla de la sección~\ref{sec:notacion}. El baricentro es el promedio de los puntos, su centro de gravedad; \(S_{xx}\) y
 \(S_{yy}\) miden cuánto se desparraman las \(x\) y las \(y\) alrededor de su promedio, y
 \(S_{xy}\) dice si las dos coordenadas suben juntas (positiva) o si una baja cuando la otra
 sube (negativa). La matriz de dispersión \(\Sigma_0\) (sigma mayúscula, la letra de las covarianzas; el

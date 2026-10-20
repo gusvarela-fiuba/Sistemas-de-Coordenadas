@@ -46,16 +46,16 @@ def _(mo):
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
-    *Desarrollo complementario del curso, cierre del arco: toma el "puntapié inicial" de la última página del apunte
+    *Desarrollo complementario del curso, cierre del arco: toma el «puntapié inicial» de la última página del apunte
     sobre el elipsoide.*
 
     Cerramos el arco que abrieron las rotaciones. La pregunta: **¿qué tiene que cumplir una transformación para conservar los
     ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?** El gancho: *dos visuales a $90°$
-    medidas con el instrumento siguen a $90°$ en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger,
+    medidas con el instrumento siguen a $90°$ en la hoja solo si la proyección es conforme: Mercator, Gauss-Krüger,
     POSGAR.*
 
     Colores, iguales en la figura y en el álgebra: el **terreno** y su grilla métrica en **gris**; las imágenes por la
-    proyección en <span style="color:#1b6f6a">**teal**</span>; las dos visuales de la estación en
+    proyección en <span style="color:#1b6f6a">**teal**</span>; las dos visuales del instrumento en
     <span style="color:#b5451b">**rust**</span> y <span style="color:#c9a227">**gold**</span>; el círculo de Tissot
     del punto elegido en <span style="color:#7a4e9e">**violeta**</span>. En las matrices, la **primera columna** es
     teal y la **segunda** rust, como en todas las unidades. Grados en los controles, radianes adentro.
@@ -147,7 +147,7 @@ def _(mo):
     **El problema.** La unidad 12 dejó $K = 1/(MN) > 0$ para el elipsoide y el plano tiene $K = 0$. Gauss (*theorema
     egregium*): la curvatura no cambia al doblar sin estirar; entonces **no existe** ninguna transformación del
     elipsoide al plano que conserve todas las distancias, ni siquiera en un entorno chico. Algo hay que sacrificar.
-    Lo que el agrimensor no negocia es el **ángulo**: la estación mide direcciones, y la poligonal se calcula con
+    Lo que el agrimensor no negocia es el **ángulo**: el instrumento mide direcciones, y la poligonal se calcula con
     ellas. Eso define la **transformación conforme**: la que conserva ángulos entre curvas, aunque cambie la escala
     de un punto a otro.
 
@@ -159,7 +159,7 @@ def _(mo):
     | **A** · similaridad (unidad 03) | con lupa infinitesimal, $J = k(P)\,R(\theta)$: rotación más escala uniforme | un cuadradito del terreno va a un cuadradito girado, más grande o más chico |
     | **B** · SVD (unidad 09) | $\sigma_1 = \sigma_2$ y $\det J > 0$; la elipse imagen del círculo unitario es un círculo, recorrido en el mismo sentido | la **indicatriz de Tissot** es un círculo; si no, elipse, y la deformación angular máxima es $\omega_{\max} = 2\arcsin\dfrac{\sigma_1 - \sigma_2}{\sigma_1 + \sigma_2}$ |
     | **C** · primera forma (unidad 10) | en bases ortonormales (metros) del terreno y del mapa, $F = 0$ y $E = G = k^2$, con $\det J > 0$: $ds^2_{\text{mapa}} = k^2\,ds^2_{\text{terreno}}$ | las líneas coordenadas se cortan a $90°$ y los dos pasos de grilla miden lo mismo: cuadraditos a cuadraditos |
-    | **D** · número complejo (unidades 00 y 01a-01c) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve "multiplicar por el complejo $f'(z)$" |
+    | **D** · número complejo (unidades 00 y 01a-01c) | entre planos, $J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$: multiplicar por $a + ib$; $u_x = v_y$, $u_y = -v_x$ (**Cauchy-Riemann**) | toda función analítica $w = f(z)$ con $f'(z) \ne 0$ es conforme: la lupa ve «multiplicar por el complejo $f'(z)$» |
 
     """)
     return
@@ -197,7 +197,7 @@ def _(mo):
     cortan dos curvas y lleva circulitos infinitesimales en circulitos. Pero el factor de escala $k(P)$ varía con la
     posición, así que las figuras extensas no mantienen ni su área ni su forma global (Groenlandia en Mercator parece
     del tamaño de África). Por eso, en la Argentina, POSGAR divide el país en 7 fajas de Gauss-Krüger de $3^\circ$ de
-    ancho: no para "mantener la conformidad" (Gauss-Krüger ya es conforme a cualquier distancia del meridiano
+    ancho: no para «mantener la conformidad» (Gauss-Krüger ya es conforme a cualquier distancia del meridiano
     central), sino para acotar la deformación lineal $k - 1 \approx \tfrac{1}{2}\,\Delta\lambda^2 \cos^2\varphi$ (con
     $\Delta\lambda$ en radianes) por debajo de unos $3{,}4 \times 10^{-4}$, es decir $34$ cm/km, en el borde de la faja
     ($\Delta\lambda = 1{,}5^\circ$). Lo calculamos:
@@ -222,12 +222,12 @@ def _(mo, np):
 @app.cell
 def _(mo):
     mo.md(r"""
-    La escalera: en $\mathbb R$ toda transformación $x \mapsto kx$ con $k > 0$ conserva "el ángulo" (no hay otro que
+    La escalera: en $\mathbb R$ toda transformación $x \mapsto kx$ con $k > 0$ conserva «el ángulo» (no hay otro que
     $0$ o $180°$); en $\mathbb R^2$ conservar ángulos obliga a $J = kR(\theta)$, que es el número complejo de la
     unidad 00; en $\mathbb R^3$ las conformes son mucho más pocas (Liouville: similaridades e inversiones), por eso la
     cartografía es un problema del plano.
 
-    **Las cinco preguntas de la última página del apunte del elipsoide** (el "puntapié inicial") se
+    **Las cinco preguntas de la última página del apunte del elipsoide** (el «puntapié inicial») se
     responden con esto. En las cilíndricas normales tomamos $x = a\lambda$ y queda por elegir $y(\varphi)$; la escala a
     lo largo del paralelo es siempre $k = \dfrac{a}{N\cos\varphi}$ y a lo largo del meridiano $h = \dfrac{y'(\varphi)}{M}$:
 
@@ -280,7 +280,7 @@ def _(mo):
     ## 2. Manipulación
 
     A la izquierda, dos paneles: el **terreno** (grilla de cuadraditos métricos, en unidades de $a$, con un círculo de
-    Tissot en los paralelos $0°$, $-34.6°$, $-54°$ y $-65°$ y las dos visuales a $90°$ en la latitud elegida) y el
+    Tissot en los paralelos $0°$, $-34{,}6°$, $-54°$ y $-65°$ y las dos visuales a $90°$ en la latitud elegida) y el
     **mapa** proyectado. Las imágenes son por el Jacobiano de la proyección en cada punto (la lupa infinitesimal, dibujada
     grande). En el modo complejo, el panel izquierdo es un trozo del plano $z$ y el derecho su imagen por $w = f(z)$. A la
     derecha, los controles y los números vivos: el Jacobiano $J$ en el punto elegido, $h$, $k$, $hk = \det J$, $\omega_{\max}$ y
@@ -295,7 +295,7 @@ def _(caso, casos, mo):
     es_complejo = _tipo == "complejo"
     phi_s = mo.ui.slider(-75, 75, value=-54, step=1, label="latitud φ (°)", show_value=True, disabled=es_complejo)
     rumbo_s = mo.ui.slider(0, 180, value=45, step=1, label="rumbo α (°) de la primera visual", show_value=True)
-    alfa_s = mo.ui.slider(0, 0.8, value=0.3, step=0.05, label="α no conforme (sólo en z + α z̄)", show_value=True, disabled=not es_complejo)
+    alfa_s = mo.ui.slider(0, 0.8, value=0.3, step=0.05, label="α no conforme (solo en z + α z̄)", show_value=True, disabled=not es_complejo)
     funcion = mo.ui.dropdown(options=["w = z²", "w = e^z", "w = z + α·z̄"], value="w = z²", label="función compleja", disabled=not es_complejo)
     return alfa_s, es_complejo, funcion, phi_s, rumbo_s
 
@@ -478,8 +478,8 @@ def _(grs80, lib, mo, np):
         **3.2 Latitud isométrica y las tres cilíndricas en GRS80.** Con $e = \sqrt{{e^2}} = {_e:.6f}$ y $\varphi = -54°$:
         $\ln\tan(45° - 27°) = {_q54_esf:.5f}$ (sería la esfera) y la corrección del elipsoide
         $-\frac{{e}}{{2}}\ln\frac{{1 + e\sin\varphi}}{{1 - e\sin\varphi}} = {_q54 - _q54_esf:+.5f}$: $q(-54°) = {_q54:.5f}$. Mercator pone
-        $y = a\,q = {grs80["a"] * _q54 / 1000:,.1f}$ km y la escala $h = k = a/(N\cos\varphi) = 1.6976$. La equidistante pone
-        $y = S(-54°)$ con $h = 1$ y la equivalente $h = 1/k = 0.5891$. Columnas: $y$ (km) · $h$ · $k$ · $\omega_{{\max}}$.
+        $y = a\,q = {grs80["a"] * _q54 / 1000:,.1f}$ km y la escala $h = k = a/(N\cos\varphi) = 1{{,}}6976$. La equidistante pone
+        $y = S(-54°)$ con $h = 1$ y la equivalente $h = 1/k = 0{{,}}5891$. Columnas: $y$ (km) · $h$ · $k$ · $\omega_{{\max}}$.
 
         | $\varphi$ | $q(\varphi)$ | Mercator | equidistante | equivalente |
         |---|---|---|---|---|
@@ -517,7 +517,7 @@ def _(grs80, lib, mo, np):
 
         El primer término de $E$ es $N\cos\varphi\,\Delta\lambda$, el arco de paralelo: lejos del meridiano central la escala
         crece como $1 + \frac{{1}}{{2}}\cos^2\varphi\,\Delta\lambda^2$. La serie completa (hasta $\Delta\lambda^8$ en POSGAR) es cuenta,
-        no idea: la idea es $w = f(q + i\,\Delta\lambda)$. En $\varphi = -34.6°$: $dS/dq = N\cos\varphi = {_N * np.cos(_phi) / 1000:,.3f}$ km.
+        no idea: la idea es $w = f(q + i\,\Delta\lambda)$. En $\varphi = -34{{,}}6°$: $dS/dq = N\cos\varphi = {_N * np.cos(_phi) / 1000:,.3f}$ km.
         """),
         mo.vstack([
             mo.md("```python\ng = lib.elipsoide_grs80()\na, e2 = g[\"a\"], g[\"e2\"]\nphi = np.deg2rad(-34.6)\nM, N = lib.radios_curvatura(phi, a, e2)\ndq = 1e-6\ndphi = dq * N * np.cos(phi) / M\nS = lambda p: lib.arco_meridiano(p, a, e2)\ndS_dq = (S(phi + dphi)\n         - S(phi - dphi)) / (2 * dq)\nnp.isclose(dS_dq, N * np.cos(phi),\n           rtol=1e-6)\n```"),
@@ -636,7 +636,7 @@ def _(editor_c, lib, mo, np):
         exec(editor_c.value, _ns)
         _obtenido = np.array([bool(_ns["es_jacobiano_conforme"](J)) for _, J, _ in _casos])
         if np.allclose(_obtenido, _esperado):
-            _res = mo.callout(mo.md("✅ coincide en las ocho matrices: conformes sólo las tres similaridades directas."), kind="success")
+            _res = mo.callout(mo.md("✅ coincide en las ocho matrices: conformes solo las tres similaridades directas."), kind="success")
         elif np.allclose(_obtenido[:5], [True, True, True, True, True]) and np.allclose(_obtenido[5:], _esperado[5:]):
             _res = mo.callout(mo.md(r"❌ aceptás las reflexiones: $J^T J = k^2 I$ también vale para los espejos; falta pedir $\det J > 0$ (una reflexión conserva el tamaño de los ángulos pero invierte su sentido)."), kind="warn")
         elif bool(_obtenido[-1]):
@@ -686,9 +686,9 @@ def _(editor_d, grs80, lib, mo, np):
         elif np.allclose(_ob, _esp, atol=1e-9) and np.allclose(_ob0, _esp0, atol=1e-9):
             _res = mo.callout(mo.md(r"✅ coincide con `lib.latitud_isometrica` en las 20 latitudes, con $e$ de GRS80 y en la esfera."), kind="success")
         elif np.allclose(_ob, _esp0, atol=1e-9):
-            _res = mo.callout(mo.md(r"❌ devolvés la $q$ de la esfera: falta restar la corrección $\frac{e}{2}\ln\frac{1 + e\sin\varphi}{1 - e\sin\varphi}$ (en $-54°$ vale $0.0054$, unos $35$ km en Mercator)."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ devolvés la $q$ de la esfera: falta restar la corrección $\frac{e}{2}\ln\frac{1 + e\sin\varphi}{1 - e\sin\varphi}$ (en $-54°$ vale $0{,}0054$, unos $35$ km en Mercator)."), kind="warn")
         elif np.allclose(_ob, lib.latitud_isometrica(np.deg2rad(_phis), _e**2), atol=1e-9):
-            _res = mo.callout(mo.md(r"❌ usaste $e^2$ donde va $e$: la fórmula lleva la excentricidad $e = \sqrt{e^2} = 0.0818$, no $e^2 = 0.0067$."), kind="warn")
+            _res = mo.callout(mo.md(r"❌ usaste $e^2$ donde va $e$: la fórmula lleva la excentricidad $e = \sqrt{e^2} = 0{,}0818$, no $e^2 = 0{,}0067$."), kind="warn")
         elif np.allclose(_ob, 2 * _esp0 - _esp, atol=1e-9):
             _res = mo.callout(mo.md(r"❌ el signo de la corrección: es **menos** $\frac{e}{2}\ln(\cdots)$; el elipsoide achica $\lvert q \rvert$ respecto de la esfera."), kind="warn")
         else:
@@ -737,14 +737,14 @@ def _(mo):
     mo.md(r"""
     ## Dónde está la demostración, y lo que viene
 
-    Acá verificamos que las cuatro caras de "conforme" dan lo mismo y que Mercator, con la latitud isométrica, deja las
+    Acá verificamos que las cuatro caras de «conforme» dan lo mismo y que Mercator, con la latitud isométrica, deja las
     visuales a $90°$. Las demostraciones:
 
-    - [apunte, sección "Transformaciones conformes"](../../apunte.pdf#nameddest=sec:transformaciones-conformes):
+    - [apunte, sección «Transformaciones conformes»](../../apunte.pdf#nameddest=sec:transformaciones-conformes):
       similaridad infinitesimal $\iff$ $\sigma_1 = \sigma_2$ $\iff$ $F = 0$, $E = G$ $\iff$ Cauchy-Riemann; la indicatriz de
       Tissot y $\omega_{\max}$; la deducción de la latitud isométrica $q(\varphi)$ y de las tres cilíndricas; el planteo de
       Gauss-Krüger como $w = f(q + i\,\Delta\lambda)$
-    - [apunte, sección "Geometría del elipsoide"](../../apunte.pdf#nameddest=cap:elipsoide): $M$, $N$, la primera forma
+    - [apunte, sección «Geometría del elipsoide»](../../apunte.pdf#nameddest=cap:elipsoide): $M$, $N$, la primera forma
       $ds^2 = M^2\,d\varphi^2 + N^2\cos^2\varphi\,d\lambda^2$ y el arco de meridiano $S(\varphi)$ que usan las tres proyecciones
     - [apunte, «Transformaciones conformes» (esfera, elipsoide y representación plana; $K = 1/(MN)$, lo que
       impide la isometría)](../../apunte.pdf#nameddest=cap:conformes)
@@ -776,7 +776,7 @@ def _(J, J_sit, ang_despues, ang_sit, d1, d2, d_ne, d_se, grs80, h_v, k_v, lib, 
         ("sección 2: Mercator h = k y ω = 0; equidistante h = 1; equivalente hk = 1 (en la latitud elegida)",
          {"conforme_mercator": lib.exacto(h_v, k_v) and omega_v == 0.0, "equidistante": h_v == 1.0,
           "equivalente": lib.exacto(h_v * k_v, 1.0), "complejo": True}[tipo]),
-        ("sección 2: el ángulo después de J coincide con la cuenta directa; es 90° si y sólo si ω = 0 o las visuales van por las direcciones principales (autovectores de JᵀJ)",
+        ("sección 2: el ángulo después de J coincide con la cuenta directa; es 90° si y solo si ω = 0 o las visuales van por las direcciones principales (autovectores de JᵀJ)",
          lib.exacto(ang_despues, np.rad2deg(lib.angulo(J @ d1, J @ d2)))
          and (lib.exacto(ang_despues, 90.0, tol=1e-6) == (omega_v < 1e-9 or abs(lib.cuna2(J.T @ J @ d1, d1)) < 1e-9 * np.linalg.norm(J.T @ J)))),
         ("sección 3.1: [[3, −4], [4, 3]] tiene JᵀJ = 25 I, σ = 5, ω = 0", ok_31),

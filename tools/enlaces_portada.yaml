@@ -1,0 +1,30 @@
+# Enlaces de la portada (site/index.html) al apunte: para cada unidad, las secciones que la respaldan.
+#
+# Regla: como máximo tres etiquetas; la primera es la sección PRINCIPAL (la que trata el tema de la
+# unidad) y las otras, a lo sumo dos secciones de APOYO. Cada etiqueta es un \label{…} de
+# apunte/contenido/*.tex (sec:… o cap:…); el enlace es apunte.pdf#nameddest=<etiqueta> (el apunte
+# compila hyperref con [destlabel], así que cada \label es un destino con nombre del PDF).
+# Las claves son los id de mapa/mapa.yaml (unidades:), en el orden de la portada.
+#
+# Lo leen tools/build.py (enlaces_portada / validar_enlaces_portada) y tools/test_enlaces_portada.py.
+
+00_fundamentos: [sec:desaprender, sec:puntos-formas-grillas, sec:formas-metrica]
+01a_punto_quieto: [sec:punto-coordenadas, sec:acimut-campo, sec:activa-pasiva-cb]
+01b_rotacion_plano: [sec:rot-plano, sec:rotar, sec:refl-recta]
+01c_rotaciones_3d: [sec:rot-3d, sec:orden-importa, sec:eje-exp]
+02_producto_interno: [sec:interno, sec:formas-metrica, sec:rotaciones-aplicacion]
+03_reflexiones_similaridades: [sec:reflejar, sec:similaridad, sec:aplicacion-helmert]
+04_afines_homogeneas: [sec:homogeneas, sec:afinidades-geom, sec:aplicacion-ortofoto]
+05_proyectivas: [sec:proyectivas-primera, sec:cuatro-puntos, cap:pentagono]
+06_formas_lineales: [sec:formas-lineales, sec:base-dual, sec:transpuesta-normales]
+07a_cuna_determinante: [sec:cuna-colinealidad, sec:det-factor, sec:determinante]
+07b_nucleo_autovectores: [sec:autovalores, sec:nucleo, sec:autovec-2x2]
+07c_autovalores_3d_puntos_fijos: [sec:autovec-3x3, sec:homografia-fijos, sec:eje-exp]
+08_cambio_de_base: [sec:cambio-base, sec:mismo-vector-dos-grillas, sec:diagonalizar-base]
+09_cambio_de_base_svd: [sec:svd, sec:pinv-svd, sec:ecuaciones-normales]
+10_jacobiano_primera_forma: [sec:metrica, sec:jacobiano, sec:curvilineas]
+11_cuatro_problemas: [sec:cuatro-problemas-regresion, sec:cuatro-problemas-circulo, sec:cuatro-problemas-procrustes]
+12_curvatura: [sec:segunda-forma, sec:curvaturas-principales, sec:hessiana]
+13_elipsoide: [cap:elipsoide, sec:latitudes, sec:radios-MN]
+14_trigonometria_esferica: [cap:esfera, sec:exceso-esferico, sec:problema-directo-inverso]
+15_transformaciones_conformes: [sec:transformaciones-conformes, sec:conformes-elipsoide, sec:conformes-aplicacion]

@@ -72,7 +72,7 @@ clases:
 - id: "13"
   titulo: Geometría del elipsoide
   ficha: clases/13-elipsoide.md
-  pregunta: ¿Qué se puede deducir del elipsoide sólo con que todos sus meridianos son la misma elipse?
+  pregunta: ¿Qué se puede deducir del elipsoide solo con que todos sus meridianos son la misma elipse?
   nivel: troncal
 - id: "14"
   titulo: Trigonometría esférica y polígonos geodésicos
@@ -84,7 +84,7 @@ conceptos:
   nombre: Rotación
   clase: "01"
   unidad: 01a_punto_quieto
-  hecho_geometrico: Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal sólo si el centro es el origen.
+  hecho_geometrico: Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal solo si el centro es el origen.
   que_se_conserva: distancias, ángulos y orientación
   apunte: [rotaciones, repaso-algebra]
   requiere: [transformacion-lineal, producto-interno]
@@ -348,7 +348,7 @@ conceptos:
   nombre: Producto vectorial (producto cruz)
   clase: "05"
   unidad: 07a_cuna_determinante
-  hecho_geometrico: 'La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Sólo existe en R3.'
+  hecho_geometrico: 'La operación que une dos puntos en su recta (y corta dos rectas en su punto) tiene que ser lineal y dar cero con dos puntos iguales: eso la obliga a ser p×q, ortogonal a ambos, con norma el área del paralelogramo. Solo existe en R3.'
   que_se_conserva: La incidencia (p×q)·p = 0; la antisimetría es la orientación del área.
   apunte: [subespacios]
   requiere: [producto-interno, coordenadas-homogeneas]
@@ -356,7 +356,7 @@ conceptos:
   nombre: Producto cuña (exterior)
   clase: "05"
   unidad: 07a_cuna_determinante
-  hecho_geometrico: 'u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido sólo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). ''Detector de colinealidad'': vale cero cuando los vectores se aplastan.'
+  hecho_geometrico: 'u∧v es un área orientada (bivector), (u∧v)∧w es el volumen det[u v w] e1∧e2∧e3; definido solo por linealidad y antisimetría, funciona en cualquier dimensión (R4: 4 direcciones, 6 planos, 4 volúmenes, 1 hipervolumen). ''Detector de colinealidad'': vale cero cuando los vectores se aplastan.'
   que_se_conserva: Nada; mide cuánto se aplasta. El ortogonal a un subespacio es el que maximiza el volumen.
   apunte: [subespacios]
   requiere: [producto-vectorial, determinante]
@@ -364,7 +364,7 @@ conceptos:
   nombre: Determinante
   clase: "05"
   unidad: 07a_cuna_determinante
-  hecho_geometrico: La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y sólo si los vectores son dependientes.
+  hecho_geometrico: La única operación de n vectores lineal en cada uno y nula si dos coinciden; det[p q r] = (p×q)·r. Volumen orientado del cubo unidad transformado; escalera |a| → área → volumen. Cero si y solo si los vectores son dependientes.
   que_se_conserva: El signo dice si se invierte la orientación; el módulo cuánto se agranda.
   apunte: [subespacios]
   requiere: [producto-vectorial, colinealidad, matriz-ortogonal]
@@ -397,7 +397,7 @@ conceptos:
   clase: "06"
   unidad: 07b_nucleo_autovectores
   hecho_geometrico: 'v ≠ 0 con Av = λv; está en el núcleo de A − λI y se calcula como cruz (cuña) de dos filas de A − λI: el vector donde las tres reglas corridas marcan cero. Eje de una rotación; puntos fijos de una proyectiva. Si todos los pares de filas dan cruz nula hay un plano entero (raíz doble).'
-  que_se_conserva: La dirección; sólo cambia la escala.
+  que_se_conserva: La dirección; solo cambia la escala.
   apunte: [autovectores, pentagono, proyectivas]
   requiere: [nucleo, subespacio-invariante, producto-vectorial]
 - id: autovalor
@@ -452,7 +452,7 @@ conceptos:
   nombre: Diagonalización
   clase: "08"
   unidad: 08_cambio_de_base
-  hecho_geometrico: En la grilla de los autovectores la transformación sólo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas.
+  hecho_geometrico: En la grilla de los autovectores la transformación solo estira cada dirección por su autovalor, de forma independiente; la grilla se estira sin romperse. T = A D A⁻¹ con A = autovectores en columnas.
   que_se_conserva: 'Las direcciones propias: cada eje de la grilla cae sobre sí mismo.'
   apunte: [cambio-base]
   requiere: [autovector, autovalor, cambio-de-base]
@@ -516,7 +516,7 @@ conceptos:
   nombre: Primera forma fundamental
   clase: "09"
   unidad: 10_jacobiano_primera_forma
-  hecho_geometrico: 'ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando sólo (du,dv); g = JᵀJ y bajo cambio de coordenadas g'' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°.'
+  hecho_geometrico: 'ds² = E du² + 2F du dv + G dv² con E = r_u·r_u, F = r_u·r_v, G = r_v·r_v: la regla local para medir el pasito usando solo (du,dv); g = JᵀJ y bajo cambio de coordenadas g'' = Jᵀ g J. En la esfera G = cos²φ: un grado de longitud vale 111 km en el ecuador y 55 km a 60°.'
   que_se_conserva: Longitudes y ángulos sobre la superficie, medidos desde las coordenadas.
   apunte: [derivada]
   requiere: [jacobiano, producto-interno, superficie-parametrica, cambio-de-base]
@@ -540,7 +540,7 @@ conceptos:
   nombre: Pseudoinversa de Moore-Penrose
   clase: "10"
   unidad: 09_cambio_de_base_svd
-  hecho_geometrico: 'Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer sólo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0.'
+  hecho_geometrico: 'Proyectar el término independiente sobre la imagen (descartar lo que cae en la contra-imagen) y deshacer solo la parte invertible: A⁺ = V Σ⁺ Uᵀ con recíprocos de los σ ≠ 0 y ceros donde había ceros; en R, la pseudoinversa de 0 es 0.'
   que_se_conserva: La solución exacta cuando existe; si no, la más cercana, con el residuo perpendicular a la imagen.
   apunte: [hilo, inversas]
   requiere: [inversa, cuatro-subespacios, svd, producto-interno]
@@ -573,7 +573,7 @@ conceptos:
   clase: "11"
   unidad: 11_cuatro_problemas
   hecho_geometrico: 'Superponer dos nubes de puntos con la rotación (y escala) que mejor las ajusta: la SVD de la matriz de correlación H = PᵀQ separa el giro (U, V) del estiramiento (Σ). Helmert 2D en Topografía.'
-  que_se_conserva: 'Distancias y ángulos dentro de cada nube: sólo se permite rotar, trasladar y escalar.'
+  que_se_conserva: 'Distancias y ángulos dentro de cada nube: solo se permite rotar, trasladar y escalar.'
   apunte: [cuatro-problemas]
   requiere: [svd, valores-singulares, producto-interno, matriz-ortogonal]
 - id: regresion-total
@@ -597,7 +597,7 @@ conceptos:
   clase: "12"
   unidad: 12_curvatura
   hecho_geometrico: Un número que sale de un vector pasando por una matriz simétrica, vᵀHv; la curvatura normal en dirección α es la hessiana evaluada en (cos α, sin α); diagonalizar es rotar los ejes hasta que desaparece el término cruzado y aparecen las direcciones principales, ortogonales.
-  que_se_conserva: 'Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, sólo de escritura.'
+  que_se_conserva: 'Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, solo de escritura.'
   apunte: [curvatura]
   requiere: [hessiana, autovector, diagonalizacion, svd, producto-interno]
 - id: geodesica
@@ -652,7 +652,7 @@ conceptos:
   nombre: Indicatriz de Tissot
   clase: "13"
   unidad: 15_transformaciones_conformes
-  hecho_geometrico: 'La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y sólo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J.'
+  hecho_geometrico: 'La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y solo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J.'
   que_se_conserva: 'Lo que dice la elipse: forma (conforme) si σ₁ = σ₂, área (equivalente) si σ₁σ₂ = 1, el meridiano (equidistante) si h = 1.'
   apunte: [conformes]
   requiere: [jacobiano, svd, valores-singulares, primera-forma-fundamental]
@@ -677,13 +677,13 @@ conceptos:
   clase: "13"
   unidad: 15_transformaciones_conformes
   hecho_geometrico: 'La conforme que usa la Argentina (POSGAR, fajas): w = f(q + i Δλ) con f analítica (Cauchy-Riemann ⇒ conforme) y elegida para que sobre el meridiano central (Δλ = 0) la ordenada sea el arco de meridiano S(φ); el cilindro es tangente a un meridiano en vez del ecuador y la escala k crece con Δλ².'
-  que_se_conserva: Los ángulos; la escala 1 sólo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino).
+  que_se_conserva: Los ángulos; la escala 1 solo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino).
   apunte: [conformes]
   requiere: [transformacion-conforme, latitud-isometrica, mercator, numeros-complejos]
 unidades:
 - id: 00_fundamentos
   archivo: unidades/00_fundamentos.py
-  titulo: 'Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)'
+  titulo: 'El idioma de la materia: puntos, flechas, reglas y distancias'
   estado: piloto
   clases:
   - "01"
@@ -718,7 +718,7 @@ unidades:
   - "01"
   - "02"
   pregunta: ¿Por qué en 3D importa el orden en que giro, y por qué igual el resultado es un solo giro alrededor de un eje?
-  gancho_agrimensura: 'Nivelar la estación: inclinar y después girar no deja el instrumento igual que girar y después inclinar, salvo con correcciones chicas.'
+  gancho_agrimensura: 'Nivelar el instrumento: inclinar y después girar no lo deja igual que girar y después inclinar, salvo con correcciones chicas.'
   nivel: troncal
 - id: 02_producto_interno
   archivo: unidades/02_producto_interno.py
@@ -800,7 +800,7 @@ unidades:
   estado: piloto
   clases:
   - "08"
-  pregunta: Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es sólo estirar?
+  pregunta: Si la flecha no se movió pero cambié la grilla, ¿cómo cambian los números, y en qué grilla una transformación es solo estirar?
   gancho_agrimensura: 'El mismo mojón con coordenadas en tres marcos: cambia la grilla con que se mide, no el punto.'
   nivel: troncal
 - id: 09_cambio_de_base_svd
@@ -819,7 +819,7 @@ unidades:
   estado: piloto
   clases:
   - "09"
-  pregunta: ¿Cómo mido una distancia chica sobre una superficie curva usando sólo los números (u, v) de la grilla?
+  pregunta: ¿Cómo mido una distancia chica sobre una superficie curva usando solo los números (u, v) de la grilla?
   gancho_agrimensura: 'Sobre el terreno, un pasito en latitud y otro en longitud no miden lo mismo en metros: la primera forma fundamental es la regla que los convierte.'
   nivel: troncal
 - id: 11_cuatro_problemas
@@ -838,7 +838,7 @@ unidades:
   clases:
   - "12"
   pregunta: ¿Cuánto se aparta la superficie de su plano tangente en cada rumbo, y qué quiere decir ir derecho sobre ella?
-  gancho_agrimensura: 'Un nivel apoyado en el terreno: la curvatura dice cuánto cambia la vertical al dar un paso en cada rumbo.'
+  gancho_agrimensura: 'Un instrumento que marca la vertical, apoyado en el terreno: la curvatura dice cuánto cambia esa vertical al dar un paso en cada rumbo.'
   nivel: troncal
 - id: 13_elipsoide
   archivo: unidades/13_elipsoide.py
@@ -846,7 +846,7 @@ unidades:
   estado: piloto
   clases:
   - "13"
-  pregunta: ¿Qué se deduce del elipsoide con sólo saber que todos sus meridianos son la misma elipse?
+  pregunta: ¿Qué se deduce del elipsoide con solo saber que todos sus meridianos son la misma elipse?
   gancho_agrimensura: La latitud geodésica y la geocéntrica no coinciden porque la normal al elipsoide no pasa por el centro; eso cambia las coordenadas de todo mojón.
   nivel: troncal
 - id: 14_trigonometria_esferica
@@ -866,5 +866,5 @@ unidades:
   - "13"
   - "14"
   pregunta: ¿Qué tiene que cumplir una transformación para conservar los ángulos, y cómo se lleva el elipsoide al plano sin torcer una sola visual?
-  gancho_agrimensura: 'Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja sólo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
+  gancho_agrimensura: 'Dos visuales a 90° medidas con el instrumento siguen a 90° en la hoja solo si la proyección es conforme: Mercator, Gauss-Krüger, POSGAR.'
   nivel: complementario

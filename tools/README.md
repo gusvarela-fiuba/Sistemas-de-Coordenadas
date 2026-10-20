@@ -23,8 +23,9 @@ Qué lee:
 Qué genera en `site/` (ignorado por git):
 
 ```
-site/index.html                  portada = el hilo conductor (docs/camino.md): tres entradas (Empezar → unidad 0; Seguir
-                                 el recorrido → la primera unidad; Repasar → mapa.html) y una entrada por unidad de
+site/index.html                  portada = el hilo conductor (docs/camino.md): siete entradas (la página para quien da la materia →
+                                 para-el-docente.html; Empezar → unidad 0; Seguir el programa → la primera unidad;
+                                 Repasar → mapa.html; Autoevaluación; los dos menús por capítulo) y una entrada por unidad de
                                  mapa/_fragmentos/unidades.yaml, en ese orden, con número, título, pregunta, gancho de
                                  agrimensura, estado calculado (lista / todavía no), las fichas que cubre, y enlaces a la
                                  unidad, las fichas y las secciones del apunte (apunte.pdf#nameddest=cap:<clave>).

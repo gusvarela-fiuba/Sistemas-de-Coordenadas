@@ -36,7 +36,7 @@ unidades:                        # fuente: mapa/_fragmentos/unidades.yaml; su or
     nivel: troncal               # troncal | complementario | avanzado
 ```
 
-El `estado` de una **unidad** es interno (decide qué se exporta); en el sitio una unidad sin exportar figura como «en preparación».Las fichas que ninguna unidad cubre (hoy 11–14) van a la última unidad, "Lo que viene".
+El `estado` de una **unidad** es interno (decide qué se exporta); en el sitio una unidad sin exportar figura como «en preparación».Las fichas que ninguna unidad cubre (hoy 11–14) van a la última unidad, «Lo que viene».
 
 ## Reglas que valida `tools/build.py`
 
@@ -57,14 +57,14 @@ Errores (el build se detiene):
 Avisos (el build sigue):
 
 - `clases[].ficha` que todavía no existe (la fase 1 las va escribiendo);
-- unidad con estado `legacy` o `pendiente` (no se exporta: `build.py` sólo exporta `piloto` y `migrada`);
+- unidad con estado `legacy` o `pendiente` (no se exporta: `build.py` solo exporta `piloto` y `migrada`);
 - concepto sin `hecho_geometrico` (el hover del nodo queda vacío);
 - ficha sin `pregunta`, unidad sin `pregunta` o sin `gancho_agrimensura`.
 
 ## Qué hace el build con cada campo
 
 - Portada (`index.html`, el hilo conductor): una entrada por unidad en el orden de `unidades.yaml`, con `titulo`, `pregunta`, `gancho_agrimensura`, `nivel`, sus `clases`, link a la unidad si está exportada, a las fichas y a las secciones del apunte (`apunte.pdf#nameddest=cap:<clave>`). Entradas: *Empezar* (unidad 0), *Seguir el programa* (la unidad siguiente a la última marcada en `PROGRAMA_AVANCE`, lista interna de `build.py`), *Repasar* (`mapa.html`), *Autoevaluación*.
-- Mapa (`mapa.html`): columnas = `clases` en orden de aparición, todos los nodos del mismo color. Cada nodo lleva `data-nivel` (el `nivel` de su ficha) y `data-orden` (posición de la ficha) para el filtro de ruta (`troncal` / `todo`) y el deslizador "hasta el capítulo N" (opacity 0.25 para lo posterior; default N = último capítulo de `PROGRAMA_AVANCE`).
+- Mapa (`mapa.html`): columnas = `clases` en orden de aparición, todos los nodos del mismo color. Cada nodo lleva `data-nivel` (el `nivel` de su ficha) y `data-orden` (posición de la ficha) para el filtro de ruta (`troncal` / `todo`) y el deslizador «hasta el capítulo N» (`opacity 0.25` para lo posterior; default N = último capítulo de `PROGRAMA_AVANCE`).
 - Nodo: `nombre`; `<title>` = `hecho_geometrico`; link a `unidades/<unidad>/` si el concepto declara `unidad` y esa unidad se exportó, si no a `capitulos/<id_ficha>.html`.
 - Aristas: `requiere`; la flecha va del requerido al concepto.
 - Lista de fichas (en `mapa.html`): etiqueta de `nivel`, links a ficha, unidades (las de sus conceptos) y secciones del apunte (título tomado del encabezado que lleva el `\label{cap:<clave>}`).

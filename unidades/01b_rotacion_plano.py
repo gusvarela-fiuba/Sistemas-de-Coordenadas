@@ -132,7 +132,7 @@ def _(mo):
     se acomoda sola, cada punto a la misma distancia y con los mismos ángulos que antes. Eso es una rotación:
     **conserva distancias y ángulos**, y no da vuelta la hoja. Lo que se ve: cada punto recorre una circunferencia.
 
-    **La matriz es "a dónde van $e_1$ y $e_2$".** Como la rotación es lineal, alcanza con saber qué hace con la base:
+    **La matriz es «a dónde van $e_1$ y $e_2$».** Como la rotación es lineal, alcanza con saber qué hace con la base:
     $e_1 = (1, 0)$ va a $(\cos\theta, \sin\theta)$ y $e_2 = (0, 1)$, un cuarto de vuelta más adelante, va a
     $(-\sin\theta, \cos\theta)$. Esas dos imágenes, como columnas, son $R(\theta)$; un punto $x\,e_1 + y\,e_2$ va a
     $x\,Re_1 + y\,Re_2$.
@@ -349,11 +349,11 @@ def _(M, lib, mo, np, parcela):
         ## 4. Python de hoy
 
         Una sola idea: **una nube de puntos es un array $N\times2$, una fila por punto**, y se gira entera con una línea.
-        La cuenta "matriz por vector" es $Rv$ con $v$ columna; con los puntos en filas hay que transponer,
+        La cuenta «matriz por vector» es $Rv$ con $v$ columna; con los puntos en filas hay que transponer,
         $(Rv)^T = v^T R^T$, y por eso la función es `puntos @ R.T`. Eso es `lib.transformar(puntos, R)`.
         """),
         mo.md("```python\ntres = np.array([[1.0, 0.0], [0.0, 1.0], [2.0, 1.0]])   # shape (3, 2): e1, e2 y (2, 1)\ntres @ lib.rot2(np.pi / 2).T                             # cada fila girada 90°\n```"),
-        mo.md(f"`tres.shape` = `{_tres.shape}` → resultado:\n```\n{np.round(_salida, 3)}\n```\nLas filas son $(0,1)$, $(-1,0)$ y $(-1,2)$: las imágenes de $e_1$, $e_2$ y $(2,1)$, como en 3.1. "
+        mo.md(f"`tres.shape` = `{_tres.shape}` → resultado:\n```\n{np.round(_salida, 3)}\n```\nLas filas son $(0,1)$, $(-1,0)$ y $(-1,2)$: las imágenes de $e_1$, $e_2$ y $(2,1)$, como en 3,1. "
               f"La misma línea gira la parcela (`{parcela.shape}` → `{lib.transformar(parcela, M).shape}`) y la grilla entera."),
     ])
     return

@@ -94,7 +94,7 @@ def _(lib, mo, np):
 
         Tenemos que ubicar un poste en el sistema del lote. Cuatro mojones de coordenadas conocidas, en metros:
         $M_1 = (0, 0)$, $M_2 = (8, 0)$, $M_3 = (8, 7)$, $M_4 = (1, 8)$. Medimos con cinta las distancias del poste a cada
-        uno: $5.05$, $6.35$, $5.90$ y $4.45$ m. Dos distancias ya definen el punto (salvo el espejo); con cuatro sobran
+        uno: $5{,}05$, $6{,}35$, $5{,}90$ y $4{,}45$ m. Dos distancias ya definen el punto (salvo el espejo); con cuatro sobran
         dos. Y la cinta tiene error: ningún punto está **exactamente** a esas cuatro distancias. Dos incógnitas, cuatro mediciones.
         """),
         prediccion,
@@ -121,11 +121,11 @@ def _(errores_gn, errores_mc, errores_tres, lib, mo, np, p_gn, p_mc, p_tres, pre
                  rf"ese punto tampoco cumple las cintas (tienen error) y la cuarta queda con ${lib.num_tex(errores_tres[3], 3)}$ m que nadie "
                  rf"reparte. Peor: depende de **cuáles** tres elegimos. Con las cuatro: $({', '.join(lib.num_tex(e, 3) for e in errores_mc)})$ m."),
         "ninguno": ("warn",
-                    r"**No.** Que se contradigan es lo normal: toda medición tiene error. La pregunta cambia de '¿qué punto cumple "
-                    r"las cuatro?' a '¿cuál las cumple **lo mejor posible**?', y esa sí tiene respuesta única."),
+                    r"**No.** Que se contradigan es lo normal: toda medición tiene error. La pregunta cambia de “¿qué punto cumple "
+                    r"las cuatro?” a “¿cuál las cumple **lo mejor posible**?”, y esa sí tiene respuesta única."),
         "promedio": ("warn",
                      r"**No.** Promediar mojones da un punto adentro del lote, pero no usa las distancias como distancias: nada "
-                     r"dice que el error de las cintas quedó chico. La solución sí es 'un promedio', pero de las **ecuaciones**, "
+                     r"dice que el error de las cintas quedó chico. La solución sí es «un promedio», pero de las **ecuaciones**, "
                      r"con los pesos que impone la geometría ($A^T A$)."),
     }
     _kind, _texto = _respuestas[prediccion.value]
@@ -216,7 +216,7 @@ def _(mo):
     propio método, y con esa predicción von Zach y Olbers lo reencontraron entre el 31 de diciembre de 1801 y el 1 de
     enero de 1802. El método de mínimos cuadrados lo publicó en 1809, en *Theoria motus*; Legendre lo había publicado
     en 1805. Su problema era kepleriano, no lineal y en el espacio: no un ajuste de cónica en el plano. Lo que nos
-    llevamos es la idea. "Lineal" en mínimos cuadrados quiere decir lineal en las **incógnitas** (los coeficientes),
+    llevamos es la idea. «Lineal» en mínimos cuadrados quiere decir lineal en las **incógnitas** (los coeficientes),
     no que la curva del terreno sea una recta. Si medimos $m \ge 5$ puntos $(x_i, y_i)$ sobre el borde de una sección
     elíptica $x^2 + B y^2 + C xy + D x + E y + F = 0$ (normalizar en $1$ el coeficiente de $x^2$ no deja afuera
     ninguna elipse: toda elipse lo tiene distinto de cero), al evaluar los datos queda el sistema lineal sobredeterminado
@@ -315,7 +315,7 @@ def _(caso, casos, go, lib, mo, np, ruido):
         _recta(np.array([0, sol[1]]), np.array([1, sol[0]]) / np.hypot(1, sol[0]), lib.TEAL_DESPUES, f"ajuste: y = {sol[0]:.3f}x + {sol[1]:.3f}")
         numeros = rf"""
         - $A = [\,x \mid 1\,]$ de $9\times2$ · $A^T A = {lib.matriz_coloreada(A.T @ A, 1)}$ · $A^T y = {lib.vec_tex(A.T @ ys9, 2)}$
-        - $(a, b) = \mathbf{{{lib.vec_tex(sol, 3)}}}$ (sin ruido: $(0.6, 1.5)$) · $\lvert r\rvert = {lib.num_tex(np.linalg.norm(res), 3)}$
+        - $(a, b) = \mathbf{{{lib.vec_tex(sol, 3)}}}$ (sin ruido: $(0{{,}}6;\ 1{{,}}5)$) · $\lvert r\rvert = {lib.num_tex(np.linalg.norm(res), 3)}$
         - comprobación $A^T r = {lib.vec_tex(A.T @ res, 6)}$: perpendicular a la columna $x$ y a la de unos (suma cero).
         """
     elif tipo == "circulos":
@@ -349,7 +349,7 @@ def _(caso, casos, go, lib, mo, np, ruido):
         lib.objeto(figura, Pl[:5], lib.TEAL_DESPUES, "relevamiento 1 llevado: s R p + t")
         numeros = rf"""
         - $H = P_0^T Q_0 = {lib.matriz_coloreada(_H, 2)}$ · $R = {lib.matriz_coloreada(R)}$, giro $\theta = \mathbf{{{np.degrees(np.arctan2(R[1, 0], R[0, 0])):.2f}°}}$
-        - $s = \mathbf{{{lib.num_tex(esc, 4)}}}$ · $t = {lib.vec_tex(tras, 3)}$ · rms $= {lib.num_tex(rms, 3)}$ m (sin ruido: $25°$, $1.2$, $(1.5, 0.5)$)
+        - $s = \mathbf{{{lib.num_tex(esc, 4)}}}$ · $t = {lib.vec_tex(tras, 3)}$ · rms $= {lib.num_tex(rms, 3)}$ m (sin ruido: $25°$, $1{{,}}2$, $(1{{,}}5;\ 0{{,}}5)$)
         - comprobación $\sum_i \langle r_i, R p_{{0i}}\rangle = {lib.num_tex(np.sum((Q - Pl) * lib.transformar(P - P.mean(0), R)), 6)}$: residuo perpendicular a la nube llevada.
         """
     else:
@@ -449,11 +449,11 @@ def _(mo):
         ## 5. Ejercicios
 
         **(a) Lápiz — elemental** *Idea central: el punto de la entrada que corresponde en la salida a lo más cercano al término
-        independiente.* Medimos tres veces el mismo lado: $12.1$, $11.9$ y $12.3$ m. Escribí $Ax = y$ con $A$ la columna
+        independiente.* Medimos tres veces el mismo lado: $12{,}1$, $11{,}9$ y $12{,}3$ m. Escribí $Ax = y$ con $A$ la columna
         de unos, las ecuaciones normales, la solución y el residuo. ¿Qué cuenta conocida es?
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(r"""
-        $A = (1, 1, 1)^T$, $A^T A = 3$, $A^T y = 36.3$: $x = 12.1$, el **promedio**. Residuo $(0, -0.2, 0.2)$,
+        $A = (1, 1, 1)^T$, $A^T A = 3$, $A^T y = 36{,}3$: $x = 12{,}1$, el **promedio**. Residuo $(0;\ -0{,}2;\ 0{,}2)$,
         que suma cero: perpendicular a la columna de unos. Promediar es proyectar sobre la recta de $(1, 1, 1)$.
         """)}),
         mo.md(r"""

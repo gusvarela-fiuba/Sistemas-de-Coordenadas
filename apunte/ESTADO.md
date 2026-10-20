@@ -12,33 +12,33 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 
 | Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 797 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
-| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 950 | 7 | 12 | 18 | 7 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/00-antes-de-empezar.tex | chapter: Antes de empezar | 806 | 2 | 2 | 0 | 0 | 0 | 0 | — | 0 | 0 | 50 | 0 | 0 | no | no | 0 | 0 | sí |  |
+| contenido/01-rotaciones.tex | chapter: Rotaciones: girar es multiplicar | 948 | 7 | 12 | 18 | 7 | 7 | 0 | — | 5 | 5 | 8 | 6 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/02-traslaciones-movimientos-rigidos.tex | chapter: Traslaciones y movimientos rígidos | 727 | 10 | 5 | 9 | 6 | 6 | 3 | S | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/03-reflexiones-isometrias-similaridades.tex | chapter: Reflexiones, isometrías y similaridades | 1394 | 10 | 4 | 18 | 13 | 13 | 0 | — | 12 | 12 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/04-afinidades-homogeneas.tex | chapter: Afinidades y coordenadas homogéneas | 1335 | 10 | 5 | 8 | 3 | 3 | 0 | — | 9 | 9 | 4 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/05-formas-lineales.tex | chapter: Formas lineales: el gradiente no es un vector | 828 | 6 | 4 | 8 | 5 | 5 | 0 | — | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 937 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 859 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 604 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 939 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/06-subespacios-cuna-determinante.tex | chapter: Subespacios, producto cuña y determinante | 934 | 4 | 4 | 9 | 5 | 5 | 3 | N | 6 | 6 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/07-autovalores-autovectores.tex | chapter: Subespacios invariantes: autovalores y autovectores | 856 | 5 | 4 | 8 | 6 | 6 | 0 | — | 8 | 8 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/08-svd.tex | chapter: La SVD: leer la forma de las curvas de nivel | 599 | 4 | 3 | 4 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/09-cambio-de-base.tex | chapter: Cambio de base: las coordenadas son etiquetas | 934 | 5 | 4 | 8 | 6 | 6 | 0 | — | 5 | 5 | 3 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/10-derivada-aproximacion-lineal.tex | chapter: La derivada como aproximación lineal: jacobiano, gr | 689 | 5 | 4 | 3 | 2 | 2 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 787 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 802 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 855 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 639 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 809 | 3 | 4 | 13 | 8 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 13951 | 87 | 70 | 139 | 89 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
+| contenido/11-inversas-pseudoinversa.tex | chapter: Inversas y pseudoinversa: los cuatro subespacios | 785 | 4 | 4 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/12-cuatro-problemas.tex | chapter: Cuatro problemas de ajuste | 798 | 4 | 3 | 8 | 8 | 8 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/13-curvatura.tex | chapter: Curvatura como forma cuadrática | 850 | 4 | 5 | 9 | 6 | 6 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/14-elipsoide.tex | chapter: Geometría del elipsoide | 633 | 4 | 3 | 7 | 6 | 6 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/15-esfera-trigonometria-esferica.tex | chapter: Coordenadas sobre la esfera y trigonometría esféric | 803 | 3 | 4 | 13 | 8 | 8 | 0 | — | 5 | 5 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| **Total** | | 13919 | 87 | 70 | 139 | 89 | 89 | 6 |  | 90 | 90 | 92 | 38 | 0 |  |  | 0 | 0 |  |  |
 
 ## Complementos (C1 a C4)
 
 | Archivo | Capítulo | Líneas | Fig | Ej | Def+Prop+Teo | Dem | Resultados | Con comprobación | Tipo | Ejerc | Con sol | Sim | Recuadros | Enlaces rotos | Aplic | Molde | Prohib | Estilo | Cumple | Falta |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| contenido/c1-proyectivas.tex | capituloComplemento: Transformaciones proyectivas | 856 | 6 | 2 | 4 | 1 | 1 | 0 | — | 7 | 7 | 3 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/c3-terreno-como-matriz.tex | capituloComplemento: El terreno como matriz | 735 | 5 | 2 | 2 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/c1-proyectivas.tex | capituloComplemento: Transformaciones proyectivas | 852 | 6 | 2 | 4 | 1 | 1 | 0 | — | 7 | 7 | 3 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
+| contenido/c3-terreno-como-matriz.tex | capituloComplemento: El terreno como matriz | 734 | 5 | 2 | 2 | 2 | 2 | 0 | — | 4 | 4 | 2 | 2 | 0 | sí | sí | 0 | 0 | sí |  |
 | contenido/c2-conformes.tex | capituloComplemento: Transformaciones conformes | 708 | 3 | 3 | 2 | 2 | 2 | 0 | — | 5 | 5 | 2 | 1 | 0 | sí | sí | 0 | 0 | sí |  |
-| contenido/c4-marcos-grillas.tex | capituloComplemento: Marcos de referencia, grillas y remuest | 507 | 4 | 3 | 3 | 3 | 3 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
-| **Total** | | 2806 | 18 | 10 | 11 | 8 | 8 | 0 |  | 21 | 21 | 10 | 7 | 0 |  |  | 0 | 0 |  |  |
+| contenido/c4-marcos-grillas.tex | capituloComplemento: Marcos de referencia, grillas y remuest | 505 | 4 | 3 | 3 | 3 | 3 | 0 | — | 5 | 5 | 3 | 3 | 0 | sí | sí | 0 | 0 | sí |  |
+| **Total** | | 2799 | 18 | 10 | 11 | 8 | 8 | 0 |  | 21 | 21 | 10 | 7 | 0 |  |  | 0 | 0 |  |  |
 
 ## Apéndices (sin molde)
 
@@ -79,8 +79,8 @@ Capítulo 0: criterio propio (orientación, notación, leyenda de símbolos, uso
 - Enlaces rotos: 0
 
 - Fecha: 2026-10-19
-- HEAD: 91b8219
-- Páginas del último PDF: 328 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
+- HEAD: 44e77d3
+- Páginas del último PDF: 329 (apunte/Apunte_Sistemas_de_Coordenadas.pdf)
 - Capítulos que cumplen el mínimo: 15 de 15
 - Complementos que cumplen el mínimo: 4 de 4
 - Resultados (proposición, teorema, lema, corolario) con comprobación: 6 de 97

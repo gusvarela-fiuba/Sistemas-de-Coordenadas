@@ -25,7 +25,7 @@ conceptos:
     nombre: "Rotación"
     clase: "01"
     unidad: 01a_punto_quieto
-    hecho_geometrico: "Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal sólo si el centro es el origen."
+    hecho_geometrico: "Un punto queda quieto y los demás recorren circunferencias concéntricas; x' = c + R(θ)(x − c). Lineal solo si el centro es el origen."
     que_se_conserva: "distancias, ángulos y orientación"
     apunte: ["rotaciones", "repaso-algebra"]
     requiere: [transformacion-lineal, producto-interno]

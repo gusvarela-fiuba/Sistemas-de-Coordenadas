@@ -270,7 +270,7 @@ def _(R_sit, lib, mo, np):
             $1$ (doble) y $-1$. $\lambda = -1$: $A + I = \mathrm{diag}(2, 2, 0)$, cruz de las filas 1 y 2:
             $(2, 0, 0) \times (0, 2, 0) = (0, 0, 4)$, el eje $z$; $A(0, 0, 1) = (0, 0, -1)$ ✓, se invierte. $\lambda = 1$:
             $A - I = \mathrm{diag}(0, 0, -2)$, dos filas nulas, **toda cruz da cero**: el núcleo es el plano $xy$ entero,
-            cada vector del espejo queda quieto ("dos autovectores con el mismo autovalor").
+            cada vector del espejo queda quieto («dos autovectores con el mismo autovalor»).
             """),
             mo.vstack([
                 mo.md("```python\nA = np.diag([1., 1., -1.])\nnp.poly(A)            # det(λI − A)\nI = np.eye(3)\nnp.cross((A + I)[0], (A + I)[1])   # λ = −1\nnp.cross((A - I)[0], (A - I)[1])   # λ = 1: cero\nlib.autovectores_cuna(A)\n```"),
@@ -354,7 +354,7 @@ def _(mo):
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         $\det(H - \lambda I)$ es de grado $3$, impar: tiene una raíz real, con autovector real $v$. Si $v_3 \neq 0$ es un
         punto fijo propio; si $v_3 = 0$, impropio. El giro afín: $H = \begin{pmatrix} R & t \\ 0 & 1 \end{pmatrix}$, y
-        $\det(H - \lambda I) = (1 - \lambda)\det(R - \lambda I)$; $R(72°)$ aporta $e^{\pm i\,72°}$, complejos. Queda sólo
+        $\det(H - \lambda I) = (1 - \lambda)\det(R - \lambda I)$; $R(72°)$ aporta $e^{\pm i\,72°}$, complejos. Queda solo
         $\lambda = 1$, cuyo autovector $(c, 1)$ es el centro ($Hc = c$): un único punto fijo, propio.
         """)}),
     ])
@@ -491,7 +491,7 @@ def _(mo):
     - [ficha del capítulo 7](../../capitulos/06.html) · [unidad anterior: núcleo y autovectores](../07b_nucleo_autovectores/index.html) · [unidad 05: proyectivas](../05_proyectivas/index.html) · [unidad 01c: rotaciones 3D](../01c_rotaciones_3d/index.html) · [el hilo conductor](../../index.html)
 
     **Lo que viene:** [Cambio de base y diagonalización](../08_cambio_de_base/index.html): si armamos una base con los
-    autovectores, en esa grilla la transformación es sólo estirar cada eje por su $\lambda$.
+    autovectores, en esa grilla la transformación es solo estirar cada eje por su $\lambda$.
     """)
     return
 

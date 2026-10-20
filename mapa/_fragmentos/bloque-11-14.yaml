@@ -16,7 +16,7 @@ clases:
   - id: "13"
     titulo: "Geometría del elipsoide"
     ficha: clases/13-elipsoide.md
-    pregunta: "¿Qué se puede deducir del elipsoide sólo con que todos sus meridianos son la misma elipse?"
+    pregunta: "¿Qué se puede deducir del elipsoide solo con que todos sus meridianos son la misma elipse?"
     nivel: troncal
   - id: "14"
     titulo: "Trigonometría esférica y polígonos geodésicos"
@@ -46,7 +46,7 @@ conceptos:
     clase: "11"
     unidad: 11_cuatro_problemas
     hecho_geometrico: "Superponer dos nubes de puntos con la rotación (y escala) que mejor las ajusta: la SVD de la matriz de correlación H = PᵀQ separa el giro (U, V) del estiramiento (Σ). Helmert 2D en Topografía."
-    que_se_conserva: "Distancias y ángulos dentro de cada nube: sólo se permite rotar, trasladar y escalar."
+    que_se_conserva: "Distancias y ángulos dentro de cada nube: solo se permite rotar, trasladar y escalar."
     apunte: ["cuatro-problemas"]
     requiere: [svd, valores-singulares, producto-interno, matriz-ortogonal]
   - id: regresion-total
@@ -70,7 +70,7 @@ conceptos:
     clase: "12"
     unidad: 12_curvatura
     hecho_geometrico: "Un número que sale de un vector pasando por una matriz simétrica, vᵀHv; la curvatura normal en dirección α es la hessiana evaluada en (cos α, sin α); diagonalizar es rotar los ejes hasta que desaparece el término cruzado y aparecen las direcciones principales, ortogonales."
-    que_se_conserva: "Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, sólo de escritura."
+    que_se_conserva: "Los autovalores (curvaturas principales) y el determinante: la forma no cambia de valor al rotar los ejes, solo de escritura."
     apunte: ["curvatura"]
     requiere: [hessiana, autovector, diagonalizacion, svd, producto-interno]
   - id: geodesica
@@ -125,7 +125,7 @@ conceptos:
     nombre: Indicatriz de Tissot
     clase: "13"
     unidad: 15_transformaciones_conformes
-    hecho_geometrico: "La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y sólo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J."
+    hecho_geometrico: "La imagen de un círculo infinitesimal del terreno por el Jacobiano de la proyección: una elipse de semiejes σ₁ ≥ σ₂ (SVD); es un círculo si y solo si la proyección es conforme. Deformación angular máxima ω = 2 arcsin((σ₁ − σ₂)/(σ₁ + σ₂)); área σ₁σ₂ = det J."
     que_se_conserva: "Lo que dice la elipse: forma (conforme) si σ₁ = σ₂, área (equivalente) si σ₁σ₂ = 1, el meridiano (equidistante) si h = 1."
     apunte: ["conformes"]
     requiere: [jacobiano, svd, valores-singulares, primera-forma-fundamental]
@@ -150,6 +150,6 @@ conceptos:
     clase: "13"
     unidad: 15_transformaciones_conformes
     hecho_geometrico: "La conforme que usa la Argentina (POSGAR, fajas): w = f(q + i Δλ) con f analítica (Cauchy-Riemann ⇒ conforme) y elegida para que sobre el meridiano central (Δλ = 0) la ordenada sea el arco de meridiano S(φ); el cilindro es tangente a un meridiano en vez del ecuador y la escala k crece con Δλ²."
-    que_se_conserva: "Los ángulos; la escala 1 sólo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino)."
+    que_se_conserva: "Los ángulos; la escala 1 solo sobre el meridiano central (k₀ = 1 en Gauss-Krüger argentino)."
     apunte: ["conformes"]
     requiere: [transformacion-conforme, latitud-isometrica, mercator, numeros-complejos]

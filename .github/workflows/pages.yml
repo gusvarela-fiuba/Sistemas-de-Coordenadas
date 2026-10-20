@@ -1,12 +1,12 @@
 # Sitio de Sistemas de Coordenadas (CB104) en GitHub Pages.
 #
 # En cada push a main (y a mano con workflow_dispatch): build del sitio y despliegue.
-# En pull requests: sólo el job de build, como CI (sin subir artefacto ni desplegar).
+# En pull requests: solo el job de build, como CI (sin subir artefacto ni desplegar).
 #
 # Una vez por repo, en GitHub: Settings → Pages → Build and deployment → Source: "GitHub Actions".
 #
 # Red en el runner: `marimo export html-wasm` NO descarga nada en el build; copia el frontend desde el
-# wheel de marimo (`marimo/_static/`), y sólo en modo desarrollo de marimo (MARIMO_DEVELOPMENT_MODE)
+# wheel de marimo (`marimo/_static/`), y solo en modo desarrollo de marimo (MARIMO_DEVELOPMENT_MODE)
 # lo pediría a jsdelivr. Pyodide y los paquetes (numpy, plotly) los baja el navegador de quien abre la lección desde el
 # CDN al abrir cada lección, no el runner. La primera exportación después de `uv sync` tarda ~40 s
 # (compila bytecode); las siguientes 1–2 s por lección.
@@ -57,6 +57,14 @@ jobs:
       # un hallazgo de estilo frena la publicación.
       - name: Estilo (hoja de estilo apunte/ESTILO.md; si hay hallazgos, no se publica)
         run: uv run python apunte/scripts/estilo.py --estricto
+
+      # La misma hoja de estilo sobre lo interactivo: la prosa de unidades/ (mo.md, títulos, banco), clases/,
+      # mapa/, moodle/ y los .md de la raíz (tildes de «solo», comillas rectas, decimales, «es decir», «Desarrollo.»,
+      # instrumentos, «desaprender», voseo). También bloqueante.
+      - name: Estilo de lo interactivo (unidades, fichas, mapa, Moodle y .md de la raíz; si hay hallazgos, no se publica)
+        run: |
+          uv run python apunte/scripts/estilo.py --alcance interactivo --estricto
+          uv run pytest -q apunte/scripts/test_estilo_interactivo.py
 
       - name: Demostraciones (comprobaciones con código de apunte/demostraciones; si fallan, no se publica)
         run: uv run pytest apunte/demostraciones tools/cad -q

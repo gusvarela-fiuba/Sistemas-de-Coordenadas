@@ -51,7 +51,7 @@ def _(mo):
     (<span style="color:#b5451b">**rust**</span>) son las columnas de $V$; sus imágenes $\sigma_1u_1$, $\sigma_2u_2$
     van del mismo color. Círculo unitario y elipse imagen en <span style="color:#7a4e9e">**violeta**</span>; grilla
     gris antes, teal después. En [Cambio de base](../08_cambio_de_base/index.html) buscamos **una** grilla en la que
-    $A$ sólo estira, y no siempre existe; acá usamos dos, una a la entrada y otra a la salida, y siempre existe.
+    $A$ solo estira, y no siempre existe; acá usamos dos, una a la entrada y otra a la salida, y siempre existe.
     """)
     return
 
@@ -76,7 +76,7 @@ def _(lib, mo, np):
     }
     prediccion = mo.ui.radio(
         options=lib.opciones_barajadas({
-            "una elipse; sólo las direcciones propias de la unidad 08 siguen perpendiculares": "propias",
+            "una elipse; solo las direcciones propias de la unidad 08 siguen perpendiculares": "propias",
             "una elipse; cualquier par de direcciones perpendiculares sigue perpendicular": "siempre",
             "una elipse; ningún par perpendicular sigue perpendicular, porque A no es simétrica": "nunca",
             "una elipse; hay un par de direcciones perpendiculares que sigue perpendicular, y no son las propias": "correcta",
@@ -112,14 +112,14 @@ def _(A_pred, B_pred, Vt_pred, candidatos, lib, mo, prediccion, s_pred):
                      r"Abajo mostramos que ese par siempre existe."),
         "siempre": ("warn",
                     rf"**No.** Los ejes $e_1, e_2$ van a $(2, 0)$ y $(1, 1)$, con producto interno ${lib.num_tex(candidatos['ejes'])} \ne 0$: la cizalla "
-                    r"los cierra. Sólo las similaridades (un giro o una reflexión, con escala) conservan **todos** los ángulos; una matriz cualquiera conserva el ángulo recto de un solo par."),
+                    r"los cierra. Solo las similaridades (un giro o una reflexión, con escala) conservan **todos** los ángulos; una matriz cualquiera conserva el ángulo recto de un solo par."),
         "nunca": ("warn",
                   rf"**No.** Que $A$ no sea simétrica quita las direcciones propias perpendiculares, no las singulares: con {_par} las imágenes tienen "
                   rf"producto interno ${_pi}$. Ese par existe para **toda** matriz, también para un giro, que no tiene autovectores reales."),
         "propias": ("warn",
                     rf"**No.** Los autovectores $b_1 = {lib.vec_tex(B_pred[:, 0])}$ y $b_2 = {lib.vec_tex(B_pred[:, 1])}$ no son perpendiculares entre sí "
                     rf"($\langle b_1, b_2\rangle = {lib.num_tex(candidatos['entre-propias'])}$) ni sus imágenes (${lib.num_tex(candidatos['propias'])}$). Diagonalizar pregunta "
-                    r"qué direcciones **caen sobre sí mismas**; la SVD, qué par perpendicular **sigue perpendicular**. Coinciden sólo si $A$ es simétrica."),
+                    r"qué direcciones **caen sobre sí mismas**; la SVD, qué par perpendicular **sigue perpendicular**. Coinciden solo si $A$ es simétrica."),
     }
     _kind, _texto = _respuestas[prediccion.value]
     mo.callout(mo.md(_texto), kind=_kind)
@@ -149,14 +149,14 @@ def _(mo):
     además todos los $\lambda_k \ge 0$): ahí sí es la diagonalización de la unidad 08.
     Si $A$ gira, $\Sigma = I$.
 
-    **Inversa.** Deshacer tres movimientos es deshacerlos al revés: $A^{-1} = V\,\Sigma^{-1}U^T$, "invertir una
-    matriz diagonal es tomar recíprocos". Existe si ninguna $\sigma$ es $0$; $\det A = \pm\sigma_1\sigma_2$. Si
+    **Inversa.** Deshacer tres movimientos es deshacerlos al revés: $A^{-1} = V\,\Sigma^{-1}U^T$, «invertir una
+    matriz diagonal es tomar recíprocos». Existe si ninguna $\sigma$ es $0$; $\det A = \pm\sigma_1\sigma_2$. Si
     $\sigma_2 = 0$ la elipse se aplastó en un segmento y no se sabe de dónde vino cada punto: no hay inversa, como $1/0$.
 
     **Pseudoinversa.** Si $\sigma_2 = 0$, o si $A$ es $N\times2$ (más mediciones que incógnitas), lo más parecido a
-    deshacer es $A^{+} = V\,\Sigma^{+}U^T$, con $1/\sigma$ sólo donde $\sigma \ne 0$ y ceros donde había ceros: la
+    deshacer es $A^{+} = V\,\Sigma^{+}U^T$, con $1/\sigma$ solo donde $\sigma \ne 0$ y ceros donde había ceros: la
     solución de **mínimos cuadrados** de norma mínima, que proyecta el término independiente sobre lo que $A$ puede
-    producir y deshace sólo esa parte. En $\mathbb R$, la pseudoinversa de $0$ es $0$.
+    producir y deshace solo esa parte. En $\mathbb R$, la pseudoinversa de $0$ es $0$.
 
     **Los cuatro subespacios** (con sus nombres usuales), para $A$ de $m\times n$:
 
@@ -341,7 +341,7 @@ def _(lib, mo, np):
             $$A^T A = \begin{pmatrix} 2 & 0 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 4 & 2 \\ 2 & 2 \end{pmatrix},\quad
             \mu^2 - 6\mu + 4 = 0 \Rightarrow \mu = 3 \pm \sqrt5.$$
 
-            $\sigma_1 = \sqrt{3 + \sqrt5} = \tfrac{1 + \sqrt5}{\sqrt2} \approx 2.288$, $\sigma_2 = \tfrac{\sqrt5 - 1}{\sqrt2} \approx 0.874$;
+            $\sigma_1 = \sqrt{3 + \sqrt5} = \tfrac{1 + \sqrt5}{\sqrt2} \approx 2{,}288$, $\sigma_2 = \tfrac{\sqrt5 - 1}{\sqrt2} \approx 0{,}874$;
             control $\sigma_1\sigma_2 = \tfrac{5 - 1}{2} = 2 = \det A$. Los $v_k$ son los autovectores de $A^T A$ y $u_k = Av_k/\sigma_k$.
             """),
             mo.vstack([
@@ -441,7 +441,7 @@ def _(centrar, go, k_svd, lib, mo, np):
         mo.md(r"""
         La primera fila está calculada fuera del navegador con `datos/dem_copernicus/svd_dem_proto.py` sobre el recorte
         de $512\times512$ (`svd_results_512.json`). La submuestra reproduce la curva hasta $k = 50$; en $k = 100$ ya
-        es casi todo su rango, por eso baja de $1$ m. El relieve "aparece" en $k \approx 20$. Con la media restada,
+        es casi todo su rango, por eso baja de $1$ m. El relieve «aparece» en $k \approx 20$. Con la media restada,
         $k = 1$ deja de ser la meseta y pasa a ser la primera franja de relieve (el RMS de $k = 1$ baja de $103$ a
         $86$ m) y desde $k \approx 20$ las dos curvas coinciden: la meseta cuesta un solo término.
         """),
@@ -474,7 +474,7 @@ def _(mo):
         mo.accordion({"Ver respuesta (b)": mo.md(r"""
         Coinciden cuando $A$ es cuadrada y **ningún $\sigma$ es cero** ($\det A \ne 0$): $\Sigma^{+} = \Sigma^{-1}$ y
         $V\Sigma^{-1}U^T$ es la inversa. $D$: $D^{-1} = D^{+} = \mathrm{diag}(\tfrac13, -\tfrac12)$, $D^{+}D = I$.
-        $P$: $\sigma_2 = 0$, no hay $P^{-1}$; $P^{+} = \tfrac1{25}P$ (3.3) y $P^{+}P = \tfrac15P$ es la **proyección** sobre la
+        $P$: $\sigma_2 = 0$, no hay $P^{-1}$; $P^{+} = \tfrac1{25}P$ (3,3) y $P^{+}P = \tfrac15P$ es la **proyección** sobre la
         recta de $(1, 2)$: deshace lo que $P$ no aplastó y manda a $0$ el núcleo $(2, -1)$. En $\mathbb R$: $1/a$ si $a \ne 0$, $0$ si $a = 0$.
         """)}),
     ])
@@ -607,7 +607,7 @@ def _(mo):
     ## Dónde está la demostración, y lo que viene
 
     Acá verificamos que toda matriz es rotar, estirar, rotar; que la inversa lo deshace al revés y que la pseudoinversa
-    deshace sólo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
+    deshace solo lo que no se aplastó, dejando el residuo en la contra-imagen. En el apunte, la sección
     [Descomposición en valores singulares (SVD)](../../apunte.pdf#nameddest=sec:svd) construye $U$, $\Sigma$, $V$ con
     un ejemplo a mano, la rehace en un cuaderno de cálculo simbólico y remata con la SVD de un modelo digital de
     elevación; la sección [Inversas, los cuatro subespacios y la pseudoinversa](../../apunte.pdf#nameddest=sec:pseudoinversa)

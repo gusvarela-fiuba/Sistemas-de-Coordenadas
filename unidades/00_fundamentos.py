@@ -6,7 +6,8 @@
 #     "plotly",
 # ]
 # ///
-"""Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia).
+"""Unidad 0 — El idioma de la materia: puntos, flechas, reglas y distancias.
+Cuerpos, grupos, formas lineales y métrica.
 
 Repaso fundacional de desarrollo complementario, no una lección del recorrido principal. Cinco ladrillos en orden
 deductivo, al estilo de Apostol, con el vocabulario de la materia y con el terreno como ejemplo: (1) conjuntos, operaciones y grupos; (2) los cuerpos R y C, con C como matrices 2×2;
@@ -41,7 +42,9 @@ def _():
 @app.cell
 def _(mo):
     mo.md(r"""
-    # Unidad 0 — Fundamentos: cuerpos, grupos, puntos, formas lineales y métrica (el idioma de la materia)
+    # Unidad 0 — El idioma de la materia: puntos, flechas, reglas y distancias
+
+    *Cuerpos, grupos, formas lineales y métrica*
 
     **Sistemas de Coordenadas** · Agrimensura · FIUBA · Gustavo Varela
 
@@ -160,7 +163,7 @@ def _(altura, direccion_entera, go, grad_altura, lib, mo, np):
 
         El plano que tenemos en la mesa está dibujado con el **eje Este estirado por 2** (como una planilla con columnas de
         distinto paso): el punto de terreno $(x, y)$ aparece en $(2x, y)$. Las curvas de nivel se ven como elipses y el
-        mojón cae en $(4, 2)$. La pregunta de campo: si dibujamos sobre ese plano la flecha de "hacia dónde baja el agua",
+        mojón cae en $(4, 2)$. La pregunta de campo: si dibujamos sobre ese plano la flecha de «hacia dónde baja el agua»,
         **¿para dónde la dibujamos?** Las cuatro direcciones están en unidades del dibujo.
         """),
         mo.ui.plotly(figura_plano0),
@@ -181,12 +184,12 @@ def _(candidatos, lib, mo, prediccion):
                     r"saber cuánto mide cada paso de la grilla (ladrillo 5)."),
         "perp-dibujo": ("warn",
                         rf"**No.** ${_p}$ es perpendicular a las elipses **en el papel**, pero el papel está estirado: el ángulo "
-                        r"recto del terreno se deformó al dibujar. Perpendicular en una grilla es perpendicular sólo con la métrica de "
+                        r"recto del terreno se deformó al dibujar. Perpendicular en una grilla es perpendicular solo con la métrica de "
                         r"esa grilla; la del dibujo no es la del terreno. Es el error que la sección 2 (b) muestra con números."),
         "curva": ("warn",
                   r"**No.** A lo largo de la curva de nivel la cota **no cambia**: por ahí el agua no baja. La curva de nivel es "
                   r"la marca de la regla; la bajada la cruza. Lo que sí es cierto es que la bajada del terreno no se ve "
-                  r"perpendicular a la curva en el dibujo, y ésa es la trampa."),
+                  r"perpendicular a la curva en el dibujo, y esa es la trampa."),
         "correcta": ("success",
                      rf"**Sí.** ${_c}$ es la bajada real $(1, 1)$ del terreno, dibujada con el Este por 2. No es perpendicular a "
                      r"las elipses del papel, y está bien que no lo sea: el ángulo recto vive en el terreno, no en el dibujo. "
@@ -210,7 +213,7 @@ def _(mo):
 
     **¿Qué se conserva?** El terreno. Mojones, cotas, distancias y ángulos están ahí antes de que elijamos origen, ejes,
     grilla o escala del dibujo; lo que cambia con nuestras elecciones son los **números**. Los ladrillos van en orden
-    deductivo: cada uno usa sólo los anteriores, y cada uno pone un nombre a algo que ya hacemos en el campo.
+    deductivo: cada uno usa solo los anteriores, y cada uno pone un nombre a algo que ya hacemos en el campo.
 
     ### Ladrillo 1 — Conjuntos, operaciones y grupos
 
@@ -232,7 +235,7 @@ def _(mo):
     traslaciones. Lo mide [Rotaciones III](../01c_rotaciones_3d/index.html).
 
     **En NumPy.** La operación es `A @ B` (primero $B$, después $A$); el neutro, `np.eye(n)`; la inversa aplicada a un
-    dato, `np.linalg.solve(A, y)` (el $x$ tal que $Ax = y$); la pregunta "¿conmutan?", `np.allclose(A @ B, B @ A)`.
+    dato, `np.linalg.solve(A, y)` (el $x$ tal que $Ax = y$); la pregunta “¿conmutan?”, `np.allclose(A @ B, B @ A)`.
 
     ### Ladrillo 2 — Los cuerpos $\mathbb R$ y $\mathbb C$
 
@@ -253,7 +256,7 @@ def _(mo):
 
     **En el vocabulario de la materia.** La matriz de rotación de 2×2 del álgebra del CBC hace exactamente la misma
     operación que hacíamos con los complejos; la equivalencia entre la estructura de los números complejos y ciertas
-    matrices de 2×2 se lee en Gentile, *Complejos y Generalización*, y "multiplicar por $i$ es rotar $\pi/2$" es la
+    matrices de 2×2 se lee en Gentile, *Complejos y Generalización*, y “multiplicar por $i$ es rotar $\pi/2$” es la
     versión más corta de esa equivalencia. Lo desarrolla [Rotaciones II](../01b_rotacion_plano/index.html).
 
     **En NumPy.** `z = 2 + 1j`, `abs(z)`, `np.degrees(np.angle(z))`, y la matriz `np.array([[z.real, -z.imag], [z.imag, z.real]])`.
@@ -270,7 +273,7 @@ def _(mo):
     un vector. Cuando plantamos el instrumento en un mojón $O$ y lo declaramos origen, cada mojón se vuelve el vector
     $P - O$ y **nace $V$**: recién ahí hay combinaciones, bases y coordenadas. La otra manera de que nazca es
     homogeneizar: el punto $(x, y)$ pasa a ser el vector $(x, y, 1)$ de $\mathbb R^3$, y las traslaciones, que no son
-    lineales porque "las transformaciones lineales conservan el cero" (19/8), pasan a ser matrices $3\times3$
+    lineales porque “las transformaciones lineales conservan el cero” (19/8), pasan a ser matrices $3\times3$
     ([Afines](../04_afines_homogeneas/index.html)).
 
     **En el vocabulario de la materia.** Un espacio vectorial es básicamente un conjunto con dos operaciones (suma y
@@ -316,7 +319,7 @@ def _(mo):
     positiva ($u^T G u > 0$ si $u \ne 0$). Con él, y recién con él, hay largos $\lvert u\rvert = \sqrt{u^T G u}$ y
     ángulos $\cos\theta = \langle u, v\rangle_G / (\lvert u\rvert\,\lvert v\rvert)$. $V$ y $V^*$ solos no tienen ni lo uno
     ni lo otro: la métrica es un dato **extra**, y es el único puente entre los dos espacios: *baja* un vector a forma,
-    $w = Gv$, y *sube* una forma a vector, $v = G^{-1} w$. "El gradiente es perpendicular a la curva de nivel" es la
+    $w = Gv$, y *sube* una forma a vector, $v = G^{-1} w$. “El gradiente es perpendicular a la curva de nivel” es la
     frase sobre $G^{-1}\nabla f$, no sobre $\nabla f$.
 
     **En el vocabulario de la materia.** Lo único que define a la base que llamamos canónica es que sobre ella tenemos
@@ -383,7 +386,7 @@ def _(lib, mo, np):
     casos = {
         "identidad": (np.eye(2), r"nada se mueve: los dos dibujos coinciden."),
         "estirar Este ×2: diag(2, 1)": (np.diag([2.0, 1.0]), r"los puntos se estiran en $x$; la regla se divide, $(1, 1) \mapsto (\tfrac12, 1)$; la perpendicular del dibujo deja de ser la del terreno."),
-        "cizalla [[1, 1], [0, 1]]": (np.array([[1.0, 1.0], [0.0, 1.0]]), r"la grilla se acuesta; la regla se corta al revés, $(1, 1) \mapsto (1, 0)$: después sólo lee $x$."),
+        "cizalla [[1, 1], [0, 1]]": (np.array([[1.0, 1.0], [0.0, 1.0]]), r"la grilla se acuesta; la regla se corta al revés, $(1, 1) \mapsto (1, 0)$: después solo lee $x$."),
         "rotación 30°": (lib.rot2(np.deg2rad(30)), r"$A^{-1} = A^T$: la regla gira igual que los puntos y la flecha sigue perpendicular. Con un giro el ladrillo 4 no se nota."),
     }
     parches = {
@@ -577,7 +580,7 @@ def _(angulo_g, matriz_complejo, mo, np):
             dirección $(1, -1)$ y la subida $w = (1, 1)$: $\langle (1,1), (1,-1)\rangle = 0$, recto. Dibujados con $A$:
             la marca va a $A(1, -1) = (2, -1)$ y la subida a $Aw = (2, 1)$.
 
-            En el papel: $\cos\theta = \dfrac{(2,1)\cdot(2,-1)}{\sqrt5\,\sqrt5} = \dfrac{3}{5}$, $\theta = 53.1°$.
+            En el papel: $\cos\theta = \dfrac{(2,1)\cdot(2,-1)}{\sqrt5\,\sqrt5} = \dfrac{3}{5}$, $\theta = 53{,}1°$.
 
             Con la métrica del terreno escrita en el papel, $G' = A^{-T}A^{-1} = \mathrm{diag}(\tfrac14, 1)$:
 
@@ -719,7 +722,7 @@ def _(mo):
     mo.vstack([
         mo.md(r"""
         **E2. Código con hueco — medio** *Idea central: una forma lineal se transforma con una transformación lineal del lado
-        'contrario' que un vector.* Completá `arrastrar_punto_y_forma(A, x, w)`: devuelve el par `(x2, w2)` con el
+        «contrario» que un vector.* Completá `arrastrar_punto_y_forma(A, x, w)`: devuelve el par `(x2, w2)` con el
         punto movido y la regla arrastrada, de modo que la lectura no cambie: `w2 @ x2 == w @ x`. Tenés `np`; usá
         `np.linalg.solve` en vez de `inv`. Se verifica sobre $A = \mathrm{diag}(2, 1)$ y diez matrices al azar con
         $\det \ne 0$, y se chequea la invariancia de la cota en cada caso.
@@ -751,7 +754,7 @@ def _(editor_e2, lib, mo, np):
             _res = mo.callout(mo.md(r"❌ el punto no está bien movido: un punto va con $A$ **por la izquierda**, `A @ x` (ladrillo 3)."), kind="warn")
         elif np.allclose(_w2, _w_ok):
             _lect = np.array([[w @ x, w2 @ x2] for (A, x, w), w2, x2 in zip(_casos, _w2, _x2)])
-            _res = mo.callout(mo.md(f"✅ coincide en los 11 casos y la cota se conserva: `allclose(w @ x, w2 @ x2)` = `{bool(np.allclose(_lect[:, 0], _lect[:, 1]))}`. Punto con $A$, forma con $A^{{-1}}$ **a la derecha**: 'convertimos todo para que nada cambie'."), kind="success")
+            _res = mo.callout(mo.md(f"✅ coincide en los 11 casos y la cota se conserva: `allclose(w @ x, w2 @ x2)` = `{bool(np.allclose(_lect[:, 0], _lect[:, 1]))}`. Punto con $A$, forma con $A^{{-1}}$ **a la derecha**: “convertimos todo para que nada cambie”."), kind="success")
         elif np.allclose(_w2, [A @ w for A, x, w in _casos]):
             _res = mo.callout(mo.md(r"❌ `A @ w`: moviste la fila como si fuera un punto. La regla va con la **inversa** y a la **derecha**: `np.linalg.solve(A.T, w)` (que es `w @ inv(A)`)."), kind="warn")
         elif np.allclose(_w2, [w @ A for A, x, w in _casos]):

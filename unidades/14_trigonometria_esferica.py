@@ -99,10 +99,10 @@ def _(R_TIERRA, exceso_c, mo, np, prediccion, suma_c):
                      rf"**exceso esférico**, igual al área del triángulo dividida por $R^2$: ${_area:,.0f}$ km² $/ 6371^2 = {exceso_c:.4f}$ rad. "
                      rf"La sección 1 muestra de dónde sale."),
         "plano": ("warn",
-                  rf"**No.** $180°$ es la suma en el plano. Sobre la esfera el triángulo 'abomba' y los ángulos se abren: suman "
+                  rf"**No.** $180°$ es la suma en el plano. Sobre la esfera el triángulo «abomba» y los ángulos se abren: suman "
                   rf"${suma_c:.2f}°$. Con lados de pocos km la diferencia es invisible; con miles de km, no: acá son ${np.degrees(exceso_c):.2f}°$ de más."),
         "defecto": ("warn",
-                    rf"**No.** Restaste: pensaste que la curvatura 'cierra' los ángulos. En una silla de montar (curvatura negativa) "
+                    rf"**No.** Restaste: pensaste que la curvatura «cierra» los ángulos. En una silla de montar (curvatura negativa) "
                     rf"sí hay defecto; en la esfera la curvatura es positiva y hay **exceso**: ${suma_c:.2f}°$."),
         "octante": ("warn",
                     rf"**No.** $270°$ es la suma del **octante**, el triángulo de tres ángulos rectos que cubre un octavo de la esfera. El de "
@@ -265,7 +265,7 @@ def _(lib, mo, np):
             **3.2 Un triángulo chico.** $A$ en el ecuador, $B$ a $1°$ de longitud, $C$ a $1°$ de latitud: $b = c = 1°$ y
             el ángulo en $A$ es recto (meridiano contra ecuador). Ley del coseno con $\cos 90° = 0$:
             $\cos a = \cos^2 1°$, $a = \arccos(\cos^2 1°) = {np.degrees(_a):.5f}°$; Pitágoras plano daría
-            $\sqrt2° = 1.41421°$. El ángulo en $B$: $\cos B = \dfrac{{\cos b - \cos a\cos c}}{{\sin a\,\sin c}}$,
+            $\sqrt2° = 1{{,}}41421°$. El ángulo en $B$: $\cos B = \dfrac{{\cos b - \cos a\cos c}}{{\sin a\,\sin c}}$,
             $B = {np.degrees(_B_ley):.5f}°$, y $C = B$. Suma ${np.degrees(_A + 2 * _B_ley):.5f}°$: el exceso,
             ${np.degrees(_A + 2 * _B_ley) - 180:.5f}°$, es el área del triángulo rectángulo, $\tfrac12 (1°)^2$ en radianes:
             $\tfrac12(\pi/180)^2 = {0.5 * _g**2:.3e}$ rad $= {np.degrees(0.5 * _g**2):.5f}°$.
@@ -294,11 +294,11 @@ def _(lib, mo, np):
 
         Una sola idea: **el ángulo entre dos vectores sale más robusto de `np.arctan2(|p × q|, p · q)` que de
         `np.arccos(p · q / (|p||q|))`**. El coseno así calculado puede salirse de $[-1, 1]$ por redondeo: con el punto
-        $(45°, 30°)$ contra sí mismo, el cociente da $1.0000000000000002$ (abajo, en vivo) y `arccos` devuelve `nan`.
+        $(45°, 30°)$ contra sí mismo, el cociente da `1.0000000000000002` (abajo, en vivo) y `arccos` devuelve `nan`.
         Por eso con `arccos` hay que proteger con `np.clip(..., -1, 1)`; además, para ángulos chicos pierde precisión
         porque $\cos$ es plano cerca de $0$ (un error de $10^{-16}$ en el coseno es un error de $10^{-8}$ rad en el ángulo).
         `arctan2` usa el seno (la cuña, $|p\times q|$) y el coseno a la vez, no necesita clip y es exacto en todo el rango:
-        es lo que hace `lib.angulo_vertice`. Convertir con `np.degrees` sólo para mostrar.
+        es lo que hace `lib.angulo_vertice`. Convertir con `np.degrees` solo para mostrar.
         """),
         mo.md("```python\np = punto_esfera(np.radians(45), np.radians(30)); q = p.copy()\nnp.arccos(p @ q / (np.linalg.norm(p) * np.linalg.norm(q)))  # nan: el cociente da 1.0000000000000002\nnp.arctan2(np.linalg.norm(np.cross(p, q)), p @ q)  # 0.0\n```"),
         mo.md(f"`p @ q / (|p||q|)` = `{_cos!r}` · `arccos` → `{_sin_clip}` · `arctan2` → `{_robusto}`"),
@@ -322,7 +322,7 @@ def _(R_TIERRA, lib, mo, np):
         """),
         mo.accordion({"Ver respuesta (a)": mo.md(rf"""
         $\cos a = \cos60°\cos60° + \sin60°\sin60°\cos90° = \tfrac14$, $a = \arccos\tfrac14 = {np.degrees(_a60):.2f}°$.
-        $\cos B = \dfrac{{\cos b - \cos a\cos c}}{{\sin a\sin c}} = \dfrac{{0.5 - 0.125}}{{\sin a \cdot 0.866}} = {np.cos(_B60):.4f}$,
+        $\cos B = \dfrac{{\cos b - \cos a\cos c}}{{\sin a\sin c}} = \dfrac{{0{{,}}5 - 0{{,}}125}}{{\sin a \cdot 0{{,}}866}} = {np.cos(_B60):.4f}$,
         $B = C = {np.degrees(_B60):.2f}°$. Suma ${90 + 2 * np.degrees(_B60):.2f}°$, exceso ${np.degrees(_ex60):.2f}° = {_ex60:.4f}$ rad: área
         ${_ex60:.4f}\,R^2$, el ${100 * _ex60 / (4 * np.pi):.2f}\,\%$ de la esfera.
         """)}),
@@ -335,7 +335,7 @@ def _(R_TIERRA, lib, mo, np):
         mo.accordion({"Ver respuesta (b)": mo.md(rf"""
         El triángulo es casi plano: área $\approx \tfrac{{\sqrt3}}{{4}}\,10^2 = {_area10:.1f}$ km²; exceso
         $\varepsilon = {_area10:.1f}/6371^2 = {_area10 / R_TIERRA**2:.2e}$ rad $= {np.degrees(_area10 / R_TIERRA**2) * 3600:.2f}''$. Con $100$ km el área es
-        $100$ veces mayor: $\varepsilon \approx {np.degrees(100 * _area10 / R_TIERRA**2) * 3600:.0f}''$, ya del orden de lo que mide un teodolito. Nota de
+        $100$ veces mayor: $\varepsilon \approx {np.degrees(100 * _area10 / R_TIERRA**2) * 3600:.0f}''$, ya del orden de lo que miden las herramientas que leen ángulos con precisión de hasta 1 segundo. Nota de
         agrimensura: en topografía se reparte restando $\varepsilon/3$ a cada ángulo (Legendre) y se
         calcula como plano. Cuadrilátero de cuatro rectos: imposible; cortado en dos triángulos la suma es
         $360° + \text{{área}}/R^2 > 360°$.
@@ -376,7 +376,7 @@ def _(editor_c, lib, mo, np):
         if np.allclose(_obt, _esp):
             _res = mo.callout(mo.md("✅ coincide en los diez pares, incluidos el punto repetido ($0°$) y las antípodas ($180°$)."), kind="success")
         elif np.isnan(_obt).any() and np.allclose(_obt[~np.isnan(_obt)], _esp[~np.isnan(_obt)]):
-            _res = mo.callout(mo.md("❌ casi: en el punto repetido o en las antípodas devolvés `nan`. El cociente se salió de $[-1, 1]$ por redondeo (±1.0000000000000002) y `arccos` no lo acepta: falta `np.clip(..., -1, 1)` (o `arctan2`, sección 4)."), kind="warn")
+            _res = mo.callout(mo.md("❌ casi: en el punto repetido o en las antípodas devolvés `nan`. El cociente se salió de $[-1, 1]$ por redondeo (`±1.0000000000000002`) y `arccos` no lo acepta: falta `np.clip(..., -1, 1)` (o `arctan2`, sección 4)."), kind="warn")
         elif np.allclose(_obt, np.radians(_esp)):
             _res = mo.callout(mo.md("❌ devolvés **radianes**. Falta `np.degrees(...)` al final."), kind="warn")
         else:
@@ -489,7 +489,7 @@ def _(mo):
     **Lo que viene:** [Transformaciones conformes: números complejos, Jacobiano y del elipsoide al plano cartográfico](../15_transformaciones_conformes/index.html),
     la unidad que cierra el hilo conductor. De la rotación que deja un mojón quieto a un triángulo sobre la Tierra que no
     cierra en $180°$, todo fue producto interno, cuña y cambio de coordenadas. Para repasar: volvé a
-    [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro "hasta el capítulo N".
+    [la portada](../../index.html) y recorré [el mapa de conceptos](../../mapa.html) con el filtro «hasta el capítulo N».
     Lo que sigue después es de Topografía y Geodesia: compensar poligonales con el exceso separado, y los problemas directo e
     inverso sobre el elipsoide.
     """)
