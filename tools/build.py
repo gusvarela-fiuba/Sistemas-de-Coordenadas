@@ -1205,6 +1205,34 @@ PIE = ('<p class="pie">Material de estudio de CB104 Sistemas de Coordenadas (Agr
        "Las unidades interactivas corren en el navegador (marimo + Pyodide); la primera carga tarda unos segundos.</p>")
 
 
+# Pie común de condiciones de uso: una línea en todas las páginas HTML que genera el build (también menu.html y
+# menu-por-capitulo.html, que escriben tools/menu.py y tools/menu_por_capitulo/gen.py), salvo las apps marimo de
+# site/unidades/ (pantalla completa, frontend del wheel) y las redirecciones. apunte/scripts/prohibidas.py admite
+# esta frase exacta (FRASE_CC); si cambia acá, cambiarla también allá y en la página legal del PDF.
+URL_CC = "https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas/blob/main/LICENSE"
+FRASE_CC = "Texto, figuras y preguntas: CC BY-SA 4.0. Código: MIT. Ver LICENSE."
+PIE_CC = (f'<p class="pie" style="font-size:.85rem;color:#666"><a href="{URL_CC}">{FRASE_CC}</a></p>')
+
+
+def agregar_pie_cc(out: Path) -> int:
+    """Inserta PIE_CC antes de </main> (o de </body>) en cada HTML del sitio. Idempotente. Devuelve cuántas tocó."""
+    n = 0
+    for p in sorted(out.rglob("*.html")):
+        rel = p.relative_to(out).parts
+        if rel[0] == "unidades" or "/".join(rel) in REDIRECCIONES:
+            continue
+        texto = p.read_text(encoding="utf-8")
+        if FRASE_CC in texto:
+            continue
+        cierre = "</main>" if "</main>" in texto else "</body>"
+        i = texto.rfind(cierre)
+        if i < 0:
+            continue
+        p.write_text(texto[:i] + PIE_CC + "\n" + texto[i:], encoding="utf-8")
+        n += 1
+    return n
+
+
 def generar_indice(datos: dict, fichas: dict[str, str], exportadas: set[str], hay_pdf: bool, out: Path) -> None:
     """site/index.html: el hilo conductor. Tres entradas y una entrada por unidad (más "Lo que viene")."""
     titulos_apunte = titulos_secciones_apunte()
@@ -2039,10 +2067,13 @@ def main() -> int:
         print("ERROR: enlaces rotos en para-el-docente.html", file=sys.stderr)
         return 1
     print(f"  {out / 'para-el-docente.html'}")
+    print("== pie común")
+    print(f"  {agregar_pie_cc(out)} páginas con la línea de condiciones de uso")
     print("== menciones prohibidas")
     sys.path.insert(0, str(RAIZ / "apunte" / "scripts"))
     import prohibidas
-    _proh = prohibidas.revisar_archivos(prohibidas.archivos_site(out), out)
+    # arbol=False: el sitio es artefacto publicado, mismas reglas que `prohibidas.py --dir site`.
+    _proh = prohibidas.revisar_archivos(prohibidas.archivos_site(out), out, False)
     for _r, _n, _l in _proh:
         print(f"  {_r}:{_n}: {_l[:200]}")
     if _proh:

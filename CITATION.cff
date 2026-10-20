@@ -5,7 +5,10 @@ type: software
 authors:
   - family-names: Varela
     given-names: Gustavo
-abstract: "Trabajo final de Sistemas de Coordenadas (CB104, FIUBA)."
+abstract: "Trabajo final de Sistemas de Coordenadas (CB104, FIUBA). Texto, figuras y preguntas: CC BY-SA 4.0; código: MIT. Ver LICENSE."
 date-released: 2026-10-19
 repository-code: "https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas"
 url: "https://gusvarela-fiuba.github.io/Sistemas-de-Coordenadas/"
+license: CC-BY-SA-4.0
+license-url: "https://github.com/gusvarela-fiuba/Sistemas-de-Coordenadas/blob/main/LICENSE"
+# El código (unidades/, tools/, apunte/scripts/, scripts/, apunte/demostraciones/) es MIT; ver LICENSE.

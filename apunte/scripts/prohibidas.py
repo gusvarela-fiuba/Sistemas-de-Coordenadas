@@ -36,7 +36,22 @@ EXCEPCIONES = [
     ("tools/adoptar_para_catedra.py", None),
     # El patrón mismo.
     ("apunte/scripts/prohibidas.py", None),
+    # Archivos de condiciones de uso pedidos por el editor (2026-10): el texto de las dos licencias y la cita.
+    ("LICENSE", None),
+    ("CITATION.cff", None),
 ]
+
+# Línea única de condiciones de uso, visible en el pie del sitio y en la página legal del PDF. Se admite SÓLO esta frase
+# literal, SÓLO en los archivos de FRASE_CC_ARBOL (árbol git) o en el sitio/PDF (--dir), y SÓLO si sacándola de la línea
+# no queda otra coincidencia del patrón. Cualquier otra mención (suelta, parafraseada o en otro archivo) sigue prohibida.
+FRASE_CC = "Texto, figuras y preguntas: CC BY-SA 4.0. Código: MIT. Ver LICENSE."
+FRASE_CC_ARBOL = {"tools/build.py", "apunte/Apunte_Sistemas_de_Coordenadas.tex"}
+
+
+def _frase_cc_ok(ruta_rel, linea, arbol):
+    if FRASE_CC not in linea or (arbol and ruta_rel not in FRASE_CC_ARBOL):
+        return False
+    return not PATRON.search(linea.replace(FRASE_CC, ""))
 
 EXT_SITE = {".html", ".md", ".xml", ".js", ".py", ".txt", ".yaml", ".yml", ".json", ".css"}
 
@@ -95,6 +110,8 @@ def permitida(ruta_rel, linea, arbol=True):
     if arbol and _guia_ok(ruta_rel, linea):
         return True
     if arbol and _clase_esquema_ok(ruta_rel, linea):
+        return True
+    if _frase_cc_ok(ruta_rel, linea, arbol):
         return True
     for r, frag in EXCEPCIONES:
         if r == ruta_rel and (frag is None or frag in linea):
