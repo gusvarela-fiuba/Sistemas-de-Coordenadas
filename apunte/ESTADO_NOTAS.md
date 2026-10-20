@@ -16,3 +16,18 @@ Para decidir por el editor:
 - C2: el script viejo `capc2_conformes.py` se retiró por decisión del editor (reemplazado por `c2_conformes.py`). El enlace heredado a la unidad `15_transformaciones_conformes` dice «Unidad 19»: revisar la numeración.
 - C1: los escalares de las columnas del patrón del pentágono siguen escritos con \(\lambda\) (no son autovalores); pasar a \(\mu_i\) si se quiere la convención estricta.
 - C3: «Copernicus DEM GLO-30» cuenta como término de campo por la sigla, pero el crédito de la figura lo exige.
+
+## Decisiones del editor sobre la entrega 5a (2026-10-19)
+
+- La predicción a mano alzada queda como está en la página para quien da la materia (las unidades son de opción múltiple; el croquis en papel es práctica de aula antes de marcar).
+- Alcance de MIT dentro de `apunte/` (scripts de figuras y portada) y `.githooks/`: aprobado.
+- Los números que calcula el código de las unidades quedan con punto por ahora.
+- El subtítulo de la Unidad 0 no va en la portada ni en el mapa.
+- La unidad 2 sin sección propia en el apunte se anotó en `ROADMAP.md`, entrega 5, cobertura del programa.
+
+## Para la próxima entrega (anotado, sin hacer)
+
+- `<title>` de cada unidad exportada con su título, no con el identificador.
+- «teal» → «verde azulado» en la prosa para alumnos (no en el código de colores).
+- `tools/adoptar_para_catedra.py`: reescribir también la dirección del LICENSE y la del pie del sitio.
+- Pregunta de la Unidad 0 menos técnica.
