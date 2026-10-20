@@ -70,6 +70,27 @@ def px(v: float) -> float:
 
 
 # ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON Y NUMPY PARA ESTUDIAR ESTE SCRIPT
+# ==============================================================================
+# 1. Inmersión de 2D en 3D y apilado de matrices (`np.column_stack` y `np.vstack`):
+#    - `np.column_stack([p, np.full(len(p), z)])` agrega una tercera columna
+#      constante `z` a los vértices 2D `(N, 2)` para obtener puntos `(N, 3)` en R³.
+#    - `np.vstack([base_inf, base_sup])` apila verticalmente los 5 vértices de la
+#      tapa inferior y los 5 de la superior en una matriz `(10, 3)` (índices 0 a 9
+#      en Python, frente a 1 a 10 en Julia).
+#
+# 2. Producto vectorial y normales (`np.cross`):
+#    En `normal_cara(p)`, `np.cross(p[1] - p[0], p[2] - p[0])` calcula el producto
+#    cruz de dos aristas de la cara (capítulo 6): su dirección da la normal unitaria
+#    para el sombreado lambertiano (`normal @ LUZ`).
+#
+# 3. Proyección en perspectiva (`proyectar_perspectiva`):
+#    Dividir `x` e `y` por `1 + z/d` es una transformación proyectiva (complemento
+#    C1): conserva las rectas pero hace converger las paralelas que se alejan en `z`.
+# ==============================================================================
+
+
+# ==============================================================================
 # Geometría pura (reutilizable en una unidad marimo)
 # ==============================================================================
 def pentagono_regular(R: float, n: int = 5) -> np.ndarray:

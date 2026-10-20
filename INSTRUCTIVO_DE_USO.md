@@ -131,7 +131,7 @@ uv sync
 
 ### Paso 4 — Abrir, probar y modificar una lección Marimo sin romper el repositorio
 
-Cada lección es un archivo `.py` de marimo. Hay cuatro maneras de trabajar con él, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_fundamentos`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` («Cómo agregar una lección en 5 pasos»).
+Cada lección es un archivo `.py` de marimo. (Además de las 20 lecciones, los scripts independientes de `ejercicios/`, `tools/cad/` y `datos/dem_copernicus/` están comentados paso a paso en castellano para quien quiera leerlos como material de apoyo para aprender Python, NumPy y graficación). Hay cuatro maneras de trabajar con una lección, de la más segura a la más libre. Los archivos de las 20 lecciones son `unidades/NN_nombre.py` (los nombres están en la tabla del README; por ejemplo `00_fundamentos`, `01a_punto_quieto`, `14_trigonometria_esferica`, `15_transformaciones_conformes`). Para crear una lección nueva, el molde es `unidades/PLANTILLA_leccion.py` y el procedimiento está en `tools/README.md` («Cómo agregar una lección en 5 pasos»).
 
 **1. Modo proyección, solo uso (`marimo run`).** No toca el archivo:
 

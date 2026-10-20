@@ -1,3 +1,15 @@
+"""Visualización estática (Matplotlib) e interactiva (Plotly) de la intersección
+de superficies y la recta tangente paralela a un plano (capítulos 6 y 10).
+
+Guía didáctica de Python para estudiar este script:
+  - `np.meshgrid(r, theta)` construye la grilla 2D de parámetros para evaluar
+    superficies paramétricas (el paraboloide en coordenadas cilíndricas y los
+    planos en coordenadas cartesianas) sin escribir bucles.
+  - `fig.add_subplot(1, 2, 1, projection='3d')` y `fig.add_subplot(1, 2, 2)`
+    combinan en una misma lámina una vista 3D en perspectiva y una proyección
+    2D de perfil sobre el plano X-Z (donde el paralelismo entre la recta tangente
+    y el plano x - z = 0 se ve como igualdad de pendientes).
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D

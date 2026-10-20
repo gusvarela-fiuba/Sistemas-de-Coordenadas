@@ -60,6 +60,30 @@ def px(v: float) -> float:
 
 
 # ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON Y NUMPY PARA ESTUDIAR ESTE SCRIPT
+# ==============================================================================
+# 1. Transformación vectorizada de una nube de puntos (`puntos @ M.T`):
+#    Guardamos los N vértices de un polígono en una matriz `puntos` de forma
+#    `(N, 2)`, donde cada fila es un punto `(x, y)`. Si en el papel escribimos
+#    vectores columna `x' = A x + b`, para transformar todas las filas a la vez
+#    en NumPy multiplicamos a derecha por la transpuesta: `puntos @ A.T + b`.
+#    Por *broadcasting*, NumPy suma el vector `b` (de largo 2) a cada una de
+#    las N filas automáticamente.
+#
+# 2. Fórmula del agrimensor con `np.roll` (`area_poligono`):
+#    `np.roll(y, -1)` desplaza circularmente el vector `y` un lugar hacia la
+#    izquierda (`[y1, y2, ..., y0]`), lo que permite calcular la suma de
+#    productos cruzados `x_i y_{i+1} - y_i x_{i+1}` con dos productos internos
+#    (`np.dot`) sin escribir ningún bucle `for`.
+#
+# 3. División entera `//` y resto `%` en `estado_afin`:
+#    Con índices que arrancan en 0 (`frame` de 0 a 359) y 60 cuadros por fase,
+#    `frame // 60` da el índice de fase (0 a 5) y `frame % 60` da el cuadro
+#    dentro de esa fase (0 a 59).
+# ==============================================================================
+
+
+# ==============================================================================
 # Geometría pura (reutilizable en una unidad marimo)
 # ==============================================================================
 def pentagono_regular(R: float, n: int = 5) -> np.ndarray:

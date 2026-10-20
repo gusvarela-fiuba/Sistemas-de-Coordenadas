@@ -85,6 +85,18 @@ def test_yaml_no_mira_comillas_de_sintaxis(tmp_path):
     assert r["conteo"]["2"] == 0 and r["conteo"]["1"] == 1
 
 
+def test_offset_utf8_y_syntax_error(tmp_path, capsys):
+    # Caracteres multibyte (tildes, símbolos matemáticos) en la misma línea antes de mo.ui / assert
+    codigo = 'import marimo\n_x = ("áéíóú—αβγ", mo.ui.slider(0, 1, label="escala 0.85·I"))\n'
+    r = _analizar(tmp_path, "utf8.py", codigo)
+    assert r["total"] == 0, r["hallazgos"]
+
+    # Error de sintaxis emite advertencia clara a stderr
+    _analizar(tmp_path, "roto.py", "def f(:\n    pass\n")
+    err = capsys.readouterr().err
+    assert "advertencia: error de sintaxis" in err
+
+
 def test_lo_interactivo_del_repo_esta_limpio():
     """unidades/, clases/, mapa/ y moodle/ (los .md de la raíz se revisan en CI con el mismo script)."""
     malos = [(r["archivo"], r["conteo"]) for r in estilo.analizar_interactivo_todo()

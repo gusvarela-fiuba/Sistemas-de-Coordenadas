@@ -103,8 +103,19 @@ def test_scale_2_multiplica_areas_por_4(tmp_path):
     f = (2 * np.eye(2), g.PARCELA[0] - 2 * g.PARCELA[0])
     r = qm.analizar(*par(tmp_path, "cap01_rotate", f))
     comprobar(r, f, "similaridad", 4.0)
+    assert r["familia_texto"] == "similaridad"
     assert r["lectura"]["factor"] == pytest.approx(2.0, abs=TOL)
+    assert r["lectura"]["sentido"] == "se conserva"
     assert np.allclose(r["lectura"]["centro"], g.PARCELA[0], atol=1e-5)
+
+
+def test_similaridad_inversa_reflexion_y_escala(tmp_path):
+    f = (np.diag([-2.0, 2.0]), np.array([4.0, -6.0]))
+    r = qm.analizar(*par(tmp_path, "cap01_rotate", f))
+    comprobar(r, f, "similaridad", -4.0)
+    assert r["familia_texto"] == "similaridad inversa (reflexión + escala)"
+    assert r["lectura"]["factor"] == pytest.approx(2.0, abs=TOL)
+    assert r["lectura"]["sentido"] == "se invierte"
 
 
 def test_bloque_x2_y1_det_2(tmp_path):
@@ -283,3 +294,81 @@ def test_cli_pocas_etiquetas_comunes_exit_2(tmp_path):
     assert p.returncode == 2
     assert "3 etiquetas comunes" in p.stderr
     assert correr(tri, tri).returncode == 0
+
+
+# ---------------------------------------------------------------- Casos de borde
+def test_edge_case_archivo_inexistente(tmp_path):
+    """Un archivo inexistente debe reportar error de emparejamiento con código 2."""
+    orig = guardar(g.construir("cap01_rotate"), tmp_path / "orig.dxf")
+    p = correr(orig, tmp_path / "no_existe.dxf")
+    assert p.returncode == 2
+    assert "no se puede leer" in p.stderr
+
+
+def test_edge_case_etiquetas_repetidas(tmp_path):
+    """Dos textos con la misma letra mayúscula en ETIQUETAS deben detectarse como repetidas."""
+    orig = guardar(g.construir("cap01_rotate"), tmp_path / "orig.dxf")
+    doc = g.construir("cap01_rotate")
+    for e in doc.modelspace():
+        if e.dxftype() == "TEXT" and e.dxf.text == "B":
+            e.dxf.text = "A"  # Ahora hay dos etiquetas 'A'
+            break
+    p = correr(orig, guardar(doc, tmp_path / "repetidas.dxf"))
+    assert p.returncode == 2
+    assert "etiquetas repetidas: A" in p.stderr
+
+
+def test_edge_case_vertices_colineales(tmp_path):
+    """Si los vértices emparejados están alineados en una recta, no determinan una afín 2D."""
+    doc = ezdxf.new("R2000")
+    msp = doc.modelspace()
+    # 3 puntos en la recta y = 2x
+    pts = [(0.0, 0.0), (1.0, 2.0), (2.0, 4.0)]
+    msp.add_lwpolyline(pts, close=True, dxfattribs={"layer": "PARCELA"})
+    for s, p in zip("ABC", pts):
+        msp.add_point(p, dxfattribs={"layer": "VERTICES"})
+        msp.add_text(s, height=1.0, dxfattribs={"layer": "ETIQUETAS", "insert": (p[0] + 0.1, p[1] + 0.1)})
+    dxf_col = guardar(doc, tmp_path / "colineales.dxf")
+    with pytest.raises(qm.ErrorEmparejamiento, match="alineados"):
+        qm.analizar(dxf_col, dxf_col)
+
+
+def test_edge_case_clasificar_matriz_singular():
+    """Una matriz nula o singular (determinante cero) no debe causar ZeroDivisionError."""
+    M_cero = np.zeros((2, 2))
+    familia, lectura = qm.clasificar(M_cero, np.zeros(2), 0.0, 0.01)
+    assert familia == "afinidad"
+    assert lectura["factor_area"] == 0.0
+    assert lectura["escalas_principales"] == [0.0, 0.0]
+
+
+def test_edge_case_espacio_modelo_vacio(tmp_path):
+    """Un DXF sin ninguna entidad debe lanzar ErrorEmparejamiento."""
+    doc = ezdxf.new("R2000")
+    dxf_vacio = guardar(doc, tmp_path / "vacio.dxf")
+    with pytest.raises(qm.ErrorEmparejamiento, match="espacio modelo está vacío"):
+        qm.analizar(dxf_vacio, dxf_vacio)
+
+
+def test_edge_case_vertices_coincidentes(tmp_path):
+    """Vértices coincidentes (degenerados a un punto) deben manejarse sin lanzar ValueError no controlado."""
+    # Caso 1: Original con todos los vértices colapsados a un único punto -> debe lanzar ErrorEmparejamiento
+    doc_orig = ezdxf.new("R2000")
+    msp_orig = doc_orig.modelspace()
+    pts_coinc = [(5.0, 5.0), (5.0, 5.0), (5.0, 5.0)]
+    msp_orig.add_lwpolyline(pts_coinc, close=True, dxfattribs={"layer": "PARCELA"})
+    for s, p in zip("ABC", pts_coinc):
+        msp_orig.add_point(p, dxfattribs={"layer": "VERTICES"})
+        msp_orig.add_text(s, height=1.0, dxfattribs={"layer": "ETIQUETAS", "insert": (p[0] + 0.1, p[1] + 0.1)})
+    dxf_coinc = guardar(doc_orig, tmp_path / "coincidentes.dxf")
+
+    with pytest.raises(qm.ErrorEmparejamiento, match="alineados"):
+        qm.analizar(dxf_coinc, dxf_coinc)
+
+    # Caso 2: Original normal, pero transformado colapsado a un punto por transformación singular
+    orig_normal = guardar(g.construir("cap01_rotate"), tmp_path / "orig_normal.dxf")
+    r = qm.analizar(orig_normal, dxf_coinc)
+    assert r["familia"] == "afinidad"
+    assert r["det"] == pytest.approx(0.0, abs=1e-9)
+
+

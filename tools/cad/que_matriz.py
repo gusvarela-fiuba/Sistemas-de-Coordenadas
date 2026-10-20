@@ -61,8 +61,61 @@ from scipy.optimize import linear_sum_assignment
 
 TOL_RESIDUO = 0.005   # m: por encima, «no afín» (se cambia con --tol)
 TOL_MATRIZ = 1e-4     # adimensional: para decidir M = I, valores singulares iguales, etc.
+TOL_AREA_REL = 2e-2   # 2 % de tolerancia relativa entre cociente de áreas y |det M|
 PATRON_ETIQUETA = re.compile(r"^[A-Z]'{0,2}$")
 PATRON_LETRA = re.compile(r"^[A-Z]$")
+
+
+# ==============================================================================
+# GUÍA DIDÁCTICA DE PYTHON, NUMPY, SCIPY Y EZDXF
+# ==============================================================================
+# Este programa es también material de estudio para aprender Python aplicado a
+# Geometría y Agrimensura. Algunas claves de lectura si venís de Julia o MATLAB:
+#
+# 1. Indexación en base 0 y rangos semiabiertos:
+#    - En Python el primer elemento es `v[0]` (no `v[1]`) y el último es `v[-1]`.
+#    - Un recorte (*slice*) `X[:2]` toma los índices 0 y 1 (el límite superior 2
+#      queda excluido). `P[:-1]` toma todos los elementos salvo el último.
+#
+# 2. Arreglos de NumPy y producto matricial:
+#    - `np.array(...)` crea arreglos n-dimensionales.
+#    - El operador `@` calcula el producto matricial o producto interno
+#      (`M @ p` o `p @ M.T`), mientras que `*` multiplica elemento a elemento
+#      (como `.*` en MATLAB/Julia).
+#    - `np.c_[p, np.ones(len(p))]` apila columnas (equivale a `[p ones(n,1)]`),
+#      ideal para pasar de coordenadas cartesianas (x, y) a homogéneas (x, y, 1).
+#
+# 3. Broadcasting (difusión de dimensiones):
+#    - En `L[:, None, :] - V[None, :, :]`, insertar `None` (o `np.newaxis`)
+#      expande `(N, 2)` y `(M, 2)` a `(N, 1, 2)` y `(1, M, 2)` para calcular
+#      todas las diferencias de pares `(i, j)` en un tensor `(N, M, 2)` sin
+#      escribir bucles `for` anidados.
+#
+# 4. Álgebra lineal numérica (`np.linalg` y `scipy.optimize`):
+#    - `np.linalg.lstsq(U, q, rcond=None)` resuelve sistemas sobredeterminados
+#      en mínimos cuadrados (la pseudoinversa del capítulo 11).
+#    - `np.linalg.svd(M)` calcula la descomposición en valores singulares
+#      (capítulo 8), que acá usamos tanto para clasificar la matriz M según
+#      sus estiramientos principales (σ₁, σ₂) como para estimar homografías.
+#    - `linear_sum_assignment(D)` resuelve el problema de asignación óptima
+#      (algoritmo húngaro) sobre la matriz de distancias D entre etiquetas y
+#      vértices.
+#
+# 5. Geometría computacional con `np.roll`:
+#    - En la fórmula del agrimensor (área por coordenadas), `np.roll(y, -1)`
+#      desplaza el vector cíclicamente para aparear (x_i, y_{i+1}) en una sola
+#      operación vectorial vectorizada, sin índices explícitos.
+#
+# 6. Tolerancia a fallos y lectura de CAD con `ezdxf`:
+#    - `ezdxf.recover.readfile` permite rescatar archivos DXF que tienen
+#      inconsistencias menores en su tabla de cabeceras, garantizando que el
+#      laboratorio funcione con planos exportados desde distintos motores CAD.
+#
+# 7. Formato pedagógico y localización:
+#    - La función `num(x)` garantiza la salida con coma decimal estándar en
+#      castellano (`12,345` en lugar de `12.345`), manteniendo coherencia con
+#      la notación del apunte teórico de la materia.
+# ==============================================================================
 
 
 class ErrorEmparejamiento(Exception):
@@ -71,6 +124,7 @@ class ErrorEmparejamiento(Exception):
 
 # ---------------------------------------------------------------- lectura
 def leer_doc(ruta):
+    """Abre un archivo DXF con ezdxf; si tiene pequeños errores de formato, usa recover."""
     try:
         return ezdxf.readfile(ruta)
     except ezdxf.DXFStructureError:
@@ -81,7 +135,11 @@ def leer_doc(ruta):
 
 
 def _entidades(msp):
-    """(entidad, viene_de_insert) del espacio modelo, con los INSERT descompuestos."""
+    """(entidad, viene_de_insert) del espacio modelo, con los INSERT descompuestos.
+
+    En Python, `yield` y `yield from` definen un *generador*: produce los elementos
+    uno por uno a medida que se los recorre, sin armar listas intermedias en memoria.
+    """
     def recorrer(ents, de_insert, nivel):
         for e in ents:
             if e.dxftype() == "INSERT":
@@ -93,6 +151,7 @@ def _entidades(msp):
 
 
 def _xy(v):
+    """Extrae las dos primeras coordenadas (x, y) como vector de punto flotante de NumPy."""
     return np.array([float(v[0]), float(v[1])])
 
 
@@ -110,6 +169,7 @@ def _texto(e):
 
 
 def _polilinea(e):
+    """Devuelve los vértices (N, 2) y si la polilínea es cerrada (LWPOLYLINE o POLYLINE R12)."""
     if e.dxftype() == "LWPOLYLINE":
         P = [_xy(v) for v in e.vertices_in_wcs()]
         cerrada = e.closed
@@ -120,6 +180,8 @@ def _polilinea(e):
             ocs = e.ocs()
             P = [_xy(ocs.to_wcs(v.dxf.location)) for v in e.vertices]
         cerrada = e.is_closed
+    # reshape(-1, 2) asegura que la matriz tenga 2 columnas aunque venga vacía;
+    # si el primer y último vértice coinciden, descartamos el duplicado con P[:-1].
     P = np.array(P, float).reshape(-1, 2)
     if len(P) > 1 and np.allclose(P[0], P[-1]):
         P, cerrada = P[:-1], True
@@ -200,7 +262,8 @@ def _extraer_de(grupo, ruta, de_insert):
                           "(¿se movió sólo una parte?); se usó " + fuente +
                           ", que queda más cerca de las etiquetas")
     lado = np.linalg.norm(V[:, None] - V[None], axis=2)
-    lado = lado[lado > 0].min() if len(V) > 1 else 1.0
+    lados_pos = lado[lado > 0]
+    lado = lados_pos.min() if len(lados_pos) > 0 else 1.0
     lejos = [nombres[i] for i, j in zip(fil, col) if D[i, j] > 0.4 * lado]
     if lejos:
         avisos.append("etiquetas lejos de su vértice (¿se movieron sin los vértices?): "
@@ -213,13 +276,25 @@ def _extraer_de(grupo, ruta, de_insert):
 
 # ---------------------------------------------------------------- ajuste
 def ajuste_afin(p, q):
+    """Estima la transformación afín q ≈ p @ M.T + t por mínimos cuadrados (capítulo 11 y 12).
+
+    Armamos la matriz de diseño U = [p | 1] de tamaño (N, 3) agregando una columna de unos
+    con `np.c_`. Al resolver U @ X ≈ q con `np.linalg.lstsq`, las dos primeras filas de X
+    son M.T y la tercera fila (índice 2 en base 0) es el vector de traslación t.
+    """
     U = np.c_[p, np.ones(len(p))]
     X = np.linalg.lstsq(U, q, rcond=None)[0]
     return X[:2].T, X[2]
 
 
 def ajuste_homografia(p, q):
-    """DLT normalizado (Hartley) con h33 = 1."""
+    """DLT normalizado (Hartley) con h33 = 1 (complemento C1 de transformaciones proyectivas).
+
+    Cada par de puntos homólogos (x, y) -> (u, v) aporta dos ecuaciones lineales homogéneas
+    en las 9 entradas de H. La solución de norma unitaria que minimiza el residuo algebraico
+    es la última fila de V^T en la SVD (`np.linalg.svd(...)[2][-1]`), que corresponde al
+    menor valor singular.
+    """
     def normalizar(X):
         c = X.mean(axis=0)
         s = math.sqrt(2) / max(np.mean(np.linalg.norm(X - c, axis=1)), 1e-12)
@@ -239,23 +314,48 @@ def ajuste_homografia(p, q):
 
 
 def aplicar_h(H, p):
+    """Aplica la matriz de homografía 3×3 en coordenadas homogéneas y deshomogeneiza dividiendo por w.
+
+    Si algún denominador w_i está muy próximo a 0 (puntos que caen sobre la recta límite
+    o el infinito proyectivo), se reemplaza por NaN para evitar divisiones por cero no controladas.
+    """
     X = np.c_[p, np.ones(len(p))] @ H.T
-    return X[:, :2] / X[:, 2:]
+    w = X[:, 2:]
+    w_seguro = np.where(np.abs(w) < 1e-12, np.nan, w)
+    return X[:, :2] / w_seguro
 
 
 def area_poligono(P):
-    """Área con signo por la fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1}."""
+    """Área con signo por la fórmula del agrimensor: (1/2) suma de p_i ∧ p_{i+1}.
+
+    `np.roll(y, -1)` desplaza el vector una posición hacia la izquierda (de modo que el
+    elemento i queda enfrentado con el i+1, y el último con el primero), evitando escribir
+    un bucle `for` con índices módulo N.
+    """
     P = np.asarray(P, float)
     x, y = P[:, 0], P[:, 1]
     return float(0.5 * np.sum(x * np.roll(y, -1) - np.roll(x, -1) * y))
 
 
 def rms(r):
+    """Raíz del promedio de los cuadrados de las normas de los vectores fila de `r`.
+
+    Si algún residuo contiene valores indefinidos (NaN o infinito), se devuelve inf.
+    """
+    if np.any(np.isnan(r)):
+        return float("inf")
     return float(np.sqrt(np.mean(np.sum(r ** 2, axis=1))))
 
 
 def clasificar(M, t, residuo, tol, tol_m=TOL_MATRIZ):
-    """Familia mínima y lectura geométrica (criterio de cap04_mapa_transformaciones.py)."""
+    """Familia mínima y lectura geométrica (criterio de cap04_mapa_transformaciones.py).
+
+    Usa los valores singulares (s1, s2) y el signo del determinante de M:
+      - s1 ≈ 1 y s2 ≈ 1: isometría (rotación si det > 0; reflexión o reflexión deslizada si det < 0).
+      - s1 ≈ s2 ≠ 1 (con s2 > 0): similaridad de factor k = √|det M| (directa si det > 0: rotación + escala;
+        inversa si det < 0: roto-reflexión / reflexión + escala).
+      - s1 ≠ s2 o matriz degenerada: afinidad general.
+    """
     escala = max(1.0, float(np.abs(t).max()))
     det = float(np.linalg.det(M))
     s1, s2 = np.linalg.svd(M, compute_uv=False)
@@ -267,8 +367,10 @@ def clasificar(M, t, residuo, tol, tol_m=TOL_MATRIZ):
             return "identidad", lectura
         lectura["desplazamiento"] = [float(t[0]), float(t[1])]
         return "traslacion", lectura
+    # Para similaridad ('xk') requerimos que s2 > 1e-8 (matriz no singular), evitando
+    # divisiones por cero si la transformación colapsa la figura a un punto o recta.
     distancias = ("si" if abs(s1 - 1) < tol_m and abs(s2 - 1) < tol_m
-                  else "xk" if abs(s1 - s2) < tol_m * max(1.0, s1) else "no")
+                  else "xk" if s2 > 1e-8 and abs(s1 - s2) < tol_m * max(1.0, s1) else "no")
     directo = det > 0
     if distancias == "no":
         lectura["escalas_principales"] = [float(s1), float(s2)]
@@ -281,10 +383,11 @@ def clasificar(M, t, residuo, tol, tol_m=TOL_MATRIZ):
         lectura["angulo"] = ang
         if distancias == "xk":
             lectura["factor"] = k
+            lectura["sentido"] = "se conserva"
         c = np.linalg.solve(np.eye(2) - M, t)
         lectura["centro"] = [float(c[0]), float(c[1])]
         return ("rotacion" if distancias == "si" else "similaridad"), lectura
-    # inversa: M = k * reflexión en una recta de dirección u (autovector de autovalor +k)
+    # inversa (det < 0): M = k * reflexión en una recta de dirección u (autovector de autovalor +k)
     w, V = np.linalg.eig(M / k)
     u = np.real(V[:, np.argmin(np.abs(w - 1))])
     u = u / np.linalg.norm(u)
@@ -294,6 +397,7 @@ def clasificar(M, t, residuo, tol, tol_m=TOL_MATRIZ):
     lectura["direccion_eje"] = ang_eje
     if distancias == "xk":
         lectura["factor"] = k
+        lectura["sentido"] = "se invierte"
         c = np.linalg.solve(np.eye(2) - M, t)
         lectura["centro"] = [float(c[0]), float(c[1])]
         lectura["eje_por"] = lectura["centro"]
@@ -336,18 +440,32 @@ def analizar(original, transformado, tol=TOL_RESIDUO):
         cerca = [s for s in comunes if np.linalg.norm(a["vertices"][s] - c) < tol]
         if cerca:
             lectura["centro_es_vertice"] = cerca[0]
+    det = float(np.linalg.det(M))
+    familia_texto = (
+        "similaridad inversa (reflexión + escala)"
+        if familia == "similaridad" and det < 0
+        else ROTULO[familia]
+    )
     salida = dict(
         original=str(original), transformado=str(transformado),
         etiquetas=comunes, fuente_original=a["fuente"], fuente_transformado=b["fuente"],
         avisos=[f"original: {x}" for x in a["avisos"]]
         + [f"transformado: {x}" for x in b["avisos"]],
-        M=M.tolist(), t=t.tolist(), det=float(np.linalg.det(M)), rms=r, tol=tol,
+        M=M.tolist(), t=t.tolist(), det=det, rms=r, tol=tol,
         area_original=abs(area_poligono(p)), area_transformado=abs(area_poligono(q)),
         residuos={s: float(np.linalg.norm(v)) for s, v in zip(comunes, res)},
-        familia=familia, familia_texto=ROTULO[familia], lectura=lectura,
+        familia=familia, familia_texto=familia_texto, lectura=lectura,
     )
     salida["cociente_areas"] = (salida["area_transformado"] / salida["area_original"]
                                 if salida["area_original"] > 0 else None)
+    # Verificación de área con tolerancia relativa de 2e-2 (2 %) para no dar falsos positivos
+    # cuando el plano fue editado manualmente en CAD con pequeños redondeos.
+    if (familia != "no_afin" and salida["cociente_areas"] is not None
+            and abs(salida["cociente_areas"] - abs(det)) > TOL_AREA_REL * max(1.0, abs(det))):
+        salida["avisos"].append(
+            "el cociente de áreas difiere de |det M| en más del 2 % "
+            "(¿polilínea editada a mano o vértices desordenados?)"
+        )
     if len(comunes) >= 4:
         H = ajuste_homografia(p, q)
         if H is not None:

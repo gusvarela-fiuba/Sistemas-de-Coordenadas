@@ -14,7 +14,7 @@ Versión vigente: v4. El apunte está organizado por tema: un capítulo por tema
   una línea con su título y un `\chapter{...}\label{cap:<clave>}`. Orden actual: `00-antes-de-empezar`
   (capítulo 0), capítulos `01-rotaciones` a `15-esfera-trigonometria-esferica`, complementos
   `c1-proyectivas`, `c2-conformes`, `c3-terreno-como-matriz`, `c4-marcos-grillas` (rotulados C1 a C4)
-  y apéndices `ap1` a `ap6` (labels `ap:*`). Los capítulos 12 a 15 son páginas «en preparación».
+  y apéndices `ap1` a `ap6` (labels `ap:*`).
 - `Apunte_Sistemas_de_Coordenadas.pdf` — PDF generado.
 - `ESTADO.md` — estado del apunte, generado por `scripts/estado.py`.
 - `PENDIENTES.md` — tareas abiertas sobre unidades y material.
