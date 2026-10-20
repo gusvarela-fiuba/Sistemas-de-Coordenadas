@@ -110,8 +110,8 @@ las similaridades (secciones~\ref{sec:escalar} y~\ref{cap:reflexiones}), la SVD
 (sección~\ref{sec:svd}), el Jacobiano y la primera forma fundamental
 (sección~\ref{sec:metrica}) son, vistos desde acá, cuatro maneras de decir lo mismo, y
 el elipsoide (capítulo~\ref{cap:elipsoide}) es el escenario donde se aplican. Con ese
-lenguaje se resuelven las preguntas con que termina el capítulo del elipsoide, incluida la
-transversa de Mercator que allí quedó planteada.
+lenguaje se construyen las proyecciones del elipsoide al plano anunciadas al cierre de aquel capítulo, incluida la
+transversa de Mercator.
 \end{atencion}
 
 \paragraph{El problema cartográfico.} En la sección~\ref{cap:curvatura} (capítulo~\ref{cap:curvatura}) calculamos que la
@@ -158,13 +158,13 @@ conserva la orientación). Son equivalentes:
   \item \textbf{Métrica proporcional.} \(J^TJ=k^2I\): en la primera forma inducida,
   \(F=0\) y \(E=G=k^2\), es decir \(ds^2_{\text{mapa}}=k^2\,ds^2_{\text{terreno}}\).
   \item \textbf{Número complejo.} \(J=\begin{pmatrix}a&-b\\b&a\end{pmatrix}\), la matriz
-  de multiplicar por \(a+ib\) (sección~\ref{sec:rot-complejos}). Si la transformación es
-  \((u,v)\mapsto(x,y)\), esto son las ecuaciones de Cauchy--Riemann
+  de multiplicar por \(a+ib\) (sección~\ref{sec:rot-complejos}). Si la transformación
+  \((u,v)\mapsto(x,y)\) tiene derivadas parciales continuas (\(C^1\)), esto son las ecuaciones de Cauchy--Riemann
   \[
     x_u=y_v,\qquad x_v=-y_u ,
   \]
   y \(J\) es multiplicar por \(f'(z)=x_u+i\,y_u\), con \(z=u+iv\) y \(f=x+iy\): toda
-  función analítica con \(f'(z)\neq0\) es conforme, y recíprocamente.
+  función analítica con \(f'(z)\neq0\) es conforme, y recíprocamente toda aplicación \(C^1\) que cumple Cauchy--Riemann con derivada no nula es analítica y conforme.
 \end{enumerate}
 En todas, \(k=\rho=|f'(z)|=\sqrt{\det J}\) es la escala local y \(\theta=\arg f'(z)\) la
 rotación local (la \enquote{convergencia de meridianos} en las proyecciones).
@@ -485,14 +485,12 @@ unidad del elipsoide.
 
 \section{En profundidad}
 
-Con el lenguaje ya armado, retomamos las proyecciones que el capítulo del elipsoide deja planteadas al final y las leemos como casos de conformidad.
+Con el lenguaje ya armado, estudiamos las proyecciones principales del elipsoide al plano y las leemos según qué propiedad geométrica conservan.
 
 \subsection{Las proyecciones del elipsoide con este lenguaje}\label{sec:conformes-elipsoide}
 
-\paragraph{Las proyecciones del cierre del apunte del elipsoide, con este lenguaje.} En
-la sección~\ref{cap:elipsoide} (capítulo~\ref{cap:elipsoide}) planteamos las cinco proyecciones que quedan como
-\enquote{puntapié inicial} y resolvimos las cilíndricas
-integrando una condición cada vez. Ahora las vemos con las cuatro caras. Sobre el
+\paragraph{Cinco maneras de llevar el elipsoide al plano.} Apoyándonos en la métrica y el arco de meridiano del capítulo~\ref{cap:elipsoide}, recorremos cinco construcciones clásicas
+integrando una condición cada vez y leyéndolas con las cuatro caras. Sobre el
 elipsoide, con la base \((\varphi,\lambda)\),
 \[
   ds^2=M^2\,d\varphi^2+N^2\cos^2\varphi\,d\lambda^2 :
@@ -535,7 +533,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
   =\frac e2\Bigl(\frac{e\cos\varphi}{1+e\sin\varphi}+\frac{e\cos\varphi}{1-e\sin\varphi}\Bigr)
   =\frac{e^2\cos\varphi}{1-e^2\sin^2\varphi}\), que es lo que había que obtener; y
   numéricamente, en \(\varphi=-34{,}6^\circ\), \(q=-0{,}640531\) tanto por la fórmula como
-  por \texttt{quad}, y \(a\,q=-4\,085\,391{,}659\) m, el valor de la sección~\ref{cap:elipsoide}.
+  por \texttt{quad}, y \(a\,q=-4\,085\,391{,}659\) m.
   Lo importante no es la fórmula sino lo que hace: en las coordenadas \((\lambda,q)\), con
   \(d\varphi=(N\cos\varphi/M)\,dq\), la métrica del elipsoide queda
   \[
@@ -549,11 +547,11 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \frac{dy}{d\varphi}=\frac{MN\cos\varphi}{a}\quad\Longrightarrow\quad
     y=\frac1a\int_0^\varphi MN\cos u\,du ,
   \]
-  que es la \(\tfrac a2\,q_A(\varphi)\) de la sección~\ref{cap:elipsoide} (\(q_A\), de \enquote{autálica}, para no
+  que suele escribirse \(\tfrac a2\,q_A(\varphi)\) (\(q_A\), de \enquote{autálica}, para no
   confundirla con la latitud isométrica \(q\)). Los ángulos no se conservan: \(h=1/k\neq k\) salvo en el
   ecuador.
   \item \textbf{Cilíndrica equidistante.} Meridianos a escala verdadera, \(h=1\):
-  \(y=S(\varphi)\), el arco de meridiano de la sección~\ref{cap:elipsoide}. Ni
+  \(y=S(\varphi)\), el arco de meridiano del capítulo~\ref{cap:elipsoide}. Ni
   conforme ni equivalente: \(\sigma_1=k\), \(\sigma_2=1\).
   \item \textbf{Esfera autálica.} El área del elipsoide se integra con la misma jacobiana
   \(3\times2\) de la sección~\ref{sec:metrica}: el elemento de área es
@@ -573,7 +571,7 @@ así que \(\{\sigma_1,\sigma_2\}=\{h,k\}\) y cada condición es una ecuación en
     \qquad R_A=\sqrt{\frac{A}{4\pi}} .
   \]
   En GRS80, \(A=510\,065\,621{,}7\) km\(^2\) y \(R_A=6\,371\,007{,}181\) m (la integral
-  numérica da lo mismo con nueve cifras). Es el \(R_q\) de la sección~\ref{cap:elipsoide};
+  numérica da lo mismo con nueve cifras);
   para comparar, el radio medio \((2a+b)/3=6\,371\,008{,}771\) m y el de igual volumen
   \(\sqrt[3]{a^2b}=6\,371\,000{,}790\) m: los tres \enquote{radios de la Tierra} difieren en
   metros. Pasar a la esfera autálica es equivalente (cara \(\det J=1\)), no conforme.

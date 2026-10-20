@@ -28,7 +28,7 @@ que el modelo puede producir es un subespacio, como al calcular las alturas de v
 partir de las diferencias de altura medidas entre ellos; ahora puede ser un conjunto curvo.
 
 Los cuatro problemas del capítulo son la recta que mide las distancias en vertical
-(\emph{regresión simple}), la recta que los mide en perpendicular porque las dos coordenadas
+(\emph{regresión simple}), la recta que las mide en perpendicular porque las dos coordenadas
 tienen error (\emph{regresión total}), el círculo por muchos puntos y el calce de dos nubes de
 puntos que se corresponden uno a uno (\emph{Procrustes}). Parecen cuatro técnicas distintas,
 pero son una sola geometría. Hay un \emph{dato}, un vector \(b\) que junta todas las
@@ -163,8 +163,8 @@ y el ancho de la nube en esas direcciones.
 \begin{proposicion}[Recta de regresión total]\label{prop:cp-regresion-total}
 La recta que minimiza la suma de los cuadrados de las distancias perpendiculares
 \(\sum_i\big((p_i-p_0)\cdot n\big)^2\) pasa por el baricentro \(\bar p\), tiene por normal
-\(n\) el autovector de \(\Sigma_0=X_0^TX_0\) del autovalor menor \(\lambda_2\) y por dirección
-\(d\) el del autovalor mayor \(\lambda_1\). Equivalentemente, si \(X_0=U\Sigma V^T\),
+\(n\) un autovector unitario de \(\Sigma_0=X_0^TX_0\) del autovalor menor \(\lambda_2\) y por dirección
+\(d\) uno del autovalor mayor \(\lambda_1\) (únicos salvo signo cuando \(\lambda_1>\lambda_2\)). Equivalentemente, si \(X_0=U\Sigma V^T\),
 \(d=v_1\) y \(n=v_2\). El mínimo vale \(\lambda_2=\sigma_2^2\).
 \end{proposicion}
 
@@ -184,7 +184,7 @@ Volvamos a la hoja que giramos. La
 regresión total sí es geométrica: si se giran las coordenadas con una matriz ortogonal
 \(Q\), la nube centrada pasa a \(X_0Q^T\), la matriz de dispersión a \(Q\Sigma_0Q^T\), y sus
 autovectores giran con \(Q\) (sección~\ref{sec:congruencia}). La recta gira con los
-puntos. La pendiente de la dirección \(v_1=(d_1,d_2)\) sale de
+puntos. Cuando \(S_{xy}\neq0\), la pendiente de la dirección \(v_1=(d_1,d_2)\) sale de
 \((\Sigma_0-\lambda_1I)v_1=0\): \(d_2/d_1=(\lambda_1-S_{xx})/S_{xy}\).
 
 ¿Dónde queda la recta total respecto de las dos simples? Una supone exacta la \(x\); la otra,

@@ -1332,7 +1332,7 @@ def escalas_proyeccion_cilindrica(phi, tipo, elipsoide=_GRS80):
         y, h = float((phi / (3 * n)) * np.sum(w * Mu * Nu * np.cos(u))) / a, 1.0 / k
     else:
         raise ValueError(f"tipo {tipo!r}: usar 'conforme_mercator', 'equidistante' o 'equivalente'")
-    omega = float(np.rad2deg(2 * np.arcsin(abs(h - k) / (h + k))))
+    omega = float(np.rad2deg(2 * np.arcsin(np.clip(abs(h - k) / (h + k), 0.0, 1.0))))
     return float(y), float(h), float(k), omega
 
 
@@ -1349,7 +1349,7 @@ def defecto_conformidad_jacobiano(J):
     return dict(
         sigmas=(s1, s2),
         razon=s1 / s2 if s2 > 0 else np.inf,
-        def_angular_max_deg=float(np.rad2deg(2 * np.arcsin((s1 - s2) / (s1 + s2)))) if s1 + s2 > 0 else 0.0,
+        def_angular_max_deg=float(np.rad2deg(2 * np.arcsin(np.clip((s1 - s2) / (s1 + s2), 0.0, 1.0)))) if s1 + s2 > 0 else 0.0,
         parte_conforme=conforme,
         parte_anticonforme=J - conforme,
     )
@@ -2333,7 +2333,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             r"subespacios invariantes de $\mathbb R^3$."
         ),
         "vamos_hacia": (
-            r"Con los autovectores como ejes nuevos la matriz se vuelve diagonal: el cambio de base $B^{-1} A B$, "
+            r"Con los autovectores como ejes nuevos la matriz se vuelve diagonal: el cambio de base $C^{-1} A C$, "
             "unidad 08."
         ),
         "anterior": "07b_nucleo_autovectores",
@@ -2346,8 +2346,8 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
             "medir."
         ),
         "ladrillo_de_hoy": (
-            r"La matriz de cambio de base $B$ (columnas = ejes nuevos): $c = B^{-1} p$ (`np.linalg.solve(B, p)`), la "
-            r"transformación en la grilla nueva $B^{-1} A B$ y la diagonalización $A = B \Lambda B^{-1}$ "
+            r"La matriz de cambio de base $C$ (columnas = ejes nuevos): $c = C^{-1} p$ (`np.linalg.solve(C, p)`), la "
+            r"transformación en la grilla nueva $C^{-1} A C$ y la diagonalización $A = C \Lambda C^{-1}$ "
             "(`lib.diagonalizar`)."
         ),
         "vamos_hacia": (
@@ -2360,7 +2360,7 @@ HILO_CONDUCTOR: dict[str, dict[str, str]] = {
     "09_cambio_de_base_svd": {
         "titulo": "Cambio de base, SVD e inversas",
         "venimos_de": (
-            r"La unidad 08 dejó $A = B \Lambda B^{-1}$, que solo existe con autovectores reales y sobre una base en "
+            r"La unidad 08 dejó $A = C \Lambda C^{-1}$, que solo existe con autovectores reales y sobre una base en "
             "general oblicua."
         ),
         "ladrillo_de_hoy": (

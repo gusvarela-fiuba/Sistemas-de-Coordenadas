@@ -445,10 +445,10 @@ solución es única y \(\hat x=A^{+}b\) con \(A^{+}=(A^TA)^{-1}A^T\).
 \end{proposicion}
 
 \begin{demostracion}
-\(A^Tr=0\) dice que \(r\) es perpendicular a cada columna, o sea que \(r\in\ker A^T\). En
+\(A^Tr=0\), o sea \(A^T(A\hat x-b)=0\) (que también expresa la anulación del gradiente de \(\lVert Ax-b\rVert^2\)), dice que \(r\) es perpendicular a cada columna, esto es, \(r\in\ker A^T\). En
 ese caso, para cualquier \(x\),
 \(Ax-b=A(x-\hat x)-r\) es suma de un vector de la imagen y otro perpendicular a ella, y por
-Pitágoras \(\lVert Ax-b\rVert^2=\lVert A(x-\hat x)\rVert^2+\lVert r\rVert^2\ge\lVert r\rVert^2\).
+Pitágoras \(\lVert Ax-b\rVert^2=\lVert A(x-\hat x)\rVert^2+\lVert r\rVert^2\ge\lVert r\rVert^2\), lo que garantiza que el punto estacionario es efectivamente un mínimo global.
 Recíprocamente, si \(A^Tr\neq0\), moverse un poco en la dirección \(A^Tr\) achica la
 distancia. Si \(A^TAz=0\), entonces \(\lVert Az\rVert^2=z^TA^TAz=0\) y \(z\in\ker A\); con
 columnas independientes \(z=0\) y \(A^TA\) es invertible.
@@ -485,7 +485,7 @@ numéricamente por dos caminos, resolviendo el sistema y multiplicando por la ps
 \subsection{Sistemas subdeterminados: la solución de norma mínima}\label{sec:norma-minima}
 
 Suponé que de dos números solo sabés que el primero más el doble del segundo da \(5\).
-¿Cuáles son? Pueden ser \(5\) y \(0\), \(3\) y \(1\), \(1\) y \(2\), y infinitos pares más:
+¿Cuáles son? Pueden ser \(5\) y \(0\), \(3\) y \(1\), \(1\) y \(2\), e infinitos pares más:
 falta información. Si hay que dar una sola respuesta, ¿cuál es la más honesta? La que no
 agrega nada que los datos no digan: la más corta, la más cercana al origen
 (figura~\ref{fig:inv-norma-minima}). Pasa lo mismo con las alturas de \enquote{La idea}: si
@@ -650,7 +650,7 @@ y \(A^{+}b\) es la que corresponde a no agregar nada en el núcleo. La traza de 
 es la dimensión del subespacio sobre el que proyecta: \(\operatorname{tr}P=\operatorname{rango}A\) y
 \(\operatorname{tr}(I-P)=m-\operatorname{rango}A\), la cantidad de \emph{grados de libertad}: cuántas mediciones
 sobran respecto de las estrictamente necesarias. Ese
-número, \(m-\operatorname{rango}A\), es el que divide a \(v^Tv\), la suma de los cuadrados de lo que sobra, en el
+número, \(m-\operatorname{rango}A\), es el que divide a \(r^Tr=v^Tv\) (donde \(v=A\hat x-b=-r\) es el vector de correcciones), la suma de los cuadrados de lo que sobra, en el
 desvío estándar de la sección siguiente.
 
 \begin{idea}[Aproximar es partir el dato en dos piezas perpendiculares]

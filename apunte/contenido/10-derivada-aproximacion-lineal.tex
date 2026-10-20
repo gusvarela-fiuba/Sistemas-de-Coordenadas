@@ -86,7 +86,7 @@ base.
 
 El diferencial \(dF_p\) es la transformación lineal que imita a \(F\) cerca de \(p\); el
 jacobiano es la matriz que la escribe en coordenadas. Es la misma diferencia que hay entre una
-transformación y su matriz.
+transformación y su matriz. Cuando las derivadas parciales existen en un abierto alrededor de \(p\) y son continuas en \(p\) (lo que se llama diferenciabilidad continua, \(C^1\)), la función es diferenciable en \(p\) y el jacobiano se arma directamente con esas derivadas parciales.
 
 \begin{idea}[La derivada es la matriz que mejor imita a la función cerca del punto]
 Con una lupa cada vez más potente, una función diferenciable se vuelve indistinguible de
@@ -315,7 +315,7 @@ con el terreno. ¿Qué hace de base en cada punto? Una parametrización
 números \((u,v)\) de una región \(U\) del plano le asigna un punto \(r(u,v)\) del espacio, y
 así describe una superficie mediante dos coordenadas. Los vectores \(r_u=\partial r/\partial u\)
 y \(r_v=\partial r/\partial v\), las velocidades con que se mueve el punto cuando cambia solo
-\(u\) o solo \(v\), forman una base tangente local cuando son linealmente independientes. En el
+\(u\) o solo \(v\), forman una base tangente local cuando son linealmente independientes (equivalentemente, cuando el jacobiano \(J_r(u,v)\) tiene rango máximo, \(\operatorname{rango}J_r=2\)). En el
 dibujo, \(n\) es la normal: la flecha perpendicular a la superficie en \(p\).
 
 \begin{center}
