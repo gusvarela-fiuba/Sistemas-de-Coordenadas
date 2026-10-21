@@ -1,0 +1,357 @@
+%% Instructivo para docentes — Sistemas de Coordenadas (CB104)
+%% Cómo editar el material existente y cómo agregar material nuevo (unidades, preguntas,
+%% apunte, fichas, mapa, animaciones, CAD) y cómo se publica. Mismo formato que el apunte.
+%% Compilar: instructivo/compilar.sh
+\documentclass[11pt,a4paper]{report}
+\usepackage{apunte-formato}
+
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
+
+\renewcommand{\apunteEncabezadoIzq}{Sistemas de Coordenadas (CB104)}
+\renewcommand{\apunteEncabezadoDer}{Instructivo para docentes}
+\hypersetup{
+  pdftitle={Sistemas de Coordenadas: instructivo para docentes (editar y agregar material)},
+  pdfauthor={Gustavo Varela},
+  pdfsubject={Cómo editar y agregar material al repositorio de Sistemas de Coordenadas (CB104, FIUBA) y cómo se publica}
+}
+
+\lstdefinestyle{terminal}{language={},basicstyle=\small\ttfamily}
+\lstdefinestyle{fuente}{language={},basicstyle=\footnotesize\ttfamily}
+\newcommand{\clave}[1]{\texttt{\detokenize{#1}}}
+%% Muchas palabras en monoespaciado por línea: más tolerancia para justificar.
+\setlength{\emergencystretch}{3em}\tolerance=2000
+
+\begin{document}
+\pagenumbering{arabic}\apunteCuerpotrue
+
+\begin{center}
+  {\color{muted}\large Sistemas de Coordenadas (CB104) \textperiodcentered{} Agrimensura \textperiodcentered{} FIUBA}\par\medskip
+  {\color{tealdark}\Huge\bfseries Instructivo para docentes}\par\medskip
+  {\Large Cómo editar y agregar material, y cómo se publica}\par\bigskip
+  {\color{muted} Material del trabajo final de la materia \textperiodcentered{} Gustavo Varela \textperiodcentered{} octubre de 2026}
+\end{center}
+
+\begin{idea}[La regla única]
+Todo lo que se ve en el sitio y en el PDF sale del repositorio. Se edita la \emph{fuente} (un archivo de texto), se corre una verificación, se regenera lo derivado y se publica con un \clave{git push} a la rama \clave{main}. El sitio se reconstruye solo en unos minutos; nadie sube archivos a mano.
+
+Este instructivo recorre, pieza por pieza, los dos caminos: \textbf{editar} lo que ya existe y \textbf{agregar} algo nuevo. Al final está la lista de verificación previa a publicar (sección \ref{sec:publicar}) y el resumen de comandos (sección \ref{sec:resumen}). La instalación de Git y \clave{uv} y el uso básico del repositorio están en el \emph{Instructivo para estudiantes}; acá se da por hecho.
+\end{idea}
+
+\makeatletter
+\section*{Contenido}\@starttoc{toc}
+\makeatother
+
+%% ===================================================================
+\section{Mapa de las piezas}\label{sec:mapa}
+
+Cada pieza del material tiene una fuente que se edita, un derivado que se genera y un comando que lo genera. Editar el derivado a mano no sirve: la próxima generación lo pisa, y en varios casos la publicación falla si el derivado no coincide con su fuente.
+
+\begingroup\footnotesize
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{24mm}>{\raggedright\arraybackslash}p{46mm}>{\raggedright\arraybackslash}p{46mm}>{\raggedright\arraybackslash}p{42mm}@{}}
+\toprule
+\textbf{Pieza} & \textbf{Fuente (se edita)} & \textbf{Derivado (no se edita)} & \textbf{Generador}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Pieza} & \textbf{Fuente (se edita)} & \textbf{Derivado (no se edita)} & \textbf{Generador}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Unidad interactiva & \file{unidades/<id>.py} & \file{site/unidades/<id>/} & \clave{tools/build.py}\\
+Biblioteca común & \file{unidades/cb104.py} & (se inyecta en cada unidad) & \clave{tools/build.py}\\
+Hilo conductor y portada & \file{mapa/_fragmentos/unidades.yaml}, \clave{HILO_CONDUCTOR} en \file{cb104.py}, \file{tools/enlaces_portada.yaml} & \file{mapa/mapa.yaml}, \file{site/index.html} & \clave{tools/merge_mapa.py}, \clave{tools/build.py}\\
+Mapa de conceptos & \file{mapa/_fragmentos/bloque-*.yaml}, \file{mapa/CONCEPTOS.md} & \file{mapa/mapa.yaml}, \file{site/mapa.html} & \clave{tools/merge_mapa.py}, \clave{tools/build.py}\\
+Fichas de capítulo & \file{clases/NN-tema.md} & \file{site/capitulos/} & \clave{tools/build.py}\\
+Banco de preguntas & \file{unidades/_banco/bloque_N.py} & \file{unidades/banco_autoevaluacion.py}, \file{site/autoevaluacion.html}, XML de Moodle & \clave{tools/merge_banco.py}, \clave{tools/build.py}\\
+Apunte & \file{apunte/contenido/NN-nombre.tex}, \file{apunte-formato.sty} & \file{apunte/Apunte_Sistemas_de_Coordenadas.pdf}, \file{paginas_esperadas.txt}, \file{numeracion.json} & \clave{scripts/compilar_pdf.sh}, \clave{apunte/scripts/numeracion.py}\\
+Problemas por capítulo & \file{tools/problemas/gen.py} & \file{apunte/contenido/problemas/pNN.tex}, \file{ap6-respuestas.tex} & \clave{tools/problemas/gen.py}\\
+Animaciones & \file{tools/animaciones/anim_NN_*.py} & \file{animaciones/*.mp4}, \file{*.gif} & \clave{tools/gen_animaciones.py}\\
+Laboratorio CAD & \file{tools/cad/generar_dxf.py}, \file{cad/ejercicios.yaml}, \file{cad/index.md} & \file{cad/dxf/**/*.dxf} & \clave{tools/cad/generar_dxf.py}\\
+\end{longtable}
+\endgroup
+
+\begin{atencion}[Dos archivos que sí se editan a mano aunque parezcan generados]
+\file{CURSO_INTERACTIVO.md} (la descripción de las veinte simulaciones) y \file{README.md} no tienen generador. Si cambia una unidad, hay que actualizarlos a mano.
+\end{atencion}
+
+%% ===================================================================
+\section{Antes de empezar: una sola vez por computadora}\label{sec:setup}
+
+\begin{enumerate}
+  \item Instalar Git y \clave{uv}, clonar el repositorio y correr \clave{uv sync} (pasos 1 a 3 del instructivo para estudiantes).
+  \item Activar los ganchos de verificación del repositorio, que protegen el PDF del apunte en cada commit:
+\begin{lstlisting}[style=terminal]
+git config core.hooksPath .githooks
+\end{lstlisting}
+  \item Comprobar que la batería completa de pruebas pasa en limpio antes de tocar nada; así cualquier falla posterior es propia:
+\begin{lstlisting}[style=terminal]
+uv run tools/merge_mapa.py --check
+uv run python tools/merge_banco.py --check
+uv run pytest -q
+uv run python apunte/scripts/estilo.py --todo --estricto
+\end{lstlisting}
+\end{enumerate}
+
+Para recompilar el apunte hace falta además TeX Live con LuaLaTeX, \clave{latexmk}, \clave{pdfinfo} y las fuentes Linux Libertine O y DejaVu. Para las animaciones, \clave{ffmpeg}. Para todo lo demás alcanza con \clave{uv}.
+
+%% ===================================================================
+\section{Unidades interactivas}\label{sec:unidades}
+
+\subsection{Editar una unidad existente}
+
+Cada unidad es un cuaderno de marimo en \file{unidades/<id>.py}. Los \clave{<id>} están en la tabla del instructivo para estudiantes (por ejemplo \clave{08_cambio_de_base}). Para abrirla con las celdas a la vista:
+\begin{lstlisting}[style=terminal]
+uv run marimo edit unidades/08_cambio_de_base.py
+\end{lstlisting}
+Se abre en el navegador; cada cambio en una celda se ve al momento, y al guardar se escribe el \file{.py}. Si preferís ensayar sin tocar el original, trabajá sobre una copia con guion bajo inicial (\file{unidades/_ensayo_08.py}): el sitio nunca la exporta.
+
+\begin{resultado}[Tres reglas para no romper la exportación]
+\begin{enumerate}
+  \item No borrar el encabezado \clave{# /// script ... # ///} del principio del archivo ni la celda \clave{import cb104 as lib  # cb104:inline}, que tiene que quedar exactamente así, en una celda propia. El generador los usa para declarar las dependencias e inyectar la biblioteca común en la página exportada.
+  \item Las variables que viven en una sola celda llevan guion bajo (\clave{_fig}, \clave{_panel}, \clave{_res}). Marimo exige nombres únicos entre celdas.
+  \item Las funciones de ayuda nuevas van a \file{unidades/cb104.py}, con su \clave{assert} en el bloque \clave{__main__}, no a la lección. En \file{cb104.py} solo se importa lo que existe en el navegador: hoy NumPy y Plotly.
+\end{enumerate}
+\end{resultado}
+
+Verificar antes de dar por buena la edición:
+\begin{lstlisting}[style=terminal]
+uv run marimo check --select MW unidades/08_cambio_de_base.py
+uv run python unidades/08_cambio_de_base.py
+uv run python tools/build.py --only 08_cambio_de_base
+uv run python -m http.server -d site 8765
+\end{lstlisting}
+El primero tiene que terminar sin avisos; el segundo corre todas las celdas con sus \clave{assert}; el tercero exporta solo esa unidad; el cuarto la sirve en \clave{http://localhost:8765/unidades/08_cambio_de_base/}.
+Si se tocó \file{cb104.py}, hay que exportar todas las unidades (\clave{tools/build.py} sin \clave{--only}), porque la biblioteca se inyecta en cada una.
+
+Detalles que ya hicieron perder tiempo: las etiquetas de \clave{mo.ui.radio} y \clave{mo.ui.dropdown} no pasan por KaTeX, así que los vectores en las opciones se escriben con \clave{lib.vec_plano}, no con \clave{$...$}; una barra vertical dentro de una fórmula en una tabla Markdown parte la celda, se escribe \clave{\lvert ... \rvert}; en los textos \clave{r"""..."""} los escapes van simples.
+
+\subsection{Agregar una unidad nueva}
+
+El molde es \file{unidades/PLANTILLA_leccion.py}: ya trae el encabezado de dependencias, la celda del import, las seis secciones (0 a 5) y el anexo. Lo que está entre corchetes se reemplaza; las notas \clave{PLANTILLA:} se borran.
+
+\begin{enumerate}
+  \item \textbf{Copiar la plantilla} y completarla:
+\begin{lstlisting}[style=terminal]
+cp unidades/PLANTILLA_leccion.py unidades/NN_nombre.py
+uv run marimo edit unidades/NN_nombre.py
+\end{lstlisting}
+  Hay que cambiar el número y el título del encabezado, los datos de la predicción (punto, matriz, opciones y sus explicaciones), la parcela de la figura, los ejercicios (a) a (d), el identificador en \clave{lib.preparar_autoevaluacion(mo, "<id>")} y los enlaces del anexo.
+  \item \textbf{Darla de alta en el hilo conductor}, en \file{mapa/_fragmentos/unidades.yaml}. La posición en la lista es la posición en la portada. Los campos son estos y solo estos:
+\begin{lstlisting}[style=fuente]
+  - id: NN_nombre                       # unico; carpeta site/unidades/<id>/
+    archivo: unidades/NN_nombre.py
+    titulo: "Titulo de la leccion"
+    estado: piloto                      # piloto | migrada se exportan; legacy | pendiente no
+    clases: ["NN"]                      # ids de ficha que cubre, como strings
+    pregunta: "La pregunta de campo, en una sola linea"
+    gancho_agrimensura: "Situacion concreta de campo, en una sola linea"
+    nivel: troncal                      # troncal | complementario | avanzado
+\end{lstlisting}
+  \item \textbf{Apuntar los conceptos a la lección}: en el \file{mapa/_fragmentos/bloque-*.yaml} de su ficha, poner \clave{unidad: NN_nombre} en cada concepto que la lección desarrolla. Si el concepto es nuevo, antes agregarlo a \file{mapa/CONCEPTOS.md}.
+  \item \textbf{Verificar}:
+\begin{lstlisting}[style=terminal]
+uv run tools/merge_mapa.py
+uv run marimo check --select MW unidades/NN_nombre.py
+uv run python unidades/NN_nombre.py
+\end{lstlisting}
+  \item \textbf{Exportar y mirar}: \clave{uv run python tools/build.py --only NN_nombre}, servir con \clave{http.server} y abrir la unidad. Commit de la lección, los fragmentos y el \file{mapa/mapa.yaml} regenerado.
+\end{enumerate}
+
+\begin{atencion}[Lo que una unidad nueva arrastra y ningún README dice]
+El material está cerrado en veinte unidades y varias piezas lo dan por hecho. Agregar la vigesimoprimera obliga a tocar, además de lo anterior:
+\begin{itemize}
+  \item \clave{HILO_CONDUCTOR} en \file{unidades/cb104.py}: una entrada con los campos \clave{titulo}, \clave{venimos_de}, \clave{ladrillo_de_hoy}, \clave{vamos_hacia}, \clave{anterior} y \clave{siguiente}, en el mismo orden que el yaml, y retocar \clave{siguiente} y \clave{anterior} de las vecinas.
+  \item El \clave{assert len(_ids_yaml) == 20} del mismo archivo.
+  \item Una entrada en \file{tools/enlaces_portada.yaml} con una a tres etiquetas del apunte; sin ella el generador del sitio falla.
+  \item Seis preguntas en el banco (sección \ref{sec:banco}); \clave{merge_banco.py} las exige.
+  \item El exportador de Moodle supone veinte unidades; mientras falten preguntas se corre con \clave{--parcial}.
+\end{itemize}
+Reemplazar una unidad existente por otra es mucho más barato que agregar una.
+\end{atencion}
+
+%% ===================================================================
+\section{Banco de preguntas y autoevaluación}\label{sec:banco}
+
+La fuente son los archivos \file{unidades/_banco/bloque_1.py} a \file{bloque_4.py}, uno por grupo de unidades, con un diccionario \clave{BANCO = {"<id>": [...]}}. Cada unidad tiene seis preguntas: dos elementales, dos medias y dos avanzadas. Una pregunta tiene esta forma:
+
+\begin{lstlisting}[style=fuente]
+{
+    "id": "00_m2",                 # <unidad corta>_<e|m|a><1|2>
+    "nivel": "medio",              # elemental | medio | avanzado
+    "enunciado": r"... con formulas entre $...$ ...",
+    "opciones": [                  # exactamente cuatro, una sola correcta
+        {"id": "a", "texto": r"...", "correcta": True,  "explicacion": r"..."},
+        {"id": "b", "texto": r"...", "correcta": False, "explicacion": r"..."},
+        {"id": "c", "texto": r"...", "correcta": False, "explicacion": r"..."},
+        {"id": "d", "texto": r"...", "correcta": False, "explicacion": r"..."},
+    ],
+    "rubrica": "opcional: que evalua y de que ladrillo viene",
+},
+\end{lstlisting}
+
+Cada opción, correcta o no, lleva su explicación: es lo que el alumno ve al fallar. Para \textbf{editar} una pregunta se cambia el texto en el bloque; para \textbf{agregar} o reemplazar, se respeta el esquema y el cupo de seis por unidad. Después, siempre:
+\begin{lstlisting}[style=terminal]
+uv run python tools/merge_banco.py      # valida y regenera el banco
+uv run python tools/build.py            # autoevaluacion.html y XML de Moodle
+\end{lstlisting}
+y se commitean el bloque editado, el \file{banco_autoevaluacion.py} regenerado y el XML de \file{moodle/}.
+
+\begin{atencion}[La publicación no revisa el banco]
+El flujo de publicación no corre \clave{merge_banco.py}. Si se edita un bloque y no se commitea el archivo regenerado, el sitio publica el banco viejo sin ningún aviso. El \clave{--check} del paso previo a publicar (sección \ref{sec:publicar}) lo detecta.
+\end{atencion}
+
+Para llevarlo a Moodle: el archivo es \file{moodle/moodle_banco_120_preguntas_cb104.xml}. En el curso, «Más → Banco de preguntas → Importar», formato «Moodle XML». Crea una categoría por unidad y, adentro, una por nivel. El detalle está en \file{moodle/README.md}.
+
+%% ===================================================================
+\section{El apunte}\label{sec:apunte}
+
+\subsection{Editar un capítulo}
+
+El maestro es \file{apunte/Apunte_Sistemas_de_Coordenadas.tex}; cada capítulo es un archivo \file{apunte/contenido/NN-nombre.tex} que el maestro incluye con \clave{\input}. Todo el formato (cajas, colores, macros) vive en \file{apunte/apunte-formato.sty}; en los capítulos no se definen macros. Las normas de redacción están en \file{apunte/ESTILO.md} y las vigila un script:
+\begin{lstlisting}[style=terminal]
+uv run python apunte/scripts/estilo.py --estricto
+\end{lstlisting}
+Lo que bloquea la publicación: «sólo» y demostrativos con tilde, comillas escritas a mano en vez de \clave{\enquote}, punto decimal en el texto, «semejanza» aplicada a matrices, «es decir» más de una vez cada cien líneas, párrafos que empiezan con «Desarrollo.», etiquetas numéricas y definiciones repetidas. Lo demás (términos de campo, instrumentos, preguntas en «La idea») son advertencias.
+
+\subsection{Recompilar y commitear el PDF}
+
+Nadie compila dentro de \file{apunte/}. El único camino es el script protegido, desde la raíz:
+\begin{lstlisting}[style=terminal]
+scripts/compilar_pdf.sh
+uv run python apunte/scripts/numeracion.py
+git add apunte/Apunte_Sistemas_de_Coordenadas.pdf apunte/paginas_esperadas.txt apunte/numeracion.json
+\end{lstlisting}
+El script compila con LuaLaTeX en un directorio temporal y reemplaza el PDF solo si la compilación salió entera (sin referencias indefinidas ni archivos faltantes) y si pasa la verificación. Escribe también \file{paginas_esperadas.txt}, que va en el mismo commit que el PDF. El segundo comando regenera \file{numeracion.json}, que el sitio usa para enlazar secciones del apunte sin compilar LaTeX. Con \clave{--sin-copiar} compila y verifica sin tocar nada; con \clave{--destino RUTA} deja el PDF en otro lado.
+
+Los ganchos de Git (sección \ref{sec:setup}) rechazan un commit cuyo PDF esté truncado, no coincida con \file{paginas_esperadas.txt} o tenga menos páginas que el commit anterior. Si la baja es legítima (se quitó una sección), el mensaje del commit lleva una línea \clave{PAGINAS-BAJAN: motivo}.
+
+\subsection{Agregar un capítulo o un problema}
+
+\begin{enumerate}
+  \item Crear \file{apunte/contenido/NN-nombre.tex} (minúsculas, guiones, sin acentos) con un comentario de título, \clave{\chapter{...}\label{cap:<clave>}} y las tres secciones del molde: «La idea», «Construcciones, cuentas y ejemplos» y «En profundidad». La etiqueta es un nombre, nunca un número; si ya está anunciada en \file{apunte/ETIQUETAS.md}, se usa ese nombre exacto.
+  \item Agregar \clave{\input{contenido/NN-nombre}} en el maestro, en el lugar que le toca en el orden.
+  \item Si el capítulo lleva problemas graduados al final: agregar su \clave{C[n] = ("Título", [...])} en \file{tools/problemas/gen.py}, donde cada problema es una tupla (nivel, enunciado, respuesta) con las cuentas en NumPy, y correr:
+\begin{lstlisting}[style=terminal]
+python3 tools/problemas/gen.py --salida apunte/contenido
+\end{lstlisting}
+  Genera \file{contenido/problemas/pNN.tex} y las respuestas del apéndice; la línea \clave{\input{contenido/problemas/pNN}} se agrega a mano en el maestro, después del capítulo.
+  \item Registrar el capítulo en la ficha y en el mapa (sección \ref{sec:fichas}) con la clave de su etiqueta, sin el prefijo \clave{cap:}.
+  \item Estilo, compilar, numeración y commit, como en las dos subsecciones anteriores.
+\end{enumerate}
+
+Las figuras y los números del apunte salen siempre de un script en \file{apunte/scripts/}; las comprobaciones con código viven en \file{apunte/demostraciones/} y sus fragmentos se extraen a \file{apunte/generado/} al compilar. La publicación exige que esos fragmentos commiteados coincidan con las pruebas.
+
+%% ===================================================================
+\section{Fichas de capítulo y mapa de conceptos}\label{sec:fichas}
+
+\subsection{Editar}
+
+Una ficha es \file{clases/NN-tema.md}: un frontmatter con \clave{clase}, \clave{titulo}, \clave{idea}, \clave{que_se_estudia}, \clave{conceptos_previos}, \clave{apunte} (claves de etiqueta sin \clave{cap:}), \clave{unidades} (identificadores), \clave{animaciones} (nombres sin extensión) y \clave{ejercicios_sugeridos}, seguido de las secciones «Qué se estudia», «Conceptos previos», «En el apunte», «Unidades interactivas», «Animaciones» (si hay) y «Ejercicios sugeridos». El molde está en \file{clases/PLANTILLA.md}. El generador del sitio valida el frontmatter y falla si una animación nombrada no existe.
+
+Los conceptos del mapa viven en \file{mapa/_fragmentos/bloque-*.yaml}, uno por grupo de fichas. Cada concepto tiene identificador, nombre, ficha, unidad que lo desarrolla, hecho geométrico, qué se conserva, secciones del apunte y qué requiere. Editar un concepto es editar su entrada; el vocabulario de identificadores está en \file{mapa/CONCEPTOS.md}. Después de cualquier cambio:
+\begin{lstlisting}[style=terminal]
+uv run tools/merge_mapa.py        # valida y regenera mapa/mapa.yaml
+uv run python tools/build.py --skip-wasm
+\end{lstlisting}
+y se commitea el \file{mapa.yaml} regenerado: la publicación compara el commiteado con los fragmentos y se detiene si difieren.
+
+\subsection{Agregar una ficha}
+
+\begin{enumerate}
+  \item Crear \file{clases/NN-tema.md} desde la plantilla.
+  \item Registrarla en la lista \clave{clases:} del \file{bloque-*.yaml} que corresponda, con \clave{id}, \clave{titulo}, \clave{ficha}, \clave{pregunta} y \clave{nivel}.
+  \item Darle rótulo visible en \clave{CAPITULO_DE_FICHA} y \clave{PROGRAMA_AVANCE}, al principio de \file{tools/build.py}; sin eso se muestra el identificador crudo. Ojo: el identificador de ficha sigue el orden interno y el rótulo usa la numeración del PDF (la ficha 03 cubre los capítulos 3 y 4; de la 04 a la 14 el capítulo es el identificador más uno; 03p es C1).
+  \item \clave{merge_mapa.py}, \clave{build.py}, commit.
+\end{enumerate}
+
+%% ===================================================================
+\section{Animaciones y laboratorio CAD}\label{sec:anim-cad}
+
+\textbf{Animaciones.} Cada una es un módulo \file{tools/animaciones/anim_NN_nombre.py} con una función \clave{render(out_dir, s)} que escribe un cuadro PNG por valor de \clave{s}, usando la paleta y los ayudantes de \file{_comun.py}. Para agregar una: crear el módulo, sumar su nombre a la lista \clave{ANIMACIONES} de \file{tools/gen_animaciones.py}, generar y commitear el \file{.mp4} y el \file{.gif} que quedan en \file{animaciones/}, y nombrarla en el campo \clave{animaciones:} de la ficha. La descripción que aparece en el menú es la primera oración del docstring del módulo.
+\begin{lstlisting}[style=terminal]
+uv run python tools/gen_animaciones.py --only 07     # una sola, por prefijo
+uv run python tools/gen_animaciones.py --rapido      # 20 fps, para probar
+uv run python tools/gen_animaciones.py               # las seis (o siete)
+\end{lstlisting}
+La ruta de \clave{ffmpeg} está fija en el script (\file{/opt/homebrew/bin/ffmpeg}); en otra máquina hay que ajustarla.
+
+\textbf{CAD.} Los ejercicios («cada comando es una transformación») tienen tres lugares que deben coincidir: el diccionario \clave{EJERCICIOS} de \file{tools/cad/generar_dxf.py}, que produce los DXF; \file{cad/ejercicios.yaml}, que alimenta los menús (capítulo, archivo, título, comando, respuesta esperada); y la sección «Capítulo N» de \file{cad/index.md}, que es la página del sitio. Después de editar:
+\begin{lstlisting}[style=terminal]
+uv run python tools/cad/generar_dxf.py
+uv run pytest tools/cad -q
+uv run python tools/cad/que_matriz.py cad/dxf/cap01_rotate.dxf cad/dxf/esperado/cap01_rotate_30.dxf
+\end{lstlisting}
+El generador es determinista: la misma fuente produce los mismos bytes, así que un DXF que cambia sin que cambie el script es señal de edición a mano.
+
+%% ===================================================================
+\section{Verificar y publicar}\label{sec:publicar}
+
+La publicación la hace GitHub Actions con cada \clave{push} a \clave{main}: instala las dependencias congeladas, y corre en orden la fusión del mapa, la comparación del \file{mapa.yaml} commiteado, \clave{marimo check} de las lecciones, el estilo del apunte y de lo interactivo, las pruebas de las demostraciones y del CAD, la coincidencia de los fragmentos generados, la verificación del PDF y de que sus páginas no bajen, la generación del sitio con exportación de las veinte unidades y la búsqueda de términos prohibidos sobre el artefacto. Cualquier paso que falla detiene la publicación y el sitio sigue mostrando la versión anterior. En un pull request corre lo mismo sin desplegar, así que abrir una PR es la forma segura de probar un cambio grande.
+
+\begin{resultado}[Lista previa a publicar, desde la raíz del repositorio]
+\begin{lstlisting}[style=terminal]
+uv run tools/merge_mapa.py --check
+uv run python tools/merge_banco.py --check
+uv run marimo check --select MW unidades/[01]*.py
+uv run python apunte/scripts/estilo.py --todo --estricto
+uv run pytest -q
+uv run python tools/build.py
+uv run python apunte/scripts/prohibidas.py --dir site
+git status --short         # lo generado que cambio tiene que ir en el commit
+\end{lstlisting}
+\end{resultado}
+
+Después:
+\begin{lstlisting}[style=terminal]
+git add <fuentes editadas> <derivados regenerados>
+git commit -m "Que cambio y por que"
+git push
+\end{lstlisting}
+El progreso se sigue en la pestaña «Actions» del repositorio; el sitio queda actualizado en unos minutos.
+
+\subsection{Publicar bajo la cuenta de la cátedra}
+
+El repositorio está preparado para que la cátedra lo tome y lo publique con su propia firma, en cuatro pasos:
+\begin{enumerate}
+  \item Hacer un \emph{fork} desde GitHub (botón «Fork» en la página del repositorio) y clonarlo.
+  \item Cambiar la firma, primero en seco para ver qué tocaría y después en serio:
+\begin{lstlisting}[style=terminal]
+uv run python tools/adoptar_para_catedra.py --dry-run --autor "Catedra Sistemas de Coordenadas (CB104) - Agrimensura FIUBA" --url-sitio "https://<usuario>.github.io/Sistemas-de-Coordenadas/"
+uv run python tools/adoptar_para_catedra.py --autor "..." --url-sitio "..."
+\end{lstlisting}
+  Reemplaza la línea de firma de las veinte unidades, el pie de todas las páginas del sitio, la portada y los metadatos del apunte y la dirección del sitio en los documentos. No toca el contenido. Es idempotente.
+  \item Recompilar el apunte para que la portada muestre la firma nueva (sección \ref{sec:apunte}); si no se hace, el sitio sirve el PDF con la firma original y todo lo demás ya queda con la nueva.
+  \item Commit, push, y una sola vez en GitHub: «Settings → Pages → Build and deployment → Source: GitHub Actions». Desde ahí, cada push a \clave{main} publica en \clave{https://<usuario>.github.io/Sistemas-de-Coordenadas/}.
+\end{enumerate}
+
+%% ===================================================================
+\section{Resumen: qué comando para cada tarea}\label{sec:resumen}
+
+\begingroup\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{46mm}X@{}}
+\toprule
+\textbf{Tarea} & \textbf{Comandos (desde la raíz)}\\
+\midrule
+Editar una unidad & \clave{uv run marimo edit unidades/<id>.py}; verificar con \clave{marimo check --select MW}, correr el \file{.py}, \clave{build.py --only <id>}.\\
+Agregar una unidad & Copiar \file{PLANTILLA_leccion.py}; alta en \file{unidades.yaml}; conceptos en \file{bloque-*.yaml}; \clave{HILO_CONDUCTOR}; \file{enlaces_portada.yaml}; seis preguntas; \clave{merge_mapa.py}; \clave{build.py --only}.\\
+Editar o agregar preguntas & Editar \file{unidades/_banco/bloque_N.py}; \clave{merge_banco.py}; \clave{build.py}; commitear el banco regenerado y el XML.\\
+Editar el apunte & Editar \file{apunte/contenido/NN-nombre.tex}; \clave{estilo.py --estricto}; \clave{scripts/compilar_pdf.sh}; \clave{numeracion.py}; commitear PDF, páginas esperadas y numeración.\\
+Agregar un capítulo & Nuevo \file{NN-nombre.tex} con \clave{\label{cap:<clave>}}; \clave{\input} en el maestro; \clave{C[n]} en \file{tools/problemas/gen.py}; ficha y mapa; compilar.\\
+Editar ficha o mapa & Editar \file{clases/NN-tema.md} o \file{mapa/_fragmentos/*.yaml}; \clave{merge_mapa.py}; \clave{build.py --skip-wasm}; commitear \file{mapa.yaml}.\\
+Agregar una animación & Módulo en \file{tools/animaciones/}; lista \clave{ANIMACIONES}; \clave{gen_animaciones.py --only NN}; commitear mp4 y gif; nombrarla en la ficha.\\
+Editar el CAD & \clave{EJERCICIOS} en \file{generar_dxf.py}, \file{cad/ejercicios.yaml}, \file{cad/index.md}; \clave{generar_dxf.py}; \clave{pytest tools/cad}.\\
+Publicar & Lista previa de la sección \ref{sec:publicar}; \clave{git add}, \clave{git commit}, \clave{git push}; mirar «Actions».\\
+Deshacer & \clave{git checkout -- <archivo>} para cambios sin commitear; \clave{git revert <commit>} para un commit ya publicado.\\
+\bottomrule
+\end{tabularx}
+\endgroup
+
+\bigskip
+{\small\color{muted}
+Los detalles que este instructivo resume están en los README de cada carpeta (\file{tools/README.md}, \file{apunte/README.md}, \file{clases/README.md}, \file{unidades/_banco/README.md}, \file{scripts/README.md}, \file{moodle/README.md}) y en \file{INSTRUCTIVO_DE_USO.md}. El texto, el apunte, las figuras y las preguntas se publican con licencia CC BY-SA 4.0; el código, con licencia MIT.\par}
+
+\end{document}
